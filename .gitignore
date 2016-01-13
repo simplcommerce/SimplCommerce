@@ -16,6 +16,7 @@ build/
 [Oo]bj/
 packages/*
 node_modules/
+.vs/
 
 # Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
 !packages/*/build/
