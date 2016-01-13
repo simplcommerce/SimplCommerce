@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{61242784-CC64-4D2B-81A1-8BC643629950}</ProjectGuid>
+    <ProjectGuid>{89ACA64C-8E84-4067-93FF-1AFB73B49670}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HvCommerce.Core</RootNamespace>
-    <AssemblyName>HvCommerce.Core</AssemblyName>
+    <RootNamespace>AspNet.Identity.EntityFramework6</RootNamespace>
+    <AssemblyName>AspNet.Identity.EntityFramework6</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -156,41 +156,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationServices\HvRoleStore.cs" />
-    <Compile Include="ApplicationServices\HvUserStore.cs" />
-    <Compile Include="Domain\Models\Role.cs" />
-    <Compile Include="Domain\Models\RoleClaim.cs" />
-    <Compile Include="Domain\Models\User.cs" />
-    <Compile Include="Domain\Models\UserClaim.cs" />
-    <Compile Include="Domain\Models\UserLogin.cs" />
-    <Compile Include="Domain\Models\UserRole.cs" />
-    <Compile Include="Infrastructure\EntityFramework\AutomaticMigrationsConfiguration.cs" />
-    <Compile Include="Infrastructure\EntityFramework\CustomConventions\ForeignKeyNamingConvention.cs" />
-    <Compile Include="Infrastructure\EntityFramework\CustomConventions\TableNameConvention.cs" />
-    <Compile Include="Infrastructure\EntityFramework\HvDbContext.cs" />
-    <Compile Include="Infrastructure\EntityFramework\Repository.cs" />
-    <Compile Include="Infrastructure\EntityFramework\RepositoryWithTypedId.cs" />
+    <Compile Include="IdentityDbContext.cs" />
+    <Compile Include="IdentityRole.cs" />
+    <Compile Include="IdentityRoleClaim.cs" />
+    <Compile Include="IdentityUser.cs" />
+    <Compile Include="IdentityUserClaim.cs" />
+    <Compile Include="IdentityUserLogin.cs" />
+    <Compile Include="IdentityUserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Domain\Dtos\" />
-    <Folder Include="Domain\Events\" />
-    <Folder Include="Domain\IRepositories\" />
-    <Folder Include="Domain\Services\" />
+    <Compile Include="RoleStore.cs" />
+    <Compile Include="UserStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\AspNet.Identity.EntityFramework6\AspNet.Identity.EntityFramework6.csproj">
-      <Project>{89aca64c-8e84-4067-93ff-1afb73b49670}</Project>
-      <Name>AspNet.Identity.EntityFramework6</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Infrastructure\HvCommerce.Infrastructure\HvCommerce.Infrastructure.csproj">
-      <Project>{f0d8e2bb-2d50-46bf-acce-837848b079c0}</Project>
-      <Name>HvCommerce.Infrastructure</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

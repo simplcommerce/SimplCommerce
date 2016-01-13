@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 
+// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+
 namespace HvCommerce.Web.Controllers
 {
     public class HomeController : Controller
@@ -13,23 +15,9 @@ namespace HvCommerce.Web.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public string Error()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View();
+            return "error";
         }
     }
 }

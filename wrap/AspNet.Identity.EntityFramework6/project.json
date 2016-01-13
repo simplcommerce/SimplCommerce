@@ -1,0 +1,41 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net451": {
+      "wrappedProject": "../../src/Infrastructure/AspNet.Identity.EntityFramework6/AspNet.Identity.EntityFramework6.csproj",
+      "bin": {
+        "assembly": "../../src/Infrastructure/AspNet.Identity.EntityFramework6/obj/{configuration}/AspNet.Identity.EntityFramework6.dll",
+        "pdb": "../../src/Infrastructure/AspNet.Identity.EntityFramework6/obj/{configuration}/AspNet.Identity.EntityFramework6.pdb"
+      },
+      "dependencies": {
+        "EntityFramework": "6.1.3",
+        "Microsoft.AspNet.Authentication": "1.0.0-rc1-final",
+        "Microsoft.AspNet.Authentication.Cookies": "1.0.0-rc1-final",
+        "Microsoft.AspNet.Cryptography.Internal": "1.0.0-rc1-final",
+        "Microsoft.AspNet.Cryptography.KeyDerivation": "1.0.0-rc1-final",
+        "Microsoft.AspNet.DataProtection": "1.0.0-rc1-final",
+        "Microsoft.AspNet.DataProtection.Abstractions": "1.0.0-rc1-final",
+        "Microsoft.AspNet.FileProviders.Abstractions": "1.0.0-rc1-final",
+        "Microsoft.AspNet.Hosting.Abstractions": "1.0.0-rc1-final",
+        "Microsoft.AspNet.Http": "1.0.0-rc1-final",
+        "Microsoft.AspNet.Http.Abstractions": "1.0.0-rc1-final",
+        "Microsoft.AspNet.Http.Extensions": "1.0.0-rc1-final",
+        "Microsoft.AspNet.Http.Features": "1.0.0-rc1-final",
+        "Microsoft.AspNet.Identity": "3.0.0-rc1-final",
+        "Microsoft.AspNet.WebUtilities": "1.0.0-rc1-final",
+        "Microsoft.Extensions.Configuration": "1.0.0-rc1-final",
+        "Microsoft.Extensions.Configuration.Abstractions": "1.0.0-rc1-final",
+        "Microsoft.Extensions.Configuration.Binder": "1.0.0-rc1-final",
+        "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final",
+        "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc1-final",
+        "Microsoft.Extensions.OptionsModel": "1.0.0-rc1-final",
+        "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final",
+        "Microsoft.Extensions.Primitives": "1.0.0-rc1-final",
+        "Microsoft.Extensions.WebEncoders": "1.0.0-rc1-final",
+        "Microsoft.Extensions.WebEncoders.Core": "1.0.0-rc1-final",
+        "Microsoft.Net.Http.Headers": "1.0.0-rc1-final",
+        "Newtonsoft.Json": "6.0.6"
+      }
+    }
+  }
+}

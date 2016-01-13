@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net451": {
+      "wrappedProject": "../../src/Infrastructure/HvCommerce.Infrastructure/HvCommerce.Infrastructure.csproj",
+      "bin": {
+        "assembly": "../../src/Infrastructure/HvCommerce.Infrastructure/obj/{configuration}/HvCommerce.Infrastructure.dll",
+        "pdb": "../../src/Infrastructure/HvCommerce.Infrastructure/obj/{configuration}/HvCommerce.Infrastructure.pdb"
+      },
+      "dependencies": {
+        "CommonServiceLocator": "1.3"
+      }
+    }
+  }
+}
