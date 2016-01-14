@@ -26,7 +26,7 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
         {
             RegisterConventions(modelBuilder);
 
-            IEnumerable<Type> typeToRegisters = TypeLoader.FromAssembliesInBasePath();
+            IEnumerable<Type> typeToRegisters = TypeLoader.FromAssemblies(new[] { Assembly.Load("HvCommerce.Core") });
 
             RegisterCustomMapping(modelBuilder, typeToRegisters);
 
