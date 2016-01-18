@@ -17,6 +17,9 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
     public class HvDbContext : IdentityDbContext<User, Role,
         int, UserLogin, UserRole, UserClaim, RoleClaim>
     {
+        public HvDbContext() : base("Server =.\\sqlexpress; Database=HvCommerce;uid=sa;pwd=sa;Trusted_Connection=True;MultipleActiveResultSets=true")
+        {           
+        }
         public HvDbContext(string connectionString)
            : base(connectionString)
         {
@@ -24,6 +27,8 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<HvDbContext, AutomaticMigrationsConfiguration>());
+
             RegisterConventions(modelBuilder);
 
             IEnumerable<Type> typeToRegisters = TypeLoader.FromAssemblies(new[] { Assembly.Load("HvCommerce.Core") });

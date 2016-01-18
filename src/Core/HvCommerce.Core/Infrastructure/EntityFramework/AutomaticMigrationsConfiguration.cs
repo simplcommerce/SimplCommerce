@@ -15,5 +15,10 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
         }
+
+        protected override void Seed(HvDbContext context)
+        {
+            base.Seed(context);
+        }
     }
 }

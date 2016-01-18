@@ -11,6 +11,6 @@ namespace HvCommerce.Core.Domain.Models
 {
     public class User : IdentityUser<int, UserLogin, UserRole, UserClaim>
     {
-        public string Test { get; set; }
+        public string SomeField { get; set; }
     }
 }

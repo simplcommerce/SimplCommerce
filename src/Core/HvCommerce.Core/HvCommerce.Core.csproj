@@ -169,6 +169,7 @@
     <Compile Include="Infrastructure\EntityFramework\AutomaticMigrationsConfiguration.cs" />
     <Compile Include="Infrastructure\EntityFramework\CustomConventions\ForeignKeyNamingConvention.cs" />
     <Compile Include="Infrastructure\EntityFramework\CustomConventions\TableNameConvention.cs" />
+    <Compile Include="Infrastructure\EntityFramework\DevelopmentDatabaseInitializer.cs" />
     <Compile Include="Infrastructure\EntityFramework\HvDbContext.cs" />
     <Compile Include="Infrastructure\EntityFramework\Repository.cs" />
     <Compile Include="Infrastructure\EntityFramework\RepositoryWithTypedId.cs" />
