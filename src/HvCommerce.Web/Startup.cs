@@ -45,16 +45,16 @@ namespace HvCommerce.Web
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            HvConnectionString.Value = Configuration["Data:DefaultConnection:ConnectionString"];
             services.AddIdentity<User, Role>()
                 .AddRoleStore<HvRoleStore>()
                 .AddUserStore<HvUserStore>()
                 .AddDefaultTokenProviders();
-
             services.AddMvc();
 
             services.AddScoped<HvDbContext, HvDbContext>(f =>
             {
-                return new HvDbContext(Configuration["Data:DefaultConnection:ConnectionString"]);
+                return new HvDbContext(HvConnectionString.Value);
             });
 
             var builder = new ContainerBuilder();

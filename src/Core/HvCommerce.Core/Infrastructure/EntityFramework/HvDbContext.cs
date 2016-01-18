@@ -11,17 +11,17 @@ using System.Threading.Tasks;
 using HvCommerce.Infrastructure;
 using AspNet.Identity.EntityFramework6;
 using HvCommerce.Core.Domain.Models;
+using HvCommerce.Core.ApplicationServices;
 
 namespace HvCommerce.Core.Infrastructure.EntityFramework
 {
     public class HvDbContext : IdentityDbContext<User, Role,
         int, UserLogin, UserRole, UserClaim, RoleClaim>
     {
-        public HvDbContext() : base("Server =.\\sqlexpress; Database=HvCommerce;uid=sa;pwd=sa;Trusted_Connection=True;MultipleActiveResultSets=true")
+        public HvDbContext() : base(HvConnectionString.Value)
         {           
         }
-        public HvDbContext(string connectionString)
-           : base(connectionString)
+        public HvDbContext(string connectionString) : base(connectionString)
         {
         }
 
