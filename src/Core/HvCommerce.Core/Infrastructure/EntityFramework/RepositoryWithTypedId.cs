@@ -11,7 +11,7 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
 {
     public class RepositoryWithTypedId<T, TId> : IRepositoryWithTypedId<T, TId> where T : EntityWithTypedId<TId>
     {
-        public RepositoryWithTypedId(DbContext context)
+        public RepositoryWithTypedId(HvDbContext context)
         {
             Context = context;
             DbSet = Context.Set<T>();

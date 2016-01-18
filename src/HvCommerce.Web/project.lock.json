@@ -36,6 +36,53 @@
           "Newtonsoft.Json": "6.0.6"
         }
       },
+      "Autofac/4.0.0-rc1-177": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net45/Autofac.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Autofac.dll": {}
+        }
+      },
+      "Autofac.Extensions.DependencyInjection/4.0.0-rc1-177": {
+        "type": "package",
+        "dependencies": {
+          "Autofac": "4.0.0-rc1-177",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/Autofac.Extensions.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Autofac.Extensions.DependencyInjection.dll": {}
+        }
+      },
+      "Autofac.Extras.CommonServiceLocator/3.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Autofac": "[3.5.0, 4.0.0)",
+          "CommonServiceLocator": "1.2.0"
+        },
+        "compile": {
+          "lib/net40/Autofac.Extras.CommonServiceLocator.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Autofac.Extras.CommonServiceLocator.dll": {}
+        }
+      },
       "CommonServiceLocator/1.3.0": {
         "type": "package",
         "compile": {
@@ -106,6 +153,7 @@
         "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
           "AspNet.Identity.EntityFramework6": "1.0.0",
+          "CommonServiceLocator": "1.3.0",
           "EntityFramework": "6.1.3",
           "HvCommerce.Infrastructure": "1.0.0",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final",
@@ -2123,6 +2171,53 @@
           "Newtonsoft.Json": "6.0.6"
         }
       },
+      "Autofac/4.0.0-rc1-177": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net45/Autofac.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Autofac.dll": {}
+        }
+      },
+      "Autofac.Extensions.DependencyInjection/4.0.0-rc1-177": {
+        "type": "package",
+        "dependencies": {
+          "Autofac": "4.0.0-rc1-177",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/Autofac.Extensions.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Autofac.Extensions.DependencyInjection.dll": {}
+        }
+      },
+      "Autofac.Extras.CommonServiceLocator/3.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Autofac": "[3.5.0, 4.0.0)",
+          "CommonServiceLocator": "1.2.0"
+        },
+        "compile": {
+          "lib/net40/Autofac.Extras.CommonServiceLocator.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Autofac.Extras.CommonServiceLocator.dll": {}
+        }
+      },
       "CommonServiceLocator/1.3.0": {
         "type": "package",
         "compile": {
@@ -2193,6 +2288,7 @@
         "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
           "AspNet.Identity.EntityFramework6": "1.0.0",
+          "CommonServiceLocator": "1.3.0",
           "EntityFramework": "6.1.3",
           "HvCommerce.Infrastructure": "1.0.0",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final",
@@ -4213,6 +4309,53 @@
           "Newtonsoft.Json": "6.0.6"
         }
       },
+      "Autofac/4.0.0-rc1-177": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net45/Autofac.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Autofac.dll": {}
+        }
+      },
+      "Autofac.Extensions.DependencyInjection/4.0.0-rc1-177": {
+        "type": "package",
+        "dependencies": {
+          "Autofac": "4.0.0-rc1-177",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/Autofac.Extensions.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Autofac.Extensions.DependencyInjection.dll": {}
+        }
+      },
+      "Autofac.Extras.CommonServiceLocator/3.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Autofac": "[3.5.0, 4.0.0)",
+          "CommonServiceLocator": "1.2.0"
+        },
+        "compile": {
+          "lib/net40/Autofac.Extras.CommonServiceLocator.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Autofac.Extras.CommonServiceLocator.dll": {}
+        }
+      },
       "CommonServiceLocator/1.3.0": {
         "type": "package",
         "compile": {
@@ -4283,6 +4426,7 @@
         "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
           "AspNet.Identity.EntityFramework6": "1.0.0",
+          "CommonServiceLocator": "1.3.0",
           "EntityFramework": "6.1.3",
           "HvCommerce.Infrastructure": "1.0.0",
           "Microsoft.AspNet.Authentication": "1.0.0-rc1-final",
@@ -6282,6 +6426,51 @@
     "HvCommerce.Infrastructure/1.0.0": {
       "type": "project",
       "path": "../../wrap/HvCommerce.Infrastructure/project.json"
+    },
+    "Autofac/4.0.0-rc1-177": {
+      "type": "package",
+      "sha512": "cTSfTca0qWl3Zd68iMl2bH8e4RyGL/Q7EUT0PmAzCSoitSlrHu4zmByhP/f+KGGSuRqWHFYoMEEOanvTviEr4g==",
+      "files": [
+        "Autofac.4.0.0-rc1-177.nupkg",
+        "Autofac.4.0.0-rc1-177.nupkg.sha512",
+        "Autofac.nuspec",
+        "lib/dnxcore50/Autofac.dll",
+        "lib/dnxcore50/Autofac.xml",
+        "lib/dotnet5.2/Autofac.dll",
+        "lib/dotnet5.2/Autofac.xml",
+        "lib/net45/Autofac.dll",
+        "lib/net45/Autofac.xml",
+        "lib/win/Autofac.dll",
+        "lib/win/Autofac.xml"
+      ]
+    },
+    "Autofac.Extensions.DependencyInjection/4.0.0-rc1-177": {
+      "type": "package",
+      "sha512": "FEmKbGpwAza4MW3Az8v+8V42wuRYDFX+8LpTl8XzLi9VcdLNlWvErdk2q74u4+a4UHbvpAQ62tfh5ctMnDa9yA==",
+      "files": [
+        "Autofac.Extensions.DependencyInjection.4.0.0-rc1-177.nupkg",
+        "Autofac.Extensions.DependencyInjection.4.0.0-rc1-177.nupkg.sha512",
+        "Autofac.Extensions.DependencyInjection.nuspec",
+        "lib/dotnet5.4/Autofac.Extensions.DependencyInjection.dll",
+        "lib/dotnet5.4/Autofac.Extensions.DependencyInjection.xml",
+        "lib/net451/Autofac.Extensions.DependencyInjection.dll",
+        "lib/net451/Autofac.Extensions.DependencyInjection.xml",
+        "lib/netcore50/Autofac.Extensions.DependencyInjection.dll",
+        "lib/netcore50/Autofac.Extensions.DependencyInjection.xml"
+      ]
+    },
+    "Autofac.Extras.CommonServiceLocator/3.2.0": {
+      "type": "package",
+      "sha512": "+mtd8dCs4moK7mnXann6yglUMcw3RxLmtlerv5ss+j7mF71NmteYa9fDVFufAK9P+w1RoSWMOkTv4TnlCnnApw==",
+      "files": [
+        "Autofac.Extras.CommonServiceLocator.3.2.0.nupkg",
+        "Autofac.Extras.CommonServiceLocator.3.2.0.nupkg.sha512",
+        "Autofac.Extras.CommonServiceLocator.nuspec",
+        "lib/net40/Autofac.Extras.CommonServiceLocator.dll",
+        "lib/net40/Autofac.Extras.CommonServiceLocator.xml",
+        "lib/portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/Autofac.Extras.CommonServiceLocator.dll",
+        "lib/portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/Autofac.Extras.CommonServiceLocator.xml"
+      ]
     },
     "CommonServiceLocator/1.3.0": {
       "type": "package",
@@ -8508,6 +8697,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
+      "Autofac.Extensions.DependencyInjection >= 4.0.0-rc1-177",
       "Microsoft.AspNet.Diagnostics >= 1.0.0-rc1-final",
       "Microsoft.AspNet.Identity >= 3.0.0-rc1-final",
       "Microsoft.ApplicationInsights.AspNet >= 1.0.0-rc1",
@@ -8525,7 +8715,9 @@
       "Microsoft.Extensions.Logging.Console >= 1.0.0-rc1-final",
       "Microsoft.Extensions.Logging.Debug >= 1.0.0-rc1-final",
       "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0-rc1-final",
-      "EntityFramework >= 6.1.3"
+      "EntityFramework >= 6.1.3",
+      "CommonServiceLocator >= 1.3.0",
+      "Autofac.Extras.CommonServiceLocator >= 3.2.0"
     ],
     "DNX,Version=v4.5.1": [
       "AspNet.Identity.EntityFramework6 >= 1.0.0-*",

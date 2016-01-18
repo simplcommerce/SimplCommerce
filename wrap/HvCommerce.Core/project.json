@@ -36,7 +36,8 @@
         "Microsoft.Net.Http.Headers": "1.0.0-rc1-final",
         "Newtonsoft.Json": "6.0.6",
         "AspNet.Identity.EntityFramework6": "1.0.0-*",
-        "HvCommerce.Infrastructure": "1.0.0-*"
+        "HvCommerce.Infrastructure": "1.0.0-*",
+        "CommonServiceLocator": "1.3"
       }
     }
   }

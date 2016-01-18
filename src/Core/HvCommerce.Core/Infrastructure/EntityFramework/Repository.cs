@@ -11,7 +11,7 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
 {
     public class Repository<T> : RepositoryWithTypedId<T, long>, IRepository<T> where T : EntityWithTypedId<long>
     {
-        public Repository(DbContext context) : base(context)
+        public Repository(HvDbContext context) : base(context)
         {
         }
     }

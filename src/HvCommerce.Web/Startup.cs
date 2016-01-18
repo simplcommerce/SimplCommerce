@@ -11,6 +11,12 @@ using HvCommerce.Core.Infrastructure.EntityFramework;
 using HvCommerce.Core.Domain.Models;
 using HvCommerce.Core.ApplicationServices;
 using Microsoft.Extensions.Logging;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.Practices.ServiceLocation;
+using Autofac.Extras.CommonServiceLocator;
+using HvCommerce.Infrastructure.Domain.IRepositories;
+using System.Reflection;
 
 namespace HvCommerce.Web
 {
@@ -37,18 +43,29 @@ namespace HvCommerce.Web
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<HvDbContext, HvDbContext>(f => {
-                return new HvDbContext(Configuration["Data:DefaultConnection:ConnectionString"]);
-            });
-
             services.AddIdentity<User, Role>()
                 .AddRoleStore<HvRoleStore>()
                 .AddUserStore<HvUserStore>()
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
+
+            services.AddScoped<HvDbContext, HvDbContext>(f =>
+            {
+                return new HvDbContext(Configuration["Data:DefaultConnection:ConnectionString"]);
+            });
+
+            var builder = new ContainerBuilder();
+            builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>));
+            builder.RegisterGeneric(typeof(RepositoryWithTypedId<,>)).As(typeof(IRepositoryWithTypedId<,>));
+
+            builder.RegisterAssemblyTypes(Assembly.Load("HvCommerce.Core")).AsImplementedInterfaces();
+            builder.Populate(services);
+            var container = builder.Build();
+            ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocator(container));
+            return container.Resolve<IServiceProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
