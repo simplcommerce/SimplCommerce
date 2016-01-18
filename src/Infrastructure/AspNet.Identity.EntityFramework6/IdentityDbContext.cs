@@ -267,7 +267,7 @@ namespace AspNet.Identity.EntityFramework6
             
             // Needed to ensure subclasses share the same table
             var user = modelBuilder.Entity<TUser>()
-                .ToTable("AspNetUsers");
+                .ToTable("Core_User");
             user.Property(u => u.UserName)
                 .IsRequired()
                 .HasMaxLength(256)
@@ -281,17 +281,17 @@ namespace AspNet.Identity.EntityFramework6
 
             modelBuilder.Entity<TUserRole>()
                 .HasKey(r => new { r.UserId, r.RoleId })
-                .ToTable("AspNetUserRoles");
+                .ToTable("Core_UserRole");
 
             modelBuilder.Entity<TUserLogin>()
                 .HasKey(l => new { l.LoginProvider, l.ProviderKey, l.UserId })
-                .ToTable("AspNetUserLogins");
+                .ToTable("Core_UserLogin");
 
             modelBuilder.Entity<TUserClaim>()
-                .ToTable("AspNetUserClaims");
+                .ToTable("Core_UserClaim");
 
             var role = modelBuilder.Entity<TRole>()
-                .ToTable("AspNetRoles");
+                .ToTable("Core_Role");
             role.Property(r => r.Name)
                 .IsRequired()
                 .HasMaxLength(256)
@@ -300,7 +300,7 @@ namespace AspNet.Identity.EntityFramework6
             role.HasMany(r => r.Claims).WithRequired().HasForeignKey(ur => ur.RoleId);
 
             modelBuilder.Entity<TRoleClaim>()
-                .ToTable("AspNetRoleClaims");
+                .ToTable("Core_RoleClaim");
         }
 
         protected override DbEntityValidationResult ValidateEntity(DbEntityEntry entityEntry,

@@ -158,6 +158,7 @@
   <ItemGroup>
     <Compile Include="ApplicationServices\HvRoleStore.cs" />
     <Compile Include="ApplicationServices\HvUserStore.cs" />
+    <Compile Include="Domain\Models\Category.cs" />
     <Compile Include="Domain\Models\Product.cs" />
     <Compile Include="Domain\Models\Role.cs" />
     <Compile Include="Domain\Models\RoleClaim.cs" />
