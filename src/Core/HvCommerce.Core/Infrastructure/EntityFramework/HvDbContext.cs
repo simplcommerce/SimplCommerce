@@ -1,15 +1,15 @@
-﻿using HvCommerce.Infrastructure.Domain.Models;
-using HvCommerce.Core.Infrastructure.EntityFramework.CustomConventions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Reflection;
-using HvCommerce.Infrastructure;
 using AspNet.Identity.EntityFramework6;
-using HvCommerce.Core.Domain.Models;
 using HvCommerce.Core.ApplicationServices;
+using HvCommerce.Core.Domain.Models;
+using HvCommerce.Core.Infrastructure.EntityFramework.CustomConventions;
+using HvCommerce.Infrastructure;
+using HvCommerce.Infrastructure.Domain.Models;
 
 namespace HvCommerce.Core.Infrastructure.EntityFramework
 {
@@ -17,7 +17,7 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
         long, UserLogin, UserRole, UserClaim, RoleClaim>
     {
         public HvDbContext() : base(HvConnectionString.Value)
-        {        
+        {
         }
 
         public HvDbContext(string connectionString) : base(connectionString)
@@ -30,7 +30,7 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
 
             RegisterConventions(modelBuilder);
 
-            IEnumerable<Type> typeToRegisters = TypeLoader.FromAssemblies(new[] { Assembly.Load("HvCommerce.Core") });
+            var typeToRegisters = TypeLoader.FromAssemblies(Assembly.Load("HvCommerce.Core"));
 
             RegisterCustomMapping(modelBuilder, typeToRegisters);
 
@@ -47,10 +47,10 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
 
         private void RegisterEntities(DbModelBuilder modelBuilder, IEnumerable<Type> typeToRegisters)
         {
-            MethodInfo entityMethod = typeof(DbModelBuilder).GetMethod("Entity");
+            var entityMethod = typeof (DbModelBuilder).GetMethod("Entity");
 
-            IEnumerable<Type> entityTypes = typeToRegisters.Where(x => x.IsSubclassOf(typeof(Entity)) && !x.IsAbstract);
-            foreach (Type type in entityTypes)
+            var entityTypes = typeToRegisters.Where(x => x.IsSubclassOf(typeof (Entity)) && !x.IsAbstract);
+            foreach (var type in entityTypes)
             {
                 entityMethod.MakeGenericMethod(type).Invoke(modelBuilder, new object[] { });
             }
@@ -58,13 +58,13 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
 
         private void RegisterCustomMapping(DbModelBuilder modelBuilder, IEnumerable<Type> typeToRegisters)
         {
-            IEnumerable<Type> typesToRegister = typeToRegisters
-                .Where(type => !String.IsNullOrEmpty(type.Namespace))
+            var typesToRegister = typeToRegisters
+                .Where(type => !string.IsNullOrEmpty(type.Namespace))
                 .Where(
                     type =>
                         type.BaseType != null && type.BaseType.IsGenericType &&
-                        type.BaseType.GetGenericTypeDefinition() == typeof(EntityTypeConfiguration<>));
-            foreach (Type type in typesToRegister)
+                        type.BaseType.GetGenericTypeDefinition() == typeof (EntityTypeConfiguration<>));
+            foreach (var type in typesToRegister)
             {
                 dynamic configurationInstance = Activator.CreateInstance(type);
                 modelBuilder.Configurations.Add(configurationInstance);

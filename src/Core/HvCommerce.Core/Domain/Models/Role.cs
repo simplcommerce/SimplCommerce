@@ -5,7 +5,9 @@ namespace HvCommerce.Core.Domain.Models
 {
     public class Role : IdentityRole<long, UserRole, RoleClaim>, IEntityWithTypedId<long>
     {
-        public Role() { }
+        public Role()
+        {
+        }
 
         public Role(string name)
         {

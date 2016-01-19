@@ -1,11 +1,6 @@
-﻿using HvCommerce.Core.Domain.Models;
+﻿using AspNet.Identity.EntityFramework6;
+using HvCommerce.Core.Domain.Models;
 using HvCommerce.Core.Infrastructure.EntityFramework;
-using AspNet.Identity.EntityFramework6;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HvCommerce.Core.ApplicationServices
 {
@@ -13,7 +8,7 @@ namespace HvCommerce.Core.ApplicationServices
         UserLogin, RoleClaim, HvDbContext, long>
     {
         public HvUserStore(HvDbContext context)
-        : base(context)
+            : base(context)
         {
         }
     }

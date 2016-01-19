@@ -1,11 +1,7 @@
-﻿using HvCommerce.Infrastructure.Domain.IRepositories;
-using HvCommerce.Infrastructure.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HvCommerce.Infrastructure.Domain.IRepositories;
+using HvCommerce.Infrastructure.Domain.Models;
 
 namespace HvCommerce.Core.Infrastructure.EntityFramework
 {
@@ -17,8 +13,9 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
             DbSet = Context.Set<T>();
         }
 
-        protected DbContext Context { get; private set; }
-        protected IDbSet<T> DbSet { get; private set; }
+        protected DbContext Context { get; }
+
+        protected IDbSet<T> DbSet { get; }
 
         public T Get(TId id)
         {

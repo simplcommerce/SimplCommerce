@@ -1,7 +1,7 @@
-﻿using HvCommerce.Core.Domain.Models;
+﻿using System.Data.Entity.Migrations;
+using HvCommerce.Core.Domain.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.Practices.ServiceLocation;
-using System.Data.Entity.Migrations;
 
 namespace HvCommerce.Core.Infrastructure.EntityFramework
 {
@@ -27,9 +27,14 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
             }
 
             var adminUser = await userManager.FindByNameAsync("admin@hvcommerce.com");
-            if(adminUser == null)
+            if (adminUser == null)
             {
-                adminUser = new User { UserName = "admin@hvcommerce.com", Email = "admin@hvcommerce.com", FullName = "HvAdmin" };
+                adminUser = new User
+                {
+                    UserName = "admin@hvcommerce.com",
+                    Email = "admin@hvcommerce.com",
+                    FullName = "HvAdmin"
+                };
                 await userManager.CreateAsync(adminUser, "1qazZAQ!");
                 await userManager.AddToRoleAsync(adminUser, adminRole.Name);
             }
