@@ -14,3 +14,7 @@ How to run on local:
 - Update the connection string in appsettings.json in HvCommerce.Web
 - Press Controll + F5
 - The back-office can access via /Admin using the pre-created account: admin@hvcommerce.com, 1qazZAQ!
+
+How to contribute:
+- Suggest features by create new issues or add comments to issues
+- Pickup an issue, create your own branch and implement it, then submit a Merge Request when you finished the implemntation and testing
