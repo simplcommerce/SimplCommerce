@@ -293,6 +293,44 @@
           "lib/net451/Microsoft.AspNet.Authentication.Cookies.dll": {}
         }
       },
+      "Microsoft.AspNet.Authentication.Google/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Authentication.OAuth": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.AspNet.Authentication.Google.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.AspNet.Authentication.Google.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Authentication.OAuth/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Authentication": "1.0.0-rc1-final",
+          "Newtonsoft.Json": "6.0.6"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core",
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.AspNet.Authentication.OAuth.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.AspNet.Authentication.OAuth.dll": {}
+        }
+      },
       "Microsoft.AspNet.Authorization/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -2414,6 +2452,44 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNet.Authentication.Cookies.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Authentication.Google/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Authentication.OAuth": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.AspNet.Authentication.Google.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.AspNet.Authentication.Google.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Authentication.OAuth/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Authentication": "1.0.0-rc1-final",
+          "Newtonsoft.Json": "6.0.6"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core",
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.AspNet.Authentication.OAuth.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.AspNet.Authentication.OAuth.dll": {}
         }
       },
       "Microsoft.AspNet.Authorization/1.0.0-rc1-final": {
@@ -4542,6 +4618,44 @@
           "lib/net451/Microsoft.AspNet.Authentication.Cookies.dll": {}
         }
       },
+      "Microsoft.AspNet.Authentication.Google/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Authentication.OAuth": "1.0.0-rc1-final"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.AspNet.Authentication.Google.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.AspNet.Authentication.Google.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Authentication.OAuth/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Authentication": "1.0.0-rc1-final",
+          "Newtonsoft.Json": "6.0.6"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core",
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.AspNet.Authentication.OAuth.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.AspNet.Authentication.OAuth.dll": {}
+        }
+      },
       "Microsoft.AspNet.Authorization/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -6568,6 +6682,34 @@
         "Microsoft.AspNet.Authentication.Cookies.1.0.0-rc1-final.nupkg",
         "Microsoft.AspNet.Authentication.Cookies.1.0.0-rc1-final.nupkg.sha512",
         "Microsoft.AspNet.Authentication.Cookies.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.Authentication.Google/1.0.0-rc1-final": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "fb7iYvpTftdjPloKZMdj4cS+xAQJB8YBkcUJBaddzji8a6VhKR+k9BMEDAi7QvgrLf+lyZ3F4xvjNbD5mFLEMA==",
+      "files": [
+        "lib/dotnet5.4/Microsoft.AspNet.Authentication.Google.dll",
+        "lib/dotnet5.4/Microsoft.AspNet.Authentication.Google.xml",
+        "lib/net451/Microsoft.AspNet.Authentication.Google.dll",
+        "lib/net451/Microsoft.AspNet.Authentication.Google.xml",
+        "Microsoft.AspNet.Authentication.Google.1.0.0-rc1-final.nupkg",
+        "Microsoft.AspNet.Authentication.Google.1.0.0-rc1-final.nupkg.sha512",
+        "Microsoft.AspNet.Authentication.Google.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.Authentication.OAuth/1.0.0-rc1-final": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "3h2Mz/ObM1pQRDDkkK4roI1Y6n6XlTQGsLxbeMQ6aGJZCYYnZhCrp6UN4CWktd3xBrLUdaRYMH1r94+0wjCqAg==",
+      "files": [
+        "lib/dotnet5.4/Microsoft.AspNet.Authentication.OAuth.dll",
+        "lib/dotnet5.4/Microsoft.AspNet.Authentication.OAuth.xml",
+        "lib/net451/Microsoft.AspNet.Authentication.OAuth.dll",
+        "lib/net451/Microsoft.AspNet.Authentication.OAuth.xml",
+        "Microsoft.AspNet.Authentication.OAuth.1.0.0-rc1-final.nupkg",
+        "Microsoft.AspNet.Authentication.OAuth.1.0.0-rc1-final.nupkg.sha512",
+        "Microsoft.AspNet.Authentication.OAuth.nuspec"
       ]
     },
     "Microsoft.AspNet.Authorization/1.0.0-rc1-final": {
@@ -8668,7 +8810,8 @@
       "Microsoft.Extensions.Logging.Debug >= 1.0.0-rc1-final",
       "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0-rc1-final",
       "EntityFramework >= 6.1.3",
-      "CommonServiceLocator >= 1.3.0"
+      "CommonServiceLocator >= 1.3.0",
+      "Microsoft.AspNet.Authentication.Google >= 1.0.0-rc1-final"
     ],
     "DNX,Version=v4.5.1": [
       "AspNet.Identity.EntityFramework6 >= 1.0.0-*",

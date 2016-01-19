@@ -17,6 +17,7 @@ using Microsoft.Practices.ServiceLocation;
 using HvCommerce.Infrastructure.Domain.IRepositories;
 using System.Reflection;
 using HvCommerce.Infrastructure;
+using Microsoft.AspNet.Authentication.Google;
 
 namespace HvCommerce.Web
 {
@@ -50,6 +51,7 @@ namespace HvCommerce.Web
                 .AddRoleStore<HvRoleStore>()
                 .AddUserStore<HvUserStore>()
                 .AddDefaultTokenProviders();
+
             services.AddMvc();
 
             services.AddScoped(f => Configuration);
@@ -86,11 +88,16 @@ namespace HvCommerce.Web
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseIISPlatformHandler();
+            app.UseIISPlatformHandler(options => { options.AuthenticationDescriptions.Clear(); });
 
             app.UseStaticFiles();
 
-            app.UseIdentity();
+            app.UseIdentity()
+                .UseGoogleAuthentication(new GoogleOptions
+            {
+                ClientId = "583825788849-8g42lum4trd5g3319go0iqt6pn30gqlq.apps.googleusercontent.com",
+                ClientSecret = "X8xIiuNEUjEYfiEfiNrWOfI4"
+                });
 
             app.UseMvc(routes =>
             {
