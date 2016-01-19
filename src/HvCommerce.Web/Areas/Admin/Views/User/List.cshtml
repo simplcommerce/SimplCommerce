@@ -1,16 +1,40 @@
-﻿@model IEnumerable<HvCommerce.Core.Domain.Models.User>
+﻿<h1 class="page-header">Danh sach nguoi dung</h1>
 
-<h1 class="page-header">Danh sach nguoi dung</h1>
-<table class="table">
-    <tr>
-        <th>Email</th>
-        <td>Name</td>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.Email</td>
-            <td>@item.FullName</td>
-        </tr>
-    }
-</table>
+@(Html.Kendo().Grid<HvCommerce.Web.Areas.Admin.ViewModels.UserList>()
+        .Name("gridUser")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Email);
+            columns.Bound(p => p.FullName);
+            columns.Bound(p => p.CreatedOn).Format("{0:dd/MMM/yyyy hh:mm:ss}");
+            columns.Bound(p => p.Id)
+                .ClientTemplate(@"<a href='Detail/#:Id#' title='Xem chi tiết' class='btn btn-xs btn-info'> <span class='glyphicon glyphicon-circle-arrow-right'</span></a>
+                                  <a href='Delete/#:Id#' title='Xóa' class='btn btn-danger btn-xs delete'> <span class='glyphicon glyphicon-remove'></span></a>")
+                .Filterable(false).Sortable(false).Title(" ").Width(150);
+        })
+        .Pageable()
+        .Sortable()
+        .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+        .DataSource(dataSource => dataSource
+            .Ajax()
+                .Sort(sort => sort.Add(x => x.CreatedOn).Descending())
+            .Read(read => read.Url("ListAjax"))
+        )
+)
+
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $("#gridUser").on("click", ".delete", function (e) {
+                e.preventDefault();
+                if (confirm("Bạn muốn xóa mục này?")) {
+                    $.post(this.href).success(function () {
+                        var grid = $("#gridUser").data("kendoGrid");
+                        grid.dataSource.read();
+                    });
+                }
+            });
+        });
+    </script>
+}

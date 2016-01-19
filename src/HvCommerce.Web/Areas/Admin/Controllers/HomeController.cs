@@ -9,7 +9,7 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "admin")]
-    public class Home : Controller
+    public class HomeController : Controller
     {
         public IActionResult Index()
         {

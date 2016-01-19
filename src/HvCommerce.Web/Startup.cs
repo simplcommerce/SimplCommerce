@@ -53,6 +53,8 @@ namespace HvCommerce.Web
 
             services.AddMvc();
 
+            services.AddKendo();
+
             services.AddScoped(f => Configuration);
 
             services.AddScoped<HvDbContext, HvDbContext>(f => { return new HvDbContext(HvConnectionString.Value); });
@@ -99,8 +101,7 @@ namespace HvCommerce.Web
             {
                 routes.MapRoute(
                     "areaRoute",
-                    "{area:exists}/{controller}/{action}",
-                    new { controller = "Home", action = "Index" });
+                    "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });

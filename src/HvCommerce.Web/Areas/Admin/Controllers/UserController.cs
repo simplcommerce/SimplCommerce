@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Authorization;
-using HvCommerce.Infrastructure.Domain.IRepositories;
+﻿using System.Linq;
 using HvCommerce.Core.Domain.Models;
+using HvCommerce.Infrastructure.Domain.IRepositories;
+using HvCommerce.Web.Areas.Admin.ViewModels;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
+using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Mvc;
 
 namespace HvCommerce.Web.Areas.Admin.Controllers
 {
@@ -22,8 +22,45 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
 
         public IActionResult List()
         {
-            var users = userRepository.Query();
-            return View(users);
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ListAjax([DataSourceRequest] DataSourceRequest request)
+        {
+            var users = userRepository.Query().Where(x => !x.IsDeleted);
+
+            var gridData = users.ToDataSourceResult(
+                request,
+                user => new UserList
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    FullName = user.FullName,
+                    CreatedOn = user.CreatedOn
+                });
+
+            return Json(gridData);
+        }
+
+        public ActionResult Detail(long id)
+        {
+            var user = userRepository.Get(id);
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(long id)
+        {
+            var user = userRepository.Get(id);
+            if (user == null)
+            {
+                return new HttpStatusCodeResult(400);
+            }
+
+            user.IsDeleted = true;
+            userRepository.SaveChange();
+            return Json(true);
         }
     }
 }
