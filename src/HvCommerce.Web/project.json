@@ -5,7 +5,7 @@
   },
 
   "dependencies": {
-    "Autofac":  "4.0.0-rc1-177",
+    "Autofac": "4.0.0-rc1-177",
     "Autofac.Extensions.DependencyInjection": "4.0.0-rc1-177",
     "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",
     "Microsoft.AspNet.Identity": "3.0.0-rc1-final",
@@ -49,5 +49,8 @@
   "publishExclude": [
     "**.user",
     "**.vspscc"
-  ]
+  ],
+  "scripts": {
+    "prepublish": [ "npm install", "bower install", "gulp clean", "gulp min" ]
+  }
 }

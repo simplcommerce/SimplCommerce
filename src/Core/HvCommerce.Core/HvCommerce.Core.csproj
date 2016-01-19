@@ -164,6 +164,9 @@
     <Compile Include="ApplicationServices\HvConnectionString.cs" />
     <Compile Include="ApplicationServices\HvRoleStore.cs" />
     <Compile Include="ApplicationServices\HvUserStore.cs" />
+    <Compile Include="ApplicationServices\IEmailSender.cs" />
+    <Compile Include="ApplicationServices\ISmsSender.cs" />
+    <Compile Include="ApplicationServices\MessageServices.cs" />
     <Compile Include="Domain\Models\Category.cs" />
     <Compile Include="Domain\Models\Product.cs" />
     <Compile Include="Domain\Models\Role.cs" />
