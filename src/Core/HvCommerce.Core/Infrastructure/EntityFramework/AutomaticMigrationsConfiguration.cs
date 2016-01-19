@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HvCommerce.Core.Domain.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.Practices.ServiceLocation;
 using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HvCommerce.Core.Infrastructure.EntityFramework
 {
@@ -16,8 +14,26 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
             AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(HvDbContext context)
+        protected override async void Seed(HvDbContext context)
         {
+            var userManager = ServiceLocator.Current.GetInstance<UserManager<User>>();
+            var roleManager = ServiceLocator.Current.GetInstance<RoleManager<Role>>();
+
+            var adminRole = await roleManager.FindByNameAsync("admin");
+            if (adminRole == null)
+            {
+                adminRole = new Role { Name = "admin" };
+                await roleManager.CreateAsync(adminRole);
+            }
+
+            var adminUser = await userManager.FindByNameAsync("admin");
+            if(adminUser == null)
+            {
+                adminUser = new User { UserName = "admin", Email = "admin@hvcommerce.com" };
+                await userManager.CreateAsync(adminUser, "1qazZAQ!");
+                await userManager.AddToRoleAsync(adminUser, adminRole.Name);
+            }
+
             base.Seed(context);
         }
     }

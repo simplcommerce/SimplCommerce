@@ -19,6 +19,7 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
         public HvDbContext() : base(HvConnectionString.Value)
         {        
         }
+
         public HvDbContext(string connectionString) : base(connectionString)
         {
         }
