@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace HvCommerce.Core.ApplicationServices
 {
     public class HvUserStore : UserStore<User, Role, UserRole, UserClaim,
-        UserLogin, RoleClaim, HvDbContext, int>
+        UserLogin, RoleClaim, HvDbContext, long>
     {
         public HvUserStore(HvDbContext context)
         : base(context)

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HvCommerce.Core.ApplicationServices
 {
-    public class HvRoleStore : RoleStore<Role, UserRole, RoleClaim, HvDbContext, int>
+    public class HvRoleStore : RoleStore<Role, UserRole, RoleClaim, HvDbContext, long>
     {
         public HvRoleStore(HvDbContext context)
         : base(context)

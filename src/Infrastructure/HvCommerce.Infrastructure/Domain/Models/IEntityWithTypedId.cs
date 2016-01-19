@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace HvCommerce.Infrastructure.Domain.Models
 {
-    [Serializable]
-    public abstract class EntityWithTypedId<TId> : ValidatableObject, IEntityWithTypedId<TId>
+    public interface IEntityWithTypedId<TId>
     {
-        public TId Id { get; protected set; }
+        TId Id { get; }
     }
 }

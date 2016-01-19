@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HvCommerce.Core.Domain.Models
 {
-    public class RoleClaim : IdentityRoleClaim<int>
+    public class RoleClaim : IdentityRoleClaim<long>
     {
     }
 }

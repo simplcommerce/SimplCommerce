@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HvCommerce.Core.Infrastructure.EntityFramework
 {
-    public class RepositoryWithTypedId<T, TId> : IRepositoryWithTypedId<T, TId> where T : EntityWithTypedId<TId>
+    public class RepositoryWithTypedId<T, TId> : IRepositoryWithTypedId<T, TId> where T : class, IEntityWithTypedId<TId>
     {
         public RepositoryWithTypedId(HvDbContext context)
         {

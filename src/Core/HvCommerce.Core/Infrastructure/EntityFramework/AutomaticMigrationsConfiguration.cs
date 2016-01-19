@@ -29,7 +29,7 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
             var adminUser = await userManager.FindByNameAsync("admin@hvcommerce.com");
             if(adminUser == null)
             {
-                adminUser = new User { UserName = "admin@hvcommerce.com", Email = "admin@hvcommerce.com" };
+                adminUser = new User { UserName = "admin@hvcommerce.com", Email = "admin@hvcommerce.com", FullName = "HvAdmin" };
                 await userManager.CreateAsync(adminUser, "1qazZAQ!");
                 await userManager.AddToRoleAsync(adminUser, adminRole.Name);
             }

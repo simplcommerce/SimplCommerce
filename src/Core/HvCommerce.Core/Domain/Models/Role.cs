@@ -1,13 +1,9 @@
 ﻿using AspNet.Identity.EntityFramework6;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HvCommerce.Infrastructure.Domain.Models;
 
 namespace HvCommerce.Core.Domain.Models
 {
-    public class Role : IdentityRole<int, UserRole, RoleClaim>
+    public class Role : IdentityRole<long, UserRole, RoleClaim>, IEntityWithTypedId<long>
     {
         public Role() { }
 

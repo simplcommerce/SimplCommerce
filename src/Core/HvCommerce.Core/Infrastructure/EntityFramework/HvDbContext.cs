@@ -14,7 +14,7 @@ using HvCommerce.Core.ApplicationServices;
 namespace HvCommerce.Core.Infrastructure.EntityFramework
 {
     public class HvDbContext : IdentityDbContext<User, Role,
-        int, UserLogin, UserRole, UserClaim, RoleClaim>
+        long, UserLogin, UserRole, UserClaim, RoleClaim>
     {
         public HvDbContext() : base(HvConnectionString.Value)
         {        

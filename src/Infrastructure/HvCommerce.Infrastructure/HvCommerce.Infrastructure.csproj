@@ -58,6 +58,7 @@
     <Compile Include="Domain\IRepositories\IRepositoryWithTypedId.cs" />
     <Compile Include="Domain\Models\Entity.cs" />
     <Compile Include="Domain\Models\EntityWithTypedId.cs" />
+    <Compile Include="Domain\Models\IEntityWithTypedId.cs" />
     <Compile Include="Domain\Models\ValidatableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeLoader.cs" />

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HvCommerce.Core.Domain.Models
 {
-    public class UserClaim : IdentityUserClaim<int>
+    public class UserClaim : IdentityUserClaim<long>
     {
     }
 }

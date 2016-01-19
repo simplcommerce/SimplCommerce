@@ -2,7 +2,7 @@
 
 namespace HvCommerce.Infrastructure.Domain.IRepositories
 {
-    public interface IRepository<T> : IRepositoryWithTypedId<T, long> where T : EntityWithTypedId<long>
+    public interface IRepository<T> : IRepositoryWithTypedId<T, long> where T : IEntityWithTypedId<long>
     {
     }
 }

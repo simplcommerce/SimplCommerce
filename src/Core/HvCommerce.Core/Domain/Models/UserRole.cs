@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HvCommerce.Core.Domain.Models
 {
-    public class UserRole : IdentityUserRole<int>
+    public class UserRole : IdentityUserRole<long>
     {
     }
 }

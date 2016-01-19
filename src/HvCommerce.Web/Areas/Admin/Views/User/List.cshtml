@@ -1,0 +1,16 @@
+﻿@model IEnumerable<HvCommerce.Core.Domain.Models.User>
+
+<h1 class="page-header">Danh sach nguoi dung</h1>
+<table class="table">
+    <tr>
+        <th>Email</th>
+        <td>Name</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Email</td>
+            <td>@item.FullName</td>
+        </tr>
+    }
+</table>

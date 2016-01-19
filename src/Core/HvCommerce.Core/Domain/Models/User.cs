@@ -1,16 +1,10 @@
-﻿using Microsoft.AspNet.Identity;
-using AspNet.Identity.EntityFramework6;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AspNet.Identity.EntityFramework6;
+using HvCommerce.Infrastructure.Domain.Models;
 
 namespace HvCommerce.Core.Domain.Models
 {
-    public class User : IdentityUser<int, UserLogin, UserRole, UserClaim>
+    public class User : IdentityUser<long, UserLogin, UserRole, UserClaim>, IEntityWithTypedId<long>
     {
-        public string SomeField { get; set; }
+        public string FullName { get; set; }
     }
 }
