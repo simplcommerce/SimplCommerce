@@ -6,8 +6,6 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using HvCommerce.Infrastructure;
 using AspNet.Identity.EntityFramework6;
 using HvCommerce.Core.Domain.Models;
@@ -19,7 +17,7 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
         int, UserLogin, UserRole, UserClaim, RoleClaim>
     {
         public HvDbContext() : base(HvConnectionString.Value)
-        {           
+        {        
         }
         public HvDbContext(string connectionString) : base(connectionString)
         {

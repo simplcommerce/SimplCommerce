@@ -14,9 +14,9 @@ using Microsoft.Extensions.Logging;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.Practices.ServiceLocation;
-using Autofac.Extras.CommonServiceLocator;
 using HvCommerce.Infrastructure.Domain.IRepositories;
 using System.Reflection;
+using HvCommerce.Infrastructure;
 
 namespace HvCommerce.Web
 {
@@ -52,6 +52,8 @@ namespace HvCommerce.Web
                 .AddDefaultTokenProviders();
             services.AddMvc();
 
+            services.AddScoped(f => Configuration);
+
             services.AddScoped<HvDbContext, HvDbContext>(f =>
             {
                 return new HvDbContext(HvConnectionString.Value);
@@ -64,7 +66,7 @@ namespace HvCommerce.Web
             builder.RegisterAssemblyTypes(Assembly.Load("HvCommerce.Core")).AsImplementedInterfaces();
             builder.Populate(services);
             var container = builder.Build();
-            ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocator(container));
+            ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocatorAdapter(container));
             return container.Resolve<IServiceProvider>();
         }
 
