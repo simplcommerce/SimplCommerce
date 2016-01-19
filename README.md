@@ -1,6 +1,7 @@
 Prerequisite:
 - Visual Studio 2015 
 - Microsoft ASP.NET and Web Tools 2015 (RC1)
+- StyleCop 4.7
 - SQL Server
 
 Technologies and frameworks used:
@@ -18,3 +19,4 @@ How to run on local:
 How to contribute:
 - Suggest features by create new issues or add comments to issues
 - Pickup an issue, create your own branch and implement it, then submit a Merge Request when you finished the implemntation and testing
+- Remember to fix all the StyleCop violations before submit a Merge Request
