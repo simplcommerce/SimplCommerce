@@ -24,6 +24,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "HvCommerce.Web", "src\HvCom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet.Identity.EntityFramework6", "src\Infrastructure\AspNet.Identity.EntityFramework6\AspNet.Identity.EntityFramework6.csproj", "{89ACA64C-8E84-4067-93FF-1AFB73B49670}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HvCommerce.Orders", "src\Modules\HvCommerce.Orders\HvCommerce.Orders.csproj", "{985F06A5-095C-4638-ADF7-D12D721A74B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{89ACA64C-8E84-4067-93FF-1AFB73B49670}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89ACA64C-8E84-4067-93FF-1AFB73B49670}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89ACA64C-8E84-4067-93FF-1AFB73B49670}.Release|Any CPU.Build.0 = Release|Any CPU
+		{985F06A5-095C-4638-ADF7-D12D721A74B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{985F06A5-095C-4638-ADF7-D12D721A74B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{985F06A5-095C-4638-ADF7-D12D721A74B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{985F06A5-095C-4638-ADF7-D12D721A74B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,5 +64,6 @@ Global
 		{F0D8E2BB-2D50-46BF-ACCE-837848B079C0} = {64E0639E-BE4C-45AC-8722-D27400D27D45}
 		{98A9B002-F06D-4DBC-A82C-B3B23D2CE66F} = {F7D97CAD-CAF1-49AA-9E70-6D1ED05BB5CE}
 		{89ACA64C-8E84-4067-93FF-1AFB73B49670} = {64E0639E-BE4C-45AC-8722-D27400D27D45}
+		{985F06A5-095C-4638-ADF7-D12D721A74B6} = {3D3907E1-1706-42A0-851B-CD6AC6DBA0FB}
 	EndGlobalSection
 EndGlobal
