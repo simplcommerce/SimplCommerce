@@ -168,7 +168,12 @@
     <Compile Include="ApplicationServices\ISmsSender.cs" />
     <Compile Include="ApplicationServices\MessageServices.cs" />
     <Compile Include="Domain\Models\Category.cs" />
+    <Compile Include="Domain\Models\Content.cs" />
+    <Compile Include="Domain\Models\Media.cs" />
+    <Compile Include="Domain\Models\MediaType.cs" />
     <Compile Include="Domain\Models\Product.cs" />
+    <Compile Include="Domain\Models\ProductCategory.cs" />
+    <Compile Include="Domain\Models\ProductMedia.cs" />
     <Compile Include="Domain\Models\Role.cs" />
     <Compile Include="Domain\Models\RoleClaim.cs" />
     <Compile Include="Domain\Models\User.cs" />
