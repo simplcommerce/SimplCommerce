@@ -10,10 +10,11 @@
             columns.Bound(p => p.Id)
                 .ClientTemplate(@"<a href='Detail/#:Id#' title='Xem chi tiết' class='btn btn-xs btn-info'> <span class='glyphicon glyphicon-circle-arrow-right'</span></a>
                                   <a href='Delete/#:Id#' title='Xóa' class='btn btn-danger btn-xs delete'> <span class='glyphicon glyphicon-remove'></span></a>")
-                .Filterable(false).Sortable(false).Title(" ").Width(150);
+                .Filterable(false).Sortable(false).Title("Actions").Width(150);
         })
         .Pageable()
         .Sortable()
+        .ColumnMenu()
         .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
         .DataSource(dataSource => dataSource
             .Ajax()
