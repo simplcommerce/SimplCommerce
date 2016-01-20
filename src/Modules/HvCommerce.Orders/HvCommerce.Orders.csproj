@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HvCommerce.Orders</RootNamespace>
     <AssemblyName>HvCommerce.Orders</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,12 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Models\ShoppingCartItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ApplicationServices\" />
-    <Folder Include="Domain\Models\" />
     <Folder Include="Infrastructure\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\HvCommerce.Core\HvCommerce.Core.csproj">
+      <Project>{61242784-cc64-4d2b-81a1-8bc643629950}</Project>
+      <Name>HvCommerce.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\HvCommerce.Infrastructure\HvCommerce.Infrastructure.csproj">
+      <Project>{f0d8e2bb-2d50-46bf-acce-837848b079c0}</Project>
+      <Name>HvCommerce.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

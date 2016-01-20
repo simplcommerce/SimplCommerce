@@ -39,7 +39,8 @@
       "dependencies": {
         "AspNet.Identity.EntityFramework6": "1.0.0-*",
         "HvCommerce.Core": "1.0.0-*",
-        "HvCommerce.Infrastructure": "1.0.0-*"
+        "HvCommerce.Infrastructure": "1.0.0-*",
+        "HvCommerce.Orders": "1.0.0-*"
       }
     }
   },

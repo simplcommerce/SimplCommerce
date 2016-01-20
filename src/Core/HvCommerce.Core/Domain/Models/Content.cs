@@ -29,9 +29,9 @@ namespace HvCommerce.Core.Domain.Models
 
         public virtual User CreatedBy { get; set; }
 
-        public virtual DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
-        public virtual DateTime UpdatedOn { get; set; }
+        public DateTime UpdatedOn { get; set; }
 
         public virtual User UpdatedBy { get; set; }
     }

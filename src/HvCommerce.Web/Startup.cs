@@ -45,7 +45,7 @@ namespace HvCommerce.Web
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            HvConnectionString.Value = Configuration["Data:DefaultConnection:ConnectionString"];
+            GlobalConfiguration.ConnectionString = Configuration["Data:DefaultConnection:ConnectionString"];
             services.AddIdentity<User, Role>()
                 .AddRoleStore<HvRoleStore>()
                 .AddUserStore<HvUserStore>()
@@ -57,13 +57,20 @@ namespace HvCommerce.Web
 
             services.AddScoped(f => Configuration);
 
-            services.AddScoped<HvDbContext, HvDbContext>(f => { return new HvDbContext(HvConnectionString.Value); });
+            GlobalConfiguration.Modules.Add(new HvModule { Name = "Core", AssemblyName = "HvCommerce.Core" });
+            GlobalConfiguration.Modules.Add(new HvModule { Name = "Orders", AssemblyName = "HvCommerce.Orders" });
 
+            services.AddScoped<HvDbContext, HvDbContext>(f => { return new HvDbContext(GlobalConfiguration.ConnectionString); });
+
+            // TODO: break down to new method in new class
             var builder = new ContainerBuilder();
             builder.RegisterGeneric(typeof (Repository<>)).As(typeof (IRepository<>));
             builder.RegisterGeneric(typeof (RepositoryWithTypedId<,>)).As(typeof (IRepositoryWithTypedId<,>));
-
-            builder.RegisterAssemblyTypes(Assembly.Load("HvCommerce.Core")).AsImplementedInterfaces();
+            foreach(var module in GlobalConfiguration.Modules)
+            {
+                builder.RegisterAssemblyTypes(Assembly.Load(module.AssemblyName)).AsImplementedInterfaces();
+            }
+            
             builder.Populate(services);
             var container = builder.Build();
             ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocatorAdapter(container));

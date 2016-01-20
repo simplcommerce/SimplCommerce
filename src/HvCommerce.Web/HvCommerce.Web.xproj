@@ -23,6 +23,7 @@
     <ProjectReference Include="..\Core\HvCommerce.Core\HvCommerce.Core.csproj" />
     <ProjectReference Include="..\Infrastructure\AspNet.Identity.EntityFramework6\AspNet.Identity.EntityFramework6.csproj" />
     <ProjectReference Include="..\Infrastructure\HvCommerce.Infrastructure\HvCommerce.Infrastructure.csproj" />
+    <ProjectReference Include="..\Modules\HvCommerce.Orders\HvCommerce.Orders.csproj" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>

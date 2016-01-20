@@ -16,7 +16,7 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
     public class HvDbContext : IdentityDbContext<User, Role,
         long, UserLogin, UserRole, UserClaim, RoleClaim>
     {
-        public HvDbContext() : base(HvConnectionString.Value)
+        public HvDbContext() : base(GlobalConfiguration.ConnectionString)
         {
         }
 
@@ -30,7 +30,11 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
 
             RegisterConventions(modelBuilder);
 
-            var typeToRegisters = TypeLoader.FromAssemblies(Assembly.Load("HvCommerce.Core"));
+            List<Type> typeToRegisters = new List<Type>();
+            foreach(var module in GlobalConfiguration.Modules)
+            {
+                typeToRegisters.AddRange(TypeLoader.FromAssemblies(Assembly.Load(module.AssemblyName)));
+            }    
 
             RegisterCustomMapping(modelBuilder, typeToRegisters);
 

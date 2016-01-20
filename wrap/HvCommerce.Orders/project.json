@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net451": {
+      "wrappedProject": "../../src/Modules/HvCommerce.Orders/HvCommerce.Orders.csproj",
+      "bin": {
+        "assembly": "../../src/Modules/HvCommerce.Orders/obj/{configuration}/HvCommerce.Orders.dll",
+        "pdb": "../../src/Modules/HvCommerce.Orders/obj/{configuration}/HvCommerce.Orders.pdb"
+      },
+      "dependencies": {
+        "HvCommerce.Core": "1.0.0-*",
+        "HvCommerce.Infrastructure": "1.0.0-*"
+      }
+    }
+  }
+}
