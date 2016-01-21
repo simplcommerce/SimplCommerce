@@ -1,19 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using HvCommerce.Core.Domain.Models;
 
-namespace HvCommerce.Core.Domain.Models
+namespace HvCommerce.Core.Domain
 {
-    public class Product : Content
+    public class ProductGroup : Content
     {
-        public Product ()
-        {
-            Medias = new List<ProductMedia>();
-        }
-
-        public long ProductGroupId { get; set; }
-
-        public virtual ProductGroup ProductGroup { get; set; }
-
         [StringLength(1000)]
         public string ShortDescription { get; set; }
 

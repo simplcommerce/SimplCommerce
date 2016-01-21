@@ -181,6 +181,7 @@
     <Compile Include="Domain\Models\UserClaim.cs" />
     <Compile Include="Domain\Models\UserLogin.cs" />
     <Compile Include="Domain\Models\UserRole.cs" />
+    <Compile Include="Domain\ProductGroup.cs" />
     <Compile Include="Infrastructure\EntityFramework\AutomaticMigrationsConfiguration.cs" />
     <Compile Include="Infrastructure\EntityFramework\CustomConventions\ForeignKeyNamingConvention.cs" />
     <Compile Include="Infrastructure\EntityFramework\CustomConventions\TableNameConvention.cs" />
