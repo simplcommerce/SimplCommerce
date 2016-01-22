@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using HvCommerce.Core.Domain.Models;
 
-namespace HvCommerce.Core.Domain
+namespace HvCommerce.Core.Domain.Models
 {
     public class ProductGroup : Content
     {
@@ -16,7 +15,5 @@ namespace HvCommerce.Core.Domain
         public string Specification { get; set; }
 
         public int DisplayOrder { get; set; }
-
-        public virtual IList<ProductMedia> Medias { get; set; }
     }
 }

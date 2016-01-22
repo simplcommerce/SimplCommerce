@@ -10,8 +10,6 @@ namespace HvCommerce.Core.Domain.Models
             Medias = new List<ProductMedia>();
         }
 
-        public long ProductGroupId { get; set; }
-
         public virtual ProductGroup ProductGroup { get; set; }
 
         [StringLength(1000)]
