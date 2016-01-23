@@ -1,0 +1,17 @@
+﻿@model HvCommerce.Web.Areas.Admin.ViewModels.CategoryForm
+
+<form asp-controller="Category" asp-action="Create" method="post" class="form-horizontal" role="form">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-8">
+                <h1>Tạo danh mục</h1>
+            </div>
+            <div class="col-md-4 text-right">
+                <button type="submit" class="btn btn-primary" value="Save" name="mode"><span class="glyphicon glyphicon-ok"></span> Lưu lại</button>
+                <a href="/admin/category/list" class="btn btn-default" role="button">Quay về</a>
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("_CategoryForm", Model)
+</form>

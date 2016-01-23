@@ -32,7 +32,7 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
 
             var gridData = users.ToDataSourceResult(
                 request,
-                user => new UserList
+                user => new UserListItem
                 {
                     Id = user.Id,
                     Email = user.Email,

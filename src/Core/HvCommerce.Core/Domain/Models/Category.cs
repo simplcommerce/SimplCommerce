@@ -13,6 +13,12 @@ namespace HvCommerce.Core.Domain.Models
 
         public int DisplayOrder { get; set; }
 
+        public bool IsPublished { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public long? ParentId { get; set; }
+
         public virtual Category Parent { get; set; }
 
         public virtual IList<Category> Child { get; protected set; }

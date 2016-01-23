@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace HvCommerce.Web.Areas.Admin.ViewModels
 {
-    public class UserList
+    public class UserListItem
     {
         public long Id { get; set; }
 
