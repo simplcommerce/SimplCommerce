@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using HvCommerce.Core.Domain.Models;
 using HvCommerce.Infrastructure.Domain.IRepositories;
 using HvCommerce.Web.Areas.Admin.ViewModels;
@@ -99,8 +97,12 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
 
         private void AddCategoryListToForm(long excludedId)
         {
-            var categories = GetAllCategory().Where(x => x.Id != excludedId).Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
-            categories.Insert(0, new SelectListItem { Text = "Top", Value = "" });
+            var categories =
+                GetAllCategory()
+                    .Where(x => x.Id != excludedId)
+                    .Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() })
+                    .ToList();
+            categories.Insert(0, new SelectListItem { Text = "Top", Value = string.Empty });
             ViewBag.Categories = categories;
         }
 
@@ -127,7 +129,8 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
 
                 categoriesList.Add(categoryListItem);
             }
+
             return categoriesList.OrderBy(x => x.Name).ToList();
-        } 
+        }
     }
 }
