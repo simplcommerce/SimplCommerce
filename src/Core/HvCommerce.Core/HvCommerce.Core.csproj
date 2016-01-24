@@ -161,9 +161,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationServices\AppSettings.cs" />
+    <Compile Include="ApplicationServices\CategoryService.cs" />
     <Compile Include="ApplicationServices\GlobalConfiguration.cs" />
     <Compile Include="ApplicationServices\HvRoleStore.cs" />
     <Compile Include="ApplicationServices\HvUserStore.cs" />
+    <Compile Include="ApplicationServices\ICategoryService.cs" />
     <Compile Include="ApplicationServices\IEmailSender.cs" />
     <Compile Include="ApplicationServices\ISmsSender.cs" />
     <Compile Include="ApplicationServices\MessageServices.cs" />

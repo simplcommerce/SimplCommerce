@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using HvCommerce.Core.ApplicationServices;
 using HvCommerce.Core.Domain.Models;
 using HvCommerce.Infrastructure.Domain.IRepositories;
 using HvCommerce.Web.Areas.Admin.ViewModels;
@@ -16,10 +17,12 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
     public class CategoryController : Controller
     {
         private readonly IRepository<Category> categoryRepository;
+        private readonly ICategoryService categoryService;
 
-        public CategoryController(IRepository<Category> categoryRepository)
+        public CategoryController(IRepository<Category> categoryRepository, ICategoryService categoryService)
         {
             this.categoryRepository = categoryRepository;
+            this.categoryService = categoryService;
         }
 
         public IActionResult List()
@@ -93,6 +96,20 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
 
             AddCategoryListToForm(id);
             return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(long id)
+        {
+            var category = categoryRepository.Get(id);
+            if (category == null)
+            {
+                return new HttpStatusCodeResult(400);
+            }
+
+            categoryService.Delete(category);
+            categoryRepository.SaveChange();
+            return Json(true);
         }
 
         private void AddCategoryListToForm(long excludedId)
