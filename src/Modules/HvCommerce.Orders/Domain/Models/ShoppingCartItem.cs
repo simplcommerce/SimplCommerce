@@ -1,10 +1,6 @@
-﻿using HvCommerce.Core.Domain.Models;
+﻿using System;
+using HvCommerce.Core.Domain.Models;
 using HvCommerce.Infrastructure.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HvCommerce.Orders.Domain.Models
 {
@@ -14,7 +10,7 @@ namespace HvCommerce.Orders.Domain.Models
 
         public virtual User CreatedBy { get; set; }
 
-        public virtual Product Product { get; set; }
+        public virtual ProductVariation Product { get; set; }
 
         public int Quantity { get; set; }
     }

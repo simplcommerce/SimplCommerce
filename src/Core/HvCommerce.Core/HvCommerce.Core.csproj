@@ -175,15 +175,16 @@
     <Compile Include="Domain\Models\Media.cs" />
     <Compile Include="Domain\Models\MediaType.cs" />
     <Compile Include="Domain\Models\Product.cs" />
+    <Compile Include="Domain\Models\ProductAttribute.cs" />
     <Compile Include="Domain\Models\ProductCategory.cs" />
     <Compile Include="Domain\Models\ProductMedia.cs" />
+    <Compile Include="Domain\Models\ProductVariation.cs" />
     <Compile Include="Domain\Models\Role.cs" />
     <Compile Include="Domain\Models\RoleClaim.cs" />
     <Compile Include="Domain\Models\User.cs" />
     <Compile Include="Domain\Models\UserClaim.cs" />
     <Compile Include="Domain\Models\UserLogin.cs" />
     <Compile Include="Domain\Models\UserRole.cs" />
-    <Compile Include="Domain\Models\ProductGroup.cs" />
     <Compile Include="Infrastructure\EntityFramework\AutomaticMigrationsConfiguration.cs" />
     <Compile Include="Infrastructure\EntityFramework\CustomConventions\ForeignKeyNamingConvention.cs" />
     <Compile Include="Infrastructure\EntityFramework\CustomConventions\TableNameConvention.cs" />

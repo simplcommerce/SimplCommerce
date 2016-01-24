@@ -8,9 +8,8 @@ namespace HvCommerce.Core.Domain.Models
         public Product ()
         {
             Medias = new List<ProductMedia>();
+            Variations = new List<ProductVariation>();
         }
-
-        public virtual ProductGroup ProductGroup { get; set; }
 
         [StringLength(1000)]
         public string ShortDescription { get; set; }
@@ -24,5 +23,7 @@ namespace HvCommerce.Core.Domain.Models
         public int DisplayOrder { get; set; }
 
         public virtual IList<ProductMedia> Medias { get; set; }
+
+        public virtual IList<ProductVariation> Variations { get; set; } 
     }
 }
