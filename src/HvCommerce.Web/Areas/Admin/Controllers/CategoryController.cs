@@ -2,6 +2,7 @@
 using System.Linq;
 using HvCommerce.Core.ApplicationServices;
 using HvCommerce.Core.Domain.Models;
+using HvCommerce.Infrastructure;
 using HvCommerce.Infrastructure.Domain.IRepositories;
 using HvCommerce.Web.Areas.Admin.ViewModels;
 using Kendo.Mvc.Extensions;
@@ -53,6 +54,7 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
                 var category = new Category
                 {
                     Name = model.Name,
+                    SeoTitle = StringHelper.ToUrlFriendly(model.Name),
                     ParentId = model.ParentId,
                     IsPublished = model.IsPublished
                 };

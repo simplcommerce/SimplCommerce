@@ -8,6 +8,8 @@ namespace HvCommerce.Core.Domain.Models
     {
         public string Name { get; set; }
 
+        public string SeoTitle { get; set; }
+
         [StringLength(5000)]
         public string Description { get; set; }
 
