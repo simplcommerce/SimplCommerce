@@ -15,7 +15,7 @@
         .Pageable()
         .Sortable()
         .ColumnMenu()
-        .Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+        .Filterable()
         .DataSource(dataSource => dataSource
             .Ajax()
                 .Sort(sort => sort.Add(x => x.CreatedOn).Descending())

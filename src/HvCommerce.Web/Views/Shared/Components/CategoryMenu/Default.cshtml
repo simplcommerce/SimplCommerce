@@ -1,0 +1,23 @@
+﻿@model IEnumerable<HvCommerce.Web.ViewModels.Category.CategoryMenuItem>
+
+<ul class="nav navbar-nav main-menu">
+    @foreach (var item in Model)
+    {
+        if (item.ChildItems.Any())
+        {
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">@item.Name <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    @foreach (var childItem in item.ChildItems)
+                    {
+                        <li><a href="/category/@childItem.SeoTitle">@childItem.Name</a></li>
+                    }
+                </ul>
+            </li>
+        }
+        else
+        {
+            <li><a href="/category/@item.SeoTitle">@item.Name</a></li>
+        }
+    }
+</ul>

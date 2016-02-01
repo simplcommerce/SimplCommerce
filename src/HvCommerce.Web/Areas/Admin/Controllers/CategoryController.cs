@@ -89,6 +89,7 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
             {
                 var category = categoryRepository.Get(id);
                 category.Name = model.Name;
+                category.SeoTitle = StringHelper.ToUrlFriendly(model.Name);
                 category.ParentId = model.ParentId;
                 category.IsPublished = model.IsPublished;
 
