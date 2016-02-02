@@ -10,7 +10,23 @@
                 <ul class="dropdown-menu">
                     @foreach (var childItem in item.ChildItems)
                     {
-                        <li><a href="/category/@childItem.SeoTitle">@childItem.Name</a></li>
+                        if (childItem != item.ChildItems.First())
+                        {
+                            <li role="separator" class="divider"></li>
+                        }
+
+                        if (childItem.ChildItems.Any())
+                        {
+                            <li class="nav-item-group"><a href="/category/@childItem.SeoTitle">@childItem.Name</a></li>
+                            foreach (var childChildItem in childItem.ChildItems)
+                            {
+                                <li><a href="/category/@childChildItem.SeoTitle">@childChildItem.Name</a></li>
+                            }
+                        }
+                        else
+                        {
+                            <li><a href="/category/@childItem.SeoTitle">@childItem.Name</a></li>
+                        }
                     }
                 </ul>
             </li>

@@ -32,3 +32,7 @@ textarea {
         z-index: 10 !important;
     }
 }
+
+li.nav-item-group, li.nav-item-group a {
+    font-weight: bold;
+}
