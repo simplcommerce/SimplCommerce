@@ -5,10 +5,21 @@ var gulp = require("gulp"),
     rimraf = require("rimraf"),
     concat = require("gulp-concat"),
     cssmin = require("gulp-cssmin"),
-    uglify = require("gulp-uglify");
+    uglify = require("gulp-uglify"),
+    ignore = require('gulp-ignore'),
+    del = require('del');
+
 
 var paths = {
-    webroot: "./wwwroot/"
+    webroot: "./wwwroot/",
+    bower: "./bower_components/"
+};
+
+var bower = {
+    "bootstrap": "bootstrap/dist/**/*.{js,map,css,ttf,svg,woff,eot}",
+    "jquery": "jquery/dist/jquery*.{js,map}",
+    "jquery-validation": "jquery-validation/dist/*.js",
+    "jquery-validation-unobtrusive": "jquery-validation-unobtrusive/*.js"
 };
 
 paths.js = paths.webroot + "js/**/*.js";
@@ -17,6 +28,7 @@ paths.css = paths.webroot + "css/**/*.css";
 paths.minCss = paths.webroot + "css/**/*.min.css";
 paths.concatJsDest = paths.webroot + "js/site.min.js";
 paths.concatCssDest = paths.webroot + "css/site.min.css";
+paths.lib = paths.webroot + "lib/";
 
 gulp.task("clean:js", function (cb) {
     rimraf(paths.concatJsDest, cb);
@@ -26,7 +38,23 @@ gulp.task("clean:css", function (cb) {
     rimraf(paths.concatCssDest, cb);
 });
 
-gulp.task("clean", ["clean:js", "clean:css"]);
+gulp.task("clean:lib", function () {
+    for (var desDir in bower) {
+        del.sync(paths.lib + desDir);
+    }
+});
+
+gulp.task("clean", ["clean:js", "clean:css", "clean:lib"]);
+
+gulp.task("copy", ["clean"], function () {
+    var ignoreComponents = [ "**/npm.js" ];
+
+    for (var desDir in bower) {
+        gulp.src(paths.bower + bower[desDir])
+            .pipe(ignore.exclude(ignoreComponents))
+            .pipe(gulp.dest(paths.lib + desDir));
+    }
+});
 
 gulp.task("min:js", function () {
     return gulp.src([paths.js, "!" + paths.minJs], { base: "." })
