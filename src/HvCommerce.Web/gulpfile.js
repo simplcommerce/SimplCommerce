@@ -1,4 +1,4 @@
-﻿/// <binding Clean='clean' />
+﻿/// <binding Clean='copy' />
 "use strict";
 
 var gulp = require("gulp"),
