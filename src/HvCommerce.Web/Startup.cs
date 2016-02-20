@@ -13,20 +13,25 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Practices.ServiceLocation;
 
 namespace HvCommerce.Web
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        private IHostingEnvironment hostingEnvironment;
+    
+        public Startup(IHostingEnvironment hostingEnvironment)
         {
+            this.hostingEnvironment = hostingEnvironment;
+
             // Set up configuration sources.
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
+                .AddJsonFile($"appsettings.{hostingEnvironment.EnvironmentName}.json", true);
 
-            if (env.IsDevelopment())
+            if (hostingEnvironment.IsDevelopment())
             {
                 // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
                 builder.AddApplicationInsightsSettings(true);
@@ -46,6 +51,8 @@ namespace HvCommerce.Web
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             GlobalConfiguration.ConnectionString = Configuration["Data:DefaultConnection:ConnectionString"];
+            GlobalConfiguration.ApplicationPath = hostingEnvironment.WebRootPath;
+
             services.AddIdentity<User, Role>()
                 .AddRoleStore<HvRoleStore>()
                 .AddUserStore<HvUserStore>()
@@ -60,7 +67,7 @@ namespace HvCommerce.Web
             GlobalConfiguration.Modules.Add(new HvModule { Name = "Core", AssemblyName = "HvCommerce.Core" });
             GlobalConfiguration.Modules.Add(new HvModule { Name = "Orders", AssemblyName = "HvCommerce.Orders" });
 
-            services.AddScoped<HvDbContext, HvDbContext>(f => { return new HvDbContext(GlobalConfiguration.ConnectionString); });
+            services.AddScoped<HvDbContext, HvDbContext>(f => new HvDbContext(GlobalConfiguration.ConnectionString));
 
             // TODO: break down to new method in new class
             var builder = new ContainerBuilder();

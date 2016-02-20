@@ -2,7 +2,7 @@
 using System.Linq;
 using HvCommerce.Core.Domain.Models;
 using HvCommerce.Infrastructure.Domain.IRepositories;
-using HvCommerce.Web.ViewModels.Category;
+using HvCommerce.Web.ViewModels.Catalog;
 using Microsoft.AspNet.Mvc;
 
 namespace HvCommerce.Web.Components

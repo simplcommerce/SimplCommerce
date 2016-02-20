@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HvCommerce.Web.ViewModels.Category
+namespace HvCommerce.Web.ViewModels.Catalog
 {
     public class CategoryMenuItem
     {

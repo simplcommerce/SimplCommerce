@@ -168,6 +168,8 @@
     <Compile Include="ApplicationServices\ICategoryService.cs" />
     <Compile Include="ApplicationServices\IEmailSender.cs" />
     <Compile Include="ApplicationServices\ISmsSender.cs" />
+    <Compile Include="ApplicationServices\LocalMediaService.cs" />
+    <Compile Include="ApplicationServices\IMediaService.cs" />
     <Compile Include="ApplicationServices\MessageServices.cs" />
     <Compile Include="ApplicationServices\HvModule.cs" />
     <Compile Include="Domain\Models\Category.cs" />

@@ -5,12 +5,6 @@ namespace HvCommerce.Core.Domain.Models
 {
     public class Product : Content
     {
-        public Product ()
-        {
-            Medias = new List<ProductMedia>();
-            Variations = new List<ProductVariation>();
-        }
-
         [StringLength(1000)]
         public string ShortDescription { get; set; }
 
@@ -22,8 +16,16 @@ namespace HvCommerce.Core.Domain.Models
 
         public int DisplayOrder { get; set; }
 
-        public virtual IList<ProductMedia> Medias { get; set; }
+        public Media ThumbnailImage { get; set; }
 
-        public virtual IList<ProductVariation> Variations { get; set; } 
+        public virtual IList<ProductMedia> Medias { get; set; } = new List<ProductMedia>();
+
+        public virtual IList<ProductVariation> Variations { get; set; } = new List<ProductVariation>();
+
+        public void AddMedia(ProductMedia media)
+        {
+            media.Product = this;
+            Medias.Add(media);
+        }
     }
 }
