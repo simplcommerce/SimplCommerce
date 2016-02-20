@@ -19,7 +19,8 @@ var bower = {
     "bootstrap": "bootstrap/dist/**/*.{js,map,css,ttf,svg,woff,eot}",
     "jquery": "jquery/dist/jquery*.{js,map}",
     "jquery-validation": "jquery-validation/dist/*.js",
-    "jquery-validation-unobtrusive": "jquery-validation-unobtrusive/*.js"
+    "jquery-validation-unobtrusive": "jquery-validation-unobtrusive/*.js",
+    "flexslider": "flexslider/**/*.{js,map,css,ttf,svg,woff,eot,png}"
 };
 
 paths.js = paths.webroot + "js/**/*.js";

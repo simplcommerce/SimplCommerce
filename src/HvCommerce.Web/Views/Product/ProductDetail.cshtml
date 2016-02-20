@@ -1,0 +1,45 @@
+﻿@model HvCommerce.Web.ViewModels.Catalog.ProductDetail
+
+@section head
+{
+    <link href="~/lib/flexslider/flexslider.css" rel="stylesheet" />
+    <link href="~/css/product-detail.css" rel="stylesheet" />
+}
+
+<div class="product-detail">
+    <div class="row">
+        <div class="col-md-6">
+            <div id="slider" class="flexslider">
+                <ul class="slides">
+                    @foreach (var image in Model.Images)
+                    {
+                        <li>
+                            <img src="@image.Url"/>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div id="carousel" class="flexslider">
+                <ul class="slides">
+                    @foreach (var image in Model.Images)
+                    {
+                        <li>
+                            <img src="@image.ThumbnailUrl" />
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="product-name">
+                <h1 class="">@Model.Name</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/lib/flexslider/jquery.flexslider-min.js"></script>
+    <script src="~/js/product-detail.js"></script>
+}

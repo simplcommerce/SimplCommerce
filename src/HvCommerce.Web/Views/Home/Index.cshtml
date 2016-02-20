@@ -72,15 +72,17 @@
     {
         <div class="col-sm-6 col-md-3">
             <div class="thumbnail">
-                <img alt="@product.Name" src="@product.ThumbnailUrl">
-                <div class="caption">
-                    <h3>@product.Name</h3>
-                    <p>$1,800.00</p>
-                    <p>
-                        <a href="#" class="btn btn-primary" role="button">Add to cart</a>
-                        <a href="#" class="btn btn-default" role="button">Button</a>
-                    </p>
-                </div>
+                <a href="~/product/@product.SeoTitle">
+                    <img alt="@product.Name" src="@product.ThumbnailUrl">
+                    <div class="caption">
+                        <h3>@product.Name</h3>
+                        <p>$1,800.00</p>
+                        <p>
+                            <a href="#" class="btn btn-primary" role="button">Add to cart</a>
+                            <a href="#" class="btn btn-default" role="button">Button</a>
+                        </p>
+                    </div>
+                </a>
             </div>
         </div>
     }

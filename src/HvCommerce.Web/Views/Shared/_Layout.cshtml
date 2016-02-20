@@ -12,9 +12,11 @@
         <environment names="Staging,Production">
             <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
                   asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
-                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"/>
+            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
         </environment>
+
+        @RenderSection("head", required: false)
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
