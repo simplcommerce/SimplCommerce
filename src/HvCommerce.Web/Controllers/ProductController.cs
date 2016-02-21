@@ -1,26 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using HvCommerce.Core.ApplicationServices;
 using HvCommerce.Core.Domain.Models;
 using HvCommerce.Infrastructure.Domain.IRepositories;
 using HvCommerce.Web.ViewModels;
 using HvCommerce.Web.ViewModels.Catalog;
 using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Server.Kestrel.Http;
 
 namespace HvCommerce.Web.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly IRepository<Product> productRepository;
+        private readonly IRepository<Category> categoryRepository;
         private readonly IMediaService mediaService;
+        private readonly IRepository<Product> productRepository;
 
-        public ProductController(IRepository<Product> productRepository, IMediaService mediaService)
+        public ProductController(IRepository<Product> productRepository, IMediaService mediaService,
+            IRepository<Category> categoryRepository)
         {
             this.productRepository = productRepository;
             this.mediaService = mediaService;
+            this.categoryRepository = categoryRepository;
+        }
+
+        [Route("category/{catSeoTitle}")]
+        public IActionResult ProductsByCategory(string catSeoTitle)
+        {
+            var category = categoryRepository.Query().FirstOrDefault(x => x.SeoTitle == catSeoTitle);
+            if (category == null)
+            {
+                return Redirect("~/Error/FindNotFound");
+            }
+
+            var model = new ProductsByCategory
+            {
+                CategoryName = category.Name
+            };
+
+            var products = productRepository.Query()
+                .Where(x => x.Categories.Any(c => c.CategoryId == category.Id) && x.IsPublished)
+                .Select(x => new ProductListItem
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    SeoTitle = x.SeoTitle,
+                    Price = x.Price,
+                    OldPrice = x.OldPrice,
+                    ThumbnailImage = x.ThumbnailImage
+                }).ToList();
+
+            foreach (var product in products)
+            {
+                product.ThumbnailUrl = mediaService.GetThumbnailUrl(product.ThumbnailImage);
+            }
+
+            model.Products = products;
+
+            return View(model);
         }
 
         [Route("product/{seoTitle}")]
