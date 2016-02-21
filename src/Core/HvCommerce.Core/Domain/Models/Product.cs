@@ -14,6 +14,10 @@ namespace HvCommerce.Core.Domain.Models
         [StringLength(5000)]
         public string Specification { get; set; }
 
+        public decimal Price { get; set; }
+
+        public decimal OldPrice { get; set; }
+
         public int DisplayOrder { get; set; }
 
         public Media ThumbnailImage { get; set; }

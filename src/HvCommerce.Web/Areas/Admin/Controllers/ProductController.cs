@@ -68,7 +68,10 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
             {
                 Name = model.Name,
                 SeoTitle = StringHelper.ToUrlFriendly(model.Name),
+                ShortDescription = model.ShortDescription,
                 Description = model.Description,
+                Price = model.Price,
+                OldPrice = model.OldPrice,
                 IsPublished = model.IsPublished
             };
 

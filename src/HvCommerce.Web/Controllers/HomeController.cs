@@ -39,6 +39,8 @@ namespace HvCommerce.Web.Controllers
                     Id = x.Id,
                     Name = x.Name,
                     SeoTitle = x.SeoTitle,
+                    Price = x.Price,
+                    OldPrice = x.OldPrice,
                     ThumbnailImage = x.ThumbnailImage
                 }).ToList();
 
