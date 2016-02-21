@@ -22,9 +22,17 @@ namespace HvCommerce.Core.Domain.Models
 
         public Media ThumbnailImage { get; set; }
 
-        public virtual IList<ProductMedia> Medias { get; set; } = new List<ProductMedia>();
+        public virtual IList<ProductMedia> Medias { get; protected set; } = new List<ProductMedia>();
 
-        public virtual IList<ProductVariation> Variations { get; set; } = new List<ProductVariation>();
+        public virtual IList<ProductVariation> Variations { get; protected set; } = new List<ProductVariation>();
+
+        public virtual IList<ProductCategory> Categories { get; protected set; } = new List<ProductCategory>();
+
+        public void AddCategory(ProductCategory category)
+        {
+            category.Product = this;
+            Categories.Add(category);
+        }
 
         public void AddMedia(ProductMedia media)
         {

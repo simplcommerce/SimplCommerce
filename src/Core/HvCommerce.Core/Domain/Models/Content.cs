@@ -5,7 +5,7 @@ namespace HvCommerce.Core.Domain.Models
 {
     public abstract class Content : Entity
     {
-        public Content()
+        protected Content()
         {
             CreatedOn = DateTime.Now;
             UpdatedOn = DateTime.Now;

@@ -4,6 +4,7 @@ using HvCommerce.Core.ApplicationServices;
 using HvCommerce.Core.Domain.Models;
 using HvCommerce.Infrastructure;
 using HvCommerce.Infrastructure.Domain.IRepositories;
+using HvCommerce.Web.Areas.Admin.Helpers;
 using HvCommerce.Web.Areas.Admin.ViewModels;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -33,7 +34,8 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
 
         public IActionResult ListAjax([DataSourceRequest] DataSourceRequest request)
         {
-            var categoriesList = GetAllCategory();
+            var categories = categoryRepository.Query().Where(x => !x.IsDeleted).ToList();
+            var categoriesList = CategoryMapper.ToCategoryListItem(categories);
             var gridData = categoriesList.ToDataSourceResult(request);
 
             return Json(gridData);
@@ -117,40 +119,14 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
 
         private void AddCategoryListToForm(long excludedId)
         {
-            var categories =
-                GetAllCategory()
+            var categories = categoryRepository.Query().Where(x => !x.IsDeleted).ToList();
+
+            var categoryListItem = CategoryMapper.ToCategoryListItem(categories)
                     .Where(x => x.Id != excludedId)
                     .Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() })
                     .ToList();
-            categories.Insert(0, new SelectListItem { Text = "Top", Value = string.Empty });
-            ViewBag.Categories = categories;
-        }
-
-        private IList<CategoryListItem> GetAllCategory()
-        {
-            var categories = categoryRepository.Query().Where(x => !x.IsDeleted).ToList();
-
-            var categoriesList = new List<CategoryListItem>();
-            foreach (var category in categories)
-            {
-                var categoryListItem = new CategoryListItem
-                {
-                    Id = category.Id,
-                    IsPublished = category.IsPublished,
-                    Name = category.Name
-                };
-
-                var parentCategory = category.Parent;
-                while (parentCategory != null)
-                {
-                    categoryListItem.Name = $"{parentCategory.Name} >> {categoryListItem.Name}";
-                    parentCategory = parentCategory.Parent;
-                }
-
-                categoriesList.Add(categoryListItem);
-            }
-
-            return categoriesList.OrderBy(x => x.Name).ToList();
+            categoryListItem.Insert(0, new SelectListItem { Text = "Top", Value = string.Empty });
+            ViewBag.Categories = categoryListItem;
         }
     }
 }

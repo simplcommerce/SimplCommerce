@@ -23,7 +23,7 @@ namespace HvCommerce.Core.Domain.Models
 
         public virtual Category Parent { get; set; }
 
-        public virtual IList<Category> Child { get; protected set; }
+        public virtual IList<Category> Child { get; protected set; } = new List<Category>();
 
         public string Image { get; set; }
     }

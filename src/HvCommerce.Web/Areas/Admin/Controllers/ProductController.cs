@@ -7,12 +7,14 @@ using HvCommerce.Core.ApplicationServices;
 using HvCommerce.Core.Domain.Models;
 using HvCommerce.Infrastructure;
 using HvCommerce.Infrastructure.Domain.IRepositories;
+using HvCommerce.Web.Areas.Admin.Helpers;
 using HvCommerce.Web.Areas.Admin.ViewModels;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
+using Microsoft.AspNet.Mvc.Rendering;
 
 namespace HvCommerce.Web.Areas.Admin.Controllers
 {
@@ -22,11 +24,13 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
     {
         private readonly IRepository<Product> productRepository;
         private readonly IMediaService mediaService;
+        private readonly IRepository<Category> categoryRepository; 
 
-        public ProductController(IRepository<Product> productRepository, IMediaService mediaService)
+        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IRepository<Category> categoryRepository)
         {
             this.productRepository = productRepository;
             this.mediaService = mediaService;
+            this.categoryRepository = categoryRepository;
         }
 
         public IActionResult List()
@@ -53,6 +57,8 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
         public IActionResult Create()
         {
             var model = new ProductForm();
+            AddCategoryListToForm();
+
             return View(model);
         }
 
@@ -61,6 +67,7 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
+                AddCategoryListToForm();
                 return View(model);
             }
 
@@ -74,6 +81,15 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
                 OldPrice = model.OldPrice,
                 IsPublished = model.IsPublished
             };
+
+            foreach (var categoryId in model.CategoryIds)
+            {
+                var productCategory = new ProductCategory
+                {
+                    CategoryId = categoryId
+                };
+                product.AddCategory(productCategory);
+            }
 
             if (thumbnailImage != null)
             {
@@ -104,6 +120,16 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
             var fileName = $"{Guid.NewGuid()}.{Path.GetExtension(originalFileName)}";
             mediaService.SaveMedia(file.OpenReadStream(), fileName);
             return fileName;
+        }
+
+        private void AddCategoryListToForm()
+        {
+            var categories = categoryRepository.Query().Where(x => !x.IsDeleted).ToList();
+
+            var categoryListItem = CategoryMapper.ToCategoryListItem(categories)
+                    .Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() })
+                    .ToList();
+            ViewBag.Categories = categoryListItem;
         }
     }
 }

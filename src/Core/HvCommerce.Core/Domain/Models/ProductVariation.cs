@@ -8,8 +8,6 @@ namespace HvCommerce.Core.Domain.Models
     {
         public ProductVariation()
         {
-            Attributes = new List<ProductAttribute>();
-
             CreatedOn = UpdatedOn = DateTime.UtcNow;
         }
 
@@ -24,12 +22,7 @@ namespace HvCommerce.Core.Domain.Models
 
         public decimal Price { get; set; }
 
-        public virtual decimal OldPrice { get; set; }
-
-        /// <summary>
-        ///     Show text instead of a specific price
-        /// </summary>
-        public virtual string PriceText { get; set; }
+        public decimal OldPrice { get; set; }
 
         public bool IsAllowOrder { get; set; }
 
@@ -49,6 +42,6 @@ namespace HvCommerce.Core.Domain.Models
 
         public virtual User UpdatedBy { get; set; }
 
-        public virtual IList<ProductAttribute> Attributes { get; protected set; }
+        public virtual IList<ProductAttribute> Attributes { get; protected set; } = new List<ProductAttribute>();
     }
 }

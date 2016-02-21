@@ -12,67 +12,78 @@
             </div>
         </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="Name" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="Name" class="form-control"/>
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="ShortDescription" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <textarea asp-for="ShortDescription" class="form-control"></textarea>
-            <span asp-validation-for="ShortDescription" class="text-danger"></span>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Description" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <textarea asp-for="Description" class="form-control"></textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Price" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="Price" class="form-control"/>
-            <span asp-validation-for="Price" class="text-danger"></span>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="OldPrice" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="OldPrice" class="form-control" />
-            <span asp-validation-for="OldPrice" class="text-danger"></span>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-md-2 control-label">Thumbnail Image</label>
-        <div class="col-md-10">
-            <input type="file" name="thumbnailImage" multiple />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-md-2 control-label">Images</label>
-        <div class="col-md-10">
-            <input type="file" name="images" multiple />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="IsPublished" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <div class="checkbox">
-                <label><input asp-for="IsPublished" /></label>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#productInfo" aria-controls="productInfo" role="tab" data-toggle="tab">Product Information</a></li>
+        <li role="presentation"><a href="#categoryMapping" aria-controls="categoryMapping" role="tab" data-toggle="tab">Category Mapping</a></li>
+    </ul>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="productInfo">
+            <div class="form-group">
+                <label asp-for="Name" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Name" class="form-control"/>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
             </div>
+
+            <div class="form-group">
+                <label asp-for="ShortDescription" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <textarea asp-for="ShortDescription" class="form-control"></textarea>
+                    <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Price" class="form-control"/>
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="OldPrice" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="OldPrice" class="form-control"/>
+                    <span asp-validation-for="OldPrice" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label">Thumbnail Image</label>
+                <div class="col-md-10">
+                    <input type="file" name="thumbnailImage" multiple/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label">Images</label>
+                <div class="col-md-10">
+                    <input type="file" name="images" multiple/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IsPublished" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        <label><input asp-for="IsPublished"/></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="categoryMapping">
+            <select asp-for="CategoryIds" asp-items="ViewBag.Categories" class="form-control"></select>
         </div>
     </div>
 </form>

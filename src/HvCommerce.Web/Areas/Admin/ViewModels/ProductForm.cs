@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HvCommerce.Web.Areas.Admin.ViewModels
 {
@@ -25,5 +26,7 @@ namespace HvCommerce.Web.Areas.Admin.ViewModels
         public string Description { get; set; }
 
         public bool IsPublished { get; set; }
+
+        public IList<long> CategoryIds { get; set; } = new List<long>();
     }
 }
