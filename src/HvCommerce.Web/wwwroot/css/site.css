@@ -1,8 +1,4 @@
-﻿body {
-    padding-top: 50px;
-}
-
-/* Set widths on the form inputs since otherwise they're 100% wide */
+﻿/* Set widths on the form inputs since otherwise they're 100% wide */
 input,
 select,
 textarea {

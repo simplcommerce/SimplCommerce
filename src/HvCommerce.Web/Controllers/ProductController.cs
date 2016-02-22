@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data.Entity;
+using System.Linq;
 using HvCommerce.Core.ApplicationServices;
 using HvCommerce.Core.Domain.Models;
 using HvCommerce.Infrastructure.Domain.IRepositories;
@@ -61,7 +62,9 @@ namespace HvCommerce.Web.Controllers
         [Route("product/{seoTitle}")]
         public IActionResult ProductDetail(string seoTitle)
         {
-            var product = productRepository.Query().FirstOrDefault(x => x.SeoTitle == seoTitle && x.IsPublished);
+            var product = productRepository.Query()
+                .Include(x => x.Medias)
+                .FirstOrDefault(x => x.SeoTitle == seoTitle && x.IsPublished);
             if (product == null)
             {
                 return Redirect("~/Error/FindNotFound");

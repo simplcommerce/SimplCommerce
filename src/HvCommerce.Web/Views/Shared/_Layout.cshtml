@@ -19,10 +19,12 @@
         @RenderSection("head", required: false)
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar">
             <div class="container">
                 <div class="navbar-header">
-                    <a asp-controller="Home" asp-action="Index" class="navbar-brand">HvCommerce.Web</a>
+                    <a asp-controller="Home" asp-action="Index" class="navbar-brand">
+                        <img alt="HvCommerce" src="~/images/logo_hvcommerce.png" />
+                    </a>
                 </div>
                 <div class="navbar-collapse collapse">
                     @await Html.PartialAsync("_LoginPartial")
@@ -31,6 +33,7 @@
         </div>
         <div class="navbar">
             <div class="container">
+                <hr />
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
