@@ -172,6 +172,7 @@
     <Compile Include="ApplicationServices\IMediaService.cs" />
     <Compile Include="ApplicationServices\MessageServices.cs" />
     <Compile Include="ApplicationServices\HvModule.cs" />
+    <Compile Include="Common\CommonHelper.cs" />
     <Compile Include="Domain\Models\Category.cs" />
     <Compile Include="Domain\Models\Content.cs" />
     <Compile Include="Domain\Models\Media.cs" />
