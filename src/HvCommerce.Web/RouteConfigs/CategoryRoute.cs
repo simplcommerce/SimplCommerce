@@ -5,7 +5,7 @@ using Microsoft.AspNet.Routing;
 
 namespace HvCommerce.Web.RouteConfigs
 {
-    public class CategoryRoute : Attribute, ICategoryRoute
+    public class CategoryRoute : ICategoryRoute
     {
         private readonly IRouter _target;
         private readonly ICategoryService _categoryService;
