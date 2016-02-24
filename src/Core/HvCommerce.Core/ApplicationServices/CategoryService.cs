@@ -1,11 +1,17 @@
-﻿using HvCommerce.Core.Domain.Models;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
+using HvCommerce.Core.Domain.Models;
+using HvCommerce.Core.Infrastructure.EntityFramework;
 using HvCommerce.Infrastructure.Domain.IRepositories;
 
 namespace HvCommerce.Core.ApplicationServices
 {
     public class CategoryService : ICategoryService
     {
-        private readonly IRepository<Category> categoryRepository;
+        private IRepository<Category> categoryRepository;
 
         public CategoryService(IRepository<Category> categoryRepository)
         {
@@ -25,6 +31,14 @@ namespace HvCommerce.Core.ApplicationServices
             foreach (var childCategory in category.Child)
             {
                 Delete(childCategory);
+            }
+        }
+
+        public async Task<bool> CheckExistBySeoTitle(string seoTitle)
+        {
+            using (this.categoryRepository = new Repository<Category>(new HvDbContext()))
+            {
+                return await categoryRepository.Query().AnyAsync(x => !x.IsDeleted && x.SeoTitle == seoTitle);
             }
         }
     }

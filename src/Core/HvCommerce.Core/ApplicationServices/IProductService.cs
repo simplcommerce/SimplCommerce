@@ -4,12 +4,8 @@ using HvCommerce.Core.Domain.Models;
 
 namespace HvCommerce.Core.ApplicationServices
 {
-    public interface ICategoryService
+    public interface IProductService
     {
-        void Delete(long id);
-
-        void Delete(Category category);
-
         Task<bool> CheckExistBySeoTitle(string seoTitle);
     }
 }

@@ -23,7 +23,7 @@ namespace HvCommerce.Web.Controllers
             this.categoryRepository = categoryRepository;
         }
 
-        [Route("category/{catSeoTitle}")]
+        //[Route("category/{catSeoTitle}")]
         public IActionResult ProductsByCategory(string catSeoTitle)
         {
             var category = categoryRepository.Query().FirstOrDefault(x => x.SeoTitle == catSeoTitle);
@@ -59,7 +59,7 @@ namespace HvCommerce.Web.Controllers
             return View(model);
         }
 
-        [Route("product/{seoTitle}")]
+        //[Route("product/{seoTitle}")]
         public IActionResult ProductDetail(string seoTitle)
         {
             var product = productRepository.Query()

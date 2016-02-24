@@ -17,15 +17,15 @@
 
                         if (childItem.ChildItems.Any())
                         {
-                            <li class="nav-item-group"><a href="/category/@childItem.SeoTitle">@childItem.Name</a></li>
+                            <li class="nav-item-group"><a href="/@childItem.SeoTitle">@childItem.Name</a></li>
                             foreach (var childChildItem in childItem.ChildItems)
                             {
-                                <li><a href="/category/@childChildItem.SeoTitle">@childChildItem.Name</a></li>
+                                <li><a href="/@childChildItem.SeoTitle">@childChildItem.Name</a></li>
                             }
                         }
                         else
                         {
-                            <li><a href="/category/@childItem.SeoTitle">@childItem.Name</a></li>
+                            <li><a href="/@childItem.SeoTitle">@childItem.Name</a></li>
                         }
                     }
                 </ul>
@@ -33,7 +33,7 @@
         }
         else
         {
-            <li><a href="/category/@item.SeoTitle">@item.Name</a></li>
+            <li><a href="/@item.SeoTitle">@item.Name</a></li>
         }
     }
 </ul>
