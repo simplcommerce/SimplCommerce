@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="hvAdmin">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,16 +15,27 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"/>
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
     </environment>
-    <link href="~/lib/kendo2016-112/css/kendo.common.min.css" rel="stylesheet"/>
-    <link href="~/lib/kendo2016-112/css/kendo.default.min.css" rel="stylesheet"/>
-    <link href="~/css/admin-core.css" rel="stylesheet" />
+    <link href="~/lib/angular-material/angular-material.css" rel="stylesheet" />
+    <link href="~/admin/css/admin-core.css" rel="stylesheet"/>
+
     <script src="~/lib/jquery/jquery.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.js"></script>
-    <script src="~/lib/kendo2016-112/js/kendo.all.min.js"></script>
-    <script src="~/lib/kendo2016-112/js/kendo.aspnetmvc.min.js"></script>
+    <script src="~/lib/angular/angular.js"></script>
+    <script src="~/lib/angular-ui-router/angular-ui-router.js"></script>
+    <script src="~/lib/angular-animate/angular-animate.js"></script>
+    <script src="~/lib/angular-aria/angular-aria.js"></script>
+    <script src="~/lib/angular-messages/angular-messages.js"></script>
+    <script src="~/lib/angular-material/angular-material.js"></script>
+    <script src="~/lib/angular-smart-table/smart-table.js"></script>
+
+    <script src="~/admin/app/admin-app.js"></script>
+    <script src="~/admin/app/dashboard/dashboard.module.js"></script>
+    <script src="~/admin/app/user/user.module.js"></script>
+    <script src="~/admin/app/category/category.module.js"></script>
+    <script src="~/admin/app/product/product.module.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -36,12 +47,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="~/Admin/User/List">Người dùng</a></li>
+                    <li><a ui-sref="user">Người dùng</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catalog <span class="caret"></span></a>
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catalog <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="~/Admin/Category/List">Category</a></li>
-                            <li><a href="~/Admin/Product/List">Product</a></li>
+                            <li><a ui-sref="category">Category</a></li>
+                            <li><a ui-sref="product">Product</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -52,11 +63,12 @@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
+        <hr/>
         <footer>
             <p>&copy; @DateTime.Now.Year - HvCommerce</p>
         </footer>
     </div>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

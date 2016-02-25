@@ -20,7 +20,14 @@ var bower = {
     "jquery": "jquery/dist/jquery*.{js,map}",
     "jquery-validation": "jquery-validation/dist/*.js",
     "jquery-validation-unobtrusive": "jquery-validation-unobtrusive/*.js",
-    "flexslider": "flexslider/**/*.{js,map,css,ttf,svg,woff,eot,png}"
+    "flexslider": "flexslider/**/*.{js,map,css,ttf,svg,woff,eot,png}",
+    "angular": "angular/angular.js",
+    "angular-animate": "angular-animate/angular*.js",
+    "angular-aria": "angular-aria/angular*.js",
+    "angular-material": "angular-material/angular-material*.{js,css}",
+    "angular-messages": "angular-messages/angular-messages.js",
+    "angular-ui-router": "angular-ui-router/release/*.js",
+    "angular-smart-table": "angular-smart-table/dist/*.js"
 };
 
 paths.js = paths.webroot + "js/**/*.js";
