@@ -1,6 +1,7 @@
 ﻿(function() {
     var adminApp = angular.module('hvAdmin', [
         'ui.router',
+        'smart-table',
         'hvAdmin.dashboard',
         'hvAdmin.user',
         'hvAdmin.category',

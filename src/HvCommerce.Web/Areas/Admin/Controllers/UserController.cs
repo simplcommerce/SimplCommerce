@@ -20,27 +20,20 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
             this.userRepository = userRepository;
         }
 
-        public IActionResult List()
-        {
-            return View();
-        }
-
         [HttpPost]
-        public ActionResult ListAjax([DataSourceRequest] DataSourceRequest request)
+        public ActionResult ListAjax()
         {
-            var users = userRepository.Query().Where(x => !x.IsDeleted);
+            var users = userRepository.Query()
+                .Where(x => !x.IsDeleted)
+                .Select(user => new UserListItem
+                    {
+                        Id = user.Id,
+                        Email = user.Email,
+                        FullName = user.FullName,
+                        CreatedOn = user.CreatedOn
+                    });
 
-            var gridData = users.ToDataSourceResult(
-                request,
-                user => new UserListItem
-                {
-                    Id = user.Id,
-                    Email = user.Email,
-                    FullName = user.FullName,
-                    CreatedOn = user.CreatedOn
-                });
-
-            return Json(gridData);
+            return Json(new { items = users, numberOfPages = 10});
         }
 
         public ActionResult Detail(long id)
