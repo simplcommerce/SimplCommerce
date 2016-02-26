@@ -93,26 +93,6 @@
           "lib/net45/EntityFramework.SqlServer.dll": {}
         }
       },
-      "EntityFramework.Commands/7.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Relational.Design": "7.0.0-rc1-final",
-          "Microsoft.AspNet.Hosting.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/dnx451/EntityFramework.Commands.dll": {}
-        },
-        "runtime": {
-          "lib/dnx451/EntityFramework.Commands.dll": {}
-        }
-      },
       "EntityFramework.Core/7.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -155,47 +135,13 @@
           "lib/dnx451/EntityFramework.Core.dll": {}
         }
       },
-      "EntityFramework.Relational/7.0.0-rc1-final": {
+      "FluentValidationNA/1.2.16": {
         "type": "package",
-        "dependencies": {
-          "EntityFramework.Core": "7.0.0-rc1-final",
-          "System.Diagnostics.DiagnosticSource": "4.0.0-beta-23516"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Data",
-          "System.Transactions"
-        ],
         "compile": {
-          "lib/net451/EntityFramework.Relational.dll": {}
+          "lib/net40/FluentValidationNA.dll": {}
         },
         "runtime": {
-          "lib/net451/EntityFramework.Relational.dll": {}
-        }
-      },
-      "EntityFramework.Relational.Design/7.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Relational": "7.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.ComponentModel.DataAnnotations",
-          "System.Core",
-          "System.IO",
-          "System.Text.Encoding",
-          "System.Threading.Tasks"
-        ],
-        "compile": {
-          "lib/dnx451/EntityFramework.Relational.Design.dll": {}
-        },
-        "runtime": {
-          "lib/dnx451/EntityFramework.Relational.Design.dll": {}
+          "lib/net40/FluentValidationNA.dll": {}
         }
       },
       "HvCommerce.Core/1.0.0": {
@@ -262,87 +208,6 @@
         },
         "runtime": {
           "lib/net45/System.Interactive.Async.dll": {}
-        }
-      },
-      "Kendo.Mvc/2016.1.112": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Commands": "7.0.0-rc1-final",
-          "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
-          "Microsoft.AspNet.Mvc.Core": "6.0.0-rc1-final",
-          "Microsoft.AspNet.Routing": "1.0.0-rc1-final",
-          "Microsoft.Dnx.Compilation": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Reflection",
-          "System.Resources.ResourceManager",
-          "System.Runtime.Serialization"
-        ],
-        "compile": {
-          "lib/dnx451/Kendo.Mvc.dll": {}
-        },
-        "runtime": {
-          "lib/dnx451/Kendo.Mvc.dll": {}
-        },
-        "resource": {
-          "lib/dnx451/bg-BG/Kendo.Mvc.resources.dll": {
-            "locale": "bg-BG"
-          },
-          "lib/dnx451/cs-CZ/Kendo.Mvc.resources.dll": {
-            "locale": "cs-CZ"
-          },
-          "lib/dnx451/da-DK/Kendo.Mvc.resources.dll": {
-            "locale": "da-DK"
-          },
-          "lib/dnx451/de-DE/Kendo.Mvc.resources.dll": {
-            "locale": "de-DE"
-          },
-          "lib/dnx451/es-ES/Kendo.Mvc.resources.dll": {
-            "locale": "es-ES"
-          },
-          "lib/dnx451/fr-CA/Kendo.Mvc.resources.dll": {
-            "locale": "fr-CA"
-          },
-          "lib/dnx451/fr-FR/Kendo.Mvc.resources.dll": {
-            "locale": "fr-FR"
-          },
-          "lib/dnx451/it-IT/Kendo.Mvc.resources.dll": {
-            "locale": "it-IT"
-          },
-          "lib/dnx451/nl-NL/Kendo.Mvc.resources.dll": {
-            "locale": "nl-NL"
-          },
-          "lib/dnx451/pl-PL/Kendo.Mvc.resources.dll": {
-            "locale": "pl-PL"
-          },
-          "lib/dnx451/pt-BR/Kendo.Mvc.resources.dll": {
-            "locale": "pt-BR"
-          },
-          "lib/dnx451/pt-PT/Kendo.Mvc.resources.dll": {
-            "locale": "pt-PT"
-          },
-          "lib/dnx451/ro-RO/Kendo.Mvc.resources.dll": {
-            "locale": "ro-RO"
-          },
-          "lib/dnx451/ru-RU/Kendo.Mvc.resources.dll": {
-            "locale": "ru-RU"
-          },
-          "lib/dnx451/sv-SE/Kendo.Mvc.resources.dll": {
-            "locale": "sv-SE"
-          },
-          "lib/dnx451/tr-TR/Kendo.Mvc.resources.dll": {
-            "locale": "tr-TR"
-          },
-          "lib/dnx451/uk-UA/Kendo.Mvc.resources.dll": {
-            "locale": "uk-UA"
-          },
-          "lib/dnx451/zh-CN/Kendo.Mvc.resources.dll": {
-            "locale": "zh-CN"
-          }
         }
       },
       "Microsoft.ApplicationInsights/1.1.1-beta": {
@@ -1385,26 +1250,6 @@
           "lib/net45/Microsoft.CodeAnalysis.CSharp.dll": {}
         }
       },
-      "Microsoft.Dnx.Compilation/1.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Dnx.Compilation.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Dnx.Runtime": "1.0.0-rc1-final",
-          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/dnx451/Microsoft.Dnx.Compilation.dll": {}
-        },
-        "runtime": {
-          "lib/dnx451/Microsoft.Dnx.Compilation.dll": {}
-        }
-      },
       "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -1461,51 +1306,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.Dnx.Compilation.CSharp.Common.dll": {}
-        }
-      },
-      "Microsoft.Dnx.Loader/1.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/dnx451/Microsoft.Dnx.Loader.dll": {}
-        },
-        "runtime": {
-          "lib/dnx451/Microsoft.Dnx.Loader.dll": {}
-        }
-      },
-      "Microsoft.Dnx.Runtime/1.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.CodeAnalysis.CSharp": "1.1.0-rc1-20151109-01",
-          "Microsoft.Dnx.Loader": "1.0.0-rc1-final",
-          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Collections",
-          "System.Core",
-          "System.IO",
-          "System.Runtime",
-          "System.Text.Encoding",
-          "System.Threading.Tasks",
-          "System.Xml",
-          "System.Xml.Linq"
-        ],
-        "compile": {
-          "lib/dnx451/Microsoft.Dnx.Runtime.dll": {}
-        },
-        "runtime": {
-          "lib/dnx451/Microsoft.Dnx.Runtime.dll": {}
         }
       },
       "Microsoft.Extensions.Caching.Abstractions/1.0.0-rc1-final": {
@@ -2256,6 +2056,18 @@
           "lib/net45/_._": {}
         }
       },
+      "System.Linq.Dynamic.Library/1.1.14": {
+        "type": "package",
+        "dependencies": {
+          "FluentValidationNA": "1.2.16"
+        },
+        "compile": {
+          "lib/net40/System.Linq.Dynamic.dll": {}
+        },
+        "runtime": {
+          "lib/net40/System.Linq.Dynamic.dll": {}
+        }
+      },
       "System.Numerics.Vectors/4.1.1-beta-23516": {
         "type": "package",
         "compile": {
@@ -2472,26 +2284,6 @@
           "lib/net45/EntityFramework.SqlServer.dll": {}
         }
       },
-      "EntityFramework.Commands/7.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Relational.Design": "7.0.0-rc1-final",
-          "Microsoft.AspNet.Hosting.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/dnx451/EntityFramework.Commands.dll": {}
-        },
-        "runtime": {
-          "lib/dnx451/EntityFramework.Commands.dll": {}
-        }
-      },
       "EntityFramework.Core/7.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -2534,47 +2326,13 @@
           "lib/dnx451/EntityFramework.Core.dll": {}
         }
       },
-      "EntityFramework.Relational/7.0.0-rc1-final": {
+      "FluentValidationNA/1.2.16": {
         "type": "package",
-        "dependencies": {
-          "EntityFramework.Core": "7.0.0-rc1-final",
-          "System.Diagnostics.DiagnosticSource": "4.0.0-beta-23516"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Data",
-          "System.Transactions"
-        ],
         "compile": {
-          "lib/net451/EntityFramework.Relational.dll": {}
+          "lib/net40/FluentValidationNA.dll": {}
         },
         "runtime": {
-          "lib/net451/EntityFramework.Relational.dll": {}
-        }
-      },
-      "EntityFramework.Relational.Design/7.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Relational": "7.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.ComponentModel.DataAnnotations",
-          "System.Core",
-          "System.IO",
-          "System.Text.Encoding",
-          "System.Threading.Tasks"
-        ],
-        "compile": {
-          "lib/dnx451/EntityFramework.Relational.Design.dll": {}
-        },
-        "runtime": {
-          "lib/dnx451/EntityFramework.Relational.Design.dll": {}
+          "lib/net40/FluentValidationNA.dll": {}
         }
       },
       "HvCommerce.Core/1.0.0": {
@@ -2641,87 +2399,6 @@
         },
         "runtime": {
           "lib/net45/System.Interactive.Async.dll": {}
-        }
-      },
-      "Kendo.Mvc/2016.1.112": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Commands": "7.0.0-rc1-final",
-          "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
-          "Microsoft.AspNet.Mvc.Core": "6.0.0-rc1-final",
-          "Microsoft.AspNet.Routing": "1.0.0-rc1-final",
-          "Microsoft.Dnx.Compilation": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Reflection",
-          "System.Resources.ResourceManager",
-          "System.Runtime.Serialization"
-        ],
-        "compile": {
-          "lib/dnx451/Kendo.Mvc.dll": {}
-        },
-        "runtime": {
-          "lib/dnx451/Kendo.Mvc.dll": {}
-        },
-        "resource": {
-          "lib/dnx451/bg-BG/Kendo.Mvc.resources.dll": {
-            "locale": "bg-BG"
-          },
-          "lib/dnx451/cs-CZ/Kendo.Mvc.resources.dll": {
-            "locale": "cs-CZ"
-          },
-          "lib/dnx451/da-DK/Kendo.Mvc.resources.dll": {
-            "locale": "da-DK"
-          },
-          "lib/dnx451/de-DE/Kendo.Mvc.resources.dll": {
-            "locale": "de-DE"
-          },
-          "lib/dnx451/es-ES/Kendo.Mvc.resources.dll": {
-            "locale": "es-ES"
-          },
-          "lib/dnx451/fr-CA/Kendo.Mvc.resources.dll": {
-            "locale": "fr-CA"
-          },
-          "lib/dnx451/fr-FR/Kendo.Mvc.resources.dll": {
-            "locale": "fr-FR"
-          },
-          "lib/dnx451/it-IT/Kendo.Mvc.resources.dll": {
-            "locale": "it-IT"
-          },
-          "lib/dnx451/nl-NL/Kendo.Mvc.resources.dll": {
-            "locale": "nl-NL"
-          },
-          "lib/dnx451/pl-PL/Kendo.Mvc.resources.dll": {
-            "locale": "pl-PL"
-          },
-          "lib/dnx451/pt-BR/Kendo.Mvc.resources.dll": {
-            "locale": "pt-BR"
-          },
-          "lib/dnx451/pt-PT/Kendo.Mvc.resources.dll": {
-            "locale": "pt-PT"
-          },
-          "lib/dnx451/ro-RO/Kendo.Mvc.resources.dll": {
-            "locale": "ro-RO"
-          },
-          "lib/dnx451/ru-RU/Kendo.Mvc.resources.dll": {
-            "locale": "ru-RU"
-          },
-          "lib/dnx451/sv-SE/Kendo.Mvc.resources.dll": {
-            "locale": "sv-SE"
-          },
-          "lib/dnx451/tr-TR/Kendo.Mvc.resources.dll": {
-            "locale": "tr-TR"
-          },
-          "lib/dnx451/uk-UA/Kendo.Mvc.resources.dll": {
-            "locale": "uk-UA"
-          },
-          "lib/dnx451/zh-CN/Kendo.Mvc.resources.dll": {
-            "locale": "zh-CN"
-          }
         }
       },
       "Microsoft.ApplicationInsights/1.1.1-beta": {
@@ -3767,26 +3444,6 @@
           "lib/net45/Microsoft.CodeAnalysis.CSharp.dll": {}
         }
       },
-      "Microsoft.Dnx.Compilation/1.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Dnx.Compilation.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Dnx.Runtime": "1.0.0-rc1-final",
-          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/dnx451/Microsoft.Dnx.Compilation.dll": {}
-        },
-        "runtime": {
-          "lib/dnx451/Microsoft.Dnx.Compilation.dll": {}
-        }
-      },
       "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -3843,51 +3500,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.Dnx.Compilation.CSharp.Common.dll": {}
-        }
-      },
-      "Microsoft.Dnx.Loader/1.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/dnx451/Microsoft.Dnx.Loader.dll": {}
-        },
-        "runtime": {
-          "lib/dnx451/Microsoft.Dnx.Loader.dll": {}
-        }
-      },
-      "Microsoft.Dnx.Runtime/1.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.CodeAnalysis.CSharp": "1.1.0-rc1-20151109-01",
-          "Microsoft.Dnx.Loader": "1.0.0-rc1-final",
-          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Collections",
-          "System.Core",
-          "System.IO",
-          "System.Runtime",
-          "System.Text.Encoding",
-          "System.Threading.Tasks",
-          "System.Xml",
-          "System.Xml.Linq"
-        ],
-        "compile": {
-          "lib/dnx451/Microsoft.Dnx.Runtime.dll": {}
-        },
-        "runtime": {
-          "lib/dnx451/Microsoft.Dnx.Runtime.dll": {}
         }
       },
       "Microsoft.Extensions.Caching.Abstractions/1.0.0-rc1-final": {
@@ -4638,6 +4250,18 @@
           "lib/net45/_._": {}
         }
       },
+      "System.Linq.Dynamic.Library/1.1.14": {
+        "type": "package",
+        "dependencies": {
+          "FluentValidationNA": "1.2.16"
+        },
+        "compile": {
+          "lib/net40/System.Linq.Dynamic.dll": {}
+        },
+        "runtime": {
+          "lib/net40/System.Linq.Dynamic.dll": {}
+        }
+      },
       "System.Numerics.Vectors/4.1.1-beta-23516": {
         "type": "package",
         "compile": {
@@ -4854,26 +4478,6 @@
           "lib/net45/EntityFramework.SqlServer.dll": {}
         }
       },
-      "EntityFramework.Commands/7.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Relational.Design": "7.0.0-rc1-final",
-          "Microsoft.AspNet.Hosting.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/dnx451/EntityFramework.Commands.dll": {}
-        },
-        "runtime": {
-          "lib/dnx451/EntityFramework.Commands.dll": {}
-        }
-      },
       "EntityFramework.Core/7.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -4916,47 +4520,13 @@
           "lib/dnx451/EntityFramework.Core.dll": {}
         }
       },
-      "EntityFramework.Relational/7.0.0-rc1-final": {
+      "FluentValidationNA/1.2.16": {
         "type": "package",
-        "dependencies": {
-          "EntityFramework.Core": "7.0.0-rc1-final",
-          "System.Diagnostics.DiagnosticSource": "4.0.0-beta-23516"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Data",
-          "System.Transactions"
-        ],
         "compile": {
-          "lib/net451/EntityFramework.Relational.dll": {}
+          "lib/net40/FluentValidationNA.dll": {}
         },
         "runtime": {
-          "lib/net451/EntityFramework.Relational.dll": {}
-        }
-      },
-      "EntityFramework.Relational.Design/7.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Relational": "7.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.ComponentModel.DataAnnotations",
-          "System.Core",
-          "System.IO",
-          "System.Text.Encoding",
-          "System.Threading.Tasks"
-        ],
-        "compile": {
-          "lib/dnx451/EntityFramework.Relational.Design.dll": {}
-        },
-        "runtime": {
-          "lib/dnx451/EntityFramework.Relational.Design.dll": {}
+          "lib/net40/FluentValidationNA.dll": {}
         }
       },
       "HvCommerce.Core/1.0.0": {
@@ -5023,87 +4593,6 @@
         },
         "runtime": {
           "lib/net45/System.Interactive.Async.dll": {}
-        }
-      },
-      "Kendo.Mvc/2016.1.112": {
-        "type": "package",
-        "dependencies": {
-          "EntityFramework.Commands": "7.0.0-rc1-final",
-          "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
-          "Microsoft.AspNet.Mvc.Core": "6.0.0-rc1-final",
-          "Microsoft.AspNet.Routing": "1.0.0-rc1-final",
-          "Microsoft.Dnx.Compilation": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core",
-          "System.Reflection",
-          "System.Resources.ResourceManager",
-          "System.Runtime.Serialization"
-        ],
-        "compile": {
-          "lib/dnx451/Kendo.Mvc.dll": {}
-        },
-        "runtime": {
-          "lib/dnx451/Kendo.Mvc.dll": {}
-        },
-        "resource": {
-          "lib/dnx451/bg-BG/Kendo.Mvc.resources.dll": {
-            "locale": "bg-BG"
-          },
-          "lib/dnx451/cs-CZ/Kendo.Mvc.resources.dll": {
-            "locale": "cs-CZ"
-          },
-          "lib/dnx451/da-DK/Kendo.Mvc.resources.dll": {
-            "locale": "da-DK"
-          },
-          "lib/dnx451/de-DE/Kendo.Mvc.resources.dll": {
-            "locale": "de-DE"
-          },
-          "lib/dnx451/es-ES/Kendo.Mvc.resources.dll": {
-            "locale": "es-ES"
-          },
-          "lib/dnx451/fr-CA/Kendo.Mvc.resources.dll": {
-            "locale": "fr-CA"
-          },
-          "lib/dnx451/fr-FR/Kendo.Mvc.resources.dll": {
-            "locale": "fr-FR"
-          },
-          "lib/dnx451/it-IT/Kendo.Mvc.resources.dll": {
-            "locale": "it-IT"
-          },
-          "lib/dnx451/nl-NL/Kendo.Mvc.resources.dll": {
-            "locale": "nl-NL"
-          },
-          "lib/dnx451/pl-PL/Kendo.Mvc.resources.dll": {
-            "locale": "pl-PL"
-          },
-          "lib/dnx451/pt-BR/Kendo.Mvc.resources.dll": {
-            "locale": "pt-BR"
-          },
-          "lib/dnx451/pt-PT/Kendo.Mvc.resources.dll": {
-            "locale": "pt-PT"
-          },
-          "lib/dnx451/ro-RO/Kendo.Mvc.resources.dll": {
-            "locale": "ro-RO"
-          },
-          "lib/dnx451/ru-RU/Kendo.Mvc.resources.dll": {
-            "locale": "ru-RU"
-          },
-          "lib/dnx451/sv-SE/Kendo.Mvc.resources.dll": {
-            "locale": "sv-SE"
-          },
-          "lib/dnx451/tr-TR/Kendo.Mvc.resources.dll": {
-            "locale": "tr-TR"
-          },
-          "lib/dnx451/uk-UA/Kendo.Mvc.resources.dll": {
-            "locale": "uk-UA"
-          },
-          "lib/dnx451/zh-CN/Kendo.Mvc.resources.dll": {
-            "locale": "zh-CN"
-          }
         }
       },
       "Microsoft.ApplicationInsights/1.1.1-beta": {
@@ -6149,26 +5638,6 @@
           "lib/net45/Microsoft.CodeAnalysis.CSharp.dll": {}
         }
       },
-      "Microsoft.Dnx.Compilation/1.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Dnx.Compilation.Abstractions": "1.0.0-rc1-final",
-          "Microsoft.Dnx.Runtime": "1.0.0-rc1-final",
-          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/dnx451/Microsoft.Dnx.Compilation.dll": {}
-        },
-        "runtime": {
-          "lib/dnx451/Microsoft.Dnx.Compilation.dll": {}
-        }
-      },
       "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -6225,51 +5694,6 @@
         },
         "runtime": {
           "lib/net451/Microsoft.Dnx.Compilation.CSharp.Common.dll": {}
-        }
-      },
-      "Microsoft.Dnx.Loader/1.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Core"
-        ],
-        "compile": {
-          "lib/dnx451/Microsoft.Dnx.Loader.dll": {}
-        },
-        "runtime": {
-          "lib/dnx451/Microsoft.Dnx.Loader.dll": {}
-        }
-      },
-      "Microsoft.Dnx.Runtime/1.0.0-rc1-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.CodeAnalysis.CSharp": "1.1.0-rc1-20151109-01",
-          "Microsoft.Dnx.Loader": "1.0.0-rc1-final",
-          "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
-        },
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "mscorlib",
-          "System",
-          "System.Collections",
-          "System.Core",
-          "System.IO",
-          "System.Runtime",
-          "System.Text.Encoding",
-          "System.Threading.Tasks",
-          "System.Xml",
-          "System.Xml.Linq"
-        ],
-        "compile": {
-          "lib/dnx451/Microsoft.Dnx.Runtime.dll": {}
-        },
-        "runtime": {
-          "lib/dnx451/Microsoft.Dnx.Runtime.dll": {}
         }
       },
       "Microsoft.Extensions.Caching.Abstractions/1.0.0-rc1-final": {
@@ -7020,6 +6444,18 @@
           "lib/net45/_._": {}
         }
       },
+      "System.Linq.Dynamic.Library/1.1.14": {
+        "type": "package",
+        "dependencies": {
+          "FluentValidationNA": "1.2.16"
+        },
+        "compile": {
+          "lib/net40/System.Linq.Dynamic.dll": {}
+        },
+        "runtime": {
+          "lib/net40/System.Linq.Dynamic.dll": {}
+        }
+      },
       "System.Numerics.Vectors/4.1.1-beta-23516": {
         "type": "package",
         "compile": {
@@ -7235,33 +6671,6 @@
         "tools/migrate.exe"
       ]
     },
-    "EntityFramework.Commands/7.0.0-rc1-final": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "+wa2VWX3/vDkOpeCeIotMevqpIISimGqeYNTGYRLRhv+8HzsCLeymLzmmYpjav6zYQVvuJiJodapQvijAIfRrA==",
-      "files": [
-        "app/ef",
-        "app/ef.cmd",
-        "app/project.json",
-        "build/netcore50/EntityFramework.Commands.props",
-        "EntityFramework.Commands.7.0.0-rc1-final.nupkg",
-        "EntityFramework.Commands.7.0.0-rc1-final.nupkg.sha512",
-        "EntityFramework.Commands.nuspec",
-        "lib/dnx451/EntityFramework.Commands.dll",
-        "lib/dnx451/EntityFramework.Commands.xml",
-        "lib/dnxcore50/EntityFramework.Commands.dll",
-        "lib/dnxcore50/EntityFramework.Commands.xml",
-        "lib/net451/EntityFramework.Commands.dll",
-        "lib/net451/EntityFramework.Commands.xml",
-        "lib/netcore50/_._",
-        "tools/about_EntityFramework.help.txt",
-        "tools/EntityFramework.psd1",
-        "tools/EntityFramework.psm1",
-        "tools/init.ps1",
-        "tools/install.ps1",
-        "tools/OperationHandlers.cs"
-      ]
-    },
     "EntityFramework.Core/7.0.0-rc1-final": {
       "type": "package",
       "serviceable": true,
@@ -7280,38 +6689,19 @@
         "lib/netcore50/EntityFramework.Core.xml"
       ]
     },
-    "EntityFramework.Relational/7.0.0-rc1-final": {
+    "FluentValidationNA/1.2.16": {
       "type": "package",
-      "serviceable": true,
-      "sha512": "0Feoct9mtKOIjovUgfESfVDL/odvxNXsIgK3bdlkx7Fsiqp5/tx8oiMx+qO7oNRYWsXN6XDlGKHLOzWEdUssKA==",
+      "sha512": "6VVx9+/okkhSWEHS4PDRQZPVz+fUTBX5zxMlNnE70ZoMWHv5ZKBT++t2HaTjmm3j71OGEUvSBkXcTJKHUPgQfw==",
       "files": [
-        "EntityFramework.Relational.7.0.0-rc1-final.nupkg",
-        "EntityFramework.Relational.7.0.0-rc1-final.nupkg.sha512",
-        "EntityFramework.Relational.nuspec",
-        "lib/dotnet5.4/EntityFramework.Relational.dll",
-        "lib/dotnet5.4/EntityFramework.Relational.xml",
-        "lib/net451/EntityFramework.Relational.dll",
-        "lib/net451/EntityFramework.Relational.xml",
-        "lib/netcore50/EntityFramework.Relational.dll",
-        "lib/netcore50/EntityFramework.Relational.xml"
-      ]
-    },
-    "EntityFramework.Relational.Design/7.0.0-rc1-final": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sXAqOxpHmbqOELC21vAzKlsjqgNCrk3jEjyJxjGnn1+j4hazxiqgSBTl8ZofqYzLO6ias9WfeXJy8HcXOl7waw==",
-      "files": [
-        "build/netcore50/EntityFramework.Relational.Design.props",
-        "EntityFramework.Relational.Design.7.0.0-rc1-final.nupkg",
-        "EntityFramework.Relational.Design.7.0.0-rc1-final.nupkg.sha512",
-        "EntityFramework.Relational.Design.nuspec",
-        "lib/dnx451/EntityFramework.Relational.Design.dll",
-        "lib/dnx451/EntityFramework.Relational.Design.xml",
-        "lib/dnxcore50/EntityFramework.Relational.Design.dll",
-        "lib/dnxcore50/EntityFramework.Relational.Design.xml",
-        "lib/net451/EntityFramework.Relational.Design.dll",
-        "lib/net451/EntityFramework.Relational.Design.xml",
-        "lib/netcore50/_._"
+        "FluentValidationNA.1.2.16.nupkg",
+        "FluentValidationNA.1.2.16.nupkg.sha512",
+        "FluentValidationNA.nuspec",
+        "lib/net35/FluentValidationNA.dll",
+        "lib/net35/FluentValidationNA.XML",
+        "lib/net40/FluentValidationNA.dll",
+        "lib/net40/FluentValidationNA.XML",
+        "lib/portable-net40+sl50+wp80+win/FluentValidationNA.dll",
+        "lib/portable-net40+sl50+wp80+win/FluentValidationNA.XML"
       ]
     },
     "Ix-Async/1.2.5": {
@@ -7327,55 +6717,6 @@
         "lib/net45/System.Interactive.Async.XML",
         "lib/portable-windows8+net45+wp8/System.Interactive.Async.dll",
         "lib/portable-windows8+net45+wp8/System.Interactive.Async.XML"
-      ]
-    },
-    "Kendo.Mvc/2016.1.112": {
-      "type": "package",
-      "sha512": "DX6vF9btJzK6IkKpWrqjQCqfL0b4DQ6K/Pmh5jeOtAnLEL7VZIYjbUD33UOpK82pLZrAVcCskZy7OMt594Zwmg==",
-      "files": [
-        "Kendo.Mvc.2016.1.112.nupkg",
-        "Kendo.Mvc.2016.1.112.nupkg.sha512",
-        "Kendo.Mvc.nuspec",
-        "lib/dnx451/bg-BG/Kendo.Mvc.resources.dll",
-        "lib/dnx451/cs-CZ/Kendo.Mvc.resources.dll",
-        "lib/dnx451/da-DK/Kendo.Mvc.resources.dll",
-        "lib/dnx451/de-DE/Kendo.Mvc.resources.dll",
-        "lib/dnx451/es-ES/Kendo.Mvc.resources.dll",
-        "lib/dnx451/fr-CA/Kendo.Mvc.resources.dll",
-        "lib/dnx451/fr-FR/Kendo.Mvc.resources.dll",
-        "lib/dnx451/it-IT/Kendo.Mvc.resources.dll",
-        "lib/dnx451/Kendo.Mvc.dll",
-        "lib/dnx451/Kendo.Mvc.xml",
-        "lib/dnx451/nl-NL/Kendo.Mvc.resources.dll",
-        "lib/dnx451/pl-PL/Kendo.Mvc.resources.dll",
-        "lib/dnx451/pt-BR/Kendo.Mvc.resources.dll",
-        "lib/dnx451/pt-PT/Kendo.Mvc.resources.dll",
-        "lib/dnx451/ro-RO/Kendo.Mvc.resources.dll",
-        "lib/dnx451/ru-RU/Kendo.Mvc.resources.dll",
-        "lib/dnx451/sv-SE/Kendo.Mvc.resources.dll",
-        "lib/dnx451/tr-TR/Kendo.Mvc.resources.dll",
-        "lib/dnx451/uk-UA/Kendo.Mvc.resources.dll",
-        "lib/dnx451/zh-CN/Kendo.Mvc.resources.dll",
-        "lib/dnxcore50/bg-BG/Kendo.Mvc.resources.dll",
-        "lib/dnxcore50/cs-CZ/Kendo.Mvc.resources.dll",
-        "lib/dnxcore50/da-DK/Kendo.Mvc.resources.dll",
-        "lib/dnxcore50/de-DE/Kendo.Mvc.resources.dll",
-        "lib/dnxcore50/es-ES/Kendo.Mvc.resources.dll",
-        "lib/dnxcore50/fr-CA/Kendo.Mvc.resources.dll",
-        "lib/dnxcore50/fr-FR/Kendo.Mvc.resources.dll",
-        "lib/dnxcore50/it-IT/Kendo.Mvc.resources.dll",
-        "lib/dnxcore50/Kendo.Mvc.dll",
-        "lib/dnxcore50/Kendo.Mvc.xml",
-        "lib/dnxcore50/nl-NL/Kendo.Mvc.resources.dll",
-        "lib/dnxcore50/pl-PL/Kendo.Mvc.resources.dll",
-        "lib/dnxcore50/pt-BR/Kendo.Mvc.resources.dll",
-        "lib/dnxcore50/pt-PT/Kendo.Mvc.resources.dll",
-        "lib/dnxcore50/ro-RO/Kendo.Mvc.resources.dll",
-        "lib/dnxcore50/ru-RU/Kendo.Mvc.resources.dll",
-        "lib/dnxcore50/sv-SE/Kendo.Mvc.resources.dll",
-        "lib/dnxcore50/tr-TR/Kendo.Mvc.resources.dll",
-        "lib/dnxcore50/uk-UA/Kendo.Mvc.resources.dll",
-        "lib/dnxcore50/zh-CN/Kendo.Mvc.resources.dll"
       ]
     },
     "Microsoft.ApplicationInsights/1.1.1-beta": {
@@ -8099,7 +7440,7 @@
     },
     "Microsoft.CodeAnalysis.Analyzers/1.0.0": {
       "type": "package",
-      "sha512": "E7VdmGw6xO3VHWapC+pNLZmo6yncS53UY3bmb5WZm9wliJBB1A6brgzKA4fcqiLrmJFx71r0M2zEbRDphRLUNg==",
+      "sha512": "2+V/VDgZu59Thrlp+FQH38H/SmPBegMKsG0ie1ZZyHtx7kJNEozIx/p9zs0UrolX0uyYX7Ouoj3Q3Be15lqXxA==",
       "files": [
         "analyzers/dotnet/cs/Microsoft.CodeAnalysis.Analyzers.dll",
         "analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.Analyzers.dll",
@@ -8115,7 +7456,7 @@
     },
     "Microsoft.CodeAnalysis.Common/1.1.0-rc1-20151109-01": {
       "type": "package",
-      "sha512": "5eea4BzS8/ge6aVWbweZ3LxMZumN7lm1hPPjSn3iAS3yi1ozsg1aCZ+lHq2nbS/ZNT+Z3QmTcmKaQd3b4bTqeA==",
+      "sha512": "gC9zpQARTjIOht1dZM5Bp0fbOKA40yh0wHBMG2psLGquche0URbfdB9i1pnCusLospEsRIrNvYl75647BcBVug==",
       "files": [
         "lib/net45/Microsoft.CodeAnalysis.dll",
         "lib/net45/Microsoft.CodeAnalysis.xml",
@@ -8129,7 +7470,7 @@
     },
     "Microsoft.CodeAnalysis.CSharp/1.1.0-rc1-20151109-01": {
       "type": "package",
-      "sha512": "2u8FpEIzbjvW6kveLYDwVgrrw7rkqN123dQSMLL3aRBcNFpKL4+hJkrU5uutsVNmjrzxjQkrSKQjIw6L2yjU9w==",
+      "sha512": "BFhSWMMlp0xLN/ogn71ULN7N0yy/yqJf/wu63x3KjV497n+8OlyiX7ZnbaQiUeafjW5P2vLzvZH99+5s+dH3Dg==",
       "files": [
         "lib/net45/Microsoft.CodeAnalysis.CSharp.dll",
         "lib/net45/Microsoft.CodeAnalysis.CSharp.xml",
@@ -8139,20 +7480,6 @@
         "Microsoft.CodeAnalysis.CSharp.1.1.0-rc1-20151109-01.nupkg.sha512",
         "Microsoft.CodeAnalysis.CSharp.nuspec",
         "ThirdPartyNotices.rtf"
-      ]
-    },
-    "Microsoft.Dnx.Compilation/1.0.0-rc1-final": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "8uvkEZs54CFDihVKtY2vqQMPrqhLxzwVaKTJEV2iCstaKfnhYng2XsnW5bUXjspCskLirzt6vmuaTejpnqa1qw==",
-      "files": [
-        "lib/dnx451/Microsoft.Dnx.Compilation.dll",
-        "lib/dnx451/Microsoft.Dnx.Compilation.xml",
-        "lib/dnxcore50/Microsoft.Dnx.Compilation.dll",
-        "lib/dnxcore50/Microsoft.Dnx.Compilation.xml",
-        "Microsoft.Dnx.Compilation.1.0.0-rc1-final.nupkg",
-        "Microsoft.Dnx.Compilation.1.0.0-rc1-final.nupkg.sha512",
-        "Microsoft.Dnx.Compilation.nuspec"
       ]
     },
     "Microsoft.Dnx.Compilation.Abstractions/1.0.0-rc1-final": {
@@ -8195,34 +7522,6 @@
         "Microsoft.Dnx.Compilation.CSharp.Common.1.0.0-rc1-final.nupkg",
         "Microsoft.Dnx.Compilation.CSharp.Common.1.0.0-rc1-final.nupkg.sha512",
         "Microsoft.Dnx.Compilation.CSharp.Common.nuspec"
-      ]
-    },
-    "Microsoft.Dnx.Loader/1.0.0-rc1-final": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "KxGojNFIWzcWDV/j2WVAIwstVPh4ItNPcwLZqIlEZqLRg3G5YLgMr1XzXXBZva6w8ANjzDmEgJ3HH4dMV+koCw==",
-      "files": [
-        "lib/dnx451/Microsoft.Dnx.Loader.dll",
-        "lib/dnx451/Microsoft.Dnx.Loader.xml",
-        "lib/dnxcore50/Microsoft.Dnx.Loader.dll",
-        "lib/dnxcore50/Microsoft.Dnx.Loader.xml",
-        "Microsoft.Dnx.Loader.1.0.0-rc1-final.nupkg",
-        "Microsoft.Dnx.Loader.1.0.0-rc1-final.nupkg.sha512",
-        "Microsoft.Dnx.Loader.nuspec"
-      ]
-    },
-    "Microsoft.Dnx.Runtime/1.0.0-rc1-final": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "7vnecNxDeHwZxRa9egj++dMMze50OJb3WNecIzfC1Lpo/Z/KtUteVPEAdgn4WxAov51U1XZkZ9IfVu2rWNW7WQ==",
-      "files": [
-        "lib/dnx451/Microsoft.Dnx.Runtime.dll",
-        "lib/dnx451/Microsoft.Dnx.Runtime.xml",
-        "lib/dnxcore50/Microsoft.Dnx.Runtime.dll",
-        "lib/dnxcore50/Microsoft.Dnx.Runtime.xml",
-        "Microsoft.Dnx.Runtime.1.0.0-rc1-final.nupkg",
-        "Microsoft.Dnx.Runtime.1.0.0-rc1-final.nupkg.sha512",
-        "Microsoft.Dnx.Runtime.nuspec"
       ]
     },
     "Microsoft.Extensions.Caching.Abstractions/1.0.0-rc1-final": {
@@ -9122,6 +8421,21 @@
         "System.Linq.nuspec"
       ]
     },
+    "System.Linq.Dynamic.Library/1.1.14": {
+      "type": "package",
+      "sha512": "ZBtE4ud9UEqYrNZ2PnMaMB4YeglJa+efDCrYwNr+nlhkBAGhuljILN9rd/gi0rLuE8oXW4pCMcZSsAZI+K9uOg==",
+      "files": [
+        "lib/net35/System.Linq.Dynamic.dll",
+        "lib/net35/System.Linq.Dynamic.XML",
+        "lib/net40/System.Linq.Dynamic.dll",
+        "lib/net40/System.Linq.Dynamic.XML",
+        "lib/sl50/System.Linq.Dynamic.SL.dll",
+        "lib/sl50/System.Linq.Dynamic.SL.XML",
+        "System.Linq.Dynamic.Library.1.1.14.nupkg",
+        "System.Linq.Dynamic.Library.1.1.14.nupkg.sha512",
+        "System.Linq.Dynamic.Library.nuspec"
+      ]
+    },
     "System.Numerics.Vectors/4.1.1-beta-23516": {
       "type": "package",
       "serviceable": true,
@@ -9232,7 +8546,7 @@
     "System.Reflection.Metadata/1.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "a8VsRm/B0Ik1o5FumSMWmpwbG7cvIIajAYhzTTy9VB9XItByJDQHGZkQTIAdsvVJ6MI5O3uH/lb0izgQDlDIWA==",
+      "sha512": "RLIE4sSt2zngMLuqM6YmxBH99mTumtT4DNZE4+msfEaInUP5iCLQT+BHPl+2cjSAP1pdALyAjLB8RtCB+WGGWQ==",
       "files": [
         "lib/dotnet5.2/System.Reflection.Metadata.dll",
         "lib/dotnet5.2/System.Reflection.Metadata.xml",
@@ -9622,7 +8936,7 @@
       "EntityFramework >= 6.1.3",
       "CommonServiceLocator >= 1.3.0",
       "Microsoft.AspNet.Authentication.Google >= 1.0.0-rc1-final",
-      "Kendo.Mvc >= 2016.1.112"
+      "System.Linq.Dynamic.Library >= 1.1.14"
     ],
     "DNX,Version=v4.5.1": [
       "AspNet.Identity.EntityFramework6 >= 1.0.0-*",

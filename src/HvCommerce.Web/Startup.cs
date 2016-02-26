@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Practices.ServiceLocation;
+using Newtonsoft.Json.Serialization;
 
 namespace HvCommerce.Web
 {
@@ -58,9 +59,10 @@ namespace HvCommerce.Web
                 .AddUserStore<HvUserStore>()
                 .AddDefaultTokenProviders();
 
-            services.AddMvc();
-
-            services.AddKendo();
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
 
             services.AddScoped(f => Configuration);
 

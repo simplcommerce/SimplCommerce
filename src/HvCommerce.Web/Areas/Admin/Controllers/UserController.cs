@@ -2,12 +2,9 @@
 using HvCommerce.Core.Domain.Models;
 using HvCommerce.Infrastructure.Domain.IRepositories;
 using HvCommerce.Web.Areas.Admin.ViewModels;
-using Kendo.Mvc.Extensions;
-using Kendo.Mvc.UI;
+using HvCommerce.Web.Areas.Admin.ViewModels.SmartTable;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
-using HvCommerce.Web.ViewModels.SmartTable;
-using HvCommerce.Infrastructure;
 
 namespace HvCommerce.Web.Areas.Admin.Controllers
 {
@@ -26,21 +23,10 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
         public ActionResult ListAjax([FromBody] SmartTableParam param)
         {
             var query = userRepository.Query().Where(x => !x.IsDeleted);
-            var totalRecord = query.Count();
 
-            if(!string.IsNullOrWhiteSpace(param.Sort.Predicate))
-            {
-                query = query.OrderByName(param.Sort.Predicate, param.Sort.Reverse);
-            }
-            else
-            {
-                query = query.OrderByDescending(x => x.CreatedOn);
-            }
-
-            var users = query
-                .Skip(param.Pagination.Start)
-                .Take(param.Pagination.Number)
-                .Select(user => new UserListItem
+            var users = query.ToSmartTableResult(
+                param,
+                user => new UserListItem
                  {
                      Id = user.Id,
                      Email = user.Email,
@@ -48,7 +34,7 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
                      CreatedOn = user.CreatedOn
                  });
 
-            return Json(new { items = users, numberOfPages = totalRecord});
+            return Json(users);
         }
 
         public ActionResult Detail(long id)

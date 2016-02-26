@@ -9,8 +9,7 @@ using HvCommerce.Infrastructure;
 using HvCommerce.Infrastructure.Domain.IRepositories;
 using HvCommerce.Web.Areas.Admin.Helpers;
 using HvCommerce.Web.Areas.Admin.ViewModels;
-using Kendo.Mvc.Extensions;
-using Kendo.Mvc.UI;
+using HvCommerce.Web.Areas.Admin.ViewModels.SmartTable;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
@@ -38,11 +37,11 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
             return View();
         }
 
-        public IActionResult ListAjax([DataSourceRequest] DataSourceRequest request)
+        public IActionResult ListAjax([FromBody] SmartTableParam param)
         {
             var products = productRepository.Query().Where(x => !x.IsDeleted);
-            var gridData = products.ToDataSourceResult(
-                request,
+            var gridData = products.ToSmartTableResult(
+                param,
                 x => new ProductListItem
                     {
                         Id = x.Id,

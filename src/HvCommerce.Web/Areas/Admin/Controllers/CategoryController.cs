@@ -6,8 +6,7 @@ using HvCommerce.Infrastructure;
 using HvCommerce.Infrastructure.Domain.IRepositories;
 using HvCommerce.Web.Areas.Admin.Helpers;
 using HvCommerce.Web.Areas.Admin.ViewModels;
-using Kendo.Mvc.Extensions;
-using Kendo.Mvc.UI;
+using HvCommerce.Web.Areas.Admin.ViewModels.SmartTable;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Rendering;
@@ -32,11 +31,11 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
             return View();
         }
 
-        public IActionResult ListAjax([DataSourceRequest] DataSourceRequest request)
+        public IActionResult ListAjax()
         {
             var categories = categoryRepository.Query().Where(x => !x.IsDeleted).ToList();
             var categoriesList = CategoryMapper.ToCategoryListItem(categories);
-            var gridData = categoriesList.ToDataSourceResult(request);
+            var gridData = categoriesList;
 
             return Json(gridData);
         }
