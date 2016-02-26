@@ -20,7 +20,7 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult ListAjax([FromBody] SmartTableParam param)
+        public ActionResult List([FromBody] SmartTableParam param)
         {
             var query = userRepository.Query().Where(x => !x.IsDeleted);
 

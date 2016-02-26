@@ -28,11 +28,6 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
 
         public IActionResult List()
         {
-            return View();
-        }
-
-        public IActionResult ListAjax()
-        {
             var categories = categoryRepository.Query().Where(x => !x.IsDeleted).ToList();
             var categoriesList = CategoryMapper.ToCategoryListItem(categories);
             var gridData = categoriesList;

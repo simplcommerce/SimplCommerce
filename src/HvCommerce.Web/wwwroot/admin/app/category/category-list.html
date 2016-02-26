@@ -1,1 +1,18 @@
-﻿<h1>Category list</h1>
+﻿<h2>Category list</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Published</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="category in vm.categories">
+            <td>{{category.name}}</td>
+            <td>{{category.isPublished}}</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>

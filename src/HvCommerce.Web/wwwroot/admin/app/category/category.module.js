@@ -5,7 +5,8 @@
         .config(['$stateProvider', function($stateProvider) {
             $stateProvider.state('category', {
                 url: '/category',
-                templateUrl: "admin/app/category/category-list.html"
+                templateUrl: 'admin/app/category/category-list.html',
+                controller: 'categoryListCtrl as vm'
             });
         }]);
 })();
