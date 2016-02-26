@@ -15,6 +15,7 @@
 /// <reference path="../gulpfile.js" />
 /// <reference path="admin/app/admin-app.js" />
 /// <reference path="admin/app/category/category.module.js" />
+/// <reference path="admin/app/category/category-create.js" />
 /// <reference path="admin/app/category/category-list.js" />
 /// <reference path="admin/app/category/category-service.js" />
 /// <reference path="admin/app/dashboard/dashboard.module.js" />

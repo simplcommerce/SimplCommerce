@@ -10,6 +10,7 @@ using HvCommerce.Web.Areas.Admin.ViewModels.SmartTable;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Rendering;
+using HvCommerce.Web.Extensions;
 
 namespace HvCommerce.Web.Areas.Admin.Controllers
 {
@@ -35,15 +36,8 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
             return Json(gridData);
         }
 
-        public IActionResult Create()
-        {
-            AddCategoryListToForm(-1);
-            var model = new CategoryForm();
-            return View(model);
-        }
-
         [HttpPost]
-        public IActionResult Create(CategoryForm model)
+        public IActionResult Create([FromBody] CategoryForm model)
         {
             if (ModelState.IsValid)
             {
@@ -57,11 +51,10 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
 
                 categoryRepository.Add(category);
                 categoryRepository.SaveChange();
-                return RedirectToAction("List");
-            }
 
-            AddCategoryListToForm(-1);
-            return View(model);
+                return Ok();
+            }
+            return Json(ModelState.ToDictionary());
         }
 
         public IActionResult Edit(long id)

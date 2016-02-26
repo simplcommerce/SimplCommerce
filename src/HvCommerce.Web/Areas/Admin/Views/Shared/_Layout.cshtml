@@ -7,13 +7,13 @@
 
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
+        <link href="~/admin/css/admin-core.css" rel="stylesheet" />
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"/>
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/admin/css/admin-core.min.css" asp-append-version="true"/>
     </environment>
     <link href="~/lib/angular-material/angular-material.css" rel="stylesheet" />
     <link href="~/admin/css/admin-core.css" rel="stylesheet"/>
@@ -38,6 +38,7 @@
     <script src="~/admin/app/category/category.module.js"></script>
     <script src="~/admin/app/category/category-service.js"></script>
     <script src="~/admin/app/category/category-list.js"></script>
+    <script src="~/admin/app/category/category-create.js"></script>
 
     <script src="~/admin/app/product/product.module.js"></script>
 </head>

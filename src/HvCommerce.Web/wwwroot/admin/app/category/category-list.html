@@ -1,18 +1,27 @@
-﻿<h2>Category list</h2>
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Danh mục sản phẩm</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <a ui-sref="category-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Tạo danh mục</a>
+        </div>
+    </div>
+</div>
 
-<table class="table">
+<table class="table table-striped">
     <thead>
-        <tr>
-            <th>Name</th>
-            <th>Published</th>
-            <th>Actions</th>
-        </tr>
+    <tr>
+        <th>Name</th>
+        <th>Published</th>
+        <th>Actions</th>
+    </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="category in vm.categories">
-            <td>{{category.name}}</td>
-            <td>{{category.isPublished}}</td>
-            <td></td>
-        </tr>
+    <tr ng-repeat="category in vm.categories">
+        <td>{{category.name}}</td>
+        <td>{{category.isPublished}}</td>
+        <td></td>
+    </tr>
     </tbody>
 </table>
