@@ -6,6 +6,8 @@ using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
+using HvCommerce.Web.ViewModels.SmartTable;
+using HvCommerce.Infrastructure;
 
 namespace HvCommerce.Web.Areas.Admin.Controllers
 {
@@ -21,19 +23,32 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult ListAjax()
+        public ActionResult ListAjax([FromBody] SmartTableParam param)
         {
-            var users = userRepository.Query()
-                .Where(x => !x.IsDeleted)
-                .Select(user => new UserListItem
-                    {
-                        Id = user.Id,
-                        Email = user.Email,
-                        FullName = user.FullName,
-                        CreatedOn = user.CreatedOn
-                    });
+            var query = userRepository.Query().Where(x => !x.IsDeleted);
+            var totalRecord = query.Count();
 
-            return Json(new { items = users, numberOfPages = 10});
+            if(!string.IsNullOrWhiteSpace(param.Sort.Predicate))
+            {
+                query = query.OrderByName(param.Sort.Predicate, param.Sort.Reverse);
+            }
+            else
+            {
+                query = query.OrderByDescending(x => x.CreatedOn);
+            }
+
+            var users = query
+                .Skip(param.Pagination.Start)
+                .Take(param.Pagination.Number)
+                .Select(user => new UserListItem
+                 {
+                     Id = user.Id,
+                     Email = user.Email,
+                     FullName = user.FullName,
+                     CreatedOn = user.CreatedOn
+                 });
+
+            return Json(new { items = users, numberOfPages = totalRecord});
         }
 
         public ActionResult Detail(long id)
