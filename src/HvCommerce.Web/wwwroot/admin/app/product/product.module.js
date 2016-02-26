@@ -1,11 +1,13 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('hvAdmin.product', [])
+    angular
+        .module('hvAdmin.product', [])
         .config(['$stateProvider', function($stateProvider) {
             $stateProvider.state('product', {
                 url: '/product',
-                templateUrl: "admin/app/product/product-list.html"
+                templateUrl: "admin/app/product/product-list.html",
+                controller: 'productListCtrl as vm'
             });
         }]);
 })();

@@ -41,6 +41,8 @@
     <script src="~/admin/app/category/category-create.js"></script>
 
     <script src="~/admin/app/product/product.module.js"></script>
+    <script src="~/admin/app/product/product-service.js"></script>
+    <script src="~/admin/app/product/product-list.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse">
@@ -55,12 +57,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a ui-sref="user">Người dùng</a></li>
+                    <li><a ui-sref="user">Users</a></li>
                     <li class="dropdown">
                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catalog <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a ui-sref="category">Category</a></li>
-                            <li><a ui-sref="product">Product</a></li>
+                            <li><a ui-sref="category">Categories</a></li>
+                            <li><a ui-sref="product">Products</a></li>
                         </ul>
                     </li>
                 </ul>

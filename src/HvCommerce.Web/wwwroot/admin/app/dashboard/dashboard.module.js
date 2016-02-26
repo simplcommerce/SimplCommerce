@@ -1,7 +1,8 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('hvAdmin.dashboard', [])
+    angular
+        .module('hvAdmin.dashboard', [])
         .config(['$stateProvider', function ($stateProvider) {
             $stateProvider.state('dashboard', {
                 url: '/dashboard',

@@ -1,8 +1,9 @@
-﻿(function () {
+﻿(function() {
     angular
         .module('hvAdmin.category')
-        .controller('categoryCreateCtrl', ['$state', 'categoryService',
-            function ($state, categoryService) {
+        .controller('categoryCreateCtrl', [
+            '$state', 'categoryService',
+            function($state, categoryService) {
                 var ctrl = this;
                 this.category = {};
                 this.categories = [];
@@ -14,7 +15,7 @@
                 };
 
                 this.getCategories = function getCategories() {
-                    categoryService.getCategories().then(function (result) {
+                    categoryService.getCategories().then(function(result) {
                         ctrl.categories = result.data;
                     });
                 };
@@ -22,4 +23,4 @@
                 this.getCategories();
             }
         ]);
-})()
+})();

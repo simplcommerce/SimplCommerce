@@ -1,0 +1,20 @@
+﻿(function() {
+    angular
+        .module('hvAdmin.product')
+        .controller('productListCtrl', [
+            'productService',
+            function(productService) {
+                var vm = this;
+                this.products = [];
+
+                this.getProducts = function getProducts(tableState) {
+                    vm.isLoading = true;
+                    productService.getProducts(tableState).then(function(result) {
+                        vm.products = result.data.items;
+                        tableState.pagination.totalItemCount = result.data.numberOfPages;
+                        vm.isLoading = false;
+                    });
+                };
+            }
+        ]);
+})();

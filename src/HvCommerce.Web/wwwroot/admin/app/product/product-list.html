@@ -1,1 +1,45 @@
-﻿<h1>Product list</h1>
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Product List</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <a ui-sref="product-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Create Product</a>
+        </div>
+    </div>
+</div>
+
+<table class="table" st-pipe="vm.getProducts" st-table="vm.products">
+    <thead>
+        <tr>
+            <th st-sort="Name">Email</th>
+            <th st-sort="IsPublished">IsPublished</th>
+            <th st-sort="CreatedOn">CreatedOn</th>
+            <th>Actions</th>
+        </tr>
+        <tr>
+            <th><input st-search="Name" /></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-show="!vm.isLoading">
+        <tr ng-repeat="product in vm.products">
+            <td>{{product.name}}</td>
+            <td>{{product.isPublished}}</td>
+            <td>{{product.createdOn}}</td>
+            <td></td>
+        </tr>
+    </tbody>
+    <tbody ng-show="vm.isLoading">
+        <tr>
+            <td colspan="4" class="text-center">Loading ... </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="10" colspan="4"></td>
+        </tr>
+    </tfoot>
+</table>

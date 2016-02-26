@@ -1,6 +1,14 @@
-﻿<h2>User list</h2>
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>User List</h2>
+        </div>
+        <div class="col-md-4 text-right">
+        </div>
+    </div>
+</div>
 
-<table class="table" st-pipe="mc.callServer" st-table="mc.displayed">
+<table class="table" st-pipe="vm.getUsers" st-table="vm.users">
     <thead>
         <tr>
             <th st-sort="Email">Email</th>
@@ -15,15 +23,15 @@
             <th></th>
         </tr>
     </thead>
-    <tbody ng-show="!mc.isLoading">
-        <tr ng-repeat="row in mc.displayed">
-            <td>{{row.email}}</td>
-            <td>{{row.fullName}}</td>
-            <td>{{row.createdOn}}</td>
+    <tbody ng-show="!vm.isLoading">
+        <tr ng-repeat="user in vm.users">
+            <td>{{user.email}}</td>
+            <td>{{user.fullName}}</td>
+            <td>{{user.createdOn}}</td>
             <td></td>
         </tr>
     </tbody>
-    <tbody ng-show="mc.isLoading">
+    <tbody ng-show="vm.isLoading">
         <tr>
             <td colspan="4" class="text-center">Loading ... </td>
         </tr>

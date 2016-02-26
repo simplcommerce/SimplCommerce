@@ -10,9 +10,10 @@
         'hvAdmin.product'
     ]);
 
-    adminApp.config(['$urlRouterProvider',
-        function ($urlRouterProvider) {
+    adminApp.config([
+        '$urlRouterProvider',
+        function($urlRouterProvider) {
             $urlRouterProvider.otherwise("/dashboard");
         }
     ]);
-})()
+})();

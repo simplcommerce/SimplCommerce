@@ -14,6 +14,5 @@
                     templateUrl: 'admin/app/category/category-form.html',
                     controller: 'categoryCreateCtrl as vm'
                 });
-
         }]);
 })();

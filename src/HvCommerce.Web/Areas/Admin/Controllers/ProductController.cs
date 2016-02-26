@@ -32,12 +32,7 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
             this.categoryRepository = categoryRepository;
         }
 
-        public IActionResult List()
-        {
-            return View();
-        }
-
-        public IActionResult ListAjax([FromBody] SmartTableParam param)
+        public IActionResult List([FromBody] SmartTableParam param)
         {
             var products = productRepository.Query().Where(x => !x.IsDeleted);
             var gridData = products.ToSmartTableResult(

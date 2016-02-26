@@ -1,21 +1,20 @@
 ﻿(function() {
-    angular.module('hvAdmin.user')
+    angular
+        .module('hvAdmin.user')
         .controller('userListCtrl', [
-            'userService', function (userService) {
+            'userService',
+            function(userService) {
+                var vm = this;
+                this.users = [];
 
-                var ctrl = this;
-                this.displayed = [];
-
-                this.callServer = function callServer(tableState) {
-
-                    ctrl.isLoading = true;
-
-                    userService.getUsers(tableState).then(function (result) {
-                        ctrl.displayed = result.data.items;
+                this.getUsers = function getUsers(tableState) {
+                    vm.isLoading = true;
+                    userService.getUsers(tableState).then(function(result) {
+                        vm.users = result.data.items;
                         tableState.pagination.totalItemCount = result.data.numberOfPages;
-                        ctrl.isLoading = false;
+                        vm.isLoading = false;
                     });
                 };
             }
         ]);
-})()
+})();
