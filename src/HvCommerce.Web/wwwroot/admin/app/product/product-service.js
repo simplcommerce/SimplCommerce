@@ -8,8 +8,13 @@
                     return $http.post('Admin/Product/List', params);
                 }
 
+                function createProduct(product) {
+                    return $http.post('Admin/Product/Create', product);
+                }
+
                 return {
-                    getProducts: getProducts
+                    getProducts: getProducts,
+                    createProduct: createProduct
                 };
             }
         ]);

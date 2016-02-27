@@ -1,0 +1,55 @@
+﻿<md-card>
+    <md-card-content layout-padding>
+        <h2>Create Product</h2>
+        <form name="productForm">
+            <md-tabs md-dynamic-height md-border-bottom>
+                <md-tab label="Product Information">
+                    <md-content class="md-padding">
+                        <md-input-container class="md-block">
+                            <label>Product Name</label>
+                            <input name="name" ng-model="vm.product.name" required md-maxlength="100" minlength="4">
+                            <div ng-messages="productForm.name.$error" ng-show="productForm.name.$dirty">
+                                <div ng-message="required">This is required!</div>
+                                <div ng-message="md-maxlength">That's too long!</div>
+                                <div ng-message="minlength">That's too short!</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Short Description</label>
+                            <textarea name="shortDescription" ng-model="vm.product.shortDescription" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Description</label>
+                            <textarea name="description" ng-model="vm.product.description" md-maxlength="2000" rows="5" md-select-on-focus></textarea>
+                        </md-input-container>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Price</label>
+                                <input name="price" required type="number" step="any" ng-model="vm.product.price" min="0"/>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Old Price</label>
+                                <input name="oldPrice" required type="number" step="any" ng-model="vm.product.oldPrice" min="0" />
+                            </md-input-container>
+                        </div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Categories Mapping">
+                    <md-content class="md-padding">
+                        <md-input-container class="md-block">
+                            <div ng-repeat="category in vm.categories">
+                            <md-checkbox ng-click="vm.toggleCategories(category.id)">
+                                {{ category.name }}
+                            </md-checkbox>
+                        </div>
+                        </md-input-container>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </form>
+    </md-card-content>
+    <md-card-actions layout="row" layout-align="end center">
+        <md-button class="md-raised md-primary" ng-click="vm.create()">Save</md-button>
+        <md-button class="md-raised">Cancel</md-button>
+    </md-card-actions>
+</md-card>

@@ -14,6 +14,7 @@ using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Rendering;
+using HvCommerce.Web.Extensions;
 
 namespace HvCommerce.Web.Areas.Admin.Controllers
 {
@@ -57,12 +58,11 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(ProductForm model, IFormFile thumbnailImage, ICollection<IFormFile> images)
+        public IActionResult Create([FromBody] ProductForm model, IFormFile thumbnailImage, ICollection<IFormFile> images)
         {
             if (!ModelState.IsValid)
             {
-                AddCategoryListToForm();
-                return View(model);
+                return Json(ModelState.ToDictionary());
             }
 
             var product = new Product
@@ -105,7 +105,7 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
             productRepository.Add(product);
             productRepository.SaveChange();
 
-            return RedirectToAction("List");
+            return Ok();
         }
 
         private string SaveFile(IFormFile file)
