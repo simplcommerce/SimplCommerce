@@ -43,3 +43,4 @@
 /// <reference path="lib/jquery-validation/additional-methods.min.js" />
 /// <reference path="lib/jquery-validation/jquery.validate.min.js" />
 /// <reference path="lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js" />
+/// <reference path="lib/ng-file-upload/ng-file-upload.js" />

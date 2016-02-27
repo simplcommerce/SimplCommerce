@@ -7,5 +7,7 @@ namespace HvCommerce.Web.Areas.Admin.ViewModels.SmartTable
         public IEnumerable<T> Items { get; set; }
 
         public int TotalRecord { get; set; }
+
+        public int NumberOfPages { get; set; }
     }
 }

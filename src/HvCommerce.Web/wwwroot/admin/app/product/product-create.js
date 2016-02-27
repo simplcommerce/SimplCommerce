@@ -8,11 +8,16 @@
                 this.product = {};
                 this.product.categoryIds = [];
                 this.categories = [];
+                this.thumbnailImage = null;
+                this.productImages = [];
 
-                this.create = function create() {
-                    productService.createProduct(vm.product).then(function (result) {
-                        $state.go('product');
-                    });
+                this.create = function create(productForm) {
+                    if (productForm.$valid) {
+                        productService.createProduct(vm.product, vm.thumbnailImage, vm.productImages)
+                            .success(function (result) {
+                                $state.go('product');
+                            });
+                    }
                 };
 
                 this.getCategories = function getCategories() {

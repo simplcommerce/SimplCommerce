@@ -1,32 +1,20 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Http;
 
 namespace HvCommerce.Web.Areas.Admin.ViewModels
 {
     public class ProductForm
     {
-        public ProductForm()
-        {
-            IsPublished = true;
-        }
+        public ProductViewModel Product { get; set; }
 
-        public long Id { get; set; }
+        public IFormFile ThumbnailImage { get; set; }
 
-        public decimal Price { get; set; }
+        public IList<IFormFile> ProductImages { get; set; } = new List<IFormFile>();
 
-        public decimal OldPrice { get; set; }
+        public IList<IFormFile> File { get; set; } = new List<IFormFile>();
 
-        [Required]
-        public string Name { get; set; }
-
-        [Required]
-        public string ShortDescription { get; set; }
-
-        [Required]
-        public string Description { get; set; }
-
-        public bool IsPublished { get; set; }
-
-        public IList<long> CategoryIds { get; set; } = new List<long>();
     }
 }

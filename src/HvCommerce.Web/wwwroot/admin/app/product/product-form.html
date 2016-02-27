@@ -29,9 +29,21 @@
                             </md-input-container>
                             <md-input-container class="md-block" flex-gt-sm>
                                 <label>Old Price</label>
-                                <input name="oldPrice" required type="number" step="any" ng-model="vm.product.oldPrice" min="0" />
+                                <input name="oldPrice" required type="number" step="any" ng-model="vm.product.oldPrice" min="0"/>
                             </md-input-container>
                         </div>
+                        <md-input-container class="md-block">
+                            <label>Thumbnail</label>
+                            <input type="file" ngf-select ng-model="vm.thumbnailImage" name="thumbnailImage" ngf-accept="'image/*'">
+                            <img ngf-src="vm.thumbnailImage" ngf-resize="{width: 80, height: 80, quality: 0.9}">
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Product Images</label>
+                            <input type="file" ngf-select ng-model="vm.productImages"ngf-multiple="true" name="productImages" ngf-accept="'image/*'">
+                            <span ng-repeat="image in vm.productImages">
+                                <img ngf-src="image" ngf-resize="{width: 80, height: 80, quality: 0.9}">
+                            </span>
+                        </md-input-container>
                     </md-content>
                 </md-tab>
                 <md-tab label="Categories Mapping">
@@ -49,7 +61,7 @@
         </form>
     </md-card-content>
     <md-card-actions layout="row" layout-align="end center">
-        <md-button class="md-raised md-primary" ng-click="vm.create()">Save</md-button>
+        <md-button class="md-raised md-primary" ng-click="vm.create(productForm)">Save</md-button>
         <md-button class="md-raised">Cancel</md-button>
     </md-card-actions>
 </md-card>

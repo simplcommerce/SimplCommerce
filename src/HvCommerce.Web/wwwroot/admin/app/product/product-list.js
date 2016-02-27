@@ -11,7 +11,7 @@
                     vm.isLoading = true;
                     productService.getProducts(tableState).then(function(result) {
                         vm.products = result.data.items;
-                        tableState.pagination.totalItemCount = result.data.numberOfPages;
+                        tableState.pagination.numberOfPages = result.data.numberOfPages;
                         vm.isLoading = false;
                     });
                 };

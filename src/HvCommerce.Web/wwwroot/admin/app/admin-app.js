@@ -4,6 +4,7 @@
         'ngMaterial',
         'ngMessages',
         'smart-table',
+        'ngFileUpload',
         'hvAdmin.dashboard',
         'hvAdmin.user',
         'hvAdmin.category',

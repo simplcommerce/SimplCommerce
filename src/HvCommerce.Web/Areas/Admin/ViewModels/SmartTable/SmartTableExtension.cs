@@ -10,6 +10,11 @@ namespace HvCommerce.Web.Areas.Admin.ViewModels.SmartTable
     {
         public static SmartTableResult<TResult> ToSmartTableResult<TModel, TResult>(this IQueryable<TModel> query, SmartTableParam param, Func<TModel, TResult> selector)
         {
+            if (param.Pagination.Number <= 0)
+            {
+                param.Pagination.Number = 10;
+            }
+
             // TODO Prevent sql injection
             if (param.Search.PredicateObject != null)
             {
@@ -51,7 +56,12 @@ namespace HvCommerce.Web.Areas.Admin.ViewModels.SmartTable
                 .Take(param.Pagination.Number)
                 .Select(selector);
 
-            return new SmartTableResult<TResult> { Items = items, TotalRecord = totalRecord };
+            return new SmartTableResult<TResult>
+            {
+                Items = items,
+                TotalRecord = totalRecord,
+                NumberOfPages = (int)Math.Ceiling((double)totalRecord / param.Pagination.Number)
+            };
         }
     }
 }

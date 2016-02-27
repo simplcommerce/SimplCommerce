@@ -27,7 +27,8 @@ var bower = {
     "angular-material": "angular-material/angular-material*.{js,css}",
     "angular-messages": "angular-messages/angular-messages.js",
     "angular-ui-router": "angular-ui-router/release/*.js",
-    "angular-smart-table": "angular-smart-table/dist/*.js"
+    "angular-smart-table": "angular-smart-table/dist/*.js",
+    "ng-file-upload": "ng-file-upload/ng-file-upload.js"
 };
 
 paths.js = paths.webroot + "js/**/*.js";

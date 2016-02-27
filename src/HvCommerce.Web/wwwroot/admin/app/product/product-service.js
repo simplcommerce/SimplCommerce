@@ -2,14 +2,21 @@
     angular
         .module('hvAdmin.product')
         .factory('productService', [
-            '$http',
-            function($http) {
+            '$http', 'Upload',
+            function($http, upload) {
                 function getProducts(params) {
                     return $http.post('Admin/Product/List', params);
                 }
 
-                function createProduct(product) {
-                    return $http.post('Admin/Product/Create', product);
+                function createProduct(product, thumbnailImage, productImages) {
+                    return upload.upload({
+                        url: 'Admin/Product/Create',
+                        data: {
+                            product: product,
+                            thumbnailImage: thumbnailImage,
+                            productImages: productImages
+                        }
+                    });
                 }
 
                 return {
