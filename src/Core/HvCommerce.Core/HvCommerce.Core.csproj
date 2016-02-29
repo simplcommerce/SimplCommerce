@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -147,6 +149,14 @@
       <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="StyleCop, Version=4.7.1000.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\StyleCop.4.7.49.0\lib\net35\StyleCop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StyleCop.CSharp, Version=4.7.1000.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\StyleCop.4.7.49.0\lib\net35\StyleCop.CSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -161,10 +171,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationServices\AppSettings.cs" />
+    <Compile Include="ApplicationServices\UrlSlugService.cs" />
     <Compile Include="ApplicationServices\CategoryService.cs" />
     <Compile Include="ApplicationServices\GlobalConfiguration.cs" />
     <Compile Include="ApplicationServices\HvRoleStore.cs" />
     <Compile Include="ApplicationServices\HvUserStore.cs" />
+    <Compile Include="ApplicationServices\IUrlSlugService.cs" />
     <Compile Include="ApplicationServices\ICategoryService.cs" />
     <Compile Include="ApplicationServices\IEmailSender.cs" />
     <Compile Include="ApplicationServices\IProductService.cs" />
@@ -185,6 +197,7 @@
     <Compile Include="Domain\Models\ProductVariation.cs" />
     <Compile Include="Domain\Models\Role.cs" />
     <Compile Include="Domain\Models\RoleClaim.cs" />
+    <Compile Include="Domain\Models\UrlSlug.cs" />
     <Compile Include="Domain\Models\User.cs" />
     <Compile Include="Domain\Models\UserClaim.cs" />
     <Compile Include="Domain\Models\UserLogin.cs" />
@@ -219,6 +232,13 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\..\packages\StyleCop.MSBuild.4.7.50.0\build\StyleCop.MSBuild.Targets" Condition="Exists('..\..\..\packages\StyleCop.MSBuild.4.7.50.0\build\StyleCop.MSBuild.Targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\packages\StyleCop.MSBuild.4.7.50.0\build\StyleCop.MSBuild.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\StyleCop.MSBuild.4.7.50.0\build\StyleCop.MSBuild.Targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

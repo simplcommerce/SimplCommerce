@@ -42,6 +42,7 @@ namespace HvCommerce.Web.Controllers
         // GET: /Account/Login
         [HttpGet]
         [AllowAnonymous]
+        [Route("login")]
         public IActionResult Login(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -52,6 +53,7 @@ namespace HvCommerce.Web.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
+        [Route("login")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
@@ -90,6 +92,7 @@ namespace HvCommerce.Web.Controllers
         // GET: /Account/Register
         [HttpGet]
         [AllowAnonymous]
+        [Route("register")]
         public IActionResult Register()
         {
             return View();
@@ -99,6 +102,7 @@ namespace HvCommerce.Web.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
+        [Route("register")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {

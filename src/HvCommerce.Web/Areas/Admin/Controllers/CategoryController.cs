@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using HvCommerce.Core.ApplicationServices;
 using HvCommerce.Core.Domain.Models;
 using HvCommerce.Infrastructure;
@@ -20,11 +19,13 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
     {
         private readonly IRepository<Category> categoryRepository;
         private readonly ICategoryService categoryService;
+        private readonly IRepository<UrlSlug> urlSlugRepository;
 
-        public CategoryController(IRepository<Category> categoryRepository, ICategoryService categoryService)
+        public CategoryController(IRepository<Category> categoryRepository, ICategoryService categoryService, IRepository<UrlSlug> urlSlugRepository)
         {
             this.categoryRepository = categoryRepository;
             this.categoryService = categoryService;
+            this.urlSlugRepository = urlSlugRepository;
         }
 
         public IActionResult List()
@@ -51,6 +52,22 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
 
                 categoryRepository.Add(category);
                 categoryRepository.SaveChange();
+<<<<<<< 520dd682b0d38fd9d080c0eb5698d691e831a6e5
+=======
+
+                var urlSlug = new UrlSlug
+                {
+                    EntityId = category.Id,
+                    EntityName = "Category",
+                    Slug = category.SeoTitle
+                };
+
+                urlSlugRepository.Add(urlSlug);
+                urlSlugRepository.SaveChange();
+
+                return RedirectToAction("List");
+            }
+>>>>>>> Update issue #20: Shorter URL
 
                 return Ok();
             }
@@ -101,6 +118,15 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
 
             categoryService.Delete(category);
             categoryRepository.SaveChange();
+
+            var urlSlug = urlSlugRepository.Query().FirstOrDefault(x => x.EntityId == id);
+            if (urlSlug == null)
+            {
+                return new HttpStatusCodeResult(400);
+            }
+            urlSlugRepository.Remove(urlSlug);
+            urlSlugRepository.SaveChange();
+
             return Json(true);
         }
 

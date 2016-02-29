@@ -15,15 +15,13 @@ namespace HvCommerce.Web.Controllers
         private readonly IMediaService mediaService;
         private readonly IRepository<Product> productRepository;
 
-        public ProductController(IRepository<Product> productRepository, IMediaService mediaService,
-            IRepository<Category> categoryRepository)
+        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IRepository<Category> categoryRepository)
         {
             this.productRepository = productRepository;
             this.mediaService = mediaService;
             this.categoryRepository = categoryRepository;
         }
 
-        //[Route("category/{catSeoTitle}")]
         public IActionResult ProductsByCategory(string catSeoTitle)
         {
             var category = categoryRepository.Query().FirstOrDefault(x => x.SeoTitle == catSeoTitle);
@@ -59,7 +57,6 @@ namespace HvCommerce.Web.Controllers
             return View(model);
         }
 
-        //[Route("product/{seoTitle}")]
         public IActionResult ProductDetail(string seoTitle)
         {
             var product = productRepository.Query()

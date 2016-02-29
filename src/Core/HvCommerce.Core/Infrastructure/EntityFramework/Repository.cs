@@ -9,8 +9,8 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
     public class Repository<T> : RepositoryWithTypedId<T, long>, IRepository<T>
         where T : class, IEntityWithTypedId<long>
     {
-        bool _disposed;
-        readonly SafeHandle _handle = new SafeFileHandle(IntPtr.Zero, true);
+        private readonly SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
+        private bool disposed;
 
         public Repository(HvDbContext context) : base(context)
         {
@@ -18,26 +18,24 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
 
         public void Dispose()
         {
-            Dispose(true);
+            this.Dispose(true);
             GC.SuppressFinalize(this);
         }
 
         // Protected implementation of Dispose pattern.
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed)
+            if (this.disposed)
+            {
                 return;
+            }
 
             if (disposing)
             {
-                _handle.Dispose();
-                // Free any other managed objects here.
-                //
+                this.handle.Dispose();
             }
 
-            // Free any unmanaged objects here.
-            //
-            _disposed = true;
+            this.disposed = true;
         }
     }
 }

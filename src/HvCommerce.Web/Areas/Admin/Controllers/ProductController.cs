@@ -21,11 +21,23 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
     {
         private readonly IRepository<Product> productRepository;
         private readonly IMediaService mediaService;
+<<<<<<< 520dd682b0d38fd9d080c0eb5698d691e831a6e5
 
         public ProductController(IRepository<Product> productRepository, IMediaService mediaService)
         {
             this.productRepository = productRepository;
             this.mediaService = mediaService;
+=======
+        private readonly IRepository<Category> categoryRepository;
+        private readonly IRepository<UrlSlug> urlSlugRepository;
+
+        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IRepository<Category> categoryRepository, IRepository<UrlSlug> urlSlugRepository)
+        {
+            this.productRepository = productRepository;
+            this.mediaService = mediaService;
+            this.categoryRepository = categoryRepository;
+            this.urlSlugRepository = urlSlugRepository;
+>>>>>>> Update issue #20: Shorter URL
         }
 
         public IActionResult List([FromBody] SmartTableParam param)
@@ -101,7 +113,21 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
             productRepository.Add(product);
             productRepository.SaveChange();
 
+<<<<<<< 520dd682b0d38fd9d080c0eb5698d691e831a6e5
             return Ok();
+=======
+            var urlSlug = new UrlSlug
+            {
+                EntityId = product.Id,
+                EntityName = "Product",
+                Slug = product.SeoTitle
+            };
+
+            urlSlugRepository.Add(urlSlug);
+            urlSlugRepository.SaveChange();
+
+            return RedirectToAction("List");
+>>>>>>> Update issue #20: Shorter URL
         }
 
         private string SaveFile(IFormFile file)

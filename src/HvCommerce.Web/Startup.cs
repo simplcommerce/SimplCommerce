@@ -116,9 +116,7 @@ namespace HvCommerce.Web
 
             app.UseMvc(routes =>
             {
-                routes.Routes.Add(new CategoryRoute(routes.ServiceProvider.GetRequiredService<ICategoryService>(), routes.DefaultHandler));
-
-                routes.Routes.Add(new ProductRoute(routes.ServiceProvider.GetRequiredService<IProductService>(), routes.DefaultHandler));
+                routes.Routes.Add(new GenericRule(routes.DefaultHandler, routes.ServiceProvider.GetRequiredService<IUrlSlugService>()));
 
                 routes.MapRoute(
                     "areaRoute",
