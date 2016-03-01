@@ -35,10 +35,14 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
         {
             this.productRepository = productRepository;
             this.mediaService = mediaService;
+<<<<<<< 37e976790ffa8f3fcb859f19dc0e087056c295fe
 <<<<<<< 755bc7e3b1cea64885ce5e0c3b675f611f16d67e
             this.categoryRepository = categoryRepository;
             this.urlSlugRepository = urlSlugRepository;
 >>>>>>> Update issue #20: Shorter URL
+=======
+            this.urlSlugService = urlSlugService;
+>>>>>>> fixed common service locator does work in Custom Route
 =======
             this.urlSlugService = urlSlugService;
 >>>>>>> fixed common service locator does work in Custom Route
@@ -117,6 +121,7 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
             productRepository.Add(product);
             productRepository.SaveChange();
 
+<<<<<<< 37e976790ffa8f3fcb859f19dc0e087056c295fe
 <<<<<<< 755bc7e3b1cea64885ce5e0c3b675f611f16d67e
 <<<<<<< 520dd682b0d38fd9d080c0eb5698d691e831a6e5
             return Ok();
@@ -130,6 +135,10 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
 
             urlSlugRepository.Add(urlSlug);
             urlSlugRepository.SaveChange();
+=======
+            urlSlugService.Add(product.SeoTitle, product.Id, "Product");
+            productRepository.SaveChange();
+>>>>>>> fixed common service locator does work in Custom Route
 =======
             urlSlugService.Add(product.SeoTitle, product.Id, "Product");
             productRepository.SaveChange();
