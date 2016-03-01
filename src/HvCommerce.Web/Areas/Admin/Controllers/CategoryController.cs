@@ -51,18 +51,9 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
 
                 categoryRepository.Add(category);
                 categoryRepository.SaveChange();
-<<<<<<< 520dd682b0d38fd9d080c0eb5698d691e831a6e5
-=======
 
                 urlSlugService.Add(category.SeoTitle, category.Id, "Category");
                 categoryRepository.SaveChange();
-<<<<<<< 37e976790ffa8f3fcb859f19dc0e087056c295fe
-
-                return RedirectToAction("List");
-            }
->>>>>>> Update issue #20: Shorter URL
-=======
->>>>>>> fixed common service locator does work in Custom Route
 
                 return Ok();
             }

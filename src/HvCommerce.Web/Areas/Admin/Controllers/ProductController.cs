@@ -21,31 +21,13 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
     {
         private readonly IRepository<Product> productRepository;
         private readonly IMediaService mediaService;
-<<<<<<< 520dd682b0d38fd9d080c0eb5698d691e831a6e5
-
-        public ProductController(IRepository<Product> productRepository, IMediaService mediaService)
-        {
-            this.productRepository = productRepository;
-            this.mediaService = mediaService;
-=======
-        private readonly IRepository<Category> categoryRepository;
         private readonly IUrlSlugService urlSlugService;
 
         public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IUrlSlugService urlSlugService)
         {
             this.productRepository = productRepository;
             this.mediaService = mediaService;
-<<<<<<< 37e976790ffa8f3fcb859f19dc0e087056c295fe
-<<<<<<< 755bc7e3b1cea64885ce5e0c3b675f611f16d67e
-            this.categoryRepository = categoryRepository;
-            this.urlSlugRepository = urlSlugRepository;
->>>>>>> Update issue #20: Shorter URL
-=======
             this.urlSlugService = urlSlugService;
->>>>>>> fixed common service locator does work in Custom Route
-=======
-            this.urlSlugService = urlSlugService;
->>>>>>> fixed common service locator does work in Custom Route
         }
 
         public IActionResult List([FromBody] SmartTableParam param)
@@ -121,31 +103,10 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
             productRepository.Add(product);
             productRepository.SaveChange();
 
-<<<<<<< 37e976790ffa8f3fcb859f19dc0e087056c295fe
-<<<<<<< 755bc7e3b1cea64885ce5e0c3b675f611f16d67e
-<<<<<<< 520dd682b0d38fd9d080c0eb5698d691e831a6e5
+            urlSlugService.Add(product.SeoTitle, product.Id, "Product");
+            productRepository.SaveChange();
+
             return Ok();
-=======
-            var urlSlug = new UrlSlug
-            {
-                EntityId = product.Id,
-                EntityName = "Product",
-                Slug = product.SeoTitle
-            };
-
-            urlSlugRepository.Add(urlSlug);
-            urlSlugRepository.SaveChange();
-=======
-            urlSlugService.Add(product.SeoTitle, product.Id, "Product");
-            productRepository.SaveChange();
->>>>>>> fixed common service locator does work in Custom Route
-=======
-            urlSlugService.Add(product.SeoTitle, product.Id, "Product");
-            productRepository.SaveChange();
->>>>>>> fixed common service locator does work in Custom Route
-
-            return RedirectToAction("List");
->>>>>>> Update issue #20: Shorter URL
         }
 
         private string SaveFile(IFormFile file)
