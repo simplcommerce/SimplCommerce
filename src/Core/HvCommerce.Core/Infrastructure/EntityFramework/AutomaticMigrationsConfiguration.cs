@@ -6,7 +6,7 @@ using Microsoft.Practices.ServiceLocation;
 
 namespace HvCommerce.Core.Infrastructure.EntityFramework
 {
-    public class AutomaticMigrationsConfiguration : DbMigrationsConfiguration<DbContext>
+    public class AutomaticMigrationsConfiguration : DbMigrationsConfiguration<HvDbContext>
     {
         public AutomaticMigrationsConfiguration()
         {
@@ -15,7 +15,7 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
             AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override async void Seed(DbContext context)
+        protected override async void Seed(HvDbContext context)
         {
             var userManager = ServiceLocator.Current.GetInstance<UserManager<User>>();
             var roleManager = ServiceLocator.Current.GetInstance<RoleManager<Role>>();

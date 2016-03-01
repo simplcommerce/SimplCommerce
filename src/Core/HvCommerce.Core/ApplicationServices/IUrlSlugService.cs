@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using HvCommerce.Core.Domain.Models;
-
-namespace HvCommerce.Core.ApplicationServices
+﻿namespace HvCommerce.Core.ApplicationServices
 {
     public interface IUrlSlugService
     {
-        void Add(UrlSlug urlSlug);
+        void Add(string name, long entityId, string entityName);
+
+        void Update(string newName, long entityId, string entityName);
+
+        void Remove(long entityId, string entityName);
     }
 }

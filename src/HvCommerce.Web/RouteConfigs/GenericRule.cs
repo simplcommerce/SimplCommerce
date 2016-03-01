@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using HvCommerce.Core.Domain.Models;
 using HvCommerce.Infrastructure.Domain.IRepositories;
 using Microsoft.AspNet.Routing;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Practices.ServiceLocation;
 
 namespace HvCommerce.Web.RouteConfigs
@@ -26,7 +27,7 @@ namespace HvCommerce.Web.RouteConfigs
                 requestPath = requestPath.Substring(1);
             }
 
-            var urlSlugRepository = ServiceLocator.Current.GetInstance<IRepository<UrlSlug>>();
+            var urlSlugRepository = context.HttpContext.RequestServices.GetService<IRepository<UrlSlug>>();
 
             // Get the slug that matches.
             var urlSlug = await urlSlugRepository.Query().FirstOrDefaultAsync(x => x.Slug == requestPath);

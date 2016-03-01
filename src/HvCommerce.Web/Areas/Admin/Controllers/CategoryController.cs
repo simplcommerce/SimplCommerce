@@ -5,7 +5,6 @@ using HvCommerce.Infrastructure;
 using HvCommerce.Infrastructure.Domain.IRepositories;
 using HvCommerce.Web.Areas.Admin.Helpers;
 using HvCommerce.Web.Areas.Admin.ViewModels;
-using HvCommerce.Web.Areas.Admin.ViewModels.SmartTable;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Rendering;
@@ -19,13 +18,13 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
     {
         private readonly IRepository<Category> categoryRepository;
         private readonly ICategoryService categoryService;
-        private readonly IRepository<UrlSlug> urlSlugRepository;
+        private readonly IUrlSlugService urlSlugService;
 
-        public CategoryController(IRepository<Category> categoryRepository, ICategoryService categoryService, IRepository<UrlSlug> urlSlugRepository)
+        public CategoryController(IRepository<Category> categoryRepository, ICategoryService categoryService, IUrlSlugService urlSlugService)
         {
             this.categoryRepository = categoryRepository;
             this.categoryService = categoryService;
-            this.urlSlugRepository = urlSlugRepository;
+            this.urlSlugService = urlSlugService;
         }
 
         public IActionResult List()
@@ -55,15 +54,8 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
 <<<<<<< 520dd682b0d38fd9d080c0eb5698d691e831a6e5
 =======
 
-                var urlSlug = new UrlSlug
-                {
-                    EntityId = category.Id,
-                    EntityName = "Category",
-                    Slug = category.SeoTitle
-                };
-
-                urlSlugRepository.Add(urlSlug);
-                urlSlugRepository.SaveChange();
+                urlSlugService.Add(category.SeoTitle, category.Id, "Category");
+                categoryRepository.SaveChange();
 
                 return RedirectToAction("List");
             }
@@ -99,6 +91,8 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
                 category.ParentId = model.ParentId;
                 category.IsPublished = model.IsPublished;
 
+                urlSlugService.Update(category.SeoTitle, category.Id, "Category");
+
                 categoryRepository.SaveChange();
                 return RedirectToAction("List");
             }
@@ -117,15 +111,8 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
             }
 
             categoryService.Delete(category);
+            urlSlugService.Remove(category.Id, "Category");
             categoryRepository.SaveChange();
-
-            var urlSlug = urlSlugRepository.Query().FirstOrDefault(x => x.EntityId == id);
-            if (urlSlug == null)
-            {
-                return new HttpStatusCodeResult(400);
-            }
-            urlSlugRepository.Remove(urlSlug);
-            urlSlugRepository.SaveChange();
 
             return Json(true);
         }

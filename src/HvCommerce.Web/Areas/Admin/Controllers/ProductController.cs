@@ -29,15 +29,19 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
             this.mediaService = mediaService;
 =======
         private readonly IRepository<Category> categoryRepository;
-        private readonly IRepository<UrlSlug> urlSlugRepository;
+        private readonly IUrlSlugService urlSlugService;
 
-        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IRepository<Category> categoryRepository, IRepository<UrlSlug> urlSlugRepository)
+        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IUrlSlugService urlSlugService)
         {
             this.productRepository = productRepository;
             this.mediaService = mediaService;
+<<<<<<< 755bc7e3b1cea64885ce5e0c3b675f611f16d67e
             this.categoryRepository = categoryRepository;
             this.urlSlugRepository = urlSlugRepository;
 >>>>>>> Update issue #20: Shorter URL
+=======
+            this.urlSlugService = urlSlugService;
+>>>>>>> fixed common service locator does work in Custom Route
         }
 
         public IActionResult List([FromBody] SmartTableParam param)
@@ -113,6 +117,7 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
             productRepository.Add(product);
             productRepository.SaveChange();
 
+<<<<<<< 755bc7e3b1cea64885ce5e0c3b675f611f16d67e
 <<<<<<< 520dd682b0d38fd9d080c0eb5698d691e831a6e5
             return Ok();
 =======
@@ -125,6 +130,10 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
 
             urlSlugRepository.Add(urlSlug);
             urlSlugRepository.SaveChange();
+=======
+            urlSlugService.Add(product.SeoTitle, product.Id, "Product");
+            productRepository.SaveChange();
+>>>>>>> fixed common service locator does work in Custom Route
 
             return RedirectToAction("List");
 >>>>>>> Update issue #20: Shorter URL

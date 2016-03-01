@@ -22,7 +22,7 @@ namespace HvCommerce.Web
 {
     public class Startup
     {
-        private IHostingEnvironment hostingEnvironment;
+        private readonly IHostingEnvironment hostingEnvironment;
 
         public Startup(IHostingEnvironment hostingEnvironment)
         {
@@ -55,20 +55,28 @@ namespace HvCommerce.Web
             GlobalConfiguration.ConnectionString = Configuration["Data:DefaultConnection:ConnectionString"];
             GlobalConfiguration.ApplicationPath = hostingEnvironment.WebRootPath;
 
-            services.AddIdentity<User, Role>()
+            services.AddIdentity<User, Role>(configure =>
+            {
+                configure.User.RequireUniqueEmail = true;
+                configure.Password.RequiredLength = 8;
+                //define the default page if a call must be [Autorized]
+                configure.Cookies.ApplicationCookie.LoginPath = "/login";
+            })
                 .AddRoleStore<HvRoleStore>()
                 .AddUserStore<HvUserStore>()
                 .AddDefaultTokenProviders();
 
-            services.AddMvc().AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            });
+            services.AddMvc()
+                .AddJsonOptions(
+                    options =>
+                    {
+                        options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    });
 
             services.AddScoped(f => Configuration);
 
-            GlobalConfiguration.Modules.Add(new HvModule {Name = "Core", AssemblyName = "HvCommerce.Core"});
-            GlobalConfiguration.Modules.Add(new HvModule {Name = "Orders", AssemblyName = "HvCommerce.Orders"});
+            GlobalConfiguration.Modules.Add(new HvModule { Name = "Core", AssemblyName = "HvCommerce.Core" });
+            GlobalConfiguration.Modules.Add(new HvModule { Name = "Orders", AssemblyName = "HvCommerce.Orders" });
 
             services.AddScoped<DbContext, HvDbContext>(f => new HvDbContext(GlobalConfiguration.ConnectionString));
 
