@@ -1,11 +1,12 @@
-﻿using System.Data.Entity.Migrations;
+﻿using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using HvCommerce.Core.Domain.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.Practices.ServiceLocation;
 
 namespace HvCommerce.Core.Infrastructure.EntityFramework
 {
-    public class AutomaticMigrationsConfiguration : DbMigrationsConfiguration<HvDbContext>
+    public class AutomaticMigrationsConfiguration : DbMigrationsConfiguration<DbContext>
     {
         public AutomaticMigrationsConfiguration()
         {
@@ -14,7 +15,7 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
             AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override async void Seed(HvDbContext context)
+        protected override async void Seed(DbContext context)
         {
             var userManager = ServiceLocator.Current.GetInstance<UserManager<User>>();
             var roleManager = ServiceLocator.Current.GetInstance<RoleManager<Role>>();

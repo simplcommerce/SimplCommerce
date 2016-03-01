@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using HvCommerce.Core.Domain.Models;
+﻿using HvCommerce.Core.Domain.Models;
 
 namespace HvCommerce.Core.ApplicationServices
 {
@@ -9,7 +7,5 @@ namespace HvCommerce.Core.ApplicationServices
         void Delete(long id);
 
         void Delete(Category category);
-
-        Task<bool> CheckExistBySeoTitle(string seoTitle);
     }
 }

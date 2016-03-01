@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -69,7 +70,7 @@ namespace HvCommerce.Web
             GlobalConfiguration.Modules.Add(new HvModule {Name = "Core", AssemblyName = "HvCommerce.Core"});
             GlobalConfiguration.Modules.Add(new HvModule {Name = "Orders", AssemblyName = "HvCommerce.Orders"});
 
-            services.AddScoped<HvDbContext, HvDbContext>(f => new HvDbContext(GlobalConfiguration.ConnectionString));
+            services.AddScoped<DbContext, HvDbContext>(f => new HvDbContext(GlobalConfiguration.ConnectionString));
 
             // TODO: break down to new method in new class
             var builder = new ContainerBuilder();
@@ -116,7 +117,7 @@ namespace HvCommerce.Web
 
             app.UseMvc(routes =>
             {
-                routes.Routes.Add(new GenericRule(routes.DefaultHandler, routes.ServiceProvider.GetRequiredService<IUrlSlugService>()));
+                routes.Routes.Add(new GenericRule(routes.DefaultHandler));
 
                 routes.MapRoute(
                     "areaRoute",

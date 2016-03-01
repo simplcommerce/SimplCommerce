@@ -26,7 +26,7 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<HvDbContext, AutomaticMigrationsConfiguration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DbContext, AutomaticMigrationsConfiguration>());
 
             RegisterConventions(modelBuilder);
 

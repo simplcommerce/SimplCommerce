@@ -6,8 +6,6 @@ namespace HvCommerce.Core.ApplicationServices
 {
     public interface IUrlSlugService
     {
-        Task<List<UrlSlug>> Query();
-
         void Add(UrlSlug urlSlug);
     }
 }

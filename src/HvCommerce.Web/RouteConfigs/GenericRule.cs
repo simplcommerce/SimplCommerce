@@ -1,19 +1,19 @@
-﻿using System.Linq;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
-using HvCommerce.Core.ApplicationServices;
+using HvCommerce.Core.Domain.Models;
+using HvCommerce.Infrastructure.Domain.IRepositories;
 using Microsoft.AspNet.Routing;
+using Microsoft.Practices.ServiceLocation;
 
 namespace HvCommerce.Web.RouteConfigs
 {
     public class GenericRule : IRouter
     {
         private readonly IRouter target;
-        private readonly IUrlSlugService urlSlugService;
 
-        public GenericRule(IRouter target, IUrlSlugService urlSlugService)
+        public GenericRule(IRouter target)
         {
             this.target = target;
-            this.urlSlugService = urlSlugService;
         }
 
         public async Task RouteAsync(RouteContext context)
@@ -26,14 +26,15 @@ namespace HvCommerce.Web.RouteConfigs
                 requestPath = requestPath.Substring(1);
             }
 
+            var urlSlugRepository = ServiceLocator.Current.GetInstance<IRepository<UrlSlug>>();
+
             // Get the slug that matches.
-            var urlSlugs = await this.urlSlugService.Query();
-            var urlSlug = urlSlugs.FirstOrDefault(x => x.Slug.Equals(requestPath));
+            var urlSlug = await urlSlugRepository.Query().FirstOrDefaultAsync(x => x.Slug == requestPath);
 
             // Invoke MVC controller/action
             var oldRouteData = context.RouteData;
             var newRouteData = new RouteData(oldRouteData);
-            newRouteData.Routers.Add(this.target);
+            newRouteData.Routers.Add(target);
 
             // If we got back a null value set, that means the URI did not match)
             if (urlSlug == null)
@@ -58,7 +59,7 @@ namespace HvCommerce.Web.RouteConfigs
             try
             {
                 context.RouteData = newRouteData;
-                await this.target.RouteAsync(context);
+                await target.RouteAsync(context);
             }
             finally
             {
