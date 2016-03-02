@@ -182,6 +182,8 @@
     <Compile Include="Domain\Models\MediaType.cs" />
     <Compile Include="Domain\Models\Product.cs" />
     <Compile Include="Domain\Models\ProductAttribute.cs" />
+    <Compile Include="Domain\Models\ProductAttributeCombination.cs" />
+    <Compile Include="Domain\Models\ProductAttributeValue.cs" />
     <Compile Include="Domain\Models\ProductCategory.cs" />
     <Compile Include="Domain\Models\ProductMedia.cs" />
     <Compile Include="Domain\Models\ProductVariation.cs" />

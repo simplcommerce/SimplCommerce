@@ -16,7 +16,7 @@ namespace HvCommerce.Core.Domain.Models
         /// </summary>
         public string Name { get; set; }
 
-        public Product Product { get; set; }
+        public virtual Product Product { get; set; }
 
         public string Sku { get; set; }
 
@@ -42,6 +42,6 @@ namespace HvCommerce.Core.Domain.Models
 
         public virtual User UpdatedBy { get; set; }
 
-        public virtual IList<ProductAttribute> Attributes { get; protected set; } = new List<ProductAttribute>();
+        public virtual IList<ProductAttributeCombination> AttributeCombinations { get; protected set; } = new List<ProductAttributeCombination>();
     }
 }

@@ -46,6 +46,48 @@
                         </md-input-container>
                     </md-content>
                 </md-tab>
+                <md-tab label="Product Variations">
+                    <md-content class="md-padding">
+                        <h4>Product Attribute</h4>
+                        <md-select ng-model="vm.addingAttribute">
+                            <md-option ng-value="opt" ng-repeat="opt in vm.attributes">{{ opt.name }}</md-option>
+                        </md-select>
+                        <md-button class="md-raised" ng-disabled="!vm.addingAttribute" ng-click="vm.addAttribute()">Add</md-button>
+                        <div layout-gt-sm="row" ng-repeat="attribute in vm.product.attributes">
+                            <md-chips ng-model="attribute.values"
+                                      placeholder="Enter a {{attribute.name}}"
+                                      delete-button-label="Remove {{attribute.name}}"
+                                      delete-hint="Press delete to remove {{attribute.name}}"
+                                      secondary-placeholder="+{{attribute.name}}">
+                            </md-chips>
+                            <button ng-click="vm.deleteAttr(attribute)" type="button" class="btn">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                        <h4>Product Attribute Combination</h4>
+                        <md-button class="md-raised" ng-click="vm.generateAttrCombination()">Generate Combination</md-button>
+
+                        <table ng-show="vm.product.variations.length > 0" class="table table-striped">
+                            <tr>
+                                <th>Combination</th>
+                                <th>(+)Increase/(-)Descrease Price</th>
+                                <th>Picture</th>
+                                <th>Actions</th>
+                            </tr>
+                            <tr ng-repeat="variation in vm.product.variations">
+                                <td>{{variation.name}}</td>
+                                <td><input type="number" ng-model="variation.PriceOffset"/></td>
+                                <td></td>
+                                <td>
+                                    <button ng-click="vm.deleteVariation(variation)" type="button" class="btn">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </md-content>
+                </md-tab>
                 <md-tab label="Categories Mapping">
                     <md-content class="md-padding">
                         <md-input-container class="md-block">
