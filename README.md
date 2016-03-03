@@ -6,6 +6,7 @@ Prerequisite:
 
 Technologies and frameworks used:
 - ASP.NET MVC 6 RC1 on full dotnet framwork 4.5.1
+- Angular 1.5
 - Autofac 4.0.0 RC1
 - Entity framework 6.1.3
 - ASP.NET Identity 3.0.0 RC1
