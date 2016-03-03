@@ -33,6 +33,20 @@
         <div class="col-md-6">
             <div class="product-name">
                 <h1 class="">@Model.Name</h1>
+                @if (Model.HasVariation)
+                {
+                    foreach (var attribute in Model.AvailableAttributes)
+                    {
+                        <label>@attribute.AttributeName: </label>
+                        <select>
+                            @foreach (var value in attribute.Values)
+                            {
+                                <option>@value</option>
+                            }
+                        </select>
+                    }
+                }
+                <p class="product-price">Price: @Model.Price</p>
             </div>
         </div>
     </div>

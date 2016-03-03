@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using HvCommerce.Core.ApplicationServices;
 using HvCommerce.Core.Domain.Models;
 using HvCommerce.Infrastructure.Domain.IRepositories;
@@ -61,6 +62,7 @@ namespace HvCommerce.Web.Controllers
         {
             var product = productRepository.Query()
                 .Include(x => x.Medias)
+                .Include(x => x.Variations)
                 .FirstOrDefault(x => x.SeoTitle == seoTitle && x.IsPublished);
             if (product == null)
             {
@@ -71,8 +73,32 @@ namespace HvCommerce.Web.Controllers
             {
                 Id = product.Id,
                 Name = product.Name,
+                OldPrice = product.OldPrice,
+                Price = product.Price,
+                ShortDescription = product.ShortDescription,
                 Description = product.Description
             };
+
+            foreach (var variation in product.Variations)
+            {
+                var variationVm = new ProductDetailVariation
+                {
+                    Id = variation.Id,
+                    PriceOffset = variation.PriceOffset
+                };
+
+                foreach (var combination in variation.AttributeCombinations)
+                {
+                    variationVm.Attributes.Add(new ProductDetailVariationAttribute
+                    {
+                        AttributeId = combination.AttributeId,
+                        AttributeName = combination.Attribute.Name,
+                        Value = combination.Value
+                    });
+                }
+
+                model.Variations.Add(variationVm);
+            }
 
             foreach (var mediaViewModel in product.Medias.Select(productMedia => new MediaViewModel
             {
