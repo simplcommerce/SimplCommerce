@@ -33,3 +33,6 @@ li.nav-item-group, li.nav-item-group a {
 .footer-content hr {
     border-color: #ddd;
 }
+.breadcrumb {
+    background-color: #FFFFFF;
+}

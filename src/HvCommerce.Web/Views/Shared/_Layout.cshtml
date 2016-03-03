@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
@@ -33,7 +34,7 @@
         </div>
         <div class="navbar">
             <div class="container">
-                <hr />
+                
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
@@ -46,6 +47,8 @@
                 <div class="collapse navbar-collapse">
                     @await Component.InvokeAsync("CategoryMenu")
                 </div>
+                <hr />
+                @await Component.InvokeAsync("BreadCrumb")
             </div>
         </div>
         <div class="container body-content">
