@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HvCommerce.Web.Areas.Admin.ViewModels
+namespace HvCommerce.Web.Areas.Admin.ViewModels.Products
 {
     public class ProductListItem
     {

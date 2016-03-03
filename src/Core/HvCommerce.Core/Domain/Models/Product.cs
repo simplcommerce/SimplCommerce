@@ -26,6 +26,8 @@ namespace HvCommerce.Core.Domain.Models
 
         public virtual IList<ProductVariation> Variations { get; protected set; } = new List<ProductVariation>();
 
+        public virtual IList<ProductAttributeValue> AttributeValues { get; protected set; } = new List<ProductAttributeValue>();
+
         public virtual IList<ProductCategory> Categories { get; protected set; } = new List<ProductCategory>();
 
         public void AddCategory(ProductCategory category)
@@ -38,6 +40,18 @@ namespace HvCommerce.Core.Domain.Models
         {
             media.Product = this;
             Medias.Add(media);
+        }
+
+        public void AddAttributeValue(ProductAttributeValue attributeValue)
+        {
+            attributeValue.Product = this;
+            AttributeValues.Add(attributeValue);
+        }
+
+        public void AddProductVariation(ProductVariation variation)
+        {
+            variation.Product = this;
+            Variations.Add(variation);
         }
     }
 }

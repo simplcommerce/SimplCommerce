@@ -3,7 +3,17 @@
         .module('hvAdmin.product')
         .factory('productService', [
             '$http', 'Upload',
-            function($http, upload) {
+            function ($http, upload) {
+                var vm = {};
+                vm.getProducts = getProducts;
+                vm.createProduct = createProduct;
+                vm.getProductAttrs = getProductAttrs;
+                return vm;
+
+                function getProductAttrs() {
+                    return $http.get('Admin/ProductAttribute/List');
+                }
+
                 function getProducts(params) {
                     return $http.post('Admin/Product/List', params);
                 }
@@ -18,11 +28,6 @@
                         }
                     });
                 }
-
-                return {
-                    getProducts: getProducts,
-                    createProduct: createProduct
-                };
             }
         ]);
 })();

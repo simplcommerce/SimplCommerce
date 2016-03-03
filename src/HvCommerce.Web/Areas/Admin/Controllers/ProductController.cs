@@ -6,7 +6,7 @@ using HvCommerce.Core.ApplicationServices;
 using HvCommerce.Core.Domain.Models;
 using HvCommerce.Infrastructure;
 using HvCommerce.Infrastructure.Domain.IRepositories;
-using HvCommerce.Web.Areas.Admin.ViewModels;
+using HvCommerce.Web.Areas.Admin.ViewModels.Products;
 using HvCommerce.Web.Areas.Admin.ViewModels.SmartTable;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Http;
@@ -64,6 +64,36 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
                 OldPrice = model.Product.OldPrice,
                 IsPublished = model.Product.IsPublished
             };
+
+            foreach (var attribute in model.Product.Attributes)
+            {
+                foreach (var value in attribute.Values)
+                {
+                    product.AddAttributeValue(new ProductAttributeValue
+                    {
+                        Value = value,
+                        AttributeId = attribute.Id
+                    });
+                }
+            }
+
+            foreach (var variationVm in model.Product.Variations)
+            {
+                var variation = new ProductVariation
+                {
+                    Name = variationVm.Name,
+                    PriceOffset = variationVm.PriceOffset
+                };
+                foreach (var combinationVm in variationVm.AttributeCombinations)
+                {
+                    variation.AddAttributeCombination(new ProductAttributeCombination
+                    {
+                        AttributeId = combinationVm.AttributeId,
+                        Value = combinationVm.Value
+                    });
+                }
+                product.AddProductVariation(variation);
+            }
 
             foreach (var categoryId in model.Product.CategoryIds)
             {

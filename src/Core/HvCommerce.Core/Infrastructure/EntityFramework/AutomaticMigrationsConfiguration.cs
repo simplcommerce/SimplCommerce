@@ -1,6 +1,7 @@
-﻿using System.Data.Entity;
-using System.Data.Entity.Migrations;
+﻿using System.Data.Entity.Migrations;
+using System.Linq;
 using HvCommerce.Core.Domain.Models;
+using HvCommerce.Infrastructure.Domain.IRepositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.Practices.ServiceLocation;
 
@@ -40,7 +41,21 @@ namespace HvCommerce.Core.Infrastructure.EntityFramework
                 await userManager.AddToRoleAsync(adminUser, adminRole.Name);
             }
 
+            var productAttrRepository = ServiceLocator.Current.GetInstance<IRepository<ProductAttribute>>();
+            if (productAttrRepository.Query().FirstOrDefault(x => x.Name == "Color") == null)
+            {
+                productAttrRepository.Add(new ProductAttribute { Name = "Color" });
+            }
+
+            if (productAttrRepository.Query().FirstOrDefault(x => x.Name == "Size") == null)
+            {
+                productAttrRepository.Add(new ProductAttribute { Name = "Size" });
+            }
+
+            productAttrRepository.SaveChange();
+
             base.Seed(context);
         }
+
     }
 }

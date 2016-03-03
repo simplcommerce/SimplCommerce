@@ -12,10 +12,11 @@
                 this.categories = [];
                 this.thumbnailImage = null;
                 this.productImages = [];
-                this.attributes = [{ id: 1, name: 'Color', values: [] }, { id: 2, name: 'Size', values: []}];
+                this.attributes = [];
                 this.addingAttribute = null;
 
                 this.addAttribute = function addAttribute() {
+                    vm.addingAttribute.values = [];
                     var index = vm.attributes.indexOf(vm.addingAttribute);
                     vm.product.attributes.push(vm.addingAttribute);
                     vm.attributes.splice(index, 1);
@@ -38,7 +39,8 @@
                         for (j = 0, l = vm.product.attributes[attrIndex].values.length; j < l; j++) {
                             attrCombinations = arr.slice(0);
                             attrValue = {
-                                name: vm.product.attributes[attrIndex].name,
+                                attributeName: vm.product.attributes[attrIndex].name,
+                                attributeId: vm.product.attributes[attrIndex].id,
                                 value: vm.product.attributes[attrIndex].values[j]
                             };
                             attrCombinations.push(attrValue);
@@ -74,11 +76,17 @@
                     }
                 };
 
-                this.getCategories = function getCategories() {
+                function getCategories() {
                     categoryService.getCategories().then(function(result) {
                         vm.categories = result.data;
                     });
                 };
+
+                function getProductAttrs() {
+                    productService.getProductAttrs().then(function(result) {
+                        vm.attributes = result.data;
+                    });
+                }
 
                 this.toggleCategories = function toggleCategories(categoryId) {
                     var index = vm.product.categoryIds.indexOf(categoryId);
@@ -89,7 +97,12 @@
                     }
                 }
 
-                this.getCategories();
+                function init() {
+                    getProductAttrs();
+                    getCategories();
+                }
+
+                init();
             }
         ]);
 })();

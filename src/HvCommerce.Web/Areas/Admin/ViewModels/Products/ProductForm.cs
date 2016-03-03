@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNet.Http;
 
-namespace HvCommerce.Web.Areas.Admin.ViewModels
+namespace HvCommerce.Web.Areas.Admin.ViewModels.Products
 {
     public class ProductForm
     {
@@ -15,6 +12,5 @@ namespace HvCommerce.Web.Areas.Admin.ViewModels
         public IList<IFormFile> ProductImages { get; set; } = new List<IFormFile>();
 
         public IList<IFormFile> File { get; set; } = new List<IFormFile>();
-
     }
 }

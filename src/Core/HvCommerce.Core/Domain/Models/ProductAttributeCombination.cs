@@ -8,8 +8,10 @@ namespace HvCommerce.Core.Domain.Models
 
         public virtual ProductVariation Variation { get; set; }
 
-        public long AttributeValueId { get; set; }
+        public long AttributeId { get; set; }
 
-        public virtual ProductAttributeValue AttributeValue { get; set; }
+        public virtual ProductAttribute Attribute { get; set; }
+
+        public string Value { get; set; }
     }
 }

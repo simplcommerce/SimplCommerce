@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace HvCommerce.Web.Areas.Admin.ViewModels
+namespace HvCommerce.Web.Areas.Admin.ViewModels.Products
 {
     public class ProductViewModel
     {
@@ -28,5 +28,9 @@ namespace HvCommerce.Web.Areas.Admin.ViewModels
         public bool IsPublished { get; set; }
 
         public IList<long> CategoryIds { get; set; } = new List<long>();
+
+        public IList<ProductAttributeVm> Attributes { get; set; } = new List<ProductAttributeVm>();
+
+        public IList<ProductVariationVm> Variations { get; set; } = new List<ProductVariationVm>();
     }
 }
