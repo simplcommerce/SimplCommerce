@@ -24,7 +24,7 @@
                     @foreach (var image in Model.Images)
                     {
                         <li>
-                            <img src="@image.ThumbnailUrl" />
+                            <img src="@image.ThumbnailUrl"/>
                         </li>
                     }
                 </ul>
@@ -33,6 +33,7 @@
         <div class="col-md-6">
             <div class="product-name">
                 <h1 class="">@Model.Name</h1>
+                <div>@Model.ShortDescription</div>
                 @if (Model.HasVariation)
                 {
                     foreach (var attribute in Model.AvailableAttributes)
@@ -49,6 +50,14 @@
                 <p class="product-price">Price: @Model.Price</p>
             </div>
         </div>
+    </div>
+    <div>
+        <h3>Product detail</h3>
+        @Model.Description
+    </div>
+    <div>
+        <h3>Product specification</h3>
+        @Model.Specification
     </div>
 </div>
 

@@ -60,6 +60,7 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
                 SeoTitle = StringHelper.ToUrlFriendly(model.Product.Name),
                 ShortDescription = model.Product.ShortDescription,
                 Description = model.Product.Description,
+                Specification = model.Product.Specification,
                 Price = model.Product.Price,
                 OldPrice = model.Product.OldPrice,
                 IsPublished = model.Product.IsPublished
@@ -77,6 +78,30 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
                 }
             }
 
+            MapProductVariationVmToProduct(model, product);
+
+            foreach (var categoryId in model.Product.CategoryIds)
+            {
+                var productCategory = new ProductCategory
+                {
+                    CategoryId = categoryId
+                };
+                product.AddCategory(productCategory);
+            }
+
+            SaveProductImages(model, product);
+
+            productRepository.Add(product);
+            productRepository.SaveChange();
+
+            urlSlugService.Add(product.SeoTitle, product.Id, "Product");
+            productRepository.SaveChange();
+
+            return Ok();
+        }
+
+        private static void MapProductVariationVmToProduct(ProductForm model, Product product)
+        {
             foreach (var variationVm in model.Product.Variations)
             {
                 var variation = new ProductVariation
@@ -94,16 +119,10 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
                 }
                 product.AddProductVariation(variation);
             }
+        }
 
-            foreach (var categoryId in model.Product.CategoryIds)
-            {
-                var productCategory = new ProductCategory
-                {
-                    CategoryId = categoryId
-                };
-                product.AddCategory(productCategory);
-            }
-
+        private void SaveProductImages(ProductForm model, Product product)
+        {
             if (model.ThumbnailImage != null)
             {
                 var fileName = SaveFile(model.ThumbnailImage);
@@ -129,14 +148,6 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
                 };
                 product.AddMedia(productMedia);
             }
-
-            productRepository.Add(product);
-            productRepository.SaveChange();
-
-            urlSlugService.Add(product.SeoTitle, product.Id, "Product");
-            productRepository.SaveChange();
-
-            return Ok();
         }
 
         private string SaveFile(IFormFile file)

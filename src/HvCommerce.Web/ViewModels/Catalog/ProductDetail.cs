@@ -17,6 +17,8 @@ namespace HvCommerce.Web.ViewModels.Catalog
 
         public string Description { get; set; }
 
+        public string Specification { get; set; }
+
         public bool HasVariation => Variations.Any();
 
         public IList<ProductDetailAttribute> AvailableAttributes

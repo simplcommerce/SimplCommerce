@@ -76,9 +76,26 @@ namespace HvCommerce.Web.Controllers
                 OldPrice = product.OldPrice,
                 Price = product.Price,
                 ShortDescription = product.ShortDescription,
-                Description = product.Description
+                Description = product.Description,
+                Specification = product.Specification
             };
 
+            MapProductVariantToProductVm(product, model);
+
+            foreach (var mediaViewModel in product.Medias.Select(productMedia => new MediaViewModel
+            {
+                Url = mediaService.GetMediaUrl(productMedia.Media),
+                ThumbnailUrl = mediaService.GetThumbnailUrl(productMedia.Media)
+            }))
+            {
+                model.Images.Add(mediaViewModel);
+            }
+
+            return View(model);
+        }
+
+        private static void MapProductVariantToProductVm(Product product, ProductDetail model)
+        {
             foreach (var variation in product.Variations)
             {
                 var variationVm = new ProductDetailVariation
@@ -99,17 +116,6 @@ namespace HvCommerce.Web.Controllers
 
                 model.Variations.Add(variationVm);
             }
-
-            foreach (var mediaViewModel in product.Medias.Select(productMedia => new MediaViewModel
-            {
-                Url = mediaService.GetMediaUrl(productMedia.Media),
-                ThumbnailUrl = mediaService.GetThumbnailUrl(productMedia.Media)
-            }))
-            {
-                model.Images.Add(mediaViewModel);
-            }
-
-            return View(model);
         }
     }
 }

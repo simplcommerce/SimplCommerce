@@ -25,6 +25,8 @@ namespace HvCommerce.Web.Areas.Admin.ViewModels.Products
         [Required]
         public string Description { get; set; }
 
+        public string Specification { get; set; }
+
         public bool IsPublished { get; set; }
 
         public IList<long> CategoryIds { get; set; } = new List<long>();
