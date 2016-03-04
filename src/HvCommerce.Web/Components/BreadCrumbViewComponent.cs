@@ -23,6 +23,7 @@ namespace HvCommerce.Web.Components
         {
             var breadCrumbModel = new BreadCrumbModel();
 
+            // I don'nt want to add breadcrumb to some controllers like as Home, Account, Manage, Error. You can apply if be needed.
             if (ViewContext.RouteData.Values["controller"].ToString() == "Home" ||
                 ViewContext.RouteData.Values["controller"].ToString() == "Account" ||
                 ViewContext.RouteData.Values["controller"].ToString() == "Manage" ||
@@ -30,19 +31,19 @@ namespace HvCommerce.Web.Components
             {
                 breadCrumbModel = null;
             }
+            // Applying breadcrumb to Product controller
             else if (ViewContext.RouteData.Values["controller"].ToString() == "Product")
             {
-                // Product
                 if (ViewContext.RouteData.Values["seoTitle"]!= null)
                 {
                     string seoTitle = ViewContext.RouteData.Values["seoTitle"]?.ToString();
                     var product = productRepository.Query().SingleOrDefault(x => x.SeoTitle == seoTitle && x.IsPublished);
 
-                    var q = product?.Categories?.FirstOrDefault(x=>x.ProductId == product.Id);
+                    var proCats = product?.Categories?.FirstOrDefault(x=>x.ProductId == product.Id);
 
                     breadCrumbModel.BreadCrumbCategory = new BreadCrumbCategory {
-                        CategoryName = q?.Category.Name,
-                        CategorySeoTitle = q?.Category.SeoTitle
+                        CategoryName = proCats?.Category.Name,
+                        CategorySeoTitle = proCats?.Category.SeoTitle
                     };
 
                     breadCrumbModel.BreadCrumbDetail = new BreadCrumbDetail
