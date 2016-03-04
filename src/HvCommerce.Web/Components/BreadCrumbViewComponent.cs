@@ -1,19 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using HvCommerce.Core.Domain.Models;
 using HvCommerce.Infrastructure.Domain.IRepositories;
 using HvCommerce.Web.ViewModels.Catalog;
 using Microsoft.AspNet.Mvc;
-using System.Text;
 
 namespace HvCommerce.Web.Components
 {
-    public class BreadCrumbViewComponent : ViewComponent
+    public class BreadcrumbViewComponent : ViewComponent
     {
         private readonly IRepository<Category> categoryRepository;
         private readonly IRepository<Product> productRepository;
 
-        public BreadCrumbViewComponent(IRepository<Category> categoryRepository, IRepository<Product> productRepository)
+        public BreadcrumbViewComponent(IRepository<Category> categoryRepository, IRepository<Product> productRepository)
         {
             this.categoryRepository = categoryRepository;
             this.productRepository = productRepository;
@@ -21,7 +19,7 @@ namespace HvCommerce.Web.Components
 
         public IViewComponentResult Invoke()
         {
-            var breadCrumbModel = new BreadCrumbModel();
+            var breadcrumbModel = new BreadcrumbModel();
 
             // I don'nt want to add breadcrumb to some controllers like as Home, Account, Manage, Error. You can apply if be needed.
             if (ViewContext.RouteData.Values["controller"].ToString() == "Home" ||
@@ -29,24 +27,26 @@ namespace HvCommerce.Web.Components
                 ViewContext.RouteData.Values["controller"].ToString() == "Manage" ||
                 ViewContext.RouteData.Values["controller"].ToString() == "Error")
             {
-                breadCrumbModel = null;
+                breadcrumbModel = null;
             }
             // Applying breadcrumb to Product controller
             else if (ViewContext.RouteData.Values["controller"].ToString() == "Product")
             {
-                if (ViewContext.RouteData.Values["seoTitle"]!= null)
+                if (ViewContext.RouteData.Values["seoTitle"] != null)
                 {
-                    string seoTitle = ViewContext.RouteData.Values["seoTitle"]?.ToString();
-                    var product = productRepository.Query().SingleOrDefault(x => x.SeoTitle == seoTitle && x.IsPublished);
+                    var seoTitle = ViewContext.RouteData.Values["seoTitle"]?.ToString();
+                    var product = productRepository.Query()
+                        .SingleOrDefault(x => x.SeoTitle == seoTitle && x.IsPublished);
 
-                    var proCats = product?.Categories?.FirstOrDefault(x=>x.ProductId == product.Id);
+                    var proCats = product?.Categories?.FirstOrDefault(x => x.ProductId == product.Id);
 
-                    breadCrumbModel.BreadCrumbCategory = new BreadCrumbCategory {
+                    breadcrumbModel.BreadcrumbCategory = new BreadcrumbCategory
+                    {
                         CategoryName = proCats?.Category.Name,
                         CategorySeoTitle = proCats?.Category.SeoTitle
                     };
 
-                    breadCrumbModel.BreadCrumbDetail = new BreadCrumbDetail
+                    breadcrumbModel.BreadcrumbDetail = new BreadcrumbDetail
                     {
                         Name = product?.Name,
                         SeoTitle = product?.SeoTitle
@@ -54,10 +54,10 @@ namespace HvCommerce.Web.Components
                 }
                 if (ViewContext.RouteData.Values["catSeoTitle"] != null)
                 {
-                    string cateSeoTitle = ViewContext.RouteData.Values["catSeoTitle"]?.ToString();
+                    var cateSeoTitle = ViewContext.RouteData.Values["catSeoTitle"]?.ToString();
 
                     var category = categoryRepository.Query().FirstOrDefault(x => x.SeoTitle == cateSeoTitle);
-                    breadCrumbModel.BreadCrumbCategory = new BreadCrumbCategory
+                    breadcrumbModel.BreadcrumbCategory = new BreadcrumbCategory
                     {
                         CategoryName = category?.Name,
                         CategorySeoTitle = category?.SeoTitle
@@ -65,7 +65,7 @@ namespace HvCommerce.Web.Components
                 }
             }
 
-            return View(breadCrumbModel);
+            return View(breadcrumbModel);
         }
     }
 }

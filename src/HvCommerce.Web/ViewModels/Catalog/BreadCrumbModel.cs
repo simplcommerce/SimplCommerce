@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace HvCommerce.Web.ViewModels.Catalog
+﻿namespace HvCommerce.Web.ViewModels.Catalog
 {
-    public class BreadCrumbModel
+    public class BreadcrumbModel
     {
-         public BreadCrumbCategory BreadCrumbCategory { get; set; }
-         public BreadCrumbDetail BreadCrumbDetail { get; set; }
+        public BreadcrumbCategory BreadcrumbCategory { get; set; }
+        public BreadcrumbDetail BreadcrumbDetail { get; set; }
     }
 
-    public class BreadCrumbCategory
+    public class BreadcrumbCategory
     {
         public string CategoryName { get; set; }
         public string CategorySeoTitle { get; set; }
     }
-    public class BreadCrumbDetail
+
+    public class BreadcrumbDetail
     {
         public string Name { get; set; }
         public string SeoTitle { get; set; }

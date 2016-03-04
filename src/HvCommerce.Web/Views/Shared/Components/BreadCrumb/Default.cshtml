@@ -1,16 +1,16 @@
-﻿@model HvCommerce.Web.ViewModels.Catalog.BreadCrumbModel
+﻿@model HvCommerce.Web.ViewModels.Catalog.BreadcrumbModel
 @if (Model != null)
 {
 <div>
     <ol class="breadcrumb">
-        <li><a href="/">Home</a></li>
-        @if (Model.BreadCrumbCategory != null)
+        <li><a href="~/">Home</a></li>
+        @if (Model.BreadcrumbCategory != null)
         {
-            <li><a href="/category/@Model.BreadCrumbCategory.CategorySeoTitle">@Model.BreadCrumbCategory.CategoryName</a></li>
+            <li><a href="~/@Model.BreadcrumbCategory.CategorySeoTitle">@Model.BreadcrumbCategory.CategoryName</a></li>
         }
-        @if (Model.BreadCrumbDetail != null)
+        @if (Model.BreadcrumbDetail != null)
         {
-            <li><span class="active">@Model.BreadCrumbDetail.Name</span></li>
+            <li><span class="active">@Model.BreadcrumbDetail.Name</span></li>
         }
     </ol>
 </div>
