@@ -74,6 +74,15 @@
     </p>
 </div>
 
+<div>
+    <h2 class="page-header">Sample data</h2>
+    <h1>Delete all current catalog data and create sample catalog</h1>
+    <form asp-controller="SampleData" asp-action="ResetToSample" method="post">
+        <button type="submit" class="btn btn-danger">Do it!</button>
+    </form>
+
+</div>
+
 <h2 class="page-header">Feature products</h2>
 <div class="row">
     @foreach (var product in Model.FeaturedProducts)

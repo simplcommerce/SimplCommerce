@@ -35,4 +35,5 @@ li.nav-item-group, li.nav-item-group a {
 }
 .breadcrumb {
     background-color: #FFFFFF;
+    padding: 0;
 }
