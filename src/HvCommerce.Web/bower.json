@@ -6,7 +6,6 @@
     "jquery": "2.1.4",
     "jquery-validation": "1.14.0",
     "jquery-validation-unobtrusive": "3.2.4",
-    "flexslider": "2.6.0",
     "angular": "1.5.0",
     "angular-ui-router": "0.2.18",
     "angular-animate": "1.5.0",

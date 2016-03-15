@@ -2,32 +2,20 @@
 
 @section head
 {
-    <link href="~/lib/flexslider/flexslider.css" rel="stylesheet" />
+    <link href="~/lib/smoothproducts/css/smoothproducts.css" rel="stylesheet" />
     <link href="~/css/product-detail.css" rel="stylesheet" />
 }
 
 <div class="product-detail">
     <div class="row">
         <div class="col-md-6">
-            <div id="slider" class="flexslider">
-                <ul class="slides">
-                    @foreach (var image in Model.Images)
-                    {
-                        <li>
-                            <img src="@image.Url"/>
-                        </li>
-                    }
-                </ul>
-            </div>
-            <div id="carousel" class="flexslider">
-                <ul class="slides">
-                    @foreach (var image in Model.Images)
-                    {
-                        <li>
-                            <img src="@image.ThumbnailUrl"/>
-                        </li>
-                    }
-                </ul>
+            <div class="sp-wrap">
+                @foreach (var image in Model.Images)
+                {
+                    <a href="@image.Url">
+                        <img src="@image.ThumbnailUrl" alt="" />
+                    </a>
+                }
             </div>
         </div>
         <div class="col-md-6">
@@ -63,6 +51,6 @@
 
 @section scripts
 {
-    <script src="~/lib/flexslider/jquery.flexslider-min.js"></script>
+    <script src="~/lib/smoothproducts/js/smoothproducts.js"></script>
     <script src="~/js/product-detail.js"></script>
 }
