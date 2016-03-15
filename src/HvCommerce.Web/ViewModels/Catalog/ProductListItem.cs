@@ -16,7 +16,7 @@ namespace HvCommerce.Web.ViewModels.Catalog
 
         public decimal Price { get; set; }
 
-        public decimal OldPrice { get; set; }
+        public decimal? OldPrice { get; set; }
 
         public Media ThumbnailImage { get; set; }
 

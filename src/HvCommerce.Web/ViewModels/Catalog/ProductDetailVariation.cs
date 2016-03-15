@@ -9,7 +9,7 @@ namespace HvCommerce.Web.ViewModels.Catalog
     {
         public long Id { get; set; }
 
-        public decimal PriceOffset { get; set; }
+        public decimal? PriceOffset { get; set; }
 
         public IList<ProductDetailVariationAttribute> Attributes { get; protected set; } = new List<ProductDetailVariationAttribute>();
     }

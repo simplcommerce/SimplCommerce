@@ -311,6 +311,25 @@
           "lib/net451/Microsoft.AspNet.Authentication.Cookies.dll": {}
         }
       },
+      "Microsoft.AspNet.Authentication.Facebook/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Authentication.OAuth": "1.0.0-rc1-final",
+          "Newtonsoft.Json": "6.0.6"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.AspNet.Authentication.Facebook.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.AspNet.Authentication.Facebook.dll": {}
+        }
+      },
       "Microsoft.AspNet.Authentication.Google/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -2500,6 +2519,25 @@
         },
         "runtime": {
           "lib/net451/Microsoft.AspNet.Authentication.Cookies.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Authentication.Facebook/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Authentication.OAuth": "1.0.0-rc1-final",
+          "Newtonsoft.Json": "6.0.6"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.AspNet.Authentication.Facebook.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.AspNet.Authentication.Facebook.dll": {}
         }
       },
       "Microsoft.AspNet.Authentication.Google/1.0.0-rc1-final": {
@@ -4696,6 +4734,25 @@
           "lib/net451/Microsoft.AspNet.Authentication.Cookies.dll": {}
         }
       },
+      "Microsoft.AspNet.Authentication.Facebook/1.0.0-rc1-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNet.Authentication.OAuth": "1.0.0-rc1-final",
+          "Newtonsoft.Json": "6.0.6"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net451/Microsoft.AspNet.Authentication.Facebook.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Microsoft.AspNet.Authentication.Facebook.dll": {}
+        }
+      },
       "Microsoft.AspNet.Authentication.Google/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -6791,6 +6848,20 @@
         "Microsoft.AspNet.Authentication.Cookies.1.0.0-rc1-final.nupkg",
         "Microsoft.AspNet.Authentication.Cookies.1.0.0-rc1-final.nupkg.sha512",
         "Microsoft.AspNet.Authentication.Cookies.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.Authentication.Facebook/1.0.0-rc1-final": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "jnxn+FmMl5hteVj/9E38XLQq3ksJwTretsLJKY7qiIIpDQJqhsEPzCbop+vSalnYMMoHaFOdixWmizIQrmlOfQ==",
+      "files": [
+        "lib/dotnet5.4/Microsoft.AspNet.Authentication.Facebook.dll",
+        "lib/dotnet5.4/Microsoft.AspNet.Authentication.Facebook.xml",
+        "lib/net451/Microsoft.AspNet.Authentication.Facebook.dll",
+        "lib/net451/Microsoft.AspNet.Authentication.Facebook.xml",
+        "Microsoft.AspNet.Authentication.Facebook.1.0.0-rc1-final.nupkg",
+        "Microsoft.AspNet.Authentication.Facebook.1.0.0-rc1-final.nupkg.sha512",
+        "Microsoft.AspNet.Authentication.Facebook.nuspec"
       ]
     },
     "Microsoft.AspNet.Authentication.Google/1.0.0-rc1-final": {
@@ -8936,6 +9007,7 @@
       "EntityFramework >= 6.1.3",
       "CommonServiceLocator >= 1.3.0",
       "Microsoft.AspNet.Authentication.Google >= 1.0.0-rc1-final",
+      "Microsoft.AspNet.Authentication.Facebook >= 1.0.0-rc1-final",
       "System.Linq.Dynamic.Library >= 1.1.14"
     ],
     "DNX,Version=v4.5.1": [

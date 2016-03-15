@@ -27,6 +27,7 @@
     "EntityFramework": "6.1.3",
     "CommonServiceLocator": "1.3.0",
     "Microsoft.AspNet.Authentication.Google": "1.0.0-rc1-final",
+    "Microsoft.AspNet.Authentication.Facebook": "1.0.0-rc1-final",
     "System.Linq.Dynamic.Library": "1.1.14"
   },
 

@@ -14,7 +14,7 @@ namespace HvCommerce.Web.Areas.Admin.ViewModels.Products
 
         public decimal Price { get; set; }
 
-        public decimal OldPrice { get; set; }
+        public decimal? OldPrice { get; set; }
 
         [Required]
         public string Name { get; set; }

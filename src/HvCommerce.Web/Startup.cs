@@ -9,6 +9,7 @@ using HvCommerce.Core.Infrastructure.EntityFramework;
 using HvCommerce.Infrastructure;
 using HvCommerce.Infrastructure.Domain.IRepositories;
 using HvCommerce.Web.RouteConfigs;
+using Microsoft.AspNet.Authentication.Facebook;
 using Microsoft.AspNet.Authentication.Google;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
@@ -121,6 +122,11 @@ namespace HvCommerce.Web
                 {
                     ClientId = "583825788849-8g42lum4trd5g3319go0iqt6pn30gqlq.apps.googleusercontent.com",
                     ClientSecret = "X8xIiuNEUjEYfiEfiNrWOfI4"
+                })
+                .UseFacebookAuthentication(new FacebookOptions
+                {
+                    AppId = "1716532045292977",
+                    AppSecret = "dfece01ae919b7b8af23f962a1f87f95"
                 });
 
             app.UseMvc(routes =>

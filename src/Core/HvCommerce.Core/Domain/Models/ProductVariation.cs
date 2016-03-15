@@ -20,7 +20,7 @@ namespace HvCommerce.Core.Domain.Models
 
         public string Sku { get; set; }
 
-        public decimal PriceOffset { get; set; }
+        public decimal? PriceOffset { get; set; }
 
         public bool IsAllowOrder { get; set; }
 

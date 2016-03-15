@@ -16,11 +16,11 @@
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>Short Description</label>
-                            <textarea name="shortDescription" ng-model="vm.product.shortDescription" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                            <textarea name="shortDescription" ng-model="vm.product.shortDescription" md-maxlength="300" rows="5" md-select-on-focus></textarea>
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>Description</label>
-                            <textarea name="description" ng-model="vm.product.description" md-maxlength="2000" rows="5" md-select-on-focus></textarea>
+                            <textarea name="description" ng-model="vm.product.description" md-maxlength="10000" rows="5" md-select-on-focus></textarea>
                         </md-input-container>
                         <div layout-gt-sm="row">
                             <md-input-container class="md-block" flex-gt-sm>
@@ -29,7 +29,7 @@
                             </md-input-container>
                             <md-input-container class="md-block" flex-gt-sm>
                                 <label>Old Price</label>
-                                <input name="oldPrice" required type="number" step="any" ng-model="vm.product.oldPrice" min="0"/>
+                                <input name="oldPrice" type="number" step="any" ng-model="vm.product.oldPrice"/>
                             </md-input-container>
                         </div>
                         <md-input-container class="md-block">

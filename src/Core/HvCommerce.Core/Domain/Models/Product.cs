@@ -16,7 +16,7 @@ namespace HvCommerce.Core.Domain.Models
 
         public decimal Price { get; set; }
 
-        public decimal OldPrice { get; set; }
+        public decimal? OldPrice { get; set; }
 
         public int DisplayOrder { get; set; }
 

@@ -4,7 +4,7 @@
         <form name="categoryForm">
             <md-input-container class="md-block">
                 <label>Category Name</label>
-                <input name="name" ng-model="vm.category.name" required md-maxlength="10" minlength="4">
+                <input name="name" ng-model="vm.category.name" required md-maxlength="200" minlength="4">
                 <div ng-messages="categoryForm.name.$error" ng-show="categoryForm.name.$dirty">
                     <div ng-message="required">This is required!</div>
                     <div ng-message="md-maxlength">That's too long!</div>
