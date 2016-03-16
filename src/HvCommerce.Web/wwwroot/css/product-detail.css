@@ -5,3 +5,43 @@
     width: 120px;
     height: 120px;
 }
+
+.product-price {
+    color: red;
+    font-weight: bold;
+}
+
+.product-attrs input {
+    left: -9999px;
+    position: absolute;
+}
+
+.product-attrs label {
+    width: 90px;
+    height: 50px;
+    float: right;
+    padding: 6px 0;
+    display: block;
+    color: #dedede;
+    font-size: 24px;
+    text-align: center;
+    background: #f8f8f8;
+    text-transform: uppercase;
+    border: 2px solid #dedede;
+}
+
+.product-attrs label {
+	-ms-transition: color 0.3s;
+	-moz-transition: color 0.3s;
+	-webkit-transition: color 0.3s;
+}
+
+.product-attrs label:hover {
+	cursor: pointer;
+	border: 2px solid #18ba9b;
+}
+
+.product-attrs input:checked ~ label {
+    color: #18ba9b;
+    border-color: #18ba9b;
+}

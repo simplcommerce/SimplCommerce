@@ -22,20 +22,26 @@
             <div class="product-name">
                 <h1 class="">@Model.Name</h1>
                 <div>@Model.ShortDescription</div>
+                <br />
                 @if (Model.HasVariation)
                 {
                     foreach (var attribute in Model.AvailableAttributes)
                     {
-                        <label>@attribute.AttributeName: </label>
-                        <select>
-                            @foreach (var value in attribute.Values)
-                            {
-                                <option>@value</option>
-                            }
-                        </select>
+                        <p>
+                            <label>@attribute.AttributeName: </label>
+                            <ul class="list-inline product-attrs">
+                                @foreach (var value in attribute.Values)
+                                {
+                                    <li>
+                                        <input type="radio" name="@attribute.AttributeName" />
+                                        <label>@value</label>
+                                    </li>
+                                }
+                            </ul>
+                        </p>
                     }
                 }
-                <p class="product-price">Price: @Model.Price</p>
+                <p class="product-price">Price: @Model.Price.ToString("C2")</p>
             </div>
         </div>
     </div>
