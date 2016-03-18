@@ -6,9 +6,23 @@
     height: 120px;
 }
 
+.product-detail .product-short-desc {
+    margin: 30px 0;
+}
+
 .product-price {
-    color: red;
-    font-weight: bold;
+    margin: 20px 0;
+    padding: 5px 10px;
+    background-color: #FFFFFF;
+    text-align: left;
+    border: 2px dashed #E0E0E0;
+}
+
+.product-price h3 {
+    font-size: 30px;
+    font-weight: 400;
+    color: #26B99A;
+    margin: 0;
 }
 
 .product-attrs input {
@@ -17,17 +31,16 @@
 }
 
 .product-attrs label {
-    width: 90px;
-    height: 50px;
+    width: 80px;
+    height: 40px;
     float: right;
-    padding: 6px 0;
     display: block;
     color: #dedede;
     font-size: 24px;
     text-align: center;
     background: #f8f8f8;
-    text-transform: uppercase;
     border: 2px solid #dedede;
+    font-weight: normal;
 }
 
 .product-attrs label {
@@ -44,4 +57,9 @@
 .product-attrs input:checked ~ label {
     color: #18ba9b;
     border-color: #18ba9b;
+}
+
+.sp-wrap {
+    background: none;
+    border: none;
 }

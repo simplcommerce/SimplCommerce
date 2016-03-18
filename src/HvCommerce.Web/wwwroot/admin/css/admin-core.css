@@ -6,6 +6,10 @@
     margin-bottom: 15px;
 }
 
+th.sortable {
+    cursor: pointer;
+}
+
 .st-sort-ascent:before{
     content: '\25B2';
 }

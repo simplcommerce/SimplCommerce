@@ -33,7 +33,7 @@ html, body {
 	  Set max-width to your thumbnail width
 	***************/
 	
-	max-width: 490px;
+	max-width: 500px;
 }
 
 /* Thumbnails */
@@ -135,8 +135,8 @@ html, body {
 	background: #000;
 	border-radius: 25px;
 	border: 2px solid #fff;
-	width: 80px;
-	height: 80px;
+	width: 50px;
+	height: 50px;
 	box-sizing: border-box;
 	transition: .2s;
 }

@@ -21,14 +21,13 @@
         <div class="col-md-6">
             <div class="product-name">
                 <h1 class="">@Model.Name</h1>
-                <div>@Model.ShortDescription</div>
-                <br />
+                <div class="product-short-desc">@Model.ShortDescription</div>
                 @if (Model.HasVariation)
                 {
                     foreach (var attribute in Model.AvailableAttributes)
                     {
                         <p>
-                            <label>@attribute.AttributeName: </label>
+                            <h3>@attribute.AttributeName </h3>
                             <ul class="list-inline product-attrs">
                                 @foreach (var value in attribute.Values)
                                 {
@@ -41,7 +40,13 @@
                         </p>
                     }
                 }
-                <p class="product-price">Price: @Model.Price.ToString("C2")</p>
+                <div class="product-price">
+                    <h3>Price: @Model.Price.ToString("C2")</h3>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-default btn-lg">Add to Cart</button>
+                    <button type="button" class="btn btn-default btn-lg">Add to Wishlist</button>
+                </div>
             </div>
         </div>
     </div>
