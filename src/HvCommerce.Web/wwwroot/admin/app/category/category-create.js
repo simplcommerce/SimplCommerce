@@ -8,7 +8,7 @@
                 this.category = {};
                 this.categories = [];
 
-                this.create = function create() {
+                this.save = function save() {
                     categoryService.createCategory(vm.category).then(function (result) {
                         $state.go('category');
                     });

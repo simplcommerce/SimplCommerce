@@ -4,13 +4,21 @@
         .controller('categoryListCtrl', [
             'categoryService',
             function(categoryService) {
-                var ctrl = this;
+                var vm = this;
                 this.categories = [];
 
                 this.getCategories = function getCategories() {
                     categoryService.getCategories().then(function(result) {
-                        ctrl.categories = result.data;
+                        vm.categories = result.data;
                     });
+                };
+
+                this.delete = function deleteCategory(category) {
+                    if (confirm("Are you sure?")) {
+                        categoryService.deleteCategory(category).then(function(result) {
+                            vm.getCategories();
+                        });
+                    }
                 };
 
                 this.getCategories();

@@ -21,7 +21,10 @@
     <tr ng-repeat="category in vm.categories">
         <td>{{category.name}}</td>
         <td>{{category.isPublished}}</td>
-        <td></td>
+        <td>
+            <a ui-sref="category-edit({id: category.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+            <button ng-click="vm.delete(category)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+        </td>
     </tr>
     </tbody>
 </table>

@@ -1,27 +1,30 @@
-﻿<md-card>
-    <md-card-content layout-padding>
-        <h2>Create Category</h2>
-        <form name="categoryForm">
-            <md-input-container class="md-block">
-                <label>Category Name</label>
-                <input name="name" ng-model="vm.category.name" required md-maxlength="200" minlength="4">
-                <div ng-messages="categoryForm.name.$error" ng-show="categoryForm.name.$dirty">
-                    <div ng-message="required">This is required!</div>
-                    <div ng-message="md-maxlength">That's too long!</div>
-                    <div ng-message="minlength">That's too short!</div>
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Create category</h2>
+    </div>
+    <div class="panel-body">
+        <form name="categoryForm" class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Category Name</label>
+                <div class="col-sm-10">
+                    <input name="name" ng-model="vm.category.name" class="form-control" />
                 </div>
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>Parent Category</label>
-                <md-select ng-model="vm.category.parentId">
-                    <md-option ng-value="">Top</md-option>
-                    <md-option ng-value="opt.id" ng-repeat="opt in vm.categories">{{ opt.name }}</md-option>
-                </md-select>
-            </md-input-container>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Parent Category</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="vm.category.parentId"
+                            ng-options="category.id as category.name for category in vm.categories">
+                        <option value="">Top</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> Save</button>
+                    <button ui-sref="category" class="btn btn-default">Cancel</button>
+                </div>
+            </div>
         </form>
-    </md-card-content>
-    <md-card-actions layout="row" layout-align="end center">
-        <md-button class="md-raised md-primary" ng-click="vm.create()">Save</md-button>
-        <md-button class="md-raised">Cancel</md-button>
-    </md-card-actions>
-</md-card>
+    </div>
+</div>

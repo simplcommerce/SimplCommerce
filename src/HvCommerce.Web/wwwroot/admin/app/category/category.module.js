@@ -13,6 +13,11 @@
                     url: '/category/create',
                     templateUrl: 'admin/app/category/category-form.html',
                     controller: 'categoryCreateCtrl as vm'
+                })
+                .state('category-edit', {
+                    url: '/category/edit/:id',
+                    templateUrl: 'admin/app/category/category-form.html',
+                    controller: 'categoryEditCtrl as vm'
                 });
         }]);
 })();

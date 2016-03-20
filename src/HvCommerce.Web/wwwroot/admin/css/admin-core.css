@@ -2,6 +2,11 @@
     margin-top: 22px;
 }
 
+.panel-default > .panel-heading {
+    background: none;
+    border: none;
+}
+
 .nav-tabs {
     margin-bottom: 15px;
 }

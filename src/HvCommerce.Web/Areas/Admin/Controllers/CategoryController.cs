@@ -36,6 +36,20 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
             return Json(gridData);
         }
 
+        public IActionResult Get(long id)
+        {
+            var category = categoryRepository.Get(id);
+            var model = new CategoryForm
+            {
+                Id = category.Id,
+                Name = category.Name,
+                ParentId = category.ParentId,
+                IsPublished = category.IsPublished
+            };
+
+            return Json(model);
+        }
+
         [HttpPost]
         public IActionResult Create([FromBody] CategoryForm model)
         {
@@ -60,22 +74,8 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
             return Json(ModelState.ToDictionary());
         }
 
-        public IActionResult Edit(long id)
-        {
-            var category = categoryRepository.Get(id);
-            var model = new CategoryForm
-            {
-                Id = category.Id,
-                Name = category.Name,
-                ParentId = category.ParentId,
-                IsPublished = category.IsPublished
-            };
-            AddCategoryListToForm(id);
-            return View(model);
-        }
-
         [HttpPost]
-        public IActionResult Edit(long id, CategoryForm model)
+        public IActionResult Edit(long id, [FromBody]CategoryForm model)
         {
             if (ModelState.IsValid)
             {
@@ -88,11 +88,11 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
                 urlSlugService.Update(category.SeoTitle, category.Id, "Category");
 
                 categoryRepository.SaveChange();
-                return RedirectToAction("List");
+
+                return Ok();
             }
 
-            AddCategoryListToForm(id);
-            return View(model);
+            return Json(ModelState.ToDictionary());
         }
 
         [HttpPost]
@@ -109,18 +109,6 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
             categoryRepository.SaveChange();
 
             return Json(true);
-        }
-
-        private void AddCategoryListToForm(long excludedId)
-        {
-            var categories = categoryRepository.Query().Where(x => !x.IsDeleted).ToList();
-
-            var categoryListItem = CategoryMapper.ToCategoryListItem(categories)
-                    .Where(x => x.Id != excludedId)
-                    .Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() })
-                    .ToList();
-            categoryListItem.Insert(0, new SelectListItem { Text = "Top", Value = string.Empty });
-            ViewBag.Categories = categoryListItem;
         }
     }
 }
