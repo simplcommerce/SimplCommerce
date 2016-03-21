@@ -21,7 +21,7 @@
         <div class="col-md-6">
             <div class="product-name">
                 <h1 class="">@Model.Name</h1>
-                <div class="product-short-desc">@Model.ShortDescription</div>
+                <div class="product-short-desc">@Html.Raw(Model.ShortDescription)</div>
                 @if (Model.HasVariation)
                 {
                     foreach (var attribute in Model.AvailableAttributes)
@@ -52,11 +52,11 @@
     </div>
     <div>
         <h3>Product detail</h3>
-        @Model.Description
+        @Html.Raw(Model.Description)
     </div>
     <div>
         <h3>Product specification</h3>
-        @Model.Specification
+        @Html.Raw(Model.Specification)
     </div>
 </div>
 

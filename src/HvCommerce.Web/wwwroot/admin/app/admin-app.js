@@ -5,6 +5,8 @@
         'ngMessages',
         'smart-table',
         'ngFileUpload',
+        'ui.bootstrap',
+        'summernote',
         'hvAdmin.dashboard',
         'hvAdmin.user',
         'hvAdmin.category',
