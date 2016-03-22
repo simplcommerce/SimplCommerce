@@ -19,10 +19,8 @@ namespace HvCommerce.Web.Areas.Admin.ViewModels.Products
         [Required]
         public string Name { get; set; }
 
-        [Required]
         public string ShortDescription { get; set; }
 
-        [Required]
         public string Description { get; set; }
 
         public string Specification { get; set; }

@@ -6,7 +6,7 @@
             function($state, $http, categoryService, productService, summerNoteService) {
                 var vm = this;
                 // declare shoreDescription and description for summernote
-                this.product = { shortDescription: '', description: '' };
+                this.product = { shortDescription: '', description: '', specification: '' };
                 this.product.categoryIds = [];
                 this.product.attributes = [];
                 this.product.variations = [];
@@ -27,6 +27,13 @@
                     summerNoteService.upload(files[0])
                     .success(function (url) {
                         $(vm.descEditor).summernote('insertImage', url);
+                    })
+                };
+
+                this.specUpload = function (files) {
+                    summerNoteService.upload(files[0])
+                    .success(function (url) {
+                        $(vm.specEditor).summernote('insertImage', url);
                     })
                 };
 

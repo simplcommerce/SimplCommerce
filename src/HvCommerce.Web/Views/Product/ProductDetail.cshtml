@@ -50,14 +50,21 @@
             </div>
         </div>
     </div>
-    <div>
-        <h3>Product detail</h3>
-        @Html.Raw(Model.Description)
-    </div>
-    <div>
-        <h3>Product specification</h3>
-        @Html.Raw(Model.Specification)
-    </div>
+    @if (!String.IsNullOrWhiteSpace(Model.Description))
+    {
+        <div>
+            <h3>Product detail</h3>
+            @Html.Raw(Model.Description)
+        </div>
+    }
+
+    @if (!String.IsNullOrWhiteSpace(Model.Specification))
+    {
+        <div>
+            <h3>Product specification</h3>
+            @Html.Raw(Model.Specification)
+        </div>
+    }
 </div>
 
 @section scripts
