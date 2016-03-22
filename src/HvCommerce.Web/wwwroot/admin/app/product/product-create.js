@@ -2,10 +2,11 @@
     angular
         .module('hvAdmin.product')
         .controller('productCreateCtrl', [
-            '$state', 'categoryService', 'productService',
-            function($state, categoryService, productService) {
+            '$state', '$http', 'categoryService', 'productService', 'summerNoteService',
+            function($state, $http, categoryService, productService, summerNoteService) {
                 var vm = this;
-                this.product = {};
+                // declare shoreDescription and description for summernote
+                this.product = { shortDescription: '', description: '' };
                 this.product.categoryIds = [];
                 this.product.attributes = [];
                 this.product.variations = [];
@@ -14,6 +15,20 @@
                 this.productImages = [];
                 this.attributes = [];
                 this.addingAttribute = null;
+
+                this.shortDescUpload = function (files) {
+                    summerNoteService.upload(files[0])
+                    .success(function (url) {
+                        $(vm.shortDescEditor).summernote('insertImage', url);
+                    })
+                };
+
+                this.descUpload = function (files) {
+                    summerNoteService.upload(files[0])
+                    .success(function (url) {
+                        $(vm.descEditor).summernote('insertImage', url);
+                    })
+                };
 
                 this.addAttribute = function addAttribute() {
                     vm.addingAttribute.values = [];

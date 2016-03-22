@@ -7,6 +7,8 @@ namespace HvCommerce.Core.ApplicationServices
     {
         string GetMediaUrl(Media media);
 
+        string GetMediaUrl(string fileName);
+
         string GetThumbnailUrl(Media media);
 
         void SaveMedia(Stream mediaBinaryStream, string fileName);

@@ -1,14 +1,14 @@
 {
-	"name": "ASP.NET",
-	"private": true,
+  "name": "ASP.NET",
+  "private": true,
   "dependencies": {
     "bootstrap": "3.3.5",
     "jquery": "2.1.4",
     "jquery-validation": "1.14.0",
     "jquery-validation-unobtrusive": "3.2.4",
-    "angular": "1.5.0",
+    "angular": "1.5.2",
     "angular-ui-router": "0.2.18",
-    "angular-animate": "1.5.0",
+    "angular-animate": "1.5.2",
     "angular-smart-table": "2.1.7",
     "angular-material": "1.0.5",
     "ng-file-upload": "12.0.1",

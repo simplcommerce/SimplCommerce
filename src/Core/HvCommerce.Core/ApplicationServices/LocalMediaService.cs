@@ -17,6 +17,11 @@ namespace HvCommerce.Core.ApplicationServices
             return $"/{MediaRootFoler}/default.png";
         }
 
+        public string GetMediaUrl(string fileName)
+        {
+            return $"/{MediaRootFoler}/{fileName}";
+        }
+
         public string GetThumbnailUrl(Media media)
         {
             return GetMediaUrl(media);

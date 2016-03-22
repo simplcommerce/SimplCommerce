@@ -153,7 +153,7 @@ namespace HvCommerce.Web.Areas.Admin.Controllers
         private string SaveFile(IFormFile file)
         {
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-            var fileName = $"{Guid.NewGuid()}.{Path.GetExtension(originalFileName)}";
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
             mediaService.SaveMedia(file.OpenReadStream(), fileName);
             return fileName;
         }

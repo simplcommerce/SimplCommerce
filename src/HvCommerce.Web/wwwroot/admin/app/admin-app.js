@@ -7,6 +7,7 @@
         'ngFileUpload',
         'ui.bootstrap',
         'summernote',
+        'hvAdmin.common',
         'hvAdmin.dashboard',
         'hvAdmin.user',
         'hvAdmin.category',
