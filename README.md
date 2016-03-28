@@ -21,3 +21,6 @@ How to contribute:
 - Suggest features by create new issues or add comments to issues
 - Pickup an issue, create your own branch and implement it, then submit a Merge Request when you finished the implemntation and testing
 - Remember to fix all the StyleCop violations before submit a Merge Request
+
+License
+HvCommerce is licensed under the Apache 2.0 license.
