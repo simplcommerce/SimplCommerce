@@ -1,0 +1,108 @@
+﻿
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - Shopcuatoi</title>
+
+        <environment names="Development">
+            <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+            <link rel="stylesheet" href="~/css/site.css" />
+        </environment>
+        <environment names="Staging,Production">
+            <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
+                  asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
+                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"/>
+            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true"/>
+        </environment>
+
+        @RenderSection("head", required: false)
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="container">
+                <div class="navbar-header">
+                    <a asp-controller="Home" asp-action="Index" class="navbar-brand">
+                        <img alt="Shopcuatoi" src="~/images/logo_shopcuatoi.png" />
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    @await Html.PartialAsync("_LoginPartial")
+                </div>
+            </div>
+        </div>
+        <div class="navbar">
+            <div class="container">
+                
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-controller="Home" asp-action="Index" class="navbar-brand">Home</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    @await Component.InvokeAsync("CategoryMenu")
+                </div>
+                <hr />
+                @await Component.InvokeAsync("Breadcrumb")
+            </div>
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+        </div>
+        <div class="footer-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4>Information</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="#">Project site</a></li>
+                            <li><a href="#">Exclusiva</a></li>
+                            <li><a href="#">Documentos </a></li>
+                            <li><a href="#">Francisco papa</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h4>Customer services</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="#">Shipping & returns</a></li>
+                            <li><a href="#">Privacy notice</a></li>
+                            <li><a href="#">Conditions of Use </a></li>
+                            <li><a href="#">Contact us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Shopcuatoi - A very simple shopping cart</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sollicitudin erat nec ornarevolu tpat. Etiam ut felis nec nisl eleifend lobortis.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sollicitudin erat nec.</p>
+                    </div>
+                </div>
+                <hr />
+                <p class="pull-left">&copy; 2016 - Shopcuatoi</p>
+                <p class="pull-right">Powered by <a href="http://www.shopcuatoi.com"><strong>Shopcuatoi</strong></a></p>
+            </div>
+        </div>
+        <environment names="Development">
+            <script src="~/lib/jquery/jquery.js"></script>
+            <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+        </environment>
+        <environment names="Staging,Production">
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
+                    asp-fallback-src="~/lib/jquery/jquery.min.js"
+                    asp-fallback-test="window.jQuery">
+            </script>
+            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+            </script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+        </environment>
+
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

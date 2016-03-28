@@ -1,0 +1,17 @@
+﻿@model Shopcuatoi.Web.ViewModels.Catalog.BreadcrumbModel
+@if (Model != null)
+{
+<div>
+    <ol class="breadcrumb">
+        <li><a href="~/">Home</a></li>
+        @if (Model.BreadcrumbCategory != null)
+        {
+            <li><a href="~/@Model.BreadcrumbCategory.CategorySeoTitle">@Model.BreadcrumbCategory.CategoryName</a></li>
+        }
+        @if (Model.BreadcrumbDetail != null)
+        {
+            <li><span class="active">@Model.BreadcrumbDetail.Name</span></li>
+        }
+    </ol>
+</div>
+}

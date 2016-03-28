@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net451": {
+      "wrappedProject": "../../src/Infrastructure/Shopcuatoi.Infrastructure/Shopcuatoi.Infrastructure.csproj",
+      "bin": {
+        "assembly": "../../src/Infrastructure/Shopcuatoi.Infrastructure/obj/{configuration}/Shopcuatoi.Infrastructure.dll",
+        "pdb": "../../src/Infrastructure/Shopcuatoi.Infrastructure/obj/{configuration}/Shopcuatoi.Infrastructure.pdb"
+      },
+      "dependencies": {
+        "Autofac": "4.0.0-rc1-177",
+        "CommonServiceLocator": "1.3"
+      }
+    }
+  }
+}
