@@ -1,9 +1,9 @@
-﻿(function() {
+﻿(function () {
     angular
         .module('shopAdmin.product')
-        .controller('productCreateCtrl', [
-            '$state', '$http', 'categoryService', 'productService', 'summerNoteService',
-            function($state, $http, categoryService, productService, summerNoteService) {
+        .controller('productEditCtrl', [
+            '$state', '$stateParams', '$http', 'categoryService', 'productService', 'summerNoteService',
+            function ($state, $stateParams, $http, categoryService, productService, summerNoteService) {
                 var vm = this;
                 // declare shoreDescription and description for summernote
                 this.product = { shortDescription: '', description: '', specification: '' };
@@ -18,21 +18,21 @@
 
                 this.shortDescUpload = function (files) {
                     summerNoteService.upload(files[0])
-                        .success(function(url) {
+                        .success(function (url) {
                             $(vm.shortDescEditor).summernote('insertImage', url);
                         });
                 };
 
                 this.descUpload = function (files) {
                     summerNoteService.upload(files[0])
-                        .success(function(url) {
+                        .success(function (url) {
                             $(vm.descEditor).summernote('insertImage', url);
                         });
                 };
 
                 this.specUpload = function (files) {
                     summerNoteService.upload(files[0])
-                        .success(function(url) {
+                        .success(function (url) {
                             $(vm.specEditor).summernote('insertImage', url);
                         });
                 };
@@ -69,7 +69,7 @@
 
                             if (attrIndex === maxIndexAttr) {
                                 variation = {
-                                    name: attrCombinations.map(function(item) {
+                                    name: attrCombinations.map(function (item) {
                                         return item.value;
                                     }).join('-'),
                                     attributeCombinations: attrCombinations
@@ -98,14 +98,20 @@
                     }
                 };
 
+                function getProduct() {
+                    productService.getProduct($stateParams.id).then(function(result) {
+                        vm.product = result.data;
+                    });
+                }
+
                 function getCategories() {
-                    categoryService.getCategories().then(function(result) {
+                    categoryService.getCategories().then(function (result) {
                         vm.categories = result.data;
                     });
-                };
+                }
 
                 function getProductAttrs() {
-                    productService.getProductAttrs().then(function(result) {
+                    productService.getProductAttrs().then(function (result) {
                         vm.attributes = result.data;
                     });
                 }
@@ -120,6 +126,7 @@
                 }
 
                 function init() {
+                    getProduct();
                     getProductAttrs();
                     getCategories();
                 }

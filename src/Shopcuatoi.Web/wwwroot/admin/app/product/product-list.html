@@ -29,7 +29,7 @@
             <td>{{product.name}}</td>
             <td>{{product.isPublished}}</td>
             <td>{{product.createdOn}}</td>
-            <td></td>
+            <td><a ui-sref="product-edit({id: product.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a></td>
         </tr>
     </tbody>
     <tbody ng-show="vm.isLoading">

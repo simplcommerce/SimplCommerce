@@ -8,7 +8,12 @@
                 vm.getProducts = getProducts;
                 vm.createProduct = createProduct;
                 vm.getProductAttrs = getProductAttrs;
+                vm.getProduct = getProduct;
                 return vm;
+
+                function getProduct(id) {
+                    return $http.get('Admin/Product/Get/' + id);
+                }
 
                 function getProductAttrs() {
                     return $http.get('Admin/ProductAttribute/List');

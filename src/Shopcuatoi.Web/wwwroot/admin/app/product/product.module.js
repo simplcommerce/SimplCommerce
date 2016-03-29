@@ -16,6 +16,11 @@
                         templateUrl: 'admin/app/product/product-form.html',
                         controller: 'productCreateCtrl as vm'
                     })
+                    .state('product-edit', {
+                        url: '/product/edit/:id',
+                        templateUrl: 'admin/app/product/product-form.html',
+                        controller: 'productEditCtrl as vm'
+                    })
                 ;
             }
         ]);

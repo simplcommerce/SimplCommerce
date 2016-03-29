@@ -30,6 +30,25 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
             this.urlSlugService = urlSlugService;
         }
 
+        public IActionResult Get(long id)
+        {
+            var product = productRepository.Get(id);
+
+            var productVm = new ProductViewModel
+            {
+                Name = product.Name,
+                ShortDescription = product.ShortDescription,
+                Description = product.Description,
+                Specification = product.Specification,
+                OldPrice = product.OldPrice,
+                Price = product.Price
+            };
+
+            productVm.CategoryIds = product.Categories.Select(x => x.CategoryId).ToList();
+
+            return Json(productVm);
+        }
+
         public IActionResult List([FromBody] SmartTableParam param)
         {
             var products = productRepository.Query().Where(x => !x.IsDeleted);

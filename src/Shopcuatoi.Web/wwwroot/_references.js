@@ -26,6 +26,7 @@
 /// <reference path="admin/app/dashboard/dashboard.module.js" />
 /// <reference path="admin/app/product/product.module.js" />
 /// <reference path="admin/app/product/product-create.js" />
+/// <reference path="admin/app/product/product-edit.js" />
 /// <reference path="admin/app/product/product-list.js" />
 /// <reference path="admin/app/product/product-service.js" />
 /// <reference path="admin/app/user/user.module.js" />
