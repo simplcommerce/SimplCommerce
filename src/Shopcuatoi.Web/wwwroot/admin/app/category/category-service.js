@@ -1,6 +1,6 @@
 ﻿(function() {
     angular
-        .module('hvAdmin.category')
+        .module('shopAdmin.category')
         .factory('categoryService', [
             '$http',
             function ($http) {

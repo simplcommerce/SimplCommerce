@@ -1,6 +1,6 @@
 ﻿(function() {
     angular
-        .module('hvAdmin.user')
+        .module('shopAdmin.user')
         .factory('userService', [
             '$http',
             function ($http) {

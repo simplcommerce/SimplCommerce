@@ -1,5 +1,5 @@
 ﻿(function() {
-    var adminApp = angular.module('hvAdmin', [
+    var adminApp = angular.module('shopAdmin', [
         'ui.router',
         'ngMaterial',
         'ngMessages',
@@ -7,11 +7,11 @@
         'ngFileUpload',
         'ui.bootstrap',
         'summernote',
-        'hvAdmin.common',
-        'hvAdmin.dashboard',
-        'hvAdmin.user',
-        'hvAdmin.category',
-        'hvAdmin.product'
+        'shopAdmin.common',
+        'shopAdmin.dashboard',
+        'shopAdmin.user',
+        'shopAdmin.category',
+        'shopAdmin.product'
     ]);
 
     adminApp.config([

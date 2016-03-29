@@ -1,6 +1,6 @@
 ﻿(function() {
     angular
-        .module('hvAdmin.product')
+        .module('shopAdmin.product')
         .factory('productService', [
             '$http', 'Upload',
             function ($http, upload) {

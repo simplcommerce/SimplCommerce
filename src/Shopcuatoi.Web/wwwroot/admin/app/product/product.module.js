@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('hvAdmin.product', [])
+        .module('shopAdmin.product', [])
         .config(['$stateProvider',
             function ($stateProvider) {
                 $stateProvider

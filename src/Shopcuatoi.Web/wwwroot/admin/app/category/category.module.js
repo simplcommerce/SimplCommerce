@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('hvAdmin.category', [])
+    angular.module('shopAdmin.category', [])
         .config(['$stateProvider', function($stateProvider) {
             $stateProvider
                 .state('category', {

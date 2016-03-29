@@ -1,6 +1,6 @@
 ﻿(function() {
     angular
-        .module('hvAdmin.category')
+        .module('shopAdmin.category')
         .controller('categoryEditCtrl', [
             '$q', '$state', '$stateParams', 'categoryService',
             function($q, $state, $stateParams, categoryService) {

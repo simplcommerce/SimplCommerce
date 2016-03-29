@@ -1,6 +1,6 @@
 ﻿(function () {
     angular
-        .module('hvAdmin.common')
+        .module('shopAdmin.common')
         .factory('summerNoteService', [
             '$http',
             function ($http) {

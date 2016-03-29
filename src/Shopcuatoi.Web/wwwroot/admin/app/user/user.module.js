@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('hvAdmin.user', [])
+        .module('shopAdmin.user', [])
         .config(['$stateProvider', function($stateProvider) {
             $stateProvider.state('user', {
                 url: '/user',
