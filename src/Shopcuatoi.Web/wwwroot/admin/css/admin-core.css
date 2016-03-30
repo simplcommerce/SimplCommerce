@@ -42,3 +42,8 @@ th.sortable {
     margin: 0;
     padding: 0;
 }
+
+table > tbody > tr > td.variation-form {
+    margin: 0;
+    padding: 0;
+}

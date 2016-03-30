@@ -89,13 +89,11 @@
                     vm.product.variations.splice(index, 1);
                 };
 
-                this.create = function create(productForm) {
-                    if (productForm.$valid) {
-                        productService.createProduct(vm.product, vm.thumbnailImage, vm.productImages)
-                            .success(function (result) {
-                                $state.go('product');
-                            });
-                    }
+                this.save = function save() {
+                    productService.createProduct(vm.product, vm.thumbnailImage, vm.productImages)
+                        .success(function (result) {
+                            $state.go('product');
+                        });
                 };
 
                 function getCategories() {

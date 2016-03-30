@@ -36,6 +36,7 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
 
             var productVm = new ProductViewModel
             {
+                Id = product.Id,
                 Name = product.Name,
                 ShortDescription = product.ShortDescription,
                 Description = product.Description,
@@ -161,6 +162,35 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        public IActionResult Edit(long id, ProductForm model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Json(ModelState.ToDictionary());
+            }
+
+            var product = productRepository.Get(id);
+            product.Name = model.Product.Name;
+            product.ShortDescription = model.Product.ShortDescription;
+            product.Description = model.Product.Description;
+            product.Specification = model.Product.Specification;
+            product.Price = model.Product.Price;
+            product.OldPrice = model.Product.OldPrice;
+
+            SaveProductImages(model, product);
+
+            //foreach(var productMediaId in model.Product.DeletedMediaIds)
+            //{
+            //    var media = product.Medias.First(x => x.Id == productMediaId);
+            //    product.Medias.Remove(media);
+            //}
+
+            productRepository.SaveChange();
+
+            return Ok();
+        }
+
         private static void MapProductVariationVmToProduct(ProductForm model, Product product)
         {
             foreach (var variationVm in model.Product.Variations)
@@ -187,7 +217,14 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
             if (model.ThumbnailImage != null)
             {
                 var fileName = SaveFile(model.ThumbnailImage);
-                product.ThumbnailImage = new Media { FileName = fileName };
+                if (product.ThumbnailImage != null)
+                {
+                    product.ThumbnailImage.FileName = fileName;
+                }
+                else
+                {
+                    product.ThumbnailImage = new Media { FileName = fileName };
+                }
             }
 
             // Currently model binder cannot map the collection of file productImages[0], productImages[1]

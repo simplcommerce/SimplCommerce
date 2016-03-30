@@ -7,6 +7,7 @@
                 var vm = {};
                 vm.getProducts = getProducts;
                 vm.createProduct = createProduct;
+                vm.editProduct = editProduct;
                 vm.getProductAttrs = getProductAttrs;
                 vm.getProduct = getProduct;
                 return vm;
@@ -26,6 +27,17 @@
                 function createProduct(product, thumbnailImage, productImages) {
                     return upload.upload({
                         url: 'Admin/Product/Create',
+                        data: {
+                            product: product,
+                            thumbnailImage: thumbnailImage,
+                            productImages: productImages
+                        }
+                    });
+                }
+
+                function editProduct(product, thumbnailImage, productImages) {
+                    return upload.upload({
+                        url: 'Admin/Product/Edit/' + product.id,
                         data: {
                             product: product,
                             thumbnailImage: thumbnailImage,

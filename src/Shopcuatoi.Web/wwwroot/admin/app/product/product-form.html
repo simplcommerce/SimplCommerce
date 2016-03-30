@@ -1,6 +1,7 @@
 ﻿<div class="panel panel-default">
     <div class="panel-heading">
-        <h2>Create Product</h2>
+        <h2 ng-if="!vm.isEditMode">Create Product</h2>
+        <h2 ng-if="vm.isEditMode">Edit Product</h2>
     </div>
     <div class="panel-body">
         <form name="productForm" class="form-horizontal">
@@ -79,7 +80,7 @@
                         </div>
                     </div>
                     <div class="form-group" ng-show="vm.product.attributes.length > 0">
-                        <label class="col-sm-2 control-label">Attribute Options:</label>
+                        <label class="col-sm-2 control-label">Attribute Options</label>
                     </div>
                     <div class="form-group" ng-show="vm.product.attributes.length > 0">
                         <div class="col-sm-offset-1 col-sm-11">
@@ -101,28 +102,52 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group" ng-show="vm.product.attributes.length > 0">
+                    <div class="form-group" ng-if="!vm.isEditMode" ng-show="vm.product.attributes.length > 0">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button class="btn btn-default" ng-click="vm.generateAttrCombination()">Generate Combinations</button>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
+                        <label class="col-sm-2 control-label">Product Variations</label>
+                        <div class="col-sm-10">
                             <table ng-show="vm.product.variations.length > 0" class="table table-striped">
                                 <tr>
-                                    <th>Combination</th>
-                                    <th>(+)Increase/(-)Descrease Price</th>
-                                    <th>Picture</th>
-                                    <th>Actions</th>
+                                    <th class="col-sm-5">Combination</th>
+                                    <th class="col-sm-2">(+)/(-) Price</th>
+                                    <th class="col-sm-3">Picture</th>
+                                    <th class="col-sm-2">Actions</th>
                                 </tr>
                                 <tr ng-repeat="variation in vm.product.variations">
                                     <td>{{variation.name}}</td>
-                                    <td><input type="number" ng-model="variation.priceOffset" /></td>
+                                    <td><input type="number" class="form-control" ng-model="variation.priceOffset" /></td>
                                     <td></td>
                                     <td>
                                         <button ng-click="vm.deleteVariation(variation)" type="button" class="btn">
                                             <span class="glyphicon glyphicon-remove"></span>
                                         </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="variation-form" colspan="4">
+                                        <ng-form name="addingVariationForm">
+                                            <table class="table">
+                                                <tr>
+                                                    <td class="col-sm-5">
+                                                        <div class="form-group row">
+                                                            <div ng-repeat="attribute in vm.product.attributes">
+                                                                <div class="col-md-4">
+                                                                    <select required class="form-control" ng-model="vm.addingVariation[attribute.name]"
+                                                                            ng-options="value as value for value in attribute.values | filter: vm.filterAddedAttributeValue"></select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="col-sm-2"><input type="number" class="form-control" ng-model="vm.addingVariation.priceOffset" /></td>
+                                                    <td class="col-sm-3"></td>
+                                                    <td class="col-sm-2"><button type="button" class="btn btn-primary" ng-disabled="addingVariationForm.$invalid" ng-click="vm.addVariation()"><span class="glyphicon glyphicon-plus"></span></button></td>
+                                                </tr>
+                                            </table>
+                                        </ng-form>
                                     </td>
                                 </tr>
                             </table>
@@ -133,7 +158,7 @@
                     <md-content class="md-padding">
                         <md-input-container class="md-block">
                             <div ng-repeat="category in vm.categories">
-                                <md-checkbox ng-click="vm.toggleCategories(category.id)">
+                                <md-checkbox ng-checked="vm.product.categoryIds.indexOf(category.id) > -1" ng-click="vm.toggleCategories(category.id)">
                                     {{ category.name }}
                                 </md-checkbox>
                             </div>
@@ -143,7 +168,7 @@
             </uib-tabset>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button class="btn btn-primary" ng-click="vm.create(productForm)"><span class="glyphicon glyphicon-ok"></span> Save</button>
+                    <button class="btn btn-primary" ng-disabled="productForm.$invalid" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> Save</button>
                     <button ui-sref="product" class="btn btn-default">Cancel</button>
                 </div>
             </div>
