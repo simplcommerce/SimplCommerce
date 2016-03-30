@@ -89,6 +89,12 @@
                     vm.product.variations.splice(index, 1);
                 };
 
+                this.removeMedia = function removeMedia(media) {
+                    var index = vm.product.productMedias.indexOf(media);
+                    vm.product.productMedias.splice(index, 1);
+                    vm.product.deletedMediaIds.push(media.id);
+                }
+
                 this.create = function create(productForm) {
                     if (productForm.$valid) {
                         productService.createProduct(vm.product, vm.thumbnailImage, vm.productImages)

@@ -41,10 +41,52 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                 Description = product.Description,
                 Specification = product.Specification,
                 OldPrice = product.OldPrice,
-                Price = product.Price
+                Price = product.Price,
+                CategoryIds = product.Categories.Select(x => x.CategoryId).ToList(),
+                ThumbnailImageUrl = mediaService.GetThumbnailUrl(product.ThumbnailImage)
             };
 
-            productVm.CategoryIds = product.Categories.Select(x => x.CategoryId).ToList();
+            foreach (var productMedia in product.Medias)
+            {
+                productVm.ProductMedias.Add(new ProductMediaVm
+                {
+                    Id = productMedia.Id,
+                    MediaUrl = mediaService.GetThumbnailUrl(productMedia.Media)
+                });
+            }
+
+            var attributes = from attr in product.AttributeValues
+                             group attr by new
+                             {
+                                 attr.AttributeId,
+                                 attr.Attribute.Name,
+                                 attr.ProductId
+                             }
+            into g
+                             select new ProductAttributeVm
+                             {
+                                 Id = g.Key.AttributeId,
+                                 Name = g.Key.Name,
+                                 Values = g.Select(x => x.Value).Distinct().ToList()
+                             };
+
+            productVm.Attributes = attributes.ToList();
+
+            foreach (var variation in product.Variations)
+            {
+                productVm.Variations.Add(new ProductVariationVm
+                {
+                    Id = variation.Id,
+                    Name = variation.Name,
+                    PriceOffset = variation.PriceOffset,
+                    AttributeCombinations = variation.AttributeCombinations.Select(x => new ProductAttributeCombinationVm
+                    {
+                        AttributeId = x.AttributeId,
+                        AttributeName = x.Attribute.Name,
+                        Value = x.Value
+                    }).ToList()
+                });
+            }
 
             return Json(productVm);
         }

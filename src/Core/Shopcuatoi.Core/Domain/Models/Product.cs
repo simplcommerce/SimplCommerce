@@ -16,7 +16,7 @@ namespace Shopcuatoi.Core.Domain.Models
 
         public int DisplayOrder { get; set; }
 
-        public Media ThumbnailImage { get; set; }
+        public virtual Media ThumbnailImage { get; set; }
 
         public virtual IList<ProductMedia> Medias { get; protected set; } = new List<ProductMedia>();
 

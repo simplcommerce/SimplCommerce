@@ -27,3 +27,18 @@ th.sortable {
     background: #216eff !important;
     color: white !important;
 }
+
+.product-image-edit {
+    display: inline-block;
+    position: relative;
+    border: 1px solid #ccc;
+    margin: 1px;
+}
+
+.product-image-edit button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+}
