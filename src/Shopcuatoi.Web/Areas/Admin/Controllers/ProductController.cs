@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
@@ -22,12 +23,16 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
         private readonly IRepository<Product> productRepository;
         private readonly IMediaService mediaService;
         private readonly IUrlSlugService urlSlugService;
+        private readonly IRepository<ProductCategory> productCategoryRepository;
+        private readonly IRepository<ProductAttributeValue> productAttributeValueRepository; 
 
-        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IUrlSlugService urlSlugService)
+        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IUrlSlugService urlSlugService, IRepository<ProductCategory> productCategoryRepository, IRepository<ProductAttributeValue> productAttributeValueRepository)
         {
             this.productRepository = productRepository;
             this.mediaService = mediaService;
             this.urlSlugService = urlSlugService;
+            this.productCategoryRepository = productCategoryRepository;
+            this.productAttributeValueRepository = productAttributeValueRepository;
         }
 
         public IActionResult Get(long id)
@@ -63,7 +68,7 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                                  attr.Attribute.Name,
                                  attr.ProductId
                              }
-            into g
+                             into g
                              select new ProductAttributeVm
                              {
                                  Id = g.Key.AttributeId,
@@ -73,7 +78,7 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
 
             productVm.Attributes = attributes.ToList();
 
-            foreach (var variation in product.Variations)
+            foreach (var variation in product.Variations.Where(x => !x.IsDeleted))
             {
                 productVm.Variations.Add(new ProductVariationVm
                 {
@@ -180,11 +185,18 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
 
             SaveProductImages(model, product);
 
-            //foreach(var productMediaId in model.Product.DeletedMediaIds)
-            //{
-            //    var media = product.Medias.First(x => x.Id == productMediaId);
-            //    product.Medias.Remove(media);
-            //}
+            foreach (var productMediaId in model.Product.DeletedMediaIds)
+            {
+                var productMedia = product.Medias.First(x => x.Id == productMediaId);
+                mediaService.DeleteMedia(productMedia.Media);
+                product.RemoveMedia(productMedia);
+            }
+
+            AddOrDeleteProductAttribute(model, product);
+
+            AddOrDeleteProductVariation(model, product);
+
+            AddOrDeleteCategories(model, product);
 
             productRepository.SaveChange();
 
@@ -208,7 +220,124 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                         Value = combinationVm.Value
                     });
                 }
+
                 product.AddProductVariation(variation);
+            }
+        }
+
+        private void AddOrDeleteCategories(ProductForm model, Product product)
+        {
+            foreach (var categoryId in model.Product.CategoryIds)
+            {
+                if (product.Categories.Any(x => x.CategoryId == categoryId))
+                {
+                    continue;
+                }
+
+                var productCategory = new ProductCategory
+                {
+                    CategoryId = categoryId
+                };
+                product.AddCategory(productCategory);
+            }
+
+            var deletedProductCategories =
+                product.Categories.Where(productCategory => !model.Product.CategoryIds.Contains(productCategory.CategoryId))
+                    .ToList();
+
+            foreach (var deletedProductCategory in deletedProductCategories)
+            {
+                deletedProductCategory.Product = null;
+                product.Categories.Remove(deletedProductCategory);
+                productCategoryRepository.Remove(deletedProductCategory);
+            }
+        }
+
+        private void AddOrDeleteProductAttribute(ProductForm model, Product product)
+        {
+            foreach (var attributeVm in model.Product.Attributes)
+            {
+                foreach (var value in attributeVm.Values)
+                {
+                    if (!product.AttributeValues.Any(x => x.AttributeId == attributeVm.Id && x.Value == value))
+                    {
+                        product.AddAttributeValue(new ProductAttributeValue
+                        {
+                            Value = value,
+                            AttributeId = attributeVm.Id
+                        });
+                    }
+                }
+            }
+
+            var deletedProductAttributeValues = new List<ProductAttributeValue>();
+            foreach (var productAttributeValue in product.AttributeValues)
+            {
+                var isExist = false;
+                foreach (var attributeVm in model.Product.Attributes)
+                {
+                    foreach (var value in attributeVm.Values)
+                    {
+                        if (productAttributeValue.AttributeId == attributeVm.Id && productAttributeValue.Value == value)
+                        {
+                            isExist = true;
+                            break;;
+                        }
+                    }
+                    if (isExist)
+                    {
+                        break;
+                    }
+                }
+                if (!isExist)
+                {
+                    deletedProductAttributeValues.Add(productAttributeValue);
+                }
+            }
+
+            foreach (var productAttrVale in deletedProductAttributeValues)
+            {
+                product.AttributeValues.Remove(productAttrVale);
+                productAttributeValueRepository.Remove(productAttrVale);
+            }
+        }
+
+        private void AddOrDeleteProductVariation(ProductForm model, Product product)
+        {
+            foreach (var productVariationVm in model.Product.Variations)
+            {
+                var variation = product.Variations.FirstOrDefault(x => x.Name == productVariationVm.Name);
+                if (variation == null)
+                {
+                    variation = new ProductVariation
+                    {
+                        Name = productVariationVm.Name,
+                        PriceOffset = productVariationVm.PriceOffset
+                    };
+                    foreach (var combinationVm in productVariationVm.AttributeCombinations)
+                    {
+                        variation.AddAttributeCombination(new ProductAttributeCombination
+                        {
+                            AttributeId = combinationVm.AttributeId,
+                            Value = combinationVm.Value
+                        });
+                    }
+
+                    product.AddProductVariation(variation);
+                }
+                else
+                {
+                    variation.PriceOffset = productVariationVm.PriceOffset;
+                    variation.IsDeleted = false;
+                }
+            }
+
+            foreach (var variation in product.Variations)
+            {
+                if (model.Product.Variations.All(x => x.Name != variation.Name))
+                {
+                    variation.IsDeleted = true;
+                }
             }
         }
 

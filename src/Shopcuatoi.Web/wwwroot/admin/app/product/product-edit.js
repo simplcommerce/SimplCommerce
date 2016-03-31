@@ -16,7 +16,7 @@
                 this.attributes = [];
                 this.addingAttribute = null;
                 this.isEditMode = true;
-                this.addingVariation = {};
+                this.addingVariation = { priceOffset : 0};
 
                 this.shortDescUpload = function (files) {
                     summerNoteService.upload(files[0])
@@ -74,7 +74,8 @@
                                     name: attrCombinations.map(function (item) {
                                         return item.value;
                                     }).join('-'),
-                                    attributeCombinations: attrCombinations
+                                    attributeCombinations: attrCombinations,
+                                    priceOffset : 0
                                 };
                                 vm.product.variations.push(variation);
                             } else {
@@ -98,15 +99,18 @@
                 }
 
                 this.filterAddedAttributeValue = function filterAddedAttributeValue(item) {
+                    if (vm.product.attributes.length > 1) {
+                        return true;
+                    }
                     var attrValueAdded = false;
-                    vm.product.variations.forEach(function (variation) {
-                        var addedValues = variation.attributeCombinations.map(function (item) {
+                    vm.product.variations.forEach(function(variation) {
+                        var addedValues = variation.attributeCombinations.map(function(item) {
                             return item.value;
                         });
                         if (addedValues.indexOf(item) > -1) {
                             attrValueAdded = true;
                         }
-                    })
+                    });
 
                     return !attrValueAdded;
                 };
@@ -115,7 +119,7 @@
                     var variation,
                         attrCombinations = [];
 
-                    vm.product.attributes.forEach(function (attr) {
+                    vm.product.attributes.forEach(function(attr) {
                         var attrValue = {
                             attributeName: attr.name,
                             attributeId: attr.id,
@@ -125,16 +129,17 @@
                     });
 
                     variation = {
-                        name: attrCombinations.map(function (item) {
+                        name: attrCombinations.map(function(item) {
                             return item.value;
                         }).join('-'),
                         attributeCombinations: attrCombinations,
-                        priceOffset: vm.addingVariation.priceOffset
+                        priceOffset: vm.addingVariation.priceOffset | 0
                     };
-
-                    vm.product.variations.push(variation);
-                    vm.addingVariation = {};
-                }
+                    if (!vm.product.variations.find(function(item) { return item.name === variation.name; })) {
+                        vm.product.variations.push(variation);
+                        vm.addingVariation = { priceOffset: 0 };
+                    }
+                };
 
                 this.save = function save() {
                     productService.editProduct(vm.product, vm.thumbnailImage, vm.productImages)
@@ -174,7 +179,7 @@
                     } else {
                         vm.product.categoryIds.push(categoryId);
                     }
-                }
+                };
 
                 function init() {
                     getProduct();

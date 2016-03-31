@@ -15,6 +15,7 @@
                 this.productImages = [];
                 this.attributes = [];
                 this.addingAttribute = null;
+                this.addingVariation = { priceOffset: 0 };
 
                 this.shortDescUpload = function (files) {
                     summerNoteService.upload(files[0])
@@ -87,6 +88,50 @@
                 this.deleteVariation = function deleteVariation(variation) {
                     var index = vm.product.variations.indexOf(variation);
                     vm.product.variations.splice(index, 1);
+                };
+
+                this.filterAddedAttributeValue = function filterAddedAttributeValue(item) {
+                    if (vm.product.attributes.length > 1) {
+                        return true;
+                    }
+                    var attrValueAdded = false;
+                    vm.product.variations.forEach(function(variation) {
+                        var addedValues = variation.attributeCombinations.map(function(item) {
+                            return item.value;
+                        });
+                        if (addedValues.indexOf(item) > -1) {
+                            attrValueAdded = true;
+                        }
+                    });
+
+                    return !attrValueAdded;
+                };
+
+                this.addVariation = function addVariation() {
+                    var variation,
+                        attrCombinations = [];
+
+                    vm.product.attributes.forEach(function(attr) {
+                        var attrValue = {
+                            attributeName: attr.name,
+                            attributeId: attr.id,
+                            value: vm.addingVariation[attr.name]
+                        };
+                        attrCombinations.push(attrValue);
+                    });
+
+                    variation = {
+                        name: attrCombinations.map(function(item) {
+                            return item.value;
+                        }).join('-'),
+                        attributeCombinations: attrCombinations,
+                        priceOffset: vm.addingVariation.priceOffset | 0
+                    };
+
+                    if (!vm.product.variations.find(function(item) { return item.name === variation.name; })) {
+                        vm.product.variations.push(variation);
+                        vm.addingVariation = { priceOffset: 0 };
+                    }
                 };
 
                 this.save = function save() {

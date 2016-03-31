@@ -96,7 +96,7 @@ namespace Shopcuatoi.Web.Controllers
 
         private static void MapProductVariantToProductVm(Product product, ProductDetail model)
         {
-            foreach (var variation in product.Variations)
+            foreach (var variation in product.Variations.Where(x => !x.IsDeleted))
             {
                 var variationVm = new ProductDetailVariation
                 {

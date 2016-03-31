@@ -30,7 +30,19 @@ namespace Shopcuatoi.Core.Domain.Models
 
         public bool IsPublished { get; set; }
 
-        public bool IsDeleted { get; set; }
+        private bool isDeleted;
+        public bool IsDeleted
+        {
+            get { return isDeleted; }
+            set
+            {
+                isDeleted = value;
+                if (value)
+                {
+                    IsPublished = false;
+                }
+            }
+        }
 
         public virtual User CreatedBy { get; set; }
 

@@ -38,6 +38,12 @@ namespace Shopcuatoi.Core.Domain.Models
             Medias.Add(media);
         }
 
+        public void RemoveMedia(ProductMedia media)
+        {
+            media.Product = null;
+            Medias.Remove(media);
+        }
+
         public void AddAttributeValue(ProductAttributeValue attributeValue)
         {
             attributeValue.Product = this;

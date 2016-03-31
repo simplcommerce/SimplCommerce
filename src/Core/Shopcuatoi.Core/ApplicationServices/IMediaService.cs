@@ -12,5 +12,7 @@ namespace Shopcuatoi.Core.ApplicationServices
         string GetThumbnailUrl(Media media);
 
         void SaveMedia(Stream mediaBinaryStream, string fileName);
+
+        void DeleteMedia(Media media);
     }
 }
