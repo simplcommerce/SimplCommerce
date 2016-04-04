@@ -1,26 +1,28 @@
-﻿(function() {
+﻿/*global angular*/
+(function () {
     angular
         .module('shopAdmin.category')
-        .controller('categoryCreateCtrl', [
-            '$state', 'categoryService',
-            function($state, categoryService) {
-                var vm = this;
-                this.category = {};
-                this.categories = [];
+        .controller('CategoryCreateCtrl', CategoryCreateCtrl);
 
-                this.save = function save() {
-                    categoryService.createCategory(vm.category).then(function (result) {
-                        $state.go('category');
-                    });
-                };
+    /* @ngInject */
+    function CategoryCreateCtrl($state, categoryService) {
+        var vm = this;
 
-                this.getCategories = function getCategories() {
-                    categoryService.getCategories().then(function(result) {
-                        vm.categories = result.data;
-                    });
-                };
+        vm.category = {};
+        vm.categories = [];
 
-                this.getCategories();
-            }
-        ]);
+        vm.save = function save() {
+            categoryService.createCategory(vm.category).then(function (result) {
+                $state.go('category');
+            });
+        };
+
+        vm.getCategories = function getCategories() {
+            categoryService.getCategories().then(function (result) {
+                vm.categories = result.data;
+            });
+        };
+
+        vm.getCategories();
+    }
 })();

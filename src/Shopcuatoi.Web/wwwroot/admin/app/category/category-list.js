@@ -1,27 +1,28 @@
-﻿(function() {
+﻿/*global angular, confirm*/
+(function () {
     angular
         .module('shopAdmin.category')
-        .controller('categoryListCtrl', [
-            'categoryService',
-            function(categoryService) {
-                var vm = this;
-                this.categories = [];
+        .controller('CategoryListCtrl', CategoryLitsCtrl);
 
-                this.getCategories = function getCategories() {
-                    categoryService.getCategories().then(function(result) {
-                        vm.categories = result.data;
-                    });
-                };
+    /* @ngInject */
+    function CategoryLitsCtrl(categoryService) {
+        var vm = this;
+        this.categories = [];
 
-                this.delete = function deleteCategory(category) {
-                    if (confirm("Are you sure?")) {
-                        categoryService.deleteCategory(category).then(function(result) {
-                            vm.getCategories();
-                        });
-                    }
-                };
+        this.getCategories = function getCategories() {
+            categoryService.getCategories().then(function (result) {
+                vm.categories = result.data;
+            });
+        };
 
-                this.getCategories();
+        this.deleteCategory = function deleteCategory(category) {
+            if (confirm("Are you sure?")) {
+                categoryService.deleteCategory(category).then(function (result) {
+                    vm.getCategories();
+                });
             }
-        ]);
+        };
+
+        this.getCategories();
+    }
 })();

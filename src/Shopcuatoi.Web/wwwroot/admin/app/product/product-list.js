@@ -1,20 +1,21 @@
-﻿(function() {
+﻿/*global angular*/
+(function () {
     angular
         .module('shopAdmin.product')
-        .controller('productListCtrl', [
-            'productService',
-            function(productService) {
-                var vm = this;
-                this.products = [];
+        .controller('ProductListCtrl', ProductListCtrl);
 
-                this.getProducts = function getProducts(tableState) {
-                    vm.isLoading = true;
-                    productService.getProducts(tableState).then(function(result) {
-                        vm.products = result.data.items;
-                        tableState.pagination.numberOfPages = result.data.numberOfPages;
-                        vm.isLoading = false;
-                    });
-                };
-            }
-        ]);
+    /* @ngInject */
+    function ProductListCtrl(productService) {
+        var vm = this;
+        vm.products = [];
+
+        vm.getProducts = function getProducts(tableState) {
+            vm.isLoading = true;
+            productService.getProducts(tableState).then(function (result) {
+                vm.products = result.data.items;
+                tableState.pagination.numberOfPages = result.data.numberOfPages;
+                vm.isLoading = false;
+            });
+        };
+    }
 })();

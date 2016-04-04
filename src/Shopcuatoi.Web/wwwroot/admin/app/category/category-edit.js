@@ -1,37 +1,38 @@
-﻿(function() {
+﻿/*global angular*/
+(function () {
     angular
         .module('shopAdmin.category')
-        .controller('categoryEditCtrl', [
-            '$q', '$state', '$stateParams', 'categoryService',
-            function($q, $state, $stateParams, categoryService) {
-                var vm = this;
-                this.category = {};
-                this.categories = [];
+        .controller('CategoryEditCtrl', CategoryEditCtrl);
 
-                this.save = function save() {
-                    categoryService.editCategory(vm.category).then(function (result) {
-                        $state.go('category');
-                    });
-                };
+    /* @ngInject */
+    function CategoryEditCtrl($q, $state, $stateParams, categoryService) {
+        var vm = this;
+        this.category = {};
+        this.categories = [];
 
-                function init() {
-                    $q.all([
-                            categoryService.getCategories(),
-                            categoryService.getCategory($stateParams.id)
-                        ])
-                        .then(function (result) {
-                            var index;
-                            vm.categories = result[0].data;
-                            vm.category = result[1].data;
+        this.save = function save() {
+            categoryService.editCategory(vm.category).then(function (result) {
+                $state.go('category');
+            });
+        };
 
-                            index = vm.categories.map(function (item) {
-                                return item.id;
-                            }).indexOf(vm.category.id);
-                            vm.categories.splice(index, 1);
-                        });
-                }
+        function init() {
+            $q.all([
+                    categoryService.getCategories(),
+                    categoryService.getCategory($stateParams.id)
+                ])
+                .then(function (result) {
+                    var index;
+                    vm.categories = result[0].data;
+                    vm.category = result[1].data;
 
-                init();
-            }
-        ]);
+                    index = vm.categories.map(function (item) {
+                        return item.id;
+                    }).indexOf(vm.category.id);
+                    vm.categories.splice(index, 1);
+                });
+        }
+
+        init();
+    }
 })();

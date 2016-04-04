@@ -1,50 +1,52 @@
-﻿(function() {
+﻿/*global angular*/
+(function () {
     angular
         .module('shopAdmin.product')
-        .factory('productService', [
-            '$http', 'Upload',
-            function ($http, upload) {
-                var vm = {};
-                vm.getProducts = getProducts;
-                vm.createProduct = createProduct;
-                vm.editProduct = editProduct;
-                vm.getProductAttrs = getProductAttrs;
-                vm.getProduct = getProduct;
-                return vm;
+        .factory('productService', productService);
 
-                function getProduct(id) {
-                    return $http.get('Admin/Product/Get/' + id);
-                }
+    /* @ngInject */
+    function productService($http, Upload) {
+        var service = {
+            getProducts: getProducts,
+            createProduct: createProduct,
+            editProduct: editProduct,
+            getProductAttrs: getProductAttrs,
+            getProduct: getProduct
+        };
+        return service;
 
-                function getProductAttrs() {
-                    return $http.get('Admin/ProductAttribute/List');
-                }
+        function getProduct(id) {
+            return $http.get('Admin/Product/Get/' + id);
+        }
 
-                function getProducts(params) {
-                    return $http.post('Admin/Product/List', params);
-                }
+        function getProductAttrs() {
+            return $http.get('Admin/ProductAttribute/List');
+        }
 
-                function createProduct(product, thumbnailImage, productImages) {
-                    return upload.upload({
-                        url: 'Admin/Product/Create',
-                        data: {
-                            product: product,
-                            thumbnailImage: thumbnailImage,
-                            productImages: productImages
-                        }
-                    });
-                }
+        function getProducts(params) {
+            return $http.post('Admin/Product/List', params);
+        }
 
-                function editProduct(product, thumbnailImage, productImages) {
-                    return upload.upload({
-                        url: 'Admin/Product/Edit/' + product.id,
-                        data: {
-                            product: product,
-                            thumbnailImage: thumbnailImage,
-                            productImages: productImages
-                        }
-                    });
+        function createProduct(product, thumbnailImage, productImages) {
+            return Upload.upload({
+                url: 'Admin/Product/Create',
+                data: {
+                    product: product,
+                    thumbnailImage: thumbnailImage,
+                    productImages: productImages
                 }
-            }
-        ]);
+            });
+        }
+
+        function editProduct(product, thumbnailImage, productImages) {
+            return Upload.upload({
+                url: 'Admin/Product/Edit/' + product.id,
+                data: {
+                    product: product,
+                    thumbnailImage: thumbnailImage,
+                    productImages: productImages
+                }
+            });
+        }
+    }
 })();

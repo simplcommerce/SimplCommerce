@@ -1,4 +1,5 @@
-﻿(function () {
+﻿/*global angular*/
+(function () {
     'use strict';
 
     angular
@@ -9,17 +10,17 @@
                     .state('product', {
                         url: '/product',
                         templateUrl: 'admin/app/product/product-list.html',
-                        controller: 'productListCtrl as vm'
+                        controller: 'ProductListCtrl as vm'
                     })
                     .state('product-create', {
                         url: '/product-create',
                         templateUrl: 'admin/app/product/product-form.html',
-                        controller: 'productCreateCtrl as vm'
+                        controller: 'ProductCreateCtrl as vm'
                     })
                     .state('product-edit', {
                         url: '/product/edit/:id',
                         templateUrl: 'admin/app/product/product-form.html',
-                        controller: 'productEditCtrl as vm'
+                        controller: 'ProductEditCtrl as vm'
                     })
                 ;
             }

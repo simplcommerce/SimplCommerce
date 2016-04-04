@@ -1,25 +1,30 @@
-﻿(function () {
-    angular.module('shopAdmin.common').
-    directive('isolateForm', [function () {
+﻿/*global angular*/
+(function () {
+    angular.module('shopAdmin.common')
+        .directive('isolateForm', isolateForm);
+
+    function isolateForm() {
         return {
             restrict: 'A',
             require: '?form',
             link: function (scope, elm, attrs, ctrl) {
+                var ctrlCopy = {},
+                    isolatedFormCtrl,
+                    parent;
                 if (!ctrl) {
                     return;
                 }
 
                 // Do a copy of the controller
-                var ctrlCopy = {};
                 angular.copy(ctrl, ctrlCopy);
 
                 // Get the parent of the form
-                var parent = elm.parent().controller('form');
+                parent = elm.parent().controller('form');
                 // Remove parent link to the controller
                 parent.$removeControl(ctrl);
 
                 // Replace form controller with a "isolated form"
-                var isolatedFormCtrl = {
+                isolatedFormCtrl = {
                     $setValidity: function (validationToken, isValid, control) {
                         ctrlCopy.$setValidity(validationToken, isValid, control);
                         parent.$setValidity(validationToken, true, ctrl);
@@ -28,10 +33,10 @@
                         elm.removeClass('ng-pristine').addClass('ng-dirty');
                         ctrl.$dirty = true;
                         ctrl.$pristine = false;
-                    },
+                    }
                 };
                 angular.extend(ctrl, isolatedFormCtrl);
             }
         };
-    }]);
+    }
 })();

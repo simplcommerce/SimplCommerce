@@ -1,4 +1,5 @@
-﻿(function() {
+﻿/*global angular*/
+(function () {
     var adminApp = angular.module('shopAdmin', [
         'ui.router',
         'ngMaterial',
@@ -16,8 +17,8 @@
 
     adminApp.config([
         '$urlRouterProvider',
-        function($urlRouterProvider) {
+        function ($urlRouterProvider) {
             $urlRouterProvider.otherwise("/dashboard");
         }
     ]);
-})();
+}());

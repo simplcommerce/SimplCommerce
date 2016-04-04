@@ -1,16 +1,18 @@
-﻿(function() {
+﻿/*global angular*/
+(function () {
     angular
         .module('shopAdmin.user')
-        .factory('userService', [
-            '$http',
-            function ($http) {
-                function getUsers(params) {
-                    return $http.post('Admin/User/List', params);
-                }
+        .factory('userService', userService);
 
-                return {
-                    getUsers: getUsers
-                };
-            }
-        ]);
+    /* @ngInject */
+    function userService($http) {
+        var service = {
+            getUsers : getUsers
+        };
+        return service;
+
+        function getUsers(params) {
+            return $http.post('Admin/User/List', params);
+        }
+    }
 })();

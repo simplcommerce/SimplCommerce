@@ -23,7 +23,7 @@
         <td>{{category.isPublished}}</td>
         <td>
             <a ui-sref="category-edit({id: category.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
-            <button ng-click="vm.delete(category)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+            <button ng-click="vm.deleteCategory(category)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
         </td>
     </tr>
     </tbody>

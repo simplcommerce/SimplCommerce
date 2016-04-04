@@ -1,23 +1,24 @@
-﻿(function () {
+﻿/*global angular*/
+(function () {
     'use strict';
 
     angular.module('shopAdmin.category', [])
-        .config(['$stateProvider', function($stateProvider) {
+        .config(['$stateProvider', function ($stateProvider) {
             $stateProvider
                 .state('category', {
                     url: '/category',
                     templateUrl: 'admin/app/category/category-list.html',
-                    controller: 'categoryListCtrl as vm'
+                    controller: 'CategoryListCtrl as vm'
                 })
                 .state('category-create', {
                     url: '/category/create',
                     templateUrl: 'admin/app/category/category-form.html',
-                    controller: 'categoryCreateCtrl as vm'
+                    controller: 'CategoryCreateCtrl as vm'
                 })
                 .state('category-edit', {
                     url: '/category/edit/:id',
                     templateUrl: 'admin/app/category/category-form.html',
-                    controller: 'categoryEditCtrl as vm'
+                    controller: 'CategoryEditCtrl as vm'
                 });
         }]);
 })();
