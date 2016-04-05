@@ -184,7 +184,6 @@ namespace Shopcuatoi.Infrastructure
             return FromCheckedAssemblies(GetAssembliesInBasePath(includeSystemAssemblies, includeUnityAssemblies, skipOnError), skipOnError);
         }
 
-
         private static IEnumerable<Assembly> GetAssembliesInBasePath(bool includeSystemAssemblies, bool includeUnityAssemblies, bool skipOnError)
         {
             string basePath;

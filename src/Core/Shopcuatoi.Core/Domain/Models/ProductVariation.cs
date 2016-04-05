@@ -6,6 +6,8 @@ namespace Shopcuatoi.Core.Domain.Models
 {
     public class ProductVariation : Entity
     {
+        private bool isDeleted;
+
         public ProductVariation()
         {
             CreatedOn = UpdatedOn = DateTime.UtcNow;
@@ -30,10 +32,13 @@ namespace Shopcuatoi.Core.Domain.Models
 
         public bool IsPublished { get; set; }
 
-        private bool isDeleted;
         public bool IsDeleted
         {
-            get { return isDeleted; }
+            get
+            {
+                return isDeleted;
+            }
+
             set
             {
                 isDeleted = value;

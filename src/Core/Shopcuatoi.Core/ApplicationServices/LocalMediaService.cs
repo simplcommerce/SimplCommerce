@@ -6,14 +6,14 @@ namespace Shopcuatoi.Core.ApplicationServices
 {
     public class LocalMediaService : IMediaService
     {
+        private const string MediaRootFoler = "UserContents";
+
         private IRepository<Media> mediaRespository;
 
         public LocalMediaService(IRepository<Media> mediaRespository)
         {
             this.mediaRespository = mediaRespository;
         }
-
-        private const string MediaRootFoler = "UserContents";
 
         public string GetMediaUrl(Media media)
         {

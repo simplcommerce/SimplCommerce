@@ -14,7 +14,7 @@ namespace Shopcuatoi.Infrastructure
                 throw new ArgumentException("source");
             }
 
-            if (String.IsNullOrWhiteSpace(propertyName))
+            if (string.IsNullOrWhiteSpace(propertyName))
             {
                 throw new ArgumentException("propertyName");
             }

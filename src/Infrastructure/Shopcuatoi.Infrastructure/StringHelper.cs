@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 namespace Shopcuatoi.Infrastructure
 {
@@ -21,11 +20,14 @@ namespace Shopcuatoi.Infrastructure
         /// </summary>
         public static string ToUrlFriendly(bool toLower, string value)
         {
-            if (value == null) return "";
+            if (value == null)
+            {
+                return string.Empty;
+            }
 
             var normalised = value.Normalize(NormalizationForm.FormKD);
 
-            const int maxlen = 80;
+            const int Maxlen = 80;
             int len = normalised.Length;
             bool prevDash = false;
             var sb = new StringBuilder(len);
@@ -41,6 +43,7 @@ namespace Shopcuatoi.Infrastructure
                         sb.Append('-');
                         prevDash = false;
                     }
+
                     sb.Append(c);
                 }
                 else if (c >= 'A' && c <= 'Z')
@@ -50,11 +53,16 @@ namespace Shopcuatoi.Infrastructure
                         sb.Append('-');
                         prevDash = false;
                     }
+
                     // tricky way to convert to lowercase
                     if (toLower)
-                        sb.Append((char)(c | 32));
+                    {
+                        sb.Append((char) (c | 32));
+                    }
                     else
+                    {
                         sb.Append(c);
+                    }
                 }
                 else if (c == ' ' || c == ',' || c == '.' || c == '/' || c == '\\' || c == '-' || c == '_' || c == '=')
                 {
@@ -74,17 +82,21 @@ namespace Shopcuatoi.Infrastructure
                             sb.Append('-');
                             prevDash = false;
                         }
+
                         sb.Append(swap);
                     }
                 }
 
-                if (sb.Length == maxlen) break;
+                if (sb.Length == Maxlen)
+                {
+                    break;
+                }
             }
 
             return sb.ToString();
         }
 
-        static string ConvertEdgeCases(char c, bool toLower)
+        private static string ConvertEdgeCases(char c, bool toLower)
         {
             string swap = null;
             switch (c)
@@ -111,6 +123,7 @@ namespace Shopcuatoi.Infrastructure
                     swap = "th";
                     break;
             }
+
             return swap;
         }
     }

@@ -56,6 +56,5 @@ namespace Shopcuatoi.Core.Infrastructure.EntityFramework
 
             base.Seed(context);
         }
-
     }
 }
