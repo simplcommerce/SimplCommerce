@@ -58,6 +58,10 @@
             var maxIndexAttr = vm.product.attributes.length - 1;
             vm.product.variations = [];
 
+            function getItemValue(item) {
+                return item.value;
+            }
+
             function helper(arr, attrIndex) {
                 var j, l, variation, attrCombinations, attrValue;
 
@@ -72,9 +76,7 @@
 
                     if (attrIndex === maxIndexAttr) {
                         variation = {
-                            name: attrCombinations.map(function (item) {
-                                return item.value;
-                            }).join('-'),
+                            name: attrCombinations.map(getItemValue).join('-'),
                             attributeCombinations: attrCombinations,
                             priceOffset: 0
                         };
