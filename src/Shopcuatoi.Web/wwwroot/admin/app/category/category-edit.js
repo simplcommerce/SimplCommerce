@@ -7,10 +7,10 @@
     /* @ngInject */
     function CategoryEditCtrl($q, $state, $stateParams, categoryService) {
         var vm = this;
-        this.category = {};
-        this.categories = [];
+        vm.category = {};
+        vm.categories = [];
 
-        this.save = function save() {
+        vm.save = function save() {
             categoryService.editCategory(vm.category).then(function (result) {
                 $state.go('category');
             });
