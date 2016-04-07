@@ -5,7 +5,7 @@
         .controller('ProductCreateCtrl', ProductCreateCtrl);
 
     /* @ngInject */
-    function ProductCreateCtrl($state, $http, categoryService, productService, summerNoteService) {
+    function ProductCreateCtrl($state, $http, categoryService, productService, summerNoteService, manufacturerService) {
         var vm = this;
         // declare shoreDescription and description for summernote
         vm.product = { shortDescription: '', description: '', specification: '' };
@@ -18,6 +18,7 @@
         vm.attributes = [];
         vm.addingAttribute = null;
         vm.addingVariation = { priceOffset: 0 };
+        vm.manufacturers = [];
 
         vm.shortDescUpload = function (files) {
             summerNoteService.upload(files[0])
@@ -167,9 +168,16 @@
             }
         };
 
+        function getManufacturers() {
+            manufacturerService.getManufacturers().then(function (result) {
+                vm.manufacturers = result.data;
+            });
+        }
+
         function init() {
             getProductAttrs();
             getCategories();
+            getManufacturers();
         }
 
         init();

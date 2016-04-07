@@ -1,0 +1,30 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Manufacturer List</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <a ui-sref="manufacturer-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Create Manufacturer</a>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Published</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="manufacturer in vm.manufacturers">
+        <td>{{manufacturer.name}}</td>
+        <td>{{manufacturer.isPublished}}</td>
+        <td>
+            <a ui-sref="manufacturer-edit({id: manufacturer.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+            <button ng-click="vm.deleteManufacturer(manufacturer)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+        </td>
+    </tr>
+    </tbody>
+</table>

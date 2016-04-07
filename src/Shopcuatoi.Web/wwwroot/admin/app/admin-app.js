@@ -12,7 +12,8 @@
         'shopAdmin.dashboard',
         'shopAdmin.user',
         'shopAdmin.category',
-        'shopAdmin.product'
+        'shopAdmin.product',
+        'shopAdmin.manufacturer'
     ]);
 
     adminApp.config([

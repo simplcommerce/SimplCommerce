@@ -161,6 +161,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationServices\AppSettings.cs" />
+    <Compile Include="ApplicationServices\IManufacturerService.cs" />
+    <Compile Include="ApplicationServices\ManufacturerService.cs" />
     <Compile Include="ApplicationServices\UrlSlugService.cs" />
     <Compile Include="ApplicationServices\CategoryService.cs" />
     <Compile Include="ApplicationServices\GlobalConfiguration.cs" />
@@ -178,6 +180,7 @@
     <Compile Include="ApplicationServices\ProductService.cs" />
     <Compile Include="Domain\Models\Category.cs" />
     <Compile Include="Domain\Models\Content.cs" />
+    <Compile Include="Domain\Models\Manufacturer.cs" />
     <Compile Include="Domain\Models\Media.cs" />
     <Compile Include="Domain\Models\MediaType.cs" />
     <Compile Include="Domain\Models\Product.cs" />

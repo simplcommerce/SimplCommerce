@@ -49,7 +49,8 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                 OldPrice = product.OldPrice,
                 Price = product.Price,
                 CategoryIds = product.Categories.Select(x => x.CategoryId).ToList(),
-                ThumbnailImageUrl = mediaService.GetThumbnailUrl(product.ThumbnailImage)
+                ThumbnailImageUrl = mediaService.GetThumbnailUrl(product.ThumbnailImage),
+                ManufacturerId = product.ManufacturerId
             };
 
             foreach (var productMedia in product.Medias)
@@ -130,7 +131,8 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                 Specification = model.Product.Specification,
                 Price = model.Product.Price,
                 OldPrice = model.Product.OldPrice,
-                IsPublished = model.Product.IsPublished
+                IsPublished = model.Product.IsPublished,
+                ManufacturerId = model.Product.ManufacturerId
             };
 
             foreach (var attribute in model.Product.Attributes)
@@ -182,6 +184,7 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
             product.Specification = model.Product.Specification;
             product.Price = model.Product.Price;
             product.OldPrice = model.Product.OldPrice;
+            product.ManufacturerId = model.Product.ManufacturerId;
 
             SaveProductImages(model, product);
 

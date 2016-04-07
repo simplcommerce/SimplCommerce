@@ -37,6 +37,8 @@ namespace Shopcuatoi.Web.Areas.Admin.ViewModels.Products
 
         public IList<ProductMediaVm> ProductMedias { get; set; } = new List<ProductMediaVm>();
 
-        public IList<long> DeletedMediaIds { get; set; } = new List<long>(); 
+        public IList<long> DeletedMediaIds { get; set; } = new List<long>();
+
+        public long ManufacturerId { get; set; }
     }
 }

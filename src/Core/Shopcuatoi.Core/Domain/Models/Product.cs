@@ -26,6 +26,8 @@ namespace Shopcuatoi.Core.Domain.Models
 
         public virtual IList<ProductCategory> Categories { get; protected set; } = new List<ProductCategory>();
 
+        public long ManufacturerId { get; set; }
+
         public void AddCategory(ProductCategory category)
         {
             category.Product = this;
