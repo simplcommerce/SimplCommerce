@@ -155,7 +155,6 @@
 
         function getProduct() {
             productService.getProduct($stateParams.id).then(function (result) {
-                debugger
                 var i, index, attributeIds;
                 vm.product = result.data;
                 attributeIds = vm.attributes.map(function (item) { return item.id; });
