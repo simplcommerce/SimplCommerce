@@ -1,0 +1,32 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Page List</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <a ui-sref="page-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Create Page</a>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Url</th>
+        <th>Published</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="page in vm.pages">
+        <td>{{page.name}}</td>
+        <td>{{page.seoTitle}}</td>
+        <td>{{page.isPublished}}</td>
+        <td>
+            <a ui-sref="page-edit({id: page.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+            <button ng-click="vm.deletePage(page)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+        </td>
+    </tr>
+    </tbody>
+</table>

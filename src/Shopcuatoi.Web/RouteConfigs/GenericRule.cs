@@ -55,6 +55,11 @@ namespace Shopcuatoi.Web.RouteConfigs
                     newRouteData.Values["action"] = "ProductDetail";
                     newRouteData.Values["seoTitle"] = urlSlug.Slug;
                     break;
+                case "Page":
+                    newRouteData.Values["controller"] = "Page";
+                    newRouteData.Values["action"] = "PageDetail";
+                    newRouteData.Values["id"] = urlSlug.EntityId;
+                    break;
             }
 
             try

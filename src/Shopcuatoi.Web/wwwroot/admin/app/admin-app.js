@@ -13,7 +13,8 @@
         'shopAdmin.user',
         'shopAdmin.category',
         'shopAdmin.product',
-        'shopAdmin.manufacturer'
+        'shopAdmin.manufacturer',
+        'shopAdmin.page'
     ]);
 
     adminApp.config([

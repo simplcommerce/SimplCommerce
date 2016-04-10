@@ -1,13 +1,11 @@
 ﻿using System.Linq;
+using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Mvc;
 using Shopcuatoi.Core.ApplicationServices;
 using Shopcuatoi.Core.Domain.Models;
 using Shopcuatoi.Infrastructure;
 using Shopcuatoi.Infrastructure.Domain.IRepositories;
-using Shopcuatoi.Web.Areas.Admin.Helpers;
 using Shopcuatoi.Web.Areas.Admin.ViewModels;
-using Microsoft.AspNet.Authorization;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Rendering;
 using Shopcuatoi.Web.Extensions;
 
 namespace Shopcuatoi.Web.Areas.Admin.Controllers
@@ -20,7 +18,8 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
         private readonly IManufacturerService manufacturerService;
         private readonly IUrlSlugService urlSlugService;
 
-        public ManufacturerController(IRepository<Manufacturer> manufacturerRepository, IManufacturerService manufacturerService, IUrlSlugService urlSlugService)
+        public ManufacturerController(IRepository<Manufacturer> manufacturerRepository,
+            IManufacturerService manufacturerService, IUrlSlugService urlSlugService)
         {
             this.manufacturerRepository = manufacturerRepository;
             this.manufacturerService = manufacturerService;
@@ -71,7 +70,7 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(long id, [FromBody]ManufacturerForm model)
+        public IActionResult Edit(long id, [FromBody] ManufacturerForm model)
         {
             if (ModelState.IsValid)
             {

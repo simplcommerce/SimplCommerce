@@ -5,7 +5,7 @@
         .controller('ManufacturerEditCtrl', ManufacturerEditCtrl);
 
     /* @ngInject */
-    function ManufacturerEditCtrl($q, $state, $stateParams, manufacturerService) {
+    function ManufacturerEditCtrl($state, $stateParams, manufacturerService) {
         var vm = this;
         vm.manufacturer = {};
         vm.isEditMode = true;
