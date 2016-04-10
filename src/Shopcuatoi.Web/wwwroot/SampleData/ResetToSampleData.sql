@@ -18,6 +18,10 @@ DELETE FROM [dbo].[Core_Media]
 GO
 DELETE FROM [dbo].[Core_Category]
 GO
+DELETE FROM [dbo].[Core_Manufacturer]
+GO
+DELETE FROM [dbo].[Core_Page]
+GO
 SET IDENTITY_INSERT [dbo].[Core_Category] ON 
 INSERT [dbo].[Core_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (1, N'Phones', N'mobile-tablets', NULL, 0, 1, 0, NULL, NULL)
 
@@ -46,6 +50,11 @@ INSERT [dbo].[Core_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayO
 INSERT [dbo].[Core_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (13, N'USB Drives', N'usb-drives', NULL, 0, 1, 0, 10, NULL)
 
 SET IDENTITY_INSERT [dbo].[Core_Category] OFF
+GO
+
+SET IDENTITY_INSERT [dbo].[Core_Manufacturer] ON 
+INSERT [dbo].[Core_Manufacturer] ([Id], [Name], [SeoTitle], [Description], [IsPublished], [IsDeleted]) VALUES (1, N'Apple', N'apple', NULL, 1, 0)
+SET IDENTITY_INSERT [dbo].[Core_Manufacturer] OFF 
 GO
 
 SET IDENTITY_INSERT [dbo].[Core_Media] ON 
@@ -134,18 +143,7 @@ Tiếp nối thành công của dòng điện thoại A series, ông lớn Samsu
 Tiếp nối thành công của dòng điện thoại A series, ông lớn Samsung tiếp tục ra mắt smartphoneSamsung Galaxy A5 (A510F) với phiên bản 2016 mạnh mẽ và chất lượng hơn so với thiết bị A5 tiền nhiệm. Siêu phẩm này sở hữu thiết kế khung nhôm, vỏ kính cực kỳ tinh tế và sành điệu, đồng thời, máy cũng được nâng cấp về cấu hình, dung lượng pin và màn hình kích thước lớn hơn, đáp ứng nhu cầu sử dụng, làm hài lòng các khách hàng khó tính nhất.
 ', NULL, CAST(8999000.00 AS Decimal(18, 2)), CAST(9999000.00 AS Decimal(18, 2)), 0, N'Samsung Galaxy A5', N'samsung-galaxy-a5', NULL, NULL, NULL, 1, NULL, 0, CAST(N'2016-03-15 23:08:42.637' AS DateTime), CAST(N'2016-03-15 23:08:42.637' AS DateTime), NULL, 18, NULL)
 
-INSERT [dbo].[Core_Product] ([Id], [ShortDescription], [Description], [Specification], [Price], [OldPrice], [DisplayOrder], [Name], [SeoTitle], [MetaTitle], [MetaKeywords], [MetaDescription], [IsPublished], [PublishedOn], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [ThumbnailImageId], [UpdatedById]) VALUES (4, N'Bảo hành 12 tháng (hóa đơn)
-Thiết kế vượt trội với màn hình "ngoại cỡ" 12.9 inch
-Cấu hình mạnh mẽ; hiệu năng nhanh hơn Laptop
-Tương tác thông minh; làm hai việc cùng lúc', N'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.
-
-Hàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu.
-Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.
-
-Hàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu.
-Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.
-
-Hàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu.', NULL, CAST(21290000.00 AS Decimal(18, 2)), CAST(25000000.00 AS Decimal(18, 2)), 0, N'iPad Pro Wi-Fi 4G 128GB', N'ipad-pro-wi-fi-4g-128gb', NULL, NULL, NULL, 1, NULL, 0, CAST(N'2016-03-15 23:16:27.487' AS DateTime), CAST(N'2016-03-15 23:16:27.487' AS DateTime), NULL, 22, NULL)
+INSERT [dbo].[Core_Product] ([Id], [ShortDescription], [Description], [Specification], [Price], [OldPrice], [DisplayOrder], [ManufacturerId], [Name], [SeoTitle], [MetaTitle], [MetaKeywords], [MetaDescription], [IsPublished], [PublishedOn], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [ThumbnailImageId], [UpdatedById]) VALUES (4, N'Bảo hành 12 tháng (hóa đơn)Thiết kế vượt trội với màn hình "ngoại cỡ" 12.9 inchCấu hình mạnh mẽ; hiệu năng nhanh hơn LaptopTương tác thông minh; làm hai việc cùng lúc', N'<p><img src="/UserContents/d6711bf0-cd39-4e0a-b1bf-a5aed5a0d4ec.jpg"></p><p>Suốt thời gian qua, iPad vẫn luôn được đánh giá là dòng sản phẩm máy tính bảng tốt nhất. Với khả năng tối ưu hoàn hảo giữa thiết kế phần cứng và hệ điều hành iOS, iPad luôn đáp ứng mọi tác vụ người dùng một cách trơn tru và mượt mà tuyệt đối. Và, trong khi không còn nhiều tên tuổi mặn mà với dòng sản phẩm tablet cao cấp, Apple lại tiếp tục ra mắt iPad Pro, một siêu phẩm với niềm tin sẽ đưa chuẩn mực của một chiếc máy tính bảng lên tầm cao mới.</p><p><img src="/UserContents/0a3f4d85-6e04-4052-93db-067c1e6292c5.jpg" style="width: 976px;"></p><p>Hãng “táo cắn dở” trong suốt một thời gian dài vẫn trung thành với màn hình 9.7 inch của iPad thường, 7.9 inch với dòng iPad Mini. Nhưng trên iPad Pro, tiêu chuẩn ấy đã hoàn toàn bị phá vỡ với kích thước lên tới 12.9 inch, độ phân giải “chuẩn” Retina 2732 x 2048 pixel. Kích thước của iPad Pro đã lớn hơn tới 78% so với iPad Air 2 trước đó. Kích thước màn hình này cho ta cảm giác đây giống như một chiếc laptop hơn là tablet. Nhưng, kích thước đó cũng sẽ mang tới nhiều không gian trải nghiệm hơn, nhiều khoảng trống làm việc hơn để dành cho nhiều ý tưởng lớn hơn.<br></p><p><img src="/UserContents/d788dc0f-f609-4f3a-8d1b-06858f919bec.jpg" style="width: 976px;"></p><p>Có vẻ buồn cười khi cầm trên tay và sử dụng một chiếc “siêu” tablet với màn hình lên tới 13 inch. Nhưng Apple lại một lần nữa chinh phục giới công nghệ bởi khả năng thiết kế và chế tác tuyệt hảo của mình. Toàn bộ chiếc máy với hợp kim nhôm nguyên khối chỉ mỏng 6.9mm, một con số không tưởng! Cầm trên tay iPad Pro vẫn thật nhẹ nhàng và vô cùng thoải mái.<br></p><p><img src="/UserContents/27dc0e7d-71ff-4ce0-bb45-d58d0f47c029.jpg" style="width: 976px;"></p><p>Hệ điều hành mới nhất được cập nhật cho iPad Pro là iOS 9 với rất nhiều tính năng mới. Đặc biệt, khả năng đa nhiệm ở phiên bản iOS này đã được làm mới để hoạt động tốt hơn. Bên cạnh đó là các tính năng như chia đôi màn hình, kho ứng dụng dành riêng tối ưu cho iPad giúp cho iPad Pro hoàn thành vai trò là một công cụ làm việc tuyệt vời. Ngoài ra Apple cũng đã trang bị cho iPad Pro hệ thống 4 loa tự cân bằng hoàn toàn mới, biến chiếc tablet quá khổ này trở thành cỗ máy giải trí tuyệt đỉnh.</p><p><img src="/UserContents/c2a38abf-86ff-452f-81fd-eb2b744435d6.jpg" style="width: 976px;"></p><p>Nền tảng 64-bit đang là xu hướng mới nâng cao hiệu suất của vi xử lý. Apple A9X được tích hợp trên iPad Pro cũng sử dụng công nghệ này, và là bộ vi xử lý mạnh nhất mà hãng Apple sử dụng trên các thiết bị di động cho tới thời điểm hiện tại. Theo công bố của hãng, con chip A9X sẽ đem lại hiệu năng CPU mạnh hơn 1.8 lần so với con chip của iPad Air 2, và khả năng xử lý đồ họa vượt trội tới 2 lần. Nếu bạn đã từng trải nghiệm sự mượt mà trên những thế hệ iPad trước, iPad Pro sẽ càng làm tốt hơn nhiệm vụ khiến cho bạn bất ngờ.</p><p><img src="/UserContents/06637986-ecba-467f-bbaf-c9e77593c347.jpg" style="width: 976px;"></p><p>iSight Camera trên iPad Pro đã được nâng cấp với độ phân giải lên tới 8MP, sẵn sàng ghi lại những khoảnh khắc bạn muốn ghi nhớ. Bên cạnh đó là camera FaceTime HD, đáp ứng hoàn hảo nhu cầu liên lạc bằng hình ảnh qua videocall, FaceTime với bạn bè, người thân mọi nơi, mọi lúc.</p><p><img src="/UserContents/50eae808-2cb7-4c28-bb66-1ceb3d916fa2.jpg" style="width: 976px;"></p><p>Apple sản xuất iPad Pro với nhiều phiên bản tùy chọn về màu sắc như Silver/Gold/Space Gray, tùy chọn dung lượng bộ nhớ 32GB/128GB đảm bảo đáp ứng tốt nhất cho mọi nhu cầu của mọi đối tượng sử dụng. Nếu bạn thường xuyên làm việc khi di chuyển, hãy chọn &nbsp;phiên bản Cellular để sử dụng được kết nối 3G, hoặc nếu bạn có sở thích xem phim, hay có nhiều dữ liệu cần lưu trữ, hãy chọn cho mình phiên bản 128GB.</p><p><img src="/UserContents/2a4fa970-9ce1-44d7-8dd6-b4b5a4e6daaa.jpg" style="width: 976px;"></p><p>Hầu hết các thiết bị mới nhất đến từ Apple đều đã được hãng trang bị công nghệ bảo mật vân tay hiện đại, và iPad Pro cũng vậy. Ở phiên bản mới nhất này, cảm biến vân tay của iPad Pro càng được tăng thêm độ bảo mật cũng như tốc độ nhận diện, mang đến trải nghiệm sử dụng tiện lợi và thích thú hơn.&nbsp;<br></p>', NULL, CAST(21290000.00 AS Decimal(18, 2)), CAST(25000000.00 AS Decimal(18, 2)), 0, 1, N'iPad Pro Wi-Fi 4G 128GB', N'ipad-pro-wi-fi-4g-128gb', NULL, NULL, NULL, 1, NULL, 0, CAST(N'2016-03-15 23:16:27.487' AS DateTime), CAST(N'2016-03-15 23:16:27.487' AS DateTime), NULL, 22, NULL)
 
 SET IDENTITY_INSERT [dbo].[Core_Product] OFF
 GO
@@ -294,6 +292,26 @@ INSERT [dbo].[Core_ProductAttributeCombination] ([Id], [VariationId], [Attribute
 SET IDENTITY_INSERT [dbo].[Core_ProductAttributeCombination] OFF
 GO
 
+SET IDENTITY_INSERT [dbo].[Core_Page] ON 
+INSERT [dbo].[Core_Page] ([Id], [Body], [Name], [SeoTitle], [MetaTitle], [MetaKeywords], [MetaDescription], [IsPublished], [PublishedOn], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [UpdatedById]) VALUES (1, N'<h1>About us</h1><p>Your information. Use admin site to update</p>', N'About us', N'about-us', NULL, NULL, NULL, 1, NULL, 0, CAST(N'2016-04-10 08:45:44.953' AS DateTime), CAST(N'2016-04-10 08:45:44.953' AS DateTime), NULL, NULL)
+
+INSERT [dbo].[Core_Page] ([Id], [Body], [Name], [SeoTitle], [MetaTitle], [MetaKeywords], [MetaDescription], [IsPublished], [PublishedOn], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [UpdatedById]) VALUES (2, N'<h1>Term and Conditions</h1><p>Your term and conditions. Use admin site to update</p>', N'Terms & Conditions', N'terms-of-use', NULL, NULL, NULL, 1, NULL, 0, CAST(N'2016-04-11 02:54:57.177' AS DateTime), CAST(N'2016-04-11 02:54:57.177' AS DateTime), NULL, NULL)
+
+INSERT [dbo].[Core_Page] ([Id], [Body], [Name], [SeoTitle], [MetaTitle], [MetaKeywords], [MetaDescription], [IsPublished], [PublishedOn], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [UpdatedById]) VALUES (3, N'<h1>Privacy Policy</h1><p>Your privacy policy information. Use admin site to update</p>', N'Privacy Policy', N'privacy', NULL, NULL, NULL, 1, NULL, 0, CAST(N'2016-04-11 02:59:31.963' AS DateTime), CAST(N'2016-04-11 02:59:31.963' AS DateTime), NULL, NULL)
+
+INSERT [dbo].[Core_Page] ([Id], [Body], [Name], [SeoTitle], [MetaTitle], [MetaKeywords], [MetaDescription], [IsPublished], [PublishedOn], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [UpdatedById]) VALUES (4, N'<h1>Help center</h1><p><a href="/help-center/how-to-buy">How to buy</a></p><p><a href="help-center/shipping">Shipping and delivery</a></p><p><a href="help-center/how-to-return">How to return</a></p><p><a href="help-center/warranty">Warranty</a></p>', N'Help Center', N'help-center', NULL, NULL, NULL, 1, NULL, 0, CAST(N'2016-04-11 03:14:04.447' AS DateTime), CAST(N'2016-04-11 03:14:04.447' AS DateTime), NULL, NULL)
+
+INSERT [dbo].[Core_Page] ([Id], [Body], [Name], [SeoTitle], [MetaTitle], [MetaKeywords], [MetaDescription], [IsPublished], [PublishedOn], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [UpdatedById]) VALUES (5, N'<h1>How to buy</h1><p>Your how to buy instructions. Use admin site to update</p>', N'How to buy', N'help-center/how-to-buy', NULL, NULL, NULL, 1, NULL, 0, CAST(N'2016-04-11 03:16:14.323' AS DateTime), CAST(N'2016-04-11 03:24:13.833' AS DateTime), NULL, NULL)
+
+INSERT [dbo].[Core_Page] ([Id], [Body], [Name], [SeoTitle], [MetaTitle], [MetaKeywords], [MetaDescription], [IsPublished], [PublishedOn], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [UpdatedById]) VALUES (6, N'<h1>Shipping and Delivery</h1><p>Shipping and delivery information. Use admin site to update</p>', N'Shipping and delivery', N'help-center/shipping', NULL, NULL, NULL, 1, NULL, 0, CAST(N'2016-04-11 02:57:13.497' AS DateTime), CAST(N'2016-04-11 03:23:31.597' AS DateTime), NULL, NULL)
+
+INSERT [dbo].[Core_Page] ([Id], [Body], [Name], [SeoTitle], [MetaTitle], [MetaKeywords], [MetaDescription], [IsPublished], [PublishedOn], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [UpdatedById]) VALUES (7, N'<h1>How to return</h1><p>Your how to return instructions. Use admin site to update</p>', N'How to return', N'help-center/how-to-return', NULL, NULL, NULL, 1, NULL, 0, CAST(N'2016-04-11 03:17:42.067' AS DateTime), CAST(N'2016-04-11 03:17:42.067' AS DateTime), NULL, NULL)
+
+INSERT [dbo].[Core_Page] ([Id], [Body], [Name], [SeoTitle], [MetaTitle], [MetaKeywords], [MetaDescription], [IsPublished], [PublishedOn], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [UpdatedById]) VALUES (8, N'<h1>Warranty</h1><p>Your warranty policy. Use admin site to update</p>', N'Warranty', N'help-center/warranty', NULL, NULL, NULL, 1, NULL, 0, CAST(N'2016-04-11 03:19:01.927' AS DateTime), CAST(N'2016-04-11 03:19:01.927' AS DateTime), NULL, NULL)
+
+SET IDENTITY_INSERT [dbo].[Core_Page] OFF
+GO
+
 SET IDENTITY_INSERT [dbo].[Core_UrlSlug] ON 
 INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (1, N'mobile-tablets', 1, N'Category')
 
@@ -328,6 +346,22 @@ INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (15,
 INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (16, N'samsung-galaxy-a5', 3, N'Product')
 
 INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (17, N'ipad-pro-wi-fi-4g-128gb', 4, N'Product')
+
+INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (18, N'about-us', 1, N'Page')
+
+INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (19, N'terms-of-use', 2, N'Page')
+
+INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (20, N'privacy', 3, N'Page')
+
+INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (21, N'help-center', 4, N'Page')
+
+INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (22, N'help-center/how-to-buy', 5, N'Page')
+
+INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (23, N'help-center/shipping', 6, N'Page')
+
+INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (24, N'help-center/how-to-return', 7, N'Page')
+
+INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (25, N'help-center/warranty', 8, N'Page')
 
 SET IDENTITY_INSERT [dbo].[Core_UrlSlug] OFF
 GO
