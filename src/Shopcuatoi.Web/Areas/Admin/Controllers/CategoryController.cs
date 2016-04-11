@@ -7,8 +7,6 @@ using Shopcuatoi.Web.Areas.Admin.Helpers;
 using Shopcuatoi.Web.Areas.Admin.ViewModels;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Rendering;
-using Shopcuatoi.Web.Extensions;
 
 namespace Shopcuatoi.Web.Areas.Admin.Controllers
 {
@@ -18,13 +16,11 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
     {
         private readonly IRepository<Category> categoryRepository;
         private readonly ICategoryService categoryService;
-        private readonly IUrlSlugService urlSlugService;
 
-        public CategoryController(IRepository<Category> categoryRepository, ICategoryService categoryService, IUrlSlugService urlSlugService)
+        public CategoryController(IRepository<Category> categoryRepository, ICategoryService categoryService)
         {
             this.categoryRepository = categoryRepository;
             this.categoryService = categoryService;
-            this.urlSlugService = urlSlugService;
         }
 
         public IActionResult List()
@@ -63,15 +59,11 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                     IsPublished = model.IsPublished
                 };
 
-                categoryRepository.Add(category);
-                categoryRepository.SaveChange();
-
-                urlSlugService.Add(category.SeoTitle, category.Id, "Category");
-                categoryRepository.SaveChange();
+                categoryService.Create(category);
 
                 return Ok();
             }
-            return Json(ModelState.ToDictionary());
+            return new BadRequestObjectResult(ModelState);
         }
 
         [HttpPost]
@@ -85,14 +77,12 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                 category.ParentId = model.ParentId;
                 category.IsPublished = model.IsPublished;
 
-                urlSlugService.Update(category.SeoTitle, category.Id, "Category");
-
-                categoryRepository.SaveChange();
+                categoryService.Update(category);
 
                 return Ok();
             }
 
-            return Json(ModelState.ToDictionary());
+            return new BadRequestObjectResult(ModelState);
         }
 
         [HttpPost]
@@ -105,8 +95,6 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
             }
 
             categoryService.Delete(category);
-            urlSlugService.Remove(category.Id, "Category");
-            categoryRepository.SaveChange();
 
             return Json(true);
         }

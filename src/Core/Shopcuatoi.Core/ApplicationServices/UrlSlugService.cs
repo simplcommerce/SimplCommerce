@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Shopcuatoi.Core.Domain.Models;
-using Shopcuatoi.Infrastructure;
 using Shopcuatoi.Infrastructure.Domain.IRepositories;
 
 namespace Shopcuatoi.Core.ApplicationServices

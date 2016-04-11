@@ -6,7 +6,6 @@ using Shopcuatoi.Core.ApplicationServices;
 using Shopcuatoi.Core.Domain.Models;
 using Shopcuatoi.Infrastructure.Domain.IRepositories;
 using Shopcuatoi.Web.Areas.Admin.ViewModels.Pages;
-using Shopcuatoi.Web.Extensions;
 
 namespace Shopcuatoi.Web.Areas.Admin.Controllers
 {
@@ -15,12 +14,12 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
     public class PageController : Controller
     {
         private readonly IRepository<Page> pageRepository;
-        private readonly IUrlSlugService urlSlugService;
+        private readonly IPageService pageService;
 
-        public PageController(IRepository<Page> pageRepository, IUrlSlugService urlSlugService)
+        public PageController(IRepository<Page> pageRepository, IPageService pageService)
         {
             this.pageRepository = pageRepository;
-            this.urlSlugService = urlSlugService;
+            this.pageService = pageService;
         }
 
         public IActionResult List()
@@ -58,15 +57,11 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                     IsPublished = model.IsPublished
                 };
 
-                pageRepository.Add(page);
-                pageRepository.SaveChange();
-
-                urlSlugService.Add(page.SeoTitle, page.Id, "Page");
-                pageRepository.SaveChange();
+                pageService.Create(page);
 
                 return Ok();
             }
-            return Json(ModelState.ToDictionary());
+            return new BadRequestObjectResult(ModelState);
         }
 
         [HttpPost]
@@ -81,14 +76,12 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                 page.IsPublished = model.IsPublished;
                 page.UpdatedOn = DateTime.Now;
 
-                urlSlugService.Update(page.SeoTitle, page.Id, "Page");
-
-                pageRepository.SaveChange();
+                pageService.Update(page);
 
                 return Ok();
             }
 
-            return Json(ModelState.ToDictionary());
+            return new BadRequestObjectResult(ModelState);
         }
 
         [HttpPost]
@@ -100,9 +93,7 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(400);
             }
 
-            pageRepository.Remove(page);
-            urlSlugService.Remove(page.Id, "Page");
-            pageRepository.SaveChange();
+            pageService.Delete(page);
 
             return Json(true);
         }

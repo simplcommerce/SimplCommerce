@@ -6,7 +6,6 @@ using Shopcuatoi.Core.Domain.Models;
 using Shopcuatoi.Infrastructure;
 using Shopcuatoi.Infrastructure.Domain.IRepositories;
 using Shopcuatoi.Web.Areas.Admin.ViewModels;
-using Shopcuatoi.Web.Extensions;
 
 namespace Shopcuatoi.Web.Areas.Admin.Controllers
 {
@@ -58,15 +57,11 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                     IsPublished = model.IsPublished
                 };
 
-                manufacturerRepository.Add(manufacturer);
-                manufacturerRepository.SaveChange();
-
-                urlSlugService.Add(manufacturer.SeoTitle, manufacturer.Id, "Manufacturer");
-                manufacturerRepository.SaveChange();
+                manufacturerService.Create(manufacturer);
 
                 return Ok();
             }
-            return Json(ModelState.ToDictionary());
+            return new BadRequestObjectResult(ModelState);
         }
 
         [HttpPost]
@@ -79,14 +74,12 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                 manufacturer.SeoTitle = StringHelper.ToUrlFriendly(model.Name);
                 manufacturer.IsPublished = model.IsPublished;
 
-                urlSlugService.Update(manufacturer.SeoTitle, manufacturer.Id, "Manufacturer");
-
-                manufacturerRepository.SaveChange();
+                manufacturerService.Update(manufacturer);
 
                 return Ok();
             }
 
-            return Json(ModelState.ToDictionary());
+            return new BadRequestObjectResult(ModelState);
         }
 
         [HttpPost]
@@ -99,9 +92,6 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
             }
 
             manufacturerService.Delete(manufacturer);
-            urlSlugService.Remove(manufacturer.Id, "Manufacturer");
-            manufacturerRepository.SaveChange();
-
             return Json(true);
         }
     }

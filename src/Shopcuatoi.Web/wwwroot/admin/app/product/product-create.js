@@ -144,6 +144,16 @@
             productService.createProduct(vm.product, vm.thumbnailImage, vm.productImages)
                 .success(function (result) {
                     $state.go('product');
+                })
+                .error(function (error) {
+                    vm.validationErrors = [];
+                    if (error && angular.isObject(error)) {
+                        for (var key in error) {
+                            vm.validationErrors.push(error[key][0]);
+                        }
+                    } else {
+                        vm.validationErrors.push('Could not add product.');
+                    }
                 });
         };
 

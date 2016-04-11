@@ -5,6 +5,11 @@
     </div>
     <div class="panel-body">
         <form name="productForm" class="form-horizontal">
+            <div class="col-sm-offset-2 bg-danger" ng-show="vm.validationErrors">
+                <ul>
+                    <li ng-repeat="error in vm.validationErrors">{{error}}</li>
+                </ul>
+            </div>
             <uib-tabset>
                 <uib-tab index="0" heading="Product Information">
                     <div class="form-group">

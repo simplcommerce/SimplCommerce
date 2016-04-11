@@ -12,7 +12,6 @@ using Shopcuatoi.Web.Areas.Admin.ViewModels.SmartTable;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
-using Shopcuatoi.Web.Extensions;
 
 namespace Shopcuatoi.Web.Areas.Admin.Controllers
 {
@@ -22,15 +21,15 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
     {
         private readonly IRepository<Product> productRepository;
         private readonly IMediaService mediaService;
-        private readonly IUrlSlugService urlSlugService;
+        private readonly IProductService productService;
         private readonly IRepository<ProductCategory> productCategoryRepository;
         private readonly IRepository<ProductAttributeValue> productAttributeValueRepository; 
 
-        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IUrlSlugService urlSlugService, IRepository<ProductCategory> productCategoryRepository, IRepository<ProductAttributeValue> productAttributeValueRepository)
+        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IProductService productService, IRepository<ProductCategory> productCategoryRepository, IRepository<ProductAttributeValue> productAttributeValueRepository)
         {
             this.productRepository = productRepository;
             this.mediaService = mediaService;
-            this.urlSlugService = urlSlugService;
+            this.productService = productService;
             this.productCategoryRepository = productCategoryRepository;
             this.productAttributeValueRepository = productAttributeValueRepository;
         }
@@ -119,7 +118,7 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(ModelState.ToDictionary());
+                return new BadRequestObjectResult(ModelState);
             }
 
             var product = new Product
@@ -160,11 +159,7 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
 
             SaveProductImages(model, product);
 
-            productRepository.Add(product);
-            productRepository.SaveChange();
-
-            urlSlugService.Add(product.SeoTitle, product.Id, "Product");
-            productRepository.SaveChange();
+            productService.Create(product);
 
             return Ok();
         }
@@ -174,7 +169,7 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(ModelState.ToDictionary());
+                return new BadRequestObjectResult(ModelState);
             }
 
             var product = productRepository.Get(id);
@@ -201,7 +196,7 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
 
             AddOrDeleteCategories(model, product);
 
-            productRepository.SaveChange();
+            productService.Update(product);
 
             return Ok();
         }

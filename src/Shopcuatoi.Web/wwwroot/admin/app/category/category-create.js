@@ -12,9 +12,20 @@
         vm.categories = [];
 
         vm.save = function save() {
-            categoryService.createCategory(vm.category).then(function (result) {
-                $state.go('category');
-            });
+            categoryService.createCategory(vm.category)
+                .success(function (result) {
+                        $state.go('category');
+                    })
+                .error(function (error) {
+                    vm.validationErrors = [];
+                    if (error && angular.isObject(error)) {
+                        for (var key in error) {
+                            vm.validationErrors.push(error[key][0]);
+                        }
+                    } else {
+                        vm.validationErrors.push('Could not add category.');
+                    }
+                });
         };
 
         vm.getCategories = function getCategories() {

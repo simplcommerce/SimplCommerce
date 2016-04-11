@@ -11,9 +11,20 @@
         vm.isEditMode = true;
 
         vm.save = function save() {
-            manufacturerService.editManufacturer(vm.manufacturer).then(function (result) {
-                $state.go('manufacturer');
-            });
+            manufacturerService.editManufacturer(vm.manufacturer)
+                .success(function (result) {
+                    $state.go('manufacturer');
+                })
+                .error(function (error) {
+                    vm.validationErrors = [];
+                    if (error && angular.isObject(error)) {
+                        for (var key in error) {
+                            vm.validationErrors.push(error[key][0]);
+                        }
+                    } else {
+                        vm.validationErrors.push('Could not add manufacturer.');
+                    }
+                });
         };
 
         function init() {
