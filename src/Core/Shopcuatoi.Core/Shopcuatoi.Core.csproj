@@ -193,6 +193,7 @@
     <Compile Include="Domain\Models\ProductMedia.cs" />
     <Compile Include="Domain\Models\ProductOption.cs" />
     <Compile Include="Domain\Models\ProductOptionValue.cs" />
+    <Compile Include="Domain\Models\ProductTemplate.cs" />
     <Compile Include="Domain\Models\ProductVariation.cs" />
     <Compile Include="Domain\Models\Role.cs" />
     <Compile Include="Domain\Models\RoleClaim.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="Domain\Models\UserLogin.cs" />
     <Compile Include="Domain\Models\UserRole.cs" />
     <Compile Include="Domain\Models\Page.cs" />
+    <Compile Include="Domain\Models\ProductAttributeGroup.cs" />
     <Compile Include="Infrastructure\EntityFramework\AutomaticMigrationsConfiguration.cs" />
     <Compile Include="Infrastructure\EntityFramework\CustomConventions\ForeignKeyNamingConvention.cs" />
     <Compile Include="Infrastructure\EntityFramework\CustomConventions\TableNameConvention.cs" />

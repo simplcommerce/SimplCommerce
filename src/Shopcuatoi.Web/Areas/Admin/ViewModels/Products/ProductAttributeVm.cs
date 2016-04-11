@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Shopcuatoi.Web.Areas.Admin.ViewModels.Products
+﻿namespace Shopcuatoi.Web.Areas.Admin.ViewModels.Products
 {
     public class ProductAttributeVm
     {
@@ -8,6 +6,8 @@ namespace Shopcuatoi.Web.Areas.Admin.ViewModels.Products
 
         public string Name { get; set; }
 
-        public IList<string> Values { get; set; } = new List<string>();
+        public string Value { get; set; }
+
+        public string GroupName { get; set; }
     }
 }

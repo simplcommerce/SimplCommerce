@@ -12,11 +12,14 @@
         vm.product.categoryIds = [];
         vm.product.options = [];
         vm.product.variations = [];
+        vm.product.attributes = [];
         vm.categories = [];
         vm.thumbnailImage = null;
         vm.productImages = [];
         vm.options = [];
         vm.addingOption = null;
+        vm.attributes = [];
+        vm.addingAttribute = null;
         vm.addingVariation = { priceOffset: 0 };
         vm.manufacturers = [];
 
@@ -140,6 +143,19 @@
             }
         };
 
+        vm.addAttribute = function addAttribute() {
+            var index = vm.attributes.indexOf(vm.addingAttribute);
+            vm.product.attributes.push(vm.addingAttribute);
+            vm.attributes.splice(index, 1);
+            vm.addingAttribute = null;
+        }
+
+        vm.deleteAttribute = function deleteAttribute(attribute) {
+            var index = vm.product.attributes.indexOf(attribute);
+            vm.product.attributes.splice(index, 1);
+            vm.attributes.push(attribute);
+        };
+
         vm.save = function save() {
             productService.createProduct(vm.product, vm.thumbnailImage, vm.productImages)
                 .success(function (result) {
@@ -169,6 +185,12 @@
             });
         }
 
+        function getAttributes() {
+            productService.getProductAttrs().then(function (result) {
+                vm.attributes = result.data;
+            });
+        }
+
         vm.toggleCategories = function toggleCategories(categoryId) {
             var index = vm.product.categoryIds.indexOf(categoryId);
             if (index > -1) {
@@ -186,6 +208,7 @@
 
         function init() {
             getProductOptions();
+            getAttributes();
             getCategories();
             getManufacturers();
         }

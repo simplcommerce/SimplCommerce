@@ -87,7 +87,7 @@
                                     <select class="form-control" ng-model="vm.addingOption" ng-options="opt as opt.name for opt in vm.options"></select>
                                 </div>
                                 <button class="btn btn-default" ng-disabled="!vm.addingOption" ng-click="vm.addOption()">Add Option</button>
-                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group" ng-show="vm.product.options.length > 0">
@@ -165,7 +165,41 @@
                         </div>
                     </div>
                 </uib-tab>
-                <uib-tab index="2" heading="Category Mapping">
+                <uib-tab index="2" heading="Product Attributes">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Available Attributes</label>
+                        <div class="col-sm-10">
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    <select class="form-control" ng-model="vm.addingAttribute" ng-options="attr as attr.name group by attr.groupName for attr in vm.attributes"></select>
+                                </div>
+                                <button class="btn btn-default" ng-disabled="!vm.addingAttribute" ng-click="vm.addAttribute()">Add Attribute</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Product Attributes</label>
+                        <div class="col-sm-10">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>Attribute Name</th>
+                                    <th>Value</th>
+                                    <th>Action</th>
+                                </tr>
+                                <tr ng-repeat="attr in vm.product.attributes">
+                                    <td>{{attr.name}}</td>
+                                    <td><input type="text" class="form-control" ng-model="attr.value" /></td>
+                                    <td>
+                                        <button ng-click="vm.deleteAttribute(attr)" type="button" class="btn">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </uib-tab>
+                <uib-tab index="3" heading="Category Mapping">
                     <md-content class="md-padding">
                         <md-input-container class="md-block">
                             <div ng-repeat="category in vm.categories">

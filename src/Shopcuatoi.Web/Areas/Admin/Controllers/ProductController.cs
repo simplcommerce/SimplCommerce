@@ -94,6 +94,13 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                 });
             }
 
+            productVm.Attributes = product.AttributeValues.Select(x => new ProductAttributeVm
+            {
+                Id = x.Id,
+                Name = x.Attribute.Name,
+                Value = x.Value
+            }).ToList();
+
             return Json(productVm);
         }
 
@@ -147,6 +154,17 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
             }
 
             MapProductVariationVmToProduct(model, product);
+
+            foreach (var attribute in model.Product.Attributes)
+            {
+                var attributeValue = new ProductAttributeValue
+                {
+                    AttributeId = attribute.Id,
+                    Value = attribute.Value
+                };
+
+                product.AddAttributeValue(attributeValue);
+            }
 
             foreach (var categoryId in model.Product.CategoryIds)
             {

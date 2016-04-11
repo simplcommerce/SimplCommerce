@@ -6,6 +6,10 @@ DELETE FROM [dbo].[Core_ProductVariation]
 GO
 DELETE FROM [dbo].[Core_ProductOptionValue]
 GO
+DELETE FROM [dbo].[Core_ProductAttribute]
+GO
+DELETE FROM [dbo].[Core_ProductAttributeGroup]
+GO
 DELETE FROM [dbo].[Core_ProductMedia]
 GO
 DELETE FROM [dbo].[Core_ProductCategory]
@@ -20,6 +24,7 @@ DELETE FROM [dbo].[Core_Manufacturer]
 GO
 DELETE FROM [dbo].[Core_Page]
 GO
+
 SET IDENTITY_INSERT [dbo].[Core_Category] ON 
 INSERT [dbo].[Core_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (1, N'Phones', N'mobile-tablets', NULL, 0, 1, 0, NULL, NULL)
 
@@ -47,12 +52,42 @@ INSERT [dbo].[Core_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayO
 
 INSERT [dbo].[Core_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (13, N'USB Drives', N'usb-drives', NULL, 0, 1, 0, 10, NULL)
 
-SET IDENTITY_INSERT [dbo].[Core_Category] OFF
+SET IDENTITY_INSERT [dbo].[Core_Category] OFF 
 GO
 
 SET IDENTITY_INSERT [dbo].[Core_Manufacturer] ON 
 INSERT [dbo].[Core_Manufacturer] ([Id], [Name], [SeoTitle], [Description], [IsPublished], [IsDeleted]) VALUES (1, N'Apple', N'apple', NULL, 1, 0)
 SET IDENTITY_INSERT [dbo].[Core_Manufacturer] OFF 
+GO
+
+SET IDENTITY_INSERT [dbo].[Core_ProductAttributeGroup] ON 
+INSERT [dbo].[Core_ProductAttributeGroup] ([Id], [Name]) VALUES (1, N'General')
+INSERT [dbo].[Core_ProductAttributeGroup] ([Id], [Name]) VALUES (2, N'Screen')
+INSERT [dbo].[Core_ProductAttributeGroup] ([Id], [Name]) VALUES (3, N'Connectivity')
+INSERT [dbo].[Core_ProductAttributeGroup] ([Id], [Name]) VALUES (4, N'Camera')
+SET IDENTITY_INSERT [dbo].[Core_ProductAttributeGroup] OFF 
+GO
+
+SET IDENTITY_INSERT [dbo].[Core_ProductAttribute] ON 
+INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (1, N'CPU', 1)
+INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (2, N'OS', 1)
+INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (3, N'GPU', 1)
+INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (4, N'RAM', 1)
+INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (5, N'Capacity', 1)
+INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (6, N'Size', 2)
+INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (7, N'Type', 2)
+INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (8, N'Resolution', 2)
+INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (9, N'2G', 3)
+INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (10, N'3G', 3)
+INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (11, N'4G', 3)
+INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (12, N'Wifi', 3)
+INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (13, N'Bluetooth', 3)
+INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (14, N'NFC', 3)
+INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (15, N'USP', 3)
+INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (16, N'GPS', 3)
+INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (17, N'Main camera', 4)
+INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (18, N'Sub camera', 4)
+SET IDENTITY_INSERT [dbo].[Core_ProductAttribute] OFF 
 GO
 
 SET IDENTITY_INSERT [dbo].[Core_Media] ON 
