@@ -12,11 +12,14 @@
         vm.product.categoryIds = [];
         vm.product.options = [];
         vm.product.variations = [];
+        vm.product.attributes = [];
         vm.categories = [];
         vm.thumbnailImage = null;
         vm.productImages = [];
         vm.options = [];
         vm.addingOption = null;
+        vm.attributes = [];
+        vm.addingAttribute = null;
         vm.isEditMode = true;
         vm.addingVariation = { priceOffset: 0 };
         vm.manufacturers = [];
@@ -146,6 +149,19 @@
             }
         };
 
+        vm.addAttribute = function addAttribute() {
+            var index = vm.attributes.indexOf(vm.addingAttribute);
+            vm.product.attributes.push(vm.addingAttribute);
+            vm.attributes.splice(index, 1);
+            vm.addingAttribute = null;
+        }
+
+        vm.deleteAttribute = function deleteAttribute(attribute) {
+            var index = vm.product.attributes.indexOf(attribute);
+            vm.product.attributes.splice(index, 1);
+            vm.attributes.push(attribute);
+        };
+
         vm.save = function save() {
             productService.editProduct(vm.product, vm.thumbnailImage, vm.productImages)
                 .success(function (result) {
@@ -165,12 +181,18 @@
 
         function getProduct() {
             productService.getProduct($stateParams.id).then(function (result) {
-                var i, index, optionIds;
+                var i, index, optionIds, attributeIds;
                 vm.product = result.data;
                 optionIds = vm.options.map(function (item) { return item.id; });
                 for (i = 0; i < vm.product.options.length; i = i + 1) {
                     index = optionIds.indexOf(vm.product.options[i].id);
                     vm.options.splice(index, 1);
+                }
+
+                attributeIds = vm.attributes.map(function (item) { return item.id; });
+                for (i = 0; i < vm.product.attributes.length; i = i + 1) {
+                    index = attributeIds.indexOf(vm.product.attributes[i].id);
+                    vm.attributes.splice(index, 1);
                 }
             });
         }
@@ -184,6 +206,12 @@
         function getProductOptions() {
             productService.getProductOptions().then(function (result) {
                 vm.options = result.data;
+            });
+        }
+
+        function getAttributes() {
+            productService.getProductAttrs().then(function (result) {
+                vm.attributes = result.data;
             });
         }
 
@@ -205,6 +233,7 @@
         function init() {
             getProduct();
             getProductOptions();
+            getAttributes();
             getCategories();
             getManufacturers();
         }

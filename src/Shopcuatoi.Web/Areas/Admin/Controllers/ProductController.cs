@@ -23,15 +23,23 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
         private readonly IMediaService mediaService;
         private readonly IProductService productService;
         private readonly IRepository<ProductCategory> productCategoryRepository;
-        private readonly IRepository<ProductOptionValue> productOptionValueRepository; 
+        private readonly IRepository<ProductOptionValue> productOptionValueRepository;
+        private readonly IRepository<ProductAttributeValue> productAttributeValueRepository; 
 
-        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IProductService productService, IRepository<ProductCategory> productCategoryRepository, IRepository<ProductOptionValue> productOptionValueRepository)
+        public ProductController(
+            IRepository<Product> productRepository,
+            IMediaService mediaService,
+            IProductService productService,
+            IRepository<ProductCategory> productCategoryRepository,
+            IRepository<ProductOptionValue> productOptionValueRepository,
+            IRepository<ProductAttributeValue> productAttributeValueRepository)
         {
             this.productRepository = productRepository;
             this.mediaService = mediaService;
             this.productService = productService;
             this.productCategoryRepository = productCategoryRepository;
             this.productOptionValueRepository = productOptionValueRepository;
+            this.productAttributeValueRepository = productAttributeValueRepository;
         }
 
         public IActionResult Get(long id)
@@ -98,7 +106,8 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
             {
                 Id = x.Id,
                 Name = x.Attribute.Name,
-                Value = x.Value
+                Value = x.Value,
+                GroupName = x.Attribute.Group.Name
             }).ToList();
 
             return Json(productVm);
@@ -211,6 +220,8 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
             AddOrDeleteProductOption(model, product);
 
             AddOrDeleteProductVariation(model, product);
+
+            AddOrDeleteProductAttribute(model, product);
 
             AddOrDeleteCategories(model, product);
 
@@ -354,6 +365,39 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                 {
                     variation.IsDeleted = true;
                 }
+            }
+        }
+
+        private void AddOrDeleteProductAttribute(ProductForm model, Product product)
+        {
+            foreach (var productAttrValueVm in model.Product.Attributes)
+            {
+                var productAttrValue =
+                    product.AttributeValues.FirstOrDefault(x => x.AttributeId == productAttrValueVm.Id);
+                if (productAttrValue == null)
+                {
+                    productAttrValue = new ProductAttributeValue
+                    {
+                        AttributeId = productAttrValueVm.Id,
+                        Value = productAttrValueVm.Value
+                    };
+                    product.AddAttributeValue(productAttrValue);
+                }
+                else
+                {
+                    productAttrValue.Value = productAttrValueVm.Value;
+                }
+            }
+
+            var deletedAttrValues =
+               product.AttributeValues.Where(attrValue => model.Product.Attributes.All(x => x.Id != attrValue.AttributeId))
+                   .ToList();
+
+            foreach (var deletedAttrValue in deletedAttrValues)
+            {
+                deletedAttrValue.Product = null;
+                product.AttributeValues.Remove(deletedAttrValue);
+                productAttributeValueRepository.Remove(deletedAttrValue);
             }
         }
 
