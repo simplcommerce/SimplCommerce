@@ -13,6 +13,8 @@
         'shopAdmin.user',
         'shopAdmin.category',
         'shopAdmin.product',
+        'shopAdmin.productOption',
+        'shopAdmin.productAttribute',
         'shopAdmin.manufacturer',
         'shopAdmin.page'
     ]);

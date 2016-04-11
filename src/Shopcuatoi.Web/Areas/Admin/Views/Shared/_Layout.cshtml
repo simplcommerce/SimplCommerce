@@ -56,6 +56,14 @@
     <script src="~/admin/app/product/product-list.js"></script>
     <script src="~/admin/app/product/product-form.js"></script>
 
+    <script src="~/admin/app/product-option/product-option.module.js"></script>
+    <script src="~/admin/app/product-option/product-option-service.js"></script>
+    <script src="~/admin/app/product-option/product-option-list.js"></script>
+
+    <script src="~/admin/app/product-attribute/product-attribute.module.js"></script>
+    <script src="~/admin/app/product-attribute/product-attribute-service.js"></script>
+    <script src="~/admin/app/product-attribute/product-attribute-list.js"></script>
+
     <script src="~/admin/app/manufacturer/manufacturer.module.js"></script>
     <script src="~/admin/app/manufacturer/manufacturer-service.js"></script>
     <script src="~/admin/app/manufacturer/manufacturer-list.js"></script>
@@ -86,8 +94,11 @@
                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catalog <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a ui-sref="category">Categories</a></li>
-                            <li><a ui-sref="product">Products</a></li>
                             <li><a ui-sref="manufacturer">Manufacturers</a></li>
+                            <li><a ui-sref="product">Products</a></li>
+                            <li><a ui-sref="product-option">Product Options</a></li>
+                            <li><a ui-sref="product-attribute">Product Attributes</a></li>
+                            <li><a ui-sref="dashboard">Product Templates</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
