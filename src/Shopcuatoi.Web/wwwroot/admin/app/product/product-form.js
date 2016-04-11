@@ -2,10 +2,10 @@
 (function ($) {
     angular
         .module('shopAdmin.product')
-        .controller('ProductEditCtrl', ProductEditCtrl);
+        .controller('ProductFormCtrl', ProductFormCtrl);
 
     /* @ngInject */
-    function ProductEditCtrl($state, $stateParams, $http, categoryService, productService, summerNoteService, manufacturerService) {
+    function ProductFormCtrl($state, $stateParams, $http, categoryService, productService, summerNoteService, manufacturerService) {
         var vm = this;
         // declare shoreDescription and description for summernote
         vm.product = { shortDescription: '', description: '', specification: '' };
@@ -20,7 +20,8 @@
         vm.addingOption = null;
         vm.attributes = [];
         vm.addingAttribute = null;
-        vm.isEditMode = true;
+        vm.productId = $stateParams.id;
+        vm.isEditMode = vm.productId > 0;
         vm.addingVariation = { priceOffset: 0 };
         vm.manufacturers = [];
 
@@ -106,23 +107,6 @@
             vm.product.deletedMediaIds.push(media.id);
         };
 
-        vm.filterAddedOptionValue = function filterAddedOptionValue(item) {
-            if (vm.product.options.length > 1) {
-                return true;
-            }
-            var optionValueAdded = false;
-            vm.product.variations.forEach(function (variation) {
-                var optionValues = variation.optionCombinations.map(function (item) {
-                    return item.value;
-                });
-                if (optionValues.indexOf(item) > -1) {
-                    optionValueAdded = true;
-                }
-            });
-
-            return !optionValueAdded;
-        };
-
         vm.addVariation = function addVariation() {
             var variation,
                 optionCombinations = [];
@@ -143,6 +127,7 @@
                 optionCombinations: optionCombinations,
                 priceOffset: vm.addingVariation.priceOffset || 0
             };
+
             if (!vm.product.variations.find(function (item) { return item.name === variation.name; })) {
                 vm.product.variations.push(variation);
                 vm.addingVariation = { priceOffset: 0 };
@@ -154,7 +139,7 @@
             vm.product.attributes.push(vm.addingAttribute);
             vm.attributes.splice(index, 1);
             vm.addingAttribute = null;
-        }
+        };
 
         vm.deleteAttribute = function deleteAttribute(attribute) {
             var index = vm.product.attributes.indexOf(attribute);
@@ -162,9 +147,41 @@
             vm.attributes.push(attribute);
         };
 
+        vm.toggleCategories = function toggleCategories(categoryId) {
+            var index = vm.product.categoryIds.indexOf(categoryId);
+            if (index > -1) {
+                vm.product.categoryIds.splice(index, 1);
+            } else {
+                vm.product.categoryIds.push(categoryId);
+            }
+        };
+
+        vm.filterAddedOptionValue = function filterAddedOptionValue(item) {
+            if (vm.product.options.length > 1) {
+                return true;
+            }
+            var optionValueAdded = false;
+            vm.product.variations.forEach(function (variation) {
+                var optionValues = variation.optionCombinations.map(function (item) {
+                    return item.value;
+                });
+                if (optionValues.indexOf(item) > -1) {
+                    optionValueAdded = true;
+                }
+            });
+
+            return !optionValueAdded;
+        };
+
         vm.save = function save() {
-            productService.editProduct(vm.product, vm.thumbnailImage, vm.productImages)
-                .success(function (result) {
+            var promise;
+            if (vm.isEditMode) {
+                promise = productService.editProduct(vm.product, vm.thumbnailImage, vm.productImages);
+            } else {
+                promise = productService.createProduct(vm.product, vm.thumbnailImage, vm.productImages);
+            }
+
+            promise.success(function (result) {
                     $state.go('product');
                 })
                 .error(function (error) {
@@ -215,15 +232,6 @@
             });
         }
 
-        vm.toggleCategories = function toggleCategories(categoryId) {
-            var index = vm.product.categoryIds.indexOf(categoryId);
-            if (index > -1) {
-                vm.product.categoryIds.splice(index, 1);
-            } else {
-                vm.product.categoryIds.push(categoryId);
-            }
-        };
-
         function getManufacturers() {
             manufacturerService.getManufacturers().then(function (result) {
                 vm.manufacturers = result.data;
@@ -231,7 +239,9 @@
         }
 
         function init() {
-            getProduct();
+            if (vm.isEditMode) {
+                getProduct();
+            }
             getProductOptions();
             getAttributes();
             getCategories();

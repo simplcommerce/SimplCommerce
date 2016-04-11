@@ -104,10 +104,12 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
 
             productVm.Attributes = product.AttributeValues.Select(x => new ProductAttributeVm
             {
-                Id = x.Id,
+                AttributeValueId = x.Id,
+                Id = x.AttributeId,
                 Name = x.Attribute.Name,
+                GroupName = x.Attribute.Group.Name,
                 Value = x.Value,
-                GroupName = x.Attribute.Group.Name
+                
             }).ToList();
 
             return Json(productVm);
@@ -370,22 +372,22 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
 
         private void AddOrDeleteProductAttribute(ProductForm model, Product product)
         {
-            foreach (var productAttrValueVm in model.Product.Attributes)
+            foreach (var productAttributeVm in model.Product.Attributes)
             {
                 var productAttrValue =
-                    product.AttributeValues.FirstOrDefault(x => x.AttributeId == productAttrValueVm.Id);
+                    product.AttributeValues.FirstOrDefault(x => x.AttributeId == productAttributeVm.Id);
                 if (productAttrValue == null)
                 {
                     productAttrValue = new ProductAttributeValue
                     {
-                        AttributeId = productAttrValueVm.Id,
-                        Value = productAttrValueVm.Value
+                        AttributeId = productAttributeVm.Id,
+                        Value = productAttributeVm.Value
                     };
                     product.AddAttributeValue(productAttrValue);
                 }
                 else
                 {
-                    productAttrValue.Value = productAttrValueVm.Value;
+                    productAttrValue.Value = productAttributeVm.Value;
                 }
             }
 

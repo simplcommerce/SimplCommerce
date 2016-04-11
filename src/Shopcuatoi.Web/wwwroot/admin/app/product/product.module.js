@@ -15,12 +15,12 @@
                     .state('product-create', {
                         url: '/product-create',
                         templateUrl: 'admin/app/product/product-form.html',
-                        controller: 'ProductCreateCtrl as vm'
+                        controller: 'ProductFormCtrl as vm'
                     })
                     .state('product-edit', {
                         url: '/product/edit/:id',
                         templateUrl: 'admin/app/product/product-form.html',
-                        controller: 'ProductEditCtrl as vm'
+                        controller: 'ProductFormCtrl as vm'
                     })
                 ;
             }
