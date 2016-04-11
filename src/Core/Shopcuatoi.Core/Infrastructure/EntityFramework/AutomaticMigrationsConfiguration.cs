@@ -41,15 +41,15 @@ namespace Shopcuatoi.Core.Infrastructure.EntityFramework
                 await userManager.AddToRoleAsync(adminUser, adminRole.Name);
             }
 
-            var productAttrRepository = ServiceLocator.Current.GetInstance<IRepository<ProductAttribute>>();
+            var productAttrRepository = ServiceLocator.Current.GetInstance<IRepository<ProductOption>>();
             if (productAttrRepository.Query().FirstOrDefault(x => x.Name == "Color") == null)
             {
-                productAttrRepository.Add(new ProductAttribute { Name = "Color" });
+                productAttrRepository.Add(new ProductOption { Name = "Color" });
             }
 
             if (productAttrRepository.Query().FirstOrDefault(x => x.Name == "Size") == null)
             {
-                productAttrRepository.Add(new ProductAttribute { Name = "Size" });
+                productAttrRepository.Add(new ProductOption { Name = "Size" });
             }
 
             productAttrRepository.SaveChange();

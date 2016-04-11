@@ -21,25 +21,25 @@ namespace Shopcuatoi.Web.ViewModels.Catalog
 
         public bool HasVariation => Variations.Any();
 
-        public IList<ProductDetailAttribute> AvailableAttributes
+        public IList<ProductDetailOption> AvailableOptions
         {
             get
             {
-                var attributes = from attr in Variations.SelectMany(x => x.Attributes)
-                    group attr by new
+                var options = from opt in Variations.SelectMany(x => x.Options)
+                    group opt by new
                     {
-                        attr.AttributeId,
-                        attr.AttributeName
+                        opt.OptionId,
+                        opt.OptionName
                     }
                     into g
-                    select new ProductDetailAttribute
+                    select new ProductDetailOption
                     {
-                        AttributeId = g.Key.AttributeId,
-                        AttributeName = g.Key.AttributeName,
+                        OptionId = g.Key.OptionId,
+                        OptionName = g.Key.OptionName,
                         Values = g.Select(x => x.Value).Distinct().ToList()
                     };
 
-                return attributes.ToList();
+                return options.ToList();
             }
         }
 

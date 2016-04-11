@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Shopcuatoi.Web.ViewModels.Catalog
 {
@@ -11,6 +8,6 @@ namespace Shopcuatoi.Web.ViewModels.Catalog
 
         public decimal? PriceOffset { get; set; }
 
-        public IList<ProductDetailVariationAttribute> Attributes { get; protected set; } = new List<ProductDetailVariationAttribute>();
+        public IList<ProductDetailVariationOption> Options { get; protected set; } = new List<ProductDetailVariationOption>();
     }
 }

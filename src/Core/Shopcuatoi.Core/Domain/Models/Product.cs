@@ -24,6 +24,8 @@ namespace Shopcuatoi.Core.Domain.Models
 
         public virtual IList<ProductAttributeValue> AttributeValues { get; protected set; } = new List<ProductAttributeValue>();
 
+        public virtual IList<ProductOptionValue> OptionValues { get; protected set; } = new List<ProductOptionValue>();
+
         public virtual IList<ProductCategory> Categories { get; protected set; } = new List<ProductCategory>();
 
         public long? ManufacturerId { get; set; }
@@ -52,6 +54,12 @@ namespace Shopcuatoi.Core.Domain.Models
         {
             attributeValue.Product = this;
             AttributeValues.Add(attributeValue);
+        }
+
+        public void AddOptionValue(ProductOptionValue optionValue)
+        {
+            optionValue.Product = this;
+            OptionValues.Add(optionValue);
         }
 
         public void AddProductVariation(ProductVariation variation)

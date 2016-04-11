@@ -23,15 +23,15 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
         private readonly IMediaService mediaService;
         private readonly IProductService productService;
         private readonly IRepository<ProductCategory> productCategoryRepository;
-        private readonly IRepository<ProductAttributeValue> productAttributeValueRepository; 
+        private readonly IRepository<ProductOptionValue> productOptionValueRepository; 
 
-        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IProductService productService, IRepository<ProductCategory> productCategoryRepository, IRepository<ProductAttributeValue> productAttributeValueRepository)
+        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IProductService productService, IRepository<ProductCategory> productCategoryRepository, IRepository<ProductOptionValue> productOptionValueRepository)
         {
             this.productRepository = productRepository;
             this.mediaService = mediaService;
             this.productService = productService;
             this.productCategoryRepository = productCategoryRepository;
-            this.productAttributeValueRepository = productAttributeValueRepository;
+            this.productOptionValueRepository = productOptionValueRepository;
         }
 
         public IActionResult Get(long id)
@@ -61,22 +61,22 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                 });
             }
 
-            var attributes = from attr in product.AttributeValues
-                             group attr by new
+            var options = from opt in product.OptionValues
+                             group opt by new
                              {
-                                 attr.AttributeId,
-                                 attr.Attribute.Name,
-                                 attr.ProductId
+                                 opt.OptionId,
+                                 opt.Option.Name,
+                                 opt.ProductId
                              }
                              into g
-                             select new ProductAttributeVm
+                             select new ProductOptionVm
                              {
-                                 Id = g.Key.AttributeId,
+                                 Id = g.Key.OptionId,
                                  Name = g.Key.Name,
                                  Values = g.Select(x => x.Value).Distinct().ToList()
                              };
 
-            productVm.Attributes = attributes.ToList();
+            productVm.Options = options.ToList();
 
             foreach (var variation in product.Variations.Where(x => !x.IsDeleted))
             {
@@ -85,10 +85,10 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                     Id = variation.Id,
                     Name = variation.Name,
                     PriceOffset = variation.PriceOffset,
-                    AttributeCombinations = variation.AttributeCombinations.Select(x => new ProductAttributeCombinationVm
+                    OptionCombinations = variation.OptionCombinations.Select(x => new ProductOptionCombinationVm
                     {
-                        AttributeId = x.AttributeId,
-                        AttributeName = x.Attribute.Name,
+                        OptionId = x.OptionId,
+                        OptionName = x.Option.Name,
                         Value = x.Value
                     }).ToList()
                 });
@@ -134,14 +134,14 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                 ManufacturerId = model.Product.ManufacturerId
             };
 
-            foreach (var attribute in model.Product.Attributes)
+            foreach (var option in model.Product.Options)
             {
-                foreach (var value in attribute.Values)
+                foreach (var value in option.Values)
                 {
-                    product.AddAttributeValue(new ProductAttributeValue
+                    product.AddOptionValue(new ProductOptionValue
                     {
                         Value = value,
-                        AttributeId = attribute.Id
+                        OptionId = option.Id
                     });
                 }
             }
@@ -190,7 +190,7 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                 product.RemoveMedia(productMedia);
             }
 
-            AddOrDeleteProductAttribute(model, product);
+            AddOrDeleteProductOption(model, product);
 
             AddOrDeleteProductVariation(model, product);
 
@@ -210,11 +210,11 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                     Name = variationVm.Name,
                     PriceOffset = variationVm.PriceOffset
                 };
-                foreach (var combinationVm in variationVm.AttributeCombinations)
+                foreach (var combinationVm in variationVm.OptionCombinations)
                 {
-                    variation.AddAttributeCombination(new ProductAttributeCombination
+                    variation.AddOptionCombination(new ProductOptionCombination
                     {
-                        AttributeId = combinationVm.AttributeId,
+                        OptionId = combinationVm.OptionId,
                         Value = combinationVm.Value
                     });
                 }
@@ -251,32 +251,32 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
             }
         }
 
-        private void AddOrDeleteProductAttribute(ProductForm model, Product product)
+        private void AddOrDeleteProductOption(ProductForm model, Product product)
         {
-            foreach (var attributeVm in model.Product.Attributes)
+            foreach (var optionVm in model.Product.Options)
             {
-                foreach (var value in attributeVm.Values)
+                foreach (var value in optionVm.Values)
                 {
-                    if (!product.AttributeValues.Any(x => x.AttributeId == attributeVm.Id && x.Value == value))
+                    if (!product.OptionValues.Any(x => x.OptionId == optionVm.Id && x.Value == value))
                     {
-                        product.AddAttributeValue(new ProductAttributeValue
+                        product.AddOptionValue(new ProductOptionValue
                         {
                             Value = value,
-                            AttributeId = attributeVm.Id
+                            OptionId = optionVm.Id
                         });
                     }
                 }
             }
 
-            var deletedProductAttributeValues = new List<ProductAttributeValue>();
-            foreach (var productAttributeValue in product.AttributeValues)
+            var deletedProductOptionValues = new List<ProductOptionValue>();
+            foreach (var productOptionValue in product.OptionValues)
             {
                 var isExist = false;
-                foreach (var attributeVm in model.Product.Attributes)
+                foreach (var optionVm in model.Product.Options)
                 {
-                    foreach (var value in attributeVm.Values)
+                    foreach (var value in optionVm.Values)
                     {
-                        if (productAttributeValue.AttributeId == attributeVm.Id && productAttributeValue.Value == value)
+                        if (productOptionValue.OptionId == optionVm.Id && productOptionValue.Value == value)
                         {
                             isExist = true;
                             break;;
@@ -289,14 +289,14 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                 }
                 if (!isExist)
                 {
-                    deletedProductAttributeValues.Add(productAttributeValue);
+                    deletedProductOptionValues.Add(productOptionValue);
                 }
             }
 
-            foreach (var productAttrVale in deletedProductAttributeValues)
+            foreach (var productOptionValue in deletedProductOptionValues)
             {
-                product.AttributeValues.Remove(productAttrVale);
-                productAttributeValueRepository.Remove(productAttrVale);
+                product.OptionValues.Remove(productOptionValue);
+                productOptionValueRepository.Remove(productOptionValue);
             }
         }
 
@@ -312,11 +312,11 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
                         Name = productVariationVm.Name,
                         PriceOffset = productVariationVm.PriceOffset
                     };
-                    foreach (var combinationVm in productVariationVm.AttributeCombinations)
+                    foreach (var combinationVm in productVariationVm.OptionCombinations)
                     {
-                        variation.AddAttributeCombination(new ProductAttributeCombination
+                        variation.AddOptionCombination(new ProductOptionCombination
                         {
-                            AttributeId = combinationVm.AttributeId,
+                            OptionId = combinationVm.OptionId,
                             Value = combinationVm.Value
                         });
                     }

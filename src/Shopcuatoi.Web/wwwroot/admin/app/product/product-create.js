@@ -10,13 +10,13 @@
         // declare shoreDescription and description for summernote
         vm.product = { shortDescription: '', description: '', specification: '' };
         vm.product.categoryIds = [];
-        vm.product.attributes = [];
+        vm.product.options = [];
         vm.product.variations = [];
         vm.categories = [];
         vm.thumbnailImage = null;
         vm.productImages = [];
-        vm.attributes = [];
-        vm.addingAttribute = null;
+        vm.options = [];
+        vm.addingOption = null;
         vm.addingVariation = { priceOffset: 0 };
         vm.manufacturers = [];
 
@@ -41,49 +41,49 @@
                 });
         };
 
-        vm.addAttribute = function addAttribute() {
-            vm.addingAttribute.values = [];
-            var index = vm.attributes.indexOf(vm.addingAttribute);
-            vm.product.attributes.push(vm.addingAttribute);
-            vm.attributes.splice(index, 1);
-            vm.addingAttribute = null;
+        vm.addOption = function addOption() {
+            vm.addingOption.values = [];
+            var index = vm.options.indexOf(vm.addingOption);
+            vm.product.options.push(vm.addingOption);
+            vm.options.splice(index, 1);
+            vm.addingOption = null;
         };
 
-        vm.deleteAttr = function deleteAttr(attr) {
-            var index = vm.product.attributes.indexOf(attr);
-            vm.product.attributes.splice(index, 1);
-            vm.attributes.push(attr);
+        vm.deleteOption = function deleteOption(option) {
+            var index = vm.product.options.indexOf(option);
+            vm.product.options.splice(index, 1);
+            vm.options.push(option);
         };
 
-        vm.generateAttrCombination = function generateAttrCombination() {
-            var maxIndexAttr = vm.product.attributes.length - 1;
+        vm.generateOptionCombination = function generateOptionCombination() {
+            var maxIndexOption = vm.product.options.length - 1;
             vm.product.variations = [];
 
             function getItemValue(item) {
                 return item.value;
             }
 
-            function helper(arr, attrIndex) {
-                var j, l, variation, attrCombinations, attrValue;
+            function helper(option, optionIndex) {
+                var j, l, variation, optionCombinations, optionValue;
 
-                for (j = 0, l = vm.product.attributes[attrIndex].values.length; j < l; j = j + 1) {
-                    attrCombinations = arr.slice(0);
-                    attrValue = {
-                        attributeName: vm.product.attributes[attrIndex].name,
-                        attributeId: vm.product.attributes[attrIndex].id,
-                        value: vm.product.attributes[attrIndex].values[j]
+                for (j = 0, l = vm.product.options[optionIndex].values.length; j < l; j = j + 1) {
+                    optionCombinations = option.slice(0);
+                    optionValue = {
+                        optionName: vm.product.options[optionIndex].name,
+                        optionId: vm.product.options[optionIndex].id,
+                        value: vm.product.options[optionIndex].values[j]
                     };
-                    attrCombinations.push(attrValue);
+                    optionCombinations.push(optionValue);
 
-                    if (attrIndex === maxIndexAttr) {
+                    if (optionIndex === maxIndexOption) {
                         variation = {
-                            name: attrCombinations.map(getItemValue).join('-'),
-                            attributeCombinations: attrCombinations,
+                            name: optionCombinations.map(getItemValue).join('-'),
+                            optionCombinations: optionCombinations,
                             priceOffset: 0
                         };
                         vm.product.variations.push(variation);
                     } else {
-                        helper(attrCombinations, attrIndex + 1);
+                        helper(optionCombinations, optionIndex + 1);
                     }
                 }
             }
@@ -96,41 +96,41 @@
             vm.product.variations.splice(index, 1);
         };
 
-        vm.filterAddedAttributeValue = function filterAddedAttributeValue(item) {
-            if (vm.product.attributes.length > 1) {
+        vm.filterAddedOptionValue = function filterAddedOptionValue(item) {
+            if (vm.product.options.length > 1) {
                 return true;
             }
-            var attrValueAdded = false;
+            var optionValueAdded = false;
             vm.product.variations.forEach(function (variation) {
-                var addedValues = variation.attributeCombinations.map(function (item) {
+                var addedValues = variation.optionCombinations.map(function (item) {
                     return item.value;
                 });
                 if (addedValues.indexOf(item) > -1) {
-                    attrValueAdded = true;
+                    optionValueAdded = true;
                 }
             });
 
-            return !attrValueAdded;
+            return !optionValueAdded;
         };
 
         vm.addVariation = function addVariation() {
             var variation,
-                attrCombinations = [];
+                optionCombinations = [];
 
-            vm.product.attributes.forEach(function (attr) {
-                var attrValue = {
-                    attributeName: attr.name,
-                    attributeId: attr.id,
-                    value: vm.addingVariation[attr.name]
+            vm.product.options.forEach(function (option) {
+                var optionValue = {
+                    optionName: option.name,
+                    optionId: option.id,
+                    value: vm.addingVariation[option.name]
                 };
-                attrCombinations.push(attrValue);
+                optionCombinations.push(optionValue);
             });
 
             variation = {
-                name: attrCombinations.map(function (item) {
+                name: optionCombinations.map(function (item) {
                     return item.value;
                 }).join('-'),
-                attributeCombinations: attrCombinations,
+                optionCombinations: optionCombinations,
                 priceOffset: vm.addingVariation.priceOffset || 0
             };
 
@@ -163,9 +163,9 @@
             });
         }
 
-        function getProductAttrs() {
-            productService.getProductAttrs().then(function (result) {
-                vm.attributes = result.data;
+        function getProductOptions() {
+            productService.getProductOptions().then(function (result) {
+                vm.options = result.data;
             });
         }
 
@@ -185,7 +185,7 @@
         }
 
         function init() {
-            getProductAttrs();
+            getProductOptions();
             getCategories();
             getManufacturers();
         }

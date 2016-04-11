@@ -28,15 +28,15 @@
                 <div class="product-short-desc">@Html.Raw(Model.ShortDescription)</div>
                 @if (Model.HasVariation)
                 {
-                    foreach (var attribute in Model.AvailableAttributes)
+                    foreach (var option in Model.AvailableOptions)
                     {
                         <p>
-                            <h3>@attribute.AttributeName </h3>
+                            <h3>@option.OptionName </h3>
                             <ul class="list-inline product-attrs">
-                                @foreach (var value in attribute.Values)
+                                @foreach (var value in option.Values)
                                 {
                                     <li>
-                                        <input type="radio" name="@attribute.AttributeName" />
+                                        <input type="radio" name="@option.OptionName" />
                                         <label>@value</label>
                                     </li>
                                 }

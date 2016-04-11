@@ -11,6 +11,7 @@
             createProduct: createProduct,
             editProduct: editProduct,
             getProductAttrs: getProductAttrs,
+            getProductOptions: getProductOptions,
             getProduct: getProduct
         };
         return service;
@@ -21,6 +22,10 @@
 
         function getProductAttrs() {
             return $http.get('Admin/ProductAttribute/List');
+        }
+
+        function getProductOptions() {
+            return $http.get('Admin/ProductOption/List');
         }
 
         function getProducts(params) {

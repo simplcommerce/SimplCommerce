@@ -1,12 +1,10 @@
 ﻿DELETE FROM [dbo].[Core_UrlSlug]
 GO
-DELETE FROM [dbo].[Core_ProductAttributeCombination]
+DELETE FROM [dbo].[Core_ProductOptionCombination]
 GO
 DELETE FROM [dbo].[Core_ProductVariation]
 GO
-DELETE FROM [dbo].[Core_ProductAttributeValue]
-GO
-DELETE FROM [dbo].[Core_ProductAttribute]
+DELETE FROM [dbo].[Core_ProductOptionValue]
 GO
 DELETE FROM [dbo].[Core_ProductMedia]
 GO
@@ -208,88 +206,50 @@ INSERT [dbo].[Core_ProductMedia] ([Id], [ProductId], [MediaId], [DisplayOrder]) 
 SET IDENTITY_INSERT [dbo].[Core_ProductMedia] OFF
 GO
 
-SET IDENTITY_INSERT [dbo].[Core_ProductAttribute] ON 
-INSERT [dbo].[Core_ProductAttribute] ([Id], [Name]) VALUES (1, N'Color')
 
-INSERT [dbo].[Core_ProductAttribute] ([Id], [Name]) VALUES (2, N'Size')
-
-SET IDENTITY_INSERT [dbo].[Core_ProductAttribute] OFF
-GO
-
-SET IDENTITY_INSERT [dbo].[Core_ProductAttributeValue] ON 
-INSERT [dbo].[Core_ProductAttributeValue] ([Id], [AttributeId], [ProductId], [Value]) VALUES (1, 1, 1, N'Black')
-
-INSERT [dbo].[Core_ProductAttributeValue] ([Id], [AttributeId], [ProductId], [Value]) VALUES (2, 1, 1, N'White')
-
-INSERT [dbo].[Core_ProductAttributeValue] ([Id], [AttributeId], [ProductId], [Value]) VALUES (3, 1, 2, N'Pink')
-
-INSERT [dbo].[Core_ProductAttributeValue] ([Id], [AttributeId], [ProductId], [Value]) VALUES (4, 1, 2, N'Gold')
-
-INSERT [dbo].[Core_ProductAttributeValue] ([Id], [AttributeId], [ProductId], [Value]) VALUES (5, 1, 2, N'Gray')
-
-INSERT [dbo].[Core_ProductAttributeValue] ([Id], [AttributeId], [ProductId], [Value]) VALUES (6, 1, 2, N'Silver')
-
-INSERT [dbo].[Core_ProductAttributeValue] ([Id], [AttributeId], [ProductId], [Value]) VALUES (7, 1, 3, N'Pink')
-
-INSERT [dbo].[Core_ProductAttributeValue] ([Id], [AttributeId], [ProductId], [Value]) VALUES (8, 1, 3, N'Black')
-
-INSERT [dbo].[Core_ProductAttributeValue] ([Id], [AttributeId], [ProductId], [Value]) VALUES (9, 1, 3, N'Gold')
-
-INSERT [dbo].[Core_ProductAttributeValue] ([Id], [AttributeId], [ProductId], [Value]) VALUES (10, 1, 4, N'Gold')
-
-INSERT [dbo].[Core_ProductAttributeValue] ([Id], [AttributeId], [ProductId], [Value]) VALUES (11, 1, 4, N'Gray')
-
-INSERT [dbo].[Core_ProductAttributeValue] ([Id], [AttributeId], [ProductId], [Value]) VALUES (12, 1, 4, N'Silver')
-
-SET IDENTITY_INSERT [dbo].[Core_ProductAttributeValue] OFF
+SET IDENTITY_INSERT [dbo].[Core_ProductOptionValue] ON 
+INSERT [dbo].[Core_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (1, 1, 1, N'Black')
+INSERT [dbo].[Core_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (2, 1, 1, N'White')
+INSERT [dbo].[Core_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (3, 1, 2, N'Pink')
+INSERT [dbo].[Core_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (4, 1, 2, N'Gold')
+INSERT [dbo].[Core_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (5, 1, 2, N'Gray')
+INSERT [dbo].[Core_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (6, 1, 2, N'Silver')
+INSERT [dbo].[Core_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (7, 1, 3, N'Pink')
+INSERT [dbo].[Core_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (8, 1, 3, N'Black')
+INSERT [dbo].[Core_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (9, 1, 3, N'Gold')
+INSERT [dbo].[Core_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (10, 1, 4, N'Gold')
+INSERT [dbo].[Core_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (11, 1, 4, N'Gray')
+INSERT [dbo].[Core_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (12, 1, 4, N'Silver')
+SET IDENTITY_INSERT [dbo].[Core_ProductOptionValue] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[Core_ProductVariation] ON 
 INSERT [dbo].[Core_ProductVariation] ([Id], [Name], [Sku], [PriceOffset], [IsAllowOrder], [ReasonNotAllowOrder], [DisplayOrder], [IsPublished], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [ProductId], [UpdatedById]) VALUES (1, N'Pink', NULL, CAST(0.00 AS Decimal(18, 2)), 0, NULL, 0, 0, 0, CAST(N'2016-03-15 15:52:49.610' AS DateTime), CAST(N'2016-03-15 15:52:49.610' AS DateTime), NULL, 2, NULL)
-
 INSERT [dbo].[Core_ProductVariation] ([Id], [Name], [Sku], [PriceOffset], [IsAllowOrder], [ReasonNotAllowOrder], [DisplayOrder], [IsPublished], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [ProductId], [UpdatedById]) VALUES (2, N'Gold', NULL, CAST(0.00 AS Decimal(18, 2)), 0, NULL, 0, 0, 0, CAST(N'2016-03-15 15:52:49.613' AS DateTime), CAST(N'2016-03-15 15:52:49.613' AS DateTime), NULL, 2, NULL)
-
 INSERT [dbo].[Core_ProductVariation] ([Id], [Name], [Sku], [PriceOffset], [IsAllowOrder], [ReasonNotAllowOrder], [DisplayOrder], [IsPublished], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [ProductId], [UpdatedById]) VALUES (3, N'Gray', NULL, CAST(0.00 AS Decimal(18, 2)), 0, NULL, 0, 0, 0, CAST(N'2016-03-15 15:52:49.613' AS DateTime), CAST(N'2016-03-15 15:52:49.613' AS DateTime), NULL, 2, NULL)
-
 INSERT [dbo].[Core_ProductVariation] ([Id], [Name], [Sku], [PriceOffset], [IsAllowOrder], [ReasonNotAllowOrder], [DisplayOrder], [IsPublished], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [ProductId], [UpdatedById]) VALUES (4, N'Silver', NULL, CAST(0.00 AS Decimal(18, 2)), 0, NULL, 0, 0, 0, CAST(N'2016-03-15 15:52:49.613' AS DateTime), CAST(N'2016-03-15 15:52:49.613' AS DateTime), NULL, 2, NULL)
-
 INSERT [dbo].[Core_ProductVariation] ([Id], [Name], [Sku], [PriceOffset], [IsAllowOrder], [ReasonNotAllowOrder], [DisplayOrder], [IsPublished], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [ProductId], [UpdatedById]) VALUES (5, N'Pink', NULL, CAST(0.00 AS Decimal(18, 2)), 0, NULL, 0, 0, 0, CAST(N'2016-03-15 16:08:42.637' AS DateTime), CAST(N'2016-03-15 16:08:42.637' AS DateTime), NULL, 3, NULL)
-
 INSERT [dbo].[Core_ProductVariation] ([Id], [Name], [Sku], [PriceOffset], [IsAllowOrder], [ReasonNotAllowOrder], [DisplayOrder], [IsPublished], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [ProductId], [UpdatedById]) VALUES (6, N'Black', NULL, CAST(-1000.00 AS Decimal(18, 2)), 0, NULL, 0, 0, 0, CAST(N'2016-03-15 16:08:42.637' AS DateTime), CAST(N'2016-03-15 16:08:42.637' AS DateTime), NULL, 3, NULL)
-
 INSERT [dbo].[Core_ProductVariation] ([Id], [Name], [Sku], [PriceOffset], [IsAllowOrder], [ReasonNotAllowOrder], [DisplayOrder], [IsPublished], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [ProductId], [UpdatedById]) VALUES (7, N'Gold', NULL, CAST(1000.00 AS Decimal(18, 2)), 0, NULL, 0, 0, 0, CAST(N'2016-03-15 16:08:42.637' AS DateTime), CAST(N'2016-03-15 16:08:42.637' AS DateTime), NULL, 3, NULL)
-
 INSERT [dbo].[Core_ProductVariation] ([Id], [Name], [Sku], [PriceOffset], [IsAllowOrder], [ReasonNotAllowOrder], [DisplayOrder], [IsPublished], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [ProductId], [UpdatedById]) VALUES (8, N'Gold', NULL, CAST(1000.00 AS Decimal(18, 2)), 0, NULL, 0, 0, 0, CAST(N'2016-03-15 16:16:27.487' AS DateTime), CAST(N'2016-03-15 16:16:27.487' AS DateTime), NULL, 4, NULL)
-
 INSERT [dbo].[Core_ProductVariation] ([Id], [Name], [Sku], [PriceOffset], [IsAllowOrder], [ReasonNotAllowOrder], [DisplayOrder], [IsPublished], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [ProductId], [UpdatedById]) VALUES (9, N'Gray', NULL, CAST(0.00 AS Decimal(18, 2)), 0, NULL, 0, 0, 0, CAST(N'2016-03-15 16:16:27.487' AS DateTime), CAST(N'2016-03-15 16:16:27.487' AS DateTime), NULL, 4, NULL)
-
 INSERT [dbo].[Core_ProductVariation] ([Id], [Name], [Sku], [PriceOffset], [IsAllowOrder], [ReasonNotAllowOrder], [DisplayOrder], [IsPublished], [IsDeleted], [CreatedOn], [UpdatedOn], [CreatedById], [ProductId], [UpdatedById]) VALUES (10, N'Silver', NULL, CAST(0.00 AS Decimal(18, 2)), 0, NULL, 0, 0, 0, CAST(N'2016-03-15 16:16:27.487' AS DateTime), CAST(N'2016-03-15 16:16:27.487' AS DateTime), NULL, 4, NULL)
 
 SET IDENTITY_INSERT [dbo].[Core_ProductVariation] OFF
 GO
 
-SET IDENTITY_INSERT [dbo].[Core_ProductAttributeCombination] ON 
-INSERT [dbo].[Core_ProductAttributeCombination] ([Id], [VariationId], [AttributeId], [Value]) VALUES (1, 1, 1, N'Pink')
-
-INSERT [dbo].[Core_ProductAttributeCombination] ([Id], [VariationId], [AttributeId], [Value]) VALUES (2, 2, 1, N'Gold')
-
-INSERT [dbo].[Core_ProductAttributeCombination] ([Id], [VariationId], [AttributeId], [Value]) VALUES (3, 3, 1, N'Gray')
-
-INSERT [dbo].[Core_ProductAttributeCombination] ([Id], [VariationId], [AttributeId], [Value]) VALUES (4, 4, 1, N'Silver')
-
-INSERT [dbo].[Core_ProductAttributeCombination] ([Id], [VariationId], [AttributeId], [Value]) VALUES (5, 5, 1, N'Pink')
-
-INSERT [dbo].[Core_ProductAttributeCombination] ([Id], [VariationId], [AttributeId], [Value]) VALUES (6, 6, 1, N'Black')
-
-INSERT [dbo].[Core_ProductAttributeCombination] ([Id], [VariationId], [AttributeId], [Value]) VALUES (7, 7, 1, N'Gold')
-
-INSERT [dbo].[Core_ProductAttributeCombination] ([Id], [VariationId], [AttributeId], [Value]) VALUES (8, 8, 1, N'Gold')
-
-INSERT [dbo].[Core_ProductAttributeCombination] ([Id], [VariationId], [AttributeId], [Value]) VALUES (9, 9, 1, N'Gray')
-
-INSERT [dbo].[Core_ProductAttributeCombination] ([Id], [VariationId], [AttributeId], [Value]) VALUES (10, 10, 1, N'Silver')
-
-SET IDENTITY_INSERT [dbo].[Core_ProductAttributeCombination] OFF
+SET IDENTITY_INSERT [dbo].[Core_ProductOptionCombination] ON 
+INSERT [dbo].[Core_ProductOptionCombination] ([Id], [VariationId], [OptionId], [Value]) VALUES (1, 1, 1, N'Pink')
+INSERT [dbo].[Core_ProductOptionCombination] ([Id], [VariationId], [OptionId], [Value]) VALUES (2, 2, 1, N'Gold')
+INSERT [dbo].[Core_ProductOptionCombination] ([Id], [VariationId], [OptionId], [Value]) VALUES (3, 3, 1, N'Gray')
+INSERT [dbo].[Core_ProductOptionCombination] ([Id], [VariationId], [OptionId], [Value]) VALUES (4, 4, 1, N'Silver')
+INSERT [dbo].[Core_ProductOptionCombination] ([Id], [VariationId], [OptionId], [Value]) VALUES (5, 5, 1, N'Pink')
+INSERT [dbo].[Core_ProductOptionCombination] ([Id], [VariationId], [OptionId], [Value]) VALUES (6, 6, 1, N'Black')
+INSERT [dbo].[Core_ProductOptionCombination] ([Id], [VariationId], [OptionId], [Value]) VALUES (7, 7, 1, N'Gold')
+INSERT [dbo].[Core_ProductOptionCombination] ([Id], [VariationId], [OptionId], [Value]) VALUES (8, 8, 1, N'Gold')
+INSERT [dbo].[Core_ProductOptionCombination] ([Id], [VariationId], [OptionId], [Value]) VALUES (9, 9, 1, N'Gray')
+INSERT [dbo].[Core_ProductOptionCombination] ([Id], [VariationId], [OptionId], [Value]) VALUES (10, 10, 1, N'Silver')
+SET IDENTITY_INSERT [dbo].[Core_ProductOptionCombination] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[Core_Page] ON 

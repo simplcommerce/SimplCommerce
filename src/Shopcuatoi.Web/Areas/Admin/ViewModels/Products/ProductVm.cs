@@ -31,6 +31,8 @@ namespace Shopcuatoi.Web.Areas.Admin.ViewModels.Products
 
         public IList<ProductAttributeVm> Attributes { get; set; } = new List<ProductAttributeVm>();
 
+        public IList<ProductOptionVm> Options { get; set; } = new List<ProductOptionVm>();
+
         public IList<ProductVariationVm> Variations { get; set; } = new List<ProductVariationVm>();
 
         public string ThumbnailImageUrl { get; set; }

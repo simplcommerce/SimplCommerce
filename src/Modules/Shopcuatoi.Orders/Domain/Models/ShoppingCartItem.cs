@@ -16,7 +16,7 @@ namespace Shopcuatoi.Orders.Domain.Models
 
         public virtual Product Product { get; set; }
 
-        public long ProductVariationId { get; set; }
+        public long? ProductVariationId { get; set; }
 
         public virtual ProductVariation ProductVariation { get; set; }
 

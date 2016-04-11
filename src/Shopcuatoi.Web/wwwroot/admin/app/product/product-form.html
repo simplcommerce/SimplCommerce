@@ -80,42 +80,42 @@
                 </uib-tab>
                 <uib-tab index="1" heading="Product Variations">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Available Attributes</label>
+                        <label class="col-sm-2 control-label">Available Options</label>
                         <div class="col-sm-10">
                             <div class="form-group row">
                                 <div class="col-md-3">
-                                    <select class="form-control" ng-model="vm.addingAttribute" ng-options="attr as attr.name for attr in vm.attributes"></select>
+                                    <select class="form-control" ng-model="vm.addingOption" ng-options="opt as opt.name for opt in vm.options"></select>
                                 </div>
-                                <button class="btn btn-default" ng-disabled="!vm.addingAttribute" ng-click="vm.addAttribute()">Add Attribute</button>
+                                <button class="btn btn-default" ng-disabled="!vm.addingOption" ng-click="vm.addOption()">Add Option</button>
                                 </div>
                         </div>
                     </div>
-                    <div class="form-group" ng-show="vm.product.attributes.length > 0">
-                        <label class="col-sm-2 control-label">Attribute Options</label>
+                    <div class="form-group" ng-show="vm.product.options.length > 0">
+                        <label class="col-sm-2 control-label">Option Values</label>
                     </div>
-                    <div class="form-group" ng-show="vm.product.attributes.length > 0">
+                    <div class="form-group" ng-show="vm.product.options.length > 0">
                         <div class="col-sm-offset-1 col-sm-11">
-                            <div class="form-group" ng-repeat="attribute in vm.product.attributes">
-                                <label class="col-sm-1 control-label">{{attribute.name}}</label>
+                            <div class="form-group" ng-repeat="option in vm.product.options">
+                                <label class="col-sm-1 control-label">{{option.name}}</label>
                                 <div class="col-sm-11">
                                     <div class="form-group row">
                                         <div class="col-md-6">
-                                            <md-chips ng-model="attribute.values"
-                                                      placeholder="Enter a {{attribute.name}}"
-                                                      delete-button-label="Remove {{attribute.name}}"
-                                                      delete-hint="Press delete to remove {{attribute.name}}"
-                                                      secondary-placeholder="+{{attribute.name}}">
+                                            <md-chips ng-model="option.values"
+                                                      placeholder="Enter a {{option.name}}"
+                                                      delete-button-label="Remove {{option.name}}"
+                                                      delete-hint="Press delete to remove {{option.name}}"
+                                                      secondary-placeholder="+{{option.name}}">
                                             </md-chips>
                                         </div>
-                                        <button class="btn btn-default" ng-click="vm.deleteAttr(attribute)">Delete Attribute</button>
+                                        <button class="btn btn-default" ng-click="vm.deleteOption(option)">Delete Option</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group" ng-if="!vm.isEditMode" ng-show="vm.product.attributes.length > 0">
+                    <div class="form-group" ng-if="!vm.isEditMode" ng-show="vm.product.options.length > 0">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button class="btn btn-default" ng-click="vm.generateAttrCombination()">Generate Combinations</button>
+                            <button class="btn btn-default" ng-click="vm.generateOptionCombination()">Generate Combinations</button>
                         </div>
                     </div>
                     <div class="form-group">
@@ -123,7 +123,7 @@
                         <div class="col-sm-10">
                             <table class="table table-striped">
                                 <tr>
-                                    <th class="col-sm-5">Combination</th>
+                                    <th class="col-sm-5">Option Combinations</th>
                                     <th class="col-sm-2">(+)/(-) Price</th>
                                     <th class="col-sm-3">Picture</th>
                                     <th class="col-sm-2">Actions</th>
@@ -138,17 +138,17 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr ng-show="vm.product.attributes.length > 0">
+                                <tr ng-show="vm.product.options.length > 0">
                                     <td class="variation-form" colspan="4">
                                         <ng-form name="addingVariationForm" isolate-form>
                                             <table class="table">
                                                 <tr>
                                                     <td class="col-sm-5">
                                                         <div class="form-group row">
-                                                            <div ng-repeat="attribute in vm.product.attributes">
+                                                            <div ng-repeat="option in vm.product.options">
                                                                 <div class="col-md-4">
-                                                                    <select required class="form-control" ng-model="vm.addingVariation[attribute.name]"
-                                                                            ng-options="value as value for value in attribute.values | filter: vm.filterAddedAttributeValue"></select>
+                                                                    <select required class="form-control" ng-model="vm.addingVariation[option.name]"
+                                                                            ng-options="value as value for value in option.values | filter: vm.filterAddedOptionValue"></select>
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -10,7 +10,7 @@ namespace Shopcuatoi.Web.Areas.Admin.ViewModels.Products
 
         public decimal? PriceOffset { get; set; }
 
-        public IList<ProductAttributeCombinationVm> AttributeCombinations { get; set; } =
-            new List<ProductAttributeCombinationVm>();
+        public IList<ProductOptionCombinationVm> OptionCombinations { get; set; } =
+            new List<ProductOptionCombinationVm>();
     }
 }

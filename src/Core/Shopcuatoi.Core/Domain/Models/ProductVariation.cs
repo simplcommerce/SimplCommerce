@@ -57,12 +57,12 @@ namespace Shopcuatoi.Core.Domain.Models
 
         public virtual User UpdatedBy { get; set; }
 
-        public virtual IList<ProductAttributeCombination> AttributeCombinations { get; protected set; } = new List<ProductAttributeCombination>();
+        public virtual IList<ProductOptionCombination> OptionCombinations { get; protected set; } = new List<ProductOptionCombination>();
 
-        public void AddAttributeCombination(ProductAttributeCombination combination)
+        public void AddOptionCombination(ProductOptionCombination combination)
         {
             combination.Variation = this;
-            AttributeCombinations.Add(combination);
+            OptionCombinations.Add(combination);
         }
     }
 }

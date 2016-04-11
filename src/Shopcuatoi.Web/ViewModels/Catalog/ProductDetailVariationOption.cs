@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Shopcuatoi.Web.ViewModels.Catalog
 {
-    public class ProductDetailVariationAttribute
+    public class ProductDetailVariationOption
     {
-        public long AttributeId { get; set; }
+        public long OptionId { get; set; }
 
-        public string AttributeName { get; set; }
+        public string OptionName { get; set; }
 
         public string Value { get; set; }
     }

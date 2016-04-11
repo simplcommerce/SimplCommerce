@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using Shopcuatoi.Core.ApplicationServices;
 using Shopcuatoi.Core.Domain.Models;
 using Shopcuatoi.Infrastructure.Domain.IRepositories;
@@ -104,12 +103,12 @@ namespace Shopcuatoi.Web.Controllers
                     PriceOffset = variation.PriceOffset
                 };
 
-                foreach (var combination in variation.AttributeCombinations)
+                foreach (var combination in variation.OptionCombinations)
                 {
-                    variationVm.Attributes.Add(new ProductDetailVariationAttribute
+                    variationVm.Options.Add(new ProductDetailVariationOption
                     {
-                        AttributeId = combination.AttributeId,
-                        AttributeName = combination.Attribute.Name,
+                        OptionId = combination.OptionId,
+                        OptionName = combination.Option.Name,
                         Value = combination.Value
                     });
                 }

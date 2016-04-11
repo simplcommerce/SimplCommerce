@@ -187,10 +187,12 @@
     <Compile Include="Domain\Models\MediaType.cs" />
     <Compile Include="Domain\Models\Product.cs" />
     <Compile Include="Domain\Models\ProductAttribute.cs" />
-    <Compile Include="Domain\Models\ProductAttributeCombination.cs" />
+    <Compile Include="Domain\Models\ProductOptionCombination.cs" />
     <Compile Include="Domain\Models\ProductAttributeValue.cs" />
     <Compile Include="Domain\Models\ProductCategory.cs" />
     <Compile Include="Domain\Models\ProductMedia.cs" />
+    <Compile Include="Domain\Models\ProductOption.cs" />
+    <Compile Include="Domain\Models\ProductOptionValue.cs" />
     <Compile Include="Domain\Models\ProductVariation.cs" />
     <Compile Include="Domain\Models\Role.cs" />
     <Compile Include="Domain\Models\RoleClaim.cs" />
