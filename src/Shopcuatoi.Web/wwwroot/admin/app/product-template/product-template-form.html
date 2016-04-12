@@ -1,0 +1,51 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 ng-if="!vm.isEditMode">Create Product Template</h2>
+        <h2 ng-if="vm.isEditMode">Edit Product Template</h2>
+    </div>
+    <div class="panel-body">
+        <form name="manufacturerForm" class="form-horizontal">
+            <div class="col-sm-offset-2 bg-danger" ng-show="vm.validationErrors">
+                <ul>
+                    <li ng-repeat="error in vm.validationErrors">{{error}}</li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Product Template Name</label>
+                <div class="col-sm-10">
+                    <input name="name" ng-model="vm.productTemplate.name" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Available Attributes</label>
+                <div class="col-sm-10">
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <select class="form-control" ng-model="vm.addingAttribute" ng-options="attr as attr.name group by attr.groupName for attr in vm.attributes"></select>
+                        </div>
+                        <button class="btn btn-default" ng-disabled="!vm.addingAttribute" ng-click="vm.addAttribute(vm.addingAttribute)">Add Attribute</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Added Attributes</label>
+                <div class="col-sm-10">
+                    <div class="form-group row" ng-repeat="attribute in vm.productTemplate.attributes">
+                        <div class="col-md-3">
+                            {{attribute.name}}
+                        </div>
+                        <button ng-click="vm.removeAttribute(attribute)" type="button" class="btn btn-default btn-xs">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> Save</button>
+                    <button ui-sref="product-template" class="btn btn-default">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

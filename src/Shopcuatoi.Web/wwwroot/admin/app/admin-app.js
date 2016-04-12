@@ -15,6 +15,7 @@
         'shopAdmin.product',
         'shopAdmin.productOption',
         'shopAdmin.productAttribute',
+        'shopAdmin.productTemplate',
         'shopAdmin.manufacturer',
         'shopAdmin.page'
     ]);
