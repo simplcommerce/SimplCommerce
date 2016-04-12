@@ -17,6 +17,7 @@
         vm.thumbnailImage = null;
         vm.productImages = [];
         vm.options = [];
+        vm.productTemplates = [];
         vm.addingOption = null;
         vm.attributes = [];
         vm.addingAttribute = null;
@@ -134,6 +135,26 @@
             }
         };
 
+        vm.applyTemplate = function applyTemplate() {
+            var template, i, index, workingAttr;
+            productService.getProductTemplate(vm.product.template.id).success(function (result) {
+                template = result;
+
+                for (i = 0; i < vm.product.attributes.length; i = i + 1) {
+                    vm.attributes.push(vm.product.attributes[i]);
+                }
+
+                vm.product.attributes = [];
+
+                for (i = 0; i < template.attributes.length; i = i + 1) {
+                    workingAttr = vm.attributes.find(function (item) { return item.id = template.attributes[i].id; });
+                    index = vm.attributes.indexOf(workingAttr);
+                    vm.attributes.splice(index, 1);
+                    vm.product.attributes.push(workingAttr);
+                }
+            });
+        };
+
         vm.addAttribute = function addAttribute() {
             var index = vm.attributes.indexOf(vm.addingAttribute);
             vm.product.attributes.push(vm.addingAttribute);
@@ -226,6 +247,12 @@
             });
         }
 
+        function getProductTemplates() {
+            productService.getProductTemplates().then(function (result) {
+                vm.productTemplates = result.data;
+            });
+        }
+
         function getAttributes() {
             productService.getProductAttrs().then(function (result) {
                 vm.attributes = result.data;
@@ -243,6 +270,7 @@
                 getProduct();
             }
             getProductOptions();
+            getProductTemplates();
             getAttributes();
             getCategories();
             getManufacturers();

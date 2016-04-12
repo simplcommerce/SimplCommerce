@@ -11,6 +11,8 @@
             createProduct: createProduct,
             editProduct: editProduct,
             getProductAttrs: getProductAttrs,
+            getProductTemplates: getProductTemplates,
+            getProductTemplate: getProductTemplate,
             getProductOptions: getProductOptions,
             getProduct: getProduct
         };
@@ -22,6 +24,14 @@
 
         function getProductAttrs() {
             return $http.get('Admin/ProductAttribute/List');
+        }
+
+        function getProductTemplates() {
+            return $http.get('Admin/ProductTemplate/List');
+        }
+
+        function getProductTemplate(id) {
+            return $http.get('Admin/ProductTemplate/Get/' + id);
         }
 
         function getProductOptions() {
