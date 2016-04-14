@@ -224,12 +224,14 @@
                 optionIds = vm.options.map(function (item) { return item.id; });
                 for (i = 0; i < vm.product.options.length; i = i + 1) {
                     index = optionIds.indexOf(vm.product.options[i].id);
+                    optionIds.splice(index, 1);
                     vm.options.splice(index, 1);
                 }
 
                 attributeIds = vm.attributes.map(function (item) { return item.id; });
                 for (i = 0; i < vm.product.attributes.length; i = i + 1) {
                     index = attributeIds.indexOf(vm.product.attributes[i].id);
+                    attributeIds.splice(index, 1);
                     vm.attributes.splice(index, 1);
                 }
             });

@@ -57,6 +57,7 @@
                 attributeIds = vm.attributes.map(function (item) { return item.id; });
                 for (i = 0; i < vm.productTemplate.attributes.length; i = i + 1) {
                     index = attributeIds.indexOf(vm.productTemplate.attributes[i].id);
+                    attributeIds.splice(index, 1);
                     vm.attributes.splice(index, 1);
                 }
             });
@@ -69,10 +70,10 @@
         }
 
         function init() {
+            getProductAttributes();
             if (vm.isEditMode) {
                 getProductTemplate();
             }
-            getProductAttributes();
         }
 
         init();

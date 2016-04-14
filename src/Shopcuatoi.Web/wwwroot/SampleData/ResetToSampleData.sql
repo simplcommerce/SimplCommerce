@@ -22,6 +22,10 @@ DELETE FROM [dbo].[Core_Category]
 GO
 DELETE FROM [dbo].[Core_Manufacturer]
 GO
+DELETE FROM [dbo].[Core_ProductTemplateProductAttribute]
+GO
+DELETE FROM [dbo].[Core_ProductTemplate]
+GO
 DELETE FROM [dbo].[Core_Page]
 GO
 
@@ -88,6 +92,28 @@ INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (16, N'GPS
 INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (17, N'Main camera', 4)
 INSERT [dbo].[Core_ProductAttribute] ([Id], [Name], [GroupId]) VALUES (18, N'Sub camera', 4)
 SET IDENTITY_INSERT [dbo].[Core_ProductAttribute] OFF 
+GO
+
+SET IDENTITY_INSERT [dbo].[Core_ProductTemplate] ON 
+INSERT [dbo].[Core_ProductTemplate] ([Id], [Name]) VALUES (1, N'Laptop')
+INSERT [dbo].[Core_ProductTemplate] ([Id], [Name]) VALUES (2, N'Phone')
+SET IDENTITY_INSERT [dbo].[Core_ProductTemplate] OFF 
+GO
+
+INSERT [dbo].[Core_ProductTemplateProductAttribute] ([ProductTemplateId], [ProductAttributeId]) VALUES (1, 1)
+INSERT [dbo].[Core_ProductTemplateProductAttribute] ([ProductTemplateId], [ProductAttributeId]) VALUES (1, 2)
+INSERT [dbo].[Core_ProductTemplateProductAttribute] ([ProductTemplateId], [ProductAttributeId]) VALUES (1, 3)
+INSERT [dbo].[Core_ProductTemplateProductAttribute] ([ProductTemplateId], [ProductAttributeId]) VALUES (1, 4)
+INSERT [dbo].[Core_ProductTemplateProductAttribute] ([ProductTemplateId], [ProductAttributeId]) VALUES (2, 1)
+INSERT [dbo].[Core_ProductTemplateProductAttribute] ([ProductTemplateId], [ProductAttributeId]) VALUES (2, 2)
+INSERT [dbo].[Core_ProductTemplateProductAttribute] ([ProductTemplateId], [ProductAttributeId]) VALUES (2, 3)
+INSERT [dbo].[Core_ProductTemplateProductAttribute] ([ProductTemplateId], [ProductAttributeId]) VALUES (2, 4)
+INSERT [dbo].[Core_ProductTemplateProductAttribute] ([ProductTemplateId], [ProductAttributeId]) VALUES (2, 5)
+INSERT [dbo].[Core_ProductTemplateProductAttribute] ([ProductTemplateId], [ProductAttributeId]) VALUES (2, 6)
+INSERT [dbo].[Core_ProductTemplateProductAttribute] ([ProductTemplateId], [ProductAttributeId]) VALUES (2, 7)
+INSERT [dbo].[Core_ProductTemplateProductAttribute] ([ProductTemplateId], [ProductAttributeId]) VALUES (2, 8)
+INSERT [dbo].[Core_ProductTemplateProductAttribute] ([ProductTemplateId], [ProductAttributeId]) VALUES (2, 11)
+INSERT [dbo].[Core_ProductTemplateProductAttribute] ([ProductTemplateId], [ProductAttributeId]) VALUES (2, 17)
 GO
 
 SET IDENTITY_INSERT [dbo].[Core_Media] ON 
