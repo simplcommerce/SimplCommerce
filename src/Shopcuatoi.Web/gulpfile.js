@@ -17,6 +17,7 @@ var paths = {
 
 var bower = {
     "bootstrap": "bootstrap/dist/**/*.{js,map,css,ttf,svg,woff,eot}",
+    "font-awesome": "components-font-awesome/**/*.{css,ttf,svg,woff,woff2,eot,otf}",
     "jquery": "jquery/dist/jquery*.{js,map}",
     "jquery-validation": "jquery-validation/dist/*.js",
     "jquery-validation-unobtrusive": "jquery-validation-unobtrusive/*.js",

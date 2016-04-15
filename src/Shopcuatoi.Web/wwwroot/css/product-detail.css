@@ -6,6 +6,20 @@
     height: 120px;
 }
 
+.product-detail .product-name {
+    margin-bottom: 12px;
+    border-bottom: 1px solid #dedede;
+}
+.product-ratings li .rating  {
+    color: #8bdccd;
+    font-size: 14px;
+}
+
+.product-ratings li .rating-selected{
+    color: #18ba9b;
+    font-size: 14px;
+}
+
 .product-detail .product-short-desc {
     margin: 30px 0;
 }
@@ -21,7 +35,7 @@
 .product-price h3 {
     font-size: 30px;
     font-weight: 400;
-    color: #26B99A;
+    color: red;
     margin: 0;
 }
 
@@ -57,6 +71,74 @@
 .product-attrs input:checked ~ label {
     color: #18ba9b;
     border-color: #18ba9b;
+}
+
+.product-detail .product-quantity {
+    margin-top: 10px;
+}
+
+.product-detail .product-quantity form {
+     float: left;
+    margin-right: 30px;
+}
+
+.product-detail .quantity-button {
+    color: #555;
+    width: 55px;
+    height: 45px;
+    padding: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 20px;
+    background: #eee;
+    text-align: center;
+    font-weight: normal;
+    white-space: nowrap;
+    display: inline-block;
+    background-image: none;
+}
+
+ .product-detail .quantity-field {
+    width: 55px;
+    height: 45px;
+    outline: none;
+    margin: 0 -4px;
+    font-size: 20px;
+    text-align: center;
+    border: 1px solid #eee;
+}
+
+.product-detail .btn-add-cart {
+    background: #18ba9b;
+    font-size: 18px;
+    padding: 10px 25px;
+    border: 0;
+    color: #fff;
+    border-radius: 0;
+}
+
+.product-detail .add-to-wishlist {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #dedede;
+    margin-top: 40px;
+}
+
+.product-detail .add-to-wishlist li {
+    padding-left: 20px;
+    margin-right: 10px;
+    border-left: 1px solid #dedede;
+}
+
+.product-detail .add-to-wishlist li:first-child {
+    padding-left: 0;
+    border-left: none;
+}
+
+.add-to-wishlist i {
+    color: #8bdccd;
+    font-size: 16px;
+    margin-right: 7px;
 }
 
 .sp-wrap {

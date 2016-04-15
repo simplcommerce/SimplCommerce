@@ -25,32 +25,60 @@
         <div class="col-md-6">
             <div class="product-name">
                 <h1 class="">@Model.Name</h1>
-                <div class="product-short-desc">@Html.Raw(Model.ShortDescription)</div>
+            </div>
+            <ul class="list-inline product-ratings margin-bottom-30">
+                <li><i class="rating-selected fa fa-star"></i></li>
+                <li><i class="rating-selected fa fa-star"></i></li>
+                <li><i class="rating-selected fa fa-star"></i></li>
+                <li><i class="rating fa fa-star"></i></li>
+                <li><i class="rating fa fa-star"></i></li>
+                <li class="product-review-list">
+                    <span>(1) <a href="#">Review</a> | <a href="#"> Add Review</a></span>
+                </li>
+            </ul>
+            <div class="product-short-desc">@Html.Raw(Model.ShortDescription)</div>
+            <div class="product-price">
+                <h3>@Model.Price.ToString("C2")</h3>
+            </div>
+            <div>
                 @if (Model.HasVariation)
                 {
                     foreach (var option in Model.AvailableOptions)
                     {
                         <p>
-                            <h3>@option.OptionName </h3>
+                            <h4>@option.OptionName </h4>
                             <ul class="list-inline product-attrs">
                                 @foreach (var value in option.Values)
                                 {
-                                    <li>
-                                        <input type="radio" name="@option.OptionName" />
-                                        <label>@value</label>
-                                    </li>
+                                <li>
+                                    <input type="radio" name="@option.OptionName" />
+                                    <label>@value</label>
+                                </li>
                                 }
                             </ul>
                         </p>
                     }
                 }
-                <div class="product-price">
-                    <h3>Price: @Model.Price.ToString("C2")</h3>
-                </div>
-                <div>
-                    <button type="button" class="btn btn-default btn-lg">Add to Cart</button>
-                    <button type="button" class="btn btn-default btn-lg">Add to Wishlist</button>
-                </div>
+            </div>
+            <div class="product-quantity">
+                <form>
+                    <button type="button" class="quantity-button" name="subtract" value="-">-</button>
+                    <input type="text" class="quantity-field" name="qty" value="1">
+                    <button type="button" class="quantity-button" name="add" value="+">+</button>
+                </form>
+                <button type="button" class="btn btn-lg btn-add-cart">Add to Cart</button>
+            </div>
+            <div>
+                <ul class="list-inline add-to-wishlist">
+                    <li class="wishlist-in">
+                        <i class="fa fa-heart"></i>
+                        <a href="#">Add to Wishlist</a>
+                    </li>
+                    <li class="compare-in">
+                        <i class="fa fa-exchange"></i>
+                        <a href="#">Add to Compare</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
