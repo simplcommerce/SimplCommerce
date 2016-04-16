@@ -48,5 +48,7 @@ namespace Shopcuatoi.Web.ViewModels.Catalog
         public IList<ProductDetailVariation> Variations { get; set; } = new List<ProductDetailVariation>();
 
         public IList<ProductDetailAttribute> Attributes { get; set; } = new List<ProductDetailAttribute>();
+
+        public IList<ProductDetailCategory> Categories { get; set; } = new List<ProductDetailCategory>();
     }
 }

@@ -12,6 +12,17 @@
     <link href="~/css/product-detail.css" rel="stylesheet" />
 }
 
+<div>
+    <ol class="breadcrumb">
+        <li><a href="~/">Home</a></li>
+        @if (Model.Categories.Any())
+        {
+            @await Component.InvokeAsync("CategoryBreadcrumb", Model.Categories.Select(x => x.Id))
+        }
+        <li><span class="active">@Model.Name</span></li>
+    </ol>
+</div>
+
 <div class="product-detail">
     <div class="row">
         <div class="col-md-6">

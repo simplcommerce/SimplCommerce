@@ -32,6 +32,8 @@ namespace Shopcuatoi.Web.Controllers
 
             var model = new ProductsByCategory
             {
+                CategoryId = category.Id,
+                ParentCategorId = category.ParentId,
                 CategoryName = category.Name
             };
 
@@ -62,6 +64,7 @@ namespace Shopcuatoi.Web.Controllers
             var product = productRepository.Query()
                 .Include(x => x.Medias)
                 .Include(x => x.Variations)
+                .Include(x => x.Categories.Select(c => c.Category))
                 .Include(x => x.AttributeValues.Select(a => a.Attribute))
                 .FirstOrDefault(x => x.SeoTitle == seoTitle && x.IsPublished);
             if (product == null)
@@ -78,7 +81,8 @@ namespace Shopcuatoi.Web.Controllers
                 ShortDescription = product.ShortDescription,
                 Description = product.Description,
                 Specification = product.Specification,
-                Attributes = product.AttributeValues.Select(x => new ProductDetailAttribute { Name = x.Attribute.Name, Value = x.Value }).ToList()
+                Attributes = product.AttributeValues.Select(x => new ProductDetailAttribute { Name = x.Attribute.Name, Value = x.Value }).ToList(),
+                Categories = product.Categories.Select(x => new ProductDetailCategory {Id = x.CategoryId, Name = x.Category.Name, SeoTitle = x.Category.SeoTitle}).ToList()
             };
 
             MapProductVariantToProductVm(product, model);

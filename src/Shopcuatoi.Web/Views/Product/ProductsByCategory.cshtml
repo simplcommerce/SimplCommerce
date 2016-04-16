@@ -5,7 +5,16 @@
 @{
     ViewBag.Title = Model.CategoryName;
 }
-
+<div>
+    <ol class="breadcrumb">
+        <li><a href="~/">Home</a></li>
+        @if (Model.ParentCategorId.HasValue)
+        {
+            @await Component.InvokeAsync("CategoryBreadcrumb", Model.ParentCategorId.Value)
+        }
+        <li><span class="active">@Model.CategoryName</span></li>
+    </ol>
+</div>
 <h2 class="page-header">@Model.CategoryName</h2>
 <div class="row">
     <div class="col-md-3">
