@@ -3,9 +3,9 @@
 
 namespace Shopcuatoi.Web.Areas.Admin.ViewModels
 {
-    public class ManufacturerForm
+    public class BrandForm
     {
-        public ManufacturerForm()
+        public BrandForm()
         {
             IsPublished = true;
         }

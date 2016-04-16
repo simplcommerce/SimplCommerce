@@ -1,19 +1,19 @@
 ﻿/*global angular*/
 (function () {
     angular
-        .module('shopAdmin.manufacturer')
-        .controller('ManufacturerCreateCtrl', ManufacturerCreateCtrl);
+        .module('shopAdmin.brand')
+        .controller('BrandCreateCtrl', BrandCreateCtrl);
 
     /* @ngInject */
-    function ManufacturerCreateCtrl($state, manufacturerService) {
+    function BrandCreateCtrl($state, brandService) {
         var vm = this;
 
-        vm.manufacturer = {};
+        vm.brand = {};
 
         vm.save = function save() {
-            manufacturerService.createManufacturer(vm.manufacturer)
+            brandService.createBrand(vm.brand)
                 .success(function (result) {
-                        $state.go('manufacturer');
+                        $state.go('brand');
                     })
                 .error(function (error) {
                     vm.validationErrors = [];
@@ -22,7 +22,7 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add manufacturer.');
+                        vm.validationErrors.push('Could not add brand.');
                     }
                 });
         };

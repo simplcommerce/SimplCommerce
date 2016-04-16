@@ -41,6 +41,6 @@ namespace Shopcuatoi.Web.Areas.Admin.ViewModels.Products
 
         public IList<long> DeletedMediaIds { get; set; } = new List<long>();
 
-        public long? ManufacturerId { get; set; }
+        public long? BrandId { get; set; }
     }
 }

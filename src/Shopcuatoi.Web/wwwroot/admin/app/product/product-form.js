@@ -5,7 +5,7 @@
         .controller('ProductFormCtrl', ProductFormCtrl);
 
     /* @ngInject */
-    function ProductFormCtrl($state, $stateParams, $http, categoryService, productService, summerNoteService, manufacturerService) {
+    function ProductFormCtrl($state, $stateParams, $http, categoryService, productService, summerNoteService, brandService) {
         var vm = this;
         // declare shoreDescription and description for summernote
         vm.product = { shortDescription: '', description: '', specification: '' };
@@ -24,7 +24,7 @@
         vm.productId = $stateParams.id;
         vm.isEditMode = vm.productId > 0;
         vm.addingVariation = { priceOffset: 0 };
-        vm.manufacturers = [];
+        vm.brands = [];
 
         vm.shortDescUpload = function (files) {
             summerNoteService.upload(files[0])
@@ -261,9 +261,9 @@
             });
         }
 
-        function getManufacturers() {
-            manufacturerService.getManufacturers().then(function (result) {
-                vm.manufacturers = result.data;
+        function getBrands() {
+            brandService.getBrands().then(function (result) {
+                vm.brands = result.data;
             });
         }
 
@@ -275,7 +275,7 @@
             getProductTemplates();
             getAttributes();
             getCategories();
-            getManufacturers();
+            getBrands();
         }
 
         init();

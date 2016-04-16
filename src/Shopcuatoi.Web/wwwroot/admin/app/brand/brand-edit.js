@@ -1,19 +1,19 @@
 ﻿/*global angular*/
 (function () {
     angular
-        .module('shopAdmin.manufacturer')
-        .controller('ManufacturerEditCtrl', ManufacturerEditCtrl);
+        .module('shopAdmin.brand')
+        .controller('BrandEditCtrl', BrandEditCtrl);
 
     /* @ngInject */
-    function ManufacturerEditCtrl($state, $stateParams, manufacturerService) {
+    function BrandEditCtrl($state, $stateParams, brandService) {
         var vm = this;
-        vm.manufacturer = {};
+        vm.brand = {};
         vm.isEditMode = true;
 
         vm.save = function save() {
-            manufacturerService.editManufacturer(vm.manufacturer)
+            brandService.editBrand(vm.brand)
                 .success(function (result) {
-                    $state.go('manufacturer');
+                    $state.go('brand');
                 })
                 .error(function (error) {
                     vm.validationErrors = [];
@@ -22,14 +22,14 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add manufacturer.');
+                        vm.validationErrors.push('Could not add brand.');
                     }
                 });
         };
 
         function init() {
-            manufacturerService.getManufacturer($stateParams.id).then(function (result) {
-                vm.manufacturer = result.data;
+            brandService.getBrand($stateParams.id).then(function (result) {
+                vm.brand = result.data;
             });
         }
 

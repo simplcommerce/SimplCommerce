@@ -161,9 +161,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationServices\AppSettings.cs" />
-    <Compile Include="ApplicationServices\IManufacturerService.cs" />
+    <Compile Include="ApplicationServices\IBrandService.cs" />
     <Compile Include="ApplicationServices\IPageService.cs" />
-    <Compile Include="ApplicationServices\ManufacturerService.cs" />
+    <Compile Include="ApplicationServices\BrandService.cs" />
     <Compile Include="ApplicationServices\PageService.cs" />
     <Compile Include="ApplicationServices\UrlSlugService.cs" />
     <Compile Include="ApplicationServices\CategoryService.cs" />
@@ -182,7 +182,7 @@
     <Compile Include="ApplicationServices\ProductService.cs" />
     <Compile Include="Domain\Models\Category.cs" />
     <Compile Include="Domain\Models\Content.cs" />
-    <Compile Include="Domain\Models\Manufacturer.cs" />
+    <Compile Include="Domain\Models\Brand.cs" />
     <Compile Include="Domain\Models\Media.cs" />
     <Compile Include="Domain\Models\MediaType.cs" />
     <Compile Include="Domain\Models\Product.cs" />

@@ -3,7 +3,7 @@ using Shopcuatoi.Infrastructure.Domain.Models;
 
 namespace Shopcuatoi.Core.Domain.Models
 {
-    public class Manufacturer : Entity
+    public class Brand : Entity
     {
         public string Name { get; set; }
 
@@ -15,6 +15,5 @@ namespace Shopcuatoi.Core.Domain.Models
         public bool IsPublished { get; set; }
 
         public bool IsDeleted { get; set; }
-
     }
 }
