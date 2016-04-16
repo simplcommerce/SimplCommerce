@@ -1,4 +1,6 @@
-﻿@model Shopcuatoi.Web.ViewModels.Catalog.ProductDetail
+﻿@using System.Globalization
+
+@model Shopcuatoi.Web.ViewModels.Catalog.ProductDetail
 
 @{
     ViewBag.Title = Model.Name;
@@ -38,7 +40,7 @@
             </ul>
             <div class="product-short-desc">@Html.Raw(Model.ShortDescription)</div>
             <div class="product-price">
-                <h3>@Model.Price.ToString("C2")</h3>
+                <h3>@Model.Price.ToString("N0", new CultureInfo("VN-vn")) VND</h3>
             </div>
             <div>
                 @if (Model.HasVariation)
@@ -95,6 +97,21 @@
         <div>
             <h3>Product specification</h3>
             @Html.Raw(Model.Specification)
+        </div>
+    }
+    @if (Model.Attributes.Any())
+    {
+        <div>
+            <h3>Product specification</h3>
+            <table class="table table-striped">
+                @foreach (var attribute in Model.Attributes)
+                {
+                    <tr>
+                        <td>@attribute.Name</td>
+                        <td>@attribute.Value</td>
+                    </tr>
+                }
+            </table>
         </div>
     }
 </div>

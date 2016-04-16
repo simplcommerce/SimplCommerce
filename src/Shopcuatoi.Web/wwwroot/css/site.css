@@ -37,3 +37,23 @@ li.nav-item-group, li.nav-item-group a {
     background-color: #FFFFFF;
     padding: 0;
 }
+
+.product-list a:hover {
+    text-decoration: none;
+}
+
+.product-list .product-price {
+    color: red;
+}
+
+.product-list .thumbnail:hover {
+    border-color: #337ab7;
+}
+
+.product-list .buttons {
+    padding: 9px;
+}
+
+#accordion-brand ul{
+    padding-left: 30px;
+}

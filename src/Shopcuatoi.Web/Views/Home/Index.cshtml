@@ -1,4 +1,6 @@
-﻿@model Shopcuatoi.Web.ViewModels.HomeViewModel
+﻿@using Shopcuatoi.Web.ViewModels.Catalog
+
+@model Shopcuatoi.Web.ViewModels.HomeViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -66,6 +68,9 @@
     </a>
 </div>
 
+<h2 class="page-header">Feature products</h2>
+@await Html.PartialAsync("ProductList", new ProductList(Model.FeaturedProducts, 4))
+
 <div>
     <h2 class="page-header">Administration</h2>
     <p>Manage your store. Admin email: admin@shopcuatoi.com. Admin password: 1qazZAQ!</p>
@@ -80,28 +85,5 @@
     <form asp-controller="SampleData" asp-action="ResetToSample" method="post">
         <button type="submit" class="btn btn-danger">Do it!</button>
     </form>
-
-</div>
-
-<h2 class="page-header">Feature products</h2>
-<div class="row">
-    @foreach (var product in Model.FeaturedProducts)
-    {
-        <div class="col-sm-6 col-md-3">
-            <div class="thumbnail">
-                <a href="~/@product.SeoTitle">
-                    <img alt="@product.Name" src="@product.ThumbnailUrl">
-                    <div class="caption">
-                        <h3>@product.Name</h3>
-                        <p>$@product.Price</p>
-                        <p>
-                            <a href="#" class="btn btn-primary" role="button">Add to cart</a>
-                            <a href="#" class="btn btn-default" role="button">Button</a>
-                        </p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    }
 </div>
 
