@@ -43,6 +43,9 @@ namespace Shopcuatoi.Web.Controllers
             var query = productRepository.Query()
                 .Where(x => x.Categories.Any(c => c.CategoryId == category.Id) && x.IsPublished);
 
+            model.FilterOption.Price.MaxPrice = query.Select(x => x.Price).DefaultIfEmpty().Max();
+            model.FilterOption.Price.MinPrice = query.Select(x => x.Price).DefaultIfEmpty().Min();
+
             if (searchOption.MinPrice.HasValue)
             {
                 query = query.Where(x => x.Price >= searchOption.MinPrice.Value);
@@ -154,9 +157,6 @@ namespace Shopcuatoi.Web.Controllers
                     SeoTitle = g.Key.SeoTitle,
                     Count = g.Count()
                 }).ToList();
-
-            model.FilterOption.Price.MaxPrice = query.Select(x => x.Price).DefaultIfEmpty().Max();
-            model.FilterOption.Price.MinPrice = query.Select(x => x.Price).DefaultIfEmpty().Min();
         }
 
         private static void MapProductVariantToProductVm(Product product, ProductDetail model)
