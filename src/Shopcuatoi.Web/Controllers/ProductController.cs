@@ -53,19 +53,7 @@ namespace Shopcuatoi.Web.Controllers
                 query = query.Where(x => x.Price <= searchOption.MaxPrice.Value);
             }
 
-            model.FilterOption.Brands = query
-                .Where(x => x.BrandId != null)
-                .GroupBy(x => x.Brand)
-                .Select(g => new FilterBrand
-                {
-                    Id = (int) g.Key.Id,
-                    Name = g.Key.Name,
-                    SeoTitle = g.Key.SeoTitle,
-                    Count = g.Count()
-                }).ToList();
-
-            model.FilterOption.Price.MaxPrice = query.Select(x => x.Price).DefaultIfEmpty().Max();
-            model.FilterOption.Price.MinPrice = query.Select(x => x.Price).DefaultIfEmpty().Min();
+            AppendFilterOptionsToModel(model, query);
 
             var brands = searchOption.GetBrands();
             if (brands.Any())
@@ -75,16 +63,7 @@ namespace Shopcuatoi.Web.Controllers
 
             model.TotalProduct = query.Count();
 
-            var sortBy = searchOption.Sort ?? string.Empty;
-            switch (sortBy.ToLower())
-            {
-                case "price-desc":
-                    query = query.OrderByDescending(x => x.Price);
-                    break;
-                default:
-                    query = query.OrderBy(x => x.Price);
-                    break;
-            }
+            query = AppySort(searchOption, query);
 
             var products = query.Include(x => x.Brand)
                 .Select(x => new ProductListItem
@@ -145,6 +124,39 @@ namespace Shopcuatoi.Web.Controllers
             }
 
             return View(model);
+        }
+
+        private static IQueryable<Product> AppySort(SearchOption searchOption, IQueryable<Product> query)
+        {
+            var sortBy = searchOption.Sort ?? string.Empty;
+            switch (sortBy.ToLower())
+            {
+                case "price-desc":
+                    query = query.OrderByDescending(x => x.Price);
+                    break;
+                default:
+                    query = query.OrderBy(x => x.Price);
+                    break;
+            }
+
+            return query;
+        }
+
+        private static void AppendFilterOptionsToModel(ProductsByCategory model, IQueryable<Product> query)
+        {
+            model.FilterOption.Brands = query
+                .Where(x => x.BrandId != null)
+                .GroupBy(x => x.Brand)
+                .Select(g => new FilterBrand
+                {
+                    Id = (int)g.Key.Id,
+                    Name = g.Key.Name,
+                    SeoTitle = g.Key.SeoTitle,
+                    Count = g.Count()
+                }).ToList();
+
+            model.FilterOption.Price.MaxPrice = query.Select(x => x.Price).DefaultIfEmpty().Max();
+            model.FilterOption.Price.MinPrice = query.Select(x => x.Price).DefaultIfEmpty().Min();
         }
 
         private static void MapProductVariantToProductVm(Product product, ProductDetail model)
