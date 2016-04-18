@@ -54,16 +54,26 @@ namespace Shopcuatoi.Web.Controllers
                     Count = g.Count()
                 }).ToList();
 
-            var filterPrice = query.Select(x => x.Price);
-            model.FilterOption.Price = new FilterPrice
-            {
-                MaxPrice = filterPrice.Max(),
-                MixPrice = filterPrice.Min()
-            };
+            model.FilterOption.Price.MaxPrice = query.Select(x => x.Price).DefaultIfEmpty().Max();
+            model.FilterOption.Price.MinPrice = query.Select(x => x.Price).DefaultIfEmpty().Min();
 
-            if (searchOption.Brands.Any())
+            var brands = searchOption.GetBrands();
+            if (brands.Any())
             {
-                query = query.Where(x => searchOption.Brands.Contains(x.Brand.SeoTitle));
+                query = query.Where(x => brands.Contains(x.Brand.SeoTitle));
+            }
+
+            model.TotalProduct = query.Count();
+
+            var sortBy = searchOption.SortBy ?? string.Empty;
+            switch (sortBy.ToLower())
+            {
+                case "price-desc":
+                    query = query.OrderByDescending(x => x.Price);
+                    break;
+                default:
+                    query = query.OrderBy(x => x.Price);
+                    break;
             }
 
             var products = query.Include(x => x.Brand)

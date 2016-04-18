@@ -36,7 +36,7 @@
                                 {
                                     <li>
                                         <label class="checkbox">
-                                            <input type="checkbox" value="@brand.SeoTitle" name="brand" checked="@Model.CurrentSearchOption.Brands.Contains(brand.SeoTitle)">
+                                            <input type="checkbox" value="@brand.SeoTitle" name="brand" checked="@Model.CurrentSearchOption.GetBrands().Contains(brand.SeoTitle)">
                                             @brand.Name
                                             <small>(@brand.Count)</small>
                                         </label>
@@ -59,8 +59,8 @@
                     </div>
                     <div id="collapse-price" class="panel-collapse collapse in">
                         <div class="panel-body">
-                            <input type="text" name="filterPriceMin" value="@Model.FilterOption.Price.MixPrice"/>
-                            <input type="text" name="filterPriceMax" value="@Model.FilterOption.Price.MaxPrice"/>
+                            @*<input type="text" name="filterPriceMin" value="@Model.FilterOption.Price.MinPrice"/>
+                            <input type="text" name="filterPriceMax" value="@Model.FilterOption.Price.MaxPrice"/>*@
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
         <div class="row">
             <div class="col-sm-6 category-result">
                 <h2>@Model.CategoryName</h2>
-                <small class="badge-results">45 Results</small>
+                <small class="badge-results">@Model.TotalProduct Results</small>
             </div>
             <div class="col-sm-6">
                 <ul class="list-inline clear-both product-list-display-options">
@@ -82,16 +82,10 @@
                     <li class="sort-by">
                         <label>Sort By :</label>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                Price: Low to High <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Price: High to Low</a></li>
-                                <li><a href="#">Rating: High to Low</a></li>
-                            </ul>
+                            <select asp-for="CurrentSearchOption.SortBy" asp-items="Model.AvailableSortOptions" class="form-control"></select>
                         </div>
                     </li>
-                    <li class="pagination-option">
+                    @*<li class="pagination-option">
                         <label>Show :</label>
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -103,7 +97,7 @@
                                 <li><a href="#">30</a></li>
                             </ul>
                         </div>
-                    </li>
+                    </li>*@
                 </ul>
             </div>
         </div>

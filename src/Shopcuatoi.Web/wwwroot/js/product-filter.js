@@ -1,15 +1,22 @@
-﻿(function ($) {
+﻿/*global jQuery, window, currentSearchOption*/
+(function ($, currentSearchOption) {
     $(window).load(function () {
         function createUrl() {
-            var newUrl,
-                params = '',
+            var key,
+                value,
+                newUrl,
+                params = [],
                 baseUrl = window.location.href.split('?')[0];
 
-            if (currentSearchOption.brands.length > 0) {
-                params = params + 'brand=' + currentSearchOption.brands.join('--');
+            for (key in currentSearchOption) {
+                if (currentSearchOption.hasOwnProperty(key) && currentSearchOption[key]) {
+                    value = $.isArray(currentSearchOption[key]) ? currentSearchOption[key].join('--') : currentSearchOption[key];
+                    params.push(key + '=' + value);
+                }
             }
-            if (params !== '') {
-                newUrl = baseUrl + '?' + params;
+
+            if (params.length > 0) {
+                newUrl = baseUrl + '?' + params.join('&');
             } else {
                 newUrl = baseUrl;
             }
@@ -20,15 +27,22 @@
         $('#collapse-brand input:checkbox').on('change', function () {
             var index,
                 checkbox = $(this),
-                brand = checkbox.val();
+                brand = checkbox.val(),
+                brands = currentSearchOption.brand ? currentSearchOption.brand.split('--') :[];
             if (checkbox.prop("checked") === true) {
-                currentSearchOption.brands.push(brand);
+                brands.push(brand);
             } else {
-                index = currentSearchOption.brands.indexOf(brand);
-                currentSearchOption.brands.splice(index, 1);
+                index = brands.indexOf(brand);
+                brands.splice(index, 1);
             }
+            currentSearchOption.brand = brands.join('--');
 
             window.location = createUrl();
         });
+
+        $('.sort-by select').on('change', function () {
+            currentSearchOption.sortBy = $(this).val();
+            window.location = createUrl();
+        });
     });
-})(jQuery);
+})(jQuery, currentSearchOption);

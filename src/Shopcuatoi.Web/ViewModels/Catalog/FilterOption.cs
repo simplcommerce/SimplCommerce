@@ -6,6 +6,6 @@ namespace Shopcuatoi.Web.ViewModels.Catalog
     {
         public IList<FilterBrand> Brands { get; set; } = new List<FilterBrand>();
 
-        public FilterPrice Price { get; set; }
+        public FilterPrice Price { get; set; } = new FilterPrice();
     }
 }
