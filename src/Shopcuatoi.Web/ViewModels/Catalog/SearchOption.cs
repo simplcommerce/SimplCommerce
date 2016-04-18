@@ -12,7 +12,7 @@ namespace Shopcuatoi.Web.ViewModels.Catalog
 
         public int? Page { get; set; }
 
-        public string SortBy { get; set; }
+        public string Sort { get; set; }
 
         public IList<string> GetBrands()
         {

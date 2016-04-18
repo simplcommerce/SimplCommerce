@@ -6,7 +6,7 @@
                 value,
                 newUrl,
                 params = [],
-                baseUrl = window.location.href.split('?')[0];
+                baseUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
 
             for (key in currentSearchOption) {
                 if (currentSearchOption.hasOwnProperty(key) && currentSearchOption[key]) {
@@ -41,7 +41,7 @@
         });
 
         $('.sort-by select').on('change', function () {
-            currentSearchOption.sortBy = $(this).val();
+            currentSearchOption.sort = $(this).val();
             window.location = createUrl();
         });
     });

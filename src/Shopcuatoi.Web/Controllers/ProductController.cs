@@ -65,7 +65,7 @@ namespace Shopcuatoi.Web.Controllers
 
             model.TotalProduct = query.Count();
 
-            var sortBy = searchOption.SortBy ?? string.Empty;
+            var sortBy = searchOption.Sort ?? string.Empty;
             switch (sortBy.ToLower())
             {
                 case "price-desc":
