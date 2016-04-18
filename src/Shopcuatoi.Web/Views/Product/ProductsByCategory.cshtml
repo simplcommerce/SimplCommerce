@@ -19,58 +19,61 @@
 <div class="row">
     <div class="col-md-3">
         <h3>Filter by</h3>
-        <div class="panel-group" id="accordion-brand">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h2 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion-brand" href="#collapse-brand">
-                            Brands
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </h2>
-                </div>
-                <div id="collapse-brand" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                        <ul class="list-unstyled checkbox-list">
-                            <li>
-                                <label class="checkbox">
-                                    <input type="checkbox" name="checkbox" checked="">
-                                    <i></i>
-                                    Samsung
-                                    <small><a href="#">(23)</a></small>
-                                </label>
-                            </li>
-                            <li>
-                                <label class="checkbox">
-                                    <input type="checkbox" name="checkbox" checked="">
-                                    <i></i>
-                                    Apple
-                                    <small><a href="#">(4)</a></small>
-                                </label>
-                            </li>
-                        </ul>
+        <form id="productFilter" name="productFilter" method="GET" action="~/@Model.CategorySeoTitle">
+            <div class="panel-group" id="accordion-brand">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion-brand" href="#collapse-brand">
+                                Brands
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                        </h2>
+                    </div>
+                    <div id="collapse-brand" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <ul class="list-unstyled checkbox-list">
+                                @foreach (var brand in Model.FilterOption.Brands)
+                                {
+                                    <li>
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="@brand.SeoTitle" name="brand" checked="@Model.CurrentSearchOption.Brands.Contains(brand.SeoTitle)">
+                                            @brand.Name
+                                            <small>(@brand.Count)</small>
+                                        </label>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="panel-group" id="accordion-price">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h2 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion-price" href="#collapse-price">
-                            Price
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </h2>
-                </div>
-                <div id="collapse-price" class="panel-collapse collapse in">
-                    <div class="panel-body">
+            <div class="panel-group" id="accordion-price">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion-price" href="#collapse-price">
+                                Price
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                        </h2>
+                    </div>
+                    <div id="collapse-price" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
     <div class="col-md-9">
         @await Html.PartialAsync("ProductList", new ProductList(Model.Products))
     </div>
 </div>
+
+@section scripts {
+    <script>
+        var currentSearchOption = @Html.Raw(Model.CurrentSearchOption.ToJson());
+    </script>
+    <script src="~/js/product-filter.js"></script>
+}

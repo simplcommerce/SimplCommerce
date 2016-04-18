@@ -22,7 +22,7 @@ namespace Shopcuatoi.Web.Controllers
             this.categoryRepository = categoryRepository;
         }
 
-        public IActionResult ProductsByCategory(string catSeoTitle)
+        public IActionResult ProductsByCategory(string catSeoTitle, SearchOption searchOption)
         {
             var category = categoryRepository.Query().FirstOrDefault(x => x.SeoTitle == catSeoTitle);
             if (category == null)
@@ -34,11 +34,32 @@ namespace Shopcuatoi.Web.Controllers
             {
                 CategoryId = category.Id,
                 ParentCategorId = category.ParentId,
-                CategoryName = category.Name
+                CategoryName = category.Name,
+                CategorySeoTitle = category.SeoTitle,
+                CurrentSearchOption = searchOption,
+                FilterOption = new FilterOption()
             };
 
-            var products = productRepository.Query()
-                .Where(x => x.Categories.Any(c => c.CategoryId == category.Id) && x.IsPublished)
+            var query = productRepository.Query()
+                .Where(x => x.Categories.Any(c => c.CategoryId == category.Id) && x.IsPublished);
+
+            model.FilterOption.Brands = query
+                .Where(x => x.BrandId != null)
+                .GroupBy(x => x.Brand)
+                .Select(g => new FilterBrand
+                {
+                    Id = (int) g.Key.Id,
+                    Name = g.Key.Name,
+                    SeoTitle = g.Key.SeoTitle,
+                    Count = g.Count()
+                }).ToList();
+
+            if (searchOption.Brands.Any())
+            {
+                query = query.Where(x => searchOption.Brands.Contains(x.Brand.SeoTitle));
+            }
+
+            var products = query.Include(x => x.Brand)
                 .Select(x => new ProductListItem
                 {
                     Id = x.Id,
@@ -82,7 +103,7 @@ namespace Shopcuatoi.Web.Controllers
                 Description = product.Description,
                 Specification = product.Specification,
                 Attributes = product.AttributeValues.Select(x => new ProductDetailAttribute { Name = x.Attribute.Name, Value = x.Value }).ToList(),
-                Categories = product.Categories.Select(x => new ProductDetailCategory {Id = x.CategoryId, Name = x.Category.Name, SeoTitle = x.Category.SeoTitle}).ToList()
+                Categories = product.Categories.Select(x => new ProductDetailCategory { Id = x.CategoryId, Name = x.Category.Name, SeoTitle = x.Category.SeoTitle }).ToList()
             };
 
             MapProductVariantToProductVm(product, model);

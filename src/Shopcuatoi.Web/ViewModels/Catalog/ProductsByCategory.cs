@@ -10,6 +10,12 @@ namespace Shopcuatoi.Web.ViewModels.Catalog
 
         public string CategoryName { get; set; }
 
+        public string CategorySeoTitle { get; set; }
+
         public IList<ProductListItem> Products { get; set; } = new List<ProductListItem>();
+
+        public FilterOption FilterOption { get; set; }
+
+        public SearchOption CurrentSearchOption { get; set; }
     }
 }
