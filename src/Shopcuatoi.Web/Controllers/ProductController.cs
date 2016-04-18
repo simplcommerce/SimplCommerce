@@ -43,6 +43,16 @@ namespace Shopcuatoi.Web.Controllers
             var query = productRepository.Query()
                 .Where(x => x.Categories.Any(c => c.CategoryId == category.Id) && x.IsPublished);
 
+            if (searchOption.MinPrice.HasValue)
+            {
+                query = query.Where(x => x.Price >= searchOption.MinPrice.Value);
+            }
+
+            if (searchOption.MaxPrice.HasValue)
+            {
+                query = query.Where(x => x.Price <= searchOption.MaxPrice.Value);
+            }
+
             model.FilterOption.Brands = query
                 .Where(x => x.BrandId != null)
                 .GroupBy(x => x.Brand)

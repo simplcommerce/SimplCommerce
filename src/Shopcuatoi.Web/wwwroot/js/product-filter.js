@@ -1,5 +1,5 @@
-﻿/*global jQuery, window, currentSearchOption*/
-(function ($, currentSearchOption) {
+﻿/*global jQuery, noUiSlider, wNumb, window, document, productFilter*/
+(function ($, currentSearchOption, priceSetting) {
     $(window).load(function () {
         function createUrl() {
             var key,
@@ -10,7 +10,7 @@
 
             for (key in currentSearchOption) {
                 if (currentSearchOption.hasOwnProperty(key) && currentSearchOption[key]) {
-                    value = $.isArray(currentSearchOption[key]) ? currentSearchOption[key].join('--') : currentSearchOption[key];
+                    value = currentSearchOption[key];
                     params.push(key + '=' + value);
                 }
             }
@@ -22,6 +22,30 @@
             }
 
             return newUrl;
+        }
+
+        function intPriceSlider() {
+            var priceValues = [
+                document.getElementById('minPrice'),
+                document.getElementById('maxPrice')
+            ];
+
+            noUiSlider.create(document.getElementById('priceSlider'), {
+                connect: true,
+                start: [priceSetting.currentMin, priceSetting.currentMax],
+                range: {
+                    'min': priceSetting.min,
+                    'max': priceSetting.max
+                },
+                format: wNumb({
+                    decimals: 3,
+                    thousand: '.'
+                })
+            });
+
+            document.getElementById('priceSlider').noUiSlider.on('update', function (values, handle) {
+                priceValues[handle].innerHTML = values[handle];
+            });
         }
 
         $('#collapse-brand input:checkbox').on('change', function () {
@@ -40,9 +64,35 @@
             window.location = createUrl();
         });
 
+        $('#apply-price').on('click', function () {
+            var min, max, prices;
+            prices = document.getElementById('priceSlider').noUiSlider.get();
+            min = parseInt(prices[0].replace(/\./g, ''), 10);
+            max = parseInt(prices[1].replace(/\./g, ''), 10);
+            if (min !== priceSetting.min) {
+                currentSearchOption.minPrice = min;
+            } else {
+                currentSearchOption.minPrice = null;
+            }
+            if (max !== priceSetting.max) {
+                currentSearchOption.maxPrice = max;
+            } else {
+                currentSearchOption.maxPrice = null;
+            }
+            window.location = createUrl();
+        });
+
+        $('#reset-price').on('click', function () {
+            currentSearchOption.minPrice = null;
+            currentSearchOption.maxPrice = null;
+            window.location = createUrl();
+        });
+
         $('.sort-by select').on('change', function () {
             currentSearchOption.sort = $(this).val();
             window.location = createUrl();
         });
+
+        intPriceSlider();
     });
-})(jQuery, currentSearchOption);
+})(jQuery, productFilter.currentSearchOption, productFilter.priceSetting);

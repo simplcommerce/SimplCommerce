@@ -21,6 +21,8 @@ var bower = {
     "jquery": "jquery/dist/jquery*.{js,map}",
     "jquery-validation": "jquery-validation/dist/*.js",
     "jquery-validation-unobtrusive": "jquery-validation-unobtrusive/*.js",
+    "nouislider": "nouislider/distribute/*.{js,css}",
+    "wnumb" : "wnumb/wNumb.js",
     "angular": "angular/angular.js",
     "angular-animate": "angular-animate/angular*.js",
     "angular-aria": "angular-aria/angular*.js",

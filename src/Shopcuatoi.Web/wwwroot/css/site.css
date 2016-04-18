@@ -67,6 +67,26 @@ li.nav-item-group, li.nav-item-group a {
     padding-left: 30px;
 }
 
+#priceSlider {
+    margin: 17px
+}
+
+#minPrice {
+    width: 110px;
+    float: left;
+}
+
+#maxPrice {
+    width: 110px;
+    float: right;
+    text-align: right;
+}
+
+.price-actions {
+    float: right;
+    margin-top: 15px;
+}
+
 .category-result h2 {
     float: left;
     font-size: 30px;

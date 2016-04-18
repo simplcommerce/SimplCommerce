@@ -5,6 +5,11 @@
 @{
     ViewBag.Title = Model.CategoryName;
 }
+
+@section head {
+    <link href="~/lib/nouislider/nouislider.min.css" rel="stylesheet" />
+}
+
 <div>
     <ol class="breadcrumb">
         <li><a href="~/">Home</a></li>
@@ -59,8 +64,17 @@
                     </div>
                     <div id="collapse-price" class="panel-collapse collapse in">
                         <div class="panel-body">
-                            @*<input type="text" name="filterPriceMin" value="@Model.FilterOption.Price.MinPrice"/>
-                            <input type="text" name="filterPriceMax" value="@Model.FilterOption.Price.MaxPrice"/>*@
+                            <div id="priceSlider"></div>
+                            <div>
+                                <input type="hidden" id="originMinPrice" value="@Model.FilterOption.Price.MinPrice.ToString("F0")"/>
+                                <input type="hidden" id="originMaxPrice" value="@Model.FilterOption.Price.MaxPrice.ToString("F0")" />
+                                <span id="minPrice"></span>
+                                <span id="maxPrice"></span>
+                            </div>
+                            <div class="price-actions">
+                                <button id="apply-price" type="button" class="btn btn-default">Apply</button>
+                                <button id="reset-price" type="button" class="btn btn-default">Reset</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -106,8 +120,18 @@
 </div>
 
 @section scripts {
+    <script src="~/lib/wnumb/wnumb.js"></script>
+    <script src="~/lib/nouislider/nouislider.min.js"></script>
+
     <script>
-        var currentSearchOption = @Html.Raw(Model.CurrentSearchOption.ToJson());
+        var productFilter = {};
+        productFilter.currentSearchOption = @Html.Raw(Model.CurrentSearchOption.ToJson());
+        productFilter.priceSetting = {
+            min: @Model.FilterOption.Price.MinPrice,
+            max: @Model.FilterOption.Price.MaxPrice,
+            currentMin: @(Model.CurrentSearchOption.MinPrice ?? Model.FilterOption.Price.MinPrice),
+            currentMax: @(Model.CurrentSearchOption.MaxPrice ?? Model.FilterOption.Price.MaxPrice)
+        };
     </script>
     <script src="~/js/product-filter.js"></script>
 }

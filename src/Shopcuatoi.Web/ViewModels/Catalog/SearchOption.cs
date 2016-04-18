@@ -14,6 +14,10 @@ namespace Shopcuatoi.Web.ViewModels.Catalog
 
         public string Sort { get; set; }
 
+        public int? MinPrice { get; set; }
+
+        public int? MaxPrice { get; set; }
+
         public IList<string> GetBrands()
         {
             return string.IsNullOrWhiteSpace(Brand) ? new List<string>() : Brand.Split(new [] {"--"}, StringSplitOptions.RemoveEmptyEntries).ToList();
