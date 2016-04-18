@@ -6,8 +6,6 @@ namespace Shopcuatoi.Web.ViewModels.Catalog
     {
         public IList<FilterBrand> Brands { get; set; } = new List<FilterBrand>();
 
-        public decimal MinPrice { get; set; }
-
-        public decimal MaxPrice { get; set; }
+        public FilterPrice Price { get; set; }
     }
 }

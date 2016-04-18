@@ -54,6 +54,13 @@ namespace Shopcuatoi.Web.Controllers
                     Count = g.Count()
                 }).ToList();
 
+            var filterPrice = query.Select(x => x.Price);
+            model.FilterOption.Price = new FilterPrice
+            {
+                MaxPrice = filterPrice.Max(),
+                MixPrice = filterPrice.Min()
+            };
+
             if (searchOption.Brands.Any())
             {
                 query = query.Where(x => searchOption.Brands.Contains(x.Brand.SeoTitle));

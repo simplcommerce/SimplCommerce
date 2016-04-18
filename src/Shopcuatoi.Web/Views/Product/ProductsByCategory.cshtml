@@ -15,9 +15,8 @@
         <li><span class="active">@Model.CategoryName</span></li>
     </ol>
 </div>
-<h2 class="page-header">@Model.CategoryName</h2>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 product-list-filters">
         <h3>Filter by</h3>
         <form id="productFilter" name="productFilter" method="GET" action="~/@Model.CategorySeoTitle">
             <div class="panel-group" id="accordion-brand">
@@ -60,6 +59,8 @@
                     </div>
                     <div id="collapse-price" class="panel-collapse collapse in">
                         <div class="panel-body">
+                            <input type="text" name="filterPriceMin" value="@Model.FilterOption.Price.MixPrice"/>
+                            <input type="text" name="filterPriceMax" value="@Model.FilterOption.Price.MaxPrice"/>
                         </div>
                     </div>
                 </div>
@@ -67,6 +68,45 @@
         </form>
     </div>
     <div class="col-md-9">
+        <div class="row">
+            <div class="col-sm-6 category-result">
+                <h2>@Model.CategoryName</h2>
+                <small class="badge-results">45 Results</small>
+            </div>
+            <div class="col-sm-6">
+                <ul class="list-inline clear-both product-list-display-options">
+                    <li class="show-option">
+                        <a href="#"><i class="fa fa-th-list"></i></a>
+                        <a href="#"><i class="fa fa-th"></i></a>
+                    </li>
+                    <li class="sort-by">
+                        <label>Sort By :</label>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                Price: Low to High <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Price: High to Low</a></li>
+                                <li><a href="#">Rating: High to Low</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="pagination-option">
+                        <label>Show :</label>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                20 <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">All</a></li>
+                                <li><a href="#">50</a></li>
+                                <li><a href="#">30</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
         @await Html.PartialAsync("ProductList", new ProductList(Model.Products))
     </div>
 </div>

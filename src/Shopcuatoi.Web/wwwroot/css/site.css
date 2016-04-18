@@ -54,6 +54,55 @@ li.nav-item-group, li.nav-item-group a {
     padding: 9px;
 }
 
+.product-list-filters h3 {
+    margin-top: 27px;
+}
+
 #accordion-brand ul{
     padding-left: 30px;
+}
+
+.category-result h2 {
+    float: left;
+    font-size: 30px;
+    margin-right: 20px;
+}
+    .category-result .badge-results {
+        top: 26px;
+        color: #fff;
+        font-size: 12px;
+        padding: 3px 8px;
+        position: relative;
+        background: #c9253c;
+    }
+.product-list-display-options {
+    margin-top: 14px;
+}
+
+.product-list-display-options label {
+    font-weight: normal;
+}
+
+.product-list-display-options .show-option {
+    float: right;
+    padding-right: 0;
+}
+.product-list-display-options .show-option i {
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    padding: 6px;
+    font-size: 18px;
+    line-height: 20px;
+    text-align: center;
+    background: #18ba9b;
+    display: inline-block;
+}
+
+.product-list-display-options .sort-by {
+    float: right;
+}
+
+.product-list-display-options .pagination-option {
+    float: right;
 }
