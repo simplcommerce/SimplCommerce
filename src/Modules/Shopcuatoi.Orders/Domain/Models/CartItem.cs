@@ -4,7 +4,7 @@ using Shopcuatoi.Infrastructure.Domain.Models;
 
 namespace Shopcuatoi.Orders.Domain.Models
 {
-    public class ShoppingCartItem : Entity
+    public class CartItem : Entity
     {
         public DateTime CreatedOn { get; set; }
 

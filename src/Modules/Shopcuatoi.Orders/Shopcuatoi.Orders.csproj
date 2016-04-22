@@ -52,7 +52,7 @@
   <ItemGroup>
     <Compile Include="Domain\Models\Order.cs" />
     <Compile Include="Domain\Models\OrderItem.cs" />
-    <Compile Include="Domain\Models\ShoppingCartItem.cs" />
+    <Compile Include="Domain\Models\CartItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
