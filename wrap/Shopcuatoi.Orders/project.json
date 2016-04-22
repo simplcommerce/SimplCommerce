@@ -10,7 +10,8 @@
       "dependencies": {
         "Shopcuatoi.Core": "1.0.0-*",
         "AspNet.Identity.EntityFramework6": "1.0.0-*",
-        "Shopcuatoi.Infrastructure": "1.0.0-*"
+        "Shopcuatoi.Infrastructure": "1.0.0-*",
+        "EntityFramework": "6.1.3"
       }
     }
   }

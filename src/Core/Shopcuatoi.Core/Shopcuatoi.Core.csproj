@@ -183,6 +183,8 @@
     <Compile Include="Domain\Models\Category.cs" />
     <Compile Include="Domain\Models\Content.cs" />
     <Compile Include="Domain\Models\Brand.cs" />
+    <Compile Include="Domain\Models\Country.cs" />
+    <Compile Include="Domain\Models\District.cs" />
     <Compile Include="Domain\Models\Media.cs" />
     <Compile Include="Domain\Models\MediaType.cs" />
     <Compile Include="Domain\Models\Product.cs" />
@@ -197,6 +199,7 @@
     <Compile Include="Domain\Models\ProductVariation.cs" />
     <Compile Include="Domain\Models\Role.cs" />
     <Compile Include="Domain\Models\RoleClaim.cs" />
+    <Compile Include="Domain\Models\StateOrProvince.cs" />
     <Compile Include="Domain\Models\UrlSlug.cs" />
     <Compile Include="Domain\Models\User.cs" />
     <Compile Include="Domain\Models\UserClaim.cs" />
