@@ -74,5 +74,31 @@ namespace Shopcuatoi.Web.Controllers
 
             return PartialView(model);
         }
+
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult List()
+        {
+            var cartItems = HttpContext.User.IsSignedIn()
+                ? cartService.GetCartItems(CurrentUserId, null)
+                : cartService.GetCartItems(null, GetGuestId());
+
+            var cartListItems = cartItems.Select(x => new CartListItem
+            {
+                Id = x.Id,
+                ProductName = x.Product.Name,
+                ProductPrice = x.ProductPrice,
+                ProductImage = mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
+                Quantity = x.Quantity,
+                VariationOptions = CartListItem.GetVariationOption(x.ProductVariation)
+            });
+
+            return Json(cartListItems);
+        }
     }
 }

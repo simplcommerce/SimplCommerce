@@ -151,3 +151,11 @@ li.nav-item-group, li.nav-item-group a {
 .product-list-display-options .pagination-option {
     float: right;
 }
+
+.cart-list .product-image {
+    width: 120px;
+}
+
+.cart-list .product-image img {
+    width: 120px;
+}

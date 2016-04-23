@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<div ng-app="hv.shoppingCart" ng-controller="shoppingCartListCtrl as vm" ng-cloak>
+    <table class="table table-striped cart-list">
+        <thead>
+        <tr>
+            <th colspan="2">Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-if="vm.shoppingCartItems.length" ng-repeat="cartItem in vm.shoppingCartItems">
+            <td class="product-image"><img  ng-src="{{cartItem.productImage}}"/></td>
+            <td>
+                <h4>{{cartItem.productName}}</h4>
+                <ul class="list-unstyled">
+                    <li ng-repeat="opt in cartItem.variationOptions">
+                        <span>{{opt.optionName}}:</span> {{opt.value}}
+                    </li>
+                </ul>
+            </td>
+            <td>{{cartItem.productPrice | currency}}</td>
+            <td>
+                <span class="border-button"
+                          ng-click="vm.decreaseQuantity(cartItem)">-</span>
+                <span>{{cartItem.quantity}}</span>
+                <span class="border-button"
+                          ng-click="vm.increaseQuantity(cartItem)">+</span>
+            </td>
+            <td>{{cartItem.totalPrice | currency}}</td>
+            <td><a ng-click="vm.removeShoppingCartItem(cartItem)">Remove</a></td>
+        </tr>
+        <tr ng-if="!vm.shoppingCartItems.length">
+            <td colspan="5" class="text-center">
+                No data
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <h3>TOTAL: {{vm.totalPrice | currency}}</h3>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/lib/angular/angular.js"></script>
+    <script src="~/js/cart/shoppingcart-list.js"></script>
+    <script src="~/js/cart/shoppingcart-service.js"></script>
+}

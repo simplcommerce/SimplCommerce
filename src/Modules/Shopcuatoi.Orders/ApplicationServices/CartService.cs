@@ -87,7 +87,8 @@ namespace Shopcuatoi.Orders.ApplicationServices
             var query = cartItemRepository
                 .Query()
                 .Include(x => x.Product)
-                .Include(x => x.ProductVariation);
+                .Include(x => x.ProductVariation)
+                .Include(x => x.ProductVariation.OptionCombinations);
 
             if (userId.HasValue)
             {
