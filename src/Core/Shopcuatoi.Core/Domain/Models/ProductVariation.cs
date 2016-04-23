@@ -18,11 +18,13 @@ namespace Shopcuatoi.Core.Domain.Models
         /// </summary>
         public string Name { get; set; }
 
+        public long ProductId { get; set; }
+
         public virtual Product Product { get; set; }
 
         public string Sku { get; set; }
 
-        public decimal? PriceOffset { get; set; }
+        public decimal PriceOffset { get; set; }
 
         public bool IsAllowOrder { get; set; }
 

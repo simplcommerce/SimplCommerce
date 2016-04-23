@@ -73,12 +73,12 @@
     border-color: #18ba9b;
 }
 
-.product-detail .product-quantity {
+.product-detail .add-to-cart {
     margin-top: 10px;
 }
 
-.product-detail .product-quantity form {
-     float: left;
+.product-detail .product-quantity {
+    float: left;
     margin-right: 30px;
 }
 

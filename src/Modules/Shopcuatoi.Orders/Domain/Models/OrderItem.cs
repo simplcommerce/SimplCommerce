@@ -13,6 +13,8 @@ namespace Shopcuatoi.Orders.Domain.Models
 
         public virtual ProductVariation ProductVariation { get; set; }
 
+        public decimal ProductPrice { get; set; }
+
         public int Quantity { get; set; }
     }
 }

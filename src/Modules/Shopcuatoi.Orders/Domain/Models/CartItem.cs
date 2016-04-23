@@ -8,9 +8,9 @@ namespace Shopcuatoi.Orders.Domain.Models
     {
         public DateTime CreatedOn { get; set; }
 
-        public Guid? GuestKey { get; set; }
+        public Guid? GuestId { get; set; }
 
-        public long CreatedById { get; set; }
+        public long? CreatedById { get; set; }
 
         public virtual User CreatedBy { get; set; }
 
@@ -23,5 +23,7 @@ namespace Shopcuatoi.Orders.Domain.Models
         public virtual ProductVariation ProductVariation { get; set; }
 
         public int Quantity { get; set; }
+
+        public decimal ProductPrice { get; set; }
     }
 }

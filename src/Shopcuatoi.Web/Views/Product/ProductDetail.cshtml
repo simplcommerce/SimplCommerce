@@ -53,34 +53,39 @@
             <div class="product-price">
                 <h3>@Model.Price.ToString("N0", new CultureInfo("vi-VN")) VND</h3>
             </div>
-            <div>
+            <form>
+                <input type="hidden" name="productId" value="@Model.Id"/>
                 @if (Model.HasVariation)
                 {
-                    foreach (var option in Model.AvailableOptions)
-                    {
-                        <p>
-                            <h4>@option.OptionName </h4>
-                            <ul class="list-inline product-attrs">
-                                @foreach (var value in option.Values)
-                                {
-                                <li>
-                                    <input type="radio" name="@option.OptionName" />
-                                    <label>@value</label>
-                                </li>
-                                }
-                            </ul>
-                        </p>
-                    }
+                    <div class="product-attrs">
+                        @foreach (var option in Model.AvailableOptions)
+                        {
+                            <div>
+                                <h4>@option.OptionName </h4>
+                                <ul class="list-inline product-attr-options">
+                                    @foreach (var value in option.Values)
+                                    {
+                                        var shouldChecked = value == option.Values.First();
+                                        <li>
+                                            <input type="radio" value="@value" checked="@shouldChecked" name="@option.OptionName"/>
+                                            <label>@value</label>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
                 }
-            </div>
-            <div class="product-quantity">
-                <form>
-                    <button type="button" class="quantity-button" name="subtract" value="-">-</button>
-                    <input type="text" class="quantity-field" name="qty" value="1">
-                    <button type="button" class="quantity-button" name="add" value="+">+</button>
-                </form>
-                <button type="button" class="btn btn-lg btn-add-cart">Add to Cart</button>
-            </div>
+                <div class="add-to-cart">
+                    <div class="product-quantity">
+                        <button type="button" class="quantity-button" name="subtract" value="-">-</button>
+                        <input type="text" class="quantity-field" name="qty" value="1">
+                        <button type="button" class="quantity-button" name="add" value="+">+</button>
+                    </div>
+
+                    <button type="button" class="btn btn-lg btn-add-cart">Add to Cart</button>
+                </div>
+            </form>
             <div>
                 <ul class="list-inline add-to-wishlist">
                     <li class="wishlist-in">
@@ -131,4 +136,5 @@
 {
     <script src="~/lib/smoothproducts/js/smoothproducts.js"></script>
     <script src="~/js/product-detail.js"></script>
+    <script src="~/js/add-to-cart.js"></script>
 }

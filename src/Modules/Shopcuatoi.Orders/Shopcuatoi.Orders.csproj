@@ -50,13 +50,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationServices\CartService.cs" />
+    <Compile Include="ApplicationServices\ICartService.cs" />
     <Compile Include="Domain\Models\Order.cs" />
     <Compile Include="Domain\Models\OrderItem.cs" />
     <Compile Include="Domain\Models\CartItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ApplicationServices\" />
     <Folder Include="Infrastructure\EntityFramework\" />
   </ItemGroup>
   <ItemGroup>
