@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Shopcuatoi.Web.ViewModels.Account;
 using Shopcuatoi.Core.Domain.Models;
 using Shopcuatoi.Core.ApplicationServices;
+using Shopcuatoi.Orders.ApplicationServices;
+using Shopcuatoi.Web.Extensions;
 
 namespace Shopcuatoi.Web.Controllers
 {
@@ -23,19 +25,22 @@ namespace Shopcuatoi.Web.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
+        private readonly ICartService _cartService;
 
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            ICartService cartService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
+            _cartService = cartService;
         }
 
         //
@@ -66,6 +71,7 @@ namespace Shopcuatoi.Web.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
+                    await ChangeGuestIdToUser(model.Email);
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -119,6 +125,8 @@ namespace Shopcuatoi.Web.Controllers
                     //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
                     //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
                     await _signInManager.SignInAsync(user, isPersistent: false);
+                    await ChangeGuestIdToUser(user.Email);
+
                     _logger.LogInformation(3, "User created a new account with password.");
                     return RedirectToAction(nameof(HomeController.Index), "Home");
                 }
@@ -170,6 +178,10 @@ namespace Shopcuatoi.Web.Controllers
             if (result.Succeeded)
             {
                 _logger.LogInformation(5, "User logged in with {Name} provider.", info.LoginProvider);
+
+                var email = info.ExternalPrincipal.FindFirstValue(ClaimTypes.Email);
+                await ChangeGuestIdToUser(email);
+
                 return RedirectToLocal(returnUrl);
             }
             if (result.RequiresTwoFactor)
@@ -219,6 +231,8 @@ namespace Shopcuatoi.Web.Controllers
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         _logger.LogInformation(6, "User created an account using {Name} provider.", info.LoginProvider);
+                        await ChangeGuestIdToUser(user.Email);
+
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -466,6 +480,17 @@ namespace Shopcuatoi.Web.Controllers
             }
         }
 
+        private async Task ChangeGuestIdToUser(string email)
+        {
+            var guestId = GuestIdentityManager.GetGuestId(HttpContext);
+            if (!guestId.HasValue)
+            {
+                return;
+            }
+
+            var currentUser = await _userManager.FindByEmailAsync(email);
+            _cartService.UpdateGuestIdToUser(guestId.Value, currentUser.Id);
+        }
         #endregion
     }
 }

@@ -7,18 +7,32 @@ namespace Shopcuatoi.Web.Extensions
     {
         private const string GuestIdCookieName = "GuestIdCookiesName";
 
-        public static Guid GetGuestId(HttpContext httpContext)
+        public static Guid? GetGuestId(HttpContext httpContext)
         {
-            if (!httpContext.Request.Cookies.ContainsKey(GuestIdCookieName))
+            if (httpContext.Request.Cookies.ContainsKey(GuestIdCookieName))
             {
-                var guestId = Guid.NewGuid();
-                httpContext.Response.Cookies.Append(GuestIdCookieName, guestId.ToString(), new CookieOptions
-                {
-                    Expires = DateTime.MaxValue
-                });
-                return guestId;
+                return Guid.Parse(httpContext.Request.Cookies[GuestIdCookieName].ToString());
             }
-            return Guid.Parse(httpContext.Request.Cookies[GuestIdCookieName].ToString());
+
+            return null;
+        }
+
+        public static Guid GetOrCreateGuestId(HttpContext httpContext)
+        {
+            var guestId = GetGuestId(httpContext);
+
+            if (guestId.HasValue)
+            {
+                return guestId.Value;
+            }
+
+            guestId = Guid.NewGuid();
+            httpContext.Response.Cookies.Append(GuestIdCookieName, guestId.ToString(), new CookieOptions
+            {
+                Expires = DateTime.MaxValue
+            });
+
+            return guestId.Value;
         }
     }
 }

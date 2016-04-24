@@ -102,5 +102,17 @@ namespace Shopcuatoi.Orders.ApplicationServices
 
             return query.ToList();
         }
+
+        public void UpdateGuestIdToUser(Guid guestId, long userId)
+        {
+            var cartItems = cartItemRepository.Query().Where(x => x.GuestId == guestId);
+
+            foreach (var cartItem in cartItems)
+            {
+                cartItem.CreatedById = userId;
+            }
+
+            cartItemRepository.SaveChange();
+        }
     }
 }

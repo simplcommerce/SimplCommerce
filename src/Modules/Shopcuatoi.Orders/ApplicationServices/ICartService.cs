@@ -9,5 +9,7 @@ namespace Shopcuatoi.Orders.ApplicationServices
         CartItem AddToCart(long? userId, Guid? guestId, long productId, string variationName, int quantity);
 
         IList<CartItem> GetCartItems(long? userId, Guid? guestId);
+
+        void UpdateGuestIdToUser(Guid guestId, long userId);
     }
 }

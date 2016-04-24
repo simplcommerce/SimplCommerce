@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using Shopcuatoi.Core.Domain.Models;
@@ -20,18 +17,16 @@ namespace Shopcuatoi.Web.Controllers
             this.userManager = userManager;
         }
 
-        public long CurrentUserId => long.Parse(HttpContext.User.GetUserId());
+        protected long CurrentUserId => long.Parse(HttpContext.User.GetUserId());
 
-        [NonAction]
-        public async Task<User> GetCurrentUserAsync()
+        protected async Task<User> GetCurrentUserAsync()
         {
             return await userManager.FindByIdAsync(HttpContext.User.GetUserId());
         }
 
-        [NonAction]
-        public Guid GetGuestId()
+        protected Guid GetGuestId()
         {
-            return GuestIdentityManager.GetGuestId(HttpContext);
+            return GuestIdentityManager.GetOrCreateGuestId(HttpContext);
         }
     }
 }
