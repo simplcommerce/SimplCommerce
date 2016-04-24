@@ -135,22 +135,37 @@
             }
         };
 
+        // TODO look for a more concise way
         vm.applyTemplate = function applyTemplate() {
-            var template, i, index, workingAttr;
+            var template, i, index, workingAttr,
+                nonTemplateAttrs = [];
+
             productService.getProductTemplate(vm.product.template.id).success(function (result) {
                 template = result;
 
-                for (i = 0; i < vm.product.attributes.length; i = i + 1) {
-                    vm.attributes.push(vm.product.attributes[i]);
-                }
-
-                vm.product.attributes = [];
-
                 for (i = 0; i < template.attributes.length; i = i + 1) {
-                    workingAttr = vm.attributes.find(function (item) { return item.id = template.attributes[i].id; });
+                    workingAttr = vm.product.attributes.find(function (item) { return item && item.id === template.attributes[i].id; });
+                    if (workingAttr) {
+                        continue;
+                    }
+                    workingAttr = vm.attributes.find(function (item) { return item && item.id === template.attributes[i].id; });
                     index = vm.attributes.indexOf(workingAttr);
                     vm.attributes.splice(index, 1);
                     vm.product.attributes.push(workingAttr);
+                }
+
+                for (i = 0; i < vm.product.attributes.length; i = i + 1) {
+                    workingAttr = template.attributes.find(function (item) { return item && item.id === vm.product.attributes[i].id; });
+                    if (!workingAttr) {
+                        nonTemplateAttrs.push(vm.product.attributes[i]);
+                    }
+                }
+
+                for (i = 0; i < nonTemplateAttrs.length; i = i + 1) {
+                    workingAttr = vm.product.attributes.find(function (item) { return item && item.id === nonTemplateAttrs[i].id; });
+                    index = vm.product.attributes.indexOf(workingAttr);
+                    vm.product.attributes.splice(index, 1);
+                    vm.attributes.push(workingAttr);
                 }
             });
         };
