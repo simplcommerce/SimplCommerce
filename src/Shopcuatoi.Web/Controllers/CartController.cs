@@ -1,7 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using Shopcuatoi.Core.ApplicationServices;
@@ -19,9 +18,11 @@ namespace Shopcuatoi.Web.Controllers
         private readonly ICartService cartService;
         private readonly IMediaService mediaService;
 
-        public CartController(UserManager<User> userManager, IRepository<CartItem> cartItemRepository,
-            ICartService cartService, IMediaService mediaService)
-            : base(userManager)
+        public CartController(
+            UserManager<User> userManager,
+            IRepository<CartItem> cartItemRepository,
+            ICartService cartService,
+            IMediaService mediaService) : base(userManager)
         {
             this.cartItemRepository = cartItemRepository;
             this.cartService = cartService;
@@ -40,7 +41,8 @@ namespace Shopcuatoi.Web.Controllers
             {
                 cartItem = cartService.AddToCart(null, GetGuestId(), model.ProductId, model.VariationName, model.Quantity);
             }
-            return RedirectToAction("AddToCartResult", new {cartItemId = cartItem.Id});
+
+            return RedirectToAction("AddToCartResult", new { cartItemId = cartItem.Id });
         }
 
         [HttpGet]
@@ -60,7 +62,7 @@ namespace Shopcuatoi.Web.Controllers
                 Quantity = cartItem.Quantity
             };
 
-            if (cartItem.ProductVariation!= null)
+            if (cartItem.ProductVariation != null)
             {
                 model.VariationName = cartItem.ProductVariation.Name;
             }
@@ -70,7 +72,7 @@ namespace Shopcuatoi.Web.Controllers
                 : cartService.GetCartItems(null, GetGuestId());
 
             model.CartItemCount = cartItems.Count;
-            model.CartAmount = cartItems.Sum(x => x.Quantity*x.ProductPrice);
+            model.CartAmount = cartItems.Sum(x => x.Quantity * x.ProductPrice);
 
             return PartialView(model);
         }
@@ -88,17 +90,46 @@ namespace Shopcuatoi.Web.Controllers
                 ? cartService.GetCartItems(CurrentUserId, null)
                 : cartService.GetCartItems(null, GetGuestId());
 
-            var cartListItems = cartItems.Select(x => new CartListItem
+            var model = new CartViewModel
             {
-                Id = x.Id,
-                ProductName = x.Product.Name,
-                ProductPrice = x.ProductPrice,
-                ProductImage = mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
-                Quantity = x.Quantity,
-                VariationOptions = CartListItem.GetVariationOption(x.ProductVariation)
-            });
+                CartItems = cartItems.Select(x => new CartListItem
+                {
+                    Id = x.Id,
+                    ProductName = x.Product.Name,
+                    ProductPrice = x.ProductPrice,
+                    ProductImage = mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
+                    Quantity = x.Quantity,
+                    VariationOptions = CartListItem.GetVariationOption(x.ProductVariation)
+                }).ToList()
+            };
 
-            return Json(cartListItems);
+            return Json(model);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateQuantity([FromBody] CartQuantityUpdate model)
+        {
+            var cartItem = cartItemRepository.Get(model.CartItemId);
+            cartItem.Quantity = model.Quantity;
+
+            cartItemRepository.SaveChange();
+
+            return List();
+        }
+
+        [HttpPost]
+        public IActionResult Remove([FromBody] long itemId)
+        {
+            var cartItem = cartItemRepository.Get(itemId);
+            if (cartItem == null)
+            {
+                return new HttpStatusCodeResult(400);
+            }
+
+            cartItemRepository.Remove(cartItem);
+            cartItemRepository.SaveChange();
+
+            return List();
         }
     }
 }

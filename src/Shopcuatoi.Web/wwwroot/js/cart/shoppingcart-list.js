@@ -6,38 +6,32 @@
             'shoppingCartService',
             function ($scope, shoppingCartService) {
                 var vm = this;
-                vm.shoppingCartItems = [];
-                vm.totalPrice = 0;
-                getShoppingCartItems();
+                vm.cartViewModel = {};
+
+                function cartDataCallback(result) {
+                    vm.cartViewModel = result.data;
+                    $('.cart-badge .badge').text(vm.cartViewModel.cartItems.length);
+                }
 
                 function getShoppingCartItems() {
-                    shoppingCartService.getShoppingCartItems().then(function (result) {
-                        vm.shoppingCartItems = result.data;
-                        $.each(result.data, function () {
-                            vm.totalPrice += this.totalPrice;
-                        });
-                    });
+                    shoppingCartService.getShoppingCartItems().then(cartDataCallback);
                 };
 
                 vm.removeShoppingCartItem = function removeShoppingCartItem(item) {
-                    var index = vm.shoppingCartItems.indexOf(item);
-                    vm.shoppingCartItems.splice(index, 1);
-
-                    vm.totalPrice = shoppingCartService.resetTotalPrice(vm.shoppingCartItems);
-                    shoppingCartService.removeShoppingCartItem(item.id);
+                    shoppingCartService.removeShoppingCartItem(item.id).then(cartDataCallback);
                 }
 
                 vm.increaseQuantity = function increaseQuantity(item) {
                     item.quantity += 1;
-                    vm.totalPrice = shoppingCartService.resetTotalPrice(vm.shoppingCartItems);
-                    shoppingCartService.updateQuantity(item.id, item.quantity);
+                    shoppingCartService.updateQuantity(item.id, item.quantity).then(cartDataCallback);
                 }
 
                 vm.decreaseQuantity = function decreaseQuantity(item) {
                     item.quantity -= 1;
-                    vm.totalPrice = shoppingCartService.resetTotalPrice(vm.shoppingCartItems);
-                    shoppingCartService.updateQuantity(item.id, item.quantity);
+                    shoppingCartService.updateQuantity(item.id, item.quantity).then(cartDataCallback);
                 }
+
+                 getShoppingCartItems();
             }
         ]);
 })();

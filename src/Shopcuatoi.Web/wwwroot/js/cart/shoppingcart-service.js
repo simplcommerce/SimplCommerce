@@ -14,25 +14,15 @@
 
                 function updateQuantity(itemId, quantity) {
                     return $http.post('Cart/UpdateQuantity', {
-                        ItemId: itemId,
-                        Quantity: quantity
+                        cartItemId: itemId,
+                        quantity: quantity
                     });
-                }
-
-                function resetTotalPrice(shoppingCartItems) {
-                    var totalPrice = 0;
-                    $.each(shoppingCartItems, function () {
-                        this.totalPrice = this.quantity * this.price;
-                        totalPrice += this.totalPrice;
-                    });
-                    return totalPrice;
                 }
 
                 return {
                     getShoppingCartItems: getShoppingCartItems,
                     removeShoppingCartItem: removeShoppingCartItem,
-                    updateQuantity: updateQuantity,
-                    resetTotalPrice: resetTotalPrice
+                    updateQuantity: updateQuantity
                 };
             }
         ]);

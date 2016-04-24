@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Shopcuatoi.Core.Domain.Models;
 
@@ -14,9 +15,13 @@ namespace Shopcuatoi.Web.ViewModels.Cart
 
         public decimal ProductPrice { get; set; }
 
+        public string ProductPriceString => string.Concat(ProductPrice.ToString("N0", new CultureInfo("VN-vi")), " VND");
+
         public int Quantity { get; set; }
 
-        public decimal TotalPrice => Quantity * ProductPrice;
+        public decimal Total => Quantity * ProductPrice;
+
+        public string TotalString => string.Concat(Total.ToString("N0", new CultureInfo("VN-vi")), " VND");
 
         public IEnumerable<ProductVariationOption> VariationOptions { get; set; } = new List<ProductVariationOption>();
 
