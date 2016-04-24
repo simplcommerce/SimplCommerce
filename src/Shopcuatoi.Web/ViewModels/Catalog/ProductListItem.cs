@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Shopcuatoi.Core.Domain.Models;
+﻿using Shopcuatoi.Core.Domain.Models;
 
 namespace Shopcuatoi.Web.ViewModels.Catalog
 {
@@ -20,6 +16,8 @@ namespace Shopcuatoi.Web.ViewModels.Catalog
 
         public Media ThumbnailImage { get; set; }
 
-        public string ThumbnailUrl{ get; set; }
+        public string ThumbnailUrl { get; set; }
+
+        public int NumberVariation { get; set; }
     }
 }

@@ -7,13 +7,13 @@
             $quantityInput = $form.find('.quantity-field'),
             $attrOptions = $form.find('.product-attr-options');
 
-        quantity = $quantityInput ? $quantityInput.val() : 1;
-        if ($attrOptions) {
+        quantity = $quantityInput.length === 1 ? $quantityInput.val() : 1;
+        if ($attrOptions.length > 0) {
             $attrOptions.each(function () {
                 variationNames.push($(this).find('input[type=radio]:checked').val());
             });
         }
-
+        
         $.ajax({
             type: 'POST',
             url: '/cart/addtocart',

@@ -18,7 +18,18 @@
                     </div>
                 </a>
                 <div class="buttons">
-                    <a href="~/@product.SeoTitle" class="btn btn-primary" role="button">Add to cart</a>
+                    @if (product.NumberVariation > 0)
+                    {
+                        <a href="~/@product.SeoTitle" class="btn btn-primary" role="button">Add to cart</a>
+
+                    }
+                    else
+                    {
+                        <form class="inline">
+                            <input type="hidden" name="productId" value="@product.Id" />
+                            <button type="button" class="btn btn-primary btn-add-cart" role="button">Add to cart</button>
+                        </form>
+                    }
                     <button class="btn btn-default" role="button">Button</button>
                 </div>
             </div>

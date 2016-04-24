@@ -5,6 +5,10 @@ textarea {
     max-width: 280px;
 }
 
+.inline {
+    display: inline;
+}
+
 .main-nav .navbar-collapse {
     border-bottom: 1px solid #ddd;
     margin-bottom: 15px;

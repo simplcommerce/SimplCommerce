@@ -41,7 +41,8 @@ namespace Shopcuatoi.Web.Controllers
                     SeoTitle = x.SeoTitle,
                     Price = x.Price,
                     OldPrice = x.OldPrice,
-                    ThumbnailImage = x.ThumbnailImage
+                    ThumbnailImage = x.ThumbnailImage,
+                    NumberVariation = x.Variations.Count
                 }).ToList();
 
             foreach (var product in model.FeaturedProducts)
