@@ -167,7 +167,9 @@ namespace Shopcuatoi.Web.Controllers
                 var variationVm = new ProductDetailVariation
                 {
                     Id = variation.Id,
-                    PriceOffset = variation.PriceOffset
+                    Name = variation.Name,
+                    PriceOffset = variation.PriceOffset,
+                    Price = product.Price + variation.PriceOffset
                 };
 
                 foreach (var combination in variation.OptionCombinations)

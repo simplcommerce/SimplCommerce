@@ -50,11 +50,23 @@
                 </li>
             </ul>
             <div class="product-short-desc">@Html.Raw(Model.ShortDescription)</div>
-            <div class="product-price">
-                <h3>@Model.Price.ToString("N0", new CultureInfo("vi-VN")) VND</h3>
-            </div>
             <form>
-                <input type="hidden" name="productId" value="@Model.Id"/>
+                <div class="product-price">
+                    @if (Model.HasVariation)
+                    {
+                        <h3>@Model.FirstVariation.Price.ToString("N0", new CultureInfo("vi-VN")) VND</h3>
+                        foreach (var price in Model.Variations)
+                        {
+                            <input type="hidden" name="@price.Name" value="@price.Price.ToString("N0", new CultureInfo("vi-VN")) VND" />
+                        }
+                    }
+                    else
+                    {
+                        <h3>@Model.Price.ToString("N0", new CultureInfo("vi-VN")) VND</h3>
+                    }
+                </div>
+
+                <input type="hidden" name="productId" value="@Model.Id" />
                 @if (Model.HasVariation)
                 {
                     <div class="product-attrs">
@@ -67,7 +79,7 @@
                                     {
                                         var shouldChecked = value == option.Values.First();
                                         <li>
-                                            <input type="radio" value="@value" checked="@shouldChecked" name="@option.OptionName"/>
+                                            <input type="radio" value="@value" checked="@shouldChecked" name="@option.OptionName" />
                                             <label>@value</label>
                                         </li>
                                     }

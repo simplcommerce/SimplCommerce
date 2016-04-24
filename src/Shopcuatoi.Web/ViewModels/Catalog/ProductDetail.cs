@@ -45,6 +45,15 @@ namespace Shopcuatoi.Web.ViewModels.Catalog
 
         public IList<MediaViewModel> Images { get; set; } = new List<MediaViewModel>();
 
+        public ProductDetailVariation FirstVariation
+        {
+            get
+            {
+                var firstOptionValues = AvailableOptions.Select(x => x.Values.First());
+                return Variations.First(x => x.Name == string.Join("-", firstOptionValues));
+            }
+        }
+
         public IList<ProductDetailVariation> Variations { get; set; } = new List<ProductDetailVariation>();
 
         public IList<ProductDetailAttribute> Attributes { get; set; } = new List<ProductDetailAttribute>();
