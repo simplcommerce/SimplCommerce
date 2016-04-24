@@ -7,13 +7,13 @@ using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using Shopcuatoi.Core.Domain.Models;
+using Shopcuatoi.Web.Extensions;
 
 namespace Shopcuatoi.Web.Controllers
 {
     public class BaseController : Controller
     {
         private readonly UserManager<User> userManager;
-        private const string GuestIdCookieName = "GuestIdCookiesName";
 
         public BaseController(UserManager<User> userManager)
         {
@@ -28,20 +28,10 @@ namespace Shopcuatoi.Web.Controllers
             return await userManager.FindByIdAsync(HttpContext.User.GetUserId());
         }
 
-
         [NonAction]
         public Guid GetGuestId()
         {
-            if (!Request.Cookies.ContainsKey(GuestIdCookieName))
-            {
-                var guestId = Guid.NewGuid();
-                Response.Cookies.Append(GuestIdCookieName, guestId.ToString(), new CookieOptions()
-                {
-                    Expires = DateTime.MaxValue
-                });
-                return guestId;
-            }
-            return Guid.Parse(Request.Cookies[GuestIdCookieName].ToString());
+            return GuestIdentityManager.GetGuestId(HttpContext);
         }
     }
 }

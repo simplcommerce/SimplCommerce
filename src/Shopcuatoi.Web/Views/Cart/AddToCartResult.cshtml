@@ -20,7 +20,7 @@
     </div>
     <div class="row">
         <div class="col-md-7">
-            You have @Model.CartItemCount in your cart
+            You have <span class="cart-item-count">@Model.CartItemCount</span> in your cart
         </div>
         <div class="col-md-5">
             Cart subtotal: @Model.CartAmount.ToString("N0", new CultureInfo("VN-vi")) VND

@@ -3,13 +3,13 @@
         var quantity,
             variationNames = [],
             $form = $(this).closest("form"),
-            productId = $(this).closest("form").find('input[name=productId]').val();
+            productId = $(this).closest("form").find('input[name=productId]').val(),
             $quantityInput = $form.find('.quantity-field'),
             $attrOptions = $form.find('.product-attr-options');
 
         quantity = $quantityInput ? $quantityInput.val() : 1;
         if ($attrOptions) {
-            $attrOptions.each(function() {
+            $attrOptions.each(function () {
                 variationNames.push($(this).find('input[type=radio]:checked').val());
             });
         }
@@ -22,7 +22,8 @@
         }).done(function (data) {
             $('#shopModal').find('.modal-content').html(data);
             $('#shopModal').modal('show');
-        }).fail(function() {
+            $('.cart-badge .badge').text($('#shopModal').find('.cart-item-count').text());
+        }).fail(function () {
             $('#shopModal').find('.modal-content').html(`
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
