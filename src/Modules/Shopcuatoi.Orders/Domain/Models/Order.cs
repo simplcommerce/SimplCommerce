@@ -14,21 +14,9 @@ namespace Shopcuatoi.Orders.Domain.Models
 
         public virtual User CreatedBy { get; set; }
 
-        public string ShippingAddressFullName { get; set; }
+        public virtual UserAddress ShippingAddress { get; set; }
 
-        public string ShippingAddressPhone { get; set; }
-
-        public string ShippingAddressLine1 { get; set; }
-
-        public string ShippingAddressLine2 { get; set; }
-
-        public long? ShippingAddressDistrictId { get; set; }
-
-        public virtual District ShippingAddressDistrict { get; set; }
-
-        public long ShippingAddressStateOrProvinceId { get; set; }
-
-        public virtual StateOrProvince ShippingAddressStateOrProvince { get; set; }
+        public virtual UserAddress BillingAddress { get; set; }
 
     }
 }

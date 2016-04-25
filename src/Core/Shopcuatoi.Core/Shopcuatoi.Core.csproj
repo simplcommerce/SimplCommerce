@@ -180,6 +180,8 @@
     <Compile Include="ApplicationServices\MessageServices.cs" />
     <Compile Include="ApplicationServices\HvModule.cs" />
     <Compile Include="ApplicationServices\ProductService.cs" />
+    <Compile Include="Domain\Models\Address.cs" />
+    <Compile Include="Domain\Models\AddressType.cs" />
     <Compile Include="Domain\Models\Category.cs" />
     <Compile Include="Domain\Models\Content.cs" />
     <Compile Include="Domain\Models\Brand.cs" />
@@ -202,6 +204,7 @@
     <Compile Include="Domain\Models\StateOrProvince.cs" />
     <Compile Include="Domain\Models\UrlSlug.cs" />
     <Compile Include="Domain\Models\User.cs" />
+    <Compile Include="Domain\Models\UserAddress.cs" />
     <Compile Include="Domain\Models\UserClaim.cs" />
     <Compile Include="Domain\Models\UserLogin.cs" />
     <Compile Include="Domain\Models\UserRole.cs" />
@@ -210,6 +213,7 @@
     <Compile Include="Infrastructure\EntityFramework\AutomaticMigrationsConfiguration.cs" />
     <Compile Include="Infrastructure\EntityFramework\CustomConventions\ForeignKeyNamingConvention.cs" />
     <Compile Include="Infrastructure\EntityFramework\CustomConventions\TableNameConvention.cs" />
+    <Compile Include="Infrastructure\EntityFramework\CustomMappings\AddressMapping.cs" />
     <Compile Include="Infrastructure\EntityFramework\CustomMappings\ProductTemplateMapping.cs" />
     <Compile Include="Infrastructure\EntityFramework\DevelopmentDatabaseInitializer.cs" />
     <Compile Include="Infrastructure\EntityFramework\HvDbContext.cs" />
