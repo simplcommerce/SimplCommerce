@@ -164,7 +164,9 @@
     <Compile Include="ApplicationServices\IBrandService.cs" />
     <Compile Include="ApplicationServices\IPageService.cs" />
     <Compile Include="ApplicationServices\BrandService.cs" />
+    <Compile Include="ApplicationServices\IProductReviewService.cs" />
     <Compile Include="ApplicationServices\PageService.cs" />
+    <Compile Include="ApplicationServices\ProductReviewService.cs" />
     <Compile Include="ApplicationServices\UrlSlugService.cs" />
     <Compile Include="ApplicationServices\CategoryService.cs" />
     <Compile Include="ApplicationServices\GlobalConfiguration.cs" />
@@ -193,6 +195,7 @@
     <Compile Include="Domain\Models\ProductMedia.cs" />
     <Compile Include="Domain\Models\ProductOption.cs" />
     <Compile Include="Domain\Models\ProductOptionValue.cs" />
+    <Compile Include="Domain\Models\ProductReview.cs" />
     <Compile Include="Domain\Models\ProductTemplate.cs" />
     <Compile Include="Domain\Models\ProductVariation.cs" />
     <Compile Include="Domain\Models\Role.cs" />

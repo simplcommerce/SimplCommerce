@@ -1,6 +1,7 @@
 ﻿.flexslider .slides img {
     height: 500px;
 }
+
 #carousel img {
     width: 120px;
     height: 120px;
@@ -10,12 +11,13 @@
     margin-bottom: 12px;
     border-bottom: 1px solid #dedede;
 }
-.product-ratings li .rating  {
+
+.product-ratings li .rating {
     color: #8bdccd;
     font-size: 14px;
 }
 
-.product-ratings li .rating-selected{
+.product-ratings li .rating-selected {
     color: #18ba9b;
     font-size: 14px;
 }
@@ -32,12 +34,12 @@
     border: 2px dashed #E0E0E0;
 }
 
-.product-price h3 {
-    font-size: 30px;
-    font-weight: 400;
-    color: red;
-    margin: 0;
-}
+    .product-price h3 {
+        font-size: 30px;
+        font-weight: 400;
+        color: red;
+        margin: 0;
+    }
 
 .product-attrs input {
     left: -9999px;
@@ -58,15 +60,15 @@
 }
 
 .product-attrs label {
-	-ms-transition: color 0.3s;
-	-moz-transition: color 0.3s;
-	-webkit-transition: color 0.3s;
+    -ms-transition: color 0.3s;
+    -moz-transition: color 0.3s;
+    -webkit-transition: color 0.3s;
 }
 
-.product-attrs label:hover {
-	cursor: pointer;
-	border: 2px solid #18ba9b;
-}
+    .product-attrs label:hover {
+        cursor: pointer;
+        border: 2px solid #18ba9b;
+    }
 
 .product-attrs input:checked ~ label {
     color: #18ba9b;
@@ -77,10 +79,10 @@
     margin-top: 10px;
 }
 
-.product-detail .product-quantity form {
-     float: left;
-    margin-right: 30px;
-}
+    .product-detail .product-quantity form {
+        float: left;
+        margin-right: 30px;
+    }
 
 .product-detail .quantity-button {
     color: #555;
@@ -99,7 +101,7 @@
     background-image: none;
 }
 
- .product-detail .quantity-field {
+.product-detail .quantity-field {
     width: 55px;
     height: 45px;
     outline: none;
@@ -124,16 +126,16 @@
     margin-top: 40px;
 }
 
-.product-detail .add-to-wishlist li {
-    padding-left: 20px;
-    margin-right: 10px;
-    border-left: 1px solid #dedede;
-}
+    .product-detail .add-to-wishlist li {
+        padding-left: 20px;
+        margin-right: 10px;
+        border-left: 1px solid #dedede;
+    }
 
-.product-detail .add-to-wishlist li:first-child {
-    padding-left: 0;
-    border-left: none;
-}
+        .product-detail .add-to-wishlist li:first-child {
+            padding-left: 0;
+            border-left: none;
+        }
 
 .add-to-wishlist i {
     color: #8bdccd;
@@ -145,3 +147,19 @@
     background: none;
     border: none;
 }
+
+.product-review-box {
+    display: inline-block;
+    margin: 0 0 8px;
+}
+
+    .product-review-box .rating {
+        width: 95px;
+        height: 14px;
+        background: url('../images/rating1.png') repeat-x;
+    }
+
+        .product-review-box .rating div {
+            height: 14px;
+            background: url('../images/rating2.png') repeat-x;
+        }

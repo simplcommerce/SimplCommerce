@@ -39,16 +39,20 @@
             <div class="product-name">
                 <h1 class="">@Model.Name</h1>
             </div>
-            <ul class="list-inline product-ratings margin-bottom-30">
-                <li><i class="rating-selected fa fa-star"></i></li>
-                <li><i class="rating-selected fa fa-star"></i></li>
-                <li><i class="rating-selected fa fa-star"></i></li>
-                <li><i class="rating fa fa-star"></i></li>
-                <li><i class="rating fa fa-star"></i></li>
-                <li class="product-review-list">
-                    <span>(1) <a href="#">Review</a> | <a href="#"> Add Review</a></span>
-                </li>
-            </ul>
+            <div class="product-review-box">
+                @{double ratingPercent = Model.AverageRating * 20; }
+                <div class="rating">
+                    <div style="width: @(ratingPercent)%">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <ul class="list-inline product-ratings margin-bottom-30">
+                    <li class="product-review-list">
+                        <span>(@Model.ReviewCount) <a asp-controller="ProductReview" asp-action="Reviews" asp-route-id="@Model.Id">Reviews</a> | <a asp-controller="ProductReview" asp-action="Reviews" asp-route-id="@Model.Id">Add review</a></span>
+                    </li>
+                </ul>
+            </div>
             <div class="product-short-desc">@Html.Raw(Model.ShortDescription)</div>
             <div class="product-price">
                 <h3>@Model.Price.ToString("N0", new CultureInfo("vi-VN")) VND</h3>

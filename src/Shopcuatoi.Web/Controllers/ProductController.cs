@@ -96,6 +96,7 @@ namespace Shopcuatoi.Web.Controllers
                 .Include(x => x.Variations)
                 .Include(x => x.Categories.Select(c => c.Category))
                 .Include(x => x.AttributeValues.Select(a => a.Attribute))
+                .Include(x => x.ProductReviews)
                 .FirstOrDefault(x => x.SeoTitle == seoTitle && x.IsPublished);
             if (product == null)
             {
@@ -112,7 +113,9 @@ namespace Shopcuatoi.Web.Controllers
                 Description = product.Description,
                 Specification = product.Specification,
                 Attributes = product.AttributeValues.Select(x => new ProductDetailAttribute { Name = x.Attribute.Name, Value = x.Value }).ToList(),
-                Categories = product.Categories.Select(x => new ProductDetailCategory { Id = x.CategoryId, Name = x.Category.Name, SeoTitle = x.Category.SeoTitle }).ToList()
+                Categories = product.Categories.Select(x => new ProductDetailCategory { Id = x.CategoryId, Name = x.Category.Name, SeoTitle = x.Category.SeoTitle }).ToList(),
+                AverageRating = product.ProductReviews.Count > 0 ? product.ProductReviews.Select(x => x.Rating).Average() : 0,
+                ReviewCount = product.ProductReviews.Count
             };
 
             MapProductVariantToProductVm(product, model);

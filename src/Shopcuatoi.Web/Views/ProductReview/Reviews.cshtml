@@ -1,0 +1,109 @@
+﻿@model Shopcuatoi.Web.ViewModels.Catalog.ProductDetailReview
+
+@section head
+{
+    <link href="~/css/product-review.css" rel="stylesheet" />
+}
+
+@{
+    Model.ProductId = @ViewBag.ProductId;
+}
+
+<div class="page product-reviews-page">
+    @if (@ViewBag.SucessfullyAdded)
+    {
+        <div class="result">
+            <p>Product review is successfully added.</p>
+        </div>
+    }
+    else
+    {
+        <div class="write-review" id="review-form">
+            <h3 align="center">Product reviews for <strong>"@ViewBag.ProductName"</strong></h3>
+            <div class="title" align="center">
+                <strong>Write your own review</strong>
+            </div>
+            @using (Html.BeginForm("Create", "ProductReview", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
+                <div class="fieldset">
+                    <div class="form-fields">
+                        @Html.HiddenFor(m => m.ProductId)
+                        <div class="inputs">
+                            <label>Title:</label>
+                            @Html.TextBoxFor(m => m.ReviewTitle, null, new { @class = "review-title" })
+                            <span asp-validation-for="ReviewTitle" class="text-danger"></span>
+                        </div>
+                        <div class="inputs">
+                            <label>Text:</label>
+                            @Html.TextAreaFor(m => m.ReviewText, new { @class = "review-text" })
+                            <span asp-validation-for="ReviewText" class="text-danger"></span>
+                        </div>
+                        <div class="review-rating">
+                            <label>Rating for this product:</label>
+                            <ul>
+                                <li class="label first"><label>Bad</label></li>
+                                <li>
+                                    <div class="rating-star">
+                                        @Html.RadioButtonFor(m => m.Rating, 5, new { id = "star5" })<label for="star5" title="">5 star</label>
+                                        @Html.RadioButtonFor(m => m.Rating, 4, new { id = "star4" })<label for="star4" title="">4 stars</label>
+                                        @Html.RadioButtonFor(m => m.Rating, 3, new { id = "star3" })<label for="star3" title="">3 stars</label>
+                                        @Html.RadioButtonFor(m => m.Rating, 2, new { id = "star2" })<label for="star2" title="">2 stars</label>
+                                        @Html.RadioButtonFor(m => m.Rating, 1, new { id = "star1" })<label for="star1" title="">1 star</label>
+                                    </div>
+                                </li>
+                                <li class="label last"><label>Excellent</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="buttons" align="center">
+                    <input type="submit" name="add-review" class="button-1 write-product-review-button" value="Submit review" />
+                </div>
+            }
+        </div>
+    }
+
+    @if (Model.Items.Count() > 0)
+    {
+        <div class="product-review-list">
+            <div class="title" align="center">
+                <strong>Existing reviews</strong>
+            </div>
+            @foreach (var review in Model.Items)
+            {
+                int ratingPercent = review.Rating * 20;
+                <div class="product-review-item">
+                    <div class="review-item-head">
+                        <div class="review-title">
+                            <strong>@review.ReviewTitle</strong>
+                        </div>
+                        <div class="product-review-box">
+                            <div class="rating">
+                                <div style="width: @(ratingPercent)%">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-content">
+                        <div class="review-text">
+                            @Html.Raw(review.ReviewText)
+                        </div>
+                        <div class="review-info">
+                            <span class="user">
+                                <label>From:</label>
+                                <span>@review.UserName</span>
+                            </span>
+                            <span class="separator">|</span>
+                            <span class="date">
+                                <label>Date:</label>
+                                <span>@review.CreatedOn</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

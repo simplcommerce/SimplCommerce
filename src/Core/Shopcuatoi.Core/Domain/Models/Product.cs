@@ -32,6 +32,8 @@ namespace Shopcuatoi.Core.Domain.Models
 
         public virtual Brand Brand { get; set; }
 
+        public virtual IList<ProductReview> ProductReviews { get; set; } = new List<ProductReview>();
+
         public void AddCategory(ProductCategory category)
         {
             category.Product = this;

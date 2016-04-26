@@ -50,5 +50,9 @@ namespace Shopcuatoi.Web.ViewModels.Catalog
         public IList<ProductDetailAttribute> Attributes { get; set; } = new List<ProductDetailAttribute>();
 
         public IList<ProductDetailCategory> Categories { get; set; } = new List<ProductDetailCategory>();
+
+        public double AverageRating { get; set; }
+
+        public int ReviewCount { get; set; }
     }
 }
