@@ -18,7 +18,6 @@ namespace Shopcuatoi.Core.Infrastructure.EntityFramework
 
         protected override async void Seed(HvDbContext context)
         {
-            var userManager = ServiceLocator.Current.GetInstance<UserManager<User>>();
             var roleManager = ServiceLocator.Current.GetInstance<RoleManager<Role>>();
 
             var adminRole = await roleManager.FindByNameAsync("admin");
@@ -26,12 +25,9 @@ namespace Shopcuatoi.Core.Infrastructure.EntityFramework
             {
                 adminRole = new Role { Name = "admin" };
                 await roleManager.CreateAsync(adminRole);
-            }
 
-            var adminUser = await userManager.FindByNameAsync("admin@shopcuatoi.com");
-            if (adminUser == null)
-            {
-                adminUser = new User
+                var userManager = ServiceLocator.Current.GetInstance<UserManager<User>>();
+                var adminUser = new User
                 {
                     UserName = "admin@shopcuatoi.com",
                     Email = "admin@shopcuatoi.com",
@@ -39,20 +35,16 @@ namespace Shopcuatoi.Core.Infrastructure.EntityFramework
                 };
                 await userManager.CreateAsync(adminUser, "1qazZAQ!");
                 await userManager.AddToRoleAsync(adminUser, adminRole.Name);
-            }
 
-            var productAttrRepository = ServiceLocator.Current.GetInstance<IRepository<ProductOption>>();
-            if (productAttrRepository.Query().FirstOrDefault(x => x.Name == "Color") == null)
-            {
+                var productAttrRepository = ServiceLocator.Current.GetInstance<IRepository<ProductOption>>();
                 productAttrRepository.Add(new ProductOption { Name = "Color" });
-            }
-
-            if (productAttrRepository.Query().FirstOrDefault(x => x.Name == "Size") == null)
-            {
                 productAttrRepository.Add(new ProductOption { Name = "Size" });
-            }
 
-            productAttrRepository.SaveChange();
+                var sqlRepository = ServiceLocator.Current.GetInstance<ISqlRepository>();
+                sqlRepository.CreateInitData();
+
+                productAttrRepository.SaveChange();
+            }
 
             base.Seed(context);
         }

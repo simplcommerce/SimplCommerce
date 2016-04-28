@@ -217,8 +217,10 @@
     <Compile Include="Infrastructure\EntityFramework\CustomMappings\ProductTemplateMapping.cs" />
     <Compile Include="Infrastructure\EntityFramework\DevelopmentDatabaseInitializer.cs" />
     <Compile Include="Infrastructure\EntityFramework\HvDbContext.cs" />
+    <Compile Include="Infrastructure\EntityFramework\ISqlRepository.cs" />
     <Compile Include="Infrastructure\EntityFramework\Repository.cs" />
     <Compile Include="Infrastructure\EntityFramework\RepositoryWithTypedId.cs" />
+    <Compile Include="Infrastructure\EntityFramework\SqlRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -240,6 +242,9 @@
       <Project>{f0d8e2bb-2d50-46bf-acce-837848b079c0}</Project>
       <Name>Shopcuatoi.Infrastructure</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Infrastructure\EntityFramework\Seed.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
