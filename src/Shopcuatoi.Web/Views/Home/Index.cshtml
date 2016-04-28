@@ -1,8 +1,9 @@
 ﻿@using Shopcuatoi.Web.ViewModels.Catalog
+@using Shopcuatoi.Core.Infrastructure.Resource;
 
 @model Shopcuatoi.Web.ViewModels.HomeViewModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = LocalizeString.HomePage;
 }
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
@@ -72,7 +73,7 @@
 @await Html.PartialAsync("ProductList", new ProductList(Model.FeaturedProducts, 4))
 
 <div>
-    <h2 class="page-header">Administration</h2>
+    <h2 class="page-header">@LocalizeString.Administration</h2>
     <p>Manage your store. Admin email: admin@shopcuatoi.com. Admin password: 1qazZAQ!</p>
     <p>
         <a class="btn btn-primary" href="Admin" role="button">Go to Dashboard</a>

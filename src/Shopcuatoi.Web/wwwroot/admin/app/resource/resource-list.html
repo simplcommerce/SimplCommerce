@@ -1,0 +1,42 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Resource List</h2>
+        </div>
+    </div>
+</div>
+
+<table class="table" st-pipe="vm.getResources" st-table="vm.resources">
+    <thead>
+        <tr>
+            <th st-sort="Key" class="sortable">Key</th>
+            <th st-sort="Value" class="sortable">Value</th>
+            <th st-sort="Culture" class="sortable">Culture</th>
+            <th>Actions</th>
+        </tr>
+        <tr>
+            <th><input st-search="Key" /></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-show="!vm.isLoading">
+        <tr ng-repeat="resource in vm.resources">
+            <td>{{resource.key}}</td>
+            <td>{{resource.value}}</td>
+            <td>{{resource.culture}}</td>
+            <td><a ui-sref="resource-edit({id: resource.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a></td>
+        </tr>
+    </tbody>
+    <tbody ng-show="vm.isLoading">
+        <tr>
+            <td colspan="4" class="text-center">Loading ... </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="10" colspan="4"></td>
+        </tr>
+    </tfoot>
+</table>

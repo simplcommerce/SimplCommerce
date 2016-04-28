@@ -1,23 +1,26 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Globalization;
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNet.Authentication.Facebook;
+using Microsoft.AspNet.Authentication.Google;
+using Microsoft.AspNet.Builder;
+using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Localization;
+using Microsoft.AspNet.Mvc.Razor;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Practices.ServiceLocation;
+using Newtonsoft.Json.Serialization;
 using Shopcuatoi.Core.ApplicationServices;
 using Shopcuatoi.Core.Domain.Models;
 using Shopcuatoi.Core.Infrastructure.EntityFramework;
 using Shopcuatoi.Infrastructure;
 using Shopcuatoi.Infrastructure.Domain.IRepositories;
 using Shopcuatoi.Web.RouteConfigs;
-using Microsoft.AspNet.Authentication.Facebook;
-using Microsoft.AspNet.Authentication.Google;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Practices.ServiceLocation;
-using Newtonsoft.Json.Serialization;
 
 namespace Shopcuatoi.Web
 {
@@ -72,7 +75,9 @@ namespace Shopcuatoi.Web
                     options =>
                     {
                         options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                    });
+                    })
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization();
 
             services.AddScoped(f => Configuration);
 
@@ -89,11 +94,12 @@ namespace Shopcuatoi.Web
             {
                 builder.RegisterAssemblyTypes(Assembly.Load(module.AssemblyName)).AsImplementedInterfaces();
             }
-
+            
             builder.Populate(services);
 
             var container = builder.Build();
             ServiceLocator.SetLocatorProvider(() => new AutofacServiceLocatorAdapter(container));
+
             return container.Resolve<IServiceProvider>();
         }
 
@@ -112,6 +118,23 @@ namespace Shopcuatoi.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            var supportedCultures = new[]
+            {
+                new CultureInfo("en-US"),
+                new CultureInfo("vi-VN")
+            };
+
+            // Configure supported cultures and localization options
+            app.UseRequestLocalization(
+                defaultRequestCulture: new RequestCulture(culture: "vi-VN", uiCulture: "vi-VN"),
+                options: new RequestLocalizationOptions
+                {
+                    // Formatting numbers, dates, etc.
+                    SupportedCultures = supportedCultures,
+                    // UI strings that we have localized.
+                    SupportedUICultures = supportedCultures
+                });
 
             app.UseIISPlatformHandler(options => { options.AuthenticationDescriptions.Clear(); });
 

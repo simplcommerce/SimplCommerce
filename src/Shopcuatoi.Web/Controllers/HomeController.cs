@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Shopcuatoi.Core.ApplicationServices;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Localization;
+using Microsoft.AspNet.Mvc;
+using Microsoft.Extensions.Localization;
+using Shopcuatoi.Core.ApplicationServices;
 using Shopcuatoi.Core.Domain.Models;
 using Shopcuatoi.Infrastructure.Domain.IRepositories;
 using Shopcuatoi.Web.ViewModels;
@@ -19,12 +20,14 @@ namespace Shopcuatoi.Web.Controllers
         private UserManager<User> userManager;
         private IRepository<Product> productRepository;
         private IMediaService mediaService;
+        private readonly IStringLocalizer<HomeController> localizer;
 
-        public HomeController(UserManager<User> userManager, IRepository<Product> productRepository, IMediaService mediaService)
+        public HomeController(UserManager<User> userManager, IRepository<Product> productRepository, IMediaService mediaService, IStringLocalizer<HomeController> localizer)
         {
             this.userManager = userManager;
             this.productRepository = productRepository;
             this.mediaService = mediaService;
+            this.localizer = localizer;
         }
 
         public IActionResult Index()
@@ -56,6 +59,18 @@ namespace Shopcuatoi.Web.Controllers
         public string Error()
         {
             return "error";
+        }
+
+        [HttpPost]
+        public IActionResult SetLanguage(string culture, string returnUrl)
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTime.UtcNow.AddYears(1) }
+            );
+
+            return LocalRedirect(returnUrl);
         }
     }
 }

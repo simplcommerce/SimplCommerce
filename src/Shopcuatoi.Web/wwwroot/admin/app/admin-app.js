@@ -17,7 +17,8 @@
         'shopAdmin.productAttribute',
         'shopAdmin.productTemplate',
         'shopAdmin.brand',
-        'shopAdmin.page'
+        'shopAdmin.page',
+        'shopAdmin.resource'
     ]);
 
     adminApp.config([
