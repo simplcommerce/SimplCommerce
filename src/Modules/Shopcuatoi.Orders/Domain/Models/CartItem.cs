@@ -24,6 +24,17 @@ namespace Shopcuatoi.Orders.Domain.Models
 
         public int Quantity { get; set; }
 
-        public decimal ProductPrice { get; set; }
+        public decimal ProductPrice
+        {
+            get
+            {
+                if (ProductVariationId.HasValue)
+                {
+                    return Product.Price + ProductVariation.PriceOffset;
+                }
+
+                return Product.Price;
+            }
+        }
     }
 }

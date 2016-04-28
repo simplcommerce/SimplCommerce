@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Shopcuatoi.Core.Domain.Models;
 using Shopcuatoi.Infrastructure.Domain.IRepositories;
 using Shopcuatoi.Orders.Domain.Models;
@@ -13,14 +11,11 @@ namespace Shopcuatoi.Orders.ApplicationServices
     public class CartService : ICartService
     {
         private readonly IRepository<CartItem> cartItemRepository;
-        private readonly IRepository<Product> productRepository;
         private readonly IRepository<ProductVariation> productVariationRepository;
 
-        public CartService(IRepository<CartItem> cartItemRepository,
-            IRepository<Product> productRepository, IRepository<ProductVariation> productVariationRepository)
+        public CartService(IRepository<CartItem> cartItemRepository, IRepository<ProductVariation> productVariationRepository)
         {
             this.cartItemRepository = cartItemRepository;
-            this.productRepository = productRepository;
             this.productVariationRepository = productVariationRepository;
         }
 
@@ -40,7 +35,7 @@ namespace Shopcuatoi.Orders.ApplicationServices
                 cartItemQuery = cartItemQuery.Where(x => x.GuestId == guestId.Value);
             }
 
-            if (!string.IsNullOrWhiteSpace((variationName)))
+            if (!string.IsNullOrWhiteSpace(variationName))
             {
                 productVariation =
                     productVariationRepository.Query()
@@ -69,11 +64,8 @@ namespace Shopcuatoi.Orders.ApplicationServices
                 cartItem.Quantity = quantity;
             }
 
-            var product = productRepository.Get(productId);
-            cartItem.ProductPrice = product.Price;
             if (productVariation != null)
             {
-                cartItem.ProductPrice = cartItem.ProductPrice + productVariation.PriceOffset;
                 cartItem.ProductVariationId = productVariation.Id;
             }
 
