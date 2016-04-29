@@ -1,4 +1,5 @@
-﻿using Shopcuatoi.Infrastructure.Domain.Models;
+﻿using System.Collections.Generic;
+using Shopcuatoi.Infrastructure.Domain.Models;
 
 namespace Shopcuatoi.Core.Domain.Models
 {
@@ -23,5 +24,7 @@ namespace Shopcuatoi.Core.Domain.Models
         public long CountryId { get; set; }
 
         public virtual Country Country { get; set; }
+
+        public virtual IList<UserAddress> UserAddresses { get; set; } = new List<UserAddress>(); 
     }
 }
