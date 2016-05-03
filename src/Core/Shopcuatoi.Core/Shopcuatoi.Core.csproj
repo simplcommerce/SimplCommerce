@@ -202,6 +202,7 @@
     <Compile Include="Domain\Models\Role.cs" />
     <Compile Include="Domain\Models\RoleClaim.cs" />
     <Compile Include="Domain\Models\StateOrProvince.cs" />
+    <Compile Include="Domain\Models\TempWard.cs" />
     <Compile Include="Domain\Models\UrlSlug.cs" />
     <Compile Include="Domain\Models\User.cs" />
     <Compile Include="Domain\Models\UserAddress.cs" />

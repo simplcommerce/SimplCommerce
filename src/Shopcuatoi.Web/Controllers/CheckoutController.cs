@@ -13,11 +13,13 @@ namespace Shopcuatoi.Web.Controllers
     public class CheckoutController : BaseController
     {
         private IRepository<StateOrProvince> stateOrProvinceRepository;
+        private IRepository<District> districtRepository;
         private IRepository<UserAddress> userAddressRepository; 
 
-        public CheckoutController(UserManager<User> userManager, IRepository<StateOrProvince> stateOrProvinceRepository, IRepository<UserAddress> userAddressRepository) : base(userManager)
+        public CheckoutController(UserManager<User> userManager, IRepository<StateOrProvince> stateOrProvinceRepository, IRepository<District> districtRepository, IRepository<UserAddress> userAddressRepository) : base(userManager)
         {
             this.stateOrProvinceRepository = stateOrProvinceRepository;
+            this.districtRepository = districtRepository;
             this.userAddressRepository = userAddressRepository;
         }
 
@@ -47,11 +49,24 @@ namespace Shopcuatoi.Web.Controllers
 
             model.NewAddressForm.StateOrProvinces = stateOrProvinceRepository
                 .Query()
+                .OrderBy(x => x.Name)
                 .Select(x => new SelectListItem
                 {
                     Text = x.Name,
                     Value = x.Id.ToString()
                 }).ToList();
+
+            var selectedStateOrProvince = long.Parse(model.NewAddressForm.StateOrProvinces.First().Value);
+
+            model.NewAddressForm.Districts = districtRepository
+                .Query()
+                .Where(x => x.StateOrProvinceId == selectedStateOrProvince)
+                .OrderBy(x => x.Name)
+                .Select(x => new SelectListItem
+                 {
+                     Text = x.Name,
+                     Value = x.Id.ToString()
+                 }).ToList();
 
             return View(model);
         }
