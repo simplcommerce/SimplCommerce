@@ -28,6 +28,7 @@ namespace Shopcuatoi.Web.Controllers
             return RedirectToAction("DeliveryInformation");
         }
 
+        [HttpGet]
         public IActionResult DeliveryInformation()
         {
             var model = new DeliveryInformationViewModel();
@@ -69,6 +70,46 @@ namespace Shopcuatoi.Web.Controllers
                  }).ToList();
 
             return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult DeliveryInformation(DeliveryInformationViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (model.ShippingAddressId == 0)
+            {
+                var address = new Address
+                {
+                    AddressLine1 = model.NewAddressForm.AddressLine1,
+                    ContactName = model.NewAddressForm.ContactName,
+                    CountryId = 1,
+                    StateOrProvinceId = model.NewAddressForm.StateOrProvinceId,
+                    DistrictId = model.NewAddressForm.DistrictId,
+                    Phone = model.NewAddressForm.Phone
+                };
+
+                var userAddress = new UserAddress
+                {
+                    Address = address,
+                    AddressType = AddressType.Shipping,
+                    UserId = CurrentUserId
+                };
+
+                userAddressRepository.Add(userAddress);
+                userAddressRepository.SaveChange();
+            }
+
+            return RedirectToAction("OrderConfirmation");
+        }
+
+        [HttpGet]
+        public IActionResult OrderConfirmation()
+        {
+            return View();
         }
     }
 }

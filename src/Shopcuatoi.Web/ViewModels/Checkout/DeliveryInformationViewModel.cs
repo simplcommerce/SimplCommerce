@@ -12,6 +12,8 @@ namespace Shopcuatoi.Web.ViewModels.Checkout
         public IList<ShippingAddressViewModel> ExistingShippingAddresses { get; set; } =
             new List<ShippingAddressViewModel>();
 
+        public long ShippingAddressId { get; set; }
+
         public AddressFormViewModel NewAddressForm { get; set; }
     }
 }
