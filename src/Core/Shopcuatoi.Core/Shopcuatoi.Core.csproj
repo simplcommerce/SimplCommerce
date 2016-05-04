@@ -216,6 +216,7 @@
     <Compile Include="Infrastructure\EntityFramework\CustomConventions\TableNameConvention.cs" />
     <Compile Include="Infrastructure\EntityFramework\CustomMappings\AddressMapping.cs" />
     <Compile Include="Infrastructure\EntityFramework\CustomMappings\ProductTemplateMapping.cs" />
+    <Compile Include="Infrastructure\EntityFramework\CustomMappings\UserMapping.cs" />
     <Compile Include="Infrastructure\EntityFramework\DevelopmentDatabaseInitializer.cs" />
     <Compile Include="Infrastructure\EntityFramework\HvDbContext.cs" />
     <Compile Include="Infrastructure\EntityFramework\ISqlRepository.cs" />

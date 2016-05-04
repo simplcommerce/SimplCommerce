@@ -14,13 +14,20 @@ namespace Shopcuatoi.Web.Controllers
     {
         private IRepository<StateOrProvince> stateOrProvinceRepository;
         private IRepository<District> districtRepository;
-        private IRepository<UserAddress> userAddressRepository; 
+        private IRepository<UserAddress> userAddressRepository;
+        private IRepository<User> userRepository; 
 
-        public CheckoutController(UserManager<User> userManager, IRepository<StateOrProvince> stateOrProvinceRepository, IRepository<District> districtRepository, IRepository<UserAddress> userAddressRepository) : base(userManager)
+        public CheckoutController(
+            UserManager<User> userManager,
+            IRepository<StateOrProvince> stateOrProvinceRepository,
+            IRepository<District> districtRepository,
+            IRepository<UserAddress> userAddressRepository,
+            IRepository<User> userRepository) : base(userManager)
         {
             this.stateOrProvinceRepository = stateOrProvinceRepository;
             this.districtRepository = districtRepository;
             this.userAddressRepository = userAddressRepository;
+            this.userRepository = userRepository;
         }
 
         public IActionResult Index()
@@ -80,6 +87,8 @@ namespace Shopcuatoi.Web.Controllers
                 return View(model);
             }
 
+            var user = userRepository.Get(CurrentUserId);
+
             if (model.ShippingAddressId == 0)
             {
                 var address = new Address
@@ -100,9 +109,14 @@ namespace Shopcuatoi.Web.Controllers
                 };
 
                 userAddressRepository.Add(userAddress);
-                userAddressRepository.SaveChange();
+                user.CurrentShippingAddress = userAddress;
+            }
+            else
+            {
+                user.CurrentShippingAddressId = model.ShippingAddressId;
             }
 
+            userAddressRepository.SaveChange();
             return RedirectToAction("OrderConfirmation");
         }
 

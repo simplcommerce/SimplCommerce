@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AspNet.Identity.EntityFramework6;
 using Shopcuatoi.Infrastructure.Domain.Models;
 
@@ -19,5 +20,11 @@ namespace Shopcuatoi.Core.Domain.Models
         public DateTime CreatedOn { get; set; }
 
         public DateTime UpdatedOn { get; set; }
+
+        public virtual IList<UserAddress> UserAddresses { get; set; } = new List<UserAddress>();
+
+        public virtual UserAddress CurrentShippingAddress { get; set; }
+
+        public long? CurrentShippingAddressId { get; set; }
     }
 }
