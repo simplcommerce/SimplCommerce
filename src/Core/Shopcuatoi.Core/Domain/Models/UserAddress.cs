@@ -1,4 +1,5 @@
-﻿using Shopcuatoi.Infrastructure.Domain.Models;
+﻿using System;
+using Shopcuatoi.Infrastructure.Domain.Models;
 
 namespace Shopcuatoi.Core.Domain.Models
 {
@@ -13,5 +14,7 @@ namespace Shopcuatoi.Core.Domain.Models
         public virtual Address Address { get; set; }
 
         public AddressType AddressType { get; set; }
+
+        public DateTime? LastUsedOn { get; set; }
     }
 }
