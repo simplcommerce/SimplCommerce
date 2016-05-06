@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 using System.Data.Entity;
-=======
-﻿using System.Data.Entity;
->>>>>>> d5de854... Update Localization functionality
 using Shopcuatoi.Core.ApplicationServices;
 using Shopcuatoi.Core.Domain.Models;
 

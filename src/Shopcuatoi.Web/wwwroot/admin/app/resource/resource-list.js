@@ -18,7 +18,5 @@
                 vm.isLoading = false;
             });
         };
-
-        vm.getResources();
     }
 })();
