@@ -5,6 +5,8 @@ namespace Shopcuatoi.Orders.Domain.Models
 {
     public class OrderItem : Entity
     {
+        public virtual Order Order { get; set; }
+
         public long ProductId { get; set; }
 
         public virtual Product Product { get; set; }

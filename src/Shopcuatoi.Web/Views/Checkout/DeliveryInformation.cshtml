@@ -59,17 +59,18 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-offset-4 col-md-8">
-                    <button type="submit" class="btn btn-default">Continue</button>
+                <div class="col-md-12 text-right">
+                    <button type="submit" class="btn btn-primary">ORDER</button>
                 </div>
             </div>
         </form>
     </div>
     <div class="col-md-5">
-        <h3>Order Summary</h3>
+        @await Component.InvokeAsync("OrderSummary")
     </div>
 </div>
 
 @section scripts {
+@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
     <script src="~/js/checkout/shipping.js"></script>
 }

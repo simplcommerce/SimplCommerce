@@ -5,6 +5,7 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Rendering;
 using Shopcuatoi.Core.Domain.Models;
 using Shopcuatoi.Infrastructure.Domain.IRepositories;
+using Shopcuatoi.Orders.ApplicationServices;
 using Shopcuatoi.Web.ViewModels.Checkout;
 
 namespace Shopcuatoi.Web.Controllers
@@ -15,19 +16,22 @@ namespace Shopcuatoi.Web.Controllers
         private IRepository<StateOrProvince> stateOrProvinceRepository;
         private IRepository<District> districtRepository;
         private IRepository<UserAddress> userAddressRepository;
-        private IRepository<User> userRepository; 
+        private IRepository<User> userRepository;
+        private IOrderService orderService;
 
         public CheckoutController(
             UserManager<User> userManager,
             IRepository<StateOrProvince> stateOrProvinceRepository,
             IRepository<District> districtRepository,
             IRepository<UserAddress> userAddressRepository,
-            IRepository<User> userRepository) : base(userManager)
+            IRepository<User> userRepository,
+            IOrderService orderService) : base(userManager)
         {
             this.stateOrProvinceRepository = stateOrProvinceRepository;
             this.districtRepository = districtRepository;
             this.userAddressRepository = userAddressRepository;
             this.userRepository = userRepository;
+            this.orderService = orderService;
         }
 
         public IActionResult Index()
@@ -82,7 +86,7 @@ namespace Shopcuatoi.Web.Controllers
         [HttpPost]
         public IActionResult DeliveryInformation(DeliveryInformationViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid && model.ShippingAddressId == 0)
             {
                 return View(model);
             }
@@ -115,8 +119,9 @@ namespace Shopcuatoi.Web.Controllers
             {
                 user.CurrentShippingAddressId = model.ShippingAddressId;
             }
-
+            orderService.CreateOrder(user);
             userAddressRepository.SaveChange();
+
             return RedirectToAction("OrderConfirmation");
         }
 

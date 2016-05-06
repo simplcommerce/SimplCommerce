@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Shopcuatoi.Core.Domain.Models;
 using Shopcuatoi.Infrastructure.Domain.Models;
 
@@ -10,7 +11,7 @@ namespace Shopcuatoi.Orders.Domain.Models
 
         public DateTime? UpdatedOn { get; set; }
 
-        public long? CreatedById { get; set; }
+        public long CreatedById { get; set; }
 
         public virtual User CreatedBy { get; set; }
 
@@ -18,5 +19,12 @@ namespace Shopcuatoi.Orders.Domain.Models
 
         public virtual UserAddress BillingAddress { get; set; }
 
+        public virtual IList<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+
+        public void AddOrderItem(OrderItem item)
+        {
+            item.Order = this;
+            OrderItems.Add(item);
+        }
     }
 }

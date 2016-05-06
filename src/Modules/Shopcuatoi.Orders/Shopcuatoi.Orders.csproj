@@ -52,6 +52,8 @@
   <ItemGroup>
     <Compile Include="ApplicationServices\CartService.cs" />
     <Compile Include="ApplicationServices\ICartService.cs" />
+    <Compile Include="ApplicationServices\IOrderService.cs" />
+    <Compile Include="ApplicationServices\OrderService.cs" />
     <Compile Include="Domain\Models\Order.cs" />
     <Compile Include="Domain\Models\OrderItem.cs" />
     <Compile Include="Domain\Models\CartItem.cs" />

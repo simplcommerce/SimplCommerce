@@ -5,6 +5,10 @@ textarea {
     max-width: 280px;
 }
 
+.input-validation-error {
+    border-color: red;
+}
+
 .inline {
     display: inline;
 }
