@@ -25,11 +25,13 @@
             <div class="container">
                 <div class="navbar-header">
                     <a asp-controller="Home" asp-action="Index" class="navbar-brand">
-                        <img alt="Shopcuatoi" src="~/images/logo_shopcuatoi.png" />
+                        <img alt="Shopcuatoi" src="~/images/logo_shopcuatoi.png"/>
                     </a>
                 </div>
                 <div class="navbar-collapse collapse">
                     @await Html.PartialAsync("_LoginPartial")
+
+                    @await Html.PartialAsync("_SelectLanguagePartial")
                 </div>
             </div>
         </div>
@@ -84,9 +86,6 @@
                 <hr />
                 <p class="pull-left">&copy; 2016 - Shopcuatoi</p>
                 <p class="pull-right">Powered by <a href="http://www.shopcuatoi.com"><strong>Shopcuatoi</strong></a></p>
-                <p class="pull-right">
-                    @await Html.PartialAsync("_SelectLanguagePartial")
-                </p>
             </div>
         </div>
         <div id="shopModal" class="modal fade" tabindex="-1" role="dialog">

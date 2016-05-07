@@ -1,9 +1,11 @@
-﻿using System.Data.Entity.Migrations;
-using System.Linq;
-using Shopcuatoi.Core.Domain.Models;
-using Shopcuatoi.Infrastructure.Domain.IRepositories;
+﻿using System.Collections.Generic;
+using System.Data.Entity.Migrations;
+using System.IO;
+using System.Reflection;
 using Microsoft.AspNet.Identity;
 using Microsoft.Practices.ServiceLocation;
+using Shopcuatoi.Core.Domain.Models;
+using Shopcuatoi.Infrastructure.Domain.IRepositories;
 
 namespace Shopcuatoi.Core.Infrastructure.EntityFramework
 {
@@ -46,7 +48,33 @@ namespace Shopcuatoi.Core.Infrastructure.EntityFramework
                 productAttrRepository.SaveChange();
             }
 
+            // TODO Temporary update String Resource every time application start for easy development
+            UpdateStringResource();
+
             base.Seed(context);
+        }
+
+        private void UpdateStringResource()
+        {
+            var sqlRepository = ServiceLocator.Current.GetInstance<ISqlRepository>();
+
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = "Shopcuatoi.Core.Infrastructure.Localization.StringResource.sql";
+
+            using (var stream = assembly.GetManifestResourceStream(resourceName))
+            using (var reader = new StreamReader(stream))
+            {
+                IList<string> lines = new List<string>();
+
+                do
+                {
+                    var line = reader.ReadLine();
+                    lines.Add(line);
+                } while (!reader.EndOfStream);
+
+                var commands = sqlRepository.ParseCommand(lines);
+                sqlRepository.RunCommands(commands);
+            }
         }
     }
 }
