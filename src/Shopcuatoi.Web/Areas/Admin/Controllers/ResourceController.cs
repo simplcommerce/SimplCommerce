@@ -13,9 +13,9 @@ namespace Shopcuatoi.Web.Areas.Admin.Controllers
     [Authorize(Roles = "admin")]
     public class ResourceController : Controller
     {
-        private readonly IRepository<Resource> resourceRepository;
+        private readonly IRepository<StringResource> resourceRepository;
 
-        public ResourceController(IRepository<Resource> resourceRepository)
+        public ResourceController(IRepository<StringResource> resourceRepository)
         {
             this.resourceRepository = resourceRepository;
         }

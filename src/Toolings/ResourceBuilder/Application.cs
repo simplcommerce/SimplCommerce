@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Configuration;
+using System.IO;
+using Shopcuatoi.Core.Domain.Models;
 using Shopcuatoi.Core.Infrastructure.EntityFramework;
-using Shopcuatoi.Core.Infrastructure.Resource;
+using Shopcuatoi.Core.Infrastructure.Localization;
 using Shopcuatoi.Infrastructure.Domain.IRepositories;
 
 namespace ResourceBuilder
@@ -9,13 +11,12 @@ namespace ResourceBuilder
     public class Application : IApplication
     {
         private readonly string directoryPath = ConfigurationManager.AppSettings["DirectoryPath"];
-        private readonly string resourceDataPath = ConfigurationManager.AppSettings["ResourceDataPath"];
 
-        private readonly IRepository<Shopcuatoi.Core.Domain.Models.Resource> resourceRepository;
+        private readonly IRepository<StringResource> resourceRepository;
         private readonly ISqlRepository sqlRepository;
 
         public Application(
-            IRepository<Shopcuatoi.Core.Domain.Models.Resource> resourceRepository, 
+            IRepository<StringResource> resourceRepository,
             ISqlRepository sqlRepository)
         {
             this.resourceRepository = resourceRepository;
@@ -25,21 +26,31 @@ namespace ResourceBuilder
         public void Run()
         {
             var builder = new ResourceBuilder();
+            var provider = new DbResourceProvider(resourceRepository);
 
-            var provider = new DbResourceProvider(resourceRepository, sqlRepository);
+            UpdateStringResourceTable();
 
-            provider.CreateResources(resourceDataPath);
+            var filePath = Path.Combine(directoryPath, "LocalizedString.cs");
 
-            var filePath = builder.Create(
+            builder.GenerateStrongTypeResource(
                 provider,
                 summaryCulture: "en-US",
-                filePath: directoryPath,
+                filePath: filePath,
                 namespaceName: provider.GetType().Namespace,
-                className: "LocalizeString");
+                className: "LocalizedString");
 
             Console.WriteLine("Created file {0}", filePath);
+        }
 
+        private void UpdateStringResourceTable()
+        {
+            var sqlResourceDataFile = Path.Combine(directoryPath, "StringResource.sql");
 
+            var lines = File.ReadAllLines(sqlResourceDataFile);
+
+            var commands = sqlRepository.ParseCommand(lines);
+
+            sqlRepository.RunCommands(commands);
         }
     }
 }

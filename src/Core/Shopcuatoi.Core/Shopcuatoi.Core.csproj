@@ -208,7 +208,7 @@
     <Compile Include="Domain\Models\ProductOptionValue.cs" />
     <Compile Include="Domain\Models\ProductTemplate.cs" />
     <Compile Include="Domain\Models\ProductVariation.cs" />
-    <Compile Include="Domain\Models\Resource.cs" />
+    <Compile Include="Domain\Models\StringResource.cs" />
     <Compile Include="Domain\Models\Role.cs" />
     <Compile Include="Domain\Models\RoleClaim.cs" />
     <Compile Include="Domain\Models\StateOrProvince.cs" />
@@ -233,10 +233,9 @@
     <Compile Include="Infrastructure\EntityFramework\Repository.cs" />
     <Compile Include="Infrastructure\EntityFramework\RepositoryWithTypedId.cs" />
     <Compile Include="Infrastructure\EntityFramework\SqlRepository.cs" />
-    <Compile Include="Infrastructure\Resource\DbResourceProvider.cs" />
-    <Compile Include="Infrastructure\Resource\IResourceProvider.cs" />
-    <Compile Include="Infrastructure\Resource\ResourceProvider.cs" />
-    <Compile Include="Infrastructure\Resource\LocalizeString.cs" />
+    <Compile Include="Infrastructure\Localization\DbResourceProvider.cs" />
+    <Compile Include="Infrastructure\Localization\LocalizedString.cs" />
+    <Compile Include="Infrastructure\Localization\ResourceProviderBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -261,6 +260,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Infrastructure\EntityFramework\Seed.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Infrastructure\Localization\StringResource.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

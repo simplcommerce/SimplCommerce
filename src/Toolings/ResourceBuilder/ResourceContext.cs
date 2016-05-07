@@ -12,10 +12,10 @@ namespace ResourceBuilder
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Resource>().Map(m =>
+            modelBuilder.Entity<StringResource>().Map(m =>
             {
                 m.MapInheritedProperties();
-                m.ToTable("Core_Resource");
+                m.ToTable("Core_StringResource");
             });
 
             base.OnModelCreating(modelBuilder);
