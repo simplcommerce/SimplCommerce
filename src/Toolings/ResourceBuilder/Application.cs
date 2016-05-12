@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
-using Shopcuatoi.Core.Domain.Models;
-using Shopcuatoi.Core.Infrastructure.EntityFramework;
-using Shopcuatoi.Core.Infrastructure.Localization;
-using Shopcuatoi.Infrastructure.Domain.IRepositories;
+using SimplCommerce.Core.Domain.Models;
+using SimplCommerce.Core.Infrastructure.EntityFramework;
+using SimplCommerce.Core.Infrastructure.Localization;
+using SimplCommerce.Infrastructure.Domain.IRepositories;
 
 namespace ResourceBuilder
 {

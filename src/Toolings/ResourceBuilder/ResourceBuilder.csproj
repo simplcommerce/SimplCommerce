@@ -71,21 +71,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\Shopcuatoi.Core\Shopcuatoi.Core.csproj">
+    <ProjectReference Include="..\..\Core\SimplCommerce.Core\SimplCommerce.Core.csproj">
       <Project>{61242784-cc64-4d2b-81a1-8bc643629950}</Project>
-      <Name>Shopcuatoi.Core</Name>
+      <Name>SimplCommerce.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\AspNet.Identity.EntityFramework6\AspNet.Identity.EntityFramework6.csproj">
       <Project>{89ACA64C-8E84-4067-93FF-1AFB73B49670}</Project>
       <Name>AspNet.Identity.EntityFramework6</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Infrastructure\Shopcuatoi.Infrastructure\Shopcuatoi.Infrastructure.csproj">
+    <ProjectReference Include="..\..\Infrastructure\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj">
       <Project>{F0D8E2BB-2D50-46BF-ACCE-837848B079C0}</Project>
-      <Name>Shopcuatoi.Infrastructure</Name>
+      <Name>SimplCommerce.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Modules\Shopcuatoi.Orders\Shopcuatoi.Orders.csproj">
+    <ProjectReference Include="..\..\Modules\SimplCommerce.Orders\SimplCommerce.Orders.csproj">
       <Project>{985f06a5-095c-4638-adf7-d12d721a74b6}</Project>
-      <Name>Shopcuatoi.Orders</Name>
+      <Name>SimplCommerce.Orders</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

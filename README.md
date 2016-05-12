@@ -13,9 +13,9 @@ Technologies and frameworks used:
 
 How to run on local:
 - Create a database in SQL Server
-- Update the connection string in appsettings.json in Shopcuatoi.Web
+- Update the connection string in appsettings.json in SimplCommerce.Web
 - Press Controll + F5
-- The back-office can access via /Admin using the pre-created account: admin@Shopcuatoi.com, 1qazZAQ!
+- The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
 How to contribute:
 - Suggest features by create new issues or add comments to issues
@@ -23,4 +23,4 @@ How to contribute:
 - Remember to fix all the StyleCop violations before submit a Merge Request
 
 License
-Shopcuatoi is licensed under the Apache 2.0 license.
+SimplCommerce is licensed under the Apache 2.0 license.

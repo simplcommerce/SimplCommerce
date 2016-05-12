@@ -1,0 +1,180 @@
+﻿/* Needed for the lightbox */
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+/* CSS for the loading div */
+
+.sp-loading {
+	text-align: center;
+	max-width: 280px;
+	padding: 15px;
+	border: 5px solid #eee;
+	border-radius: 3px;
+	font-size: 12px;
+	color: #888;
+}
+
+/* Element wrapper */
+
+.sp-wrap {
+	display: none;
+	line-height: 0;
+	font-size: 0;
+	background: #eee;
+	border: 5px solid #eee;
+	border-radius: 3px;
+	position: relative;
+	margin: 0 25px 15px 0;
+	float: left;
+	/**************
+	  Set max-width to your thumbnail width
+	***************/
+	
+	max-width: 500px;
+}
+
+/* Thumbnails */
+
+.sp-thumbs {
+	text-align: left;
+	display: inline-block;
+}
+.sp-thumbs img {
+	min-height: 80px;
+	min-width: 80px;
+	max-width: 80px;
+}
+.sp-thumbs a:link, .sp-thumbs a:visited {
+	width: 80px;
+	height: 80px;
+	overflow: hidden;
+	opacity: .3;
+	display: inline-block;
+	background-size: cover;
+	background-position: center;
+	-webkit-transition: all .2s ease-out;
+	-moz-transition: all .2s ease-out;
+	-ms-transition: all .2s ease-out;
+	-o-transition: all .2s ease-out;
+	transition: all .2s ease-out;
+}
+.sp-thumbs a:hover {
+	opacity: 1;
+}
+
+/* Styles for the currently selected thumbnail */
+
+.sp-thumbs a:active, .sp-current {
+	opacity: 1!important;
+	position: relative;
+}
+
+/* Image currently being viewed */
+
+.sp-large {
+	position: relative;
+	overflow: hidden;
+	top: 0;
+	left: 0;
+}
+.sp-large a img {
+	max-width: 100%;
+	height: auto;
+}
+.sp-large a {
+	display: block;
+}
+
+/* Panning Zoomed Image */
+
+.sp-zoom {
+	position: absolute;
+	left: -50%;
+	top: -50%;
+	cursor: -webkit-zoom-in;
+	cursor: -moz-zoom-in;
+	cursor: zoom-in;
+	display: none;
+}
+/* Lightbox */
+
+.sp-lightbox {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: rgb(0, 0, 0);
+	background: rgba(0, 0, 0, .9);
+	z-index: 500;
+	display: none;
+	cursor: pointer;
+}
+.sp-lightbox img {
+	position: absolute;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	max-width: 90%;
+	max-height: 90%;
+	border: 2px solid #fff;
+}
+#sp-prev, #sp-next {
+	position: absolute;
+	top: 50%;
+	margin-top: -25px;
+	z-index: 501;
+	color: #fff;
+	padding: 14px;
+	text-decoration: none;
+	background: #000;
+	border-radius: 25px;
+	border: 2px solid #fff;
+	width: 50px;
+	height: 50px;
+	box-sizing: border-box;
+	transition: .2s;
+}
+#sp-prev {
+	left: 10px;
+}
+#sp-prev:before {
+	content: '';
+	border: 7px solid transparent;
+	border-right: 15px solid #fff;
+	position: absolute;
+	top: 16px;
+	left: 7px;
+}
+#sp-next {
+	right: 10px;
+}
+#sp-next:before {
+	content: '';
+	border: 7px solid transparent;
+	border-left: 15px solid white;
+	position: absolute;
+	top: 16px;
+	left: 18px;
+}
+#sp-prev:hover, #sp-next:hover {
+	background: #444;
+}
+
+/* Tweak styles for small viewports */
+
+@media screen and (max-width: 400px) {
+	.sp-wrap {
+		margin: 0 0 15px 0;
+	}
+	#sp-prev, #sp-next {
+		top: auto;
+		margin-top: 0;
+		bottom: 25px;
+	}
+}

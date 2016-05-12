@@ -1,9 +1,9 @@
 ﻿using System.Configuration;
 using System.Data.Entity;
 using Autofac;
-using Shopcuatoi.Core.ApplicationServices;
-using Shopcuatoi.Core.Infrastructure.EntityFramework;
-using Shopcuatoi.Infrastructure.Domain.IRepositories;
+using SimplCommerce.Core.ApplicationServices;
+using SimplCommerce.Core.Infrastructure.EntityFramework;
+using SimplCommerce.Infrastructure.Domain.IRepositories;
 
 namespace ResourceBuilder
 {

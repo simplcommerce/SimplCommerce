@@ -1,6 +1,6 @@
-using System.Data.Entity;
-using Shopcuatoi.Core.ApplicationServices;
-using Shopcuatoi.Core.Domain.Models;
+﻿using System.Data.Entity;
+using SimplCommerce.Core.ApplicationServices;
+using SimplCommerce.Core.Domain.Models;
 
 namespace ResourceBuilder
 {

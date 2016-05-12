@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
-using Shopcuatoi.Core.Infrastructure.Localization;
+using SimplCommerce.Core.Infrastructure.Localization;
 
 namespace ResourceBuilder
 {
