@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net451": {
+      "wrappedProject": "../../src/Modules/SimplCommerce.Orders/SimplCommerce.Orders.csproj",
+      "bin": {
+        "assembly": "../../src/Modules/SimplCommerce.Orders/obj/{configuration}/SimplCommerce.Orders.dll",
+        "pdb": "../../src/Modules/SimplCommerce.Orders/obj/{configuration}/SimplCommerce.Orders.pdb"
+      },
+      "dependencies": {
+        "EntityFramework": "6.1.3",
+        "SimplCommerce.Core": "1.0.0-*",
+        "AspNet.Identity.EntityFramework6": "1.0.0-*",
+        "SimplCommerce.Infrastructure": "1.0.0-*"
+      }
+    }
+  }
+}
