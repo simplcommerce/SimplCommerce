@@ -12,6 +12,8 @@
     <thead>
         <tr>
             <th st-sort="Id" class="sortable">OrderId</th>
+            <th>Order Status</th>
+            <th>Shipping Status</th>
             <th>CustomerName</th>
             <th st-sort="CreatedOn" class="sortable">CreatedOn</th>
             <th st-sort="SubTotal" class="sortable">SubTotal</th>
@@ -21,20 +23,22 @@
     <tbody ng-show="!vm.isLoading">
         <tr ng-repeat="order in vm.orders">
             <td>{{order.id}}</td>
+            <td></td>
+            <td></td>
             <td>{{order.customerName}}</td>
             <td>{{order.createdOn}}</td>
             <td>{{order.subTotal}}</td>
-            <td></td>
+            <td><a ui-sref="order-detail({id: order.id})" title="View" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-eye-open"></span></a></td>
         </tr>
     </tbody>
     <tbody ng-show="vm.isLoading">
         <tr>
-            <td colspan="4" class="text-center">Loading ... </td>
+            <td colspan="5" class="text-center">Loading ... </td>
         </tr>
     </tbody>
     <tfoot>
         <tr>
-            <td class="text-center" st-pagination="" st-items-by-page="10" colspan="4"></td>
+            <td class="text-center" st-pagination="" st-items-by-page="10" colspan="5"></td>
         </tr>
     </tfoot>
 </table>	

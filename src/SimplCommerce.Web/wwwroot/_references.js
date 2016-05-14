@@ -33,6 +33,7 @@
 /// <reference path="admin/app/common/logger.js" />
 /// <reference path="admin/app/common/summernoteservice.js" />
 /// <reference path="admin/app/dashboard/dashboard.module.js" />
+/// <reference path="admin/app/order/order.module.js" />
 /// <reference path="admin/app/order/order-list.js" />
 /// <reference path="admin/app/order/order-service.js" />
 /// <reference path="admin/app/page/page.module.js" />

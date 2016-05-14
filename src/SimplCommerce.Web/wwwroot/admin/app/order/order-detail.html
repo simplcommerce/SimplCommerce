@@ -1,0 +1,66 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Order deail: {{vm.order.id}}</h2>
+    </div>
+    <div class="panel-body">
+        <h3>Order Information</h3>
+        <dl class="dl-horizontal">
+            <dt>Order Id</dt>
+            <dd>{{vm.order.id}}</dd>
+            <dt>Created On</dt>
+            <dd>{{vm.order.createdOn}}</dd>
+            <dt>Customer Name</dt>
+            <dd>{{vm.order.customerName}}</dd>
+            <dt>Sub Total</dt>
+            <dd>{{vm.order.subTotal}}</dd>
+        </dl>
+
+        <h3>Shipping Information</h3>
+        <dl class="dl-horizontal">
+            <dt>Contact Name</dt>
+            <dd>{{vm.order.shippingAddress.contactName}}</dd>
+            <dt>Address</dt>
+            <dd>{{vm.order.shippingAddress.addressLine1}}</dd>
+            <dt>District</dt>
+            <dd>{{vm.order.shippingAddress.districtName}}</dd>
+            <dt>State or Province</dt>
+            <dd>{{vm.order.shippingAddress.stateOrProvinceName}}</dd>
+            <dt>Phone</dt>
+            <dd>{{vm.order.shippingAddress.phone}}</dd>
+        </dl>
+
+        <h3>Product Information</h3>
+        <table class="table table-striped order-item-list">
+            <thead>
+            <tr>
+                <th colspan="2">Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in vm.order.orderItems">
+                <td class="product-image"><img ng-src="{{item.productImage}}"/></td>
+                <td>
+                    <h4>{{item.productName}}</h4>
+                    <ul class="list-unstyled">
+                        <li ng-repeat="opt in item.variationOptions">
+                            <span>{{opt.optionName}}:</span> {{opt.value}}
+                        </li>
+                    </ul>
+                </td>
+                <td>{{item.productPriceString}}</td>
+                <td>
+                    <span>{{item.quantity}}</span>
+                </td>
+                <td>{{item.totalString}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div>
+            <button ui-sref="order" class="btn btn-default">Back</button>
+        </div>
+    </div>
+</div>
