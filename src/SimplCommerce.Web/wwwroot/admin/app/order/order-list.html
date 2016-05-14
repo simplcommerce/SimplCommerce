@@ -1,0 +1,40 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Order List</h2>
+        </div>
+        <div class="col-md-4 text-right">
+        </div>
+    </div>
+</div>
+
+<table class="table" st-pipe="vm.getOrders" st-table="vm.orders">
+    <thead>
+        <tr>
+            <th st-sort="Id" class="sortable">OrderId</th>
+            <th>CustomerName</th>
+            <th st-sort="CreatedOn" class="sortable">CreatedOn</th>
+            <th st-sort="SubTotal" class="sortable">SubTotal</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody ng-show="!vm.isLoading">
+        <tr ng-repeat="order in vm.orders">
+            <td>{{order.id}}</td>
+            <td>{{order.customerName}}</td>
+            <td>{{order.createdOn}}</td>
+            <td>{{order.subTotal}}</td>
+            <td></td>
+        </tr>
+    </tbody>
+    <tbody ng-show="vm.isLoading">
+        <tr>
+            <td colspan="4" class="text-center">Loading ... </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="10" colspan="4"></td>
+        </tr>
+    </tfoot>
+</table>	

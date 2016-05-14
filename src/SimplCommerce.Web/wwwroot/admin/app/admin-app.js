@@ -18,7 +18,8 @@
         'shopAdmin.productTemplate',
         'shopAdmin.brand',
         'shopAdmin.page',
-        'shopAdmin.resource'
+        'shopAdmin.resource',
+        'shopAdmin.order'
     ]);
 
     adminApp.config([
