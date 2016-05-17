@@ -1,19 +1,21 @@
 ﻿Prerequisite:
-- Visual Studio 2015 
-- Microsoft ASP.NET and Web Tools 2015 (RC1)
+- Visual Studio 2015 Update 2
+- Install .NET Core SDK (RC2) and NuGet Manager extension for Visual Studio (https://www.microsoft.com/net/core#windows)
 - StyleCop 4.7
-- SQL Server
+- SQL Server, (other RDBMS will be supported soon)
 
 Technologies and frameworks used:
-- ASP.NET MVC 6 RC1 on full dotnet framwork 4.5.1
+- ASP.NET MVC Core 1.0 RC2 on dotnetcore 1.0 RC2
 - Angular 1.5
 - Autofac 4.0.0 RC1
-- Entity framework 6.1.3
-- ASP.NET Identity 3.0.0 RC1
+- Entity framework Core 1.0 RC2
+- ASP.NET Identity Core 1.0 RC2
 
 How to run on local:
 - Create a database in SQL Server
 - Update the connection string in appsettings.json in SimplCommerce.Web
+- Open Package Manager Console Window and type "Update-Database" then press Enter. This action will create database schema
+- Run src/Database/StaticData.sql to create seed data
 - Press Controll + F5
 - The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
