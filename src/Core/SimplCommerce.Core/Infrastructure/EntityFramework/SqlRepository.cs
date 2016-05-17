@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +9,7 @@ namespace SimplCommerce.Core.Infrastructure.EntityFramework
     {
         private readonly DbContext dbContext;
 
-        public SqlRepository(DbContext dbContext)
+        public SqlRepository(HvDbContext dbContext)
         {
             this.dbContext = dbContext;
         }

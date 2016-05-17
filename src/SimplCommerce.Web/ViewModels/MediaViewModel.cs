@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SimplCommerce.Web.ViewModels
+﻿namespace SimplCommerce.Web.ViewModels
 {
     public class MediaViewModel
     {

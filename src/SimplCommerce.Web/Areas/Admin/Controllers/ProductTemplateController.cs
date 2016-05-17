@@ -43,8 +43,8 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
                 Attributes = productTemplate.ProductAttributes.Select(
                     x => new ProductAttributeVm()
                     {
-                        Id = x.AttributeId,
-                        Name = x.Attribute.Name
+                        Id = x.ProductAttributeId,
+                        Name = x.ProductAttribute.Name
                     }).ToList()
             };
 

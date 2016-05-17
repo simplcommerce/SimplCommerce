@@ -96,7 +96,7 @@ namespace SimplCommerce.Web.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens");
+                    b.ToTable("Core_UserToken");
                 });
 
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.Address", b =>
@@ -484,15 +484,15 @@ namespace SimplCommerce.Web.Migrations
 
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.ProductTemplateProductAttribute", b =>
                 {
-                    b.Property<long>("TemplateId");
+                    b.Property<long>("ProductTemplateId");
 
-                    b.Property<long>("AttributeId");
+                    b.Property<long>("ProductAttributeId");
 
-                    b.HasKey("TemplateId", "AttributeId");
+                    b.HasKey("ProductTemplateId", "ProductAttributeId");
 
-                    b.HasIndex("AttributeId");
+                    b.HasIndex("ProductAttributeId");
 
-                    b.HasIndex("TemplateId");
+                    b.HasIndex("ProductTemplateId");
 
                     b.ToTable("Core_ProductTemplateProductAttribute");
                 });
@@ -968,12 +968,12 @@ namespace SimplCommerce.Web.Migrations
                 {
                     b.HasOne("SimplCommerce.Core.Domain.Models.ProductAttribute")
                         .WithMany()
-                        .HasForeignKey("AttributeId")
+                        .HasForeignKey("ProductAttributeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SimplCommerce.Core.Domain.Models.ProductTemplate")
                         .WithMany()
-                        .HasForeignKey("TemplateId")
+                        .HasForeignKey("ProductTemplateId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

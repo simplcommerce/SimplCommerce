@@ -24,8 +24,12 @@ namespace SimplCommerce.Web
 {
     public class Startup
     {
+        private readonly IHostingEnvironment hostingEnvironment;
+
         public Startup(IHostingEnvironment env)
         {
+            this.hostingEnvironment = env;
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -46,6 +50,9 @@ namespace SimplCommerce.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            GlobalConfiguration.ConnectionString = Configuration["Data:DefaultConnection:ConnectionString"];
+            GlobalConfiguration.ApplicationPath = hostingEnvironment.WebRootPath;
+
             services.AddDbContext<HvDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("SimplCommerce.Web")));
 

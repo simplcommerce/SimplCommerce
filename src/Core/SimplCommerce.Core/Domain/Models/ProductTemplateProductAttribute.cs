@@ -7,12 +7,12 @@ namespace SimplCommerce.Core.Domain.Models
 {
     public class ProductTemplateProductAttribute
     {
-        public long TemplateId { get; set; }
+        public long ProductTemplateId { get; set; }
 
-        public ProductTemplate Template { get; set; }
+        public ProductTemplate ProductTemplate { get; set; }
 
-        public long AttributeId { get; set; }
+        public long ProductAttributeId { get; set; }
 
-        public ProductAttribute Attribute { get; set; }
+        public ProductAttribute ProductAttribute { get; set; }
     }
 }

@@ -37,7 +37,7 @@ namespace SimplCommerce.Core.Infrastructure.EntityFramework
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<User>()
-            .ToTable("Core_User");
+                .ToTable("Core_User");
 
             modelBuilder.Entity<Role>()
                 .ToTable("Core_Role");
@@ -65,6 +65,11 @@ namespace SimplCommerce.Core.Infrastructure.EntityFramework
                 b.ToTable("Core_UserLogin");
             });
 
+            modelBuilder.Entity<IdentityUserToken<long>>(b =>
+           {
+               b.ToTable("Core_UserToken");
+           });
+
             //modelBuilder.Entity<User>(u =>
             //{
             //    u.HasOne(x => x.CurrentShippingAddress).WithMany()
@@ -73,17 +78,17 @@ namespace SimplCommerce.Core.Infrastructure.EntityFramework
             //});
 
             modelBuilder.Entity<ProductTemplateProductAttribute>()
-                .HasKey(t => new { t.TemplateId, t.AttributeId });
+                .HasKey(t => new { t.ProductTemplateId, t.ProductAttributeId });
 
             modelBuilder.Entity<ProductTemplateProductAttribute>()
-                .HasOne(pt => pt.Template)
+                .HasOne(pt => pt.ProductTemplate)
                 .WithMany(p => p.ProductAttributes)
-                .HasForeignKey(pt => pt.TemplateId);
+                .HasForeignKey(pt => pt.ProductTemplateId);
 
             modelBuilder.Entity<ProductTemplateProductAttribute>()
-                .HasOne(pt => pt.Attribute)
+                .HasOne(pt => pt.ProductAttribute)
                 .WithMany(t => t.ProductTemplates)
-                .HasForeignKey(pt => pt.AttributeId);
+                .HasForeignKey(pt => pt.ProductAttributeId);
 
             modelBuilder.Entity<Address>(x =>
             {

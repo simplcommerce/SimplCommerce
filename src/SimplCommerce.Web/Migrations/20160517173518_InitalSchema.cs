@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace SimplCommerce.Web.Migrations
 {
-    public partial class Test1 : Migration
+    public partial class InitalSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AspNetUserTokens",
+                name: "Core_UserToken",
                 columns: table => new
                 {
                     UserId = table.Column<long>(nullable: false),
@@ -20,7 +20,7 @@ namespace SimplCommerce.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.PrimaryKey("PK_Core_UserToken", x => new { x.UserId, x.LoginProvider, x.Name });
                 });
 
             migrationBuilder.CreateTable(
@@ -473,21 +473,21 @@ namespace SimplCommerce.Web.Migrations
                 name: "Core_ProductTemplateProductAttribute",
                 columns: table => new
                 {
-                    TemplateId = table.Column<long>(nullable: false),
-                    AttributeId = table.Column<long>(nullable: false)
+                    ProductTemplateId = table.Column<long>(nullable: false),
+                    ProductAttributeId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Core_ProductTemplateProductAttribute", x => new { x.TemplateId, x.AttributeId });
+                    table.PrimaryKey("PK_Core_ProductTemplateProductAttribute", x => new { x.ProductTemplateId, x.ProductAttributeId });
                     table.ForeignKey(
-                        name: "FK_Core_ProductTemplateProductAttribute_Core_ProductAttribute_AttributeId",
-                        column: x => x.AttributeId,
+                        name: "FK_Core_ProductTemplateProductAttribute_Core_ProductAttribute_ProductAttributeId",
+                        column: x => x.ProductAttributeId,
                         principalTable: "Core_ProductAttribute",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Core_ProductTemplateProductAttribute_Core_ProductTemplate_TemplateId",
-                        column: x => x.TemplateId,
+                        name: "FK_Core_ProductTemplateProductAttribute_Core_ProductTemplate_ProductTemplateId",
+                        column: x => x.ProductTemplateId,
                         principalTable: "Core_ProductTemplate",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -980,14 +980,14 @@ namespace SimplCommerce.Web.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Core_ProductTemplateProductAttribute_AttributeId",
+                name: "IX_Core_ProductTemplateProductAttribute_ProductAttributeId",
                 table: "Core_ProductTemplateProductAttribute",
-                column: "AttributeId");
+                column: "ProductAttributeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Core_ProductTemplateProductAttribute_TemplateId",
+                name: "IX_Core_ProductTemplateProductAttribute_ProductTemplateId",
                 table: "Core_ProductTemplateProductAttribute",
-                column: "TemplateId");
+                column: "ProductTemplateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Core_ProductVariation_CreatedById",
@@ -1095,7 +1095,7 @@ namespace SimplCommerce.Web.Migrations
                 name: "Core_UserRole");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserTokens");
+                name: "Core_UserToken");
 
             migrationBuilder.DropTable(
                 name: "Core_Page");
