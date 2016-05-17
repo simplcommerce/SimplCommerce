@@ -26,6 +26,11 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Core", "src\C
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Orders", "src\Modules\SimplCommerce.Orders\SimplCommerce.Orders.xproj", "{5F5C2734-32CF-4C18-954C-56955E5436D1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{813C324B-3BA3-47C4-B5AB-A0DA567E21AE}"
+	ProjectSection(SolutionItems) = preProject
+		StaticData.sql = StaticData.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,5 +66,6 @@ Global
 		{8B676A86-9F8D-44E0-B53D-E93E009B8996} = {CCF73FFC-4325-4C56-A846-5B4FF3824278}
 		{2C7246AE-257D-442B-AAE7-CF1D4C6C25A3} = {6CA2EC86-B3A1-47F0-9717-A416DE4FAC81}
 		{5F5C2734-32CF-4C18-954C-56955E5436D1} = {597BDEE1-F58A-4A55-B1B5-BEA1AB7D9C89}
+		{813C324B-3BA3-47C4-B5AB-A0DA567E21AE} = {C2360C0C-65F6-4135-B00F-061C61ADA594}
 	EndGlobalSection
 EndGlobal
