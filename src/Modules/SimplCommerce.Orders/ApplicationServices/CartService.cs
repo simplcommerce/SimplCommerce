@@ -23,7 +23,10 @@ namespace SimplCommerce.Orders.ApplicationServices
         {
             ProductVariation productVariation = null;
 
-            var cartItemQuery = cartItemRepository.Query().Where(x => x.ProductId == productId);
+            var cartItemQuery = cartItemRepository
+                .Query()
+                .Include(x => x.Product)
+                .Where(x => x.ProductId == productId);
 
             if (userId.HasValue)
             {
@@ -78,7 +81,7 @@ namespace SimplCommerce.Orders.ApplicationServices
         {
             IQueryable<CartItem> query = cartItemRepository
                 .Query()
-                .Include(x => x.Product)
+                .Include(x => x.Product).ThenInclude(p => p.ThumbnailImage)
                 .Include(x => x.ProductVariation)
                 .Include(x => x.ProductVariation.OptionCombinations);
 

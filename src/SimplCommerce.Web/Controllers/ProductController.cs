@@ -14,12 +14,14 @@ namespace SimplCommerce.Web.Controllers
         private readonly IRepository<Category> categoryRepository;
         private readonly IMediaService mediaService;
         private readonly IRepository<Product> productRepository;
+        private readonly IRepository<ProductVariation> productVariationRepository;
 
-        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IRepository<Category> categoryRepository)
+        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IRepository<Category> categoryRepository, IRepository<ProductVariation> productVariationRepository)
         {
             this.productRepository = productRepository;
             this.mediaService = mediaService;
             this.categoryRepository = categoryRepository;
+            this.productVariationRepository = productVariationRepository;
         }
 
         public IActionResult ProductsByCategory(string catSeoTitle, SearchOption searchOption)
@@ -94,9 +96,10 @@ namespace SimplCommerce.Web.Controllers
         {
             var product = productRepository.Query()
                 .Include(x => x.Medias)
-                .Include(x => x.Variations)
-                .Include(x => x.Categories.Select(c => c.Category))
-                .Include(x => x.AttributeValues.Select(a => a.Attribute))
+                .Include(x => x.Categories).ThenInclude(c => c.Category)
+                .Include(x => x.AttributeValues).ThenInclude(a => a.Attribute)
+                .Include(x => x.ThumbnailImage)
+                .Include(x => x.Medias).ThenInclude(m => m.Media)
                 .FirstOrDefault(x => x.SeoTitle == seoTitle && x.IsPublished);
             if (product == null)
             {
@@ -160,9 +163,16 @@ namespace SimplCommerce.Web.Controllers
                 }).ToList();
         }
 
-        private static void MapProductVariantToProductVm(Product product, ProductDetail model)
+        private void MapProductVariantToProductVm(Product product, ProductDetail model)
         {
-            foreach (var variation in product.Variations.Where(x => !x.IsDeleted))
+            var variations = productVariationRepository
+                .Query()
+                .Include(x => x.OptionCombinations).ThenInclude(o => o.Option)
+                .Include(x => x.Product)
+                .Where(x => x.ProductId == product.Id && !x.IsDeleted)
+                .ToList();
+
+            foreach (var variation in variations)
             {
                 var variationVm = new ProductDetailVariation
                 {

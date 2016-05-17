@@ -49,7 +49,7 @@ namespace SimplCommerce.Web.Controllers
         {
             var cartItem =
                 cartItemRepository.Query()
-                    .Include(x => x.Product)
+                    .Include(x => x.Product).ThenInclude(x => x.ThumbnailImage)
                     .Include(x => x.ProductVariation)
                     .First(x => x.Id == cartItemId);
 
