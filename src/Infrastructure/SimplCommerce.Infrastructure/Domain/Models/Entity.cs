@@ -10,7 +10,6 @@ namespace SimplCommerce.Infrastructure.Domain.Models
     ///     base class leverages this assumption.  If you want an entity with a type other
     ///     than int, such as string, then use <see cref="EntityWithTypedId{IdT}" /> instead.
     /// </summary>
-    [Serializable]
     public abstract class Entity : EntityWithTypedId<long>
     {
     }

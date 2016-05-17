@@ -11,6 +11,6 @@ namespace SimplCommerce.Core.Domain.Models
 
         public virtual ProductAttributeGroup Group { get; set; }
 
-        public virtual IList<ProductTemplate> ProductTemplates { get; protected set; } = new List<ProductTemplate>();
+        public virtual IList<ProductTemplateProductAttribute> ProductTemplates { get; protected set; } = new List<ProductTemplateProductAttribute>();
     }
 }

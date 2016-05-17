@@ -1,9 +1,9 @@
-﻿using AspNet.Identity.EntityFramework6;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Domain.Models;
 
 namespace SimplCommerce.Core.Domain.Models
 {
-    public class Role : IdentityRole<long, UserRole, RoleClaim>, IEntityWithTypedId<long>
+    public class Role : IdentityRole<long>, IEntityWithTypedId<long>
     {
         public Role()
         {

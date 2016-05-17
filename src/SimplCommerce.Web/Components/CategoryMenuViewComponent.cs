@@ -3,7 +3,7 @@ using System.Linq;
 using SimplCommerce.Core.Domain.Models;
 using SimplCommerce.Infrastructure.Domain.IRepositories;
 using SimplCommerce.Web.ViewModels.Catalog;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SimplCommerce.Web.Components
 {

@@ -1,76 +1,35 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Localization;
-using Microsoft.AspNet.Mvc;
-using Microsoft.Extensions.Localization;
-using SimplCommerce.Core.ApplicationServices;
-using SimplCommerce.Core.Domain.Models;
-using SimplCommerce.Infrastructure.Domain.IRepositories;
-using SimplCommerce.Web.ViewModels;
-using SimplCommerce.Web.ViewModels.Catalog;
-
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SimplCommerce.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private UserManager<User> userManager;
-        private IRepository<Product> productRepository;
-        private IMediaService mediaService;
-        private readonly IStringLocalizer<HomeController> localizer;
-
-        public HomeController(UserManager<User> userManager, IRepository<Product> productRepository, IMediaService mediaService, IStringLocalizer<HomeController> localizer)
-        {
-            this.userManager = userManager;
-            this.productRepository = productRepository;
-            this.mediaService = mediaService;
-            this.localizer = localizer;
-        }
-
         public IActionResult Index()
         {
-            var model = new HomeViewModel();
-            model.FeaturedProducts = productRepository.Query()
-                .Where(x => x.IsPublished)
-                .OrderByDescending(x => x.CreatedOn)
-                .Take(4)
-                .Select(x => new ProductListItem
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    SeoTitle = x.SeoTitle,
-                    Price = x.Price,
-                    OldPrice = x.OldPrice,
-                    ThumbnailImage = x.ThumbnailImage,
-                    NumberVariation = x.Variations.Count
-                }).ToList();
-
-            foreach (var product in model.FeaturedProducts)
-            {
-                product.ThumbnailUrl = mediaService.GetThumbnailUrl(product.ThumbnailImage);
-            }
-
-            return View(model);
+            return View();
         }
 
-        public string Error()
+        public IActionResult About()
         {
-            return "error";
+            ViewData["Message"] = "Your application description page.";
+
+            return View();
         }
 
-        [HttpPost]
-        public IActionResult SetLanguage(string culture, string returnUrl)
+        public IActionResult Contact()
         {
-            Response.Cookies.Append(
-                CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-                new CookieOptions { Expires = DateTime.UtcNow.AddYears(1) }
-            );
+            ViewData["Message"] = "Your contact page.";
 
-            return LocalRedirect(returnUrl);
+            return View();
+        }
+
+        public IActionResult Error()
+        {
+            return View();
         }
     }
 }

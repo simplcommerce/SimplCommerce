@@ -1,77 +1,125 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Reflection;
-using AspNet.Identity.EntityFramework6;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Storage;
 using SimplCommerce.Core.ApplicationServices;
 using SimplCommerce.Core.Domain.Models;
-using SimplCommerce.Core.Infrastructure.EntityFramework.CustomConventions;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Domain.Models;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace SimplCommerce.Core.Infrastructure.EntityFramework
 {
-    public class HvDbContext : IdentityDbContext<User, Role,
-        long, UserLogin, UserRole, UserClaim, RoleClaim>
+    public class HvDbContext : IdentityDbContext<User, Role, long>
     {
-        public HvDbContext() : base(GlobalConfiguration.ConnectionString)
+        public HvDbContext(DbContextOptions options) : base(options)
         {
         }
 
-        public HvDbContext(string connectionString) : base(connectionString)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-        }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<HvDbContext, AutomaticMigrationsConfiguration>());
-
-            RegisterConventions(modelBuilder);
 
             List<Type> typeToRegisters = new List<Type>();
             foreach(var module in GlobalConfiguration.Modules)
             {
-                typeToRegisters.AddRange(TypeLoader.FromAssemblies(Assembly.Load(module.AssemblyName)));
-            }    
-
-            RegisterCustomMapping(modelBuilder, typeToRegisters);
+                var assembly = Assembly.Load(new AssemblyName(module.AssemblyName));
+                typeToRegisters.AddRange(assembly.DefinedTypes.Select(t => t.AsType()));
+            }
 
             RegisterEntities(modelBuilder, typeToRegisters);
 
+            RegiserConvention(modelBuilder);
+
             base.OnModelCreating(modelBuilder);
-        }
 
-        private void RegisterConventions(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Conventions.Add(new TableNameConvention());
-            modelBuilder.Conventions.Add(new ForeignKeyNamingConvention());
-        }
+            modelBuilder.Entity<User>()
+            .ToTable("Core_User");
 
-        private void RegisterEntities(DbModelBuilder modelBuilder, IEnumerable<Type> typeToRegisters)
-        {
-            var entityMethod = typeof (DbModelBuilder).GetMethod("Entity");
+            modelBuilder.Entity<Role>()
+                .ToTable("Core_Role");
 
-            var entityTypes = typeToRegisters.Where(x => x.IsSubclassOf(typeof (Entity)) && !x.IsAbstract);
-            foreach (var type in entityTypes)
+            modelBuilder.Entity<IdentityUserClaim<long>>(b =>
             {
-                entityMethod.MakeGenericMethod(type).Invoke(modelBuilder, new object[] { });
+                b.HasKey(uc => uc.Id);
+                b.ToTable("Core_UserClaim");
+            });
+
+            modelBuilder.Entity<IdentityRoleClaim<long>>(b =>
+            {
+                b.HasKey(rc => rc.Id);
+                b.ToTable("Core_RoleClaim");
+            });
+
+            modelBuilder.Entity<IdentityUserRole<long>>(b =>
+            {
+                b.HasKey(r => new { r.UserId, r.RoleId });
+                b.ToTable("Core_UserRole");
+            });
+
+            modelBuilder.Entity<IdentityUserLogin<long>>(b =>
+            {
+                b.ToTable("Core_UserLogin");
+            });
+
+            //modelBuilder.Entity<User>(u =>
+            //{
+            //    u.HasOne(x => x.CurrentShippingAddress).WithMany()
+            //   .HasForeignKey(x => x.CurrentShippingAddressId)
+            //   .WillCascadeOnDelete(false);
+            //});
+
+            modelBuilder.Entity<ProductTemplateProductAttribute>()
+                .HasKey(t => new { t.TemplateId, t.AttributeId });
+
+            modelBuilder.Entity<ProductTemplateProductAttribute>()
+                .HasOne(pt => pt.Template)
+                .WithMany(p => p.ProductAttributes)
+                .HasForeignKey(pt => pt.TemplateId);
+
+            modelBuilder.Entity<ProductTemplateProductAttribute>()
+                .HasOne(pt => pt.Attribute)
+                .WithMany(t => t.ProductTemplates)
+                .HasForeignKey(pt => pt.AttributeId);
+
+            modelBuilder.Entity<Address>(x =>
+            {
+                x.HasOne(d => d.District)
+                   .WithMany()
+                   .OnDelete(DeleteBehavior.Restrict);
+
+                x.HasOne(d => d.StateOrProvince)
+                    .WithMany()
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                x.HasOne(d => d.Country)
+                    .WithMany()
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+        }
+
+        private static void RegiserConvention(ModelBuilder modelBuilder)
+        {
+            foreach (var entity in modelBuilder.Model.GetEntityTypes())
+            {
+                if (entity.ClrType.Namespace != null)
+                {
+                    var nameParts = entity.ClrType.Namespace.Split('.');
+                    var tableName = string.Concat(nameParts[1], "_", entity.ClrType.Name);
+                    modelBuilder.Entity(entity.Name).ToTable(tableName);
+                }
             }
         }
 
-        private void RegisterCustomMapping(DbModelBuilder modelBuilder, IEnumerable<Type> typeToRegisters)
+        private static void RegisterEntities(ModelBuilder modelBuilder, IEnumerable<Type> typeToRegisters)
         {
-            var typesToRegister = typeToRegisters
-                .Where(type => !string.IsNullOrEmpty(type.Namespace))
-                .Where(
-                    type =>
-                        type.BaseType != null && type.BaseType.IsGenericType &&
-                        type.BaseType.GetGenericTypeDefinition() == typeof (EntityTypeConfiguration<>));
-            foreach (var type in typesToRegister)
+            var entityTypes = typeToRegisters.Where(x => x.GetTypeInfo().IsSubclassOf(typeof(Entity)) && !x.GetTypeInfo().IsAbstract);
+            foreach (var type in entityTypes)
             {
-                dynamic configurationInstance = Activator.CreateInstance(type);
-                modelBuilder.Configurations.Add(configurationInstance);
+                modelBuilder.Entity(type);
             }
         }
     }

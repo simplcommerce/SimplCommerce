@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using System.Security.Claims;
-using Microsoft.AspNet.Authorization;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SimplCommerce.Web.ViewModels.Manage;
+using SimplCommerce.Web.Models.ManageViewModels;
 using SimplCommerce.Core.Domain.Models;
 using SimplCommerce.Core.ApplicationServices;
 
@@ -174,8 +171,9 @@ namespace SimplCommerce.Web.Controllers
         }
 
         //
-        // GET: /Manage/RemovePhoneNumber
-        [HttpGet]
+        // POST: /Manage/RemovePhoneNumber
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemovePhoneNumber()
         {
             var user = await GetCurrentUserAsync();
@@ -291,8 +289,8 @@ namespace SimplCommerce.Web.Controllers
         {
             // Request a redirect to the external login provider to link a login for the current user
             var redirectUrl = Url.Action("LinkLoginCallback", "Manage");
-            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl, User.GetUserId());
-            return new ChallengeResult(provider, properties);
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl, _userManager.GetUserId(User));
+            return Challenge(properties, provider);
         }
 
         //
@@ -305,7 +303,7 @@ namespace SimplCommerce.Web.Controllers
             {
                 return View("Error");
             }
-            var info = await _signInManager.GetExternalLoginInfoAsync(User.GetUserId());
+            var info = await _signInManager.GetExternalLoginInfoAsync(await _userManager.GetUserIdAsync(user));
             if (info == null)
             {
                 return RedirectToAction(nameof(ManageLogins), new { Message = ManageMessageId.Error });
@@ -337,9 +335,9 @@ namespace SimplCommerce.Web.Controllers
             Error
         }
 
-        private async Task<User> GetCurrentUserAsync()
+        private Task<User> GetCurrentUserAsync()
         {
-            return await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+            return _userManager.GetUserAsync(HttpContext.User);
         }
 
         #endregion

@@ -1,4 +1,5 @@
-﻿using SimplCommerce.Core.Domain.Models;
+﻿using System.Linq;
+using SimplCommerce.Core.Domain.Models;
 using SimplCommerce.Infrastructure.Domain.IRepositories;
 
 namespace SimplCommerce.Core.ApplicationServices
@@ -33,7 +34,7 @@ namespace SimplCommerce.Core.ApplicationServices
 
         public void Delete(long id)
         {
-            var category = categoryRepository.Get(id);
+            var category = categoryRepository.Query().First(x => x.Id == id);
             DeleteSimple(category);
             categoryRepository.SaveChange();
         }

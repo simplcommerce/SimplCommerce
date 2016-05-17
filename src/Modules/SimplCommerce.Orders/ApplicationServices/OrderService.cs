@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Linq;
 using SimplCommerce.Core.Domain.Models;
 using SimplCommerce.Infrastructure.Domain.IRepositories;
 using SimplCommerce.Orders.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SimplCommerce.Orders.ApplicationServices
 {
@@ -29,8 +29,8 @@ namespace SimplCommerce.Orders.ApplicationServices
             var order = new Order
             {
                 CreatedOn = DateTime.Now,
-                CreatedById = user.Id,
-                ShippingAddress = user.CurrentShippingAddress
+                CreatedById = user.Id
+               // ShippingAddress = user.CurrentShippingAddress
             };
 
             foreach (var cartItem in cartItems)

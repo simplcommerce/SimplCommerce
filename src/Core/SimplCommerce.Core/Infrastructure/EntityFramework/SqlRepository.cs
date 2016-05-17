@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace SimplCommerce.Core.Infrastructure.EntityFramework
 {
@@ -26,28 +26,6 @@ namespace SimplCommerce.Core.Infrastructure.EntityFramework
             foreach (var command in commands)
             {
                 dbContext.Database.ExecuteSqlCommand(command);
-            }
-        }
-
-        public void CreateInitData()
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "SimplCommerce.Core.Infrastructure.EntityFramework.Seed.sql";
-
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                IList<string> lines = new List<string>();
-
-                do
-                {
-                    var line = reader.ReadLine();
-                    lines.Add(line);
-                }
-                while (!reader.EndOfStream);
-
-                var commands = ParseCommand(lines);
-                RunCommands(commands);
             }
         }
 

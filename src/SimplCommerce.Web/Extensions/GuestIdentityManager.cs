@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.AspNet.Http;
+using Microsoft.AspNetCore.Http;
 
 namespace SimplCommerce.Web.Extensions
 {
@@ -11,7 +11,7 @@ namespace SimplCommerce.Web.Extensions
         {
             if (httpContext.Request.Cookies.ContainsKey(GuestIdCookieName))
             {
-                return Guid.Parse(httpContext.Request.Cookies[GuestIdCookieName].ToString());
+                return Guid.Parse(httpContext.Request.Cookies[GuestIdCookieName]);
             }
 
             return null;

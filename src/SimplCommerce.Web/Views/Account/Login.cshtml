@@ -1,8 +1,8 @@
 ﻿@using System.Collections.Generic
-@using Microsoft.AspNet.Http
-@using Microsoft.AspNet.Http.Authentication
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
 @model LoginViewModel
-@inject SignInManager<SimplCommerce.Core.Domain.Models.User> SignInManager
+@inject SignInManager<ApplicationUser> SignInManager
 
 @{
     ViewData["Title"] = "Log in";
@@ -12,29 +12,31 @@
 <div class="row">
     <div class="col-md-8">
         <section>
-            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
                 <h4>Use a local account to log in.</h4>
                 <hr />
-                <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Email" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="Email" class="form-control" />admin@simplcommerce.com
+                        <input asp-for="Email" class="form-control" />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="Password" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="Password" class="form-control" />1qazZAQ!
+                        <input asp-for="Password" class="form-control" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <div class="checkbox">
-                            <input asp-for="RememberMe" />
-                            <label asp-for="RememberMe"></label>
+                            <label asp-for="RememberMe">
+                                <input asp-for="RememberMe" />
+                                @Html.DisplayNameFor(m => m.RememberMe)
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -44,7 +46,7 @@
                     </div>
                 </div>
                 <p>
-                    <a asp-action="Register">Register as a new user?</a>
+                    <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
                 </p>
                 <p>
                     <a asp-action="ForgotPassword">Forgot your password?</a>
@@ -69,7 +71,7 @@
                 }
                 else
                 {
-                    <form asp-controller="Account" asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
+                    <form asp-controller="Account" asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
                         <div>
                             <p>
                                 @foreach (var provider in loginProviders)

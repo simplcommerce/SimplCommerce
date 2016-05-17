@@ -1,10 +1,9 @@
-﻿using System.Data.Entity;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using SimplCommerce.Core.Domain.Models;
 using SimplCommerce.Infrastructure.Domain.IRepositories;
-using Microsoft.AspNet.Routing;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Practices.ServiceLocation;
+using Microsoft.EntityFrameworkCore;
 
 namespace SimplCommerce.Web.RouteConfigs
 {
@@ -62,18 +61,8 @@ namespace SimplCommerce.Web.RouteConfigs
                     break;
             }
 
-            try
-            {
-                context.RouteData = newRouteData;
-                await target.RouteAsync(context);
-            }
-            finally
-            {
-                if (!context.IsHandled)
-                {
-                    context.RouteData = oldRouteData;
-                }
-            }
+            context.RouteData = newRouteData;
+            await target.RouteAsync(context);
         }
 
         public VirtualPathData GetVirtualPath(VirtualPathContext context)

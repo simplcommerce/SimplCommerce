@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using AspNet.Identity.EntityFramework6;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Domain.Models;
 
 namespace SimplCommerce.Core.Domain.Models
 {
-    public class User : IdentityUser<long, UserLogin, UserRole, UserClaim>, IEntityWithTypedId<long>
+    public class User : IdentityUser<long>, IEntityWithTypedId<long>
     {
         public User()
         {
@@ -23,7 +23,7 @@ namespace SimplCommerce.Core.Domain.Models
 
         public virtual IList<UserAddress> UserAddresses { get; set; } = new List<UserAddress>();
 
-        public virtual UserAddress CurrentShippingAddress { get; set; }
+        //public virtual UserAddress CurrentShippingAddress { get; set; }
 
         public long? CurrentShippingAddressId { get; set; }
     }

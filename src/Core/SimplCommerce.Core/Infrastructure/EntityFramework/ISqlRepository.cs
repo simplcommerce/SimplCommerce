@@ -9,7 +9,5 @@ namespace SimplCommerce.Core.Infrastructure.EntityFramework
         void RunCommands(IEnumerable<string> command);
 
         IEnumerable<string> ParseCommand(IEnumerable<string> lines);
-
-        void CreateInitData();
     }
 }

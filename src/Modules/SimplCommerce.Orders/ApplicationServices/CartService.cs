@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Core.Domain.Models;
 using SimplCommerce.Infrastructure.Domain.IRepositories;
 using SimplCommerce.Orders.Domain.Models;
@@ -76,7 +76,7 @@ namespace SimplCommerce.Orders.ApplicationServices
 
         public IList<CartItem> GetCartItems(long? userId, Guid? guestId)
         {
-            var query = cartItemRepository
+            IQueryable<CartItem> query = cartItemRepository
                 .Query()
                 .Include(x => x.Product)
                 .Include(x => x.ProductVariation)

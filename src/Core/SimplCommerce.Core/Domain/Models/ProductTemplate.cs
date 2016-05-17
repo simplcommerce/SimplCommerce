@@ -9,11 +9,11 @@ namespace SimplCommerce.Core.Domain.Models
         [Required]
         public string Name { get; set; }
 
-        public virtual IList<ProductAttribute> ProductAttributes { get; protected set; } = new List<ProductAttribute>();
+        public virtual IList<ProductTemplateProductAttribute> ProductAttributes { get; protected set; } = new List<ProductTemplateProductAttribute>();
 
         public void AddAttribute(ProductAttribute attribute)
         {
-            ProductAttributes.Add(attribute);
+            //ProductAttributes.Add(attribute);
         }
     }
 }

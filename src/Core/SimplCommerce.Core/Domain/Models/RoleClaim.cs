@@ -1,4 +1,4 @@
-﻿using AspNet.Identity.EntityFramework6;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace SimplCommerce.Core.Domain.Models
 {

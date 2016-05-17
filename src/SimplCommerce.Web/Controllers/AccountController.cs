@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Authorization;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Rendering;
-using Microsoft.Data.Entity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using SimplCommerce.Web.ViewModels.Account;
+using SimplCommerce.Web.Models.AccountViewModels;
 using SimplCommerce.Core.Domain.Models;
 using SimplCommerce.Core.ApplicationServices;
-using SimplCommerce.Orders.ApplicationServices;
-using SimplCommerce.Web.Extensions;
 
 namespace SimplCommerce.Web.Controllers
 {
@@ -25,29 +20,25 @@ namespace SimplCommerce.Web.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
-        private readonly ICartService _cartService;
 
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory,
-            ICartService cartService)
+            ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
-            _cartService = cartService;
         }
 
         //
         // GET: /Account/Login
         [HttpGet]
         [AllowAnonymous]
-        [Route("login")]
         public IActionResult Login(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -58,7 +49,6 @@ namespace SimplCommerce.Web.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [Route("login")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
@@ -71,7 +61,6 @@ namespace SimplCommerce.Web.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
-                    await ChangeGuestIdToUser(model.Email);
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -98,9 +87,9 @@ namespace SimplCommerce.Web.Controllers
         // GET: /Account/Register
         [HttpGet]
         [AllowAnonymous]
-        [Route("register")]
-        public IActionResult Register()
+        public IActionResult Register(string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
@@ -108,10 +97,10 @@ namespace SimplCommerce.Web.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        [Route("register")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
                 var user = new User { UserName = model.Email, Email = model.Email };
@@ -123,12 +112,10 @@ namespace SimplCommerce.Web.Controllers
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
                     //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                    //    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                    //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    await ChangeGuestIdToUser(user.Email);
-
                     _logger.LogInformation(3, "User created a new account with password.");
-                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                    return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
             }
@@ -158,15 +145,20 @@ namespace SimplCommerce.Web.Controllers
             // Request a redirect to the external login provider.
             var redirectUrl = Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl });
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
-            return new ChallengeResult(provider, properties);
+            return Challenge(properties, provider);
         }
 
         //
         // GET: /Account/ExternalLoginCallback
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null)
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {
+            if (remoteError != null)
+            {
+                ModelState.AddModelError(string.Empty, $"Error from external provider: {remoteError}");
+                return View(nameof(Login));
+            }
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
@@ -178,10 +170,6 @@ namespace SimplCommerce.Web.Controllers
             if (result.Succeeded)
             {
                 _logger.LogInformation(5, "User logged in with {Name} provider.", info.LoginProvider);
-
-                var email = info.ExternalPrincipal.FindFirstValue(ClaimTypes.Email);
-                await ChangeGuestIdToUser(email);
-
                 return RedirectToLocal(returnUrl);
             }
             if (result.RequiresTwoFactor)
@@ -197,7 +185,7 @@ namespace SimplCommerce.Web.Controllers
                 // If the user does not have an account, then ask the user to create an account.
                 ViewData["ReturnUrl"] = returnUrl;
                 ViewData["LoginProvider"] = info.LoginProvider;
-                var email = info.ExternalPrincipal.FindFirstValue(ClaimTypes.Email);
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
                 return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = email });
             }
         }
@@ -209,11 +197,6 @@ namespace SimplCommerce.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl = null)
         {
-            if (User.IsSignedIn())
-            {
-                return RedirectToAction(nameof(ManageController.Index), "Manage");
-            }
-
             if (ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
@@ -231,8 +214,6 @@ namespace SimplCommerce.Web.Controllers
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         _logger.LogInformation(6, "User created an account using {Name} provider.", info.LoginProvider);
-                        await ChangeGuestIdToUser(user.Email);
-
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -291,7 +272,7 @@ namespace SimplCommerce.Web.Controllers
                 //var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 //var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
                 //await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-                //   "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>");
+                //   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
                 //return View("ForgotPasswordConfirmation");
             }
 
@@ -448,7 +429,7 @@ namespace SimplCommerce.Web.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Invalid code.");
+                ModelState.AddModelError(string.Empty, "Invalid code.");
                 return View(model);
             }
         }
@@ -463,9 +444,9 @@ namespace SimplCommerce.Web.Controllers
             }
         }
 
-        private async Task<User> GetCurrentUserAsync()
+        private Task<User> GetCurrentUserAsync()
         {
-            return await _userManager.FindByIdAsync(HttpContext.User.GetUserId());
+            return _userManager.GetUserAsync(HttpContext.User);
         }
 
         private IActionResult RedirectToLocal(string returnUrl)
@@ -480,17 +461,6 @@ namespace SimplCommerce.Web.Controllers
             }
         }
 
-        private async Task ChangeGuestIdToUser(string email)
-        {
-            var guestId = GuestIdentityManager.GetGuestId(HttpContext);
-            if (!guestId.HasValue)
-            {
-                return;
-            }
-
-            var currentUser = await _userManager.FindByEmailAsync(email);
-            _cartService.UpdateGuestIdToUser(guestId.Value, currentUser.Id);
-        }
         #endregion
     }
 }
