@@ -4,6 +4,7 @@ using SimplCommerce.Infrastructure.Domain.IRepositories;
 using SimplCommerce.Web.Areas.Admin.ViewModels.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace SimplCommerce.Web.Areas.Admin.Controllers
 {
@@ -35,7 +36,10 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
 
         public IActionResult Get(long id)
         {
-            var productTemplate = productTemplateRepository.Query().FirstOrDefault(x => x.Id == id);
+            var productTemplate = productTemplateRepository
+                .Query()
+                .Include(x => x.ProductAttributes).ThenInclude(x => x.ProductAttribute)
+                .FirstOrDefault(x => x.Id == id);
             var model = new ProductTemplateFrom
             {
                 Id = productTemplate.Id,
@@ -66,8 +70,7 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
 
             foreach (var attributeVm in model.Attributes)
             {
-                var attribute = productAttributeRepository.Query().FirstOrDefault(x => x.Id == attributeVm.Id);
-                productTemplate.AddAttribute(attribute);
+                productTemplate.AddAttribute(attributeVm.Id);
             }
 
             productTemplateRepository.Add(productTemplate);
@@ -84,15 +87,17 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
                 return new BadRequestObjectResult(ModelState);
             }
 
-            var productTemplate = productTemplateRepository.Query().FirstOrDefault(x => x.Id == id);
+            var productTemplate = productTemplateRepository
+                .Query()
+                .Include(x => x.ProductAttributes)
+                .FirstOrDefault(x => x.Id == id);
+
             productTemplate.Name = model.Name;
 
             productTemplate.ProductAttributes.Clear();
-
             foreach (var attributeVm in model.Attributes)
             {
-                var attribute = productAttributeRepository.Query().FirstOrDefault(x => x.Id == attributeVm.Id);
-                productTemplate.AddAttribute(attribute);
+                productTemplate.AddAttribute(attributeVm.Id);
             }
 
             productAttributeRepository.SaveChange();

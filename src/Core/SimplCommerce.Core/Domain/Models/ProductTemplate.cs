@@ -11,9 +11,14 @@ namespace SimplCommerce.Core.Domain.Models
 
         public virtual IList<ProductTemplateProductAttribute> ProductAttributes { get; protected set; } = new List<ProductTemplateProductAttribute>();
 
-        public void AddAttribute(ProductAttribute attribute)
+        public void AddAttribute(long attributeId)
         {
-            //ProductAttributes.Add(attribute);
+            var productTempateProductAttribute = new ProductTemplateProductAttribute
+            {
+                ProductTemplate = this,
+                ProductAttributeId = attributeId
+            };
+            ProductAttributes.Add(productTempateProductAttribute);
         }
     }
 }

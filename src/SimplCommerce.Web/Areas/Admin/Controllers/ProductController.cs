@@ -12,6 +12,7 @@ using SimplCommerce.Web.Areas.Admin.ViewModels.SmartTable;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace SimplCommerce.Web.Areas.Admin.Controllers
 {
@@ -44,7 +45,14 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
 
         public IActionResult Get(long id)
         {
-            var product = productRepository.Query().FirstOrDefault(x => x.Id == id);
+            var product = productRepository.Query()
+                .Include(x => x.ThumbnailImage)
+                .Include(x => x.Medias).ThenInclude(m => m.Media)
+                .Include(x => x.Variations)
+                .Include(x => x.OptionValues).ThenInclude(o => o.Option)
+                .Include(x => x.AttributeValues).ThenInclude(a => a.Attribute).ThenInclude(g => g.Group)
+                .Include(x => x.Categories)
+                .FirstOrDefault(x => x.Id == id);
 
             var productVm = new ProductViewModel
             {
