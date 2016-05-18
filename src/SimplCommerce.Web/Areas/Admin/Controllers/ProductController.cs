@@ -209,7 +209,14 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
                 return new BadRequestObjectResult(ModelState);
             }
 
-            var product = productRepository.Query().FirstOrDefault(x => x.Id == id);
+            var product = productRepository.Query()
+                .Include(x => x.ThumbnailImage)
+                .Include(x => x.Medias).ThenInclude(m => m.Media)
+                .Include(x => x.Variations)
+                .Include(x => x.OptionValues).ThenInclude(o => o.Option)
+                .Include(x => x.AttributeValues).ThenInclude(a => a.Attribute).ThenInclude(g => g.Group)
+                .Include(x => x.Categories)
+                .FirstOrDefault(x => x.Id == id);
             product.Name = model.Product.Name;
             product.ShortDescription = model.Product.ShortDescription;
             product.Description = model.Product.Description;
