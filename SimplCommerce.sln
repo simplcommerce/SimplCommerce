@@ -28,7 +28,7 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Orders", "src
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{813C324B-3BA3-47C4-B5AB-A0DA567E21AE}"
 	ProjectSection(SolutionItems) = preProject
-		StaticData.sql = StaticData.sql
+		src\Database\StaticData.sql = src\Database\StaticData.sql
 	EndProjectSection
 EndProject
 Global
