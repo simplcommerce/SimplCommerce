@@ -16,7 +16,7 @@ namespace SimplCommerce.Web.Controllers
             this.userManager = userManager;
         }
 
-        protected long CurrentUserId => long.Parse(HttpContext.User.Identity.Name);
+        protected long CurrentUserId => long.Parse(userManager.GetUserId(HttpContext.User));
 
         protected async Task<User> GetCurrentUserAsync()
         {
