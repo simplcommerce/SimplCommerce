@@ -15,13 +15,15 @@ namespace SimplCommerce.Web.Controllers
         private readonly IMediaService mediaService;
         private readonly IRepository<Product> productRepository;
         private readonly IRepository<ProductVariation> productVariationRepository;
+        private readonly IRepository<ProductCategory> productCategoryRepository;
 
-        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IRepository<Category> categoryRepository, IRepository<ProductVariation> productVariationRepository)
+        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IRepository<Category> categoryRepository, IRepository<ProductVariation> productVariationRepository, IRepository<ProductCategory> productCategoryRepository)
         {
             this.productRepository = productRepository;
             this.mediaService = mediaService;
             this.categoryRepository = categoryRepository;
             this.productVariationRepository = productVariationRepository;
+            this.productCategoryRepository = productCategoryRepository;
         }
 
         public IActionResult ProductsByCategory(string catSeoTitle, SearchOption searchOption)
@@ -42,23 +44,25 @@ namespace SimplCommerce.Web.Controllers
                 FilterOption = new FilterOption()
             };
 
-            var query = productRepository.Query()
-                .Where(x => x.Categories.Any(c => c.CategoryId == category.Id) && x.IsPublished);
+            var query = productCategoryRepository
+                .Query()
+                .Where(x => x.CategoryId == category.Id)
+                .Select(x => x.Product);
 
-            model.FilterOption.Price.MaxPrice = query.Select(x => x.Price).DefaultIfEmpty().Max();
-            model.FilterOption.Price.MinPrice = query.Select(x => x.Price).DefaultIfEmpty().Min();
+            model.FilterOption.Price.MaxPrice = query.Max(x => x.Price);
+            model.FilterOption.Price.MinPrice = query.Min(x => x.Price);
 
-            if (searchOption.MinPrice.HasValue)
-            {
-                query = query.Where(x => x.Price >= searchOption.MinPrice.Value);
-            }
+            // if (searchOption.MinPrice.HasValue)
+            // {
+            //     query = query.Where(x => x.Price >= searchOption.MinPrice.Value);
+            // }
 
-            if (searchOption.MaxPrice.HasValue)
-            {
-                query = query.Where(x => x.Price <= searchOption.MaxPrice.Value);
-            }
+            // if (searchOption.MaxPrice.HasValue)
+            // {
+            //     query = query.Where(x => x.Price <= searchOption.MaxPrice.Value);
+            // }
 
-            AppendFilterOptionsToModel(model, query);
+            // AppendFilterOptionsToModel(model, query);
 
             var brands = searchOption.GetBrands();
             if (brands.Any())
@@ -66,11 +70,14 @@ namespace SimplCommerce.Web.Controllers
                 query = query.Where(x => brands.Contains(x.Brand.SeoTitle));
             }
 
-            model.TotalProduct = query.Count();
+             model.TotalProduct = query.Count();
 
-            query = AppySort(searchOption, query);
+            // query = AppySort(searchOption, query);
 
-            var products = query.Include(x => x.Brand)
+            var products = query
+                .Include(x => x.Brand)
+                .Include(x => x.ThumbnailImage)
+                .Include(x => x.Variations)
                 .Select(x => new ProductListItem
                 {
                     Id = x.Id,
@@ -78,8 +85,7 @@ namespace SimplCommerce.Web.Controllers
                     SeoTitle = x.SeoTitle,
                     Price = x.Price,
                     OldPrice = x.OldPrice,
-                    ThumbnailImage = x.ThumbnailImage,
-                    NumberVariation = x.Variations.Count
+                    ThumbnailImage = x.ThumbnailImage
                 }).ToList();
 
             foreach (var product in products)

@@ -13,10 +13,10 @@
 <div>
     <ol class="breadcrumb">
         <li><a href="~/">Home</a></li>
-        @if (Model.ParentCategorId.HasValue)
+        @*@if (Model.ParentCategorId.HasValue)
         {
             @await Component.InvokeAsync("CategoryBreadcrumb", Model.ParentCategorId.Value)
-        }
+        }*@
         <li><span class="active">@Model.CategoryName</span></li>
     </ol>
 </div>

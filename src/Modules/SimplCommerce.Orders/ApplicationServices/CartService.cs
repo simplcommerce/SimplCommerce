@@ -83,7 +83,7 @@ namespace SimplCommerce.Orders.ApplicationServices
                 .Query()
                 .Include(x => x.Product).ThenInclude(p => p.ThumbnailImage)
                 .Include(x => x.ProductVariation)
-                .Include(x => x.ProductVariation.OptionCombinations);
+                .Include(x => x.ProductVariation).ThenInclude(p => p.OptionCombinations).ThenInclude(o => o.Option);
 
             if (userId.HasValue)
             {
