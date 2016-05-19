@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SimplCommerce.Web.Models.ManageViewModels;
+using SimplCommerce.Web.ViewModels.Manage;
 using SimplCommerce.Core.Domain.Models;
 using SimplCommerce.Core.ApplicationServices;
 

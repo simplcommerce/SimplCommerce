@@ -128,6 +128,44 @@
           "lib/netstandard1.3/Microsoft.AspNetCore.Authentication.Cookies.dll": {}
         }
       },
+      "Microsoft.AspNetCore.Authentication.Facebook/1.0.0-rc2-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.OAuth": "1.0.0-rc2-final"
+        },
+        "compile": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Authentication.Facebook.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Authentication.Facebook.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.Google/1.0.0-rc2-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.OAuth": "1.0.0-rc2-final"
+        },
+        "compile": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Authentication.Google.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Authentication.Google.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.OAuth/1.0.0-rc2-final": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication": "1.0.0-rc2-final",
+          "Newtonsoft.Json": "8.0.3",
+          "System.Runtime.Serialization.Primitives": "4.1.1-rc2-24027"
+        },
+        "compile": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Authentication.OAuth.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Authentication.OAuth.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/1.0.0-rc2-final": {
         "type": "package",
         "dependencies": {
@@ -4270,6 +4308,42 @@
         "lib/net451/Microsoft.AspNetCore.Authentication.Cookies.xml",
         "lib/netstandard1.3/Microsoft.AspNetCore.Authentication.Cookies.dll",
         "lib/netstandard1.3/Microsoft.AspNetCore.Authentication.Cookies.xml"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.Facebook/1.0.0-rc2-final": {
+      "sha512": "aS3o7LjZW0b3f/I2ttnbacwz8tl9QzHeijV0MdY05NuMyFU3BRN3X+Kd838smWzB37qbGwrVwSJe3EaEMOrK4w==",
+      "type": "package",
+      "files": [
+        "Microsoft.AspNetCore.Authentication.Facebook.1.0.0-rc2-final.nupkg.sha512",
+        "Microsoft.AspNetCore.Authentication.Facebook.nuspec",
+        "lib/net451/Microsoft.AspNetCore.Authentication.Facebook.dll",
+        "lib/net451/Microsoft.AspNetCore.Authentication.Facebook.xml",
+        "lib/netstandard1.3/Microsoft.AspNetCore.Authentication.Facebook.dll",
+        "lib/netstandard1.3/Microsoft.AspNetCore.Authentication.Facebook.xml"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.Google/1.0.0-rc2-final": {
+      "sha512": "dkU8Dxi8tBF8ireB/vK4chlObGSa77uzgnSeL6loKw1UAUSIvWMX+TLN0u+CSdxluL0PIAOZYGyJeDsPgNxh1w==",
+      "type": "package",
+      "files": [
+        "Microsoft.AspNetCore.Authentication.Google.1.0.0-rc2-final.nupkg.sha512",
+        "Microsoft.AspNetCore.Authentication.Google.nuspec",
+        "lib/net451/Microsoft.AspNetCore.Authentication.Google.dll",
+        "lib/net451/Microsoft.AspNetCore.Authentication.Google.xml",
+        "lib/netstandard1.3/Microsoft.AspNetCore.Authentication.Google.dll",
+        "lib/netstandard1.3/Microsoft.AspNetCore.Authentication.Google.xml"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.OAuth/1.0.0-rc2-final": {
+      "sha512": "EZspQcDS257Hep3JV/V5oGD+5nvyHH2l7t7mr/8DCMNJ2T6W5w5q+52ut171ORyTq9695tPWDIbYm0QYKC4bTg==",
+      "type": "package",
+      "files": [
+        "Microsoft.AspNetCore.Authentication.OAuth.1.0.0-rc2-final.nupkg.sha512",
+        "Microsoft.AspNetCore.Authentication.OAuth.nuspec",
+        "lib/net451/Microsoft.AspNetCore.Authentication.OAuth.dll",
+        "lib/net451/Microsoft.AspNetCore.Authentication.OAuth.xml",
+        "lib/netstandard1.3/Microsoft.AspNetCore.Authentication.OAuth.dll",
+        "lib/netstandard1.3/Microsoft.AspNetCore.Authentication.OAuth.xml"
       ]
     },
     "Microsoft.AspNetCore.Authorization/1.0.0-rc2-final": {
@@ -10531,6 +10605,8 @@
     "": [
       "Autofac.Extensions.DependencyInjection >= 4.0.0-rc1-177",
       "Microsoft.AspNetCore.Authentication.Cookies >= 1.0.0-rc2-final",
+      "Microsoft.AspNetCore.Authentication.Facebook >= 1.0.0-rc2-final",
+      "Microsoft.AspNetCore.Authentication.Google >= 1.0.0-rc2-final",
       "Microsoft.AspNetCore.Diagnostics >= 1.0.0-rc2-final",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 1.0.0-rc2-final",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 1.0.0-rc2-final",

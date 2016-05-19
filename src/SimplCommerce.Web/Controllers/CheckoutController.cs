@@ -117,7 +117,7 @@ namespace SimplCommerce.Web.Controllers
             }
             else
             {
-                user.CurrentShippingAddressId = model.ShippingAddressId;
+                user.CurrentShippingAddress = userAddressRepository.Query().FirstOrDefault(x => x.Id == model.ShippingAddressId);
             }
             orderService.CreateOrder(user);
             userAddressRepository.SaveChange();

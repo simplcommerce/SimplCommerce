@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace SimplCommerce.Web.Models.ManageViewModels
+namespace SimplCommerce.Web.ViewModels.Manage
 {
     public class ConfigureTwoFactorViewModel
     {

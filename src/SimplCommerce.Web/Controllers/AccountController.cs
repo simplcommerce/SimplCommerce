@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using SimplCommerce.Web.Models.AccountViewModels;
+using SimplCommerce.Web.ViewModels.Account;
 using SimplCommerce.Core.Domain.Models;
 using SimplCommerce.Core.ApplicationServices;
 
