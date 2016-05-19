@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace SimplCommerce.Web.Migrations
 {
-    public partial class InitalSchema : Migration
+    public partial class InitialSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -197,37 +197,6 @@ namespace SimplCommerce.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Core_User",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    CurrentShippingAddressId = table.Column<long>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    FullName = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    NormalizedEmail = table.Column<string>(nullable: true),
-                    NormalizedUserName = table.Column<string>(nullable: true),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    SecurityStamp = table.Column<string>(nullable: true),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    UpdatedOn = table.Column<DateTime>(nullable: false),
-                    UserName = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Core_User", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Core_StateOrProvince",
                 columns: table => new
                 {
@@ -287,6 +256,148 @@ namespace SimplCommerce.Web.Migrations
                         principalTable: "Core_Role",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Core_District",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Location = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    StateOrProvinceId = table.Column<long>(nullable: false),
+                    Type = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Core_District", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Core_District_Core_StateOrProvince_StateOrProvinceId",
+                        column: x => x.StateOrProvinceId,
+                        principalTable: "Core_StateOrProvince",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Core_ProductTemplateProductAttribute",
+                columns: table => new
+                {
+                    ProductTemplateId = table.Column<long>(nullable: false),
+                    ProductAttributeId = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Core_ProductTemplateProductAttribute", x => new { x.ProductTemplateId, x.ProductAttributeId });
+                    table.ForeignKey(
+                        name: "FK_Core_ProductTemplateProductAttribute_Core_ProductAttribute_ProductAttributeId",
+                        column: x => x.ProductAttributeId,
+                        principalTable: "Core_ProductAttribute",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Core_ProductTemplateProductAttribute_Core_ProductTemplate_ProductTemplateId",
+                        column: x => x.ProductTemplateId,
+                        principalTable: "Core_ProductTemplate",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Core_Address",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AddressLine1 = table.Column<string>(nullable: true),
+                    AddressLine2 = table.Column<string>(nullable: true),
+                    ContactName = table.Column<string>(nullable: true),
+                    CountryId = table.Column<long>(nullable: false),
+                    DistrictId = table.Column<long>(nullable: false),
+                    Phone = table.Column<string>(nullable: true),
+                    StateOrProvinceId = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Core_Address", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Core_Address_Core_Country_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "Core_Country",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Core_Address_Core_District_DistrictId",
+                        column: x => x.DistrictId,
+                        principalTable: "Core_District",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Core_Address_Core_StateOrProvince_StateOrProvinceId",
+                        column: x => x.StateOrProvinceId,
+                        principalTable: "Core_StateOrProvince",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Core_UserAddress",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AddressId = table.Column<long>(nullable: false),
+                    AddressType = table.Column<int>(nullable: false),
+                    LastUsedOn = table.Column<DateTime>(nullable: true),
+                    UserId = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Core_UserAddress", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Core_UserAddress_Core_Address_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Core_Address",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Core_User",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    CurrentShippingAddressId = table.Column<long>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    FullName = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    NormalizedEmail = table.Column<string>(nullable: true),
+                    NormalizedUserName = table.Column<string>(nullable: true),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    UpdatedOn = table.Column<DateTime>(nullable: false),
+                    UserName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Core_User", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Core_User_Core_UserAddress_CurrentShippingAddressId",
+                        column: x => x.CurrentShippingAddressId,
+                        principalTable: "Core_UserAddress",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -448,47 +559,37 @@ namespace SimplCommerce.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Core_District",
+                name: "Orders_Order",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Location = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    StateOrProvinceId = table.Column<long>(nullable: false),
-                    Type = table.Column<string>(nullable: true)
+                    BillingAddressId = table.Column<long>(nullable: true),
+                    CreatedById = table.Column<long>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ShippingAddressId = table.Column<long>(nullable: false),
+                    SubTotal = table.Column<decimal>(nullable: false),
+                    UpdatedOn = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Core_District", x => x.Id);
+                    table.PrimaryKey("PK_Orders_Order", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Core_District_Core_StateOrProvince_StateOrProvinceId",
-                        column: x => x.StateOrProvinceId,
-                        principalTable: "Core_StateOrProvince",
+                        name: "FK_Orders_Order_Core_UserAddress_BillingAddressId",
+                        column: x => x.BillingAddressId,
+                        principalTable: "Core_UserAddress",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Core_ProductTemplateProductAttribute",
-                columns: table => new
-                {
-                    ProductTemplateId = table.Column<long>(nullable: false),
-                    ProductAttributeId = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Core_ProductTemplateProductAttribute", x => new { x.ProductTemplateId, x.ProductAttributeId });
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Core_ProductTemplateProductAttribute_Core_ProductAttribute_ProductAttributeId",
-                        column: x => x.ProductAttributeId,
-                        principalTable: "Core_ProductAttribute",
+                        name: "FK_Orders_Order_Core_User_CreatedById",
+                        column: x => x.CreatedById,
+                        principalTable: "Core_User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Core_ProductTemplateProductAttribute_Core_ProductTemplate_ProductTemplateId",
-                        column: x => x.ProductTemplateId,
-                        principalTable: "Core_ProductTemplate",
+                        name: "FK_Orders_Order_Core_UserAddress_ShippingAddressId",
+                        column: x => x.ShippingAddressId,
+                        principalTable: "Core_UserAddress",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -646,43 +747,6 @@ namespace SimplCommerce.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Core_Address",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AddressLine1 = table.Column<string>(nullable: true),
-                    AddressLine2 = table.Column<string>(nullable: true),
-                    ContactName = table.Column<string>(nullable: true),
-                    CountryId = table.Column<long>(nullable: false),
-                    DistrictId = table.Column<long>(nullable: false),
-                    Phone = table.Column<string>(nullable: true),
-                    StateOrProvinceId = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Core_Address", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Core_Address_Core_Country_CountryId",
-                        column: x => x.CountryId,
-                        principalTable: "Core_Country",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Core_Address_Core_District_DistrictId",
-                        column: x => x.DistrictId,
-                        principalTable: "Core_District",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Core_Address_Core_StateOrProvince_StateOrProvinceId",
-                        column: x => x.StateOrProvinceId,
-                        principalTable: "Core_StateOrProvince",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Core_ProductOptionCombination",
                 columns: table => new
                 {
@@ -741,70 +805,6 @@ namespace SimplCommerce.Web.Migrations
                         name: "FK_Orders_CartItem_Core_ProductVariation_ProductVariationId",
                         column: x => x.ProductVariationId,
                         principalTable: "Core_ProductVariation",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Core_UserAddress",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AddressId = table.Column<long>(nullable: false),
-                    AddressType = table.Column<int>(nullable: false),
-                    LastUsedOn = table.Column<DateTime>(nullable: true),
-                    UserId = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Core_UserAddress", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Core_UserAddress_Core_Address_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Core_Address",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Core_UserAddress_Core_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Core_User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Orders_Order",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BillingAddressId = table.Column<long>(nullable: true),
-                    CreatedById = table.Column<long>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ShippingAddressId = table.Column<long>(nullable: true),
-                    SubTotal = table.Column<decimal>(nullable: false),
-                    UpdatedOn = table.Column<DateTime>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders_Order", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Orders_Order_Core_UserAddress_BillingAddressId",
-                        column: x => x.BillingAddressId,
-                        principalTable: "Core_UserAddress",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Orders_Order_Core_User_CreatedById",
-                        column: x => x.CreatedById,
-                        principalTable: "Core_User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Orders_Order_Core_UserAddress_ShippingAddressId",
-                        column: x => x.ShippingAddressId,
-                        principalTable: "Core_UserAddress",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -1015,6 +1015,11 @@ namespace SimplCommerce.Web.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Core_User_CurrentShippingAddressId",
+                table: "Core_User",
+                column: "CurrentShippingAddressId");
+
+            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "Core_User",
                 column: "NormalizedEmail");
@@ -1078,10 +1083,22 @@ namespace SimplCommerce.Web.Migrations
                 name: "IX_Orders_OrderItem_ProductVariationId",
                 table: "Orders_OrderItem",
                 column: "ProductVariationId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Core_UserAddress_Core_User_UserId",
+                table: "Core_UserAddress",
+                column: "UserId",
+                principalTable: "Core_User",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Core_UserAddress_Core_User_UserId",
+                table: "Core_UserAddress");
+
             migrationBuilder.DropTable(
                 name: "Core_RoleClaim");
 
@@ -1158,22 +1175,22 @@ namespace SimplCommerce.Web.Migrations
                 name: "Core_ProductAttributeGroup");
 
             migrationBuilder.DropTable(
-                name: "Core_UserAddress");
-
-            migrationBuilder.DropTable(
                 name: "Core_Product");
-
-            migrationBuilder.DropTable(
-                name: "Core_Address");
 
             migrationBuilder.DropTable(
                 name: "Core_Brand");
 
             migrationBuilder.DropTable(
+                name: "Core_Media");
+
+            migrationBuilder.DropTable(
                 name: "Core_User");
 
             migrationBuilder.DropTable(
-                name: "Core_Media");
+                name: "Core_UserAddress");
+
+            migrationBuilder.DropTable(
+                name: "Core_Address");
 
             migrationBuilder.DropTable(
                 name: "Core_District");

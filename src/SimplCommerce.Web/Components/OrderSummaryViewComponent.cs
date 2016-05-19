@@ -2,21 +2,25 @@
 using SimplCommerce.Web.ViewModels.Cart;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using SimplCommerce.Core.Domain.Models;
 
 namespace SimplCommerce.Web.Components
 {
     public class OrderSummaryViewComponent : ViewComponent
     {
         private readonly ICartService cartService;
+        private readonly UserManager<User> userManager;
 
-        public OrderSummaryViewComponent(ICartService cartService)
+        public OrderSummaryViewComponent(ICartService cartService, UserManager<User> userManager)
         {
             this.cartService = cartService;
+            this.userManager = userManager;
         }
 
         public IViewComponentResult Invoke()
         {
-            var userId = long.Parse(HttpContext.User.Identity.Name);
+            var userId = long.Parse(userManager.GetUserId(HttpContext.User));
 
             var cartItems = cartService.GetCartItems(userId, null);
             var model = new CartViewModel

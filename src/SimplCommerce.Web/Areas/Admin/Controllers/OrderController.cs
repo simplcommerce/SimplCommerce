@@ -26,7 +26,9 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult List([FromBody] SmartTableParam param)
         {
-            var query = orderRepository.Query();
+            var query = orderRepository
+                .Query()
+                .Include(x => x.CreatedBy);
 
             var orders = query.ToSmartTableResult(
                 param,
@@ -45,8 +47,9 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
         {
             var order = orderRepository
                 .Query()
-                .Include(x => x.ShippingAddress)
-                .Include(x => x.OrderItems)
+                .Include(x => x.ShippingAddress).ThenInclude(x => x.Address).ThenInclude(x => x.District).ThenInclude(x => x.StateOrProvince)
+                .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.ThumbnailImage)
+                .Include(x => x.OrderItems).ThenInclude(x => x.ProductVariation).ThenInclude(x => x.OptionCombinations).ThenInclude(x => x.Option)
                 .Include(x => x.CreatedBy)
                 .FirstOrDefault(x => x.Id == id);
 

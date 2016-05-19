@@ -29,8 +29,8 @@ namespace SimplCommerce.Orders.ApplicationServices
             var order = new Order
             {
                 CreatedOn = DateTime.Now,
-                CreatedById = user.Id
-               // ShippingAddress = user.CurrentShippingAddress
+                CreatedById = user.Id,
+                ShippingAddress = user.CurrentShippingAddress
             };
 
             foreach (var cartItem in cartItems)

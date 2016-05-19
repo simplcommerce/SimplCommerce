@@ -23,7 +23,7 @@ namespace SimplCommerce.Core.Domain.Models
 
         public virtual IList<UserAddress> UserAddresses { get; set; } = new List<UserAddress>();
 
-        //public virtual UserAddress CurrentShippingAddress { get; set; }
+        public virtual UserAddress CurrentShippingAddress { get; set; }
 
         public long? CurrentShippingAddressId { get; set; }
     }

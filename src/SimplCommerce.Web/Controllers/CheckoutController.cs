@@ -113,7 +113,7 @@ namespace SimplCommerce.Web.Controllers
                 };
 
                 userAddressRepository.Add(userAddress);
-               // user.CurrentShippingAddress = userAddress;
+                user.CurrentShippingAddress = userAddress;
             }
             else
             {

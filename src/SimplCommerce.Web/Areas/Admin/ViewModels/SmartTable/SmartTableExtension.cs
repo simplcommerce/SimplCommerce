@@ -53,7 +53,7 @@ namespace SimplCommerce.Web.Areas.Admin.ViewModels.SmartTable
             var items = query
                 .Skip(param.Pagination.Start)
                 .Take(param.Pagination.Number)
-                .Select(selector);
+                .Select(selector).ToList();
 
             return new SmartTableResult<TResult>
             {

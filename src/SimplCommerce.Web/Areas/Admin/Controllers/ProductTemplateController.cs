@@ -5,6 +5,7 @@ using SimplCommerce.Web.Areas.Admin.ViewModels.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SimplCommerce.Core.Domain.IRepositories;
 
 namespace SimplCommerce.Web.Areas.Admin.Controllers
 {
@@ -14,11 +15,13 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
     {
         private readonly IRepository<ProductTemplate> productTemplateRepository;
         private readonly IRepository<ProductAttribute> productAttributeRepository;
+        private readonly IProductTemplateProductAttributeRepository productTemplateProductAttributeRepository;
 
-        public ProductTemplateController(IRepository<ProductTemplate> productTemplateRepository, IRepository<ProductAttribute> productAttributeRepository)
+        public ProductTemplateController(IRepository<ProductTemplate> productTemplateRepository, IRepository<ProductAttribute> productAttributeRepository, IProductTemplateProductAttributeRepository productTemplateProductAttributeRepository)
         {
             this.productTemplateRepository = productTemplateRepository;
             this.productAttributeRepository = productAttributeRepository;
+            this.productTemplateProductAttributeRepository = productTemplateProductAttributeRepository;
         }
 
         public IActionResult List()
@@ -94,10 +97,23 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
 
             productTemplate.Name = model.Name;
 
-            productTemplate.ProductAttributes.Clear();
-            foreach (var attributeVm in model.Attributes)
+            foreach (var attribute in model.Attributes)
             {
-                productTemplate.AddAttribute(attributeVm.Id);
+                if (productTemplate.ProductAttributes.Any(x => x.ProductAttributeId == attribute.Id))
+                {
+                    continue;
+                }
+
+                productTemplate.AddAttribute(attribute.Id);
+            }
+
+            var deletedAttributes = productTemplate.ProductAttributes.Where(attr => !model.Attributes.Select(x => x.Id).Contains(attr.ProductAttributeId));
+
+            foreach (var deletedAttribute in deletedAttributes)
+            {
+                deletedAttribute.ProductTemplate = null;
+                productTemplate.ProductAttributes.Remove(deletedAttribute);
+                productTemplateProductAttributeRepository.Remove(deletedAttribute);
             }
 
             productAttributeRepository.SaveChange();

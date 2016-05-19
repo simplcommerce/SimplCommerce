@@ -17,6 +17,8 @@ namespace SimplCommerce.Orders.Domain.Models
 
         public decimal SubTotal { get; set; }
 
+        public long ShippingAddressId { get; set; }
+
         public virtual UserAddress ShippingAddress { get; set; }
 
         public virtual UserAddress BillingAddress { get; set; }

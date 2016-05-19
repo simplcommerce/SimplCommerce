@@ -681,6 +681,8 @@ namespace SimplCommerce.Web.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CurrentShippingAddressId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
 
@@ -751,7 +753,7 @@ namespace SimplCommerce.Web.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<long?>("ShippingAddressId");
+                    b.Property<long>("ShippingAddressId");
 
                     b.Property<decimal>("SubTotal");
 
@@ -1001,6 +1003,13 @@ namespace SimplCommerce.Web.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("SimplCommerce.Core.Domain.Models.User", b =>
+                {
+                    b.HasOne("SimplCommerce.Core.Domain.Models.UserAddress")
+                        .WithMany()
+                        .HasForeignKey("CurrentShippingAddressId");
+                });
+
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.UserAddress", b =>
                 {
                     b.HasOne("SimplCommerce.Core.Domain.Models.Address")
@@ -1010,8 +1019,7 @@ namespace SimplCommerce.Web.Migrations
 
                     b.HasOne("SimplCommerce.Core.Domain.Models.User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("SimplCommerce.Orders.Domain.Models.CartItem", b =>
@@ -1043,7 +1051,8 @@ namespace SimplCommerce.Web.Migrations
 
                     b.HasOne("SimplCommerce.Core.Domain.Models.UserAddress")
                         .WithMany()
-                        .HasForeignKey("ShippingAddressId");
+                        .HasForeignKey("ShippingAddressId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SimplCommerce.Orders.Domain.Models.OrderItem", b =>
