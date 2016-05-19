@@ -41,7 +41,7 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
         {
             var productTemplate = productTemplateRepository
                 .Query()
-                .Include(x => x.ProductAttributes).ThenInclude(x => x.ProductAttribute)
+                .Include(x => x.ProductAttributes).ThenInclude(x => x.ProductAttribute).ThenInclude(x => x.Group)
                 .FirstOrDefault(x => x.Id == id);
             var model = new ProductTemplateFrom
             {
@@ -51,7 +51,8 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
                     x => new ProductAttributeVm()
                     {
                         Id = x.ProductAttributeId,
-                        Name = x.ProductAttribute.Name
+                        Name = x.ProductAttribute.Name,
+                        GroupName = x.ProductAttribute.Group.Name
                     }).ToList()
             };
 
@@ -112,7 +113,6 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
             foreach (var deletedAttribute in deletedAttributes)
             {
                 deletedAttribute.ProductTemplate = null;
-                productTemplate.ProductAttributes.Remove(deletedAttribute);
                 productTemplateProductAttributeRepository.Remove(deletedAttribute);
             }
 
