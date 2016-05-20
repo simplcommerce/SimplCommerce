@@ -2,6 +2,10 @@
 GO
 DELETE FROM [dbo].[Orders_CartItem]
 GO
+DELETE FROM [dbo].[Orders_OrderItem]
+GO
+DELETE FROM [dbo].[Orders_Order]
+GO
 DELETE FROM [dbo].[Core_ProductOptionCombination]
 GO
 DELETE FROM [dbo].[Core_ProductVariation]

@@ -4,6 +4,7 @@ using SimplCommerce.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using SimplCommerce.Core.Domain.Models;
+using System.Threading.Tasks;
 
 namespace SimplCommerce.Web.Components
 {
@@ -11,21 +12,24 @@ namespace SimplCommerce.Web.Components
     {
         private readonly ICartService cartService;
         private readonly UserManager<User> userManager;
+        private readonly SignInManager<User> signInManager;
 
-        public CartBadgeViewComponent(ICartService cartService, UserManager<User> userManager)
+        public CartBadgeViewComponent(ICartService cartService, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             this.cartService = cartService;
             this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
             long? userId = null;
             Guid? guestId = null;
 
-            if (HttpContext.User.Identity.IsAuthenticated)
+            if (signInManager.IsSignedIn(HttpContext.User))
             {
-                userId = long.Parse(userManager.GetUserId(HttpContext.User));
+                var user = await userManager.GetUserAsync(HttpContext.User);
+                userId = user.Id;
             }
             else
             {
