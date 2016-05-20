@@ -19,6 +19,8 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Newtonsoft.Json.Serialization;
 using SimplCommerce.Core.Domain.Models;
+using SimplCommerce.Web.Extensions;
+using Microsoft.AspNetCore.Identity;
 
 namespace SimplCommerce.Web
 {
@@ -59,6 +61,8 @@ namespace SimplCommerce.Web
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<HvDbContext, long>()
                 .AddDefaultTokenProviders();
+
+            services.AddScoped<SignInManager<User>, SimplSignInManager<User>>();
 
             services.AddMvc()
                 .AddJsonOptions(
