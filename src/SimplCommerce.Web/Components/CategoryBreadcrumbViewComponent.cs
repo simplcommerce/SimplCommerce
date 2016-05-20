@@ -4,6 +4,7 @@ using SimplCommerce.Core.Domain.Models;
 using SimplCommerce.Infrastructure.Domain.IRepositories;
 using SimplCommerce.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace SimplCommerce.Web.Components
 {
@@ -16,23 +17,28 @@ namespace SimplCommerce.Web.Components
             this.categoryRepository = categoryRepository;
         }
 
-        //public IViewComponentResult Invoke(IEnumerable<long> categoryIds)
-        //{
-        //    var breadcrumbs = categoryIds.Select(Create).ToList();
-
-        //    return View(breadcrumbs.OrderByDescending(x => x.Count).First());
-        //}
-
-        public IViewComponentResult Invoke(long categoryId)
+        public IViewComponentResult Invoke(long? categoryId, IEnumerable<long> categoryIds)
         {
-            var breadcrumbModels = Create(categoryId);
+            IList<BreadcrumbViewModel> breadcrumbs = new List<BreadcrumbViewModel>();
+            if (categoryId.HasValue)
+            {
+                breadcrumbs = Create(categoryId.Value);
+            }
+            else
+            {
+               var breadcrumbList = categoryIds.Select(Create).ToList();
+                breadcrumbs = breadcrumbList.OrderByDescending(x => x.Count).First();
+            }
 
-            return View(breadcrumbModels);
+            return View(breadcrumbs);
         }
 
         private IList<BreadcrumbViewModel> Create(long categoryId)
         {
-            var category = categoryRepository.Query().FirstOrDefault(x => x.Id == categoryId);
+            var category = categoryRepository
+                .Query()
+                .Include(x => x.Parent)
+                .FirstOrDefault(x => x.Id == categoryId);
             var breadcrumbModels = new List<BreadcrumbViewModel>
             {
                 new BreadcrumbViewModel
