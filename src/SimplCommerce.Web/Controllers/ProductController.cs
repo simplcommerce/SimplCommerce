@@ -16,14 +16,21 @@ namespace SimplCommerce.Web.Controllers
         private readonly IRepository<Product> productRepository;
         private readonly IRepository<ProductVariation> productVariationRepository;
         private readonly IRepository<ProductCategory> productCategoryRepository;
+        private readonly IRepository<Brand> brandRepository;
 
-        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IRepository<Category> categoryRepository, IRepository<ProductVariation> productVariationRepository, IRepository<ProductCategory> productCategoryRepository)
+        public ProductController(IRepository<Product> productRepository,
+            IMediaService mediaService,
+            IRepository<Category> categoryRepository,
+            IRepository<ProductVariation> productVariationRepository,
+            IRepository<ProductCategory> productCategoryRepository,
+            IRepository<Brand> brandRepository)
         {
             this.productRepository = productRepository;
             this.mediaService = mediaService;
             this.categoryRepository = categoryRepository;
             this.productVariationRepository = productVariationRepository;
             this.productCategoryRepository = productCategoryRepository;
+            this.brandRepository = brandRepository;
         }
 
         public IActionResult ProductsByCategory(string catSeoTitle, SearchOption searchOption)
@@ -52,32 +59,35 @@ namespace SimplCommerce.Web.Controllers
             model.FilterOption.Price.MaxPrice = query.Max(x => x.Price);
             model.FilterOption.Price.MinPrice = query.Min(x => x.Price);
 
-            // if (searchOption.MinPrice.HasValue)
-            // {
-            //     query = query.Where(x => x.Price >= searchOption.MinPrice.Value);
-            // }
+            if (searchOption.MinPrice.HasValue)
+            {
+                query = query.Where(x => x.Price >= searchOption.MinPrice.Value);
+            }
 
-            // if (searchOption.MaxPrice.HasValue)
-            // {
-            //     query = query.Where(x => x.Price <= searchOption.MaxPrice.Value);
-            // }
+            if (searchOption.MaxPrice.HasValue)
+            {
+                query = query.Where(x => x.Price <= searchOption.MaxPrice.Value);
+            }
 
-            // AppendFilterOptionsToModel(model, query);
+             AppendFilterOptionsToModel(model, query);
 
             var brands = searchOption.GetBrands();
             if (brands.Any())
             {
-                query = query.Where(x => brands.Contains(x.Brand.SeoTitle));
+                var brandIs = brandRepository.Query().Where(x => brands.Contains(x.SeoTitle)).Select(x => x.Id).ToList();
+                query = query.Where(x => x.BrandId.HasValue && brandIs.Contains(x.BrandId.Value));
             }
 
              model.TotalProduct = query.Count();
 
-            // query = AppySort(searchOption, query);
-
-            var products = query
+            query = query
                 .Include(x => x.Brand)
                 .Include(x => x.ThumbnailImage)
-                .Include(x => x.Variations)
+                .Include(x => x.Variations);
+
+            query = AppySort(searchOption, query);
+
+            var products = query
                 .Select(x => new ProductListItem
                 {
                     Id = x.Id,
