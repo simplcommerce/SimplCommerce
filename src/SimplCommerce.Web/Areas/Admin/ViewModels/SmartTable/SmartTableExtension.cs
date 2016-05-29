@@ -47,7 +47,7 @@ namespace SimplCommerce.Web.Areas.Admin.ViewModels.SmartTable
             }
             else
             {
-               // query = query.OrderBy("Id");
+                 query = query.OrderByName("Id", false);
             }
 
             var items = query
