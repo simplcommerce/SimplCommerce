@@ -7,6 +7,12 @@ namespace SimplCommerce.Orders.Domain.Models
 {
     public class Order : Entity
     {
+        public Order()
+        {
+            CreatedOn = DateTime.Now;
+            OrderStatus = OrderStatus.Pending;
+        }
+
         public DateTime CreatedOn { get; set; }
 
         public DateTime? UpdatedOn { get; set; }
@@ -24,6 +30,8 @@ namespace SimplCommerce.Orders.Domain.Models
         public virtual UserAddress BillingAddress { get; set; }
 
         public virtual IList<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+
+        public OrderStatus OrderStatus { get; set; }
 
         public void AddOrderItem(OrderItem item)
         {
