@@ -34,13 +34,13 @@
                 <td><button  class="btn btn-link" ng-click="vm.removeShoppingCartItem(cartItem)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
             </tr>
             <tr ng-if="!vm.cartViewModel.cartItems.length">
-                <td colspan="5" class="text-center">
-                    No data
+                <td colspan="7" class="text-center">
+                    There are no items in this cart. <a href="~/">Go to shopping</a>
                 </td>
             </tr>
         </tbody>
     </table>
-    <div>
+    <div ng-if="vm.cartViewModel.cartItems.length">
         <h3 class="text-right">TOTAL: {{vm.cartViewModel.subTotal}}</h3>
         <p class="text-right"><a href="~/checkout" class="btn btn-primary">Process to Checkout</a></p>
     </div>
