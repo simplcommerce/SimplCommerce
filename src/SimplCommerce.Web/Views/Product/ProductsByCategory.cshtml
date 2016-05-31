@@ -127,10 +127,10 @@
         var productFilter = {};
         productFilter.currentSearchOption = @Html.Raw(Model.CurrentSearchOption.ToJson());
         productFilter.priceSetting = {
-            min: @Model.FilterOption.Price.MinPrice,
-            max: @Model.FilterOption.Price.MaxPrice,
-            currentMin: @(Model.CurrentSearchOption.MinPrice ?? Model.FilterOption.Price.MinPrice),
-            currentMax: @(Model.CurrentSearchOption.MaxPrice ?? Model.FilterOption.Price.MaxPrice)
+            min: @Model.FilterOption.Price.MinPrice.ToString("F0"),
+            max: @Model.FilterOption.Price.MaxPrice.ToString("F0"),
+            currentMin: @((Model.CurrentSearchOption.MinPrice ?? Model.FilterOption.Price.MinPrice).ToString("F0")),
+            currentMax: @((Model.CurrentSearchOption.MaxPrice ?? Model.FilterOption.Price.MaxPrice).ToString("F0"))
         };
     </script>
     <script src="~/js/product-filter.js"></script>
