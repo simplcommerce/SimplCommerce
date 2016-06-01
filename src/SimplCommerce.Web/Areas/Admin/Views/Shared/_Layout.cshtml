@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using SimplCommerce.Core.Domain.Models
+@inject UserManager<User> UserManager
+
+<!DOCTYPE html>
 <html ng-app="shopAdmin">
 <head>
     <meta charset="utf-8" />
@@ -130,7 +134,16 @@
                         </ul>
                     </li>
                 </ul>
-                @await Html.PartialAsync("_LoginPartial")
+                <form asp-area="" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                        </li>
+                        <li>
+                            <button type="submit" class="btn btn-link navbar-btn navbar-link">Log off</button>
+                        </li>
+                    </ul>
+                </form>
             </div>
         </div>
     </div>

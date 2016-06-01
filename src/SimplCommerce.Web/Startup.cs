@@ -60,7 +60,10 @@ namespace SimplCommerce.Web
             services.AddDbContext<HvDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("SimplCommerce.Web")));
 
-            services.AddIdentity<User, Role>()
+            services.AddIdentity<User, Role>(configure =>
+            {
+                configure.Cookies.ApplicationCookie.LoginPath = "/login";
+            })
                 .AddEntityFrameworkStores<HvDbContext, long>()
                 .AddDefaultTokenProviders();
 
