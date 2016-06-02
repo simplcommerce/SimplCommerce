@@ -19,24 +19,14 @@ namespace SimplCommerce.Orders.ApplicationServices
             this.productVariationRepository = productVariationRepository;
         }
 
-        public CartItem AddToCart(long? userId, Guid? guestId, long productId, string variationName, int quantity)
+        public CartItem AddToCart(long userId, long productId, string variationName, int quantity)
         {
             ProductVariation productVariation = null;
 
             var cartItemQuery = cartItemRepository
                 .Query()
                 .Include(x => x.Product)
-                .Where(x => x.ProductId == productId);
-
-            if (userId.HasValue)
-            {
-                cartItemQuery = cartItemQuery.Where(x => x.CreatedById == userId.Value);
-            }
-
-            if (guestId.HasValue)
-            {
-                cartItemQuery = cartItemQuery.Where(x => x.GuestId == guestId.Value);
-            }
+                .Where(x => x.ProductId == productId && x.UserId == userId);
 
             if (!string.IsNullOrWhiteSpace(variationName))
             {
@@ -53,8 +43,7 @@ namespace SimplCommerce.Orders.ApplicationServices
             {
                 cartItem = new CartItem
                 {
-                    CreatedById = userId,
-                    GuestId = guestId,
+                    UserId = userId,
                     ProductId = productId,
                     Quantity = quantity,
                     CreatedOn = DateTime.Now
@@ -77,34 +66,25 @@ namespace SimplCommerce.Orders.ApplicationServices
             return cartItem;
         }
 
-        public IList<CartItem> GetCartItems(long? userId, Guid? guestId)
+        public IList<CartItem> GetCartItems(long userId)
         {
             IQueryable<CartItem> query = cartItemRepository
                 .Query()
                 .Include(x => x.Product).ThenInclude(p => p.ThumbnailImage)
                 .Include(x => x.ProductVariation)
-                .Include(x => x.ProductVariation).ThenInclude(p => p.OptionCombinations).ThenInclude(o => o.Option);
-
-            if (userId.HasValue)
-            {
-                query = query.Where(x => x.CreatedById == userId);
-            }
-
-            if (guestId.HasValue)
-            {
-                query = query.Where(x => x.GuestId == guestId);
-            }
+                .Include(x => x.ProductVariation).ThenInclude(p => p.OptionCombinations).ThenInclude(o => o.Option)
+                .Where(x => x.UserId == userId);
 
             return query.ToList();
         }
 
-        public void UpdateGuestIdToUser(Guid guestId, long userId)
+        public void MigrateCart(long fromUserId, long toUserId)
         {
-            var cartItems = cartItemRepository.Query().Where(x => x.GuestId == guestId);
+            var cartItems = cartItemRepository.Query().Where(x => x.UserId == fromUserId);
 
             foreach (var cartItem in cartItems)
             {
-                cartItem.CreatedById = userId;
+                cartItem.UserId = toUserId;
             }
 
             cartItemRepository.SaveChange();

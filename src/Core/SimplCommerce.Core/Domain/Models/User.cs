@@ -13,6 +13,8 @@ namespace SimplCommerce.Core.Domain.Models
             UpdatedOn = DateTime.Now;
         }
 
+        public Guid UserGuid { get; set; }
+
         public string FullName { get; set; }
 
         public bool IsDeleted { get; set; }

@@ -8,47 +8,46 @@ using SimplCommerce.Web.ViewModels.Cart;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SimplCommerce.Web.Extensions;
+using System.Threading.Tasks;
 
 namespace SimplCommerce.Web.Controllers
 {
-    public class CartController : BaseController
+    public class CartController : Controller
     {
-        private readonly IRepository<CartItem> cartItemRepository;
-        private readonly ICartService cartService;
-        private readonly IMediaService mediaService;
+        private readonly IRepository<CartItem> _cartItemRepository;
+        private readonly ICartService _cartService;
+        private readonly IMediaService _mediaService;
+        private readonly IWorkContext _workContext;
 
         public CartController(
             UserManager<User> userManager,
             IRepository<CartItem> cartItemRepository,
             ICartService cartService,
-            IMediaService mediaService) : base(userManager)
+            IMediaService mediaService,
+            IWorkContext workContext)
         {
-            this.cartItemRepository = cartItemRepository;
-            this.cartService = cartService;
-            this.mediaService = mediaService;
+            _cartItemRepository = cartItemRepository;
+            _cartService = cartService;
+            _mediaService = mediaService;
+            _workContext = workContext;
         }
 
         [HttpPost]
-        public IActionResult AddToCart([FromBody] AddToCartModel model)
+        public async Task<IActionResult> AddToCart([FromBody] AddToCartModel model)
         {
-            CartItem cartItem;
-            if (HttpContext.User.Identity.IsAuthenticated)
-            {
-                cartItem = cartService.AddToCart(CurrentUserId, null, model.ProductId, model.VariationName, model.Quantity);
-            }
-            else
-            {
-                cartItem = cartService.AddToCart(null, GetGuestId(), model.ProductId, model.VariationName, model.Quantity);
-            }
+            var currentUser = await _workContext.GetCurrentUser();
+            CartItem cartItem = _cartService.AddToCart(currentUser.Id, model.ProductId, model.VariationName, model.Quantity);
 
             return RedirectToAction("AddToCartResult", new { cartItemId = cartItem.Id });
         }
 
         [HttpGet]
-        public ActionResult AddToCartResult(long cartItemId)
+        public async Task<IActionResult> AddToCartResult(long cartItemId)
         {
+            var currentUser = await _workContext.GetCurrentUser();
             var cartItem =
-                cartItemRepository.Query()
+                _cartItemRepository.Query()
                     .Include(x => x.Product).ThenInclude(x => x.ThumbnailImage)
                     .Include(x => x.ProductVariation)
                     .First(x => x.Id == cartItemId);
@@ -56,7 +55,7 @@ namespace SimplCommerce.Web.Controllers
             var model = new AddToCartResult
             {
                 ProductName = cartItem.Product.Name,
-                ProductImage = mediaService.GetThumbnailUrl(cartItem.Product.ThumbnailImage),
+                ProductImage = _mediaService.GetThumbnailUrl(cartItem.Product.ThumbnailImage),
                 ProductPrice = cartItem.ProductPrice,
                 Quantity = cartItem.Quantity
             };
@@ -66,10 +65,7 @@ namespace SimplCommerce.Web.Controllers
                 model.VariationName = cartItem.ProductVariation.Name;
             }
 
-            var cartItems = HttpContext.User.Identity.IsAuthenticated
-                ? cartService.GetCartItems(CurrentUserId, null)
-                : cartService.GetCartItems(null, GetGuestId());
-
+            var cartItems = _cartService.GetCartItems(currentUser.Id);
             model.CartItemCount = cartItems.Count;
             model.CartAmount = cartItems.Sum(x => x.Quantity * x.ProductPrice);
 
@@ -83,11 +79,10 @@ namespace SimplCommerce.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult List()
+        public async Task<IActionResult> List()
         {
-            var cartItems = HttpContext.User.Identity.IsAuthenticated
-                ? cartService.GetCartItems(CurrentUserId, null)
-                : cartService.GetCartItems(null, GetGuestId());
+            var currentUser = await _workContext.GetCurrentUser();
+            var cartItems = _cartService.GetCartItems(currentUser.Id);
 
             var model = new CartViewModel
             {
@@ -96,7 +91,7 @@ namespace SimplCommerce.Web.Controllers
                     Id = x.Id,
                     ProductName = x.Product.Name,
                     ProductPrice = x.ProductPrice,
-                    ProductImage = mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
+                    ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
                     Quantity = x.Quantity,
                     VariationOptions = CartListItem.GetVariationOption(x.ProductVariation)
                 }).ToList()
@@ -106,29 +101,29 @@ namespace SimplCommerce.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateQuantity([FromBody] CartQuantityUpdate model)
+        public async Task<IActionResult> UpdateQuantity([FromBody] CartQuantityUpdate model)
         {
-            var cartItem = cartItemRepository.Query().FirstOrDefault(x => x.Id == model.CartItemId);
+            var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == model.CartItemId);
             cartItem.Quantity = model.Quantity;
 
-            cartItemRepository.SaveChange();
+            _cartItemRepository.SaveChange();
 
-            return List();
+            return await List();
         }
 
         [HttpPost]
-        public IActionResult Remove([FromBody] long itemId)
+        public async Task<IActionResult> Remove([FromBody] long itemId)
         {
-            var cartItem = cartItemRepository.Query().FirstOrDefault(x => x.Id == itemId);
+            var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == itemId);
             if (cartItem == null)
             {
                 return new NotFoundResult();
             }
 
-            cartItemRepository.Remove(cartItem);
-            cartItemRepository.SaveChange();
+            _cartItemRepository.Remove(cartItem);
+            _cartItemRepository.SaveChange();
 
-            return List();
+            return await List();
         }
     }
 }

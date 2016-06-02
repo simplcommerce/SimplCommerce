@@ -24,7 +24,7 @@ namespace SimplCommerce.Orders.ApplicationServices
                 .Query()
                 .Include(x => x.Product)
                 .Include(x => x.ProductVariation)
-                .Where(x => x.CreatedById == user.Id).ToList();
+                .Where(x => x.UserId == user.Id).ToList();
 
             var order = new Order
             {

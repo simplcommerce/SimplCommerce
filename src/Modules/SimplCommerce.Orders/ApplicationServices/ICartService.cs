@@ -6,10 +6,10 @@ namespace SimplCommerce.Orders.ApplicationServices
 {
     public interface ICartService
     {
-        CartItem AddToCart(long? userId, Guid? guestId, long productId, string variationName, int quantity);
+        CartItem AddToCart(long userId, long productId, string variationName, int quantity);
 
-        IList<CartItem> GetCartItems(long? userId, Guid? guestId);
+        IList<CartItem> GetCartItems(long userId);
 
-        void UpdateGuestIdToUser(Guid guestId, long userId);
+        void MigrateCart(long fromUserId, long toUserId);
     }
 }

@@ -13,6 +13,7 @@ namespace SimplCommerce.Web.Extensions
     {
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly ICartService _cartService;
+        private readonly IWorkContext _workContext;
         private HttpContext _context;
 
         public SimplSignInManager(UserManager<TUser> userManager,
@@ -20,11 +21,13 @@ namespace SimplCommerce.Web.Extensions
             IUserClaimsPrincipalFactory<TUser> claimsFactory,
             IOptions<IdentityOptions> optionsAccessor,
             ILogger<SignInManager<TUser>> logger,
-            ICartService cartService)
+            ICartService cartService,
+            IWorkContext workContext)
         : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger)
         {
             _cartService = cartService;
             _contextAccessor = contextAccessor;
+            _workContext = workContext;
         }
 
         internal HttpContext Context
@@ -46,21 +49,15 @@ namespace SimplCommerce.Web.Extensions
 
         public override async Task SignInAsync(TUser user, bool isPersistent, string authenticationMethod = null)
         {
-            await ChangeGuestIdToUser(user);
+            await MigrateCart(user);
             await base.SignInAsync(user, isPersistent, authenticationMethod);
         }
 
-        private async Task ChangeGuestIdToUser(TUser user)
+        private async Task MigrateCart(TUser user)
         {
-            var guestId = GuestIdentityManager.GetGuestId(Context);
-            if (!guestId.HasValue)
-            {
-                return;
-            }
-
+            var guestUser = await _workContext.GetCurrentUser();
             var userId = await UserManager.GetUserIdAsync(user);
-
-            _cartService.UpdateGuestIdToUser(guestId.Value, long.Parse(userId));
+            _cartService.MigrateCart(guestUser.Id, long.Parse(userId));
         }
     }
 }

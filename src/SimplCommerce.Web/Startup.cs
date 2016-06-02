@@ -79,6 +79,7 @@ namespace SimplCommerce.Web
                 .AddDataAnnotationsLocalization();
 
             services.AddScoped(f => Configuration);
+            services.AddScoped<IWorkContext, WorkContext>();
 
             GlobalConfiguration.Modules.Add(new HvModule { Name = "Core", AssemblyName = "SimplCommerce.Core" });
             GlobalConfiguration.Modules.Add(new HvModule { Name = "Orders", AssemblyName = "SimplCommerce.Orders" });

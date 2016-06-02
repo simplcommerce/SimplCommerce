@@ -8,9 +8,10 @@ using SimplCommerce.Core.Infrastructure.EntityFramework;
 namespace SimplCommerce.Web.Migrations
 {
     [DbContext(typeof(HvDbContext))]
-    partial class HvDbContextModelSnapshot : ModelSnapshot
+    [Migration("20160602174631_CreateGuestUser")]
+    partial class CreateGuestUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rc2-20901")

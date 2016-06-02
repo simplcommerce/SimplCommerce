@@ -8,11 +8,9 @@ namespace SimplCommerce.Orders.Domain.Models
     {
         public DateTime CreatedOn { get; set; }
 
-        public Guid? GuestId { get; set; }
+        public long UserId { get; set; }
 
-        public long? CreatedById { get; set; }
-
-        public virtual User CreatedBy { get; set; }
+        public virtual User User { get; set; }
 
         public long ProductId { get; set; }
 

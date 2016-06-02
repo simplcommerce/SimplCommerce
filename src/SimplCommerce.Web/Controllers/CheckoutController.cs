@@ -7,17 +7,20 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using SimplCommerce.Web.Extensions;
+using System.Threading.Tasks;
 
 namespace SimplCommerce.Web.Controllers
 {
     [Authorize]
-    public class CheckoutController : BaseController
+    public class CheckoutController : Controller
     {
-        private IRepository<StateOrProvince> stateOrProvinceRepository;
-        private IRepository<District> districtRepository;
-        private IRepository<UserAddress> userAddressRepository;
-        private IRepository<User> userRepository;
-        private IOrderService orderService;
+        private IRepository<StateOrProvince> _stateOrProvinceRepository;
+        private IRepository<District> _districtRepository;
+        private IRepository<UserAddress> _userAddressRepository;
+        private IRepository<User> _userRepository;
+        private IOrderService _orderService;
+        private IWorkContext _workContext;
 
         public CheckoutController(
             UserManager<User> userManager,
@@ -25,13 +28,15 @@ namespace SimplCommerce.Web.Controllers
             IRepository<District> districtRepository,
             IRepository<UserAddress> userAddressRepository,
             IRepository<User> userRepository,
-            IOrderService orderService) : base(userManager)
+            IOrderService orderService,
+            IWorkContext workContext)
         {
-            this.stateOrProvinceRepository = stateOrProvinceRepository;
-            this.districtRepository = districtRepository;
-            this.userAddressRepository = userAddressRepository;
-            this.userRepository = userRepository;
-            this.orderService = orderService;
+            _stateOrProvinceRepository = stateOrProvinceRepository;
+            _districtRepository = districtRepository;
+            _userAddressRepository = userAddressRepository;
+            _userRepository = userRepository;
+            _orderService = orderService;
+            _workContext = workContext;
         }
 
         public IActionResult Index()
@@ -40,13 +45,14 @@ namespace SimplCommerce.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult DeliveryInformation()
+        public async Task<IActionResult> DeliveryInformation()
         {
             var model = new DeliveryInformationViewModel();
 
-            model.ExistingShippingAddresses = userAddressRepository
+            var currentUser = await _workContext.GetCurrentUser();
+            model.ExistingShippingAddresses = _userAddressRepository
                 .Query()
-                .Where(x => x.AddressType == AddressType.Shipping && x.UserId == CurrentUserId)
+                .Where(x => x.AddressType == AddressType.Shipping && x.UserId == currentUser.Id)
                 .Select(x => new ShippingAddressViewModel
                 {
                     UserAddressId = x.Id,
@@ -59,7 +65,7 @@ namespace SimplCommerce.Web.Controllers
                     CountryName = x.Address.Country.Name
                 }).ToList();
 
-            model.NewAddressForm.StateOrProvinces = stateOrProvinceRepository
+            model.NewAddressForm.StateOrProvinces = _stateOrProvinceRepository
                 .Query()
                 .OrderBy(x => x.Name)
                 .Select(x => new SelectListItem
@@ -70,7 +76,7 @@ namespace SimplCommerce.Web.Controllers
 
             var selectedStateOrProvince = long.Parse(model.NewAddressForm.StateOrProvinces.First().Value);
 
-            model.NewAddressForm.Districts = districtRepository
+            model.NewAddressForm.Districts = _districtRepository
                 .Query()
                 .Where(x => x.StateOrProvinceId == selectedStateOrProvince)
                 .OrderBy(x => x.Name)
@@ -84,14 +90,14 @@ namespace SimplCommerce.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeliveryInformation(DeliveryInformationViewModel model)
+        public async Task<IActionResult> DeliveryInformation(DeliveryInformationViewModel model)
         {
             if (!ModelState.IsValid && model.ShippingAddressId == 0)
             {
                 return View(model);
             }
 
-            var user = userRepository.Query().FirstOrDefault(x => x.Id == CurrentUserId);
+            var currentUser = await _workContext.GetCurrentUser();
 
             if (model.ShippingAddressId == 0)
             {
@@ -109,18 +115,18 @@ namespace SimplCommerce.Web.Controllers
                 {
                     Address = address,
                     AddressType = AddressType.Shipping,
-                    UserId = CurrentUserId
+                    UserId = currentUser.Id
                 };
 
-                userAddressRepository.Add(userAddress);
-                user.CurrentShippingAddress = userAddress;
+                _userAddressRepository.Add(userAddress);
+                currentUser.CurrentShippingAddress = userAddress;
             }
             else
             {
-                user.CurrentShippingAddress = userAddressRepository.Query().FirstOrDefault(x => x.Id == model.ShippingAddressId);
+                currentUser.CurrentShippingAddress = _userAddressRepository.Query().FirstOrDefault(x => x.Id == model.ShippingAddressId);
             }
-            orderService.CreateOrder(user);
-            userAddressRepository.SaveChange();
+            _orderService.CreateOrder(currentUser);
+            _userAddressRepository.SaveChange();
 
             return RedirectToAction("OrderConfirmation");
         }

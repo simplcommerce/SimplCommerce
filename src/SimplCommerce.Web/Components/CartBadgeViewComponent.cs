@@ -1,43 +1,25 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using SimplCommerce.Orders.ApplicationServices;
 using SimplCommerce.Web.Extensions;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
-using SimplCommerce.Core.Domain.Models;
-using System.Threading.Tasks;
 
 namespace SimplCommerce.Web.Components
 {
     public class CartBadgeViewComponent : ViewComponent
     {
-        private readonly ICartService cartService;
-        private readonly UserManager<User> userManager;
-        private readonly SignInManager<User> signInManager;
+        private ICartService _cartService;
+        private IWorkContext _workContext;
 
-        public CartBadgeViewComponent(ICartService cartService, UserManager<User> userManager, SignInManager<User> signInManager)
+        public CartBadgeViewComponent(ICartService cartService, IWorkContext workContext)
         {
-            this.cartService = cartService;
-            this.userManager = userManager;
-            this.signInManager = signInManager;
+            _cartService = cartService;
+            _workContext = workContext;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            long? userId = null;
-            Guid? guestId = null;
-
-            if (signInManager.IsSignedIn(HttpContext.User))
-            {
-                var user = await userManager.GetUserAsync(HttpContext.User);
-                userId = user.Id;
-            }
-            else
-            {
-                guestId = GuestIdentityManager.GetGuestId(HttpContext);
-            }
-
-            var cartItemCount = cartService.GetCartItems(userId, guestId).Count;
-
+            var currentUser = await _workContext.GetCurrentUser();
+            var cartItemCount = _cartService.GetCartItems(currentUser.Id).Count;
             return View(cartItemCount);
         }
     }
