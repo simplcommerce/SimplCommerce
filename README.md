@@ -25,11 +25,13 @@
  - Create an empty database
  - Clone the source code if you haven't and move to the folder src/SimplCommerce.Web
  - Open file project.json and add package "Npgsql.EntityFrameworkCore.PostgreSQL": "1.0.0-rc2-release1"
- - Open appsettings.json and change the connection string to postgre database that you just created.
-   Ex: "DefaultConnection": "User ID=thien;Password=12345;Host=localhost;Port=5432;Database=SimplCommerce;Pooling=true;"
+ - Open appsettings.json and change the connection string to postgre database that you just created. For example
+   ``` "DefaultConnection": "User ID=thien;Password=12345;Host=localhost;Port=5432;Database=SimplCommerce;Pooling=true;" ```
  - Open the file Startup.cs replay the SqlServer provider by Postgre
+ ```cs
    services.AddDbContext<HvDbContext>(options =>
         options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("SimplCommerce.Web")));
+ ```
  - Re-add migration for postgre by deleting all file in SimplCommerce.Web/Migrations and run donet ef migrations add initialSchema
  - Run dotnet ef database update
  - Run dotnet restore
