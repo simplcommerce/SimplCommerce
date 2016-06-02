@@ -37,6 +37,11 @@
  - Run dotnet restore
  - Run dotnet run
 
+## Online demo
+Azure virtual machine A0 (shared core, 768 MB memory)
+Ubuntu 14.04 + Postgresql
+http://demo.simplcommerce.com
+
 ## How to contribute:
 - Suggest features by create new issues or add comments to issues
 - Pickup an issue, create your own branch and implement it, then submit a Merge Request when you finished the implemntation and testing
