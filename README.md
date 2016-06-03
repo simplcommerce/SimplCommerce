@@ -5,10 +5,10 @@
 - SQL Server or Postgree
 
 ## Technologies and frameworks used:
-- ASP.NET MVC Core 1.0 RC2 on dotnetcore 1.0 RC2
+- ASP.NET MVC Core 1.0 RC2 on .NET Core 1.0 RC2
 - Angular 1.5
 - Autofac 4.0.0 RC1
-- Entity framework Core 1.0 RC2
+- Entity Framework Core 1.0 RC2
 - ASP.NET Identity Core 1.0 RC2
 
 ## How to run on local (Windows)
@@ -28,17 +28,18 @@
  - Open appsettings.json and change the connection string to postgre database that you just created. For example
    ``` "DefaultConnection": "User ID=thien;Password=12345;Host=localhost;Port=5432;Database=SimplCommerce;Pooling=true;" ```
  - Open the file Startup.cs replay the SqlServer provider by Postgre
- ```cs
-   services.AddDbContext<HvDbContext>(options =>
-        options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("SimplCommerce.Web")));
  ```
- - Re-add migration for postgre by deleting all file in SimplCommerce.Web/Migrations and run donet ef migrations add initialSchema
- - Run dotnet ef database update
- - Run dotnet restore
- - Run dotnet run
+   services.AddDbContext<HvDbContext>(options =>
+        options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"),
+        b => b.MigrationsAssembly("SimplCommerce.Web")));
+ ```
+ - Re-add migration for postgre by deleting all file in SimplCommerce.Web/Migrations and run ```donet ef migrations add initialSchema```
+ - Run ```dotnet ef database update```
+ - Run ```dotnet restore```
+ - Run ```dotnet run```
 
 ## Online demo
-Azure virtual machine A0 (shared core, 768 MB memory)
+Hosted in Azure virtual machine A0 (shared core, 768 MB memory)
 Ubuntu 14.04 + Postgresql
 http://demo.simplcommerce.com
 
