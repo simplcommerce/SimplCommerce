@@ -33,7 +33,7 @@ namespace SimplCommerce.Core.ApplicationServices
 
         public void Delete(Product product)
         {
-            productRepository.Remove(product);
+            product.IsDeleted = true;
             urlSlugService.Remove(product.Id, ProductEntityName);
             productRepository.SaveChange();
         }

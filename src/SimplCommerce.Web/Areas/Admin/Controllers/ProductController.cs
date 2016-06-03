@@ -247,6 +247,35 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        public IActionResult ChangeStatus(long id)
+        {
+            var product = productRepository.Query().FirstOrDefault(x => x.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            product.IsPublished = !product.IsPublished;
+            productRepository.SaveChange();
+
+            return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult Delete(long id)
+        {
+            var product = productRepository.Query().FirstOrDefault(x => x.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            productService.Delete(product);
+
+            return Ok();
+        }
+
         private static void MapProductVariationVmToProduct(ProductForm model, Product product)
         {
             foreach (var variationVm in model.Product.Variations)

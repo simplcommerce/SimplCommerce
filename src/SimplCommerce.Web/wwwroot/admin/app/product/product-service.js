@@ -14,7 +14,9 @@
             getProductTemplates: getProductTemplates,
             getProductTemplate: getProductTemplate,
             getProductOptions: getProductOptions,
-            getProduct: getProduct
+            getProduct: getProduct,
+            changeStatus: changeStatus,
+            deleteProduct: deleteProduct
         };
         return service;
 
@@ -62,6 +64,14 @@
                     productImages: productImages
                 }
             });
+        }
+
+        function changeStatus(product) {
+            return $http.post('Admin/Product/ChangeStatus/' + product.id, null);
+        }
+
+        function deleteProduct(product) {
+            return $http.post('Admin/Product/Delete/' + product.id, null);
         }
     }
 })();
