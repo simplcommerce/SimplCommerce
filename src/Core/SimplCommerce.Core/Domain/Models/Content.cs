@@ -25,7 +25,7 @@ namespace SimplCommerce.Core.Domain.Models
 
         public DateTime? PublishedOn { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; protected set; }
 
         public virtual User CreatedBy { get; set; }
 
@@ -34,5 +34,18 @@ namespace SimplCommerce.Core.Domain.Models
         public DateTime UpdatedOn { get; set; }
 
         public virtual User UpdatedBy { get; set; }
+
+        public void SetDelete(bool value)
+        {
+            if (value)
+            {
+                IsPublished = false;
+                IsDeleted = true;
+            }
+            else
+            {
+                IsDeleted = false;
+            }
+        }
     }
 }

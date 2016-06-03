@@ -53,7 +53,7 @@ namespace SimplCommerce.Web.Controllers
 
             var query = productCategoryRepository
                 .Query()
-                .Where(x => x.CategoryId == category.Id)
+                .Where(x => x.CategoryId == category.Id && x.Product.IsPublished)
                 .Select(x => x.Product);
 
             model.FilterOption.Price.MaxPrice = query.Max(x => x.Price);
