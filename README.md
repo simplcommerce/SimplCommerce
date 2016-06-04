@@ -33,9 +33,9 @@
         options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"),
         b => b.MigrationsAssembly("SimplCommerce.Web")));
  ```
+ - Run ```dotnet restore``` 
  - Re-add migration for postgre by deleting all file in SimplCommerce.Web/Migrations and run ```donet ef migrations add initialSchema```
  - Run ```dotnet ef database update```
- - Run ```dotnet restore```
  - Run ```dotnet run```
 
 ## Online demo
