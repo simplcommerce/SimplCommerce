@@ -13,7 +13,7 @@
             vm.isLoading = true;
             orderService.getOrders(tableState).then(function (result) {
                 vm.orders = result.data.items;
-                tableState.pagination.totalItemCount = result.data.numberOfPages;
+                tableState.pagination.numberOfPages = result.data.numberOfPages;
                 vm.isLoading = false;
             });
         };
