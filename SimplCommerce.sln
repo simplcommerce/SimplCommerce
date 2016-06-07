@@ -29,7 +29,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{813C324B-3BA3-47C4-B5AB-A0DA567E21AE}"
 	ProjectSection(SolutionItems) = preProject
 		src\Database\StaticData.sql = src\Database\StaticData.sql
-		StaticDate_Postgre.sql = StaticDate_Postgre.sql
+		src\Database\StaticData_Postgre.sql = src\Database\StaticData_Postgre.sql
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.ProductReview", "src\Modules\SimplCommerce.ProductReview\SimplCommerce.ProductReview.xproj", "{9558C1D2-14A1-4519-BF1F-6834703FE5C3}"

@@ -37,7 +37,7 @@
  - Run ```dotnet restore``` 
  - Re-add migration for postgre by deleting all file in SimplCommerce.Web/Migrations and run ```donet ef migrations add initialSchema```
  - Run ```dotnet ef database update```
- - Run src/Database/StaticData.sql to create seeding data
+ - Run src/Database/StaticData_Postgre.sql to create seeding data
  - Run ```dotnet run```
  - The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
