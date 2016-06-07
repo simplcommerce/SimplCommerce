@@ -80,7 +80,8 @@ namespace SimplCommerce.Web.Extensions
         {
             _httpContext.Response.Cookies.Append(UserGuidCookiesName, _currentUser.UserGuid.ToString(), new CookieOptions
             {
-                Expires = DateTime.MaxValue
+                Expires = DateTime.UtcNow.AddYears(5),
+                HttpOnly = true
             });
         }
     }
