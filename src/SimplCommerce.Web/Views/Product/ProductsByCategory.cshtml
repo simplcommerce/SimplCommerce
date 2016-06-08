@@ -52,6 +52,7 @@
                     </div>
                 </div>
             </div>
+            @if (Model.FilterOption.Price.MaxPrice != Model.FilterOption.Price.MinPrice) {
             <div class="panel-group" id="accordion-price">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -79,6 +80,7 @@
                     </div>
                 </div>
             </div>
+            }
         </form>
     </div>
     <div class="col-md-9">

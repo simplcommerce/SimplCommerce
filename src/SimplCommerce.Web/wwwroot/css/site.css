@@ -59,7 +59,7 @@ li.nav-item-group, li.nav-item-group a {
 }
 
 .cart-badge i {
-    color: #687074;
+    color: #18ba9b;
     font-size: 24px;
     min-width: 25px;
 }
@@ -89,6 +89,31 @@ li.nav-item-group, li.nav-item-group a {
 
 .product-list-filters h3 {
     margin-top: 27px;
+}
+
+.product-list .btn {
+    background: #ddd;
+    font-size: 18px;
+    padding: 5px 10px;
+    border: 0;
+    color: #18ba9b;
+    border-radius: 0;
+    margin: -1px;
+}
+
+.product-list .btn:hover{
+    background: #eee;
+}
+
+.product-list .btn-add-cart-style {
+    background: #18ba9b;
+    padding: 8px 43px;
+    font-size: 14px;
+    color:#fff;
+}
+
+.product-list .btn-add-cart-style:hover{
+    background: #2cd5b6;
 }
 
 #accordion-brand ul{

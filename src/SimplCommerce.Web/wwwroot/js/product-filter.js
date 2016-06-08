@@ -25,6 +25,9 @@
         }
 
         function intPriceSlider() {
+            if (!document.getElementById('priceSlider')) {
+                return;
+            }
             var priceValues = [
                 document.getElementById('minPrice'),
                 document.getElementById('maxPrice')
