@@ -28,6 +28,10 @@ th.sortable {
     color: white !important;
 }
 
+.date-filter {
+    width: 250px;
+}
+
 .product-image-edit {
     display: inline-block;
     position: relative;

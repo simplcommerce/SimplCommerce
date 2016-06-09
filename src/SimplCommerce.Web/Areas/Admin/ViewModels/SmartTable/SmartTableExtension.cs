@@ -14,31 +14,6 @@ namespace SimplCommerce.Web.Areas.Admin.ViewModels.SmartTable
                 param.Pagination.Number = 10;
             }
 
-            // TODO Prevent sql injection
-            if (param.Search.PredicateObject != null)
-            {
-                var filter = string.Empty;
-                var index = 0;
-                List<object> values = new List<object>();
-                foreach (var item in param.Search.PredicateObject)
-                {
-                    if (index == 0)
-                    {
-                        filter = string.Format("{0}.Contains(@{1})", item.Path, index);
-                    }
-                    else
-                    {
-                        filter = string.Format("{0} AND {1}.Contains(@{2})", filter, item.Path, index);
-                    }
-                    values.Add(item.Value.Value);
-                    index++;
-                }
-                if (!string.IsNullOrWhiteSpace(filter))
-                {
-                   // query = query.Where(filter, values.ToArray());
-                }
-            }
-
             var totalRecord = query.Count();
 
             if (!string.IsNullOrWhiteSpace(param.Sort.Predicate))

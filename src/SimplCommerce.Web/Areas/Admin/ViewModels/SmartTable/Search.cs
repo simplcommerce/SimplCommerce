@@ -1,7 +1,9 @@
-﻿namespace SimplCommerce.Web.Areas.Admin.ViewModels.SmartTable
+﻿using Newtonsoft.Json.Linq;
+
+namespace SimplCommerce.Web.Areas.Admin.ViewModels.SmartTable
 {
     public class Search
     {
-        public dynamic PredicateObject { get; set; }
+        public JObject PredicateObject { get; set; }
     }
 }

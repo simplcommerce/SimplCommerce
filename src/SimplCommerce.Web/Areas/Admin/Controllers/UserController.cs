@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using SimplCommerce.Core.Domain.Models;
 using SimplCommerce.Infrastructure.Domain.IRepositories;
 using SimplCommerce.Web.Areas.Admin.ViewModels;
@@ -24,15 +25,49 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
         {
             var query = userRepository.Query().Where(x => !x.IsDeleted);
 
+            if(param.Search.PredicateObject != null)
+            {
+                dynamic search = param.Search.PredicateObject;
+
+                if(search.Email != null)
+                {
+                    string email = search.Email;
+                    query = query.Where(x => x.Email.Contains(email));
+                }
+
+                if(search.FullName != null)
+                {
+                    string fullName = search.FullName;
+                    query = query.Where(x => x.FullName.Contains(fullName));
+                }
+
+                if(search.CreatedOn != null)
+                {
+                    if (search.CreatedOn.before != null)
+                    {
+                        DateTime before = search.CreatedOn.before;
+                        before = before.Date.AddDays(1);
+                        query = query.Where(x => x.CreatedOn <= before);
+                    }
+
+                    if (search.CreatedOn.after != null)
+                    {
+                        DateTime after = search.CreatedOn.after;
+                        after = after.Date;
+                        query = query.Where(x => x.CreatedOn >= after);
+                    }
+                }
+            }
+
             var users = query.ToSmartTableResult(
                 param,
                 user => new UserListItem
-                 {
-                     Id = user.Id,
-                     Email = user.Email,
-                     FullName = user.FullName,
-                     CreatedOn = user.CreatedOn
-                 });
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    FullName = user.FullName,
+                    CreatedOn = user.CreatedOn
+                });
 
             return Json(users);
         }

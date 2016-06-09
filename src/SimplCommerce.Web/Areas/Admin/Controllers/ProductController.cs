@@ -116,8 +116,7 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
                 Id = x.AttributeId,
                 Name = x.Attribute.Name,
                 GroupName = x.Attribute.Group.Name,
-                Value = x.Value,
-                
+                Value = x.Value
             }).ToList();
 
             return Json(productVm);
@@ -125,16 +124,26 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
 
         public IActionResult List([FromBody] SmartTableParam param)
         {
-            var products = productRepository.Query().Where(x => !x.IsDeleted);
-            var gridData = products.ToSmartTableResult(
+            var query = productRepository.Query().Where(x => !x.IsDeleted);
+            if (param.Search.PredicateObject != null)
+            {
+                dynamic search = param.Search.PredicateObject;
+                if(search.Name != null)
+                {
+                    string name = search.Name;
+                    query = query.Where(x => x.Name.Contains(name));
+                }
+            }
+
+            var gridData = query.ToSmartTableResult(
                 param,
                 x => new ProductListItem
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                        CreatedOn = x.CreatedOn,
-                        IsPublished = x.IsPublished
-                    });
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    CreatedOn = x.CreatedOn,
+                    IsPublished = x.IsPublished
+                });
 
             return Json(gridData);
         }
@@ -354,14 +363,16 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
                         if (productOptionValue.OptionId == optionVm.Id && productOptionValue.Value == value)
                         {
                             isExist = true;
-                            break;;
+                            break;
                         }
                     }
+
                     if (isExist)
                     {
                         break;
                     }
                 }
+
                 if (!isExist)
                 {
                     deletedProductOptionValues.Add(productOptionValue);
