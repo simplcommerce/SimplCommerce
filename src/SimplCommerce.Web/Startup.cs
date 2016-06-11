@@ -23,6 +23,7 @@ using SimplCommerce.Web.Extensions;
 using Microsoft.AspNetCore.Identity;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using SimplCommerce.Web.Extensions;
 
 namespace SimplCommerce.Web
 {
@@ -92,6 +93,10 @@ namespace SimplCommerce.Web
             {
                 builder.RegisterAssemblyTypes(Assembly.Load(new AssemblyName(module.AssemblyName))).AsImplementedInterfaces();
             }
+
+            builder.RegisterInstance(Configuration);
+            builder.RegisterInstance(hostingEnvironment);            
+            builder.RegisterMediaType(Configuration["Storage:StorageType"]);            
 
             builder.Populate(services);
 
