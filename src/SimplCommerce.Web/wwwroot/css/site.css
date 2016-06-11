@@ -71,6 +71,7 @@ li.nav-item-group, li.nav-item-group a {
     background: red;
 }
 
+/* product list*/
 .product-list a:hover {
     text-decoration: none;
 }
@@ -185,10 +186,75 @@ li.nav-item-group, li.nav-item-group a {
     float: right;
 }
 
+/* car list*/
 .cart-list .product-image {
     width: 120px;
 }
 
 .cart-list .product-image img {
     width: 120px;
+}
+
+.cart-list .quantity-button {
+    color: #555;
+    width: 35px;
+    height: 30px;
+    padding: 3px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+    background: #eee;
+    text-align: center;
+    font-weight: normal;
+    white-space: nowrap;
+    display: inline-block;
+    background-image: none;
+}
+
+.cart-list .quantity-field {
+    width: 35px;
+    height: 30px;
+    outline: none;
+    margin: 0 -4px;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #eee;
+}
+
+.cart-list .table > thead > tr > th {
+    border-bottom: none;
+    text-transform: uppercase;
+    color:#687074;
+}
+
+.cart-list .table > tbody > tr > td {
+    border-top: none;
+}
+
+.cart-list .order-summary h4 {
+    text-transform: uppercase;
+    color:#687074;
+    padding-bottom: 20px;
+}
+
+.cart-list .order-summary dt {
+    text-align: left;
+    width: 100px;
+}
+
+.cart-list .order-summary dd {
+    text-align: right;
+    margin-left: 100px;
+}
+
+.cart-list .order-summary .btn {
+    background: #18ba9b;
+    padding: 8px 43px;
+    font-size: 14px;
+    color: #fff;
+    width: 100%;
+    border: 0;
+    border-radius: 0;
+    text-transform: uppercase;
 }

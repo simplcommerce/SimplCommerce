@@ -27,6 +27,9 @@
                 }
 
                 vm.decreaseQuantity = function decreaseQuantity(item) {
+                    if (item.quantity <= 1) {
+                        return;
+                    }
                     item.quantity -= 1;
                     shoppingCartService.updateQuantity(item.id, item.quantity).then(cartDataCallback);
                 }
