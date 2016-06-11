@@ -1,6 +1,6 @@
-﻿$(function() {
-    $('input[name=shippingAddressId]').on('change', function() {
-        var shippingAddressId = this.value,
+﻿$(function () {
+    function toggleCreateShippingAddress() {
+        var shippingAddressId = $('input[name=shippingAddressId]:checked').val(),
             $createShippingAddress = $('.create-shipping-address');
 
         if (shippingAddressId === "0") {
@@ -8,6 +8,10 @@
         } else {
             $createShippingAddress.hide();
         }
+    }
+
+    $('input[name=shippingAddressId]').on('change', function() {
+        toggleCreateShippingAddress();
     });
 
     $('#NewAddressForm_StateOrProvinceId').on('change', function () {
@@ -22,4 +26,6 @@
             });
         });
     });
+
+    toggleCreateShippingAddress();
 });
