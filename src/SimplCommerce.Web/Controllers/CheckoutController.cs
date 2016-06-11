@@ -65,6 +65,8 @@ namespace SimplCommerce.Web.Controllers
                     CountryName = x.Address.Country.Name
                 }).ToList();
 
+            model.ShippingAddressId = currentUser.CurrentShippingAddressId ?? 0;
+
             model.NewAddressForm.StateOrProvinces = _stateOrProvinceRepository
                 .Query()
                 .OrderBy(x => x.Name)

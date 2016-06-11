@@ -258,3 +258,21 @@ li.nav-item-group, li.nav-item-group a {
     border-radius: 0;
     text-transform: uppercase;
 }
+
+/* Checkout*/
+.btn-order {
+    background: #18ba9b;
+    padding: 8px 43px;
+    font-size: 14px;
+    color: #fff;
+    width: 100%;
+    border: 0;
+    border-radius: 0;
+    text-transform: uppercase;
+    width: 200px;
+}
+
+.btn-order:hover {
+    color: #fff;
+    background: #2cd5b6;
+}

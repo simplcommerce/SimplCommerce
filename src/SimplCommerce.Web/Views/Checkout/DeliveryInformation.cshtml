@@ -12,7 +12,7 @@
             {
                 <div class="radio">
                     <label>
-                        <input type="radio" name="shippingAddressId" value="@address.UserAddressId">
+                        <input type="radio" name="shippingAddressId" value="@address.UserAddressId" checked="@(Model.ShippingAddressId == address.UserAddressId ? "checked" : null)">
                         <strong>@address.ContactName </strong><br />
                         @address.AddressLine1 <br />
                         @address.DistrictName, @address.StateOrProvinceName <br />
@@ -22,7 +22,7 @@
             }
             <div class="radio">
                 <label>
-                    <input type="radio" name="shippingAddressId" value="0" />
+                    <input type="radio" name="shippingAddressId" checked="@(Model.ShippingAddressId == 0 ? "checked" : null)" value="0" />
                     Add another address
                 </label>
             </div>
@@ -60,7 +60,7 @@
             </div>
             <div class="form-group">
                 <div class="col-md-12 text-right">
-                    <button type="submit" class="btn btn-primary">ORDER</button>
+                    <button type="submit" class="btn btn-order">ORDER</button>
                 </div>
             </div>
         </form>
