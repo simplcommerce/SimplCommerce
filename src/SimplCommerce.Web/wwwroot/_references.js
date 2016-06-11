@@ -83,6 +83,7 @@
 /// <reference path="lib/angular-ui-router/angular-ui-router.js" />
 /// <reference path="lib/bootstrap/js/bootstrap.js" />
 /// <reference path="lib/jquery/jquery.js" />
+/// <reference path="lib/jquery/jquery.slim.js" />
 /// <reference path="lib/jquery-validation/additional-methods.js" />
 /// <reference path="lib/jquery-validation/jquery.validate.js" />
 /// <reference path="lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js" />
