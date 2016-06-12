@@ -11,7 +11,7 @@ namespace SimplCommerce.Core.ApplicationServices
 
         string GetThumbnailUrl(Media media);
 
-        void SaveMedia(Stream mediaBinaryStream, string fileName);
+        void SaveMedia(Stream mediaBinaryStream, string fileName, string mimeType = null);
 
         void DeleteMedia(Media media);
     }

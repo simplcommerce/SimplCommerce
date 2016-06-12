@@ -498,7 +498,7 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
         {
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
-            mediaService.SaveMedia(file.OpenReadStream(), fileName);
+            mediaService.SaveMedia(file.OpenReadStream(), fileName,file.ContentType);
             return fileName;
         }
     }

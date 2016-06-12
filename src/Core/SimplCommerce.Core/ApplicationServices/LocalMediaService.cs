@@ -35,7 +35,7 @@ namespace SimplCommerce.Core.ApplicationServices
             return GetMediaUrl(media);
         }
 
-        public void SaveMedia(Stream mediaBinaryStream, string fileName)
+        public void SaveMedia(Stream mediaBinaryStream, string fileName, string mimeType = null)
         {
             var filePath = Path.Combine(GlobalConfiguration.ApplicationPath, MediaRootFoler, fileName);
             using (var output = new FileStream(filePath, FileMode.Create))
