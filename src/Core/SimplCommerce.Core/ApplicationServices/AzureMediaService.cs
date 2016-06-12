@@ -27,7 +27,7 @@ namespace SimplCommerce.Core.ApplicationServices
             _storagePath = _conf["Storage:AzureStorage:StoragePath"];
 
             _storageAccount = _env.IsDevelopment() ? CloudStorageAccount.DevelopmentStorageAccount :
-                CloudStorageAccount.Parse(_conf["Storage: AzureStorage:StorageConnectionString"]);
+                CloudStorageAccount.Parse(_conf["Storage:AzureStorage:StorageConnectionString"]);
             _blobClient = _storageAccount.CreateCloudBlobClient();
             _container = _blobClient.GetContainerReference("images");
 
