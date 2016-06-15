@@ -26,7 +26,7 @@ namespace SimplCommerce.Web.Areas.Admin.ViewModels.Orders
         public IEnumerable<ProductVariationOptionVm> VariationOptions { get; set; } =
             new List<ProductVariationOptionVm>();
 
-        public static IEnumerable<ProductVariationOptionVm> GetVariationOption(ProductVariation variation)
+        public static IEnumerable<ProductVariationOptionVm> GetVariationOption(Product variation)
         {
             if (variation == null)
             {

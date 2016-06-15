@@ -50,7 +50,7 @@ namespace SimplCommerce.Web.ViewModels.Catalog
             get
             {
                 var firstOptionValues = AvailableOptions.Select(x => x.Values.First());
-                return Variations.First(x => x.Name == string.Join("-", firstOptionValues));
+                return Variations.First(x => x.Name == Name + " " + string.Join(" ", firstOptionValues));
             }
         }
 

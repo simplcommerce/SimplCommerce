@@ -8,7 +8,7 @@ namespace SimplCommerce.Web.ViewModels.Catalog
 
         public string Name { get; set; }
 
-        public decimal PriceOffset { get; set; }
+        public string NormalizedName { get; set; }
 
         public decimal Price { get; set; }
 

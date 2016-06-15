@@ -9,7 +9,7 @@ namespace SimplCommerce.Core.Infrastructure.EntityFramework
     {
         private readonly DbContext dbContext; 
 
-        public ProductTemplateProductAttributeRepository(HvDbContext dbContext)
+        public ProductTemplateProductAttributeRepository(SimplDbContext dbContext)
         {
             this.dbContext = dbContext;
         }

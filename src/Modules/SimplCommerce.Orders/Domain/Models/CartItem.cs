@@ -16,23 +16,6 @@ namespace SimplCommerce.Orders.Domain.Models
 
         public virtual Product Product { get; set; }
 
-        public long? ProductVariationId { get; set; }
-
-        public virtual ProductVariation ProductVariation { get; set; }
-
         public int Quantity { get; set; }
-
-        public decimal ProductPrice
-        {
-            get
-            {
-                if (ProductVariationId.HasValue)
-                {
-                    return Product.Price + ProductVariation.PriceOffset;
-                }
-
-                return Product.Price;
-            }
-        }
     }
 }

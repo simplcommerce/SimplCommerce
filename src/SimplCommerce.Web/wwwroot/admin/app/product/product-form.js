@@ -23,7 +23,7 @@
         vm.addingAttribute = null;
         vm.productId = $stateParams.id;
         vm.isEditMode = vm.productId > 0;
-        vm.addingVariation = { priceOffset: 0 };
+        vm.addingVariation = { price: 0 };
         vm.brands = [];
 
         vm.shortDescUpload = function (files) {
@@ -83,9 +83,10 @@
 
                     if (optionIndex === maxIndexOption) {
                         variation = {
-                            name: optionCombinations.map(getItemValue).join('-'),
+                            name: vm.product.name + ' ' + optionCombinations.map(getItemValue).join(' '),
+                            normalizedName : optionCombinations.map(getItemValue).join('-'),
                             optionCombinations: optionCombinations,
-                            priceOffset : 0
+                            price : vm.product.price
                         };
                         vm.product.variations.push(variation);
                     } else {
@@ -122,16 +123,19 @@
             });
 
             variation = {
-                name: optionCombinations.map(function (item) {
+                name: vm.product.name + ' ' + optionCombinations.map(function (item) {
+                    return item.value;
+                }).join(' '),
+                normalizedName : optionCombinations.map(function (item) {
                     return item.value;
                 }).join('-'),
                 optionCombinations: optionCombinations,
-                priceOffset: vm.addingVariation.priceOffset || 0
+                price: vm.addingVariation.price || vm.product.price
             };
 
             if (!vm.product.variations.find(function (item) { return item.name === variation.name; })) {
                 vm.product.variations.push(variation);
-                vm.addingVariation = { priceOffset: 0 };
+                vm.addingVariation = { price: vm.product.price };
             }
         };
 

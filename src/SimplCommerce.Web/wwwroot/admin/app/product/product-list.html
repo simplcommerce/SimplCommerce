@@ -13,6 +13,8 @@
     <thead>
         <tr>
             <th st-sort="Name" class="sortable">Email</th>
+            <th>Has Options</th>
+            <th>Is Visible Individually</th>
             <th st-sort="IsPublished" class="sortable">IsPublished</th>
             <th st-sort="CreatedOn" class="sortable">CreatedOn</th>
             <th>Actions</th>
@@ -22,12 +24,16 @@
             <th></th>
             <th></th>
             <th></th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">
         <tr ng-repeat="product in vm.products">
             <td>{{product.name}}</td>
-            <td>{{product.isPublished}}</td>
+            <td><span ng-if="product.hasOptions" class="glyphicon glyphicon-ok"></span></td>
+            <td><span ng-if="product.isVisibleIndividually" class="glyphicon glyphicon-ok"></span></td>
+            <td><span ng-if="product.isPublished" class="glyphicon glyphicon-ok"></span></td>
             <td>{{product.createdOn}}</td>
             <td>
                 <button ng-if="product.isPublished" title="Un Publish" ng-click="vm.changeStatus(product)" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pause"></span></button>
@@ -39,12 +45,12 @@
     </tbody>
     <tbody ng-show="vm.isLoading">
         <tr>
-            <td colspan="4" class="text-center">Loading ... </td>
+            <td colspan="6" class="text-center">Loading ... </td>
         </tr>
     </tbody>
     <tfoot>
         <tr>
-            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="4"></td>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="6"></td>
         </tr>
     </tfoot>
 </table>

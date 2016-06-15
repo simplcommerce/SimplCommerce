@@ -13,6 +13,11 @@ namespace SimplCommerce.Core.ApplicationServices
             this.urlSlugRepository = urlSlugRepository;
         }
 
+        public UrlSlug Get(long entityId, string entityName)
+        {
+            return urlSlugRepository.Query().FirstOrDefault(x => x.EntityId == entityId && x.EntityName == entityName);
+        }
+
         public void Add(string slug, long entityId, string entityName)
         {
             var urlSlug = new UrlSlug

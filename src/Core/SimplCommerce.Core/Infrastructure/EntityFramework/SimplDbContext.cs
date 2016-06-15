@@ -4,19 +4,16 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.Storage;
 using SimplCommerce.Core.ApplicationServices;
 using SimplCommerce.Core.Domain.Models;
-using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Domain.Models;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace SimplCommerce.Core.Infrastructure.EntityFramework
 {
-    public class HvDbContext : IdentityDbContext<User, Role, long>
+    public class SimplDbContext : IdentityDbContext<User, Role, long>
     {
-        public HvDbContext(DbContextOptions options) : base(options)
+        public SimplDbContext(DbContextOptions options) : base(options)
         {
         }
 
@@ -84,14 +81,23 @@ namespace SimplCommerce.Core.Infrastructure.EntityFramework
                 .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<ProductLink>()
+                .HasOne(x => x.Product)
+                .WithMany(p => p.ProductLinks)
+                .HasForeignKey(x => x.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<ProductLink>()
+                .HasOne(x => x.LinkedProduct)
+                .WithMany(p => p.LinkedProductLinks)
+                .HasForeignKey(x => x.LinkedProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<ProductTemplateProductAttribute>()
                 .HasKey(t => new { t.ProductTemplateId, t.ProductAttributeId });
-
             modelBuilder.Entity<ProductTemplateProductAttribute>()
                 .HasOne(pt => pt.ProductTemplate)
                 .WithMany(p => p.ProductAttributes)
                 .HasForeignKey(pt => pt.ProductTemplateId);
-
             modelBuilder.Entity<ProductTemplateProductAttribute>()
                 .HasOne(pt => pt.ProductAttribute)
                 .WithMany(t => t.ProductTemplates)

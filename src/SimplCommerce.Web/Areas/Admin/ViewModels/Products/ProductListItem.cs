@@ -8,6 +8,10 @@ namespace SimplCommerce.Web.Areas.Admin.ViewModels.Products
 
         public string Name { get; set; }
 
+        public bool HasOptions { get; set; }
+
+        public bool IsVisibleIndividually { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public bool IsPublished { get; set; }

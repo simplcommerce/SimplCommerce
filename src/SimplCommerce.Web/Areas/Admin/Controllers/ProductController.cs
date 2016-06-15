@@ -23,6 +23,7 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
         private readonly IRepository<Product> productRepository;
         private readonly IMediaService mediaService;
         private readonly IProductService productService;
+        private readonly IRepository<ProductLink> productLinkRepository;
         private readonly IRepository<ProductCategory> productCategoryRepository;
         private readonly IRepository<ProductOptionValue> productOptionValueRepository;
         private readonly IRepository<ProductAttributeValue> productAttributeValueRepository; 
@@ -31,6 +32,7 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
             IRepository<Product> productRepository,
             IMediaService mediaService,
             IProductService productService,
+            IRepository<ProductLink> productLinkRepository,
             IRepository<ProductCategory> productCategoryRepository,
             IRepository<ProductOptionValue> productOptionValueRepository,
             IRepository<ProductAttributeValue> productAttributeValueRepository)
@@ -38,6 +40,7 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
             this.productRepository = productRepository;
             this.mediaService = mediaService;
             this.productService = productService;
+            this.productLinkRepository = productLinkRepository;
             this.productCategoryRepository = productCategoryRepository;
             this.productOptionValueRepository = productOptionValueRepository;
             this.productAttributeValueRepository = productAttributeValueRepository;
@@ -48,7 +51,7 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
             var product = productRepository.Query()
                 .Include(x => x.ThumbnailImage)
                 .Include(x => x.Medias).ThenInclude(m => m.Media)
-                .Include(x => x.Variations)
+                .Include(x => x.ProductLinks).ThenInclude(p => p.LinkedProduct)
                 .Include(x => x.OptionValues).ThenInclude(o => o.Option)
                 .Include(x => x.AttributeValues).ThenInclude(a => a.Attribute).ThenInclude(g => g.Group)
                 .Include(x => x.Categories)
@@ -94,13 +97,13 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
 
             productVm.Options = options.ToList();
 
-            foreach (var variation in product.Variations.Where(x => !x.IsDeleted))
+            foreach (var variation in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Super).Select(x => x.LinkedProduct).Where(x => !x.IsDeleted))
             {
                 productVm.Variations.Add(new ProductVariationVm
                 {
                     Id = variation.Id,
                     Name = variation.Name,
-                    PriceOffset = variation.PriceOffset,
+                    Price = variation.Price,
                     OptionCombinations = variation.OptionCombinations.Select(x => new ProductOptionCombinationVm
                     {
                         OptionId = x.OptionId,
@@ -141,6 +144,8 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
                 {
                     Id = x.Id,
                     Name = x.Name,
+                    HasOptions = x.HasOptions,
+                    IsVisibleIndividually = x.IsVisibleIndividually,
                     CreatedOn = x.CreatedOn,
                     IsPublished = x.IsPublished
                 });
@@ -166,7 +171,9 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
                 Price = model.Product.Price,
                 OldPrice = model.Product.OldPrice,
                 IsPublished = model.Product.IsPublished,
-                BrandId = model.Product.BrandId
+                BrandId = model.Product.BrandId,
+                HasOptions = model.Product.Variations.Any() ? true : false,
+                IsVisibleIndividually = true 
             };
 
             foreach (var option in model.Product.Options)
@@ -180,8 +187,6 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
                     });
                 }
             }
-
-            MapProductVariationVmToProduct(model, product);
 
             foreach (var attribute in model.Product.Attributes)
             {
@@ -205,6 +210,8 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
 
             SaveProductImages(model, product);
 
+            MapProductVariationVmToProduct(model, product);
+
             productService.Create(product);
 
             return Ok();
@@ -221,12 +228,13 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
             var product = productRepository.Query()
                 .Include(x => x.ThumbnailImage)
                 .Include(x => x.Medias).ThenInclude(m => m.Media)
-                .Include(x => x.Variations)
+                .Include(x => x.ProductLinks).ThenInclude(x => x.LinkedProduct)
                 .Include(x => x.OptionValues).ThenInclude(o => o.Option)
                 .Include(x => x.AttributeValues).ThenInclude(a => a.Attribute).ThenInclude(g => g.Group)
                 .Include(x => x.Categories)
                 .FirstOrDefault(x => x.Id == id);
             product.Name = model.Product.Name;
+            product.SeoTitle = StringHelper.ToUrlFriendly(product.Name);
             product.ShortDescription = model.Product.ShortDescription;
             product.Description = model.Product.Description;
             product.Specification = model.Product.Specification;
@@ -245,11 +253,11 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
 
             AddOrDeleteProductOption(model, product);
 
-            AddOrDeleteProductVariation(model, product);
-
             AddOrDeleteProductAttribute(model, product);
 
             AddOrDeleteCategories(model, product);
+
+            AddOrDeleteProductVariation(model, product);
 
             productService.Update(product);
 
@@ -289,21 +297,32 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
         {
             foreach (var variationVm in model.Product.Variations)
             {
-                var variation = new ProductVariation
+                var productLink = new ProductLink
                 {
-                    Name = variationVm.Name,
-                    PriceOffset = variationVm.PriceOffset
+                    LinkType = ProductLinkType.Super,
+                    Product = product,
+                    LinkedProduct = product.Clone()
                 };
+
+                productLink.LinkedProduct.Name = variationVm.Name;
+                productLink.LinkedProduct.SeoTitle = StringHelper.ToUrlFriendly(variationVm.Name);
+                productLink.LinkedProduct.Price = variationVm.Price;
+                productLink.LinkedProduct.NormalizedName = variationVm.NormalizedName;
+                productLink.LinkedProduct.HasOptions = false;
+                productLink.LinkedProduct.IsVisibleIndividually = false;
+
                 foreach (var combinationVm in variationVm.OptionCombinations)
                 {
-                    variation.AddOptionCombination(new ProductOptionCombination
+                    productLink.LinkedProduct.AddOptionCombination(new ProductOptionCombination
                     {
                         OptionId = combinationVm.OptionId,
                         Value = combinationVm.Value
                     });
                 }
 
-                product.AddProductVariation(variation);
+                productLink.LinkedProduct.ThumbnailImage = product.ThumbnailImage;
+
+                product.AddProductLinks(productLink);
             }
         }
 
@@ -390,37 +409,47 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
         {
             foreach (var productVariationVm in model.Product.Variations)
             {
-                var variation = product.Variations.FirstOrDefault(x => x.Name == productVariationVm.Name);
-                if (variation == null)
+                var productLink = product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Super).FirstOrDefault(x => x.LinkedProduct.Name == productVariationVm.Name);
+                if (productLink == null)
                 {
-                    variation = new ProductVariation
+                    productLink = productLink = new ProductLink
                     {
-                        Name = productVariationVm.Name,
-                        PriceOffset = productVariationVm.PriceOffset
+                        LinkType = ProductLinkType.Super,
+                        Product = product,
+                        LinkedProduct = product.Clone()
                     };
+
+                    productLink.LinkedProduct.Name = productVariationVm.Name;
+                    productLink.LinkedProduct.SeoTitle = StringHelper.ToUrlFriendly(productVariationVm.Name);
+                    productLink.LinkedProduct.Price = productVariationVm.Price;
+                    productLink.LinkedProduct.NormalizedName = productVariationVm.NormalizedName;
+                    productLink.LinkedProduct.HasOptions = false;
+                    productLink.LinkedProduct.IsVisibleIndividually = false;
+
                     foreach (var combinationVm in productVariationVm.OptionCombinations)
                     {
-                        variation.AddOptionCombination(new ProductOptionCombination
+                        productLink.LinkedProduct.AddOptionCombination(new ProductOptionCombination
                         {
                             OptionId = combinationVm.OptionId,
                             Value = combinationVm.Value
                         });
                     }
 
-                    product.AddProductVariation(variation);
+                    product.AddProductLinks(productLink);
                 }
                 else
                 {
-                    variation.PriceOffset = productVariationVm.PriceOffset;
-                    variation.IsDeleted = false;
+                    productLink.LinkedProduct.Price = productVariationVm.Price;
+                    productLink.LinkedProduct.IsDeleted = false;
                 }
             }
 
-            foreach (var variation in product.Variations)
+            foreach (var productLink in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Super))
             {
-                if (model.Product.Variations.All(x => x.Name != variation.Name))
+                if (model.Product.Variations.All(x => x.Name != productLink.LinkedProduct.Name))
                 {
-                    variation.IsDeleted = true;
+                    productLinkRepository.Remove(productLink);
+                    productLink.LinkedProduct.IsDeleted = true;
                 }
             }
         }

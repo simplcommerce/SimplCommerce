@@ -25,7 +25,7 @@ namespace SimplCommerce.Web.ViewModels.Cart
 
         public IEnumerable<ProductVariationOption> VariationOptions { get; set; } = new List<ProductVariationOption>();
 
-        public static IEnumerable<ProductVariationOption> GetVariationOption(ProductVariation variation)
+        public static IEnumerable<ProductVariationOption> GetVariationOption(Product variation)
         {
             if (variation == null)
             {
