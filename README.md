@@ -46,6 +46,9 @@ Hosted in an Azure virtual machine A0 (shared core, 768 MB memory)
 Ubuntu 14.04 + Postgresql
 http://demo.simplcommerce.com
 
+## Roadmap
+https://github.com/simplcommerce/SimplCommerce/wiki/Roadmap
+
 ## How to contribute:
 - Report bugs or suggest features by create new issues or add comments to issues
 - Pickup an issue, create your own branch and implement it, then submit a Merge Request when you finished the implemntation and testing
