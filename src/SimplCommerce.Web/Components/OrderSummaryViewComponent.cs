@@ -29,9 +29,9 @@ namespace SimplCommerce.Web.Components
                 {
                     Id = x.Id,
                     ProductName = x.Product.Name,
-                    ProductPrice = x.ProductPrice,
+                    ProductPrice = x.Product.Price,
                     Quantity = x.Quantity,
-                    VariationOptions = CartListItem.GetVariationOption(x.ProductVariation)
+                    VariationOptions = CartListItem.GetVariationOption(x.Product)
                 }).ToList()
             };
 

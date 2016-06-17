@@ -12,12 +12,13 @@
             $attrOptions.each(function () {
                 variationNames.push($(this).find('input[type=radio]:checked').val());
             });
+            productId = $form.find('input[name=' + variationNames.join('-') + 'Id]').val();
         }
         
         $.ajax({
             type: 'POST',
             url: '/cart/addtocart',
-            data: JSON.stringify({ productId: productId, variationName: variationNames.join('-'), quantity: quantity }),
+            data: JSON.stringify({ productId: productId, quantity: quantity }),
             contentType: "application/json"
         }).done(function (data) {
             $('#shopModal').find('.modal-content').html(data);

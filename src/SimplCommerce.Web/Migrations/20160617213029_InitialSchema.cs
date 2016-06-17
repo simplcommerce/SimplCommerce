@@ -387,6 +387,7 @@ namespace SimplCommerce.Web.Migrations
                     SecurityStamp = table.Column<string>(nullable: true),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     UpdatedOn = table.Column<DateTime>(nullable: false),
+                    UserGuid = table.Column<Guid>(nullable: false),
                     UserName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -513,17 +514,21 @@ namespace SimplCommerce.Web.Migrations
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     DisplayOrder = table.Column<int>(nullable: false),
+                    HasOptions = table.Column<bool>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     IsPublished = table.Column<bool>(nullable: false),
+                    IsVisibleIndividually = table.Column<bool>(nullable: false),
                     MetaDescription = table.Column<string>(nullable: true),
                     MetaKeywords = table.Column<string>(nullable: true),
                     MetaTitle = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
+                    NormalizedName = table.Column<string>(nullable: true),
                     OldPrice = table.Column<decimal>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
                     PublishedOn = table.Column<DateTime>(nullable: true),
                     SeoTitle = table.Column<string>(nullable: true),
                     ShortDescription = table.Column<string>(nullable: true),
+                    Sku = table.Column<string>(nullable: true),
                     Specification = table.Column<string>(nullable: true),
                     ThumbnailImageId = table.Column<long>(nullable: true),
                     UpdatedById = table.Column<long>(nullable: true),
@@ -567,6 +572,7 @@ namespace SimplCommerce.Web.Migrations
                     BillingAddressId = table.Column<long>(nullable: true),
                     CreatedById = table.Column<long>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
+                    OrderStatus = table.Column<int>(nullable: false),
                     ShippingAddressId = table.Column<long>(nullable: false),
                     SubTotal = table.Column<decimal>(nullable: false),
                     UpdatedOn = table.Column<DateTime>(nullable: true)
@@ -650,6 +656,33 @@ namespace SimplCommerce.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Core_ProductLink",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    LinkType = table.Column<int>(nullable: false),
+                    LinkedProductId = table.Column<long>(nullable: false),
+                    ProductId = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Core_ProductLink", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Core_ProductLink_Core_Product_LinkedProductId",
+                        column: x => x.LinkedProductId,
+                        principalTable: "Core_Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Core_ProductLink_Core_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Core_Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Core_ProductMedia",
                 columns: table => new
                 {
@@ -674,6 +707,34 @@ namespace SimplCommerce.Web.Migrations
                         principalTable: "Core_Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Core_ProductOptionCombination",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    OptionId = table.Column<long>(nullable: false),
+                    ProducdtId = table.Column<long>(nullable: false),
+                    ProductId = table.Column<long>(nullable: true),
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Core_ProductOptionCombination", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Core_ProductOptionCombination_Core_ProductOption_OptionId",
+                        column: x => x.OptionId,
+                        principalTable: "Core_ProductOption",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Core_ProductOptionCombination_Core_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Core_Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -704,97 +765,19 @@ namespace SimplCommerce.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Core_ProductVariation",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreatedById = table.Column<long>(nullable: true),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    DisplayOrder = table.Column<int>(nullable: false),
-                    IsAllowOrder = table.Column<bool>(nullable: false),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    IsPublished = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    PriceOffset = table.Column<decimal>(nullable: false),
-                    ProductId = table.Column<long>(nullable: false),
-                    ReasonNotAllowOrder = table.Column<string>(nullable: true),
-                    Sku = table.Column<string>(nullable: true),
-                    UpdatedById = table.Column<long>(nullable: true),
-                    UpdatedOn = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Core_ProductVariation", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Core_ProductVariation_Core_User_CreatedById",
-                        column: x => x.CreatedById,
-                        principalTable: "Core_User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Core_ProductVariation_Core_Product_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Core_Product",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Core_ProductVariation_Core_User_UpdatedById",
-                        column: x => x.UpdatedById,
-                        principalTable: "Core_User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Core_ProductOptionCombination",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    OptionId = table.Column<long>(nullable: false),
-                    Value = table.Column<string>(nullable: true),
-                    VariationId = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Core_ProductOptionCombination", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Core_ProductOptionCombination_Core_ProductOption_OptionId",
-                        column: x => x.OptionId,
-                        principalTable: "Core_ProductOption",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Core_ProductOptionCombination_Core_ProductVariation_VariationId",
-                        column: x => x.VariationId,
-                        principalTable: "Core_ProductVariation",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Orders_CartItem",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreatedById = table.Column<long>(nullable: true),
                     CreatedOn = table.Column<DateTime>(nullable: false),
-                    GuestId = table.Column<Guid>(nullable: true),
                     ProductId = table.Column<long>(nullable: false),
-                    ProductVariationId = table.Column<long>(nullable: true),
-                    Quantity = table.Column<int>(nullable: false)
+                    Quantity = table.Column<int>(nullable: false),
+                    UserId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders_CartItem", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Orders_CartItem_Core_User_CreatedById",
-                        column: x => x.CreatedById,
-                        principalTable: "Core_User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Orders_CartItem_Core_Product_ProductId",
                         column: x => x.ProductId,
@@ -802,11 +785,11 @@ namespace SimplCommerce.Web.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Orders_CartItem_Core_ProductVariation_ProductVariationId",
-                        column: x => x.ProductVariationId,
-                        principalTable: "Core_ProductVariation",
+                        name: "FK_Orders_CartItem_Core_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Core_User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -818,7 +801,6 @@ namespace SimplCommerce.Web.Migrations
                     OrderId = table.Column<long>(nullable: true),
                     ProductId = table.Column<long>(nullable: false),
                     ProductPrice = table.Column<decimal>(nullable: false),
-                    ProductVariationId = table.Column<long>(nullable: true),
                     Quantity = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -836,12 +818,6 @@ namespace SimplCommerce.Web.Migrations
                         principalTable: "Core_Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Orders_OrderItem_Core_ProductVariation_ProductVariationId",
-                        column: x => x.ProductVariationId,
-                        principalTable: "Core_ProductVariation",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -950,6 +926,16 @@ namespace SimplCommerce.Web.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Core_ProductLink_LinkedProductId",
+                table: "Core_ProductLink",
+                column: "LinkedProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Core_ProductLink_ProductId",
+                table: "Core_ProductLink",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Core_ProductMedia_MediaId",
                 table: "Core_ProductMedia",
                 column: "MediaId");
@@ -965,9 +951,9 @@ namespace SimplCommerce.Web.Migrations
                 column: "OptionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Core_ProductOptionCombination_VariationId",
+                name: "IX_Core_ProductOptionCombination_ProductId",
                 table: "Core_ProductOptionCombination",
-                column: "VariationId");
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Core_ProductOptionValue_OptionId",
@@ -988,21 +974,6 @@ namespace SimplCommerce.Web.Migrations
                 name: "IX_Core_ProductTemplateProductAttribute_ProductTemplateId",
                 table: "Core_ProductTemplateProductAttribute",
                 column: "ProductTemplateId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Core_ProductVariation_CreatedById",
-                table: "Core_ProductVariation",
-                column: "CreatedById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Core_ProductVariation_ProductId",
-                table: "Core_ProductVariation",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Core_ProductVariation_UpdatedById",
-                table: "Core_ProductVariation",
-                column: "UpdatedById");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -1040,19 +1011,14 @@ namespace SimplCommerce.Web.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_CartItem_CreatedById",
-                table: "Orders_CartItem",
-                column: "CreatedById");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Orders_CartItem_ProductId",
                 table: "Orders_CartItem",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_CartItem_ProductVariationId",
+                name: "IX_Orders_CartItem_UserId",
                 table: "Orders_CartItem",
-                column: "ProductVariationId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_Order_BillingAddressId",
@@ -1078,11 +1044,6 @@ namespace SimplCommerce.Web.Migrations
                 name: "IX_Orders_OrderItem_ProductId",
                 table: "Orders_OrderItem",
                 column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_OrderItem_ProductVariationId",
-                table: "Orders_OrderItem",
-                column: "ProductVariationId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Core_UserAddress_Core_User_UserId",
@@ -1122,6 +1083,9 @@ namespace SimplCommerce.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "Core_ProductCategory");
+
+            migrationBuilder.DropTable(
+                name: "Core_ProductLink");
 
             migrationBuilder.DropTable(
                 name: "Core_ProductMedia");
@@ -1169,13 +1133,10 @@ namespace SimplCommerce.Web.Migrations
                 name: "Orders_Order");
 
             migrationBuilder.DropTable(
-                name: "Core_ProductVariation");
+                name: "Core_Product");
 
             migrationBuilder.DropTable(
                 name: "Core_ProductAttributeGroup");
-
-            migrationBuilder.DropTable(
-                name: "Core_Product");
 
             migrationBuilder.DropTable(
                 name: "Core_Brand");

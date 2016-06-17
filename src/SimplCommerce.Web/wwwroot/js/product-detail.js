@@ -15,9 +15,14 @@
                 variationNames.push($(this).find('input[type=radio]:checked').val());
             });
 
-            $variationPrice = $form.find('input[name=' + variationNames.join('-') + ']');
-
-            $('.product-price h3').text($variationPrice.val() || "Not available");
+            $variationPrice = $form.find('input[name=' + variationNames.join('-') + 'Price]');
+            if ($variationPrice.length > 0) {
+                $('.product-price h3').text($variationPrice.val());
+                $('.btn-add-cart').prop('disabled', false);
+            } else {
+                $('.product-price h3').text("Not available");
+                $('.btn-add-cart').prop('disabled', true);
+            }
         });
 
         $('.quantity-button').on('click', function () {

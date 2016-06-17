@@ -49,25 +49,19 @@ namespace SimplCommerce.Web.Controllers
             var cartItem =
                 _cartItemRepository.Query()
                     .Include(x => x.Product).ThenInclude(x => x.ThumbnailImage)
-                    .Include(x => x.ProductVariation)
                     .First(x => x.Id == cartItemId);
 
             var model = new AddToCartResult
             {
                 ProductName = cartItem.Product.Name,
                 ProductImage = _mediaService.GetThumbnailUrl(cartItem.Product.ThumbnailImage),
-                ProductPrice = cartItem.ProductPrice,
+                ProductPrice = cartItem.Product.Price,
                 Quantity = cartItem.Quantity
             };
 
-            if (cartItem.ProductVariation != null)
-            {
-                model.VariationName = cartItem.ProductVariation.Name;
-            }
-
             var cartItems = _cartService.GetCartItems(currentUser.Id);
             model.CartItemCount = cartItems.Count;
-            model.CartAmount = cartItems.Sum(x => x.Quantity * x.ProductPrice);
+            model.CartAmount = cartItems.Sum(x => x.Quantity * x.Product.Price);
 
             return PartialView(model);
         }
@@ -90,10 +84,10 @@ namespace SimplCommerce.Web.Controllers
                 {
                     Id = x.Id,
                     ProductName = x.Product.Name,
-                    ProductPrice = x.ProductPrice,
+                    ProductPrice = x.Product.Price,
                     ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
                     Quantity = x.Quantity,
-                    VariationOptions = CartListItem.GetVariationOption(x.ProductVariation)
+                    VariationOptions = CartListItem.GetVariationOption(x.Product)
                 }).ToList()
             };
 

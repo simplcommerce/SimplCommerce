@@ -14,21 +14,18 @@ namespace SimplCommerce.Web.Controllers
         private readonly IRepository<Category> categoryRepository;
         private readonly IMediaService mediaService;
         private readonly IRepository<Product> productRepository;
-        private readonly IRepository<ProductVariation> productVariationRepository;
         private readonly IRepository<ProductCategory> productCategoryRepository;
         private readonly IRepository<Brand> brandRepository;
 
         public ProductController(IRepository<Product> productRepository,
             IMediaService mediaService,
             IRepository<Category> categoryRepository,
-            IRepository<ProductVariation> productVariationRepository,
             IRepository<ProductCategory> productCategoryRepository,
             IRepository<Brand> brandRepository)
         {
             this.productRepository = productRepository;
             this.mediaService = mediaService;
             this.categoryRepository = categoryRepository;
-            this.productVariationRepository = productVariationRepository;
             this.productCategoryRepository = productCategoryRepository;
             this.brandRepository = brandRepository;
         }
@@ -53,7 +50,7 @@ namespace SimplCommerce.Web.Controllers
 
             var query = productCategoryRepository
                 .Query()
-                .Where(x => x.CategoryId == category.Id && x.Product.IsPublished)
+                .Where(x => x.CategoryId == category.Id && x.Product.IsPublished && x.Product.IsVisibleIndividually)
                 .Select(x => x.Product);
 
             model.FilterOption.Price.MaxPrice = query.Max(x => x.Price);
@@ -83,7 +80,7 @@ namespace SimplCommerce.Web.Controllers
             query = query
                 .Include(x => x.Brand)
                 .Include(x => x.ThumbnailImage)
-                .Include(x => x.Variations);
+                .Include(x => x.ProductLinks);
 
             query = AppySort(searchOption, query);
 
@@ -181,11 +178,11 @@ namespace SimplCommerce.Web.Controllers
 
         private void MapProductVariantToProductVm(Product product, ProductDetail model)
         {
-            var variations = productVariationRepository
+            var variations = productRepository
                 .Query()
                 .Include(x => x.OptionCombinations).ThenInclude(o => o.Option)
-                .Include(x => x.Product)
-                .Where(x => x.ProductId == product.Id && !x.IsDeleted)
+                .Where(x => x.LinkedProductLinks.Any(link => link.ProductId == product.Id && link.LinkType == ProductLinkType.Super))
+                .Where(x => x.IsPublished)
                 .ToList();
 
             foreach (var variation in variations)
@@ -194,8 +191,8 @@ namespace SimplCommerce.Web.Controllers
                 {
                     Id = variation.Id,
                     Name = variation.Name,
-                    PriceOffset = variation.PriceOffset,
-                    Price = product.Price + variation.PriceOffset
+                    NormalizedName = variation.NormalizedName,
+                    Price = variation.Price
                 };
 
                 foreach (var combination in variation.OptionCombinations)

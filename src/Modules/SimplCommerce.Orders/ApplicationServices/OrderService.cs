@@ -23,7 +23,6 @@ namespace SimplCommerce.Orders.ApplicationServices
             var cartItems = cartItemRepository
                 .Query()
                 .Include(x => x.Product)
-                .Include(x => x.ProductVariation)
                 .Where(x => x.UserId == user.Id).ToList();
 
             var order = new Order
@@ -38,8 +37,7 @@ namespace SimplCommerce.Orders.ApplicationServices
                 var orderItem = new OrderItem
                 {
                     Product = cartItem.Product,
-                    ProductPrice = cartItem.ProductPrice,
-                    ProductVariation = cartItem.ProductVariation,
+                    ProductPrice = cartItem.Product.Price,
                     Quantity = cartItem.Quantity
                 };
                 order.AddOrderItem(orderItem);

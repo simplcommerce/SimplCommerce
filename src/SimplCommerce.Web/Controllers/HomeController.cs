@@ -32,7 +32,7 @@ namespace SimplCommerce.Web.Controllers
         {
             var model = new HomeViewModel();
             model.FeaturedProducts = productRepository.Query()
-                .Where(x => x.IsPublished)
+                .Where(x => x.IsPublished && x.IsVisibleIndividually)
                 .OrderByDescending(x => x.CreatedOn)
                 .Take(4)
                 .Select(x => new ProductListItem
@@ -43,7 +43,7 @@ namespace SimplCommerce.Web.Controllers
                     Price = x.Price,
                     OldPrice = x.OldPrice,
                     ThumbnailImage = x.ThumbnailImage,
-                    NumberVariation = x.Variations.Count
+                    NumberVariation = x.ProductLinks.Count
                 }).ToList();
 
             foreach (var product in model.FeaturedProducts)

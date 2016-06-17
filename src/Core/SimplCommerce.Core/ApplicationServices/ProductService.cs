@@ -27,13 +27,31 @@ namespace SimplCommerce.Core.ApplicationServices
 
         public void Update(Product product)
         {
-            urlSlugService.Update(product.SeoTitle, product.Id, ProductEntityName);
+            var slug = urlSlugService.Get(product.Id, ProductEntityName);
+            if (product.IsVisibleIndividually)
+            {
+                if (slug != null)
+                {
+                    urlSlugService.Update(product.SeoTitle, product.Id, ProductEntityName);
+                }
+                else
+                {
+                    urlSlugService.Add(product.SeoTitle, product.Id, ProductEntityName);
+                }
+            }
+            else
+            {
+                if (slug != null)
+                {
+                    urlSlugService.Remove(product.Id, ProductEntityName);
+                }
+            }
             productRepository.SaveChange();
         }
 
         public void Delete(Product product)
         {
-            product.SetDelete(true);
+            product.IsDeleted = true;
             urlSlugService.Remove(product.Id, ProductEntityName);
             productRepository.SaveChange();
         }

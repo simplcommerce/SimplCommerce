@@ -124,13 +124,13 @@
                             <table class="table table-striped">
                                 <tr>
                                     <th class="col-sm-5">Option Combinations</th>
-                                    <th class="col-sm-2">(+)/(-) Price</th>
+                                    <th class="col-sm-2">Price</th>
                                     <th class="col-sm-3">Picture</th>
                                     <th class="col-sm-2">Actions</th>
                                 </tr>
                                 <tr ng-repeat="variation in vm.product.variations">
                                     <td>{{variation.name}}</td>
-                                    <td><input type="number" required class="form-control" ng-model="variation.priceOffset" /></td>
+                                    <td><input type="number" required class="form-control" ng-model="variation.price" /></td>
                                     <td></td>
                                     <td>
                                         <button ng-click="vm.deleteVariation(variation)" type="button" class="btn">
@@ -153,7 +153,7 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="col-sm-2"><input type="number" class="form-control" ng-model="vm.addingVariation.priceOffset" /></td>
+                                                    <td class="col-sm-2"><input type="number" class="form-control" ng-model="vm.addingVariation.price" /></td>
                                                     <td class="col-sm-3"></td>
                                                     <td class="col-sm-2"><button type="button" class="btn btn-primary" ng-disabled="addingVariationForm.$invalid" ng-click="vm.addVariation()"><span class="glyphicon glyphicon-plus"></span></button></td>
                                                 </tr>

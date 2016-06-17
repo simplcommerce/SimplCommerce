@@ -22,7 +22,7 @@ namespace SimplCommerce.Core.ApplicationServices
                 return $"/{MediaRootFoler}/{media.FileName}";
             }
 
-            return $"/{MediaRootFoler}/default.png";
+            return $"/{MediaRootFoler}/no-image.png";
         }
 
         public string GetMediaUrl(string fileName)

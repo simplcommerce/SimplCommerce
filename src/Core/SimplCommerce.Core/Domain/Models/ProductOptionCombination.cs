@@ -4,9 +4,9 @@ namespace SimplCommerce.Core.Domain.Models
 {
     public class ProductOptionCombination : Entity
     {
-        public long VariationId { get; set; }
+        public long ProducdtId { get; set; }
 
-        public virtual ProductVariation Variation { get; set; }
+        public virtual Product Product { get; set; }
 
         public long OptionId { get; set; }
 

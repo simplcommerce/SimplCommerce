@@ -53,7 +53,7 @@ namespace SimplCommerce.Core.ApplicationServices
                 return $"{_storagePath}{media.FileName}";
             }
 
-            return $"{_storagePath}default.png";
+            return $"{_storagePath}no-image.png";
         }
 
         public string GetThumbnailUrl(Media media)

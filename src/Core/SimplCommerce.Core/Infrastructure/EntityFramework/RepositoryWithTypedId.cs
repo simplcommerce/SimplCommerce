@@ -7,7 +7,7 @@ namespace SimplCommerce.Core.Infrastructure.EntityFramework
 {
     public class RepositoryWithTypedId<T, TId> : IRepositoryWithTypedId<T, TId> where T : class, IEntityWithTypedId<TId>
     {
-        public RepositoryWithTypedId(HvDbContext context)
+        public RepositoryWithTypedId(SimplDbContext context)
         {
             Context = context;
             DbSet = Context.Set<T>();

@@ -8,7 +8,9 @@ namespace SimplCommerce.Web.Areas.Admin.ViewModels.Products
 
         public string Name { get; set; }
 
-        public decimal PriceOffset { get; set; }
+        public string NormalizedName { get; set; }
+
+        public decimal Price { get; set; }
 
         public IList<ProductOptionCombinationVm> OptionCombinations { get; set; } =
             new List<ProductOptionCombinationVm>();

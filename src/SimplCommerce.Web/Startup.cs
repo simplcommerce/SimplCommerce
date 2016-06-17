@@ -58,14 +58,14 @@ namespace SimplCommerce.Web
             GlobalConfiguration.ConnectionString = Configuration["Data:DefaultConnection:ConnectionString"];
             GlobalConfiguration.ApplicationPath = hostingEnvironment.WebRootPath;
 
-            services.AddDbContext<HvDbContext>(options =>
+            services.AddDbContext<SimplDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("SimplCommerce.Web")));
 
             services.AddIdentity<User, Role>(configure =>
             {
                 configure.Cookies.ApplicationCookie.LoginPath = "/login";
             })
-                .AddEntityFrameworkStores<HvDbContext, long>()
+                .AddEntityFrameworkStores<SimplDbContext, long>()
                 .AddDefaultTokenProviders();
 
             services.AddScoped<SignInManager<User>, SimplSignInManager<User>>();
