@@ -14,7 +14,11 @@ textarea {
 }
 
 .main-nav .navbar-header .navbar-brand {
-    padding: 0px 15px;
+    padding: 7px 15px;
+}
+
+.navbar-brand img{
+    width: 260px;
 }
 
 .main-menu {
@@ -24,12 +28,8 @@ textarea {
 }
 
 .navbar-default .navbar-nav > li > a {
-    font-size: 16px;
+    font-size: 15px;
     text-transform: uppercase;
-}
-
-.main-menu > li{
-    
 }
 
 li.nav-item-group, li.nav-item-group a {

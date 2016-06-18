@@ -68,6 +68,7 @@
 /// <reference path="js/cart/shoppingcart-list.js" />
 /// <reference path="js/cart/shoppingcart-service.js" />
 /// <reference path="js/checkout/shipping.js" />
+/// <reference path="js/main.js" />
 /// <reference path="js/product-detail.js" />
 /// <reference path="js/product-filter.js" />
 /// <reference path="lib/angular/angular.js" />
