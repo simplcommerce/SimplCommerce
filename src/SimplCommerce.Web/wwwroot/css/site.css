@@ -13,46 +13,33 @@ textarea {
     display: inline;
 }
 
-.main-nav .navbar-collapse {
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 15px;
+.main-nav .navbar-header .navbar-brand {
+    padding: 0px 15px;
 }
 
-/* Carousel */
-.carousel-caption {
-    z-index: 10 !important;
+.main-menu {
+    display: table;
+    float: none;
+    margin: 0 auto;
 }
 
-    .carousel-caption p {
-        font-size: 20px;
-        line-height: 1.4;
-    }
+.navbar-default .navbar-nav > li > a {
+    font-size: 16px;
+    text-transform: uppercase;
+}
 
-@media (min-width: 768px) {
-    .carousel-caption {
-        z-index: 10 !important;
-    }
+.main-menu > li{
+    
 }
 
 li.nav-item-group, li.nav-item-group a {
     font-weight: bold;
 }
 
-.footer-content {
-    margin-top: 30px;
-    background-color: #eee;
-}
-
-.footer-content hr {
-    border-color: #ddd;
-}
-.breadcrumb {
-    background-color: #FFFFFF;
-    padding: 0;
-}
-
 .cart-badge {
     position: relative;
+    top: 8px;
+    right: 5px;
     margin-left: 20px;
     padding-top: 8px;
     padding-right: 18px;
@@ -69,6 +56,58 @@ li.nav-item-group, li.nav-item-group a {
     right: 5px;
     position: absolute;
     background: red;
+}
+
+@media (max-width: 991px) {
+    .main-nav .navbar-header {
+      margin-bottom: 7px;
+      margin-right: 50px;
+    }
+    .main-nav .navbar-header .navbar-brand {
+        padding: 6px 10px;
+    }
+
+    .navbar-nav {
+        float: left;
+        margin: 0;
+    }
+    .cart-badge {
+        position: absolute;
+        top: 8px;
+        right: 5px;
+        padding: 14px 10px 18px 0;
+    }
+}
+
+.breadcrumb {
+    background-color: #FFFFFF;
+    padding: 0;
+}
+
+.footer-content {
+    margin-top: 30px;
+    background-color: #eee;
+}
+
+.footer-content hr {
+    border-color: #ddd;
+}
+
+
+/* Carousel */
+.carousel-caption {
+    z-index: 10 !important;
+}
+
+    .carousel-caption p {
+        font-size: 20px;
+        line-height: 1.4;
+    }
+
+@media (min-width: 768px) {
+    .carousel-caption {
+        z-index: 10 !important;
+    }
 }
 
 /* product list*/
