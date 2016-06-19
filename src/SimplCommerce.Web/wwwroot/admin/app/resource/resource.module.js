@@ -13,7 +13,7 @@
                 .state('resource-edit', {
                     url: '/resource/edit/:id',
                     templateUrl: 'admin/app/resource/resource-form.html',
-                    controller: 'ResourceEditCtrl as vm'
+                    controller: 'ResourceFormCtrl as vm'
                 });
         }]);
 })();

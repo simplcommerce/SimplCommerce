@@ -13,12 +13,12 @@
                 .state('brand-create', {
                     url: '/brand/create',
                     templateUrl: 'admin/app/brand/brand-form.html',
-                    controller: 'BrandCreateCtrl as vm'
+                    controller: 'BrandFormCtrl as vm'
                 })
                 .state('brand-edit', {
                     url: '/brand/edit/:id',
                     templateUrl: 'admin/app/brand/brand-form.html',
-                    controller: 'BrandEditCtrl as vm'
+                    controller: 'BrandFormCtrl as vm'
                 });
         }]);
 })();

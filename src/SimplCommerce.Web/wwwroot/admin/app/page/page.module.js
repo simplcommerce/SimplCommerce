@@ -13,12 +13,12 @@
                 .state('page-create', {
                     url: '/page/create',
                     templateUrl: 'admin/app/page/page-form.html',
-                    controller: 'PageCreateCtrl as vm'
+                    controller: 'PageFormCtrl as vm'
                 })
                 .state('page-edit', {
                     url: '/page/edit/:id',
                     templateUrl: 'admin/app/page/page-form.html',
-                    controller: 'PageEditCtrl as vm'
+                    controller: 'PageFormCtrl as vm'
                 });
         }]);
 })();

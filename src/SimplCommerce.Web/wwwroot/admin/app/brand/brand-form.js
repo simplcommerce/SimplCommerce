@@ -1,17 +1,25 @@
-﻿/*global angular*/
+﻿ /*global angular*/
 (function () {
     angular
         .module('shopAdmin.brand')
-        .controller('BrandEditCtrl', BrandEditCtrl);
+        .controller('BrandFormCtrl', BrandFormCtrl);
 
     /* @ngInject */
-    function BrandEditCtrl($state, $stateParams, brandService) {
+    function BrandFormCtrl($state, $stateParams, brandService) {
         var vm = this;
         vm.brand = {};
-        vm.isEditMode = true;
+        vm.brandId = $stateParams.id;
+        vm.isEditMode = vm.brandId > 0;
 
         vm.save = function save() {
-            brandService.editBrand(vm.brand)
+            var promise;
+            if (vm.isEditMode) {
+                promise = brandService.editBrand(vm.brand);
+            } else {
+                promise = brandService.createBrand(vm.brand);
+            }
+
+            promise
                 .success(function (result) {
                     $state.go('brand');
                 })
@@ -28,9 +36,11 @@
         };
 
         function init() {
-            brandService.getBrand($stateParams.id).then(function (result) {
-                vm.brand = result.data;
-            });
+            if (vm.isEditMode) {
+                brandService.getBrand(vm.brandId).then(function (result) {
+                    vm.brand = result.data;
+                });
+            }
         }
 
         init();

@@ -13,12 +13,12 @@
                 .state('category-create', {
                     url: '/category/create',
                     templateUrl: 'admin/app/category/category-form.html',
-                    controller: 'CategoryCreateCtrl as vm'
+                    controller: 'CategoryFormCtrl as vm'
                 })
                 .state('category-edit', {
                     url: '/category/edit/:id',
                     templateUrl: 'admin/app/category/category-form.html',
-                    controller: 'CategoryEditCtrl as vm'
+                    controller: 'CategoryFormCtrl as vm'
                 });
         }]);
 })();

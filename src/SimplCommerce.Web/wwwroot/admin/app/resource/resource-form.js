@@ -2,13 +2,14 @@
 (function ($) {
     angular
         .module('shopAdmin.resource')
-        .controller('ResourceEditCtrl', ResourceEditCtrl);
+        .controller('ResourceFormCtrl', ResourceFormCtrl);
 
     /* @ngInject */
-    function ResourceEditCtrl($state, $stateParams, resourceService) {
+    function ResourceFormCtrl($state, $stateParams, resourceService) {
         var vm = this;
         vm.resource = {};
-        vm.isEditMode = true;
+        vm.resourceId = $stateParams.id;
+        vm.isEditMode = vm.resourceId > 0;
 
         vm.save = function save() {
             resourceService.editResource(vm.resource)
@@ -28,7 +29,7 @@
         };
 
         function init() {
-            resourceService.getResource($stateParams.id).then(function (result) {
+            resourceService.getResource(resourceId).then(function (result) {
                 vm.resource = result.data;
             });
         }

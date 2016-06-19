@@ -2,13 +2,14 @@
 (function ($) {
     angular
         .module('shopAdmin.page')
-        .controller('PageEditCtrl', PageEditCtrl);
+        .controller('PageFormCtrl', PageFormCtrl);
 
     /* @ngInject */
-    function PageEditCtrl($state, $stateParams, summerNoteService, pageService) {
+    function PageFormCtrl($state, $stateParams, summerNoteService, pageService) {
         var vm = this;
         vm.page = {};
-        vm.isEditMode = true;
+        vm.pageId = $stateParams.id;
+        vm.isEditMode = vm.pageId > 0;
 
         vm.imageUpload = function (files) {
             summerNoteService.upload(files[0])
@@ -18,7 +19,14 @@
         };
 
         vm.save = function save() {
-            pageService.editPage(vm.page)
+            var promise;
+            if (vm.isEditMode) {
+                promise = pageService.editPage(vm.page);
+            } else {
+                promise = pageService.createPage(vm.page);
+            }
+
+            promise
                 .success(function (result) {
                     $state.go('page');
                 })
@@ -35,9 +43,11 @@
         };
 
         function init() {
-            pageService.getPage($stateParams.id).then(function (result) {
-                vm.page = result.data;
-            });
+            if (vm.isEditMode) {
+                pageService.getPage($stateParams.id).then(function (result) {
+                    vm.page = result.data;
+                });
+            }
         }
 
         init();
