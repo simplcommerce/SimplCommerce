@@ -14,6 +14,7 @@
         'shopAdmin.category',
         'shopAdmin.product',
         'shopAdmin.productOption',
+        'shopAdmin.productAttributeGroup',
         'shopAdmin.productAttribute',
         'shopAdmin.productTemplate',
         'shopAdmin.brand',
