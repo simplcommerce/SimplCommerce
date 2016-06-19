@@ -20,7 +20,8 @@
         'shopAdmin.brand',
         'shopAdmin.page',
         'shopAdmin.resource',
-        'shopAdmin.order'
+        'shopAdmin.order',
+        'shopAdmin.widget'
     ]);
 
     adminApp.config([

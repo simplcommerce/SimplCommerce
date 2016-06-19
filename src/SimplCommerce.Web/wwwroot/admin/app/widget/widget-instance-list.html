@@ -1,0 +1,45 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Widget Instance List</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-plus"></span> Create Widget <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    <li ng-repeat="widget in vm.widgets">
+                        <a ui-sref="{{widget.createUrl}}">{{widget.name}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Widget Type</th>
+        <th>Widget Zone</th>
+        <th>Publish Start</th>
+        <th>Publish End</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="instance in vm.widgetInstances">
+        <td>{{instance.name}}</td>
+        <td>{{instance.widgetType}}</td>
+        <td>{{instance.widgetZone}}</td>
+        <td>{{instance.PublishStart}}</td>
+        <td>{{instance.PublishEnd}}</td>
+        <td>
+            <a ui-sref="{{instance.editUrl}}({id: instance.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+            <button ng-click="vm.deleteWidgetInstance(instance)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+        </td>
+    </tr>
+    </tbody>
+</table>

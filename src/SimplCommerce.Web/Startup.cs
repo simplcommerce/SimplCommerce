@@ -1,29 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Globalization;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using SimplCommerce.Web.RouteConfigs;
-using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Newtonsoft.Json.Serialization;
 using SimplCommerce.Core.Infrastructure.EntityFramework;
 using SimplCommerce.Core.ApplicationServices;
 using SimplCommerce.Infrastructure.Domain.IRepositories;
-using Autofac.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Newtonsoft.Json.Serialization;
 using SimplCommerce.Core.Domain.Models;
 using SimplCommerce.Web.Extensions;
-using Microsoft.AspNetCore.Identity;
-using System.Globalization;
-using Microsoft.AspNetCore.Localization;
-using SimplCommerce.Web.Extensions;
+using SimplCommerce.Web.RouteConfigs;
 
 namespace SimplCommerce.Web
 {
@@ -83,6 +77,7 @@ namespace SimplCommerce.Web
             services.AddScoped<IWorkContext, WorkContext>();
 
             GlobalConfiguration.Modules.Add(new HvModule { Name = "Core", AssemblyName = "SimplCommerce.Core" });
+            GlobalConfiguration.Modules.Add(new HvModule { Name = "Cms", AssemblyName = "SimplCommerce.Cms" });
             GlobalConfiguration.Modules.Add(new HvModule { Name = "Orders", AssemblyName = "SimplCommerce.Orders" });
 
             // TODO: break down to new method in new class
@@ -95,8 +90,8 @@ namespace SimplCommerce.Web
             }
 
             builder.RegisterInstance(Configuration);
-            builder.RegisterInstance(hostingEnvironment);            
-            builder.RegisterMediaType(Configuration["Storage:StorageType"]);            
+            builder.RegisterInstance(hostingEnvironment);
+            builder.RegisterMediaType(Configuration["Storage:StorageType"]);
 
             builder.Populate(services);
 

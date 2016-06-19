@@ -44,7 +44,7 @@
 
         function init() {
             if (vm.isEditMode) {
-                pageService.getPage($stateParams.id).then(function (result) {
+                pageService.getPage(vm.pageId).then(function (result) {
                     vm.page = result.data;
                 });
             }

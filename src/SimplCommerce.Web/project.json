@@ -43,7 +43,8 @@
     "SimplCommerce.Core": "1.0.0-*",
     "Autofac.Extensions.DependencyInjection": "4.0.0-rc1-177",
     "Microsoft.AspNetCore.Authentication.Google": "1.0.0-rc2-final",
-    "Microsoft.AspNetCore.Authentication.Facebook": "1.0.0-rc2-final" },
+    "Microsoft.AspNetCore.Authentication.Facebook": "1.0.0-rc2-final",
+    "SimplCommerce.Cms": "1.0.0-*" },
 
   "tools": {
     "Microsoft.AspNetCore.Razor.Tools": {

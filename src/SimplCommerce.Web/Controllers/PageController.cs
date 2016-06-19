@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SimplCommerce.Core.Domain.Models;
+using SimplCommerce.Cms.Domain.Models;
 using SimplCommerce.Infrastructure.Domain.IRepositories;
 using System.Linq;
 

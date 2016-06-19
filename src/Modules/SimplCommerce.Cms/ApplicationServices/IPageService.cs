@@ -1,6 +1,6 @@
-﻿using SimplCommerce.Core.Domain.Models;
+﻿using SimplCommerce.Cms.Domain.Models;
 
-namespace SimplCommerce.Core.ApplicationServices
+namespace SimplCommerce.Cms.ApplicationServices
 {
     public interface IPageService
     {

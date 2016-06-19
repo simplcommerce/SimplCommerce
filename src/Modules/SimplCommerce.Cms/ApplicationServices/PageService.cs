@@ -1,7 +1,8 @@
-﻿using SimplCommerce.Core.Domain.Models;
+﻿using SimplCommerce.Cms.Domain.Models;
+using SimplCommerce.Core.ApplicationServices;
 using SimplCommerce.Infrastructure.Domain.IRepositories;
 
-namespace SimplCommerce.Core.ApplicationServices
+namespace SimplCommerce.Cms.ApplicationServices
 {
     public class PageService : IPageService
     {

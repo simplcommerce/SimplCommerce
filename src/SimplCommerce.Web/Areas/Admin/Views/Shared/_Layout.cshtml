@@ -100,6 +100,11 @@
     <script src="~/admin/app/order/order-service.js"></script>
     <script src="~/admin/app/order/order-list.js"></script>
     <script src="~/admin/app/order/order-detail.js"></script>
+
+    <script src="~/admin/app/widget/widget.module.js"></script>
+    <script src="~/admin/app/widget/widget-service.js"></script>
+    <script src="~/admin/app/widget/widget-instance-list.js"></script>
+    <script src="~/admin/app/widget/carousel-form.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse">
@@ -137,6 +142,7 @@
                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Content <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a ui-sref="page">Manage Pages</a></li>
+                            <li><a ui-sref="widget">Manage Widgets</a></li>
                             @*<li><a ui-sref="resource">Manage Resources</a></li>*@
                         </ul>
                     </li>

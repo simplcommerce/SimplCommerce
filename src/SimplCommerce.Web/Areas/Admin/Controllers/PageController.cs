@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using SimplCommerce.Core.ApplicationServices;
-using SimplCommerce.Core.Domain.Models;
-using SimplCommerce.Infrastructure.Domain.IRepositories;
-using SimplCommerce.Web.Areas.Admin.ViewModels.Pages;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using SimplCommerce.Cms.Domain.Models;
+using SimplCommerce.Cms.ApplicationServices;
+using SimplCommerce.Infrastructure.Domain.IRepositories;
+using SimplCommerce.Web.Areas.Admin.ViewModels.Pages;
 
 namespace SimplCommerce.Web.Areas.Admin.Controllers
 {
