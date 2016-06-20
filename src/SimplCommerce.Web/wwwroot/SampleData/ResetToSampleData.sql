@@ -32,7 +32,7 @@ DELETE FROM [dbo].[Core_ProductTemplateProductAttribute]
 GO
 DELETE FROM [dbo].[Core_ProductTemplate]
 GO
-DELETE FROM [dbo].[Core_Page]
+DELETE FROM [dbo].[Cms_Page]
 GO
 
 SET IDENTITY_INSERT [dbo].[Core_Category] ON 
