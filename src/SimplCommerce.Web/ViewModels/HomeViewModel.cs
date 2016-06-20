@@ -8,6 +8,8 @@ namespace SimplCommerce.Web.ViewModels
 {
     public class HomeViewModel
     {
-        public IList<ProductListItem> FeaturedProducts { get; set; } = new List<ProductListItem>(); 
+        public IList<ProductListItem> FeaturedProducts { get; set; } = new List<ProductListItem>();
+
+        public IList<WidgetInstanceVm> WidgetInstances { get; set; } = new List<WidgetInstanceVm>();
     }
 }

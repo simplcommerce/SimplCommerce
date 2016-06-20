@@ -10,28 +10,32 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Http;
+using SimplCommerce.Cms.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SimplCommerce.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private UserManager<User> userManager;
-        private IRepository<Product> productRepository;
-        private IMediaService mediaService;
-        private readonly IStringLocalizer<HomeController> localizer;
+        private UserManager<User> _userManager;
+        private IRepository<Product> _productRepository;
+        private IMediaService _mediaService;
+        private IRepository<WidgetInstance> _widgetInstanceRepository;
+        private readonly IStringLocalizer<HomeController> _localizer;
 
-        public HomeController(UserManager<User> userManager, IRepository<Product> productRepository, IMediaService mediaService, IStringLocalizer<HomeController> localizer)
+        public HomeController(UserManager<User> userManager, IRepository<Product> productRepository, IMediaService mediaService, IRepository<WidgetInstance> widgetInstanceRepository, IStringLocalizer<HomeController> localizer)
         {
-            this.userManager = userManager;
-            this.productRepository = productRepository;
-            this.mediaService = mediaService;
-            this.localizer = localizer;
+            _userManager = userManager;
+            _productRepository = productRepository;
+            _mediaService = mediaService;
+            _widgetInstanceRepository = widgetInstanceRepository;
+            _localizer = localizer;
         }
 
         public IActionResult Index()
         {
             var model = new HomeViewModel();
-            model.FeaturedProducts = productRepository.Query()
+            model.FeaturedProducts = _productRepository.Query()
                 .Where(x => x.IsPublished && x.IsVisibleIndividually)
                 .OrderByDescending(x => x.CreatedOn)
                 .Take(4)
@@ -48,15 +52,20 @@ namespace SimplCommerce.Web.Controllers
 
             foreach (var product in model.FeaturedProducts)
             {
-                product.ThumbnailUrl = mediaService.GetThumbnailUrl(product.ThumbnailImage);
+                product.ThumbnailUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage);
             }
 
-            return View(model);
-        }
+            var widgetInstances = _widgetInstanceRepository.Query()
+                .Include(x => x.Widget).Where(x => x.WidgetZone == WidgetZone.HomeFeatured || x.WidgetZone == WidgetZone.HomeContent);
 
-        public string Error()
-        {
-            return "error";
+            model.WidgetInstances = widgetInstances.Select(x => new WidgetInstanceVm
+            {
+                Id = x.Id,
+                ViewComponentName = x.Widget.ViewComponentName,
+                WidgetZone = x.WidgetZone
+            }).ToList();
+
+            return View(model);
         }
 
         [HttpPost]
