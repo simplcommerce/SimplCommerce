@@ -9,5 +9,7 @@ namespace SimplCommerce.Web.ViewModels
         public string ViewComponentName { get; set; }
 
         public WidgetZone WidgetZone { get; set; }
+
+        public string WidgetData { get; set; }
     }
 }

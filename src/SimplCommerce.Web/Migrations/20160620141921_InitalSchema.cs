@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace SimplCommerce.Web.Migrations
 {
-    public partial class InitialSchema : Migration
+    public partial class InitalSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,6 +21,25 @@ namespace SimplCommerce.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Core_UserToken", x => new { x.UserId, x.LoginProvider, x.Name });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cms_Widget",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Code = table.Column<string>(nullable: true),
+                    CreateUrl = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    EditUrl = table.Column<string>(nullable: true),
+                    IsPublished = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    ViewComponentName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cms_Widget", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -194,6 +213,33 @@ namespace SimplCommerce.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Core_UrlSlug", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cms_WidgetInstance",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    DisplayOrder = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    PublishEnd = table.Column<DateTime>(nullable: true),
+                    PublishStart = table.Column<DateTime>(nullable: true),
+                    UpdatedOn = table.Column<DateTime>(nullable: false),
+                    WidgetData = table.Column<string>(nullable: true),
+                    WidgetId = table.Column<long>(nullable: false),
+                    WidgetZone = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cms_WidgetInstance", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cms_WidgetInstance_Cms_Widget_WidgetId",
+                        column: x => x.WidgetId,
+                        principalTable: "Cms_Widget",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -467,7 +513,7 @@ namespace SimplCommerce.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Core_Page",
+                name: "Cms_Page",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -488,15 +534,15 @@ namespace SimplCommerce.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Core_Page", x => x.Id);
+                    table.PrimaryKey("PK_Cms_Page", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Core_Page_Core_User_CreatedById",
+                        name: "FK_Cms_Page_Core_User_CreatedById",
                         column: x => x.CreatedById,
                         principalTable: "Core_User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Core_Page_Core_User_UpdatedById",
+                        name: "FK_Cms_Page_Core_User_UpdatedById",
                         column: x => x.UpdatedById,
                         principalTable: "Core_User",
                         principalColumn: "Id",
@@ -846,6 +892,21 @@ namespace SimplCommerce.Web.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cms_Page_CreatedById",
+                table: "Cms_Page",
+                column: "CreatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cms_Page_UpdatedById",
+                table: "Cms_Page",
+                column: "UpdatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cms_WidgetInstance_WidgetId",
+                table: "Cms_WidgetInstance",
+                column: "WidgetId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Core_Address_CountryId",
                 table: "Core_Address",
                 column: "CountryId");
@@ -869,16 +930,6 @@ namespace SimplCommerce.Web.Migrations
                 name: "IX_Core_District_StateOrProvinceId",
                 table: "Core_District",
                 column: "StateOrProvinceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Core_Page_CreatedById",
-                table: "Core_Page",
-                column: "CreatedById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Core_Page_UpdatedById",
-                table: "Core_Page",
-                column: "UpdatedById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Core_Product_BrandId",
@@ -1076,7 +1127,10 @@ namespace SimplCommerce.Web.Migrations
                 name: "Core_UserToken");
 
             migrationBuilder.DropTable(
-                name: "Core_Page");
+                name: "Cms_Page");
+
+            migrationBuilder.DropTable(
+                name: "Cms_WidgetInstance");
 
             migrationBuilder.DropTable(
                 name: "Core_ProductAttributeValue");
@@ -1116,6 +1170,9 @@ namespace SimplCommerce.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "Core_Role");
+
+            migrationBuilder.DropTable(
+                name: "Cms_Widget");
 
             migrationBuilder.DropTable(
                 name: "Core_Category");

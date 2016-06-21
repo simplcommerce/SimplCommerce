@@ -1,32 +1,32 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using SimplCommerce.Cms.Domain.Models;
-using SimplCommerce.Infrastructure.Domain.IRepositories;
+using Newtonsoft.Json;
 using SimplCommerce.Web.ViewModels;
+using SimplCommerce.Core.ApplicationServices;
 
 namespace SimplCommerce.Web.Components
 {
     public class CarouselWidgetViewComponent : ViewComponent
     {
-        private IRepository<WidgetInstance> _widgetInstanceRepository;
+        private IMediaService _mediaService;
 
-        public CarouselWidgetViewComponent(IRepository<WidgetInstance> widgetInstanceRepository)
+        public CarouselWidgetViewComponent(IMediaService mediaService)
         {
-            _widgetInstanceRepository = widgetInstanceRepository;
+            _mediaService = mediaService;
         }
 
-        public IViewComponentResult Invoke(long widgetInstanceId)
+        public IViewComponentResult Invoke(WidgetInstanceVm widgetInstance)
         {
-            var widgetInstance = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == widgetInstanceId);
-
             var model = new CarouselWidgetViewComponentVm
             {
                 Id = widgetInstance.Id,
-                Items = widgetInstance.WidgetProperties.Where(x => x.PropertyName == "Content").Select(x => new CarouselWidgetViewComponentItemVm
-                {
-                    Content = x.PropertyValue
-                }).ToList()
+                Items = JsonConvert.DeserializeObject<IList<CarouselWidgetViewComponentItemVm>>(widgetInstance.WidgetData)
             };
+
+            foreach(var item in model.Items)
+            {
+                item.Image = _mediaService.GetMediaUrl(item.Image);
+            }
 
             return View(model);
         }

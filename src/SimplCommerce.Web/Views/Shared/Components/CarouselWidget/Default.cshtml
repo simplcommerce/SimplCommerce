@@ -18,7 +18,14 @@
     @foreach (var item in Model.Items)
     {
         <div class="item @(item == Model.Items.First() ? "active" : null)">
-            @Html.Raw(item.Content)
+            <a href="@item.TargetUrl">
+                <img src="@item.Image" alt="@item.Caption" class="img-responsive" />
+                <div class="carousel-caption" role="option">
+                    <p>
+                        @item.Caption
+                    </p>
+                </div>
+            </a>
         </div>
     }
     </div>

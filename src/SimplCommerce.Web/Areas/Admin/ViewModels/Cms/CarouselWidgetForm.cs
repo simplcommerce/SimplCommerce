@@ -10,6 +10,6 @@ namespace SimplCommerce.Web.Areas.Admin.ViewModels.Cms
 
         public int Zone { get; set; }
 
-        public List<WidgetPropertyForm> Items = new List<WidgetPropertyForm>();
+        public IList<CarouselWidgetItemForm> Items = new List<CarouselWidgetItemForm>();
     }
 }

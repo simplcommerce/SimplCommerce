@@ -40,15 +40,15 @@ namespace SimplCommerce.Web.Controllers
                 .OrderByDescending(x => x.CreatedOn)
                 .Take(4)
                 .Select(x => new ProductListItem
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    SeoTitle = x.SeoTitle,
-                    Price = x.Price,
-                    OldPrice = x.OldPrice,
-                    ThumbnailImage = x.ThumbnailImage,
-                    NumberVariation = x.ProductLinks.Count
-                }).ToList();
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        SeoTitle = x.SeoTitle,
+                        Price = x.Price,
+                        OldPrice = x.OldPrice,
+                        ThumbnailImage = x.ThumbnailImage,
+                        NumberVariation = x.ProductLinks.Count
+                    }).ToList();
 
             foreach (var product in model.FeaturedProducts)
             {
@@ -62,7 +62,8 @@ namespace SimplCommerce.Web.Controllers
             {
                 Id = x.Id,
                 ViewComponentName = x.Widget.ViewComponentName,
-                WidgetZone = x.WidgetZone
+                WidgetZone = x.WidgetZone,
+                WidgetData = x.WidgetData
             }).ToList();
 
             return View(model);

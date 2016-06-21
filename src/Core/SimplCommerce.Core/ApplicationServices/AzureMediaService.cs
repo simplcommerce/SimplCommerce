@@ -37,7 +37,12 @@ namespace SimplCommerce.Core.ApplicationServices
         public void DeleteMedia(Media media)
         {
             _mediaRepository.Remove(media);
-            CloudBlockBlob blockBlob = _container.GetBlockBlobReference(media.FileName);
+            DeleteMedia(media.FileName);
+        }
+
+        public void DeleteMedia(string fileName)
+        {
+            CloudBlockBlob blockBlob = _container.GetBlockBlobReference(fileName);
             blockBlob.DeleteAsync().Wait();
         }
 

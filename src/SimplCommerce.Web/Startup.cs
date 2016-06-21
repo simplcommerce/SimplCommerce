@@ -64,10 +64,7 @@ namespace SimplCommerce.Web
 
             services.AddScoped<SignInManager<User>, SimplSignInManager<User>>();
 
-            services.AddMvc(options =>
-                {
-                    options.Filters.Add(typeof(WidgetGlobalActionFilter));
-                })
+            services.AddMvc()
                 .AddJsonOptions(
                     options =>
                     {

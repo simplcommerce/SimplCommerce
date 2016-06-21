@@ -150,8 +150,6 @@ namespace SimplCommerce.Web.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<string>("DeleteUrl");
-
                     b.Property<string>("EditUrl");
 
                     b.Property<bool>("IsPublished");
@@ -182,7 +180,9 @@ namespace SimplCommerce.Web.Migrations
 
                     b.Property<DateTime>("UpdatedOn");
 
-                    b.Property<long?>("WidgetId");
+                    b.Property<string>("WidgetData");
+
+                    b.Property<long>("WidgetId");
 
                     b.Property<int>("WidgetZone");
 
@@ -191,24 +191,6 @@ namespace SimplCommerce.Web.Migrations
                     b.HasIndex("WidgetId");
 
                     b.ToTable("Cms_WidgetInstance");
-                });
-
-            modelBuilder.Entity("SimplCommerce.Cms.Domain.Models.WidgetInstanceProperty", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("PropertyName");
-
-                    b.Property<string>("PropertyValue");
-
-                    b.Property<long?>("WidgetInstanceId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("WidgetInstanceId");
-
-                    b.ToTable("Cms_WidgetInstanceProperty");
                 });
 
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.Address", b =>
@@ -902,14 +884,8 @@ namespace SimplCommerce.Web.Migrations
                 {
                     b.HasOne("SimplCommerce.Cms.Domain.Models.Widget")
                         .WithMany()
-                        .HasForeignKey("WidgetId");
-                });
-
-            modelBuilder.Entity("SimplCommerce.Cms.Domain.Models.WidgetInstanceProperty", b =>
-                {
-                    b.HasOne("SimplCommerce.Cms.Domain.Models.WidgetInstance")
-                        .WithMany()
-                        .HasForeignKey("WidgetInstanceId");
+                        .HasForeignKey("WidgetId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.Address", b =>

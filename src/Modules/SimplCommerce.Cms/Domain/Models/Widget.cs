@@ -15,8 +15,6 @@ namespace SimplCommerce.Cms.Domain.Models
 
         public string EditUrl { get; set; }
 
-        public string DeleteUrl { get; set; }
-
         public DateTime CreatedOn { get; set; }
 
         public bool IsPublished { get; set; }

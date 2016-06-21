@@ -5,7 +5,7 @@
         .factory('widgetService', widgetService);
 
     /* @ngInject */
-    function widgetService($http) {
+    function widgetService($http, Upload) {
         var service = {
             getWidgets : getWidgets,
             getWidgetInstances : getWidgetInstances,
@@ -28,11 +28,19 @@
         }
 
         function createCarousel(widgetInstance) {
-            return $http.post('Admin/CarouselWidget/Create', widgetInstance);
+            widgetInstance.numberOfItems = widgetInstance.items.length;
+            return Upload.upload({
+                url: 'Admin/CarouselWidget/Create',
+                data: widgetInstance
+            });
         }
 
         function editCarousel(widgetInstance) {
-            return $http.post('Admin/CarouselWidget/Edit/' + widgetInstance.id, widgetInstance);
+            widgetInstance.numberOfItems = widgetInstance.items.length;
+            return Upload.upload({
+                url: 'Admin/CarouselWidget/Edit/' + widgetInstance.id,
+                data: widgetInstance
+            });
         }
     }
 })();

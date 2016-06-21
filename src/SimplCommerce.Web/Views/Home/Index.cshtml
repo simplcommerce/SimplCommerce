@@ -9,7 +9,7 @@
 
 @foreach(var widget in Model.WidgetInstances.Where(x => x.WidgetZone == WidgetZone.HomeFeatured))
 {
-    @await Component.InvokeAsync(widget.ViewComponentName, new { widgetInstanceId = widget.Id })
+    @await Component.InvokeAsync(widget.ViewComponentName, new { widgetInstance = widget })
 }
 
 <h2 class="page-header">Feature products</h2>

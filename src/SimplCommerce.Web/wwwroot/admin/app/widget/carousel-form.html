@@ -25,27 +25,40 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Item 1</label>
+                <label class="col-sm-2 control-label">Items</label>
                 <div class="col-sm-10">
-                    <summernote on-image-upload="vm.item1Upload(files)" editor="vm.item1" ng-model="vm.widgetInstance.items[0].value"></summernote>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Item 2</label>
-                <div class="col-sm-10">
-                    <summernote on-image-upload="vm.item2Upload(files)" editor="vm.item2" ng-model="vm.widgetInstance.items[1].value"></summernote>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Item 3</label>
-                <div class="col-sm-10">
-                    <summernote on-image-upload="vm.item3Upload(files)" editor="vm.item3" ng-model="vm.widgetInstance.items[2].value"></summernote>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Item 4</label>
-                <div class="col-sm-10">
-                    <summernote on-image-upload="vm.item4Upload(files)" editor="vm.item4" ng-model="vm.widgetInstance.items[3].value"></summernote>
+                    <div class="form-group row" ng-repeat="item in vm.widgetInstance.items">
+                        <div class="col-md-11">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Caption</label>
+                                <div class="col-sm-10">
+                                    <input ng-model="item.caption" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Target Url</label>
+                                <div class="col-sm-10">
+                                    <input ng-model="item.targetUrl" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Image</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="file" ngf-select ng-model="item.uploadImage" name="images" ngf-accept="'image/*'">
+                                    <img ngf-src="item.uploadImage" ngf-resize="{width: 100, height: 100, quality: 0.9}">
+                                    <img ng-show="!item.uploadImage && item.imageUrl" ng-src="{{item.imageUrl}}" style="width: 100px; height: 100px" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 text-right">
+                            <button ng-click="vm.removeItem(item)" type="button" class="btn btn-default btn-xs">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <button ng-click="vm.addItem()" type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-plus"></span> Add more
+                    </button>
                 </div>
             </div>
             <div class="form-group">

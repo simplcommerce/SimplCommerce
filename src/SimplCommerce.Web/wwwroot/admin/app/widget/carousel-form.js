@@ -7,38 +7,19 @@
     /* @ngInject */
     function CarouselFormCtrl($state, $stateParams, summerNoteService, widgetService) {
         var vm = this;
-        vm.widgetInstance = { items: [{}, {}, {}, {}] };
+        vm.widgetInstance = {zone : 1, items: [{}] };
         vm.widgetZones = [{id : 1, name : 'Home Featured'}, {id : 2, name : 'Home Content'}]
         vm.widgetInstanceId = $stateParams.id;
         vm.isEditMode = vm.widgetInstanceId > 0;
 
-        vm.item1Upload = function (files) {
-            summerNoteService.upload(files[0])
-                .success(function (url) {
-                    $(vm.item1).summernote('insertImage', url);
-                });
-        };
+        vm.addItem = function addItem() {
+            vm.widgetInstance.items.push({});
+        }
 
-        vm.item2Upload = function (files) {
-            summerNoteService.upload(files[0])
-                .success(function (url) {
-                    $(vm.item2).summernote('insertImage', url);
-                });
-        };
-
-        vm.item3Upload = function (files) {
-            summerNoteService.upload(files[0])
-                .success(function (url) {
-                    $(vm.item3).summernote('insertImage', url);
-                });
-        };
-
-        vm.item4Upload = function (files) {
-            summerNoteService.upload(files[0])
-                .success(function (url) {
-                    $(vm.item4).summernote('insertImage', url);
-                });
-        };
+        vm.removeItem = function removeItem(item) {
+            var index = vm.widgetInstance.items.indexOf(item);
+            vm.widgetInstance.items.splice(index, 1);
+        }
 
         vm.save = function save() {
             var promise;
@@ -59,7 +40,7 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add page.');
+                        vm.validationErrors.push('Could not carousel widget page.');
                     }
                 });
         };

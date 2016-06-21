@@ -47,7 +47,12 @@ namespace SimplCommerce.Core.ApplicationServices
         public void DeleteMedia(Media media)
         {
             mediaRespository.Remove(media);
-            var filePath = Path.Combine(GlobalConfiguration.ApplicationPath, MediaRootFoler, media.FileName);
+            DeleteMedia(media.FileName);
+        }
+
+        public void DeleteMedia(string fileName)
+        {
+            var filePath = Path.Combine(GlobalConfiguration.ApplicationPath, MediaRootFoler, fileName);
             if (File.Exists(filePath))
             {
                 File.Delete(filePath);

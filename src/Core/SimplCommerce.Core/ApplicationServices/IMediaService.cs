@@ -14,5 +14,7 @@ namespace SimplCommerce.Core.ApplicationServices
         void SaveMedia(Stream mediaBinaryStream, string fileName, string mimeType = null);
 
         void DeleteMedia(Media media);
+
+        void DeleteMedia(string fileName);
     }
 }
