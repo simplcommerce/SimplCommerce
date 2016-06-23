@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using SimplCommerce.Infrastructure.Domain.Models;
 
 namespace SimplCommerce.Cms.Domain.Models
@@ -27,11 +25,15 @@ namespace SimplCommerce.Cms.Domain.Models
 
         public Widget Widget { get; set; }
 
+        public long WidgetZoneId { get; set; }
+
         public WidgetZone WidgetZone { get; set; }
 
         public int DisplayOrder { get; set; }
 
-        public string WidgetData { get; set; }
+        public string Data { get; set; }
+
+        public string HtmlData { get; set; }
 
         /// <summary>
         /// This property cannot be used to filter again DB because it don't exist in database

@@ -25,12 +25,13 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
         {
             var widgetInstances = _widgetInstanceRepository.Query()
                 .Include(x => x.Widget)
+                .Include(x => x.WidgetZone)
                 .Select(x => new WidgetInstanceListItem
             {
                 Id = x.Id,
                 Name = x.Name,
                 WidgetType = x.Widget.Name,
-                WidgetZone = x.WidgetZone.ToString(),
+                WidgetZone = x.WidgetZone.Name,
                 CreatedOn = x.CreatedOn,
                 EditUrl = x.Widget.EditUrl,
                 PublishStart = x.PublishStart,
@@ -38,6 +39,20 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
             }).ToList();
 
             return Json(widgetInstances);
+        }
+
+        public IActionResult Delete(long id)
+        {
+            var widgetInstance = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
+            if(widgetInstance == null)
+            {
+                return NotFound();
+            }
+
+            _widgetInstanceRepository.Remove(widgetInstance);
+            _widgetInstanceRepository.SaveChange();
+
+            return Ok();
         }
     }
 }

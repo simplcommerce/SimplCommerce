@@ -7,14 +7,35 @@
     ViewData["Title"] = "Home Page";
 }
 
-@foreach(var widget in Model.WidgetInstances.Where(x => x.WidgetZone == WidgetZone.HomeFeatured))
+@foreach (var widgetInstance in Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeFeatured))
 {
-    @await Component.InvokeAsync(widget.ViewComponentName, new { widgetInstance = widget })
+    if (widgetInstance.WidgetId == 2)
+    {
+        @Html.Raw(widgetInstance.HtmlData)
+    }
+    else
+    {
+        @await Component.InvokeAsync(widgetInstance.ViewComponentName, new { widgetInstance = widgetInstance })
+    }
+
 }
 
 <h2 class="page-header">Feature products</h2>
 @await Html.PartialAsync("ProductList", new ProductList(Model.FeaturedProducts, 4))
 
+
+@foreach (var widgetInstance in Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeAfterMainContent))
+{
+    if (widgetInstance.WidgetId == 2)
+    {
+        @Html.Raw(widgetInstance.HtmlData)
+    }
+    else
+    {
+        @await Component.InvokeAsync(widgetInstance.ViewComponentName, new { widgetInstance = widgetInstance })
+    }
+
+}
 <div>
     <h2 class="page-header">Administrator</h2>
     <p>Manage your store. Admin email: admin@SimplCommerce.com. Admin password: 1qazZAQ!</p>

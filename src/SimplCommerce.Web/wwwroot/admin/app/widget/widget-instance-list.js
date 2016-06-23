@@ -12,7 +12,7 @@
 
         vm.deleteWidgetInstance = function deleteWidgetInstance(widgetInstance) {
             if (confirm("Are you sure?")) {
-                widgetService.deleteWidgetInstance(widgetInstance).then(function (result) {
+                widgetService.deleteWidgetInstance(widgetInstance.id).then(function (result) {
                     getWidgetInstances();
                 });
             }

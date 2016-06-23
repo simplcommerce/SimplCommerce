@@ -31,13 +31,13 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
 
         public IActionResult Get(long id)
         {
-            var widget = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
+            var widgetInstance = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
             var model = new CarouselWidgetForm
             {
-                Id = widget.Id,
-                Name = widget.Name,
-                Zone = (int)widget.WidgetZone,
-                Items = JsonConvert.DeserializeObject<IList<CarouselWidgetItemForm>>(widget.WidgetData)
+                Id = widgetInstance.Id,
+                Name = widgetInstance.Name,
+                WidgetZoneId = widgetInstance.WidgetZoneId,
+                Items = JsonConvert.DeserializeObject<IList<CarouselWidgetItemForm>>(widgetInstance.Data)
             };
 
             foreach(var item in model.Items)
@@ -63,8 +63,8 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
                 {
                     Name = model.Name,
                     WidgetId = 1,
-                    WidgetZone = (WidgetZone)model.Zone,
-                    WidgetData = JsonConvert.SerializeObject(model.Items)
+                    WidgetZoneId = model.WidgetZoneId,
+                    Data = JsonConvert.SerializeObject(model.Items)
                 };
 
                 _widgetInstanceRepository.Add(widgetInstance);
@@ -95,8 +95,8 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
             {
                 var widgetInstance = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
                 widgetInstance.Name = model.Name;
-                widgetInstance.WidgetZone = (WidgetZone)model.Zone;
-                widgetInstance.WidgetData = JsonConvert.SerializeObject(model.Items);
+                widgetInstance.WidgetZoneId = model.WidgetZoneId;
+                widgetInstance.Data = JsonConvert.SerializeObject(model.Items);
 
                 _widgetInstanceRepository.SaveChange();
                 return Ok();
@@ -109,7 +109,7 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
         {
             var model = new CarouselWidgetForm();
             model.Name = formCollection["name"];
-            model.Zone = int.Parse(formCollection["zone"]);
+            model.WidgetZoneId = int.Parse(formCollection["zone"]);
             int numberOfItems = int.Parse(formCollection["numberOfItems"]);
             for (var i = 0; i < numberOfItems; i++)
             {

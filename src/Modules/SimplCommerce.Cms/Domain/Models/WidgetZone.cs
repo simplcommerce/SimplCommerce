@@ -1,9 +1,11 @@
-﻿namespace SimplCommerce.Cms.Domain.Models
-{
-    public enum WidgetZone
-    {
-        HomeFeatured = 1,
+﻿using SimplCommerce.Infrastructure.Domain.Models;
 
-        HomeContent = 2
+namespace SimplCommerce.Cms.Domain.Models
+{
+    public class WidgetZone : Entity
+    {
+        public string Name { get; set; }
+
+        public string Description { get; set; }
     }
 }

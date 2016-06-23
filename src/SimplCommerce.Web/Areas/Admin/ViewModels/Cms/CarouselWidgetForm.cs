@@ -2,14 +2,8 @@
 
 namespace SimplCommerce.Web.Areas.Admin.ViewModels.Cms
 {
-    public class CarouselWidgetForm
+    public class CarouselWidgetForm : WidgetFormBase
     {
-        public long Id { get; set; }
-
-        public string Name { get; set; }
-
-        public int Zone { get; set; }
-
         public IList<CarouselWidgetItemForm> Items = new List<CarouselWidgetItemForm>();
     }
 }

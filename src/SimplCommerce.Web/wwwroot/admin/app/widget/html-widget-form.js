@@ -2,31 +2,28 @@
 (function ($) {
     angular
         .module('shopAdmin.widget')
-        .controller('CarouselFormCtrl', CarouselFormCtrl);
+        .controller('HtmlWidgetFormCtrl', HtmlWidgetFormCtrl);
 
     /* @ngInject */
-    function CarouselFormCtrl($state, $stateParams, summerNoteService, widgetService) {
+    function HtmlWidgetFormCtrl($state, $stateParams, summerNoteService, widgetService) {
         var vm = this;
-        vm.widgetInstance = {zone : 1, items: [{}] };
-        vm.widgetZones = [{id : 1, name : 'Home Featured'}, {id : 2, name : 'Home Content'}]
+        vm.widgetZones = [];
         vm.widgetInstanceId = $stateParams.id;
         vm.isEditMode = vm.widgetInstanceId > 0;
 
-        vm.addItem = function addItem() {
-            vm.widgetInstance.items.push({});
-        }
-
-        vm.removeItem = function removeItem(item) {
-            var index = vm.widgetInstance.items.indexOf(item);
-            vm.widgetInstance.items.splice(index, 1);
-        }
+        vm.imageUpload = function (files) {
+            summerNoteService.upload(files[0])
+                .success(function (url) {
+                    $(vm.htmlContent).summernote('insertImage', url);
+                });
+        };
 
         vm.save = function save() {
             var promise;
             if (vm.isEditMode) {
-                promise = widgetService.editCarousel(vm.widgetInstance);
+                promise = widgetService.editHtmlWidget(vm.widgetInstance);
             } else {
-                promise = widgetService.createCarousel(vm.widgetInstance);
+                promise = widgetService.createHtmlWidget(vm.widgetInstance);
             }
 
             promise
@@ -40,14 +37,18 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not carousel widget page.');
+                        vm.validationErrors.push('Could not html widget.');
                     }
                 });
         };
 
         function init() {
+            widgetService.getWidgetZones().then(function (result) {
+                vm.widgetZones = result.data;
+            });
+
             if (vm.isEditMode) {
-                widgetService.getCarousel(vm.widgetInstanceId).then(function (result) {
+                widgetService.getHtmlWidget(vm.widgetInstanceId).then(function (result) {
                     vm.widgetInstance = result.data;
                 });
             }

@@ -1,6 +1,4 @@
-﻿using SimplCommerce.Cms.Domain.Models;
-
-namespace SimplCommerce.Web.ViewModels
+﻿namespace SimplCommerce.Web.ViewModels
 {
     public class WidgetInstanceVm
     {
@@ -8,8 +6,12 @@ namespace SimplCommerce.Web.ViewModels
 
         public string ViewComponentName { get; set; }
 
-        public WidgetZone WidgetZone { get; set; }
+        public long WidgetZoneId { get; set; }
 
-        public string WidgetData { get; set; }
+        public string Data { get; set; }
+
+        public string HtmlData { get; set; }
+
+        public long WidgetId { get; set; }
     }
 }
