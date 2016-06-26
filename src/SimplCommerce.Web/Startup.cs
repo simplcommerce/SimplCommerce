@@ -106,6 +106,7 @@ namespace SimplCommerce.Web
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            // TODO using DeperloperExcetionPage on demo is jus temporary for easy troubleshooting
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -114,7 +115,8 @@ namespace SimplCommerce.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
 
             var supportedCultures = new[]
