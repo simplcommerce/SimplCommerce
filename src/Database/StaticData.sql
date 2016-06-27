@@ -19,6 +19,12 @@ INSERT [dbo].[Cms_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [I
 SET IDENTITY_INSERT [dbo].[Cms_Widget] OFF
 GO
 
+SET IDENTITY_INSERT [dbo].[Cms_WidgetZone] ON 
+INSERT [dbo].[Cms_WidgetZone] ([Id], [Description], [Name]) VALUES (1, NULL, N'Home Featured')
+INSERT [dbo].[Cms_WidgetZone] ([Id], [Description], [Name]) VALUES (2, NULL, N'Home Main Content')
+INSERT [dbo].[Cms_WidgetZone] ([Id], [Description], [Name]) VALUES (3, NULL, N'Home After Main Content')
+SET IDENTITY_INSERT [dbo].[Cms_WidgetZone] OFF
+
 SET IDENTITY_INSERT [dbo].[Core_ProductOption] ON 
 INSERT [dbo].[Core_ProductOption] ([Id], [Name]) VALUES (1, N'Color')
 INSERT [dbo].[Core_ProductOption] ([Id], [Name]) VALUES (2, N'Size')

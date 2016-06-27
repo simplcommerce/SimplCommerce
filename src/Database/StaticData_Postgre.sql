@@ -9,9 +9,14 @@ SELECT pg_catalog.setval('"Core_User_Id_seq"', 1, true);
 
 INSERT INTO "Core_UserRole" ("UserId", "RoleId") VALUES (1, 1);
 
-INSERT "Cms_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (1, 'CarouselWidget', 'widget-carousel-create', '2016-06-19 00:00:00', 'widget-carousel-edit', 1, 'Carousel Widget', 'CarouselWidget')
-INSERT "Cms_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (2, 'HtmlWidget', 'widget-html-create', '2016-06-24 00:00:00', 'widget-html-edit', 1, 'Html Widget', 'HtmlWidget')
-SELECT pg_catalog.setval('"Cms_Widget_Id_seq"', 1, true);
+INSERT INTO "Cms_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (1, 'CarouselWidget', 'widget-carousel-create', '2016-06-19 00:00:00', 'widget-carousel-edit', true, 'Carousel Widget', 'CarouselWidget');
+INSERT INTO "Cms_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (2, 'HtmlWidget', 'widget-html-create', '2016-06-24 00:00:00', 'widget-html-edit', true, 'Html Widget', 'HtmlWidget');
+SELECT pg_catalog.setval('"Cms_Widget_Id_seq"', 2, true);
+
+INSERT INTO "Cms_WidgetZone" ("Id", "Description", "Name") VALUES (1, NULL, 'Home Featured');
+INSERT INTO "Cms_WidgetZone" ("Id", "Description", "Name") VALUES (2, NULL, 'Home Main Content');
+INSERT INTO "Cms_WidgetZone" ("Id", "Description", "Name") VALUES (3, NULL, 'Home After Main Content');
+SELECT pg_catalog.setval('"Cms_WidgetZone_Id_seq"', 3, true);
 
 INSERT INTO "Core_Country" ("Id", "Name") VALUES (1, 'Việt Nam');
 
