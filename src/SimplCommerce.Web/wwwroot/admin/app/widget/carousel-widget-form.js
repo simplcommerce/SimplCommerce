@@ -7,7 +7,7 @@
     /* @ngInject */
     function CarouselWidgetFormCtrl($state, $stateParams, widgetService) {
         var vm = this;
-        vm.widgetInstance = {zone : 1, items: [{}] };
+        vm.widgetInstance = {widgetZoneId : 1, items: [{}] };
         vm.widgetZones = [];
         vm.widgetInstanceId = $stateParams.id;
         vm.isEditMode = vm.widgetInstanceId > 0;

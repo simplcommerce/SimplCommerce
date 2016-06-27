@@ -109,7 +109,7 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
         {
             var model = new CarouselWidgetForm();
             model.Name = formCollection["name"];
-            model.WidgetZoneId = int.Parse(formCollection["zone"]);
+            model.WidgetZoneId = int.Parse(formCollection["widgetZoneId"]);
             int numberOfItems = int.Parse(formCollection["numberOfItems"]);
             for (var i = 0; i < numberOfItems; i++)
             {
