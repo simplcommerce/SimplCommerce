@@ -12,9 +12,9 @@ namespace SimplCommerce.Web.Extensions
         {
             switch (serviceName)
             {
-                case AzureStorage:
-                    builder.RegisterType<AzureMediaService>().As<IMediaService>();
-                    break;
+                //case AzureStorage:
+                //    builder.RegisterType<AzureMediaService>().As<IMediaService>();
+                //    break;
                 case LocalStorage:
                     builder.RegisterType<LocalMediaService>().As<IMediaService>();
                     break;

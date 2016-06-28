@@ -55,6 +55,9 @@ namespace SimplCommerce.Web
             services.AddDbContext<SimplDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("SimplCommerce.Web")));
 
+            //services.AddDbContext<SimplDbContext>(options => 
+            //    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("SimplCommerce.Web")));
+
             services.AddIdentity<User, Role>(configure =>
             {
                 configure.Cookies.ApplicationCookie.LoginPath = "/login";
@@ -65,11 +68,6 @@ namespace SimplCommerce.Web
             services.AddScoped<SignInManager<User>, SimplSignInManager<User>>();
 
             services.AddMvc()
-                .AddJsonOptions(
-                    options =>
-                    {
-                        options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                    })
                 .AddViewLocalization(options => options.ResourcesPath = "Resources")
                 .AddDataAnnotationsLocalization();
 

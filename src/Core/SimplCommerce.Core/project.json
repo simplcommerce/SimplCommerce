@@ -2,18 +2,16 @@
   "version": "1.0.0-*",
 
   "dependencies": {
-    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0-rc2-final",
-    "Microsoft.EntityFrameworkCore": "1.0.0-rc2-final",
-    "NETStandard.Library": "1.5.0-rc2-24027",
-    "SimplCommerce.Infrastructure": "1.0.0-*",
-    "WindowsAzure.Storage": "7.0.2-preview"
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
+    "Microsoft.EntityFrameworkCore": "1.0.0",
+    "NETStandard.Library": "1.6.0",
+    "SimplCommerce.Infrastructure": "1.0.0-*"
   },
 
   "frameworks": {
-    "netstandard1.5": {
+    "netstandard1.6": {
       "imports": [
-        "dnxcore50",
-        "portable-net451+win8"
+        "dnxcore50"
       ]
     }
   }
