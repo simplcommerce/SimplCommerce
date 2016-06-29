@@ -1,13 +1,13 @@
 ## Prerequisite:
-- Visual Studio 2015 Update 2
-- Install .NET Core SDK (RC2) and NuGet Manager extension for Visual Studio (https://www.microsoft.com/net/core#windows)
+- Visual Studio 2015 Update 3
+- Install .NET Core SDK for Visual Studio (https://www.microsoft.com/net/core#windows)
 - StyleCop 4.7
 - SQL Server or Postgree
 
 ## Technologies and frameworks used:
-- ASP.NET MVC Core 1.0 RC2 on .NET Core 1.0 RC2
-- Entity Framework Core 1.0 RC2
-- ASP.NET Identity Core 1.0 RC2
+- ASP.NET MVC Core 1.0 on .NET Core 1.0
+- Entity Framework Core 1.0
+- ASP.NET Identity Core 1.0
 - Autofac 4.0.0 RC1
 - Angular 1.5
 
