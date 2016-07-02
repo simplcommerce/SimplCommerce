@@ -24,6 +24,13 @@
         </div>
     </div>
     <div class="form-group">
+        <label asp-for="FullName" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="FullName" class="form-control" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <button type="submit" class="btn btn-default">Register</button>
         </div>

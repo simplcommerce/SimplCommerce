@@ -21,6 +21,13 @@
                 </div>
             </div>
             <div class="form-group">
+                <label asp-for="FullName" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
                 <label asp-for="Password" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
                     <input asp-for="Password" class="form-control" />

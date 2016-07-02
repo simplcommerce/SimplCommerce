@@ -7,5 +7,9 @@ namespace SimplCommerce.Web.ViewModels.Account
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Name")]
+        public string FullName { get; set; }
     }
 }
