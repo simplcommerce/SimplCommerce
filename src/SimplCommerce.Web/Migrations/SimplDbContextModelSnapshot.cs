@@ -13,7 +13,7 @@ namespace SimplCommerce.Web.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.0.0-rc2-20901")
+                .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<long>", b =>
@@ -749,6 +749,7 @@ namespace SimplCommerce.Web.Migrations
                         .HasName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
+                        .IsUnique()
                         .HasName("UserNameIndex");
 
                     b.ToTable("Core_User");
@@ -853,7 +854,7 @@ namespace SimplCommerce.Web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<long>", b =>
                 {
                     b.HasOne("SimplCommerce.Core.Domain.Models.Role")
-                        .WithMany()
+                        .WithMany("Claims")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -861,7 +862,7 @@ namespace SimplCommerce.Web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<long>", b =>
                 {
                     b.HasOne("SimplCommerce.Core.Domain.Models.User")
-                        .WithMany()
+                        .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -869,7 +870,7 @@ namespace SimplCommerce.Web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<long>", b =>
                 {
                     b.HasOne("SimplCommerce.Core.Domain.Models.User")
-                        .WithMany()
+                        .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -877,35 +878,35 @@ namespace SimplCommerce.Web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<long>", b =>
                 {
                     b.HasOne("SimplCommerce.Core.Domain.Models.Role")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SimplCommerce.Core.Domain.Models.User")
-                        .WithMany()
+                        .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SimplCommerce.Cms.Domain.Models.Page", b =>
                 {
-                    b.HasOne("SimplCommerce.Core.Domain.Models.User")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.User", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
 
-                    b.HasOne("SimplCommerce.Core.Domain.Models.User")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.User", "UpdatedBy")
                         .WithMany()
                         .HasForeignKey("UpdatedById");
                 });
 
             modelBuilder.Entity("SimplCommerce.Cms.Domain.Models.WidgetInstance", b =>
                 {
-                    b.HasOne("SimplCommerce.Cms.Domain.Models.Widget")
+                    b.HasOne("SimplCommerce.Cms.Domain.Models.Widget", "Widget")
                         .WithMany()
                         .HasForeignKey("WidgetId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("SimplCommerce.Cms.Domain.Models.WidgetZone")
+                    b.HasOne("SimplCommerce.Cms.Domain.Models.WidgetZone", "WidgetZone")
                         .WithMany()
                         .HasForeignKey("WidgetZoneId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -913,29 +914,29 @@ namespace SimplCommerce.Web.Migrations
 
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.Address", b =>
                 {
-                    b.HasOne("SimplCommerce.Core.Domain.Models.Country")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.Country", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId");
 
-                    b.HasOne("SimplCommerce.Core.Domain.Models.District")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.District", "District")
                         .WithMany()
                         .HasForeignKey("DistrictId");
 
-                    b.HasOne("SimplCommerce.Core.Domain.Models.StateOrProvince")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.StateOrProvince", "StateOrProvince")
                         .WithMany()
                         .HasForeignKey("StateOrProvinceId");
                 });
 
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.Category", b =>
                 {
-                    b.HasOne("SimplCommerce.Core.Domain.Models.Category")
-                        .WithMany()
+                    b.HasOne("SimplCommerce.Core.Domain.Models.Category", "Parent")
+                        .WithMany("Child")
                         .HasForeignKey("ParentId");
                 });
 
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.District", b =>
                 {
-                    b.HasOne("SimplCommerce.Core.Domain.Models.StateOrProvince")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.StateOrProvince", "StateOrProvince")
                         .WithMany()
                         .HasForeignKey("StateOrProvinceId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -943,122 +944,122 @@ namespace SimplCommerce.Web.Migrations
 
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.Product", b =>
                 {
-                    b.HasOne("SimplCommerce.Core.Domain.Models.Brand")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.Brand", "Brand")
                         .WithMany()
                         .HasForeignKey("BrandId");
 
-                    b.HasOne("SimplCommerce.Core.Domain.Models.User")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.User", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
 
-                    b.HasOne("SimplCommerce.Core.Domain.Models.Media")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.Media", "ThumbnailImage")
                         .WithMany()
                         .HasForeignKey("ThumbnailImageId");
 
-                    b.HasOne("SimplCommerce.Core.Domain.Models.User")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.User", "UpdatedBy")
                         .WithMany()
                         .HasForeignKey("UpdatedById");
                 });
 
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.ProductAttribute", b =>
                 {
-                    b.HasOne("SimplCommerce.Core.Domain.Models.ProductAttributeGroup")
-                        .WithMany()
+                    b.HasOne("SimplCommerce.Core.Domain.Models.ProductAttributeGroup", "Group")
+                        .WithMany("Attributes")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.ProductAttributeValue", b =>
                 {
-                    b.HasOne("SimplCommerce.Core.Domain.Models.ProductAttribute")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.ProductAttribute", "Attribute")
                         .WithMany()
                         .HasForeignKey("AttributeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("SimplCommerce.Core.Domain.Models.Product")
-                        .WithMany()
+                    b.HasOne("SimplCommerce.Core.Domain.Models.Product", "Product")
+                        .WithMany("AttributeValues")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.ProductCategory", b =>
                 {
-                    b.HasOne("SimplCommerce.Core.Domain.Models.Category")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("SimplCommerce.Core.Domain.Models.Product")
-                        .WithMany()
+                    b.HasOne("SimplCommerce.Core.Domain.Models.Product", "Product")
+                        .WithMany("Categories")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.ProductLink", b =>
                 {
-                    b.HasOne("SimplCommerce.Core.Domain.Models.Product")
-                        .WithMany()
+                    b.HasOne("SimplCommerce.Core.Domain.Models.Product", "LinkedProduct")
+                        .WithMany("LinkedProductLinks")
                         .HasForeignKey("LinkedProductId");
 
-                    b.HasOne("SimplCommerce.Core.Domain.Models.Product")
-                        .WithMany()
+                    b.HasOne("SimplCommerce.Core.Domain.Models.Product", "Product")
+                        .WithMany("ProductLinks")
                         .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.ProductMedia", b =>
                 {
-                    b.HasOne("SimplCommerce.Core.Domain.Models.Media")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.Media", "Media")
                         .WithMany()
                         .HasForeignKey("MediaId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("SimplCommerce.Core.Domain.Models.Product")
-                        .WithMany()
+                    b.HasOne("SimplCommerce.Core.Domain.Models.Product", "Product")
+                        .WithMany("Medias")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.ProductOptionCombination", b =>
                 {
-                    b.HasOne("SimplCommerce.Core.Domain.Models.ProductOption")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.ProductOption", "Option")
                         .WithMany()
                         .HasForeignKey("OptionId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("SimplCommerce.Core.Domain.Models.Product")
-                        .WithMany()
+                    b.HasOne("SimplCommerce.Core.Domain.Models.Product", "Product")
+                        .WithMany("OptionCombinations")
                         .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.ProductOptionValue", b =>
                 {
-                    b.HasOne("SimplCommerce.Core.Domain.Models.ProductOption")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.ProductOption", "Option")
                         .WithMany()
                         .HasForeignKey("OptionId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("SimplCommerce.Core.Domain.Models.Product")
-                        .WithMany()
+                    b.HasOne("SimplCommerce.Core.Domain.Models.Product", "Product")
+                        .WithMany("OptionValues")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.ProductTemplateProductAttribute", b =>
                 {
-                    b.HasOne("SimplCommerce.Core.Domain.Models.ProductAttribute")
-                        .WithMany()
+                    b.HasOne("SimplCommerce.Core.Domain.Models.ProductAttribute", "ProductAttribute")
+                        .WithMany("ProductTemplates")
                         .HasForeignKey("ProductAttributeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("SimplCommerce.Core.Domain.Models.ProductTemplate")
-                        .WithMany()
+                    b.HasOne("SimplCommerce.Core.Domain.Models.ProductTemplate", "ProductTemplate")
+                        .WithMany("ProductAttributes")
                         .HasForeignKey("ProductTemplateId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.StateOrProvince", b =>
                 {
-                    b.HasOne("SimplCommerce.Core.Domain.Models.Country")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.Country", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -1066,31 +1067,31 @@ namespace SimplCommerce.Web.Migrations
 
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.User", b =>
                 {
-                    b.HasOne("SimplCommerce.Core.Domain.Models.UserAddress")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.UserAddress", "CurrentShippingAddress")
                         .WithMany()
                         .HasForeignKey("CurrentShippingAddressId");
                 });
 
             modelBuilder.Entity("SimplCommerce.Core.Domain.Models.UserAddress", b =>
                 {
-                    b.HasOne("SimplCommerce.Core.Domain.Models.Address")
-                        .WithMany()
+                    b.HasOne("SimplCommerce.Core.Domain.Models.Address", "Address")
+                        .WithMany("UserAddresses")
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("SimplCommerce.Core.Domain.Models.User")
-                        .WithMany()
+                    b.HasOne("SimplCommerce.Core.Domain.Models.User", "User")
+                        .WithMany("UserAddresses")
                         .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("SimplCommerce.Orders.Domain.Models.CartItem", b =>
                 {
-                    b.HasOne("SimplCommerce.Core.Domain.Models.Product")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("SimplCommerce.Core.Domain.Models.User")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -1098,16 +1099,16 @@ namespace SimplCommerce.Web.Migrations
 
             modelBuilder.Entity("SimplCommerce.Orders.Domain.Models.Order", b =>
                 {
-                    b.HasOne("SimplCommerce.Core.Domain.Models.UserAddress")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.UserAddress", "BillingAddress")
                         .WithMany()
                         .HasForeignKey("BillingAddressId");
 
-                    b.HasOne("SimplCommerce.Core.Domain.Models.User")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.User", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("SimplCommerce.Core.Domain.Models.UserAddress")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.UserAddress", "ShippingAddress")
                         .WithMany()
                         .HasForeignKey("ShippingAddressId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -1115,11 +1116,11 @@ namespace SimplCommerce.Web.Migrations
 
             modelBuilder.Entity("SimplCommerce.Orders.Domain.Models.OrderItem", b =>
                 {
-                    b.HasOne("SimplCommerce.Orders.Domain.Models.Order")
-                        .WithMany()
+                    b.HasOne("SimplCommerce.Orders.Domain.Models.Order", "Order")
+                        .WithMany("OrderItems")
                         .HasForeignKey("OrderId");
 
-                    b.HasOne("SimplCommerce.Core.Domain.Models.Product")
+                    b.HasOne("SimplCommerce.Core.Domain.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
