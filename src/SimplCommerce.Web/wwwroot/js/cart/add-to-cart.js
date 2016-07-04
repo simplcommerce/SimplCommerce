@@ -25,14 +25,14 @@
             $('#shopModal').modal('show');
             $('.cart-badge .badge').text($('#shopModal').find('.cart-item-count').text());
         }).fail(function () {
-            $('#shopModal').find('.modal-content').html(`
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Opps</h4>
-                </div>
-                <div class="modal-body">
-                    Please chooose a variation
-                </div>`);
+            $('#shopModal').find('.modal-content').html(' \
+                <div class="modal-header"> \
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> \
+                    <h4 class="modal-title" id="myModalLabel">Opps</h4> \
+                </div> \
+                <div class="modal-body"> \
+                    Something went wrong. \
+                </div>');
             $('#shopModal').modal('show');
         });
     });
