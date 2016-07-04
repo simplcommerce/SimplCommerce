@@ -39,7 +39,7 @@ namespace SimplCommerce.Web.Controllers
                 .Where(x => x.IsPublished && x.IsVisibleIndividually)
                 .OrderByDescending(x => x.CreatedOn)
                 .Take(4)
-                .Select(x => new ProductListItem
+                .Select(x => new ProductThumbnail
                     {
                         Id = x.Id,
                         Name = x.Name,

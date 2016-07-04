@@ -1,0 +1,36 @@
+﻿@using System.Globalization
+
+@model SimplCommerce.Web.ViewModels.Catalog.ProductThumbnail
+
+<div class="thumbnail">
+    <a href="~/@Model.SeoTitle">
+        <img alt="@Model.Name" src="@Model.ThumbnailUrl">
+        <div class="caption">
+            <h4 class="product-name">@Model.Name</h4>
+            <p class="product-price">
+                @Model.Price.ToString("c") 
+                @if (Model.OldPrice.HasValue && Model.OldPrice.Value > Model.Price)
+                {
+                    <span class="product-price-saving">-@(100 - Math.Round((Model.Price / Model.OldPrice.Value) * 100, 0))%</span>
+                    <br />
+                    <span class="product-price-regular">@Model.OldPrice.Value.ToString("c")</span>
+                }
+            </p>
+        </div>
+    </a>
+    <div class="buttons">
+        @if (Model.NumberVariation > 0)
+        {
+            <a href="~/@Model.SeoTitle" class="btn btn-add-cart-style" role="button">Add to cart</a>
+        }
+        else
+        {
+            <form class="inline">
+                <input type="hidden" name="productId" value="@Model.Id" />
+                <button type="button" class="btn btn-add-cart-style btn-add-cart" role="button">Add to cart</button>
+            </form>
+        }
+        <button class="btn" role="button"><i class="fa fa-exchange"></i></button>
+        <button class="btn" role="button"><i class="fa fa-heart"></i></button>
+    </div>
+</div>

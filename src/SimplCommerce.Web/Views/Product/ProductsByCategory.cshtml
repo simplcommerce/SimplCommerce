@@ -117,7 +117,14 @@
                 </ul>
             </div>
         </div>
-        @await Html.PartialAsync("ProductList", new ProductList(Model.Products))
+        <div class="row product-list">
+            @foreach (var product in Model.Products)
+            {
+                <div class="col-xs-6 col-md-4">
+                    @await Html.PartialAsync("_ProductThumbnail", product)
+                </div>
+            }
+        </div>
     </div>
 </div>
 

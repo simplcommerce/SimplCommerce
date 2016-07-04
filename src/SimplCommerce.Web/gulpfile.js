@@ -33,7 +33,8 @@ var bower = {
     "ng-file-upload": "ng-file-upload/ng-file-upload.js",
     "summernote": "summernote/dist/**/*.{js,map,css,ttf,svg,woff,eot}",
     "angular-summernote": "angular-summernote/dist/*.js",
-    "angular-bootstrap": "angular-bootstrap/ui-bootstrap*"
+    "angular-bootstrap": "angular-bootstrap/ui-bootstrap*",
+    "matchheight": "matchheight/dist/*.js",
 };
 
 paths.js = paths.webroot + "js/**/*.js";

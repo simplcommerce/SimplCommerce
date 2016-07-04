@@ -2,7 +2,7 @@
 
 namespace SimplCommerce.Web.ViewModels.Catalog
 {
-    public class ProductListItem
+    public class ProductThumbnail
     {
         public long Id { get; set; }
 

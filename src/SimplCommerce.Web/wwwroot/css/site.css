@@ -119,6 +119,25 @@ li.nav-item-group, li.nav-item-group a {
     color: red;
 }
 
+.product-list .product-price-saving {
+    background-color: #ff9601;
+    color: #fff;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 400;
+    margin-left: 15px;
+    margin-top: -2px;
+    padding: 4px;
+    vertical-align: middle;
+}
+
+.product-list .product-price-regular {
+    text-decoration: line-through;
+    font-weight: 100;
+    color: #4c4849;
+    font-size: 11px;
+}
+
 .product-list .thumbnail:hover {
     border-color: #337ab7;
 }

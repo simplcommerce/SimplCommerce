@@ -85,7 +85,7 @@ namespace SimplCommerce.Web.Controllers
             query = AppySort(searchOption, query);
 
             var products = query
-                .Select(x => new ProductListItem
+                .Select(x => new ProductThumbnail
                 {
                     Id = x.Id,
                     Name = x.Name,

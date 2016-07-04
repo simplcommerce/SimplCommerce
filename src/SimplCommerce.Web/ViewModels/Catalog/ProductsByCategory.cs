@@ -15,7 +15,7 @@ namespace SimplCommerce.Web.ViewModels.Catalog
 
         public int TotalProduct { get; set; }
 
-        public IList<ProductListItem> Products { get; set; } = new List<ProductListItem>();
+        public IList<ProductThumbnail> Products { get; set; } = new List<ProductThumbnail>();
 
         public FilterOption FilterOption { get; set; }
 

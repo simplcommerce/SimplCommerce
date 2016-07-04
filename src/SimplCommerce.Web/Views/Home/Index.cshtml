@@ -21,8 +21,14 @@
 }
 
 <h2 class="page-header">Featured products</h2>
-@await Html.PartialAsync("ProductList", new ProductList(Model.FeaturedProducts, 4))
-
+<div class="row product-list">
+    @foreach (var product in Model.FeaturedProducts)
+    {
+        <div class="col-xs-6 col-md-3">
+            @await Html.PartialAsync("_ProductThumbnail", product)
+         </div>
+    }
+</div>
 
 @foreach (var widgetInstance in Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeAfterMainContent))
 {
