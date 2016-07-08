@@ -2,29 +2,22 @@
 (function ($) {
     angular
         .module('shopAdmin.widget')
-        .controller('HtmlWidgetFormCtrl', HtmlWidgetFormCtrl);
+        .controller('ProductDisplayWidgetFormCtrl', ProductDisplayWidgetFormCtrl);
 
     /* @ngInject */
-    function HtmlWidgetFormCtrl($state, $stateParams, summerNoteService, widgetService) {
+    function ProductDisplayWidgetFormCtrl($state, $stateParams, widgetService) {
         var vm = this;
         vm.widgetZones = [];
         vm.widgetInstance = { widgetZoneId: 1 };
         vm.widgetInstanceId = $stateParams.id;
         vm.isEditMode = vm.widgetInstanceId > 0;
 
-        vm.imageUpload = function (files) {
-            summerNoteService.upload(files[0])
-                .success(function (url) {
-                    $(vm.htmlContent).summernote('insertImage', url);
-                });
-        };
-
         vm.save = function save() {
             var promise;
             if (vm.isEditMode) {
-                promise = widgetService.editHtmlWidget(vm.widgetInstance);
+                promise = widgetService.editProductDisplayWidget(vm.widgetInstance);
             } else {
-                promise = widgetService.createHtmlWidget(vm.widgetInstance);
+                promise = widgetService.createProductDisplayWidget(vm.widgetInstance);
             }
 
             promise
@@ -38,7 +31,7 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not html widget.');
+                        vm.validationErrors.push('Could not product display widget.');
                     }
                 });
         };
@@ -49,7 +42,7 @@
             });
 
             if (vm.isEditMode) {
-                widgetService.getHtmlWidget(vm.widgetInstanceId).then(function (result) {
+                widgetService.getProductDisplayWidget(vm.widgetInstanceId).then(function (result) {
                     vm.widgetInstance = result.data;
                 });
             }

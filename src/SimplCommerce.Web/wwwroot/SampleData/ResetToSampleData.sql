@@ -34,6 +34,8 @@ DELETE FROM [dbo].[Core_ProductTemplate]
 GO
 DELETE FROM [dbo].[Cms_Page]
 GO
+DELETE FROM [dbo].[Cms_WidgetInstance]
+GO
 
 SET IDENTITY_INSERT [dbo].[Core_Category] ON 
 INSERT [dbo].[Core_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (1, N'Phones', N'mobile-tablets', NULL, 0, 1, 0, NULL, NULL)

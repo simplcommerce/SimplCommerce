@@ -29,6 +29,16 @@
                     url: '/widget-html/edit/:id',
                     templateUrl: 'admin/app/widget/html-widget-form.html',
                     controller: 'HtmlWidgetFormCtrl as vm'
+                })
+                .state('widget-product-display-create', {
+                    url: '/widget-product-display/create',
+                    templateUrl: 'admin/app/widget/product-display-widget-form.html',
+                    controller: 'ProductDisplayWidgetFormCtrl as vm'
+                })
+                .state('widget-product-display-edit', {
+                    url: '/widget-product-display/edit/:id',
+                    templateUrl: 'admin/app/widget/product-display-widget-form.html',
+                    controller: 'ProductDisplayWidgetFormCtrl as vm'
                 });
         }]);
 })();

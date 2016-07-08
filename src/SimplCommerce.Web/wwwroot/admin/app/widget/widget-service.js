@@ -16,7 +16,10 @@
             editCarouselWidget: editCarouselWidget,
             getHtmlWidget: getHtmlWidget,
             createHtmlWidget: createHtmlWidget,
-            editHtmlWidget: editHtmlWidget
+            editHtmlWidget: editHtmlWidget,
+            getProductDisplayWidget: getProductDisplayWidget,
+            createProductDisplayWidget: createProductDisplayWidget,
+            editProductDisplayWidget: editProductDisplayWidget
         };
         return service;
 
@@ -66,6 +69,18 @@
 
         function editHtmlWidget(widgetInstance) {
             return $http.post('Admin/HtmlWidget/Edit/' + widgetInstance.id, widgetInstance);
+        }
+
+        function getProductDisplayWidget(id) {
+            return $http.get('Admin/ProductDisplayWidget/Get/' + id);
+        }
+
+        function createProductDisplayWidget(widgetInstance) {
+            return $http.post('Admin/ProductDisplayWidget/Create', widgetInstance);
+        }
+
+        function editProductDisplayWidget(widgetInstance) {
+            return $http.post('Admin/ProductDisplayWidget/Edit/' + widgetInstance.id, widgetInstance);
         }
     }
 })();
