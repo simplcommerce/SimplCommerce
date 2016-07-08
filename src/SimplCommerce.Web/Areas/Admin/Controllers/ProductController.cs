@@ -171,6 +171,7 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
                 Price = model.Product.Price,
                 OldPrice = model.Product.OldPrice,
                 IsPublished = model.Product.IsPublished,
+                IsFeatured = model.Product.IsFeatured,
                 BrandId = model.Product.BrandId,
                 HasOptions = model.Product.Variations.Any() ? true : false,
                 IsVisibleIndividually = true 
@@ -241,6 +242,8 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
             product.Price = model.Product.Price;
             product.OldPrice = model.Product.OldPrice;
             product.BrandId = model.Product.BrandId;
+            product.IsFeatured = model.Product.IsFeatured;
+            product.IsPublished = model.Product.IsPublished;
 
             SaveProductImages(model, product);
 

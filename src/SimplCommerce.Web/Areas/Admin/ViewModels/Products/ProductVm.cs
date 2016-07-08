@@ -27,6 +27,8 @@ namespace SimplCommerce.Web.Areas.Admin.ViewModels.Products
 
         public bool IsPublished { get; set; }
 
+        public bool IsFeatured { get; set; }
+
         public IList<long> CategoryIds { get; set; } = new List<long>();
 
         public IList<ProductAttributeVm> Attributes { get; set; } = new List<ProductAttributeVm>();

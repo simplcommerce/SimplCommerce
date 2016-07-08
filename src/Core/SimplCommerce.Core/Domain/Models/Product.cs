@@ -19,6 +19,8 @@ namespace SimplCommerce.Core.Domain.Models
 
         public bool IsVisibleIndividually { get; set; }
 
+        public bool IsFeatured { get; set; }
+
         public string Sku { get; set; }
 
         public string NormalizedName { get;  set;}

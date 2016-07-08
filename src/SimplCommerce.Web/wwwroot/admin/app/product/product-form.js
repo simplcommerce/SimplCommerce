@@ -8,7 +8,7 @@
     function ProductFormCtrl($state, $stateParams, $http, categoryService, productService, summerNoteService, brandService) {
         var vm = this;
         // declare shoreDescription and description for summernote
-        vm.product = { shortDescription: '', description: '', specification: '' };
+        vm.product = { shortDescription: '', description: '', specification: '', isPublished: true };
         vm.product.categoryIds = [];
         vm.product.options = [];
         vm.product.variations = [];
