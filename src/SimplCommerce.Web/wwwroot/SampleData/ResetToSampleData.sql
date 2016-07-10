@@ -401,10 +401,17 @@ SET IDENTITY_INSERT [dbo].[Cms_Page] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[Cms_WidgetInstance] ON 
-INSERT [dbo].[Cms_WidgetInstance] ([Id], [CreatedOn], [Data], [DisplayOrder], [HtmlData], [Name], [PublishEnd], [PublishStart], [UpdatedOn], [WidgetId], [WidgetZoneId]) VALUES (9, CAST(N'2016-07-11 05:29:31.1868415' AS DateTime2), N'[{{"Image":"7d868097-58a5-43f8-a882-6d7872345fe7.jpg","ImageUrl":null,"Caption":null,"TargetUrl":"#"}},{{"Image":"d539b558-15ea-4317-9a5b-62e4db9a45f5.jpg","ImageUrl":null,"Caption":null,"TargetUrl":"#"}},{{"Image":"e543ed8e-5feb-4a39-8860-51d94a00ee31.jpg","ImageUrl":null,"Caption":null,"TargetUrl":"#"}},{{"Image":"c015d99d-6c3b-4337-9ba7-26822d75a8e2.jpg","ImageUrl":null,"Caption":null,"TargetUrl":"#"}}]', 0, NULL, N'Home Carousel', NULL, NULL, CAST(N'2016-07-11 05:29:31.1868415' AS DateTime2), 1, 1)
+INSERT [dbo].[Cms_WidgetInstance] ([Id], [CreatedOn], [Data], [DisplayOrder], [HtmlData], [Name], [PublishEnd], [PublishStart], [UpdatedOn], [WidgetId], [WidgetZoneId]) VALUES (1, CAST(N'2016-07-11 05:29:31.1868415' AS DateTime2), N'[{{"Image":"7d868097-58a5-43f8-a882-6d7872345fe7.jpg","ImageUrl":null,"Caption":null,"TargetUrl":"#"}},{{"Image":"d539b558-15ea-4317-9a5b-62e4db9a45f5.jpg","ImageUrl":null,"Caption":null,"TargetUrl":"#"}},{{"Image":"e543ed8e-5feb-4a39-8860-51d94a00ee31.jpg","ImageUrl":null,"Caption":null,"TargetUrl":"#"}},{{"Image":"c015d99d-6c3b-4337-9ba7-26822d75a8e2.jpg","ImageUrl":null,"Caption":null,"TargetUrl":"#"}}]', 0, NULL, N'Home Carousel', NULL, NULL, CAST(N'2016-07-11 05:29:31.1868415' AS DateTime2), 1, 1)
 
-INSERT [dbo].[Cms_WidgetInstance] ([Id], [CreatedOn], [Data], [DisplayOrder], [HtmlData], [Name], [PublishEnd], [PublishStart], [UpdatedOn], [WidgetId], [WidgetZoneId]) VALUES (10, CAST(N'2016-07-11 05:30:49.3473494' AS DateTime2), N'{{"NumberOfProducts":4,"CategoryIds":null,"OrderBy":0,"FeaturedOnly":false}}', 0, NULL, N'Latest Products', NULL, NULL, CAST(N'2016-07-11 05:30:49.3473494' AS DateTime2), 3, 2)
-
+INSERT [dbo].[Cms_WidgetInstance] ([Id], [CreatedOn], [Data], [DisplayOrder], [HtmlData], [Name], [PublishEnd], [PublishStart], [UpdatedOn], [WidgetId], [WidgetZoneId]) VALUES (2, CAST(N'2016-07-11 05:30:49.3473494' AS DateTime2), N'{{"NumberOfProducts":4,"CategoryIds":null,"OrderBy":0,"FeaturedOnly":false}}', 0, NULL, N'Latest Products', NULL, NULL, CAST(N'2016-07-11 05:30:49.3473494' AS DateTime2), 3, 2)
+INSERT [dbo].[Cms_WidgetInstance] ([Id], [CreatedOn], [Data], [DisplayOrder], [HtmlData], [Name], [PublishEnd], [PublishStart], [UpdatedOn], [WidgetId], [WidgetZoneId]) VALUES (3, CAST(N'2016-07-11 05:42:44.7523284' AS DateTime2), NULL, 0, N'
+<div>
+    <h2 class="page-header">Administrator</h2>
+    <p>Manage your store. Admin email: admin@SimplCommerce.com. Admin password: 1qazZAQ!</p>
+    <p>
+        <a class="btn btn-primary" href="Admin" role="button">Go to Dashboard</a>
+    </p>
+</div>', N'Administration', NULL, NULL, CAST(N'2016-07-11 05:42:44.7523284' AS DateTime2), 2, 3)
 SET IDENTITY_INSERT [dbo].[Cms_WidgetInstance] OFF 
 GO
 
