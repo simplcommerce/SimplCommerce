@@ -24,10 +24,14 @@
         'shopAdmin.widget'
     ]);
 
-    adminApp.config([
-        '$urlRouterProvider',
-        function ($urlRouterProvider) {
-            $urlRouterProvider.otherwise("/dashboard");
-        }
+    toastr.options.closeButton = true;
+    adminApp
+        .constant('toastr', toastr)
+        .constant('bootbox', bootbox)
+        .config([
+            '$urlRouterProvider',
+            function ($urlRouterProvider) {
+                $urlRouterProvider.otherwise("/dashboard");
+            }
     ]);
 }());

@@ -8,8 +8,6 @@ namespace SimplCommerce.Core.ApplicationServices
 
         void Update(Category category);
 
-        void Delete(long id);
-
         void Delete(Category category);
     }
 }

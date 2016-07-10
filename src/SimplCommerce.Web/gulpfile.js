@@ -35,6 +35,8 @@ var bower = {
     "angular-summernote": "angular-summernote/dist/*.js",
     "angular-bootstrap": "angular-bootstrap/ui-bootstrap*",
     "matchheight": "matchheight/dist/*.js",
+    "toastr": "toastr/toastr*.{js,css}",
+    "bootbox": "bootbox/bootbox*.{js,css}"
 };
 
 paths.js = paths.webroot + "js/**/*.js";

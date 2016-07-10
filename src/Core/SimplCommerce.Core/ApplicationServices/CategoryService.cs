@@ -32,28 +32,10 @@ namespace SimplCommerce.Core.ApplicationServices
             categoryRepository.SaveChange();
         }
 
-        public void Delete(long id)
-        {
-            var category = categoryRepository.Query().First(x => x.Id == id);
-            DeleteSimple(category);
-            categoryRepository.SaveChange();
-        }
-
         public void Delete(Category category)
         {
-            DeleteSimple(category);
+            categoryRepository.Remove(category);
             categoryRepository.SaveChange();
-        }
-
-        private void DeleteSimple(Category category)
-        {
-            category.IsDeleted = true;
-            urlSlugService.Remove(category.Id, CategoryEntityName);
-
-            foreach (var childCategory in category.Child)
-            {
-                DeleteSimple(childCategory);
-            }
         }
     }
 }
