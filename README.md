@@ -8,7 +8,7 @@
 - ASP.NET MVC Core 1.0 on .NET Core 1.0
 - Entity Framework Core 1.0
 - ASP.NET Identity Core 1.0
-- Autofac 4.0.0 RC1
+- Autofac 4.0.0 RC3
 - Angular 1.5
 
 
@@ -25,7 +25,7 @@
  - Install Postgresql https://www.postgresql.org/download/linux/ubuntu/
  - Create an empty database
  - Clone the source code if you haven't and cd to the folder src/SimplCommerce.Web
- - Open file project.json and add package "Npgsql.EntityFrameworkCore.PostgreSQL": "1.0.0-rc2-release1"
+ - Open file project.json and add package "Npgsql.EntityFrameworkCore.PostgreSQL": "1.0.0"
  - Open appsettings.json and change the connection string to postgre database that you just created. For example
    ``` "DefaultConnection": "User ID=thien;Password=12345;Host=localhost;Port=5432;Database=SimplCommerce;Pooling=true;" ```
  - Open the file Startup.cs replay the SqlServer provider by Postgre
