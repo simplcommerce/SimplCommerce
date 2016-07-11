@@ -11,7 +11,8 @@ INSERT INTO "Core_UserRole" ("UserId", "RoleId") VALUES (1, 1);
 
 INSERT INTO "Cms_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (1, 'CarouselWidget', 'widget-carousel-create', '2016-06-19 00:00:00', 'widget-carousel-edit', true, 'Carousel Widget', 'CarouselWidget');
 INSERT INTO "Cms_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (2, 'HtmlWidget', 'widget-html-create', '2016-06-24 00:00:00', 'widget-html-edit', true, 'Html Widget', 'HtmlWidget');
-SELECT pg_catalog.setval('"Cms_Widget_Id_seq"', 2, true);
+INSERT INTO "Cms_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (3, 'ProductDisplayWidget', 'widget-product-display-create', '2016-06-24 00:00:00', 'widget-product-display-edit', true, 'Product Display Widget', 'ProductDisplayWidget');
+SELECT pg_catalog.setval('"Cms_Widget_Id_seq"', 3, true);
 
 INSERT INTO "Cms_WidgetZone" ("Id", "Description", "Name") VALUES (1, NULL, 'Home Featured');
 INSERT INTO "Cms_WidgetZone" ("Id", "Description", "Name") VALUES (2, NULL, 'Home Main Content');
