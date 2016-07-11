@@ -41,7 +41,7 @@
     "SimplCommerce.Orders": "1.0.0-*",
     "SimplCommerce.Infrastructure": "1.0.0-*",
     "SimplCommerce.Core": "1.0.0-*",
-    "Autofac.Extensions.DependencyInjection": "4.0.0-rc1-177",
+    "Autofac.Extensions.DependencyInjection": "4.0.0-rc3-280",
     "Microsoft.AspNetCore.Authentication.Google": "1.0.0",
     "Microsoft.AspNetCore.Authentication.Facebook": "1.0.0",
     "SimplCommerce.Cms": "1.0.0-*"
@@ -91,7 +91,6 @@
   },
 
   "scripts": {
-    "prepublish": [ "bower install", "dotnet bundle" ],
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
 }
