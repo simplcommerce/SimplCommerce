@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace SimplCommerce.Cms.Domain.Models
 {
@@ -8,6 +10,7 @@ namespace SimplCommerce.Cms.Domain.Models
 
         public IList<long> CategoryIds { get; set; }
 
+        [JsonConverter(typeof(StringEnumConverter))]
         public WidgetProductDisplayOrderBy OrderBy { get; set; }
 
         public bool FeaturedOnly { get; set; }

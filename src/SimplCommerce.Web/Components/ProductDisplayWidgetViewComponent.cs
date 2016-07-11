@@ -33,6 +33,11 @@ namespace SimplCommerce.Web.Components
             var query = _productRepository.Query()
               .Where(x => x.IsPublished && x.IsVisibleIndividually);
 
+            if(model.Setting.FeaturedOnly)
+            {
+                query = query.Where(x => x.IsFeatured);
+            }
+
             model.Products = query
               .OrderByDescending(x => x.CreatedOn)
               .Take(model.Setting.NumberOfProducts)

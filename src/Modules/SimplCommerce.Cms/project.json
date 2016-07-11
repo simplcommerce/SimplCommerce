@@ -3,6 +3,7 @@
 
   "dependencies": {
     "NETStandard.Library": "1.6.0",
+    "Newtonsoft.Json": "9.0.1",
     "SimplCommerce.Core": "1.0.0-*",
     "SimplCommerce.Infrastructure": "1.0.0-*"
   },

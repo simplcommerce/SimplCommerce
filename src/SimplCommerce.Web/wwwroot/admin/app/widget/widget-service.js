@@ -19,7 +19,8 @@
             editHtmlWidget: editHtmlWidget,
             getProductDisplayWidget: getProductDisplayWidget,
             createProductDisplayWidget: createProductDisplayWidget,
-            editProductDisplayWidget: editProductDisplayWidget
+            editProductDisplayWidget: editProductDisplayWidget,
+            getProductDisplayWidgetAvailableOrderBy: getProductDisplayWidgetAvailableOrderBy
         };
         return service;
 
@@ -81,6 +82,10 @@
 
         function editProductDisplayWidget(widgetInstance) {
             return $http.post('Admin/ProductDisplayWidget/Edit/' + widgetInstance.id, widgetInstance);
+        }
+
+        function getProductDisplayWidgetAvailableOrderBy() {
+            return $http.get('Admin/ProductDisplayWidget/GetAvailableOrderBy');
         }
     }
 })();

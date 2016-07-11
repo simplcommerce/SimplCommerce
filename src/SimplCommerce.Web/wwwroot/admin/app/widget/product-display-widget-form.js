@@ -8,7 +8,8 @@
     function ProductDisplayWidgetFormCtrl($state, $stateParams, widgetService) {
         var vm = this;
         vm.widgetZones = [];
-        vm.widgetInstance = { widgetZoneId: 1 };
+        vm.sorts = [];
+        vm.widgetInstance = { widgetZoneId: 1, setting: { numberOfProducts : 4 } };
         vm.widgetInstanceId = $stateParams.id;
         vm.isEditMode = vm.widgetInstanceId > 0;
 
@@ -39,6 +40,14 @@
         function init() {
             widgetService.getWidgetZones().then(function (result) {
                 vm.widgetZones = result.data;
+            });
+
+            widgetService.getProductDisplayWidgetAvailableOrderBy().then(function (result) {
+                vm.sorts = result.data;
+
+                if (!vm.isEditMode) {
+                    vm.widgetInstance.setting.orderBy = vm.sorts[0].id;
+                }
             });
 
             if (vm.isEditMode) {

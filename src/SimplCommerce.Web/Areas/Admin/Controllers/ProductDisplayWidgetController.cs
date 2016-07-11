@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using SimplCommerce.Cms.Domain.Models;
 using SimplCommerce.Infrastructure.Domain.IRepositories;
 using SimplCommerce.Web.Areas.Admin.ViewModels.Cms;
+using SimplCommerce.Infrastructure;
 
 namespace SimplCommerce.Web.Areas.Admin.Controllers
 {
@@ -31,6 +32,8 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
                 WidgetZoneId = widgetInstance.WidgetZoneId,
                 Setting = JsonConvert.DeserializeObject<WidgetProductDisplaySetting>(widgetInstance.Data)
             };
+
+            var enumMetaData = MetadataProvider.GetMetadataForType(typeof(WidgetProductDisplayOrderBy));
 
             return Json(model);
         }
@@ -70,6 +73,12 @@ namespace SimplCommerce.Web.Areas.Admin.Controllers
             }
 
             return new BadRequestObjectResult(ModelState);
+        }
+
+        public IActionResult GetAvailableOrderBy()
+        {
+            var model = EnumHelper.ToDictionary(typeof(WidgetProductDisplayOrderBy)).Select(x => new { Id = x.Key.ToString(), Name = x.Value });
+            return Json(model);
         }
     }
 }
