@@ -9,6 +9,6 @@ namespace SimplCommerce.Web.ViewModels.Cart
         public IList<CartListItem> CartItems { get; set; }
 
         public string SubTotal
-            => string.Concat(CartItems.Sum(x => x.Total).ToString("N0", new CultureInfo("VN-vi")), " VND");
+            => string.Concat(CartItems.Sum(x => x.Total).ToString("N0", new CultureInfo("vi-VN")), " VND");
     }
 }
