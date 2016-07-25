@@ -1,6 +1,6 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using SimplCommerce.Core.ApplicationServices;
-using System;
 
 namespace SimplCommerce.Web.Extensions
 {
@@ -8,13 +8,14 @@ namespace SimplCommerce.Web.Extensions
     {
         public const string AzureStorage = "AzureStorage";
         public const string LocalStorage = "LocalStorage";
+
         public static void RegisterMediaType(this ContainerBuilder builder, string serviceName)
         {
             switch (serviceName)
             {
-                //case AzureStorage:
-                //    builder.RegisterType<AzureMediaService>().As<IMediaService>();
-                //    break;
+                case AzureStorage:
+                    builder.RegisterType<AzureMediaService>().As<IMediaService>();
+                    break;
                 case LocalStorage:
                     builder.RegisterType<LocalMediaService>().As<IMediaService>();
                     break;

@@ -5,13 +5,16 @@
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
     "Microsoft.EntityFrameworkCore": "1.0.0",
     "NETStandard.Library": "1.6.0",
-    "SimplCommerce.Infrastructure": "1.0.0-*"
+    "SimplCommerce.Infrastructure": "1.0.0-*",
+    "WindowsAzure.Storage": "7.1.3-preview",
+    "Microsoft.Data.OData": "5.7.0"
   },
 
   "frameworks": {
     "netstandard1.6": {
       "imports": [
-        "dnxcore50"
+        "dnxcore50",
+        "portable-net451+win8"
       ]
     }
   }
