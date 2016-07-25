@@ -16,11 +16,18 @@
         };
 
         vm.deletePage = function deletePage(page) {
-            if (confirm("Are you sure?")) {
-                pageService.deletePage(page).then(function (result) {
-                    vm.getPages();
-                });
-            }
+            bootbox.confirm('Are you sure you want to delete this page: ' + page.name, function (result) {
+                if (result) {
+                    pageService.deletePage(page)
+                       .then(function (result) {
+                           vm.getPages();
+                           toastr.success(page.name + ' has been deleted')
+                       })
+                       .catch(function (error) {
+                           toastr.error(error.data.error);
+                       });
+                }
+            });
         };
 
         vm.getPages();

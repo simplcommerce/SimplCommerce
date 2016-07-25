@@ -11,11 +11,18 @@
         vm.widgetInstances = [];
 
         vm.deleteWidgetInstance = function deleteWidgetInstance(widgetInstance) {
-            if (confirm("Are you sure?")) {
-                widgetService.deleteWidgetInstance(widgetInstance.id).then(function (result) {
-                    getWidgetInstances();
-                });
-            }
+            bootbox.confirm('Are you sure you want to delete this widget: ' + widgetInstance.name, function (result) {
+                if (result) {
+                    widgetService.deleteWidgetInstance(widgetInstance.id)
+                       .then(function (result) {
+                           getWidgetInstances();
+                           toastr.success(widgetInstance.name + ' has been deleted')
+                       })
+                       .catch(function (error) {
+                           toastr.error(error.data.error);
+                       });
+                }
+            });
         };
 
         function getWidgets() {

@@ -5,7 +5,7 @@
         .controller('CategoryListCtrl', CategoryLitsCtrl);
 
     /* @ngInject */
-    function CategoryLitsCtrl(categoryService, toastr, bootbox) {
+    function CategoryLitsCtrl(categoryService) {
         var vm = this;
         vm.categories = [];
 

@@ -26,8 +26,6 @@
 
     toastr.options.closeButton = true;
     adminApp
-        .constant('toastr', toastr)
-        .constant('bootbox', bootbox)
         .config([
             '$urlRouterProvider',
             function ($urlRouterProvider) {
