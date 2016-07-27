@@ -23,6 +23,12 @@
 
         vm.save = function save() {
             var promise;
+
+            // ng-upload will post null as text
+            angular.forEach(vm.widgetInstance.items, function (item) {
+                item.caption = item.caption === null ? '' : item.caption;
+            });
+
             if (vm.isEditMode) {
                 promise = widgetService.editCarouselWidget(vm.widgetInstance);
             } else {
