@@ -19,11 +19,16 @@ namespace SimplCommerce.Core.ApplicationServices
 
         public void Create(Brand brand)
         {
-            brandRepository.Add(brand);
-            brandRepository.SaveChange();
+            using (var transaction = brandRepository.BeginTransaction())
+            {
+                brandRepository.Add(brand);
+                brandRepository.SaveChange();
 
-            urlSlugService.Add(brand.SeoTitle, brand.Id, BrandEntityName);
-            brandRepository.SaveChange();
+                urlSlugService.Add(brand.SeoTitle, brand.Id, BrandEntityName);
+                brandRepository.SaveChange();
+
+                transaction.Commit();
+            }
         }
 
         public void Update(Brand brand)

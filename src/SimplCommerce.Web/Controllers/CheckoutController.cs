@@ -128,7 +128,6 @@ namespace SimplCommerce.Web.Controllers
                 currentUser.CurrentShippingAddress = _userAddressRepository.Query().FirstOrDefault(x => x.Id == model.ShippingAddressId);
             }
             _orderService.CreateOrder(currentUser);
-            _userAddressRepository.SaveChange();
 
             return RedirectToAction("OrderConfirmation");
         }

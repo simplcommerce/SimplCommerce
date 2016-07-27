@@ -48,6 +48,7 @@ namespace SimplCommerce.Orders.ApplicationServices
             order.SubTotal = order.OrderItems.Sum(x => x.ProductPrice*x.Quantity);
 
             orderRepository.Add(order);
+            orderRepository.SaveChange();
         }
     }
 }

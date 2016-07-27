@@ -18,11 +18,16 @@ namespace SimplCommerce.Core.ApplicationServices
 
         public void Create(Product product)
         {
-            productRepository.Add(product);
-            productRepository.SaveChange();
+            using (var transaction = productRepository.BeginTransaction())
+            {
+                productRepository.Add(product);
+                productRepository.SaveChange();
 
-            urlSlugService.Add(product.SeoTitle, product.Id, ProductEntityName);
-            productRepository.SaveChange();
+                urlSlugService.Add(product.SeoTitle, product.Id, ProductEntityName);
+                productRepository.SaveChange();
+
+                transaction.Commit();
+            }
         }
 
         public void Update(Product product)

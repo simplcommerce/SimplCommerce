@@ -19,11 +19,16 @@ namespace SimplCommerce.Cms.ApplicationServices
 
         public void Create(Page page)
         {
-            pageRepository.Add(page);
-            pageRepository.SaveChange();
+            using (var transaction = pageRepository.BeginTransaction())
+            {
+                pageRepository.Add(page);
+                pageRepository.SaveChange();
 
-            urlSlugService.Add(page.SeoTitle, page.Id, PageEntityName);
-            pageRepository.SaveChange();
+                urlSlugService.Add(page.SeoTitle, page.Id, PageEntityName);
+                pageRepository.SaveChange();
+
+                transaction.Commit();
+            }
         }
 
         public void Update(Page page)

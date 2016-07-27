@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using SimplCommerce.Infrastructure.Domain.IRepositories;
 using SimplCommerce.Infrastructure.Domain.Models;
 
@@ -20,6 +21,11 @@ namespace SimplCommerce.Core.Infrastructure.EntityFramework
         public void Add(T entity)
         {
             DbSet.Add(entity);
+        }
+
+        public IDbContextTransaction BeginTransaction()
+        {
+            return Context.Database.BeginTransaction();
         }
 
         public void SaveChange()

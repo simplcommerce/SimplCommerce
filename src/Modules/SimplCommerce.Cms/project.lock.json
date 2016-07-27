@@ -2263,6 +2263,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
+          "Microsoft.EntityFrameworkCore": "1.0.0",
           "NETStandard.Library": "1.6.0",
           "System.ComponentModel.Annotations": "4.1.0",
           "System.Globalization.Extensions": "4.0.1",

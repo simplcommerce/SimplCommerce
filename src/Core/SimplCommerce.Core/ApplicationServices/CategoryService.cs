@@ -19,11 +19,16 @@ namespace SimplCommerce.Core.ApplicationServices
 
         public void Create(Category category)
         {
-            categoryRepository.Add(category);
-            categoryRepository.SaveChange();
+            using (var transaction = categoryRepository.BeginTransaction())
+            {
+                categoryRepository.Add(category);
+                categoryRepository.SaveChange();
 
-            urlSlugService.Add(category.SeoTitle, category.Id, CategoryEntityName);
-            categoryRepository.SaveChange();
+                urlSlugService.Add(category.SeoTitle, category.Id, CategoryEntityName);
+                categoryRepository.SaveChange();
+
+                transaction.Commit();
+            }
         }
 
         public void Update(Category category)

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Microsoft.EntityFrameworkCore.Storage;
 using SimplCommerce.Infrastructure.Domain.Models;
 
 namespace SimplCommerce.Infrastructure.Domain.IRepositories
@@ -8,6 +9,8 @@ namespace SimplCommerce.Infrastructure.Domain.IRepositories
         IQueryable<T> Query();
 
         void Add(T entity);
+
+        IDbContextTransaction BeginTransaction();
 
         void SaveChange();
 
