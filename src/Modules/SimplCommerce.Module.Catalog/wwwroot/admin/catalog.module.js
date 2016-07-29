@@ -34,6 +34,66 @@
                    url: '/category/edit/:id',
                    templateUrl: 'catalog/admin/category/category-form.html',
                    controller: 'CategoryFormCtrl as vm'
-               });
+               })
+                .state('product-option', {
+                    url: '/product-option',
+                    templateUrl: 'catalog/admin/product-option/product-option-list.html',
+                    controller: 'ProductOptionListCtrl as vm'
+                })
+                .state('product-option-create', {
+                    url: '/product-option/create',
+                    templateUrl: 'catalog/admin/product-option/product-option-form.html',
+                    controller: 'ProductOptionFormCtrl as vm'
+                })
+                .state('product-option-edit', {
+                    url: '/product-option/edit/:id',
+                    templateUrl: 'catalog/admin/product-option/product-option-form.html',
+                    controller: 'ProductOptionFormCtrl as vm'
+                })
+                .state('product-attribute-group', {
+                    url: '/product-attribute-group',
+                    templateUrl: 'catalog/admin/product-attribute-group/product-attribute-group-list.html',
+                    controller: 'ProductAttributeGroupListCtrl as vm'
+                })
+                .state('product-attribute-group-create', {
+                    url: '/product-attribute-group/create',
+                    templateUrl: 'catalog/admin/product-attribute-group/product-attribute-group-form.html',
+                    controller: 'ProductAttributeGroupFormCtrl as vm'
+                })
+                .state('product-attribute-group-edit', {
+                    url: '/product-attribute-group/edit/:id',
+                    templateUrl: 'catalog/admin/product-attribute-group/product-attribute-group-form.html',
+                    controller: 'ProductAttributeGroupFormCtrl as vm'
+                })
+                .state('product-attribute', {
+                    url: '/product-attribute',
+                    templateUrl: 'catalog/admin/product-attribute/product-attribute-list.html',
+                    controller: 'ProductAttributeListCtrl as vm'
+                })
+                .state('product-attribute-create', {
+                    url: '/product-attribute/create',
+                    templateUrl: 'catalog/admin/product-attribute/product-attribute-form.html',
+                    controller: 'ProductAttributeFormCtrl as vm'
+                })
+                .state('product-attribute-edit', {
+                    url: '/product-attribute/edit/:id',
+                    templateUrl: 'catalog/admin/product-attribute/product-attribute-form.html',
+                    controller: 'ProductAttributeFormCtrl as vm'
+                })
+                .state('product-template', {
+                    url: '/product-template',
+                    templateUrl: 'catalog/admin/product-template/product-template-list.html',
+                    controller: 'ProductTemplateListCtrl as vm'
+                })
+                .state('product-template-create', {
+                    url: '/product-template/create',
+                    templateUrl: 'catalog/admin/product-template/product-template-form.html',
+                    controller: 'ProductTemplateFormCtrl as vm'
+                })
+                .state('product-template-edit', {
+                    url: '/product-template/edit/:id',
+                    templateUrl: 'catalog/admin/product-template/product-template-form.html',
+                    controller: 'ProductTemplateFormCtrl as vm'
+                });
         }]);
 })();
