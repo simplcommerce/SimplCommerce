@@ -94,6 +94,21 @@
                     url: '/product-template/edit/:id',
                     templateUrl: 'catalog/admin/product-template/product-template-form.html',
                     controller: 'ProductTemplateFormCtrl as vm'
+                })
+                .state('product', {
+                    url: '/product',
+                    templateUrl: 'catalog/admin/product/product-list.html',
+                    controller: 'ProductListCtrl as vm'
+                })
+                .state('product-create', {
+                    url: '/product-create',
+                    templateUrl: 'catalog/admin/product/product-form.html',
+                    controller: 'ProductFormCtrl as vm'
+                })
+                .state('product-edit', {
+                    url: '/product/edit/:id',
+                    templateUrl: 'catalog/admin/product/product-form.html',
+                    controller: 'ProductFormCtrl as vm'
                 });
         }]);
 })();
