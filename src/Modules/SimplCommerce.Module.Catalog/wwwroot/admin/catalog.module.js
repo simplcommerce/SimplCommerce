@@ -19,6 +19,21 @@
                     url: '/brand/edit/:id',
                     templateUrl: 'catalog/admin/brand/brand-form.html',
                     controller: 'BrandFormCtrl as vm'
-                });
+                })
+                .state('category', {
+                    url: '/category',
+                    templateUrl: 'catalog/admin/category/category-list.html',
+                    controller: 'CategoryListCtrl as vm'
+                })
+               .state('category-create', {
+                   url: '/category/create',
+                   templateUrl: 'catalog/admin/category/category-form.html',
+                   controller: 'CategoryFormCtrl as vm'
+               })
+               .state('category-edit', {
+                   url: '/category/edit/:id',
+                   templateUrl: 'catalog/admin/category/category-form.html',
+                   controller: 'CategoryFormCtrl as vm'
+               });
         }]);
 })();
