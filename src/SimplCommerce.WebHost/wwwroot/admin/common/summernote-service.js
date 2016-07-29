@@ -1,7 +1,7 @@
 ﻿/*global angular, FormData*/
 (function () {
     angular
-        .module('shopAdmin.common')
+        .module('simplAdmin.common')
         .factory('summerNoteService', summerNoteService);
 
     /* @ngInject */

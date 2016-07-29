@@ -1,6 +1,6 @@
 ﻿/*global angular*/
 (function () {
-    var adminApp = angular.module('shopAdmin', [
+    var adminApp = angular.module('simplAdmin', [
         'ui.router',
         'ngMaterial',
         'ngMessages',
@@ -8,9 +8,10 @@
         'ngFileUpload',
         'ui.bootstrap',
         'summernote',
-        'shopAdmin.common',
-        'shopAdmin.dashboard',
-        'shopAdmin.user'
+        'simplAdmin.common',
+        'simplAdmin.dashboard',
+        'simplAdmin.core',
+        'simplAdmin.catalog'
     ]);
 
     toastr.options.closeButton = true;

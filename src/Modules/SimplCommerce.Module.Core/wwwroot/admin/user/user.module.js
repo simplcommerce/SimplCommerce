@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('shopAdmin.user', [])
+        .module('simplAdmin.core', [])
         .config(['$stateProvider', function ($stateProvider) {
             $stateProvider.state('user', {
                 url: '/user',

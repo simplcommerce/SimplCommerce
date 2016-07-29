@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('shopAdmin.common')
+        .module('simplAdmin.common')
         .factory('exception', exception);
 
     /* @ngInject */

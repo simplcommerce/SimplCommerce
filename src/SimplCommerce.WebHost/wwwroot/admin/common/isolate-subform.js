@@ -1,6 +1,6 @@
 ﻿/*global angular*/
 (function () {
-    angular.module('shopAdmin.common')
+    angular.module('simplAdmin.common')
         .directive('isolateForm', isolateForm);
 
     function isolateForm() {

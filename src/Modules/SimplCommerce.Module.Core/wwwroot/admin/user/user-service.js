@@ -1,7 +1,7 @@
 ﻿/*global angular*/
 (function () {
     angular
-        .module('shopAdmin.user')
+        .module('simplAdmin.core')
         .factory('userService', userService);
 
     /* @ngInject */

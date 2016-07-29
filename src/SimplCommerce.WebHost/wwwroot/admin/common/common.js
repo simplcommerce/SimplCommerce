@@ -1,5 +1,5 @@
 ﻿/*global angular*/
 (function () {
     angular
-        .module('shopAdmin.common', []);
+        .module('simplAdmin.common', []);
 }());

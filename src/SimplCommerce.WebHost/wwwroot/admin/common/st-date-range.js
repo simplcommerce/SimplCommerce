@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('shopAdmin.common')
+        .module('simplAdmin.common')
         .directive('stDateRange', ['$timeout', function ($timeout) {
             return {
                 restrict: 'E',
@@ -12,7 +12,7 @@
                     before: '=',
                     after: '='
                 },
-                templateUrl: 'admin/app/common/st-date-range.html',
+                templateUrl: 'admin/common/st-date-range.html',
                 link: function (scope, element, attr, table) {
                     var inputs = element.find('input'),
                         inputBefore = angular.element(inputs[0]),

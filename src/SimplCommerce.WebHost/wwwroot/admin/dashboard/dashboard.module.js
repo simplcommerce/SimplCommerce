@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('shopAdmin.dashboard', [])
+        .module('simplAdmin.dashboard', [])
         .config(['$stateProvider', function ($stateProvider) {
             $stateProvider.state('dashboard', {
                 url: '/dashboard',
