@@ -12,7 +12,8 @@ var paths = {
 var modules = [
     'SimplCommerce.Module.Core',
     'SimplCommerce.Module.Catalog',
-    'SimplCommerce.Module.Orders'
+    'SimplCommerce.Module.Orders',
+    'SimplCommerce.Module.Cms'
 ];
 
 gulp.task('clean-module', function () {
