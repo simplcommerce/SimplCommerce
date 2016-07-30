@@ -1,7 +1,7 @@
 ﻿using System;
 using SimplCommerce.Infrastructure.Models;
 
-namespace SimplCommerce.Module.Cms.Models
+namespace SimplCommerce.Module.Core.Models
 {
     public class Widget : Entity
     {

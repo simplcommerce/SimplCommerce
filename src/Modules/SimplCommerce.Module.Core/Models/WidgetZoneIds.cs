@@ -1,6 +1,6 @@
-﻿namespace SimplCommerce.Module.Cms.Models
+﻿namespace SimplCommerce.Module.Core.Models
 {
-    public static class WidgetZoneIds
+    public class WidgetZoneIds
     {
         public static long HomeFeatured = 1;
 

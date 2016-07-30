@@ -449,78 +449,6 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("Cms_Page");
                 });
 
-            modelBuilder.Entity("SimplCommerce.Module.Cms.Models.Widget", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Code");
-
-                    b.Property<string>("CreateUrl");
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<string>("EditUrl");
-
-                    b.Property<bool>("IsPublished");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("ViewComponentName");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cms_Widget");
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.Cms.Models.WidgetInstance", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<string>("Data");
-
-                    b.Property<int>("DisplayOrder");
-
-                    b.Property<string>("HtmlData");
-
-                    b.Property<string>("Name");
-
-                    b.Property<DateTime?>("PublishEnd");
-
-                    b.Property<DateTime?>("PublishStart");
-
-                    b.Property<DateTime>("UpdatedOn");
-
-                    b.Property<long>("WidgetId");
-
-                    b.Property<long>("WidgetZoneId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("WidgetId");
-
-                    b.HasIndex("WidgetZoneId");
-
-                    b.ToTable("Cms_WidgetInstance");
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.Cms.Models.WidgetZone", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cms_WidgetZone");
-                });
-
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.Address", b =>
                 {
                     b.Property<long>("Id")
@@ -741,6 +669,78 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Core_UserAddress");
+                });
+
+            modelBuilder.Entity("SimplCommerce.Module.Core.Models.Widget", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Code");
+
+                    b.Property<string>("CreateUrl");
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("EditUrl");
+
+                    b.Property<bool>("IsPublished");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("ViewComponentName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Core_Widget");
+                });
+
+            modelBuilder.Entity("SimplCommerce.Module.Core.Models.WidgetInstance", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("Data");
+
+                    b.Property<int>("DisplayOrder");
+
+                    b.Property<string>("HtmlData");
+
+                    b.Property<string>("Name");
+
+                    b.Property<DateTime?>("PublishEnd");
+
+                    b.Property<DateTime?>("PublishStart");
+
+                    b.Property<DateTime>("UpdatedOn");
+
+                    b.Property<long>("WidgetId");
+
+                    b.Property<long>("WidgetZoneId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WidgetId");
+
+                    b.HasIndex("WidgetZoneId");
+
+                    b.ToTable("Core_WidgetInstance");
+                });
+
+            modelBuilder.Entity("SimplCommerce.Module.Core.Models.WidgetZone", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Core_WidgetZone");
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Orders.Models.CartItem", b =>
@@ -987,19 +987,6 @@ namespace SimplCommerce.WebHost.Migrations
                         .HasForeignKey("UpdatedById");
                 });
 
-            modelBuilder.Entity("SimplCommerce.Module.Cms.Models.WidgetInstance", b =>
-                {
-                    b.HasOne("SimplCommerce.Module.Cms.Models.Widget", "Widget")
-                        .WithMany()
-                        .HasForeignKey("WidgetId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SimplCommerce.Module.Cms.Models.WidgetZone", "WidgetZone")
-                        .WithMany()
-                        .HasForeignKey("WidgetZoneId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.Address", b =>
                 {
                     b.HasOne("SimplCommerce.Module.Core.Models.Country", "Country")
@@ -1048,6 +1035,19 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasOne("SimplCommerce.Module.Core.Models.User", "User")
                         .WithMany("UserAddresses")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("SimplCommerce.Module.Core.Models.WidgetInstance", b =>
+                {
+                    b.HasOne("SimplCommerce.Module.Core.Models.Widget", "Widget")
+                        .WithMany()
+                        .HasForeignKey("WidgetId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SimplCommerce.Module.Core.Models.WidgetZone", "WidgetZone")
+                        .WithMany()
+                        .HasForeignKey("WidgetZoneId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Orders.Models.CartItem", b =>

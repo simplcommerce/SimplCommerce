@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using SimplCommerce.Module.Cms.Models;
+using SimplCommerce.Module.Core.Models;
 
-namespace SimplCommerce.Module.Cms.Services
+namespace SimplCommerce.Module.Core.Services
 {
     public interface IWidgetInstanceService
     {
