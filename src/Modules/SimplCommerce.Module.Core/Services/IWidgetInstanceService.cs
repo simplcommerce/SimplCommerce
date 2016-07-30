@@ -5,6 +5,6 @@ namespace SimplCommerce.Module.Core.Services
 {
     public interface IWidgetInstanceService
     {
-        IQueryable<WidgetInstance> GetPublished(long widgetZoneId);
+        IQueryable<WidgetInstance> GetPublished();
     }
 }
