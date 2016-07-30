@@ -8,7 +8,7 @@ using SimplCommerce.Module.Core.ViewModels.Manage;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
 
-namespace SimplCommerce.Web.Controllers
+namespace SimplCommerce.Module.Core.Controllers
 {
     [Authorize]
     public class ManageController : Controller
