@@ -22,6 +22,7 @@ using SimplCommerce.Infrastructure.Data;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using SimplCommerce.Module.Core.Extensions;
 
 namespace SimplCommerce.WebHost
 {
@@ -143,6 +144,8 @@ namespace SimplCommerce.WebHost
 
             app.UseMvc(routes =>
             {
+                routes.Routes.Add(new UrlSlugRoute(routes.DefaultHandler));
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
