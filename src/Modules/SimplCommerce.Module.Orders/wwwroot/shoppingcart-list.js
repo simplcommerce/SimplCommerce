@@ -1,6 +1,6 @@
 ﻿(function () {
     angular
-        .module('hv.shoppingCart', [])
+        .module('simpl.shoppingCart', [])
         .controller('shoppingCartListCtrl', [
             '$scope',
             'shoppingCartService',

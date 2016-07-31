@@ -1,6 +1,6 @@
 ﻿(function() {
     angular
-        .module('hv.shoppingCart')
+        .module('simpl.shoppingCart')
         .factory('shoppingCartService', [
             '$http',
             function ($http) {

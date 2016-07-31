@@ -42,7 +42,7 @@
                         <img alt="SimplCommerce" src="~/images/Logo_SimplCommerce.png" />
                     </a>
                 </div>
-                @*@await Component.InvokeAsync("CartBadge")*@
+                @await Component.InvokeAsync("CartBadge")
                 <div class="collapse navbar-collapse">
                     @await Component.InvokeAsync("CategoryMenu")
                 </div>
@@ -108,6 +108,7 @@
 
         <script src="~/lib/matchheight/jquery.matchHeight.js"></script>
         <script src="~/js/main.js"></script>
+        <script src="~/orders/add-to-cart.js"></script>
         @RenderSection("scripts", required: false)
     </body>
 </html>
