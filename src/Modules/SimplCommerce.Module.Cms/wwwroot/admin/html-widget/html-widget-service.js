@@ -5,7 +5,7 @@
         .factory('htmlWidgetService', widgetService);
 
     /* @ngInject */
-    function widgetService($http, Upload) {
+    function widgetService($http) {
         var service = {
             getWidgetZones: getWidgetZones,
             getHtmlWidget: getHtmlWidget,

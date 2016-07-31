@@ -1,6 +1,6 @@
 ﻿namespace SimplCommerce.Module.Catalog.ViewModels
 {
-    public enum WidgetProductDisplayOrderBy
+    public enum ProductWidgetOrderBy
     {
         Newest,
 

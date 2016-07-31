@@ -9,12 +9,12 @@ using SimplCommerce.Module.Core.ViewModels;
 
 namespace SimplCommerce.Module.Catalog.Components
 {
-    public class ProductDisplayWidgetViewComponent : ViewComponent
+    public class ProductWidgetViewComponent : ViewComponent
     {
         private IRepository<Product> _productRepository;
         private IMediaService _mediaService;
 
-        public ProductDisplayWidgetViewComponent(IRepository<Product> productRepository, IMediaService mediaService)
+        public ProductWidgetViewComponent(IRepository<Product> productRepository, IMediaService mediaService)
         {
             _productRepository = productRepository;
             _mediaService = mediaService;
@@ -22,11 +22,11 @@ namespace SimplCommerce.Module.Catalog.Components
 
         public IViewComponentResult Invoke(WidgetInstanceViewModel widgetInstance)
         {
-            var model = new WidgetProductViewComponentVm
+            var model = new ProductWidgetComponentVm
             {
                 Id = widgetInstance.Id,
                 WidgetName = widgetInstance.Name,
-                Setting = JsonConvert.DeserializeObject<WidgetProductDisplaySetting>(widgetInstance.Data)
+                Setting = JsonConvert.DeserializeObject<ProductWidgetSetting>(widgetInstance.Data)
             };
 
             var query = _productRepository.Query()
@@ -56,7 +56,7 @@ namespace SimplCommerce.Module.Catalog.Components
                 product.ThumbnailUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage);
             }
 
-            return View("/Modules/SimplCommerce.Module.Catalog/Views/Components/ProductDisplayWidget.cshtml", model);
+            return View("/Modules/SimplCommerce.Module.Catalog/Views/Components/ProductWidget.cshtml", model);
         }
     }
 }
