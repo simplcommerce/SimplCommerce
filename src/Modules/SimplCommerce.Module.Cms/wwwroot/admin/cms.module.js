@@ -29,6 +29,16 @@
                     url: '/widget-carousel/edit/:id',
                     templateUrl: 'cms/admin/carousel-widget/carousel-widget-form.html',
                     controller: 'CarouselWidgetFormCtrl as vm'
+                })
+                .state('widget-html-create', {
+                    url: '/widget-html/create',
+                    templateUrl: 'cms/admin/html-widget/html-widget-form.html',
+                    controller: 'HtmlWidgetFormCtrl as vm'
+                })
+                .state('widget-html-edit', {
+                    url: '/widget-html/edit/:id',
+                    templateUrl: 'cms/admin/html-widget/html-widget-form.html',
+                    controller: 'HtmlWidgetFormCtrl as vm'
                 });
         }]);
 })();
