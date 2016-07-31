@@ -38,7 +38,7 @@ namespace SimplCommerce.Module.Core.Services
 
         public void SaveMedia(Stream mediaBinaryStream, string fileName, string mimeType = null)
         {
-            var filePath = Path.Combine(GlobalConfiguration.ApplicationPath, MediaRootFoler, fileName);
+            var filePath = Path.Combine(GlobalConfiguration.WebRootPath, MediaRootFoler, fileName);
             using (var output = new FileStream(filePath, FileMode.Create))
             {
                 mediaBinaryStream.CopyTo(output);
@@ -53,7 +53,7 @@ namespace SimplCommerce.Module.Core.Services
 
         public void DeleteMedia(string fileName)
         {
-            var filePath = Path.Combine(GlobalConfiguration.ApplicationPath, MediaRootFoler, fileName);
+            var filePath = Path.Combine(GlobalConfiguration.WebRootPath, MediaRootFoler, fileName);
             if (File.Exists(filePath))
             {
                 File.Delete(filePath);

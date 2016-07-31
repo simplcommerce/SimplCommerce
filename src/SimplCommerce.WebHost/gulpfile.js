@@ -13,7 +13,8 @@ var modules = [
     'SimplCommerce.Module.Core',
     'SimplCommerce.Module.Catalog',
     'SimplCommerce.Module.Orders',
-    'SimplCommerce.Module.Cms'
+    'SimplCommerce.Module.Cms',
+    'SimplCommerce.Module.SampleData'
 ];
 
 gulp.task('clean-module', function () {
@@ -29,4 +30,7 @@ gulp.task('copy-modules', ['clean-module'], function () {
         gulp.src(paths.devModules + module + '/bin/Debug/netstandard1.6/**/*.*')
             .pipe(gulp.dest(paths.hostModules + module + '/bin'));
     });
+
+    gulp.src(paths.devModules + 'SimplCommerce.Module.SampleData/SampleContent/**/*.*')
+            .pipe(gulp.dest(paths.hostModules + 'SimplCommerce.Module.SampleData/SampleContent'));
 });

@@ -53,7 +53,8 @@ namespace SimplCommerce.WebHost
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            GlobalConfiguration.ApplicationPath = _hostingEnvironment.WebRootPath;
+            GlobalConfiguration.WebRootPath = _hostingEnvironment.WebRootPath;
+            GlobalConfiguration.ContentRootPath = _hostingEnvironment.ContentRootPath;
             LoadInstalledModules();
 
             services.AddDbContext<SimplDbContext>(options =>

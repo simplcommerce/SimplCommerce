@@ -11,6 +11,8 @@ namespace SimplCommerce.Infrastructure
 
         public static IList<ModuleInfo> Modules { get; set; }
 
-        public static string ApplicationPath { get; set; }
+        public static string WebRootPath { get; set; }
+
+        public static string ContentRootPath { get; set; }
     }
 }
