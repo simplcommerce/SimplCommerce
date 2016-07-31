@@ -1,3 +1,5 @@
+# A super simple - modularized ecommerce system built on .NET Core
+
 ## Prerequisite:
 - Visual Studio 2015 Update 3
 - Install .NET Core SDK for Visual Studio (https://www.microsoft.com/net/core#windows)
