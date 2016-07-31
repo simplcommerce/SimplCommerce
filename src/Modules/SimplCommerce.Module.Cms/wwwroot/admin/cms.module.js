@@ -19,6 +19,16 @@
                     url: '/page/edit/:id',
                     templateUrl: 'cms/admin/page/page-form.html',
                     controller: 'PageFormCtrl as vm'
+                })
+                .state('widget-carousel-create', {
+                    url: '/widget-carousel/create',
+                    templateUrl: 'cms/admin/carousel-widget/carousel-widget-form.html',
+                    controller: 'CarouselWidgetFormCtrl as vm'
+                })
+                .state('widget-carousel-edit', {
+                    url: '/widget-carousel/edit/:id',
+                    templateUrl: 'cms/admin/carousel-widget/carousel-widget-form.html',
+                    controller: 'CarouselWidgetFormCtrl as vm'
                 });
         }]);
 })();

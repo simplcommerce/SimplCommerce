@@ -9,6 +9,11 @@
                 url: '/user',
                 templateUrl: "core/admin/user/user-list.html",
                 controller: 'UserListCtrl as vm'
+            })
+            .state('widget', {
+                url: '/widget',
+                templateUrl: 'core/admin/widget/widget-instance-list.html',
+                controller: 'WidgetInstanceListCtrl as vm'
             });
         }]);
 })();
