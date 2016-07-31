@@ -1,0 +1,166 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using SimplCommerce.Module.Core.Models
+@inject UserManager<User> UserManager
+
+@{ 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html ng-app="simplAdmin">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - SimplCommerce</title>
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+        <link href="~/admin/css/admin-core.css" rel="stylesheet" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link href="~/admin/css/admin-core.css" rel="stylesheet" />
+    </environment>
+    <link href="~/lib/angular-material/angular-material.css" rel="stylesheet" />
+    <link href="~/lib/angular-bootstrap/ui-bootstrap-csp.css" rel="stylesheet" />
+    <link href="~/lib/toastr/toastr.css" rel="stylesheet" />
+    <link href="~/lib/summernote/summernote.css" rel="stylesheet" />
+    <link href="~/admin/css/admin-core.css" rel="stylesheet" />
+
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+    <script src="~/lib/summernote/summernote.js"></script>
+    <script src="~/lib/angular/angular.js"></script>
+    <script src="~/lib/angular-ui-router/angular-ui-router.js"></script>
+    <script src="~/lib/angular-animate/angular-animate.js"></script>
+    <script src="~/lib/angular-aria/angular-aria.js"></script>
+    <script src="~/lib/angular-messages/angular-messages.js"></script>
+    <script src="~/lib/angular-material/angular-material.js"></script>
+    <script src="~/lib/angular-smart-table/smart-table.js"></script>
+    <script src="~/lib/ng-file-upload/ng-file-upload.js"></script>
+    <script src="~/lib/angular-bootstrap/ui-bootstrap.js"></script>
+    <script src="~/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="~/lib/angular-summernote/angular-summernote.js"></script>
+    <script src="~/lib/toastr/toastr.js"></script>
+    <script src="~/lib/bootbox/bootbox.js"></script>
+
+    <script src="~/admin/admin-app.js"></script>
+    <script src="~/admin/common/common.js"></script>
+    <script src="~/admin/common/summernote-service.js"></script>
+    <script src="~/admin/common/isolate-subform.js"></script>
+    <script src="~/admin/common/st-date-range.js"></script>
+
+    <script src="~/admin/dashboard/dashboard.module.js"></script>
+
+    <script src="~/core/admin/core.module.js"></script>
+    <script src="~/core/admin/user/user-service.js"></script>
+    <script src="~/core/admin/user/user-list.js"></script>
+    <script src="~/core/admin/widget/widget-service.js"></script>
+    <script src="~/core/admin/widget/widget-instance-list.js"></script>
+
+    <script src="~/catalog/admin/catalog.module.js"></script>
+    <script src="~/catalog/admin/brand/brand-service.js"></script>
+    <script src="~/catalog/admin/brand/brand-list.js"></script>
+    <script src="~/catalog/admin/brand/brand-form.js"></script>
+    <script src="~/catalog/admin/category/category-service.js"></script>
+    <script src="~/catalog/admin/category/category-list.js"></script>
+    <script src="~/catalog/admin/category/category-form.js"></script>
+    <script src="~/catalog/admin/product-option/product-option-service.js"></script>
+    <script src="~/catalog/admin/product-option/product-option-list.js"></script>
+    <script src="~/catalog/admin/product-option/product-option-form.js"></script>
+    <script src="~/catalog/admin/product-attribute-group/product-attribute-group-service.js"></script>
+    <script src="~/catalog/admin/product-attribute-group/product-attribute-group-list.js"></script>
+    <script src="~/catalog/admin/product-attribute-group/product-attribute-group-form.js"></script>
+    <script src="~/catalog/admin/product-attribute/product-attribute-service.js"></script>
+    <script src="~/catalog/admin/product-attribute/product-attribute-list.js"></script>
+    <script src="~/catalog/admin/product-attribute/product-attribute-form.js"></script>
+    <script src="~/catalog/admin/product-template/product-template-service.js"></script>
+    <script src="~/catalog/admin/product-template/product-template-list.js"></script>
+    <script src="~/catalog/admin/product-template/product-template-form.js"></script>
+    <script src="~/catalog/admin/product/product-service.js"></script>
+    <script src="~/catalog/admin/product/product-list.js"></script>
+    <script src="~/catalog/admin/product/product-form.js"></script>
+    <script src="~/catalog/admin/product-widget/product-widget-service.js"></script>
+    <script src="~/catalog/admin/product-widget/product-widget-form.js"></script>
+
+    <script src="~/orders/admin/orders.module.js"></script>
+    <script src="~/orders/admin/order/order-service.js"></script>
+    <script src="~/orders/admin/order/order-list.js"></script>
+    <script src="~/orders/admin/order/order-detail.js"></script>
+
+    <script src="~/cms/admin/cms.module.js"></script>
+    <script src="~/cms/admin/page/page-service.js"></script>
+    <script src="~/cms/admin/page/page-list.js"></script>
+    <script src="~/cms/admin/page/page-form.js"></script>
+    <script src="~/cms/admin/carousel-widget/carousel-widget-service.js"></script>
+    <script src="~/cms/admin/carousel-widget/carousel-widget-form.js"></script>
+    <script src="~/cms/admin/html-widget/html-widget-service.js"></script>
+    <script src="~/cms/admin/html-widget/html-widget-form.js"></script>
+
+</head>
+<body>
+    <div class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="~/Admin" class="navbar-brand">SimplCommerce Admin</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a ui-sref="user">Users</a></li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catalog <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="category">Categories</a></li>
+                            <li><a ui-sref="brand">Brands</a></li>
+                            <li><a ui-sref="product">Products</a></li>
+                            <li><a ui-sref="product-option">Product Options</a></li>
+                            <li><a ui-sref="product-attribute-group">Product Attribute Groups</a></li>
+                            <li><a ui-sref="product-attribute">Product Attributes</a></li>
+                            <li><a ui-sref="product-template">Product Templates</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sales <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="order">Manage Orders</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Content <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="page">Manage Pages</a></li>
+                            <li><a ui-sref="widget">Manage Widgets</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form asp-area="" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                        </li>
+                        <li>
+                            <button type="submit" class="btn btn-link navbar-btn navbar-link">Log off</button>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid body-content">
+        <div ui-view></div>
+        <hr />
+        <footer>
+            <p class="pull-left">&copy; 2016 - SimplCommerce</p>
+            <p class="pull-right">Powered by <a href="http://www.SimplCommerce.com"><strong>SimplCommerce</strong></a></p>
+        </footer>
+    </div>
+</body>
+</html>

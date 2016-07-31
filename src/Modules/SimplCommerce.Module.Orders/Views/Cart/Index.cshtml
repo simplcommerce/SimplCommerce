@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<div class="row cart-list" ng-app="simpl.shoppingCart" ng-controller="shoppingCartListCtrl as vm" ng-cloak>
+    <div class="col-md-9">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th colspan="2">Product</th>
+                    <th class="text-right">Price</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-right">Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-if="vm.cartViewModel.cartItems.length" ng-repeat="cartItem in vm.cartViewModel.cartItems">
+                    <td class="product-image"><img ng-src="{{cartItem.productImage}}" /></td>
+                    <td>
+                        <h4>{{cartItem.productName}}</h4>
+                        <ul class="list-unstyled">
+                            <li ng-repeat="opt in cartItem.variationOptions">
+                                <span>{{opt.optionName}}:</span> {{opt.value}}
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="text-right">{{cartItem.productPriceString}}</td>
+                    <td class="text-center">
+                        <button type="button" class="quantity-button" ng-click="vm.decreaseQuantity(cartItem)" name="subtract" value="-">-</button>
+                        <input type="text" class="quantity-field" ng-model="cartItem.quantity" readonly="readonly" />
+                        <button type="button" class="quantity-button" ng-click="vm.increaseQuantity(cartItem)" name="subtract" value="+">+</button>
+                    </td>
+                    <td class="text-right">{{cartItem.totalString}}</td>
+                    <td class="text-right"><button class="btn btn-link" ng-click="vm.removeShoppingCartItem(cartItem)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+                </tr>
+                <tr ng-if="!vm.cartViewModel.cartItems.length">
+                    <td colspan="7" class="text-center">
+                        There are no items in this cart. <a href="~/">Go to shopping</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-3">
+        <div class="order-summary" ng-if="vm.cartViewModel.cartItems.length">
+            <h4>Order summary</h4>
+            <dl class="dl-horizontal">
+                <dt>Total</dt>
+                <dd><strong>{{vm.cartViewModel.subTotal}}</strong></dd>
+            </dl>
+            <p class="text-right"><a href="~/checkout" class="btn btn-primary">Process to Checkout</a></p>
+        </div>
+    </div>
+</div>
+
+@section head{
+    <script src="~/lib/angular/angular.js"></script>
+    <script src="~/orders/shoppingcart-list.js"></script>
+    <script src="~/orders/shoppingcart-service.js"></script>
+}

@@ -1,0 +1,114 @@
+﻿
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - SimplCommerce</title>
+
+        <environment names="Development">
+            <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+            <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+            <link rel="stylesheet" href="~/css/site.css" />
+        </environment>
+        <environment names="Staging,Production">
+            <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
+                  asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
+                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"/>
+            <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+            <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+        </environment>
+
+        @RenderSection("head", required: false)
+    </head>
+    <body>
+        <div class="top-bar">
+            <div class="container">
+                <ul class="list-inline list-unstyled pull-right">
+                    @await Html.PartialAsync("_LoginPartial")
+                </ul>
+            </div>
+        </div>
+        <div class="navbar navbar-default main-nav">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                        <img alt="SimplCommerce" src="~/images/Logo_SimplCommerce.png" />
+                    </a>
+                </div>
+                @await Component.InvokeAsync("CartBadge")
+                <div class="collapse navbar-collapse">
+                    @await Component.InvokeAsync("CategoryMenu")
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+        </div>
+        <div class="footer-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4>@Localizer["Customer Service"]</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="~/help-center">Help center</a></li>
+                            <li><a href="~/help-center/how-to-buy">How to buy</a></li>
+                            <li><a href="~/help-center/shipping">Shipping & returns</a></li>
+                            <li><a href="~/help-center/how-to-return">How to return </a></li>
+                            <li><a href="~/help-center/warranty">Warranty</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h4>Information</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="~/about-us">About us</a></li>
+                            <li><a href="~/privacy">Privacy policy</a></li>
+                            <li><a href="~/terms-of-use">Conditions of Use </a></li>
+                            <li><a href="#">Contact us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>SimplCommerce</h4>
+                        <p>The first ecommerce system built on .NET Core.</p>
+                        <p>Simple to use and easy to customize</p>
+                        <p>Cross platform and Open source</p>
+                    </div>
+                </div>
+                <hr />
+                <p class="pull-left">&copy; 2016 - SimplCommerce</p>
+                <p class="pull-right">Powered by <a href="http://www.SimplCommerce.com"><strong>SimplCommerce</strong></a></p>
+            </div>
+        </div>
+        <div id="shopModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
+        <environment names="Development">
+            <script src="~/lib/jquery/jquery.js"></script>
+            <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+        </environment>
+        <environment names="Staging,Production">
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
+                    asp-fallback-src="~/lib/jquery/jquery.min.js"
+                    asp-fallback-test="window.jQuery">
+            </script>
+            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+            </script>
+        </environment>
+
+        <script src="~/lib/matchheight/jquery.matchHeight.js"></script>
+        <script src="~/js/main.js"></script>
+        <script src="~/orders/add-to-cart.js"></script>
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

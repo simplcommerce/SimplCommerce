@@ -1,0 +1,64 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using SimplCommerce.Module.Core.ViewModels;
+
+namespace SimplCommerce.Module.Catalog.ViewModels
+{
+    public class ProductDetail
+    {
+        public long Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string ShortDescription { get; set; }
+
+        public decimal Price { get; set; }
+
+        public decimal? OldPrice { get; set; }
+
+        public string Description { get; set; }
+
+        public string Specification { get; set; }
+
+        public bool HasVariation => Variations.Any();
+
+        public IList<ProductDetailOption> AvailableOptions
+        {
+            get
+            {
+                var options = from opt in Variations.SelectMany(x => x.Options)
+                              group opt by new
+                              {
+                                  opt.OptionId,
+                                  opt.OptionName
+                              }
+                    into g
+                              select new ProductDetailOption
+                              {
+                                  OptionId = g.Key.OptionId,
+                                  OptionName = g.Key.OptionName,
+                                  Values = g.Select(x => x.Value).Distinct().ToList()
+                              };
+
+                return options.ToList();
+            }
+        }
+
+        public IList<MediaViewModel> Images { get; set; } = new List<MediaViewModel>();
+
+        public ProductDetailVariation FirstVariation
+        {
+            get
+            {
+                var firstOptionValues = AvailableOptions.Select(x => x.Values.First());
+                return Variations.First(x => x.Name == Name + " " + string.Join(" ", firstOptionValues));
+            }
+        }
+
+        public IList<ProductDetailVariation> Variations { get; set; } = new List<ProductDetailVariation>();
+
+        public IList<ProductDetailAttribute> Attributes { get; set; } = new List<ProductDetailAttribute>();
+
+        public IList<ProductDetailCategory> Categories { get; set; } = new List<ProductDetailCategory>();
+    }
+}

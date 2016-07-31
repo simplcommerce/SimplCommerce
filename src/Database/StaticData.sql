@@ -13,23 +13,23 @@ GO
 INSERT [dbo].[Core_UserRole] ([UserId], [RoleId]) VALUES (1, 1)
 GO
 
-SET IDENTITY_INSERT [dbo].[Cms_Widget] ON 
-INSERT [dbo].[Cms_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (1, N'CarouselWidget', N'widget-carousel-create', CAST(N'2016-06-19 00:00:00.0000000' AS DateTime2), N'widget-carousel-edit', 1, N'Carousel Widget', N'CarouselWidget')
-INSERT [dbo].[Cms_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (2, N'HtmlWidget', N'widget-html-create', CAST(N'2016-06-24 00:00:00.0000000' AS DateTime2), N'widget-html-edit', 1, N'Html Widget', N'HtmlWidget')
-INSERT [dbo].[Cms_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (3, N'ProductDisplayWidget', N'widget-product-display-create', CAST(N'2016-07-08 00:00:00.0000000' AS DateTime2), N'widget-product-display-edit', 1, N'Product Display Widget', N'ProductDisplayWidget')
-SET IDENTITY_INSERT [dbo].[Cms_Widget] OFF
+SET IDENTITY_INSERT [dbo].[Core_Widget] ON 
+INSERT [dbo].[Core_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (1, N'CarouselWidget', N'widget-carousel-create', CAST(N'2016-06-19 00:00:00.0000000' AS DateTime2), N'widget-carousel-edit', 1, N'Carousel Widget', N'CarouselWidget')
+INSERT [dbo].[Core_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (2, N'HtmlWidget', N'widget-html-create', CAST(N'2016-06-24 00:00:00.0000000' AS DateTime2), N'widget-html-edit', 1, N'Html Widget', N'HtmlWidget')
+INSERT [dbo].[Core_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (3, N'ProductWidget', N'widget-product-create', CAST(N'2016-07-08 00:00:00.0000000' AS DateTime2), N'widget-product-edit', 1, N'Product Widget', N'ProductWidget')
+SET IDENTITY_INSERT [dbo].[Core_Widget] OFF
 GO
 
-SET IDENTITY_INSERT [dbo].[Cms_WidgetZone] ON 
-INSERT [dbo].[Cms_WidgetZone] ([Id], [Description], [Name]) VALUES (1, NULL, N'Home Featured')
-INSERT [dbo].[Cms_WidgetZone] ([Id], [Description], [Name]) VALUES (2, NULL, N'Home Main Content')
-INSERT [dbo].[Cms_WidgetZone] ([Id], [Description], [Name]) VALUES (3, NULL, N'Home After Main Content')
-SET IDENTITY_INSERT [dbo].[Cms_WidgetZone] OFF
+SET IDENTITY_INSERT [dbo].[Core_WidgetZone] ON 
+INSERT [dbo].[Core_WidgetZone] ([Id], [Description], [Name]) VALUES (1, NULL, N'Home Featured')
+INSERT [dbo].[Core_WidgetZone] ([Id], [Description], [Name]) VALUES (2, NULL, N'Home Main Content')
+INSERT [dbo].[Core_WidgetZone] ([Id], [Description], [Name]) VALUES (3, NULL, N'Home After Main Content')
+SET IDENTITY_INSERT [dbo].[Core_WidgetZone] OFF
 
-SET IDENTITY_INSERT [dbo].[Core_ProductOption] ON 
-INSERT [dbo].[Core_ProductOption] ([Id], [Name]) VALUES (1, N'Color')
-INSERT [dbo].[Core_ProductOption] ([Id], [Name]) VALUES (2, N'Size')
-SET IDENTITY_INSERT [dbo].[Core_ProductOption] OFF
+SET IDENTITY_INSERT [dbo].[Catalog_ProductOption] ON 
+INSERT [dbo].[Catalog_ProductOption] ([Id], [Name]) VALUES (1, N'Color')
+INSERT [dbo].[Catalog_ProductOption] ([Id], [Name]) VALUES (2, N'Size')
+SET IDENTITY_INSERT [dbo].[Catalog_ProductOption] OFF
 GO
 
 DELETE FROM Core_District 
