@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MediatR;
+using SimplCommerce.Module.Core.Events;
 
 namespace SimplCommerce.Module.Core.Extensions
 {
@@ -13,17 +15,20 @@ namespace SimplCommerce.Module.Core.Extensions
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IWorkContext _workContext;
         private HttpContext _context;
+        private IMediator _mediator;
 
         public SimplSignInManager(UserManager<TUser> userManager,
             IHttpContextAccessor contextAccessor,
             IUserClaimsPrincipalFactory<TUser> claimsFactory,
             IOptions<IdentityOptions> optionsAccessor,
             ILogger<SignInManager<TUser>> logger,
-            IWorkContext workContext)
+            IWorkContext workContext,
+            IMediator mediator)
         : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger)
         {
             _contextAccessor = contextAccessor;
             _workContext = workContext;
+            _mediator = mediator;
         }
 
         internal HttpContext Context
@@ -45,7 +50,8 @@ namespace SimplCommerce.Module.Core.Extensions
 
         public override async Task SignInAsync(TUser user, bool isPersistent, string authenticationMethod = null)
         {
-            //TODO raise event
+            var userId = await UserManager.GetUserIdAsync(user);
+            _mediator.Publish(new UserSignedIn { UserId = long.Parse(userId) });
             await base.SignInAsync(user, isPersistent, authenticationMethod);
         }
     }

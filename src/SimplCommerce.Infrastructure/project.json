@@ -10,7 +10,8 @@
     "System.Reflection.TypeExtensions": "4.1.0",
     "Microsoft.AspNetCore.Mvc.Core": "1.0.0",
     "Microsoft.AspNetCore.Mvc": "1.0.0",
-    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0"
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
+    "MediatR": "2.1.0"
   },
 
   "frameworks": {
