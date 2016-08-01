@@ -141,7 +141,17 @@ namespace SimplCommerce.WebHost
                 });
             }
 
-            app.UseIdentity();
+            app.UseIdentity()
+                .UseGoogleAuthentication(new GoogleOptions
+                {
+                    ClientId = "583825788849-8g42lum4trd5g3319go0iqt6pn30gqlq.apps.googleusercontent.com",
+                    ClientSecret = "X8xIiuNEUjEYfiEfiNrWOfI4"
+                })
+                 .UseFacebookAuthentication(new FacebookOptions
+                 {
+                     AppId = "1716532045292977",
+                     AppSecret = "dfece01ae919b7b8af23f962a1f87f95"
+                 });
 
             app.UseMvc(routes =>
             {
