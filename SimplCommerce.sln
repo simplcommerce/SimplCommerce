@@ -23,6 +23,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{0A27C140-4CCB-40DD-BE48-F5DE16D1177B}"
 	ProjectSection(SolutionItems) = preProject
 		src\Database\StaticData.sql = src\Database\StaticData.sql
+		src\Database\StaticData_Postgres.sql = src\Database\StaticData_Postgres.sql
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Module.Orders", "src\Modules\SimplCommerce.Module.Orders\SimplCommerce.Module.Orders.xproj", "{B8ABFD73-AEAF-4689-BA2C-BC38B64F6FAE}"

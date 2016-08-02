@@ -14,7 +14,7 @@
         function upload(file) {
             var data = new FormData();
             data.append("file", file);
-            return $http.post('Common/UploadFile', data, {
+            return $http.post('api/common/upload', data, {
                 transformRequest: angular.identity,
                 headers: { 'Content-Type': undefined }
             });
