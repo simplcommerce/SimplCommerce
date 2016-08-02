@@ -69,6 +69,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 Specification = product.Specification,
                 OldPrice = product.OldPrice,
                 Price = product.Price,
+                IsFeatured = product.IsFeatured,
+                IsPublished = product.IsPublished,
                 CategoryIds = product.Categories.Select(x => x.CategoryId).ToList(),
                 ThumbnailImageUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage),
                 BrandId = product.BrandId
