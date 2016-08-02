@@ -48,10 +48,9 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 FilterOption = new FilterOption()
             };
 
-            var query = _productCategoryRepository
+            var query = _productRepository
                 .Query()
-                .Where(x => x.CategoryId == category.Id && x.Product.IsPublished && x.Product.IsVisibleIndividually)
-                .Select(x => x.Product);
+                .Where(x => x.Categories.Any(c => c.CategoryId == category.Id) && x.IsPublished && x.IsVisibleIndividually);
 
             model.FilterOption.Price.MaxPrice = query.Max(x => x.Price);
             model.FilterOption.Price.MinPrice = query.Min(x => x.Price);
@@ -79,8 +78,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
             query = query
                 .Include(x => x.Brand)
-                .Include(x => x.ThumbnailImage)
-                .Include(x => x.ProductLinks);
+                .Include(x => x.ThumbnailImage);
 
             query = AppySort(searchOption, query);
 
@@ -92,7 +90,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     SeoTitle = x.SeoTitle,
                     Price = x.Price,
                     OldPrice = x.OldPrice,
-                    ThumbnailImage = x.ThumbnailImage
+                    ThumbnailImage = x.ThumbnailImage,
+                    NumberVariation = x.ProductLinks.Count
                 }).ToList();
 
             foreach (var product in products)
