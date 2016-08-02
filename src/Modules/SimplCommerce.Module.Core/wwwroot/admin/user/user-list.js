@@ -5,9 +5,10 @@
         .controller('UserListCtrl', UserListCtrl);
 
     /* @ngInject */
-    function UserListCtrl(userService) {
+    function UserListCtrl(userService, translateService) {
         var vm = this;
         vm.users = [];
+        vm.translate = translateService;
 
         vm.getUsers = function getUsers(tableState) {
             vm.isLoading = true;

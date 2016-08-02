@@ -25,6 +25,10 @@ using Microsoft.Extensions.FileProviders;
 using SimplCommerce.Module.Core.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Localization;
+using SimplCommerce.Module.Localization;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace SimplCommerce.WebHost
 {
@@ -69,6 +73,7 @@ namespace SimplCommerce.WebHost
                 .AddEntityFrameworkStores<SimplDbContext, long>()
                 .AddDefaultTokenProviders();
 
+            services.AddSingleton<IStringLocalizerFactory, EFStringLocalizerFactory>();
             services.AddScoped<SignInManager<User>, SimplSignInManager<User>>();
 
             services.Configure<RazorViewEngineOptions>(options =>
@@ -84,7 +89,7 @@ namespace SimplCommerce.WebHost
                         o.AdditionalCompilationReferences.Add(MetadataReference.CreateFromFile(module.Assembly.Location));
                     }
                 })
-                .AddViewLocalization(options => options.ResourcesPath = "Resources")
+                .AddViewLocalization()
                 .AddDataAnnotationsLocalization(); ;
 
             var moduleInitializerInterface = typeof(IModuleInitializer);
@@ -140,6 +145,18 @@ namespace SimplCommerce.WebHost
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            var supportedCultures = new[]
+            {
+                new CultureInfo("en-US"),
+                new CultureInfo("vi-VN")
+            };
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(culture: "vi-VN", uiCulture: "vi-VN"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
 
             app.UseStaticFiles();
 

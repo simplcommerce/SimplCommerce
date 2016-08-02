@@ -1,7 +1,7 @@
 ﻿<div class="page-header">
     <div class="row">
         <div class="col-md-8">
-            <h2>User List</h2>
+            <h2>{{ ::vm.translate.get('User List')}}</h2>
         </div>
         <div class="col-md-4 text-right">
         </div>
@@ -11,9 +11,9 @@
 <table class="table" st-pipe="vm.getUsers" st-table="vm.users">
     <thead>
         <tr>
-            <th st-sort="Email" class="sortable">Email</th>
-            <th st-sort="FullName" class="sortable">FullName</th>
-            <th st-sort="CreatedOn" class="sortable">CreatedOn</th>
+            <th st-sort="Email" class="sortable">{{ ::vm.translate.get('Email')}}</th>
+            <th st-sort="FullName" class="sortable">{{ ::vm.translate.get('FullName')}}</th>
+            <th st-sort="CreatedOn" class="sortable">{{ ::vm.translate.get('CreatedOn')}}</th>
             <th>Actions</th>
         </tr>
         <tr>

@@ -25,6 +25,7 @@
         <div class="top-bar">
             <div class="container">
                 <ul class="list-inline list-unstyled pull-right">
+                    @await Html.PartialAsync("_SelectLanguagePartial")
                     @await Html.PartialAsync("_LoginPartial")
                 </ul>
             </div>

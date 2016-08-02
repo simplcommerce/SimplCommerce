@@ -32,13 +32,6 @@ INSERT [dbo].[Catalog_ProductOption] ([Id], [Name]) VALUES (2, N'Size')
 SET IDENTITY_INSERT [dbo].[Catalog_ProductOption] OFF
 GO
 
-DELETE FROM Core_District 
-GO
-DELETE FROM Core_StateOrProvince 
-GO
-DELETE FROM Core_Country 
-GO
-
 SET IDENTITY_INSERT Core_Country ON 
 INSERT INTO Core_Country (Id, Name) VALUES (1, N'Việt Nam')
 SET IDENTITY_INSERT Core_Country OFF 
@@ -811,6 +804,21 @@ INSERT INTO Core_District (Id, Name, [Type], [Location], StateOrProvinceId) VALU
 (971, N'Năm Căn', N'Huyện', N'8 46 59N, 104 58 20E', N'96'),
 (972, N'Phú Tân', N'Huyện', N'8 52 47N, 104 53 35E', N'96'),
 (973, N'Ngọc Hiển', N'Huyện', N'8 40 47N, 104 57 58E', N'96');
-
 SET IDENTITY_INSERT Core_District OFF 
+GO
+
+SET IDENTITY_INSERT [dbo].[Localization_Culture] ON 
+INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (1, N'vi-VN')
+SET IDENTITY_INSERT [dbo].[Localization_Culture] OFF
+GO
+
+SET IDENTITY_INSERT [dbo].[Localization_Resource] ON 
+INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (1, 1, N'Register', N'Đăng ký')
+INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (2, 1, N'Hello {0}!', N'Chào {0}!')
+INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (3, 1, N'Log in', N'Đăng nhập')
+INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (4, 1, N'Log off', N'Đăng xuất')
+INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (5, 1, N'The Email field is required.', N'Địa chỉ Email cần phải có ')
+INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (6, 1, N'Email', N'Địa chỉ email')
+INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (7, 1, N'User List', N'Danh sách người dùng')
+SET IDENTITY_INSERT [dbo].[Localization_Resource] OFF
 GO

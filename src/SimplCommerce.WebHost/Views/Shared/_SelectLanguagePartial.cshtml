@@ -1,0 +1,46 @@
+﻿@using System.Threading.Tasks
+@using Microsoft.AspNetCore.Http.Features
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+
+    var availableCultures = new List<SelectListItem>
+    {
+        new SelectListItem
+        {
+            Value = "en-US",
+            Text = "English"
+        },
+        new SelectListItem
+        {
+            Value = "vi-VN",
+            Text = "Vietnamese"
+        }
+    };
+}
+<li class="dropdown">
+    <a href="#" class="ropdown-toggle" data-toggle="dropdown">
+        Language (@requestCulture.RequestCulture.UICulture.Name)
+        <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu lang-selector">
+        @foreach (var lang in availableCultures)
+        {
+            if (lang.Value == requestCulture.RequestCulture.UICulture.Name)
+            {
+                <li><a href="#" data-value="@lang.Value">@lang.Text <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></li>
+            }
+            else
+            {
+                <li><a href="#" data-value="@lang.Value">@lang.Text</a></li>
+            }
+        }
+    </ul>
+    <form asp-controller="Localization" asp-action="SetLanguage" asp-route-returnUrl="@Context.Request.Path"
+                method="post" id="lang-form" role="form">
+        <input type="hidden" name="culture" value="@requestCulture.RequestCulture.UICulture.Name" />
+    </form>
+</li>
