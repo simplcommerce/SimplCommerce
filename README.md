@@ -1,10 +1,10 @@
-# A super simple - modularized ecommerce system built on .NET Core
+# A super simple, modularized ecommerce system built on .NET Core
 
 ## Prerequisite:
 - Visual Studio 2015 Update 3
 - Install .NET Core SDK for Visual Studio (https://www.microsoft.com/net/core#windows)
 - StyleCop 4.7
-- SQL Server or Postgree
+- SQL Server or PostgreSQL
 
 ## Technologies and frameworks used:
 - ASP.NET MVC Core 1.0 on .NET Core 1.0
@@ -16,7 +16,7 @@
 
 ## How to run on local (Windows)
 - Create a database in SQL Server
-- Update the connection string in appsettings.json in SimplCommerce.Web
+- Update the connection string in appsettings.json in SimplCommerce.WebHost
 - Open Package Manager Console Window and type "Update-Database" then press Enter. This action will create database schema
 - Run src/Database/StaticData.sql to create seeding data
 - Press Controll + F5
@@ -26,15 +26,15 @@
  - Install the Install .NET Core SDK as instruction here https://www.microsoft.com/net/core#ubuntu
  - Install Postgresql https://www.postgresql.org/download/linux/ubuntu/
  - Create an empty database
- - Clone the source code if you haven't and cd to the folder src/SimplCommerce.Web
+ - Clone the source code if you haven't and cd to the folder src/SimplCommerce.WebHost
  - Open file project.json and add package "Npgsql.EntityFrameworkCore.PostgreSQL": "1.0.0"
  - Open appsettings.json and change the connection string to postgre database that you just created. For example
    ``` "DefaultConnection": "User ID=thien;Password=12345;Host=localhost;Port=5432;Database=SimplCommerce;Pooling=true;" ```
  - Open the file Startup.cs replay the SqlServer provider by Postgre
  ```
-   services.AddDbContext<HvDbContext>(options =>
+   services.AddDbContext<SimplDbContext>(options =>
         options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"),
-        b => b.MigrationsAssembly("SimplCommerce.Web")));
+        b => b.MigrationsAssembly("SimplCommerce.WebHost")));
  ```
  - Run ```dotnet restore``` 
  - Re-add migration for postgre by deleting all file in SimplCommerce.Web/Migrations and run ```donet ef migrations add initialSchema```
@@ -43,9 +43,7 @@
  - Run ```dotnet run```
  - The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
-## Online demo
-Hosted in an Azure virtual machine A0 (shared core, 768 MB memory)
-Ubuntu 14.04 + Postgresql
+## Online demo (Azure Website)
 http://demo.simplcommerce.com
 
 ## Roadmap
