@@ -7,7 +7,7 @@ namespace SimplCommerce.Module.Orders.Models
 {
     public class CartItem : Entity
     {
-        public DateTime CreatedOn { get; set; }
+        public DateTimeOffset CreatedOn { get; set; }
 
         public long UserId { get; set; }
 

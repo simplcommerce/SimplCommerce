@@ -48,7 +48,7 @@
       "Libuv/1.9.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.0.1-rc3-24210-10"
+          "Microsoft.NETCore.Platforms": "1.0.1"
         },
         "runtimeTargets": {
           "runtimes/debian-x64/native/libuv.so": {
@@ -4489,7 +4489,7 @@
       ]
     },
     "Libuv/1.9.0": {
-      "sha512": "l+PamTHYi1RTrIvCwjqinfmmU2fq0Lc+1wnw0ut2sk4hJ5izzd+2egbMDjspUJ4i+UW9753IChlSF9rR/GklRQ==",
+      "sha512": "9Q7AaqtQhS8JDSIvRBt6ODSLWDBI4c8YxNxyCQemWebBFUtBbc6M5Vi5Gz1ZyIUlTW3rZK9bIr5gnVyv0z7a2Q==",
       "type": "package",
       "path": "Libuv/1.9.0",
       "files": [
@@ -5168,7 +5168,7 @@
       ]
     },
     "Microsoft.CodeAnalysis.Common/1.3.0": {
-      "sha512": "zYo3yXN5I/IeRpWg2gXli5D4R49PlkzDuJd00J9sY5FpfRrgj2gJwdTjdihbUg+fJKt0TTXwiIU7U+61PbdN6A==",
+      "sha512": "V09G35cs0CT1C4Dr1IEOh8IGfnWALEVAOO5JXsqagxXwmYR012TlorQ+vx2eXxfZRKs3gAS/r92gN9kRBLba5A==",
       "type": "package",
       "path": "Microsoft.CodeAnalysis.Common/1.3.0",
       "files": [
@@ -5184,7 +5184,7 @@
       ]
     },
     "Microsoft.CodeAnalysis.CSharp/1.3.0": {
-      "sha512": "pWFU4tQagKiLtC0xIcadBsuiok9JBoiJ/x0UUMOEEBgKM6/f0RCVv1PowuZgPNGeA40h+BqPq7BL2IV39FgtPw==",
+      "sha512": "BgWDIAbSFsHuGeLSn/rljLi51nXqkSo4DZ0qEIrHyPVasrhxEVq7aV8KKZ3HEfSFB+GIhBmOogE+mlOLYg19eg==",
       "type": "package",
       "path": "Microsoft.CodeAnalysis.CSharp/1.3.0",
       "files": [
@@ -5216,7 +5216,7 @@
       ]
     },
     "Microsoft.CodeAnalysis.VisualBasic/1.3.0": {
-      "sha512": "M2pBLXaPZF/9anC6FPqIguf9SOY/TBjFLcb63lcnwDRWxhh9v2k9+qu+TptOA/7ThFaOTObmXWpMU+hs/7PJ4w==",
+      "sha512": "Sf3k8PkTkWqBmXnnblJbvb7ewO6mJzX6WO2t7m04BmOY5qBq6yhhyXnn/BMM+QCec3Arw3X35Zd8f9eBql0qgg==",
       "type": "package",
       "path": "Microsoft.CodeAnalysis.VisualBasic/1.3.0",
       "files": [
@@ -5819,7 +5819,7 @@
       ]
     },
     "Microsoft.NETCore.App/1.0.0": {
-      "sha512": "J6bGAM8eYJBiUVWFs10vemZL23m0Cx8PY14d0tSC/LIOSphsUZXfUMtvbyskucJuVY0lYVUXZNqsCwf+kAVj2g==",
+      "sha512": "Bv40dLDrT+Igcg1e6otW3D8voeJCfcAxOlsxSVlDz+J+cdWls5kblZvPHHvx7gX3/oJoQVIkEeO3sMyv5PSVJA==",
       "type": "package",
       "path": "Microsoft.NETCore.App/1.0.0",
       "files": [
@@ -5831,7 +5831,7 @@
       ]
     },
     "Microsoft.NETCore.DotNetHost/1.0.1": {
-      "sha512": "LbkbC34hzsjoDiSPCcuItVCdavIqtaJhYrpKPawD/WjFIigTNYdZzeKKw4Zzt8bVSBUvyn+fEAwaywRva7MujQ==",
+      "sha512": "uaMgykq6AckP3hZW4dsD6zjocxyXPz0tcTl8OX7mlSUWsyFXdtf45sjdwI0JIHxt3gnI6GihAlOAwYK8HE4niQ==",
       "type": "package",
       "path": "Microsoft.NETCore.DotNetHost/1.0.1",
       "files": [
@@ -5843,7 +5843,7 @@
       ]
     },
     "Microsoft.NETCore.DotNetHostPolicy/1.0.1": {
-      "sha512": "M+wFPJGyAL5gLI1Kz3IkPaIpQdDAOCRNrL5l3pociUDPvQXUgKIH+XbBaPLvbeHpV9L02VTW5YRtNZe3COgDAw==",
+      "sha512": "d8AQ+ZVj2iK9sbgl3IEsshCSaumhM1PNTPHxldZAQLOoI1BKF8QZ1zPCNqwBGisPiWOE3f/1SHDbQi1BTRBxuA==",
       "type": "package",
       "path": "Microsoft.NETCore.DotNetHostPolicy/1.0.1",
       "files": [
@@ -5855,7 +5855,7 @@
       ]
     },
     "Microsoft.NETCore.DotNetHostResolver/1.0.1": {
-      "sha512": "wgABWAvek4rR2MQnZzW6N+cf09txNnJgPZE729KsE5bPKzGuhcaMPctyl9dpHNHJ9VIXFTpCC8562wTNgOizjw==",
+      "sha512": "GEXgpAHB9E0OhfcmNJ664Xcd2bJkz2qkGIAFmCgEI5ANlQy4qEEmBVfUqA+Z9HB85ZwWxZc1eIJ6fxdxcjrctg==",
       "type": "package",
       "path": "Microsoft.NETCore.DotNetHostResolver/1.0.1",
       "files": [
@@ -7787,21 +7787,16 @@
       ]
     },
     "System.Interactive.Async/3.0.0": {
-      "sha512": "vlKjjdsCulUON1qM7kftjM63ORwZTRzVvvqHHKYOqi3hXHzW+ZTCJywBMZbp8T3tT8r5/d2qEfRCIhW8YSzU1A==",
+      "sha512": "UEM+WmG1Oq0bNbPx/E1jaIQ83QOrPfVDUyuYBtG6D6DpB77ytv9flPterMujumpHuoRjSc0ilSB8w41fQc05dw==",
       "type": "package",
       "path": "System.Interactive.Async/3.0.0",
       "files": [
         "System.Interactive.Async.3.0.0.nupkg.sha512",
         "System.Interactive.Async.nuspec",
         "lib/net45/System.Interactive.Async.dll",
-        "lib/net45/System.Interactive.Async.pdb",
         "lib/net45/System.Interactive.Async.xml",
         "lib/netstandard1.0/System.Interactive.Async.dll",
-        "lib/netstandard1.0/System.Interactive.Async.pdb",
-        "lib/netstandard1.0/System.Interactive.Async.xml",
-        "lib/portable-win8+net45+wp8+wpa81/System.Interactive.Async.dll",
-        "lib/portable-win8+net45+wp8+wpa81/System.Interactive.Async.pdb",
-        "lib/portable-win8+net45+wp8+wpa81/System.Interactive.Async.xml"
+        "lib/netstandard1.0/System.Interactive.Async.xml"
       ]
     },
     "System.IO/4.1.0": {

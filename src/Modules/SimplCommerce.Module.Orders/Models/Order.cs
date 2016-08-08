@@ -9,13 +9,13 @@ namespace SimplCommerce.Module.Orders.Models
     {
         public Order()
         {
-            CreatedOn = DateTime.Now;
+            CreatedOn = DateTimeOffset.Now;
             OrderStatus = OrderStatus.Pending;
         }
 
-        public DateTime CreatedOn { get; set; }
+        public DateTimeOffset CreatedOn { get; set; }
 
-        public DateTime? UpdatedOn { get; set; }
+        public DateTimeOffset? UpdatedOn { get; set; }
 
         public long CreatedById { get; set; }
 

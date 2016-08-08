@@ -9,8 +9,8 @@ namespace SimplCommerce.Module.Core.Models
 
         protected Content()
         {
-            CreatedOn = DateTime.Now;
-            UpdatedOn = DateTime.Now;
+            CreatedOn = DateTimeOffset.Now;
+            UpdatedOn = DateTimeOffset.Now;
         }
 
         public string Name { get; set; }
@@ -25,7 +25,7 @@ namespace SimplCommerce.Module.Core.Models
 
         public bool IsPublished { get; set; }
 
-        public DateTime? PublishedOn { get; set; }
+        public DateTimeOffset? PublishedOn { get; set; }
 
         public bool IsDeleted
         {
@@ -46,9 +46,9 @@ namespace SimplCommerce.Module.Core.Models
 
         public virtual User CreatedBy { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public DateTimeOffset CreatedOn { get; set; }
 
-        public DateTime UpdatedOn { get; set; }
+        public DateTimeOffset UpdatedOn { get; set; }
 
         public virtual User UpdatedBy { get; set; }
     }

@@ -9,8 +9,8 @@ namespace SimplCommerce.Module.Core.Models
     {
         public User()
         {
-            CreatedOn = DateTime.Now;
-            UpdatedOn = DateTime.Now;
+            CreatedOn = DateTimeOffset.Now;
+            UpdatedOn = DateTimeOffset.Now;
         }
 
         public Guid UserGuid { get; set; }
@@ -19,9 +19,9 @@ namespace SimplCommerce.Module.Core.Models
 
         public bool IsDeleted { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public DateTimeOffset CreatedOn { get; set; }
 
-        public DateTime UpdatedOn { get; set; }
+        public DateTimeOffset UpdatedOn { get; set; }
 
         public virtual IList<UserAddress> UserAddresses { get; set; } = new List<UserAddress>();
 

@@ -27,7 +27,7 @@ namespace SimplCommerce.Module.Orders.Services
 
             var order = new Order
             {
-                CreatedOn = DateTime.Now,
+                CreatedOn = DateTimeOffset.Now,
                 CreatedById = user.Id,
                 ShippingAddress = user.CurrentShippingAddress
             };

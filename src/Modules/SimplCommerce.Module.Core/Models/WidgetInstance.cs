@@ -7,15 +7,15 @@ namespace SimplCommerce.Module.Core.Models
     {
         public WidgetInstance()
         {
-            CreatedOn = DateTime.Now;
-            UpdatedOn = DateTime.Now;
+            CreatedOn = DateTimeOffset.Now;
+            UpdatedOn = DateTimeOffset.Now;
         }
 
         public string Name { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public DateTimeOffset CreatedOn { get; set; }
 
-        public DateTime UpdatedOn { get; set; }
+        public DateTimeOffset UpdatedOn { get; set; }
 
         public DateTimeOffset? PublishStart { get; set; }
 

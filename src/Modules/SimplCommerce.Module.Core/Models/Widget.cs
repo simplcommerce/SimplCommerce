@@ -15,7 +15,7 @@ namespace SimplCommerce.Module.Core.Models
 
         public string EditUrl { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public DateTimeOffset CreatedOn { get; set; }
 
         public bool IsPublished { get; set; }
     }

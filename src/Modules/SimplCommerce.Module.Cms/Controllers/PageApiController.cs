@@ -76,7 +76,7 @@ namespace SimplCommerce.Module.Cms.Controllers
                 page.SeoTitle = model.SeoTitle;
                 page.Body = model.Body;
                 page.IsPublished = model.IsPublished;
-                page.UpdatedOn = DateTime.Now;
+                page.UpdatedOn = DateTimeOffset.Now;
 
                 _pageService.Update(page);
 

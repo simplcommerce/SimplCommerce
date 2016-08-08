@@ -12,7 +12,7 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public bool IsVisibleIndividually { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public DateTimeOffset CreatedOn { get; set; }
 
         public bool IsPublished { get; set; }
     }

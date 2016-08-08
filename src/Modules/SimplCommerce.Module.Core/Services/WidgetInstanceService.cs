@@ -18,8 +18,8 @@ namespace SimplCommerce.Module.Core.Services
         public IQueryable<WidgetInstance> GetPublished()
         {
             return _widgetInstanceRepository.Query().Include(x => x.Widget).Where(x =>
-                x.PublishStart.HasValue && x.PublishStart.Value < DateTime.Now
-                && (!x.PublishEnd.HasValue || x.PublishEnd.Value > DateTime.Now));
+                x.PublishStart.HasValue && x.PublishStart.Value < DateTimeOffset.Now
+                && (!x.PublishEnd.HasValue || x.PublishEnd.Value > DateTimeOffset.Now));
         }
     }
 }

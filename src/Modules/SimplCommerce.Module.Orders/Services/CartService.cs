@@ -33,7 +33,7 @@ namespace SimplCommerce.Module.Orders.Services
                     UserId = userId,
                     ProductId = productId,
                     Quantity = quantity,
-                    CreatedOn = DateTime.Now
+                    CreatedOn = DateTimeOffset.Now
                 };
 
                 _cartItemRepository.Add(cartItem);

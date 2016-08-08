@@ -9,7 +9,7 @@ namespace SimplCommerce.Module.Orders.ViewModels
 
         public string CustomerName { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public DateTimeOffset CreatedOn { get; set; }
 
         public decimal SubTotal { get; set; }
 

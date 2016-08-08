@@ -15,6 +15,6 @@ namespace SimplCommerce.Module.Core.Models
 
         public AddressType AddressType { get; set; }
 
-        public DateTime? LastUsedOn { get; set; }
+        public DateTimeOffset? LastUsedOn { get; set; }
     }
 }
