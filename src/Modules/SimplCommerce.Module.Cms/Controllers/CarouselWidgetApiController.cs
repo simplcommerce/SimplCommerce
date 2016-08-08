@@ -38,6 +38,8 @@ namespace SimplCommerce.Module.Cms.Controllers
                 Id = widgetInstance.Id,
                 Name = widgetInstance.Name,
                 WidgetZoneId = widgetInstance.WidgetZoneId,
+                PublishStart = widgetInstance.PublishStart,
+                PublishEnd = widgetInstance.PublishEnd,
                 Items = JsonConvert.DeserializeObject<IList<CarouselWidgetItemForm>>(widgetInstance.Data)
             };
 
@@ -65,6 +67,8 @@ namespace SimplCommerce.Module.Cms.Controllers
                     Name = model.Name,
                     WidgetId = 1,
                     WidgetZoneId = model.WidgetZoneId,
+                    PublishStart = model.PublishStart,
+                    PublishEnd = model.PublishEnd,
                     Data = JsonConvert.SerializeObject(model.Items)
                 };
 
@@ -96,6 +100,8 @@ namespace SimplCommerce.Module.Cms.Controllers
             {
                 var widgetInstance = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
                 widgetInstance.Name = model.Name;
+                widgetInstance.PublishStart = model.PublishStart;
+                widgetInstance.PublishEnd = model.PublishEnd;
                 widgetInstance.WidgetZoneId = model.WidgetZoneId;
                 widgetInstance.Data = JsonConvert.SerializeObject(model.Items);
 
@@ -108,9 +114,21 @@ namespace SimplCommerce.Module.Cms.Controllers
 
         private CarouselWidgetForm ToCarouselWidgetFormModel(IFormCollection formCollection)
         {
+            DateTimeOffset publishStart;
+            DateTimeOffset publishEnd;
             var model = new CarouselWidgetForm();
             model.Name = formCollection["name"];
             model.WidgetZoneId = int.Parse(formCollection["widgetZoneId"]);
+            if(DateTimeOffset.TryParse(formCollection["publishStart"], out publishStart))
+            {
+                model.PublishStart = publishStart;
+            }
+
+            if(DateTimeOffset.TryParse(formCollection["publishEnd"], out publishEnd))
+            {
+                model.PublishEnd = publishEnd;
+            }
+
             int numberOfItems = int.Parse(formCollection["numberOfItems"]);
             for (var i = 0; i < numberOfItems; i++)
             {

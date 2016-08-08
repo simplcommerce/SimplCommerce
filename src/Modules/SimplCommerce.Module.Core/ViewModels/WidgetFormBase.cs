@@ -1,4 +1,6 @@
-﻿namespace SimplCommerce.Module.Core.ViewModels
+﻿using System;
+
+namespace SimplCommerce.Module.Core.ViewModels
 {
     public class WidgetFormBase
     {
@@ -7,5 +9,9 @@
         public string Name { get; set; }
 
         public long WidgetZoneId { get; set; }
+
+        public DateTimeOffset? PublishStart { get; set; }
+
+        public DateTimeOffset? PublishEnd { get; set; }
     }
 }

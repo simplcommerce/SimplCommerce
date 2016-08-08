@@ -31,6 +31,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 Id = widgetInstance.Id,
                 Name = widgetInstance.Name,
                 WidgetZoneId = widgetInstance.WidgetZoneId,
+                PublishStart = widgetInstance.PublishStart,
+                PublishEnd = widgetInstance.PublishEnd,
                 Setting = JsonConvert.DeserializeObject<ProductWidgetSetting>(widgetInstance.Data)
             };
 
@@ -49,6 +51,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     Name = model.Name,
                     WidgetId = 3,
                     WidgetZoneId = model.WidgetZoneId,
+                    PublishStart = model.PublishStart,
+                    PublishEnd = model.PublishEnd,
                     Data = JsonConvert.SerializeObject(model.Setting)
                 };
 
@@ -67,6 +71,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 var widgetInstance = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
                 widgetInstance.Name = model.Name;
                 widgetInstance.WidgetZoneId = model.WidgetZoneId;
+                widgetInstance.PublishStart = model.PublishStart;
+                widgetInstance.PublishEnd = model.PublishEnd;
                 widgetInstance.Data = JsonConvert.SerializeObject(model.Setting);
 
                 _widgetInstanceRepository.SaveChange();

@@ -7,6 +7,7 @@
         'smart-table',
         'ngFileUpload',
         'ui.bootstrap',
+        'ui.bootstrap.datetimepicker',
         'summernote',
         'simplAdmin.common',
         'simplAdmin.dashboard',

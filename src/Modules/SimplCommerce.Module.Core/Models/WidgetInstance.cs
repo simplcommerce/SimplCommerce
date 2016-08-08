@@ -17,9 +17,9 @@ namespace SimplCommerce.Module.Core.Models
 
         public DateTime UpdatedOn { get; set; }
 
-        public DateTime? PublishStart { get; set; }
+        public DateTimeOffset? PublishStart { get; set; }
 
-        public DateTime? PublishEnd { get; set; }
+        public DateTimeOffset? PublishEnd { get; set; }
 
         public long WidgetId { get; set; }
 
@@ -42,7 +42,7 @@ namespace SimplCommerce.Module.Core.Models
         {
             get
             {
-                return PublishStart.HasValue && PublishStart.Value < DateTime.Now && (!PublishEnd.HasValue || PublishEnd.Value > DateTime.Now);
+                return PublishStart.HasValue && PublishStart.Value < DateTimeOffset.Now && (!PublishEnd.HasValue || PublishEnd.Value > DateTimeOffset.Now);
             }
         }
     }

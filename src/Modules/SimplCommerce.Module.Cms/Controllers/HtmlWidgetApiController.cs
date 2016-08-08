@@ -29,7 +29,9 @@ namespace SimplCommerce.Module.Cms.Controllers
                 Id = widget.Id,
                 Name = widget.Name,
                 WidgetZoneId = widget.WidgetZoneId,
-                HtmlContent = widget.HtmlData
+                HtmlContent = widget.HtmlData,
+                PublishStart = widget.PublishStart,
+                PublishEnd = widget.PublishEnd
             };
 
             return Json(model);
@@ -45,7 +47,9 @@ namespace SimplCommerce.Module.Cms.Controllers
                     Name = model.Name,
                     WidgetId = 2,
                     WidgetZoneId = model.WidgetZoneId,
-                    HtmlData = model.HtmlContent
+                    HtmlData = model.HtmlContent,
+                    PublishStart = model.PublishStart,
+                    PublishEnd = model.PublishEnd
                 };
 
                 _widgetInstanceRepository.Add(widgetInstance);
@@ -64,6 +68,8 @@ namespace SimplCommerce.Module.Cms.Controllers
                 widgetInstance.Name = model.Name;
                 widgetInstance.WidgetZoneId = model.WidgetZoneId;
                 widgetInstance.HtmlData = model.HtmlContent;
+                widgetInstance.PublishStart = model.PublishStart;
+                widgetInstance.PublishEnd = model.PublishEnd;
 
                 _widgetInstanceRepository.SaveChange();
                 return Ok();

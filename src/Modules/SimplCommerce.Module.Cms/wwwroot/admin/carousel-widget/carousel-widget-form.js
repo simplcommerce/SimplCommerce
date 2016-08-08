@@ -7,10 +7,17 @@
     /* @ngInject */
     function CarouselWidgetFormCtrl($state, $stateParams, carouselWidgetService) {
         var vm = this;
-        vm.widgetInstance = {widgetZoneId : 1, items: [{}] };
+        vm.widgetInstance = { widgetZoneId: 1, items: [{}], publishStart: new Date() };
         vm.widgetZones = [];
         vm.widgetInstanceId = $stateParams.id;
         vm.isEditMode = vm.widgetInstanceId > 0;
+
+        vm.datePickerPublishStart = {};
+        vm.datePickerPublishEnd = {};
+
+        vm.openCalendar = function (e, picker) {
+            vm[picker].open = true;
+        };
 
         vm.addItem = function addItem() {
             vm.widgetInstance.items.push({});
@@ -60,6 +67,12 @@
             if (vm.isEditMode) {
                 carouselWidgetService.getCarouselWidget(vm.widgetInstanceId).then(function (result) {
                     vm.widgetInstance = result.data;
+                    if (vm.widgetInstance.publishStart) {
+                        vm.widgetInstance.publishStart = new Date(vm.widgetInstance.publishStart);
+                    }
+                    if (vm.widgetInstance.publishEnd) {
+                        vm.widgetInstance.publishEnd = new Date(vm.widgetInstance.publishEnd);
+                    }
                 });
             }
         }
