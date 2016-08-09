@@ -11,7 +11,11 @@ namespace SimplCommerce.Module.Orders.ViewModels
 
         public DateTimeOffset CreatedOn { get; set; }
 
+        public string OrderStatus { get; set; }
+
         public decimal SubTotal { get; set; }
+
+        public string SubTotalString { get { return SubTotal.ToString("C"); } }
 
         public ShippingAddressVm ShippingAddress { get; set; }
 
