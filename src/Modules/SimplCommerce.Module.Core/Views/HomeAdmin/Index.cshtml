@@ -1,5 +1,7 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Identity
 @using SimplCommerce.Module.Core.Models
+
 @inject UserManager<User> UserManager
 
 @{ 
@@ -48,6 +50,7 @@
     <script src="~/lib/angular-summernote/angular-summernote.js"></script>
     <script src="~/lib/toastr/toastr.js"></script>
     <script src="~/lib/bootbox/bootbox.js"></script>
+    <script src="~/lib/i18n/angular-locale_@(CultureInfo.CurrentCulture.Name.ToLower()).js"></script>
 
     <script src="~/admin/admin-app.js"></script>
     <script src="~/admin/common/common.js"></script>

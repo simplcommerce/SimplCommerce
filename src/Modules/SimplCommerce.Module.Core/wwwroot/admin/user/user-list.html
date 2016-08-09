@@ -27,7 +27,7 @@
         <tr ng-repeat="user in vm.users">
             <td>{{user.email}}</td>
             <td>{{user.fullName}}</td>
-            <td>{{user.createdOn}}</td>
+            <td>{{user.createdOn | date:'medium' }}</td>
             <td></td>
         </tr>
     </tbody>

@@ -37,7 +37,7 @@ namespace SimplCommerce.Module.Orders.Controllers
                 {
                     Id = order.Id,
                     CustomerName = order.CreatedBy.FullName,
-                    SubTotal = order.SubTotal.ToString("C"),
+                    SubTotal = order.SubTotal,
                     OrderStatus = order.OrderStatus.ToString(),
                     CreatedOn = order.CreatedOn
                 });

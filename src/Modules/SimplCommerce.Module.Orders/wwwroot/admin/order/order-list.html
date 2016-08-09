@@ -26,8 +26,8 @@
             <td>{{order.orderStatus}}</td>
             <td></td>
             <td>{{order.customerName}}</td>
-            <td>{{order.createdOn}}</td>
-            <td>{{order.subTotal}}</td>
+            <td>{{order.createdOn | date:'medium'}}</td>
+            <td>{{order.subTotal | currency }}</td>
             <td><a ui-sref="order-detail({id: order.id})" title="View" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-eye-open"></span></a></td>
         </tr>
     </tbody>

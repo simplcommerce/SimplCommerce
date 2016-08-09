@@ -34,7 +34,7 @@
             <td><span ng-if="product.hasOptions" class="glyphicon glyphicon-ok"></span></td>
             <td><span ng-if="product.isVisibleIndividually" class="glyphicon glyphicon-ok"></span></td>
             <td><span ng-if="product.isPublished" class="glyphicon glyphicon-ok"></span></td>
-            <td>{{product.createdOn}}</td>
+            <td>{{product.createdOn | date:'medium' }}</td>
             <td>
                 <button ng-if="product.isPublished" title="Un Publish" ng-click="vm.changeStatus(product)" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pause"></span></button>
                 <button ng-if="!product.isPublished" title="Publish" ng-click="vm.changeStatus(product)" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-play"></span></button>
