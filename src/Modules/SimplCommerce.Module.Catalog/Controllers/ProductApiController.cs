@@ -109,6 +109,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     Id = variation.Id,
                     Name = variation.Name,
                     Price = variation.Price,
+                    NormalizedName = variation.NormalizedName,
                     OptionCombinations = variation.OptionCombinations.Select(x => new ProductOptionCombinationVm
                     {
                         OptionId = x.OptionId,

@@ -59,3 +59,17 @@ table > tbody > tr > td.variation-form {
 #toast-container>div {
     opacity: 1;
 }
+
+.input-number {
+    position:relative;
+}
+.input-number label {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    cursor: pointer;
+    font-weight: normal;
+}
+.input-number input:focus + label {
+    display: none;
+}
