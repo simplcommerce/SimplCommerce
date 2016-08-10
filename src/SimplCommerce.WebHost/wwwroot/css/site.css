@@ -13,6 +13,10 @@ textarea {
     display: inline;
 }
 
+.top-bar .btn-link {
+    padding: 0;
+}
+
 .main-nav .navbar-header .navbar-brand {
     padding: 7px 15px;
 }
