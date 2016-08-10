@@ -1,4 +1,8 @@
-﻿.page-header .text-right {
+﻿.inline {
+    display: inline;
+}
+
+.page-header .text-right {
     margin-top: 22px;
 }
 

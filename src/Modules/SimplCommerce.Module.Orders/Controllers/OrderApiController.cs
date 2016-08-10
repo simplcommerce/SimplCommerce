@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Services;
@@ -65,7 +66,8 @@ namespace SimplCommerce.Module.Orders.Controllers
             {
                 Id = order.Id,
                 CreatedOn = order.CreatedOn,
-                OrderStatus = order.OrderStatus.ToString(),
+                OrderStatus = (int)order.OrderStatus,
+                OrderStatusString = order.OrderStatus.ToString(),
                 CustomerName = order.CreatedBy.FullName,
                 SubTotal = order.SubTotal,
                 ShippingAddress = new ShippingAddressVm
@@ -92,8 +94,8 @@ namespace SimplCommerce.Module.Orders.Controllers
             return Json(model);
         }
 
-        [HttpPost("change-status/{id}")]
-        public IActionResult ChangeStatus(long id, [FromBody] string status)
+        [HttpPost("change-order-status/{id}")]
+        public IActionResult ChangeStatus(long id, [FromBody] int statusId)
         {
             var order = _orderRepository.Query().FirstOrDefault(x => x.Id == id);
             if (order == null)
@@ -101,10 +103,23 @@ namespace SimplCommerce.Module.Orders.Controllers
                 return NotFound();
             }
 
-            order.OrderStatus = (OrderStatus)Enum.Parse(typeof(OrderStatus), status, true);
-            _orderRepository.SaveChange();
+            if (Enum.IsDefined(typeof(OrderStatus), statusId))
+            {
+                order.OrderStatus = (OrderStatus)statusId;
+                _orderRepository.SaveChange();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(new { Error = "unsupported order status" });
+            }
+        }
 
-            return Ok();
+        [HttpGet("order-status")]
+        public IActionResult GetOrderStatus()
+        {
+            var model = EnumHelper.ToDictionary(typeof(OrderStatus)).Select(x => new { Id = x.Key, Name = x.Value });
+            return Json(model);
         }
     }
 }

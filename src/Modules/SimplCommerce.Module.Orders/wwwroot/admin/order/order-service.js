@@ -8,7 +8,9 @@
     function orderService($http) {
         var service = {
             getOrders : getOrders,
-            getOrder : getOrder
+            getOrder: getOrder,
+            getOrderStatus: getOrderStatus,
+            changeOrderStatus: changeOrderStatus
         };
         return service;
 
@@ -18,6 +20,14 @@
 
         function getOrder(orderId) {
             return $http.get('api/orders/' + orderId);
+        }
+
+        function getOrderStatus() {
+            return $http.get('api/orders/order-status');
+        }
+
+        function changeOrderStatus(orderId, statusId) {
+            return $http.post('api/orders/change-order-status/' + orderId, statusId);
         }
     }
 })();

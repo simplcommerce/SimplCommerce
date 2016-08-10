@@ -6,7 +6,6 @@ namespace SimplCommerce.Module.Orders.ViewModels
 {
     public class AddressFormVm
     {
-
         [Required]
         public string ContactName { get; set; }
 

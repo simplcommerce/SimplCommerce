@@ -13,7 +13,6 @@
         <tr>
             <th st-sort="Id" class="sortable">OrderId</th>
             <th>Order Status</th>
-            <th>Shipping Status</th>
             <th>CustomerName</th>
             <th st-sort="CreatedOn" class="sortable">CreatedOn</th>
             <th st-sort="SubTotal" class="sortable">SubTotal</th>
@@ -24,7 +23,6 @@
         <tr ng-repeat="order in vm.orders">
             <td>{{order.id}}</td>
             <td>{{order.orderStatus}}</td>
-            <td></td>
             <td>{{order.customerName}}</td>
             <td>{{order.createdOn | date:'medium'}}</td>
             <td>{{order.subTotal | currency }}</td>

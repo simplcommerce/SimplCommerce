@@ -11,7 +11,9 @@ namespace SimplCommerce.Module.Orders.ViewModels
 
         public DateTimeOffset CreatedOn { get; set; }
 
-        public string OrderStatus { get; set; }
+        public string OrderStatusString { get; set; }
+
+        public int OrderStatus { get; set; }
 
         public decimal SubTotal { get; set; }
 

@@ -16,7 +16,6 @@ namespace SimplCommerce.Module.Localization
 
         public IStringLocalizer Create(Type resourceSource)
         {
-
             return new EFStringLocalizer(_resourceRepository);
         }
 

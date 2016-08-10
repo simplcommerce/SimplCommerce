@@ -14,7 +14,14 @@
             <dt>Sub Total</dt>
             <dd>{{vm.order.subTotalString}}</dd>
             <dt>Order Status</dt>
-            <dd>{{vm.order.orderStatus}} <a href="#">Change status</a></dd>
+            <dd>{{vm.order.orderStatusString}} <button class="btn btn-link" ng-click="vm.isStatusFormOpen = !vm.isStatusFormOpen">Change</button>
+                <form ng-show="vm.isStatusFormOpen" class="form-inline inline">
+                    <div class="form-group">
+                        <select class="form-control" ng-model="vm.order.orderStatus" ng-options="s.id as s.name for s in vm.orderStatus"></select>
+                    </div>
+                    <button type="button" ng-click="vm.changeOrderStatus()" class="btn btn-primary">Save</button>
+                </form>
+             </dd>
         </dl>
 
         <h3>Shipping Information</h3>
