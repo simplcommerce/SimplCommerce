@@ -109,6 +109,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     Id = variation.Id,
                     Name = variation.Name,
                     Price = variation.Price,
+                    OldPrice = variation.OldPrice,
                     NormalizedName = variation.NormalizedName,
                     OptionCombinations = variation.OptionCombinations.Select(x => new ProductOptionCombinationVm
                     {
@@ -317,6 +318,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 productLink.LinkedProduct.Name = variationVm.Name;
                 productLink.LinkedProduct.SeoTitle = StringHelper.ToUrlFriendly(variationVm.Name);
                 productLink.LinkedProduct.Price = variationVm.Price;
+                productLink.LinkedProduct.OldPrice = variationVm.OldPrice;
                 productLink.LinkedProduct.NormalizedName = variationVm.NormalizedName;
                 productLink.LinkedProduct.HasOptions = false;
                 productLink.LinkedProduct.IsVisibleIndividually = false;
@@ -432,6 +434,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     productLink.LinkedProduct.Name = productVariationVm.Name;
                     productLink.LinkedProduct.SeoTitle = StringHelper.ToUrlFriendly(productVariationVm.Name);
                     productLink.LinkedProduct.Price = productVariationVm.Price;
+                    productLink.LinkedProduct.OldPrice = productVariationVm.OldPrice;
                     productLink.LinkedProduct.NormalizedName = productVariationVm.NormalizedName;
                     productLink.LinkedProduct.HasOptions = false;
                     productLink.LinkedProduct.IsVisibleIndividually = false;
@@ -450,6 +453,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 else
                 {
                     productLink.LinkedProduct.Price = productVariationVm.Price;
+                    productLink.LinkedProduct.OldPrice = productVariationVm.OldPrice;
                     productLink.LinkedProduct.IsDeleted = false;
                 }
             }

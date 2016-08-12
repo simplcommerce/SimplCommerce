@@ -191,7 +191,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     Id = variation.Id,
                     Name = variation.Name,
                     NormalizedName = variation.NormalizedName,
-                    Price = variation.Price
+                    Price = variation.Price,
+                    OldPrice = variation.OldPrice
                 };
 
                 foreach (var combination in variation.OptionCombinations)

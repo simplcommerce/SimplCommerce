@@ -219,6 +219,9 @@
             // ng-upload will post null as text
             vm.product.brandId = vm.product.brandId === null ? '' : vm.product.brandId;
             vm.product.oldPrice = vm.product.oldPrice === null ? '' : vm.product.oldPrice;
+            vm.product.variations.forEach(function (item) {
+                item.oldPrice = item.oldPrice === null ? '' : item.oldPrice;
+            });
 
             if (vm.isEditMode) {
                 promise = productService.editProduct(vm.product, vm.thumbnailImage, vm.productImages);

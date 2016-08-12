@@ -32,6 +32,14 @@
     border: 2px dashed #E0E0E0;
 }
 
+.product-price .product-price-regular{
+    text-decoration: line-through;
+}
+
+.product-price .product-price-saving {
+    color: #b12704;
+}
+
 .product-price h3 {
     font-size: 30px;
     font-weight: 400;

@@ -4,23 +4,25 @@
         $('.sp-wrap').smoothproducts();
 
         $('.product-attrs li').on('click', function () {
-            var $variationPrice,
-                variationNames = [],
+            var $variationDiv,
+                selectedproductOptions = [],
+                variationName,
                 $form = $(this).closest("form"),
                 $attrOptions = $form.find('.product-attr-options');
 
             $(this).find('input').prop('checked', true);
 
             $attrOptions.each(function () {
-                variationNames.push($(this).find('input[type=radio]:checked').val());
+                selectedproductOptions.push($(this).find('input[type=radio]:checked').val());
             });
-
-            $variationPrice = $form.find('input[name=' + variationNames.join('-') + 'Price]');
-            if ($variationPrice.length > 0) {
-                $('.product-price h3').text($variationPrice.val());
+            variationName = selectedproductOptions.join('-');
+            $variationDiv = $form.find('div.'+ variationName);
+            if ($variationDiv.length > 0) {
+                $('.variation-price').hide();
+                $variationDiv.show();
+                $form.find('input[name=productId]').val($form.find('input[name=' + variationName + 'Id]').val());
                 $('.btn-add-cart').prop('disabled', false);
             } else {
-                $('.product-price h3').text("Not available");
                 $('.btn-add-cart').prop('disabled', true);
             }
         });

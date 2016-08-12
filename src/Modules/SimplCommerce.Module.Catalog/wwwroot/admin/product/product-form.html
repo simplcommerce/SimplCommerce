@@ -147,17 +147,24 @@
                         <div class="col-sm-10">
                             <table class="table table-striped">
                                 <tr>
-                                    <th class="col-sm-5">Option Combinations</th>
+                                    <th class="col-sm-4">Option Combinations</th>
                                     <th class="col-sm-2">Price</th>
-                                    <th class="col-sm-3">Picture</th>
+                                    <th class="col-sm-2">Old Price</th>
+                                    <th class="col-sm-2">Picture</th>
                                     <th class="col-sm-2">Actions</th>
                                 </tr>
                                 <tr ng-repeat="variation in vm.product.variations">
                                     <td>{{variation.name}}</td>
                                     <td>
                                         <div class="input-number">
-                                            <input id="{{variation.normalizedName}}" type="number" required class="form-control" ng-model="variation.price" />
-                                            <label for="{{variation.normalizedName}}" class="form-control">{{variation.price | number}}</label>
+                                            <input id="{{variation.normalizedName}}Price" type="number" required class="form-control" ng-model="variation.price" />
+                                            <label for="{{variation.normalizedName}}Price" class="form-control">{{variation.price | number}}</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-number">
+                                            <input id="{{variation.normalizedName}}OldPrice" type="number" class="form-control" ng-model="variation.oldPrice" />
+                                            <label for="{{variation.normalizedName}}OldPrice" class="form-control">{{variation.oldPrice | number}}</label>
                                         </div>
                                     </td>
                                     <td></td>
@@ -168,11 +175,11 @@
                                     </td>
                                 </tr>
                                 <tr ng-show="vm.product.options.length > 0">
-                                    <td class="variation-form" colspan="4">
+                                    <td class="variation-form" colspan="5">
                                         <ng-form name="addingVariationForm" isolate-form>
                                             <table class="table">
                                                 <tr>
-                                                    <td class="col-sm-5">
+                                                    <td class="col-sm-4">
                                                         <div class="form-group row">
                                                             <div ng-repeat="option in vm.product.options">
                                                                 <div class="col-md-4">
@@ -184,11 +191,17 @@
                                                     </td>
                                                     <td class="col-sm-2">
                                                         <div class="input-number">
-                                                            <input id="addingVariation" type="number" required class="form-control" ng-model="vm.addingVariation.price" />
-                                                            <label for="addingVariation" class="form-control">{{vm.addingVariation.price | number}}</label>
+                                                            <input id="addingVariationPrice" type="number" required class="form-control" ng-model="vm.addingVariation.price" />
+                                                            <label for="addingVariationPrice" class="form-control">{{vm.addingVariation.price | number}}</label>
                                                         </div>
                                                     </td>
-                                                    <td class="col-sm-3"></td>
+                                                    <td class="col-sm-2">
+                                                        <div class="input-number">
+                                                            <input id="addingVariationOldPrice" type="number" class="form-control" ng-model="vm.addingVariation.oldPrice" />
+                                                            <label for="addingVariationOldPrice" class="form-control">{{vm.addingVariation.oldPrice | number}}</label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="col-sm-2"></td>
                                                     <td class="col-sm-2"><button type="button" class="btn btn-primary" ng-disabled="addingVariationForm.$invalid" ng-click="vm.addVariation()"><span class="glyphicon glyphicon-plus"></span></button></td>
                                                 </tr>
                                             </table>

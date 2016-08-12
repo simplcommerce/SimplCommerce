@@ -1,20 +1,13 @@
-﻿$(function () {
+﻿/*global $ */
+$(function () {
     $('body').on('click', '.btn-add-cart', function () {
         var quantity,
-            variationNames = [],
             $form = $(this).closest("form"),
             productId = $(this).closest("form").find('input[name=productId]').val(),
-            $quantityInput = $form.find('.quantity-field'),
-            $attrOptions = $form.find('.product-attr-options');
+            $quantityInput = $form.find('.quantity-field');
 
         quantity = $quantityInput.length === 1 ? $quantityInput.val() : 1;
-        if ($attrOptions.length > 0) {
-            $attrOptions.each(function () {
-                variationNames.push($(this).find('input[type=radio]:checked').val());
-            });
-            productId = $form.find('input[name=' + variationNames.join('-') + 'Id]').val();
-        }
-        
+
         $.ajax({
             type: 'POST',
             url: '/cart/addtocart',
@@ -25,6 +18,7 @@
             $('#shopModal').modal('show');
             $('.cart-badge .badge').text($('#shopModal').find('.cart-item-count').text());
         }).fail(function () {
+            /*jshint multistr: true */
             $('#shopModal').find('.modal-content').html(' \
                 <div class="modal-header"> \
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> \

@@ -12,6 +12,8 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public decimal Price { get; set; }
 
+        public decimal? OldPrice { get; set; }
+
         public IList<ProductOptionCombinationVm> OptionCombinations { get; set; } =
             new List<ProductOptionCombinationVm>();
     }
