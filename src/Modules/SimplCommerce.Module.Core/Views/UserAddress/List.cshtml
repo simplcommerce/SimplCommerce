@@ -1,0 +1,24 @@
+﻿@model IEnumerable<SimplCommerce.Module.Core.ViewModels.UserAddressListItem>
+@{
+    ViewData["Title"] = "Address book";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        @Html.Partial("_AccountMenu")
+    </div>
+    <div class="col-md-9">
+        <h2>Address book</h2>
+        @foreach (var address in Model)
+        {
+            <div class="radio">
+                <label>
+                    <strong>@address.ContactName </strong><br />
+                    @address.AddressLine1 <br />
+                    @address.DistrictName, @address.StateOrProvinceName <br />
+                    Phone: @address.Phone
+                </label>
+            </div>
+        }
+    </div>
+</div>

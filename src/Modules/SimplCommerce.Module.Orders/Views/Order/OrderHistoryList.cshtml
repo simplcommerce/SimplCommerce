@@ -1,0 +1,44 @@
+﻿@model IEnumerable<SimplCommerce.Module.Orders.ViewModels.OrderHistoryListItem>
+
+@{
+    ViewData["Title"] = "Order History";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        @Html.Partial("_AccountMenu")
+    </div>
+    <div class="col-md-9">
+        <h2>@ViewData["Title"]</h2>
+        <table class="table table-striped order-history">
+            <tr>
+                <th>Date</th>
+                <th>Products</th>
+                <th>SubTotal</th>
+                <th>Status</th>
+            </tr>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.CreatedOn</td>
+                    <td>
+                        @foreach (var item in order.OrderItems)
+                        {
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <img src="@item.ThumbnailImage" />
+                                </div>
+                                <div class="col-md-9">
+                                     <p>@item.ProductName</p>
+                                     <p>Quantity @item.Quantity</p>
+                                </div>
+                            </div>
+                        }
+                    </td>
+                    <td>@order.SubTotal.ToString("c")</td>
+                    <td>@order.OrderStatus</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

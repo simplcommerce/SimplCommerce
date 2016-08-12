@@ -68,9 +68,12 @@
                                 <input type="hidden" name="@(variant.NormalizedName)Id" value="@variant.Id" />
                             </div>
                         }
+
+                        <input type="hidden" name="productId" value="@Model.FirstVariation.Id" />
                     }
                     else
                     {
+                        <input type="hidden" name="productId" value="@Model.Id" />
                         <h3>@Model.Price.ToString("C")</h3>
                         @if (Model.OldPrice.HasValue && Model.OldPrice.Value > Model.Price)
                         {
@@ -81,7 +84,6 @@
                     }
                 </div>
 
-                <input type="hidden" name="productId" value="@Model.Id" />
                 @if (Model.HasVariation)
                 {
                     <div class="product-attrs">

@@ -338,3 +338,7 @@ li.nav-item-group, li.nav-item-group a {
     color: #fff;
     background: #2cd5b6;
 }
+
+.order-history img {
+    width: 60px;
+}
