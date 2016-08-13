@@ -12,7 +12,64 @@
 - ASP.NET Identity Core 1.0
 - Autofac 4.0.0 RC3
 - Angular 1.5
+- MediatR for domain event
 
+## The architecture highlight
+![](https://github.com/simplcommerce/SimplCommerce/blob/master/simplcommerce.png)
+
+The application is divided into modules. Each module contains all the stuff for itself to run including Controllers, Services, Views and event static files. If a module is no longer need, you can simply just delete it by a single click.
+
+The SimplCommerce.WebHost is the ASP.NET Core project and act as the host. It will bootstrap the app and load all the modules it found in it's Modules folder. In the gulpfile.js, there is a "copy-modules" that is bound to 'AfterBuild' event of Visual Studio to copy /bin, /Views, /wwwroot in each module to the Modules folder in the WebHost.
+
+During the application startup, the host will scan for all the *.dll in the Modules folder and load it up using AssemblyLoadContext. These assemblies then be registered to MVC Core by ApplicationPart
+
+A ModuleViewLocationExpander is implemented to help the ViewEngine can find the right location for views in modules.
+
+Static files (wwwroot) in each module is served by configuring the static files middleware as follows
+
+```cs
+    // Serving static file for modules
+    foreach (var module in modules)
+    {
+        var wwwrootDir = new DirectoryInfo(Path.Combine(module.Path, "wwwroot"));
+        if (!wwwrootDir.Exists)
+        {
+            continue;
+        }
+
+        app.UseStaticFiles(new StaticFileOptions()
+        {
+            FileProvider = new PhysicalFileProvider(wwwrootDir.FullName),
+            RequestPath = new PathString("/" + module.ShortName)
+        });
+    }
+ ```
+#### For entity framework
+Every domain entities need to inherit from Entity, then on the "OnModelCreating" method, we find them and register them to DbContext
+```cs
+    private static void RegisterEntities(ModelBuilder modelBuilder, IEnumerable<Type> typeToRegisters)
+    {
+        var entityTypes = typeToRegisters.Where(x => x.GetTypeInfo().IsSubclassOf(typeof(Entity)) && !x.GetTypeInfo().IsAbstract);
+        foreach (var type in entityTypes)
+        {
+            modelBuilder.Entity(type);
+        }
+    }
+```
+By default domain entities is mapped by convention. In case you need to some special mapping for your model. You can create a class that implement the ICustomModelBuilder for example
+```cs
+    public class CatalogCustomModelBuilder : ICustomModelBuilder
+    {
+        public void Build(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProductLink>()
+                .HasOne(x => x.Product)
+                .WithMany(p => p.ProductLinks)
+                .HasForeignKey(x => x.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
+    }
+```
 
 ## How to run on local (Windows)
 - Create a database in SQL Server
