@@ -30,6 +30,41 @@
                 </ul>
             </div>
         </div>
+        <div class="main-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-md-4 logo">
+                        <a asp-controller="Home" asp-action="Index">
+                            <img alt="SimplCommerce" src="~/images/Logo_SimplCommerce.png" />
+                        </a>
+                    </div>
+                    <div class="col-xs-10 col-md-7 search-box">
+                        <form class="form-inline">
+                            <div class="form-group search-input">
+                                <input type="text" class="form-control" placeholder="Search here...">
+                            </div>
+                            <div class="form-group search-category hidden-xs">
+                                <select name="category" class="form-control" tabindex="-1" aria-hidden="true">
+                                    <option value="0">All Categories</option>
+                                    <option value="1">Dresses</option>
+                                    <option value="2">Tops</option>
+                                    <option value="3">Bottoms</option>
+                                    <option value="4">Jumpsuits / Playsuits</option>
+                                    <option value="5">Jackets / Coats</option>
+                                    <option value="6">Sweaters</option>
+                                    <option value="7">Gym Wear</option>
+                                    <option value="8">Others</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="search-btn"><span class="glyphicon glyphicon-search"></span></button>
+                        </form>
+                    </div>
+                    <div class="col-xs-2 col-md-1 cart-btn">
+                        @await Component.InvokeAsync("CartBadge")
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="navbar navbar-default main-nav">
             <div class="container">
                 <div class="navbar-header">
@@ -39,11 +74,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                        <img alt="SimplCommerce" src="~/images/Logo_SimplCommerce.png" />
-                    </a>
                 </div>
-                @await Component.InvokeAsync("CartBadge")
                 <div class="collapse navbar-collapse">
                     @await Component.InvokeAsync("CategoryMenu")
                 </div>

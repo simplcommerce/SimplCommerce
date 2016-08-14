@@ -13,22 +13,82 @@ textarea {
     display: inline;
 }
 
+.top-bar {
+    background-color:#212121;
+    color: #fff;
+}
+
+.top-bar a {
+    color: #fff;
+}
+
 .top-bar .btn-link {
     padding: 0;
 }
 
-.main-nav .navbar-header .navbar-brand {
-    padding: 7px 15px;
+.main-header {
+    padding: 15px 0;
+    background-color: #f9f9f9;
 }
 
-.navbar-brand img{
-    width: 260px;
+@media (max-width : 992px) {
+    .logo { text-align: center }
 }
 
-.main-menu {
-    display: table;
-    float: none;
-    margin: 0 auto;
+.main-header .form-inline .form-group {
+     margin: 0px -3px;
+}
+
+.main-header .search-box {
+    margin-top: 7px;
+}
+
+.main-header .search-input {
+    width: calc(100% - 215px);
+}
+
+.main-header .search-input input {
+    height: 35px;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+}
+
+.main-header .search-category select {
+    height: 35px;
+    border-radius: 0;
+    width: 180px;
+}
+
+.main-header .search-btn {
+    background-color: #2196f3;
+    border: 0;
+    border-radius: 0;
+    color: #fff;
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 0;
+}
+
+@media (max-width : 768px) {
+    .main-header .search-input { width: calc(100% - 35px) }
+    .main-header .search-btn { right: 15px }
+    .main-nav {
+        min-height: 40px;
+    }
+}
+
+.main-nav {
+    background-color: #f3f3f3;
+}
+
+@media (min-width : 768px) {
+    .main-menu {
+        display: table;
+        float: none;
+        margin: 0 auto;
+    }
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -50,7 +110,6 @@ li.nav-item-group, li.nav-item-group a {
 }
 
 .cart-badge i {
-    color: #18ba9b;
     font-size: 24px;
     min-width: 25px;
 }
@@ -62,25 +121,11 @@ li.nav-item-group, li.nav-item-group a {
     background: red;
 }
 
-@media (max-width: 991px) {
-    .main-nav .navbar-header {
-      margin-bottom: 7px;
-      margin-right: 50px;
-    }
-    .main-nav .navbar-header .navbar-brand {
-        padding: 6px 10px;
-    }
-
-    .navbar-nav {
-        float: left;
-        margin: 0;
-    }
-    .cart-badge {
-        position: absolute;
-        top: 8px;
-        right: 5px;
-        padding: 14px 10px 18px 0;
-    }
+.navbar-toggle {
+    float: left;
+    margin-right: 0;
+    margin-left: 15px;
+    padding: 5px 7px
 }
 
 .breadcrumb {
@@ -170,9 +215,11 @@ li.nav-item-group, li.nav-item-group a {
 
 .product-list .btn-add-cart-style {
     background: #18ba9b;
-    padding: 8px 43px;
+    padding: 8px 0px;
     font-size: 14px;
     color:#fff;
+    text-align: center;
+    width: calc(100% - 78px);
 }
 
 .product-list .btn-add-cart-style:hover{

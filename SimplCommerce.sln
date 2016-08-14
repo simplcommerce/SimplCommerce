@@ -34,6 +34,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Module.Sample
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Module.Localization", "src\Modules\SimplCommerce.Module.Localization\SimplCommerce.Module.Localization.xproj", "{168ECB44-DB3C-4DAB-9F8D-7BA5EB39D1CE}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Module.Search", "src\Modules\SimplCommerce.Module.Search\SimplCommerce.Module.Search.xproj", "{5EFB6861-B00E-40D5-A7AF-B3A6E914BC8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +74,10 @@ Global
 		{168ECB44-DB3C-4DAB-9F8D-7BA5EB39D1CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{168ECB44-DB3C-4DAB-9F8D-7BA5EB39D1CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{168ECB44-DB3C-4DAB-9F8D-7BA5EB39D1CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EFB6861-B00E-40D5-A7AF-B3A6E914BC8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EFB6861-B00E-40D5-A7AF-B3A6E914BC8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EFB6861-B00E-40D5-A7AF-B3A6E914BC8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EFB6861-B00E-40D5-A7AF-B3A6E914BC8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,5 +93,6 @@ Global
 		{B5344A80-C707-4DB4-A80C-064B3F24E091} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{DD1206C1-FC00-44EF-B8BF-0376DAEF4DD7} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{168ECB44-DB3C-4DAB-9F8D-7BA5EB39D1CE} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
+		{5EFB6861-B00E-40D5-A7AF-B3A6E914BC8E} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 	EndGlobalSection
 EndGlobal
