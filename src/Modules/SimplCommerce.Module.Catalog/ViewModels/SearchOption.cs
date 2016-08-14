@@ -10,6 +10,8 @@ namespace SimplCommerce.Module.Catalog.ViewModels
     {
         public string Brand { get; set; }
 
+        public string Category { get; set; }
+
         public int? Page { get; set; }
 
         public string Sort { get; set; }
@@ -21,6 +23,11 @@ namespace SimplCommerce.Module.Catalog.ViewModels
         public IList<string> GetBrands()
         {
             return string.IsNullOrWhiteSpace(Brand) ? new List<string>() : Brand.Split(new[] { "--" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        }
+
+        public IList<string> GetCategories()
+        {
+            return string.IsNullOrWhiteSpace(Category) ? new List<string>() : Category.Split(new[] { "--" }, StringSplitOptions.RemoveEmptyEntries).ToList();
         }
 
         public string ToJson()

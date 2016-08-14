@@ -40,7 +40,7 @@ DELETE FROM [dbo].[Core_WidgetInstance]
 GO
 
 SET IDENTITY_INSERT [dbo].[Catalog_Category] ON 
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (1, N'Phones', N'mobile-tablets', NULL, 0, 1, 0, NULL, NULL)
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (1, N'Phones', N'phones', NULL, 0, 1, 0, NULL, NULL)
 
 INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (2, N'Smart Phones', N'smart-phones', NULL, 0, 1, 0, 1, NULL)
 
@@ -52,7 +52,7 @@ INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [Displ
 
 INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (6, N'Cellular tablets', N'cellular-tablets', NULL, 0, 1, 0, 4, NULL)
 
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (7, N'Computers', N'desktops', NULL, 0, 1, 0, NULL, NULL)
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (7, N'Computers', N'computers', NULL, 0, 1, 0, NULL, NULL)
 
 INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (8, N'Gaming', N'gaming', NULL, 0, 1, 0, 7, NULL)
 
@@ -418,7 +418,7 @@ SET IDENTITY_INSERT [dbo].[Core_WidgetInstance] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[Core_UrlSlug] ON 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (1, N'mobile-tablets', 1, N'Category')
+INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (1, N'phones', 1, N'Category')
 
 INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (2, N'smart-phones', 2, N'Category')
 
@@ -430,7 +430,7 @@ INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (5, 
 
 INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (6, N'cellular-tablets', 6, N'Category')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (7, N'desktops', 7, N'Category')
+INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (7, N'computers', 7, N'Category')
 
 INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (8, N'gaming', 8, N'Category')
 
@@ -466,9 +466,13 @@ INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityName], [Slug]) VALUES (27,
 
 INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityName], [Slug]) VALUES (28, 9, N'Product', N'iphone-6s-16gb')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityName], [Slug]) VALUES (29, 3, N'Brand', N'dell')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityName], [Slug]) VALUES (29, 1, N'Brand', N'apple')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityName], [Slug]) VALUES (30, 14, N'Product', N'dell-xps-15-9550')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityName], [Slug]) VALUES (30, 2, N'Brand', N'samsung')
+
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityName], [Slug]) VALUES (31, 3, N'Brand', N'dell')
+
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityName], [Slug]) VALUES (32, 14, N'Product', N'dell-xps-15-9550')
 
 SET IDENTITY_INSERT [dbo].[Core_UrlSlug] OFF 
 GO

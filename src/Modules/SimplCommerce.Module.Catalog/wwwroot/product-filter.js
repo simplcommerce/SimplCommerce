@@ -67,6 +67,22 @@
             window.location = createUrl();
         });
 
+        $('#collapse-category input:checkbox').on('change', function () {
+            var index,
+                checkbox = $(this),
+                category = checkbox.val(),
+                categories = currentSearchOption.category ? currentSearchOption.category.split('--') : [];
+            if (checkbox.prop("checked") === true) {
+                categories.push(category);
+            } else {
+                index = categories.indexOf(category);
+                categories.splice(index, 1);
+            }
+            currentSearchOption.category = categories.join('--');
+
+            window.location = createUrl();
+        });
+
         $('#apply-price').on('click', function () {
             var min, max, prices;
             prices = document.getElementById('priceSlider').noUiSlider.get();

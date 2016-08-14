@@ -45,18 +45,23 @@ namespace SimplCommerce.Module.Core.Extensions
             switch (urlSlug.EntityName)
             {
                 case "Category":
-                    newRouteData.Values["controller"] = "Product";
-                    newRouteData.Values["action"] = "ProductsByCategory";
-                    newRouteData.Values["catSeoTitle"] = urlSlug.Slug;
+                    newRouteData.Values["controller"] = "Category";
+                    newRouteData.Values["action"] = "CategoryDetail";
+                    newRouteData.Values["id"] = urlSlug.EntityId;
                     break;
                 case "Product":
                     newRouteData.Values["controller"] = "Product";
                     newRouteData.Values["action"] = "ProductDetail";
-                    newRouteData.Values["seoTitle"] = urlSlug.Slug;
+                    newRouteData.Values["id"] = urlSlug.EntityId;
                     break;
                 case "Page":
                     newRouteData.Values["controller"] = "Page";
                     newRouteData.Values["action"] = "PageDetail";
+                    newRouteData.Values["id"] = urlSlug.EntityId;
+                    break;
+                case "Brand":
+                    newRouteData.Values["controller"] = "Brand";
+                    newRouteData.Values["action"] = "BrandDetail";
                     newRouteData.Values["id"] = urlSlug.EntityId;
                     break;
             }

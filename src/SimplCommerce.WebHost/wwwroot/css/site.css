@@ -15,15 +15,16 @@ textarea {
 
 .top-bar {
     background-color:#212121;
-    color: #fff;
+    color: #e7e7e7;
 }
 
-.top-bar a {
-    color: #fff;
+.top-bar a, .top-bar a:visited {
+    color: #e7e7e7;
 }
 
 .top-bar .btn-link {
     padding: 0;
+    color: #e7e7e7;
 }
 
 .main-header {
@@ -226,7 +227,7 @@ li.nav-item-group, li.nav-item-group a {
     background: #2cd5b6;
 }
 
-#accordion-brand ul{
+#accordion-brand ul, #accordion-category ul{
     padding-left: 30px;
 }
 
