@@ -14,6 +14,7 @@ var modules = [
     'SimplCommerce.Module.Catalog',
     'SimplCommerce.Module.Orders',
     'SimplCommerce.Module.Cms',
+    'SimplCommerce.Module.Search',
     'SimplCommerce.Module.SampleData',
     'SimplCommerce.Module.Localization'
 ];

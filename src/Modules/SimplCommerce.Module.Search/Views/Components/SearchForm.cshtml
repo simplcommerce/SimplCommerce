@@ -1,0 +1,13 @@
+﻿@model SimplCommerce.Module.Search.ViewModels.SearchForm
+
+<form class="form-inline" method="get" action="~/search">
+    <div class="form-group search-input">
+        <input type="text" name="query" asp-for="Query" class="form-control" placeholder="Search here...">
+    </div>
+    <div class="form-group search-category hidden-xs">
+        <select name="category" asp-for="Category" asp-items="Model.AvailableCategories">
+            <option value="all">All Categories</option>
+        </select>
+    </div>
+    <button type="submit" class="search-btn"><span class="glyphicon glyphicon-search"></span></button>
+</form>
