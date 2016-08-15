@@ -103,16 +103,15 @@ li.nav-item-group, li.nav-item-group a {
 
 .cart-badge {
     position: relative;
-    top: 8px;
-    right: 5px;
+    top: 2px;
+    right: 0px;
     margin-left: 20px;
     padding-top: 8px;
     padding-right: 18px;
 }
 
 .cart-badge i {
-    font-size: 24px;
-    min-width: 25px;
+    font-size: 34px;
 }
 
 .cart-badge span.badge {
