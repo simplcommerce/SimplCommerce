@@ -19,7 +19,7 @@
                     <div class="panel-heading">
                         <h2 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion-category" href="#collapse-category">
-                                Brands
+                                Category
                                 <i class="fa fa-angle-down"></i>
                             </a>
                         </h2>
@@ -34,6 +34,34 @@
                                             <input type="checkbox" value="@category.SeoTitle" name="category" checked="@Model.CurrentSearchOption.GetCategories().Contains(category.SeoTitle)">
                                             @category.Name
                                             <small>(@category.Count)</small>
+                                        </label>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-group" id="accordion-brand">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion-brand" href="#collapse-brand">
+                                Brands
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                        </h2>
+                    </div>
+                    <div id="collapse-brand" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <ul class="list-unstyled checkbox-list">
+                                @foreach (var brand in Model.FilterOption.Brands)
+                                {
+                                    <li>
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="@brand.SeoTitle" name="brand" checked="@Model.CurrentSearchOption.GetBrands().Contains(brand.SeoTitle)">
+                                            @brand.Name
+                                            <small>(@brand.Count)</small>
                                         </label>
                                     </li>
                                 }
@@ -75,11 +103,11 @@
     </div>
     <div class="col-md-9">
         <div class="row">
-            <div class="col-sm-6 category-result">
-                <h2>Development is in progress ......</h2>
+            <div class="col-md-7 category-result">
+                <h2>Search result for @Model.CurrentSearchOption.Query</h2>
                 <small class="badge-results">@Model.TotalProduct Results</small>
             </div>
-            <div class="col-sm-6">
+            <div class="col-md-5">
                 <ul class="list-inline clear-both product-list-display-options">
                     <li class="show-option">
                         <a href="#"><i class="fa fa-th-list"></i></a>
@@ -111,7 +139,7 @@
             @foreach (var product in Model.Products)
             {
                 <div class="col-xs-6 col-md-4">
-                    @await Html.PartialAsync("_ProductThumbnail", product)
+                    @await Html.PartialAsync("~/Modules/SimplCommerce.Module.Catalog/Views/Shared/_ProductThumbnail.cshtml", product)
                 </div>
             }
         </div>
