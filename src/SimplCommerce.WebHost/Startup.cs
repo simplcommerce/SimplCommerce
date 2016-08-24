@@ -1,41 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
+using System.Runtime.Loader;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using SimplCommerce.Infrastructure;
-using Microsoft.Extensions.Configuration;
-using System.IO;
-using System.Reflection;
-using System.Runtime.Loader;
-using SimplCommerce.Module.Core.Data;
-using SimplCommerce.Module.Core.Models;
-using Microsoft.AspNetCore.Mvc.Razor;
-using SimplCommerce.Infrastructure.Web;
-using Microsoft.CodeAnalysis;
-using Autofac;
 using SimplCommerce.Infrastructure.Data;
-using Autofac.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
+using SimplCommerce.Infrastructure.Web;
+using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
-using MediatR;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Localization;
+using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Localization;
-using System.Globalization;
-using Microsoft.AspNetCore.Localization;
 
 namespace SimplCommerce.WebHost
 {
     public class Startup
     {
         private readonly IHostingEnvironment _hostingEnvironment;
-        private readonly IList<ModuleInfo> modules = new List<ModuleInfo>();
+        private readonly IList<ModuleInfo> _modules = new List<ModuleInfo>();
 
         public Startup(IHostingEnvironment env)
         {
@@ -43,8 +42,8 @@ namespace SimplCommerce.WebHost
 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+                .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
 
             if (env.IsDevelopment())
             {
@@ -66,48 +65,41 @@ namespace SimplCommerce.WebHost
             services.AddDbContext<SimplDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("SimplCommerce.WebHost")));
 
-            services.AddIdentity<User, Role>(configure =>
-            {
-                configure.Cookies.ApplicationCookie.LoginPath = "/login";
-            })
+            services.AddIdentity<User, Role>(configure => { configure.Cookies.ApplicationCookie.LoginPath = "/login"; })
                 .AddEntityFrameworkStores<SimplDbContext, long>()
                 .AddDefaultTokenProviders();
 
             services.AddSingleton<IStringLocalizerFactory, EFStringLocalizerFactory>();
             services.AddScoped<SignInManager<User>, SimplSignInManager<User>>();
 
-            services.Configure<RazorViewEngineOptions>(options =>
-            {
-                options.ViewLocationExpanders.Add(new ModuleViewLocationExpander());
-            });
+            services.Configure<RazorViewEngineOptions>(
+                options => { options.ViewLocationExpanders.Add(new ModuleViewLocationExpander()); });
 
             var mvcBuilder = services.AddMvc()
                 .AddRazorOptions(o =>
                 {
-                    foreach (var module in modules)
+                    foreach (var module in _modules)
                     {
                         o.AdditionalCompilationReferences.Add(MetadataReference.CreateFromFile(module.Assembly.Location));
                     }
                 })
                 .AddViewLocalization()
-                .AddDataAnnotationsLocalization(); ;
+                .AddDataAnnotationsLocalization();
 
-            var moduleInitializerInterface = typeof(IModuleInitializer);
-            foreach (var module in modules)
+            foreach (var module in _modules)
             {
                 // Register controller from modules
                 mvcBuilder.AddApplicationPart(module.Assembly);
 
                 // Register dependency in modules
-                var moduleInitializerType = module.Assembly.GetTypes().Where(x => typeof(IModuleInitializer).IsAssignableFrom(x)).FirstOrDefault();
-                if (moduleInitializerType != null && moduleInitializerType != typeof(IModuleInitializer))
+                var moduleInitializerType = module.Assembly.GetTypes().FirstOrDefault(x => typeof(IModuleInitializer).IsAssignableFrom(x));
+                if ((moduleInitializerType != null) && (moduleInitializerType != typeof(IModuleInitializer)))
                 {
-                    var moduleInitializer = (IModuleInitializer)Activator.CreateInstance(moduleInitializerType);
+                    var moduleInitializer = (IModuleInitializer) Activator.CreateInstance(moduleInitializerType);
                     moduleInitializer.Init(services);
                 }
             }
 
-            // TODO: break down to new method in new class
             var builder = new ContainerBuilder();
             builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>));
             builder.RegisterGeneric(typeof(RepositoryWithTypedId<,>)).As(typeof(IRepositoryWithTypedId<,>));
@@ -122,7 +114,7 @@ namespace SimplCommerce.WebHost
             builder.Register<MultiInstanceFactory>(ctx =>
             {
                 var c = ctx.Resolve<IComponentContext>();
-                return t => (IEnumerable<object>)c.Resolve(typeof(IEnumerable<>).MakeGenericType(t));
+                return t => (IEnumerable<object>) c.Resolve(typeof(IEnumerable<>).MakeGenericType(t));
             });
 
             foreach (var module in GlobalConfiguration.Modules)
@@ -153,7 +145,7 @@ namespace SimplCommerce.WebHost
             };
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
-                DefaultRequestCulture = new RequestCulture(culture: "vi-VN", uiCulture: "vi-VN"),
+                DefaultRequestCulture = new RequestCulture("vi-VN", "vi-VN"),
                 SupportedCultures = supportedCultures,
                 SupportedUICultures = supportedCultures
             });
@@ -161,7 +153,7 @@ namespace SimplCommerce.WebHost
             app.UseStaticFiles();
 
             // Serving static file for modules
-            foreach (var module in modules)
+            foreach (var module in _modules)
             {
                 var wwwrootDir = new DirectoryInfo(Path.Combine(module.Path, "wwwroot"));
                 if (!wwwrootDir.Exists)
@@ -169,7 +161,7 @@ namespace SimplCommerce.WebHost
                     continue;
                 }
 
-                app.UseStaticFiles(new StaticFileOptions()
+                app.UseStaticFiles(new StaticFileOptions
                 {
                     FileProvider = new PhysicalFileProvider(wwwrootDir.FullName),
                     RequestPath = new PathString("/" + module.ShortName)
@@ -182,19 +174,19 @@ namespace SimplCommerce.WebHost
                     ClientId = "583825788849-8g42lum4trd5g3319go0iqt6pn30gqlq.apps.googleusercontent.com",
                     ClientSecret = "X8xIiuNEUjEYfiEfiNrWOfI4"
                 })
-                 .UseFacebookAuthentication(new FacebookOptions
-                 {
-                     AppId = "1716532045292977",
-                     AppSecret = "dfece01ae919b7b8af23f962a1f87f95"
-                 });
+                .UseFacebookAuthentication(new FacebookOptions
+                {
+                    AppId = "1716532045292977",
+                    AppSecret = "dfece01ae919b7b8af23f962a1f87f95"
+                });
 
             app.UseMvc(routes =>
             {
                 routes.Routes.Add(new UrlSlugRoute(routes.DefaultHandler));
 
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    "default",
+                    "{controller=Home}/{action=Index}/{id?}");
             });
         }
 
@@ -213,7 +205,7 @@ namespace SimplCommerce.WebHost
 
                 foreach (var file in binFolder.GetFileSystemInfos("*.dll", SearchOption.AllDirectories))
                 {
-                    Assembly assembly = null;
+                    Assembly assembly;
                     try
                     {
                         assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(file.FullName);
@@ -233,12 +225,17 @@ namespace SimplCommerce.WebHost
 
                     if (assembly.FullName.Contains(moduleFolder.Name))
                     {
-                        modules.Add(new ModuleInfo { Name = moduleFolder.Name, Assembly = assembly, Path = moduleFolder.FullName });
+                        _modules.Add(new ModuleInfo
+                        {
+                            Name = moduleFolder.Name,
+                            Assembly = assembly,
+                            Path = moduleFolder.FullName
+                        });
                     }
                 }
             }
 
-            GlobalConfiguration.Modules = modules;
+            GlobalConfiguration.Modules = _modules;
         }
     }
 }
