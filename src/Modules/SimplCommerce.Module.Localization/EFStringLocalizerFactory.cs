@@ -1,27 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Localization.Models;
 
 namespace SimplCommerce.Module.Localization
 {
-    public class EFStringLocalizerFactory : IStringLocalizerFactory
+    public class EfStringLocalizerFactory : IStringLocalizerFactory
     {
-        private IRepository<Resource> _resourceRepository;
+        private readonly IRepository<Resource> _resourceRepository;
+        private IList<ResourceString> _resourceStrings;
 
-        public EFStringLocalizerFactory(IRepository<Resource> resourceRepository)
+        public EfStringLocalizerFactory(IRepository<Resource> resourceRepository)
         {
             _resourceRepository = resourceRepository;
+            LoadResources();
         }
 
         public IStringLocalizer Create(Type resourceSource)
         {
-            return new EFStringLocalizer(_resourceRepository);
+            return new EfStringLocalizer(_resourceStrings);
         }
 
         public IStringLocalizer Create(string baseName, string location)
         {
-            return new EFStringLocalizer(_resourceRepository);
+            return new EfStringLocalizer(_resourceStrings);
+        }
+
+        private void LoadResources()
+        {
+            _resourceStrings = _resourceRepository.Query().Include(x => x.Culture).Select(x => new ResourceString
+            {
+                Culture = x.Culture.Name,
+                Key = x.Key,
+                Value = x.Value
+            }).ToList();
         }
     }
 }

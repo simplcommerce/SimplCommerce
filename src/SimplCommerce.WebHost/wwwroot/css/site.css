@@ -18,7 +18,7 @@ textarea {
     color: #e7e7e7;
 }
 
-.top-bar a, .top-bar a:visited {
+.top-bar > div > ul > li > a, .top-bar .top-bar > div > ul > li > a:visited {
     color: #e7e7e7;
 }
 

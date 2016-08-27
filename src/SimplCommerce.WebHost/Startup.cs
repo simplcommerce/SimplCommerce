@@ -69,7 +69,7 @@ namespace SimplCommerce.WebHost
                 .AddEntityFrameworkStores<SimplDbContext, long>()
                 .AddDefaultTokenProviders();
 
-            services.AddSingleton<IStringLocalizerFactory, EFStringLocalizerFactory>();
+            services.AddSingleton<IStringLocalizerFactory, EfStringLocalizerFactory>();
             services.AddScoped<SignInManager<User>, SimplSignInManager<User>>();
 
             services.Configure<RazorViewEngineOptions>(
