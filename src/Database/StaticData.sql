@@ -13,6 +13,14 @@ GO
 INSERT [dbo].[Core_UserRole] ([UserId], [RoleId]) VALUES (1, 1)
 GO
 
+SET IDENTITY_INSERT [dbo].[Core_EntityType] ON 
+INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (1, N'Category', N'Category', N'CategoryDetail')
+INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (2, N'Brand', N'Brand', N'BrandDetail')
+INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (3, N'Product', N'Product', N'ProductDetail')
+INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (4, N'Page', N'Page', N'PageDetail')
+SET IDENTITY_INSERT [dbo].[Core_EntityType] OFF
+GO
+
 SET IDENTITY_INSERT [dbo].[Core_Widget] ON 
 INSERT [dbo].[Core_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (1, N'CarouselWidget', N'widget-carousel-create', CAST(N'2016-06-19 00:00:00.0000000' AS DateTime2), N'widget-carousel-edit', 1, N'Carousel Widget', N'CarouselWidget')
 INSERT [dbo].[Core_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (2, N'HtmlWidget', N'widget-html-create', CAST(N'2016-06-24 00:00:00.0000000' AS DateTime2), N'widget-html-edit', 1, N'Html Widget', N'HtmlWidget')

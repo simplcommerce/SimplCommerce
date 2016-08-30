@@ -28,23 +28,27 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public int DisplayOrder { get; set; }
 
-        public virtual Media ThumbnailImage { get; set; }
+        public Media ThumbnailImage { get; set; }
 
-        public virtual IList<ProductMedia> Medias { get; protected set; } = new List<ProductMedia>();
+        public IList<ProductMedia> Medias { get; protected set; } = new List<ProductMedia>();
 
-        public virtual IList<ProductLink> ProductLinks { get; protected set; } = new List<ProductLink>();
+        public IList<ProductLink> ProductLinks { get; protected set; } = new List<ProductLink>();
 
-        public virtual IList<ProductLink> LinkedProductLinks { get; protected set; } = new List<ProductLink>();
+        public IList<ProductLink> LinkedProductLinks { get; protected set; } = new List<ProductLink>();
 
-        public virtual IList<ProductAttributeValue> AttributeValues { get; protected set; } = new List<ProductAttributeValue>();
+        public IList<ProductAttributeValue> AttributeValues { get; protected set; } = new List<ProductAttributeValue>();
 
-        public virtual IList<ProductOptionValue> OptionValues { get; protected set; } = new List<ProductOptionValue>();
+        public IList<ProductOptionValue> OptionValues { get; protected set; } = new List<ProductOptionValue>();
 
-        public virtual IList<ProductCategory> Categories { get; protected set; } = new List<ProductCategory>();
+        public IList<ProductCategory> Categories { get; protected set; } = new List<ProductCategory>();
+
+        public int ReviewsCount { get; set; }
+
+        public float RatingAverage { get; set; }
 
         public long? BrandId { get; set; }
 
-        public virtual Brand Brand { get; set; }
+        public Brand Brand { get; set; }
 
         public void AddCategory(ProductCategory category)
         {

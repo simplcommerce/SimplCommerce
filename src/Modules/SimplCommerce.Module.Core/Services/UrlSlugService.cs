@@ -13,34 +13,34 @@ namespace SimplCommerce.Module.Core.Services
             _urlSlugRepository = urlSlugRepository;
         }
 
-        public UrlSlug Get(long entityId, string entityName)
+        public UrlSlug Get(long entityId, long entityTypeId)
         {
-            return _urlSlugRepository.Query().FirstOrDefault(x => x.EntityId == entityId && x.EntityName == entityName);
+            return _urlSlugRepository.Query().FirstOrDefault(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
         }
 
-        public void Add(string slug, long entityId, string entityName)
+        public void Add(string slug, long entityId, long entityTypeId)
         {
             var urlSlug = new UrlSlug
             {
                 Slug = slug,
                 EntityId = entityId,
-                EntityName = entityName
+                EntityTypeId = entityTypeId
             };
 
             _urlSlugRepository.Add(urlSlug);
         }
 
-        public void Update(string newName, long entityId, string entityName)
+        public void Update(string newName, long entityId, long entityTypeId)
         {
             var urlSlug =
-                _urlSlugRepository.Query().First(x => x.EntityId == entityId && x.EntityName == entityName);
+                _urlSlugRepository.Query().First(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
             urlSlug.Slug = newName;
         }
 
-        public void Remove(long entityId, string entityName)
+        public void Remove(long entityId, long entityTypeId)
         {
             var urlSlug =
-               _urlSlugRepository.Query().First(x => x.EntityId == entityId && x.EntityName == entityName);
+               _urlSlugRepository.Query().First(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
             _urlSlugRepository.Remove(urlSlug);
         }
     }

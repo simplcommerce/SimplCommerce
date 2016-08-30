@@ -9,6 +9,12 @@ SELECT pg_catalog.setval('"Core_User_Id_seq"', 1, true);
 
 INSERT INTO "Core_UserRole" ("UserId", "RoleId") VALUES (1, 1);
 
+INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction") VALUES (1, 'Category', 'Category', 'CategoryDetail')
+INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction") VALUES (2, 'Brand', 'Brand', 'BrandDetail')
+INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction") VALUES (3, 'Product', 'Product', 'ProductDetail')
+INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction") VALUES (4, 'Page', 'Page', 'PageDetail')
+SELECT pg_catalog.setval('"Core_EntityType_Id_seq"', 4, true);
+
 INSERT INTO "Core_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (1, 'CarouselWidget', 'widget-carousel-create', '2016-06-19 00:00:00', 'widget-carousel-edit', true, 'Carousel Widget', 'CarouselWidget');
 INSERT INTO "Core_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (2, 'HtmlWidget', 'widget-html-create', '2016-06-24 00:00:00', 'widget-html-edit', true, 'Html Widget', 'HtmlWidget');
 INSERT INTO "Core_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (3, 'ProductWidget', 'widget-product-create', '2016-06-24 00:00:00', 'widget-product-edit', true, 'Product Widget', 'ProductWidget');

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
@@ -6,22 +7,25 @@ using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Search.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.Search.Models;
 
 namespace SimplCommerce.Module.Search.Controllers
 {
     public class SearchController : Controller
     {
-        private IRepository<Product> _productRepository;
-        private IRepository<Brand> _brandRepository;
-        private IRepository<Category> _categoryRepository;
-        private IMediaService _mediaService;
+        private readonly IRepository<Product> _productRepository;
+        private readonly IRepository<Brand> _brandRepository;
+        private readonly IRepository<Category> _categoryRepository;
+        private readonly IMediaService _mediaService;
+        private readonly IRepository<Query> _queryRepository;
 
-        public SearchController(IRepository<Product> productRepository, IRepository<Brand> brandRepository, IRepository<Category> categoryRepository, IMediaService mediaService)
+        public SearchController(IRepository<Product> productRepository, IRepository<Brand> brandRepository, IRepository<Category> categoryRepository, IMediaService mediaService, IRepository<Query> queryRepository)
         {
             _productRepository = productRepository;
             _brandRepository = brandRepository;
             _categoryRepository = categoryRepository;
             _mediaService = mediaService;
+            _queryRepository = queryRepository;
         }
 
         [HttpGet("search")]
@@ -58,7 +62,7 @@ namespace SimplCommerce.Module.Search.Controllers
             }
 
             AppendFilterOptionsToModel(model, query);
-            if (string.Compare(model.CurrentSearchOption.Category, "all", true) != 0)
+            if (string.Compare(model.CurrentSearchOption.Category, "all", StringComparison.OrdinalIgnoreCase) != 0)
             {
                 var categories = searchOption.GetCategories();
                 if (categories.Any())
@@ -76,6 +80,8 @@ namespace SimplCommerce.Module.Search.Controllers
             }
 
             model.TotalProduct = query.Count();
+
+            SaveSearchQuery(searchOption, model);
 
             query = query
                 .Include(x => x.ThumbnailImage);
@@ -147,6 +153,19 @@ namespace SimplCommerce.Module.Search.Controllers
                    SeoTitle = g.Key.SeoTitle,
                    Count = g.Count()
                }).ToList();
+        }
+
+        private void SaveSearchQuery(SearchOption searchOption, SearchResult model)
+        {
+            var query = new Query
+            {
+                CreatedOn = DateTimeOffset.Now,
+                QueryText = searchOption.Query,
+                ResultsCount = model.TotalProduct
+            };
+
+            _queryRepository.Add(query);
+            _queryRepository.SaveChange();
         }
     }
 }

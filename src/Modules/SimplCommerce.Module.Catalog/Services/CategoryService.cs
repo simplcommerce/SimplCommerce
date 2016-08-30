@@ -5,12 +5,11 @@ using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Services;
 
-
 namespace SimplCommerce.Module.Catalog.Services
 {
     public class CategoryService : ICategoryService
     {
-        private const string CategoryEntityName = "Category";
+        private const long CategoryEntityTypeId = 1;
 
         private readonly IRepository<Category> _categoryRepository;
         private readonly IUrlSlugService _urlSlugService;
@@ -54,7 +53,7 @@ namespace SimplCommerce.Module.Catalog.Services
                 _categoryRepository.Add(category);
                 _categoryRepository.SaveChange();
 
-                _urlSlugService.Add(category.SeoTitle, category.Id, CategoryEntityName);
+                _urlSlugService.Add(category.SeoTitle, category.Id, CategoryEntityTypeId);
                 _categoryRepository.SaveChange();
 
                 transaction.Commit();
@@ -63,7 +62,7 @@ namespace SimplCommerce.Module.Catalog.Services
 
         public void Update(Category category)
         {
-            _urlSlugService.Update(category.SeoTitle, category.Id, CategoryEntityName);
+            _urlSlugService.Update(category.SeoTitle, category.Id, CategoryEntityTypeId);
             _categoryRepository.SaveChange();
         }
 
