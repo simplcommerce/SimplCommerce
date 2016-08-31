@@ -40,8 +40,11 @@ namespace SimplCommerce.Module.Core.Services
         public void Remove(long entityId, long entityTypeId)
         {
             var urlSlug =
-               _urlSlugRepository.Query().First(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
-            _urlSlugRepository.Remove(urlSlug);
+               _urlSlugRepository.Query().FirstOrDefault(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
+            if (urlSlug != null)
+            {
+                _urlSlugRepository.Remove(urlSlug);
+            }
         }
     }
 }
