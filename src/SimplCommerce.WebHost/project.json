@@ -40,7 +40,7 @@
     },
     "SimplCommerce.Infrastructure": "1.0.0-*",
     "SimplCommerce.Module.Core": "1.0.0-*",
-    "Autofac.Extensions.DependencyInjection": "4.0.0-rc3-280",
+    "Autofac.Extensions.DependencyInjection": "4.0.0",
     "Microsoft.AspNetCore.Authentication.Google": "1.0.0",
     "Microsoft.AspNetCore.Authentication.Facebook": "1.0.0",
     "MediatR": "2.1.0",

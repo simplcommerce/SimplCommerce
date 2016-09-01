@@ -3,23 +3,11 @@
   "version": 2,
   "targets": {
     ".NETCoreApp,Version=v1.0": {
-      "Autofac/4.0.0-rc3-280": {
+      "Autofac/4.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Collections.Concurrent": "4.0.12",
-          "System.ComponentModel": "4.0.1",
-          "System.Diagnostics.Debug": "4.0.11",
-          "System.Diagnostics.Tools": "4.0.1",
-          "System.Globalization": "4.0.11",
-          "System.Linq": "4.1.0",
-          "System.Linq.Expressions": "4.1.0",
-          "System.Reflection": "4.1.0",
-          "System.Reflection.Extensions": "4.0.1",
-          "System.Reflection.Primitives": "4.0.1",
-          "System.Resources.ResourceManager": "4.0.1",
-          "System.Runtime": "4.1.0",
-          "System.Runtime.Extensions": "4.1.0",
-          "System.Threading": "4.0.11"
+          "NETStandard.Library": "1.6.0",
+          "System.ComponentModel": "4.0.1"
         },
         "compile": {
           "lib/netstandard1.1/Autofac.dll": {}
@@ -28,15 +16,12 @@
           "lib/netstandard1.1/Autofac.dll": {}
         }
       },
-      "Autofac.Extensions.DependencyInjection/4.0.0-rc3-280": {
+      "Autofac.Extensions.DependencyInjection/4.0.0": {
         "type": "package",
         "dependencies": {
-          "Autofac": "4.0.0-rc3-280",
+          "Autofac": "4.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
-          "System.Collections": "4.0.11",
-          "System.Diagnostics.Contracts": "4.0.1",
-          "System.Runtime": "4.1.0",
-          "System.Threading.Tasks": "4.0.11"
+          "NETStandard.Library": "1.6.0"
         },
         "compile": {
           "lib/netstandard1.1/Autofac.Extensions.DependencyInjection.dll": {}
@@ -4464,25 +4449,27 @@
     }
   },
   "libraries": {
-    "Autofac/4.0.0-rc3-280": {
-      "sha512": "Uf4XV4veCpxGSfjnz8tv9417UmQPiflJK5d+5a3mkWjSTvtf5pMOhh4UVUAs+3ZR8lNqkJ6tSXm4TUhF/lzgZA==",
+    "Autofac/4.0.0": {
+      "sha512": "SCKzdkxEhyP0ahU4j2Fl3SQEO3BzAgGl1WpXe7oNHdDiVKRJ6DRpumfSekABPaBygeWwjDt88PBqe2nRToRrYA==",
       "type": "package",
-      "path": "Autofac/4.0.0-rc3-280",
+      "path": "Autofac/4.0.0",
       "files": [
-        "Autofac.4.0.0-rc3-280.nupkg.sha512",
+        "Autofac.4.0.0.nupkg.sha512",
         "Autofac.nuspec",
         "lib/net451/Autofac.dll",
         "lib/net451/Autofac.xml",
         "lib/netstandard1.1/Autofac.dll",
-        "lib/netstandard1.1/Autofac.xml"
+        "lib/netstandard1.1/Autofac.xml",
+        "lib/uap10.0/Autofac.dll",
+        "lib/uap10.0/Autofac.xml"
       ]
     },
-    "Autofac.Extensions.DependencyInjection/4.0.0-rc3-280": {
-      "sha512": "wLwjih+qGn9CPviKOb228u4qjHxEdzOI6xhBC9ofNJtXE8RUQYuv5nGdnn3/HLhl+b9aUCsHKg7eaxC/dH4tEg==",
+    "Autofac.Extensions.DependencyInjection/4.0.0": {
+      "sha512": "UQP+CkHs6wfjWhisuhSFoG8CNrG8fmYOclFwx/aYNc+He1Qoi8s9UDTSzcPncJ2JOtmZmFRWSLT0jhtT6KmYJg==",
       "type": "package",
-      "path": "Autofac.Extensions.DependencyInjection/4.0.0-rc3-280",
+      "path": "Autofac.Extensions.DependencyInjection/4.0.0",
       "files": [
-        "Autofac.Extensions.DependencyInjection.4.0.0-rc3-280.nupkg.sha512",
+        "Autofac.Extensions.DependencyInjection.4.0.0.nupkg.sha512",
         "Autofac.Extensions.DependencyInjection.nuspec",
         "lib/netstandard1.1/Autofac.Extensions.DependencyInjection.dll",
         "lib/netstandard1.1/Autofac.Extensions.DependencyInjection.xml"
@@ -11176,7 +11163,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "Autofac.Extensions.DependencyInjection >= 4.0.0-rc3-280",
+      "Autofac.Extensions.DependencyInjection >= 4.0.0",
       "MediatR >= 2.1.0",
       "Microsoft.AspNetCore.Authentication.Cookies >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.Facebook >= 1.0.0",
