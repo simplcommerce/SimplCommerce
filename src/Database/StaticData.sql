@@ -21,6 +21,11 @@ INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingActio
 SET IDENTITY_INSERT [dbo].[Core_EntityType] OFF
 GO
 
+SET IDENTITY_INSERT [dbo].[ActivityLog_ActivityType] ON 
+INSERT [dbo].[ActivityLog_ActivityType] ([Id], [Name]) VALUES (1, N'ProductView')
+SET IDENTITY_INSERT [dbo].[ActivityLog_ActivityType] OFF
+GO
+
 SET IDENTITY_INSERT [dbo].[Core_Widget] ON 
 INSERT [dbo].[Core_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (1, N'CarouselWidget', N'widget-carousel-create', CAST(N'2016-06-19 00:00:00.0000000' AS DateTime2), N'widget-carousel-edit', 1, N'Carousel Widget', N'CarouselWidget')
 INSERT [dbo].[Core_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (2, N'HtmlWidget', N'widget-html-create', CAST(N'2016-06-24 00:00:00.0000000' AS DateTime2), N'widget-html-edit', 1, N'Html Widget', N'HtmlWidget')

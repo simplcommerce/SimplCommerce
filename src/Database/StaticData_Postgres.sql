@@ -15,6 +15,9 @@ INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction
 INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction") VALUES (4, 'Page', 'Page', 'PageDetail')
 SELECT pg_catalog.setval('"Core_EntityType_Id_seq"', 4, true);
 
+INSERT INTO "ActivityLog_ActivityType" ("Id", "Name") VALUES (1, 'ProductView')
+SELECT pg_catalog.setval('"ActivityLog_ActivityType_Id_seq"', 1, true);
+
 INSERT INTO "Core_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (1, 'CarouselWidget', 'widget-carousel-create', '2016-06-19 00:00:00', 'widget-carousel-edit', true, 'Carousel Widget', 'CarouselWidget');
 INSERT INTO "Core_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (2, 'HtmlWidget', 'widget-html-create', '2016-06-24 00:00:00', 'widget-html-edit', true, 'Html Widget', 'HtmlWidget');
 INSERT INTO "Core_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (3, 'ProductWidget', 'widget-product-create', '2016-06-24 00:00:00', 'widget-product-edit', true, 'Product Widget', 'ProductWidget');
