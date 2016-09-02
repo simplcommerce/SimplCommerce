@@ -1,5 +1,7 @@
 # A super simple, modularized ecommerce system built on .NET Core
 
+[![Join the chat at https://gitter.im/simplcommerce/SimplCommerce](https://badges.gitter.im/simplcommerce/SimplCommerce.svg)](https://gitter.im/simplcommerce/SimplCommerce?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Prerequisite:
 - Visual Studio 2015 Update 3
 - Install .NET Core SDK for Visual Studio (https://www.microsoft.com/net/core#windows)
