@@ -53,5 +53,19 @@ namespace SimplCommerce.Module.SampleData.Data
 
             return commands;
         }
+
+        public IEnumerable<string> PostgresCommands(IEnumerable<string> lines)
+        {
+            var commands = new List<string>();
+            foreach (var line in lines)
+            {
+                if (!string.IsNullOrWhiteSpace(line))
+                {
+                    commands.Add(line);
+                }
+            }
+
+            return commands;
+        }
     }
 }

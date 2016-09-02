@@ -9,5 +9,7 @@ namespace SimplCommerce.Module.SampleData.Data
         void RunCommands(IEnumerable<string> command);
 
         IEnumerable<string> ParseCommand(IEnumerable<string> lines);
+
+        IEnumerable<string> PostgresCommands(IEnumerable<string> lines);
     }
 }
