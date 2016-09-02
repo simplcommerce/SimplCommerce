@@ -12,7 +12,7 @@
 - ASP.NET MVC Core 1.0 on .NET Core 1.0
 - Entity Framework Core 1.0
 - ASP.NET Identity Core 1.0
-- Autofac 4.0.0 RC3
+- Autofac 4.0.0
 - Angular 1.5
 - MediatR for domain event
 
