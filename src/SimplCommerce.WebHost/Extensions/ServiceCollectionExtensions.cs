@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Data;
+using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.WebHost.Extensions
@@ -104,7 +105,8 @@ namespace SimplCommerce.WebHost.Extensions
         public static IServiceCollection AddCustomizedIdentity(this IServiceCollection services)
         {
             services.AddIdentity<User, Role>(configure => { configure.Cookies.ApplicationCookie.LoginPath = "/login"; })
-                .AddEntityFrameworkStores<SimplDbContext, long>()
+                .AddRoleStore<SimplRoleStore>()
+                .AddUserStore<SimplUserStore>()
                 .AddDefaultTokenProviders();
             return services;
         }
