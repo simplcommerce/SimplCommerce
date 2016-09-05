@@ -56,7 +56,7 @@
                     {
                         foreach (var variant in Model.Variations)
                         {
-                            var hidden = variant != Model.FirstVariation ? "collapse" : "";
+                            var hidden = variant != Model.Variations.First() ? "collapse" : "";
                             <div class="variation-price @variant.NormalizedName @hidden">
                                 <h3>@variant.Price.ToString("C")</h3>
                                 @if (variant.OldPrice.HasValue && variant.OldPrice.Value > variant.Price)
@@ -69,13 +69,13 @@
                             </div>
                         }
 
-                        <input type="hidden" name="productId" value="@Model.FirstVariation.Id" />
+                        <input type="hidden" name="productId" value="@Model.Variations.First().Id" />
                     }
                     else
                     {
                         <input type="hidden" name="productId" value="@Model.Id" />
                         <h3>@Model.Price.ToString("C")</h3>
-                        @if (Model.OldPrice.HasValue && Model.OldPrice.Value > Model.Price)
+                        if (Model.OldPrice.HasValue && Model.OldPrice.Value > Model.Price)
                         {
                             <span class="product-price-regular">@Model.OldPrice.Value.ToString("c")</span>
                             <br />
@@ -94,7 +94,7 @@
                                 <ul class="list-inline product-attr-options">
                                     @foreach (var value in option.Values)
                                     {
-                                        var shouldChecked = value == option.Values.First();
+                                        var shouldChecked = Model.Variations.First().Options.Any(x => x.Value == value);
                                         <li>
                                             <input type="radio" value="@value" checked="@shouldChecked" name="@option.OptionName" />
                                             <label>@value</label>
