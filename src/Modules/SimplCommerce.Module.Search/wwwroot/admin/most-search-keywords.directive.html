@@ -1,17 +1,14 @@
-﻿<div>
-    <h3>Most search keywords</h3>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Keyword</th>
-            <th>Count</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="keyword in vm.keywords">
-            <td>{{keyword.keyword}}</td>
-            <td>{{keyword.count}}</td>
-        </tr>
-        </tbody>
+﻿<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Keyword</th>
+        <th>Count</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="keyword in vm.keywords">
+        <td>{{keyword.keyword}}</td>
+        <td>{{keyword.count}}</td>
+    </tr>
+    </tbody>
     </table>
-</div>
