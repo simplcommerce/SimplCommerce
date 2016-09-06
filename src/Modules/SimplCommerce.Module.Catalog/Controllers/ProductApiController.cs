@@ -144,6 +144,35 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     string name = search.Name;
                     query = query.Where(x => x.Name.Contains(name));
                 }
+
+                if (search.IsVisibleIndividually != null)
+                {
+                    bool isVisibleIndividually = search.IsVisibleIndividually;
+                    query = query.Where(x => x.IsVisibleIndividually == isVisibleIndividually);
+                }
+
+                if (search.IsPublished != null)
+                {
+                    bool isPublished = search.IsPublished;
+                    query = query.Where(x => x.IsPublished == isPublished);
+                }
+
+                if (search.CreatedOn != null)
+                {
+                    if (search.CreatedOn.before != null)
+                    {
+                        DateTimeOffset before = search.CreatedOn.before;
+                        before = before.Date.AddDays(1);
+                        query = query.Where(x => x.CreatedOn <= before);
+                    }
+
+                    if (search.CreatedOn.after != null)
+                    {
+                        DateTimeOffset after = search.CreatedOn.after;
+                        after = after.Date;
+                        query = query.Where(x => x.CreatedOn >= after);
+                    }
+                }
             }
 
             var gridData = query.ToSmartTableResult(

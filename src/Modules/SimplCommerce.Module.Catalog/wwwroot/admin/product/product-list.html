@@ -20,11 +20,31 @@
             <th>Actions</th>
         </tr>
         <tr>
-            <th><input st-search="Name" /></th>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="Name"/>
+                </div>
+            </th>
             <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>
+                <div class="form-group">
+                    <select class="form-control" st-search="IsVisibleIndividually">
+                        <option value="">All</option>
+                        <option value="false">Not visible Individually</option>
+                        <option value="true">Visible Individually</option>
+                    </select>
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <select class="form-control" st-search="IsPublished">
+                        <option value="">All</option>
+                        <option value="false">Not Published</option>
+                        <option value="true">Published</option>
+                    </select>
+                </div>
+            </th>
+            <th><st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range></th>
             <th></th>
         </tr>
     </thead>
