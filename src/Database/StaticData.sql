@@ -822,6 +822,7 @@ GO
 
 SET IDENTITY_INSERT [dbo].[Localization_Culture] ON 
 INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (1, N'vi-VN')
+INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (2, N'fr-FR')
 SET IDENTITY_INSERT [dbo].[Localization_Culture] OFF
 GO
 
@@ -833,5 +834,12 @@ INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES 
 INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (5, 1, N'The Email field is required.', N'Địa chỉ Email cần phải có ')
 INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (6, 1, N'Email', N'Địa chỉ email')
 INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (7, 1, N'User List', N'Danh sách người dùng')
+INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (1, 2, N'Register', N'S''inscrire')
+INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (2, 2, N'Hello {0}!', N'Bonjour {0}!')
+INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (3, 2, N'Log in', N'Connexion')
+INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (4, 2, N'Log off', N'Déconnexion')
+INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (5, 2, N'The Email field is required.', N'Le champs Email est obligatoire.')
+INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (6, 2, N'Email', N'Email')
+INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (7, 2, N'User List', N'Liste des utilisateurs')
 SET IDENTITY_INSERT [dbo].[Localization_Resource] OFF
 GO
