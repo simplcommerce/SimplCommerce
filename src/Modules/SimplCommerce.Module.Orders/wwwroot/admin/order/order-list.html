@@ -18,6 +18,29 @@
             <th st-sort="SubTotal" class="sortable">SubTotal</th>
             <th>Actions</th>
         </tr>
+        <tr>
+            <th>
+                <div class="form-group">
+                    <input type="number" class="form-control" st-search="Id" />
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <select class="form-control" st-search="Status">
+                        <option value="">All</option>
+                        <option ng-repeat="status in vm.orderStatus" value="{{status.id}}">{{status.name}}</option>
+                    </select>
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="CustomerName" />
+                </div>
+            </th>
+            <th><st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range></th>
+            <th></th>
+            <th></th>
+        </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">
         <tr ng-repeat="order in vm.orders">
