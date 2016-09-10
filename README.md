@@ -75,7 +75,7 @@ By default domain entities is mapped by convention. In case you need to some spe
 
 ## How to run on local (Windows)
 
-    Using Visual Studio 2015 Update 3
+    * Using Visual Studio 2015 Update 3
 
     - Create a database in SQL Server
     - Update the connection string in appsettings.json in SimplCommerce.WebHost
@@ -84,8 +84,8 @@ By default domain entities is mapped by convention. In case you need to some spe
     - Press Control + F5
     - The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
-    Using Visual Studio Code
-    
+    * Using Visual Studio Code
+
     - Create a database in SQL Server
     - Update the connection string in appsettings.json in SimplCommerce.WebHost
     - Open Console Window, change directory to SimplCommerce.WebHost and type "dotnet restore" then press Enter
