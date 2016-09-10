@@ -9,6 +9,10 @@
         var vm = this;
         vm.orders = [];
 
+        orderService.getOrderStatus().then(function (result) {
+            vm.orderStatus = result.data;
+        });
+
         vm.getOrders = function getOrders(tableState) {
             vm.isLoading = true;
             orderService.getOrdersForGrid(tableState).then(function (result) {

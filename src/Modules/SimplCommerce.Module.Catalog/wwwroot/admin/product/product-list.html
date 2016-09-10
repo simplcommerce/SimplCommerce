@@ -25,7 +25,15 @@
                     <input class="form-control" st-search="Name"/>
                 </div>
             </th>
-            <th></th>
+            <th>
+                <div class="form-group">
+                    <select class="form-control" st-search="HasOptions">
+                        <option value="">All</option>
+                        <option value="false">Don't have options</option>
+                        <option value="true">Has options</option>
+                    </select>
+                </div>
+            </th>
             <th>
                 <div class="form-group">
                     <select class="form-control" st-search="IsVisibleIndividually">

@@ -53,9 +53,48 @@ namespace SimplCommerce.Module.Orders.Controllers
         [HttpPost("grid")]
         public ActionResult List([FromBody] SmartTableParam param)
         {
-            var query = _orderRepository
+            IQueryable<Order> query = _orderRepository
                 .Query()
                 .Include(x => x.CreatedBy);
+
+            if (param.Search.PredicateObject != null)
+            {
+                dynamic search = param.Search.PredicateObject;
+                if (search.Id != null)
+                {
+                    long id = search.Id;
+                    query = query.Where(x => x.Id == id);
+                }
+
+                if (search.Status != null)
+                {
+                    var status = (OrderStatus) search.Status;
+                    query = query.Where(x => x.OrderStatus == status);
+                }
+
+                if (search.CustomerName != null)
+                {
+                    string customerName = search.CustomerName;
+                    query = query.Where(x => x.CreatedBy.FullName.Contains(customerName));
+                }
+
+                if (search.CreatedOn != null)
+                {
+                    if (search.CreatedOn.before != null)
+                    {
+                        DateTimeOffset before = search.CreatedOn.before;
+                        before = before.Date.AddDays(1);
+                        query = query.Where(x => x.CreatedOn <= before);
+                    }
+
+                    if (search.CreatedOn.after != null)
+                    {
+                        DateTimeOffset after = search.CreatedOn.after;
+                        after = after.Date;
+                        query = query.Where(x => x.CreatedOn >= after);
+                    }
+                }
+            }
 
             var orders = query.ToSmartTableResult(
                 param,

@@ -145,6 +145,12 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     query = query.Where(x => x.Name.Contains(name));
                 }
 
+                if (search.HasOptions != null)
+                {
+                    bool hasOptions = search.HasOptions;
+                    query = query.Where(x => x.HasOptions == hasOptions);
+                }
+
                 if (search.IsVisibleIndividually != null)
                 {
                     bool isVisibleIndividually = search.IsVisibleIndividually;
