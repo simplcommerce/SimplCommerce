@@ -89,7 +89,6 @@ By default domain entities is mapped by convention. In case you need to some spe
 - Type "dotnet ef database update" then press Enter. This action will create database schema
 - Run src/Database/StaticData.sql to create seeding data
 - Type "dotnet watch run" then press Enter.
-- Open browser, type http://localhost:5000 then hit Enter
 - The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
 ## How to run on Ubuntu 14.04
