@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using SimplCommerce.Module.Core.Models
+﻿@using SimplCommerce.Module.Core.Models
 
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
@@ -17,6 +16,6 @@
 }
 else
 {
-    <li><a asp-controller="Account" asp-action="Register">@Localizer["Register"]</a></li>
     <li><a asp-controller="Account" asp-action="Login">@Localizer["Log in"]</a></li>
+    <li><a asp-controller="Account" asp-action="Register">@Localizer["Register"]</a></li>
 }
