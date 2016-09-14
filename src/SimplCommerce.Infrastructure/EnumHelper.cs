@@ -11,7 +11,7 @@ namespace SimplCommerce.Infrastructure
         {
             if (type == null)
             {
-                throw new ArgumentNullException("type");
+                throw new ArgumentNullException(nameof(type));
             }
 
             var dics = new Dictionary<Enum, string>();
@@ -29,7 +29,7 @@ namespace SimplCommerce.Infrastructure
         {
             if (value == null)
             {
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
             }
 
             var displayName = value.ToString();

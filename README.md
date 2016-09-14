@@ -74,11 +74,22 @@ By default domain entities is mapped by convention. In case you need to some spe
 ```
 
 ## How to run on local (Windows)
+####Using Visual Studio 2015 Update 3
 - Create a database in SQL Server
 - Update the connection string in appsettings.json in SimplCommerce.WebHost
 - Open Package Manager Console Window and type "Update-Database" then press Enter. This action will create database schema
 - Run src/Database/StaticData.sql to create seeding data
-- Press Controll + F5
+- Press Control + F5
+- The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
+
+####Using Visual Studio Code
+- Create a database in SQL Server
+- Update the connection string in appsettings.json in SimplCommerce.WebHost
+- Open Console Window, change directory to SimplCommerce.WebHost and type "dotnet restore" then press Enter
+- Type "dotnet ef database update" then press Enter. This action will create database schema
+- Run src/Database/StaticData.sql to create seeding data
+- Type "dotnet watch run" then press Enter.
+- Open browser, type http://localhost:5000 then hit Enter
 - The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
 ## How to run on Ubuntu 14.04
