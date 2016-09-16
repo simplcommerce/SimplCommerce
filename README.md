@@ -7,8 +7,8 @@
 - SQL Server or PostgreSQL
 
 ## Technologies and frameworks used:
-- ASP.NET MVC Core 1.0 on .NET Core 1.0
-- Entity Framework Core 1.0
+- ASP.NET MVC Core 1.0.1 on .NET Core 1.0.1
+- Entity Framework Core 1.0.1
 - ASP.NET Identity Core 1.0
 - Autofac 4.0.0
 - Angular 1.5
