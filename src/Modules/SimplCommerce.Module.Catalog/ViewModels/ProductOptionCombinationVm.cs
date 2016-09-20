@@ -7,5 +7,7 @@
         public string OptionName { get; set; }
 
         public string Value { get; set; }
+
+        public int SortIndex { get; set; }
     }
 }

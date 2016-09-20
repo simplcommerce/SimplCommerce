@@ -7,13 +7,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
-using SimplCommerce.Module.Core.Models;
+using Newtonsoft.Json;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Catalog.ViewModels;
+using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.Catalog.Controllers
@@ -22,13 +23,13 @@ namespace SimplCommerce.Module.Catalog.Controllers
     [Route("api/products")]
     public class ProductApiController : Controller
     {
-        private readonly IRepository<Product> _productRepository;
         private readonly IMediaService _mediaService;
-        private readonly IProductService _productService;
-        private readonly IRepository<ProductLink> _productLinkRepository;
-        private readonly IRepository<ProductCategory> _productCategoryRepository;
-        private readonly IRepository<ProductOptionValue> _productOptionValueRepository;
         private readonly IRepository<ProductAttributeValue> _productAttributeValueRepository;
+        private readonly IRepository<ProductCategory> _productCategoryRepository;
+        private readonly IRepository<ProductLink> _productLinkRepository;
+        private readonly IRepository<ProductOptionValue> _productOptionValueRepository;
+        private readonly IRepository<Product> _productRepository;
+        private readonly IProductService _productService;
 
         public ProductApiController(
             IRepository<Product> productRepository,
@@ -85,24 +86,15 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 });
             }
 
-            var options = from opt in product.OptionValues
-                          group opt by new
-                          {
-                              opt.OptionId,
-                              opt.Option.Name,
-                              opt.ProductId
-                          }
-                             into g
-                          select new ProductOptionVm
-                          {
-                              Id = g.Key.OptionId,
-                              Name = g.Key.Name,
-                              Values = g.Select(x => x.Value).Distinct().ToList()
-                          };
+            productVm.Options = product.OptionValues.OrderBy(x => x.SortIndex).Select(x =>
+                new ProductOptionVm
+                {
+                    Id = x.OptionId,
+                    Name = x.Option.Name,
+                    Values = JsonConvert.DeserializeObject<IList<string>>(x.Value)
+                }).ToList();
 
-            productVm.Options = options.ToList();
-
-            foreach (var variation in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Super).Select(x => x.LinkedProduct).Where(x => !x.IsDeleted))
+            foreach (var variation in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Super).Select(x => x.LinkedProduct).Where(x => !x.IsDeleted).OrderBy(x => x.Id))
             {
                 productVm.Variations.Add(new ProductVariationVm
                 {
@@ -115,8 +107,9 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     {
                         OptionId = x.OptionId,
                         OptionName = x.Option.Name,
-                        Value = x.Value
-                    }).ToList()
+                        Value = x.Value,
+                        SortIndex = x.SortIndex
+                    }).OrderBy(x => x.SortIndex).ToList()
                 });
             }
 
@@ -220,16 +213,17 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 IsVisibleIndividually = true
             };
 
+            var optionIndex = 0;
             foreach (var option in model.Product.Options)
             {
-                foreach (var value in option.Values)
+                product.AddOptionValue(new ProductOptionValue
                 {
-                    product.AddOptionValue(new ProductOptionValue
-                    {
-                        Value = value,
-                        OptionId = option.Id
-                    });
-                }
+                    OptionId = option.Id,
+                    Value = JsonConvert.SerializeObject(option.Values),
+                    SortIndex = optionIndex
+                });
+
+                optionIndex++;
             }
 
             foreach (var attribute in model.Product.Attributes)
@@ -363,7 +357,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     productLink.LinkedProduct.AddOptionCombination(new ProductOptionCombination
                     {
                         OptionId = combinationVm.OptionId,
-                        Value = combinationVm.Value
+                        Value = combinationVm.Value,
+                        SortIndex = combinationVm.SortIndex
                     });
                 }
 
@@ -403,47 +398,29 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
         private void AddOrDeleteProductOption(ProductForm model, Product product)
         {
+            var optionIndex = 0;
             foreach (var optionVm in model.Product.Options)
             {
-                foreach (var value in optionVm.Values)
+                var optionValue = product.OptionValues.FirstOrDefault(x => x.OptionId == optionVm.Id);
+                if (optionValue == null)
                 {
-                    if (!product.OptionValues.Any(x => x.OptionId == optionVm.Id && x.Value == value))
+                    product.AddOptionValue(new ProductOptionValue
                     {
-                        product.AddOptionValue(new ProductOptionValue
-                        {
-                            Value = value,
-                            OptionId = optionVm.Id
-                        });
-                    }
+                        OptionId = optionVm.Id,
+                        Value = JsonConvert.SerializeObject(optionVm.Values),
+                        SortIndex = optionIndex
+                    });
                 }
+                else
+                {
+                    optionValue.Value = JsonConvert.SerializeObject(optionVm.Values);
+                    optionValue.SortIndex = optionIndex;
+                }
+
+                optionIndex++;
             }
 
-            var deletedProductOptionValues = new List<ProductOptionValue>();
-            foreach (var productOptionValue in product.OptionValues)
-            {
-                var isExist = false;
-                foreach (var optionVm in model.Product.Options)
-                {
-                    foreach (var value in optionVm.Values)
-                    {
-                        if (productOptionValue.OptionId == optionVm.Id && productOptionValue.Value == value)
-                        {
-                            isExist = true;
-                            break;
-                        }
-                    }
-
-                    if (isExist)
-                    {
-                        break;
-                    }
-                }
-
-                if (!isExist)
-                {
-                    deletedProductOptionValues.Add(productOptionValue);
-                }
-            }
+            var deletedProductOptionValues = product.OptionValues.Where(x => model.Product.Options.All(vm => vm.Id != x.OptionId)).ToList();
 
             foreach (var productOptionValue in deletedProductOptionValues)
             {
@@ -459,7 +436,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 var productLink = product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Super).FirstOrDefault(x => x.LinkedProduct.Name == productVariationVm.Name);
                 if (productLink == null)
                 {
-                    productLink = productLink = new ProductLink
+                    productLink = new ProductLink
                     {
                         LinkType = ProductLinkType.Super,
                         Product = product,
@@ -479,7 +456,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
                         productLink.LinkedProduct.AddOptionCombination(new ProductOptionCombination
                         {
                             OptionId = combinationVm.OptionId,
-                            Value = combinationVm.Value
+                            Value = combinationVm.Value,
+                            SortIndex = combinationVm.SortIndex
                         });
                     }
 
@@ -525,8 +503,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
 
             var deletedAttrValues =
-               product.AttributeValues.Where(attrValue => model.Product.Attributes.All(x => x.Id != attrValue.AttributeId))
-                   .ToList();
+                product.AttributeValues.Where(attrValue => model.Product.Attributes.All(x => x.Id != attrValue.AttributeId))
+                    .ToList();
 
             foreach (var deletedAttrValue in deletedAttrValues)
             {
@@ -547,7 +525,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 }
                 else
                 {
-                    product.ThumbnailImage = new Media { FileName = fileName };
+                    product.ThumbnailImage = new Media {FileName = fileName};
                 }
             }
 
@@ -566,7 +544,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 var productMedia = new ProductMedia
                 {
                     Product = product,
-                    Media = new Media { FileName = fileName }
+                    Media = new Media {FileName = fileName}
                 };
                 product.AddMedia(productMedia);
             }

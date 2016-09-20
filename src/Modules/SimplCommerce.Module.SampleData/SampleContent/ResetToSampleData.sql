@@ -355,30 +355,23 @@ SET IDENTITY_INSERT [dbo].[Catalog_ProductLink] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[Catalog_ProductOptionCombination] ON 
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (1, 1, 0, 2, N'Gray')
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (2, 1, 0, 3, N'Silver')
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (3, 1, 0, 4, N'Gold')
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (4, 1, 0, 6, N'Pink')
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (5, 1, 0, 8, N'Gold')
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (6, 1, 0, 7, N'Black')
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (7, 1, 0, 11, N'Pink')
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (8, 1, 0, 10, N'Gray')
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (9, 1, 0, 12, N'Gold')
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (10, 1, 0, 13, N'Silver')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (1, 1, 2, N'Gray')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (2, 1, 3, N'Silver')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (3, 1, 4, N'Gold')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (4, 1, 6, N'Pink')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (5, 1, 8, N'Gold')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (6, 1, 7, N'Black')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (7, 1, 11, N'Pink')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (8, 1, 10, N'Gray')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (9, 1, 12, N'Gold')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (10, 1, 13, N'Silver')
 SET IDENTITY_INSERT [dbo].[Catalog_ProductOptionCombination] OFF 
 GO
 
 SET IDENTITY_INSERT [dbo].[Catalog_ProductOptionValue] ON 
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (1, 1, 1, N'Silver')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (2, 1, 1, N'Gold')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (3, 1, 1, N'Gray')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (4, 1, 5, N'Gold')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (5, 1, 5, N'Black')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (6, 1, 5, N'Pink')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (7, 1, 9, N'Gray')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (8, 1, 9, N'Pink')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (9, 1, 9, N'Gold')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (10, 1, 9, N'Silver')
+INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (1, 1, 1, N'["Silver","Gold","Gray"]')
+INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (2, 1, 5, N'["Gold","Black","Pink"]')
+INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (3, 1, 9, N'["Gray","Pink","Gold", "Silver"]')
 SET IDENTITY_INSERT [dbo].[Catalog_ProductOptionValue] OFF 
 GO
 

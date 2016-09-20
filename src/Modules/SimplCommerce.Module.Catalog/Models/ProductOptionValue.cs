@@ -13,5 +13,7 @@ namespace SimplCommerce.Module.Catalog.Models
         public Product Product { get; set; }
 
         public string Value { get; set; }
+
+        public int SortIndex { get; set; }
     }
 }

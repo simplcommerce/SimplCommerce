@@ -48,18 +48,34 @@
         };
 
         vm.addOption = function addOption() {
-            vm.addingOption.values = [];
-            var index = vm.options.indexOf(vm.addingOption);
-            vm.product.options.push(vm.addingOption);
-            vm.options.splice(index, 1);
-            vm.addingOption = null;
+            onModifyOption(function() {
+                vm.addingOption.values = [];
+                var index = vm.options.indexOf(vm.addingOption);
+                vm.product.options.push(vm.addingOption);
+                vm.options.splice(index, 1);
+                vm.addingOption = null;
+            });
         };
 
         vm.deleteOption = function deleteOption(option) {
-            var index = vm.product.options.indexOf(option);
-            vm.product.options.splice(index, 1);
-            vm.options.push(option);
+            onModifyOption(function() {
+                var index = vm.product.options.indexOf(option);
+                vm.product.options.splice(index, 1);
+                vm.options.push(option);
+            });
         };
+
+        function onModifyOption(callback) {
+            if (vm.product.variations.length === 0) {
+                callback();
+                return;
+            }
+
+            if(confirm('Add or remove option will clear all existing variations. Are you sure you want to do this?')) {
+                vm.product.variations = [];
+                callback();
+            };
+        }
 
         vm.generateOptionCombination = function generateOptionCombination() {
             var maxIndexOption = vm.product.options.length - 1;
@@ -77,7 +93,8 @@
                     optionValue = {
                         optionName: vm.product.options[optionIndex].name,
                         optionId: vm.product.options[optionIndex].id,
-                        value: vm.product.options[optionIndex].values[j]
+                        value: vm.product.options[optionIndex].values[j],
+                        sortIndex : optionIndex
                     };
                     optionCombinations.push(optionValue);
 
@@ -113,11 +130,12 @@
             var variation,
                 optionCombinations = [];
 
-            vm.product.options.forEach(function (option) {
+            vm.product.options.forEach(function (option, index) {
                 var optionValue = {
                     optionName: option.name,
                     optionId: option.id,
-                    value: vm.addingVariation[option.name]
+                    value: vm.addingVariation[option.name],
+                    sortIndex: index
                 };
                 optionCombinations.push(optionValue);
             });

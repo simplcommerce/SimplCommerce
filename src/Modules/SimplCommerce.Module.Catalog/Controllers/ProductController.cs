@@ -89,7 +89,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     OldPrice = variation.OldPrice
                 };
 
-                foreach (var combination in variation.OptionCombinations)
+                var optionCombinations = variation.OptionCombinations.OrderBy(x => x.SortIndex);
+                foreach (var combination in optionCombinations)
                 {
                     variationVm.Options.Add(new ProductDetailVariationOption
                     {
