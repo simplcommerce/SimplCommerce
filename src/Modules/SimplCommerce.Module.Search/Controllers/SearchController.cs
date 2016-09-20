@@ -31,13 +31,15 @@ namespace SimplCommerce.Module.Search.Controllers
         [HttpGet("search")]
         public IActionResult Index(SearchOption searchOption)
         {
-            if (!string.IsNullOrWhiteSpace(searchOption.Query))
+            if (string.IsNullOrWhiteSpace(searchOption.Query))
             {
-                var brand = _brandRepository.Query().FirstOrDefault(x => x.Name == searchOption.Query && x.IsPublished);
-                if(brand != null)
-                {
-                    return Redirect(string.Format("~/{0}", brand.SeoTitle));
-                }
+                return Redirect("~/");
+            }
+
+            var brand = _brandRepository.Query().FirstOrDefault(x => x.Name == searchOption.Query && x.IsPublished);
+            if(brand != null)
+            {
+                return Redirect(string.Format("~/{0}", brand.SeoTitle));
             }
 
             var model = new SearchResult
