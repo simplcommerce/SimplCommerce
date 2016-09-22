@@ -66,6 +66,10 @@ INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [Displ
 
 INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (13, N'USB Drives', N'usb-drives', NULL, 0, 1, 0, 10, NULL)
 
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (14, N'Test 1', N'test-1', NULL, 0, 1, 0, 2, NULL)
+
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (15, N'Test 2', N'test-2', NULL, 0, 1, 0, 2, NULL)
+
 SET IDENTITY_INSERT [dbo].[Catalog_Category] OFF 
 GO
 
@@ -466,6 +470,10 @@ INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (3
 INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (31, 3, 2, N'dell')
 
 INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (32, 14, 3, N'dell-xps-15-9550')
+
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (33, 14, 1, N'test-1')
+
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (34, 15, 1, N'test-2')
 
 SET IDENTITY_INSERT [dbo].[Core_UrlSlug] OFF 
 GO
