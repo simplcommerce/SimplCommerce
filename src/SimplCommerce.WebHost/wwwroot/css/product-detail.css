@@ -34,10 +34,13 @@
 
 .product-price .product-price-regular{
     text-decoration: line-through;
+    padding-top: 5px;
+    font-size: 18px;
 }
 
 .product-price .product-price-saving {
     color: #b12704;
+    clear: left;
 }
 
 .product-price h3 {
@@ -45,6 +48,8 @@
     font-weight: 400;
     color: red;
     margin: 0;
+    float: left;
+    padding-right: 20px;
 }
 
 .product-attrs input {
