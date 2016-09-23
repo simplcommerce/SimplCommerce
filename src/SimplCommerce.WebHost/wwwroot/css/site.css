@@ -214,16 +214,17 @@ li.nav-item-group, li.nav-item-group a {
 }
 
 .product-list .btn-add-cart-style {
-    background: #18ba9b;
+    background: #f0f0f0;
     padding: 8px 0px;
     font-size: 14px;
-    color:#fff;
+    color:#777;
     text-align: center;
-    width: calc(100% - 78px);
+    width: 100%
 }
 
-.product-list .btn-add-cart-style:hover{
+.product-list .thumbnail:hover .btn-add-cart-style{
     background: #2cd5b6;
+    color: #fff;
 }
 
 #accordion-brand ul, #accordion-category ul{
