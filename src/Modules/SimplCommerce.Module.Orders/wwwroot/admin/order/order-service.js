@@ -7,15 +7,20 @@
     /* @ngInject */
     function orderService($http) {
         var service = {
-            getOrders : getOrders,
+            getOrders: getOrders,
+            getOrdersForGrid: getOrdersForGrid,
             getOrder: getOrder,
             getOrderStatus: getOrderStatus,
             changeOrderStatus: changeOrderStatus
         };
         return service;
 
-        function getOrders(params) {
+        function getOrdersForGrid(params) {
             return $http.post('api/orders/grid', params);
+        }
+
+        function getOrders(status, numRecords) {
+            return $http.get('api/orders?status=' + status + '&numRecords=' + numRecords);
         }
 
         function getOrder(orderId) {

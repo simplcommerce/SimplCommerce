@@ -23,10 +23,12 @@ namespace SimplCommerce.Module.SampleData.Controllers
         [HttpPost]
         public IActionResult ResetToSample()
         {
+            var usePostgres = false;
             var sampleContentFolder = Path.Combine(GlobalConfiguration.ContentRootPath, "Modules", "SimplCommerce.Module.SampleData", "SampleContent");
-            var filePath = Path.Combine(sampleContentFolder, "ResetToSampleData.sql");
+
+            var filePath = usePostgres ? Path.Combine(sampleContentFolder, "ResetToSampleData_Postgres.sql") : Path.Combine(sampleContentFolder, "ResetToSampleData.sql");
             var lines = System.IO.File.ReadLines(filePath);
-            var commands = sqlRepository.ParseCommand(lines);
+            var commands = usePostgres ? sqlRepository.PostgresCommands(lines) : sqlRepository.ParseCommand(lines);
             sqlRepository.RunCommands(commands);
 
             CopyImages(sampleContentFolder);

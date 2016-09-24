@@ -1,33 +1,28 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Catalog.ViewModels;
+using SimplCommerce.Module.Core.Events;
 using SimplCommerce.Module.Core.ViewModels;
 
 namespace SimplCommerce.Module.Catalog.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly IRepository<Category> _categoryRepository;
         private readonly IMediaService _mediaService;
         private readonly IRepository<Product> _productRepository;
-        private readonly IRepository<ProductCategory> _productCategoryRepository;
-        private readonly IRepository<Brand> _brandRepository;
+        private readonly IMediator _mediator;
 
-        public ProductController(IRepository<Product> productRepository,
-            IMediaService mediaService,
-            IRepository<Category> categoryRepository,
-            IRepository<ProductCategory> productCategoryRepository,
-            IRepository<Brand> brandRepository)
+        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IMediator mediator)
         {
             _productRepository = productRepository;
             _mediaService = mediaService;
-            _categoryRepository = categoryRepository;
-            _productCategoryRepository = productCategoryRepository;
-            _brandRepository = brandRepository;
+            _mediator = mediator;
         }
 
         public IActionResult ProductDetail(long id)
@@ -68,6 +63,9 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 model.Images.Add(mediaViewModel);
             }
 
+            _mediator.Publish(new ActivityHappened {ActivityTypeId = 1, EntityId = product.Id, EntityTypeId = 3, TimeHappened = DateTimeOffset.Now});
+            _productRepository.SaveChange();
+
             return View(model);
         }
 
@@ -91,7 +89,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     OldPrice = variation.OldPrice
                 };
 
-                foreach (var combination in variation.OptionCombinations)
+                var optionCombinations = variation.OptionCombinations.OrderBy(x => x.SortIndex);
+                foreach (var combination in optionCombinations)
                 {
                     variationVm.Options.Add(new ProductDetailVariationOption
                     {

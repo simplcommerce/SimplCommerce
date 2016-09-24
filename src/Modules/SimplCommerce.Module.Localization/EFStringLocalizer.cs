@@ -1,20 +1,17 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Globalization;
-using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using Microsoft.Extensions.Localization;
-using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Localization.Models;
 
 namespace SimplCommerce.Module.Localization
 {
-    public class EFStringLocalizer : IStringLocalizer
+    public class EfStringLocalizer : IStringLocalizer
     {
-        private IRepository<Resource> _resourceRepository;
+        private readonly IList<ResourceString> _resourceStrings;
 
-        public EFStringLocalizer(IRepository<Resource> resourceRepository)
+        public EfStringLocalizer(IList<ResourceString> resourceStrings)
         {
-            _resourceRepository = resourceRepository;
+            _resourceStrings = resourceStrings;
         }
 
         public LocalizedString this[string name]
@@ -22,7 +19,7 @@ namespace SimplCommerce.Module.Localization
             get
             {
                 var value = GetString(name);
-                return new LocalizedString(name, value ?? name, resourceNotFound: value == null);
+                return new LocalizedString(name, value ?? name, value == null);
             }
         }
 
@@ -32,29 +29,27 @@ namespace SimplCommerce.Module.Localization
             {
                 var format = GetString(name);
                 var value = string.Format(format ?? name, arguments);
-                return new LocalizedString(name, value, resourceNotFound: format == null);
+                return new LocalizedString(name, value, format == null);
             }
         }
 
         public IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures)
         {
-             return _resourceRepository.Query()
-               .Include(r => r.Culture)
-               .Where(r => r.Culture.Name == CultureInfo.CurrentCulture.Name)
-               .Select(r => new LocalizedString(r.Key, r.Value, true));
+            return _resourceStrings
+                .Where(r => r.Culture == CultureInfo.CurrentCulture.Name)
+                .Select(r => new LocalizedString(r.Key, r.Value, true));
         }
 
         public IStringLocalizer WithCulture(CultureInfo culture)
         {
             CultureInfo.DefaultThreadCurrentCulture = culture;
-            return new EFStringLocalizer(_resourceRepository);
+            return new EfStringLocalizer(_resourceStrings);
         }
 
         private string GetString(string name)
         {
-            return _resourceRepository.Query()
-                .Include(r => r.Culture)
-                .Where(r => r.Culture.Name == CultureInfo.CurrentCulture.Name)
+            return _resourceStrings
+                .Where(r => r.Culture == CultureInfo.CurrentCulture.Name)
                 .FirstOrDefault(r => r.Key == name)?.Value;
         }
     }

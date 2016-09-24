@@ -16,7 +16,8 @@ var modules = [
     'SimplCommerce.Module.Cms',
     'SimplCommerce.Module.Search',
     'SimplCommerce.Module.SampleData',
-    'SimplCommerce.Module.Localization'
+    'SimplCommerce.Module.Localization',
+    'SimplCommerce.Module.ActivityLog'
 ];
 
 gulp.task('clean-module', function () {

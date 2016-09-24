@@ -9,9 +9,13 @@
         var vm = this;
         vm.orders = [];
 
+        orderService.getOrderStatus().then(function (result) {
+            vm.orderStatus = result.data;
+        });
+
         vm.getOrders = function getOrders(tableState) {
             vm.isLoading = true;
-            orderService.getOrders(tableState).then(function (result) {
+            orderService.getOrdersForGrid(tableState).then(function (result) {
                 vm.orders = result.data.items;
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
                 vm.isLoading = false;

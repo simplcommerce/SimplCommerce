@@ -21,16 +21,14 @@
     <div class="buttons">
         @if (Model.NumberVariation > 0)
         {
-            <a href="~/@Model.SeoTitle" class="btn btn-add-cart-style" role="button">Add to cart</a>
+            <a href="~/@Model.SeoTitle" class="btn btn-add-cart-style" role="button"><i class="fa fa-shopping-cart"></i> Add to cart</a>
         }
         else
         {
             <form class="inline">
                 <input type="hidden" name="productId" value="@Model.Id" />
-                <button type="button" class="btn btn-add-cart-style btn-add-cart" role="button">Add to cart</button>
+                <button type="button" class="btn btn-add-cart-style btn-add-cart" role="button"><i class="fa fa-shopping-cart"></i> Add to cart</button>
             </form>
         }
-        <button class="btn" role="button"><i class="fa fa-exchange"></i></button>
-        <button class="btn" role="button"><i class="fa fa-heart"></i></button>
     </div>
 </div>

@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Infrastructure.Web.SmartTable;
@@ -22,7 +23,9 @@ namespace SimplCommerce.Module.Core.Controllers
         [HttpPost("grid")]
         public ActionResult List([FromBody] SmartTableParam param)
         {
-            var query = userRepository.Query().Where(x => !x.IsDeleted);
+            var query = userRepository.Query()
+                .Include(x => x.Roles).ThenInclude(r => r.Role)
+                .Where(x => !x.IsDeleted);
 
             if (param.Search.PredicateObject != null)
             {
@@ -65,7 +68,8 @@ namespace SimplCommerce.Module.Core.Controllers
                     Id = user.Id,
                     Email = user.Email,
                     FullName = user.FullName,
-                    CreatedOn = user.CreatedOn
+                    CreatedOn = user.CreatedOn,
+                    Roles = string.Join(", ", user.Roles.Select(x => x.Role.Name))
                 });
 
             return Json(users);

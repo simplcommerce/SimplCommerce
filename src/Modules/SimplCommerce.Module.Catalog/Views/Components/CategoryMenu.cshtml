@@ -1,4 +1,7 @@
-﻿@model IEnumerable<SimplCommerce.Module.Catalog.ViewModels.CategoryMenuItem>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model IEnumerable<SimplCommerce.Module.Catalog.ViewModels.CategoryMenuItem>
+
+@inject IViewLocalizer Localizer
 
 <ul class="nav navbar-nav main-menu">
     @foreach (var item in Model)
@@ -6,22 +9,23 @@
         if (item.ChildItems.Any())
         {
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">@item.Name <b class="caret"></b></a>
+                <a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" href="javascript:void(0);">@item.Name</a>
                 <ul class="dropdown-menu">
+                    <li><a href="/@item.SeoTitle">@Localizer["All"] @item.Name</a></li>
                     @foreach (var childItem in item.ChildItems)
                     {
-                        if (childItem != item.ChildItems.First())
-                        {
-                            <li role="separator" class="divider"></li>
-                        }
-
                         if (childItem.ChildItems.Any())
                         {
-                            <li class="nav-item-group"><a href="/@childItem.SeoTitle">@childItem.Name</a></li>
-                            foreach (var childChildItem in childItem.ChildItems)
-                            {
-                                <li><a href="/@childChildItem.SeoTitle">@childChildItem.Name</a></li>
-                            }
+                            <li class="dropdown-submenu">
+                                <a href="javascript:void(0);">@childItem.Name</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/@childItem.SeoTitle">@Localizer["All"] @childItem.Name</a></li>
+                                    @foreach (var childChildItem in childItem.ChildItems)
+                                    {
+                                        <li><a href="/@childChildItem.SeoTitle">@childChildItem.Name</a></li>
+                                    }
+                                </ul>
+                            </li>
                         }
                         else
                         {

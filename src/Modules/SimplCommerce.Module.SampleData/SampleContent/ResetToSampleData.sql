@@ -66,6 +66,10 @@ INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [Displ
 
 INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (13, N'USB Drives', N'usb-drives', NULL, 0, 1, 0, 10, NULL)
 
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (14, N'Test 1', N'test-1', NULL, 0, 1, 0, 2, NULL)
+
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (15, N'Test 2', N'test-2', NULL, 0, 1, 0, 2, NULL)
+
 SET IDENTITY_INSERT [dbo].[Catalog_Category] OFF 
 GO
 
@@ -355,30 +359,23 @@ SET IDENTITY_INSERT [dbo].[Catalog_ProductLink] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[Catalog_ProductOptionCombination] ON 
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (1, 1, 0, 2, N'Gray')
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (2, 1, 0, 3, N'Silver')
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (3, 1, 0, 4, N'Gold')
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (4, 1, 0, 6, N'Pink')
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (5, 1, 0, 8, N'Gold')
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (6, 1, 0, 7, N'Black')
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (7, 1, 0, 11, N'Pink')
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (8, 1, 0, 10, N'Gray')
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (9, 1, 0, 12, N'Gold')
-INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProducdtId], [ProductId], [Value]) VALUES (10, 1, 0, 13, N'Silver')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (1, 1, 2, N'Gray')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (2, 1, 3, N'Silver')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (3, 1, 4, N'Gold')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (4, 1, 6, N'Pink')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (5, 1, 8, N'Gold')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (6, 1, 7, N'Black')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (7, 1, 11, N'Pink')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (8, 1, 10, N'Gray')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (9, 1, 12, N'Gold')
+INSERT [dbo].[Catalog_ProductOptionCombination] ([Id], [OptionId], [ProductId], [Value]) VALUES (10, 1, 13, N'Silver')
 SET IDENTITY_INSERT [dbo].[Catalog_ProductOptionCombination] OFF 
 GO
 
 SET IDENTITY_INSERT [dbo].[Catalog_ProductOptionValue] ON 
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (1, 1, 1, N'Silver')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (2, 1, 1, N'Gold')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (3, 1, 1, N'Gray')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (4, 1, 5, N'Gold')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (5, 1, 5, N'Black')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (6, 1, 5, N'Pink')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (7, 1, 9, N'Gray')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (8, 1, 9, N'Pink')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (9, 1, 9, N'Gold')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (10, 1, 9, N'Silver')
+INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (1, 1, 1, N'["Silver","Gold","Gray"]')
+INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (2, 1, 5, N'["Gold","Black","Pink"]')
+INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [OptionId], [ProductId], [Value]) VALUES (3, 1, 9, N'["Gray","Pink","Gold", "Silver"]')
 SET IDENTITY_INSERT [dbo].[Catalog_ProductOptionValue] OFF 
 GO
 
@@ -418,61 +415,65 @@ SET IDENTITY_INSERT [dbo].[Core_WidgetInstance] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[Core_UrlSlug] ON 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (1, N'phones', 1, N'Category')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (1, 1, 1, N'phones')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (2, N'smart-phones', 2, N'Category')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (2, 2, 1, N'smart-phones')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (3, N'basic-phones', 3, N'Category')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (3, 3, 1, N'basic-phones')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (4, N'tablets', 4, N'Category')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (4, 4, 1, N'tablets')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (5, N'wifi-cellular-tablets', 5, N'Category')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (5, 5, 1, N'wifi-cellular-tablets')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (6, N'cellular-tablets', 6, N'Category')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (6, 6, 1, N'cellular-tablets')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (7, N'computers', 7, N'Category')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (7, 7, 1, N'computers')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (8, N'gaming', 8, N'Category')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (8, 8, 1, N'gaming')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (9, N'business', 9, N'Category')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (9, 9, 1, N'business')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (10, N'accessories', 10, N'Category')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (10, 10, 1, N'accessories')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (11, N'headphones', 11, N'Category')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (11, 11, 1, N'headphones')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (12, N'cables', 12, N'Category')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (12, 12, 1, N'cables')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (13, N'usb-drives', 13, N'Category')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (13, 13, 1, N'usb-drives')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (18, N'about-us', 1, N'Page')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (18, 1, 4, N'about-us')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (19, N'terms-of-use', 2, N'Page')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (19, 2, 4, N'terms-of-use')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (20, N'privacy', 3, N'Page')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (20, 3, 4, N'privacy')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (21, N'help-center', 4, N'Page')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (21, 4, 4, N'help-center')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (22, N'help-center/how-to-buy', 5, N'Page')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (22, 5, 4, N'help-center/how-to-buy')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (23, N'help-center/shipping', 6, N'Page')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (23, 6, 4, N'help-center/shipping')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (24, N'help-center/how-to-return', 7, N'Page')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (24, 7, 4, N'help-center/how-to-return')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [Slug], [EntityId], [EntityName]) VALUES (25, N'help-center/warranty', 8, N'Page')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (25, 8, 4, N'help-center/warranty')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityName], [Slug]) VALUES (26, 1, N'Product', N'ipad-pro-wi-fi-4g-128gb')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (26, 1, 3, N'ipad-pro-wi-fi-4g-128gb')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityName], [Slug]) VALUES (27, 5, N'Product', N'samsung-galaxy-a5')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (27, 5, 3, N'samsung-galaxy-a5')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityName], [Slug]) VALUES (28, 9, N'Product', N'iphone-6s-16gb')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (28, 9, 3, N'iphone-6s-16gb')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityName], [Slug]) VALUES (29, 1, N'Brand', N'apple')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (29, 1, 2, N'apple')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityName], [Slug]) VALUES (30, 2, N'Brand', N'samsung')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (30, 2, 2, N'samsung')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityName], [Slug]) VALUES (31, 3, N'Brand', N'dell')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (31, 3, 2, N'dell')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityName], [Slug]) VALUES (32, 14, N'Product', N'dell-xps-15-9550')
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (32, 14, 3, N'dell-xps-15-9550')
+
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (33, 14, 1, N'test-1')
+
+INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (34, 15, 1, N'test-2')
 
 SET IDENTITY_INSERT [dbo].[Core_UrlSlug] OFF 
 GO

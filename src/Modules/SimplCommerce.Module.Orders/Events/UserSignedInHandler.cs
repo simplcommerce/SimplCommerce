@@ -3,7 +3,7 @@ using SimplCommerce.Module.Core.Events;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Services;
 
-namespace SimplCommerce.Module.Orders.Event
+namespace SimplCommerce.Module.Orders.Events
 {
     public class UserSignedInHandler : INotificationHandler<UserSignedIn>
     {

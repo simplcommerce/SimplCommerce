@@ -13,6 +13,19 @@ GO
 INSERT [dbo].[Core_UserRole] ([UserId], [RoleId]) VALUES (1, 1)
 GO
 
+SET IDENTITY_INSERT [dbo].[Core_EntityType] ON 
+INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (1, N'Category', N'Category', N'CategoryDetail')
+INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (2, N'Brand', N'Brand', N'BrandDetail')
+INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (3, N'Product', N'Product', N'ProductDetail')
+INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (4, N'Page', N'Page', N'PageDetail')
+SET IDENTITY_INSERT [dbo].[Core_EntityType] OFF
+GO
+
+SET IDENTITY_INSERT [dbo].[ActivityLog_ActivityType] ON 
+INSERT [dbo].[ActivityLog_ActivityType] ([Id], [Name]) VALUES (1, N'ProductView')
+SET IDENTITY_INSERT [dbo].[ActivityLog_ActivityType] OFF
+GO
+
 SET IDENTITY_INSERT [dbo].[Core_Widget] ON 
 INSERT [dbo].[Core_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (1, N'CarouselWidget', N'widget-carousel-create', CAST(N'2016-06-19 00:00:00.0000000' AS DateTime2), N'widget-carousel-edit', 1, N'Carousel Widget', N'CarouselWidget')
 INSERT [dbo].[Core_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (2, N'HtmlWidget', N'widget-html-create', CAST(N'2016-06-24 00:00:00.0000000' AS DateTime2), N'widget-html-edit', 1, N'Html Widget', N'HtmlWidget')
@@ -809,16 +822,33 @@ GO
 
 SET IDENTITY_INSERT [dbo].[Localization_Culture] ON 
 INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (1, N'vi-VN')
+INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (2, N'fr-FR')
 SET IDENTITY_INSERT [dbo].[Localization_Culture] OFF
 GO
 
-SET IDENTITY_INSERT [dbo].[Localization_Resource] ON 
-INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (1, 1, N'Register', N'Đăng ký')
-INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (2, 1, N'Hello {0}!', N'Chào {0}!')
-INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (3, 1, N'Log in', N'Đăng nhập')
-INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (4, 1, N'Log off', N'Đăng xuất')
-INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (5, 1, N'The Email field is required.', N'Địa chỉ Email cần phải có ')
-INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (6, 1, N'Email', N'Địa chỉ email')
-INSERT [dbo].[Localization_Resource] ([Id], [CultureId], [Key], [Value]) VALUES (7, 1, N'User List', N'Danh sách người dùng')
-SET IDENTITY_INSERT [dbo].[Localization_Resource] OFF
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Register', N'Đăng ký')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Hello {0}!', N'Chào {0}!')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Log in', N'Đăng nhập')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Log off', N'Đăng xuất')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'The Email field is required.', N'Địa chỉ email cần phải có ')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Email', N'Địa chỉ email')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'User List', N'Danh sách người dùng')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Remember me?', N'Ghi nhớ?')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Password', N'Mật khẩu')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Use a local account to log in.', N'Sử dụng tài khoản của bạn để đăng nhập')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Register as a new user?', N'Đăng ký người dùng mới')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Forgot your password?', N'Quên mật khẩu')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Use another service to log in.', N'Đăng nhập bằng các tài khoản khác')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Full name', N'Họ và tên')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Confirm password', N'Xác nhận mật khẩu')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Create a new account.', N'Tạo tài khoản mới.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'All', N'Tất cả')
+
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Register', N'S''inscrire')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Hello {0}!', N'Bonjour {0}!')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Log in', N'Connexion')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Log off', N'Déconnexion')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'The Email field is required.', N'Le champs Email est obligatoire.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Email', N'Email')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'User List', N'Liste des utilisateurs')
 GO

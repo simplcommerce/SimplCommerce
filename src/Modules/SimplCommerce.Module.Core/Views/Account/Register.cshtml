@@ -1,49 +1,48 @@
-﻿@using SimplCommerce.Module.Core.Models
-@model RegisterViewModel
+﻿@model RegisterViewModel
 @inject SignInManager<User> SignInManager
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = Localizer["Register"];
 }
 
 <h2>@ViewData["Title"].</h2>
 
-<h4>Create a new account.</h4>
+<h4>@Localizer["Create a new account."]</h4>
 <hr />
 <div class="row">
     <div class="col-md-8">
         <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Email" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
+                <label asp-for="Email" class="col-md-4 control-label">@Localizer["Email"]</label>
+                <div class="col-md-8">
                     <input asp-for="Email" class="form-control" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="FullName" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
+                <label asp-for="FullName" class="col-md-4 control-label">@Localizer["Full name"]</label>
+                <div class="col-md-8">
                     <input asp-for="FullName" class="form-control" />
                     <span asp-validation-for="FullName" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
+                <label asp-for="Password" class="col-md-4 control-label">@Localizer["Password"]</label>
+                <div class="col-md-8">
                     <input asp-for="Password" class="form-control" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
+                <label asp-for="ConfirmPassword" class="col-md-4 control-label">@Localizer["Confirm password"]</label>
+                <div class="col-md-8">
                     <input asp-for="ConfirmPassword" class="form-control" />
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <button type="submit" class="btn btn-default">Register</button>
+                <div class="col-md-offset-4 col-md-8">
+                    <button type="submit" class="btn btn-default">@Localizer["Register"]</button>
                 </div>
             </div>
         </form>
@@ -51,7 +50,7 @@
 
     <div class="col-md-4">
         <section>
-            <h4>Use another service to Register.</h4>
+            <h4>@Localizer["Use another service to log in."]</h4>
             <hr />
             @{
                 var loginProviders = SignInManager.GetExternalAuthenticationSchemes().ToList();

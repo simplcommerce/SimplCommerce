@@ -7,7 +7,7 @@ namespace SimplCommerce.Module.Catalog.Services
 {
     public class BrandService : IBrandService
     {
-        private const string BrandEntityName = "Brand";
+        private const long BrandEntityTypeId = 2;
 
         private readonly IRepository<Brand> _brandRepository;
         private readonly IUrlSlugService _urlSlugService;
@@ -25,7 +25,7 @@ namespace SimplCommerce.Module.Catalog.Services
                 _brandRepository.Add(brand);
                 _brandRepository.SaveChange();
 
-                _urlSlugService.Add(brand.SeoTitle, brand.Id, BrandEntityName);
+                _urlSlugService.Add(brand.SeoTitle, brand.Id, BrandEntityTypeId);
                 _brandRepository.SaveChange();
 
                 transaction.Commit();
@@ -34,7 +34,7 @@ namespace SimplCommerce.Module.Catalog.Services
 
         public void Update(Brand brand)
         {
-            _urlSlugService.Update(brand.SeoTitle, brand.Id, BrandEntityName);
+            _urlSlugService.Update(brand.SeoTitle, brand.Id, BrandEntityTypeId);
             _brandRepository.SaveChange();
         }
 
@@ -47,7 +47,7 @@ namespace SimplCommerce.Module.Catalog.Services
         public void Delete(Brand brand)
         {
             brand.IsDeleted = true;
-            _urlSlugService.Remove(brand.Id, BrandEntityName);
+            _urlSlugService.Remove(brand.Id, BrandEntityTypeId);
             _brandRepository.SaveChange();
         }
     }

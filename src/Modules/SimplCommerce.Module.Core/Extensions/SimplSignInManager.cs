@@ -12,22 +12,19 @@ namespace SimplCommerce.Module.Core.Extensions
 {
     public class SimplSignInManager<TUser> : SignInManager<TUser> where TUser : class
     {
+        private readonly IMediator _mediator;
         private readonly IHttpContextAccessor _contextAccessor;
-        private readonly IWorkContext _workContext;
         private HttpContext _context;
-        private IMediator _mediator;
 
         public SimplSignInManager(UserManager<TUser> userManager,
             IHttpContextAccessor contextAccessor,
             IUserClaimsPrincipalFactory<TUser> claimsFactory,
             IOptions<IdentityOptions> optionsAccessor,
             ILogger<SignInManager<TUser>> logger,
-            IWorkContext workContext,
             IMediator mediator)
         : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger)
         {
             _contextAccessor = contextAccessor;
-            _workContext = workContext;
             _mediator = mediator;
         }
 

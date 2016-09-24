@@ -13,7 +13,7 @@ namespace SimplCommerce.WebHost.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
+                .HasAnnotation("ProductVersion", "1.0.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<long>", b =>
@@ -69,21 +69,6 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("Core_UserLogin");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<long>", b =>
-                {
-                    b.Property<long>("UserId");
-
-                    b.Property<long>("RoleId");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Core_UserRole");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserToken<long>", b =>
                 {
                     b.Property<long>("UserId");
@@ -97,6 +82,38 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("Core_UserToken");
+                });
+
+            modelBuilder.Entity("SimplCommerce.Module.ActivityLog.Models.Activity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<long>("ActivityTypeId");
+
+                    b.Property<DateTimeOffset>("CreatedOn");
+
+                    b.Property<long>("EntityId");
+
+                    b.Property<long>("EntityTypeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActivityTypeId");
+
+                    b.ToTable("ActivityLog_Activity");
+                });
+
+            modelBuilder.Entity("SimplCommerce.Module.ActivityLog.Models.ActivityType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ActivityLog_ActivityType");
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Catalog.Models.Brand", b =>
@@ -189,6 +206,10 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<decimal>("Price");
 
                     b.Property<DateTimeOffset?>("PublishedOn");
+
+                    b.Property<float>("RatingAverage");
+
+                    b.Property<int>("ReviewsCount");
 
                     b.Property<string>("SeoTitle");
 
@@ -346,9 +367,9 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<long>("OptionId");
 
-                    b.Property<long>("ProducdtId");
+                    b.Property<long>("ProductId");
 
-                    b.Property<long?>("ProductId");
+                    b.Property<int>("SortIndex");
 
                     b.Property<string>("Value");
 
@@ -369,6 +390,8 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<long>("OptionId");
 
                     b.Property<long>("ProductId");
+
+                    b.Property<int>("SortIndex");
 
                     b.Property<string>("Value");
 
@@ -511,6 +534,22 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("Core_District");
                 });
 
+            modelBuilder.Entity("SimplCommerce.Module.Core.Models.EntityType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("RoutingAction");
+
+                    b.Property<string>("RoutingController");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Core_EntityType");
+                });
+
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.Media", b =>
                 {
                     b.Property<long>("Id")
@@ -576,11 +615,13 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<long>("EntityId");
 
-                    b.Property<string>("EntityName");
+                    b.Property<long>("EntityTypeId");
 
                     b.Property<string>("Slug");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EntityTypeId");
 
                     b.ToTable("Core_UrlSlug");
                 });
@@ -669,6 +710,21 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Core_UserAddress");
+                });
+
+            modelBuilder.Entity("SimplCommerce.Module.Core.Models.UserRole", b =>
+                {
+                    b.Property<long>("UserId");
+
+                    b.Property<long>("RoleId");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Core_UserRole");
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.Widget", b =>
@@ -847,6 +903,22 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("Orders_OrderItem");
                 });
 
+            modelBuilder.Entity("SimplCommerce.Module.Search.Models.Query", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTimeOffset>("CreatedOn");
+
+                    b.Property<string>("QueryText");
+
+                    b.Property<int>("ResultsCount");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Search_Query");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<long>", b =>
                 {
                     b.HasOne("SimplCommerce.Module.Core.Models.Role")
@@ -871,16 +943,11 @@ namespace SimplCommerce.WebHost.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<long>", b =>
+            modelBuilder.Entity("SimplCommerce.Module.ActivityLog.Models.Activity", b =>
                 {
-                    b.HasOne("SimplCommerce.Module.Core.Models.Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SimplCommerce.Module.Core.Models.User")
-                        .WithMany("Roles")
-                        .HasForeignKey("UserId")
+                    b.HasOne("SimplCommerce.Module.ActivityLog.Models.ActivityType", "ActivityType")
+                        .WithMany()
+                        .HasForeignKey("ActivityTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -977,7 +1044,8 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.HasOne("SimplCommerce.Module.Catalog.Models.Product", "Product")
                         .WithMany("OptionCombinations")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Catalog.Models.ProductOptionValue", b =>
@@ -1048,6 +1116,14 @@ namespace SimplCommerce.WebHost.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("SimplCommerce.Module.Core.Models.UrlSlug", b =>
+                {
+                    b.HasOne("SimplCommerce.Module.Core.Models.EntityType", "EntityType")
+                        .WithMany()
+                        .HasForeignKey("EntityTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.User", b =>
                 {
                     b.HasOne("SimplCommerce.Module.Core.Models.UserAddress", "CurrentShippingAddress")
@@ -1065,6 +1141,19 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasOne("SimplCommerce.Module.Core.Models.User", "User")
                         .WithMany("UserAddresses")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("SimplCommerce.Module.Core.Models.UserRole", b =>
+                {
+                    b.HasOne("SimplCommerce.Module.Core.Models.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SimplCommerce.Module.Core.Models.User", "User")
+                        .WithMany("Roles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.WidgetInstance", b =>

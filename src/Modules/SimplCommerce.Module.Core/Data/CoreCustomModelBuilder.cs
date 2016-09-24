@@ -28,9 +28,11 @@ namespace SimplCommerce.Module.Core.Data
                 b.ToTable("Core_RoleClaim");
             });
 
-            modelBuilder.Entity<IdentityUserRole<long>>(b =>
+            modelBuilder.Entity<UserRole>(b =>
             {
-                b.HasKey(r => new { r.UserId, r.RoleId });
+                b.HasKey(ur => new { ur.UserId, ur.RoleId });
+                b.HasOne(ur => ur.Role).WithMany(r => r.Users).HasForeignKey(r => r.RoleId);
+                b.HasOne(ur => ur.User).WithMany(u => u.Roles).HasForeignKey(u => u.UserId);
                 b.ToTable("Core_UserRole");
             });
 
