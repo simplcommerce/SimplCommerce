@@ -36,7 +36,7 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Module.Locali
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Module.Search", "src\Modules\SimplCommerce.Module.Search\SimplCommerce.Module.Search.xproj", "{5EFB6861-B00E-40D5-A7AF-B3A6E914BC8E}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Module.Reviews", "src\Modules\SimplCommerce.Module.ProductReviews\SimplCommerce.Module.Reviews.xproj", "{6340A38E-C644-4DFC-87C1-F89EC5CA9614}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Module.Reviews", "src\Modules\SimplCommerce.Module.Reviews\SimplCommerce.Module.Reviews.xproj", "{6340A38E-C644-4DFC-87C1-F89EC5CA9614}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Module.ActivityLog", "src\Modules\SimplCommerce.Module.ActivityLog\SimplCommerce.Module.ActivityLog.xproj", "{1A22C68D-BE49-4E94-A0AD-6FD31F54B805}"
 EndProject

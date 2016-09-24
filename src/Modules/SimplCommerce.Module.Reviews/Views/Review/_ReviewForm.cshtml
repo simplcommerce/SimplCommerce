@@ -1,0 +1,39 @@
+﻿@model SimplCommerce.Module.Reviews.ViewModels.ReviewForm
+<form id="form-addreview" asp-controller="Review" asp-action="AddReview" method="post" role="form" class="form-horizontal">
+    <input asp-for="EntityId" type="hidden" />
+    <input asp-for="EntityTypeId" type="hidden" />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Rating" class="col-md-4 control-label">@Localizer["Rate this product"]</label>
+        <div class="col-md-8">
+            <input asp-for="Rating" class="rating" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" />
+            <span asp-validation-for="Rating" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Comment" class="col-md-4 control-label">@Localizer["Review comment"]</label>
+        <div class="col-md-8">
+            <textarea asp-for="Comment" class="form-control"></textarea>
+            <span asp-validation-for="Comment" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Title" class="col-md-4 control-label">@Localizer["Review title"]</label>
+        <div class="col-md-8">
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="ReviewerName" class="col-md-4 control-label">@Localizer["Posted by"]</label>
+        <div class="col-md-8">
+            <input asp-for="ReviewerName" class="form-control" />
+            <span asp-validation-for="ReviewerName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-4 col-md-8">
+            <button id="btn-addreview" type="submit" class="btn btn-default">@Localizer["Submit review"]</button>
+        </div>
+    </div>
+</form>

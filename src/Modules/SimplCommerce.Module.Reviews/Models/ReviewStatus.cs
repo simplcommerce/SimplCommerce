@@ -2,10 +2,10 @@
 {
     public enum ReviewStatus
     {
-        Pending,
+        Pending = 0,
 
-        Approved,
+        Approved = 5,
 
-        NotApproved
+        NotApproved = 8
     }
 }

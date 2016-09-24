@@ -1,0 +1,71 @@
+﻿@using SimplCommerce.Module.Reviews.ViewModels
+@model ReviewVm
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <h4>Rating Average</h4>
+            <p>@(Model.RatingAverage)/5</p>
+            <p>@Model.ReviewsCount reviewers</p>
+        </div>
+        <div class="col-md-5">
+            <div class="progress">
+                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating1Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating1Count)%">
+                    <span class="sr-only">@Model.GetRatingPercent(Model.Rating1Count)%</span>
+                </div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating2Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating2Count)%">
+                    <span class="sr-only">@Model.GetRatingPercent(Model.Rating2Count)%</span>
+                </div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating3Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating3Count)%">
+                    <span class="sr-only">@Model.GetRatingPercent(Model.Rating3Count)%</span>
+                </div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating4Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating4Count)%">
+                    <span class="sr-only">@Model.GetRatingPercent(Model.Rating4Count)%</span>
+                </div>
+            </div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating5Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating5Count)%">
+                    <span class="sr-only">@Model.GetRatingPercent(Model.Rating5Count)%</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            
+        </div>
+    </div>
+    <div class="row">
+        <div id="addreview">
+            @Html.Partial("/Modules/SimplCommerce.Module.Reviews/Views/Review/_ReviewForm.cshtml", new ReviewForm { EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId })
+        </div>
+    </div>
+    @foreach (var review in Model.Items)
+    {
+        <div>
+            <ul class="list-inline product-ratings">
+                @for (var i = 1; i < 6; i++)
+                {
+                    if (review.Rating >= i)
+                    {
+                        <li><i class="rating-selected fa fa-star"></i></li>
+                    }
+                    else
+                    {
+                        <li><i class="rating fa fa-star"></i></li>
+                    }
+                }
+                <li class="product-review-list">
+                    @review.Title
+                </li>
+            </ul>
+            <p>By: <strong>@review.ReviewerName</strong> on <span>@review.CreatedOn</span></p>
+            <p>@review.Comment</p>
+        </div>
+    }
+
+</div>

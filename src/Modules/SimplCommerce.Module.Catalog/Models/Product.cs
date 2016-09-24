@@ -44,7 +44,7 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public int ReviewsCount { get; set; }
 
-        public float RatingAverage { get; set; }
+        public double RatingAverage { get; set; }
 
         public long? BrandId { get; set; }
 

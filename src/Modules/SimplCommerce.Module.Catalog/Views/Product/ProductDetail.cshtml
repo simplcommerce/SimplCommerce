@@ -37,7 +37,7 @@
             <div class="product-name">
                 <h1 class="">@Model.Name</h1>
             </div>
-            <ul class="list-inline product-ratings margin-bottom-30">
+            <ul class="list-inline product-ratings">
                 <li><i class="rating-selected fa fa-star"></i></li>
                 <li><i class="rating-selected fa fa-star"></i></li>
                 <li><i class="rating-selected fa fa-star"></i></li>
@@ -155,10 +155,15 @@
             </table>
         </div>
     }
+    <div>
+        <h3>Customer Reviews</h3>
+        @await Component.InvokeAsync("Review", new { entityId = Model.Id, entityTypeId = (long)3 })
+    </div>
 </div>
 
 @section scripts
 {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
     <script src="~/lib/smoothproducts/js/smoothproducts.js"></script>
     <script src="~/catalog/product-detail.js"></script>
 }

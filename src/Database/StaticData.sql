@@ -847,6 +847,12 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Add to cart', N'Thêm vào giỏ hàng')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Product detail', N'Mô tả sản phẩm')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Product specification', N'Thông số kỹ thuật')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Rate this product', N'Đánh giá sản phẩm này')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Review comment', N'Mô tả đánh giá')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Review title', N'Tiêu đề đánh giá')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Posted by', N'Đánh giá bởi')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Submit review', N'Gửi đánh giá')
+
 
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Register', N'S''inscrire')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Hello {0}!', N'Bonjour {0}!')

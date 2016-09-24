@@ -15,7 +15,8 @@
         'simplAdmin.catalog',
         'simplAdmin.orders',
         'simplAdmin.cms',
-        'simplAdmin.search'
+        'simplAdmin.search',
+        'simplAdmin.reviews'
     ]);
 
     toastr.options.closeButton = true;

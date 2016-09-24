@@ -37,5 +37,19 @@
                 quantityInput.val(quantityInput.val() - 1);
             }
         });
+
+        $('input.rating').rating();
+
+        $('#addreview').on('click', '#btn-addreview', function (e) {
+            e.preventDefault();
+            var $form = $('#form-addreview');
+            if (!$form.valid || $form.valid()) {
+                $.post($form.attr('action'), $form.serializeArray())
+                    .done(function (result) {
+                        $('#addreview').html(result);
+                        $('input.rating').rating();
+                    });
+            }
+        });
     });
 })(jQuery);

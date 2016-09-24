@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
@@ -6,19 +8,15 @@ using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Orders.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.Orders.Controllers
 {
     [Authorize]
     public class OrderController : Controller
     {
-        private IRepository<Order> _orderRepository;
-        private IWorkContext _workContext;
-        private IMediaService _mediaService;
+        private readonly IMediaService _mediaService;
+        private readonly IRepository<Order> _orderRepository;
+        private readonly IWorkContext _workContext;
 
         public OrderController(IRepository<Order> orderRepository, IWorkContext workContext, IMediaService mediaService)
         {
@@ -35,24 +33,27 @@ namespace SimplCommerce.Module.Orders.Controllers
                 .Query()
                 .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.ThumbnailImage)
                 .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.OptionCombinations).ThenInclude(x => x.Option)
-                .Select(x => new OrderHistoryListItem {
+                .Where(x => x.CreatedById == user.Id)
+                .Select(x => new OrderHistoryListItem
+                {
                     Id = x.Id,
                     CreatedOn = x.CreatedOn,
                     SubTotal = x.SubTotal,
                     OrderStatus = x.OrderStatus,
-                    OrderItems = x.OrderItems.Select(i => new OrderHistoryProductVm {
+                    OrderItems = x.OrderItems.Select(i => new OrderHistoryProductVm
+                    {
                         ProductId = i.ProductId,
                         ProductName = i.Product.Name,
                         Quantity = i.Quantity,
-                        ThumbnailImage =i.Product.ThumbnailImage.FileName,
+                        ThumbnailImage = i.Product.ThumbnailImage.FileName,
                         ProductOptions = i.Product.OptionCombinations.Select(o => o.Value)
                     }).ToList()
                 })
                 .OrderByDescending(x => x.CreatedOn).ToList();
 
-            foreach(var item in model)
+            foreach (var item in model)
             {
-                foreach(var product in item.OrderItems)
+                foreach (var product in item.OrderItems)
                 {
                     product.ThumbnailImage = _mediaService.GetMediaUrl(product.ThumbnailImage);
                 }

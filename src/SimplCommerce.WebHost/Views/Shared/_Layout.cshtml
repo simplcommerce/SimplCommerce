@@ -9,6 +9,7 @@
         <environment names="Development">
             <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
             <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+            <link href="~/lib/bootstrap-star-rating/css/star-rating.css" rel="stylesheet" />
             <link rel="stylesheet" href="~/css/site.css" />
         </environment>
         <environment names="Staging,Production">
@@ -16,6 +17,7 @@
                   asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
                   asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"/>
             <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+            <link href="~/lib/bootstrap-star-rating/css/star-rating.css" rel="stylesheet" />
             <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
         </environment>
 
@@ -121,6 +123,7 @@
         </environment>
 
         <script src="~/lib/matchheight/jquery.matchHeight.js"></script>
+        <script src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
         <script src="~/js/main.js"></script>
         <script src="~/orders/add-to-cart.js"></script>
         @RenderSection("scripts", required: false)

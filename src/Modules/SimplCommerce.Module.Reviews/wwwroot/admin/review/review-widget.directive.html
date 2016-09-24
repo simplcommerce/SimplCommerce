@@ -1,0 +1,22 @@
+﻿<table class="table">
+    <thead>
+        <tr>
+            <th>Customer Name</th>
+            <th>Rating</th>
+            <th>Title</th>
+            <th>Comment</th>
+            <th>Created On</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="review in vm.reviews">
+            <td>{{review.reviewerName}}</td>
+            <td>{{review.rating}}</td>
+            <td>{{review.title}}</td>
+            <td>{{review.comment}}</td>
+            <td>{{review.createdOn | date:'medium'}}</td>
+            <td>{{review.status }}</td>
+        </tr>
+    </tbody>
+</table>
