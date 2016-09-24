@@ -1,6 +1,4 @@
-﻿@using System.Globalization
-
-@model SimplCommerce.Module.Catalog.ViewModels.ProductDetail
+﻿@model SimplCommerce.Module.Catalog.ViewModels.ProductDetail
 
 @{
     ViewBag.Title = Model.Name;
@@ -14,7 +12,7 @@
 
 <div>
     <ol class="breadcrumb">
-        <li><a href="~/">Home</a></li>
+        <li><a href="~/">@Localizer["Home"]</a></li>
         @if (Model.Categories.Any())
         {
             @await Component.InvokeAsync("CategoryBreadcrumb", new { categoryIds = Model.Categories.Select(x => x.Id) })
@@ -110,7 +108,7 @@
                         <button type="button" class="quantity-button" name="add" value="+">+</button>
                     </div>
 
-                    <button type="button" class="btn btn-lg btn-add-cart">Add to Cart</button>
+                    <button type="button" class="btn btn-lg btn-add-cart">@Localizer["Add to cart"]</button>
                 </div>
             </form>
             <div>
@@ -127,25 +125,25 @@
             </div>
         </div>
     </div>
-    @if (!String.IsNullOrWhiteSpace(Model.Description))
+    @if (!string.IsNullOrWhiteSpace(Model.Description))
     {
         <div>
-            <h3>Product detail</h3>
+            <h3>@Localizer["Product detail"]</h3>
             @Html.Raw(Model.Description)
         </div>
     }
 
-    @if (!String.IsNullOrWhiteSpace(Model.Specification))
+    @if (!string.IsNullOrWhiteSpace(Model.Specification))
     {
         <div>
-            <h3>Product specification</h3>
+            <h3>@Localizer["Product specification"]</h3>
             @Html.Raw(Model.Specification)
         </div>
     }
     @if (Model.Attributes.Any())
     {
         <div>
-            <h3>Product specification</h3>
+            <h3>@Localizer["Product specification"]</h3>
             <table class="table table-striped">
                 @foreach (var attribute in Model.Attributes)
                 {
