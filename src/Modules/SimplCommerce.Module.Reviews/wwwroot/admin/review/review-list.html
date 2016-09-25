@@ -1,0 +1,62 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Review List</h2>
+        </div>
+        <div class="col-md-4 text-right">
+        </div>
+    </div>
+</div>
+
+<table class="table" st-pipe="vm.getReviews" st-table="vm.reviews">
+    <thead>
+    <tr>
+        <th>Customer Name</th>
+        <th>Rating</th>
+        <th>Title</th>
+        <th>Comment</th>
+        <th st-sort="CreatedOn" class="sortable">CreatedOn</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th><st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range></th>
+            <th>
+                <div class="form-group">
+                    <select class="form-control" st-search="Status">
+                        <option value="">All</option>
+                        <option value="1">Pending</option>
+                        <option value="5">Approved</option>
+                        <option value="8">Not Approved</option>
+                    </select>
+                </div>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-show="!vm.isLoading">
+        <tr ng-repeat="review in vm.reviews">
+            <td>{{review.reviewerName}}</td>
+            <td>{{review.rating}}</td>
+            <td>{{review.title}}</td>
+            <td>{{review.comment}}</td>
+            <td>{{review.createdOn | date:'medium'}}</td>
+            <td>{{review.status }}</td>
+            <td><button ng-if="review.status ==='Pending'" title="Approve" ng-click="vm.approve(review)" class="btn btn-primary btn-xs">Approve</button></td>
+        </tr>
+    </tbody>
+    <tbody ng-show="vm.isLoading">
+        <tr>
+            <td colspan="7" class="text-center">Loading ... </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="7"></td>
+        </tr>
+    </tfoot>
+</table>	

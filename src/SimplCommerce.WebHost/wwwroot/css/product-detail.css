@@ -158,3 +158,49 @@
     background: none;
     border: none;
 }
+
+.rating-summary {
+    text-align: center;
+    margin-top: 22px;
+}
+
+.rating-summary .rating-average {
+    margin: 10px 0 0;
+    font-size: 35px;
+    color: #f63;
+    font-weight: 700;
+}
+
+.rating-item {
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.rating-item .progress {
+    width: 180px;
+    display: inline-block;
+    height: 17px;
+    vertical-align: middle;
+    margin: 0;
+}
+
+#addreview {
+    border-left: solid 1px #e2e2e2;
+}
+
+#addreview input, #addreview textarea {
+    max-width: 100%;
+}
+
+.review-item-list > div {
+    margin-bottom: 13px;
+    border-bottom: solid 1px #e2e2e2;
+}
+
+.review-item-list > div:last-child {
+    border-bottom: none;
+}
+
+.review-item-list .review-title {
+    font-weight: 700;
+}

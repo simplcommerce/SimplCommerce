@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Reviews.Models;
 
 namespace SimplCommerce.Module.Reviews.Controllers
@@ -43,6 +45,78 @@ namespace SimplCommerce.Module.Reviews.Controllers
                 });
 
             return Json(model);
+        }
+
+        [HttpPost("grid")]
+        public ActionResult List([FromBody] SmartTableParam param)
+        {
+            IQueryable<Review> query = _reviewRepository.Query();
+
+            if (param.Search.PredicateObject != null)
+            {
+                dynamic search = param.Search.PredicateObject;
+                if (search.Id != null)
+                {
+                    long id = search.Id;
+                    query = query.Where(x => x.Id == id);
+                }
+
+                if (search.Status != null)
+                {
+                    var status = (ReviewStatus)search.Status;
+                    query = query.Where(x => x.Status == status);
+                }
+
+                if (search.CreatedOn != null)
+                {
+                    if (search.CreatedOn.before != null)
+                    {
+                        DateTimeOffset before = search.CreatedOn.before;
+                        before = before.Date.AddDays(1);
+                        query = query.Where(x => x.CreatedOn <= before);
+                    }
+
+                    if (search.CreatedOn.after != null)
+                    {
+                        DateTimeOffset after = search.CreatedOn.after;
+                        after = after.Date;
+                        query = query.Where(x => x.CreatedOn >= after);
+                    }
+                }
+            }
+
+            var reviews = query.ToSmartTableResult(
+                param,
+                x => new
+                {
+                    x.Id,
+                    x.ReviewerName,
+                    x.Rating,
+                    x.Title,
+                    x.Comment,
+                    Status = x.Status.ToString(),
+                    x.CreatedOn
+                });
+
+            return Json(reviews);
+        }
+
+        [HttpPost("change-status/{id}")]
+        public IActionResult ChangeStatus(long id, [FromBody] int statusId)
+        {
+            var review = _reviewRepository.Query().FirstOrDefault(x => x.Id == id);
+            if (review == null)
+            {
+                return NotFound();
+            }
+
+            if (Enum.IsDefined(typeof(ReviewStatus), statusId))
+            {
+                review.Status = (ReviewStatus)statusId;
+                _reviewRepository.SaveChange();
+                return Ok();
+            }
+            return BadRequest(new { Error = "unsupported order status" });
         }
     }
 }

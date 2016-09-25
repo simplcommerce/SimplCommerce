@@ -22,7 +22,7 @@
         }
 
         function changeReviewStatus(reviewId, statusId) {
-            return $http.post('api/reviews/change-review-status/' + reviewId, statusId);
+            return $http.post('api/reviews/change-status/' + reviewId, statusId);
         }
     }
 })();
