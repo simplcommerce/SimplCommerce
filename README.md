@@ -85,11 +85,11 @@ By default domain entities is mapped by convention. In case you need to some spe
 ###Using Command Line (Windows, Mac, Linux)
 - Install NodeJS
 - Install .NET SDK (https://www.microsoft.com/net/core)
-- Create a database in SQL Server or Postpres
-- If you use Postpres
+- Create a database in SQL Server or PostgreSQL
+- If you use PostgreSQL
     - Open file project.json and add package "Npgsql.EntityFrameworkCore.PostgreSQL": "1.0.0"
     - Open Console Window, change directory to \src\SimplCommerce.WebHost type "dotnet restore" then press Enter
-    - Open the file Startup.cs replace the SqlServer provider by Postgres
+    - Open the file Startup.cs replace the SqlServer provider by PostgreSQL
     ```
             - services.AddDbContext<SimplDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"),
