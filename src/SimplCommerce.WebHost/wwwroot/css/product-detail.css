@@ -30,6 +30,7 @@
     background-color: #FFFFFF;
     text-align: left;
     border: 2px dashed #E0E0E0;
+    overflow: hidden;
 }
 
 .product-price .product-price-regular{
