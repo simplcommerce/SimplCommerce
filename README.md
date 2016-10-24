@@ -1,10 +1,13 @@
-# A super simple, modularized ecommerce system built on .NET Core
+# A super simple, cross platform, modularized ecommerce system built on .NET Core
 
 [![Join the chat at https://gitter.im/simplcommerce/SimplCommerce](https://badges.gitter.im/simplcommerce/SimplCommerce.svg)](https://gitter.im/simplcommerce/SimplCommerce?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+## Online demo (Azure Website)
+http://demo.simplcommerce.com
+
 ## Prerequisite:
 - .NET Core SDK (https://www.microsoft.com/net/core)
-- SQL Server or PostgreSQL
+- SQL Server or PostgreSQL or MySQL
 
 ## Technologies and frameworks used:
 - ASP.NET MVC Core 1.0.1 on .NET Core 1.0.1
@@ -109,9 +112,6 @@ By default domain entities is mapped by convention. In case you need to some spe
 - Type "dotnet watch run" then press Enter.
 - Open browser, type http://localhost:5000 then hit Enter
 - The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
-
-## Online demo (Azure Website)
-http://demo.simplcommerce.com
 
 ## Roadmap
 https://github.com/simplcommerce/SimplCommerce/wiki/Roadmap
