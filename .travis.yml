@@ -1,4 +1,4 @@
-language: csharp  
+﻿language: csharp  
 solution: SimplCommerce.sln
 
 matrix:
@@ -14,3 +14,7 @@ matrix:
       dotnet: 1.0.0-preview2-003131
       mono: none
       env: DOTNETCORE=1
+
+branches:  
+  only:
+    - master
