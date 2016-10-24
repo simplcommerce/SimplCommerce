@@ -1,4 +1,4 @@
-﻿language: csharp  
+language: csharp  
 solution: SimplCommerce.sln
 
 matrix:
