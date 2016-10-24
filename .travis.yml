@@ -25,4 +25,5 @@ notifications:
     on_failure: always
 
 script:
+  - if [ -n "${DOTNETCORE}" ]; then dotnet build **/**/project.json; fi
   - if [ -z "${DOTNETCORE}" ]; then xbuild /p:Configuration=Release SimplCommerce.sln; fi
