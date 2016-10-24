@@ -23,3 +23,6 @@ notifications:
   email:
     on_success: change
     on_failure: always
+
+script:
+  - if [ -z "${DOTNETCORE}" ]; then xbuild /p:Configuration=Release SimplCommerce.sln; fi
