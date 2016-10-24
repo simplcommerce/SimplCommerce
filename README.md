@@ -5,6 +5,11 @@
 ## Online demo (Azure Website)
 http://demo.simplcommerce.com
 
+## Build Status
+| Build server| Platform       | Status      |
+|-------------|----------------|-------------|
+| AppVeyor    | Windows        |[![Build status](https://ci.appveyor.com/api/projects/status/cq61prgs6ta8e9hi/branch/master?svg=true)](https://ci.appveyor.com/project/thiennn/simplcommerce/branch/master) |
+|Travis       | Linux / MacOS  |             |
 ## Prerequisite:
 - .NET Core SDK (https://www.microsoft.com/net/core)
 - SQL Server or PostgreSQL or MySQL
