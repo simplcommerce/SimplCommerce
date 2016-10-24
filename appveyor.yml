@@ -1,7 +1,6 @@
 init:
   - git config --global core.autocrlf true
-build_script:
-  - build.cmd --quiet verify
-clone_depth: 1
+before_build:
+  - appveyor-retry dotnet restore -v Minimal
 test: off
 deploy: off
