@@ -10,6 +10,7 @@ http://demo.simplcommerce.com
 |-------------|----------------|-------------|
 | AppVeyor    | Windows        |[![Build status](https://ci.appveyor.com/api/projects/status/cq61prgs6ta8e9hi/branch/master?svg=true)](https://ci.appveyor.com/project/thiennn/simplcommerce/branch/master) |
 |Travis       | Linux / MacOS  |[![Build Status](https://travis-ci.org/simplcommerce/SimplCommerce.svg?branch=master)](https://travis-ci.org/simplcommerce/SimplCommerce) |
+
 ## Prerequisite:
 - .NET Core SDK (https://www.microsoft.com/net/core)
 - SQL Server or PostgreSQL or MySQL
