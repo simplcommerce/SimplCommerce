@@ -1,4 +1,4 @@
-language: csharp  
+language: csharp
 solution: SimplCommerce.sln
 
 matrix:
@@ -18,3 +18,8 @@ matrix:
 branches:  
   only:
     - master
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
