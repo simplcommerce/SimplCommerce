@@ -24,5 +24,8 @@ notifications:
     on_success: change
     on_failure: always
 
+before_install:
+  - if test "$TRAVIS_OS_NAME" == "osx"; then brew update; brew install openssl; ln -s /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib /usr/local/lib/; ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib/; fi
+
 script:
-  - if [ -n "${DOTNETCORE}" ]; then dotnet restore && dotnet build **/**/project.json; fi
+  - if [ -n "${DOTNETCORE}" ]; then dotnet restore && dotnet build ./src/**/**/project.json; fi
