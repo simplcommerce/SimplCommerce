@@ -12,6 +12,7 @@
     <thead>
     <tr>
         <th>Customer Name</th>
+        <th>Entity Name</th>
         <th>Rating</th>
         <th>Title</th>
         <th>Comment</th>
@@ -21,6 +22,7 @@
     </tr>
         <tr>
             <th></th>
+            <th><input class="form-control" st-search="EntityName" /></th>
             <th></th>
             <th></th>
             <th></th>
@@ -41,6 +43,7 @@
     <tbody ng-show="!vm.isLoading">
         <tr ng-repeat="review in vm.reviews">
             <td>{{review.reviewerName}}</td>
+            <td>{{review.entityName}}</td>
             <td>{{review.rating}}</td>
             <td>{{review.title}}</td>
             <td>{{review.comment}}</td>

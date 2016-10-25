@@ -2,8 +2,8 @@
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
+using SimplCommerce.Module.Reviews.Data;
 using SimplCommerce.Module.Reviews.Models;
 
 namespace SimplCommerce.Module.Reviews.Controllers
@@ -12,9 +12,9 @@ namespace SimplCommerce.Module.Reviews.Controllers
     [Route("api/reviews")]
     public class ReviewApiController : Controller
     {
-        private readonly IRepository<Review> _reviewRepository;
+        private readonly IReviewRepository _reviewRepository;
 
-        public ReviewApiController(IRepository<Review> reviewRepository)
+        public ReviewApiController(IReviewRepository reviewRepository)
         {
             _reviewRepository = reviewRepository;
         }
@@ -50,7 +50,7 @@ namespace SimplCommerce.Module.Reviews.Controllers
         [HttpPost("grid")]
         public ActionResult List([FromBody] SmartTableParam param)
         {
-            IQueryable<Review> query = _reviewRepository.Query();
+            var query = _reviewRepository.List();
 
             if (param.Search.PredicateObject != null)
             {
@@ -61,9 +61,15 @@ namespace SimplCommerce.Module.Reviews.Controllers
                     query = query.Where(x => x.Id == id);
                 }
 
+                if (search.EntityName != null)
+                {
+                    string entityName = search.EntityName;
+                    query = query.Where(x => x.EntityName == entityName);
+                }
+
                 if (search.Status != null)
                 {
-                    var status = (ReviewStatus)search.Status;
+                    var status = (ReviewStatus) search.Status;
                     query = query.Where(x => x.Status == status);
                 }
 
@@ -94,6 +100,7 @@ namespace SimplCommerce.Module.Reviews.Controllers
                     x.Rating,
                     x.Title,
                     x.Comment,
+                    x.EntityName,
                     Status = x.Status.ToString(),
                     x.CreatedOn
                 });
@@ -112,11 +119,11 @@ namespace SimplCommerce.Module.Reviews.Controllers
 
             if (Enum.IsDefined(typeof(ReviewStatus), statusId))
             {
-                review.Status = (ReviewStatus)statusId;
+                review.Status = (ReviewStatus) statusId;
                 _reviewRepository.SaveChange();
                 return Ok();
             }
-            return BadRequest(new { Error = "unsupported order status" });
+            return BadRequest(new {Error = "unsupported order status"});
         }
     }
 }
