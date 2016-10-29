@@ -2,7 +2,7 @@
 
 namespace SimplCommerce.Module.Localization.Models
 {
-    public class Resource : Entity
+    public class Resource : EntityBase
     {
         public string Key { get; set; }
 

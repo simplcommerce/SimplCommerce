@@ -4,7 +4,7 @@ using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Reviews.Models
 {
-    public class Review : Entity
+    public class Review : EntityBase
     {
         public Review()
         {

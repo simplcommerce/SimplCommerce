@@ -2,7 +2,7 @@
 
 namespace SimplCommerce.Module.Catalog.Models
 {
-    public class ProductLink : Entity
+    public class ProductLink : EntityBase
     {
         public long ProductId { get; set; }
 

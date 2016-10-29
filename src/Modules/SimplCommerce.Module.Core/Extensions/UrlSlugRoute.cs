@@ -26,7 +26,7 @@ namespace SimplCommerce.Module.Core.Extensions
                 requestPath = requestPath.Substring(1);
             }
 
-            var urlSlugRepository = context.HttpContext.RequestServices.GetService<IRepository<UrlSlug>>();
+            var urlSlugRepository = context.HttpContext.RequestServices.GetService<IRepository<Entity>>();
 
             // Get the slug that matches.
             var urlSlug = await urlSlugRepository.Query().Include(x => x.EntityType).FirstOrDefaultAsync(x => x.Slug == requestPath);

@@ -2,7 +2,7 @@
 
 namespace SimplCommerce.Module.Core.Models
 {
-    public class Media : Entity
+    public class Media : EntityBase
     {
         public string Caption { get; set; }
 

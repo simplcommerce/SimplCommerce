@@ -9,12 +9,12 @@ namespace SimplCommerce.Module.Cms.Services
         public const long PageEntityTypeId = 4;
 
         private readonly IRepository<Page> _pageRepository;
-        private readonly IUrlSlugService _urlSlugService;
+        private readonly IEntityService _entityService;
 
-        public PageService(IRepository<Page> pageRepository, IUrlSlugService urlSlugService)
+        public PageService(IRepository<Page> pageRepository, IEntityService entityService)
         {
             _pageRepository = pageRepository;
-            _urlSlugService = urlSlugService;
+            _entityService = entityService;
         }
 
         public void Create(Page page)
@@ -24,7 +24,7 @@ namespace SimplCommerce.Module.Cms.Services
                 _pageRepository.Add(page);
                 _pageRepository.SaveChange();
 
-                _urlSlugService.Add(page.SeoTitle, page.Id, PageEntityTypeId);
+                _entityService.Add(page.SeoTitle, page.Id, PageEntityTypeId);
                 _pageRepository.SaveChange();
 
                 transaction.Commit();
@@ -33,14 +33,14 @@ namespace SimplCommerce.Module.Cms.Services
 
         public void Update(Page page)
         {
-            _urlSlugService.Update(page.SeoTitle, page.Id, PageEntityTypeId);
+            _entityService.Update(page.SeoTitle, page.Id, PageEntityTypeId);
             _pageRepository.SaveChange();
         }
 
         public void Delete(Page page)
         {
             _pageRepository.Remove(page);
-            _urlSlugService.Remove(page.Id, PageEntityTypeId);
+            _entityService.Remove(page.Id, PageEntityTypeId);
             _pageRepository.SaveChange();
         }
     }

@@ -9,12 +9,12 @@ namespace SimplCommerce.Module.Catalog.Services
         private const long ProductEntityTypeId = 3;
 
         private readonly IRepository<Product> _productRepository;
-        private readonly IUrlSlugService _urlSlugService;
+        private readonly IEntityService _entityService;
 
-        public ProductService(IRepository<Product> productRepository, IUrlSlugService urlSlugService)
+        public ProductService(IRepository<Product> productRepository, IEntityService entityService)
         {
             _productRepository = productRepository;
-            _urlSlugService = urlSlugService;
+            _entityService = entityService;
         }
 
         public void Create(Product product)
@@ -24,7 +24,7 @@ namespace SimplCommerce.Module.Catalog.Services
                 _productRepository.Add(product);
                 _productRepository.SaveChange();
 
-                _urlSlugService.Add(product.SeoTitle, product.Id, ProductEntityTypeId);
+                _entityService.Add(product.SeoTitle, product.Id, ProductEntityTypeId);
                 _productRepository.SaveChange();
 
                 transaction.Commit();
@@ -33,23 +33,23 @@ namespace SimplCommerce.Module.Catalog.Services
 
         public void Update(Product product)
         {
-            var slug = _urlSlugService.Get(product.Id, ProductEntityTypeId);
+            var slug = _entityService.Get(product.Id, ProductEntityTypeId);
             if (product.IsVisibleIndividually)
             {
                 if (slug != null)
                 {
-                    _urlSlugService.Update(product.SeoTitle, product.Id, ProductEntityTypeId);
+                    _entityService.Update(product.SeoTitle, product.Id, ProductEntityTypeId);
                 }
                 else
                 {
-                    _urlSlugService.Add(product.SeoTitle, product.Id, ProductEntityTypeId);
+                    _entityService.Add(product.SeoTitle, product.Id, ProductEntityTypeId);
                 }
             }
             else
             {
                 if (slug != null)
                 {
-                    _urlSlugService.Remove(product.Id, ProductEntityTypeId);
+                    _entityService.Remove(product.Id, ProductEntityTypeId);
                 }
             }
             _productRepository.SaveChange();
@@ -58,7 +58,7 @@ namespace SimplCommerce.Module.Catalog.Services
         public void Delete(Product product)
         {
             product.IsDeleted = true;
-            _urlSlugService.Remove(product.Id, ProductEntityTypeId);
+            _entityService.Remove(product.Id, ProductEntityTypeId);
             _productRepository.SaveChange();
         }
     }

@@ -5,7 +5,7 @@ using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Orders.Models
 {
-    public class Order : Entity
+    public class Order : EntityBase
     {
         public Order()
         {

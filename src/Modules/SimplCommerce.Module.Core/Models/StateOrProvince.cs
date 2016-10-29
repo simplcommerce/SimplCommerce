@@ -2,7 +2,7 @@
 
 namespace SimplCommerce.Module.Core.Models
 {
-    public class StateOrProvince : Entity
+    public class StateOrProvince : EntityBase
     {
         public long CountryId { get; set; }
 

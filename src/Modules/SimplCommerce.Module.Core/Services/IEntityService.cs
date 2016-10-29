@@ -2,9 +2,9 @@
 
 namespace SimplCommerce.Module.Core.Services
 {
-    public interface IUrlSlugService
+    public interface IEntityService
     {
-        UrlSlug Get(long entityId, long entityTypeId);
+        Entity Get(long entityId, long entityTypeId);
 
         void Add(string name, long entityId, long entityTypeId);
 

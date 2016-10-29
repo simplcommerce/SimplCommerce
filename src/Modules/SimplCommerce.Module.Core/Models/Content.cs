@@ -3,7 +3,7 @@ using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Core.Models
 {
-    public abstract class Content : Entity
+    public abstract class Content : EntityBase
     {
         private bool isDeleted;
 

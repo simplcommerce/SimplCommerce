@@ -2,7 +2,7 @@
 
 namespace SimplCommerce.Module.Catalog.Models
 {
-    public class ProductCategory : Entity
+    public class ProductCategory : EntityBase
     {
         public bool IsFeaturedProduct { get; set; }
 

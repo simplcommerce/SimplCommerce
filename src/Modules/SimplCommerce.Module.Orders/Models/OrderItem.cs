@@ -3,7 +3,7 @@ using SimplCommerce.Module.Catalog.Models;
 
 namespace SimplCommerce.Module.Orders.Models
 {
-    public class OrderItem : Entity
+    public class OrderItem : EntityBase
     {
         public virtual Order Order { get; set; }
 

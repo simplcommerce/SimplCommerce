@@ -3,7 +3,7 @@ using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Catalog.Models
 {
-    public class Brand : Entity
+    public class Brand : EntityBase
     {
         public string Name { get; set; }
 

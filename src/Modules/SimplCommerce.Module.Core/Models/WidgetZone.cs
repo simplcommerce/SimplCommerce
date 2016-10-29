@@ -2,7 +2,7 @@
 
 namespace SimplCommerce.Module.Core.Models
 {
-    public class WidgetZone : Entity
+    public class WidgetZone : EntityBase
     {
         public string Name { get; set; }
 

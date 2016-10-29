@@ -2,7 +2,7 @@
 
 namespace SimplCommerce.Module.ActivityLog.Models
 {
-    public class ActivityType : Entity
+    public class ActivityType : EntityBase
     {
         public string Name { get; set; }
     }

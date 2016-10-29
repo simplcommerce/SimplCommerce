@@ -3,7 +3,7 @@ using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Localization.Models
 {
-    public class Culture : Entity
+    public class Culture : EntityBase
     {
         public string Name { get; set; }
 

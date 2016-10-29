@@ -3,7 +3,7 @@ using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Core.Models
 {
-    public class WidgetInstance : Entity
+    public class WidgetInstance : EntityBase
     {
         public WidgetInstance()
         {

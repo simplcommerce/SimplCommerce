@@ -2,7 +2,7 @@
 
 namespace SimplCommerce.Module.Catalog.Models
 {
-    public class ProductOptionValue : Entity
+    public class ProductOptionValue : EntityBase
     {
         public long OptionId { get; set; }
 

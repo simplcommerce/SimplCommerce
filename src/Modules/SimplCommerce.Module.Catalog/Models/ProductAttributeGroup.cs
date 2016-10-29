@@ -3,7 +3,7 @@ using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Catalog.Models
 {
-    public class ProductAttributeGroup : Entity
+    public class ProductAttributeGroup : EntityBase
     {
         public string Name { get; set; }
 

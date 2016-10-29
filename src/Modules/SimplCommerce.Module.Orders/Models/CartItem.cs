@@ -5,7 +5,7 @@ using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Orders.Models
 {
-    public class CartItem : Entity
+    public class CartItem : EntityBase
     {
         public DateTimeOffset CreatedOn { get; set; }
 

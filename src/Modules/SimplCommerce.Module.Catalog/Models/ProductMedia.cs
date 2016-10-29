@@ -3,7 +3,7 @@ using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Catalog.Models
 {
-    public class ProductMedia : Entity
+    public class ProductMedia : EntityBase
     {
         public long ProductId { get; set; }
 

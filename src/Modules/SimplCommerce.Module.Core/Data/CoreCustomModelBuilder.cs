@@ -46,6 +46,12 @@ namespace SimplCommerce.Module.Core.Data
                 b.ToTable("Core_UserToken");
             });
 
+            modelBuilder.Entity<Entity>(e =>
+            {
+                e.HasKey(x => x.Id);
+                e.Property(x => x.EntityId);
+            });
+
             modelBuilder.Entity<User>(u =>
             {
                 u.HasOne(x => x.CurrentShippingAddress)

@@ -12,12 +12,12 @@ namespace SimplCommerce.Module.Catalog.Services
         private const long CategoryEntityTypeId = 1;
 
         private readonly IRepository<Category> _categoryRepository;
-        private readonly IUrlSlugService _urlSlugService;
+        private readonly IEntityService _entityService;
 
-        public CategoryService(IRepository<Category> categoryRepository, IUrlSlugService urlSlugService)
+        public CategoryService(IRepository<Category> categoryRepository, IEntityService entityService)
         {
             _categoryRepository = categoryRepository;
-            _urlSlugService = urlSlugService;
+            _entityService = entityService;
         }
 
         public IList<CategoryListItem> GetAll()
@@ -53,7 +53,7 @@ namespace SimplCommerce.Module.Catalog.Services
                 _categoryRepository.Add(category);
                 _categoryRepository.SaveChange();
 
-                _urlSlugService.Add(category.SeoTitle, category.Id, CategoryEntityTypeId);
+                _entityService.Add(category.SeoTitle, category.Id, CategoryEntityTypeId);
                 _categoryRepository.SaveChange();
 
                 transaction.Commit();
@@ -62,7 +62,7 @@ namespace SimplCommerce.Module.Catalog.Services
 
         public void Update(Category category)
         {
-            _urlSlugService.Update(category.SeoTitle, category.Id, CategoryEntityTypeId);
+            _entityService.Update(category.SeoTitle, category.Id, CategoryEntityTypeId);
             _categoryRepository.SaveChange();
         }
 

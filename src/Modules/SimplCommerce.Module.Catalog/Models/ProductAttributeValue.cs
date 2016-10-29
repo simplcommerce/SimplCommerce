@@ -2,7 +2,7 @@
 
 namespace SimplCommerce.Module.Catalog.Models
 {
-    public class ProductAttributeValue : Entity
+    public class ProductAttributeValue : EntityBase
     {
         public long AttributeId { get; set; }
 

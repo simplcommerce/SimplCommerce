@@ -2,7 +2,7 @@
 
 namespace SimplCommerce.Module.Core.Models
 {
-    public class EntityType : Entity
+    public class EntityType : EntityBase
     {
         public string Name { get; set; }
 

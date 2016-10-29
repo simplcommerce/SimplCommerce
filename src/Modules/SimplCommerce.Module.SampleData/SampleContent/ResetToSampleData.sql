@@ -1,4 +1,4 @@
-﻿DELETE FROM [dbo].[Core_UrlSlug]
+﻿DELETE FROM [dbo].[Core_Entity]
 GO
 DELETE FROM [dbo].[Orders_CartItem]
 GO
@@ -414,67 +414,38 @@ INSERT [dbo].[Core_WidgetInstance] ([Id], [CreatedOn], [Data], [DisplayOrder], [
 SET IDENTITY_INSERT [dbo].[Core_WidgetInstance] OFF 
 GO
 
-SET IDENTITY_INSERT [dbo].[Core_UrlSlug] ON 
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (1, 1, 1, N'phones')
+SET IDENTITY_INSERT [dbo].[Core_Entity] ON 
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (1, 1, 1, N'Phone', N'phones')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (2, 2, 1, N'Smart Phones', N'smart-phones')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (3, 3, 1, N'Basic Phones', N'basic-phones')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (4, 4, 1, N'Tablets', N'tablets')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (5, 5, 1, N'Wifi Cellular Tablets', N'wifi-cellular-tablets')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (6, 6, 1, N'Cellular Tablets', N'cellular-tablets')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (7, 7, 1, N'Computers', N'computers')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (8, 8, 1, N'Gaming', N'gaming')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (9, 9, 1, N'Business', N'business')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (10, 10, 1, N'Accessories', N'accessories')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (11, 11, 1, N'Headphones', N'headphones')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (12, 12, 1, N'Cables', N'cables')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (13, 13, 1, N'Usb Drives', N'usb-drives')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (18, 1, 4, N'About Us', N'about-us')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (19, 2, 4, N'Terms of Use', N'terms-of-use')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (20, 3, 4, N'Privacy', N'privacy')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (21, 4, 4, N'Help Center', N'help-center')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (22, 5, 4, N'How to buy', N'help-center/how-to-buy')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (23, 6, 4, N'Shipping', N'help-center/shipping')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (24, 7, 4, N'How to return', N'help-center/how-to-return')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (25, 8, 4, N'Warranty', N'help-center/warranty')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (26, 1, 3, N'IPad pro Wifi 4G 128GB', N'ipad-pro-wi-fi-4g-128gb')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (27, 5, 3, N'Samsung Galaxy A5', N'samsung-galaxy-a5')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (28, 9, 3, N'IPhone 6S 16GB', N'iphone-6s-16gb')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (29, 1, 2, N'Apple', N'apple')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (30, 2, 2, N'Samsung', N'samsung')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (31, 3, 2, N'Dell', N'dell')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (32, 14, 3, N'Dell XPS 15 9550', N'dell-xps-15-9550')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (33, 14, 1, N'Test 1', N'test-1')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (34, 15, 1, N'Test 2', N'test-2')
 
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (2, 2, 1, N'smart-phones')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (3, 3, 1, N'basic-phones')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (4, 4, 1, N'tablets')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (5, 5, 1, N'wifi-cellular-tablets')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (6, 6, 1, N'cellular-tablets')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (7, 7, 1, N'computers')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (8, 8, 1, N'gaming')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (9, 9, 1, N'business')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (10, 10, 1, N'accessories')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (11, 11, 1, N'headphones')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (12, 12, 1, N'cables')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (13, 13, 1, N'usb-drives')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (18, 1, 4, N'about-us')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (19, 2, 4, N'terms-of-use')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (20, 3, 4, N'privacy')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (21, 4, 4, N'help-center')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (22, 5, 4, N'help-center/how-to-buy')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (23, 6, 4, N'help-center/shipping')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (24, 7, 4, N'help-center/how-to-return')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (25, 8, 4, N'help-center/warranty')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (26, 1, 3, N'ipad-pro-wi-fi-4g-128gb')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (27, 5, 3, N'samsung-galaxy-a5')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (28, 9, 3, N'iphone-6s-16gb')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (29, 1, 2, N'apple')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (30, 2, 2, N'samsung')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (31, 3, 2, N'dell')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (32, 14, 3, N'dell-xps-15-9550')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (33, 14, 1, N'test-1')
-
-INSERT [dbo].[Core_UrlSlug] ([Id], [EntityId], [EntityTypeId], [Slug]) VALUES (34, 15, 1, N'test-2')
-
-SET IDENTITY_INSERT [dbo].[Core_UrlSlug] OFF 
+SET IDENTITY_INSERT [dbo].[Core_Entity] OFF 
 GO
 

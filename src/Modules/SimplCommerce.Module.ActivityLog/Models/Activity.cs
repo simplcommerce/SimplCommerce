@@ -3,7 +3,7 @@ using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.ActivityLog.Models
 {
-    public class Activity : Entity
+    public class Activity : EntityBase
     {
         public long ActivityTypeId { get; set; }
 

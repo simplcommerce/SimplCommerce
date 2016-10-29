@@ -4,7 +4,7 @@ using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Catalog.Models
 {
-    public class ProductTemplate : Entity
+    public class ProductTemplate : EntityBase
     {
         [Required]
         public string Name { get; set; }

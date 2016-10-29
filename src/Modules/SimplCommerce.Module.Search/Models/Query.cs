@@ -3,7 +3,7 @@ using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Search.Models
 {
-    public class Query : Entity
+    public class Query : EntityBase
     {
         public string QueryText { get; set; }
 

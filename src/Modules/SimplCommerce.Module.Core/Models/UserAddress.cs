@@ -3,7 +3,7 @@ using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Core.Models
 {
-    public class UserAddress : Entity
+    public class UserAddress : EntityBase
     {
         public long UserId { get; set; }
 

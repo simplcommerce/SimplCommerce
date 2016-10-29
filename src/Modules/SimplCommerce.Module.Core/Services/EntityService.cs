@@ -4,23 +4,23 @@ using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Core.Services
 {
-    public class UrlSlugService : IUrlSlugService
+    public class EntityService : IEntityService
     {
-        private readonly IRepository<UrlSlug> _urlSlugRepository;
+        private readonly IRepository<Entity> _urlSlugRepository;
 
-        public UrlSlugService(IRepository<UrlSlug> urlSlugRepository)
+        public EntityService(IRepository<Entity> urlSlugRepository)
         {
             _urlSlugRepository = urlSlugRepository;
         }
 
-        public UrlSlug Get(long entityId, long entityTypeId)
+        public Entity Get(long entityId, long entityTypeId)
         {
             return _urlSlugRepository.Query().FirstOrDefault(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
         }
 
         public void Add(string slug, long entityId, long entityTypeId)
         {
-            var urlSlug = new UrlSlug
+            var urlSlug = new Entity
             {
                 Slug = slug,
                 EntityId = entityId,
