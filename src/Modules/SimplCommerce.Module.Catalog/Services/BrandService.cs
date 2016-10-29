@@ -25,7 +25,7 @@ namespace SimplCommerce.Module.Catalog.Services
                 _brandRepository.Add(brand);
                 _brandRepository.SaveChange();
 
-                _entityService.Add(brand.SeoTitle, brand.Id, BrandEntityTypeId);
+                _entityService.Add(brand.Name, brand.SeoTitle, brand.Id, BrandEntityTypeId);
                 _brandRepository.SaveChange();
 
                 transaction.Commit();
@@ -34,7 +34,7 @@ namespace SimplCommerce.Module.Catalog.Services
 
         public void Update(Brand brand)
         {
-            _entityService.Update(brand.SeoTitle, brand.Id, BrandEntityTypeId);
+            _entityService.Update(brand.Name, brand.SeoTitle, brand.Id, BrandEntityTypeId);
             _brandRepository.SaveChange();
         }
 

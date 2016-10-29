@@ -43,7 +43,7 @@
     <tbody ng-show="!vm.isLoading">
         <tr ng-repeat="review in vm.reviews">
             <td>{{review.reviewerName}}</td>
-            <td>{{review.entityName}}</td>
+            <td><a href="/{{review.entitySlug}}">{{review.entityName}}</a></td>
             <td>{{review.rating}}</td>
             <td>{{review.title}}</td>
             <td>{{review.comment}}</td>

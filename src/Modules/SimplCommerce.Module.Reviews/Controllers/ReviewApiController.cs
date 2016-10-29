@@ -29,7 +29,7 @@ namespace SimplCommerce.Module.Reviews.Controllers
             }
 
             var model = _reviewRepository
-                .Query()
+                .List()
                 .Where(x => x.Status == reviewStatus)
                 .OrderByDescending(x => x.CreatedOn)
                 .Take(numRecords)
@@ -37,6 +37,8 @@ namespace SimplCommerce.Module.Reviews.Controllers
                 {
                     x.Id,
                     x.ReviewerName,
+                    x.EntityName,
+                    x.EntitySlug,
                     x.Rating,
                     x.Title,
                     x.Comment,
@@ -101,6 +103,7 @@ namespace SimplCommerce.Module.Reviews.Controllers
                     x.Title,
                     x.Comment,
                     x.EntityName,
+                    x.EntitySlug,
                     Status = x.Status.ToString(),
                     x.CreatedOn
                 });

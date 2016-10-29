@@ -24,7 +24,7 @@ namespace SimplCommerce.Module.Cms.Services
                 _pageRepository.Add(page);
                 _pageRepository.SaveChange();
 
-                _entityService.Add(page.SeoTitle, page.Id, PageEntityTypeId);
+                _entityService.Add(page.Name, page.SeoTitle, page.Id, PageEntityTypeId);
                 _pageRepository.SaveChange();
 
                 transaction.Commit();
@@ -33,7 +33,7 @@ namespace SimplCommerce.Module.Cms.Services
 
         public void Update(Page page)
         {
-            _entityService.Update(page.SeoTitle, page.Id, PageEntityTypeId);
+            _entityService.Update(page.Name, page.SeoTitle, page.Id, PageEntityTypeId);
             _pageRepository.SaveChange();
         }
 

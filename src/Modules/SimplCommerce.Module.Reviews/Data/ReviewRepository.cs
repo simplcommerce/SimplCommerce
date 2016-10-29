@@ -26,7 +26,8 @@ namespace SimplCommerce.Module.Reviews.Data
                     Comment = r.Comment,
                     Status = r.Status,
                     CreatedOn = r.CreatedOn,
-                    EntityName = u.Slug
+                    EntityName = u.Name,
+                    EntitySlug = u.Slug
                 });
 
             return items;

@@ -24,7 +24,7 @@ namespace SimplCommerce.Module.Catalog.Services
                 _productRepository.Add(product);
                 _productRepository.SaveChange();
 
-                _entityService.Add(product.SeoTitle, product.Id, ProductEntityTypeId);
+                _entityService.Add(product.Name, product.SeoTitle, product.Id, ProductEntityTypeId);
                 _productRepository.SaveChange();
 
                 transaction.Commit();
@@ -38,11 +38,11 @@ namespace SimplCommerce.Module.Catalog.Services
             {
                 if (slug != null)
                 {
-                    _entityService.Update(product.SeoTitle, product.Id, ProductEntityTypeId);
+                    _entityService.Update(product.Name, product.SeoTitle, product.Id, ProductEntityTypeId);
                 }
                 else
                 {
-                    _entityService.Add(product.SeoTitle, product.Id, ProductEntityTypeId);
+                    _entityService.Add(product.Name, product.SeoTitle, product.Id, ProductEntityTypeId);
                 }
             }
             else

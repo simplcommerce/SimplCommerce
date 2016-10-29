@@ -2,6 +2,7 @@
     <thead>
         <tr>
             <th>Customer Name</th>
+            <th>Entity Name</th>
             <th>Rating</th>
             <th>Title</th>
             <th>Comment</th>
@@ -12,6 +13,7 @@
     <tbody>
         <tr ng-repeat="review in vm.reviews">
             <td>{{review.reviewerName}}</td>
+            <td><a href="/{{review.entitySlug}}">{{review.entityName}}</a></td>
             <td>{{review.rating}}</td>
             <td>{{review.title}}</td>
             <td>{{review.comment}}</td>

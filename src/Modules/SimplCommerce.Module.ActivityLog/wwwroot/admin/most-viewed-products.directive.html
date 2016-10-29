@@ -1,0 +1,14 @@
+﻿<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Product Name</th>
+        <th>Viewed Count</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="product in vm.products">
+        <td><a href="/{{product.slug}}">{{product.name}}</a></td>
+        <td>{{product.viewedCount}}</td>
+    </tr>
+    </tbody>
+    </table>

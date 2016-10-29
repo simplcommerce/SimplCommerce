@@ -25,5 +25,7 @@ namespace SimplCommerce.Module.Reviews.Models
         public long EntityId { get; set; }
 
         public string EntityName { get; set; }
+
+        public string EntitySlug { get; set; }
     }
 }

@@ -6,44 +6,44 @@ namespace SimplCommerce.Module.Core.Services
 {
     public class EntityService : IEntityService
     {
-        private readonly IRepository<Entity> _urlSlugRepository;
+        private readonly IRepository<Entity> _entityRepository;
 
-        public EntityService(IRepository<Entity> urlSlugRepository)
+        public EntityService(IRepository<Entity> entityRepository)
         {
-            _urlSlugRepository = urlSlugRepository;
+            _entityRepository = entityRepository;
         }
 
         public Entity Get(long entityId, long entityTypeId)
         {
-            return _urlSlugRepository.Query().FirstOrDefault(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
+            return _entityRepository.Query().FirstOrDefault(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
         }
 
-        public void Add(string slug, long entityId, long entityTypeId)
+        public void Add(string name, string slug, long entityId, long entityTypeId)
         {
-            var urlSlug = new Entity
+            var entity = new Entity
             {
+                Name = name,
                 Slug = slug,
                 EntityId = entityId,
                 EntityTypeId = entityTypeId
             };
 
-            _urlSlugRepository.Add(urlSlug);
+            _entityRepository.Add(entity);
         }
 
-        public void Update(string newName, long entityId, long entityTypeId)
+        public void Update(string newName, string newSlug, long entityId, long entityTypeId)
         {
-            var urlSlug =
-                _urlSlugRepository.Query().First(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
-            urlSlug.Slug = newName;
+            var entity = _entityRepository.Query().First(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
+            entity.Name = newName;
+            entity.Slug = newSlug;
         }
 
         public void Remove(long entityId, long entityTypeId)
         {
-            var urlSlug =
-               _urlSlugRepository.Query().FirstOrDefault(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
-            if (urlSlug != null)
+            var entity = _entityRepository.Query().FirstOrDefault(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
+            if (entity != null)
             {
-                _urlSlugRepository.Remove(urlSlug);
+                _entityRepository.Remove(entity);
             }
         }
     }

@@ -6,9 +6,9 @@ namespace SimplCommerce.Module.Core.Services
     {
         Entity Get(long entityId, long entityTypeId);
 
-        void Add(string name, long entityId, long entityTypeId);
+        void Add(string name, string slug, long entityId, long entityTypeId);
 
-        void Update(string newName, long entityId, long entityTypeId);
+        void Update(string newName, string newSlug, long entityId, long entityTypeId);
 
         void Remove(long entityId, long entityTypeId);
     }
