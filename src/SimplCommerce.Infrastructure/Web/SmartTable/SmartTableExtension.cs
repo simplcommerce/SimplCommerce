@@ -20,7 +20,7 @@ namespace SimplCommerce.Infrastructure.Web.SmartTable
             }
             else
             {
-                 query = query.OrderByName("Id", false);
+                 query = query.OrderByName("Id", true);
             }
 
             var items = query
