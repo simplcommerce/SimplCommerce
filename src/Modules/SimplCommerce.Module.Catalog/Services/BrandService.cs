@@ -22,6 +22,7 @@ namespace SimplCommerce.Module.Catalog.Services
         {
             using (var transaction = _brandRepository.BeginTransaction())
             {
+                brand.SeoTitle = _entityService.ToSafeSlug(brand.SeoTitle, brand.Id, BrandEntityTypeId);
                 _brandRepository.Add(brand);
                 _brandRepository.SaveChange();
 
@@ -34,6 +35,7 @@ namespace SimplCommerce.Module.Catalog.Services
 
         public void Update(Brand brand)
         {
+            brand.SeoTitle = _entityService.ToSafeSlug(brand.SeoTitle, brand.Id, BrandEntityTypeId);
             _entityService.Update(brand.Name, brand.SeoTitle, brand.Id, BrandEntityTypeId);
             _brandRepository.SaveChange();
         }

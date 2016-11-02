@@ -21,6 +21,7 @@ namespace SimplCommerce.Module.Catalog.Services
         {
             using (var transaction = _productRepository.BeginTransaction())
             {
+                product.SeoTitle = _entityService.ToSafeSlug(product.SeoTitle, product.Id, ProductEntityTypeId);
                 _productRepository.Add(product);
                 _productRepository.SaveChange();
 
@@ -36,6 +37,7 @@ namespace SimplCommerce.Module.Catalog.Services
             var slug = _entityService.Get(product.Id, ProductEntityTypeId);
             if (product.IsVisibleIndividually)
             {
+                product.SeoTitle = _entityService.ToSafeSlug(product.SeoTitle, product.Id, ProductEntityTypeId);
                 if (slug != null)
                 {
                     _entityService.Update(product.Name, product.SeoTitle, product.Id, ProductEntityTypeId);

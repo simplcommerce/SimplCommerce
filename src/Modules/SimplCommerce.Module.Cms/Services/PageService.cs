@@ -21,6 +21,7 @@ namespace SimplCommerce.Module.Cms.Services
         {
             using (var transaction = _pageRepository.BeginTransaction())
             {
+                page.SeoTitle = _entityService.ToSafeSlug(page.SeoTitle, page.Id, PageEntityTypeId);
                 _pageRepository.Add(page);
                 _pageRepository.SaveChange();
 
@@ -33,6 +34,7 @@ namespace SimplCommerce.Module.Cms.Services
 
         public void Update(Page page)
         {
+            page.SeoTitle = _entityService.ToSafeSlug(page.SeoTitle, page.Id, PageEntityTypeId);
             _entityService.Update(page.Name, page.SeoTitle, page.Id, PageEntityTypeId);
             _pageRepository.SaveChange();
         }

@@ -1,105 +1,118 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
 
 namespace SimplCommerce.Infrastructure
 {
     public static class StringHelper
     {
-        public static string ToUrlFriendly(string title)
+        public static string ToUrlFriendly(this string name)
         {
-            return ToUrlFriendly(true, title);
-        }
-
-        /// <summary>
-        /// Creates a slug.
-        /// Author: Daniel Harman, based on original code by Jeff Atwood
-        /// References:
-        /// http://www.unicode.org/reports/tr15/tr15-34.html
-        /// http://meta.stackoverflow.com/questions/7435/non-us-ascii-characters-dropped-from-full-profile-url/7696#7696
-        /// http://stackoverflow.com/questions/25259/how-do-you-include-a-webpage-title-as-part-of-a-webpage-url/25486#25486
-        /// http://stackoverflow.com/questions/3769457/how-can-i-remove-accents-on-a-string
-        /// </summary>
-        public static string ToUrlFriendly(bool toLower, string value)
-        {
-            if (value == null)
+            if (string.IsNullOrWhiteSpace(name))
             {
                 return string.Empty;
             }
+            name = name.ToLower();
+            name = RemoveDiacritics(name);
+            name = ConvertEdgeCases(name);
+            name = name.Replace(" ", "-");
+            name = name.Strip(c =>
+                c != '-'
+                && c != '_'
+                && !c.IsLetter()
+                && !Char.IsDigit(c)
+                );
 
-            var normalised = value.Normalize(NormalizationForm.FormKD);
+            while (name.Contains("--"))
+                name = name.Replace("--", "-");
 
-            const int Maxlen = 80;
-            int len = normalised.Length;
-            bool prevDash = false;
-            var sb = new StringBuilder(len);
-            char c;
+            if (name.Length > 200)
+                name = name.Substring(0, 200);
 
-            for (int i = 0; i < len; i++)
+            return name;
+        }
+
+        public static string RemoveDiacritics(string text)
+        {
+            var normalizedString = text.Normalize(NormalizationForm.FormD);
+            var stringBuilder = new StringBuilder();
+
+            foreach (var c in normalizedString)
             {
-                c = normalised[i];
-                if ((c >= 'a' && c <= 'z') || (c >= '0' && c <= '9'))
+                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
                 {
-                    if (prevDash)
-                    {
-                        sb.Append('-');
-                        prevDash = false;
-                    }
-
-                    sb.Append(c);
+                    stringBuilder.Append(c);
                 }
-                else if (c >= 'A' && c <= 'Z')
+            }
+
+            return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+        }
+
+        public static bool IsLetter(this char c)
+        {
+            return ('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z');
+        }
+
+        public static bool IsSpace(this char c)
+        {
+            return (c == '\r' || c == '\n' || c == '\t' || c == '\f' || c == ' ');
+        }
+
+        public static string Strip(this string subject, params char[] stripped)
+        {
+            if (stripped == null || stripped.Length == 0 || String.IsNullOrEmpty(subject))
+            {
+                return subject;
+            }
+
+            var result = new char[subject.Length];
+
+            var cursor = 0;
+            for (var i = 0; i < subject.Length; i++)
+            {
+                char current = subject[i];
+                if (Array.IndexOf(stripped, current) < 0)
                 {
-                    if (prevDash)
-                    {
-                        sb.Append('-');
-                        prevDash = false;
-                    }
-
-                    // tricky way to convert to lowercase
-                    if (toLower)
-                    {
-                        sb.Append((char)(c | 32));
-                    }
-                    else
-                    {
-                        sb.Append(c);
-                    }
+                    result[cursor++] = current;
                 }
-                else if (c == ' ' || c == ',' || c == '.' || c == '/' || c == '\\' || c == '-' || c == '_' || c == '=')
+            }
+
+            return new string(result, 0, cursor);
+        }
+
+        public static string Strip(this string subject, Func<char, bool> predicate)
+        {
+
+            var result = new char[subject.Length];
+
+            var cursor = 0;
+            for (var i = 0; i < subject.Length; i++)
+            {
+                char current = subject[i];
+                if (!predicate(current))
                 {
-                    if (!prevDash && sb.Length > 0)
-                    {
-                        prevDash = true;
-                    }
+                    result[cursor++] = current;
                 }
-                else
-                {
-                    string swap = ConvertEdgeCases(c, toLower);
+            }
 
-                    if (swap != null)
-                    {
-                        if (prevDash)
-                        {
-                            sb.Append('-');
-                            prevDash = false;
-                        }
+            return new string(result, 0, cursor);
+        }
 
-                        sb.Append(swap);
-                    }
-                }
-
-                if (sb.Length == Maxlen)
-                {
-                    break;
-                }
+        private static string ConvertEdgeCases(string text)
+        {
+            var sb = new StringBuilder();
+            foreach (var c in text)
+            {
+                sb.Append(ConvertEdgeCases(c));
             }
 
             return sb.ToString();
         }
 
-        private static string ConvertEdgeCases(char c, bool toLower)
+        private static string ConvertEdgeCases(char c)
         {
-            string swap = null;
+            string swap;
             switch (c)
             {
                 case 'ı':
@@ -109,7 +122,7 @@ namespace SimplCommerce.Infrastructure
                     swap = "l";
                     break;
                 case 'Ł':
-                    swap = toLower ? "l" : "L";
+                    swap = "l";
                     break;
                 case 'đ':
                     swap = "d";
@@ -122,6 +135,9 @@ namespace SimplCommerce.Infrastructure
                     break;
                 case 'Þ':
                     swap = "th";
+                    break;
+                default:
+                    swap = c.ToString();
                     break;
             }
 

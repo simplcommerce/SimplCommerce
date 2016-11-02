@@ -13,6 +13,26 @@ namespace SimplCommerce.Module.Core.Services
             _entityRepository = entityRepository;
         }
 
+        public string ToSafeSlug(string slug, long entityId, long entityTypeId)
+        {
+            var i = 2;
+            while (true)
+            {
+                var entity = _entityRepository.Query().FirstOrDefault(x => x.Slug == slug);
+                if (entity != null && !(entity.EntityId == entityId && entity.EntityTypeId == entityTypeId))
+                {
+                    slug = string.Format("{0}-{1}", slug, i);
+                    i++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return slug;
+        }
+
         public Entity Get(long entityId, long entityTypeId)
         {
             return _entityRepository.Query().FirstOrDefault(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);

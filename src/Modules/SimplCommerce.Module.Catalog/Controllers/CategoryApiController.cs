@@ -52,7 +52,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 var category = new Category
                 {
                     Name = model.Name,
-                    SeoTitle = StringHelper.ToUrlFriendly(model.Name),
+                    SeoTitle = model.Name.ToUrlFriendly(),
                     ParentId = model.ParentId,
                     IsPublished = model.IsPublished
                 };
@@ -71,7 +71,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             {
                 var category = _categoryRepository.Query().FirstOrDefault(x => x.Id == id);
                 category.Name = model.Name;
-                category.SeoTitle = StringHelper.ToUrlFriendly(model.Name);
+                category.SeoTitle = model.Name.ToUrlFriendly();
                 category.ParentId = model.ParentId;
                 category.IsPublished = model.IsPublished;
 

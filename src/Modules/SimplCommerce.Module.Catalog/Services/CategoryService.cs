@@ -50,6 +50,7 @@ namespace SimplCommerce.Module.Catalog.Services
         {
             using (var transaction = _categoryRepository.BeginTransaction())
             {
+                category.SeoTitle = _entityService.ToSafeSlug(category.SeoTitle, category.Id, CategoryEntityTypeId);
                 _categoryRepository.Add(category);
                 _categoryRepository.SaveChange();
 
@@ -62,6 +63,7 @@ namespace SimplCommerce.Module.Catalog.Services
 
         public void Update(Category category)
         {
+            category.SeoTitle = _entityService.ToSafeSlug(category.SeoTitle, category.Id, CategoryEntityTypeId);
             _entityService.Update(category.Name, category.SeoTitle, category.Id, CategoryEntityTypeId);
             _categoryRepository.SaveChange();
         }

@@ -51,7 +51,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 var brand = new Brand
                 {
                     Name = model.Name,
-                    SeoTitle = StringHelper.ToUrlFriendly(model.Name),
+                    SeoTitle = model.Name.ToUrlFriendly(),
                     IsPublished = model.IsPublished
                 };
 
@@ -69,7 +69,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             {
                 var brand = _brandRepository.Query().FirstOrDefault(x => x.Id == id);
                 brand.Name = model.Name;
-                brand.SeoTitle = StringHelper.ToUrlFriendly(model.Name);
+                brand.SeoTitle = model.Name.ToUrlFriendly();
                 brand.IsPublished = model.IsPublished;
 
                 _brandService.Update(brand);

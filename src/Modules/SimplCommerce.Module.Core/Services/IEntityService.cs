@@ -4,6 +4,8 @@ namespace SimplCommerce.Module.Core.Services
 {
     public interface IEntityService
     {
+        string ToSafeSlug(string slug, long entityId, long entityTypeId);
+
         Entity Get(long entityId, long entityTypeId);
 
         void Add(string name, string slug, long entityId, long entityTypeId);

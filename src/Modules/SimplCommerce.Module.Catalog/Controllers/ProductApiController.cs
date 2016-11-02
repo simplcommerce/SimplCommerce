@@ -200,7 +200,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             var product = new Product
             {
                 Name = model.Product.Name,
-                SeoTitle = StringHelper.ToUrlFriendly(model.Product.Name),
+                SeoTitle = model.Product.Name.ToUrlFriendly(),
                 ShortDescription = model.Product.ShortDescription,
                 Description = model.Product.Description,
                 Specification = model.Product.Specification,
@@ -272,7 +272,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 .Include(x => x.Categories)
                 .FirstOrDefault(x => x.Id == id);
             product.Name = model.Product.Name;
-            product.SeoTitle = StringHelper.ToUrlFriendly(product.Name);
+            product.SeoTitle = product.Name.ToUrlFriendly();
             product.ShortDescription = model.Product.ShortDescription;
             product.Description = model.Product.Description;
             product.Specification = model.Product.Specification;
