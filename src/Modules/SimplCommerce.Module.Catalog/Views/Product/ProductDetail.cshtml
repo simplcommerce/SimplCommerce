@@ -40,7 +40,7 @@
             <ul class="list-inline product-ratings">
                 <li><input value="@Model.RatingAverage" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
                 <li class="product-review-list">
-                    <span>(@Model.ReviewsCount) <a href="#">Review</a> | <a href="#"> Add Review</a></span>
+                    <span>(@Model.ReviewsCount) <a href="#reviews">Review</a> | <a href="#addreview"> Add Review</a></span>
                 </li>
             </ul>
             <div class="product-short-desc">@Html.Raw(Model.ShortDescription)</div>

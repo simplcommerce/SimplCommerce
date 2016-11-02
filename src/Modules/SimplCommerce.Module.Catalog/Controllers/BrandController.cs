@@ -81,7 +81,9 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     Price = x.Price,
                     OldPrice = x.OldPrice,
                     ThumbnailImage = x.ThumbnailImage,
-                    NumberVariation = x.ProductLinks.Count
+                    NumberVariation = x.ProductLinks.Count,
+                    ReviewsCount = x.ReviewsCount,
+                    RatingAverage = x.RatingAverage
                 }).ToList();
 
             foreach (var product in products)

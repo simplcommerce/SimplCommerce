@@ -46,7 +46,7 @@
                     .done(function (result) {
                         $('#addreview').html(result);
                         $('input.rating-loading').rating({
-                            theme: 'krajee-fa',
+                            language: window.simplGlobalSetting.lang,
                             filledStar: '<i class="fa fa-star"></i>',
                             emptyStar: '<i class="fa fa-star-o"></i>'
                         });

@@ -168,6 +168,13 @@ li.nav-item-group, li.nav-item-group a {
     color: red;
 }
 
+.product-list .product-ratings > li {
+    margin-left: -2px;
+    margin-right: 0;
+    color: #777;
+    font-size: 90%;
+}
+
 .product-list .product-price-saving {
     background-color: #ff9601;
     color: #fff;
@@ -643,6 +650,11 @@ li.nav-item-group, li.nav-item-group a {
         display: block;
         margin-left: 15px;
     }
+}
+
+.rating-container .caption {
+    font-size: 70%;
+    margin-top: -2px;
 }
 
 .rating-container .filled-stars {
