@@ -11,12 +11,12 @@
     border-bottom: 1px solid #dedede;
 }
 .product-ratings li .rating  {
-    color: #8bdccd;
+    color: #dedddc;
     font-size: 14px;
 }
 
 .product-ratings li .rating-selected{
-    color: #18ba9b;
+    color: #f0c808;
     font-size: 14px;
 }
 

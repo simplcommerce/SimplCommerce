@@ -38,13 +38,9 @@
                 <h1 class="">@Model.Name</h1>
             </div>
             <ul class="list-inline product-ratings">
-                <li><i class="rating-selected fa fa-star"></i></li>
-                <li><i class="rating-selected fa fa-star"></i></li>
-                <li><i class="rating-selected fa fa-star"></i></li>
-                <li><i class="rating fa fa-star"></i></li>
-                <li><i class="rating fa fa-star"></i></li>
+                <li><input value="@Model.RatingAverage" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
                 <li class="product-review-list">
-                    <span>(1) <a href="#">Review</a> | <a href="#"> Add Review</a></span>
+                    <span>(@Model.ReviewsCount) <a href="#">Review</a> | <a href="#"> Add Review</a></span>
                 </li>
             </ul>
             <div class="product-short-desc">@Html.Raw(Model.ShortDescription)</div>

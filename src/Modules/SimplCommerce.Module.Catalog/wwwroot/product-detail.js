@@ -38,8 +38,6 @@
             }
         });
 
-        $('input.rating').rating();
-
         $('#addreview').on('click', '#btn-addreview', function (e) {
             e.preventDefault();
             var $form = $('#form-addreview');
@@ -47,7 +45,11 @@
                 $.post($form.attr('action'), $form.serializeArray())
                     .done(function (result) {
                         $('#addreview').html(result);
-                        $('input.rating').rating();
+                        $('input.rating-loading').rating({
+                            theme: 'krajee-fa',
+                            filledStar: '<i class="fa fa-star"></i>',
+                            emptyStar: '<i class="fa fa-star-o"></i>'
+                        });
                     });
             }
         });

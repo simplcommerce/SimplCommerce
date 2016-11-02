@@ -644,3 +644,13 @@ li.nav-item-group, li.nav-item-group a {
         margin-left: 15px;
     }
 }
+
+.rating-container .filled-stars {
+    -webkit-text-stroke: 0;
+    text-shadow: none;
+    color: #18ba9b;
+}
+
+.rating-xs {
+    font-size: 1.2em;
+}

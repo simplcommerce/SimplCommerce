@@ -6,7 +6,7 @@
     <div class="form-group">
         <label asp-for="Rating" class="col-md-4 control-label">@Localizer["Rate this product"]</label>
         <div class="col-md-8">
-            <input asp-for="Rating" class="rating" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" />
+            <input asp-for="Rating" class="rating-loading" step="1" data-size="xs" data-show-clear="false" />
             <span asp-validation-for="Rating" class="text-danger"></span>
         </div>
     </div>

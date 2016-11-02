@@ -74,17 +74,7 @@
         {
             <div>
                 <ul class="list-inline product-ratings">
-                    @for (var i = 1; i < 6; i++)
-                {
-                    if (review.Rating >= i)
-                    {
-                            <li><i class="rating-selected fa fa-star"></i></li>
-                        }
-                        else
-                        {
-                            <li><i class="rating fa fa-star"></i></li>
-                        }
-                    }
+                    <li><input value="@review.Rating" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
                     <li class="review-title">
                         @review.Title
                     </li>

@@ -20,6 +20,10 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public string Specification { get; set; }
 
+        public int ReviewsCount { get; set; }
+
+        public double? RatingAverage { get; set; }
+
         public bool HasVariation => Variations.Any();
 
         public IList<ProductDetailOption> AvailableOptions
