@@ -1,9 +1,8 @@
-﻿@using System.Globalization
-@model SimplCommerce.Module.Orders.ViewModels.AddToCartResult
+﻿@model SimplCommerce.Module.Orders.ViewModels.AddToCartResult
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h4 class="modal-title" id="myModalLabel">The product has been added to your cart</h4>
+    <h4 class="modal-title" id="myModalLabel">@Localizer["The product has been added to your cart"]</h4>
 </div>
 <div class="modal-body">
     <div class="row">
@@ -20,14 +19,14 @@
     </div>
     <div class="row">
         <div class="col-md-7">
-            You have <span class="cart-item-count">@Model.CartItemCount</span> in your cart
+            @Localizer["You have"] <span class="cart-item-count">@Model.CartItemCount</span> @Localizer["products in your cart"]
         </div>
         <div class="col-md-5">
-            Cart subtotal: @Model.CartAmount.ToString("C")
+            @Localizer["Cart subtotal"]: @Model.CartAmount.ToString("C")
         </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Continue shopping</button>
-    <a href="~/cart" type="button" class="btn btn-default">View cart</a>
+    <button type="button" class="btn btn-default" data-dismiss="modal">@Localizer["Continue shopping"]</button>
+    <a href="~/cart" type="button" class="btn btn-default">@Localizer["View cart"]</a>
 </div>

@@ -40,7 +40,7 @@
             <ul class="list-inline product-ratings">
                 <li><input value="@Model.RatingAverage" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
                 <li class="product-review-list">
-                    <span>(@Model.ReviewsCount) <a href="#reviews">Review</a> | <a href="#addreview"> Add Review</a></span>
+                    <span>(@Model.ReviewsCount) <a href="#reviews">@Localizer["reviews"]</a> | <a href="#addreview"> @Localizer["Add Review"]</a></span>
                 </li>
             </ul>
             <div class="product-short-desc">@Html.Raw(Model.ShortDescription)</div>
@@ -152,7 +152,7 @@
         </div>
     }
     <div>
-        <h3>Customer Reviews</h3>
+        <h3>@Localizer["Customer reviews"]</h3>
         @await Component.InvokeAsync("Review", new { entityId = Model.Id, entityTypeId = (long)3 })
     </div>
 </div>

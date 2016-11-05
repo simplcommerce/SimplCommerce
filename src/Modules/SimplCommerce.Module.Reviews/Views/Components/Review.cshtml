@@ -8,13 +8,13 @@
             <div class="col-md-5 rating-summary">
                 <div class="row">
                     <div class="col-md-5">
-                        <h4>Rating Average</h4>
+                        <h4>@Localizer["Rating average"]</h4>
                         <p class="rating-average">@(Model.RatingAverage)/5</p>
-                        <p>(@Model.ReviewsCount reviewers)</p>
+                        <p>(@Model.ReviewsCount @Localizer["reviews"])</p>
                     </div>
                     <div class="col-md-7">
                         <div class="rating-item">
-                            <span>5 stars</span>
+                            <span>5 @Localizer["stars"]</span>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating5Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating5Count)%">
                                     <span class="sr-only">@Model.GetRatingPercent(Model.Rating5Count)%</span>
@@ -23,7 +23,7 @@
                             <span>@Model.Rating5Count</span>
                         </div>
                         <div class="rating-item">
-                            <span>4 stars</span>
+                            <span>4 @Localizer["stars"]</span>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating4Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating4Count)%">
                                     <span class="sr-only">@Model.GetRatingPercent(Model.Rating2Count)%</span>
@@ -32,7 +32,7 @@
                             <span>@Model.Rating4Count</span>
                         </div>
                         <div class="rating-item">
-                            <span>3 stars</span>
+                            <span>3 @Localizer["stars"]</span>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating3Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating3Count)%">
                                     <span class="sr-only">@Model.GetRatingPercent(Model.Rating3Count)%</span>
@@ -41,7 +41,7 @@
                             <span>@Model.Rating3Count</span>
                         </div>
                         <div class="rating-item">
-                            <span>2 stars</span>
+                            <span>2 @Localizer["stars"]</span>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating2Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating2Count)%">
                                     <span class="sr-only">@Model.GetRatingPercent(Model.Rating2Count)%</span>
@@ -50,7 +50,7 @@
                             <span>@Model.Rating2Count</span>
                         </div>
                         <div class="rating-item">
-                            <span>1 stars</span>
+                            <span>1 @Localizer["stars"]</span>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating1Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating1Count)%">
                                     <span class="sr-only">@Model.GetRatingPercent(Model.Rating1Count)%</span>

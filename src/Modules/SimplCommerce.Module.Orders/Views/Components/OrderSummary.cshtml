@@ -1,11 +1,11 @@
 ﻿@model SimplCommerce.Module.Orders.ViewModels.CartViewModel
 
-<h3>Order Summary (@Model.CartItems.Count() products) </h3>
+<h3>@Localizer["Order summary"] (@Model.CartItems.Count() @Localizer["products"]) </h3>
 <table class="table table-striped">
     <tr>
-        <th>Product</th>
-        <th class="text-center">Quantity</th>
-        <th class="text-right">Total</th>
+        <th>@Localizer["Product"]</th>
+        <th class="text-center">@Localizer["Quantity"]</th>
+        <th class="text-right">@Localizer["Price"]</th>
     </tr>
     @foreach (var item in Model.CartItems)
     {
@@ -23,11 +23,11 @@
                 }
             </td>
             <td class="text-center">@item.Quantity</td>
-            <td class="text-right">@item.TotalString</td>
+            <td class="text-right">@item.ProductPriceString</td>
         </tr>
     }
     <tr>
-        <td><strong>Total</strong></td>
+        <td><strong>@Localizer["Subtotal"]</strong></td>
         <td colspan="2" class="text-right"><strong>@Model.SubTotal</strong></td>
     </tr>
 </table>
