@@ -443,7 +443,13 @@ namespace SimplCommerce.Module.Core.Controllers
             }
         }
 
-        #region Helpers
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+       #region Helpers
 
         private void AddErrors(IdentityResult result)
         {

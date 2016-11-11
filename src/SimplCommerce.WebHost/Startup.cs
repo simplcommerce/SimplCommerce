@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using Serilog;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Core.Extensions;
@@ -39,6 +41,10 @@ namespace SimplCommerce.WebHost
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            Log.Logger = new LoggerConfiguration()
+              .WriteTo.RollingFile(Path.Combine(env.ContentRootPath, "logs\\log-{Date}.log"))
+              .CreateLogger();
         }
 
         private IConfigurationRoot Configuration { get; }
@@ -64,18 +70,39 @@ namespace SimplCommerce.WebHost
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole();
-
             if (env.IsDevelopment())
             {
+                loggerFactory.WithFilter(new FilterLoggerSettings
+                {
+                    { "Microsoft", LogLevel.Warning },
+                    { "System", LogLevel.Warning },
+                    { "SimplCommerce", LogLevel.Debug }
+                })
+                .AddConsole()
+                .AddSerilog();
+
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
+            else
+            {
+                loggerFactory.WithFilter(new FilterLoggerSettings
+                {
+                    { "Microsoft", LogLevel.Warning },
+                    { "System", LogLevel.Warning },
+                    { "SimplCommerce", LogLevel.Error }
+                })
+                .AddSerilog();
+
+                app.UseExceptionHandler("/Home/Error");
+            }
+
+            app.UseStatusCodePagesWithReExecute("/Home/ErrorWithCode/{0}");
 
             app.UseCustomizedRequestLocalization();
             app.UseCustomizedStaticFiles(Modules);
             app.UseCustomizedIdentity();
             app.UseCustomizedMvc();
         }
-
     }
 }

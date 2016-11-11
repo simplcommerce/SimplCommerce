@@ -29,6 +29,8 @@
     "Microsoft.Extensions.Logging": "1.0.0",
     "Microsoft.Extensions.Logging.Console": "1.0.0",
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
+    "Serilog.Extensions.Logging": "1.2.0",
+    "Serilog.Sinks.RollingFile": "3.2.0",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
     "Microsoft.VisualStudio.Web.CodeGeneration.Tools": {
       "version": "1.0.0-preview2-final",
@@ -44,7 +46,8 @@
     "Microsoft.AspNetCore.Authentication.Google": "1.0.0",
     "Microsoft.AspNetCore.Authentication.Facebook": "1.0.0",
     "MediatR": "2.1.0",
-    "SimplCommerce.Module.Localization": "1.0.0-*"
+    "SimplCommerce.Module.Localization": "1.0.0-*",
+    "Microsoft.Extensions.Logging.Filter": "1.0.0"
   },
 
   "tools": {
