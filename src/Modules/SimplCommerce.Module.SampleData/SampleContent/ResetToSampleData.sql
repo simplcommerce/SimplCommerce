@@ -415,7 +415,7 @@ SET IDENTITY_INSERT [dbo].[Core_WidgetInstance] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[Core_Entity] ON 
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (1, 1, 1, N'Phone', N'phones')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (1, 1, 1, N'Phones', N'phones')
 INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (2, 2, 1, N'Smart Phones', N'smart-phones')
 INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (3, 3, 1, N'Basic Phones', N'basic-phones')
 INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (4, 4, 1, N'Tablets', N'tablets')

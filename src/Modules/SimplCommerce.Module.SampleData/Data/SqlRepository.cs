@@ -1,30 +1,30 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SimplCommerce.Module.Core.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
+using SimplCommerce.Module.Core.Data;
 
 namespace SimplCommerce.Module.SampleData.Data
 {
     public class SqlRepository : ISqlRepository
     {
-        private readonly DbContext dbContext;
+        private readonly DbContext _dbContext;
 
         public SqlRepository(SimplDbContext dbContext)
         {
-            this.dbContext = dbContext;
+            _dbContext = dbContext;
         }
 
         public void RunCommand(string command)
         {
-            dbContext.Database.ExecuteSqlCommand(command);
+            _dbContext.Database.ExecuteSqlCommand(command);
         }
 
         public void RunCommands(IEnumerable<string> commands)
         {
             foreach (var command in commands)
             {
-                dbContext.Database.ExecuteSqlCommand(command);
+                _dbContext.Database.ExecuteSqlCommand(command);
             }
         }
 
@@ -66,6 +66,12 @@ namespace SimplCommerce.Module.SampleData.Data
             }
 
             return commands;
+        }
+
+        public string GetDbConnectionType()
+        {
+            var dbConntionType = _dbContext.Database.GetDbConnection().GetType();
+            return dbConntionType.ToString();
         }
     }
 }

@@ -28,6 +28,10 @@ INSERT INTO "Core_WidgetZone" ("Id", "Description", "Name") VALUES (2, NULL, 'Ho
 INSERT INTO "Core_WidgetZone" ("Id", "Description", "Name") VALUES (3, NULL, 'Home After Main Content');
 SELECT pg_catalog.setval('"Core_WidgetZone_Id_seq"', 3, true);
 
+INSERT INTO "Catalog_ProductOption" ("Id", "Name") VALUES (1, 'Color');
+INSERT INTO "Catalog_ProductOption" ("Id", "Name") VALUES (2, 'Size');
+SELECT pg_catalog.setval('"Catalog_ProductOption_Id_seq"', 2, true);
+
 INSERT INTO "Core_Country" ("Id", "Name") VALUES (1, 'Việt Nam');
 
 INSERT INTO "Core_StateOrProvince" ("Id", "CountryId", "Name", "Type") VALUES (79, 1, 'Hồ Chí Minh', 'Thành Phố');
@@ -51,7 +55,3 @@ INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Typ
 INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Type") VALUES (17, NULL, 'Tân Phú', 79, NULL);
 INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Type") VALUES (18, NULL, 'Phú Nhuận', 79, NULL);
 INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Type") VALUES (19, NULL, 'Bình Chánh', 79, NULL);
-
-INSERT INTO "Catalog_ProductOption" ("Id", "Name") VALUES (1, 'Color');
-INSERT INTO "Catalog_ProductOption" ("Id", "Name") VALUES (2, 'Size');
-SELECT pg_catalog.setval('"Catalog_ProductOption_Id_seq"', 2, true);

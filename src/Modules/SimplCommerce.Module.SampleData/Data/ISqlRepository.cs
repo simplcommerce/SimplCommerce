@@ -11,5 +11,7 @@ namespace SimplCommerce.Module.SampleData.Data
         IEnumerable<string> ParseCommand(IEnumerable<string> lines);
 
         IEnumerable<string> PostgresCommands(IEnumerable<string> lines);
+
+        string GetDbConnectionType();
     }
 }
