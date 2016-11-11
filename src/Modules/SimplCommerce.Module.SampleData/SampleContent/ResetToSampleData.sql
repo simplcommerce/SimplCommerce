@@ -38,6 +38,8 @@ DELETE FROM [dbo].[Cms_Page]
 GO
 DELETE FROM [dbo].[Core_WidgetInstance]
 GO
+DELETE FROM [dbo].[Reviews_Review]
+GO
 
 SET IDENTITY_INSERT [dbo].[Catalog_Category] ON 
 INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (1, N'Phones', N'phones', NULL, 0, 1, 0, NULL, NULL)
