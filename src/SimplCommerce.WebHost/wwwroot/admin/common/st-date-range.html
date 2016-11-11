@@ -2,7 +2,7 @@
     <label>From</label>
     <div class="input-group">
         <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" ng-model="after" ng-model-options="{timezone: 'utc'}" is-open="isAfterOpen"
-               close-text="Close" />
+               close-text="Close" ng-change="changeDate(after)" />
         <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="openAfter($event)">
                 <i class="glyphicon glyphicon-calendar"></i>
@@ -12,7 +12,7 @@
     <label>To</label>
     <div class="input-group">
         <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" ng-model="before" ng-model-options="{timezone: 'utc'}" is-open="isBeforeOpen"
-               close-text="Close" />
+               close-text="Close" ng-change="changeDate(before)" />
         <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="openBefore($event)">
                 <i class="glyphicon glyphicon-calendar"></i>
