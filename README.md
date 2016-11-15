@@ -107,7 +107,7 @@ By default domain entities is mapped by convention. In case you need to some spe
     - Delete all file in SimplCommerce.WebHost/Migrations
     
 - Open \src\SimplCommerce.WebHost\appsettings.json and change the connection string to database that you just created. For example "DefaultConnection": "User ID=thien;Password=12345;Host=localhost;Port=5432;Database=SimplCommerce;Pooling=true;"
-- In the Console Windows, type "cd .." then press Enter to change directory to /src 
+- In the Console Windows, type "cd .. && dotnet restore" then press Enter to change directory to /src 
 - Type "dotnet build \*\*/\*\*/project.json" then press Enter
 - Type "cd SimplCommerce.WebHost" then press Enter
 - Type "npm install" then press Enter
