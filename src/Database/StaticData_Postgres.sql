@@ -97,7 +97,7 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Pr
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Price', 'Giá');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Quantity', 'Số lượng');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'There are no items in this cart.', 'Chưa có sản phẩm nào trong giỏ hàng của bạn');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, ' to shopping', 'Đi mua sắm');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Go to shopping', 'Đi mua sắm');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Order summary', 'Tóm lược đơn hàng');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Subtotal', 'Thành tiền');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Process to Checkout', 'Tiến hành thanh toán');
@@ -131,65 +131,65 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Th
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Email', 'Email');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'User List', 'Liste des utilisateurs');
 
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Register', 'Cadastro')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Hello {0}!', 'Olá {0}!')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Log in', 'Entrar')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Log off', 'Sair')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'The Email field is required.', 'O campo Email é obrigatório. ')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Email', 'Email')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'User List', 'Lista de usuários')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Remember me?', 'Lembrar?')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Password', 'Senha')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Use a local account to log in.', 'Entre com seu usuário e senha ')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Register as a new user?', 'Cadastrar-se como novo usuário? ')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Forgot your password?', 'Esqueceu a senha?')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Use another service to log in.', 'Logar utilizando outro serviço')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Full name', 'Nome completo')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Confirm password', 'Confirmar senha')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Create a new account.', 'Criar uma conta.')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'All', 'Todos')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Home', 'Início')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Add to cart', 'Adicionar ao carrinho')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Product detail', 'Detalhes do produto')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Product specification', 'Especificações do produto')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Rate this product', 'Avalie este produto')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Review comment', 'Comentário')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Review title', 'Título da avaliação')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Posted by', 'Postado pro')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Submit review', 'Enviar avaliação')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'You have', 'Você tem')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'products in your cart', 'produtos no carrinho')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Continue shopping', 'Continuar comprando')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'View cart', 'Ver carrinho')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'The product has been added to your cart', 'O produto foi adicionado ao carrinho')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Cart subtotal', 'Subtotal')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Shopping Cart', 'Carrinho de compras')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Product', 'Produto')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Price', 'Preço')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Quantity', 'Quantidade')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'There are no items in this cart.', 'O carrinho está vazio.')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, ' to shopping', 'a comprar')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Order summary', 'Resumo do pedido')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Subtotal', 'Subtotal')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Process to Checkout', 'Próxima etapa')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Shipping address', 'Endereço de entrega')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Add another address', 'Adicionar outro endereço')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Contact name', 'Nome completo')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Address', 'Endereço')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'State or Province', 'Estado')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'District', 'Cidade')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Phone', 'Telefone')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Order', 'Pedido')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'products', 'produtos')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'reviews', 'avaliações')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Add Review', 'Adicionar avaliação')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Customer reviews', 'Avaliações de quem comprou')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Your review will be showed within the next 24h.', 'Sua avaliação será publicada dentro de 24h.')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Thank you {0} for your review', 'Muito obrigado pela avaliação, {0}')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Rating average', 'Média das avaliações')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'stars', 'estrelas')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Filter by', 'Filtrar por')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Category', 'Categoria')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Brand', 'Marca')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Sort by:', 'Ordenar por:')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'results', 'resultados')
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Register', 'Cadastro');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Hello {0}!', 'Olá {0}!');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Log in', 'Entrar');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Log off', 'Sair');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'The Email field is required.', 'O campo Email é obrigatório. ');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Email', 'Email');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'User List', 'Lista de usuários');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Remember me?', 'Lembrar?');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Password', 'Senha');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Use a local account to log in.', 'Entre com seu usuário e senha ');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Register as a new user?', 'Cadastrar-se como novo usuário? ');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Forgot your password?', 'Esqueceu a senha?');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Use another service to log in.', 'Logar utilizando outro serviço');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Full name', 'Nome completo');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Confirm password', 'Confirmar senha');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Create a new account.', 'Criar uma conta.');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'All', 'Todos');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Home', 'Início');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Add to cart', 'Adicionar ao carrinho');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Product detail', 'Detalhes do produto');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Product specification', 'Especificações do produto');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Rate this product', 'Avalie este produto');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Review comment', 'Comentário');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Review title', 'Título da avaliação');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Posted by', 'Postado pro');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Submit review', 'Enviar avaliação');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'You have', 'Você tem');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'products in your cart', 'produtos no carrinho');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Continue shopping', 'Continuar comprando');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'View cart', 'Ver carrinho');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'The product has been added to your cart', 'O produto foi adicionado ao carrinho');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Cart subtotal', 'Subtotal');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Shopping Cart', 'Carrinho de compras');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Product', 'Produto');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Price', 'Preço');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Quantity', 'Quantidade');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'There are no items in this cart.', 'O carrinho está vazio.');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Go to shopping', 'a comprar');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Order summary', 'Resumo do pedido');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Subtotal', 'Subtotal');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Process to Checkout', 'Próxima etapa');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Shipping address', 'Endereço de entrega');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Add another address', 'Adicionar outro endereço');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Contact name', 'Nome completo');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Address', 'Endereço');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'State or Province', 'Estado');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'District', 'Cidade');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Phone', 'Telefone');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Order', 'Pedido');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'products', 'produtos');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'reviews', 'avaliações');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Add Review', 'Adicionar avaliação');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Customer reviews', 'Avaliações de quem comprou');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Your review will be showed within the next 24h.', 'Sua avaliação será publicada dentro de 24h.');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Thank you {0} for your review', 'Muito obrigado pela avaliação, {0}');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Rating average', 'Média das avaliações');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'stars', 'estrelas');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Filter by', 'Filtrar por');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Category', 'Categoria');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Brand', 'Marca');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Sort by:', 'Ordenar por:');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'results', 'resultados');
