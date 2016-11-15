@@ -13,6 +13,7 @@ namespace SimplCommerce.Module.Search.Controllers
 {
     public class SearchController : Controller
     {
+        private const int PageSize = 20;
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<Brand> _brandRepository;
         private readonly IRepository<Category> _categoryRepository;
@@ -82,6 +83,13 @@ namespace SimplCommerce.Module.Search.Controllers
             }
 
             model.TotalProduct = query.Count();
+            var currentPageNum = searchOption.Page <= 0 ? 1 : searchOption.Page;
+            var offset = (PageSize * currentPageNum) - PageSize;
+            while (currentPageNum > 1 && offset >= model.TotalProduct)
+            {
+                currentPageNum--;
+                offset = (PageSize * currentPageNum) - PageSize;
+            }
 
             SaveSearchQuery(searchOption, model);
 
@@ -100,7 +108,10 @@ namespace SimplCommerce.Module.Search.Controllers
                     OldPrice = x.OldPrice,
                     ThumbnailImage = x.ThumbnailImage,
                     NumberVariation = x.ProductLinks.Count
-                }).ToList();
+                })
+                .Skip(offset)
+                .Take(PageSize)
+                .ToList();
 
             foreach (var product in products)
             {
@@ -108,6 +119,8 @@ namespace SimplCommerce.Module.Search.Controllers
             }
 
             model.Products = products;
+            model.CurrentSearchOption.PageSize = PageSize;
+            model.CurrentSearchOption.Page = currentPageNum;
 
             return View(model);
         }

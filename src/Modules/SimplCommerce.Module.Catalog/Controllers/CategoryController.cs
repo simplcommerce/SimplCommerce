@@ -10,7 +10,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
 {
     public class CategoryController : Controller
     {
-        private const int PageSize = 2;
+        private const int PageSize = 20;
         private readonly IRepository<Category> _categoryRepository;
         private readonly IMediaService _mediaService;
         private readonly IRepository<Product> _productRepository;
@@ -27,7 +27,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             _brandRepository = brandRepository;
         }
 
-        public IActionResult CategoryDetail(long id, SearchOption searchOption, int? page)
+        public IActionResult CategoryDetail(long id, SearchOption searchOption)
         {
             var category = _categoryRepository.Query().FirstOrDefault(x => x.Id == id);
             if (category == null)
@@ -72,7 +72,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
 
             model.TotalProduct = query.Count();
-            var currentPageNum = page ?? 1;
+            var currentPageNum = searchOption.Page <= 0 ? 1 : searchOption.Page;
             var offset = (PageSize * currentPageNum) - PageSize;
             while (currentPageNum > 1 && offset >= model.TotalProduct)
             {

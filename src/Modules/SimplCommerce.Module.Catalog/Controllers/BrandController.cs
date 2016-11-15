@@ -10,22 +10,20 @@ namespace SimplCommerce.Module.Catalog.Controllers
 {
     public class BrandController : Controller
     {
+        private const int PageSize = 20;
         private readonly IRepository<Category> _categoryRepository;
         private readonly IMediaService _mediaService;
         private readonly IRepository<Product> _productRepository;
-        private readonly IRepository<ProductCategory> _productCategoryRepository;
         private readonly IRepository<Brand> _brandRepository;
 
         public BrandController(IRepository<Product> productRepository,
             IMediaService mediaService,
             IRepository<Category> categoryRepository,
-            IRepository<ProductCategory> productCategoryRepository,
             IRepository<Brand> brandRepository)
         {
             _productRepository = productRepository;
             _mediaService = mediaService;
             _categoryRepository = categoryRepository;
-            _productCategoryRepository = productCategoryRepository;
             _brandRepository = brandRepository;
         }
 
@@ -66,6 +64,13 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
 
             model.TotalProduct = query.Count();
+            var currentPageNum = searchOption.Page <= 0 ? 1 : searchOption.Page;
+            var offset = (PageSize * currentPageNum) - PageSize;
+            while (currentPageNum > 1 && offset >= model.TotalProduct)
+            {
+                currentPageNum--;
+                offset = (PageSize * currentPageNum) - PageSize;
+            }
 
             query = query
                 .Include(x => x.ThumbnailImage);
@@ -84,7 +89,10 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     NumberVariation = x.ProductLinks.Count,
                     ReviewsCount = x.ReviewsCount,
                     RatingAverage = x.RatingAverage
-                }).ToList();
+                })
+                .Skip(offset)
+                .Take(PageSize)
+                .ToList();
 
             foreach (var product in products)
             {
@@ -92,6 +100,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
 
             model.Products = products;
+            model.CurrentSearchOption.PageSize = PageSize;
+            model.CurrentSearchOption.Page = currentPageNum;
 
             return View(model);
         }

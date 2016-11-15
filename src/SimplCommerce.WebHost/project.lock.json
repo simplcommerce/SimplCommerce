@@ -30,7 +30,7 @@
           "lib/netstandard1.1/Autofac.Extensions.DependencyInjection.dll": {}
         }
       },
-      "cloudscribe.Web.Pagination/1.0.4": {
+      "cloudscribe.Web.Pagination/1.0.5": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNetCore.Mvc": "1.0.0",
@@ -4507,7 +4507,7 @@
           "System.Globalization.Extensions": "4.0.1",
           "System.Linq.Queryable": "4.0.1",
           "System.Reflection.TypeExtensions": "4.1.0",
-          "cloudscribe.Web.Pagination": "1.0.4"
+          "cloudscribe.Web.Pagination": "1.0.5"
         },
         "compile": {
           "netstandard1.6/SimplCommerce.Infrastructure.dll": {}
@@ -4574,12 +4574,12 @@
         "lib/netstandard1.1/Autofac.Extensions.DependencyInjection.xml"
       ]
     },
-    "cloudscribe.Web.Pagination/1.0.4": {
-      "sha512": "bwA4fJUksRjpe5ehrFthBwUuymXIcK2Wt58DGY01tc9WSPn5cwDIDmXb36xRx94cS4F+lchK8AngcpK8RH1Lkw==",
+    "cloudscribe.Web.Pagination/1.0.5": {
+      "sha512": "umQRqkX/A0v8+ZJ4fVzNtNPi6FwUoh2AiPwF0DMhv6CuLR0jJv5Kxd2cyYe8768iOFKETjIWCt75sfKMxVihPw==",
       "type": "package",
-      "path": "cloudscribe.Web.Pagination/1.0.4",
+      "path": "cloudscribe.Web.Pagination/1.0.5",
       "files": [
-        "cloudscribe.Web.Pagination.1.0.4.nupkg.sha512",
+        "cloudscribe.Web.Pagination.1.0.5.nupkg.sha512",
         "cloudscribe.Web.Pagination.nuspec",
         "lib/net451/cloudscribe.Web.Pagination.dll",
         "lib/net452/cloudscribe.Web.Pagination.dll",
