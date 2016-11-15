@@ -69,7 +69,8 @@ namespace SimplCommerce.WebHost.Extensions
             {
                 new CultureInfo("en-US"),
                 new CultureInfo("vi-VN"),
-                new CultureInfo("fr-FR")
+                new CultureInfo("fr-FR"),
+                new CultureInfo("pt-BR"), 
             };
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
