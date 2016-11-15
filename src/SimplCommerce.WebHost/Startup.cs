@@ -60,11 +60,13 @@ namespace SimplCommerce.WebHost
 
             services.AddSingleton<IStringLocalizerFactory, EfStringLocalizerFactory>();
             services.AddScoped<SignInManager<User>, SimplSignInManager<User>>();
+            services.AddCloudscribePagination();
 
             services.Configure<RazorViewEngineOptions>(
                 options => { options.ViewLocationExpanders.Add(new ModuleViewLocationExpander()); });
 
             services.AddCustomizedMvc(GlobalConfiguration.Modules);
+
             return services.Build(Configuration, _hostingEnvironment);
         }
 

@@ -10,26 +10,24 @@ namespace SimplCommerce.Module.Catalog.Controllers
 {
     public class CategoryController : Controller
     {
+        private const int PageSize = 2;
         private readonly IRepository<Category> _categoryRepository;
         private readonly IMediaService _mediaService;
         private readonly IRepository<Product> _productRepository;
-        private readonly IRepository<ProductCategory> _productCategoryRepository;
         private readonly IRepository<Brand> _brandRepository;
 
         public CategoryController(IRepository<Product> productRepository,
             IMediaService mediaService,
             IRepository<Category> categoryRepository,
-            IRepository<ProductCategory> productCategoryRepository,
             IRepository<Brand> brandRepository)
         {
             _productRepository = productRepository;
             _mediaService = mediaService;
             _categoryRepository = categoryRepository;
-            _productCategoryRepository = productCategoryRepository;
             _brandRepository = brandRepository;
         }
 
-        public IActionResult CategoryDetail(long id, SearchOption searchOption)
+        public IActionResult CategoryDetail(long id, SearchOption searchOption, int? page)
         {
             var category = _categoryRepository.Query().FirstOrDefault(x => x.Id == id);
             if (category == null)
@@ -74,6 +72,13 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
 
             model.TotalProduct = query.Count();
+            var currentPageNum = page ?? 1;
+            var offset = (PageSize * currentPageNum) - PageSize;
+            while (currentPageNum > 1 && offset >= model.TotalProduct)
+            {
+                currentPageNum--;
+                offset = (PageSize * currentPageNum) - PageSize;
+            }
 
             query = query
                 .Include(x => x.Brand)
@@ -93,7 +98,10 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     NumberVariation = x.ProductLinks.Count,
                     ReviewsCount = x.ReviewsCount,
                     RatingAverage = x.RatingAverage
-                }).ToList();
+                })
+                .Skip(offset)
+                .Take(PageSize)
+                .ToList();
 
             foreach (var product in products)
             {
@@ -101,6 +109,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
 
             model.Products = products;
+            model.CurrentSearchOption.PageSize = PageSize;
+            model.CurrentSearchOption.Page = currentPageNum;
 
             return View(model);
         }

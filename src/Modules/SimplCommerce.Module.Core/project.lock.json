@@ -3,6 +3,22 @@
   "version": 2,
   "targets": {
     ".NETStandard,Version=v1.6": {
+      "cloudscribe.Web.Pagination/1.0.4": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc": "1.0.0",
+          "Microsoft.AspNetCore.Mvc.Core": "1.0.0",
+          "Microsoft.AspNetCore.Mvc.TagHelpers": "1.0.0",
+          "NETStandard.Library": "1.6.0",
+          "System.Linq.Queryable": "4.0.1"
+        },
+        "compile": {
+          "lib/netstandard1.6/cloudscribe.Web.Pagination.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.6/cloudscribe.Web.Pagination.dll": {}
+        }
+      },
       "MediatR/2.1.0": {
         "type": "package",
         "dependencies": {
@@ -2900,7 +2916,8 @@
           "System.ComponentModel.Annotations": "4.1.0",
           "System.Globalization.Extensions": "4.0.1",
           "System.Linq.Queryable": "4.0.1",
-          "System.Reflection.TypeExtensions": "4.1.0"
+          "System.Reflection.TypeExtensions": "4.1.0",
+          "cloudscribe.Web.Pagination": "1.0.4"
         },
         "compile": {
           "netstandard1.6/SimplCommerce.Infrastructure.dll": {}
@@ -2912,6 +2929,19 @@
     }
   },
   "libraries": {
+    "cloudscribe.Web.Pagination/1.0.4": {
+      "sha512": "bwA4fJUksRjpe5ehrFthBwUuymXIcK2Wt58DGY01tc9WSPn5cwDIDmXb36xRx94cS4F+lchK8AngcpK8RH1Lkw==",
+      "type": "package",
+      "path": "cloudscribe.Web.Pagination/1.0.4",
+      "files": [
+        "cloudscribe.Web.Pagination.1.0.4.nupkg.sha512",
+        "cloudscribe.Web.Pagination.nuspec",
+        "lib/net451/cloudscribe.Web.Pagination.dll",
+        "lib/net452/cloudscribe.Web.Pagination.dll",
+        "lib/net46/cloudscribe.Web.Pagination.dll",
+        "lib/netstandard1.6/cloudscribe.Web.Pagination.dll"
+      ]
+    },
     "MediatR/2.1.0": {
       "sha512": "KjnYX7BJdIA2YomyyRlRV5ecgiw70lzbEBBXREPJfMGwNCfyv0zleA80Qmp+W07tet1QFcnU3++H84z8VYPXsw==",
       "type": "package",

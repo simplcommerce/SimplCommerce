@@ -1,5 +1,6 @@
 ﻿@using System.Threading.Tasks
 @using SimplCommerce.Module.Catalog.ViewModels
+@addTagHelper *, SimplCommerce.Infrastructure
 
 @model ProductsByCategory
 @{
@@ -124,6 +125,16 @@
                     @await Html.PartialAsync("_ProductThumbnail", product)
                 </div>
             }
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <cs-pager cs-paging-pagesize="@Model.CurrentSearchOption.PageSize"
+                          cs-paging-pagenumber="@Model.CurrentSearchOption.Page.Value"
+                          cs-paging-totalitems="@Model.TotalProduct"
+                          cs-pagenumber-param="page"
+                          asp-basehref="~/@Model.CategorySeoTitle"
+                          asp-all-route-data="@Model.CurrentSearchOption.ToDictionary()"></cs-pager>
+            </div>
         </div>
     </div>
 </div>
