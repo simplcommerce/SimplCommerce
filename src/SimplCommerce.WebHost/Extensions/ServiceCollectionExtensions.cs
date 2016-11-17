@@ -43,14 +43,12 @@ namespace SimplCommerce.WebHost.Extensions
                     {
                         assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(file.FullName);
                     }
-                    catch (FileLoadException ex)
+                    catch (FileLoadException)
                     {
-                        if (ex.Message == "Assembly with same name is already loaded")
-                        {
-                            // Get loaded assembly
-                            assembly = Assembly.Load(new AssemblyName(Path.GetFileNameWithoutExtension(file.Name)));
-                        }
-                        else
+                        // Get loaded assembly
+                        assembly = Assembly.Load(new AssemblyName(Path.GetFileNameWithoutExtension(file.Name)));
+
+                        if (assembly == null)
                         {
                             throw;
                         }
