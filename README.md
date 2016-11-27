@@ -5,6 +5,10 @@
 ## Online demo (Azure Website)
 http://demo.simplcommerce.com
 
+## Try nightly docker images
+- docker pull simplcommerce/nightly-build
+- docker run -d -p 5000:5000 simplcommerce/nightly-build
+
 ## Build Status
 | Build server| Platform       | Status      |
 |-------------|----------------|-------------|
@@ -24,7 +28,7 @@ http://demo.simplcommerce.com
 - MediatR for domain event
 
 ## The architecture highlight
-![](https://github.com/simplcommerce/SimplCommerce/blob/master/simplcommerce.png)
+![](https://raw.githubusercontent.com/simplcommerce/SimplCommerce/master/simplcommerce.png)
 
 The application is divided into modules. Each module contains all the stuff for itself to run including Controllers, Services, Views and event static files. If a module is no longer need, you can simply just delete it by a single click.
 
@@ -81,7 +85,7 @@ By default domain entities is mapped by convention. In case you need to some spe
 ```
 
 ## How to run on local
-###Using Visual Studio 2015 Update 3
+### Using Visual Studio 2015 Update 3
 - Install .NET Core SDK for Visual Studio (https://www.microsoft.com/net/core#windows)
 - Create a database in SQL Server
 - Update the connection string in appsettings.json in SimplCommerce.WebHost
@@ -91,7 +95,7 @@ By default domain entities is mapped by convention. In case you need to some spe
 - Press Control + F5
 - The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
-###Using Command Line (Windows, Mac, Linux)
+### Using Command Line (Windows, Mac, Linux)
 - Install NodeJS
 - Install .NET SDK (https://www.microsoft.com/net/core)
 - Create a database in SQL Server or PostgreSQL
@@ -112,7 +116,7 @@ By default domain entities is mapped by convention. In case you need to some spe
 - Type "cd SimplCommerce.WebHost" then press Enter
 - Type "npm install" then press Enter
 - Type "gulp copy-modules" then press Enter
-- If you use Postgres: type "donet ef migrations add initialSchema" and hit Enter
+- If you use Postgres: type "dotnet ef migrations add initialSchema" and hit Enter
 - Type "dotnet ef database update" then press Enter. This action will create database schema
 - Run src/Database/StaticData.sql on your database to create seeding data
 - Type "dotnet watch run" then press Enter.
