@@ -5,9 +5,9 @@
 ## Online demo (Azure Website)
 http://demo.simplcommerce.com
 
-## Try nightly docker images
-- docker pull simplcommerce/nightly-build
-- docker run -d -p 5000:5000 simplcommerce/nightly-build
+## Try out nightly docker images
+- First run the database: `docker run --name simpldb -d postgres`
+- Then run the app: `docker run -d -p 5000:5000 --link simpldb:simpldb simplcommerce/nightly-build`
 
 ## Build Status
 | Build server| Platform       | Status      |
