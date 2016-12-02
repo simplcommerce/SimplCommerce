@@ -30,7 +30,7 @@ http://demo.simplcommerce.com
 ## The architecture highlight
 ![](https://raw.githubusercontent.com/simplcommerce/SimplCommerce/master/simplcommerce.png)
 
-The application is divided into modules. Each module contains all the stuff for itself to run including Controllers, Services, Views and event static files. If a module is no longer need, you can simply just delete it by a single click.
+The application is divided into modules. Each module contains all the stuff for itself to run including Controllers, Services, Views and even static files. If a module is no longer need, you can simply just delete it by a single click.
 
 The SimplCommerce.WebHost is the ASP.NET Core project and act as the host. It will bootstrap the app and load all the modules it found in it's Modules folder. In the gulpfile.js, there is a "copy-modules" that is bound to 'AfterBuild' event of Visual Studio to copy /bin, /Views, /wwwroot in each module to the Modules folder in the WebHost.
 
