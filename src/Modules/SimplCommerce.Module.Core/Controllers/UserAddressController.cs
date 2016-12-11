@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
@@ -12,12 +14,17 @@ namespace SimplCommerce.Module.Core.Controllers
     [Authorize]
     public class UserAddressController : Controller
     {
-        private IRepository<UserAddress> _userAddressRepository;
-        private IWorkContext _workContext;
+        private readonly IRepository<UserAddress> _userAddressRepository;
+        private readonly IRepository<StateOrProvince> _stateOrProvinceRepository;
+        private readonly IRepository<District> _districtRepository;
+        private readonly IWorkContext _workContext;
 
-        public UserAddressController(IRepository<UserAddress> userAddressRepository, IWorkContext workContext)
+        public UserAddressController(IRepository<UserAddress> userAddressRepository, IRepository<StateOrProvince> stateOrProvinceRepository,
+            IRepository<District> districtRepository, IWorkContext workContext)
         {
             _userAddressRepository = userAddressRepository;
+            _stateOrProvinceRepository = stateOrProvinceRepository;
+            _districtRepository = districtRepository;
             _workContext = workContext;
         }
 
@@ -30,6 +37,7 @@ namespace SimplCommerce.Module.Core.Controllers
                 .Where(x => x.AddressType == AddressType.Shipping && x.UserId == currentUser.Id)
                 .Select(x => new UserAddressListItem
                 {
+                    AddressId = x.AddressId,
                     UserAddressId = x.Id,
                     ContactName = x.Address.ContactName,
                     Phone = x.Address.Phone,
@@ -40,7 +48,162 @@ namespace SimplCommerce.Module.Core.Controllers
                     CountryName = x.Address.Country.Name
                 }).ToList();
 
+            foreach (var item in model)
+            {
+                item.IsDefaultShippingAddress = item.AddressId == currentUser.CurrentShippingAddressId;
+            }
+
             return View(model);
+        }
+
+        [Route("user/address/create")]
+        public IActionResult Create()
+        {
+            var model = new UserAddressFormViewModel();
+
+            PopulateAddressFormData(model);
+
+            return View(model);
+        }
+
+        [Route("user/address/create")]
+        [HttpPost]
+        public async Task<IActionResult> Create(UserAddressFormViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var currentUser = await _workContext.GetCurrentUser();
+
+                var address = new Address
+                {
+                    AddressLine1 = model.AddressLine1,
+                    ContactName = model.ContactName,
+                    CountryId = 1,
+                    StateOrProvinceId = model.StateOrProvinceId,
+                    DistrictId = model.DistrictId,
+                    Phone = model.Phone
+                };
+
+                var userAddress = new UserAddress
+                {
+                    Address = address,
+                    AddressType = AddressType.Shipping,
+                    UserId = currentUser.Id
+                };
+
+                _userAddressRepository.Add(userAddress);
+                _userAddressRepository.SaveChange();
+                return RedirectToAction("List");
+            }
+
+            PopulateAddressFormData(model);
+            return View(model);
+        }
+
+        [Route("user/address/edit/{id}")]
+        public async Task<IActionResult> Edit(long id)
+        {
+            var currentUser = await _workContext.GetCurrentUser();
+
+            var userAddress = _userAddressRepository.Query()
+                .Include(x => x.Address)
+                .FirstOrDefault(x => x.Id == id && x.UserId == currentUser.Id);
+
+            if (userAddress == null)
+            {
+                return NotFound();
+            }
+
+            var model = new UserAddressFormViewModel
+            {
+                Id = userAddress.Id,
+                ContactName = userAddress.Address.ContactName,
+                Phone = userAddress.Address.Phone,
+                AddressLine1 = userAddress.Address.AddressLine1,
+                DistrictId = userAddress.Address.DistrictId,
+                StateOrProvinceId = userAddress.Address.StateOrProvinceId
+            };
+
+            PopulateAddressFormData(model);
+
+            return View(model);
+        }
+
+        [Route("user/address/edit/{id}")]
+        [HttpPost]
+        public async Task<IActionResult> Edit(long id, UserAddressFormViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var currentUser = await _workContext.GetCurrentUser();
+
+                var userAddress = _userAddressRepository.Query()
+                    .Include(x => x.Address)
+                    .FirstOrDefault(x => x.Id == id && x.UserId == currentUser.Id);
+
+                if (userAddress == null)
+                {
+                    return NotFound();
+                }
+
+                userAddress.Address.AddressLine1 = model.AddressLine1;
+                userAddress.Address.ContactName = model.ContactName;
+                userAddress.Address.CountryId = 1;
+                userAddress.Address.StateOrProvinceId = model.StateOrProvinceId;
+                userAddress.Address.DistrictId = model.DistrictId;
+                userAddress.Address.Phone = model.Phone;
+
+                _userAddressRepository.SaveChange();
+                return RedirectToAction("List");
+            }
+
+            PopulateAddressFormData(model);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(long id)
+        {
+            var currentUser = await _workContext.GetCurrentUser();
+
+            var userAddress = _userAddressRepository.Query()
+                .Include(x => x.Address)
+                .FirstOrDefault(x => x.Id == id && x.UserId == currentUser.Id);
+
+            if (userAddress == null)
+            {
+                return NotFound();
+            }
+
+            // TODO wait #84 and review references 
+            // _userAddressRepository.Remove(userAddress);
+            // _userAddressRepository.SaveChange();
+
+            return RedirectToAction("List");
+        }
+
+        private void PopulateAddressFormData(UserAddressFormViewModel model)
+        {
+            model.StateOrProvinces = _stateOrProvinceRepository
+                .Query()
+                .OrderBy(x => x.Name)
+                .Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }).ToList();
+
+            var selectedStateOrProvince = model.StateOrProvinceId > 0 ? model.StateOrProvinceId : long.Parse(model.StateOrProvinces.First().Value);
+
+            model.Districts = _districtRepository
+                .Query()
+                .Where(x => x.StateOrProvinceId == selectedStateOrProvince)
+                .OrderBy(x => x.Name)
+                .Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }).ToList();
         }
     }
 }

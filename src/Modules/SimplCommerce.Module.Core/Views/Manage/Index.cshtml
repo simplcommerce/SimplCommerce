@@ -2,7 +2,10 @@
 @{
     ViewData["Title"] = "Manage your account";
 }
-<p class="text-success">@ViewData["StatusMessage"]</p>
+@if (ViewData["StatusMessage"] != null)
+{
+    <p class="text-success">@ViewData["StatusMessage"]</p>
+}
 <div class="row">
     <div class="col-md-3">
         @Html.Partial("_AccountMenu")
@@ -39,7 +42,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Default delivery address</div>
                     <div class="panel-body">
-                        Panel content
+                        <vc:default-address></vc:default-address>
                     </div>
                 </div>
             </div>

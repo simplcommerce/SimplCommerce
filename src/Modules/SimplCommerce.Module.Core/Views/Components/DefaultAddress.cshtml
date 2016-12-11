@@ -1,0 +1,22 @@
+﻿@model DefaultAddressViewComponentVm
+
+<div>
+    @if (Model.Address != null)
+    {
+        <p>
+            <strong>@Model.Address.ContactName </strong><br/>
+            @Model.Address.AddressLine1 <br/>
+            @Model.Address.DistrictName, @Model.Address.StateOrProvinceName <br/>
+            @Model.Address.Phone
+        </p>
+    }
+    else
+    {
+        <p>
+            You don't have default address
+        </p>
+    }
+    <p class="text-right">
+        <a href="~/user/address">Manage address</a>
+    </p>
+</div>

@@ -9,16 +9,32 @@
     </div>
     <div class="col-md-9">
         <h2>Address book</h2>
+        <hr />
         @foreach (var address in Model)
         {
-            <div class="radio">
-                <label>
-                    <strong>@address.ContactName </strong><br />
-                    @address.AddressLine1 <br />
-                    @address.DistrictName, @address.StateOrProvinceName <br />
-                    Phone: @address.Phone
-                </label>
+            <div>
+                <strong>@address.ContactName </strong><br />
+                @address.AddressLine1 <br />
+                @address.DistrictName, @address.StateOrProvinceName <br />
+                Phone: @address.Phone
             </div>
+            <div>
+                @if (address.IsDefaultShippingAddress)
+                {
+                    <span class="label label-primary">Default shipping address</span>
+                }
+                else
+                {
+                    <a href="~/user/address/setasdefault/@address.UserAddressId">Set as default shipping address</a><span> | </span>
+                }
+                <a href="~/user/address/edit/@address.UserAddressId">Edit</a><span> | </span>
+                <form method="post" style="display: inline" asp-controller="UserAddress" asp-action="Delete" asp-route-id="@address.UserAddressId">
+                    <button type="submit" class="btn btn-link" style="padding: 0">Delete</button>
+                </form>
+            </div>
+            <hr />
         }
+
+        <div class="text-right"><a class="btn btn-primary" href="~/user/address/create">Add address</a></div>
     </div>
 </div>

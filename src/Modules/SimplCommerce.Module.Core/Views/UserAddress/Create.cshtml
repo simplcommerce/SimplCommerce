@@ -1,0 +1,37 @@
+﻿@model SimplCommerce.Module.Core.ViewModels.UserAddressFormViewModel
+@{
+    ViewData["Title"] = "Create address";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        @Html.Partial("_AccountMenu")
+    </div>
+    <div class="col-md-9">
+        <h2>Create new address</h2>
+        <hr />
+        <form asp-controller="UserAddress" asp-action="Create" method="POST" class="form-horizontal">
+            @Html.Partial("_AddressForm", Model)
+        </form>
+    </div>
+</div>
+
+@section scripts {
+@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+<script>
+    $(function () {
+         $('#StateOrProvinceId').on('change', function () {
+            var selectedStateOrProvinceId = this.value;
+
+            $.getJSON("/Location/GetDistricts/" + selectedStateOrProvinceId, function (data) {
+                var $districtSelect = $("#DistrictId");
+                $districtSelect.empty();
+
+                $.each(data, function (index, option) {
+                    $districtSelect.append($("<option></option>").attr("value", option.value).text(option.text));
+                });
+            });
+        });
+    });
+</script>
+}
