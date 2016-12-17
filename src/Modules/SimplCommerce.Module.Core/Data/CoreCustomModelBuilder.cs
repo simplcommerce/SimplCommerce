@@ -54,9 +54,17 @@ namespace SimplCommerce.Module.Core.Data
 
             modelBuilder.Entity<User>(u =>
             {
-                u.HasOne(x => x.CurrentShippingAddress)
+                u.HasOne(x => x.DefaultShippingAddress)
                .WithMany()
-               .HasForeignKey(x => x.CurrentShippingAddressId)
+               .HasForeignKey(x => x.DefaultShippingAddressId)
+               .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<User>(u =>
+            {
+                u.HasOne(x => x.DefaultBillingAddress)
+               .WithMany()
+               .HasForeignKey(x => x.DefaultBillingAddressId)
                .OnDelete(DeleteBehavior.Restrict);
             });
 

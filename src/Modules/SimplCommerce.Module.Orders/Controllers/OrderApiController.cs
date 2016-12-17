@@ -113,7 +113,7 @@ namespace SimplCommerce.Module.Orders.Controllers
         {
             var order = _orderRepository
                 .Query()
-                .Include(x => x.ShippingAddress).ThenInclude(x => x.Address).ThenInclude(x => x.District).ThenInclude(x => x.StateOrProvince)
+                .Include(x => x.ShippingAddress).ThenInclude(x => x.District).ThenInclude(x => x.StateOrProvince)
                 .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.ThumbnailImage)
                 .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.OptionCombinations).ThenInclude(x => x.Option)
                 .Include(x => x.CreatedBy)
@@ -134,12 +134,12 @@ namespace SimplCommerce.Module.Orders.Controllers
                 SubTotal = order.SubTotal,
                 ShippingAddress = new ShippingAddressVm
                 {
-                    AddressLine1 = order.ShippingAddress.Address.AddressLine1,
-                    AddressLine2 = order.ShippingAddress.Address.AddressLine2,
-                    ContactName = order.ShippingAddress.Address.ContactName,
-                    DistrictName = order.ShippingAddress.Address.District.Name,
-                    StateOrProvinceName = order.ShippingAddress.Address.StateOrProvince.Name,
-                    Phone = order.ShippingAddress.Address.Phone
+                    AddressLine1 = order.ShippingAddress.AddressLine1,
+                    AddressLine2 = order.ShippingAddress.AddressLine2,
+                    ContactName = order.ShippingAddress.ContactName,
+                    DistrictName = order.ShippingAddress.District.Name,
+                    StateOrProvinceName = order.ShippingAddress.StateOrProvince.Name,
+                    Phone = order.ShippingAddress.Phone
                 },
                 OrderItems = order.OrderItems.Select(x => new OrderItemVm
                 {

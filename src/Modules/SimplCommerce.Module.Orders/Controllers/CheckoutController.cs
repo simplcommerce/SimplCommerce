@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SimplCommerce.Infrastructure.Data;
@@ -15,26 +14,22 @@ namespace SimplCommerce.Module.Orders.Controllers
     [Authorize]
     public class CheckoutController : Controller
     {
-        private IRepository<StateOrProvince> _stateOrProvinceRepository;
-        private IRepository<District> _districtRepository;
-        private IRepository<UserAddress> _userAddressRepository;
-        private IRepository<User> _userRepository;
-        private IOrderService _orderService;
-        private IWorkContext _workContext;
+        private readonly IRepository<District> _districtRepository;
+        private readonly IOrderService _orderService;
+        private readonly IRepository<StateOrProvince> _stateOrProvinceRepository;
+        private readonly IRepository<UserAddress> _userAddressRepository;
+        private readonly IWorkContext _workContext;
 
         public CheckoutController(
-            UserManager<User> userManager,
             IRepository<StateOrProvince> stateOrProvinceRepository,
             IRepository<District> districtRepository,
             IRepository<UserAddress> userAddressRepository,
-            IRepository<User> userRepository,
             IOrderService orderService,
             IWorkContext workContext)
         {
             _stateOrProvinceRepository = stateOrProvinceRepository;
             _districtRepository = districtRepository;
             _userAddressRepository = userAddressRepository;
-            _userRepository = userRepository;
             _orderService = orderService;
             _workContext = workContext;
         }
@@ -52,7 +47,7 @@ namespace SimplCommerce.Module.Orders.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             model.ExistingShippingAddresses = _userAddressRepository
                 .Query()
-                .Where(x => x.AddressType == AddressType.Shipping && x.UserId == currentUser.Id)
+                .Where(x => (x.AddressType == AddressType.Shipping) && (x.UserId == currentUser.Id))
                 .Select(x => new ShippingAddressVm
                 {
                     UserAddressId = x.Id,
@@ -65,7 +60,7 @@ namespace SimplCommerce.Module.Orders.Controllers
                     CountryName = x.Address.Country.Name
                 }).ToList();
 
-            model.ShippingAddressId = currentUser.CurrentShippingAddressId ?? 0;
+            model.ShippingAddressId = currentUser.DefaultShippingAddressId ?? 0;
 
             model.NewAddressForm.StateOrProvinces = _stateOrProvinceRepository
                 .Query()
@@ -94,12 +89,14 @@ namespace SimplCommerce.Module.Orders.Controllers
         [HttpPost]
         public async Task<IActionResult> DeliveryInformation(DeliveryInformationVm model)
         {
-            if (!ModelState.IsValid && model.ShippingAddressId == 0)
+            if (!ModelState.IsValid && (model.ShippingAddressId == 0))
             {
                 return View(model);
             }
 
             var currentUser = await _workContext.GetCurrentUser();
+            Address billingAddress;
+            Address shippingAddress;
 
             if (model.ShippingAddressId == 0)
             {
@@ -121,13 +118,15 @@ namespace SimplCommerce.Module.Orders.Controllers
                 };
 
                 _userAddressRepository.Add(userAddress);
-                currentUser.CurrentShippingAddress = userAddress;
+
+                billingAddress = shippingAddress = address;
             }
             else
             {
-                currentUser.CurrentShippingAddress = _userAddressRepository.Query().FirstOrDefault(x => x.Id == model.ShippingAddressId);
+                billingAddress = shippingAddress = _userAddressRepository.Query().Where(x => x.Id == model.ShippingAddressId).Select(x => x.Address).First();
             }
-            _orderService.CreateOrder(currentUser);
+
+            _orderService.CreateOrder(currentUser, billingAddress, shippingAddress);
 
             return RedirectToAction("OrderConfirmation");
         }

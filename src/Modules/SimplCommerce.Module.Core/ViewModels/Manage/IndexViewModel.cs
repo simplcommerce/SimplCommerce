@@ -14,5 +14,9 @@ namespace SimplCommerce.Module.Core.ViewModels.Manage
         public bool TwoFactor { get; set; }
 
         public bool BrowserRemembered { get; set; }
+
+        public string FullName { get; set; }
+
+        public string Email { get; set; }
     }
 }

@@ -23,10 +23,14 @@ namespace SimplCommerce.Module.Core.Models
 
         public DateTimeOffset UpdatedOn { get; set; }
 
-        public virtual IList<UserAddress> UserAddresses { get; set; } = new List<UserAddress>();
+        public IList<UserAddress> UserAddresses { get; set; } = new List<UserAddress>();
 
-        public virtual UserAddress CurrentShippingAddress { get; set; }
+        public UserAddress DefaultShippingAddress { get; set; }
 
-        public long? CurrentShippingAddressId { get; set; }
+        public long? DefaultShippingAddressId { get; set; }
+
+        public UserAddress DefaultBillingAddress { get; set; }
+
+        public long? DefaultBillingAddressId { get; set; }
     }
 }

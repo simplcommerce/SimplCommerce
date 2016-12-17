@@ -50,7 +50,7 @@ namespace SimplCommerce.Module.Core.Controllers
 
             foreach (var item in model)
             {
-                item.IsDefaultShippingAddress = item.AddressId == currentUser.CurrentShippingAddressId;
+                item.IsDefaultShippingAddress = item.AddressId == currentUser.DefaultShippingAddressId;
             }
 
             return View(model);
@@ -175,9 +175,8 @@ namespace SimplCommerce.Module.Core.Controllers
                 return NotFound();
             }
 
-            // TODO wait #84 and review references 
-            // _userAddressRepository.Remove(userAddress);
-            // _userAddressRepository.SaveChange();
+            _userAddressRepository.Remove(userAddress);
+            _userAddressRepository.SaveChange();
 
             return RedirectToAction("List");
         }

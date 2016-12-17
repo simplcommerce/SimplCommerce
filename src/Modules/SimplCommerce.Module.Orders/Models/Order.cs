@@ -19,17 +19,19 @@ namespace SimplCommerce.Module.Orders.Models
 
         public long CreatedById { get; set; }
 
-        public virtual User CreatedBy { get; set; }
+        public User CreatedBy { get; set; }
 
         public decimal SubTotal { get; set; }
 
         public long ShippingAddressId { get; set; }
 
-        public virtual UserAddress ShippingAddress { get; set; }
+        public OrderAddress ShippingAddress { get; set; }
 
-        public virtual UserAddress BillingAddress { get; set; }
+        public long BillingAddressId { get; set; }
 
-        public virtual IList<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+        public OrderAddress BillingAddress { get; set; }
+
+        public IList<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
         public OrderStatus OrderStatus { get; set; }
 

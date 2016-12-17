@@ -11,8 +11,22 @@
         @Html.Partial("_AccountMenu")
     </div>
     <div class="col-md-9">
-        <h2>Manage your account</h2>
+        <h2>Account Dashboard</h2>
         <hr />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Account infomation</div>
+                    <div class="panel-body">
+                        @Model.FullName <br/>
+                        @Model.Email
+                        <p class="text-right">
+                            <a href="~/user/info">Edit</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-6">
                 <div class="panel panel-default">

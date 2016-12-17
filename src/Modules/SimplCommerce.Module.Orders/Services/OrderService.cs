@@ -18,18 +18,39 @@ namespace SimplCommerce.Module.Orders.Services
             _cartItemRepository = cartItemRepository;
         }
 
-        public void CreateOrder(User user)
+        public void CreateOrder(User user, Address billingAddress, Address shippingAddress)
         {
             var cartItems = _cartItemRepository
                 .Query()
                 .Include(x => x.Product)
                 .Where(x => x.UserId == user.Id).ToList();
 
+            var orderBillingAddress = new OrderAddress()
+            {
+                AddressLine1 = billingAddress.AddressLine1,
+                ContactName = billingAddress.ContactName,
+                CountryId = billingAddress.CountryId,
+                StateOrProvinceId = billingAddress.StateOrProvinceId,
+                DistrictId = billingAddress.DistrictId,
+                Phone = billingAddress.Phone
+            };
+
+            var orderShippingAddress = new OrderAddress()
+            {
+                AddressLine1 = shippingAddress.AddressLine1,
+                ContactName = shippingAddress.ContactName,
+                CountryId = shippingAddress.CountryId,
+                StateOrProvinceId = shippingAddress.StateOrProvinceId,
+                DistrictId = shippingAddress.DistrictId,
+                Phone = shippingAddress.Phone
+            };
+
             var order = new Order
             {
                 CreatedOn = DateTimeOffset.Now,
                 CreatedById = user.Id,
-                ShippingAddress = user.CurrentShippingAddress
+                BillingAddress = orderBillingAddress,
+                ShippingAddress = orderShippingAddress
             };
 
             foreach (var cartItem in cartItems)

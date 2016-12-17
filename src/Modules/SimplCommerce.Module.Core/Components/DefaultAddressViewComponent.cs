@@ -27,13 +27,13 @@ namespace SimplCommerce.Module.Core.Components
 
             var model = new DefaultAddressViewComponentVm();
 
-            if (curentUser.CurrentShippingAddressId.HasValue)
+            if (curentUser.DefaultShippingAddressId.HasValue)
             {
                 var address = _addressRepository.Query()
                     .Include(x => x.District)
                     .Include(x => x.StateOrProvince)
                     .Include(x => x.Country)
-                    .First(x => x.Id == curentUser.CurrentShippingAddressId.Value);
+                    .First(x => x.Id == curentUser.DefaultShippingAddressId.Value);
                 model.Address = new UserAddressListItem
                 {
                     UserAddressId = address.Id,
