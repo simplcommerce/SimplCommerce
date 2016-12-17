@@ -17,14 +17,16 @@ namespace SimplCommerce.Module.Core.Controllers
         private readonly IRepository<UserAddress> _userAddressRepository;
         private readonly IRepository<StateOrProvince> _stateOrProvinceRepository;
         private readonly IRepository<District> _districtRepository;
+        private readonly IRepository<User> _userRepository;
         private readonly IWorkContext _workContext;
 
         public UserAddressController(IRepository<UserAddress> userAddressRepository, IRepository<StateOrProvince> stateOrProvinceRepository,
-            IRepository<District> districtRepository, IWorkContext workContext)
+            IRepository<District> districtRepository, IRepository<User> userRepository, IWorkContext workContext)
         {
             _userAddressRepository = userAddressRepository;
             _stateOrProvinceRepository = stateOrProvinceRepository;
             _districtRepository = districtRepository;
+            _userRepository = userRepository;
             _workContext = workContext;
         }
 
@@ -159,6 +161,26 @@ namespace SimplCommerce.Module.Core.Controllers
 
             PopulateAddressFormData(model);
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SetAsDefault(long id)
+        {
+            var currentUser = await _workContext.GetCurrentUser();
+
+            var userAddress = _userAddressRepository.Query()
+                .Include(x => x.Address)
+                .FirstOrDefault(x => x.Id == id && x.UserId == currentUser.Id);
+
+            if (userAddress == null)
+            {
+                return NotFound();
+            }
+
+            currentUser.DefaultShippingAddressId = userAddress.AddressId;
+            _userRepository.SaveChange();
+
+            return RedirectToAction("List");
         }
 
         [HttpPost]
