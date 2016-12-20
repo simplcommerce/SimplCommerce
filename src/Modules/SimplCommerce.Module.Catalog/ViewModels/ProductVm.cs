@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SimplCommerce.Module.Catalog.ViewModels
@@ -15,6 +16,12 @@ namespace SimplCommerce.Module.Catalog.ViewModels
         public decimal Price { get; set; }
 
         public decimal? OldPrice { get; set; }
+
+        public decimal? SpecialPrice { get; set; }
+
+        public DateTimeOffset? SpecialPriceStart { get; set; }
+
+        public DateTimeOffset? SpecialPriceEnd { get; set; }
 
         [Required]
         public string Name { get; set; }

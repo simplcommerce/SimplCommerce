@@ -26,6 +26,13 @@
         vm.addingVariation = { price: 0 };
         vm.brands = [];
 
+        vm.datePickerSpecialPriceStart = {};
+        vm.datePickerSpecialPriceEnd = {};
+
+        vm.openCalendar = function (e, picker) {
+            vm[picker].open = true;
+        };
+
         vm.shortDescUpload = function (files) {
             summerNoteService.upload(files[0])
                 .success(function (url) {
@@ -278,6 +285,13 @@
                     index = attributeIds.indexOf(vm.product.attributes[i].id);
                     attributeIds.splice(index, 1);
                     vm.attributes.splice(index, 1);
+                }
+
+                if (vm.product.specialPriceStart) {
+                    vm.product.specialPriceStart = new Date(vm.product.specialPriceStart);
+                }
+                if (vm.product.specialPriceEnd) {
+                    vm.product.specialPriceEnd = new Date(vm.product.specialPriceEnd);
                 }
             });
         }

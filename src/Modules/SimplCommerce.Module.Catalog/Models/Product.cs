@@ -16,6 +16,12 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public decimal? OldPrice { get; set; }
 
+        public decimal? SpecialPrice { get; set; }
+
+        public DateTimeOffset? SpecialPriceStart { get; set; }
+
+        public DateTimeOffset? SpecialPriceEnd { get; set; }
+
         public bool HasOptions { get; set; }
 
         public bool IsVisibleIndividually { get; set; }

@@ -70,6 +70,9 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 Specification = product.Specification,
                 OldPrice = product.OldPrice,
                 Price = product.Price,
+                SpecialPrice = product.SpecialPrice,
+                SpecialPriceStart = product.SpecialPriceStart,
+                SpecialPriceEnd = product.SpecialPriceEnd,
                 IsFeatured = product.IsFeatured,
                 IsPublished = product.IsPublished,
                 CategoryIds = product.Categories.Select(x => x.CategoryId).ToList(),
@@ -206,6 +209,9 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 Specification = model.Product.Specification,
                 Price = model.Product.Price,
                 OldPrice = model.Product.OldPrice,
+                SpecialPrice = model.Product.SpecialPrice,
+                SpecialPriceStart = model.Product.SpecialPriceStart,
+                SpecialPriceEnd = model.Product.SpecialPriceEnd,
                 IsPublished = model.Product.IsPublished,
                 IsFeatured = model.Product.IsFeatured,
                 BrandId = model.Product.BrandId,
@@ -278,6 +284,9 @@ namespace SimplCommerce.Module.Catalog.Controllers
             product.Specification = model.Product.Specification;
             product.Price = model.Product.Price;
             product.OldPrice = model.Product.OldPrice;
+            product.SpecialPrice = model.Product.SpecialPrice;
+            product.SpecialPriceStart = model.Product.SpecialPriceStart;
+            product.SpecialPriceEnd = model.Product.SpecialPriceEnd;
             product.BrandId = model.Product.BrandId;
             product.IsFeatured = model.Product.IsFeatured;
             product.IsPublished = model.Product.IsPublished;
