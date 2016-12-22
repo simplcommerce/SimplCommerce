@@ -10,16 +10,16 @@ namespace SimplCommerce.Module.Catalog.Components
 {
     public class CategoryBreadcrumbViewComponent : ViewComponent
     {
-        private readonly IRepository<Category> categoryRepository;
+        private readonly IRepository<Category> _categoryRepository;
 
         public CategoryBreadcrumbViewComponent(IRepository<Category> categoryRepository)
         {
-            this.categoryRepository = categoryRepository;
+            _categoryRepository = categoryRepository;
         }
 
         public IViewComponentResult Invoke(long? categoryId, IEnumerable<long> categoryIds)
         {
-            IList<BreadcrumbViewModel> breadcrumbs = new List<BreadcrumbViewModel>();
+            IList<BreadcrumbViewModel> breadcrumbs;
             if (categoryId.HasValue)
             {
                 breadcrumbs = Create(categoryId.Value);
@@ -35,7 +35,7 @@ namespace SimplCommerce.Module.Catalog.Components
 
         private IList<BreadcrumbViewModel> Create(long categoryId)
         {
-            var category = categoryRepository
+            var category = _categoryRepository
                 .Query()
                 .Include(x => x.Parent)
                 .FirstOrDefault(x => x.Id == categoryId);

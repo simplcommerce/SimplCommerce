@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
+using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Services;
 
@@ -15,16 +16,19 @@ namespace SimplCommerce.Module.Catalog.Controllers
         private readonly IMediaService _mediaService;
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<Brand> _brandRepository;
+        private readonly IProductPricingService _productPricingService;
 
         public CategoryController(IRepository<Product> productRepository,
             IMediaService mediaService,
             IRepository<Category> categoryRepository,
-            IRepository<Brand> brandRepository)
+            IRepository<Brand> brandRepository,
+            IProductPricingService productPricingService)
         {
             _productRepository = productRepository;
             _mediaService = mediaService;
             _categoryRepository = categoryRepository;
             _brandRepository = brandRepository;
+            _productPricingService = productPricingService;
         }
 
         public IActionResult CategoryDetail(long id, SearchOption searchOption)
@@ -94,6 +98,9 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     SeoTitle = x.SeoTitle,
                     Price = x.Price,
                     OldPrice = x.OldPrice,
+                    SpecialPrice = x.SpecialPrice,
+                    SpecialPriceStart = x.SpecialPriceStart,
+                    SpecialPriceEnd = x.SpecialPriceEnd,
                     ThumbnailImage = x.ThumbnailImage,
                     NumberVariation = x.ProductLinks.Count,
                     ReviewsCount = x.ReviewsCount,
@@ -106,6 +113,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             foreach (var product in products)
             {
                 product.ThumbnailUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage);
+                product.CalculatedProductPrice = _productPricingService.CalculateProductPrice(product);
             }
 
             model.Products = products;

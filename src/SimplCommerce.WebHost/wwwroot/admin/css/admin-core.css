@@ -77,3 +77,7 @@ table > tbody > tr > td.variation-form {
 .input-number input:focus + label {
     display: none;
 }
+
+.simpl-datetime-picker {
+    width: 300px;
+}

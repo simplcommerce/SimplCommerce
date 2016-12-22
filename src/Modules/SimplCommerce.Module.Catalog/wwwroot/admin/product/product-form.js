@@ -26,6 +26,13 @@
         vm.addingVariation = { price: 0 };
         vm.brands = [];
 
+        vm.datePickerSpecialPriceStart = {};
+        vm.datePickerSpecialPriceEnd = {};
+
+        vm.openCalendar = function (e, picker) {
+            vm[picker].open = true;
+        };
+
         vm.shortDescUpload = function (files) {
             summerNoteService.upload(files[0])
                 .success(function (url) {
@@ -237,6 +244,9 @@
             // ng-upload will post null as text
             vm.product.brandId = vm.product.brandId === null ? '' : vm.product.brandId;
             vm.product.oldPrice = vm.product.oldPrice === null ? '' : vm.product.oldPrice;
+            vm.product.specialPrice = vm.product.specialPrice === null ? '' : vm.product.specialPrice;
+            vm.product.specialPriceStart = vm.product.specialPriceStart === null ? '' : vm.product.specialPriceStart;
+            vm.product.specialPriceEnd = vm.product.specialPriceEnd === null ? '' : vm.product.specialPriceEnd;
             vm.product.variations.forEach(function (item) {
                 item.oldPrice = item.oldPrice === null ? '' : item.oldPrice;
             });
@@ -278,6 +288,13 @@
                     index = attributeIds.indexOf(vm.product.attributes[i].id);
                     attributeIds.splice(index, 1);
                     vm.attributes.splice(index, 1);
+                }
+
+                if (vm.product.specialPriceStart) {
+                    vm.product.specialPriceStart = new Date(vm.product.specialPriceStart);
+                }
+                if (vm.product.specialPriceEnd) {
+                    vm.product.specialPriceEnd = new Date(vm.product.specialPriceEnd);
                 }
             });
         }

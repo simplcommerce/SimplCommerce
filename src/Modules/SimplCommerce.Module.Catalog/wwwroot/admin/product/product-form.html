@@ -61,6 +61,37 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Special Price</label>
+                        <div class="col-sm-10">
+                            <div class="input-number">
+                                <input id="productSpecialPrice" type="number" name="specialPrice" ng-model="vm.product.specialPrice" class="form-control" />
+                                <label class="form-control" for="productSpecialPrice">{{vm.product.specialPrice | number}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Special Price Start</label>
+                        <div class="col-sm-10">
+                            <p class="input-group simpl-datetime-picker">
+                                <input type="text" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="vm.product.specialPriceStart" is-open="vm.datePickerSpecialPriceStart.open" datepicker-options="vm.datePickerSpecialPriceStart.datepickerOptions" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="vm.openCalendar($event, 'datePickerSpecialPriceStart')"><i class="fa fa-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Special Price End</label>
+                        <div class="col-sm-10">
+                            <p class="input-group simpl-datetime-picker">
+                                <input type="text" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="vm.product.specialPriceEnd" is-open="vm.datePickerSpecialPriceEnd.open" datepicker-options="vm.datePickerSpecialPriceEnd.datepickerOptions" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="vm.openCalendar($event, 'datePickerSpecialPriceEnd')"><i class="fa fa-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">Thumbnail</label>
                         <div class="col-sm-10">
                             <input class="form-control" type="file" ngf-select ng-model="vm.thumbnailImage" name="thumbnailImage" ngf-accept="'image/*'">

@@ -1,4 +1,6 @@
-﻿using SimplCommerce.Module.Core.Models;
+﻿using System;
+using SimplCommerce.Module.Catalog.Models;
+using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Catalog.ViewModels
 {
@@ -14,6 +16,12 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public decimal? OldPrice { get; set; }
 
+        public decimal? SpecialPrice { get; set; }
+
+        public DateTimeOffset? SpecialPriceStart { get; set; }
+
+        public DateTimeOffset? SpecialPriceEnd { get; set; }
+
         public Media ThumbnailImage { get; set; }
 
         public string ThumbnailUrl { get; set; }
@@ -23,5 +31,7 @@ namespace SimplCommerce.Module.Catalog.ViewModels
         public int ReviewsCount { get; set; }
 
         public double? RatingAverage { get; set; }
+
+        public CalculatedProductPrice CalculatedProductPrice { get; set; }
     }
 }
