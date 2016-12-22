@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.ViewModels;
 
 namespace SimplCommerce.Module.Catalog.ViewModels
@@ -12,9 +13,7 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public string ShortDescription { get; set; }
 
-        public decimal Price { get; set; }
-
-        public decimal? OldPrice { get; set; }
+        public CalculatedProductPrice CalculatedProductPrice { get; set; }
 
         public string Description { get; set; }
 

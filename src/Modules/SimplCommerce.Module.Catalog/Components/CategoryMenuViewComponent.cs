@@ -9,16 +9,16 @@ namespace SimplCommerce.Module.Catalog.Components
 {
     public class CategoryMenuViewComponent : ViewComponent
     {
-        private readonly IRepository<Category> categoryRepository;
+        private readonly IRepository<Category> _categoryRepository;
 
         public CategoryMenuViewComponent(IRepository<Category> categoryRepository)
         {
-            this.categoryRepository = categoryRepository;
+            _categoryRepository = categoryRepository;
         }
 
         public IViewComponentResult Invoke()
         {
-            var categories = categoryRepository.Query().Where(x => !x.IsDeleted).ToList();
+            var categories = _categoryRepository.Query().Where(x => !x.IsDeleted).ToList();
 
             var categoryMenuItems = new List<CategoryMenuItem>();
             foreach (var category in categories.Where(x => !x.ParentId.HasValue))

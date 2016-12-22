@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
+using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Events;
@@ -17,12 +18,14 @@ namespace SimplCommerce.Module.Catalog.Controllers
         private readonly IMediaService _mediaService;
         private readonly IRepository<Product> _productRepository;
         private readonly IMediator _mediator;
+        private readonly IProductPricingService _productPricingService;
 
-        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IMediator mediator)
+        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IMediator mediator, IProductPricingService productPricingService)
         {
             _productRepository = productRepository;
             _mediaService = mediaService;
             _mediator = mediator;
+            _productPricingService = productPricingService;
         }
 
         public IActionResult ProductDetail(long id)
@@ -43,8 +46,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             {
                 Id = product.Id,
                 Name = product.Name,
-                OldPrice = product.OldPrice,
-                Price = product.Price,
+                CalculatedProductPrice = _productPricingService.CalculateProductPrice(product),
                 ShortDescription = product.ShortDescription,
                 Description = product.Description,
                 Specification = product.Specification,
@@ -87,8 +89,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     Id = variation.Id,
                     Name = variation.Name,
                     NormalizedName = variation.NormalizedName,
-                    Price = variation.Price,
-                    OldPrice = variation.OldPrice
+                    CalculatedProductPrice = _productPricingService.CalculateProductPrice(variation)
                 };
 
                 var optionCombinations = variation.OptionCombinations.OrderBy(x => x.SortIndex);

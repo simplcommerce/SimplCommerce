@@ -52,11 +52,11 @@
                         {
                             var hidden = variant != Model.Variations.First() ? "collapse" : "";
                             <div class="variation-price @variant.NormalizedName @hidden">
-                                <h3>@variant.Price.ToString("C")</h3>
-                                @if (variant.OldPrice.HasValue && variant.OldPrice.Value > variant.Price)
+                                <h3>@variant.CalculatedProductPrice.Price.ToString("C")</h3>
+                                @if (variant.CalculatedProductPrice.PercentOfSaving > 0)
                                 {
-                                    <p class="product-price-regular">@variant.OldPrice.Value.ToString("c")</p>
-                                    <p class="product-price-saving">You save @((variant.Price - variant.OldPrice.Value).ToString("C")) (-@(100 - Math.Round((variant.Price / variant.OldPrice.Value) * 100, 0))%)</p>
+                                    <p class="product-price-regular">@variant.CalculatedProductPrice.OldPrice.Value.ToString("C")</p>
+                                    <p class="product-price-saving">You save (@(variant.CalculatedProductPrice.PercentOfSaving)%)</p>
                                 }
                                 <input type="hidden" name="@(variant.NormalizedName)Id" value="@variant.Id" />
                             </div>
@@ -67,11 +67,11 @@
                     else
                     {
                         <input type="hidden" name="productId" value="@Model.Id" />
-                        <h3>@Model.Price.ToString("C")</h3>
-                        if (Model.OldPrice.HasValue && Model.OldPrice.Value > Model.Price)
+                        <h3>@Model.CalculatedProductPrice.Price.ToString("C")</h3>
+                        if (Model.CalculatedProductPrice.PercentOfSaving > 0)
                         {
-                            <p class="product-price-regular">@Model.OldPrice.Value.ToString("c")</p>
-                            <p class="product-price-saving">You save @((Model.Price - Model.OldPrice.Value).ToString("C")) (-@(100 - Math.Round((Model.Price / Model.OldPrice.Value) * 100, 0))%)</p>
+                            <p class="product-price-regular">@Model.CalculatedProductPrice.OldPrice.Value.ToString("C")</p>
+                            <p class="product-price-saving">You save (@(Model.CalculatedProductPrice.PercentOfSaving)%)</p>
                         }
                     }
                 </div>

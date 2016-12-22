@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
+using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Core.ViewModels;
@@ -11,13 +12,15 @@ namespace SimplCommerce.Module.Catalog.Components
 {
     public class ProductWidgetViewComponent : ViewComponent
     {
-        private IRepository<Product> _productRepository;
-        private IMediaService _mediaService;
+        private readonly IRepository<Product> _productRepository;
+        private readonly IMediaService _mediaService;
+        private readonly IProductPricingService _productPricingService;
 
-        public ProductWidgetViewComponent(IRepository<Product> productRepository, IMediaService mediaService)
+        public ProductWidgetViewComponent(IRepository<Product> productRepository, IMediaService mediaService, IProductPricingService productPricingService)
         {
             _productRepository = productRepository;
             _mediaService = mediaService;
+            _productPricingService = productPricingService;
         }
 
         public IViewComponentResult Invoke(WidgetInstanceViewModel widgetInstance)
@@ -47,6 +50,9 @@ namespace SimplCommerce.Module.Catalog.Components
                   SeoTitle = x.SeoTitle,
                   Price = x.Price,
                   OldPrice = x.OldPrice,
+                  SpecialPrice = x.SpecialPrice,
+                  SpecialPriceStart = x.SpecialPriceStart,
+                  SpecialPriceEnd = x.SpecialPriceEnd,
                   ThumbnailImage = x.ThumbnailImage,
                   NumberVariation = x.ProductLinks.Count,
                   ReviewsCount = x.ReviewsCount,
@@ -56,6 +62,7 @@ namespace SimplCommerce.Module.Catalog.Components
             foreach (var product in model.Products)
             {
                 product.ThumbnailUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage);
+                product.CalculatedProductPrice = _productPricingService.CalculateProductPrice(product);
             }
 
             return View("/Modules/SimplCommerce.Module.Catalog/Views/Components/ProductWidget.cshtml", model);
