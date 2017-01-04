@@ -4460,6 +4460,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
+          "Microsoft.Extensions.Configuration": "1.1.0",
           "NETStandard.Library": "1.6.1",
           "SimplCommerce.Infrastructure": "1.0.0"
         },

@@ -16,6 +16,7 @@ using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Localization;
 using SimplCommerce.WebHost.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace SimplCommerce.WebHost
 {
@@ -40,6 +41,12 @@ namespace SimplCommerce.WebHost
             }
 
             builder.AddEnvironmentVariables();
+            var connectionStringConfig = builder.Build();
+
+            builder.AddEntityFrameworkConfig(options =>
+                    options.UseSqlServer(connectionStringConfig.GetConnectionString("DefaultConnection"))
+           );
+
             Configuration = builder.Build();
 
             Log.Logger = new LoggerConfiguration()
@@ -59,6 +66,8 @@ namespace SimplCommerce.WebHost
             services.AddCustomizedIdentity();
 
             services.AddSingleton<IStringLocalizerFactory, EfStringLocalizerFactory>();
+            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddSingleton<IConfigurationRoot>(Configuration);
             services.AddScoped<SignInManager<User>, SimplSignInManager<User>>();
             services.AddCloudscribePagination();
 

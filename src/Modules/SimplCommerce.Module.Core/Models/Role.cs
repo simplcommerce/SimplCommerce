@@ -5,13 +5,5 @@ namespace SimplCommerce.Module.Core.Models
 {
     public class Role : IdentityRole<long, UserRole, IdentityRoleClaim<long>>, IEntityWithTypedId<long>
     {
-        public Role()
-        {
-        }
-
-        public Role(string name)
-        {
-            Name = name;
-        }
     }
 }
