@@ -1,4 +1,9 @@
-﻿SET IDENTITY_INSERT [dbo].[Core_Role] ON 
+﻿SET IDENTITY_INSERT [dbo].[Core_AppSetting] ON 
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (1, N'Catalog.ProductPageSize', N'10')
+SET IDENTITY_INSERT [dbo].[Core_AppSetting] OFF
+GO
+
+SET IDENTITY_INSERT [dbo].[Core_Role] ON 
 INSERT [dbo].[Core_Role] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (1, N'admin', N'ADMIN', N'bd3bee0b-5f1d-482d-b890-ffdc01915da3')
 INSERT [dbo].[Core_Role] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (2, N'customer', N'CUSTOMER', N'bd3bee0b-5f1d-482d-b890-ffdc01915da3')
 INSERT [dbo].[Core_Role] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (3, N'guest', N'GUEST', N'bd3bee0b-5f1d-482d-b890-ffdc01915da3')

@@ -14,6 +14,11 @@
                 url: '/widget',
                 templateUrl: 'core/admin/widget/widget-instance-list.html',
                 controller: 'WidgetInstanceListCtrl as vm'
+            })
+            .state('configuration', {
+                url: '/configuration',
+                templateUrl: 'core/admin/configuration/configuration.html',
+                controller: 'ConfigurationCtrl as vm'
             });
         }]);
 })();

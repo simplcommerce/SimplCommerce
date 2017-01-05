@@ -6,12 +6,13 @@ using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Catalog.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace SimplCommerce.Module.Catalog.Controllers
 {
     public class BrandController : Controller
     {
-        private const int PageSize = 20;
+        private int _pageSize;
         private readonly IRepository<Category> _categoryRepository;
         private readonly IMediaService _mediaService;
         private readonly IRepository<Product> _productRepository;
@@ -22,13 +23,15 @@ namespace SimplCommerce.Module.Catalog.Controllers
             IMediaService mediaService,
             IRepository<Category> categoryRepository,
             IRepository<Brand> brandRepository,
-            IProductPricingService productPricingService)
+            IProductPricingService productPricingService,
+            IConfiguration config)
         {
             _productRepository = productRepository;
             _mediaService = mediaService;
             _categoryRepository = categoryRepository;
             _brandRepository = brandRepository;
             _productPricingService = productPricingService;
+            _pageSize = config.GetValue<int>("Catalog.ProductPageSize");
         }
 
         public IActionResult BrandDetail(long id, SearchOption searchOption)
@@ -69,11 +72,11 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
             model.TotalProduct = query.Count();
             var currentPageNum = searchOption.Page <= 0 ? 1 : searchOption.Page;
-            var offset = (PageSize * currentPageNum) - PageSize;
+            var offset = (_pageSize * currentPageNum) - _pageSize;
             while (currentPageNum > 1 && offset >= model.TotalProduct)
             {
                 currentPageNum--;
-                offset = (PageSize * currentPageNum) - PageSize;
+                offset = (_pageSize * currentPageNum) - _pageSize;
             }
 
             query = query
@@ -98,7 +101,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     RatingAverage = x.RatingAverage
                 })
                 .Skip(offset)
-                .Take(PageSize)
+                .Take(_pageSize)
                 .ToList();
 
             foreach (var product in products)
@@ -108,7 +111,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
 
             model.Products = products;
-            model.CurrentSearchOption.PageSize = PageSize;
+            model.CurrentSearchOption.PageSize = _pageSize;
             model.CurrentSearchOption.Page = currentPageNum;
 
             return View(model);
