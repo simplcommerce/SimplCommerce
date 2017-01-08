@@ -18,6 +18,12 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public decimal? SpecialPrice { get; set; }
 
+        public bool IsCallForPricing { get; set; }
+
+        public bool IsAllowToOrder { get; set; }
+
+        public int? StockQuantity { get; set; }
+
         public DateTimeOffset? SpecialPriceStart { get; set; }
 
         public DateTimeOffset? SpecialPriceEnd { get; set; }

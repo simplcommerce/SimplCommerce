@@ -47,6 +47,9 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 Id = product.Id,
                 Name = product.Name,
                 CalculatedProductPrice = _productPricingService.CalculateProductPrice(product),
+                IsCallForPricing = product.IsCallForPricing,
+                IsAllowToOrder = product.IsAllowToOrder,
+                StockQuantity = product.StockQuantity,
                 ShortDescription = product.ShortDescription,
                 Description = product.Description,
                 Specification = product.Specification,
@@ -89,6 +92,9 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     Id = variation.Id,
                     Name = variation.Name,
                     NormalizedName = variation.NormalizedName,
+                    IsAllowToOrder = variation.IsAllowToOrder,
+                    IsCallForPricing = variation.IsCallForPricing,
+                    StockQuantity = variation.StockQuantity,
                     CalculatedProductPrice = _productPricingService.CalculateProductPrice(variation)
                 };
 

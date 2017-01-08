@@ -81,3 +81,11 @@ table > tbody > tr > td.variation-form {
 .simpl-datetime-picker {
     width: 300px;
 }
+
+td>span.glyphicon-ok {
+    color: #5cb85c;
+}
+
+td>span.glyphicon-remove {
+    color: #d9534f;
+}

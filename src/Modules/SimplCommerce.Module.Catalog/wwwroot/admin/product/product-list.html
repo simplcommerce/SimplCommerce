@@ -12,9 +12,13 @@
 <table class="table" st-pipe="vm.getProducts" st-table="vm.products">
     <thead>
         <tr>
-            <th st-sort="Name" class="sortable">Email</th>
+            <th st-sort="Name" class="sortable">Name</th>
             <th>Has Options</th>
             <th>Is Visible Individually</th>
+            <th>Is Featured</th>
+            <th>Is Allow to Order</th>
+            <th>Is Call for pricing</th>
+            <th>Stock Quanity</th>
             <th st-sort="IsPublished" class="sortable">IsPublished</th>
             <th st-sort="CreatedOn" class="sortable">CreatedOn</th>
             <th>Actions</th>
@@ -37,12 +41,16 @@
             <th>
                 <div class="form-group">
                     <select class="form-control" st-search="IsVisibleIndividually">
+                        <option value="">All</option>
                         <option value="true">Visible Individually</option>
                         <option value="false">Not visible Individually</option>
-                        <option value="">All</option>
                     </select>
                 </div>
             </th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
             <th>
                 <div class="form-group">
                     <select class="form-control" st-search="IsPublished">
@@ -59,10 +67,14 @@
     <tbody ng-show="!vm.isLoading">
         <tr ng-repeat="product in vm.products">
             <td>{{product.name}}</td>
-            <td><span ng-if="product.hasOptions" class="glyphicon glyphicon-ok"></span></td>
-            <td><span ng-if="product.isVisibleIndividually" class="glyphicon glyphicon-ok"></span></td>
-            <td><span ng-if="product.isPublished" class="glyphicon glyphicon-ok"></span></td>
-            <td>{{product.createdOn | date:'medium' }}</td>
+            <td><span ng-attr-class="{{product.hasOptions && 'glyphicon glyphicon-ok' || 'glyphicon glyphicon-remove'}}"></span></td>
+            <td><span ng-attr-class="{{product.isVisibleIndividually && 'glyphicon glyphicon-ok' || 'glyphicon glyphicon-remove'}}"></span></td>
+            <td><span ng-attr-class="{{product.isFeatured && 'glyphicon glyphicon-ok' || 'glyphicon glyphicon-remove'}}"></span></td>
+            <td><span ng-attr-class="{{product.isAllowToOrder && 'glyphicon glyphicon-ok' || 'glyphicon glyphicon-remove'}}"></span></td>
+            <td><span ng-attr-class="{{product.isCallForPricing && 'glyphicon glyphicon-ok' || 'glyphicon glyphicon-remove'}}"></span></td>
+            <td>{{product.stockQuantity}}</td>
+            <td><span ng-attr-class="{{product.isPublished && 'glyphicon glyphicon-ok' || 'glyphicon glyphicon-remove'}}"></span></td>
+            <td>{{product.createdOn | date:'medium'}}</td>
             <td>
                 <button ng-if="product.isPublished" title="Un Publish" ng-click="vm.changeStatus(product)" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pause"></span></button>
                 <button ng-if="!product.isPublished" title="Publish" ng-click="vm.changeStatus(product)" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-play"></span></button>
@@ -73,12 +85,12 @@
     </tbody>
     <tbody ng-show="vm.isLoading">
         <tr>
-            <td colspan="6" class="text-center">Loading ... </td>
+            <td colspan="10" class="text-center">Loading ... </td>
         </tr>
     </tbody>
     <tfoot>
         <tr>
-            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="6"></td>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="10"></td>
         </tr>
     </tfoot>
 </table>
