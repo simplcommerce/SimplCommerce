@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Core.Extensions
 {
@@ -22,15 +24,25 @@ namespace SimplCommerce.Module.Core.Extensions
 
             using (var dbContext = new EFConfigurationDbContext(builder.Options))
             {
-                try
+                dbContext.Database.EnsureCreated();
+                Data = !dbContext.AppSettings.Any()
+                    ? CreateAndSaveDefaultValues(dbContext)
+                    : dbContext.AppSettings.ToDictionary(c => c.Key, c => c.Value);
+            }            
+        }
+        
+        private static IDictionary<string, string> CreateAndSaveDefaultValues(EFConfigurationDbContext dbContext)
+        {
+            var configValues = new Dictionary<string, string>
                 {
-                    Data = dbContext.AppSettings.ToDictionary(c => c.Key, c => c.Value);
-                }
-                catch (Exception ex)
-                {
-                    // TODO:This might fail when run EF CLI because the table was not there. Need some workaround
-                }
-            }
+                    { "key1", "value_from_ef_1" },
+                    { "key2", "value_from_ef_2" }
+                };
+            dbContext.AppSettings.AddRange(configValues
+                .Select(kvp => new AppSetting { Key = kvp.Key, Value = kvp.Value })
+                .ToArray());
+            dbContext.SaveChanges();
+            return configValues;
         }
     }
 }
