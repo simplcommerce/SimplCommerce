@@ -16,19 +16,18 @@
                 selectedproductOptions.push($(this).find('input[type=radio]:checked').val());
             });
             variationName = selectedproductOptions.join('-');
-            $variationDiv = $form.find('div.'+ variationName);
+            $variationDiv = $('div.' + variationName);
+            $('.product-variation').hide();
             if ($variationDiv.length > 0) {
-                $('.variation-price').hide();
                 $variationDiv.show();
-                $form.find('input[name=productId]').val($form.find('input[name=' + variationName + 'Id]').val());
-                $('.btn-add-cart').prop('disabled', false);
+                $('.product-variation-notavailable').hide();
             } else {
-                $('.btn-add-cart').prop('disabled', true);
+                $('.product-variation-notavailable').show();
             }
         });
 
         $('.quantity-button').on('click', function () {
-            var quantityInput = $('.quantity-field');
+            var quantityInput = $(this).closest("form").find('.quantity-field');
             if ($(this).val() === '+')
             {
                 quantityInput.val(parseInt(quantityInput.val(), 10) + 1);

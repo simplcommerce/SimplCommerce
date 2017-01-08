@@ -75,6 +75,9 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 SpecialPriceEnd = product.SpecialPriceEnd,
                 IsFeatured = product.IsFeatured,
                 IsPublished = product.IsPublished,
+                IsCallForPricing =  product.IsCallForPricing,
+                IsAllowToOrder = product.IsAllowToOrder,
+                IsOutOfStock = product.StockQuantity == 0,
                 CategoryIds = product.Categories.Select(x => x.CategoryId).ToList(),
                 ThumbnailImageUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage),
                 BrandId = product.BrandId
@@ -185,6 +188,10 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     Name = x.Name,
                     HasOptions = x.HasOptions,
                     IsVisibleIndividually = x.IsVisibleIndividually,
+                    IsFeatured = x.IsFeatured,
+                    IsAllowToOrder = x.IsAllowToOrder,
+                    IsCallForPricing = x.IsCallForPricing,
+                    StockQuantity = x.StockQuantity,
                     CreatedOn = x.CreatedOn,
                     IsPublished = x.IsPublished
                 });
@@ -214,10 +221,21 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 SpecialPriceEnd = model.Product.SpecialPriceEnd,
                 IsPublished = model.Product.IsPublished,
                 IsFeatured = model.Product.IsFeatured,
+                IsCallForPricing = model.Product.IsCallForPricing,
+                IsAllowToOrder = model.Product.IsAllowToOrder,
                 BrandId = model.Product.BrandId,
                 HasOptions = model.Product.Variations.Any() ? true : false,
                 IsVisibleIndividually = true
             };
+
+            if (model.Product.IsOutOfStock)
+            {
+                product.StockQuantity = 0;
+            }
+            else
+            {
+                product.StockQuantity = null;
+            }
 
             var optionIndex = 0;
             foreach (var option in model.Product.Options)
@@ -290,6 +308,16 @@ namespace SimplCommerce.Module.Catalog.Controllers
             product.BrandId = model.Product.BrandId;
             product.IsFeatured = model.Product.IsFeatured;
             product.IsPublished = model.Product.IsPublished;
+            product.IsCallForPricing = model.Product.IsCallForPricing;
+            product.IsAllowToOrder = model.Product.IsAllowToOrder;
+            if (model.Product.IsOutOfStock)
+            {
+                product.StockQuantity = 0;
+            }
+            else
+            {
+                product.StockQuantity = null;
+            }
 
             SaveProductImages(model, product);
 
@@ -354,7 +382,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 };
 
                 productLink.LinkedProduct.Name = variationVm.Name;
-                productLink.LinkedProduct.SeoTitle = StringHelper.ToUrlFriendly(variationVm.Name);
+                productLink.LinkedProduct.SeoTitle = variationVm.Name.ToUrlFriendly();
                 productLink.LinkedProduct.Price = variationVm.Price;
                 productLink.LinkedProduct.OldPrice = variationVm.OldPrice;
                 productLink.LinkedProduct.NormalizedName = variationVm.NormalizedName;

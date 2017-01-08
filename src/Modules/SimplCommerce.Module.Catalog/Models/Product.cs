@@ -28,6 +28,12 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public bool IsFeatured { get; set; }
 
+        public bool IsCallForPricing { get; set; }
+
+        public bool IsAllowToOrder { get; set; }
+
+        public int? StockQuantity { get; set; }
+
         public string Sku { get; set; }
 
         public string NormalizedName { get; set; }
@@ -114,6 +120,9 @@ namespace SimplCommerce.Module.Catalog.Models
             product.PublishedOn = DateTimeOffset.Now;
             product.Price = Price;
             product.OldPrice = OldPrice;
+            product.IsAllowToOrder = IsAllowToOrder;
+            product.IsCallForPricing = IsCallForPricing;
+            product.StockQuantity = StockQuantity;
             product.BrandId = BrandId;
 
             foreach (var attribute in AttributeValues)

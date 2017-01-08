@@ -6,12 +6,19 @@
         <div class="caption">
             <h4 class="product-name">@Model.Name</h4>
             <p class="product-price">
-                @Model.CalculatedProductPrice.Price.ToString("C") 
-                @if (Model.CalculatedProductPrice.PercentOfSaving > 0)
+                @if (Model.IsCallForPricing)
                 {
-                    <span class="product-price-saving">-@(Model.CalculatedProductPrice.PercentOfSaving)%</span>
-                    <br />
-                    <span class="product-price-regular">@Model.CalculatedProductPrice.OldPrice.Value.ToString("C")</span>
+                    @Localizer["Call for pricing"]
+                }
+                else
+                {
+                    @Model.CalculatedProductPrice.Price.ToString("C")
+                    if (Model.CalculatedProductPrice.PercentOfSaving > 0)
+                    {
+                        <span class="product-price-saving">-@(Model.CalculatedProductPrice.PercentOfSaving)%</span>
+                        <br />
+                        <span class="product-price-regular">@Model.CalculatedProductPrice.OldPrice.Value.ToString("C")</span>
+                    }
                 }
             </p>
             <ul class="list-inline product-ratings">
@@ -26,7 +33,7 @@
         </div>
     </a>
     <div class="buttons">
-        @if (Model.NumberVariation > 0)
+        @if (Model.NumberVariation > 0 || !Model.IsAllowToOrder || Model.StockQuantity <= 0)
         {
             <a href="~/@Model.SeoTitle" class="btn btn-add-cart-style" role="button"><i class="fa fa-shopping-cart"></i> @Localizer["Add to cart"]</a>
         }

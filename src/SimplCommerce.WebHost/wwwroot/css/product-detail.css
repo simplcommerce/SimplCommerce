@@ -132,6 +132,10 @@
     border-radius: 0;
 }
 
+.product-detail .out-of-stock, .product-detail .product-variation-notavailable {
+    font-size: 18px;
+}
+
 .product-detail .add-to-wishlist {
     padding-bottom: 10px;
     border-bottom: 1px solid #dedede;

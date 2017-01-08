@@ -9,6 +9,10 @@ namespace SimplCommerce.Module.Catalog.ViewModels
         public ProductVm()
         {
             IsPublished = true;
+            IsCallForPricing = false;
+            IsAllowToOrder = true;
+            IsOutOfStock = false;
+            Price = 0;
         }
 
         public long Id { get; set; }
@@ -22,6 +26,12 @@ namespace SimplCommerce.Module.Catalog.ViewModels
         public DateTimeOffset? SpecialPriceStart { get; set; }
 
         public DateTimeOffset? SpecialPriceEnd { get; set; }
+
+        public bool IsCallForPricing { get; set; }
+
+        public bool IsAllowToOrder { get; set; }
+
+        public bool IsOutOfStock { get; set; }
 
         [Required]
         public string Name { get; set; }

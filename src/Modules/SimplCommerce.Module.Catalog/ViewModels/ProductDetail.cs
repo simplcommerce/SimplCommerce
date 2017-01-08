@@ -19,6 +19,12 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public string Specification { get; set; }
 
+        public bool IsCallForPricing { get; set; }
+
+        public bool IsAllowToOrder { get; set; }
+
+        public int? StockQuantity { get; set; }
+
         public int ReviewsCount { get; set; }
 
         public double? RatingAverage { get; set; }
