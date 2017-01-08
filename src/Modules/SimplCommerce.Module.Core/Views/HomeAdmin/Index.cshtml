@@ -66,6 +66,8 @@
     <script src="~/core/admin/user/user-list.js"></script>
     <script src="~/core/admin/widget/widget-service.js"></script>
     <script src="~/core/admin/widget/widget-instance-list.js"></script>
+    <script src="~/core/admin/configuration/configuration-service.js"></script>
+    <script src="~/core/admin/configuration/configuration.js"></script>
 
     <script src="~/catalog/admin/catalog.module.js"></script>
     <script src="~/catalog/admin/brand/brand-service.js"></script>
@@ -158,6 +160,12 @@
                         <ul class="dropdown-menu">
                             <li><a ui-sref="page">Manage Pages</a></li>
                             <li><a ui-sref="widget">Manage Widgets</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">System <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="configuration">Configuration</a></li>
                         </ul>
                     </li>
                 </ul>

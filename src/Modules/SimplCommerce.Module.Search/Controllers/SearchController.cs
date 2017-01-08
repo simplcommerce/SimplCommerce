@@ -8,25 +8,36 @@ using SimplCommerce.Module.Search.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Search.Models;
+using Microsoft.Extensions.Configuration;
+using SimplCommerce.Module.Catalog.Services;
 
 namespace SimplCommerce.Module.Search.Controllers
 {
     public class SearchController : Controller
     {
-        private const int PageSize = 20;
+        private int _pageSize;
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<Brand> _brandRepository;
         private readonly IRepository<Category> _categoryRepository;
         private readonly IMediaService _mediaService;
         private readonly IRepository<Query> _queryRepository;
+        private readonly IProductPricingService _productPricingService;
 
-        public SearchController(IRepository<Product> productRepository, IRepository<Brand> brandRepository, IRepository<Category> categoryRepository, IMediaService mediaService, IRepository<Query> queryRepository)
+        public SearchController(IRepository<Product> productRepository,
+            IRepository<Brand> brandRepository,
+            IRepository<Category> categoryRepository,
+            IMediaService mediaService,
+            IRepository<Query> queryRepository,
+            IProductPricingService productPricingService,
+            IConfiguration config)
         {
             _productRepository = productRepository;
             _brandRepository = brandRepository;
             _categoryRepository = categoryRepository;
             _mediaService = mediaService;
             _queryRepository = queryRepository;
+            _productPricingService = productPricingService;
+            _pageSize = config.GetValue<int>("Catalog.ProductPageSize");
         }
 
         [HttpGet("search")]
@@ -84,11 +95,11 @@ namespace SimplCommerce.Module.Search.Controllers
 
             model.TotalProduct = query.Count();
             var currentPageNum = searchOption.Page <= 0 ? 1 : searchOption.Page;
-            var offset = (PageSize * currentPageNum) - PageSize;
+            var offset = (_pageSize * currentPageNum) - _pageSize;
             while (currentPageNum > 1 && offset >= model.TotalProduct)
             {
                 currentPageNum--;
-                offset = (PageSize * currentPageNum) - PageSize;
+                offset = (_pageSize * currentPageNum) - _pageSize;
             }
 
             SaveSearchQuery(searchOption, model);
@@ -110,16 +121,17 @@ namespace SimplCommerce.Module.Search.Controllers
                     NumberVariation = x.ProductLinks.Count
                 })
                 .Skip(offset)
-                .Take(PageSize)
+                .Take(_pageSize)
                 .ToList();
 
             foreach (var product in products)
             {
                 product.ThumbnailUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage);
+                product.CalculatedProductPrice = _productPricingService.CalculateProductPrice(product);
             }
 
             model.Products = products;
-            model.CurrentSearchOption.PageSize = PageSize;
+            model.CurrentSearchOption.PageSize = _pageSize;
             model.CurrentSearchOption.Page = currentPageNum;
 
             return View(model);
