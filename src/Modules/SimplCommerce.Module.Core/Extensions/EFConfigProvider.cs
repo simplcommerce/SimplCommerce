@@ -24,7 +24,7 @@ namespace SimplCommerce.Module.Core.Extensions
 
             using (var dbContext = new EFConfigurationDbContext(builder.Options))
             {
-                dbContext.Database.EnsureCreated();
+                dbContext.Database.Migrate();
                 Data = !dbContext.AppSettings.Any()
                     ? CreateAndSaveDefaultValues(dbContext)
                     : dbContext.AppSettings.ToDictionary(c => c.Key, c => c.Value);
