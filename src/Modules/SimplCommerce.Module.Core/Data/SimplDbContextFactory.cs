@@ -8,7 +8,9 @@ namespace SimplCommerce.Module.Core.Data
         public SimplDbContext Create(DbContextFactoryOptions options)
         {
             var optionsBuilder = new DbContextOptionsBuilder<SimplDbContext>();
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=SimplCommerce;uid=sa;pwd=sa;Trusted_Connection=True;MultipleActiveResultSets=true");
+            var connection =
+                @"Server=(localdb)\MSSQLLocalDB;Database=SimplCommerce;uid=sa;pwd=sa;Trusted_Connection=True;MultipleActiveResultSets=true";
+            optionsBuilder.UseSqlServer(connection, b => b.MigrationsAssembly("SimplCommerce.WebHost"));
             return new SimplDbContext(optionsBuilder.Options);
         }
     }
