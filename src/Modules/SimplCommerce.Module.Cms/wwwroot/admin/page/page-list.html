@@ -14,7 +14,7 @@
     <tr>
         <th>Name</th>
         <th>Url</th>
-        <th>Published</th>
+        <th class="text-center">Is Published</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -22,7 +22,7 @@
     <tr ng-repeat="page in vm.pages">
         <td>{{page.name}}</td>
         <td>{{page.seoTitle}}</td>
-        <td>{{page.isPublished}}</td>
+        <td class="text-center"><i ng-attr-class="{{page.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
         <td>
             <a ui-sref="page-edit({id: page.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
             <button ng-click="vm.deletePage(page)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>

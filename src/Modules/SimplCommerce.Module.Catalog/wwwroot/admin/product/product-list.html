@@ -13,15 +13,15 @@
     <thead>
         <tr>
             <th st-sort="Name" class="sortable">Name</th>
-            <th>Has Options</th>
-            <th>Is Visible Individually</th>
-            <th>Is Featured</th>
-            <th>Is Allow to Order</th>
-            <th>Is Call for pricing</th>
+            <th class="text-center">Has Options</th>
+            <th class="text-center">Is Visible <br /> Individually</th>
+            <th class="text-center">Is Featured</th>
+            <th class="text-center">Is Allow <br /> to Order</th>
+            <th class="text-center">Is Call <br /> for pricing</th>
             <th>Stock Quanity</th>
-            <th st-sort="IsPublished" class="sortable">IsPublished</th>
-            <th st-sort="CreatedOn" class="sortable">CreatedOn</th>
-            <th>Actions</th>
+            <th st-sort="IsPublished" class="text-center sortable">Is Published</th>
+            <th st-sort="CreatedOn" class="text-center sortable">CreatedOn</th>
+            <th class="text-center">Actions</th>
         </tr>
         <tr>
             <th>
@@ -33,8 +33,8 @@
                 <div class="form-group">
                     <select class="form-control" st-search="HasOptions">
                         <option value="">All</option>
-                        <option value="false">Don't have options</option>
-                        <option value="true">Has options</option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
                     </select>
                 </div>
             </th>
@@ -42,8 +42,8 @@
                 <div class="form-group">
                     <select class="form-control" st-search="IsVisibleIndividually">
                         <option value="">All</option>
-                        <option value="true">Visible Individually</option>
-                        <option value="false">Not visible Individually</option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
                     </select>
                 </div>
             </th>
@@ -55,8 +55,8 @@
                 <div class="form-group">
                     <select class="form-control" st-search="IsPublished">
                         <option value="">All</option>
-                        <option value="false">Not Published</option>
-                        <option value="true">Published</option>
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
                     </select>
                 </div>
             </th>
@@ -67,15 +67,15 @@
     <tbody ng-show="!vm.isLoading">
         <tr ng-repeat="product in vm.products">
             <td>{{product.name}}</td>
-            <td><span ng-attr-class="{{product.hasOptions && 'glyphicon glyphicon-ok' || 'glyphicon glyphicon-remove'}}"></span></td>
-            <td><span ng-attr-class="{{product.isVisibleIndividually && 'glyphicon glyphicon-ok' || 'glyphicon glyphicon-remove'}}"></span></td>
-            <td><span ng-attr-class="{{product.isFeatured && 'glyphicon glyphicon-ok' || 'glyphicon glyphicon-remove'}}"></span></td>
-            <td><span ng-attr-class="{{product.isAllowToOrder && 'glyphicon glyphicon-ok' || 'glyphicon glyphicon-remove'}}"></span></td>
-            <td><span ng-attr-class="{{product.isCallForPricing && 'glyphicon glyphicon-ok' || 'glyphicon glyphicon-remove'}}"></span></td>
-            <td>{{product.stockQuantity}}</td>
-            <td><span ng-attr-class="{{product.isPublished && 'glyphicon glyphicon-ok' || 'glyphicon glyphicon-remove'}}"></span></td>
-            <td>{{product.createdOn | date:'medium'}}</td>
-            <td>
+            <td class="text-center"><i ng-attr-class="{{product.hasOptions && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+            <td class="text-center"><i ng-attr-class="{{product.isVisibleIndividually && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+            <td class="text-center"><i ng-attr-class="{{product.isFeatured && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+            <td class="text-center"><i ng-attr-class="{{product.isAllowToOrder && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+            <td class="text-center"><i ng-attr-class="{{product.isCallForPricing && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+            <td class="text-center">{{product.stockQuantity}}</td>
+            <td class="text-center"><i ng-attr-class="{{product.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+            <td class="text-center">{{product.createdOn | date:'medium'}}</td>
+            <td class="text-center">
                 <button ng-if="product.isPublished" title="Un Publish" ng-click="vm.changeStatus(product)" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pause"></span></button>
                 <button ng-if="!product.isPublished" title="Publish" ng-click="vm.changeStatus(product)" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-play"></span></button>
                 <a ui-sref="product-edit({id: product.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
