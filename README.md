@@ -115,11 +115,11 @@ By default domain entities is mapped by convention. In case you need to some spe
 - Type "dotnet build \*\*/\*\*/project.json" then press Enter
 - Type "cd SimplCommerce.WebHost" then press Enter
 - Type "npm install" then press Enter
-- Type "gulp copy-modules" then press Enter
+- Type "gulp copy-modules" then press Enter. If you get the error "no command 'gulp' found" then type "npm install --global gulp-cli" and press Enter
 - If you use Postgres: type "dotnet ef migrations add initialSchema" and hit Enter
 - Type "dotnet ef database update" then press Enter. This action will create database schema
 - Run src/Database/StaticData.sql on your database to create seeding data
-- Type "dotnet watch run" then press Enter.
+- Type "dotnet run" then press Enter.
 - Open browser, type http://localhost:5000 then hit Enter
 - The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
