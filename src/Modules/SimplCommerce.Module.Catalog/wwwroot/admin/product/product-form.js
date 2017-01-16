@@ -5,7 +5,7 @@
         .controller('ProductFormCtrl', ProductFormCtrl);
 
     /* @ngInject */
-    function ProductFormCtrl($state, $stateParams, $http, categoryService, productService, summerNoteService, brandService) {
+    function ProductFormCtrl($state, $timeout, $stateParams, $http, categoryService, productService, summerNoteService, brandService) {
         var vm = this;
         // declare shoreDescription and description for summernote
         vm.product = { shortDescription: '', description: '', specification: '', isPublished: true, price: 0, isCallForPricing: false, isAllowToOrder: true };
@@ -78,10 +78,14 @@
                 return;
             }
 
-            if(confirm('Add or remove option will clear all existing variations. Are you sure you want to do this?')) {
-                vm.product.variations = [];
-                callback();
-            };
+            bootbox.confirm('Add or remove option will clear all existing variations. Are you sure you want to do this?', function (result) {
+                if (result) {
+                    $timeout(function () {
+                        vm.product.variations = [];
+                        callback();
+                    }, 1);
+                }
+            });
         }
 
         vm.generateOptionCombination = function generateOptionCombination() {

@@ -21,7 +21,7 @@
                     pageService.deletePage(page)
                        .then(function (result) {
                            vm.getPages();
-                           toastr.success(page.name + ' has been deleted')
+                           toastr.success(page.name + ' has been deleted');
                        })
                        .catch(function (error) {
                            toastr.error(error.data.error);

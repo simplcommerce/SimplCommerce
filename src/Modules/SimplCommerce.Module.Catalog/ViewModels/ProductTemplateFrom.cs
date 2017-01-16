@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SimplCommerce.Module.Catalog.ViewModels
 {
@@ -6,6 +7,7 @@ namespace SimplCommerce.Module.Catalog.ViewModels
     {
         public long Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
         public IList<ProductAttributeVm> Attributes { get; set; } = new List<ProductAttributeVm>();

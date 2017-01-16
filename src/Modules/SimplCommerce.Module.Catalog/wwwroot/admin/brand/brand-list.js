@@ -16,11 +16,18 @@
         };
 
         vm.deleteBrand = function deleteBrand(brand) {
-            if (confirm("Are you sure?")) {
-                brandService.deleteBrand(brand).then(function (result) {
-                    vm.getBrands();
-                });
-            }
+            bootbox.confirm('Are you sure you want to delete this brand: ' + brand.name, function (result) {
+                if (result) {
+                    brandService.deleteBrand(brand)
+                       .then(function (result) {
+                           vm.getBrands();
+                           toastr.success(brand.name + ' has been deleted');
+                       })
+                       .catch(function (error) {
+                           toastr.error(error.data.error);
+                       });
+                }
+            });
         };
 
         vm.getBrands();

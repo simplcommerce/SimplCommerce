@@ -16,7 +16,7 @@
                     widgetService.deleteWidgetInstance(widgetInstance.id)
                        .then(function (result) {
                            getWidgetInstances();
-                           toastr.success(widgetInstance.name + ' has been deleted')
+                           toastr.success(widgetInstance.name + ' has been deleted');
                        })
                        .catch(function (error) {
                            toastr.error(error.data.error);

@@ -121,5 +121,19 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(long id)
+        {
+            var productTemplate = _productTemplateRepository.Query().FirstOrDefault(x => x.Id == id);
+            if (productTemplate == null)
+            {
+                return new NotFoundResult();
+            }
+
+            _productTemplateRepository.Remove(productTemplate);
+            _productAttributeRepository.SaveChange();
+            return Json(true);
+        }
     }
 }

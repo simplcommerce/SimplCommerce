@@ -16,12 +16,18 @@
         };
 
         vm.deleteProductTemplate = function deleteProductTemplate(productTemplate) {
-            if (confirm("Are you sure?")) {
-                productTemplateService.deleteProductTemplate(productTemplate)
-                    .success(function (result) {
-                        vm.getProductTemplates();
-                    });
-            }
+            bootbox.confirm('Are you sure you want to delete this template: ' + productTemplate.name, function (result) {
+                if (result) {
+                    productTemplateService.deleteProductTemplate(productTemplate)
+                       .then(function (result) {
+                           vm.getProductTemplates();
+                           toastr.success(productTemplate.name + ' has been deleted');
+                       })
+                       .catch(function (error) {
+                           toastr.error(error.data.error);
+                       });
+                }
+            });
         };
 
         vm.getProductTemplates();
