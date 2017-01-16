@@ -2,6 +2,12 @@
 
 [![Join the chat at https://gitter.im/simplcommerce/SimplCommerce](https://badges.gitter.im/simplcommerce/SimplCommerce.svg)](https://gitter.im/simplcommerce/SimplCommerce?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+## Build Status
+| Build server| Platform       | Status      |
+|-------------|----------------|-------------|
+| AppVeyor    | Windows        |[![Build status](https://ci.appveyor.com/api/projects/status/cq61prgs6ta8e9hi/branch/master?svg=true)](https://ci.appveyor.com/project/thiennn/simplcommerce/branch/master) |
+|Travis       | Linux / MacOS  |[![Build Status](https://travis-ci.org/simplcommerce/SimplCommerce.svg?branch=master)](https://travis-ci.org/simplcommerce/SimplCommerce) |
+
 ## Online demo (Azure Website)
 http://demo.simplcommerce.com
 
@@ -9,15 +15,48 @@ http://demo.simplcommerce.com
 - First run the database: `docker run --name simpldb -d postgres`
 - Then run the app: `docker run --name simplsite -d -p 5000:5000 --link simpldb:simpldb simplcommerce/nightly-build`
 
-## Build Status
-| Build server| Platform       | Status      |
-|-------------|----------------|-------------|
-| AppVeyor    | Windows        |[![Build status](https://ci.appveyor.com/api/projects/status/cq61prgs6ta8e9hi/branch/master?svg=true)](https://ci.appveyor.com/project/thiennn/simplcommerce/branch/master) |
-|Travis       | Linux / MacOS  |[![Build Status](https://travis-ci.org/simplcommerce/SimplCommerce.svg?branch=master)](https://travis-ci.org/simplcommerce/SimplCommerce) |
-
 ## Prerequisite:
-- .NET Core SDK (https://www.microsoft.com/net/core)
+- Latest .NET Core SDK (https://www.microsoft.com/net/download/core#/current)
 - SQL Server or PostgreSQL or MySQL
+
+## How to run on local
+### Using Visual Studio 2015 Update 3
+- Install the latest versions (current) for both Runtime and .NET Core SDK for Visual Studio (https://www.microsoft.com/net/download/core#/current)
+- Create a database in SQL Server
+- Update the connection string in appsettings.json in SimplCommerce.WebHost
+- Build whole solution **twice**.
+- Open Package Manager Console Window and type "Update-Database" then press Enter. This action will create database schema
+- Run src/Database/StaticData.sql to create seeding data
+- Press Control + F5
+- The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
+
+### Using Command Line (Windows, Mac, Linux)
+- Install NodeJS
+- Install the latest versions (current) for both Runtime and SDK of .NET Core (https://www.microsoft.com/net/download/core#/current)
+- Create a database in SQL Server or PostgreSQL
+- If you use PostgreSQL
+    - Open file project.json and add package "Npgsql.EntityFrameworkCore.PostgreSQL": "1.0.0"
+    - Open Console Window, change directory to \src\SimplCommerce.WebHost type "dotnet restore" then press Enter
+    - Open the file Extension\ServiceCollectionExtensions.cs replace the SqlServer provider by PostgreSQL
+    ```
+            - services.AddDbContext<SimplDbContext>(options =>
+                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"),
+                b => b.MigrationsAssembly("SimplCommerce.WebHost")));
+    ```
+    - Delete all file in SimplCommerce.WebHost/Migrations
+    
+- Open \src\SimplCommerce.WebHost\appsettings.json and change the connection string to database that you just created. For example "DefaultConnection": "User ID=thien;Password=12345;Host=localhost;Port=5432;Database=SimplCommerce;Pooling=true;"
+- In the Console Windows, type "cd .. && dotnet restore" then press Enter to change directory to /src 
+- Type "dotnet build \*\*/\*\*/project.json" then press Enter
+- Type "cd SimplCommerce.WebHost" then press Enter
+- Type "npm install" then press Enter
+- Type "gulp copy-modules" then press Enter. If you get the error "no command 'gulp' found" then type "npm install --global gulp-cli" and press Enter
+- If you use Postgres: type "dotnet ef migrations add initialSchema" and hit Enter
+- Type "dotnet ef database update" then press Enter. This action will create database schema
+- Run src/Database/StaticData.sql on your database to create seeding data
+- Type "dotnet run" then press Enter.
+- Open browser, type http://localhost:5000 then hit Enter
+- The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
 ## Technologies and frameworks used:
 - ASP.NET MVC Core 1.1.0 on .NET Core 1.1.0
@@ -83,45 +122,6 @@ By default domain entities is mapped by convention. In case you need to some spe
         }
     }
 ```
-
-## How to run on local
-### Using Visual Studio 2015 Update 3
-- Install .NET Core SDK for Visual Studio (https://www.microsoft.com/net/core#windows)
-- Create a database in SQL Server
-- Update the connection string in appsettings.json in SimplCommerce.WebHost
-- Build whole solution. Sometimes you need to build twice to make sure all the build output of modules are copied to the WebHost
-- Open Package Manager Console Window and type "Update-Database" then press Enter. This action will create database schema
-- Run src/Database/StaticData.sql to create seeding data
-- Press Control + F5
-- The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
-
-### Using Command Line (Windows, Mac, Linux)
-- Install NodeJS
-- Install .NET SDK (https://www.microsoft.com/net/core)
-- Create a database in SQL Server or PostgreSQL
-- If you use PostgreSQL
-    - Open file project.json and add package "Npgsql.EntityFrameworkCore.PostgreSQL": "1.0.0"
-    - Open Console Window, change directory to \src\SimplCommerce.WebHost type "dotnet restore" then press Enter
-    - Open the file Extension\ServiceCollectionExtensions.cs replace the SqlServer provider by PostgreSQL
-    ```
-            - services.AddDbContext<SimplDbContext>(options =>
-                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"),
-                b => b.MigrationsAssembly("SimplCommerce.WebHost")));
-    ```
-    - Delete all file in SimplCommerce.WebHost/Migrations
-    
-- Open \src\SimplCommerce.WebHost\appsettings.json and change the connection string to database that you just created. For example "DefaultConnection": "User ID=thien;Password=12345;Host=localhost;Port=5432;Database=SimplCommerce;Pooling=true;"
-- In the Console Windows, type "cd .. && dotnet restore" then press Enter to change directory to /src 
-- Type "dotnet build \*\*/\*\*/project.json" then press Enter
-- Type "cd SimplCommerce.WebHost" then press Enter
-- Type "npm install" then press Enter
-- Type "gulp copy-modules" then press Enter. If you get the error "no command 'gulp' found" then type "npm install --global gulp-cli" and press Enter
-- If you use Postgres: type "dotnet ef migrations add initialSchema" and hit Enter
-- Type "dotnet ef database update" then press Enter. This action will create database schema
-- Run src/Database/StaticData.sql on your database to create seeding data
-- Type "dotnet run" then press Enter.
-- Open browser, type http://localhost:5000 then hit Enter
-- The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
 ## Roadmap
 https://github.com/simplcommerce/SimplCommerce/wiki/Roadmap
