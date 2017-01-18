@@ -37,9 +37,15 @@ http://demo.simplcommerce.com
 - If you use PostgreSQL
     - Open file project.json and add package "Npgsql.EntityFrameworkCore.PostgreSQL": "1.0.0"
     - Open Console Window, change directory to \src\SimplCommerce.WebHost type "dotnet restore" then press Enter
+    - Open the Startup.cs replace the SqlServer provider by PostgreSQL
+    ```
+           builder.AddEntityFrameworkConfig(options =>
+                    options.UseNpgsql(connectionStringConfig.GetConnectionString("DefaultConnection"))
+            );
+    ```
     - Open the file Extension\ServiceCollectionExtensions.cs replace the SqlServer provider by PostgreSQL
     ```
-            - services.AddDbContext<SimplDbContext>(options =>
+           services.AddDbContext<SimplDbContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly("SimplCommerce.WebHost")));
     ```
