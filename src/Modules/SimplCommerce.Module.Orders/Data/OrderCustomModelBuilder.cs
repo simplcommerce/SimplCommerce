@@ -34,9 +34,9 @@ namespace SimplCommerce.Module.Orders.Data
 
             modelBuilder.Entity<Order>(u =>
             {
-                u.HasOne(x => x.ShippingAddress)
+                u.HasOne(x => x.BillingAddress )
                .WithMany()
-               .HasForeignKey(x => x.ShippingAddressId)
+               .HasForeignKey(x => x.BillingAddressId )
                .OnDelete(DeleteBehavior.Restrict);
             });
         }
