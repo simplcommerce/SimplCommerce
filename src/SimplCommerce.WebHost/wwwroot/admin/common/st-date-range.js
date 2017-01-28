@@ -20,6 +20,7 @@
                         var query = {};
                         if (scope.before) {
                             query.before = scope.before;
+                            query.before = new Date(query.before.setDate(query.before.getDate() + 1));
                         }
 
                         if (scope.after) {
