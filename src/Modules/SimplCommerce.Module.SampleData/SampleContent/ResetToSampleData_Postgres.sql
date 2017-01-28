@@ -322,18 +322,10 @@ INSERT INTO "Catalog_ProductOptionCombination" ("Id", "OptionId", "ProductId", "
 INSERT INTO "Catalog_ProductOptionCombination" ("Id", "OptionId", "ProductId", "Value", "SortIndex") VALUES (10, 1, 13, 'Silver', 0);
 SELECT pg_catalog.setval('"Catalog_ProductOptionCombination_Id_seq"', 10, true);
 
-
-INSERT INTO "Catalog_ProductOptionValue" ("Id", "OptionId", "ProductId", "Value", "SortIndex") VALUES (1, 1, 1, 'Silver', 0);
-INSERT INTO "Catalog_ProductOptionValue" ("Id", "OptionId", "ProductId", "Value", "SortIndex") VALUES (2, 1, 1, 'Gold', 0);
-INSERT INTO "Catalog_ProductOptionValue" ("Id", "OptionId", "ProductId", "Value", "SortIndex") VALUES (3, 1, 1, 'Gray', 0);
-INSERT INTO "Catalog_ProductOptionValue" ("Id", "OptionId", "ProductId", "Value", "SortIndex") VALUES (4, 1, 5, 'Gold', 0);
-INSERT INTO "Catalog_ProductOptionValue" ("Id", "OptionId", "ProductId", "Value", "SortIndex") VALUES (5, 1, 5, 'Black', 0);
-INSERT INTO "Catalog_ProductOptionValue" ("Id", "OptionId", "ProductId", "Value", "SortIndex") VALUES (6, 1, 5, 'Pink', 0);
-INSERT INTO "Catalog_ProductOptionValue" ("Id", "OptionId", "ProductId", "Value", "SortIndex") VALUES (7, 1, 9, 'Gray', 0);
-INSERT INTO "Catalog_ProductOptionValue" ("Id", "OptionId", "ProductId", "Value", "SortIndex") VALUES (8, 1, 9, 'Pink', 0);
-INSERT INTO "Catalog_ProductOptionValue" ("Id", "OptionId", "ProductId", "Value", "SortIndex") VALUES (9, 1, 9, 'Gold', 0);
-INSERT INTO "Catalog_ProductOptionValue" ("Id", "OptionId", "ProductId", "Value", "SortIndex") VALUES (10, 1, 9, 'Silver', 0);
-SELECT pg_catalog.setval('"Catalog_ProductOptionValue_Id_seq"', 10, true);
+INSERT INTO "Catalog_ProductOptionValue" ("Id", "OptionId", "ProductId", "Value", "SortIndex") VALUES (1, 1, 1, '["Silver","Gold","Gray"]', 0);
+INSERT INTO "Catalog_ProductOptionValue" ("Id", "OptionId", "ProductId", "Value", "SortIndex") VALUES (4, 1, 5, '["Gold","Black","Pink"]', 0);
+INSERT INTO "Catalog_ProductOptionValue" ("Id", "OptionId", "ProductId", "Value", "SortIndex") VALUES (7, 1, 9, '["Gray","Pink","Gold", "Silver"]', 0);
+SELECT pg_catalog.setval('"Catalog_ProductOptionValue_Id_seq"', 3, true);
 
 
 INSERT INTO "Cms_Page" ("Id", "Body", "Name", "SeoTitle", "MetaTitle", "MetaKeywords", "MetaDescription", "IsPublished", "PublishedOn", "IsDeleted", "CreatedOn", "UpdatedOn", "CreatedById", "UpdatedById") VALUES (1, '<h1>About us</h1><p>Your information. Use admin site to update</p>', 'About us', 'about-us', NULL, NULL, NULL, true, NULL, false, '2016-04-10 08:45:44.953' , '2016-04-10 08:45:44.953' , NULL, NULL);
