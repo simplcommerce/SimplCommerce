@@ -6,8 +6,8 @@
 
 @section head
 {
-    <link href="~/lib/smoothproducts/css/smoothproducts.css" rel="stylesheet" />
-    <link href="~/css/product-detail.css" rel="stylesheet" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/smoothproducts/css/smoothproducts.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/css/product-detail.css" />
 }
 
 <div>
@@ -198,6 +198,6 @@
 @section scripts
 {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-    <script src="~/lib/smoothproducts/js/smoothproducts.js"></script>
-    <script src="~/catalog/product-detail.js"></script>
+    <script simpl-append-version="true" src="~/lib/smoothproducts/js/smoothproducts.js"></script>
+    <script simpl-append-version="true" src="~/catalog/product-detail.js"></script>
 }

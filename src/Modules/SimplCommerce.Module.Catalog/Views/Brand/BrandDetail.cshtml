@@ -7,7 +7,7 @@
 }
 
 @section head {
-    <link href="~/lib/nouislider/nouislider.min.css" rel="stylesheet" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/nouislider/nouislider.min.css" />
 }
 
 <div class="row">
@@ -129,8 +129,8 @@
 </div>
 
 @section scripts {
-    <script src="~/lib/wnumb/wNumb.js"></script>
-    <script src="~/lib/nouislider/nouislider.min.js"></script>
+    <script simpl-append-version="true" src="~/lib/wnumb/wNumb.js"></script>
+    <script simpl-append-version="true" src="~/lib/nouislider/nouislider.min.js"></script>
 
     <script>
         var productFilter = {};
@@ -142,5 +142,5 @@
             currentMax: @((Model.CurrentSearchOption.MaxPrice ?? Model.FilterOption.Price.MaxPrice).ToString("F0"))
         };
     </script>
-    <script src="~/catalog/product-filter.js"></script>
+    <script simpl-append-version="true" src="~/catalog/product-filter.js"></script>
 }

@@ -15,112 +15,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin - SimplCommerce</title>
 
-    <environment names="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
-        <link href="~/admin/css/admin-core.css" rel="stylesheet" />
-    </environment>
-    <environment names="Staging,Production">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link href="~/admin/css/admin-core.css" rel="stylesheet" />
-    </environment>
-    <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="~/lib/angular-material/angular-material.css" rel="stylesheet" />
-    <link href="~/lib/angular-bootstrap/ui-bootstrap-csp.css" rel="stylesheet" />
-    <link href="~/lib/toastr/toastr.css" rel="stylesheet" />
-    <link href="~/lib/summernote/summernote.css" rel="stylesheet" />
-    <link href="~/admin/css/admin-core.css" rel="stylesheet" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/admin/css/admin-core.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/angular-material/angular-material.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/angular-bootstrap/ui-bootstrap-csp.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/toastr/toastr.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/summernote/summernote.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/admin/css/admin-core.css" />
 
-    <script src="~/lib/jquery/jquery.js"></script>
-    <script src="~/lib/bootstrap/js/bootstrap.js"></script>
-    <script src="~/lib/summernote/summernote.js"></script>
-    <script src="~/lib/angular/angular.js"></script>
-    <script src="~/lib/angular-ui-router/angular-ui-router.js"></script>
-    <script src="~/lib/angular-animate/angular-animate.js"></script>
-    <script src="~/lib/angular-aria/angular-aria.js"></script>
-    <script src="~/lib/angular-messages/angular-messages.js"></script>
-    <script src="~/lib/angular-material/angular-material.js"></script>
-    <script src="~/lib/angular-smart-table/smart-table.js"></script>
-    <script src="~/lib/ng-file-upload/ng-file-upload.js"></script>
-    <script src="~/lib/angular-bootstrap/ui-bootstrap.js"></script>
-    <script src="~/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="~/lib/bootstrap-ui-datetime-picker/datetime-picker.js"></script>
-    <script src="~/lib/bootstrap-ui-datetime-picker/datetime-picker.tpls.js"></script>
-    <script src="~/lib/angular-summernote/angular-summernote.js"></script>
-    <script src="~/lib/toastr/toastr.js"></script>
-    <script src="~/lib/bootbox/bootbox.js"></script>
-    <script src="~/lib/i18n/angular-locale_@(CultureInfo.CurrentCulture.Name.ToLower()).js"></script>
+    <script simpl-append-version="true" src="~/lib/jquery/jquery.js"></script>
+    <script simpl-append-version="true" src="~/lib/bootstrap/js/bootstrap.js"></script>
+    <script simpl-append-version="true" src="~/lib/summernote/summernote.js"></script>
+    <script simpl-append-version="true" src="~/lib/angular/angular.js"></script>
+    <script simpl-append-version="true" src="~/lib/angular-ui-router/angular-ui-router.js"></script>
+    <script simpl-append-version="true" src="~/lib/angular-animate/angular-animate.js"></script>
+    <script simpl-append-version="true" src="~/lib/angular-aria/angular-aria.js"></script>
+    <script simpl-append-version="true" src="~/lib/angular-messages/angular-messages.js"></script>
+    <script simpl-append-version="true" src="~/lib/angular-material/angular-material.js"></script>
+    <script simpl-append-version="true" src="~/lib/angular-smart-table/smart-table.js"></script>
+    <script simpl-append-version="true" src="~/lib/ng-file-upload/ng-file-upload.js"></script>
+    <script simpl-append-version="true" src="~/lib/angular-bootstrap/ui-bootstrap.js"></script>
+    <script simpl-append-version="true" src="~/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script simpl-append-version="true" src="~/lib/bootstrap-ui-datetime-picker/datetime-picker.js"></script>
+    <script simpl-append-version="true" src="~/lib/bootstrap-ui-datetime-picker/datetime-picker.tpls.js"></script>
+    <script simpl-append-version="true" src="~/lib/angular-summernote/angular-summernote.js"></script>
+    <script simpl-append-version="true" src="~/lib/toastr/toastr.js"></script>
+    <script simpl-append-version="true" src="~/lib/bootbox/bootbox.js"></script>
+    <script simpl-append-version="true" src="~/lib/i18n/angular-locale_@(CultureInfo.CurrentCulture.Name.ToLower()).js"></script>
 
-    <script src="~/admin/admin-app.js"></script>
-    <script src="~/admin/common/common.js"></script>
-    <script src="~/admin/common/summernote-service.js"></script>
-    <script src="~/admin/common/isolate-subform.js"></script>
-    <script src="~/admin/common/st-date-range.js"></script>
-    <script src="~/admin/common/translation-service.js"></script>
+    <script simpl-append-version="true" src="~/admin/admin-app.js"></script>
+    <script simpl-append-version="true" src="~/admin/common/common.js"></script>
+    <script simpl-append-version="true" src="~/admin/common/summernote-service.js"></script>
+    <script simpl-append-version="true" src="~/admin/common/isolate-subform.js"></script>
+    <script simpl-append-version="true" src="~/admin/common/st-date-range.js"></script>
+    <script simpl-append-version="true" src="~/admin/common/translation-service.js"></script>
 
-    <script src="~/admin/dashboard/dashboard.module.js"></script>
+    <script simpl-append-version="true" src="~/admin/dashboard/dashboard.module.js"></script>
 
-    <script src="~/core/admin/core.module.js"></script>
-    <script src="~/core/admin/user/user-service.js"></script>
-    <script src="~/core/admin/user/user-list.js"></script>
-    <script src="~/core/admin/widget/widget-service.js"></script>
-    <script src="~/core/admin/widget/widget-instance-list.js"></script>
-    <script src="~/core/admin/configuration/configuration-service.js"></script>
-    <script src="~/core/admin/configuration/configuration.js"></script>
+    <script simpl-append-version="true" src="~/core/admin/core.module.js"></script>
+    <script simpl-append-version="true" src="~/core/admin/user/user-service.js"></script>
+    <script simpl-append-version="true" src="~/core/admin/user/user-list.js"></script>
+    <script simpl-append-version="true" src="~/core/admin/widget/widget-service.js"></script>
+    <script simpl-append-version="true" src="~/core/admin/widget/widget-instance-list.js"></script>
+    <script simpl-append-version="true" src="~/core/admin/configuration/configuration-service.js"></script>
+    <script simpl-append-version="true" src="~/core/admin/configuration/configuration.js"></script>
 
-    <script src="~/catalog/admin/catalog.module.js"></script>
-    <script src="~/catalog/admin/brand/brand-service.js"></script>
-    <script src="~/catalog/admin/brand/brand-list.js"></script>
-    <script src="~/catalog/admin/brand/brand-form.js"></script>
-    <script src="~/catalog/admin/category/category-service.js"></script>
-    <script src="~/catalog/admin/category/category-list.js"></script>
-    <script src="~/catalog/admin/category/category-form.js"></script>
-    <script src="~/catalog/admin/product-option/product-option-service.js"></script>
-    <script src="~/catalog/admin/product-option/product-option-list.js"></script>
-    <script src="~/catalog/admin/product-option/product-option-form.js"></script>
-    <script src="~/catalog/admin/product-attribute-group/product-attribute-group-service.js"></script>
-    <script src="~/catalog/admin/product-attribute-group/product-attribute-group-list.js"></script>
-    <script src="~/catalog/admin/product-attribute-group/product-attribute-group-form.js"></script>
-    <script src="~/catalog/admin/product-attribute/product-attribute-service.js"></script>
-    <script src="~/catalog/admin/product-attribute/product-attribute-list.js"></script>
-    <script src="~/catalog/admin/product-attribute/product-attribute-form.js"></script>
-    <script src="~/catalog/admin/product-template/product-template-service.js"></script>
-    <script src="~/catalog/admin/product-template/product-template-list.js"></script>
-    <script src="~/catalog/admin/product-template/product-template-form.js"></script>
-    <script src="~/catalog/admin/product/product-service.js"></script>
-    <script src="~/catalog/admin/product/product-list.js"></script>
-    <script src="~/catalog/admin/product/product-form.js"></script>
-    <script src="~/catalog/admin/product-widget/product-widget-service.js"></script>
-    <script src="~/catalog/admin/product-widget/product-widget-form.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/catalog.module.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/brand/brand-service.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/brand/brand-list.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/brand/brand-form.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/category/category-service.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/category/category-list.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/category/category-form.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/product-option/product-option-service.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/product-option/product-option-list.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/product-option/product-option-form.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/product-attribute-group/product-attribute-group-service.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/product-attribute-group/product-attribute-group-list.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/product-attribute-group/product-attribute-group-form.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/product-attribute/product-attribute-service.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/product-attribute/product-attribute-list.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/product-attribute/product-attribute-form.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/product-template/product-template-service.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/product-template/product-template-list.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/product-template/product-template-form.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/product/product-service.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/product/product-list.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/product/product-form.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/product-widget/product-widget-service.js"></script>
+    <script simpl-append-version="true" src="~/catalog/admin/product-widget/product-widget-form.js"></script>
 
-    <script src="~/orders/admin/orders.module.js"></script>
-    <script src="~/orders/admin/order/order-service.js"></script>
-    <script src="~/orders/admin/order/order-list.js"></script>
-    <script src="~/orders/admin/order/order-detail.js"></script>
-    <script src="~/orders/admin/order/order-widget.directive.js"></script>
+    <script simpl-append-version="true" src="~/orders/admin/orders.module.js"></script>
+    <script simpl-append-version="true" src="~/orders/admin/order/order-service.js"></script>
+    <script simpl-append-version="true" src="~/orders/admin/order/order-list.js"></script>
+    <script simpl-append-version="true" src="~/orders/admin/order/order-detail.js"></script>
+    <script simpl-append-version="true" src="~/orders/admin/order/order-widget.directive.js"></script>
 
-    <script src="~/cms/admin/cms.module.js"></script>
-    <script src="~/cms/admin/page/page-service.js"></script>
-    <script src="~/cms/admin/page/page-list.js"></script>
-    <script src="~/cms/admin/page/page-form.js"></script>
-    <script src="~/cms/admin/carousel-widget/carousel-widget-service.js"></script>
-    <script src="~/cms/admin/carousel-widget/carousel-widget-form.js"></script>
-    <script src="~/cms/admin/html-widget/html-widget-service.js"></script>
-    <script src="~/cms/admin/html-widget/html-widget-form.js"></script>
+    <script simpl-append-version="true" src="~/cms/admin/cms.module.js"></script>
+    <script simpl-append-version="true" src="~/cms/admin/page/page-service.js"></script>
+    <script simpl-append-version="true" src="~/cms/admin/page/page-list.js"></script>
+    <script simpl-append-version="true" src="~/cms/admin/page/page-form.js"></script>
+    <script simpl-append-version="true" src="~/cms/admin/carousel-widget/carousel-widget-service.js"></script>
+    <script simpl-append-version="true" src="~/cms/admin/carousel-widget/carousel-widget-form.js"></script>
+    <script simpl-append-version="true" src="~/cms/admin/html-widget/html-widget-service.js"></script>
+    <script simpl-append-version="true" src="~/cms/admin/html-widget/html-widget-form.js"></script>
 
-    <script src="~/search/admin/search.module.js"></script>
-    <script src="~/search/admin/search-service.js"></script>
-    <script src="~/search/admin/most-search-keywords.directive.js"></script>
+    <script simpl-append-version="true" src="~/search/admin/search.module.js"></script>
+    <script simpl-append-version="true" src="~/search/admin/search-service.js"></script>
+    <script simpl-append-version="true" src="~/search/admin/most-search-keywords.directive.js"></script>
 
-    <script src="~/reviews/admin/reviews.module.js"></script>
-    <script src="~/reviews/admin/review/review-service.js"></script>
-    <script src="~/reviews/admin/review/review-list.js"></script>
-    <script src="~/reviews/admin/review/review-widget.directive.js"></script>
+    <script simpl-append-version="true" src="~/reviews/admin/reviews.module.js"></script>
+    <script simpl-append-version="true" src="~/reviews/admin/review/review-service.js"></script>
+    <script simpl-append-version="true" src="~/reviews/admin/review/review-list.js"></script>
+    <script simpl-append-version="true" src="~/reviews/admin/review/review-widget.directive.js"></script>
     
-    <script src="~/activitylog/admin/activitylog.module.js"></script>
-    <script src="~/activitylog/admin/activitylog-service.js"></script>
-    <script src="~/activitylog/admin/most-viewed-products.directive.js"></script>
+    <script simpl-append-version="true" src="~/activitylog/admin/activitylog.module.js"></script>
+    <script simpl-append-version="true" src="~/activitylog/admin/activitylog-service.js"></script>
+    <script simpl-append-version="true" src="~/activitylog/admin/most-viewed-products.directive.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse">
@@ -187,7 +179,7 @@
         <div ui-view></div>
         <hr />
         <footer>
-            <p class="pull-left">&copy; 2016 - SimplCommerce</p>
+            <p class="pull-left">&copy; @DateTime.Now.Year - SimplCommerce</p>
             <p class="pull-right">Powered by <a href="http://www.SimplCommerce.com"><strong>SimplCommerce</strong></a></p>
         </footer>
     </div>

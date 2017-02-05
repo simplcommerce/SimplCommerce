@@ -7,20 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>@ViewData["Title"] - SimplCommerce</title>
 
-        <environment names="Development">
-            <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
-            <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-            <link href="~/lib/bootstrap-star-rating/css/star-rating.css" rel="stylesheet" />
-            <link rel="stylesheet" href="~/css/site.css" />
-        </environment>
-        <environment names="Staging,Production">
-            <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
-                  asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
-                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"/>
-            <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-            <link href="~/lib/bootstrap-star-rating/css/star-rating.css" rel="stylesheet" />
-            <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-        </environment>
+        <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+        <link simpl-append-version="true" rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
+        <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap-star-rating/css/star-rating.css" />
+        <link simpl-append-version="true" rel="stylesheet" href="~/css/site.css" />
 
         @RenderSection("head", required: false)
     </head>
@@ -98,7 +88,7 @@
                     </div>
                 </div>
                 <hr />
-                <p class="pull-left">&copy; 2016 - SimplCommerce</p>
+                <p class="pull-left">&copy; @DateTime.Now.Year - SimplCommerce</p>
                 <p class="pull-right">Powered by <a href="http://www.SimplCommerce.com"><strong>SimplCommerce</strong></a></p>
             </div>
         </div>
@@ -112,29 +102,16 @@
             window.simplGlobalSetting = {};
             window.simplGlobalSetting.lang = '@CultureInfo.CurrentCulture.Name';
         </script>
-        <environment names="Development">
-            <script src="~/lib/jquery/jquery.js"></script>
-            <script src="~/lib/bootstrap/js/bootstrap.js"></script>
-        </environment>
-        <environment names="Staging,Production">
-            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
-                    asp-fallback-src="~/lib/jquery/jquery.min.js"
-                    asp-fallback-test="window.jQuery">
-            </script>
-            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"
-                    asp-fallback-src="~/lib/bootstrap/js/bootstrap.min.js"
-                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-            </script>
-        </environment>
-
-        <script src="~/lib/matchheight/jquery.matchHeight.js"></script>
-        <script src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
+        <script simpl-append-version="true" src="~/lib/jquery/jquery.js"></script>
+        <script simpl-append-version="true" src="~/lib/bootstrap/js/bootstrap.js"></script>
+        <script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
+        <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
         @if (CultureInfo.CurrentCulture.Name == "vi-VN")
         {
-            <script src="~/lib/bootstrap-star-rating/js/locales/vi-vn.js"></script>
+            <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/vi-vn.js"></script>
         }
-        <script src="~/js/main.js"></script>
-        <script src="~/orders/add-to-cart.js"></script>
+        <script simpl-append-version="true" src="~/js/main.js"></script>
+        <script simpl-append-version="true" src="~/orders/add-to-cart.js"></script>
         @RenderSection("scripts", required: false)
     </body>
 </html>

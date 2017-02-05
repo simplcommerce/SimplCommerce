@@ -1,5 +1,6 @@
 ﻿INSERT INTO "Core_AppSetting" ("Id", "Key", "Value") VALUES (1, 'Catalog.ProductPageSize', '10');
-SELECT pg_catalog.setval('"Core_AppSetting_Id_seq"', 1, true);
+INSERT INTO "Core_AppSetting" ("Id", "Key", "Value") VALUES (2, 'Global.AssetVersion', '1.0');
+SELECT pg_catalog.setval('"Core_AppSetting_Id_seq"', 2, true);
 
 INSERT INTO "Core_Role" ("Id", "ConcurrencyStamp", "Name", "NormalizedName") VALUES (1, 'bd3bee0b-5f1d-482d-b890-ffdc01915da3', 'admin', 'ADMIN');
 INSERT INTO "Core_Role" ("Id", "ConcurrencyStamp", "Name", "NormalizedName") VALUES (2, 'bd3bee0b-5f1d-482d-b890-ffdc01915da3', 'customer', 'CUSTOMER');
