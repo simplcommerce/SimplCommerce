@@ -1,24 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26206.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C9BFDDC4-5671-47A3-B57D-197C2A51FA8A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0FA25035-EF21-45F1-BEB4-C57BCF5F9A83}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.WebHost", "src\SimplCommerce.WebHost\SimplCommerce.WebHost.xproj", "{13367B7A-E91C-47EE-BA5E-C50664D65767}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Infrastructure", "src\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.xproj", "{9C156841-9389-4840-82CB-D5A4ED9A6A00}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{7EFA2FA7-32DD-4047-B021-50E77A83D714}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Module.Core", "src\Modules\SimplCommerce.Module.Core\SimplCommerce.Module.Core.xproj", "{91A9DD1C-08F3-4F85-8728-BB30F55FDACB}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Module.Catalog", "src\Modules\SimplCommerce.Module.Catalog\SimplCommerce.Module.Catalog.xproj", "{5A25980B-54D9-4B82-8E2B-021F27860D7F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{0A27C140-4CCB-40DD-BE48-F5DE16D1177B}"
 	ProjectSection(SolutionItems) = preProject
@@ -26,19 +15,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{0A
 		src\Database\StaticData_Postgres.sql = src\Database\StaticData_Postgres.sql
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Module.Orders", "src\Modules\SimplCommerce.Module.Orders\SimplCommerce.Module.Orders.xproj", "{B8ABFD73-AEAF-4689-BA2C-BC38B64F6FAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.WebHost", "src\SimplCommerce.WebHost\SimplCommerce.WebHost.csproj", "{13367B7A-E91C-47EE-BA5E-C50664D65767}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Module.Cms", "src\Modules\SimplCommerce.Module.Cms\SimplCommerce.Module.Cms.xproj", "{B5344A80-C707-4DB4-A80C-064B3F24E091}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Infrastructure", "src\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj", "{9C156841-9389-4840-82CB-D5A4ED9A6A00}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Module.SampleData", "src\Modules\SimplCommerce.Module.SampleData\SimplCommerce.Module.SampleData.xproj", "{DD1206C1-FC00-44EF-B8BF-0376DAEF4DD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Core", "src\Modules\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj", "{91A9DD1C-08F3-4F85-8728-BB30F55FDACB}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Module.Localization", "src\Modules\SimplCommerce.Module.Localization\SimplCommerce.Module.Localization.xproj", "{168ECB44-DB3C-4DAB-9F8D-7BA5EB39D1CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Catalog", "src\Modules\SimplCommerce.Module.Catalog\SimplCommerce.Module.Catalog.csproj", "{5A25980B-54D9-4B82-8E2B-021F27860D7F}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Module.Search", "src\Modules\SimplCommerce.Module.Search\SimplCommerce.Module.Search.xproj", "{5EFB6861-B00E-40D5-A7AF-B3A6E914BC8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Orders", "src\Modules\SimplCommerce.Module.Orders\SimplCommerce.Module.Orders.csproj", "{B8ABFD73-AEAF-4689-BA2C-BC38B64F6FAE}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Module.Reviews", "src\Modules\SimplCommerce.Module.Reviews\SimplCommerce.Module.Reviews.xproj", "{6340A38E-C644-4DFC-87C1-F89EC5CA9614}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Cms", "src\Modules\SimplCommerce.Module.Cms\SimplCommerce.Module.Cms.csproj", "{B5344A80-C707-4DB4-A80C-064B3F24E091}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SimplCommerce.Module.ActivityLog", "src\Modules\SimplCommerce.Module.ActivityLog\SimplCommerce.Module.ActivityLog.xproj", "{1A22C68D-BE49-4E94-A0AD-6FD31F54B805}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.SampleData", "src\Modules\SimplCommerce.Module.SampleData\SimplCommerce.Module.SampleData.csproj", "{DD1206C1-FC00-44EF-B8BF-0376DAEF4DD7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Localization", "src\Modules\SimplCommerce.Module.Localization\SimplCommerce.Module.Localization.csproj", "{168ECB44-DB3C-4DAB-9F8D-7BA5EB39D1CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Search", "src\Modules\SimplCommerce.Module.Search\SimplCommerce.Module.Search.csproj", "{5EFB6861-B00E-40D5-A7AF-B3A6E914BC8E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Reviews", "src\Modules\SimplCommerce.Module.Reviews\SimplCommerce.Module.Reviews.csproj", "{6340A38E-C644-4DFC-87C1-F89EC5CA9614}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.ActivityLog", "src\Modules\SimplCommerce.Module.ActivityLog\SimplCommerce.Module.ActivityLog.csproj", "{1A22C68D-BE49-4E94-A0AD-6FD31F54B805}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,12 +92,12 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{7EFA2FA7-32DD-4047-B021-50E77A83D714} = {C9BFDDC4-5671-47A3-B57D-197C2A51FA8A}
+		{0A27C140-4CCB-40DD-BE48-F5DE16D1177B} = {C9BFDDC4-5671-47A3-B57D-197C2A51FA8A}
 		{13367B7A-E91C-47EE-BA5E-C50664D65767} = {C9BFDDC4-5671-47A3-B57D-197C2A51FA8A}
 		{9C156841-9389-4840-82CB-D5A4ED9A6A00} = {C9BFDDC4-5671-47A3-B57D-197C2A51FA8A}
-		{7EFA2FA7-32DD-4047-B021-50E77A83D714} = {C9BFDDC4-5671-47A3-B57D-197C2A51FA8A}
 		{91A9DD1C-08F3-4F85-8728-BB30F55FDACB} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{5A25980B-54D9-4B82-8E2B-021F27860D7F} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
-		{0A27C140-4CCB-40DD-BE48-F5DE16D1177B} = {C9BFDDC4-5671-47A3-B57D-197C2A51FA8A}
 		{B8ABFD73-AEAF-4689-BA2C-BC38B64F6FAE} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{B5344A80-C707-4DB4-A80C-064B3F24E091} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{DD1206C1-FC00-44EF-B8BF-0376DAEF4DD7} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
