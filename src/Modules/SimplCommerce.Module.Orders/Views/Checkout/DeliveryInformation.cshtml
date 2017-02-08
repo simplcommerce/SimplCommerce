@@ -71,6 +71,6 @@
 </div>
 
 @section scripts {
-@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-    <script src="~/orders/shipping.js"></script>
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script simpl-append-version="true" src="~/orders/shipping.js"></script>
 }
