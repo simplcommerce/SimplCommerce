@@ -5,13 +5,13 @@ matrix:
   include:
     - os: osx
       osx_image: xcode7.3
-      dotnet: 1.0.0-preview2-1-003177
+      dotnet: 1.0.0-rc4-004771
       mono: none
       env: DOTNETCORE=1
     - os: linux
       dist: trusty
       sudo: required
-      dotnet: 1.0.0-preview2-1-003177
+      dotnet: 1.0.0-rc4-004771
       mono: none
       env: DOTNETCORE=1
 
@@ -24,9 +24,5 @@ notifications:
     on_success: change
     on_failure: always
 
-#before_install:
-#  - if test "$TRAVIS_OS_NAME" == "osx"; then ln -s /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib /usr/local/lib/; ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib/; fi
-  
-
 script:
-  - if [ -n "${DOTNETCORE}" ]; then dotnet restore && dotnet build ./src/**/**/project.json; fi
+  - if [ -n "${DOTNETCORE}" ]; then dotnet restore && dotnet build ./SimplCommerce.sln; fi
