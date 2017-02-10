@@ -11,7 +11,7 @@ RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Extensions/Serv
 
 RUN cd src/SimplCommerce.WebHost && rm Migrations/* && cp -f appsettings.docker.json appsettings.json
 
-RUN cd src && dotnet restore && dotnet build **/**/project.json
+RUN dotnet restore && dotnet build
 
 RUN cd src/SimplCommerce.WebHost && npm install && gulp copy-modules
 
