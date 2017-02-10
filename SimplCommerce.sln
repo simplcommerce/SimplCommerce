@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{0A27C140-4CCB-40DD-BE48-F5DE16D1177B}"
 	ProjectSection(SolutionItems) = preProject
 		src\Database\StaticData.sql = src\Database\StaticData.sql
+		src\Database\StaticData_MySql.sql = src\Database\StaticData_MySql.sql
 		src\Database\StaticData_Postgres.sql = src\Database\StaticData_Postgres.sql
 	EndProjectSection
 EndProject
