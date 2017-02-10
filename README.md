@@ -20,7 +20,7 @@ http://demo.simplcommerce.com
 - SQL Server or PostgreSQL or MySQL
 
 ## How to run on local
-### Using Visual Studio 2015 Update 3
+### Using Visual Studio 2017 RC
 - Install the latest versions (current) for both Runtime and .NET Core SDK for Visual Studio (https://www.microsoft.com/net/download/core#/current)
 - Create a database in SQL Server
 - Update the connection string in appsettings.json in SimplCommerce.WebHost

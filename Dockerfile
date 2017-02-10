@@ -4,14 +4,14 @@ ARG source=.
 WORKDIR /app
 COPY $source .
 
-RUN sed -i 's/"Microsoft.EntityFrameworkCore.SqlServer": "1.1.0"/"Npgsql.EntityFrameworkCore.PostgreSQL": "1.1.0"/' src/SimplCommerce.WebHost/project.json
+RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.0" />#<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="1.1.0" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
 
 RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Startup.cs
 RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Extensions/ServiceCollectionExtensions.cs
 
 RUN cd src/SimplCommerce.WebHost && rm Migrations/* && cp -f appsettings.docker.json appsettings.json
 
-RUN cd src && dotnet restore && dotnet build **/**/project.json
+RUN dotnet restore && dotnet build
 
 RUN cd src/SimplCommerce.WebHost && npm install && gulp copy-modules
 

@@ -35,11 +35,6 @@ namespace SimplCommerce.WebHost
                 .AddJsonFile("appsettings.json", true, true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
 
-            if (env.IsDevelopment())
-            {
-                builder.AddUserSecrets();
-            }
-
             builder.AddEnvironmentVariables();
             var connectionStringConfig = builder.Build();
 
