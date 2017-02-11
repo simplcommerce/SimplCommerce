@@ -27,7 +27,8 @@ http://demo.simplcommerce.com
 
 - Create a database in SQL Server
 - Update the connection string in appsettings.json in SimplCommerce.WebHost
-- Build whole solution **twice**.
+- Build whole solution.
+- In the Task Runner Explorer, right click on the "copy-modules" task and Run.
 - Open Package Manager Console Window and type "Update-Database" then press Enter. This action will create database schema
 - Execute src/Database/StaticData.sql on the created database to create seeding data
 - In Visual Studio Press Control + F5
