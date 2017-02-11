@@ -11,58 +11,44 @@
 ## Online demo (Azure Website)
 http://demo.simplcommerce.com
 
-## Try out nightly docker images
+## Docker
 - First run the database: `docker run --name simpldb -d postgres`
 - Then run the app: `docker run --name simplsite -d -p 5000:5000 --link simpldb:simpldb simplcommerce/nightly-build`
 
-## Prerequisite:
-- Latest .NET Core SDK (https://www.microsoft.com/net/download/core#/current)
-- SQL Server or PostgreSQL or MySQL
 
-## How to run on local
-### Using Visual Studio 2017 RC
-- Install the latest versions (current) for both Runtime and .NET Core SDK for Visual Studio (https://www.microsoft.com/net/download/core#/current)
+## Visual Studio 2017 RC and SQL Server
+
+#### Prerequisite
+
+- SQL Server
+- [Visual Studio 2017 with .NET Core Tools](https://www.microsoft.com/net/download/core#/current)
+
+#### Steps to run
+
 - Create a database in SQL Server
 - Update the connection string in appsettings.json in SimplCommerce.WebHost
 - Build whole solution **twice**.
 - Open Package Manager Console Window and type "Update-Database" then press Enter. This action will create database schema
-- Run src/Database/StaticData.sql to create seeding data
-- Press Control + F5
+- Execute src/Database/StaticData.sql on the created database to create seeding data
+- In Visual Studio Press Control + F5
 - The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
-### Using Command Line (Windows, Mac, Linux)
-- Install NodeJS
-- Install the latest versions (current) for both Runtime and SDK of .NET Core (https://www.microsoft.com/net/download/core#/current)
-- Create a database in SQL Server or PostgreSQL
-- If you use PostgreSQL
-    - Open file project.json and add package "Npgsql.EntityFrameworkCore.PostgreSQL": "1.0.0"
-    - Open Console Window, change directory to \src\SimplCommerce.WebHost type "dotnet restore" then press Enter
-    - Open the Startup.cs replace the SqlServer provider by PostgreSQL
-    ```
-           builder.AddEntityFrameworkConfig(options =>
-                    options.UseNpgsql(connectionStringConfig.GetConnectionString("DefaultConnection"))
-            );
-    ```
-    - Open the file Extension\ServiceCollectionExtensions.cs replace the SqlServer provider by PostgreSQL
-    ```
-           services.AddDbContext<SimplDbContext>(options =>
-                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"),
-                b => b.MigrationsAssembly("SimplCommerce.WebHost")));
-    ```
-    - Delete all file in SimplCommerce.WebHost/Migrations
-    
-- Open \src\SimplCommerce.WebHost\appsettings.json and change the connection string to database that you just created. For example "DefaultConnection": "User ID=thien;Password=12345;Host=localhost;Port=5432;Database=SimplCommerce;Pooling=true;"
-- In the Console Windows, type "cd .. && dotnet restore" then press Enter to change directory to /src 
-- Type "dotnet build \*\*/\*\*/project.json" then press Enter
-- Type "cd SimplCommerce.WebHost" then press Enter
-- Type "npm install" then press Enter
-- Type "gulp copy-modules" then press Enter. If you get the error "no command 'gulp' found" then type "npm install --global gulp-cli" and press Enter
-- If you use Postgres: type "dotnet ef migrations add initialSchema" and hit Enter
-- Type "dotnet ef database update" then press Enter. This action will create database schema
-- Run src/Database/StaticData.sql on your database to create seeding data
-- Type "dotnet run" then press Enter.
-- Open browser, type http://localhost:5000 then hit Enter
-- The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
+## Mac/Linux with PostgreSQL
+
+#### Prerequisite
+
+- PostgreSQL
+- NodeJS
+- [.NET Core SDK RC4](https://www.microsoft.com/net/download/core#/current)
+
+#### Steps to run
+
+- Create a database in PostgreSQL
+- Update the connection string in appsettings.json in SimplCommerce.WebHost
+- Run file "simpl-build.sh"
+- Execute src/Database/StaticData_Postgres.sql on the created database to create seeding data
+- In the terminal, navigate to the "src/SimplCommerce.WebHost" type "dotnet run" and hit enter
+- Open browser, open http://localhost:5000. The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
 ## Technologies and frameworks used:
 - ASP.NET MVC Core 1.1.0 on .NET Core 1.1.0
@@ -130,12 +116,14 @@ By default domain entities is mapped by convention. In case you need to some spe
 ```
 
 ## Roadmap
+
 https://github.com/simplcommerce/SimplCommerce/wiki/Roadmap
 
-## How to contribute:
+## How to contribute
+
 - Report bugs or suggest features by create new issues or add comments to issues
-- Pickup an issue, create your own branch and implement it, then submit a Merge Request when you finished the implemntation and testing
-- Remember to fix all the StyleCop violations before submit a Merge Request
+- Submit pull requests
 
 ## License
+
 SimplCommerce is licensed under the Apache 2.0 license.
