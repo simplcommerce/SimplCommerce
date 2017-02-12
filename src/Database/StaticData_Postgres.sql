@@ -127,6 +127,7 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Ca
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Brand', 'Nhãn hiệu');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Sort by:', 'Sắp xếp theo:');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'results', 'kết quả');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'View options', 'Xem các tùy chọn');
 
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Register', 'S''inscrire');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Hello {0}!', 'Bonjour {0}!');
@@ -190,6 +191,7 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Ca
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Brand', 'Marque');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Sort by:', 'Trier par:');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'results', 'résultats');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'View options', 'Afficher les options');
 
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Register', 'Cadastro');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Hello {0}!', 'Olá {0}!');

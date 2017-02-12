@@ -897,6 +897,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Brand', N'Nhãn hiệu')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Sort by:', N'Sắp xếp theo:')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'results', N'kết quả')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'View options', N'Xem các tùy chọn')
 
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Register', N'S''inscrire')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Hello {0}!', N'Bonjour {0}!')
@@ -960,6 +961,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Brand', N'Marque');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Sort by:', N'Trier par:');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'results', N'résultats');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'View options', N'Afficher les options')
 
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (3, N'Register', N'Cadastro')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (3, N'Hello {0}!', N'Olá {0}!')
