@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Net.Http.Headers;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Module.Core.Extensions;
@@ -58,21 +56,6 @@ namespace SimplCommerce.WebHost.Extensions
                 }
             });
 
-            // Serving static file for modules
-            foreach (var module in modules)
-            {
-                var wwwrootDir = new DirectoryInfo(Path.Combine(module.Path, "wwwroot"));
-                if (!wwwrootDir.Exists)
-                {
-                    continue;
-                }
-
-                app.UseStaticFiles(new StaticFileOptions
-                {
-                    FileProvider = new PhysicalFileProvider(wwwrootDir.FullName),
-                    RequestPath = new PathString("/" + module.ShortName)
-                });
-            }
             return app;
         }
 

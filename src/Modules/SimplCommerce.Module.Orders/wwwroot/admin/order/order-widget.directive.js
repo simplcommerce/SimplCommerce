@@ -6,7 +6,7 @@
     function mostSearchKeyword() {
         var directive = {
             restrict: 'E',
-            templateUrl: 'orders/admin/order/order-widget.directive.html',
+            templateUrl: 'modules/orders/admin/order/order-widget.directive.html',
             scope: {
                 status: '=',
                 numRecords: '='

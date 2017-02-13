@@ -6,7 +6,7 @@
     function reviewWidget() {
         var directive = {
             restrict: 'E',
-            templateUrl: 'reviews/admin/review/review-widget.directive.html',
+            templateUrl: 'modules/reviews/admin/review/review-widget.directive.html',
             scope: {
                 status: '=',
                 numRecords: '='
