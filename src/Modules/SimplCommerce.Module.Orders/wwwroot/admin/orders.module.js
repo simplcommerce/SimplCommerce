@@ -9,12 +9,12 @@
                 $stateProvider
                     .state('order', {
                         url: '/order',
-                        templateUrl: 'orders/admin/order/order-list.html',
+                        templateUrl: 'modules/orders/admin/order/order-list.html',
                         controller: 'OrderListCtrl as vm'
                     })
                     .state('order-detail', {
                         url: '/order/detail/:id',
-                        templateUrl: 'orders/admin/order/order-detail.html',
+                        templateUrl: 'modules/orders/admin/order/order-detail.html',
                         controller: 'OrderDetailCtrl as vm'
                     })
                 ;

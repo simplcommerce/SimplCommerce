@@ -1,4 +1,4 @@
-﻿@using System.Threading.Tasks
+@using System.Threading.Tasks
 @using SimplCommerce.Module.Catalog.ViewModels
 
 @model ProductsByBrand
@@ -142,5 +142,5 @@
             currentMax: @((Model.CurrentSearchOption.MaxPrice ?? Model.FilterOption.Price.MaxPrice).ToString("F0"))
         };
     </script>
-    <script simpl-append-version="true" src="~/catalog/product-filter.js"></script>
+    <script simpl-append-version="true" src="~/modules/catalog/product-filter.js"></script>
 }

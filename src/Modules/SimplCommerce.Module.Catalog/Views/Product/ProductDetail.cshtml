@@ -1,4 +1,4 @@
-﻿@model SimplCommerce.Module.Catalog.ViewModels.ProductDetail
+@model SimplCommerce.Module.Catalog.ViewModels.ProductDetail
 
 @{
     ViewBag.Title = Model.Name;
@@ -7,7 +7,7 @@
 @section head
 {
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/smoothproducts/css/smoothproducts.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/css/product-detail.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/modules/catalog/product-detail.css" />
 }
 
 <div>
@@ -199,5 +199,5 @@
 {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
     <script simpl-append-version="true" src="~/lib/smoothproducts/js/smoothproducts.js"></script>
-    <script simpl-append-version="true" src="~/catalog/product-detail.js"></script>
+    <script simpl-append-version="true" src="~/modules/catalog/product-detail.js"></script>
 }

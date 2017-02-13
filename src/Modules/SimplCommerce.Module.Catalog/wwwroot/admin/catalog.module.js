@@ -7,117 +7,117 @@
             $stateProvider
                 .state('brand', {
                     url: '/brand',
-                    templateUrl: 'catalog/admin/brand/brand-list.html',
+                    templateUrl: 'modules/catalog/admin/brand/brand-list.html',
                     controller: 'BrandListCtrl as vm'
                 })
                 .state('brand-create', {
                     url: '/brand/create',
-                    templateUrl: 'catalog/admin/brand/brand-form.html',
+                    templateUrl: 'modules/catalog/admin/brand/brand-form.html',
                     controller: 'BrandFormCtrl as vm'
                 })
                 .state('brand-edit', {
                     url: '/brand/edit/:id',
-                    templateUrl: 'catalog/admin/brand/brand-form.html',
+                    templateUrl: 'modules/catalog/admin/brand/brand-form.html',
                     controller: 'BrandFormCtrl as vm'
                 })
                 .state('category', {
                     url: '/category',
-                    templateUrl: 'catalog/admin/category/category-list.html',
+                    templateUrl: 'modules/catalog/admin/category/category-list.html',
                     controller: 'CategoryListCtrl as vm'
                 })
                .state('category-create', {
                    url: '/category/create',
-                   templateUrl: 'catalog/admin/category/category-form.html',
+                   templateUrl: 'modules/catalog/admin/category/category-form.html',
                    controller: 'CategoryFormCtrl as vm'
                })
                .state('category-edit', {
                    url: '/category/edit/:id',
-                   templateUrl: 'catalog/admin/category/category-form.html',
+                   templateUrl: 'modules/catalog/admin/category/category-form.html',
                    controller: 'CategoryFormCtrl as vm'
                })
                 .state('product-option', {
                     url: '/product-option',
-                    templateUrl: 'catalog/admin/product-option/product-option-list.html',
+                    templateUrl: 'modules/catalog/admin/product-option/product-option-list.html',
                     controller: 'ProductOptionListCtrl as vm'
                 })
                 .state('product-option-create', {
                     url: '/product-option/create',
-                    templateUrl: 'catalog/admin/product-option/product-option-form.html',
+                    templateUrl: 'modules/catalog/admin/product-option/product-option-form.html',
                     controller: 'ProductOptionFormCtrl as vm'
                 })
                 .state('product-option-edit', {
                     url: '/product-option/edit/:id',
-                    templateUrl: 'catalog/admin/product-option/product-option-form.html',
+                    templateUrl: 'modules/catalog/admin/product-option/product-option-form.html',
                     controller: 'ProductOptionFormCtrl as vm'
                 })
                 .state('product-attribute-group', {
                     url: '/product-attribute-group',
-                    templateUrl: 'catalog/admin/product-attribute-group/product-attribute-group-list.html',
+                    templateUrl: 'modules/catalog/admin/product-attribute-group/product-attribute-group-list.html',
                     controller: 'ProductAttributeGroupListCtrl as vm'
                 })
                 .state('product-attribute-group-create', {
                     url: '/product-attribute-group/create',
-                    templateUrl: 'catalog/admin/product-attribute-group/product-attribute-group-form.html',
+                    templateUrl: 'modules/catalog/admin/product-attribute-group/product-attribute-group-form.html',
                     controller: 'ProductAttributeGroupFormCtrl as vm'
                 })
                 .state('product-attribute-group-edit', {
                     url: '/product-attribute-group/edit/:id',
-                    templateUrl: 'catalog/admin/product-attribute-group/product-attribute-group-form.html',
+                    templateUrl: 'modules/catalog/admin/product-attribute-group/product-attribute-group-form.html',
                     controller: 'ProductAttributeGroupFormCtrl as vm'
                 })
                 .state('product-attribute', {
                     url: '/product-attribute',
-                    templateUrl: 'catalog/admin/product-attribute/product-attribute-list.html',
+                    templateUrl: 'modules/catalog/admin/product-attribute/product-attribute-list.html',
                     controller: 'ProductAttributeListCtrl as vm'
                 })
                 .state('product-attribute-create', {
                     url: '/product-attribute/create',
-                    templateUrl: 'catalog/admin/product-attribute/product-attribute-form.html',
+                    templateUrl: 'modules/catalog/admin/product-attribute/product-attribute-form.html',
                     controller: 'ProductAttributeFormCtrl as vm'
                 })
                 .state('product-attribute-edit', {
                     url: '/product-attribute/edit/:id',
-                    templateUrl: 'catalog/admin/product-attribute/product-attribute-form.html',
+                    templateUrl: 'modules/catalog/admin/product-attribute/product-attribute-form.html',
                     controller: 'ProductAttributeFormCtrl as vm'
                 })
                 .state('product-template', {
                     url: '/product-template',
-                    templateUrl: 'catalog/admin/product-template/product-template-list.html',
+                    templateUrl: 'modules/catalog/admin/product-template/product-template-list.html',
                     controller: 'ProductTemplateListCtrl as vm'
                 })
                 .state('product-template-create', {
                     url: '/product-template/create',
-                    templateUrl: 'catalog/admin/product-template/product-template-form.html',
+                    templateUrl: 'modules/catalog/admin/product-template/product-template-form.html',
                     controller: 'ProductTemplateFormCtrl as vm'
                 })
                 .state('product-template-edit', {
                     url: '/product-template/edit/:id',
-                    templateUrl: 'catalog/admin/product-template/product-template-form.html',
+                    templateUrl: 'modules/catalog/admin/product-template/product-template-form.html',
                     controller: 'ProductTemplateFormCtrl as vm'
                 })
                 .state('product', {
                     url: '/product',
-                    templateUrl: 'catalog/admin/product/product-list.html',
+                    templateUrl: 'modules/catalog/admin/product/product-list.html',
                     controller: 'ProductListCtrl as vm'
                 })
                 .state('product-create', {
                     url: '/product-create',
-                    templateUrl: 'catalog/admin/product/product-form.html',
+                    templateUrl: 'modules/catalog/admin/product/product-form.html',
                     controller: 'ProductFormCtrl as vm'
                 })
                 .state('product-edit', {
                     url: '/product/edit/:id',
-                    templateUrl: 'catalog/admin/product/product-form.html',
+                    templateUrl: 'modules/catalog/admin/product/product-form.html',
                     controller: 'ProductFormCtrl as vm'
                 })
                 .state('widget-product-create', {
                     url: '/widget-product/create',
-                    templateUrl: 'catalog/admin/product-widget/product-widget-form.html',
+                    templateUrl: 'modules/catalog/admin/product-widget/product-widget-form.html',
                     controller: 'ProductWidgetFormCtrl as vm'
                 })
                 .state('widget-product-edit', {
                     url: '/widget-product/edit/:id',
-                    templateUrl: 'catalog/admin/product-widget/product-widget-form.html',
+                    templateUrl: 'modules/catalog/admin/product-widget/product-widget-form.html',
                     controller: 'ProductWidgetFormCtrl as vm'
                 });
         }]);

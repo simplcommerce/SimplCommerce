@@ -4,6 +4,7 @@
 	"private": true,
   "devDependencies": {
     "gulp": "3.9.1",
-    "gulp-clean": "0.3.2"
+    "gulp-clean": "0.3.2",
+    "glob": "7.1.1"
   }
 }

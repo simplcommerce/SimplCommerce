@@ -10,7 +10,7 @@
         <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
         <link simpl-append-version="true" rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
         <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap-star-rating/css/star-rating.css" />
-        <link simpl-append-version="true" rel="stylesheet" href="~/css/site.css" />
+        <link simpl-append-version="true" rel="stylesheet" href="~/modules/core/site.css" />
 
         @RenderSection("head", required: false)
     </head>
@@ -28,7 +28,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-md-4 logo">
                         <a asp-controller="Home" asp-action="Index">
-                            <img alt="SimplCommerce" src="~/images/Logo_SimplCommerce.png" />
+                            <img alt="SimplCommerce" src="~/modules/core/Logo_SimplCommerce.png" />
                         </a>
                     </div>
                     <div class="col-xs-10 col-md-7 search-box">
@@ -110,8 +110,8 @@
         {
             <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/vi-vn.js"></script>
         }
-        <script simpl-append-version="true" src="~/js/main.js"></script>
-        <script simpl-append-version="true" src="~/orders/add-to-cart.js"></script>
+        <script simpl-append-version="true" src="~/modules/core/main.js"></script>
+        <script simpl-append-version="true" src="~/modules/orders/add-to-cart.js"></script>
         @RenderSection("scripts", required: false)
     </body>
 </html>

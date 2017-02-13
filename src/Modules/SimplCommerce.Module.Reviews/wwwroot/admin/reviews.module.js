@@ -9,7 +9,7 @@
                 $stateProvider
                     .state('reviews', {
                         url: '/reviews',
-                        templateUrl: 'reviews/admin/review/review-list.html',
+                        templateUrl: 'modules/reviews/admin/review/review-list.html',
                         controller: 'ReviewListCtrl as vm'
                     })
                 ;

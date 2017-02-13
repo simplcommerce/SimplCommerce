@@ -1,4 +1,4 @@
-﻿@model SimplCommerce.Module.Orders.ViewModels.DeliveryInformationVm
+@model SimplCommerce.Module.Orders.ViewModels.DeliveryInformationVm
 
 @{
     ViewBag.Title = "Delivery Information";
@@ -72,5 +72,5 @@
 
 @section scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-    <script simpl-append-version="true" src="~/orders/shipping.js"></script>
+    <script simpl-append-version="true" src="~/modules/orders/shipping.js"></script>
 }
