@@ -17,6 +17,8 @@ namespace SimplCommerce.Module.Core.Models
 
         public string FullName { get; set; }
 
+        public bool? VendorId { get; set; }
+
         public bool IsDeleted { get; set; }
 
         public DateTimeOffset CreatedOn { get; set; }
