@@ -8,6 +8,7 @@ SET IDENTITY_INSERT [dbo].[Core_Role] ON
 INSERT [dbo].[Core_Role] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (1, N'admin', N'ADMIN', N'bd3bee0b-5f1d-482d-b890-ffdc01915da3')
 INSERT [dbo].[Core_Role] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (2, N'customer', N'CUSTOMER', N'bd3bee0b-5f1d-482d-b890-ffdc01915da3')
 INSERT [dbo].[Core_Role] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (3, N'guest', N'GUEST', N'bd3bee0b-5f1d-482d-b890-ffdc01915da3')
+INSERT [dbo].[Core_Role] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (4, N'vendor', N'VENDOR', N'bd3bee0b-5f1d-482d-b890-ffdc01915da3')
 SET IDENTITY_INSERT [dbo].[Core_Role] OFF
 GO 
 
@@ -24,6 +25,7 @@ INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingActio
 INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (2, N'Brand', N'Brand', N'BrandDetail')
 INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (3, N'Product', N'Product', N'ProductDetail')
 INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (4, N'Page', N'Page', N'PageDetail')
+INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (5, N'Vendor', N'Vendor', N'VendorDetail')
 SET IDENTITY_INSERT [dbo].[Core_EntityType] OFF
 GO
 

@@ -3,6 +3,7 @@
 INSERT INTO Core_Role (Id, Name, NormalizedName, ConcurrencyStamp) VALUES (1, 'admin', 'ADMIN', 'bd3bee0b-5f1d-482d-b890-ffdc01915da3');
 INSERT INTO Core_Role (Id, Name, NormalizedName, ConcurrencyStamp) VALUES (2, 'customer', 'CUSTOMER', 'bd3bee0b-5f1d-482d-b890-ffdc01915da3');
 INSERT INTO Core_Role (Id, Name, NormalizedName, ConcurrencyStamp) VALUES (3, 'guest', 'GUEST', 'bd3bee0b-5f1d-482d-b890-ffdc01915da3');
+INSERT INTO Core_Role (Id, Name, NormalizedName, ConcurrencyStamp) VALUES (4, 'vendor', 'VENDOR', 'bd3bee0b-5f1d-482d-b890-ffdc01915da3');
 
 INSERT INTO Core_User (Id, UserGuid, FullName, IsDeleted, CreatedOn, UpdatedOn, UserName, NormalizedUserName, Email, NormalizedEmail, EmailConfirmed, PasswordHash, SecurityStamp, ConcurrencyStamp, PhoneNumber, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnd, LockoutEnabled, AccessFailedCount) VALUES (1, '1FFF10CE-0231-43A2-8B7D-C8DB18504F65', 'Shop Admin', 0, CAST('2016-05-12 23:44:13.297' AS DateTime), CAST('2016-05-12 23:44:13.297' AS DateTime), 'admin@SimplCommerce.com', 'ADMIN@SIMPLCOMMERCE.COM', 'admin@SimplCommerce.com', 'ADMIN@SIMPLCOMMERCE.COM', 0, 'AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==', '9e87ce89-64c0-45b9-8b52-6e0eaa79e5b7', '8620916f-e6b6-4f12-9041-83737154b338', NULL, 0, 0, NULL, 1, 0);
 
@@ -12,6 +13,7 @@ INSERT INTO Core_EntityType (Id, Name, RoutingController, RoutingAction) VALUES 
 INSERT INTO Core_EntityType (Id, Name, RoutingController, RoutingAction) VALUES (2, 'Brand', 'Brand', 'BrandDetail');
 INSERT INTO Core_EntityType (Id, Name, RoutingController, RoutingAction) VALUES (3, 'Product', 'Product', 'ProductDetail');
 INSERT INTO Core_EntityType (Id, Name, RoutingController, RoutingAction) VALUES (4, 'Page', 'Page', 'PageDetail');
+INSERT INTO Core_EntityType (Id, Name, RoutingController, RoutingAction) VALUES (5, 'Vendor', 'Vendor', 'VendorDetail');
 
 INSERT INTO ActivityLog_ActivityType (Id, Name) VALUES (1, 'ProductView');
 

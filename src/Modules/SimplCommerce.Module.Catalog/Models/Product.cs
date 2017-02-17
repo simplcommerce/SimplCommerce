@@ -40,6 +40,8 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public int DisplayOrder { get; set; }
 
+        public bool? VendorId { get; set; }
+
         public Media ThumbnailImage { get; set; }
 
         public IList<ProductMedia> Medias { get; protected set; } = new List<ProductMedia>();
