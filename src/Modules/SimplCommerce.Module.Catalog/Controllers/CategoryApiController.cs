@@ -86,13 +86,13 @@ namespace SimplCommerce.Module.Catalog.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
-            var category = _categoryRepository.Query().Include(x => x.Child).FirstOrDefault(x => x.Id == id);
+            var category = _categoryRepository.Query().Include(x => x.Children).FirstOrDefault(x => x.Id == id);
             if (category == null)
             {
                 return new NotFoundResult();
             }
 
-            if (category.Child.Any(x => !x.IsDeleted))
+            if (category.Children.Any(x => !x.IsDeleted))
             {
                 return BadRequest(new { Error = "Please make sure this category contains no children" });
             }

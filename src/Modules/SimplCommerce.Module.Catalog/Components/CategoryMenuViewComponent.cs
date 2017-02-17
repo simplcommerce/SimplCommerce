@@ -39,7 +39,7 @@ namespace SimplCommerce.Module.Catalog.Components
                 SeoTitle = category.SeoTitle
             };
 
-            var childCategories = category.Child;
+            var childCategories = category.Children;
             foreach (var childCategory in childCategories)
             {
                 var childCategoryMenuItem = Map(childCategory);

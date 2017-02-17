@@ -23,7 +23,7 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public virtual Category Parent { get; set; }
 
-        public virtual IList<Category> Child { get; protected set; } = new List<Category>();
+        public virtual IList<Category> Children { get; protected set; } = new List<Category>();
 
         public string Image { get; set; }
     }
