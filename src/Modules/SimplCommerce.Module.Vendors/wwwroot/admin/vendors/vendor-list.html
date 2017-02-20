@@ -1,0 +1,52 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{ ::vm.translate.get('Vendor List')}}</h2>
+        </div>
+        <div class="col-md-4 text-right">
+        </div>
+    </div>
+</div>
+
+<table class="table" st-pipe="vm.getVendors" st-table="vm.vendors">
+    <thead>
+        <tr>
+            <th st-sort="Name" class="sortable">{{ ::vm.translate.get('Name')}}</th>
+            <th st-sort="Email" class="sortable">{{ ::vm.translate.get('Email')}}</th>
+            <th st-sort="CreatedOn" class="sortable">{{ ::vm.translate.get('CreatedOn')}}</th>
+            <th>Actions</th>
+        </tr>
+        <tr>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="FullName" />
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="Email"/>
+                </div>
+            </th>
+            <th><st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-show="!vm.isLoading">
+        <tr ng-repeat="vendor in vm.vendors">
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.createdOn | date:'medium' }}</td>
+            <td></td>
+        </tr>
+    </tbody>
+    <tbody ng-show="vm.isLoading">
+        <tr>
+            <td colspan="4" class="text-center">Loading ... </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="5"></td>
+        </tr>
+    </tfoot>
+</table>

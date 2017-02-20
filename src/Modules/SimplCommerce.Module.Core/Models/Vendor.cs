@@ -1,4 +1,5 @@
-﻿using SimplCommerce.Infrastructure.Models;
+﻿using System;
+using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Core.Models
 {
@@ -11,6 +12,10 @@ namespace SimplCommerce.Module.Core.Models
         public string Description { get; set; }
 
         public string Email { get; set; }
+
+        public DateTimeOffset CreatedOn { get; set; }
+
+        public DateTimeOffset UpdatedOn { get; set; }
 
         public bool IsActive { get; set; }
 
