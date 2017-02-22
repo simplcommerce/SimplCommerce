@@ -6,6 +6,8 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Vendors.Services;
+using SimplCommerce.Module.Vendors.ViewModels;
+using SimplCommerce.Infrastructure;
 
 namespace SimplCommerce.Module.Vendors.Controllers
 {
@@ -61,11 +63,82 @@ namespace SimplCommerce.Module.Vendors.Controllers
                     Id = x.Id,
                     Name = x.Name,
                     Email = x.Email,
+                    IsActive = x.IsActive,
                     SeoTitle = x.SeoTitle,
                     CreatedOn = x.CreatedOn
                 });
 
             return Json(vendors);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult Get(long id)
+        {
+            var vendor = _vendorRepository.Query().FirstOrDefault(x => x.Id == id);
+            var model = new VendorForm
+            {
+                Id = vendor.Id,
+                Name = vendor.Name,
+                Email = vendor.Email,
+                Description = vendor.Description,
+                IsActive = vendor.IsActive
+            };
+
+            return Json(model);
+        }
+
+        [HttpPost]
+        public IActionResult Post([FromBody] VendorForm model)
+        {
+            if (ModelState.IsValid)
+            {
+                var vendor = new Vendor
+                {
+                    Name = model.Name,
+                    SeoTitle = model.Name.ToUrlFriendly(),
+                    Email = model.Email,
+                    Description = model.Description,
+                    IsActive = model.IsActive
+                };
+
+                _vendorService.Create(vendor);
+
+                return Ok();
+            }
+            return new BadRequestObjectResult(ModelState);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(long id, [FromBody] VendorForm model)
+        {
+            if (ModelState.IsValid)
+            {
+                var vendor = _vendorRepository.Query().FirstOrDefault(x => x.Id == id);
+                vendor.Name = model.Name;
+                vendor.SeoTitle = model.Name.ToUrlFriendly();
+                vendor.Email = model.Email;
+                vendor.Description = model.Description;
+                vendor.IsActive = model.IsActive;
+
+                _vendorService.Update(vendor);
+
+                return Ok();
+            }
+
+            return new BadRequestObjectResult(ModelState);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(long id)
+        {
+            var vendor = _vendorRepository.Query().FirstOrDefault(x => x.Id == id);
+            if (vendor == null)
+            {
+                return new NotFoundResult();
+            }
+
+            _vendorService.Delete(vendor);
+            return Json(true);
         }
     }
 }

@@ -4,6 +4,7 @@
             <h2>{{ ::vm.translate.get('Vendor List')}}</h2>
         </div>
         <div class="col-md-4 text-right">
+            <a ui-sref="vendor-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Create Vendor</a>
         </div>
     </div>
 </div>
@@ -13,6 +14,7 @@
         <tr>
             <th st-sort="Name" class="sortable">{{ ::vm.translate.get('Name')}}</th>
             <th st-sort="Email" class="sortable">{{ ::vm.translate.get('Email')}}</th>
+            <th class="text-center">Is Active</th>
             <th st-sort="CreatedOn" class="sortable">{{ ::vm.translate.get('CreatedOn')}}</th>
             <th>Actions</th>
         </tr>
@@ -27,21 +29,26 @@
                     <input class="form-control" st-search="Email"/>
                 </div>
             </th>
+            <th></th>
             <th><st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range></th>
             <th></th>
         </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">
         <tr ng-repeat="vendor in vm.vendors">
-            <td>{{user.name}}</td>
-            <td>{{user.email}}</td>
-            <td>{{user.createdOn | date:'medium' }}</td>
-            <td></td>
+            <td>{{vendor.name}}</td>
+            <td>{{vendor.email}}</td>
+            <td class="text-center"><i ng-attr-class="{{vendor.isActive && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+            <td>{{vendor.createdOn | date:'medium' }}</td>
+            <td>
+                <a ui-sref="vendor-edit({id: vendor.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+                <button ng-click="vm.deleteVendor(vendor)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+            </td>
         </tr>
     </tbody>
     <tbody ng-show="vm.isLoading">
         <tr>
-            <td colspan="4" class="text-center">Loading ... </td>
+            <td colspan="5" class="text-center">Loading ... </td>
         </tr>
     </tbody>
     <tfoot>
