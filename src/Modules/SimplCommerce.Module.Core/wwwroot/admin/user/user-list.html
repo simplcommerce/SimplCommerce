@@ -4,6 +4,7 @@
             <h2>{{ ::vm.translate.get('User List')}}</h2>
         </div>
         <div class="col-md-4 text-right">
+            <a ui-sref="user-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Create User</a>
         </div>
     </div>
 </div>
@@ -39,7 +40,10 @@
             <td>{{user.fullName}}</td>
             <td>{{user.roles}}</td>
             <td>{{user.createdOn | date:'medium' }}</td>
-            <td></td>
+            <td>
+                <a ui-sref="user-edit({id: user.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+                <button ng-click="vm.deleteUser(user)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+            </td>
         </tr>
     </tbody>
     <tbody ng-show="vm.isLoading">

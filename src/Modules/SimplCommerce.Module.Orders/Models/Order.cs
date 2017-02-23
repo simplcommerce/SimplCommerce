@@ -21,7 +21,7 @@ namespace SimplCommerce.Module.Orders.Models
 
         public User CreatedBy { get; set; }
 
-        public bool? VendorId { get; set; }
+        public long? VendorId { get; set; }
 
         public decimal SubTotal { get; set; }
 

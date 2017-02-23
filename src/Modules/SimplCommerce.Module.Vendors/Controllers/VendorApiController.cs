@@ -71,6 +71,17 @@ namespace SimplCommerce.Module.Vendors.Controllers
             return Json(vendors);
         }
 
+        public IActionResult Get()
+        {
+            var vendors = _vendorRepository.Query().Select(x => new
+            {
+                Id = x.Id,
+                Name = x.Name
+            });
+
+            return Json(vendors);
+        }
+
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
