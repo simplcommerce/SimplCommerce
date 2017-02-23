@@ -19,7 +19,7 @@ using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.Catalog.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, vendor")]
     [Route("api/products")]
     public class ProductApiController : Controller
     {

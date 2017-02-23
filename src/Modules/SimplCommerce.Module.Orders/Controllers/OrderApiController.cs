@@ -12,7 +12,7 @@ using SimplCommerce.Module.Orders.ViewModels;
 
 namespace SimplCommerce.Module.Orders.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, vendor")]
     [Route("api/orders")]
     public class OrderApiController : Controller
     {
