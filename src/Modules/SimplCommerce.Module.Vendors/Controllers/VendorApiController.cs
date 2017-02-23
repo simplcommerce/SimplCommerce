@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Models;
@@ -85,14 +86,15 @@ namespace SimplCommerce.Module.Vendors.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
-            var vendor = _vendorRepository.Query().FirstOrDefault(x => x.Id == id);
+            var vendor = _vendorRepository.Query().Include(x => x.Users).FirstOrDefault(x => x.Id == id);
             var model = new VendorForm
             {
                 Id = vendor.Id,
                 Name = vendor.Name,
                 Email = vendor.Email,
                 Description = vendor.Description,
-                IsActive = vendor.IsActive
+                IsActive = vendor.IsActive,
+                Managers = vendor.Users.Select(x => new VendorManager { UserId = x.Id, Email = x.Email }).ToList()
             };
 
             return Json(model);

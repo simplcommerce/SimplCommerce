@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SimplCommerce.Module.Vendors.ViewModels
 {
@@ -16,5 +17,8 @@ namespace SimplCommerce.Module.Vendors.ViewModels
         public string Description { get; set; }
 
         public bool IsActive { get; set; }
+
+        public IList<VendorManager> Managers { get; set; } = new List<VendorManager>();
+     
     }
 }

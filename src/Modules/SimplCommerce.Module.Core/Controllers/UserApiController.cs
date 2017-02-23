@@ -138,24 +138,13 @@ namespace SimplCommerce.Module.Core.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _userRepository.Query().FirstOrDefault(x => x.Id == id);
+                var user = _userRepository.Query().Include(x => x.Roles).FirstOrDefault(x => x.Id == id);
                 user.Email = model.Email;
                 user.UserName = model.Email;
                 user.FullName = model.FullName;
                 user.PhoneNumber = model.PhoneNumber;
                 user.VendorId = model.VendorId;
-
-                user.Roles.Clear();
-                foreach (var roleId in model.RoleIds)
-                {
-                    var userRole = new UserRole
-                    {
-                        RoleId = roleId
-                    };
-
-                    user.Roles.Add(userRole);
-                    userRole.User = user;
-                }
+                AddOrDeleteRoles(model, user);
 
                 var result = await _userManager.UpdateAsync(user);
 
