@@ -28,5 +28,19 @@
             function ($urlRouterProvider) {
                 $urlRouterProvider.otherwise("/dashboard");
             }
-    ]);
+        ])
+        .config(['$httpProvider', function ($httpProvider) {
+            $httpProvider.interceptors.push(function () {
+                return {
+                    request: function (config) {
+                        if (config.url.indexOf('.html') > -1) {
+                            var separator = config.url.indexOf('?') === -1 ? '?' : '&';
+                            config.url = config.url + separator + 'c=' + window.Global_AssetVersion;
+                        }
+
+                        return config;
+                    }
+                };
+            });
+        }]);
 }());

@@ -1,8 +1,10 @@
 ﻿@using System.Globalization
+@using Microsoft.Extensions.Configuration;
 @using Microsoft.AspNetCore.Identity
 @using SimplCommerce.Module.Core.Models
 
 @inject UserManager<User> UserManager
+@inject IConfiguration Config
 
 @{ 
     Layout = null;
@@ -22,7 +24,9 @@
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/toastr/toastr.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/summernote/summernote.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/modules/core/admin/admin-core.css" />
-
+    <script>
+        window.Global_AssetVersion = @Config["Global.AssetVersion"];
+    </script>
     <script simpl-append-version="true" src="~/lib/jquery/jquery.js"></script>
     <script simpl-append-version="true" src="~/lib/bootstrap/js/bootstrap.js"></script>
     <script simpl-append-version="true" src="~/lib/summernote/summernote.js"></script>
