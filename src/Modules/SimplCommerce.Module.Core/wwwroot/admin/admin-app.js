@@ -24,23 +24,22 @@
     toastr.options.closeButton = true;
     adminApp
         .config([
-            '$urlRouterProvider',
-            function ($urlRouterProvider) {
+            '$urlRouterProvider', '$httpProvider',
+            function ($urlRouterProvider, $httpProvider) {
                 $urlRouterProvider.otherwise("/dashboard");
-            }
-        ])
-        .config(['$httpProvider', function ($httpProvider) {
-            $httpProvider.interceptors.push(function () {
-                return {
-                    request: function (config) {
-                        if (config.url.indexOf('.html') > -1) {
-                            var separator = config.url.indexOf('?') === -1 ? '?' : '&';
-                            config.url = config.url + separator + 'c=' + window.Global_AssetVersion;
-                        }
 
-                        return config;
-                    }
-                };
-            });
-        }]);
+                $httpProvider.interceptors.push(function () {
+                    return {
+                        request: function (config) {
+                            if (/modules.*admin.*\.html/i.test(config.url)) {
+                                var separator = config.url.indexOf('?') === -1 ? '?' : '&';
+                                config.url = config.url + separator + 'v=' + window.Global_AssetVersion;
+                            }
+
+                            return config;
+                        }
+                    };
+                });
+            }
+        ]);
 }());
