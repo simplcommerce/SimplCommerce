@@ -67,8 +67,37 @@ namespace SimplCommerce.Module.Orders.Services
             }
 
             order.SubTotal = order.OrderItems.Sum(x => x.ProductPrice * x.Quantity);
-
             _orderRepository.Add(order);
+
+            var vendorIds = cartItems.Where(x => x.Product.VendorId.HasValue).Select(x => x.Product.VendorId.Value).Distinct();
+            foreach(var vendorId in vendorIds)
+            {
+                var subOrder = new Order
+                {
+                    CreatedOn = DateTimeOffset.Now,
+                    CreatedById = user.Id,
+                    BillingAddress = orderBillingAddress,
+                    ShippingAddress = orderShippingAddress,
+                    VendorId = vendorId,
+                    Parent = order
+                };
+
+                foreach (var cartItem in cartItems.Where(x => x.Product.VendorId == vendorId))
+                {
+                    var orderItem = new OrderItem
+                    {
+                        Product = cartItem.Product,
+                        ProductPrice = cartItem.Product.Price,
+                        Quantity = cartItem.Quantity
+                    };
+
+                    subOrder.AddOrderItem(orderItem);
+                }
+
+                subOrder.SubTotal = subOrder.OrderItems.Sum(x => x.ProductPrice * x.Quantity);
+                _orderRepository.Add(subOrder);
+            }
+
             _orderRepository.SaveChange();
         }
     }

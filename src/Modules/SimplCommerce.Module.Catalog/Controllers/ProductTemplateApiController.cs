@@ -9,7 +9,7 @@ using SimplCommerce.Module.Catalog.Data;
 
 namespace SimplCommerce.Module.Catalog.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, vendor")]
     [Route("api/product-templates")]
     public class ProductTemplateApiController : Controller
     {
@@ -61,6 +61,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult Post([FromBody] ProductTemplateFrom model)
         {
             if (!ModelState.IsValid)
@@ -85,6 +86,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public IActionResult Put(long id, [FromBody] ProductTemplateFrom model)
         {
             if (!ModelState.IsValid)
@@ -123,6 +125,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(long id)
         {
             var productTemplate = _productTemplateRepository.Query().FirstOrDefault(x => x.Id == id);

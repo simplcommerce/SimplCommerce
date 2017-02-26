@@ -9,7 +9,7 @@ using SimplCommerce.Module.Catalog.ViewModels;
 
 namespace SimplCommerce.Module.Catalog.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, vendor")]
     [Route("api/brands")]
     public class BrandApiController : Controller
     {
@@ -44,6 +44,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult Post([FromBody] BrandForm model)
         {
             if (ModelState.IsValid)
@@ -63,6 +64,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public IActionResult Put(long id, [FromBody] BrandForm model)
         {
             if (ModelState.IsValid)
@@ -81,6 +83,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(long id)
         {
             var brand = _brandRepository.Query().FirstOrDefault(x => x.Id == id);
