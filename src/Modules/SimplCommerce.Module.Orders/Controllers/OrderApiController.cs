@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,24 +10,27 @@ using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Orders.ViewModels;
+using SimplCommerce.Module.Core.Extensions;
 
 namespace SimplCommerce.Module.Orders.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, vendor")]
     [Route("api/orders")]
     public class OrderApiController : Controller
     {
         private readonly IMediaService _mediaService;
         private readonly IRepository<Order> _orderRepository;
+        private readonly IWorkContext _workContext;
 
-        public OrderApiController(IRepository<Order> orderRepository, IMediaService mediaService)
+        public OrderApiController(IRepository<Order> orderRepository, IMediaService mediaService, IWorkContext workContext)
         {
             _orderRepository = orderRepository;
             _mediaService = mediaService;
+            _workContext = workContext;
         }
 
         [HttpGet]
-        public ActionResult Get(int status, int numRecords)
+        public async Task<ActionResult> Get(int status, int numRecords)
         {
             var orderStatus = (OrderStatus) status;
             if ((numRecords <= 0) || (numRecords > 100))
@@ -34,11 +38,18 @@ namespace SimplCommerce.Module.Orders.Controllers
                 numRecords = 5;
             }
 
-            var model = _orderRepository
+            var query = _orderRepository
                 .Query()
                 .Include(x => x.CreatedBy)
-                .Where(x => x.OrderStatus == orderStatus)
-                .OrderByDescending(x => x.CreatedOn)
+                .Where(x => x.OrderStatus == orderStatus);
+
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin"))
+            {
+                query = query.Where(x => x.VendorId == currentUser.VendorId);
+            }
+
+            var model = query.OrderByDescending(x => x.CreatedOn)
                 .Take(numRecords)
                 .Select(x => new
                 {
@@ -51,11 +62,17 @@ namespace SimplCommerce.Module.Orders.Controllers
         }
 
         [HttpPost("grid")]
-        public ActionResult List([FromBody] SmartTableParam param)
+        public async Task<ActionResult> List([FromBody] SmartTableParam param)
         {
             IQueryable<Order> query = _orderRepository
                 .Query()
                 .Include(x => x.CreatedBy);
+
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin"))
+            {
+                query = query.Where(x => x.VendorId == currentUser.VendorId);
+            }
 
             if (param.Search.PredicateObject != null)
             {
@@ -107,7 +124,7 @@ namespace SimplCommerce.Module.Orders.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(long id)
+        public async Task<IActionResult> Get(long id)
         {
             var order = _orderRepository
                 .Query()
@@ -120,6 +137,12 @@ namespace SimplCommerce.Module.Orders.Controllers
             if (order == null)
             {
                 return new NotFoundResult();
+            }
+
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin") && order.VendorId != currentUser.VendorId)
+            {
+                return new BadRequestObjectResult(new { error = "You don't have permission to manage this order" });
             }
 
             var model = new OrderDetailVm
@@ -154,12 +177,18 @@ namespace SimplCommerce.Module.Orders.Controllers
         }
 
         [HttpPost("change-order-status/{id}")]
-        public IActionResult ChangeStatus(long id, [FromBody] int statusId)
+        public async Task<IActionResult> ChangeStatus(long id, [FromBody] int statusId)
         {
             var order = _orderRepository.Query().FirstOrDefault(x => x.Id == id);
             if (order == null)
             {
                 return NotFound();
+            }
+
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin") && order.VendorId != currentUser.VendorId)
+            {
+                return new BadRequestObjectResult(new { error = "You don't have permission to manage this order" });
             }
 
             if (Enum.IsDefined(typeof(OrderStatus), statusId))

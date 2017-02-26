@@ -10,7 +10,7 @@ using SimplCommerce.Module.Catalog.ViewModels;
 
 namespace SimplCommerce.Module.Catalog.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, vendor")]
     [Route("api/categories")]
     public class CategoryApiController : Controller
     {
@@ -45,6 +45,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult Post([FromBody] CategoryForm model)
         {
             if (ModelState.IsValid)
@@ -65,6 +66,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public IActionResult Put(long id, [FromBody]CategoryForm model)
         {
             if (ModelState.IsValid)
@@ -84,6 +86,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(long id)
         {
             var category = _categoryRepository.Query().Include(x => x.Children).FirstOrDefault(x => x.Id == id);

@@ -40,7 +40,7 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public int DisplayOrder { get; set; }
 
-        public bool? VendorId { get; set; }
+        public long? VendorId { get; set; }
 
         public Media ThumbnailImage { get; set; }
 
@@ -126,6 +126,7 @@ namespace SimplCommerce.Module.Catalog.Models
             product.IsCallForPricing = IsCallForPricing;
             product.StockQuantity = StockQuantity;
             product.BrandId = BrandId;
+            product.VendorId = VendorId;
 
             foreach (var attribute in AttributeValues)
             {

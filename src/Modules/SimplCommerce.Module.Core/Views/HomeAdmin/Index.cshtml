@@ -1,8 +1,10 @@
 ﻿@using System.Globalization
+@using Microsoft.Extensions.Configuration;
 @using Microsoft.AspNetCore.Identity
 @using SimplCommerce.Module.Core.Models
 
 @inject UserManager<User> UserManager
+@inject IConfiguration Config
 
 @{ 
     Layout = null;
@@ -22,7 +24,9 @@
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/toastr/toastr.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/summernote/summernote.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/modules/core/admin/admin-core.css" />
-
+    <script>
+        window.Global_AssetVersion = @Config["Global.AssetVersion"];
+    </script>
     <script simpl-append-version="true" src="~/lib/jquery/jquery.js"></script>
     <script simpl-append-version="true" src="~/lib/bootstrap/js/bootstrap.js"></script>
     <script simpl-append-version="true" src="~/lib/summernote/summernote.js"></script>
@@ -55,6 +59,7 @@
     <script simpl-append-version="true" src="~/modules/core/admin/core.module.js"></script>
     <script simpl-append-version="true" src="~/modules/core/admin/user/user-service.js"></script>
     <script simpl-append-version="true" src="~/modules/core/admin/user/user-list.js"></script>
+    <script simpl-append-version="true" src="~/modules/core/admin/user/user-form.js"></script>
     <script simpl-append-version="true" src="~/modules/core/admin/widget/widget-service.js"></script>
     <script simpl-append-version="true" src="~/modules/core/admin/widget/widget-instance-list.js"></script>
     <script simpl-append-version="true" src="~/modules/core/admin/configuration/configuration-service.js"></script>
@@ -112,6 +117,11 @@
     <script simpl-append-version="true" src="~/modules/activity-log/admin/activitylog.module.js"></script>
     <script simpl-append-version="true" src="~/modules/activity-log/admin/activitylog-service.js"></script>
     <script simpl-append-version="true" src="~/modules/activity-log/admin/most-viewed-products.directive.js"></script>
+
+    <script simpl-append-version="true" src="~/modules/vendors/admin/vendors.module.js"></script>
+    <script simpl-append-version="true" src="~/modules/vendors/admin/vendors/vendor-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/vendors/admin/vendors/vendor-list.js"></script>
+    <script simpl-append-version="true" src="~/modules/vendors/admin/vendors/vendor-form.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse">
@@ -126,18 +136,30 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a ui-sref="user">Users</a></li>
-                    <li><a ui-sref="reviews">Reviews</a></li>
+                    @if (User.IsInRole("admin"))
+                    {
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Site <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="users">Users</a></li>
+                            <li><a ui-sref="vendors">Vendors</a></li>
+                            <li><a ui-sref="reviews">Reviews</a></li>
+                        </ul>
+                    </li>
+                    }
                     <li class="dropdown">
                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catalog <span class="caret"></span></a>
                         <ul class="dropdown-menu">
+                            <li><a ui-sref="product">Products</a></li>
+                            @if (User.IsInRole("admin"))
+                            {
                             <li><a ui-sref="category">Categories</a></li>
                             <li><a ui-sref="brand">Brands</a></li>
-                            <li><a ui-sref="product">Products</a></li>
                             <li><a ui-sref="product-option">Product Options</a></li>
                             <li><a ui-sref="product-attribute-group">Product Attribute Groups</a></li>
                             <li><a ui-sref="product-attribute">Product Attributes</a></li>
                             <li><a ui-sref="product-template">Product Templates</a></li>
+                            }
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -146,6 +168,8 @@
                             <li><a ui-sref="order">Manage Orders</a></li>
                         </ul>
                     </li>
+                    @if (User.IsInRole("admin"))
+                    {
                     <li class="dropdown">
                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Content <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -159,6 +183,7 @@
                             <li><a ui-sref="configuration">Configuration</a></li>
                         </ul>
                     </li>
+                    }
                 </ul>
                 <form asp-area="" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
                     <ul class="nav navbar-nav navbar-right">

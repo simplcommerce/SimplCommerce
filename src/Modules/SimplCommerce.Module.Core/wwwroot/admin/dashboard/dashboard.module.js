@@ -7,7 +7,7 @@
         .config(['$stateProvider', function ($stateProvider) {
             $stateProvider.state('dashboard', {
                 url: '/dashboard',
-                templateUrl: "modules/core/admin/dashboard/dashboard.html"
+                templateUrl: "/admin/dashboard-tpl"
             });
         }]);
 })();

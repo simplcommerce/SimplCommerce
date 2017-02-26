@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,10 +17,11 @@ using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.Core.Extensions;
 
 namespace SimplCommerce.Module.Catalog.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, vendor")]
     [Route("api/products")]
     public class ProductApiController : Controller
     {
@@ -30,6 +32,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         private readonly IRepository<ProductOptionValue> _productOptionValueRepository;
         private readonly IRepository<Product> _productRepository;
         private readonly IProductService _productService;
+        private readonly IWorkContext _workContext;
 
         public ProductApiController(
             IRepository<Product> productRepository,
@@ -38,7 +41,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
             IRepository<ProductLink> productLinkRepository,
             IRepository<ProductCategory> productCategoryRepository,
             IRepository<ProductOptionValue> productOptionValueRepository,
-            IRepository<ProductAttributeValue> productAttributeValueRepository)
+            IRepository<ProductAttributeValue> productAttributeValueRepository,
+            IWorkContext workContext)
         {
             _productRepository = productRepository;
             _mediaService = mediaService;
@@ -47,10 +51,11 @@ namespace SimplCommerce.Module.Catalog.Controllers
             _productCategoryRepository = productCategoryRepository;
             _productOptionValueRepository = productOptionValueRepository;
             _productAttributeValueRepository = productAttributeValueRepository;
+            _workContext = workContext;
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(long id)
+        public async Task<IActionResult> Get(long id)
         {
             var product = _productRepository.Query()
                 .Include(x => x.ThumbnailImage)
@@ -60,6 +65,12 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 .Include(x => x.AttributeValues).ThenInclude(a => a.Attribute).ThenInclude(g => g.Group)
                 .Include(x => x.Categories)
                 .FirstOrDefault(x => x.Id == id);
+
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin") && product.VendorId != currentUser.VendorId)
+            {
+                return new BadRequestObjectResult(new { error = "You don't have permission to manage this product" });
+            }
 
             var productVm = new ProductVm
             {
@@ -132,9 +143,15 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpPost("grid")]
-        public IActionResult List([FromBody] SmartTableParam param)
+        public async Task<IActionResult> List([FromBody] SmartTableParam param)
         {
             var query = _productRepository.Query().Where(x => !x.IsDeleted);
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin"))
+            {
+                query = query.Where(x => x.VendorId == currentUser.VendorId);
+            }
+
             if (param.Search.PredicateObject != null)
             {
                 dynamic search = param.Search.PredicateObject;
@@ -198,12 +215,14 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(ProductForm model)
+        public async Task<IActionResult> Post(ProductForm model)
         {
             if (!ModelState.IsValid)
             {
                 return new BadRequestObjectResult(ModelState);
             }
+
+            var currentUser = await _workContext.GetCurrentUser();
 
             var product = new Product
             {
@@ -223,8 +242,14 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 IsAllowToOrder = model.Product.IsAllowToOrder,
                 BrandId = model.Product.BrandId,
                 HasOptions = model.Product.Variations.Any() ? true : false,
-                IsVisibleIndividually = true
+                IsVisibleIndividually = true,
+                CreatedBy = currentUser
             };
+
+            if (!User.IsInRole("admin"))
+            {
+                product.VendorId = currentUser.VendorId;
+            }
 
             if (model.Product.IsOutOfStock)
             {
@@ -278,7 +303,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(long id, ProductForm model)
+        public async Task<IActionResult> Put(long id, ProductForm model)
         {
             if (!ModelState.IsValid)
             {
@@ -293,6 +318,13 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 .Include(x => x.AttributeValues).ThenInclude(a => a.Attribute).ThenInclude(g => g.Group)
                 .Include(x => x.Categories)
                 .FirstOrDefault(x => x.Id == id);
+
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin") && product.VendorId != currentUser.VendorId)
+            {
+                return new BadRequestObjectResult(new { error = "You don't have permission to manage this product" });
+            }
+
             product.Name = model.Product.Name;
             product.SeoTitle = product.Name.ToUrlFriendly();
             product.ShortDescription = model.Product.ShortDescription;
@@ -308,6 +340,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
             product.IsPublished = model.Product.IsPublished;
             product.IsCallForPricing = model.Product.IsCallForPricing;
             product.IsAllowToOrder = model.Product.IsAllowToOrder;
+            product.UpdatedBy = currentUser;
+
             if (model.Product.IsOutOfStock)
             {
                 product.StockQuantity = 0;
@@ -340,12 +374,18 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpPost("change-status/{id}")]
-        public IActionResult ChangeStatus(long id)
+        public async Task<IActionResult> ChangeStatus(long id)
         {
             var product = _productRepository.Query().FirstOrDefault(x => x.Id == id);
             if (product == null)
             {
                 return NotFound();
+            }
+
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin") && product.VendorId != currentUser.VendorId)
+            {
+                return new BadRequestObjectResult(new { error = "You don't have permission to manage this product" });
             }
 
             product.IsPublished = !product.IsPublished;
@@ -355,12 +395,18 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
+        public async Task<IActionResult> Delete(long id)
         {
             var product = _productRepository.Query().FirstOrDefault(x => x.Id == id);
             if (product == null)
             {
                 return NotFound();
+            }
+
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin") && product.VendorId != currentUser.VendorId)
+            {
+                return new BadRequestObjectResult(new { error = "You don't have permission to manage this product" });
             }
 
             _productService.Delete(product);

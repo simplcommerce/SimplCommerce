@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace SimplCommerce.Module.Core.Controllers
 {
     [Authorize(Roles = "admin, vendor")]
-    public class HomeAdminController : Controller
+    public class DashboardController : Controller
     {
-        [Route("admin")]
-        public IActionResult Index()
+        [Route("admin/dashboard-tpl")]
+        public IActionResult HomeTemplate()
         {
             return View();
         }

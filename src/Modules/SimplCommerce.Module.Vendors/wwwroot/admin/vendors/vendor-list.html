@@ -1,32 +1,32 @@
 ﻿<div class="page-header">
     <div class="row">
         <div class="col-md-8">
-            <h2>{{ ::vm.translate.get('User List')}}</h2>
+            <h2>{{ ::vm.translate.get('Vendor List')}}</h2>
         </div>
         <div class="col-md-4 text-right">
-            <a ui-sref="user-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Create User</a>
+            <a ui-sref="vendor-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Create Vendor</a>
         </div>
     </div>
 </div>
 
-<table class="table" st-pipe="vm.getUsers" st-table="vm.users">
+<table class="table" st-pipe="vm.getVendors" st-table="vm.vendors">
     <thead>
         <tr>
+            <th st-sort="Name" class="sortable">{{ ::vm.translate.get('Name')}}</th>
             <th st-sort="Email" class="sortable">{{ ::vm.translate.get('Email')}}</th>
-            <th st-sort="FullName" class="sortable">{{ ::vm.translate.get('FullName')}}</th>
-            <th>Roles</th>
+            <th class="text-center">Is Active</th>
             <th st-sort="CreatedOn" class="sortable">{{ ::vm.translate.get('CreatedOn')}}</th>
             <th>Actions</th>
         </tr>
         <tr>
             <th>
                 <div class="form-group">
-                    <input class="form-control" st-search="Email"/>
+                    <input class="form-control" st-search="FullName" />
                 </div>
             </th>
             <th>
                 <div class="form-group">
-                    <input class="form-control" st-search="FullName"/>
+                    <input class="form-control" st-search="Email"/>
                 </div>
             </th>
             <th></th>
@@ -35,14 +35,14 @@
         </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">
-        <tr ng-repeat="user in vm.users">
-            <td>{{user.email}}</td>
-            <td>{{user.fullName}}</td>
-            <td>{{user.roles}}</td>
-            <td>{{user.createdOn | date:'medium' }}</td>
+        <tr ng-repeat="vendor in vm.vendors">
+            <td>{{vendor.name}}</td>
+            <td>{{vendor.email}}</td>
+            <td class="text-center"><i ng-attr-class="{{vendor.isActive && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+            <td>{{vendor.createdOn | date:'medium' }}</td>
             <td>
-                <a ui-sref="user-edit({id: user.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
-                <button ng-click="vm.deleteUser(user)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+                <a ui-sref="vendor-edit({id: vendor.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+                <button ng-click="vm.deleteVendor(vendor)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
             </td>
         </tr>
     </tbody>
@@ -56,4 +56,4 @@
             <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="5"></td>
         </tr>
     </tfoot>
-</table>	
+</table>
