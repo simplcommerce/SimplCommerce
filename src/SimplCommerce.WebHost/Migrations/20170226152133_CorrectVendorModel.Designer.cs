@@ -8,7 +8,7 @@ using SimplCommerce.Module.Core.Data;
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    [Migration("20170222230429_CorrectVendorModel")]
+    [Migration("20170226152133_CorrectVendorModel")]
     partial class CorrectVendorModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -238,7 +238,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<DateTimeOffset>("UpdatedOn");
 
-                    b.Property<bool?>("VendorId");
+                    b.Property<long?>("VendorId");
 
                     b.HasKey("Id");
 
@@ -722,6 +722,8 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasName("UserNameIndex");
+
+                    b.HasIndex("VendorId");
 
                     b.ToTable("Core_User");
                 });
@@ -1259,6 +1261,10 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasOne("SimplCommerce.Module.Core.Models.UserAddress", "DefaultShippingAddress")
                         .WithMany()
                         .HasForeignKey("DefaultShippingAddressId");
+
+                    b.HasOne("SimplCommerce.Module.Core.Models.Vendor")
+                        .WithMany("Users")
+                        .HasForeignKey("VendorId");
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.UserAddress", b =>
