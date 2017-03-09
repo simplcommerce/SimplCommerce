@@ -16,7 +16,7 @@ http://demo.simplcommerce.com
 - Then run the app: `docker run --name simplsite -d -p 5000:5000 --link simpldb:simpldb simplcommerce/nightly-build`
 
 
-## Visual Studio 2017 RC and SQL Server
+## Visual Studio 2017 and SQL Server
 
 #### Prerequisite
 
