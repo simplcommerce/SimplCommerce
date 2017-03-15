@@ -34,10 +34,10 @@
                 promise = productTemplateService.createProductTemplate(vm.productTemplate);
             }
 
-            promise.success(function () {
+            promise.then(function () {
                     $state.go('product-template');
                 })
-                .error(function (error) {
+                .catch(function (error) {
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
                         for (var key in error) {

@@ -35,21 +35,21 @@
 
         vm.shortDescUpload = function (files) {
             summerNoteService.upload(files[0])
-                .success(function (url) {
+                .then(function (url) {
                     $(vm.shortDescEditor).summernote('insertImage', url);
                 });
         };
 
         vm.descUpload = function (files) {
             summerNoteService.upload(files[0])
-                .success(function (url) {
+                .then(function (url) {
                     $(vm.descEditor).summernote('insertImage', url);
                 });
         };
 
         vm.specUpload = function (files) {
             summerNoteService.upload(files[0])
-                .success(function (url) {
+                .then(function (url) {
                     $(vm.specEditor).summernote('insertImage', url);
                 });
         };
@@ -261,10 +261,10 @@
                 promise = productService.createProduct(vm.product, vm.thumbnailImage, vm.productImages);
             }
 
-            promise.success(function (result) {
+            promise.then(function (result) {
                     $state.go('product');
                 })
-                .error(function (error) {
+                .catch(function (error) {
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
                         for (var key in error) {

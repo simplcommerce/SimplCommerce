@@ -18,7 +18,7 @@
         vm.deleteProductAttribute = function deleteProductAttribute(productAttribute) {
             if (confirm("Are you sure?")) {
                 productAttributeService.deleteProductAttribute(productAttribute)
-                    .success(function (result) {
+                    .then(function (result) {
                         vm.getProductAttributes();
                     });
             }

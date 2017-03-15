@@ -7,7 +7,7 @@
         <form name="vendorForm" class="form-horizontal">
             <div class="col-sm-offset-2 bg-danger" ng-show="vm.validationErrors">
                 <ul>
-                    <li ng-repeat="error in vm.validationErrors">{{error}}</li>
+                    <li ng-repeat="error in vm.validationErrors track by $index">{{error}}</li>
                 </ul>
             </div>
             <div class="form-group">

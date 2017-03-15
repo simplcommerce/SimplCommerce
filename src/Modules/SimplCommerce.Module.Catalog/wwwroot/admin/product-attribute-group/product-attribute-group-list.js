@@ -18,7 +18,7 @@
         vm.deleteProductAttributeGroup = function deleteProductAttributeGroup(productAttributeGroup) {
             if (confirm("Are you sure?")) {
                 productAttributeGroupService.deleteProductAttributeGroup(productAttributeGroup)
-                    .success(function (result) {
+                    .then(function (result) {
                         vm.getProductAttributeGroups();
                     });
             }

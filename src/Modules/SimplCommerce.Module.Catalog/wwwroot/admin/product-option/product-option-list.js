@@ -18,7 +18,7 @@
         vm.deleteProductOption = function deleteProductOption(productOption) {
             if (confirm("Are you sure?")) {
                 productOptionService.deleteProductOption(productOption)
-                    .success(function (result) {
+                    .then(function (result) {
                         vm.getProductOptions();
                     });
             }
