@@ -20,14 +20,14 @@
             }
 
             promise
-                .success(function (result) {
+                .then(function (result) {
                     $state.go('vendors');
                 })
-                .error(function (error) {
+                .catch(function (error) {
                     vm.validationErrors = [];
-                    if (error && angular.isObject(error)) {
-                        for (var key in error) {
-                            vm.validationErrors.push(error[key][0]);
+                    if (error.data && angular.isObject(error.data)) {
+                        for (var key in error.data) {
+                            vm.validationErrors.push(error.data[key][0]);
                         }
                     } else {
                         vm.validationErrors.push('Could not add vendor.');

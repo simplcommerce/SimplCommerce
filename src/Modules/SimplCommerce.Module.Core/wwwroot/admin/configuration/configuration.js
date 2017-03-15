@@ -12,10 +12,10 @@
         vm.save = function save() {
             vm.message = '';
             configurationService.updateSetting(vm.settings)
-                .success(function (result) {
+                .then(function (result) {
                     toastr.success('Application settings have been saved');
                 })
-                .error(function (error) {
+                .catch(function (error) {
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
                         for (var key in error) {

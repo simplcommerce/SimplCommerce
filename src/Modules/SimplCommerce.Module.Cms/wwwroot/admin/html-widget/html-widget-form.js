@@ -21,7 +21,7 @@
 
         vm.imageUpload = function (files) {
             summerNoteService.upload(files[0])
-                .success(function (url) {
+                .then(function (url) {
                     $(vm.htmlContent).summernote('insertImage', url);
                 });
         };
@@ -35,10 +35,10 @@
             }
 
             promise
-                .success(function (result) {
+                .then(function (result) {
                     $state.go('widget');
                 })
-                .error(function (error) {
+                .catch(function (error) {
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
                         for (var key in error) {
