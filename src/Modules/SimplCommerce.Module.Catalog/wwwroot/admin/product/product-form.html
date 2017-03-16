@@ -234,14 +234,14 @@
                                 </tr>
                                 <tr ng-show="vm.product.options.length > 0">
                                     <td class="variation-form" colspan="5">
-                                        <ng-form name="addingVariationForm" isolate-form>
+                                        <ng-form name="addingVariationForm">
                                             <table class="table">
                                                 <tr>
                                                     <td class="col-sm-4">
                                                         <div class="form-group row">
                                                             <div ng-repeat="option in vm.product.options">
                                                                 <div class="col-md-4">
-                                                                    <select required class="form-control" ng-model="vm.addingVariation[option.name]"
+                                                                    <select class="form-control" ng-model="vm.addingVariation[option.name]"
                                                                             ng-options="value as value for value in option.values | filter: vm.filterAddedOptionValue"></select>
                                                                 </div>
                                                             </div>
@@ -249,7 +249,7 @@
                                                     </td>
                                                     <td class="col-sm-2">
                                                         <div class="input-number">
-                                                            <input id="addingVariationPrice" type="number" required class="form-control" ng-model="vm.addingVariation.price" />
+                                                            <input id="addingVariationPrice" type="number" class="form-control" ng-model="vm.addingVariation.price" />
                                                             <label for="addingVariationPrice" class="form-control">{{vm.addingVariation.price | number}}</label>
                                                         </div>
                                                     </td>
@@ -260,7 +260,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="col-sm-2"></td>
-                                                    <td class="col-sm-2"><button type="button" class="btn btn-primary" ng-disabled="addingVariationForm.$invalid" ng-click="vm.addVariation()"><span class="glyphicon glyphicon-plus"></span></button></td>
+                                                    <td class="col-sm-2"><button type="button" class="btn btn-primary" ng-disabled="!vm.isAddVariationFormValid()" ng-click="vm.addVariation()"><span class="glyphicon glyphicon-plus"></span></button></td>
                                                 </tr>
                                             </table>
                                         </ng-form>
