@@ -137,6 +137,21 @@
             vm.product.deletedMediaIds.push(media.id);
         };
 
+        vm.isAddVariationFormValid = function () {
+            var i;
+            if (!angular.isNumber(vm.addingVariation.price)) {
+                return false;
+            }
+
+            for (i = 0; i < vm.product.options.length; i = i + 1) {
+                if (!vm.addingVariation[vm.product.options[i].name]) {
+                    return false;
+                }
+            }
+
+            return true;
+        };
+
         vm.addVariation = function addVariation() {
             var variation,
                 optionCombinations = [];
