@@ -35,22 +35,22 @@
 
         vm.shortDescUpload = function (files) {
             summerNoteService.upload(files[0])
-                .then(function (url) {
-                    $(vm.shortDescEditor).summernote('insertImage', url);
+                .then(function (response) {
+                    $(vm.shortDescEditor).summernote('insertImage', response.data);
                 });
         };
 
         vm.descUpload = function (files) {
             summerNoteService.upload(files[0])
-                .then(function (url) {
-                    $(vm.descEditor).summernote('insertImage', url);
+                .then(function (response) {
+                    $(vm.descEditor).summernote('insertImage', response.data);
                 });
         };
 
         vm.specUpload = function (files) {
             summerNoteService.upload(files[0])
-                .then(function (url) {
-                    $(vm.specEditor).summernote('insertImage', url);
+                .then(function (response) {
+                    $(vm.specEditor).summernote('insertImage', response.data);
                 });
         };
 
@@ -188,8 +188,8 @@
             var template, i, index, workingAttr,
                 nonTemplateAttrs = [];
 
-            productService.getProductTemplate(vm.product.template.id).success(function (result) {
-                template = result;
+            productService.getProductTemplate(vm.product.template.id).then(function (response) {
+                template = response.data;
 
                 for (i = 0; i < template.attributes.length; i = i + 1) {
                     workingAttr = vm.product.attributes.find(function (item) { return item && item.id === template.attributes[i].id; });
@@ -279,7 +279,8 @@
             promise.then(function (result) {
                     $state.go('product');
                 })
-                .catch(function (error) {
+                .catch(function (response) {
+                    var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
                         for (var key in error) {
