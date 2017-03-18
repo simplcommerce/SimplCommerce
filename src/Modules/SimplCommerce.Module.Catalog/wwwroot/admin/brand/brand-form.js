@@ -23,7 +23,8 @@
                 .then(function (result) {
                     $state.go('brand');
                 })
-                .catch(function (error) {
+                .catch(function (response) {
+                    var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
                         for (var key in error) {

@@ -15,7 +15,8 @@
                 .then(function (result) {
                     toastr.success('Application settings have been saved');
                 })
-                .catch(function (error) {
+                .catch(function (response) {
+                    var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
                         for (var key in error) {

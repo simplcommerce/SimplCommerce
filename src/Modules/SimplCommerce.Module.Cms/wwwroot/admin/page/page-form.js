@@ -13,8 +13,8 @@
 
         vm.imageUpload = function (files) {
             summerNoteService.upload(files[0])
-                .then(function (url) {
-                    $(vm.body).summernote('insertImage', url);
+                .then(function (response) {
+                    $(vm.body).summernote('insertImage', response.data);
                 });
         };
 
@@ -30,7 +30,8 @@
                 .then(function (result) {
                     $state.go('page');
                 })
-                .catch(function (error) {
+                .catch(function (response) {
+                    var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
                         for (var key in error) {

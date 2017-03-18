@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace SimplCommerce.Module.Core.ViewModels
 {
@@ -6,6 +7,7 @@ namespace SimplCommerce.Module.Core.ViewModels
     {
         public long Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
         public long WidgetZoneId { get; set; }
