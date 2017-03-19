@@ -5,7 +5,7 @@
         .factory('categoryService', categoryService);
 
     /* @ngInject */
-    function categoryService($http) {
+    function categoryService($http, Upload) {
         var service = {
             getCategory: getCategory,
             createCategory: createCategory,
@@ -23,12 +23,19 @@
             return $http.get('api/categories');
         }
 
-        function createCategory(category) {
-            return $http.post('api/categories', category);
+        function createCategory(category, thumbnailImage) {
+            return Upload.upload({
+                url: 'api/categories',
+                data: category
+            });
         }
 
-        function editCategory(category) {
-            return $http.put('api/categories/' + category.id, category);
+        function editCategory(category, thumbnailImage) {
+            return Upload.upload({
+                url: 'api/categories/' + category.id,
+                method: 'PUT',
+                data: category
+            });
         }
 
         function deleteCategory(category) {
