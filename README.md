@@ -52,12 +52,12 @@ http://demo.simplcommerce.com
 - Open browser, open http://localhost:5000. The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
 ## Technologies and frameworks used:
-- ASP.NET MVC Core 1.1.0 on .NET Core 1.1.0
-- Entity Framework Core 1.1.0
-- ASP.NET Identity Core 1.1.0
+- ASP.NET MVC Core 1.1.2 on .NET Core 1.1.1
+- Entity Framework Core 1.1.1
+- ASP.NET Identity Core 1.1.1
 - Autofac 4.0.0
-- Angular 1.5
-- MediatR for domain event
+- Angular 1.6.3
+- MediatR 3.0.1 for domain event
 
 ## The architecture highlight
 ![](https://raw.githubusercontent.com/simplcommerce/SimplCommerce/master/simplcommerce.png)
