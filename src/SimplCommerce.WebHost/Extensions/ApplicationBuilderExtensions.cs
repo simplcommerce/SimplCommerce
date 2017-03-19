@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Net.Http.Headers;
-using SimplCommerce.Infrastructure;
 using SimplCommerce.Module.Core.Extensions;
+using Microsoft.AspNetCore.Hosting;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -41,20 +40,39 @@ namespace SimplCommerce.WebHost.Extensions
             return app;
         }
 
-        public static IApplicationBuilder UseCustomizedStaticFiles(this IApplicationBuilder app, IList<ModuleInfo> modules)
+        public static IApplicationBuilder UseCustomizedStaticFiles(this IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseStaticFiles(new StaticFileOptions()
+            if (env.IsDevelopment())
             {
-                OnPrepareResponse = (context) =>
+                app.UseStaticFiles(new StaticFileOptions()
                 {
-                    var headers = context.Context.Response.GetTypedHeaders();
-                    headers.CacheControl = new CacheControlHeaderValue()
+                    OnPrepareResponse = (context) =>
                     {
-                        Public = true,
-                        MaxAge = TimeSpan.FromDays(60)
-                    };
-                }
-            });
+                        var headers = context.Context.Response.GetTypedHeaders();
+                        headers.CacheControl = new CacheControlHeaderValue()
+                        {
+                            NoCache = true,
+                            NoStore = true,
+                            MaxAge = TimeSpan.FromDays(-1)
+                        };
+                    }
+                });
+            }
+            else
+            {
+                app.UseStaticFiles(new StaticFileOptions()
+                {
+                    OnPrepareResponse = (context) =>
+                    {
+                        var headers = context.Context.Response.GetTypedHeaders();
+                        headers.CacheControl = new CacheControlHeaderValue()
+                        {
+                            Public = true,
+                            MaxAge = TimeSpan.FromDays(60)
+                        };
+                    }
+                });
+            }
 
             return app;
         }
