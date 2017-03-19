@@ -29,7 +29,7 @@ http://demo.simplcommerce.com
 - Update the connection string in appsettings.json in SimplCommerce.WebHost
 - Build whole solution.
 - In the Task Runner Explorer, right click on the "copy-modules" task and Run.
-- Open Package Manager Console Window and type "Update-Database" then press Enter. This action will create database schema
+- Open Package Manager Console Window and type "update-database" then press Enter. This action will create database schema
 - Execute src/Database/StaticData.sql on the created database to create seeding data
 - In Visual Studio Press Control + F5
 - The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
@@ -40,7 +40,7 @@ http://demo.simplcommerce.com
 
 - PostgreSQL
 - NodeJS
-- [.NET Core SDK RC4](https://www.microsoft.com/net/download/core#/current)
+- [.NET Core SDK](https://www.microsoft.com/net/download/core#/current)
 
 #### Steps to run
 
