@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using SimplCommerce.Infrastructure.Models;
+using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Catalog.Models
 {
@@ -21,10 +22,10 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public long? ParentId { get; set; }
 
-        public virtual Category Parent { get; set; }
+        public Category Parent { get; set; }
 
-        public virtual IList<Category> Children { get; protected set; } = new List<Category>();
+        public IList<Category> Children { get; protected set; } = new List<Category>();
 
-        public string Image { get; set; }
+        public Media ThumbnailImage { get; set; }
     }
 }

@@ -14,6 +14,9 @@
 
         vm.save = function save() {
             var promise;
+            // ng-upload will post null as text
+            vm.category.parentId = vm.category.parentId === null ? '' : vm.category.parentId;
+
             if (vm.isEditMode) {
                 promise = categoryService.editCategory(vm.category);
             } else {
