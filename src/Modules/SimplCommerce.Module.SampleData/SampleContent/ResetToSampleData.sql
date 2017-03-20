@@ -24,9 +24,9 @@ DELETE FROM [dbo].[Catalog_ProductLink]
 GO
 DELETE FROM [dbo].[Catalog_Product]
 GO
-DELETE FROM [dbo].[Core_Media]
-GO
 DELETE FROM [dbo].[Catalog_Category]
+GO
+DELETE FROM [dbo].[Core_Media]
 GO
 DELETE FROM [dbo].[Catalog_Brand]
 GO
@@ -42,36 +42,21 @@ DELETE FROM [dbo].[Reviews_Review]
 GO
 
 SET IDENTITY_INSERT [dbo].[Catalog_Category] ON 
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (1, N'Phones', N'phones', NULL, 0, 1, 0, NULL, NULL)
-
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (2, N'Smart Phones', N'smart-phones', NULL, 0, 1, 0, 1, NULL)
-
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (3, N'Basic Phones', N'basic-phones', NULL, 0, 1, 0, 1, NULL)
-
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (4, N'Tablets', N'tablets', NULL, 0, 1, 0, NULL, NULL)
-
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (5, N'Wifi + Cellular tablets', N'wifi-cellular-tablets', NULL, 0, 1, 0, 4, NULL)
-
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (6, N'Cellular tablets', N'cellular-tablets', NULL, 0, 1, 0, 4, NULL)
-
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (7, N'Computers', N'computers', NULL, 0, 1, 0, NULL, NULL)
-
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (8, N'Gaming', N'gaming', NULL, 0, 1, 0, 7, NULL)
-
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (9, N'Business', N'business', NULL, 0, 1, 0, 7, NULL)
-
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (10, N'Accessories', N'accessories', NULL, 0, 1, 0, NULL, NULL)
-
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (11, N'Headphones', N'headphones', NULL, 0, 1, 0, 10, NULL)
-
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (12, N'Cables', N'cables', NULL, 0, 1, 0, 10, NULL)
-
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (13, N'USB Drives', N'usb-drives', NULL, 0, 1, 0, 10, NULL)
-
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (14, N'Test 1', N'test-1', NULL, 0, 1, 0, 2, NULL)
-
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [Image]) VALUES (15, N'Test 2', N'test-2', NULL, 0, 1, 0, 2, NULL)
-
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (1, N'Phones', N'phones', NULL, 0, 1, 0, NULL, NULL)
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (2, N'Smart Phones', N'smart-phones', NULL, 0, 1, 0, 1, NULL)
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (3, N'Basic Phones', N'basic-phones', NULL, 0, 1, 0, 1, NULL)
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (4, N'Tablets', N'tablets', NULL, 0, 1, 0, NULL, NULL)
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (5, N'Wifi + Cellular tablets', N'wifi-cellular-tablets', NULL, 0, 1, 0, 4, NULL)
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (6, N'Cellular tablets', N'cellular-tablets', NULL, 0, 1, 0, 4, NULL)
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (7, N'Computers', N'computers', NULL, 0, 1, 0, NULL, NULL)
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (8, N'Gaming', N'gaming', NULL, 0, 1, 0, 7, NULL)
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (9, N'Business', N'business', NULL, 0, 1, 0, 7, NULL)
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (10, N'Accessories', N'accessories', NULL, 0, 1, 0, NULL, NULL)
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (11, N'Headphones', N'headphones', NULL, 0, 1, 0, 10, NULL)
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (12, N'Cables', N'cables', NULL, 0, 1, 0, 10, NULL)
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (13, N'USB Drives', N'usb-drives', NULL, 0, 1, 0, 10, NULL)
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (14, N'Test 1', N'test-1', NULL, 0, 1, 0, 2, NULL)
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [SeoTitle], [Description], [DisplayOrder], [IsPublished], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (15, N'Test 2', N'test-2', NULL, 0, 1, 0, 2, NULL)
 SET IDENTITY_INSERT [dbo].[Catalog_Category] OFF 
 GO
 
