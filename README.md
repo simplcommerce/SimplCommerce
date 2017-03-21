@@ -29,7 +29,7 @@ http://demo.simplcommerce.com
 - Update the connection string in appsettings.json in SimplCommerce.WebHost
 - Build whole solution.
 - In the Task Runner Explorer, right click on the "copy-modules" task and Run.
-- Open Package Manager Console Window and type "Update-Database" then press Enter. This action will create database schema
+- Open Package Manager Console Window and type "update-database" then press Enter. This action will create database schema
 - Execute src/Database/StaticData.sql on the created database to create seeding data
 - In Visual Studio Press Control + F5
 - The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
@@ -40,7 +40,7 @@ http://demo.simplcommerce.com
 
 - PostgreSQL
 - NodeJS
-- [.NET Core SDK RC4](https://www.microsoft.com/net/download/core#/current)
+- [.NET Core SDK](https://www.microsoft.com/net/download/core#/current)
 
 #### Steps to run
 
@@ -52,12 +52,12 @@ http://demo.simplcommerce.com
 - Open browser, open http://localhost:5000. The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
 ## Technologies and frameworks used:
-- ASP.NET MVC Core 1.1.0 on .NET Core 1.1.0
-- Entity Framework Core 1.1.0
-- ASP.NET Identity Core 1.1.0
+- ASP.NET MVC Core 1.1.2 on .NET Core 1.1.1
+- Entity Framework Core 1.1.1
+- ASP.NET Identity Core 1.1.1
 - Autofac 4.0.0
-- Angular 1.5
-- MediatR for domain event
+- Angular 1.6.3
+- MediatR 3.0.1 for domain event
 
 ## The architecture highlight
 ![](https://raw.githubusercontent.com/simplcommerce/SimplCommerce/master/simplcommerce.png)
