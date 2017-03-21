@@ -40,7 +40,7 @@ http://demo.simplcommerce.com
 
 - PostgreSQL
 - NodeJS
-- [.NET Core SDK](https://www.microsoft.com/net/download/core#/current)
+- [.NET Core SDK RC4](https://www.microsoft.com/net/download/core#/current)
 
 #### Steps to run
 
