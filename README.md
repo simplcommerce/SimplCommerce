@@ -40,7 +40,7 @@ http://demo.simplcommerce.com
 
 - PostgreSQL
 - NodeJS
-- [.NET Core SDK RC4](https://www.microsoft.com/net/download/core#/current)
+- [.NET Core SDK](https://www.microsoft.com/net/download/core#/current)
 
 #### Steps to run
 
@@ -56,7 +56,7 @@ http://demo.simplcommerce.com
 - Entity Framework Core 1.1.0
 - ASP.NET Identity Core 1.1.0
 - Autofac 4.0.0
-- Angular 1.5
+- Angular 1.6.3
 - MediatR for domain event
 
 ## The architecture highlight
