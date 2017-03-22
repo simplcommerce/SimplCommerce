@@ -4,14 +4,13 @@ solution: SimplCommerce.sln
 matrix:
   include:
     - os: osx
-      osx_image: xcode7.3
-      dotnet: 1.0.0-rc4-004771
+      dotnet: 1.0.0
       mono: none
       env: DOTNETCORE=1
     - os: linux
       dist: trusty
       sudo: required
-      dotnet: 1.0.0-rc4-004771
+      dotnet: 1.0.0
       mono: none
       env: DOTNETCORE=1
 
