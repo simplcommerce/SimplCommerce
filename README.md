@@ -90,7 +90,7 @@ Static files (wwwroot) in each module is served by configuring the static files 
     }
  ```
 #### For Entity Framework Core
-Every domain entities need to inherit from Entity, then on the "OnModelCreating" method, we find them and register them to DbContext:
+Every domain entity needs to inherit from Entity, then on the "OnModelCreating" method, we find them and register them to the DbContext:
 ```cs
     private static void RegisterEntities(ModelBuilder modelBuilder, IEnumerable<Type> typeToRegisters)
     {
