@@ -29,9 +29,9 @@ http://demo.simplcommerce.com
 - Update the connection string in appsettings.json in SimplCommerce.WebHost
 - Build whole solution.
 - In the Task Runner Explorer, right click on the "copy-modules" task and Run.
-- Open Package Manager Console Window and type "Update-Database" then press Enter. This action will create database schema
-- Execute src/Database/StaticData.sql on the created database to create seeding data
-- In Visual Studio Press Control + F5
+- Open Package Manager Console Window and type "Update-Database" then press "Enter". This action will create a database schema.
+- Execute src/Database/StaticData.sql on the created database to create seeding data.
+- In Visual Studio, press "Control + F5".
 - The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
 ## Mac/Linux with PostgreSQL
@@ -44,11 +44,11 @@ http://demo.simplcommerce.com
 
 #### Steps to run
 
-- Create a database in PostgreSQL
-- Update the connection string in appsettings.json in SimplCommerce.WebHost
-- Run file "simpl-build.sh"
-- Execute src/Database/StaticData_Postgres.sql on the created database to create seeding data
-- In the terminal, navigate to the "src/SimplCommerce.WebHost" type "dotnet run" and hit enter
+- Create a database in PostgreSQL.
+- Update the connection string in appsettings.json in SimplCommerce.WebHost.
+- Run file "simpl-build.sh".
+- Execute src/Database/StaticData_Postgres.sql on the created database to create a seeding data.
+- In the terminal, navigate to the "src/SimplCommerce.WebHost" type "dotnet run" and hit "Enter".
 - Open browser, open http://localhost:5000. The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
 ## Technologies and frameworks used:
@@ -66,7 +66,7 @@ The application is divided into modules. Each module contains all the stuff for 
 
 The SimplCommerce.WebHost is the ASP.NET Core project and acts as the host. It will bootstrap the app and load all the modules it found in its Modules folder. In the gulpfile.js, there is a "copy-modules" that is bound to 'After Build' event of Visual Studio to copy /bin, /Views, /wwwroot in each module to the Modules folder in the WebHost.
 
-During the application startup, the host will scan for all the *.dll in the Modules folder and load them up using AssemblyLoadContext. These assemblies will be then registered to MVC Core by ApplicationPart
+During the application startup, the host will scan for all the *.dll in the Modules folder and load them up using AssemblyLoadContext. These assemblies will be then registered to MVC Core by the AddApplicationPart method.
 
 A ModuleViewLocationExpander is implemented to help the ViewEngine can find the right location for views in modules.
 
@@ -89,8 +89,8 @@ Static files (wwwroot) in each module is served by configuring the static files 
         });
     }
  ```
-#### For entity framework
-Every domain entities need to inherit from Entity, then on the "OnModelCreating" method, we find them and register them to DbContext
+#### For Entity Framework Core
+Every domain entities need to inherit from Entity, then on the "OnModelCreating" method, we find them and register them to DbContext:
 ```cs
     private static void RegisterEntities(ModelBuilder modelBuilder, IEnumerable<Type> typeToRegisters)
     {
