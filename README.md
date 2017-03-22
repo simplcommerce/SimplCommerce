@@ -1,4 +1,4 @@
-# A super simple, cross platform, modularized ecommerce system built on .NET Core
+# A simple, cross platform, modularized ecommerce system built on .NET Core
 
 [![Join the chat at https://gitter.im/simplcommerce/SimplCommerce](https://badges.gitter.im/simplcommerce/SimplCommerce.svg)](https://gitter.im/simplcommerce/SimplCommerce?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -18,7 +18,7 @@ http://demo.simplcommerce.com
 
 ## Visual Studio 2017 and SQL Server
 
-#### Prerequisite
+#### Prerequisites
 
 - SQL Server
 - [Visual Studio 2017 with .NET Core Tools](https://www.microsoft.com/net/download/core#/current)
@@ -64,13 +64,13 @@ http://demo.simplcommerce.com
 
 The application is divided into modules. Each module contains all the stuff for itself to run including Controllers, Services, Views and even static files. If a module is no longer need, you can simply just delete it by a single click.
 
-The SimplCommerce.WebHost is the ASP.NET Core project and act as the host. It will bootstrap the app and load all the modules it found in it's Modules folder. In the gulpfile.js, there is a "copy-modules" that is bound to 'AfterBuild' event of Visual Studio to copy /bin, /Views, /wwwroot in each module to the Modules folder in the WebHost.
+The SimplCommerce.WebHost is the ASP.NET Core project and acts as the host. It will bootstrap the app and load all the modules it found in its Modules folder. In the gulpfile.js, there is a "copy-modules" that is bound to 'After Build' event of Visual Studio to copy /bin, /Views, /wwwroot in each module to the Modules folder in the WebHost.
 
-During the application startup, the host will scan for all the *.dll in the Modules folder and load it up using AssemblyLoadContext. These assemblies then be registered to MVC Core by ApplicationPart
+During the application startup, the host will scan for all the *.dll in the Modules folder and load them up using AssemblyLoadContext. These assemblies will be then registered to MVC Core by ApplicationPart
 
 A ModuleViewLocationExpander is implemented to help the ViewEngine can find the right location for views in modules.
 
-Static files (wwwroot) in each module is served by configuring the static files middleware as follows
+Static files (wwwroot) in each module is served by configuring the static files middleware as follows:
 
 ```cs
     // Serving static file for modules
@@ -101,7 +101,7 @@ Every domain entities need to inherit from Entity, then on the "OnModelCreating"
         }
     }
 ```
-By default domain entities is mapped by convention. In case you need to some special mapping for your model. You can create a class that implement the ICustomModelBuilder for example
+By default domain entities are mapped by convention. In case you need to some special mapping for your model. You can create a class that implements the ICustomModelBuilder for example:
 ```cs
     public class CatalogCustomModelBuilder : ICustomModelBuilder
     {
