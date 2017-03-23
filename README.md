@@ -29,8 +29,8 @@ http://demo.simplcommerce.com
 - Update the connection string in appsettings.json in SimplCommerce.WebHost
 - Build whole solution.
 - In the Task Runner Explorer, right click on the "copy-modules" task and Run.
-- Open Package Manager Console Window and type "Update-Database" then press "Enter". This action will create a database schema.
-- Execute src/Database/StaticData.sql on the created database to create seeding data.
+- Open Package Manager Console Window and type "Update-Database" then press "Enter". This action will create database schema.
+- Execute src/Database/StaticData.sql on the created database to insert seed data.
 - In Visual Studio, press "Control + F5".
 - The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
@@ -47,7 +47,7 @@ http://demo.simplcommerce.com
 - Create a database in PostgreSQL.
 - Update the connection string in appsettings.json in SimplCommerce.WebHost.
 - Run file "simpl-build.sh".
-- Execute src/Database/StaticData_Postgres.sql on the created database to create a seeding data.
+- Execute src/Database/StaticData_Postgres.sql on the created database to insert seed data.
 - In the terminal, navigate to the "src/SimplCommerce.WebHost" type "dotnet run" and hit "Enter".
 - Open browser, open http://localhost:5000. The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
