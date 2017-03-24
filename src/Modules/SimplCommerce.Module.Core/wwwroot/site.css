@@ -398,6 +398,29 @@ li.nav-item-group, li.nav-item-group a {
     width: 60px;
 }
 
+.list-inline {
+    margin-bottom: 6px;
+    margin-top: 6px;
+}
+
+.list-inline li {
+    height: 22px;
+    line-height: 22px;
+}
+
+.list-inline a {
+    text-decoration: none;
+}
+
+#logoutForm {
+    display: inline-flex;
+    line-height: 22px;
+}
+
+#logoutForm button {
+    text-decoration: none;
+}
+
 /*Responsive Navbar*/
 @media (max-width: 991px) {
     .main-nav .navbar-header {
