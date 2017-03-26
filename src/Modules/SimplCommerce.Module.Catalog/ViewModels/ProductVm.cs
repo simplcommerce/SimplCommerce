@@ -61,5 +61,7 @@ namespace SimplCommerce.Module.Catalog.ViewModels
         public IList<long> DeletedMediaIds { get; set; } = new List<long>();
 
         public long? BrandId { get; set; }
+
+        public List<RelatedProductVm> RelatedProducts { get; set; } = new List<RelatedProductVm>();
     }
 }

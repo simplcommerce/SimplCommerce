@@ -130,6 +130,15 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 });
             }
 
+            foreach (var relatedProduct in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Relation).Select(x => x.LinkedProduct).Where(x => !x.IsDeleted).OrderBy(x => x.Id))
+            {
+                productVm.RelatedProducts.Add(new RelatedProductVm
+                {
+                    Id = relatedProduct.Id,
+                    Name = relatedProduct.Name
+                });
+            }
+
             productVm.Attributes = product.AttributeValues.Select(x => new ProductAttributeVm
             {
                 AttributeValueId = x.Id,
@@ -296,6 +305,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             SaveProductImages(model, product);
 
             MapProductVariationVmToProduct(model, product);
+            MapProductRelationVmToProduct(model, product);
 
             _productService.Create(product);
 
@@ -361,12 +371,10 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
 
             AddOrDeleteProductOption(model, product);
-
             AddOrDeleteProductAttribute(model, product);
-
             AddOrDeleteCategories(model, product);
-
             AddOrDeleteProductVariation(model, product);
+            AddOrDeleteProductRelation(model, product);
 
             _productService.Update(product);
 
@@ -444,6 +452,21 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 }
 
                 productLink.LinkedProduct.ThumbnailImage = product.ThumbnailImage;
+
+                product.AddProductLinks(productLink);
+            }
+        }
+
+        private static void MapProductRelationVmToProduct(ProductForm model, Product product)
+        {
+            foreach (var relationVm in model.Product.RelatedProducts)
+            {
+                var productLink = new ProductLink
+                {
+                    LinkType = ProductLinkType.Relation,
+                    Product = product,
+                    LinkedProductId = relationVm.Id
+                };
 
                 product.AddProductLinks(productLink);
             }
@@ -558,6 +581,34 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 {
                     _productLinkRepository.Remove(productLink);
                     productLink.LinkedProduct.IsDeleted = true;
+                }
+            }
+        }
+
+        // Due to some issue with EF Core, we have to use _productLinkRepository in this case.
+        private void AddOrDeleteProductRelation(ProductForm model, Product product)
+        {
+            foreach (var productRelationVm in model.Product.RelatedProducts)
+            {
+                var productLink = product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Relation).FirstOrDefault(x => x.LinkedProductId == productRelationVm.Id);
+                if (productLink == null)
+                {
+                    productLink = new ProductLink
+                    {
+                        LinkType = ProductLinkType.Relation,
+                        Product = product,
+                        LinkedProductId = productRelationVm.Id,
+                    };
+
+                    _productLinkRepository.Add(productLink);
+                }
+            }
+
+            foreach (var productLink in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Relation))
+            {
+                if (model.Product.RelatedProducts.All(x => x.Id != productLink.LinkedProductId))
+                {
+                    _productLinkRepository.Remove(productLink);
                 }
             }
         }

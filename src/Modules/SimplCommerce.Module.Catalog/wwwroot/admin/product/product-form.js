@@ -13,6 +13,7 @@
         vm.product.options = [];
         vm.product.variations = [];
         vm.product.attributes = [];
+        vm.product.relatedProducts = [];
         vm.categories = [];
         vm.thumbnailImage = null;
         vm.productImages = [];

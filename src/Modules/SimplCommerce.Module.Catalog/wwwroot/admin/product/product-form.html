@@ -1,7 +1,7 @@
 ﻿<div class="panel panel-default">
     <div class="panel-heading">
         <h2 ng-if="!vm.isEditMode">Create Product</h2>
-        <h2 ng-if="vm.isEditMode">Edit Product</h2>
+        <h2 ng-if="vm.isEditMode">Edit Product {{vm.product.name}}</h2>
     </div>
     <div class="panel-body">
         <form name="productForm" class="form-horizontal">
@@ -325,6 +325,18 @@
                             </div>
                         </md-input-container>
                     </md-content>
+                </uib-tab>
+                <uib-tab index="4" heading="Related Products">
+                    <product-selection-directive model-id="productRelationSelector" title="Add related products" selected-products="vm.product.relatedProducts"></product-selection-directive>
+                    <p><button type="button" class="btn btn-default" data-toggle="modal" data-target="#productRelationSelector">Manage Related Products</button></p>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Name</th>
+                        </tr>
+                        <tr ng-repeat="product in vm.product.relatedProducts">
+                            <td>{{product.name}}</td>
+                        </tr>
+                    </table>
                 </uib-tab>
             </uib-tabset>
             <div class="form-group">

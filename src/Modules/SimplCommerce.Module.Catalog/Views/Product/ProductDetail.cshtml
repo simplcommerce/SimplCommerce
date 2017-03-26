@@ -189,11 +189,23 @@
             </table>
         </div>
     }
-    <div>
-        <h3>@Localizer["Customer reviews"]</h3>
-        @await Component.InvokeAsync("Review", new { entityId = Model.Id, entityTypeId = (long)3 })
-    </div>
 </div>
+
+<h2 class="page-header">Related Products</h2>
+<div class="row product-list">
+    @foreach (var product in Model.RelatedProducts)
+        {
+        <div class="col-xs-6 col-md-3">
+            @await Html.PartialAsync("_ProductThumbnail", product)
+        </div>
+    }
+</div>
+
+<div>
+    <h3>@Localizer["Customer reviews"]</h3>
+    @await Component.InvokeAsync("Review", new { entityId = Model.Id, entityTypeId = (long)3 })
+</div>
+
 
 @section scripts
 {

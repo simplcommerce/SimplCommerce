@@ -31,9 +31,9 @@ namespace SimplCommerce.Module.Catalog.Controllers
         public IActionResult ProductDetail(long id)
         {
             var product = _productRepository.Query()
-                .Include(x => x.Medias)
                 .Include(x => x.Categories).ThenInclude(c => c.Category)
                 .Include(x => x.AttributeValues).ThenInclude(a => a.Attribute)
+                .Include(x => x.ProductLinks).ThenInclude(p => p.LinkedProduct).ThenInclude(m => m.ThumbnailImage)
                 .Include(x => x.ThumbnailImage)
                 .Include(x => x.Medias).ThenInclude(m => m.Media)
                 .FirstOrDefault(x => x.Id == id && x.IsPublished);
@@ -60,6 +60,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             };
 
             MapProductVariantToProductVm(product, model);
+            MapRelatedProductToProductVm(product, model);
 
             foreach (var mediaViewModel in product.Medias.Select(productMedia => new MediaViewModel
             {
@@ -110,6 +111,37 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 }
 
                 model.Variations.Add(variationVm);
+            }
+        }
+
+        private void MapRelatedProductToProductVm(Product product, ProductDetail model)
+        {
+            foreach(var productLink in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Relation))
+            {
+                var relatedProduct = productLink.LinkedProduct;
+                var productThumbnail = new ProductThumbnail
+                {
+                    Id = relatedProduct.Id,
+                    Name = relatedProduct.Name,
+                    SeoTitle = relatedProduct.SeoTitle,
+                    Price = relatedProduct.Price,
+                    OldPrice = relatedProduct.OldPrice,
+                    SpecialPrice = relatedProduct.SpecialPrice,
+                    SpecialPriceStart = relatedProduct.SpecialPriceStart,
+                    SpecialPriceEnd = relatedProduct.SpecialPriceEnd,
+                    StockQuantity = relatedProduct.StockQuantity,
+                    IsAllowToOrder = relatedProduct.IsAllowToOrder,
+                    IsCallForPricing = relatedProduct.IsCallForPricing,
+                    ThumbnailImage = relatedProduct.ThumbnailImage,
+                    NumberVariation = relatedProduct.ProductLinks.Count,
+                    ReviewsCount = relatedProduct.ReviewsCount,
+                    RatingAverage = relatedProduct.RatingAverage
+                };
+
+                productThumbnail.ThumbnailUrl = _mediaService.GetThumbnailUrl(relatedProduct.ThumbnailImage);
+                productThumbnail.CalculatedProductPrice = _productPricingService.CalculateProductPrice(relatedProduct);
+
+                model.RelatedProducts.Add(productThumbnail);
             }
         }
     }
