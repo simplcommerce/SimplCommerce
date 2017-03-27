@@ -1172,7 +1172,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Confirm password', N'تأكيد كلمة السر')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Create a new account.', N'إنشاء حساب جديد.')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'All', N'جميع')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Home', N'إستقبال')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Home', N'الرئيسية')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Add to cart', N'أضف إلى السلة')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Product detail', N'تفاصيل المنتج')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Product specification', N'مواصفات المنتج')

@@ -1139,7 +1139,7 @@ INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (6, 'Full nam
 INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (6, 'Confirm password', 'تأكيد كلمة السر');
 INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (6, 'Create a new account.', 'إنشاء حساب جديد.');
 INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (6, 'All', 'جميع');
-INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (6, 'Home', 'إستقبال');
+INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (6, 'Home', 'الرئيسية');
 INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (6, 'Add to cart', 'أضف إلى السلة');
 INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (6, 'Product detail', 'تفاصيل المنتج');
 INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (6, 'Product specification', 'مواصفات المنتج');
