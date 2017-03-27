@@ -1166,7 +1166,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Password', N'كلمة المرور')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Use a local account to log in.', N'استخدم حسابا محليا لتسجيل الدخول.')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Register as a new user?', N'سجل كمستخدم جديد؟')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Forgot your password?', N'نسيت كلمة المرور؟');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Forgot your password?', N'هل نسيت كلمة المرور؟');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Use another service to log in.', N'استخدام خدمة أخرى للاتصال.')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Full name', N'الاسم الكامل')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Confirm password', N'تأكيد كلمة السر')

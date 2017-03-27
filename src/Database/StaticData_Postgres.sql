@@ -396,7 +396,7 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Re
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Password', 'كلمة المرور');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Use a local account to log in.', 'استخدم حسابا محليا لتسجيل الدخول.');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Register as a new user?', 'سجل كمستخدم جديد؟');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Forgot your password?', 'نسيت كلمة المرور؟');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Forgot your password?', 'هل نسيت كلمة المرور؟');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Use another service to log in.', 'استخدام خدمة أخرى للاتصال.');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Full name', 'الاسم الكامل');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Confirm password', 'تأكيد كلمة السر');
