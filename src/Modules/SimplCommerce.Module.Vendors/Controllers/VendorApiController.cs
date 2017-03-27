@@ -111,7 +111,8 @@ namespace SimplCommerce.Module.Vendors.Controllers
                     SeoTitle = model.Name.ToUrlFriendly(),
                     Email = model.Email,
                     Description = model.Description,
-                    IsActive = model.IsActive
+                    IsActive = model.IsActive,
+                    CreatedOn = model.CreatedOn
                 };
 
                 _vendorService.Create(vendor);
@@ -132,6 +133,7 @@ namespace SimplCommerce.Module.Vendors.Controllers
                 vendor.Email = model.Email;
                 vendor.Description = model.Description;
                 vendor.IsActive = model.IsActive;
+                vendor.UpdatedOn = DateTimeOffset.Now;
 
                 _vendorService.Update(vendor);
 
