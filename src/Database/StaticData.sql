@@ -828,12 +828,13 @@ INSERT INTO Core_District (Id, Name, [Type], [Location], StateOrProvinceId) VALU
 SET IDENTITY_INSERT Core_District OFF 
 GO
 
-SET IDENTITY_INSERT [dbo].[Localization_Culture] ON 
+SET IDENTITY_INSERT [dbo].[Localization_Culture] ON
 INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (1, N'vi-VN')
 INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (2, N'fr-FR')
 INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (3, N'pt-BR')
 INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (4, N'uk-UA')
 INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (5, N'ru-RU')
+INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (6, N'ar-TN')
 SET IDENTITY_INSERT [dbo].[Localization_Culture] OFF
 GO
 
@@ -944,20 +945,20 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Process to Checkout', N'Processus de paiement');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Shipping address', N'Adresse de livraison');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Add another address', N'Ajouter une autre adresse');
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Contact name', N'Nom du contactệ');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Contact name', N'Nom du contact');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Address', N'Adresse');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'State or Province', N'Etat ou Province');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'District', N'District');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Phone', N'Téléphone');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Order', N'Commande');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'products', N'Produits');
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'reviews', N'avis');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'reviews', N'Avis');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Add Review', N'Ajouter un commentaire');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Customer reviews', N'Avis des clients');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Your review will be showed within the next 24h.', N'Votre avis sera affiché dans les prochaines 24h.');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Thank you {0} for your review', N'Merci {0} pour votre commentaire');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Rating average', N'Moyenne des notes');
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'stars', N'étoiles');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'stars', N'Etoiles');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Filter by', N'Filtrer par');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Category', N'Catalogue');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Brand', N'Marque');
@@ -1153,3 +1154,67 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (5, N'
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (5, N'Brand', N'Бренд')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (5, N'Sort by:', N'Сортировать по:')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (5, N'results', N'результаты')
+
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Register', N'تسجيل')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Hello {0}!', N'!{0} مرحبا')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Log in', N'دخول')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Log off', N'خروج')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'The Email field is required.', N'البريد الإلكتروني إلزامي.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Email', N'البريد الإلكتروني')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'User List', N'قائمة المستخدمين')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Remember me?', N'حفظ البيانات؟')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Password', N'كلمة المرور')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Use a local account to log in.', N'استخدم حسابا محليا لتسجيل الدخول.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Register as a new user?', N'سجل كمستخدم جديد؟')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Forgot your password?', N'هل نسيت كلمة المرور؟');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Use another service to log in.', N'استخدام خدمة أخرى للاتصال.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Full name', N'الاسم الكامل')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Confirm password', N'تأكيد كلمة السر')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Create a new account.', N'إنشاء حساب جديد.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'All', N'جميع')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Home', N'الرئيسية')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Add to cart', N'أضف إلى السلة')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Product detail', N'تفاصيل المنتج')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Product specification', N'مواصفات المنتج')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Rate this product', N'تقيم هذا المنتج')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Review comment', N'مراجعة تعليق')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Review title', N'مراجعة عنوان ')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Posted by', N'أرسلت بواسطة')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Submit review', N'إرسال التعليق')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'You have', N'عندكم')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'products in your cart', N'المنتجات في عربة التسوق')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Continue shopping', N'متابعة التسوق')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'View cart', N'عرض السلة')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'The product has been added to your cart', N'تمت إضافة هذا المنتج الى عربة التسوق')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Cart subtotal', N'المجموع الفرعي للسلة')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Shopping Cart', N'سلة')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Product', N'منتج')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Price', N'السعر')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Quantity', N'كمية')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'There are no items in this cart.', N'لا توجد أي عناصر في سلة التسوق الخاصة بك.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Go to shopping', N'الذهاب للتسوق')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Order summary', N'ملخص ترتيب')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Subtotal', N'المجموع الفرعي');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Process to Checkout', N'عملية الدفع')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Shipping address', N'عنوان التسليم')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Add another address', N'إضافة عنوان آخر')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Contact name', N'اسم جهة الاتصال')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Address', N'عنوان');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'State or Province', N'الدولة أو المنطقة')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'District', N'مقاطعة')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Phone', N'هاتف')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Order', N'طلب')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'products', N'المنتجات')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'reviews', N'رأي')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Add Review', N'إضافة تعليق')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Customer reviews', N'التعليقات')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Your review will be showed within the next 24h.', N'سيتم عرض تعليقك في ال 24 ساعة القادمة.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Thank you {0} for your review', N'شكرا لك {0} لتعليقك')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Rating average', N'متوسط تصنيف العملاء')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'stars', N'النجوم')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Filter by', N'مصنف بواسطة')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Category', N'الفئة')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Brand', N'العلامة التجارية')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'Sort by:', N'الترتيب حسب:')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'results', N'النتائج')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (6, N'View options', N'عرض الخيارات')
