@@ -132,6 +132,7 @@ namespace SimplCommerce.Module.Vendors.Controllers
                 vendor.Email = model.Email;
                 vendor.Description = model.Description;
                 vendor.IsActive = model.IsActive;
+                vendor.UpdatedOn = DateTimeOffset.Now;
 
                 _vendorService.Update(vendor);
 

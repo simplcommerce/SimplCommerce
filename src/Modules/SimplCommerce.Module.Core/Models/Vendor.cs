@@ -6,6 +6,11 @@ namespace SimplCommerce.Module.Core.Models
 {
     public class Vendor : EntityBase
     {
+        public Vendor()
+        {
+            CreatedOn = DateTimeOffset.Now;
+        }
+
         public string Name { get; set; }
 
         public string SeoTitle { get; set; }
