@@ -195,6 +195,8 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Br
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Sort by:', 'Trier par:');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'results', 'résultats');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'View options', 'Afficher les options');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Name', 'Nom');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'FullName', 'Nom Prénom');
 
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Register', 'Cadastro');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (3, 'Hello {0}!', 'Olá {0}!');
@@ -403,7 +405,7 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Co
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Create a new account.', 'إنشاء حساب جديد.');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'All', 'جميع');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Home', 'الرئيسية');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Add to cart', 'أضف إلى السلة');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Add to cart', 'أضف إلى العربة');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Product detail', 'تفاصيل المنتج');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Product specification', 'مواصفات المنتج');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Rate this product', 'تقيم هذا المنتج');
@@ -413,14 +415,14 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Po
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Submit review', 'إرسال التعليق');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'You have', 'عندكم');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'products in your cart', 'المنتجات في عربة التسوق');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Continue shopping', 'متابعة التسوق');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'View cart', 'عرض السلة');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Continue shopping', 'تابع عملية الشراء');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'View cart', 'عرض عربة التسوق');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'The product has been added to your cart', 'تمت إضافة هذا المنتج الى عربة التسوق');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Cart subtotal', 'المجموع الفرعي للسلة');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Shopping Cart', 'سلة');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Product', 'منتج');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Cart subtotal', 'المجموع الفرعي لعربة التسوق');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Shopping Cart', 'عــربــة التســـوق');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Product', 'المنتج');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Price', 'السعر');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Quantity', 'كمية');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Quantity', 'الكمية');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'There are no items in this cart.', 'لا توجد أي عناصر في سلة التسوق الخاصة بك.');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Go to shopping', 'الذهاب للتسوق');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Order summary', 'ملخص ترتيب');
@@ -448,3 +450,5 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Br
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Sort by:', 'الترتيب حسب:');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'results', 'النتائج');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'View options', 'عرض الخيارات');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Name', 'الاسم');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'FullName', 'الاسم واللقب');
