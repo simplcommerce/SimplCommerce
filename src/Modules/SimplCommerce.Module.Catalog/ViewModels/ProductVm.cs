@@ -56,7 +56,9 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public string ThumbnailImageUrl { get; set; }
 
-        public IList<ProductMediaVm> ProductMedias { get; set; } = new List<ProductMediaVm>();
+        public IList<ProductMediaVm> ProductImages { get; set; } = new List<ProductMediaVm>();
+
+        public IList<ProductMediaVm> ProductDocuments { get; set; } = new List<ProductMediaVm>();
 
         public IList<long> DeletedMediaIds { get; set; } = new List<long>();
 

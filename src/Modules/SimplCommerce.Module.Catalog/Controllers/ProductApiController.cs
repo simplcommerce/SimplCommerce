@@ -94,14 +94,24 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 BrandId = product.BrandId
             };
 
-            foreach (var productMedia in product.Medias)
+            foreach (var productMedia in product.Medias.Where(x => x.Media.MediaType == MediaType.Image))
             {
-                productVm.ProductMedias.Add(new ProductMediaVm
+                productVm.ProductImages.Add(new ProductMediaVm
                 {
                     Id = productMedia.Id,
                     MediaUrl = _mediaService.GetThumbnailUrl(productMedia.Media)
                 });
             }
+
+            foreach (var productMedia in product.Medias.Where(x => x.Media.MediaType == MediaType.File))
+            {
+                productVm.ProductDocuments.Add(new ProductMediaVm
+                {
+                    Id = productMedia.Id,
+                    MediaUrl = _mediaService.GetMediaUrl(productMedia.Media)
+                });
+            }
+
 
             productVm.Options = product.OptionValues.OrderBy(x => x.SortIndex).Select(x =>
                 new ProductOptionVm
@@ -668,6 +678,10 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 {
                     model.ProductImages.Add(file);
                 }
+                else if (file.ContentDisposition.Contains("productDocuments"))
+                {
+                    model.ProductDocuments.Add(file);
+                }
             }
 
             foreach (var file in model.ProductImages)
@@ -676,7 +690,18 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 var productMedia = new ProductMedia
                 {
                     Product = product,
-                    Media = new Media {FileName = fileName}
+                    Media = new Media {FileName = fileName, MediaType = MediaType.Image}
+                };
+                product.AddMedia(productMedia);
+            }
+
+            foreach (var file in model.ProductDocuments)
+            {
+                var fileName = SaveFile(file);
+                var productMedia = new ProductMedia
+                {
+                    Product = product,
+                    Media = new Media { FileName = fileName, MediaType = MediaType.File }
                 };
                 product.AddMedia(productMedia);
             }
