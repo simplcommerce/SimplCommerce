@@ -46,7 +46,7 @@
                         <label class="col-sm-2 control-label">Price</label>
                         <div class="col-sm-10">
                             <div class="input-number">
-                                <input id="productPrice" type="number" name="price" ng-model="vm.product.price" required class="form-control" />
+                                <input id="productPrice" type="text" decimal maxlength="10" name="price" ng-model="vm.product.price" required class="form-control" />
                                 <label for="productPrice" class="form-control">{{vm.product.price | number}}</label>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                         <label class="col-sm-2 control-label">Old Price</label>
                         <div class="col-sm-10">
                             <div class="input-number">
-                                <input id="productOldPrice" type="number" name="oldPrice" ng-model="vm.product.oldPrice" class="form-control" />
+                                <input id="productOldPrice" type="text" decimal maxlength="10" name="oldPrice" ng-model="vm.product.oldPrice" class="form-control" />
                                 <label class="form-control" for="productOldPrice">{{vm.product.oldPrice | number}}</label>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                         <label class="col-sm-2 control-label">Special Price</label>
                         <div class="col-sm-10">
                             <div class="input-number">
-                                <input id="productSpecialPrice" type="number" name="specialPrice" ng-model="vm.product.specialPrice" class="form-control" />
+                                <input id="productSpecialPrice" type="text" decimal maxlength="10" name="specialPrice" ng-model="vm.product.specialPrice" class="form-control" />
                                 <label class="form-control" for="productSpecialPrice">{{vm.product.specialPrice | number}}</label>
                             </div>
                         </div>
@@ -215,13 +215,13 @@
                                     <td>{{variation.name}}</td>
                                     <td>
                                         <div class="input-number">
-                                            <input id="{{variation.normalizedName}}Price" type="number" required class="form-control" ng-model="variation.price" />
+                                            <input id="{{variation.normalizedName}}Price" type="text" decimal maxlength="10" required class="form-control" ng-model="variation.price" />
                                             <label for="{{variation.normalizedName}}Price" class="form-control">{{variation.price | number}}</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="input-number">
-                                            <input id="{{variation.normalizedName}}OldPrice" type="number" class="form-control" ng-model="variation.oldPrice" />
+                                            <input id="{{variation.normalizedName}}OldPrice" type="text" decimal  maxlength="10" class="form-control" ng-model="variation.oldPrice" />
                                             <label for="{{variation.normalizedName}}OldPrice" class="form-control">{{variation.oldPrice | number}}</label>
                                         </div>
                                     </td>
@@ -249,13 +249,13 @@
                                                     </td>
                                                     <td class="col-sm-2">
                                                         <div class="input-number">
-                                                            <input id="addingVariationPrice" type="number" class="form-control" ng-model="vm.addingVariation.price" />
+                                                            <input id="addingVariationPrice" type="text" decimal maxlength="10" class="form-control" ng-model="vm.addingVariation.price" />
                                                             <label for="addingVariationPrice" class="form-control">{{vm.addingVariation.price | number}}</label>
                                                         </div>
                                                     </td>
                                                     <td class="col-sm-2">
                                                         <div class="input-number">
-                                                            <input id="addingVariationOldPrice" type="number" class="form-control" ng-model="vm.addingVariation.oldPrice" />
+                                                            <input id="addingVariationOldPrice" type="text" decimal maxlength="10" class="form-control" ng-model="vm.addingVariation.oldPrice" />
                                                             <label for="addingVariationOldPrice" class="form-control">{{vm.addingVariation.oldPrice | number}}</label>
                                                         </div>
                                                     </td>

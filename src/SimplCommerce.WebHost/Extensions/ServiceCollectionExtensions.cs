@@ -17,6 +17,7 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
+using SimplCommerce.Infrastructure.Web.ModelBinders;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -71,7 +72,11 @@ namespace SimplCommerce.WebHost.Extensions
         }
         public static IServiceCollection AddCustomizedMvc(this IServiceCollection services, IList<ModuleInfo> modules)
         {
-            var mvcBuilder = services.AddMvc()
+            var mvcBuilder = services
+                .AddMvc(o =>
+                {
+                    o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider());
+                })
                 .AddRazorOptions(o =>
                 {
                     foreach (var module in modules)
