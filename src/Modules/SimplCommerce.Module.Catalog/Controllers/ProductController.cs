@@ -62,14 +62,11 @@ namespace SimplCommerce.Module.Catalog.Controllers
             MapProductVariantToProductVm(product, model);
             MapRelatedProductToProductVm(product, model);
 
-            foreach (var mediaViewModel in product.Medias.Select(productMedia => new MediaViewModel
+            model.Images = product.Medias.Where(x => x.Media.MediaType == Core.Models.MediaType.Image).Select(productMedia => new MediaViewModel
             {
                 Url = _mediaService.GetMediaUrl(productMedia.Media),
                 ThumbnailUrl = _mediaService.GetThumbnailUrl(productMedia.Media)
-            }))
-            {
-                model.Images.Add(mediaViewModel);
-            }
+            }).ToList();
 
             _mediator.Publish(new ActivityHappened {ActivityTypeId = 1, EntityId = product.Id, EntityTypeId = 3, TimeHappened = DateTimeOffset.Now});
             _productRepository.SaveChange();

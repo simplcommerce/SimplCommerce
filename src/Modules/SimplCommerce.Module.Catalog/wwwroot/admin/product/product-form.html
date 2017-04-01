@@ -103,14 +103,29 @@
                         <label class="col-sm-2 control-label">Product Images</label>
                         <div class="col-sm-10">
                             <input class="form-control" type="file" ngf-select ng-model="vm.productImages" ngf-multiple="true" name="productImages" ngf-accept="'image/*'">
-                            <span class="product-image-edit" ng-repeat="image in vm.product.productMedias">
+                            <span class="product-image-edit" ng-repeat="image in vm.product.productImages">
                                 <img ng-src="{{image.mediaUrl}}" style="width: 100px; height: 100px" />
-                                <button type="button" ng-click="vm.removeMedia(image)" class="btn btn-link" aria-label="Remove">
+                                <button type="button" ng-click="vm.removeImage(image)" class="btn btn-link" aria-label="Remove">
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                 </button>
                             </span>
                             <span class="product-image-edit" ng-repeat="image in vm.productImages">
                                 <img ngf-src="image" ngf-resize="{width: 100, height: 100, quality: 0.9}">
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Product Documents</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="file" ngf-select ng-model="vm.productDocuments" ngf-multiple="true" name="productDocuments" ngf-accept="'.pdf,.doc'">
+                            <span class="product-file-edit" ng-repeat="doc in vm.product.productDocuments">
+                                <a target="_blank" href="{{doc.mediaUrl}}">{{doc.caption}}</a>
+                                <button type="button" ng-click="vm.removeDocument(doc)" class="btn btn-link" aria-label="Remove">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </button>
+                            </span>
+                            <span class="product-file-edit" ng-repeat="file in vm.productDocuments">
+                                <span>{{file.name}}</span>
                             </span>
                         </div>
                     </div>

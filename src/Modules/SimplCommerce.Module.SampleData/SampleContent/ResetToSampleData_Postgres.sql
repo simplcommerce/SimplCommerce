@@ -92,26 +92,26 @@ INSERT INTO "Catalog_ProductTemplateProductAttribute" ("ProductTemplateId", "Pro
 INSERT INTO "Catalog_ProductTemplateProductAttribute" ("ProductTemplateId", "ProductAttributeId") VALUES (2, 17);
 
 
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (1, NULL, 'd74fd909-6fe0-4bc3-bf61-86d12dc98a2e.jpg', 0, 0);
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (2, NULL, '81b606ea-0bb0-4cea-a9d7-6406175df9bb.jpg', 0, 0);
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (3, NULL, '68c7ff8f-014e-46c8-8daa-f35c646cc10a.jpg', 0, 0);
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (4, NULL, '89374e88-b14c-4d38-b5cd-eacdc5ce3015.jpg', 0, 0);
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (5, NULL, 'ffc255b3-07c8-4ee5-94e9-d472c6af3f07.jpg', 0, 0);
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (6, NULL, 'bb1243c9-63d5-4518-bbd5-cb3e35ade294.jpg', 0, 0);
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (7, NULL, '282e5cd3-b664-43dc-ba06-d7e91721c560.jpg', 0, 0);
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (8, NULL, 'd013921e-5f11-4472-b5ff-7f78d5987a69.jpg', 0, 0);
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (9, NULL, 'ea0af866-a650-4909-877d-00eabbf3d8fd.jpg', 0, 0);
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (10, NULL, '3a3f587c-9c70-4e68-b480-20829a9f3e95.jpg', 0, 0);
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (11, NULL, 'f9a76a94-6e1a-4489-bf7d-3dc6a68a0785.jpg', 0, 0);
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (12, NULL, 'a88b4a09-5824-4398-ac08-101d9061f927.jpg', 0, 0);
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (13, NULL, 'fdfd1daf-ec7a-4c6e-83dd-a862eae735db.jpg', 0, 0);
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (14, NULL, '4495b930-a901-44e2-9275-935f7e8ec53c.jpg', 0, 0);
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (15, NULL, '284b77c8-2ba8-43e1-826d-7c79c5cf4489.jpg', 0, 0);
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (16, NULL, 'e32c3caa-f7bc-4a3c-b970-f62c503b85bc.jpg', 0, 0);
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (17, NULL, 'bffb6f2c-8a3f-4fdd-817d-09a9f18cd190.jpg', 0, 0);
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (18, NULL, '25d3da45-b57b-40b6-8f41-2fc5170cb6b7.jpg', 0, 0);
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (19, NULL, '7da07700-9a17-498b-ba58-526559343878.jpg', 0, 0);
-INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (20, NULL, 'fefe68b9-aee8-4e7d-a49a-17f805555591.jpg', 0, 0);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (1, NULL, 'd74fd909-6fe0-4bc3-bf61-86d12dc98a2e.jpg', 0, 1);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (2, NULL, '81b606ea-0bb0-4cea-a9d7-6406175df9bb.jpg', 0, 1);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (3, NULL, '68c7ff8f-014e-46c8-8daa-f35c646cc10a.jpg', 0, 1);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (4, NULL, '89374e88-b14c-4d38-b5cd-eacdc5ce3015.jpg', 0, 1);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (5, NULL, 'ffc255b3-07c8-4ee5-94e9-d472c6af3f07.jpg', 0, 1);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (6, NULL, 'bb1243c9-63d5-4518-bbd5-cb3e35ade294.jpg', 0, 1);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (7, NULL, '282e5cd3-b664-43dc-ba06-d7e91721c560.jpg', 0, 1);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (8, NULL, 'd013921e-5f11-4472-b5ff-7f78d5987a69.jpg', 0, 1);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (9, NULL, 'ea0af866-a650-4909-877d-00eabbf3d8fd.jpg', 0, 1);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (10, NULL, '3a3f587c-9c70-4e68-b480-20829a9f3e95.jpg', 0, 1);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (11, NULL, 'f9a76a94-6e1a-4489-bf7d-3dc6a68a0785.jpg', 0, 1);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (12, NULL, 'a88b4a09-5824-4398-ac08-101d9061f927.jpg', 0, 1);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (13, NULL, 'fdfd1daf-ec7a-4c6e-83dd-a862eae735db.jpg', 0, 1);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (14, NULL, '4495b930-a901-44e2-9275-935f7e8ec53c.jpg', 0, 1);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (15, NULL, '284b77c8-2ba8-43e1-826d-7c79c5cf4489.jpg', 0, 1);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (16, NULL, 'e32c3caa-f7bc-4a3c-b970-f62c503b85bc.jpg', 0, 1);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (17, NULL, 'bffb6f2c-8a3f-4fdd-817d-09a9f18cd190.jpg', 0, 1);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (18, NULL, '25d3da45-b57b-40b6-8f41-2fc5170cb6b7.jpg', 0, 1);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (19, NULL, '7da07700-9a17-498b-ba58-526559343878.jpg', 0, 1);
+INSERT INTO "Core_Media" ("Id", "Caption", "FileName", "FileSize", "MediaType") VALUES (20, NULL, 'fefe68b9-aee8-4e7d-a49a-17f805555591.jpg', 0, 1);
 SELECT pg_catalog.setval('"Core_Media_Id_seq"', 20, true);
 
 

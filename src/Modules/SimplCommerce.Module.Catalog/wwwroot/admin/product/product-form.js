@@ -17,6 +17,7 @@
         vm.categories = [];
         vm.thumbnailImage = null;
         vm.productImages = [];
+        vm.productDocuments = [];
         vm.options = [];
         vm.productTemplates = [];
         vm.addingOption = null;
@@ -132,9 +133,15 @@
             vm.product.variations.splice(index, 1);
         };
 
-        vm.removeMedia = function removeMedia(media) {
-            var index = vm.product.productMedias.indexOf(media);
-            vm.product.productMedias.splice(index, 1);
+        vm.removeImage = function removeImage(media) {
+            var index = vm.product.productImages.indexOf(media);
+            vm.product.productImages.splice(index, 1);
+            vm.product.deletedMediaIds.push(media.id);
+        };
+
+        vm.removeDocument = function removeDocument(media) {
+            var index = vm.product.productDocuments.indexOf(media);
+            vm.product.productDocuments.splice(index, 1);
             vm.product.deletedMediaIds.push(media.id);
         };
 
@@ -272,9 +279,9 @@
             });
 
             if (vm.isEditMode) {
-                promise = productService.editProduct(vm.product, vm.thumbnailImage, vm.productImages);
+                promise = productService.editProduct(vm.product, vm.thumbnailImage, vm.productImages, vm.productDocuments);
             } else {
-                promise = productService.createProduct(vm.product, vm.thumbnailImage, vm.productImages);
+                promise = productService.createProduct(vm.product, vm.thumbnailImage, vm.productImages, vm.productDocuments);
             }
 
             promise.then(function (result) {

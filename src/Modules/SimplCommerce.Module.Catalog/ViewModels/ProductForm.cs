@@ -11,6 +11,6 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public IList<IFormFile> ProductImages { get; set; } = new List<IFormFile>();
 
-        public IList<IFormFile> File { get; set; } = new List<IFormFile>();
+        public IList<IFormFile> ProductDocuments { get; set; } = new List<IFormFile>();
     }
 }
