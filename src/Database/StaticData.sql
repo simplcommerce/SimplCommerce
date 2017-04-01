@@ -26,6 +26,8 @@ INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingActio
 INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (3, N'Product', N'Product', N'ProductDetail')
 INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (4, N'Page', N'Page', N'PageDetail')
 INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (5, N'Vendor', N'Vendor', N'VendorDetail')
+INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (6, N'NewsCategory', N'NewsCategory', N'NewsCategoryDetail')
+INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (7, N'NewsItem', N'NewsItem', N'NewsItemDetail')
 SET IDENTITY_INSERT [dbo].[Core_EntityType] OFF
 GO
 

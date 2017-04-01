@@ -14,6 +14,8 @@ INSERT INTO Core_EntityType (Id, Name, RoutingController, RoutingAction) VALUES 
 INSERT INTO Core_EntityType (Id, Name, RoutingController, RoutingAction) VALUES (3, 'Product', 'Product', 'ProductDetail');
 INSERT INTO Core_EntityType (Id, Name, RoutingController, RoutingAction) VALUES (4, 'Page', 'Page', 'PageDetail');
 INSERT INTO Core_EntityType (Id, Name, RoutingController, RoutingAction) VALUES (5, 'Vendor', 'Vendor', 'VendorDetail');
+INSERT INTO Core_EntityType (Id, Name, RoutingController, RoutingAction) VALUES (6, 'NewsCategory', 'NewsCategory', 'NewsCategoryDetail');
+INSERT INTO Core_EntityType (Id, Name, RoutingController, RoutingAction) VALUES (7, 'NewsItem', 'NewsItem', 'NewsItemDetail');
 
 INSERT INTO ActivityLog_ActivityType (Id, Name) VALUES (1, 'ProductView');
 

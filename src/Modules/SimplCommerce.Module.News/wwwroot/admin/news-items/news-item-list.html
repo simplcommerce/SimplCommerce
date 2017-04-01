@@ -1,0 +1,32 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>News Item List</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <a ui-sref="news-items-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Create News Item</a>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Url</th>
+        <th class="text-center">Is Published</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="newsItem in vm.newsItems">
+        <td>{{newsItem.name}}</td>
+        <td>{{newsItem.seoTitle}}</td>
+        <td class="text-center"><i ng-attr-class="{{newsItem.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+        <td>
+            <a ui-sref="news-items-edit({id: newsItem.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+            <button ng-click="vm.deleteNewsItem(newsItem)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+        </td>
+    </tr>
+    </tbody>
+</table>
