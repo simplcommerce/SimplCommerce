@@ -126,6 +126,13 @@
     <script simpl-append-version="true" src="~/modules/localization/admin/localization.module.js"></script>
     <script simpl-append-version="true" src="~/modules/localization/admin/localization/localization-service.js"></script>
     <script simpl-append-version="true" src="~/modules/localization/admin/localization/localization-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/news/admin/news.module.js"></script>
+    <script simpl-append-version="true" src="~/modules/news/admin/news-categories/news-category-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/news/admin/news-categories/news-category-list.js"></script>
+    <script simpl-append-version="true" src="~/modules/news/admin/news-categories/news-category-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/news/admin/news-items/news-item-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/news/admin/news-items/news-item-list.js"></script>
+    <script simpl-append-version="true" src="~/modules/news/admin/news-items/news-item-form.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse">
@@ -179,6 +186,8 @@
                         <ul class="dropdown-menu">
                             <li><a ui-sref="page">@Localizer["Pages"]</a></li>
                             <li><a ui-sref="widget">@Localizer["Widgets"]</a></li>
+                            <li><a ui-sref="news-categories">Manage News Categories</a></li>
+                            <li><a ui-sref="news-items">Manage News Items</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">

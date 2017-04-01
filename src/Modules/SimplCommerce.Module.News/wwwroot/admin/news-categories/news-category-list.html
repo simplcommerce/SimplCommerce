@@ -1,0 +1,30 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>News Category List</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <a ui-sref="news-categories-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Create News Category</a>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th class="text-center">Is Published</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="newsCategory in vm.newsCategorys">
+        <td>{{newsCategory.name}}</td>
+        <td class="text-center"><i ng-attr-class="{{newsCategory.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+        <td>
+            <a ui-sref="news-categories-edit({id: newsCategory.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+            <button ng-click="vm.deleteNewsCategory(newsCategory)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+        </td>
+    </tr>
+    </tbody>
+</table>

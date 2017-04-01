@@ -18,7 +18,9 @@ INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction
 INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction") VALUES (3, 'Product', 'Product', 'ProductDetail');
 INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction") VALUES (4, 'Page', 'Page', 'PageDetail');
 INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction") VALUES (5, 'Vendor', 'Vendor', 'VendorDetail');
-SELECT pg_catalog.setval('"Core_EntityType_Id_seq"', 5, true);
+INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction") VALUES (6, 'NewsCategory', 'NewsCategory', 'NewsCategoryDetail');
+INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction") VALUES (7, 'NewsItem', 'NewsItem', 'NewsItemDetail');
+SELECT pg_catalog.setval('"Core_EntityType_Id_seq"', 7, true);
 
 INSERT INTO "ActivityLog_ActivityType" ("Id", "Name") VALUES (1, 'ProductView');
 SELECT pg_catalog.setval('"ActivityLog_ActivityType_Id_seq"', 1, true);
