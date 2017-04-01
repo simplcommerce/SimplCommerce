@@ -51,6 +51,19 @@ th.sortable {
     padding: 0;
 }
 
+.product-file-edit {
+    display: inline-block;
+    position: relative;
+    border: 1px solid #ccc;
+    margin: 1px;
+    padding: 10px;
+}
+
+    .product-file-edit button {
+        padding: 0 2px 0 10px;
+        font-size: 12px;
+    }
+
 table > tbody > tr > td.variation-form {
     margin: 0;
     padding: 0;

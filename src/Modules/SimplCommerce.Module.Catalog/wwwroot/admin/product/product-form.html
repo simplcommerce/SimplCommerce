@@ -118,13 +118,13 @@
                         <label class="col-sm-2 control-label">Product Documents</label>
                         <div class="col-sm-10">
                             <input class="form-control" type="file" ngf-select ng-model="vm.productDocuments" ngf-multiple="true" name="productDocuments" ngf-accept="'.pdf,.doc'">
-                            <span class="product-image-edit" ng-repeat="doc in vm.product.productDocuments">
-                                <a target="_blank" href="{{doc.mediaUrl}}"></a>
+                            <span class="product-file-edit" ng-repeat="doc in vm.product.productDocuments">
+                                <a target="_blank" href="{{doc.mediaUrl}}">{{doc.caption}}</a>
                                 <button type="button" ng-click="vm.removeDocument(doc)" class="btn btn-link" aria-label="Remove">
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                 </button>
                             </span>
-                            <span class="product-image-edit" ng-repeat="file in vm.productDocuments">
+                            <span class="product-file-edit" ng-repeat="file in vm.productDocuments">
                                 <span>{{file.name}}</span>
                             </span>
                         </div>

@@ -108,6 +108,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 productVm.ProductDocuments.Add(new ProductMediaVm
                 {
                     Id = productMedia.Id,
+                    Caption = productMedia.Media.Caption,
                     MediaUrl = _mediaService.GetMediaUrl(productMedia.Media)
                 });
             }
@@ -312,7 +313,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 product.AddCategory(productCategory);
             }
 
-            SaveProductImages(model, product);
+            SaveProductMedias(model, product);
 
             MapProductVariationVmToProduct(model, product);
             MapProductRelationVmToProduct(model, product);
@@ -371,7 +372,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 product.StockQuantity = null;
             }
 
-            SaveProductImages(model, product);
+            SaveProductMedias(model, product);
 
             foreach (var productMediaId in model.Product.DeletedMediaIds)
             {
@@ -656,7 +657,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
         }
 
-        private void SaveProductImages(ProductForm model, Product product)
+        private void SaveProductMedias(ProductForm model, Product product)
         {
             if (model.ThumbnailImage != null)
             {
@@ -701,7 +702,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 var productMedia = new ProductMedia
                 {
                     Product = product,
-                    Media = new Media { FileName = fileName, MediaType = MediaType.File }
+                    Media = new Media { FileName = fileName, MediaType = MediaType.File, Caption = file.FileName }
                 };
                 product.AddMedia(productMedia);
             }
