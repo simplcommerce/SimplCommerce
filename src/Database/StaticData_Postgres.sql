@@ -391,9 +391,9 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Re
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Hello {0}!', '!{0} مرحبا');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Log in', 'دخول');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Log off', 'خروج');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'The Email field is required.', 'البريد الإلكتروني إلزامي.')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Email', 'البريد الإلكتروني')
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'User List', 'قائمة المستخدمين')
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'The Email field is required.', 'البريد الإلكتروني إلزامي.');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Email', 'البريد الإلكتروني');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'User List', 'قائمة المستخدمين');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Remember me?', 'حفظ البيانات؟');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Password', 'كلمة المرور');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Use a local account to log in.', 'استخدم حسابا محليا لتسجيل الدخول.');
