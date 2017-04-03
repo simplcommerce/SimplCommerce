@@ -122,6 +122,10 @@
     <script simpl-append-version="true" src="~/modules/vendors/admin/vendors/vendor-service.js"></script>
     <script simpl-append-version="true" src="~/modules/vendors/admin/vendors/vendor-list.js"></script>
     <script simpl-append-version="true" src="~/modules/vendors/admin/vendors/vendor-form.js"></script>
+
+    <script simpl-append-version="true" src="~/modules/localization/admin/localization.module.js"></script>
+    <script simpl-append-version="true" src="~/modules/localization/admin/localization/localization-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/localization/admin/localization/localization-form.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse">
@@ -181,6 +185,7 @@
                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">System <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a ui-sref="configuration">Configuration</a></li>
+                            <li><a ui-sref="localization">Manage Translations</a></li>
                         </ul>
                     </li>
                     }

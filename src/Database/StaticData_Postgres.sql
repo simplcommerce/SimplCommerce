@@ -126,7 +126,7 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Th
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Rating average', 'Đánh giá trung bình');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'stars', 'sao');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Filter by', 'Tìm theo');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Catery', 'Danh mục');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Category', 'Danh mục');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Brand', 'Nhãn hiệu');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Sort by:', 'Sắp xếp theo:');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'results', 'kết quả');
@@ -319,7 +319,7 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (4, 'Th
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (4, 'Rating average', 'Середня оцінка');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (4, 'stars', 'зірочок');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (4, 'Filter by', 'Фільтрувати за');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (4, 'Catery', 'Категорія');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (4, 'Category', 'Категорія');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (4, 'Brand', 'Бренд');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (4, 'Sort by:', 'Сортувати за:');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (4, 'results', 'результати');
@@ -382,7 +382,7 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (5, 'Th
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (5, 'Rating average', 'Средняя оценка');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (5, 'stars', 'звездочек');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (5, 'Filter by', 'Фильтровать по');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (5, 'Catery', 'Категория');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (5, 'Category', 'Категория');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (5, 'Brand', 'Бренд');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (5, 'Sort by:', 'Сортировать по:');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (5, 'results', 'результаты');

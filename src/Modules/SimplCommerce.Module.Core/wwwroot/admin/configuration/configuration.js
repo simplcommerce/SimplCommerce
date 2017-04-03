@@ -10,7 +10,7 @@
         vm.settings = {};
 
         vm.save = function save() {
-            vm.message = '';
+            vm.validationErrors = [];
             configurationService.updateSetting(vm.settings)
                 .then(function (result) {
                     toastr.success('Application settings have been saved');
