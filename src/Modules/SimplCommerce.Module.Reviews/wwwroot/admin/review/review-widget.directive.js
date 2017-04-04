@@ -24,8 +24,10 @@
         var vm = this;
         vm.reviews = [];
 
-        reviewService.getReviews(vm.status, vm.numRecords).then(function (result) {
-            vm.reviews = result.data;
-        });
+        vm.$onInit = function () {
+            reviewService.getReviews(vm.status, vm.numRecords).then(function (result) {
+                vm.reviews = result.data;
+            });
+        };
     }
 })();

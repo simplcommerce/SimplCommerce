@@ -24,8 +24,10 @@
         var vm = this;
         vm.orders = [];
 
-        orderService.getOrders(vm.status, vm.numRecords).then(function (result) {
-            vm.orders = result.data;
-        });
+        vm.$onInit = function () {
+            orderService.getOrders(vm.status, vm.numRecords).then(function (result) {
+                vm.orders = result.data;
+            });
+        };
     }
 })();
