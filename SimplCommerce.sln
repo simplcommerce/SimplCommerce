@@ -44,6 +44,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{ABFC6809-4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.CmsTests", "test\SimplCommerce.Module.CmsTests\SimplCommerce.Module.CmsTests.csproj", "{66715070-DE38-4692-9A10-040C156EB442}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.CoreTests", "test\SimplCommerce.Module.CoreTests\SimplCommerce.Module.CoreTests.csproj", "{24A188FD-A6CF-49B8-B749-ECD44D6B2631}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -210,6 +212,18 @@ Global
 		{66715070-DE38-4692-9A10-040C156EB442}.Release|x64.Build.0 = Release|Any CPU
 		{66715070-DE38-4692-9A10-040C156EB442}.Release|x86.ActiveCfg = Release|Any CPU
 		{66715070-DE38-4692-9A10-040C156EB442}.Release|x86.Build.0 = Release|Any CPU
+		{24A188FD-A6CF-49B8-B749-ECD44D6B2631}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24A188FD-A6CF-49B8-B749-ECD44D6B2631}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24A188FD-A6CF-49B8-B749-ECD44D6B2631}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{24A188FD-A6CF-49B8-B749-ECD44D6B2631}.Debug|x64.Build.0 = Debug|Any CPU
+		{24A188FD-A6CF-49B8-B749-ECD44D6B2631}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{24A188FD-A6CF-49B8-B749-ECD44D6B2631}.Debug|x86.Build.0 = Debug|Any CPU
+		{24A188FD-A6CF-49B8-B749-ECD44D6B2631}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24A188FD-A6CF-49B8-B749-ECD44D6B2631}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24A188FD-A6CF-49B8-B749-ECD44D6B2631}.Release|x64.ActiveCfg = Release|Any CPU
+		{24A188FD-A6CF-49B8-B749-ECD44D6B2631}.Release|x64.Build.0 = Release|Any CPU
+		{24A188FD-A6CF-49B8-B749-ECD44D6B2631}.Release|x86.ActiveCfg = Release|Any CPU
+		{24A188FD-A6CF-49B8-B749-ECD44D6B2631}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -230,5 +244,6 @@ Global
 		{1A22C68D-BE49-4E94-A0AD-6FD31F54B805} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{74FBF118-A11C-4E73-909B-7C1A1ED99149} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{66715070-DE38-4692-9A10-040C156EB442} = {ABFC6809-4D93-4A76-AD6C-7FD2F34AF496}
+		{24A188FD-A6CF-49B8-B749-ECD44D6B2631} = {ABFC6809-4D93-4A76-AD6C-7FD2F34AF496}
 	EndGlobalSection
 EndGlobal
