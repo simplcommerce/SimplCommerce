@@ -42,7 +42,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Vendor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{ABFC6809-4D93-4A76-AD6C-7FD2F34AF496}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.Core.Tests", "test\SimplCommerce.Module.Core.Tests\SimplCommerce.Module.Core.Tests.csproj", "{8E733C47-32CA-40B0-9AEB-C399FDF358E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.CoreTests", "test\SimplCommerce.Module.Core.Tests\SimplCommerce.Module.CoreTests.csproj", "{8E733C47-32CA-40B0-9AEB-C399FDF358E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
