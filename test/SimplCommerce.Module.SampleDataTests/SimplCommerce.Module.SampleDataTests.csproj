@@ -4,4 +4,12 @@
     <TargetFramework>netstandard1.6</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="xunit" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Modules\SimplCommerce.Module.SampleData\SimplCommerce.Module.SampleData.csproj" />
+  </ItemGroup>
+
 </Project>
