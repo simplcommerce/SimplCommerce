@@ -15,7 +15,7 @@ namespace SimplCommerce.InfrastructureTests
         };
 
         [Fact]
-        public void ImportanceEnumCriticalShouldReturnsCritical()
+        public void GetDisplayNameImportanceEnumCriticalShouldReturnsCritical()
         {
             var foo = Importance.Critical.GetDisplayName();
             Assert.Equal("Critical", foo);
