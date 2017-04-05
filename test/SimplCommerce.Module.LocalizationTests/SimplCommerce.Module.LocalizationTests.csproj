@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Modules\SimplCommerce.Module.ActivityLog\SimplCommerce.Module.ActivityLog.csproj" />
+    <ProjectReference Include="..\..\src\Modules\SimplCommerce.Module.Localization\SimplCommerce.Module.Localization.csproj" />
   </ItemGroup>
 
 </Project>
