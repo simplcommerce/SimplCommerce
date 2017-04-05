@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26228.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C9BFDDC4-5671-47A3-B57D-197C2A51FA8A}"
 EndProject
@@ -39,6 +39,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.ActivityLog", "src\Modules\SimplCommerce.Module.ActivityLog\SimplCommerce.Module.ActivityLog.csproj", "{1A22C68D-BE49-4E94-A0AD-6FD31F54B805}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Vendors", "src\Modules\SimplCommerce.Module.Vendors\SimplCommerce.Module.Vendors.csproj", "{74FBF118-A11C-4E73-909B-7C1A1ED99149}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D9FD9ABA-AE5E-4427-AA6B-6285BE2E212D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.InfrastructureTests", "test\SimplCommerce.InfrastructureTests\SimplCommerce.InfrastructureTests.csproj", "{338A04B7-CB1A-4C98-84A7-02F48A41D860}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -194,6 +198,18 @@ Global
 		{74FBF118-A11C-4E73-909B-7C1A1ED99149}.Release|x64.Build.0 = Release|Any CPU
 		{74FBF118-A11C-4E73-909B-7C1A1ED99149}.Release|x86.ActiveCfg = Release|Any CPU
 		{74FBF118-A11C-4E73-909B-7C1A1ED99149}.Release|x86.Build.0 = Release|Any CPU
+		{338A04B7-CB1A-4C98-84A7-02F48A41D860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{338A04B7-CB1A-4C98-84A7-02F48A41D860}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{338A04B7-CB1A-4C98-84A7-02F48A41D860}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{338A04B7-CB1A-4C98-84A7-02F48A41D860}.Debug|x64.Build.0 = Debug|Any CPU
+		{338A04B7-CB1A-4C98-84A7-02F48A41D860}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{338A04B7-CB1A-4C98-84A7-02F48A41D860}.Debug|x86.Build.0 = Debug|Any CPU
+		{338A04B7-CB1A-4C98-84A7-02F48A41D860}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{338A04B7-CB1A-4C98-84A7-02F48A41D860}.Release|Any CPU.Build.0 = Release|Any CPU
+		{338A04B7-CB1A-4C98-84A7-02F48A41D860}.Release|x64.ActiveCfg = Release|Any CPU
+		{338A04B7-CB1A-4C98-84A7-02F48A41D860}.Release|x64.Build.0 = Release|Any CPU
+		{338A04B7-CB1A-4C98-84A7-02F48A41D860}.Release|x86.ActiveCfg = Release|Any CPU
+		{338A04B7-CB1A-4C98-84A7-02F48A41D860}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -213,5 +229,6 @@ Global
 		{6340A38E-C644-4DFC-87C1-F89EC5CA9614} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{1A22C68D-BE49-4E94-A0AD-6FD31F54B805} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{74FBF118-A11C-4E73-909B-7C1A1ED99149} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
+		{338A04B7-CB1A-4C98-84A7-02F48A41D860} = {D9FD9ABA-AE5E-4427-AA6B-6285BE2E212D}
 	EndGlobalSection
 EndGlobal
