@@ -9,9 +9,8 @@
     "jquery-validation-unobtrusive": "3.2.4",
     "nouislider": "8.5.1",
     "wnumb": "1.0.2",
-    "angular": "1.6.3",
+    "angular": "v1.6.4",
     "angular-ui-router": "0.4.2",
-    "angular-animate": "1.6.3",
     "angular-smart-table": "2.1.8",
     "angular-material": "1.1.3",
     "ng-file-upload": "12.2.13",
@@ -19,9 +18,11 @@
     "angular-summernote": "0.8.1",
     "toastr": "2.1.2",
     "bootbox": "4.4.0",
-    "matchHeight": "0.7.2"
+    "matchHeight": "0.7.2",
+    "angular-messages": "v1.6.4",
+    "angular-animate": "v1.6.4"
   },
   "resolutions": {
-    "angular": "1.6.3"
+    "angular": "v1.6.4"
   }
 }
