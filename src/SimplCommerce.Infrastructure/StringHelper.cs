@@ -119,7 +119,7 @@ namespace SimplCommerce.Infrastructure
                     swap = "i";
                     break;
                 case 'ł':
-                case 'Ł' :
+                case 'Ł':
                     swap = "l";
                     break;
                 case 'đ':
