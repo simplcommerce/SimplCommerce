@@ -20,5 +20,12 @@ namespace SimplCommerce.InfrastructureTests
             var foo = Importance.Critical.GetDisplayName();
             Assert.Equal("Critical", foo);
         }
+
+        [Fact]
+        public void EnumToDictionaryShouldReturnsDictionary()
+        {
+            var dic = EnumHelper.ToDictionary(typeof(Importance));
+            Assert.Equal(5, dic.Count);
+        }
     }
 }
