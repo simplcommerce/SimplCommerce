@@ -17,8 +17,9 @@
     }
 
     /* @ngInject */
-    function MostSearchKeywordCtrl(searchService) {
+    function MostSearchKeywordCtrl(searchService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.keywords = [];
 
         searchService.getMostSearchKeywords().then(function (result) {

@@ -20,8 +20,9 @@
     }
 
     /* @ngInject */
-    function ReviewWidgetCtrl(reviewService) {
+    function ReviewWidgetCtrl(reviewService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.reviews = [];
 
         vm.$onInit = function () {

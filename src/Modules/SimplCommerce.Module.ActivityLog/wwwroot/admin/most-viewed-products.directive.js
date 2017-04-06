@@ -17,8 +17,9 @@
     }
 
     /* @ngInject */
-    function MostMostViewedProductCtrl(activityLogService) {
+    function MostMostViewedProductCtrl(activityLogService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.products = [];
 
         activityLogService.getMostViewedEntities(3).then(function (result) {

@@ -5,9 +5,10 @@
         .controller('ProductListCtrl', ProductListCtrl);
 
     /* @ngInject */
-    function ProductListCtrl(productService) {
+    function ProductListCtrl(productService, translateService) {
         var vm = this,
             tableStateRef;
+        vm.translate = translateService;
         vm.products = [];
 
         vm.getProducts = function getProducts(tableState) {
