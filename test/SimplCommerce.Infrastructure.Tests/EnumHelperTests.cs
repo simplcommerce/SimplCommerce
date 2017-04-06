@@ -1,7 +1,6 @@
-﻿using SimplCommerce.Infrastructure;
-using Xunit;
+﻿using Xunit;
 
-namespace SimplCommerce.InfrastructureTests
+namespace SimplCommerce.Infrastructure.Tests
 {
     public class EnumHelperTests
     {
