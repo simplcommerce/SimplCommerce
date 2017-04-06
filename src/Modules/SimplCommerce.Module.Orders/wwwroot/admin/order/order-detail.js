@@ -5,9 +5,9 @@
         .controller('OrderDetailCtrl', OrderDetailCtrl);
 
     /* @ngInject */
-    function OrderDetailCtrl($state, $stateParams, orderService) {
+    function OrderDetailCtrl($state, $stateParams, orderService, translateService) {
         var vm = this;
-
+        vm.translate = translateService;
         vm.orderId = $stateParams.id;
         vm.order = {};
         vm.orderStatus = [];

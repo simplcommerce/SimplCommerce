@@ -5,8 +5,9 @@
         .controller('ProductAttributeGroupListCtrl', ProductAttributeGroupListCtrl);
 
     /* @ngInject */
-    function ProductAttributeGroupListCtrl(productAttributeGroupService) {
+    function ProductAttributeGroupListCtrl(productAttributeGroupService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.productAttributeGroups = [];
 
         vm.getProductAttributeGroups = function getProductAttributeGroups() {

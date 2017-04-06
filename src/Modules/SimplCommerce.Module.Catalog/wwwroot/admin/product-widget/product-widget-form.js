@@ -5,8 +5,9 @@
         .controller('ProductWidgetFormCtrl', ProductWidgetFormCtrl);
 
     /* @ngInject */
-    function ProductWidgetFormCtrl($state, $stateParams, productWidgetService) {
+    function ProductWidgetFormCtrl($state, $stateParams, productWidgetService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.widgetZones = [];
         vm.sorts = [];
         vm.widgetInstance = { widgetZoneId: 1, setting: { numberOfProducts: 4 }, publishStart: new Date() };

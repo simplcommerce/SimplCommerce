@@ -5,8 +5,9 @@
         .controller('CategoryListCtrl', CategoryLitsCtrl);
 
     /* @ngInject */
-    function CategoryLitsCtrl(categoryService) {
+    function CategoryLitsCtrl(categoryService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.categories = [];
 
         vm.getCategories = function getCategories() {

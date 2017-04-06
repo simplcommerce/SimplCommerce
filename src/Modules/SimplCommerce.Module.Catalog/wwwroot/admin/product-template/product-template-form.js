@@ -5,8 +5,9 @@
         .controller('ProductTemplateFormCtrl', ProductTemplateFormCtrl);
 
     /* @ngInject */
-    function ProductTemplateFormCtrl($state, $stateParams, productTemplateService, productAttributeService) {
+    function ProductTemplateFormCtrl($state, $stateParams, productTemplateService, productAttributeService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.productTemplateId = $stateParams.id;
         vm.isEditMode = vm.productTemplateId > 0;
         vm.productTemplate = { attributes : [] };
