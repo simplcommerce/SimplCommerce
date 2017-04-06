@@ -119,8 +119,6 @@ namespace SimplCommerce.Infrastructure
                     swap = "i";
                     break;
                 case 'ł':
-                    swap = "l";
-                    break;
                 case 'Ł':
                     swap = "l";
                     break;
