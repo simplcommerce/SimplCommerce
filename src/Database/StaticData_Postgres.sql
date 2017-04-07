@@ -127,7 +127,7 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Th
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Rating average', 'Đánh giá trung bình');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'stars', 'sao');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Filter by', 'Tìm theo');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Catery', 'Danh mục');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Category', 'Danh mục');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Brand', 'Nhãn hiệu');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Sort by:', 'Sắp xếp theo:');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'results', 'kết quả');

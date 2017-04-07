@@ -897,7 +897,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Rating average', N'Đánh giá trung bình')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'stars', N'sao')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Filter by', N'Tìm theo')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Catery', N'Danh mục')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Category', N'Danh mục')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Brand', N'Nhãn hiệu')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Sort by:', N'Sắp xếp theo:')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'results', N'kết quả')
