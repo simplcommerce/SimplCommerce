@@ -344,8 +344,6 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Br
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Sort by:', 'Trier par:');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'results', 'résultats');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'View options', 'Afficher les options');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Name', 'Nom');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'FullName', 'Nom Prénom');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Associate your {0} account.', 'Associez votre compte {0}.');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Users', 'Utilisateurs');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Vendors', 'Vendeurs');
@@ -747,8 +745,6 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Br
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Sort by:', 'الترتيب حسب:');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'results', 'النتائج');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'View options', 'عرض الخيارات');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Name', 'الاسم');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'FullName', 'الاسم واللقب');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Associate your {0} account.', '.{ربط حساب {0');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Users', 'المستخدمون');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Vendors', 'الباعة');
@@ -961,8 +957,6 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (7, 'Br
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (7, 'Sort by:', '정렬 기준 :');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (7, 'results', '결과');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (7, 'View options', '보기 옵션');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (7, 'Name', '이름');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (7, 'FullName', '성명');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (7, 'Associate your {0} account.', '{0} 계정을 연결하십시오.');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (7, 'Users', '사용자');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (7, 'Vendors', '공급 업체');
