@@ -1251,7 +1251,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Edit', N'Modifier')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Security', N'Sécurité')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Create', N'Créer')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'External Logins', N'Đăng nhập từ mạng xã hội')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'External Logins', N'Logins externes')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Manage', N'Gérer')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Default shipping address', N'Adresse de livraison par défaut')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Manage address', N'Gérer l''adresse')
