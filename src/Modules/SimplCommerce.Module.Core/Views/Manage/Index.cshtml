@@ -11,17 +11,17 @@
         @Html.Partial("_AccountMenu")
     </div>
     <div class="col-md-9">
-        <h2>Account Dashboard</h2>
+        <h2>@Localizer["Account Dashboard"]</h2>
         <hr />
         <div class="row">
             <div class="col-md-6">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Account infomation</div>
+                    <div class="panel-heading">@Localizer["Account Information"]</div>
                     <div class="panel-body">
                         @Model.FullName <br/>
                         @Model.Email
                         <p class="text-right">
-                            <a href="~/user/info">Edit</a>
+                            <a href="~/user/info">@Localizer["Edit"]</a>
                         </p>
                     </div>
                 </div>
@@ -30,23 +30,23 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Security</div>
+                    <div class="panel-heading">@Localizer["Security"]</div>
                     <div class="panel-body">
                         <dl class="dl-horizontal">
-                            <dt>Password:</dt>
+                            <dt>@Localizer["Password"]:</dt>
                             <dd>
                                 @if (Model.HasPassword)
                                 {
-                                    <a asp-controller="Manage" asp-action="ChangePassword" class="btn-bracketed">Change</a>
+                                    <a asp-controller="Manage" asp-action="ChangePassword" class="btn-bracketed">@Localizer["Change"]</a>
                                 }
                                 else
                                 {
-                                    <a asp-controller="Manage" asp-action="SetPassword" class="btn-bracketed">Create</a>
+                                    <a asp-controller="Manage" asp-action="SetPassword" class="btn-bracketed">@Localizer["Create"]</a>
                                 }
                             </dd>
-                            <dt>External Logins:</dt>
+                            <dt>@Localizer["External Logins"]:</dt>
                             <dd>
-                                @Model.Logins.Count <a asp-controller="Manage" asp-action="ManageLogins" class="btn-bracketed">Manage</a>
+                                @Model.Logins.Count <a asp-controller="Manage" asp-action="ManageLogins" class="btn-bracketed">@Localizer["Manage"]</a>
                             </dd>
                         </dl>
                     </div>
@@ -54,7 +54,7 @@
             </div>
             <div class="col-md-6">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Default delivery address</div>
+                    <div class="panel-heading">@Localizer["Default shipping address"]</div>
                     <div class="panel-body">
                         <vc:default-address></vc:default-address>
                     </div>

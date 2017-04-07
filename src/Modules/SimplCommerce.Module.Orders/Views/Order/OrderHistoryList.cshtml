@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SimplCommerce.Module.Orders.ViewModels.OrderHistoryListItem>
 
 @{
-    ViewData["Title"] = "Order History";
+    ViewData["Title"] = Localizer["Order History"];
 }
 
 <div class="row">
@@ -13,10 +13,10 @@
         <hr />
         <table class="table table-striped order-history">
             <tr>
-                <th>Date</th>
-                <th>Products</th>
-                <th>SubTotal</th>
-                <th>Status</th>
+                <th>@Localizer["Date"]</th>
+                <th>@Localizer["Products"]</th>
+                <th>@Localizer["SubTotal"]</th>
+                <th>@Localizer["Status"]</th>
             </tr>
             @foreach (var order in Model)
             {
