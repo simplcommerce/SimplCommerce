@@ -5,8 +5,9 @@
         .controller('UserFormCtrl', UserFormCtrl);
 
     /* @ngInject */
-    function UserFormCtrl($state, $stateParams, userService) {
+    function UserFormCtrl($state, $stateParams, userService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.user = { roleIds: [] };
         vm.vendors = [];
         vm.roles = [];

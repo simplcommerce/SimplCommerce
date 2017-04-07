@@ -5,8 +5,9 @@
         .controller('ProductTemplateListCtrl', ProductTemplateListCtrl);
 
     /* @ngInject */
-    function ProductTemplateListCtrl(productTemplateService) {
+    function ProductTemplateListCtrl(productTemplateService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.productTemplates = [];
 
         vm.getProductTemplates = function getProductTemplates() {

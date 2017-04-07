@@ -5,8 +5,9 @@
         .controller('ReviewListCtrl', ReviewListCtrl);
 
     /* @ngInject */
-    function ReviewListCtrl(reviewService) {
+    function ReviewListCtrl(reviewService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.reviews = [];
 
         vm.getReviews = function getReviews(tableState) {

@@ -8,7 +8,7 @@
         @Html.Partial("_AccountMenu")
     </div>
     <div class="col-md-9">
-        <h2>Edit address</h2>
+        <h2>@Localizer["Edit Address"]</h2>
         <hr />
         <form asp-controller="UserAddress" asp-action="Edit" method="POST" class="form-horizontal">
             @Html.Partial("_AddressForm", Model)

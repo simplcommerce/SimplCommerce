@@ -5,8 +5,9 @@
         .controller('CategoryFormCtrl', CategoryFormCtrl);
 
     /* @ngInject */
-    function CategoryFormCtrl($q, $state, $stateParams, categoryService) {
+    function CategoryFormCtrl($q, $state, $stateParams, categoryService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.category = {};
         vm.categories = [];
         vm.categoryId = $stateParams.id;

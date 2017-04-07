@@ -5,8 +5,9 @@
         .controller('ProductAttributeListCtrl', ProductAttributeListCtrl);
 
     /* @ngInject */
-    function ProductAttributeListCtrl(productAttributeService) {
+    function ProductAttributeListCtrl(productAttributeService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.productAttributes = [];
 
         vm.getProductAttributes = function getProductAttributes() {

@@ -1,10 +1,10 @@
 ﻿<div class="page-header">
     <div class="row">
         <div class="col-md-8">
-            <h2>{{ ::vm.translate.get('Vendor List')}}</h2>
+            <h2>{{::vm.translate.get('Vendors')}}</h2>
         </div>
         <div class="col-md-4 text-right">
-            <a ui-sref="vendor-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Create Vendor</a>
+            <a ui-sref="vendor-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create Vendor')}}</a>
         </div>
     </div>
 </div>
@@ -12,11 +12,11 @@
 <table class="table table-striped" st-pipe="vm.getVendors" st-table="vm.vendors">
     <thead>
         <tr>
-            <th st-sort="Name" class="sortable">{{ ::vm.translate.get('Name')}}</th>
-            <th st-sort="Email" class="sortable">{{ ::vm.translate.get('Email')}}</th>
-            <th class="text-center">Is Active</th>
-            <th st-sort="CreatedOn" class="sortable">{{ ::vm.translate.get('CreatedOn')}}</th>
-            <th>Actions</th>
+            <th st-sort="Name" class="sortable">{{::vm.translate.get('Name')}}</th>
+            <th st-sort="Email" class="sortable">{{::vm.translate.get('Email')}}</th>
+            <th class="text-center">{{::vm.translate.get('Is Active')}}</th>
+            <th st-sort="CreatedOn" class="sortable">{{::vm.translate.get('Created On')}}</th>
+            <th>{{::vm.translate.get('Actions')}}</th>
         </tr>
         <tr>
             <th>

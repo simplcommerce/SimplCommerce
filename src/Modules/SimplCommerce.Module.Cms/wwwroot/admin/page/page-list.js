@@ -5,8 +5,9 @@
         .controller('PageListCtrl', PageListCtrl);
 
     /* @ngInject */
-    function PageListCtrl(pageService) {
+    function PageListCtrl(pageService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.pages = [];
 
         vm.getPages = function getpages() {

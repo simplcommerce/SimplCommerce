@@ -5,8 +5,9 @@
         .controller('ProductOptionFormCtrl', ProductOptionFormCtrl);
 
     /* @ngInject */
-    function ProductOptionFormCtrl($state, $stateParams, productOptionService) {
+    function ProductOptionFormCtrl($state, $stateParams, productOptionService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.productOptionId = $stateParams.id;
         vm.isEditMode = vm.productOptionId > 0;
 

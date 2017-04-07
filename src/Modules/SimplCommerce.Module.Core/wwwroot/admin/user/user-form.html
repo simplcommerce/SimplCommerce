@@ -1,7 +1,7 @@
 ﻿<div class="panel panel-default">
     <div class="panel-heading">
-        <h2 ng-if="!vm.isEditMode">Create User</h2>
-        <h2 ng-if="vm.isEditMode">Edit User</h2>
+        <h2 ng-if="!vm.isEditMode">{{::vm.translate.get('Create User')}}</h2>
+        <h2 ng-if="vm.isEditMode">{{::vm.translate.get('Edit User')}}</h2>
     </div>
     <div class="panel-body">
         <form name="userForm" class="form-horizontal">
@@ -11,39 +11,39 @@
                 </ul>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Name</label>
+                <label class="col-sm-2 control-label">{{::vm.translate.get('FullName')}}</label>
                 <div class="col-sm-10">
                     <input name="name" ng-model="vm.user.fullName" class="form-control" />
                 </div>
             </div>
             <div class="form-group" ng-if="!vm.isEditMode">
-                <label class="col-sm-2 control-label">Password</label>
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Password')}}</label>
                 <div class="col-sm-10">
                     <input name="name" ng-model="vm.user.password" class="form-control" />
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Email</label>
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Email')}}</label>
                 <div class="col-sm-10">
                     <input name="email" ng-model="vm.user.email" class="form-control" />
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Phone Number</label>
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Phone Number')}}</label>
                 <div class="col-sm-10">
                     <input name="description" ng-model="vm.user.phoneNumber" class="form-control" />
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Manager of vendor</label>
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Manager of Vendor')}}</label>
                 <div class="col-sm-10">
                     <select class="form-control" ng-model="vm.user.vendorId" ng-options="vendor.id as vendor.name for vendor in vm.vendors">
-                        <option value="">Not Vendor</option>
+                        <option value="">{{::vm.translate.get('Not Vendor')}}</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Role</label>
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Roles')}}</label>
                 <div class="col-sm-10">
                     <div class="checkbox" ng-repeat="role in vm.roles">
                         <label>
@@ -54,8 +54,8 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> Save</button>
-                    <button ui-sref="users" class="btn btn-default">Cancel</button>
+                    <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> {{::vm.translate.get('Save')}}</button>
+                    <button ui-sref="users" class="btn btn-default"> {{::vm.translate.get('Cancel')}}</button>
                 </div>
             </div>
         </form>

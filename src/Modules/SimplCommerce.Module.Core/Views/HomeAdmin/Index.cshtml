@@ -143,49 +143,49 @@
                     @if (User.IsInRole("admin"))
                     {
                     <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Site <span class="caret"></span></a>
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Site"] <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a ui-sref="users">Users</a></li>
-                            <li><a ui-sref="vendors">Vendors</a></li>
-                            <li><a ui-sref="reviews">Reviews</a></li>
+                            <li><a ui-sref="users">@Localizer["Users"]</a></li>
+                            <li><a ui-sref="vendors">@Localizer["Vendors"]</a></li>
+                            <li><a ui-sref="reviews">@Localizer["Reviews"]</a></li>
                         </ul>
                     </li>
                     }
                     <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catalog <span class="caret"></span></a>
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Catalog"] <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a ui-sref="product">Products</a></li>
-                            @if (User.IsInRole("admin"))
+                            <li><a ui-sref="product">@Localizer["Products"]</a></li>
+                            @if(User.IsInRole("admin"))
                             {
-                            <li><a ui-sref="category">Categories</a></li>
-                            <li><a ui-sref="brand">Brands</a></li>
-                            <li><a ui-sref="product-option">Product Options</a></li>
-                            <li><a ui-sref="product-attribute-group">Product Attribute Groups</a></li>
-                            <li><a ui-sref="product-attribute">Product Attributes</a></li>
-                            <li><a ui-sref="product-template">Product Templates</a></li>
+                            <li><a ui-sref="category">@Localizer["Categories"]</a></li>
+                            <li><a ui-sref="brand">@Localizer["Brands"]</a></li>
+                            <li><a ui-sref="product-option">@Localizer["Product Options"]</a></li>
+                            <li><a ui-sref="product-attribute-group">@Localizer["Product Attribute Groups"]</a></li>
+                            <li><a ui-sref="product-attribute">@Localizer["Product Attributes"]</a></li>
+                            <li><a ui-sref="product-template">@Localizer["Product Templates"]</a></li>
                             }
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sales <span class="caret"></span></a>
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Sales"] <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a ui-sref="order">Manage Orders</a></li>
+                            <li><a ui-sref="order">@Localizer["Orders"]</a></li>
                         </ul>
                     </li>
                     @if (User.IsInRole("admin"))
                     {
                     <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Content <span class="caret"></span></a>
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Content Management"] <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a ui-sref="page">Manage Pages</a></li>
-                            <li><a ui-sref="widget">Manage Widgets</a></li>
+                            <li><a ui-sref="page">@Localizer["Pages"]</a></li>
+                            <li><a ui-sref="widget">@Localizer["Widgets"]</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">System <span class="caret"></span></a>
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["System"] <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a ui-sref="configuration">Configuration</a></li>
-                            <li><a ui-sref="localization">Manage Translations</a></li>
+                            <li><a ui-sref="configuration">@Localizer["Configuration"]</a></li>
+                            <li><a ui-sref="localization">@Localizer["Translations"]</a></li>
                         </ul>
                     </li>
                     }
@@ -193,10 +193,10 @@
                 <form asp-area="" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                            <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">@Localizer["Hello {0}!", UserManager.GetUserName(User)]</a>
                         </li>
                         <li>
-                            <button type="submit" class="btn btn-link navbar-btn navbar-link">Log off</button>
+                            <button type="submit" class="btn btn-link navbar-btn navbar-link">@Localizer["Log off"]</button>
                         </li>
                     </ul>
                 </form>

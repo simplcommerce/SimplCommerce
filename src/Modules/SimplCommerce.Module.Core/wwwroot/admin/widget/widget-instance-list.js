@@ -5,8 +5,9 @@
         .controller('WidgetInstanceListCtrl', WidgetInstanceListCtrl);
 
     /* @ngInject */
-    function WidgetInstanceListCtrl(widgetService) {
+    function WidgetInstanceListCtrl(widgetService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.widgets = [];
         vm.widgetInstances = [];
 

@@ -8,7 +8,7 @@
         @Html.Partial("_AccountMenu")
     </div>
     <div class="col-md-9">
-        <h2>Address Book</h2>
+        <h2>@Localizer["Address Book"]</h2>
         <hr />
         @foreach (var address in Model)
         {
@@ -21,23 +21,23 @@
             <div>
                 @if (address.IsDefaultShippingAddress)
                 {
-                    <span class="label label-primary">Default shipping address</span>
+                    <span class="label label-primary">@Localizer["Default shipping address"]</span>
                 }
                 else
                 {
                     <form method="post" style="display: inline" asp-controller="UserAddress" asp-action="SetAsDefault" asp-route-id="@address.UserAddressId">
-                        <button type="submit" class="btn btn-link" style="padding: 0">Set as default shipping address</button>
+                        <button type="submit" class="btn btn-link" style="padding: 0">@Localizer["Set as default shipping address"]</button>
                     </form>
                     <span> | </span>
                 }
-                <a href="~/user/address/edit/@address.UserAddressId">Edit</a><span> | </span>
+                <a href="~/user/address/edit/@address.UserAddressId">@Localizer["Edit"]</a><span> | </span>
                 <form method="post" style="display: inline" asp-controller="UserAddress" asp-action="Delete" asp-route-id="@address.UserAddressId">
-                    <button type="submit" class="btn btn-link" style="padding: 0">Delete</button>
+                    <button type="submit" class="btn btn-link" style="padding: 0">@Localizer["Delete"]</button>
                 </form>
             </div>
             <hr />
         }
 
-        <div class="text-right"><a class="btn btn-primary" href="~/user/address/create">Add address</a></div>
+        <div class="text-right"><a class="btn btn-primary" href="~/user/address/create">@Localizer["Add Address"]</a></div>
     </div>
 </div>

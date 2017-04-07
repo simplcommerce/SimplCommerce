@@ -1,7 +1,7 @@
 ﻿<div class="panel panel-default">
     <div class="panel-heading">
-        <h2 ng-if="!vm.isEditMode">Create Product</h2>
-        <h2 ng-if="vm.isEditMode">Edit Product {{vm.product.name}}</h2>
+        <h2 ng-if="!vm.isEditMode">{{::vm.translate.get('Create Product')}}</h2>
+        <h2 ng-if="vm.isEditMode">{{::vm.translate.get('Edit Product')}} {{vm.product.name}}</h2>
     </div>
     <div class="panel-body">
         <form name="productForm" class="form-horizontal">
@@ -11,39 +11,39 @@
                 </ul>
             </div>
             <uib-tabset>
-                <uib-tab index="0" heading="Product Information">
+                <uib-tab index="0" heading="{{::vm.translate.get('General Information')}}">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Product Name</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Product Name')}}</label>
                         <div class="col-sm-10">
                             <input name="name" ng-model="vm.product.name" required class="form-control" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Brand</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Brand')}}</label>
                         <div class="col-sm-10">
                             <select class="form-control" ng-model="vm.product.brandId" ng-options="brand.id as brand.name for brand in vm.brands"></select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Short Description</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Short Description')}}</label>
                         <div class="col-sm-10">
                             <summernote on-image-upload="vm.shortDescUpload(files)" editor="vm.shortDescEditor" ng-model="vm.product.shortDescription"></summernote>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Description</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Description')}}</label>
                         <div class="col-sm-10">
                             <summernote on-image-upload="vm.descUpload(files)" editor="vm.descEditor" ng-model="vm.product.description"></summernote>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Specification</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Specification')}}</label>
                         <div class="col-sm-10">
                             <summernote on-image-upload="vm.specUpload(files)" editor="vm.specEditor" ng-model="vm.product.specification"></summernote>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Price</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Price')}}</label>
                         <div class="col-sm-10">
                             <div class="input-number">
                                 <input id="productPrice" type="text" decimal maxlength="10" name="price" ng-model="vm.product.price" required class="form-control" />
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Old Price</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Old Price')}}</label>
                         <div class="col-sm-10">
                             <div class="input-number">
                                 <input id="productOldPrice" type="text" decimal maxlength="10" name="oldPrice" ng-model="vm.product.oldPrice" class="form-control" />
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Special Price</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Special Price')}}</label>
                         <div class="col-sm-10">
                             <div class="input-number">
                                 <input id="productSpecialPrice" type="text" decimal maxlength="10" name="specialPrice" ng-model="vm.product.specialPrice" class="form-control" />
@@ -70,7 +70,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Special Price Start</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Special Price Start')}}</label>
                         <div class="col-sm-10">
                             <p class="input-group simpl-datetime-picker">
                                 <input type="text" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="vm.product.specialPriceStart" is-open="vm.datePickerSpecialPriceStart.open" datepicker-options="vm.datePickerSpecialPriceStart.datepickerOptions" />
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Special Price End</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Special Price End')}}</label>
                         <div class="col-sm-10">
                             <p class="input-group simpl-datetime-picker">
                                 <input type="text" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="vm.product.specialPriceEnd" is-open="vm.datePickerSpecialPriceEnd.open" datepicker-options="vm.datePickerSpecialPriceEnd.datepickerOptions" />
@@ -92,7 +92,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Thumbnail</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Thumbnail')}}</label>
                         <div class="col-sm-10">
                             <input class="form-control" type="file" ngf-select ng-model="vm.thumbnailImage" name="thumbnailImage" ngf-accept="'image/*'">
                             <img ngf-src="vm.thumbnailImage" ngf-resize="{width: 100, height: 100, quality: 0.9}">
@@ -100,7 +100,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Product Images</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Product Images')}}</label>
                         <div class="col-sm-10">
                             <input class="form-control" type="file" ngf-select ng-model="vm.productImages" ngf-multiple="true" name="productImages" ngf-accept="'image/*'">
                             <span class="product-image-edit" ng-repeat="image in vm.product.productImages">
@@ -115,7 +115,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Product Documents</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Product Documents')}}</label>
                         <div class="col-sm-10">
                             <input class="form-control" type="file" ngf-select ng-model="vm.productDocuments" ngf-multiple="true" name="productDocuments" ngf-accept="'.pdf,.doc'">
                             <span class="product-file-edit" ng-repeat="doc in vm.product.productDocuments">
@@ -133,7 +133,7 @@
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" ng-model="vm.product.isFeatured"> Is Featured Products
+                                    <input type="checkbox" ng-model="vm.product.isFeatured">{{::vm.translate.get('Is Featured')}}
                                 </label>
                             </div>
                         </div>
@@ -142,7 +142,7 @@
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" ng-model="vm.product.isPublished"> Is Published
+                                    <input type="checkbox" ng-model="vm.product.isPublished">{{::vm.translate.get('Is Published')}}
                                 </label>
                             </div>
                         </div>
@@ -151,7 +151,7 @@
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" ng-model="vm.product.isCallForPricing"> Call for pricing
+                                    <input type="checkbox" ng-model="vm.product.isCallForPricing">{{::vm.translate.get('Is Called For Pricing')}}
                                 </label>
                             </div>
                         </div>
@@ -160,7 +160,7 @@
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" ng-model="vm.product.isAllowToOrder"> Allow to order
+                                    <input type="checkbox" ng-model="vm.product.isAllowToOrder">{{::vm.translate.get('Is Allowed To Order')}}
                                 </label>
                             </div>
                         </div>
@@ -169,26 +169,26 @@
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" ng-model="vm.product.isOutOfStock"> Out of stock
+                                    <input type="checkbox" ng-model="vm.product.isOutOfStock">{{::vm.translate.get('Out Of Stock')}}
                                 </label>
                             </div>
                         </div>
                     </div>
                 </uib-tab>
-                <uib-tab index="1" heading="Product Variations">
+                <uib-tab index="1" heading="{{::vm.translate.get('Product Variations')}}">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Available Options</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Available Options')}}</label>
                         <div class="col-sm-10">
                             <div class="form-group row">
                                 <div class="col-md-3">
                                     <select class="form-control" ng-model="vm.addingOption" ng-options="opt as opt.name for opt in vm.options"></select>
                                 </div>
-                                <button class="btn btn-default" ng-disabled="!vm.addingOption" ng-click="vm.addOption()">Add Option</button>
+                                <button class="btn btn-default" ng-disabled="!vm.addingOption" ng-click="vm.addOption()">{{::vm.translate.get('Add Option')}}</button>
                             </div>
                         </div>
                     </div>
                     <div class="form-group" ng-show="vm.product.options.length > 0">
-                        <label class="col-sm-2 control-label">Option Values</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Option Values')}}</label>
                     </div>
                     <div class="form-group" ng-show="vm.product.options.length > 0">
                         <div class="col-sm-offset-1 col-sm-11">
@@ -204,7 +204,7 @@
                                                       secondary-placeholder="+{{option.name}}">
                                             </md-chips>
                                         </div>
-                                        <button class="btn btn-default" ng-click="vm.deleteOption(option)">Delete Option</button>
+                                        <button class="btn btn-default" ng-click="vm.deleteOption(option)">{{::vm.translate.get('Delete Option')}}</button>
                                     </div>
                                 </div>
                             </div>
@@ -212,19 +212,19 @@
                     </div>
                     <div class="form-group" ng-if="!vm.isEditMode" ng-show="vm.product.options.length > 0">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button class="btn btn-default" ng-click="vm.generateOptionCombination()">Generate Combinations</button>
+                            <button class="btn btn-default" ng-click="vm.generateOptionCombination()">{{::vm.translate.get('Generate Combinations')}}</button>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Product Variations</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Product Variations')}}</label>
                         <div class="col-sm-10">
                             <table class="table table-striped">
                                 <tr>
-                                    <th class="col-sm-4">Option Combinations</th>
-                                    <th class="col-sm-2">Price</th>
-                                    <th class="col-sm-2">Old Price</th>
-                                    <th class="col-sm-2">Picture</th>
-                                    <th class="col-sm-2">Actions</th>
+                                    <th class="col-sm-4">{{::vm.translate.get('Option Combinations')}}</th>
+                                    <th class="col-sm-2">{{::vm.translate.get('Price')}}</th>
+                                    <th class="col-sm-2">{{::vm.translate.get('Old Price')}}</th>
+                                    <th class="col-sm-2">{{::vm.translate.get('Images')}}</th>
+                                    <th class="col-sm-2">{{::vm.translate.get('Actions')}}</th>
                                 </tr>
                                 <tr ng-repeat="variation in vm.product.variations">
                                     <td>{{variation.name}}</td>
@@ -285,37 +285,37 @@
                         </div>
                     </div>
                 </uib-tab>
-                <uib-tab index="2" heading="Product Attributes">
+                <uib-tab index="2" heading="{{::vm.translate.get('Product Attributes')}}">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Product Template</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Product Templates')}}</label>
                         <div class="col-sm-10">
                             <div class="form-group row">
                                 <div class="col-md-3">
                                     <select class="form-control" ng-model="vm.product.template" ng-options="template as template.name for template in vm.productTemplates"></select>
                                 </div>
-                                <button class="btn btn-default" ng-disabled="!vm.product.template" ng-click="vm.applyTemplate()">Apply</button>
+                                <button class="btn btn-default" ng-disabled="!vm.product.template" ng-click="vm.applyTemplate()">{{::vm.translate.get('Apply')}}</button>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Available Attributes</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Available Attributes')}}</label>
                         <div class="col-sm-10">
                             <div class="form-group row">
                                 <div class="col-md-3">
                                     <select class="form-control" ng-model="vm.addingAttribute" ng-options="attr as attr.name group by attr.groupName for attr in vm.attributes"></select>
                                 </div>
-                                <button class="btn btn-default" ng-disabled="!vm.addingAttribute" ng-click="vm.addAttribute()">Add Attribute</button>
+                                <button class="btn btn-default" ng-disabled="!vm.addingAttribute" ng-click="vm.addAttribute()">{{::vm.translate.get('Add Attribute')}}</button>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Product Attributes</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Product Attributes')}}</label>
                         <div class="col-sm-10">
                             <table class="table table-striped">
                                 <tr>
-                                    <th>Attribute Name</th>
-                                    <th>Value</th>
-                                    <th>Action</th>
+                                    <th>{{::vm.translate.get('Attribute Name')}}</th>
+                                    <th>{{::vm.translate.get('Value')}}</th>
+                                    <th>{{::vm.translate.get('Actions')}}</th>
                                 </tr>
                                 <tr ng-repeat="attr in vm.product.attributes">
                                     <td>{{attr.name}}</td>
@@ -330,7 +330,7 @@
                         </div>
                     </div>
                 </uib-tab>
-                <uib-tab index="3" heading="Category Mapping">
+                <uib-tab index="3" heading="{{::vm.translate.get('Category Mapping')}}">
                     <md-content class="md-padding">
                         <md-input-container class="md-block">
                             <div ng-repeat="category in vm.categories">
@@ -341,12 +341,12 @@
                         </md-input-container>
                     </md-content>
                 </uib-tab>
-                <uib-tab index="4" heading="Related Products">
+                <uib-tab index="4" heading="{{::vm.translate.get('Related Products')}}">
                     <product-selection-directive model-id="productRelationSelector" title="Add related products" selected-products="vm.product.relatedProducts"></product-selection-directive>
-                    <p><button type="button" class="btn btn-default" data-toggle="modal" data-target="#productRelationSelector">Manage Related Products</button></p>
+                    <p><button type="button" class="btn btn-default" data-toggle="modal" data-target="#productRelationSelector">{{::vm.translate.get('Manage Related Products')}}</button></p>
                     <table class="table table-striped">
                         <tr>
-                            <th>Name</th>
+                            <th>{{::vm.translate.get('Name')}}</th>
                         </tr>
                         <tr ng-repeat="product in vm.product.relatedProducts">
                             <td>{{product.name}}</td>
@@ -356,8 +356,8 @@
             </uib-tabset>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button class="btn btn-primary" ng-disabled="productForm.$invalid" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> Save</button>
-                    <button ui-sref="product" class="btn btn-default">Cancel</button>
+                    <button class="btn btn-primary" ng-disabled="productForm.$invalid" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span>{{::vm.translate.get('Save')}}</button>
+                    <button ui-sref="product" class="btn btn-default">{{::vm.translate.get('Cancel')}}</button>
                 </div>
             </div>
         </form>

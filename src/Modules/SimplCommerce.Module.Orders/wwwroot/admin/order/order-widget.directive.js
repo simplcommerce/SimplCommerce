@@ -20,8 +20,9 @@
     }
 
     /* @ngInject */
-    function OrderWidgetCtrl(orderService) {
+    function OrderWidgetCtrl(orderService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.orders = [];
 
         vm.$onInit = function () {

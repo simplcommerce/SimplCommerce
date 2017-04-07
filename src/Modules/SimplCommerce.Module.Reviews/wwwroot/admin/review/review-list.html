@@ -1,7 +1,7 @@
 ﻿<div class="page-header">
     <div class="row">
         <div class="col-md-8">
-            <h2>Review List</h2>
+            <h2>{{::vm.translate.get('Reviews')}}</h2>
         </div>
         <div class="col-md-4 text-right">
         </div>
@@ -11,14 +11,14 @@
 <table class="table table-striped" st-pipe="vm.getReviews" st-table="vm.reviews">
     <thead>
     <tr>
-        <th>Customer Name</th>
-        <th>Entity Name</th>
-        <th>Rating</th>
-        <th>Title</th>
-        <th>Comment</th>
-        <th st-sort="CreatedOn" class="sortable">CreatedOn</th>
-        <th>Status</th>
-        <th>Actions</th>
+        <th>{{::vm.translate.get('Customer')}}</th>
+        <th>{{::vm.translate.get('Entity Name')}}</th>
+        <th>{{::vm.translate.get('Rating')}}</th>
+        <th>{{::vm.translate.get('Title')}}</th>
+        <th>{{::vm.translate.get('Comment')}}</th>
+        <th st-sort="CreatedOn" class="sortable">{{::vm.translate.get('Created On')}}</th>
+        <th>{{::vm.translate.get('Status')}}</th>
+        <th>{{::vm.translate.get('Actions')}}</th>
     </tr>
         <tr>
             <th></th>
@@ -30,10 +30,10 @@
             <th>
                 <div class="form-group">
                     <select class="form-control" st-search="Status">
-                        <option value="">All</option>
-                        <option value="1">Pending</option>
-                        <option value="5">Approved</option>
-                        <option value="8">Not Approved</option>
+                        <option value="">{{::vm.translate.get('All')}}</option>
+                        <option value="1">{{::vm.translate.get('Pending')}}</option>
+                        <option value="5">{{::vm.translate.get('Approved')}}</option>
+                        <option value="8">{{::vm.translate.get('Not Approved')}}</option>
                     </select>
                 </div>
             </th>
@@ -49,7 +49,7 @@
             <td>{{review.comment}}</td>
             <td>{{review.createdOn | date:'medium'}}</td>
             <td>{{review.status }}</td>
-            <td><button ng-if="review.status ==='Pending'" title="Approve" ng-click="vm.approve(review)" class="btn btn-primary btn-xs">Approve</button></td>
+            <td><button ng-if="review.status ==='Pending'" title="Approve" ng-click="vm.approve(review)" class="btn btn-primary btn-xs">{{::vm.translate.get('Approve')}}</button></td>
         </tr>
     </tbody>
     <tbody ng-show="vm.isLoading">

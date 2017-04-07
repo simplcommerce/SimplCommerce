@@ -5,8 +5,9 @@
         .controller('ConfigurationCtrl', ConfigurationCtrl);
 
     /* @ngInject */
-    function ConfigurationCtrl($state, configurationService) {
+    function ConfigurationCtrl($state, configurationService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.settings = {};
 
         vm.save = function save() {

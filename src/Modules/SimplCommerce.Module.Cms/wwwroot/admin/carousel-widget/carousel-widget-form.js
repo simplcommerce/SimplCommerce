@@ -5,8 +5,9 @@
         .controller('CarouselWidgetFormCtrl', CarouselWidgetFormCtrl);
 
     /* @ngInject */
-    function CarouselWidgetFormCtrl($state, $stateParams, carouselWidgetService) {
+    function CarouselWidgetFormCtrl($state, $stateParams, carouselWidgetService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.widgetInstance = { widgetZoneId: 1, items: [{}], publishStart: new Date() };
         vm.widgetZones = [];
         vm.widgetInstanceId = $stateParams.id;

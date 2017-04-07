@@ -5,8 +5,9 @@
         .controller('HtmlWidgetFormCtrl', HtmlWidgetFormCtrl);
 
     /* @ngInject */
-    function HtmlWidgetFormCtrl($state, $stateParams, summerNoteService, htmlWidgetService) {
+    function HtmlWidgetFormCtrl($state, $stateParams, summerNoteService, htmlWidgetService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.widgetZones = [];
         vm.widgetInstance = { widgetZoneId: 1, publishStart : new Date() };
         vm.widgetInstanceId = $stateParams.id;

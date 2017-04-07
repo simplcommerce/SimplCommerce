@@ -5,8 +5,9 @@
         .controller('ProductAttributeGroupFormCtrl', ProductAttributeGroupFormCtrl);
 
     /* @ngInject */
-    function ProductAttributeGroupFormCtrl($state, $stateParams, productAttributeGroupService) {
+    function ProductAttributeGroupFormCtrl($state, $stateParams, productAttributeGroupService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.productAttributeGroupId = $stateParams.id;
         vm.isEditMode = vm.productAttributeGroupId > 0;
 

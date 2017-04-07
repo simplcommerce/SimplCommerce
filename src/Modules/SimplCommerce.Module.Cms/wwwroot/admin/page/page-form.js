@@ -5,8 +5,9 @@
         .controller('PageFormCtrl', PageFormCtrl);
 
     /* @ngInject */
-    function PageFormCtrl($state, $stateParams, summerNoteService, pageService) {
+    function PageFormCtrl($state, $stateParams, summerNoteService, pageService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.page = {};
         vm.pageId = $stateParams.id;
         vm.isEditMode = vm.pageId > 0;

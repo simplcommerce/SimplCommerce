@@ -1,10 +1,10 @@
 ﻿<div class="page-header">
     <div class="row">
         <div class="col-md-8">
-            <h2>Product List</h2>
+            <h2>{{::vm.translate.get('Products')}}</h2>
         </div>
         <div class="col-md-4 text-right">
-            <a ui-sref="product-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Create Product</a>
+            <a ui-sref="product-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>{{::vm.translate.get('Create Product')}}</a>
         </div>
     </div>
 </div>
@@ -12,16 +12,16 @@
 <table class="table table-striped" st-pipe="vm.getProducts" st-table="vm.products">
     <thead>
         <tr>
-            <th st-sort="Name" class="sortable">Name</th>
-            <th class="text-center">Has Options</th>
-            <th class="text-center">Is Visible<br/>Individually</th>
-            <th class="text-center">Is Featured</th>
-            <th class="text-center">Is Allowed<br/>To Order</th>
-            <th class="text-center">Is Called<br/>For Pricing</th>
-            <th>Stock Quantity</th>
-            <th st-sort="IsPublished" class="text-center sortable">Is Published</th>
-            <th st-sort="CreatedOn" class="text-center sortable">Created On</th>
-            <th class="text-center">Actions</th>
+            <th st-sort="Name" class="sortable">{{::vm.translate.get('Name')}}</th>
+            <th class="text-center">{{::vm.translate.get('Has Options')}}</th>
+            <th class="text-center">{{::vm.translate.get('Is Visible Individually')}}</th>
+            <th class="text-center">{{::vm.translate.get('Is Featured')}}</th>
+            <th class="text-center">{{::vm.translate.get('Is Allowed To Order')}}</th>
+            <th class="text-center">{{::vm.translate.get('Is Called For Pricing')}}</th>
+            <th>{{::vm.translate.get('Stock Quantity')}}</th>
+            <th st-sort="IsPublished" class="text-center sortable">{{::vm.translate.get('Is Published')}}</th>
+            <th st-sort="CreatedOn" class="text-center sortable">{{::vm.translate.get('Created On')}}</th>
+            <th class="text-center">{{::vm.translate.get('Actions')}}</th>
         </tr>
         <tr>
             <th>
@@ -32,18 +32,18 @@
             <th>
                 <div class="form-group">
                     <select class="form-control" st-search="HasOptions">
-                        <option value="">All</option>
-                        <option value="true">Yes</option>
-                        <option value="false">No</option>
+                        <option value="">{{::vm.translate.get('All')}}</option>
+                        <option value="true">{{::vm.translate.get('Yes')}}</option>
+                        <option value="false">{{::vm.translate.get('No')}}</option>
                     </select>
                 </div>
             </th>
             <th>
                 <div class="form-group">
                     <select class="form-control" st-search="IsVisibleIndividually">
-                        <option value="">All</option>
-                        <option value="true">Yes</option>
-                        <option value="false">No</option>
+                        <option value="">{{::vm.translate.get('All')}}</option>
+                        <option value="true">{{::vm.translate.get('Yes')}}</option>
+                        <option value="false">{{::vm.translate.get('No')}}</option>
                     </select>
                 </div>
             </th>
@@ -54,9 +54,9 @@
             <th>
                 <div class="form-group">
                     <select class="form-control" st-search="IsPublished">
-                        <option value="">All</option>
-                        <option value="true">Yes</option>
-                        <option value="false">No</option>
+                        <option value="">{{::vm.translate.get('All')}}</option>
+                        <option value="true">{{::vm.translate.get('Yes')}}</option>
+                        <option value="false">{{::vm.translate.get('No')}}</option>
                     </select>
                 </div>
             </th>

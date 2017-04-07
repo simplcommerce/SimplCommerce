@@ -1,10 +1,10 @@
 ﻿<div class="page-header">
     <div class="row">
         <div class="col-md-8">
-            <h2>Product Attribute List</h2>
+            <h2>{{::vm.translate.get('Product Attributes')}}</h2>
         </div>
         <div class="col-md-4 text-right">
-            <a ui-sref="product-attribute-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Create Product Attribute</a>
+            <a ui-sref="product-attribute-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create Product Attribute')}}</a>
         </div>
     </div>
 </div>
@@ -12,9 +12,9 @@
 <table class="table table-condensed table-striped">
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Group</th>
-        <th>Actions</th>
+        <th>{{::vm.translate.get('Name')}}</th>
+        <th>{{::vm.translate.get('Group')}}</th>
+        <th>{{::vm.translate.get('Actions')}}</th>
     </tr>
     </thead>
     <tbody>

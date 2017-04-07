@@ -5,8 +5,9 @@
         .controller('BrandFormCtrl', BrandFormCtrl);
 
     /* @ngInject */
-    function BrandFormCtrl($state, $stateParams, brandService) {
+    function BrandFormCtrl($state, $stateParams, brandService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.brand = {};
         vm.brandId = $stateParams.id;
         vm.isEditMode = vm.brandId > 0;

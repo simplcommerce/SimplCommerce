@@ -5,8 +5,9 @@
         .controller('BrandListCtrl', BrandListCtrl);
 
     /* @ngInject */
-    function BrandListCtrl(brandService) {
+    function BrandListCtrl(brandService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.brands = [];
 
         vm.getBrands = function getBrands() {
