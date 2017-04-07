@@ -88,7 +88,7 @@ namespace SimplCommerce.WebHost.Extensions
                 new CultureInfo("uk-UA"),
                 new CultureInfo("ru-RU"),
                 new CultureInfo("ar-TN"),
-                new CultureInfo("kr-KR")
+                new CultureInfo("ko-KR")
             };
             app.UseRequestLocalization(new RequestLocalizationOptions
             {

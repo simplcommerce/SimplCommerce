@@ -67,7 +67,7 @@ INSERT INTO "Localization_Culture" ("Id", "Name") VALUES (3, 'pt-BR');
 INSERT INTO "Localization_Culture" ("Id", "Name") VALUES (4, 'uk-UA');
 INSERT INTO "Localization_Culture" ("Id", "Name") VALUES (5, 'ru-RU');
 INSERT INTO "Localization_Culture" ("Id", "Name") VALUES (6, 'ar-TN');
-INSERT INTO "Localization_Culture" ("Id", "Name") VALUES (7, 'kr-KR');
+INSERT INTO "Localization_Culture" ("Id", "Name") VALUES (7, 'ko-KR');
 
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Register', 'Đăng ký');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Hello {0}!', 'Chào {0}!');
