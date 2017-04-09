@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Moq;
 using SimplCommerce.Infrastructure.Data;
@@ -19,19 +20,29 @@ namespace SimplCommerce.Module.Core.Tests.Components
             // Arrange
             var mockRepository = new Mock<IRepository<Address>>();
             var country = new Country { Name = "France" };
-            var sop = new StateOrProvince { Name = "IDF", Country = country, Type = "foo" };
-            var district = new District { Location = "North", StateOrProvince = sop, Name = "Fresnes" };
+            var stateOrProvince = new StateOrProvince { Name = "IDF", Country = country, Type = "State" };
+            var district = new District { Location = "Center", StateOrProvince = stateOrProvince, Name = "Paris" };
+
             var address = new Address
             {
                 CountryId = 1,
-                AddressLine1 = "5 Rue Marcel",
+                AddressLine1 = "115 Rue Marcel",
                 Country = country,
-                StateOrProvince = sop,
+                StateOrProvince = stateOrProvince,
                 District = district
             };
-            mockRepository.Setup(x => x.Add(address));
+
+            mockRepository.Setup(x => x.Query().Select(a => new Address
+            {
+                CountryId = address.CountryId,
+                AddressLine1 = address.AddressLine1,
+                Country = address.Country,
+                StateOrProvince = address.StateOrProvince,
+                District = address.District
+            }));
+
             var mockWorkContext = new Mock<IWorkContext>();
-            var user = new User { DefaultBillingAddressId = 0, Id = 1, FullName = "Maher" };
+            var user = new User { Id = 1, FullName = "Maher", DefaultBillingAddressId = 0 };
             mockWorkContext.Setup(x => x.GetCurrentUser()).Returns(Task.FromResult(user));
             var component = new DefaultAddressViewComponent(mockRepository.Object, mockWorkContext.Object);
 
@@ -42,7 +53,7 @@ namespace SimplCommerce.Module.Core.Tests.Components
             Assert.NotNull(result);
             var viewResult = Assert.IsType<ViewViewComponentResult>(result);
             Assert.NotNull(viewResult.ViewName);
-            var model = Assert.IsType< DefaultAddressViewComponentVm>(viewResult.ViewData.Model);
+            var model = Assert.IsType<DefaultAddressViewComponentVm>(viewResult.ViewData.Model);
             Assert.Equal(address.AddressLine1, model.Address.AddressLine1);
             Assert.Equal("/Modules/SimplCommerce.Module.Core/Views/Components/DefaultAddress.cshtml", viewResult.ViewName);
         }
