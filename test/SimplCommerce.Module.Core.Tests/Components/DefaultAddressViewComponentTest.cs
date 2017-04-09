@@ -12,7 +12,7 @@ namespace SimplCommerce.Module.Core.Tests.Components
     {
 
         [Fact]
-        public async Task DefaultAddressViewComponent_Returns_DefaultAddresse()
+        public async Task DefaultAddressViewComponent_Should_Returns_DefaultAddress()
         {
             // Arrange
             var mockRepository = new Mock<IRepository<Address>>();
@@ -38,6 +38,7 @@ namespace SimplCommerce.Module.Core.Tests.Components
 
             // Assert
             Assert.NotNull(result);
+            Assert.Equal("/Modules/SimplCommerce.Module.Core/Views/Components/DefaultAddress.cshtml",((Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult)result).ViewName);
         }
 
     }
