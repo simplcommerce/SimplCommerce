@@ -1,9 +1,11 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Moq;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Components;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
+using SimplCommerce.Module.Core.ViewModels.Manage;
 using Xunit;
 
 namespace SimplCommerce.Module.Core.Tests.Components
@@ -38,7 +40,11 @@ namespace SimplCommerce.Module.Core.Tests.Components
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal("/Modules/SimplCommerce.Module.Core/Views/Components/DefaultAddress.cshtml",((Microsoft.AspNetCore.Mvc.ViewComponents.ViewViewComponentResult)result).ViewName);
+            var viewResult = Assert.IsType<ViewViewComponentResult>(result);
+            Assert.NotNull(viewResult.ViewName);
+            var model = Assert.IsType< DefaultAddressViewComponentVm>(viewResult.ViewData.Model);
+            Assert.Equal(address.AddressLine1, model.Address.AddressLine1);
+            Assert.Equal("/Modules/SimplCommerce.Module.Core/Views/Components/DefaultAddress.cshtml", viewResult.ViewName);
         }
 
     }
