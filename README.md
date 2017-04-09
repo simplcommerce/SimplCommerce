@@ -122,7 +122,7 @@ https://github.com/simplcommerce/SimplCommerce/wiki/Roadmap
 
 ## How to contribute
 
-- Report bugs or suggest features by create new issues or add comments to issues
+- Report bugs or suggest features by creating new issues or adding comments to issues
 - Submit pull requests
 
 ## License
