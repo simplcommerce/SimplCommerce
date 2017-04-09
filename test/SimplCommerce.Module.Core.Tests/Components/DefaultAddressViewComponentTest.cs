@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Moq;
@@ -32,17 +33,9 @@ namespace SimplCommerce.Module.Core.Tests.Components
                 District = district
             };
 
-            mockRepository.Setup(x => x.Query().Select(a => new Address
-            {
-                CountryId = address.CountryId,
-                AddressLine1 = address.AddressLine1,
-                Country = address.Country,
-                StateOrProvince = address.StateOrProvince,
-                District = address.District
-            }));
-
+            mockRepository.Setup(x => x.Query()).Returns(new List<Address> { address }.AsQueryable());
             var mockWorkContext = new Mock<IWorkContext>();
-            var user = new User { Id = 1, FullName = "Maher", DefaultBillingAddressId = 0 };
+            var user = new User { Id = 1, FullName = "Maher", DefaultShippingAddressId = 0 };
             mockWorkContext.Setup(x => x.GetCurrentUser()).Returns(Task.FromResult(user));
             var component = new DefaultAddressViewComponent(mockRepository.Object, mockWorkContext.Object);
 
