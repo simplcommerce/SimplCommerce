@@ -45,7 +45,7 @@
         }  
 
         function deleteNewsItem(newsItem) {
-            return $http.delete('api/pages/' + page.id, null);
+            return $http.delete('api/news-items/' + newsItem.id, null);
         }
     }
 })();
