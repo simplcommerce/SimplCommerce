@@ -11,6 +11,7 @@ namespace SimplCommerce.Module.News.ViewModels
             NewsByCategory = new NewsByCategoryVm();
             NewsCategory = new List<NewsCategoryVm>();
         }
+        public NewsCategoryVm CurrentNewsCategory { get; set; }
 
         public NewsByCategoryVm NewsByCategory { get; set; }
 

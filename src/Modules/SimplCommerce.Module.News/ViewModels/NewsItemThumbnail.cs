@@ -13,5 +13,7 @@ namespace SimplCommerce.Module.News.ViewModels
         public string ImageUrl { get; set; }
 
         public DateTimeOffset PublishedOn { get; set; }
+
+        public string SeoTitle { get; set; }
     }
 }
