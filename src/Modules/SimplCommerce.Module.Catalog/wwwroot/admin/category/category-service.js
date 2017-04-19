@@ -23,14 +23,14 @@
             return $http.get('api/categories');
         }
 
-        function createCategory(category, thumbnailImage) {
+        function createCategory(category) {
             return Upload.upload({
                 url: 'api/categories',
                 data: category
             });
         }
 
-        function editCategory(category, thumbnailImage) {
+        function editCategory(category) {
             return Upload.upload({
                 url: 'api/categories/' + category.id,
                 method: 'PUT',

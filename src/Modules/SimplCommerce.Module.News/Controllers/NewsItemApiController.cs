@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,16 +11,9 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
-using SimplCommerce.Module.News.Data;
 using SimplCommerce.Module.News.Models;
 using SimplCommerce.Module.News.Services;
 using SimplCommerce.Module.News.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.News.Controllers
 {
@@ -41,7 +38,6 @@ namespace SimplCommerce.Module.News.Controllers
         public IActionResult Get()
         {
             var newsItemList = _newsItemRepository.Query().Where(x => !x.IsDeleted).ToList();
-
             return Json(newsItemList);
         }
 
@@ -53,7 +49,7 @@ namespace SimplCommerce.Module.News.Controllers
                .Include(x => x.Categories)
                .FirstOrDefault(x => x.Id == id);
 
-            var model = new NewsItemVm()
+            var model = new NewsItemForm()
             {
                 Name = newsItem.Name,
                 Id = newsItem.Id,
@@ -77,23 +73,17 @@ namespace SimplCommerce.Module.News.Controllers
             }
 
             var currentUser = await _workContext.GetCurrentUser();
-
-            if (!User.IsInRole("admin"))
-            {
-                return new BadRequestObjectResult(new { error = "You don't have permission to manage this news item" });
-            }
-
             var newsItem = new NewsItem
             {
-                Name = model.NewsItem.Name,
-                SeoTitle = model.NewsItem.SeoTitle,
-                ShortContent = model.NewsItem.ShortContent,
-                FullContent = model.NewsItem.FullContent,
-                IsPublished = model.NewsItem.IsPublished,
+                Name = model.Name,
+                SeoTitle = model.SeoTitle,
+                ShortContent = model.ShortContent,
+                FullContent = model.FullContent,
+                IsPublished = model.IsPublished,
                 CreatedBy = currentUser
             };
 
-            foreach (var categoryId in model.NewsItem.NewsCategoryIds)
+            foreach (var categoryId in model.NewsCategoryIds)
             {
                 var newsItemCategory = new NewsItemCategory
                 {
@@ -124,16 +114,11 @@ namespace SimplCommerce.Module.News.Controllers
 
             var currentUser = await _workContext.GetCurrentUser();
 
-            if (!User.IsInRole("admin"))
-            {
-                return new BadRequestObjectResult(new { error = "You don't have permission to manage this news item" });
-            }
-
-            newsItem.Name = model.NewsItem.Name;
-            newsItem.SeoTitle = model.NewsItem.SeoTitle;
-            newsItem.ShortContent = model.NewsItem.ShortContent;
-            newsItem.FullContent = model.NewsItem.FullContent;
-            newsItem.IsPublished = model.NewsItem.IsPublished;
+            newsItem.Name = model.Name;
+            newsItem.SeoTitle = model.SeoTitle;
+            newsItem.ShortContent = model.ShortContent;
+            newsItem.FullContent = model.FullContent;
+            newsItem.IsPublished = model.IsPublished;
             newsItem.UpdatedOn = DateTimeOffset.Now;
             newsItem.UpdatedBy = currentUser;
 
@@ -162,12 +147,6 @@ namespace SimplCommerce.Module.News.Controllers
             }
 
             var currentUser = await _workContext.GetCurrentUser();
-
-            if (!User.IsInRole("admin"))
-            {
-                return new BadRequestObjectResult(new { error = "You don't have permission to manage this news item" });
-            }
-
             _newsItemService.Delete(newsItem);
 
             return Ok();
@@ -199,7 +178,7 @@ namespace SimplCommerce.Module.News.Controllers
 
         private void AddOrDeleteCategories(NewsItemForm model, NewsItem newsItem)
         {
-            foreach (var categoryId in model.NewsItem.NewsCategoryIds)
+            foreach (var categoryId in model.NewsCategoryIds)
             {
                 if (newsItem.Categories.Any(x => x.CategoryId == categoryId))
                 {
@@ -214,7 +193,7 @@ namespace SimplCommerce.Module.News.Controllers
             }
 
             var deletedNewsItemCategories =
-                newsItem.Categories.Where(newsItemCategory => !model.NewsItem.NewsCategoryIds.Contains(newsItemCategory.CategoryId))
+                newsItem.Categories.Where(newsItemCategory => !model.NewsCategoryIds.Contains(newsItemCategory.CategoryId))
                     .ToList();
 
             foreach (var deletedNewsItemCategory in deletedNewsItemCategories)

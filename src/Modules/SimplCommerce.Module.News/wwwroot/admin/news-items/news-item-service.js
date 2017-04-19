@@ -23,24 +23,18 @@
             return $http.get('api/news-items');
         }
 
-        function createNewsItem(newsItem, thumbnailImage) {
+        function createNewsItem(newsItem) {
             return Upload.upload({
                 url: 'api/news-items',
-                data: {
-                    newsItem: newsItem,
-                    thumbnailImage: thumbnailImage
-                }
+                data: newsItem
             });
-        }        
+        }
 
-        function editNewsItem(newsItem, thumbnailImage) {
+        function editNewsItem(newsItem) {
             return Upload.upload({
                 url: 'api/news-items/' + newsItem.id,
                 method: 'PUT',
-                data: {
-                    newsItem: newsItem,
-                    thumbnailImage: thumbnailImage
-                }
+                data: newsItem
             });
         }  
 

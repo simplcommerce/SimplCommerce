@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Linq;
 using SimplCommerce.Module.News.Models;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Services;
-using System.Linq;
 
 namespace SimplCommerce.Module.News.Services
 {
