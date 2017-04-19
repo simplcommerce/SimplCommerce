@@ -1,0 +1,46 @@
+﻿@model SimplCommerce.Module.News.ViewModels.NewsVm
+@{
+    ViewData["Title"] = "News";
+}
+@if (Model != null)
+{
+    <div class="news row">
+        <div class="categories row">
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                @foreach (var item in Model.NewsCategory)
+                {
+                    <div class="btn-group" role="group">
+                        <a type="button" class="btn btn-default" href="~/@item.SeoTitle"> @item.Name</a>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="category-detail row">
+            @if (Model.NewsByCategory.NewsItem != null)
+            {
+                foreach (var item in Model.NewsByCategory.NewsItem)
+                {
+                    <div class="news-item">
+                        <div class="row">
+                            <div class="col-md-4 news-item-thumbnail">
+                                <div class="thumbnail">
+                                    <img src="@item.ImageUrl" alt="" />
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="news-item-published-on">
+                                    <h1>@item.PublishedOn.ToString("dd/MM/yyyy")</h1>
+                                </div>
+                                <div class="news-item-short-description">
+                                    @Html.Raw(item.ShortContent)
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+}
