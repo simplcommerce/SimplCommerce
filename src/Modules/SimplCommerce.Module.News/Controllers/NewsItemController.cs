@@ -1,18 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.News.Models;
 using SimplCommerce.Module.News.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SimplCommerce.Module.News.Controllers
 {
-
     public class NewsItemController : Controller
     {
         private readonly IRepository<NewsItem> _newsItemRepository;

@@ -25,8 +25,8 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">{{::vm.translate.get('Thumbnail Image')}}</label>
                 <div class="col-sm-10">
-                    <input class="form-control" type="file" ngf-select ng-model="vm.thumbnailImage" name="thumbnailImage" ngf-accept="'image/*'">
-                    <img ngf-src="vm.thumbnailImage" ngf-resize="{width: 200, height: 200, quality: 0.9}">
+                    <input class="form-control" type="file" ngf-select ng-model="vm.newsItem.thumbnailImage" name="thumbnailImage" ngf-accept="'image/*'">
+                    <img ngf-src="vm.newsItem.thumbnailImage" ngf-resize="{width: 200, height: 200, quality: 0.9}">
                     <img ng-show="!vm.thumbnailImage && vm.newsItem.thumbnailImageUrl" ng-src="{{vm.newsItem.thumbnailImageUrl}}" style="width: 200px; height: 200px" />
                 </div>
             </div>

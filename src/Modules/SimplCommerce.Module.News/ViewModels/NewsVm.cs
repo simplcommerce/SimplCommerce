@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SimplCommerce.Module.News.ViewModels
 {
@@ -8,13 +6,18 @@ namespace SimplCommerce.Module.News.ViewModels
     {
         public NewsVm()
         {
-            NewsByCategory = new NewsByCategoryVm();
             NewsCategory = new List<NewsCategoryVm>();
         }
         public NewsCategoryVm CurrentNewsCategory { get; set; }
 
-        public NewsByCategoryVm NewsByCategory { get; set; }
-
         public IList<NewsCategoryVm> NewsCategory { get; set; }
+
+        public IList<NewsItemThumbnail> NewsItem { get; set; }
+
+        public int Page { get; set; }
+
+        public int PageSize { get; set; }
+
+        public int TotalItem { get; set; }
     }
 }

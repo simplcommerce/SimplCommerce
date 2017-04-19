@@ -1,18 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.News.Models;
 using SimplCommerce.Module.News.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SimplCommerce.Module.News.Controllers
 {
-
     public class NewsCategoryController : Controller
     {
         private int _pageSize;
@@ -27,13 +23,11 @@ namespace SimplCommerce.Module.News.Controllers
             _newsItemRepository = newsItemRepository;
             _mediaService = mediaService;
             _newsCategoryRepository = newsCategoryRepository;
-            //Will change to News.ProductPageSize
-            _pageSize = config.GetValue<int>("Catalog.ProductPageSize");
+            _pageSize = config.GetValue<int>("News.PageSize");
         }
 
-        public IActionResult NewsCategoryDetail(long id)
+        public IActionResult NewsCategoryDetail(long id, int page)
         {
-
             var newsCategoryList = _newsCategoryRepository.Query()
                 .Include(x => x.NewsItems)
                 .Where(x => !x.IsDeleted)
@@ -58,39 +52,40 @@ namespace SimplCommerce.Module.News.Controllers
             })
             .FirstOrDefault(x => x.Id == id);
 
-
-            var newsVm = new NewsVm()
+            var model = new NewsVm()
             {
                 CurrentNewsCategory = currentNewsCategory,
                 NewsCategory = newsCategoryList
             };
 
-            var newsItems = _newsItemRepository.Query()
-                .Include(x => x.ThumbnailImage)
+            var query = _newsItemRepository.Query()
                 .Where(x => x.Categories.Any(c => c.CategoryId == currentNewsCategory.Id) && !x.IsDeleted && x.IsPublished)
-                .OrderByDescending(x => x.CreatedOn)
-                .Select( x => new NewsItemThumbnail()
-                {
-                    Id = x.Id,
-                    ShortContent = x.ShortContent,
-                    ImageUrl = _mediaService.GetMediaUrl(x.ThumbnailImage),
-                    //TODO will change to PublishedOn soon
-                    PublishedOn = x.CreatedOn,
-                    SeoTitle = x.SeoTitle
-                })
-                .ToList();
+                .OrderByDescending(x => x.CreatedOn);
 
-            var newsByCategoryVm = new NewsByCategoryVm
+            model.TotalItem = query.Count();
+            var currentPageNum = page <= 0 ? 1 : page;
+            var offset = (_pageSize * currentPageNum) - _pageSize;
+            while (currentPageNum > 1 && offset >= model.TotalItem)
             {
-                NewsCategoryId = currentNewsCategory.Id,
-                NewsItem = newsItems,
-                TotalNews = newsItems.Count()
-            };
+                currentPageNum--;
+                offset = (_pageSize * currentPageNum) - _pageSize;
+            }
 
-            newsVm.NewsByCategory = newsByCategoryVm;
+            model.NewsItem = query.Include(x => x.ThumbnailImage).Select( x => new NewsItemThumbnail()
+            {
+                Id = x.Id,
+                ShortContent = x.ShortContent,
+                ImageUrl = _mediaService.GetMediaUrl(x.ThumbnailImage),
+                PublishedOn = x.CreatedOn,
+                SeoTitle = x.SeoTitle
+            })
+            .Skip(offset)
+            .Take(_pageSize)
+            .ToList();
 
-            return View(newsVm);
+            model.PageSize = _pageSize;
+            model.Page = currentPageNum;
+            return View(model);
         }
-
     }
 }

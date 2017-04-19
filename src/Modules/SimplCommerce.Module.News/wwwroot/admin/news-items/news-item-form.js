@@ -8,12 +8,11 @@
     function NewsItemFormCtrl($state, $stateParams, summerNoteService, newsItemService, newsCategoryService, translateService) {
         var vm = this;
         vm.translate = translateService;
-        vm.newsItem = { isPublished: false };
+        vm.newsItem = { isPublished: true };
         vm.newsCategories = [];
         vm.newsItem.newsCategoryIds = [];
         vm.newsItemId = $stateParams.id;
         vm.isEditMode = vm.newsItemId > 0;
-        vm.thumbnailImage = null;
 
         vm.imageUpload = function (files) {
             summerNoteService.upload(files[0])
@@ -25,9 +24,9 @@
         vm.save = function save() {
             var promise;
             if (vm.isEditMode) {
-                promise = newsItemService.editNewsItem(vm.newsItem, vm.thumbnailImage);
+                promise = newsItemService.editNewsItem(vm.newsItem);
             } else {
-                promise = newsItemService.createNewsItem(vm.newsItem, vm.thumbnailImage);
+                promise = newsItemService.createNewsItem(vm.newsItem);
             }
 
             promise
