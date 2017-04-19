@@ -1,4 +1,5 @@
 ﻿@model SimplCommerce.Module.News.ViewModels.NewsVm
+@addTagHelper *, SimplCommerce.Infrastructure
 @{
     ViewData["Title"] = "News";
 }
@@ -15,32 +16,14 @@
                 }
             </div>
         </div>
-        <div class="category-detail row">
-            @if (Model.NewsByCategory.NewsItem != null)
-            {
-                foreach (var item in Model.NewsByCategory.NewsItem)
+        @if (Model.NewsByCategory.NewsItem != null)
+        {
+            <div class="news-category-detail row">
+                @foreach (var item in Model.NewsByCategory.NewsItem)
                 {
-                    <div class="news-item">
-                        <div class="row">
-                            <div class="col-md-4 news-item-thumbnail">
-                                <div class="thumbnail">
-                                    <img src="@item.ImageUrl" alt="" />
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="news-item-published-on">
-                                    <h1>@item.PublishedOn.ToString("dd/MM/yyyy")</h1>
-                                </div>
-                                <div class="news-item-short-description">
-                                    @Html.Raw(item.ShortContent)
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+                    @await Html.PartialAsync("_NewsThumbnail", item)
                 }
-            }
-
-        </div>
+            </div>
+        }
     </div>
 }

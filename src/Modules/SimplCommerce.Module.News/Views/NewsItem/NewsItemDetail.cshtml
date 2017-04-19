@@ -1,1 +1,18 @@
-﻿
+﻿@model SimplCommerce.Module.News.ViewModels.NewsItemVm
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="news-detail">
+    <div class="row">
+        <h3 class="news-title">@Model.Name</h3>
+
+        <div class="thumbnail">
+            <img src="@Model.ThumbnailImageUrl" alt="" />
+        </div>
+        <div class="news-item-full-description">
+            @Html.Raw(Model.FullContent)
+        </div>
+    </div>
+</div>
