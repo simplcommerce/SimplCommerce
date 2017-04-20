@@ -19,8 +19,8 @@
             return $http.get('api/news-items/' + id);
         }
 
-        function getNewsItems() {
-            return $http.get('api/news-items');
+        function getNewsItems(params) {
+            return $http.post('api/news-items/grid', params);
         }
 
         function createNewsItem(newsItem) {

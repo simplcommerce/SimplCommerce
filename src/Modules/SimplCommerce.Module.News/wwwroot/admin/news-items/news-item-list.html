@@ -9,24 +9,47 @@
     </div>
 </div>
 
-<table class="table table-striped">
+<table class="table table-striped" st-pipe="vm.getNewsItems" st-table="vm.newsItems">
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Url</th>
-        <th class="text-center">Is Published</th>
-        <th>Actions</th>
-    </tr>
+        <tr>
+            <th st-sort="Name" class="sortable">{{ ::vm.translate.get('Name')}}</th>
+            <th>Url</th>
+            <th class="text-center">{{::vm.translate.get('Is Published')}}</th>
+            <th st-sort="CreatedOn" class="sortable">{{ ::vm.translate.get('CreatedOn')}}</th>
+            <th>Actions</th>
+        </tr>
+        <tr>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="Name" />
+                </div>
+            </th>
+            <th></th>
+            <th></th>
+            <th><st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range></th>
+            <th></th>
+        </tr>
     </thead>
-    <tbody>
-    <tr ng-repeat="newsItem in vm.newsItems">
-        <td>{{newsItem.name}}</td>
-        <td>{{newsItem.seoTitle}}</td>
-        <td class="text-center"><i ng-attr-class="{{newsItem.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
-        <td>
-            <a ui-sref="news-items-edit({id: newsItem.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
-            <button ng-click="vm.deleteNewsItem(newsItem)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
-        </td>
-    </tr>
+    <tbody ng-show="!vm.isLoading">
+        <tr ng-repeat="newsItem in vm.newsItems">
+            <td>{{newsItem.name}}</td>
+            <td>{{newsItem.seoTitle}}</td>
+            <td class="text-center"><i ng-attr-class="{{newsItem.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+            <td>{{newsItem.createdOn | date:'medium'}}</td>
+            <td>
+                <a ui-sref="news-items-edit({id: newsItem.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+                <button ng-click="vm.deleteNewsItem(newsItem)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+            </td>
+        </tr>
     </tbody>
+    <tbody ng-show="vm.isLoading">
+        <tr>
+            <td colspan="5" class="text-center">Loading ... </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="5"></td>
+        </tr>
+    </tfoot>
 </table>
