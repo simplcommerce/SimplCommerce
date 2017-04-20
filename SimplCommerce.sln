@@ -48,7 +48,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.Core.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.News", "src\Modules\SimplCommerce.Module.News\SimplCommerce.Module.News.csproj", "{4FE8CC2E-3DF9-4AE7-A04E-4293FABEE221}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.Cms.Tests", "SimplCommerce.Module.Cms.Tests\SimplCommerce.Module.Cms.Tests.csproj", "{483C5E8D-99A4-410D-8DB3-2F695B05BF40}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.Cms.Tests", "test\SimplCommerce.Module.Cms.Tests\SimplCommerce.Module.Cms.Tests.csproj", "{483C5E8D-99A4-410D-8DB3-2F695B05BF40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
