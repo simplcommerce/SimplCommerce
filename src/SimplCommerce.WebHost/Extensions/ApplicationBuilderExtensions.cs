@@ -44,12 +44,12 @@ namespace SimplCommerce.WebHost.Extensions
         {
             if (env.IsDevelopment())
             {
-                app.UseStaticFiles(new StaticFileOptions()
+                app.UseStaticFiles(new StaticFileOptions
                 {
                     OnPrepareResponse = (context) =>
                     {
                         var headers = context.Context.Response.GetTypedHeaders();
-                        headers.CacheControl = new CacheControlHeaderValue()
+                        headers.CacheControl = new CacheControlHeaderValue
                         {
                             NoCache = true,
                             NoStore = true,
@@ -60,12 +60,12 @@ namespace SimplCommerce.WebHost.Extensions
             }
             else
             {
-                app.UseStaticFiles(new StaticFileOptions()
+                app.UseStaticFiles(new StaticFileOptions
                 {
                     OnPrepareResponse = (context) =>
                     {
                         var headers = context.Context.Response.GetTypedHeaders();
-                        headers.CacheControl = new CacheControlHeaderValue()
+                        headers.CacheControl = new CacheControlHeaderValue
                         {
                             Public = true,
                             MaxAge = TimeSpan.FromDays(60)
@@ -88,7 +88,8 @@ namespace SimplCommerce.WebHost.Extensions
                 new CultureInfo("uk-UA"),
                 new CultureInfo("ru-RU"),
                 new CultureInfo("ar-TN"),
-                new CultureInfo("ko-KR")
+                new CultureInfo("ko-KR"),
+                new CultureInfo("tr-TR")
             };
             app.UseRequestLocalization(new RequestLocalizationOptions
             {

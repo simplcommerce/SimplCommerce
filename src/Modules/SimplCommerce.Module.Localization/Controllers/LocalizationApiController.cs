@@ -61,7 +61,7 @@ namespace SimplCommerce.Module.Localization.Controllers
 
                 foreach(var item in standardResources)
                 {
-                    if(!resources.Any(x => x.Key == item.Key))
+                    if(resources.All(x => x.Key != item.Key))
                     {
                         resources.Add(new ResourceItemVm { Key = item.Key, CultureId = cultureId, Value = item.Key, IsTranslated = false });
                     }
@@ -79,7 +79,7 @@ namespace SimplCommerce.Module.Localization.Controllers
 
             foreach(var resourceItemForm in model)
             {
-                var resource = resources.Where(x => x.Key == resourceItemForm.Key).FirstOrDefault();
+                var resource = resources.FirstOrDefault(x => x.Key == resourceItemForm.Key);
                 if(resource != null)
                 {
                     resource.Value = resourceItemForm.Value;
