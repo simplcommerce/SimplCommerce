@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Extensions;
@@ -10,6 +11,7 @@ using SimplCommerce.Module.ProductComparison.Services;
 using SimplCommerce.Module.ProductComparison.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -44,8 +46,31 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             var comparisonItem = _productComparisonService.AddToComparison(currentUser.Id, model.ProductId);
 
-            return View();
-            //return RedirectToAction("AddToCartResult", new { cartItemId = cartItem.Id });
+            return RedirectToAction("AddToCartResult", new { comparisonItemId = comparisonItem.Id });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddToCartResult(long comparisonItemId)
+        {
+            var currentUser = await _workContext.GetCurrentUser();
+            var comparisonItem =
+                _productComparisonRepository.Query()
+                    .Include(x => x.Product).ThenInclude(x => x.ThumbnailImage)
+                    .First(x => x.Id == comparisonItemId);
+
+            var model = new AddToComparisonResult
+            {
+                ProductName = comparisonItem.Product.Name,
+                ProductImage = _mediaService.GetThumbnailUrl(comparisonItem.Product.ThumbnailImage),
+                ProductPrice = comparisonItem.Product.Price
+            };
+
+            //var cartItems = _cartService.GetCartItems(currentUser.Id);
+            //model.CartItemCount = cartItems.Count;
+            //model.CartAmount = cartItems.Sum(x => x.Quantity * x.Product.Price);
+
+            //return PartialView(model);
+            return null;
         }
     }
 }

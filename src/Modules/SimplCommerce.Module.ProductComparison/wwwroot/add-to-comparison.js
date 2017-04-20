@@ -1,22 +1,18 @@
 ﻿/*global $ */
 $(function () {
-    $('body').on('click', '.btn-add-cart', function () {
+    $('body').on('click', '.btn-add-comparison', function () {
         var quantity,
             $form = $(this).closest("form"),
             productId = $(this).closest("form").find('input[name=productId]').val(),
-            $quantityInput = $form.find('.quantity-field');
-
-        quantity = $quantityInput.length === 1 ? $quantityInput.val() : 1;
 
         $.ajax({
             type: 'POST',
-            url: '/cart/addtocart',
-            data: JSON.stringify({ productId: productId, quantity: quantity }),
-            contentType: "application/json"
+            url: '/productcomparison/AddToComparison',
+            data: JSON.stringify({ productId: productId }),
+            contentType: "application/json"  
         }).done(function (data) {
             $('#shopModal').find('.modal-content').html(data);
             $('#shopModal').modal('show');
-            $('.cart-badge .badge').text($('#shopModal').find('.cart-item-count').text());
         }).fail(function () {
             /*jshint multistr: true */
             $('#shopModal').find('.modal-content').html(' \
