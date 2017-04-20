@@ -5,13 +5,19 @@
         .controller('NewsItemListCtrl', NewsItemListCtrl);
 
     /* @ngInject */
-    function NewsItemListCtrl(newsItemService) {
-        var vm = this;
+    function NewsItemListCtrl(newsItemService, translateService) {
+        var vm = this,
+            tableStateRef;
+        vm.translate = translateService;
         vm.newsItems = [];
 
-        vm.getNewsItems = function getNewsItems() {
-            newsItemService.getNewsItems().then(function (result) {
-                vm.newsItems = result.data;
+        vm.getNewsItems = function getNewsItems(tableState) {
+            tableStateRef = tableState;
+            vm.isLoading = true;
+            newsItemService.getNewsItems(tableState).then(function (result) {
+                vm.newsItems = result.data.items;
+                tableState.pagination.numberOfPages = result.data.numberOfPages;
+                vm.isLoading = false;
             });
         };
 
@@ -20,7 +26,7 @@
                 if (result) {
                     newsItemService.deleteNewsItem(newsItem)
                        .then(function (result) {
-                           vm.getNewsItems();
+                           vm.getNewsItems(tableStateRef);
                            toastr.success(newsItem.name + ' has been deleted');
                        })
                         .catch(function (response) {
@@ -29,7 +35,5 @@
                 }
             });
         };
-
-        vm.getNewsItems();
     }
 })();

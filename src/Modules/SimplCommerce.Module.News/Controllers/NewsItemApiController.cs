@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
@@ -34,11 +35,48 @@ namespace SimplCommerce.Module.News.Controllers
             _workContext = workContent;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpPost("grid")]
+        public IActionResult Get([FromBody] SmartTableParam param)
         {
-            var newsItemList = _newsItemRepository.Query().Where(x => !x.IsDeleted).ToList();
-            return Json(newsItemList);
+            var query = _newsItemRepository.Query().Where(x => !x.IsDeleted);
+
+            if (param.Search.PredicateObject != null)
+            {
+                dynamic search = param.Search.PredicateObject;
+
+                if (search.Name != null)
+                {
+                    string name = search.Name;
+                    query = query.Where(x => x.Name.Contains(name));
+                }
+
+                if (search.CreatedOn != null)
+                {
+                    if (search.CreatedOn.before != null)
+                    {
+                        DateTimeOffset before = search.CreatedOn.before;
+                        query = query.Where(x => x.CreatedOn <= before);
+                    }
+
+                    if (search.CreatedOn.after != null)
+                    {
+                        DateTimeOffset after = search.CreatedOn.after;
+                        query = query.Where(x => x.CreatedOn >= after);
+                    }
+                }
+            }
+
+            var newsItems = query.ToSmartTableResult(
+                param,
+                x => new
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    SeoTitle = x.SeoTitle,
+                    IsPublished = x.IsPublished,
+                    CreatedOn = x.CreatedOn
+                });
+            return Json(newsItems);
         }
 
         [HttpGet("{id}")]
