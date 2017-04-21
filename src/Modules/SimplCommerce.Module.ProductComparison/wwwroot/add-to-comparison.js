@@ -1,6 +1,6 @@
 ﻿/*global $ */
 $(function () {
-    $('body').on('click', '.btn-add-comparison', function () {
+    $('body').on('click', '.add-to-comparison', function () {
         var quantity,
             $form = $(this).closest("form"),
             productId = $(this).closest("form").find('input[name=productId]').val(),
