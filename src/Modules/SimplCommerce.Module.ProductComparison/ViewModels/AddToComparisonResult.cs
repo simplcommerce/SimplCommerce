@@ -6,14 +6,14 @@ namespace SimplCommerce.Module.ProductComparison.ViewModels
 {
     public class AddToComparisonResult
     {
-        public string ProductName { get; set; }
-
-        public string ProductImage { get; set; }
-
-        public decimal ProductPrice { get; set; }
-
-        public string VariationName { get; set; }
-
         public int ComparisonItemCount { get; set; }
+
+        public int MaxItem { get; set; }
+
+        public String Message { get; set; }
+
+        public bool AddResult { get; set; }
+
+        public IList<ProductComparisonModel> ProductComparisons { get; set; } = new List<ProductComparisonModel>();
     }
 }

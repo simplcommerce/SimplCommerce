@@ -24,6 +24,7 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
         private readonly IProductComparisonService _productComparisonService;
         private readonly IMediaService _mediaService;
         private readonly IWorkContext _workContext;
+        private const int MaxComparisonItem = 4;
 
         public ProductComparisonController(
             UserManager<User> userManager,
@@ -44,33 +45,51 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
         public async Task<IActionResult> AddToComparison([FromBody] AddToComparisonModel model)
         {
             var currentUser = await _workContext.GetCurrentUser();
+
+            var comparisonItems = _productComparisonService.GetComparisonItems(currentUser.Id);
+
+            if (comparisonItems.Count == MaxComparisonItem)
+            {
+                return RedirectToAction("AddToComparisonResult", new { addItemResult = false });
+            }
+
             var comparisonItem = _productComparisonService.AddToComparison(currentUser.Id, model.ProductId);
 
-            return RedirectToAction("AddToCartResult", new { comparisonItemId = comparisonItem.Id });
+            return RedirectToAction("AddToComparisonResult");
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddToCartResult(long comparisonItemId)
+        public async Task<IActionResult> AddToComparisonResult(bool addItemResult = false)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var comparisonItem =
-                _productComparisonRepository.Query()
-                    .Include(x => x.Product).ThenInclude(x => x.ThumbnailImage)
-                    .First(x => x.Id == comparisonItemId);
+
+            var comparisonItems = _productComparisonService.GetComparisonItems(currentUser.Id)
+                .Select(x => new ProductComparisonModel()
+                {
+                    ProductName = x.Product.Name,
+                    ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
+                    ProductPrice = x.Product.Price
+                }
+                ).ToList();
 
             var model = new AddToComparisonResult
             {
-                ProductName = comparisonItem.Product.Name,
-                ProductImage = _mediaService.GetThumbnailUrl(comparisonItem.Product.ThumbnailImage),
-                ProductPrice = comparisonItem.Product.Price
+                MaxItem = MaxComparisonItem,
+                ProductComparisons = comparisonItems,
+                ComparisonItemCount = comparisonItems.Count,
+                AddResult = addItemResult
             };
 
-            //var cartItems = _cartService.GetCartItems(currentUser.Id);
-            //model.CartItemCount = cartItems.Count;
-            //model.CartAmount = cartItems.Sum(x => x.Quantity * x.Product.Price);
+            if (addItemResult)
+            {
+                model.Message = "";
+            }
+            else
+            {
+                model.Message = "";
+            }
 
-            //return PartialView(model);
-            return null;
+            return PartialView(model);
         }
     }
 }

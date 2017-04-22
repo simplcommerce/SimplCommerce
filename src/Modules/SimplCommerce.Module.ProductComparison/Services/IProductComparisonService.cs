@@ -8,5 +8,7 @@ namespace SimplCommerce.Module.ProductComparison.Services
     public interface IProductComparisonService
     {
         ProductComparisonItem AddToComparison(long userId, long productId);
+
+        IList<ProductComparisonItem> GetComparisonItems(long userId)
     }
 }

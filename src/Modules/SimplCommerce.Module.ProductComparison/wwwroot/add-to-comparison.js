@@ -3,7 +3,7 @@ $(function () {
     $('body').on('click', '.add-to-comparison', function () {
         var quantity,
             $form = $(this).closest("form"),
-            productId = $(this).closest("form").find('input[name=productId]').val(),
+            productId = $(this).closest("form").find('input[name=productId]').val();
 
         $.ajax({
             type: 'POST',

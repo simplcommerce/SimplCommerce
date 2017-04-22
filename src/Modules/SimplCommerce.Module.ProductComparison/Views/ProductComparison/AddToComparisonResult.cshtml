@@ -1,8 +1,8 @@
-﻿@model SimplCommerce.Module.Orders.ViewModels.AddToCartResult
+﻿@model SimplCommerce.Module.Orders.ViewModels.AddToComparisonResult
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h4 class="modal-title" id="myModalLabel">@Localizer["The product has been added to your cart"]</h4>
+    <h4 class="modal-title" id="myModalLabel">@Localizer["The product has been added to comparison items"]</h4>
 </div>
 <div class="modal-body">
     <div class="row">
@@ -13,8 +13,7 @@
             <h4>@Model.ProductName</h4>
             <h6>@Model.VariationName</h6>
         </div>
-        <div class="col-md-3">
-            @Model.Quantity x @Model.ProductPrice.ToString("C")
+        <div class="col-md-3">           
         </div>
     </div>
 </div>
