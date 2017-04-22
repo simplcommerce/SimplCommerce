@@ -1,0 +1,70 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 ng-if="!vm.isEditMode">{{::vm.translate.get('Create Menu')}}</h2>
+        <h2 ng-if="vm.isEditMode">{{::vm.translate.get('Edit Menu')}}</h2>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">
+                <form>
+                    <div ng-repeat="entity in vm.entities" class="checkbox">
+                        <label ng-click="vm.toggleEntity(entity)">
+                            <input type="checkbox"> {{entity.name}} - {{entity.entityTypeName}}
+                        </label>
+                    </div>
+                    <button type="button" class="btn btn-default" ng-click="vm.addMenuItems()">Add</button>
+                </form>
+            </div>
+            <div class="col-sm-8">
+                <form name="pageForm" class="form-horizontal">
+                    <div class="col-sm-offset-2 bg-danger" ng-show="vm.validationErrors">
+                        <ul>
+                            <li ng-repeat="error in vm.validationErrors">{{error}}</li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Name')}}</label>
+                        <div class="col-sm-10">
+                            <input name="name" ng-model="vm.menu.name" class="form-control" />
+                        </div>
+                    </div>
+                    <script type="text/ng-template" id="nodes_renderer.html">
+                        <div class="tree-node">
+                            <div class="pull-left tree-handle" ui-tree-handle>
+                                <span class="glyphicon glyphicon-list"></span>
+                            </div>
+                            <div class="tree-node-content">
+                                <a class="btn btn-success btn-xs" ng-if="node.children && node.children.length > 0" data-nodrag ng-click="vm.toggle(this)">
+                                    <span class="glyphicon" ng-class="{ 'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed }"></span>
+                                </a>
+                                {{node.name}}
+                                <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="vm.remove(this)">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <ol ui-tree-nodes="" ng-model="node.children" ng-class="{hidden: collapsed}">
+                            <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">
+                            </li>
+                        </ol>
+                    </script>
+                    <div>
+                        <div ui-tree>
+                            <div ui-tree id="tree-root">
+                                <ol ui-tree-nodes ng-model="vm.menuItemTree">
+                                    <li ng-repeat="node in vm.menuItemTree" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> {{::vm.translate.get('Save')}}</button>
+                            <button ui-sref="menus" class="btn btn-default">{{::vm.translate.get('Cancel')}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

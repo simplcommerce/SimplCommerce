@@ -13,6 +13,7 @@
         vm.newsItem.newsCategoryIds = [];
         vm.newsItemId = $stateParams.id;
         vm.isEditMode = vm.newsItemId > 0;
+        vm.menuItemTree = [];
 
         vm.imageUpload = function (files) {
             summerNoteService.upload(files[0])
@@ -65,6 +66,7 @@
             if (vm.isEditMode) {
                 newsItemService.getNewsItem(vm.newsItemId).then(function (result) {
                     vm.newsItem = result.data;
+
                 });
             }
             getNewsCategories()

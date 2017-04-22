@@ -8,6 +8,7 @@
         'ngFileUpload',
         'ui.bootstrap',
         'ui.bootstrap.datetimepicker',
+        'ui.tree',
         'summernote',
         'simplAdmin.common',
         'simplAdmin.dashboard',

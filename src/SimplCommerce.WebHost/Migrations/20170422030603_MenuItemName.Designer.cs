@@ -8,9 +8,10 @@ using SimplCommerce.Module.Core.Data;
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    partial class SimplDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170422030603_MenuItemName")]
+    partial class MenuItemName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
