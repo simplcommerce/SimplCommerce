@@ -50,9 +50,9 @@ namespace SimplCommerce.Module.Cms.Tests.Maps
                 Name = "Test instance"
             };
 
-            var widgetForm = mapper.Map<WidgetInstance, CarouselWidgetForm>(widgetInstance);
+            var carouselWidgetForm = mapper.Map<WidgetInstance, CarouselWidgetForm>(widgetInstance);
 
-            Assert.NotNull(widgetForm);
+            Assert.NotNull(carouselWidgetForm);
         }   
 
         [Fact]
@@ -87,7 +87,6 @@ namespace SimplCommerce.Module.Cms.Tests.Maps
         public void Map_ShouldMap_FromHtmlWidgetFormToWidgetInstance()
         {
             var mapper = GetMapper();
-            
             var htmlWidgetForm = new HtmlWidgetForm()
             {
                 Name = "Test instance"
