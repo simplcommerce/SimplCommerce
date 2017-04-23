@@ -1,11 +1,11 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Cms.Models;
 using SimplCommerce.Module.Cms.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace SimplCommerce.Module.Cms.Controllers
 {
@@ -62,22 +62,30 @@ namespace SimplCommerce.Module.Cms.Controllers
             if (ModelState.IsValid)
             {
                 var menu = _menuRepository.Query().Include(x => x.MenuItems).FirstOrDefault(x => x.Id == id);
-
+                var addedMenuItems = new List<MenuItem>();
                 foreach (var item in model)
                 {
                     var menuItem = new MenuItem
                     {
                         Menu = menu,
                         CustomLink = item.CustomLink,
+                        Name = item.Name,
                         EntityId = item.EntityId,
                         ParentId = item.ParentId
                     };
 
                     menu.MenuItems.Add(menuItem);
+                    addedMenuItems.Add(menuItem);
                 }
 
                 _menuRepository.SaveChange();
-                return Ok();
+                return Ok(addedMenuItems.Select(x => new MenuItemForm
+                {
+                    Id = x.Id,
+                    EntityId = x.EntityId,
+                    Name = x.Name,
+                    CustomLink = x.CustomLink
+                }));
             }
             return new BadRequestObjectResult(ModelState);
         }
@@ -111,7 +119,7 @@ namespace SimplCommerce.Module.Cms.Controllers
                 _menuRepository.Add(menu);
                 _menuRepository.SaveChange();
 
-                return Ok();
+                return Json(menu);
             }
             return new BadRequestObjectResult(ModelState);
         }
@@ -126,15 +134,25 @@ namespace SimplCommerce.Module.Cms.Controllers
                 menu.IsPublished = model.IsPublished;
                 foreach(var item in menu.MenuItems)
                 {
-                    var modelMenuItem = model.Items.First(x => x.Id == item.Id);
+                    var modelMenuItem = model.Items.FirstOrDefault(x => x.Id == item.Id);
+                    if (modelMenuItem == null)
+                    {
+                        continue;
+                    }
+
                     item.EntityId = modelMenuItem.EntityId;
                     item.Name = modelMenuItem.Name;
                     item.CustomLink = modelMenuItem.CustomLink;
                     item.ParentId = modelMenuItem.ParentId;
                 }
 
-                _menuRepository.SaveChange();
+                var deletedMenuItems = menu.MenuItems.Where(x => !model.Items.Any(m => m.Id == x.Id));
+                foreach (var item in deletedMenuItems)
+                {
+                    _menuItemRepository.Remove(item);
+                }
 
+                _menuRepository.SaveChange();
                 return Ok();
             }
 

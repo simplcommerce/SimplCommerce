@@ -17,6 +17,7 @@ namespace SimplCommerce.Module.Core.Controllers
             _entityTypeRepository = entityTypeRepository;
         }
 
+        [HttpGet("menuable")]
         public IActionResult GetMenuable()
         {
             var entityTypes = _entityTypeRepository.Query()

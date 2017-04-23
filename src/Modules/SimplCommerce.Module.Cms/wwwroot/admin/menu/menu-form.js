@@ -5,18 +5,20 @@
         .controller('MenuFormCtrl', MenuFormCtrl);
 
     /* @ngInject */
-    function MenuFormCtrl($state, $stateParams, summerNoteService, menuService, translateService) {
+    function MenuFormCtrl($state, $stateParams, menuService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.menu = {};
         vm.menuId = $stateParams.id;
         vm.isEditMode = vm.menuId > 0;
         vm.entities = [];
+        vm.entityTypes = [];
         vm.selectedEntities = [];
         vm.menuItemTree = [];
+        vm.addingCustomLink = {};
 
         vm.toggleEntity = function toggleEntity(entity) {
-            var entityIds = vm.selectedEntities.map(function (entity) { return entity.id });
+            var entityIds = vm.selectedEntities.map(function (item) { return item.id });
             var index = entityIds.indexOf(entity.id);
             if (index > -1) {
                 vm.selectedEntities.splice(index, 1);
@@ -27,13 +29,30 @@
 
         vm.addMenuItems = function () {
             var menuItems = vm.selectedEntities.map(function (item) {
-                return { entityId : item.id }
+                return { entityId : item.id, name : item.name }
             });
-            menuService.addMenuItem(vm.menuId, menuItems).then(function () { });
+            menuService.addMenuItem(vm.menuId, menuItems).then(function (result) {
+                result.data.forEach(function (item) {
+                    item.children = [];
+                    vm.menuItemTree.push(item);
+                });
+            });
         };
 
+        vm.addCustomLink = function () {
+            var menuItems = [];
+            menuItems.push(vm.addingCustomLink);
+            menuService.addMenuItem(vm.menuId, menuItems).then(function (result) {
+                result.data.forEach(function (item) {
+                    item.children = [];
+                    vm.menuItemTree.push(item);
+                    vm.addingCustomLink = {};
+                });
+            });
+        }
+
         vm.remove = function (scope) {
-            scope.remove();
+           scope.remove();
         };
 
         vm.toggle = function (scope) {
@@ -101,6 +120,10 @@
         function init() {
             menuService.getEntities().then(function (result) {
                 vm.entities = result.data;
+            });
+
+            menuService.getEntityTypes().then(function (result) {
+                vm.entityTypes = result.data;
             });
 
             if (vm.isEditMode) {

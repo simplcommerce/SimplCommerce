@@ -135,3 +135,17 @@ td>span.glyphicon-remove {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+
+.entity-selector thead, .entity-selector tbody {
+    display: block;
+}
+
+.entity-selector tbody {
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.entity-selector .entity-name {
+    width: 200px;
+}

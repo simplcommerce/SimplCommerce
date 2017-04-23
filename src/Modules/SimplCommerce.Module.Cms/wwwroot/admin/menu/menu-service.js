@@ -13,7 +13,9 @@
             deleteMenu: deleteMenu,
             getMenus: getMenus,
             addMenuItem: addMenuItem,
+            deleteMenuItem: deleteMenuItem,
             getEntities: getEntities,
+            getEntityTypes: getEntityTypes
         };
         return service;
 
@@ -41,8 +43,16 @@
             return $http.post('api/menus/' + menuId + '/add-items', menuItems)
         }
 
-        function getEntities(entityTypeId, searchName) {
-            return $http.get('api/entities?entityTypeId=' + entityTypeId);
+        function deleteMenuItem(menuItemId) {
+            return $http.delete('api/menus/delete-item/' + menuItemId, null);
+        }
+
+        function getEntities() {
+            return $http.get('api/entities');
+        }
+
+        function getEntityTypes() {
+            return $http.get('api/entity-types/menuable');
         }
     }
 })();

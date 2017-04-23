@@ -36,6 +36,7 @@ namespace SimplCommerce.Module.Core.Controllers
                 Id = x.Id,
                 Name = x.Name,
                 Slug = x.Slug,
+                EntityTypeId = x.EntityTypeId,
                 EntityTypeName = x.EntityType.Name
             });
 

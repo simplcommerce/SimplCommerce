@@ -27,8 +27,8 @@
                 })
                 .state('menus-create', {
                     url: '/menus-create/',
-                    templateUrl: 'modules/cms/admin/menu/menu-form.html',
-                    controller: 'MenuFormCtrl as vm'
+                    templateUrl: 'modules/cms/admin/menu/menu-form-create.html',
+                    controller: 'MenuFormCreateCtrl as vm'
                 })
                 .state('menus-edit', {
                     url: '/menus-edit/:id',
