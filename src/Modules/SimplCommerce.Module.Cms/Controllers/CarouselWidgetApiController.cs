@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,27 +22,25 @@ namespace SimplCommerce.Module.Cms.Controllers
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
         private readonly IRepository<Widget> _widgetRespository;
         private readonly IMediaService _mediaService;
+        private readonly IMapper _mapper;
 
-        public CarouselWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository, IRepository<Widget> widgetRespository, IMediaService mediaService)
+        public CarouselWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository, 
+            IRepository<Widget> widgetRespository, 
+            IMediaService mediaService,
+            IMapper mapper)
         {
             _widgetInstanceRepository = widgetInstanceRepository;
             _widgetRespository = widgetRespository;
             _mediaService = mediaService;
+            _mapper = mapper;
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
             var widgetInstance = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
-            var model = new CarouselWidgetForm
-            {
-                Id = widgetInstance.Id,
-                Name = widgetInstance.Name,
-                WidgetZoneId = widgetInstance.WidgetZoneId,
-                PublishStart = widgetInstance.PublishStart,
-                PublishEnd = widgetInstance.PublishEnd,
-                Items = JsonConvert.DeserializeObject<IList<CarouselWidgetItemForm>>(widgetInstance.Data)
-            };
+            
+            var model = _mapper.Map<WidgetInstance, CarouselWidgetForm>(widgetInstance);
 
             foreach (var item in model.Items)
             {
@@ -61,16 +60,9 @@ namespace SimplCommerce.Module.Cms.Controllers
                 {
                     item.Image = SaveFile(item.UploadImage);
                 }
-
-                var widgetInstance = new WidgetInstance
-                {
-                    Name = model.Name,
-                    WidgetId = 1,
-                    WidgetZoneId = model.WidgetZoneId,
-                    PublishStart = model.PublishStart,
-                    PublishEnd = model.PublishEnd,
-                    Data = JsonConvert.SerializeObject(model.Items)
-                };
+                
+                var widgetInstance = _mapper.Map<CarouselWidgetForm, WidgetInstance>(model);
+                widgetInstance.WidgetId = 1;
 
                 _widgetInstanceRepository.Add(widgetInstance);
                 _widgetInstanceRepository.SaveChange();
@@ -98,12 +90,11 @@ namespace SimplCommerce.Module.Cms.Controllers
 
             if (ModelState.IsValid)
             {
-                var widgetInstance = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
-                widgetInstance.Name = model.Name;
-                widgetInstance.PublishStart = model.PublishStart;
-                widgetInstance.PublishEnd = model.PublishEnd;
-                widgetInstance.WidgetZoneId = model.WidgetZoneId;
-                widgetInstance.Data = JsonConvert.SerializeObject(model.Items);
+                var widgetInstanceForModification = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
+                _mapper.Map(model, widgetInstanceForModification, op => op.BeforeMap((fModel, tWidgetInstanceForModification) =>   
+                {
+                    fModel.Id = tWidgetInstanceForModification.Id; 
+                }));
 
                 _widgetInstanceRepository.SaveChange();
                 return Ok();
