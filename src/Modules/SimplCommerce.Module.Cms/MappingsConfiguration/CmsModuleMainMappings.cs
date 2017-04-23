@@ -5,7 +5,7 @@ using SimplCommerce.Module.Cms.Models;
 using SimplCommerce.Module.Cms.ViewModels;
 using SimplCommerce.Module.Core.Models;
 
-namespace SimplCommerce.Module.Cms.MappingConfiguration
+namespace SimplCommerce.Module.Cms.MappingsConfiguration
 {   
     public class CmsModuleMainMappings : Profile
     {

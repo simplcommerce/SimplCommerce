@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
-using Moq;
-using SimplCommerce.Module.Cms.MappingConfiguration;
+﻿using AutoMapper;
+using SimplCommerce.Module.Cms.MappingsConfiguration;
 using SimplCommerce.Module.Cms.Models;
 using SimplCommerce.Module.Cms.ViewModels;
 using SimplCommerce.Module.Core.Models;
 using Xunit;
 
-namespace SimplCommerce.Module.Cms.Tests.Maps
+namespace SimplCommerce.Module.Cms.Tests.MappingsConfiguration
 {
     public class CmsModuleMainMappingsTests
     {
