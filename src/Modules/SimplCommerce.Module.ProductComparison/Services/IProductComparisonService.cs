@@ -9,6 +9,6 @@ namespace SimplCommerce.Module.ProductComparison.Services
     {
         ProductComparisonItem AddToComparison(long userId, long productId);
 
-        IList<ProductComparisonItem> GetComparisonItems(long userId)
+        IList<ProductComparisonItem> GetComparisonItems(long userId);
     }
 }

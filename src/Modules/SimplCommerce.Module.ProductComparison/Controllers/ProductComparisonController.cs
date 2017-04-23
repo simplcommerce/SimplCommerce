@@ -24,7 +24,7 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
         private readonly IProductComparisonService _productComparisonService;
         private readonly IMediaService _mediaService;
         private readonly IWorkContext _workContext;
-        private const int MaxComparisonItem = 4;
+        private readonly int MaxComparisonItem = 4;
 
         public ProductComparisonController(
             UserManager<User> userManager,
@@ -48,14 +48,14 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
 
             var comparisonItems = _productComparisonService.GetComparisonItems(currentUser.Id);
 
-            if (comparisonItems.Count == MaxComparisonItem)
+            if (comparisonItems.Count >= MaxComparisonItem)
             {
                 return RedirectToAction("AddToComparisonResult", new { addItemResult = false });
             }
 
             var comparisonItem = _productComparisonService.AddToComparison(currentUser.Id, model.ProductId);
 
-            return RedirectToAction("AddToComparisonResult");
+            return RedirectToAction("AddToComparisonResult", new { addItemResult = true });
         }
 
         [HttpGet]
@@ -68,7 +68,8 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
                 {
                     ProductName = x.Product.Name,
                     ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
-                    ProductPrice = x.Product.Price
+                    ProductPrice = x.Product.Price,
+                    ProductId = x.ProductId
                 }
                 ).ToList();
 
@@ -82,14 +83,32 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
 
             if (addItemResult)
             {
-                model.Message = "";
+                model.Message = "The product has been added to comparison items";
             }
             else
             {
-                model.Message = "";
+                model.Message = "Can not add to comparison items. Can only comparison "+ MaxComparisonItem + " items";
             }
 
             return PartialView(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveFromComparison(long productId)
+        {
+            var currentUser = await _workContext.GetCurrentUser();
+
+            var productComparison = _productComparisonRepository.Query().FirstOrDefault(x => x.UserId == currentUser.Id && x.ProductId == productId);
+
+            if (productComparison == null)
+            {
+                return new NotFoundResult();
+            }
+
+            _productComparisonRepository.Remove(productComparison);
+            _productComparisonRepository.SaveChange();
+
+            return Json(true);            
         }
     }
 }

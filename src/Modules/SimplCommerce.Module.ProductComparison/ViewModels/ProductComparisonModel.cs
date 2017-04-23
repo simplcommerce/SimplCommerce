@@ -6,6 +6,8 @@ namespace SimplCommerce.Module.ProductComparison.ViewModels
 {
     public class ProductComparisonModel
     {
+        public long ProductId { get; set; }
+
         public string ProductName { get; set; }
 
         public string ProductImage { get; set; }
