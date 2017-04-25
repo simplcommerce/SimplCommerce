@@ -23,6 +23,7 @@
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/angular-bootstrap/ui-bootstrap-csp.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/toastr/toastr.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/summernote/summernote.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/angular-ui-tree/angular-ui-tree.min.css">
     <link simpl-append-version="true" rel="stylesheet" href="~/modules/core/admin/admin-core.css" />
     <script>
         window.Global_AssetVersion = "@Config["Global.AssetVersion"]";
@@ -43,6 +44,7 @@
     <script simpl-append-version="true" src="~/lib/bootstrap-ui-datetime-picker/datetime-picker.js"></script>
     <script simpl-append-version="true" src="~/lib/bootstrap-ui-datetime-picker/datetime-picker.tpls.js"></script>
     <script simpl-append-version="true" src="~/lib/angular-summernote/angular-summernote.js"></script>
+    <script simpl-append-version="true" src="~/lib/angular-ui-tree/angular-ui-tree.js"></script>
     <script simpl-append-version="true" src="~/lib/toastr/toastr.js"></script>
     <script simpl-append-version="true" src="~/lib/bootbox/bootbox.js"></script>
     <script simpl-append-version="true" src="~/lib/i18n/angular-locale_@(CultureInfo.CurrentCulture.Name.ToLower()).js"></script>
@@ -100,6 +102,10 @@
     <script simpl-append-version="true" src="~/modules/cms/admin/page/page-service.js"></script>
     <script simpl-append-version="true" src="~/modules/cms/admin/page/page-list.js"></script>
     <script simpl-append-version="true" src="~/modules/cms/admin/page/page-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/cms/admin/menu/menu-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/cms/admin/menu/menu-list.js"></script>
+    <script simpl-append-version="true" src="~/modules/cms/admin/menu/menu-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/cms/admin/menu/menu-form-create.js"></script>
     <script simpl-append-version="true" src="~/modules/cms/admin/carousel-widget/carousel-widget-service.js"></script>
     <script simpl-append-version="true" src="~/modules/cms/admin/carousel-widget/carousel-widget-form.js"></script>
     <script simpl-append-version="true" src="~/modules/cms/admin/html-widget/html-widget-service.js"></script>
@@ -185,6 +191,7 @@
                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Content Management"] <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a ui-sref="page">@Localizer["Pages"]</a></li>
+                            <li><a ui-sref="menus">@Localizer["Menus"]</a></li>
                             <li><a ui-sref="widget">@Localizer["Widgets"]</a></li>
                             <li><a ui-sref="news-categories">Manage News Categories</a></li>
                             <li><a ui-sref="news-items">Manage News Items</a></li>

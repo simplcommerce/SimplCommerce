@@ -1,4 +1,6 @@
-﻿DELETE FROM [dbo].[Core_Entity]
+﻿DELETE FROM [dbo].[Cms_MenuItem]
+GO
+DELETE FROM [dbo].[Core_Entity]
 GO
 DELETE FROM [dbo].[Orders_CartItem]
 GO
@@ -25,6 +27,8 @@ GO
 DELETE FROM [dbo].[Catalog_Product]
 GO
 DELETE FROM [dbo].[Catalog_Category]
+GO
+DELETE FROM [dbo].[News_NewsItem]
 GO
 DELETE FROM [dbo].[Core_Media]
 GO
@@ -418,7 +422,17 @@ INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VA
 INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (32, 14, 3, N'Dell XPS 15 9550', N'dell-xps-15-9550')
 INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (33, 14, 1, N'Test 1', N'test-1')
 INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (34, 15, 1, N'Test 2', N'test-2')
-
 SET IDENTITY_INSERT [dbo].[Core_Entity] OFF 
 GO
 
+SET IDENTITY_INSERT [dbo].[Cms_MenuItem] ON 
+INSERT [dbo].[Cms_MenuItem] ([Id], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (1, NULL, 21, 1, NULL, N'Help Center')
+INSERT [dbo].[Cms_MenuItem] ([Id], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (2, NULL, 22, 1, NULL, N'How to buy')
+INSERT [dbo].[Cms_MenuItem] ([Id], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (3, NULL, 23, 1, NULL, N'Shipping')
+INSERT [dbo].[Cms_MenuItem] ([Id], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (4, NULL, 24, 1, NULL, N'How to return')
+INSERT [dbo].[Cms_MenuItem] ([Id], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (5, NULL, 25, 1, NULL, N'Warranty')
+INSERT [dbo].[Cms_MenuItem] ([Id], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (6, NULL, 18, 2, NULL, N'About Us')
+INSERT [dbo].[Cms_MenuItem] ([Id], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (7, NULL, 19, 2, NULL, N'Terms of Use')
+INSERT [dbo].[Cms_MenuItem] ([Id], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (8, NULL, 20, 2, NULL, N'Privacy')
+SET IDENTITY_INSERT [dbo].[Cms_MenuItem] OFF 
+GO

@@ -22,13 +22,13 @@ INSERT [dbo].[Core_UserRole] ([UserId], [RoleId]) VALUES (1, 1)
 GO
 
 SET IDENTITY_INSERT [dbo].[Core_EntityType] ON 
-INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (1, N'Category', N'Category', N'CategoryDetail')
-INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (2, N'Brand', N'Brand', N'BrandDetail')
-INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (3, N'Product', N'Product', N'ProductDetail')
-INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (4, N'Page', N'Page', N'PageDetail')
-INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (5, N'Vendor', N'Vendor', N'VendorDetail')
-INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (6, N'NewsCategory', N'NewsCategory', N'NewsCategoryDetail')
-INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction]) VALUES (7, N'NewsItem', N'NewsItem', N'NewsItemDetail')
+INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction], [IsMenuable]) VALUES (1, N'Category', N'Category', N'CategoryDetail', 1)
+INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction], [IsMenuable]) VALUES (2, N'Brand', N'Brand', N'BrandDetail', 1)
+INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction], [IsMenuable]) VALUES (3, N'Product', N'Product', N'ProductDetail', 0)
+INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction], [IsMenuable]) VALUES (4, N'Page', N'Page', N'PageDetail', 1)
+INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction], [IsMenuable]) VALUES (5, N'Vendor', N'Vendor', N'VendorDetail', 0)
+INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction], [IsMenuable]) VALUES (6, N'NewsCategory', N'NewsCategory', N'NewsCategoryDetail', 1)
+INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction], [IsMenuable]) VALUES (7, N'NewsItem', N'NewsItem', N'NewsItemDetail', 0)
 SET IDENTITY_INSERT [dbo].[Core_EntityType] OFF
 GO
 
@@ -49,6 +49,12 @@ INSERT [dbo].[Core_WidgetZone] ([Id], [Description], [Name]) VALUES (1, NULL, N'
 INSERT [dbo].[Core_WidgetZone] ([Id], [Description], [Name]) VALUES (2, NULL, N'Home Main Content')
 INSERT [dbo].[Core_WidgetZone] ([Id], [Description], [Name]) VALUES (3, NULL, N'Home After Main Content')
 SET IDENTITY_INSERT [dbo].[Core_WidgetZone] OFF
+
+SET IDENTITY_INSERT [dbo].[Cms_Menu] ON
+INSERT [dbo].[Cms_Menu] ([Id], [IsPublished], [IsSystem], [Name]) VALUES (1, 1, 1, N'Customer services')
+INSERT [dbo].[Cms_Menu] ([Id], [IsPublished], [IsSystem], [Name]) VALUES (2, 1, 1, N'Information')
+SET IDENTITY_INSERT [dbo].[Cms_Menu] OFF
+GO
 
 SET IDENTITY_INSERT [dbo].[Catalog_ProductOption] ON 
 INSERT [dbo].[Catalog_ProductOption] ([Id], [Name]) VALUES (1, N'Color')

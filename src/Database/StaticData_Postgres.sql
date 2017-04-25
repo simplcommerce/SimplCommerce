@@ -14,13 +14,13 @@ SELECT pg_catalog.setval('"Core_User_Id_seq"', 1, true);
 
 INSERT INTO "Core_UserRole" ("UserId", "RoleId") VALUES (1, 1);
 
-INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction") VALUES (1, 'Category', 'Category', 'CategoryDetail');
-INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction") VALUES (2, 'Brand', 'Brand', 'BrandDetail');
-INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction") VALUES (3, 'Product', 'Product', 'ProductDetail');
-INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction") VALUES (4, 'Page', 'Page', 'PageDetail');
-INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction") VALUES (5, 'Vendor', 'Vendor', 'VendorDetail');
-INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction") VALUES (6, 'NewsCategory', 'NewsCategory', 'NewsCategoryDetail');
-INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction") VALUES (7, 'NewsItem', 'NewsItem', 'NewsItemDetail');
+INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction", "IsMenuable") VALUES (1, 'Category', 'Category', 'CategoryDetail', true);
+INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction", "IsMenuable") VALUES (2, 'Brand', 'Brand', 'BrandDetail', true);
+INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction", "IsMenuable") VALUES (3, 'Product', 'Product', 'ProductDetail', false);
+INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction", "IsMenuable") VALUES (4, 'Page', 'Page', 'PageDetail', true);
+INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction", "IsMenuable") VALUES (5, 'Vendor', 'Vendor', 'VendorDetail', false);
+INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction", "IsMenuable") VALUES (6, 'NewsCategory', 'NewsCategory', 'NewsCategoryDetail', true);
+INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction", "IsMenuable") VALUES (7, 'NewsItem', 'NewsItem', 'NewsItemDetail', false);
 SELECT pg_catalog.setval('"Core_EntityType_Id_seq"', 7, true);
 
 INSERT INTO "ActivityLog_ActivityType" ("Id", "Name") VALUES (1, 'ProductView');
@@ -35,6 +35,10 @@ INSERT INTO "Core_WidgetZone" ("Id", "Description", "Name") VALUES (1, NULL, 'Ho
 INSERT INTO "Core_WidgetZone" ("Id", "Description", "Name") VALUES (2, NULL, 'Home Main Content');
 INSERT INTO "Core_WidgetZone" ("Id", "Description", "Name") VALUES (3, NULL, 'Home After Main Content');
 SELECT pg_catalog.setval('"Core_WidgetZone_Id_seq"', 3, true);
+
+INSERT "Cms_Menu" ("Id", "IsPublished", "IsSystem", "Name") VALUES (1, true, true, 'Customer services');
+INSERT "Cms_Menu" ("Id", "IsPublished", "IsSystem", "Name") VALUES (2, true, true, 'Information');
+SELECT pg_catalog.setval('"Cms_Menu_Id_seq"', 2, true);
 
 INSERT INTO "Catalog_ProductOption" ("Id", "Name") VALUES (1, 'Color');
 INSERT INTO "Catalog_ProductOption" ("Id", "Name") VALUES (2, 'Size');

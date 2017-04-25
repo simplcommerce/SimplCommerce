@@ -20,6 +20,21 @@
                     templateUrl: 'modules/cms/admin/page/page-form.html',
                     controller: 'PageFormCtrl as vm'
                 })
+                .state('menus', {
+                    url: '/menus/',
+                    templateUrl: 'modules/cms/admin/menu/menu-list.html',
+                    controller: 'MenuListCtrl as vm'
+                })
+                .state('menus-create', {
+                    url: '/menus-create/',
+                    templateUrl: 'modules/cms/admin/menu/menu-form-create.html',
+                    controller: 'MenuFormCreateCtrl as vm'
+                })
+                .state('menus-edit', {
+                    url: '/menus-edit/:id',
+                    templateUrl: 'modules/cms/admin/menu/menu-form.html',
+                    controller: 'MenuFormCtrl as vm'
+                })
                 .state('widget-carousel-create', {
                     url: '/widget-carousel/create',
                     templateUrl: 'modules/cms/admin/carousel-widget/carousel-widget-form.html',

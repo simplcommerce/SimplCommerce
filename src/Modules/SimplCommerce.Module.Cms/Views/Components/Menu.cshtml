@@ -1,0 +1,19 @@
+﻿@model IEnumerable<SimplCommerce.Module.Cms.ViewModels.MenuItemVm>
+
+<ul class="list-unstyled">
+    @foreach (var item in Model)
+    {
+        <li>
+            <a href="@item.Link">@item.Name</a>
+             @if (item.ChildItems.Any())
+             {
+                <ul>
+                    @foreach (var childItem in item.ChildItems)
+                    {
+                        <li><a href="@childItem.Link">@childItem.Name</a></li>
+                    }
+                </ul>
+             }
+        </li>
+    }
+</ul>

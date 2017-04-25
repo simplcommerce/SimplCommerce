@@ -11,6 +11,7 @@
     "wnumb": "1.0.2",
     "angular": "1.6.3",
     "angular-ui-router": "0.4.2",
+    "angular-ui-tree": "2.22.5",
     "angular-animate": "1.6.3",
     "angular-smart-table": "2.1.8",
     "angular-material": "1.1.3",
