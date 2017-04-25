@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SimplCommerce.Module.Cms.ViewModels
 {
@@ -6,6 +7,7 @@ namespace SimplCommerce.Module.Cms.ViewModels
     {
         public long Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
         public bool IsPublished { get; set; }

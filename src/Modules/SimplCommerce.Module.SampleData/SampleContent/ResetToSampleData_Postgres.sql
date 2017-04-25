@@ -1,4 +1,5 @@
-﻿DELETE FROM "Core_Entity";
+﻿DELETE FROM "Cms_MenuItem";
+DELETE FROM "Core_Entity";
 DELETE FROM "Orders_CartItem";
 DELETE FROM "Orders_OrderItem";
 DELETE FROM "Orders_Order";
@@ -12,6 +13,7 @@ DELETE FROM "Catalog_ProductCategory";
 DELETE FROM "Catalog_ProductLink";
 DELETE FROM "Catalog_Product";
 DELETE FROM "Catalog_Category";
+DELETE FROM "News_NewsItem";
 DELETE FROM "Core_Media";
 DELETE FROM "Catalog_Brand";
 DELETE FROM "Catalog_ProductTemplateProductAttribute";
@@ -19,7 +21,6 @@ DELETE FROM "Catalog_ProductTemplate";
 DELETE FROM "Cms_Page";
 DELETE FROM "Core_WidgetInstance";
 DELETE FROM "Reviews_Review";
-
 
 INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (1, 'Phones', 'phones', NULL, 0, true, false, NULL, NULL);
 INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (2, 'Smart Phones', 'smart-phones', NULL, 0, true, false, 1, NULL);
@@ -366,6 +367,16 @@ INSERT INTO "Core_Entity" ("Id", "EntityId", "EntityTypeId", "Name", "Slug") VAL
 INSERT INTO "Core_Entity" ("Id", "EntityId", "EntityTypeId", "Name", "Slug") VALUES (30, 2, 2, 'Samsung', 'samsung');
 INSERT INTO "Core_Entity" ("Id", "EntityId", "EntityTypeId", "Name", "Slug") VALUES (31, 3, 2, 'Dell', 'dell');
 INSERT INTO "Core_Entity" ("Id", "EntityId", "EntityTypeId", "Name", "Slug") VALUES (32, 14, 3, 'Dell XPS15 9550', 'dell-xps-15-9550');
-INSERT INTO "Core_Entity" ("Id", "EntityId", "EntityTypeId", "Name", "Slug") VALUES (33, 14, 1, 'Test 1', N'test-1');
-INSERT INTO "Core_Entity" ("Id", "EntityId", "EntityTypeId", "Name", "Slug") VALUES (34, 15, 1, 'Test 2', N'test-2');
+INSERT INTO "Core_Entity" ("Id", "EntityId", "EntityTypeId", "Name", "Slug") VALUES (33, 14, 1, 'Test 1', 'test-1');
+INSERT INTO "Core_Entity" ("Id", "EntityId", "EntityTypeId", "Name", "Slug") VALUES (34, 15, 1, 'Test 2', 'test-2');
 SELECT pg_catalog.setval('"Core_Entity_Id_seq"', 34, true);
+
+INSERT INTO "Cms_MenuItem" ("Id", "CustomLink", "EntityId", "MenuId", "ParentId", "Name") VALUES (1, NULL, 21, 1, NULL, 'Help Center');
+INSERT INTO "Cms_MenuItem" ("Id", "CustomLink", "EntityId", "MenuId", "ParentId", "Name") VALUES (2, NULL, 22, 1, NULL, 'How to buy');
+INSERT INTO "Cms_MenuItem" ("Id", "CustomLink", "EntityId", "MenuId", "ParentId", "Name") VALUES (3, NULL, 23, 1, NULL, 'Shipping');
+INSERT INTO "Cms_MenuItem" ("Id", "CustomLink", "EntityId", "MenuId", "ParentId", "Name") VALUES (4, NULL, 24, 1, NULL, 'How to return');
+INSERT INTO "Cms_MenuItem" ("Id", "CustomLink", "EntityId", "MenuId", "ParentId", "Name") VALUES (5, NULL, 25, 1, NULL, 'Warranty');
+INSERT INTO "Cms_MenuItem" ("Id", "CustomLink", "EntityId", "MenuId", "ParentId", "Name") VALUES (6, NULL, 18, 2, NULL, 'About Us');
+INSERT INTO "Cms_MenuItem" ("Id", "CustomLink", "EntityId", "MenuId", "ParentId", "Name") VALUES (7, NULL, 19, 2, NULL, 'Terms of Use');
+INSERT INTO "Cms_MenuItem" ("Id", "CustomLink", "EntityId", "MenuId", "ParentId", "Name") VALUES (8, NULL, 20, 2, NULL, 'Privacy');
+SELECT pg_catalog.setval('"Cms_MenuItem_Id_seq"', 8, true);

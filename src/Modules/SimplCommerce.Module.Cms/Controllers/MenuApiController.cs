@@ -168,6 +168,11 @@ namespace SimplCommerce.Module.Cms.Controllers
                 return new NotFoundResult();
             }
 
+            if (menu.IsSystem)
+            {
+                return BadRequest(new { Error = "A system menu cannot be deleted." });
+            }
+
             _menuRepository.Remove(menu);
             _menuRepository.SaveChange();
 

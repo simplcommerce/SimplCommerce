@@ -36,6 +36,10 @@ INSERT INTO "Core_WidgetZone" ("Id", "Description", "Name") VALUES (2, NULL, 'Ho
 INSERT INTO "Core_WidgetZone" ("Id", "Description", "Name") VALUES (3, NULL, 'Home After Main Content');
 SELECT pg_catalog.setval('"Core_WidgetZone_Id_seq"', 3, true);
 
+INSERT "Cms_Menu" ("Id", "IsPublished", "IsSystem", "Name") VALUES (1, 1, 1, 'Customer services');
+INSERT "Cms_Menu" ("Id", "IsPublished", "IsSystem", "Name") VALUES (2, 1, 1, 'Information');
+SELECT pg_catalog.setval('"Cms_Menu_Id_seq"', 2, true);
+
 INSERT INTO "Catalog_ProductOption" ("Id", "Name") VALUES (1, 'Color');
 INSERT INTO "Catalog_ProductOption" ("Id", "Name") VALUES (2, 'Size');
 SELECT pg_catalog.setval('"Catalog_ProductOption_Id_seq"', 2, true);

@@ -1,4 +1,5 @@
-﻿using SimplCommerce.Infrastructure.Models;
+﻿using System.Collections.Generic;
+using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Cms.Models
@@ -8,6 +9,8 @@ namespace SimplCommerce.Module.Cms.Models
         public long? ParentId { get; set; }
 
         public MenuItem Parent { get; set; }
+
+        public IList<MenuItem> Children { get; protected set; } = new List<MenuItem>();
 
         public long MenuId { get; set; }
 

@@ -50,6 +50,12 @@ INSERT [dbo].[Core_WidgetZone] ([Id], [Description], [Name]) VALUES (2, NULL, N'
 INSERT [dbo].[Core_WidgetZone] ([Id], [Description], [Name]) VALUES (3, NULL, N'Home After Main Content')
 SET IDENTITY_INSERT [dbo].[Core_WidgetZone] OFF
 
+SET IDENTITY_INSERT [dbo].[Cms_Menu] ON
+INSERT [dbo].[Cms_Menu] ([Id], [IsPublished], [IsSystem], [Name]) VALUES (1, 1, 1, N'Customer services')
+INSERT [dbo].[Cms_Menu] ([Id], [IsPublished], [IsSystem], [Name]) VALUES (2, 1, 1, N'Information')
+SET IDENTITY_INSERT [dbo].[Cms_Menu] OFF
+GO
+
 SET IDENTITY_INSERT [dbo].[Catalog_ProductOption] ON 
 INSERT [dbo].[Catalog_ProductOption] ([Id], [Name]) VALUES (1, N'Color')
 INSERT [dbo].[Catalog_ProductOption] ([Id], [Name]) VALUES (2, N'Size')
