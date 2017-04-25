@@ -2,7 +2,7 @@
     ViewData["Title"] = "Comparison Products";
 }
 
-<div class="row cart-list" ng-app="simpl.comparisonProduct" ng-controller="comparisonProductListCtrl as vm" ng-cloak>
+<div class="row cart-list" ng-app="simpl.productComparison" ng-controller="productComparisonListCtrl as vm" ng-cloak>
     <div class="col-md-9">
         <table class="table table-striped">
             <thead>
@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-if="vm.cartViewModel.cartItems.length" ng-repeat="cartItem in vm.cartViewModel.cartItems">
+                @*<tr ng-if="vm.cartViewModel.cartItems.length" ng-repeat="cartItem in vm.cartViewModel.cartItems">
                     <td class="product-image"><img ng-src="{{cartItem.productImage}}" /></td>
                     <td>
                         <h4>{{cartItem.productName}}</h4>
@@ -36,24 +36,24 @@
                     <td colspan="5" class="text-center">
                         @Localizer["There are no items in this cart."] <a href="~/">@Localizer["Go to shopping"]</a>
                     </td>
-                </tr>
+                </tr>*@
             </tbody>
         </table>
     </div>
     <div class="col-md-3">
-        <div class="order-summary" ng-if="vm.cartViewModel.cartItems.length">
+        @*<div class="order-summary" ng-if="vm.cartViewModel.cartItems.length">
             <h4>@Localizer["Order summary"]</h4>
             <dl class="dl-horizontal">
                 <dt>@Localizer["Subtotal"]</dt>
                 <dd><strong>{{vm.cartViewModel.subTotal}}</strong></dd>
             </dl>
             <p class="text-right"><a href="~/checkout" class="btn btn-primary">@Localizer["Process to Checkout"]</a></p>
-        </div>
+        </div>*@
     </div>
 </div>
 
 @section head{
     <script simpl-append-version="true" src="~/lib/angular/angular.js"></script>
-    <script simpl-append-version="true" src="~/modules/orders/shoppingcart-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/orders/shoppingcart-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/product-comparison/productcomparison-list.js"></script>
+    <script simpl-append-version="true" src="~/modules/product-comparison/productcomparison-service.js"></script>
 }

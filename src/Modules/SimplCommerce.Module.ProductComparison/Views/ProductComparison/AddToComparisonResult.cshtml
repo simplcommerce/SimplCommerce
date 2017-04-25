@@ -19,12 +19,12 @@
                 @product.ProductPrice.ToString("C")
             </div>
             <div class="col-md-1">
-                <button type="button" class="remove-item-comparison" aria-label="Remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                <button type="button" class="close remove-item-comparison" aria-label="Remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
             </div>
         </div>
     }    
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">@Localizer["Continue shopping"]</button>
-    <a href="~/cart" type="button" class="btn btn-default">@Localizer["Comparison"]</a>
+    <a href="~/productcomparison" type="button" class="btn btn-default">@Localizer["Comparison"]</a>
 </div>

@@ -94,11 +94,11 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RemoveFromComparison(long productId)
+        public async Task<IActionResult> Remove(long id)
         {
             var currentUser = await _workContext.GetCurrentUser();
 
-            var productComparison = _productComparisonRepository.Query().FirstOrDefault(x => x.UserId == currentUser.Id && x.ProductId == productId);
+            var productComparison = _productComparisonRepository.Query().FirstOrDefault(x => x.UserId == currentUser.Id && x.ProductId == id);
 
             if (productComparison == null)
             {
@@ -109,6 +109,34 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
             _productComparisonRepository.SaveChange();
 
             return Json(true);            
+        }
+
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> List()
+        {
+            var currentUser = await _workContext.GetCurrentUser();
+            var comparisonItems = _productComparisonService.GetComparisonItems(currentUser.Id);
+
+            //var model = new CartViewModel
+            //{
+            //    CartItems = cartItems.Select(x => new CartListItem
+            //    {
+            //        Id = x.Id,
+            //        ProductName = x.Product.Name,
+            //        ProductPrice = x.Product.Price,
+            //        ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
+            //        Quantity = x.Quantity,
+            //        VariationOptions = CartListItem.GetVariationOption(x.Product)
+            //    }).ToList()
+            //};
+
+            return Json(null);
         }
     }
 }

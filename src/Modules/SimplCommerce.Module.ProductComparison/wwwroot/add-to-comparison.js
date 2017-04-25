@@ -26,14 +26,14 @@ $(function () {
     });
 
     $('body').on('click', '.remove-item-comparison', function () {
-        var row = $(this).closest("row"),
-            productId = $(this).closest("row").find('input[name=productId]').val();
-
+        var row = $(this).closest(".row"),
+            id = $(this).closest(".row").find('input[name=productId]').val();
+        
         $.ajax({
             type: 'POST',
-            url: '/productcomparison/removefromcomparison',
-            data: JSON.stringify({ productId: productId }),
-            contentType: "application/json"
+            url: '/productcomparison/remove',
+            data: JSON.stringify({ id: id }),
+            contentType: 'application/json; charset=utf-8'
         }).done(function (data) {
             row.remove();
         }).fail(function () {
