@@ -8,8 +8,8 @@ using SimplCommerce.Module.Core.Data;
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    [Migration("20170422030603_MenuItemName")]
-    partial class MenuItemName
+    [Migration("20170425033854_AddedMenuManagement")]
+    partial class AddedMenuManagement
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1346,7 +1346,7 @@ namespace SimplCommerce.WebHost.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SimplCommerce.Module.Cms.Models.MenuItem", "Parent")
-                        .WithMany()
+                        .WithMany("Children")
                         .HasForeignKey("ParentId");
                 });
 

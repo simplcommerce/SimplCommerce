@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace SimplCommerce.WebHost.Migrations
 {
-    public partial class AddedMenu : Migration
+    public partial class AddedMenuManagement : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,6 +50,7 @@ namespace SimplCommerce.WebHost.Migrations
                     CustomLink = table.Column<string>(nullable: true),
                     EntityId = table.Column<long>(nullable: true),
                     MenuId = table.Column<long>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
                     ParentId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>

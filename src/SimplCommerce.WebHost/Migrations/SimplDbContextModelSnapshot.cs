@@ -1345,7 +1345,7 @@ namespace SimplCommerce.WebHost.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SimplCommerce.Module.Cms.Models.MenuItem", "Parent")
-                        .WithMany()
+                        .WithMany("Children")
                         .HasForeignKey("ParentId");
                 });
 
