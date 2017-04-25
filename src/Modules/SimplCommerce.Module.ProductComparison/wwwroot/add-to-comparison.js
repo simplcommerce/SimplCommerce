@@ -31,8 +31,7 @@ $(function () {
         
         $.ajax({
             type: 'POST',
-            url: '/productcomparison/remove',
-            data: JSON.stringify({ id: id }),
+            url: '/productcomparison/remove?id=' + id,
             contentType: 'application/json; charset=utf-8'
         }).done(function (data) {
             row.remove();
