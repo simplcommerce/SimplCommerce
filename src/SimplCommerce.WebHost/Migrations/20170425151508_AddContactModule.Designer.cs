@@ -2,14 +2,16 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using SimplCommerce.Module.Core.Data;
 
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    partial class SimplDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170425151508_AddContactModule")]
+    partial class AddContactModule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
@@ -445,48 +447,6 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("Catalog_ProductTemplateProductAttribute");
                 });
 
-            modelBuilder.Entity("SimplCommerce.Module.Cms.Models.Menu", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("IsPublished");
-
-                    b.Property<bool>("IsSystem");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cms_Menu");
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.Cms.Models.MenuItem", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CustomLink");
-
-                    b.Property<long?>("EntityId");
-
-                    b.Property<long>("MenuId");
-
-                    b.Property<string>("Name");
-
-                    b.Property<long?>("ParentId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EntityId");
-
-                    b.HasIndex("MenuId");
-
-                    b.HasIndex("ParentId");
-
-                    b.ToTable("Cms_MenuItem");
-                });
-
             modelBuilder.Entity("SimplCommerce.Module.Cms.Models.Page", b =>
                 {
                     b.Property<long>("Id")
@@ -679,8 +639,6 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("IsMenuable");
 
                     b.Property<string>("Name");
 
@@ -1179,26 +1137,6 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("Orders_OrderItem");
                 });
 
-            modelBuilder.Entity("SimplCommerce.Module.ProductComparison.Models.ComparingProduct", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTimeOffset>("CreatedOn");
-
-                    b.Property<long>("ProductId");
-
-                    b.Property<long>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ProductComparison_ComparingProduct");
-                });
-
             modelBuilder.Entity("SimplCommerce.Module.Reviews.Models.Review", b =>
                 {
                     b.Property<long>("Id")
@@ -1402,22 +1340,6 @@ namespace SimplCommerce.WebHost.Migrations
                         .WithMany("ProductAttributes")
                         .HasForeignKey("ProductTemplateId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.Cms.Models.MenuItem", b =>
-                {
-                    b.HasOne("SimplCommerce.Module.Core.Models.Entity", "Entity")
-                        .WithMany()
-                        .HasForeignKey("EntityId");
-
-                    b.HasOne("SimplCommerce.Module.Cms.Models.Menu", "Menu")
-                        .WithMany("MenuItems")
-                        .HasForeignKey("MenuId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SimplCommerce.Module.Cms.Models.MenuItem", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId");
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Cms.Models.Page", b =>
@@ -1632,19 +1554,6 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasOne("SimplCommerce.Module.Catalog.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.ProductComparison.Models.ComparingProduct", b =>
-                {
-                    b.HasOne("SimplCommerce.Module.Catalog.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SimplCommerce.Module.Core.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
