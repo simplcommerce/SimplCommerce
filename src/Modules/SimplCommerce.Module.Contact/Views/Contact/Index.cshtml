@@ -1,67 +1,77 @@
 ﻿@model SimplCommerce.Module.Contact.ViewModels.ContactVm
+@inject IConfiguration Config
 
 @{
     ViewData["Title"] = "Contact";
 }
 <div class="row">
-    <div  class="col-md-6">
+    <div class="col-md-6">
         <div class="col-md-12">
-           <h3 class = "page-header">@Localizer["Contact Us"]</h3>
+            <h3 class="page-header">@Localizer["Contact Us"]</h3>
         </div>
-        <div class ="col-md-12">
-            <form class="form-horizontal">
+        <div class="col-md-12">
+            <form class="form-horizontal" action="/contact" method="POST">
                 <div class="form-group">
-                   <div class="col-sm-6">
-                       <input type="text" class="form-control" id="fullName" placeholder="@Localizer["Full name"]">
-                   </div>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="phoneNumber" placeholder="@Localizer["Phone number"]">
+                        <input asp-for="FullName" class="form-control input-contact" type="text" placeholder="@Localizer["Full name"]" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-6">
+                        <input asp-for="PhoneNumber" class="form-control input-contact" type="text" placeholder="@Localizer["Phone number"]" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <input type="email" class="form-control" id="email" placeholder="@Localizer["Email"]">
+                        <input asp-for="EmailAddress" class="form-control input-contact" type="email" placeholder="@Localizer["Email"]" />
+                        <span asp-validation-for="EmailAddress" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" id="address" placeholder="@Localizer["Address"]">
+                        <input asp-for="Address" type="text" class="form-control input-contact" placeholder="@Localizer["Address"]">
+                        <span asp-validation-for="Address" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <select class="form-control">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                        <select class="form-control input-contact" asp-for="CategoryId">
+                            @foreach (var item in Model.Categories)
+                            {
+                                <option value="@item.Id"> @item.Name </option>
+                            }
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                        <textarea class="form-control input-contact" rows="5" asp-for="Content"></textarea>
                     </div>
                 </div>
-                <div class="form-group">
+                @*<div class="form-group">
                     <div class="col-sm-4">
                         <input type="text" class="form-control" id="captcha" placeholder="@Localizer["Captcha"]">
                     </div>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" id="captchaImage" placeholder="@Localizer["Captcha"]">
                     </div>
-                </div>
+                </div>*@
                 <div class="form-group">
                     <div class="col-sm-4">
-                        <button type="submit" class="btn btn-default">@Localizer["Submit"]</button>
+                        <button type="submit" class="btn btn-success">@Localizer["Submit"]</button>
                     </div>
                 </div>
             </form>
 
         </div>
     </div>
-    <div class="col-md-6">
-        <h1>Google Map</h1>
+    <div class="col-md-6" id="googleMap">
+
     </div>
+
 </div>
+@section scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script simpl-append-version="true" src="~/modules/contact/init-google-map.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=@Config["GoogleAppKey"]&callback=initMap"> </script>
+}

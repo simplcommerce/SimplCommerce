@@ -8,10 +8,9 @@ namespace SimplCommerce.Module.Contact.Models
 {
     public class Contact : EntityBase
     {
-        protected Contact()
+        public Contact()
         {
             CreatedOn = DateTimeOffset.Now;
-            UpdatedOn = DateTimeOffset.Now;
         }
 
         public string FullName { get; set; }
@@ -28,14 +27,10 @@ namespace SimplCommerce.Module.Contact.Models
 
         public ContactCategory Category { get; set; }
         
-        public bool IsDeleted { get; set; }
-
-        public virtual User CreatedBy { get; set; }
+        public bool IsDeleted { get; set; }        
 
         public DateTimeOffset CreatedOn { get; set; }
-
-        public DateTimeOffset UpdatedOn { get; set; }
-
-        public virtual User UpdatedBy { get; set; }
+        
+        
     }
 }
