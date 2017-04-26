@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SimplCommerce.Module.ProductComparison.ViewModels
 {
-    public class ProductComparisonModel
+    public class ComparingProductVm
     {
         public long ProductId { get; set; }
 
@@ -13,5 +11,7 @@ namespace SimplCommerce.Module.ProductComparison.ViewModels
         public string ProductImage { get; set; }
 
         public decimal ProductPrice { get; set; }
+
+        public IList<AttributeValueVm> AttributeValues { get; set; } = new List<AttributeValueVm>();
     }
 }

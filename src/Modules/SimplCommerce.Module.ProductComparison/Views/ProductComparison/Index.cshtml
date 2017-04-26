@@ -1,59 +1,52 @@
+@model SimplCommerce.Module.ProductComparison.ViewModels.ProductComparisonVm
+
 @{
-    ViewData["Title"] = "Comparison Products";
+    ViewData["Title"] = "Compare products";
 }
 
-<div class="row cart-list" ng-app="simpl.productComparison" ng-controller="productComparisonListCtrl as vm" ng-cloak>
-    <div class="col-md-9">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th colspan="2">@Localizer["Product"]</th>
-                    <th class="text-right">@Localizer["Price"]</th>
-                    <th class="text-center">@Localizer["Quantity"]</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @*<tr ng-if="vm.cartViewModel.cartItems.length" ng-repeat="cartItem in vm.cartViewModel.cartItems">
-                    <td class="product-image"><img ng-src="{{cartItem.productImage}}" /></td>
-                    <td>
-                        <h4>{{cartItem.productName}}</h4>
-                        <ul class="list-unstyled">
-                            <li ng-repeat="opt in cartItem.variationOptions">
-                                <span>{{opt.optionName}}:</span> {{opt.value}}
-                            </li>
-                        </ul>
-                    </td>
-                    <td class="text-right">{{cartItem.productPriceString}}</td>
-                    <td class="text-center">
-                        <button type="button" class="quantity-button" ng-click="vm.decreaseQuantity(cartItem)" name="subtract" value="-">-</button>
-                        <input type="text" class="quantity-field" ng-model="cartItem.quantity" readonly="readonly" />
-                        <button type="button" class="quantity-button" ng-click="vm.increaseQuantity(cartItem)" name="subtract" value="+">+</button>
-                    </td>
-                    <td class="text-right"><button class="btn btn-link" ng-click="vm.removeShoppingCartItem(cartItem)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
-                </tr>
-                <tr ng-if="!vm.cartViewModel.cartItems.length">
-                    <td colspan="5" class="text-center">
-                        @Localizer["There are no items in this cart."] <a href="~/">@Localizer["Go to shopping"]</a>
-                    </td>
-                </tr>*@
-            </tbody>
-        </table>
-    </div>
-    <div class="col-md-3">
-        @*<div class="order-summary" ng-if="vm.cartViewModel.cartItems.length">
-            <h4>@Localizer["Order summary"]</h4>
-            <dl class="dl-horizontal">
-                <dt>@Localizer["Subtotal"]</dt>
-                <dd><strong>{{vm.cartViewModel.subTotal}}</strong></dd>
-            </dl>
-            <p class="text-right"><a href="~/checkout" class="btn btn-primary">@Localizer["Process to Checkout"]</a></p>
-        </div>*@
-    </div>
-</div>
-
-@section head{
-    <script simpl-append-version="true" src="~/lib/angular/angular.js"></script>
-    <script simpl-append-version="true" src="~/modules/product-comparison/productcomparison-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/product-comparison/productcomparison-service.js"></script>
-}
+<h1>Compare products</h1>
+<table class="table table-striped table-bordered">
+    <tr>
+        <td> </td>
+        @foreach (var product in Model.Products)
+        {
+            <td>Remove</td>
+        }
+    </tr>
+    <tr>
+        <td> </td>
+        @foreach (var product in Model.Products)
+        {
+            <td><img alt="@product.ProductName" class="img-responsive" src="@product.ProductImage"></td>
+        }
+    </tr>
+    <tr>
+        <td><strong>Name</strong></td>
+        @foreach (var product in Model.Products)
+        {
+            <td><strong>@product.ProductName</strong></td>
+        }
+    </tr>
+    <tr>
+        <td><strong>Price</strong></td>
+        @foreach (var product in Model.Products)
+        {
+            <td>@product.ProductPrice</td>
+        }
+    </tr>
+    @foreach(var attribute in Model.Attributes)
+    {
+        <tr>
+            <td><strong>@attribute.Name</strong></td>
+            @foreach (var product in Model.Products)
+            {
+                <td>
+                    @{ 
+                        var value = product.AttributeValues.FirstOrDefault(x => x.AttributeId == attribute.AttributeId)?.Value ?? "";
+                        }
+                    @value
+                </td>
+            }
+        </tr>
+    }
+</table>

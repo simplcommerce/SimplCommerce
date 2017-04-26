@@ -1,56 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using SimplCommerce.Module.ProductComparison.Models;
 using SimplCommerce.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace SimplCommerce.Module.ProductComparison.Services
 {
     public class ProductComparisonService : IProductComparisonService
     {
-        private IRepository<ProductComparisonItem> _productComparisonRepository;
-        public ProductComparisonService(IRepository<ProductComparisonItem> productComparisonRepository)
+        private readonly IRepository<ComparingProduct> _comparingProductRepository;
+        private readonly int MaxNumComparingProduct = 4;
+
+        public ProductComparisonService(IRepository<ComparingProduct> productComparisonRepository)
         {
-            _productComparisonRepository = productComparisonRepository;
+            _comparingProductRepository = productComparisonRepository;
         }
 
-        public ProductComparisonItem AddToComparison(long userId, long productId)
+        public void AddToComparison(long userId, long productId)
         {
-            var comparisonItemQuery = _productComparisonRepository
-                .Query()
-                .Include(x => x.Product)
-                .Where(x => x.ProductId == productId && x.UserId == userId);
-
-            var comparisonItem = comparisonItemQuery.FirstOrDefault();
-
-            if (comparisonItem == null)
+            var numComparingProduct = _comparingProductRepository.Query().Where(x => x.UserId == userId).Count();
+            if(numComparingProduct >= MaxNumComparingProduct)
             {
-                comparisonItem = new ProductComparisonItem
+                throw new TooManyComparingProductException(MaxNumComparingProduct);
+            }
+
+            var isProductExisted = _comparingProductRepository.Query().Any(x => x.ProductId == productId && x.UserId == userId);
+            if (!isProductExisted)
+            {
+                var comparingProduct = new ComparingProduct
                 {
                     UserId = userId,
                     ProductId = productId,
                     CreatedOn = DateTimeOffset.Now
                 };
 
-                _productComparisonRepository.Add(comparisonItem);
+                _comparingProductRepository.Add(comparingProduct);
+                _comparingProductRepository.SaveChange();
             }
-
-            _productComparisonRepository.SaveChange();
-
-            return comparisonItem;
-        }
-
-        public IList<ProductComparisonItem> GetComparisonItems(long userId)
-        {
-            IQueryable<ProductComparisonItem> query = _productComparisonRepository
-                .Query()
-                .Include(x => x.Product).ThenInclude(p => p.ThumbnailImage)
-                .Include(x => x.Product).ThenInclude(p => p.OptionCombinations).ThenInclude(o => o.Option)
-                .Where(x => x.UserId == userId);
-
-            return query.ToList();
         }
     }
 }

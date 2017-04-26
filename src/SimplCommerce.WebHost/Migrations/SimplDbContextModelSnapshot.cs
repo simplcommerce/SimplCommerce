@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using SimplCommerce.Module.Core.Data;
 
 namespace SimplCommerce.WebHost.Migrations
@@ -1127,7 +1128,7 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("Orders_OrderItem");
                 });
 
-            modelBuilder.Entity("SimplCommerce.Module.ProductComparison.Models.ProductComparisonItem", b =>
+            modelBuilder.Entity("SimplCommerce.Module.ProductComparison.Models.ComparingProduct", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
@@ -1144,7 +1145,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ProductComparison_ProductComparisonItem");
+                    b.ToTable("ProductComparison_ComparingProduct");
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Reviews.Models.Review", b =>
@@ -1567,7 +1568,7 @@ namespace SimplCommerce.WebHost.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("SimplCommerce.Module.ProductComparison.Models.ProductComparisonItem", b =>
+            modelBuilder.Entity("SimplCommerce.Module.ProductComparison.Models.ComparingProduct", b =>
                 {
                     b.HasOne("SimplCommerce.Module.Catalog.Models.Product", "Product")
                         .WithMany()

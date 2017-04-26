@@ -94,24 +94,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             query = AppySort(searchOption, query);
 
             var products = query
-                .Select(x => new ProductThumbnail
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    SeoTitle = x.SeoTitle,
-                    Price = x.Price,
-                    OldPrice = x.OldPrice,
-                    SpecialPrice = x.SpecialPrice,
-                    SpecialPriceStart = x.SpecialPriceStart,
-                    SpecialPriceEnd = x.SpecialPriceEnd,
-                    StockQuantity = x.StockQuantity,
-                    IsAllowToOrder = x.IsAllowToOrder,
-                    IsCallForPricing = x.IsCallForPricing,
-                    ThumbnailImage = x.ThumbnailImage,
-                    NumberVariation = x.ProductLinks.Count,
-                    ReviewsCount = x.ReviewsCount,
-                    RatingAverage = x.RatingAverage
-                })
+                .Select(x => ProductThumbnail.FromProduct(x))
                 .Skip(offset)
                 .Take(_pageSize)
                 .ToList();

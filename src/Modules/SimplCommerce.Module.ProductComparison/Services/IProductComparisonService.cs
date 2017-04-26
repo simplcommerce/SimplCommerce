@@ -1,14 +1,10 @@
-﻿using SimplCommerce.Module.ProductComparison.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using SimplCommerce.Module.ProductComparison.Models;
 
 namespace SimplCommerce.Module.ProductComparison.Services
 {
     public interface IProductComparisonService
     {
-        ProductComparisonItem AddToComparison(long userId, long productId);
-
-        IList<ProductComparisonItem> GetComparisonItems(long userId);
+        void AddToComparison(long userId, long productId);
     }
 }

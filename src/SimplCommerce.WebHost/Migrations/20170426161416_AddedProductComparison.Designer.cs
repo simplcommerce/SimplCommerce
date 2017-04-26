@@ -8,8 +8,8 @@ using SimplCommerce.Module.Core.Data;
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    [Migration("20170421162508_AddProductComparison")]
-    partial class AddProductComparison
+    [Migration("20170426161416_AddedProductComparison")]
+    partial class AddedProductComparison
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -447,6 +447,48 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("Catalog_ProductTemplateProductAttribute");
                 });
 
+            modelBuilder.Entity("SimplCommerce.Module.Cms.Models.Menu", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsPublished");
+
+                    b.Property<bool>("IsSystem");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cms_Menu");
+                });
+
+            modelBuilder.Entity("SimplCommerce.Module.Cms.Models.MenuItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CustomLink");
+
+                    b.Property<long?>("EntityId");
+
+                    b.Property<long>("MenuId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<long?>("ParentId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EntityId");
+
+                    b.HasIndex("MenuId");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("Cms_MenuItem");
+                });
+
             modelBuilder.Entity("SimplCommerce.Module.Cms.Models.Page", b =>
                 {
                     b.Property<long>("Id")
@@ -587,6 +629,8 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsMenuable");
 
                     b.Property<string>("Name");
 
@@ -893,6 +937,88 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("Localization_Resource");
                 });
 
+            modelBuilder.Entity("SimplCommerce.Module.News.Models.NewsCategory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(5000);
+
+                    b.Property<int>("DisplayOrder");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<bool>("IsPublished");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("SeoTitle");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("News_NewsCategory");
+                });
+
+            modelBuilder.Entity("SimplCommerce.Module.News.Models.NewsItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<long?>("CreatedById");
+
+                    b.Property<DateTimeOffset>("CreatedOn");
+
+                    b.Property<string>("FullContent");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<bool>("IsPublished");
+
+                    b.Property<string>("MetaDescription");
+
+                    b.Property<string>("MetaKeywords");
+
+                    b.Property<string>("MetaTitle");
+
+                    b.Property<string>("Name");
+
+                    b.Property<DateTimeOffset?>("PublishedOn");
+
+                    b.Property<string>("SeoTitle");
+
+                    b.Property<string>("ShortContent");
+
+                    b.Property<long?>("ThumbnailImageId");
+
+                    b.Property<long?>("UpdatedById");
+
+                    b.Property<DateTimeOffset>("UpdatedOn");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("ThumbnailImageId");
+
+                    b.HasIndex("UpdatedById");
+
+                    b.ToTable("News_NewsItem");
+                });
+
+            modelBuilder.Entity("SimplCommerce.Module.News.Models.NewsItemCategory", b =>
+                {
+                    b.Property<long>("CategoryId");
+
+                    b.Property<long>("NewsItemId");
+
+                    b.HasKey("CategoryId", "NewsItemId");
+
+                    b.HasIndex("NewsItemId");
+
+                    b.ToTable("News_NewsItemCategory");
+                });
+
             modelBuilder.Entity("SimplCommerce.Module.Orders.Models.CartItem", b =>
                 {
                     b.Property<long>("Id")
@@ -1003,7 +1129,7 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("Orders_OrderItem");
                 });
 
-            modelBuilder.Entity("SimplCommerce.Module.ProductComparison.Models.ProductComparisonItem", b =>
+            modelBuilder.Entity("SimplCommerce.Module.ProductComparison.Models.ComparingProduct", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
@@ -1020,7 +1146,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ProductComparison_ProductComparisonItem");
+                    b.ToTable("ProductComparison_ComparingProduct");
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Reviews.Models.Review", b =>
@@ -1228,6 +1354,22 @@ namespace SimplCommerce.WebHost.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("SimplCommerce.Module.Cms.Models.MenuItem", b =>
+                {
+                    b.HasOne("SimplCommerce.Module.Core.Models.Entity", "Entity")
+                        .WithMany()
+                        .HasForeignKey("EntityId");
+
+                    b.HasOne("SimplCommerce.Module.Cms.Models.Menu", "Menu")
+                        .WithMany("MenuItems")
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SimplCommerce.Module.Cms.Models.MenuItem", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId");
+                });
+
             modelBuilder.Entity("SimplCommerce.Module.Cms.Models.Page", b =>
                 {
                     b.HasOne("SimplCommerce.Module.Core.Models.User", "CreatedBy")
@@ -1339,6 +1481,34 @@ namespace SimplCommerce.WebHost.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("SimplCommerce.Module.News.Models.NewsItem", b =>
+                {
+                    b.HasOne("SimplCommerce.Module.Core.Models.User", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+
+                    b.HasOne("SimplCommerce.Module.Core.Models.Media", "ThumbnailImage")
+                        .WithMany()
+                        .HasForeignKey("ThumbnailImageId");
+
+                    b.HasOne("SimplCommerce.Module.Core.Models.User", "UpdatedBy")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById");
+                });
+
+            modelBuilder.Entity("SimplCommerce.Module.News.Models.NewsItemCategory", b =>
+                {
+                    b.HasOne("SimplCommerce.Module.News.Models.NewsCategory", "Category")
+                        .WithMany("NewsItems")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SimplCommerce.Module.News.Models.NewsItem", "NewsItem")
+                        .WithMany("Categories")
+                        .HasForeignKey("NewsItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("SimplCommerce.Module.Orders.Models.CartItem", b =>
                 {
                     b.HasOne("SimplCommerce.Module.Catalog.Models.Product", "Product")
@@ -1399,7 +1569,7 @@ namespace SimplCommerce.WebHost.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("SimplCommerce.Module.ProductComparison.Models.ProductComparisonItem", b =>
+            modelBuilder.Entity("SimplCommerce.Module.ProductComparison.Models.ComparingProduct", b =>
                 {
                     b.HasOne("SimplCommerce.Module.Catalog.Models.Product", "Product")
                         .WithMany()

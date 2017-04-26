@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Extensions;
@@ -9,33 +10,26 @@ using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.ProductComparison.Models;
 using SimplCommerce.Module.ProductComparison.Services;
 using SimplCommerce.Module.ProductComparison.ViewModels;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.ProductComparison.Controllers
 {
     public class ProductComparisonController : Controller
     {
-        private readonly IRepository<ProductComparisonItem> _productComparisonRepository;
-        private readonly IRepository<Product> _productRepository;
+        private readonly IRepository<ComparingProduct> _comparingProductRepository;
         private readonly IProductComparisonService _productComparisonService;
         private readonly IMediaService _mediaService;
         private readonly IWorkContext _workContext;
-        private readonly int MaxComparisonItem = 4;
 
         public ProductComparisonController(
             UserManager<User> userManager,
-            IRepository<ProductComparisonItem> productComparisonRepository,
-            IRepository<Product> productRepository,
+            IRepository<ComparingProduct> productComparisonRepository,
             IProductComparisonService productComparisonService,
             IMediaService mediaService,
             IWorkContext workContext)
         {
-            _productComparisonRepository = productComparisonRepository;
-            _productRepository = productRepository;
+            _comparingProductRepository = productComparisonRepository;
             _productComparisonService = productComparisonService;
             _mediaService = mediaService;
             _workContext = workContext;
@@ -45,26 +39,22 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
         public async Task<IActionResult> AddToComparison([FromBody] AddToComparisonModel model)
         {
             var currentUser = await _workContext.GetCurrentUser();
+            var returnModel = new AddToComparisonResult();
 
-            var comparisonItems = _productComparisonService.GetComparisonItems(currentUser.Id);
-
-            if (comparisonItems.Count >= MaxComparisonItem)
+            try
             {
-                return RedirectToAction("AddToComparisonResult", new { addItemResult = false });
+                _productComparisonService.AddToComparison(currentUser.Id, model.ProductId);
+                returnModel.Message = "The product has been added to comparison items";
+            }
+            catch (TooManyComparingProductException ex)
+            {
+                returnModel.Message = $"Can not add to comparison items. Can only comparison {ex.MaxNumComparingProduct} items";
             }
 
-            var comparisonItem = _productComparisonService.AddToComparison(currentUser.Id, model.ProductId);
-
-            return RedirectToAction("AddToComparisonResult", new { addItemResult = true });
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> AddToComparisonResult(bool addItemResult = false)
-        {
-            var currentUser = await _workContext.GetCurrentUser();
-
-            var comparisonItems = _productComparisonService.GetComparisonItems(currentUser.Id)
-                .Select(x => new ProductComparisonModel()
+            var comparingProducts = _comparingProductRepository.Query()
+                .Include(x => x.Product).ThenInclude(x => x.ThumbnailImage)
+                .Where(x => x.UserId == currentUser.Id)
+                .Select(x => new ComparingProductVm()
                 {
                     ProductName = x.Product.Name,
                     ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
@@ -73,24 +63,9 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
                 }
                 ).ToList();
 
-            var model = new AddToComparisonResult
-            {
-                MaxItem = MaxComparisonItem,
-                ProductComparisons = comparisonItems,
-                ComparisonItemCount = comparisonItems.Count,
-                AddResult = addItemResult
-            };
+            returnModel.ProductComparisons = comparingProducts;
 
-            if (addItemResult)
-            {
-                model.Message = "The product has been added to comparison items";
-            }
-            else
-            {
-                model.Message = "Can not add to comparison items. Can only comparison "+ MaxComparisonItem + " items";
-            }
-
-            return PartialView(model);
+            return PartialView("AddToComparisonResult", returnModel);
         }
 
         [HttpPost]
@@ -98,45 +73,46 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
         {
             var currentUser = await _workContext.GetCurrentUser();
 
-            var productComparison = _productComparisonRepository.Query().FirstOrDefault(x => x.UserId == currentUser.Id && x.ProductId == id);
+            var productComparison = _comparingProductRepository.Query().FirstOrDefault(x => x.UserId == currentUser.Id && x.ProductId == id);
 
             if (productComparison == null)
             {
                 return new NotFoundResult();
             }
 
-            _productComparisonRepository.Remove(productComparison);
-            _productComparisonRepository.SaveChange();
+            _comparingProductRepository.Remove(productComparison);
+            _comparingProductRepository.SaveChange();
 
-            return Json(true);            
+            return Json(true);
         }
 
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> List()
+        [HttpGet("compare-products")]
+        public async Task<IActionResult> Index()
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var comparisonItems = _productComparisonService.GetComparisonItems(currentUser.Id);
+            var comparingProducts = _comparingProductRepository.Query()
+                .Include(x => x.Product).ThenInclude(p => p.ThumbnailImage)
+                .Include(x => x.Product).ThenInclude(p => p.AttributeValues).ThenInclude(a => a.Attribute)
+                .Where(x => x.UserId == currentUser.Id).ToList();
 
-            //var model = new CartViewModel
-            //{
-            //    CartItems = cartItems.Select(x => new CartListItem
-            //    {
-            //        Id = x.Id,
-            //        ProductName = x.Product.Name,
-            //        ProductPrice = x.Product.Price,
-            //        ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
-            //        Quantity = x.Quantity,
-            //        VariationOptions = CartListItem.GetVariationOption(x.Product)
-            //    }).ToList()
-            //};
+            var allAttributes = new List<ProductAttribute>();
+            foreach (var item in comparingProducts)
+            {
+                allAttributes.AddRange(item.Product.AttributeValues.Select(x => x.Attribute));
+            }
 
-            return Json(null);
+            var model = new ProductComparisonVm();
+            model.Attributes = allAttributes.Distinct().Select(x => new AttributeVm { AttributeId = x.Id, Name = x.Name }).ToList();
+            model.Products = comparingProducts.Select(x => new ComparingProductVm
+            {
+                ProductName = x.Product.Name,
+                ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
+                ProductPrice = x.Product.Price,
+                ProductId = x.ProductId,
+                AttributeValues = x.Product.AttributeValues.Select(a => new AttributeValueVm { AttributeId = a.AttributeId, Value = a.Value }).ToList()
+            }).ToList();
+
+            return View(model);
         }
     }
 }
