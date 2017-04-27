@@ -1,18 +1,12 @@
 language: csharp
 solution: SimplCommerce.sln
-
-matrix:
-  include:
-    - os: osx
-      dotnet: 1.0.0
-      mono: none
-      env: DOTNETCORE=1
-    - os: linux
-      dist: trusty
-      sudo: required
-      dotnet: 1.0.0
-      mono: none
-      env: DOTNETCORE=1
+sudo: required
+dist: trusty
+dotnet: 1.0.0
+mono: none
+os:
+  - linux
+  - osx
 
 branches:  
   only:
@@ -23,5 +17,9 @@ notifications:
     on_success: change
     on_failure: always
 
+before_script:
+  - dotnet restore
+
 script:
-  - if [ -n "${DOTNETCORE}" ]; then dotnet restore && dotnet build ./SimplCommerce.sln; fi
+  - dotnet build ./SimplCommerce.sln
+  - ./run-tests.sh
