@@ -2,23 +2,23 @@
 (function () {
     'use strict';
 
-    angular.module('simplAdmin.contact', [])
+    angular.module('simplAdmin.contacts', [])
         .config(['$stateProvider', function ($stateProvider) {
             $stateProvider
-                .state('contact-categories', {
-                    url: '/contact-categories',
-                    templateUrl: 'modules/contact/admin/contact-categories/contact-category-list.html',
-                    controller: 'ContactCategoryListCtrl as vm'
+                .state('contact-area', {
+                    url: '/contact-area',
+                    templateUrl: 'modules/contacts/admin/contact-area/contact-area-list.html',
+                    controller: 'ContactAreaListCtrl as vm'
                 })
-                .state('contact-categories-create', {
-                    url: '/contact-categories/create',
-                    templateUrl: 'modules/contact/admin/contact-categories/contact-category-form.html',
-                    controller: 'ContactCategoryFormCtrl as vm'
+                .state('contact-area-create', {
+                    url: '/contact-area/create',
+                    templateUrl: 'modules/contacts/admin/contact-area/contact-area-form.html',
+                    controller: 'ContactAreaFormCtrl as vm'
                 })
-                .state('contact-categories-edit', {
-                    url: '/contact-categories/edit/:id',
-                    templateUrl: 'modules/contact/admin/contact-categories/contact-category-form.html',
-                    controller: 'ContactCategoryFormCtrl as vm'
+                .state('contact-area-edit', {
+                    url: '/contact-area/edit/:id',
+                    templateUrl: 'modules/contacts/admin/contact-area/contact-area-form.html',
+                    controller: 'ContactAreaFormCtrl as vm'
                 });
                 //.state('contact-items', {
                 //    url: '/contact-items',

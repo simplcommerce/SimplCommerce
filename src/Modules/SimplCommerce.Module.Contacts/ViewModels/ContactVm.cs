@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace SimplCommerce.Module.Contact.ViewModels
+namespace SimplCommerce.Module.Contacts.ViewModels
 {
     public class ContactVm
     {
@@ -22,9 +20,9 @@ namespace SimplCommerce.Module.Contact.ViewModels
 
         public string Content { get; set; }
 
-        public long CategoryId { get; set; }
+        public long ContactAreaId { get; set; }
 
-        public IList<ContactCategoryVm> Categories { get; set; } = new List<ContactCategoryVm>();
+        public IList<ContactAreaVm> ContactAreas { get; set; } = new List<ContactAreaVm>();
 
         public CompanyInformation Company { get; set; }
     }

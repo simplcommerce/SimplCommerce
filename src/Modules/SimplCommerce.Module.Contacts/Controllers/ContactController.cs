@@ -1,23 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SimplCommerce.Infrastructure.Data;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using SimplCommerce.Module.Contact.Models;
-using SimplCommerce.Module.Contact.ViewModels;
 using System.Linq;
+using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Contacts.Models;
+using SimplCommerce.Module.Contacts.ViewModels;
 
-namespace SimplCommerce.Module.Contact.Controllers
-{    
+namespace SimplCommerce.Module.Contacts.Controllers
+{
     public class ContactController : Controller
     {
-        private readonly IRepository<Models.Contact> _contactRepository;
-        private readonly IRepository<ContactCategory> _contactCategoryRepository;
+        private readonly IRepository<Contact> _contactRepository;
+        private readonly IRepository<ContactArea> _contactAreaRepository;
 
-        public ContactController(IRepository<Models.Contact> contactRepository, IRepository<ContactCategory> contactCategoryRepository)
+        public ContactController(IRepository<Contact> contactRepository, IRepository<ContactArea> contactAreaRepository)
         {
             _contactRepository = contactRepository;
-            _contactCategoryRepository = contactCategoryRepository;
+            _contactAreaRepository = contactAreaRepository;
         }
 
         [Route("contact")]
@@ -25,7 +23,7 @@ namespace SimplCommerce.Module.Contact.Controllers
         {
             var model = new ContactVm()
             {
-                Categories = GetContactCategory()
+                ContactAreas = GetContactArea()
             };
 
             return View(model);
@@ -43,7 +41,7 @@ namespace SimplCommerce.Module.Contact.Controllers
                     PhoneNumber = model.PhoneNumber,
                     EmailAddress = model.EmailAddress,
                     Address = model.Address,
-                    CategoryId = model.CategoryId,
+                    ContactAreaId = model.ContactAreaId,
                     Content = model.Content
                 };
 
@@ -53,16 +51,16 @@ namespace SimplCommerce.Module.Contact.Controllers
                 return View("SubmitContactResult", model);
             }
 
-            model.Categories = GetContactCategory();
+            model.ContactAreas = GetContactArea();
 
             return View("Index", model);
         }
 
-        private IList<ContactCategoryVm> GetContactCategory()
+        private IList<ContactAreaVm> GetContactArea()
         {
-            var categories = _contactCategoryRepository.Query()
+            var categories = _contactAreaRepository.Query()
                 .Where(x => x.IsDeleted)
-                .Select(x => new ContactCategoryVm()
+                .Select(x => new ContactAreaVm()
                 {
                     Id = x.Id,
                     Name = x.Name

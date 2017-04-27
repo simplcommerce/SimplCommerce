@@ -1,27 +1,27 @@
 ﻿ /*global angular*/
 (function () {
     angular
-        .module('simplAdmin.contact')
-        .controller('ContactCategoryFormCtrl', ContactCategoryFormCtrl);
+        .module('simplAdmin.contacts')
+        .controller('ContactAreaFormCtrl', ContactAreaFormCtrl);
 
     /* @ngInject */
-    function ContactCategoryFormCtrl($state, $stateParams, contactCategoryService) {
+    function ContactAreaFormCtrl($state, $stateParams, contactAreaService) {
         var vm = this;
-        vm.contactCategory = {};
-        vm.contactCategoryId = $stateParams.id;
-        vm.isEditMode = vm.contactCategoryId > 0;
+        vm.contactArea = {};
+        vm.contactAreaId = $stateParams.id;
+        vm.isEditMode = vm.contactAreaId > 0;
 
         vm.save = function save() {
             var promise;
             if (vm.isEditMode) {
-                promise = contactCategoryService.editContactCategory(vm.contactCategory);
+                promise = contactAreaService.editContactArea(vm.contactArea);
             } else {
-                promise = contactCategoryService.createContactCategory(vm.contactCategory);
+                promise = contactAreaService.createContactArea(vm.contactArea);
             }
 
             promise
                 .then(function (result) {
-                    $state.go('contact-categories');
+                    $state.go('contact-area');
                 })
                 .catch(function (response) {
                     var error = response.data;
@@ -38,8 +38,8 @@
 
         function init() {
             if (vm.isEditMode) {
-                contactCategoryService.getContactCategory(vm.contactCategoryId).then(function (result) {
-                    vm.contactCategory = result.data;
+                contactAreaService.getContactArea(vm.contactAreaId).then(function (result) {
+                    vm.contactArea = result.data;
                 });
             }
         }

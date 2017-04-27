@@ -1,8 +1,8 @@
-﻿@model SimplCommerce.Module.Contact.ViewModels.ContactVm
+﻿@model SimplCommerce.Module.Contacts.ViewModels.ContactVm
 @inject IConfiguration Config
 
 @{
-    ViewData["Title"] = "Contact";
+    ViewData["Title"] = "Contact Us";
 }
 <div class="row">
     <div class="col-md-6">
@@ -35,8 +35,8 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <select class="form-control input-contact" asp-for="CategoryId">
-                            @foreach (var item in Model.Categories)
+                        <select class="form-control input-contact" asp-for="ContactAreaId">
+                            @foreach (var item in Model.ContactAreas)
                             {
                                 <option value="@item.Id"> @item.Name </option>
                             }
@@ -48,14 +48,6 @@
                         <textarea class="form-control input-contact" rows="5" asp-for="Content"></textarea>
                     </div>
                 </div>
-                @*<div class="form-group">
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="captcha" placeholder="@Localizer["Captcha"]">
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="captchaImage" placeholder="@Localizer["Captcha"]">
-                    </div>
-                </div>*@
                 <div class="form-group">
                     <div class="col-sm-4">
                         <button type="submit" class="btn btn-success">@Localizer["Submit"]</button>
@@ -72,6 +64,6 @@
 </div>
 @section scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-    <script simpl-append-version="true" src="~/modules/contact/init-google-map.js"></script>
+    <script simpl-append-version="true" src="~/modules/contacts/init-google-map.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=@Config["GoogleAppKey"]&callback=initMap"> </script>
 }

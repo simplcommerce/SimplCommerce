@@ -528,14 +528,14 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("Cms_Page");
                 });
 
-            modelBuilder.Entity("SimplCommerce.Module.Contact.Models.Contact", b =>
+            modelBuilder.Entity("SimplCommerce.Module.Contacts.Models.Contact", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Address");
 
-                    b.Property<long>("CategoryId");
+                    b.Property<long>("ContactAreaId");
 
                     b.Property<string>("Content");
 
@@ -551,12 +551,12 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("ContactAreaId");
 
-                    b.ToTable("Contact_Contact");
+                    b.ToTable("Contacts_Contact");
                 });
 
-            modelBuilder.Entity("SimplCommerce.Module.Contact.Models.ContactCategory", b =>
+            modelBuilder.Entity("SimplCommerce.Module.Contacts.Models.ContactArea", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
@@ -567,7 +567,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contact_ContactCategory");
+                    b.ToTable("Contacts_ContactArea");
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.Address", b =>
@@ -1422,11 +1422,11 @@ namespace SimplCommerce.WebHost.Migrations
                         .HasForeignKey("UpdatedById");
                 });
 
-            modelBuilder.Entity("SimplCommerce.Module.Contact.Models.Contact", b =>
+            modelBuilder.Entity("SimplCommerce.Module.Contacts.Models.Contact", b =>
                 {
-                    b.HasOne("SimplCommerce.Module.Contact.Models.ContactCategory", "Category")
+                    b.HasOne("SimplCommerce.Module.Contacts.Models.ContactArea", "ContactArea")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("ContactAreaId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

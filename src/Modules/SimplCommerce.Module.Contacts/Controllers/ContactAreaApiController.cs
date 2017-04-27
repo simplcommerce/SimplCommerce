@@ -1,22 +1,19 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Contact.Models;
-using SimplCommerce.Module.Contact.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Contacts.Models;
+using SimplCommerce.Module.Contacts.ViewModels;
 
-namespace SimplCommerce.Module.Contact.Controllers
+namespace SimplCommerce.Module.Contacts.Controllers
 {
     [Authorize(Roles = "admin")]
-    [Route("api/contact-categories")]
-    public class ContactCategoryApiController : Controller
+    [Route("api/contact-area")]
+    public class ContactAreaApiController : Controller
     {
-        private readonly IRepository<ContactCategory> _contactRepository;
+        private readonly IRepository<ContactArea> _contactRepository;
 
-        public ContactCategoryApiController(IRepository<ContactCategory> categoryRepository)
+        public ContactAreaApiController(IRepository<ContactArea> categoryRepository)
         {
             _contactRepository = categoryRepository;
         }
@@ -32,7 +29,7 @@ namespace SimplCommerce.Module.Contact.Controllers
         public IActionResult Get(long id)
         {
             var category = _contactRepository.Query().FirstOrDefault(x => x.Id == id);
-            var model = new ContactCategoryForm
+            var model = new ContactAreaForm
             {
                 Id = category.Id,
                 Name = category.Name
@@ -43,11 +40,11 @@ namespace SimplCommerce.Module.Contact.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public IActionResult Post([FromBody] ContactCategoryForm model)
+        public IActionResult Post([FromBody] ContactAreaForm model)
         {
             if (ModelState.IsValid)
             {
-                var category = new ContactCategory
+                var category = new ContactArea
                 {
                     Name = model.Name
                 };
@@ -62,7 +59,7 @@ namespace SimplCommerce.Module.Contact.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
-        public IActionResult Put(long id, [FromBody] ContactCategoryForm model)
+        public IActionResult Put(long id, [FromBody] ContactAreaForm model)
         {
             if (ModelState.IsValid)
             {

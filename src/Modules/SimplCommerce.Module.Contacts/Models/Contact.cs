@@ -1,10 +1,7 @@
 ﻿using SimplCommerce.Infrastructure.Models;
-using SimplCommerce.Module.Core.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SimplCommerce.Module.Contact.Models
+namespace SimplCommerce.Module.Contacts.Models
 {
     public class Contact : EntityBase
     {
@@ -23,9 +20,9 @@ namespace SimplCommerce.Module.Contact.Models
 
         public string Content { get; set; }
 
-        public long CategoryId { get; set; }
+        public long ContactAreaId { get; set; }
 
-        public ContactCategory Category { get; set; }
+        public ContactArea ContactArea { get; set; }
         
         public bool IsDeleted { get; set; }        
 

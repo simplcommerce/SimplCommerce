@@ -8,8 +8,8 @@ using SimplCommerce.Module.Core.Data;
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    [Migration("20170425151508_AddContactModule")]
-    partial class AddContactModule
+    [Migration("20170427001800_AddContact")]
+    partial class AddContact
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -487,18 +487,16 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("Cms_Page");
                 });
 
-            modelBuilder.Entity("SimplCommerce.Module.Contact.Models.Contact", b =>
+            modelBuilder.Entity("SimplCommerce.Module.Contacts.Models.Contact", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Address");
 
-                    b.Property<long>("CategoryId");
+                    b.Property<long>("ContactAreaId");
 
                     b.Property<string>("Content");
-
-                    b.Property<long?>("CreatedById");
 
                     b.Property<DateTimeOffset>("CreatedOn");
 
@@ -510,22 +508,14 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("PhoneNumber");
 
-                    b.Property<long?>("UpdatedById");
-
-                    b.Property<DateTimeOffset>("UpdatedOn");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("ContactAreaId");
 
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("UpdatedById");
-
-                    b.ToTable("Contact_Contact");
+                    b.ToTable("Contacts_Contact");
                 });
 
-            modelBuilder.Entity("SimplCommerce.Module.Contact.Models.ContactCategory", b =>
+            modelBuilder.Entity("SimplCommerce.Module.Contacts.Models.ContactArea", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
@@ -536,7 +526,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contact_ContactCategory");
+                    b.ToTable("Contacts_ContactArea");
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.Address", b =>
@@ -1353,20 +1343,12 @@ namespace SimplCommerce.WebHost.Migrations
                         .HasForeignKey("UpdatedById");
                 });
 
-            modelBuilder.Entity("SimplCommerce.Module.Contact.Models.Contact", b =>
+            modelBuilder.Entity("SimplCommerce.Module.Contacts.Models.Contact", b =>
                 {
-                    b.HasOne("SimplCommerce.Module.Contact.Models.ContactCategory", "Category")
+                    b.HasOne("SimplCommerce.Module.Contacts.Models.ContactArea", "ContactArea")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("ContactAreaId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SimplCommerce.Module.Core.Models.User", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById");
-
-                    b.HasOne("SimplCommerce.Module.Core.Models.User", "UpdatedBy")
-                        .WithMany()
-                        .HasForeignKey("UpdatedById");
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.Address", b =>

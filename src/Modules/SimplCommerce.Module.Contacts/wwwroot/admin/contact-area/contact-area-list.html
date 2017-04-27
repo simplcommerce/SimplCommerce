@@ -1,0 +1,28 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Contact Area List</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <a ui-sref="contact-area-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Create Contact Area</a>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="contactArea in vm.contactAreas">
+        <td>{{contactArea.name}}</td>        
+        <td>
+            <a ui-sref="contact-area-edit({id: contactArea.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+            <button ng-click="vm.deleteContactArea(contactArea)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+        </td>
+    </tr>
+    </tbody>
+</table>

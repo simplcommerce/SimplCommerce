@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace SimplCommerce.WebHost.Migrations
 {
-    public partial class AddContactModule : Migration
+    public partial class AddContact : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,7 +21,7 @@ namespace SimplCommerce.WebHost.Migrations
                 oldNullable: true);
 
             migrationBuilder.CreateTable(
-                name: "Contact_ContactCategory",
+                name: "Contacts_ContactArea",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -31,64 +31,39 @@ namespace SimplCommerce.WebHost.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Contact_ContactCategory", x => x.Id);
+                    table.PrimaryKey("PK_Contacts_ContactArea", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Contact_Contact",
+                name: "Contacts_Contact",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Address = table.Column<string>(nullable: true),
-                    CategoryId = table.Column<long>(nullable: false),
+                    ContactAreaId = table.Column<long>(nullable: false),
                     Content = table.Column<string>(nullable: true),
-                    CreatedById = table.Column<long>(nullable: true),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
                     EmailAddress = table.Column<string>(nullable: true),
                     FullName = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    UpdatedById = table.Column<long>(nullable: true),
-                    UpdatedOn = table.Column<DateTimeOffset>(nullable: false)
+                    PhoneNumber = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Contact_Contact", x => x.Id);
+                    table.PrimaryKey("PK_Contacts_Contact", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Contact_Contact_Contact_ContactCategory_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Contact_ContactCategory",
+                        name: "FK_Contacts_Contact_Contacts_ContactArea_ContactAreaId",
+                        column: x => x.ContactAreaId,
+                        principalTable: "Contacts_ContactArea",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Contact_Contact_Core_User_CreatedById",
-                        column: x => x.CreatedById,
-                        principalTable: "Core_User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Contact_Contact_Core_User_UpdatedById",
-                        column: x => x.UpdatedById,
-                        principalTable: "Core_User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contact_Contact_CategoryId",
-                table: "Contact_Contact",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Contact_Contact_CreatedById",
-                table: "Contact_Contact",
-                column: "CreatedById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Contact_Contact_UpdatedById",
-                table: "Contact_Contact",
-                column: "UpdatedById");
+                name: "IX_Contacts_Contact_ContactAreaId",
+                table: "Contacts_Contact",
+                column: "ContactAreaId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Localization_Resource_Localization_Culture_CultureId",
@@ -106,10 +81,10 @@ namespace SimplCommerce.WebHost.Migrations
                 table: "Localization_Resource");
 
             migrationBuilder.DropTable(
-                name: "Contact_Contact");
+                name: "Contacts_Contact");
 
             migrationBuilder.DropTable(
-                name: "Contact_ContactCategory");
+                name: "Contacts_ContactArea");
 
             migrationBuilder.AlterColumn<long>(
                 name: "CultureId",

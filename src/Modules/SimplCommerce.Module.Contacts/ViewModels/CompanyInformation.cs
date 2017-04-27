@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SimplCommerce.Module.Contact.ViewModels
+﻿namespace SimplCommerce.Module.Contacts.ViewModels
 {
     public class CompanyInformation
     {
