@@ -1,18 +1,15 @@
 language: csharp
 solution: SimplCommerce.sln
-
-matrix:
-  include:
-    - os: osx
-      dotnet: 1.0.0
-      mono: none
-      env: DOTNETCORE=1
-    - os: linux
-      dist: trusty
-      sudo: required
-      dotnet: 1.0.0
-      mono: none
-      env: DOTNETCORE=1
+sudo: required
+dist: trusty
+dotnet: 1.0.0
+mono: none
+os:
+  - linux
+  - osx
+env:
+  - DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
+  - DOTNET_CLI_TELEMETRY_OPTOUT=true
 
 branches:  
   only:
