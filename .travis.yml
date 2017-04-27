@@ -22,4 +22,4 @@ before_script:
 
 script:
   - dotnet build ./SimplCommerce.sln
-  - ./scripts/run-tests.sh
+  - ./run-tests.sh
