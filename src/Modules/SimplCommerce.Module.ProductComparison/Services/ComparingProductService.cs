@@ -5,12 +5,12 @@ using SimplCommerce.Infrastructure.Data;
 
 namespace SimplCommerce.Module.ProductComparison.Services
 {
-    public class ProductComparisonService : IProductComparisonService
+    public class ComparingProductService : IComparingProductService
     {
         private readonly IRepository<ComparingProduct> _comparingProductRepository;
         private readonly int MaxNumComparingProduct = 4;
 
-        public ProductComparisonService(IRepository<ComparingProduct> productComparisonRepository)
+        public ComparingProductService(IRepository<ComparingProduct> productComparisonRepository)
         {
             _comparingProductRepository = productComparisonRepository;
         }
@@ -36,6 +36,17 @@ namespace SimplCommerce.Module.ProductComparison.Services
                 _comparingProductRepository.Add(comparingProduct);
                 _comparingProductRepository.SaveChange();
             }
+        }
+
+        public void MigrateComparingProduct(long fromUserId, long toUserId)
+        {
+            var comparingProducts = _comparingProductRepository.Query().Where(x => x.UserId == fromUserId);
+            foreach(var item in comparingProducts)
+            {
+                item.UserId = toUserId;
+            }
+
+            _comparingProductRepository.SaveChange();
         }
     }
 }

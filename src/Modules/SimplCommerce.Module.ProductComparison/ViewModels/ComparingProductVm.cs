@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SimplCommerce.Module.Catalog.Models;
+using System.Collections.Generic;
 
 namespace SimplCommerce.Module.ProductComparison.ViewModels
 {
@@ -10,7 +11,7 @@ namespace SimplCommerce.Module.ProductComparison.ViewModels
 
         public string ProductImage { get; set; }
 
-        public decimal ProductPrice { get; set; }
+        public CalculatedProductPrice CalculatedProductPrice { get; set; }
 
         public IList<AttributeValueVm> AttributeValues { get; set; } = new List<AttributeValueVm>();
     }

@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Extensions;
@@ -10,27 +12,29 @@ using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.ProductComparison.Models;
 using SimplCommerce.Module.ProductComparison.Services;
 using SimplCommerce.Module.ProductComparison.ViewModels;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+using SimplCommerce.Module.Catalog.Services;
 
 namespace SimplCommerce.Module.ProductComparison.Controllers
 {
-    public class ProductComparisonController : Controller
+    public class ComparingProductController : Controller
     {
         private readonly IRepository<ComparingProduct> _comparingProductRepository;
-        private readonly IProductComparisonService _productComparisonService;
+        private readonly IComparingProductService _comparingProductService;
+        private readonly IProductPricingService _productPricingService;
         private readonly IMediaService _mediaService;
         private readonly IWorkContext _workContext;
 
-        public ProductComparisonController(
+        public ComparingProductController(
             UserManager<User> userManager,
-            IRepository<ComparingProduct> productComparisonRepository,
-            IProductComparisonService productComparisonService,
+            IRepository<ComparingProduct> comparingProductRepository,
+            IComparingProductService comparingProductService,
+            IProductPricingService productPricingService,
             IMediaService mediaService,
             IWorkContext workContext)
         {
-            _comparingProductRepository = productComparisonRepository;
-            _productComparisonService = productComparisonService;
+            _comparingProductRepository = comparingProductRepository;
+            _comparingProductService = comparingProductService;
+            _productPricingService = productPricingService;
             _mediaService = mediaService;
             _workContext = workContext;
         }
@@ -43,7 +47,7 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
 
             try
             {
-                _productComparisonService.AddToComparison(currentUser.Id, model.ProductId);
+                _comparingProductService.AddToComparison(currentUser.Id, model.ProductId);
                 returnModel.Message = "The product has been added to comparison items";
             }
             catch (TooManyComparingProductException ex)
@@ -58,7 +62,7 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
                 {
                     ProductName = x.Product.Name,
                     ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
-                    ProductPrice = x.Product.Price,
+                    CalculatedProductPrice = _productPricingService.CalculateProductPrice(x.Product),
                     ProductId = x.ProductId
                 }
                 ).ToList();
@@ -68,11 +72,10 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
             return PartialView("AddToComparisonResult", returnModel);
         }
 
-        [HttpPost]
+        [HttpDelete]
         public async Task<IActionResult> Remove(long id)
         {
             var currentUser = await _workContext.GetCurrentUser();
-
             var productComparison = _comparingProductRepository.Query().FirstOrDefault(x => x.UserId == currentUser.Id && x.ProductId == id);
 
             if (productComparison == null)
@@ -83,7 +86,7 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
             _comparingProductRepository.Remove(productComparison);
             _comparingProductRepository.SaveChange();
 
-            return Json(true);
+            return Ok();
         }
 
         [HttpGet("compare-products")]
@@ -107,7 +110,7 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
             {
                 ProductName = x.Product.Name,
                 ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
-                ProductPrice = x.Product.Price,
+                CalculatedProductPrice = _productPricingService.CalculateProductPrice(x.Product),
                 ProductId = x.ProductId,
                 AttributeValues = x.Product.AttributeValues.Select(a => new AttributeValueVm { AttributeId = a.AttributeId, Value = a.Value }).ToList()
             }).ToList();

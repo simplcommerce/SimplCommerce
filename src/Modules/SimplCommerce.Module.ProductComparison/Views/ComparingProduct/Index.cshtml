@@ -1,0 +1,59 @@
+@model SimplCommerce.Module.ProductComparison.ViewModels.ProductComparisonVm
+
+@{
+    ViewData["Title"] = "Compare products";
+}
+
+<h1>Compare products</h1>
+
+@if(Model.Products.Any())
+{
+    <table class="table table-striped table-bordered">
+        <tr>
+            <td> </td>
+            @foreach (var product in Model.Products)
+            {
+                <td><a href="#" class="remove-item-comparison" data-product-id="@product.ProductId" data-reload="true">Remove</a></td>
+            }
+        </tr>
+        <tr>
+            <td> </td>
+            @foreach (var product in Model.Products)
+            {
+                <td><img alt="@product.ProductName" class="img-responsive" src="@product.ProductImage"></td>
+            }
+        </tr>
+        <tr>
+            <td><strong>Name</strong></td>
+            @foreach (var product in Model.Products)
+            {
+                <td><strong>@product.ProductName</strong></td>
+            }
+        </tr>
+        <tr>
+            <td><strong>Price</strong></td>
+            @foreach (var product in Model.Products)
+            {
+                <td>@product.CalculatedProductPrice.Price.ToString("C")</td>
+            }
+        </tr>
+        @foreach(var attribute in Model.Attributes)
+        {
+            <tr>
+                <td><strong>@attribute.Name</strong></td>
+                @foreach (var product in Model.Products)
+                {
+                    <td>
+                        @{ 
+                            var value = product.AttributeValues.FirstOrDefault(x => x.AttributeId == attribute.AttributeId)?.Value ?? "";
+                            }
+                        @value
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+}else{
+    <p>There is no product to compare</p>
+}
+
