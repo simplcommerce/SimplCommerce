@@ -7,9 +7,6 @@ mono: none
 os:
   - linux
   - osx
-env:
-  - DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
-  - DOTNET_CLI_TELEMETRY_OPTOUT=true
 
 branches:  
   only:
@@ -25,4 +22,4 @@ before_script:
 
 script:
   - dotnet build ./SimplCommerce.sln
-  - ./run-tests.sh
+  - ./scripts/run-tests.sh
