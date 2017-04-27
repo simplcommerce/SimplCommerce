@@ -689,3 +689,7 @@ li.nav-item-group, li.nav-item-group a {
 .rating-xs {
     font-size: 1.2em;
 }
+
+.product-comparison-result-remove {
+    padding-top: 10px;
+}
