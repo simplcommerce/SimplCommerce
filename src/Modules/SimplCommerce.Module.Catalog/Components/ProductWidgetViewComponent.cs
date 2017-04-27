@@ -7,6 +7,7 @@ using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Core.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace SimplCommerce.Module.Catalog.Components
 {
@@ -41,26 +42,10 @@ namespace SimplCommerce.Module.Catalog.Components
             }
 
             model.Products = query
+              .Include(x => x.ThumbnailImage)
               .OrderByDescending(x => x.CreatedOn)
               .Take(model.Setting.NumberOfProducts)
-              .Select(x => new ProductThumbnail
-              {
-                  Id = x.Id,
-                  Name = x.Name,
-                  SeoTitle = x.SeoTitle,
-                  Price = x.Price,
-                  OldPrice = x.OldPrice,
-                  SpecialPrice = x.SpecialPrice,
-                  SpecialPriceStart = x.SpecialPriceStart,
-                  SpecialPriceEnd = x.SpecialPriceEnd,
-                  StockQuantity = x.StockQuantity,
-                  IsAllowToOrder = x.IsAllowToOrder,
-                  IsCallForPricing = x.IsCallForPricing,
-                  ThumbnailImage = x.ThumbnailImage,
-                  NumberVariation = x.ProductLinks.Count,
-                  ReviewsCount = x.ReviewsCount,
-                  RatingAverage = x.RatingAverage
-              }).ToList();
+              .Select(x => ProductThumbnail.FromProduct(x)).ToList();
 
             foreach (var product in model.Products)
             {
