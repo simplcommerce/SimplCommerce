@@ -155,10 +155,10 @@
                         <button type="button" disabled="@(!Model.IsAllowToOrder || Model.StockQuantity <= 0)" class="btn btn-lg btn-add-cart">@Localizer["Add to cart"]</button>
                         <div>
                             <ul class="list-inline add-to-wishlist">
-                                <li class="wishlist-in">
+                                @*<li class="wishlist-in">
                                     <i class="fa fa-heart"></i>
                                     <a href="#">Add to Wishlist</a>
-                                </li>
+                                </li>*@
                                 <li class="compare-in">
                                     <i class="fa fa-exchange"></i>
                                     <a href="#" class="add-to-comparison">Add to Compare</a>
@@ -168,19 +168,6 @@
                     </form>
                 </div>
             }
-
-            @*<div>
-                <ul class="list-inline add-to-wishlist">
-                    <li class="wishlist-in">
-                        <i class="fa fa-heart"></i>
-                        <a href="#">Add to Wishlist</a>
-                    </li>
-                    <li class="compare-in">
-                        <i class="fa fa-exchange"></i>
-                        <a href="#" class="add-to-comparison">Add to Compare</a>
-                    </li>
-                </ul>
-            </div>*@
         </div>
     </div>
     @if (!string.IsNullOrWhiteSpace(Model.Description))
