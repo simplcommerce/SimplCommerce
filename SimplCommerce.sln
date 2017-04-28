@@ -52,8 +52,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.Cms.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.ProductComparison", "src\Modules\SimplCommerce.Module.ProductComparison\SimplCommerce.Module.ProductComparison.csproj", "{3BA470E8-1A8A-4E36-A1AE-669838816770}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.Contact", "src\Modules\SimplCommerce.Module.Contact\SimplCommerce.Module.Contact.csproj", "{EA8A1804-7807-4CC5-9412-CF835BEAFC06}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.Contacts", "src\Modules\SimplCommerce.Module.Contacts\SimplCommerce.Module.Contacts.csproj", "{EA8A1804-7807-4CC5-9412-CF835BEAFC06}"
 EndProject
 Global
