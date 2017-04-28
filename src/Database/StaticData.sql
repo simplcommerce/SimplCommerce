@@ -2,6 +2,7 @@
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (1, N'Catalog.ProductPageSize', N'10')
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (2, N'Global.AssetVersion', N'1.0')
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (3, N'News.PageSize', N'10')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (4, N'GoogleAppKey', N'AIzaSyBmsQV2FUo6g52R1kovLyfvaYm4FryNs4g')
 SET IDENTITY_INSERT [dbo].[Core_AppSetting] OFF
 GO
 
