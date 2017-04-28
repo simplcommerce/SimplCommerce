@@ -106,7 +106,7 @@
             function readNodes(nodes, parentNode) {
                 nodes.forEach(function (node) {
                     var parentId = (parentNode) ? parentNode.id : "";
-                    var item = { id: node.id, name: node.name, entityId: node.entityId, parentId: parentId };
+                    var item = { id: node.id, name: node.name, entityId: node.entityId, customLink: node.customLink, parentId: parentId };
                     items.push(item);
                     if (node.children.length > 0) {
                         readNodes(node.children, node)
