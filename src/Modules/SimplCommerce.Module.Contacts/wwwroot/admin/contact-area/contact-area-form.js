@@ -5,8 +5,9 @@
         .controller('ContactAreaFormCtrl', ContactAreaFormCtrl);
 
     /* @ngInject */
-    function ContactAreaFormCtrl($state, $stateParams, contactAreaService) {
+    function ContactAreaFormCtrl($state, $stateParams, contactAreaService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.contactArea = {};
         vm.contactAreaId = $stateParams.id;
         vm.isEditMode = vm.contactAreaId > 0;

@@ -59,7 +59,7 @@ namespace SimplCommerce.Module.Contacts.Controllers
         private IList<ContactAreaVm> GetContactArea()
         {
             var categories = _contactAreaRepository.Query()
-                .Where(x => x.IsDeleted)
+                .Where(x => !x.IsDeleted)
                 .Select(x => new ContactAreaVm()
                 {
                     Id = x.Id,

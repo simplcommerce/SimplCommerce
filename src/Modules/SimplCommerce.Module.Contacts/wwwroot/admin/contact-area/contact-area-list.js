@@ -5,8 +5,9 @@
         .controller('ContactAreaListCtrl', ContactAreaListCtrl);
 
     /* @ngInject */
-    function ContactAreaListCtrl(contactAreaService) {
+    function ContactAreaListCtrl(contactAreaService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.contactAreas = [];
 
         vm.getContactAreas = function getContactAreas() {
@@ -16,7 +17,7 @@
         };
 
         vm.deleteContactArea = function deleteContactArea(contactArea) {
-            bootbox.confirm('Are you sure you want to delete this contact category: ' + contactArea.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this Contact Area: ' + contactArea.name, function (result) {
                 if (result) {
                     contactAreaService.deleteContactArea(contactArea)
                        .then(function (result) {

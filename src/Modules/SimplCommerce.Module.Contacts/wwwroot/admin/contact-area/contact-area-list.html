@@ -1,10 +1,10 @@
 ﻿<div class="page-header">
     <div class="row">
         <div class="col-md-8">
-            <h2>Contact Area List</h2>
+            <h2>{{ ::vm.translate.get('Contact Area List')}}</h2>
         </div>
         <div class="col-md-4 text-right">
-            <a ui-sref="contact-area-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Create Contact Area</a>
+            <a ui-sref="contact-area-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>{{ ::vm.translate.get('Create Contact Area')}} </a>
         </div>
     </div>
 </div>
@@ -12,8 +12,8 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Actions</th>
+        <th>{{ ::vm.translate.get('Name')}}</th>
+        <th>{{ ::vm.translate.get('Actions')}}</th>
     </tr>
     </thead>
     <tbody>

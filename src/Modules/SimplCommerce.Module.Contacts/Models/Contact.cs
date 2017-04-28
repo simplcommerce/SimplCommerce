@@ -22,12 +22,10 @@ namespace SimplCommerce.Module.Contacts.Models
 
         public long ContactAreaId { get; set; }
 
-        public ContactArea ContactArea { get; set; }
+        public virtual ContactArea ContactArea { get; set; }
         
         public bool IsDeleted { get; set; }        
 
-        public DateTimeOffset CreatedOn { get; set; }
-        
-        
+        public DateTimeOffset CreatedOn { get; set; }      
     }
 }

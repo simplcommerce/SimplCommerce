@@ -19,21 +19,16 @@
                     url: '/contact-area/edit/:id',
                     templateUrl: 'modules/contacts/admin/contact-area/contact-area-form.html',
                     controller: 'ContactAreaFormCtrl as vm'
+                })
+                .state('contact', {
+                    url: '/contact',
+                    templateUrl: 'modules/contacts/admin/contacts/contact-list.html',
+                    controller: 'ContactListCtrl as vm'
+                })
+                .state('contact-preview', {
+                    url: '/contact/preview/:id',
+                    templateUrl: 'modules/contacts/admin/contacts/contact.html',
+                    controller: 'ContactCtrl as vm'
                 });
-                //.state('contact-items', {
-                //    url: '/contact-items',
-                //    templateUrl: 'modules/contact/admin/contact-items/contact-item-list.html',
-                //    controller: 'NewsItemListCtrl as vm'
-                //})
-                //.state('contact-items-create', {
-                //    url: '/contact-items/create',
-                //    templateUrl: 'modules/news/admin/news-items/news-item-form.html',
-                //    controller: 'NewsItemFormCtrl as vm'
-                //})
-                //.state('news-items-edit', {
-                //    url: '/news-items/edit/:id',
-                //    templateUrl: 'modules/news/admin/news-items/news-item-form.html',
-                //    controller: 'NewsItemFormCtrl as vm'
-                //});
         }]);
 })();
