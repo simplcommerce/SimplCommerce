@@ -21,7 +21,8 @@
         'simplAdmin.activityLog',
         'simplAdmin.vendors',
         'simplAdmin.localization',
-        'simplAdmin.news'
+        'simplAdmin.news',
+        'simplAdmin.contacts'
     ]);
 
     toastr.options.closeButton = true;

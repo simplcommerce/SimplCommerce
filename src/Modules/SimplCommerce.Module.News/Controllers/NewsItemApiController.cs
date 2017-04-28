@@ -27,12 +27,12 @@ namespace SimplCommerce.Module.News.Controllers
         private readonly IMediaService _mediaService;
         private readonly IWorkContext _workContext;
 
-        public NewsItemApiController(IRepository<NewsItem> newsItemRepository, INewsItemService newsItemService, IMediaService mediaService, IWorkContext workContent)
+        public NewsItemApiController(IRepository<NewsItem> newsItemRepository, INewsItemService newsItemService, IMediaService mediaService, IWorkContext workContext)
         {
             _newsItemRepository = newsItemRepository;
             _newsItemService = newsItemService;
             _mediaService = mediaService;
-            _workContext = workContent;
+            _workContext = workContext;
         }
 
         [HttpPost("grid")]

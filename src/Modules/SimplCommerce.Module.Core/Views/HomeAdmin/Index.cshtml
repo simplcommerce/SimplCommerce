@@ -139,6 +139,14 @@
     <script simpl-append-version="true" src="~/modules/news/admin/news-items/news-item-service.js"></script>
     <script simpl-append-version="true" src="~/modules/news/admin/news-items/news-item-list.js"></script>
     <script simpl-append-version="true" src="~/modules/news/admin/news-items/news-item-form.js"></script>
+
+    <script simpl-append-version="true" src="~/modules/contacts/admin/contacts.module.js"></script>
+    <script simpl-append-version="true" src="~/modules/contacts/admin/contact-area/contact-area-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/contacts/admin/contact-area/contact-area-list.js"></script>
+    <script simpl-append-version="true" src="~/modules/contacts/admin/contact-area/contact-area-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/contacts/admin/contacts/contact-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/contacts/admin/contacts/contact-list.js"></script>
+    <script simpl-append-version="true" src="~/modules/contacts/admin/contacts/contact.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse">
@@ -202,6 +210,13 @@
                         <ul class="dropdown-menu">
                             <li><a ui-sref="configuration">@Localizer["Configuration"]</a></li>
                             <li><a ui-sref="localization">@Localizer["Translations"]</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Contact Management"] <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="contact-area">@Localizer["Manage Contact Area"]</a></li>
+                            <li><a ui-sref="contact">@Localizer["Manage Contact"]</a></li>
                         </ul>
                     </li>
                     }

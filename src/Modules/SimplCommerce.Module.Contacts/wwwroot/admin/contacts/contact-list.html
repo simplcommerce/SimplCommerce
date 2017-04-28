@@ -1,0 +1,61 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Contacts</h2>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped" st-pipe="vm.getContacts" st-table="vm.contacts">
+    <thead>
+        <tr>
+            <th class="sortable col-md-2 text-center" st-sort="FullName">{{ ::vm.translate.get('Customer')}}</th>
+            <th class="col-md-2 text-center">{{ ::vm.translate.get('Contact Area')}}</th>
+            <th class="col-md-5 text-center">{{ ::vm.translate.get('Short content')}}</th>
+            <th class="sortable col-md-2 text-center" t-sort="CreatedOn">{{ ::vm.translate.get('Created On')}}</th>
+            <th class="col-md-1 text-center">Actions</th>
+        </tr>
+        <tr>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="FullName" />
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <select class="form-control" st-search="ContactAreaId">
+                        <option value="">{{ ::vm.translate.get('All')}}</option>
+                        <option ng-repeat="item in vm.contactAreas" value="{{item.id}}">
+                            {{item.name}}
+                        </option>
+                    </select>
+                </div>
+            </th>
+            <th></th>
+            <th><st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-show="!vm.isLoading">
+        <tr ng-repeat="contact in vm.contacts">
+            <td>{{contact.fullName}}</td>
+            <td>{{contact.contactArea}}</td>
+            <td>{{contact.content | limitTo: 50}}...</td>
+            <td>{{contact.createdOn | date:'medium'}}</td>
+            <td>
+                <a ui-sref="contact-preview({id: contact.id})" title="View" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-search"></span></a>
+                <button ng-click="vm.deleteContact(contact)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+            </td>
+        </tr>
+    </tbody>
+    <tbody ng-show="vm.isLoading">
+        <tr>
+            <td colspan="5" class="text-center">Loading ... </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="5"></td>
+        </tr>
+    </tfoot>
+</table>
