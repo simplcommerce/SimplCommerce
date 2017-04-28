@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Contacts.Models;
 using SimplCommerce.Module.Contacts.ViewModels;

@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Contacts.Models;
 using SimplCommerce.Module.Contacts.ViewModels;
@@ -21,7 +21,6 @@ namespace SimplCommerce.Module.Contacts.Controllers
         public IActionResult Get()
         {
             var categoryList = _contactRepository.Query().Where(x => !x.IsDeleted).ToList();
-
             return Json(categoryList);
         }
 
@@ -39,7 +38,6 @@ namespace SimplCommerce.Module.Contacts.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
         public IActionResult Post([FromBody] ContactAreaForm model)
         {
             if (ModelState.IsValid)
@@ -58,7 +56,6 @@ namespace SimplCommerce.Module.Contacts.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "admin")]
         public IActionResult Put(long id, [FromBody] ContactAreaForm model)
         {
             if (ModelState.IsValid)
@@ -75,7 +72,6 @@ namespace SimplCommerce.Module.Contacts.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
         public IActionResult Delete(long id)
         {
             var category = _contactRepository.Query().FirstOrDefault(x => x.Id == id);

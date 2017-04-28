@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Contacts.Models;
 using SimplCommerce.Module.Core.Extensions;
@@ -114,6 +114,6 @@ namespace SimplCommerce.Module.Contacts.Controllers
             _contactRepository.SaveChange();
 
             return Ok();
-        }        
+        }
     }
 }

@@ -1,5 +1,5 @@
-﻿using SimplCommerce.Infrastructure.Models;
-using System;
+﻿using System;
+using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Contacts.Models
 {
@@ -23,9 +23,9 @@ namespace SimplCommerce.Module.Contacts.Models
         public long ContactAreaId { get; set; }
 
         public virtual ContactArea ContactArea { get; set; }
-        
-        public bool IsDeleted { get; set; }        
 
-        public DateTimeOffset CreatedOn { get; set; }      
+        public bool IsDeleted { get; set; }
+
+        public DateTimeOffset CreatedOn { get; set; }
     }
 }

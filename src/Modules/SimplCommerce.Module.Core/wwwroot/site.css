@@ -711,5 +711,6 @@ li.nav-item-group, li.nav-item-group a {
 }
 
 #googleMap {
-    height: 350px;
+    height: 334px;
+    margin-top: 75px;
 }

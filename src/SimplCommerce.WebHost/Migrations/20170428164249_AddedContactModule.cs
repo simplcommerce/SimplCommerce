@@ -5,21 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace SimplCommerce.WebHost.Migrations
 {
-    public partial class AddContact : Migration
+    public partial class AddedContactModule : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Localization_Resource_Localization_Culture_CultureId",
-                table: "Localization_Resource");
-
-            migrationBuilder.AlterColumn<long>(
-                name: "CultureId",
-                table: "Localization_Resource",
-                nullable: false,
-                oldClrType: typeof(long),
-                oldNullable: true);
-
             migrationBuilder.CreateTable(
                 name: "Contacts_ContactArea",
                 columns: table => new
@@ -64,41 +53,15 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "IX_Contacts_Contact_ContactAreaId",
                 table: "Contacts_Contact",
                 column: "ContactAreaId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Localization_Resource_Localization_Culture_CultureId",
-                table: "Localization_Resource",
-                column: "CultureId",
-                principalTable: "Localization_Culture",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Localization_Resource_Localization_Culture_CultureId",
-                table: "Localization_Resource");
-
             migrationBuilder.DropTable(
                 name: "Contacts_Contact");
 
             migrationBuilder.DropTable(
                 name: "Contacts_ContactArea");
-
-            migrationBuilder.AlterColumn<long>(
-                name: "CultureId",
-                table: "Localization_Resource",
-                nullable: true,
-                oldClrType: typeof(long));
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Localization_Resource_Localization_Culture_CultureId",
-                table: "Localization_Resource",
-                column: "CultureId",
-                principalTable: "Localization_Culture",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
         }
     }
 }
