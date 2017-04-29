@@ -19,6 +19,8 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public long? ParentId { get; set; }
 
+        public bool IncludeInMenu { get; set; }
+
         public bool IsPublished { get; set; }
 
         public IFormFile ThumbnailImage { get; set; }

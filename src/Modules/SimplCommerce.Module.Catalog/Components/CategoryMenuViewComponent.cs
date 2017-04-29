@@ -18,7 +18,7 @@ namespace SimplCommerce.Module.Catalog.Components
 
         public IViewComponentResult Invoke()
         {
-            var categories = _categoryRepository.Query().Where(x => !x.IsDeleted).ToList();
+            var categories = _categoryRepository.Query().Where(x => !x.IsDeleted && x.IncludeInMenu).ToList();
 
             var categoryMenuItems = new List<CategoryMenuItem>();
             foreach (var category in categories.Where(x => !x.ParentId.HasValue))

@@ -30,6 +30,7 @@ namespace SimplCommerce.Module.Catalog.Services
                 {
                     Id = category.Id,
                     IsPublished = category.IsPublished,
+                    IncludeInMenu = category.IncludeInMenu,
                     Name = category.Name
                 };
 

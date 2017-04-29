@@ -11,7 +11,9 @@
             createCategory: createCategory,
             editCategory: editCategory,
             deleteCategory: deleteCategory,
-            getCategories: getCategories
+            getCategories: getCategories,
+            getProducts: getProducts,
+            saveProduct: saveProduct
         };
         return service;
 
@@ -40,6 +42,14 @@
 
         function deleteCategory(category) {
             return $http.delete('api/categories/' + category.id);
+        }
+
+        function getProducts(id, params) {
+            return $http.post('api/categories/'+ id +'/products', params);
+        }
+
+        function saveProduct(product) {
+            return $http.put('api/categories/update-product/' + product.id, product);
         }
     }
 })();
