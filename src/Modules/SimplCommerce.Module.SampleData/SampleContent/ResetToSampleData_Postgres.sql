@@ -22,21 +22,21 @@ DELETE FROM "Cms_Page";
 DELETE FROM "Core_WidgetInstance";
 DELETE FROM "Reviews_Review";
 
-INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (1, 'Phones', 'phones', NULL, 0, true, false, NULL, NULL);
-INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (2, 'Smart Phones', 'smart-phones', NULL, 0, true, false, 1, NULL);
-INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (3, 'Basic Phones', 'basic-phones', NULL, 0, true, false, 1, NULL);
-INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (4, 'Tablets', 'tablets', NULL, 0, true, false, NULL, NULL);
-INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (5, 'Wifi + Cellular tablets', 'wifi-cellular-tablets', NULL, 0, true, false, 4, NULL);
-INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (6, 'Cellular tablets', 'cellular-tablets', NULL, 0, true, false, 4, NULL);
-INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (7, 'Computers', 'computers', NULL, 0, true, false, NULL, NULL);
-INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (8, 'Gaming', 'gaming', NULL, 0, true, false, 7, NULL);
-INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (9, 'Business', 'business', NULL, 0, true, false, 7, NULL);
-INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (10, 'Accessories', 'accessories', NULL, 0, true, false, NULL, NULL);
-INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (11, 'Headphones', 'headphones', NULL, 0, true, false, 10, NULL);
-INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (12, 'Cables', 'cables', NULL, 0, true, false, 10, NULL);
-INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (13, 'USB Drives', 'usb-drives', NULL, 0, true, false, 10, NULL);
-INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (14, N'Test 1', N'test-1', NULL, 0, true, false, 2, NULL);
-INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (15, N'Test 2', N'test-2', NULL, 0, true, false, 2, NULL);
+INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId", "IncludeInMenu") VALUES (1, 'Phones', 'phones', NULL, 0, true, false, NULL, NULL, true);
+INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId", "IncludeInMenu") VALUES (2, 'Smart Phones', 'smart-phones', NULL, 0, true, false, 1, NULL, true);
+INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId", "IncludeInMenu") VALUES (3, 'Basic Phones', 'basic-phones', NULL, 0, true, false, 1, NULL, true);
+INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId", "IncludeInMenu") VALUES (4, 'Tablets', 'tablets', NULL, 0, true, false, NULL, NULL, true);
+INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId", "IncludeInMenu") VALUES (5, 'Wifi + Cellular tablets', 'wifi-cellular-tablets', NULL, 0, true, false, 4, NULL, true);
+INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId", "IncludeInMenu") VALUES (6, 'Cellular tablets', 'cellular-tablets', NULL, 0, true, false, 4, NULL, true);
+INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId", "IncludeInMenu") VALUES (7, 'Computers', 'computers', NULL, 0, true, false, NULL, NULL, true);
+INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId", "IncludeInMenu") VALUES (8, 'Gaming', 'gaming', NULL, 0, true, false, 7, NULL, true);
+INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId", "IncludeInMenu") VALUES (9, 'Business', 'business', NULL, 0, true, false, 7, NULL, true);
+INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId", "IncludeInMenu") VALUES (10, 'Accessories', 'accessories', NULL, 0, true, false, NULL, NULL, true);
+INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId", "IncludeInMenu") VALUES (11, 'Headphones', 'headphones', NULL, 0, true, false, 10, NULL, true);
+INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId", "IncludeInMenu") VALUES (12, 'Cables', 'cables', NULL, 0, true, false, 10, NULL, true);
+INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId", "IncludeInMenu") VALUES (13, 'USB Drives', 'usb-drives', NULL, 0, true, false, 10, NULL, true);
+INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId", "IncludeInMenu") VALUES (14, N'Test 1', N'test-1', NULL, 0, true, false, 2, NULL, true);
+INSERT INTO "Catalog_Category" ("Id", "Name", "SeoTitle", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId", "IncludeInMenu") VALUES (15, N'Test 2', N'test-2', NULL, 0, true, false, 2, NULL, true);
 SELECT pg_catalog.setval('"Catalog_Category_Id_seq"', 15, true);
 
 

@@ -4,47 +4,140 @@
         <h2 ng-if="vm.isEditMode">{{::vm.translate.get('Edit Category')}}</h2>
     </div>
     <div class="panel-body">
-        <form name="categoryForm" class="form-horizontal">
-            <div class="col-sm-offset-2 bg-danger" ng-show="vm.validationErrors">
-                <ul>
-                    <li ng-repeat="error in vm.validationErrors">{{error}}</li>
-                </ul>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">{{::vm.translate.get('Name')}}</label>
-                <div class="col-sm-10">
-                    <input name="name" ng-model="vm.category.name" class="form-control" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">{{::vm.translate.get('Parent Category')}}</label>
-                <div class="col-sm-10">
-                    <select class="form-control" ng-model="vm.category.parentId"
-                            ng-options="category.id as category.name for category in vm.categories">
-                        <option value="">Top</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">{{::vm.translate.get('Description')}}</label>
-                <div class="col-sm-10">
-                    <textarea name="description" ng-model="vm.category.description" rows="3" class="form-control" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">{{::vm.translate.get('Thumbnail')}}</label>
-                <div class="col-sm-10">
-                    <input class="form-control" type="file" ngf-select ng-model="vm.category.thumbnailImage" name="thumbnailImage" ngf-accept="'image/*'">
-                    <img ngf-src="vm.category.thumbnailImage" ngf-resize="{width: 100, height: 100, quality: 0.9}">
-                    <img ng-show="!vm.category.thumbnailImage && vm.category.thumbnailImageUrl" ng-src="{{vm.category.thumbnailImageUrl}}" style="width: 100px; height: 100px" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> {{::vm.translate.get('Save')}}</button>
-                    <button ui-sref="category" class="btn btn-default">{{::vm.translate.get('Cancel')}}</button>
-                </div>
-            </div>
-        </form>
+        <uib-tabset>
+            <uib-tab index="0" heading="{{::vm.translate.get('General Information')}}">
+                <form name="categoryForm" class="form-horizontal">
+                    <div class="col-sm-offset-2 bg-danger" ng-show="vm.validationErrors">
+                        <ul>
+                            <li ng-repeat="error in vm.validationErrors">{{error}}</li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Name')}}</label>
+                        <div class="col-sm-10">
+                            <input name="name" ng-model="vm.category.name" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Parent Category')}}</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" ng-model="vm.category.parentId"
+                                    ng-options="category.id as category.name for category in vm.categories">
+                                <option value="">Top</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Description')}}</label>
+                        <div class="col-sm-10">
+                            <textarea name="description" ng-model="vm.category.description" rows="3" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Thumbnail')}}</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="file" ngf-select ng-model="vm.category.thumbnailImage" name="thumbnailImage" ngf-accept="'image/*'">
+                            <img ngf-src="vm.category.thumbnailImage" ngf-resize="{width: 100, height: 100, quality: 0.9}">
+                            <img ng-show="!vm.category.thumbnailImage && vm.category.thumbnailImageUrl" ng-src="{{vm.category.thumbnailImageUrl}}" style="width: 100px; height: 100px" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="vm.category.includeInMenu">{{::vm.translate.get('Include in Menu')}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="vm.category.isPublished">{{::vm.translate.get('Is Published')}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> {{::vm.translate.get('Save')}}</button>
+                            <button ui-sref="category" class="btn btn-default">{{::vm.translate.get('Cancel')}}</button>
+                        </div>
+                    </div>
+                </form>
+            </uib-tab>
+            <uib-tab index="1" heading="{{::vm.translate.get('Products')}}">
+                <table class="table table-striped" st-pipe="vm.getProducts" st-table="vm.products">
+                    <thead>
+                        <tr>
+                            <th>{{::vm.translate.get('Name')}}</th>
+                            <th class="text-center">{{::vm.translate.get('Is Product Published')}}</th>
+                            <th st-sort="IsFeaturedProduct" class="text-center sortable">{{::vm.translate.get('Is Featured in this Category')}}</th>
+                            <th st-sort="DisplayOrder" class="text-center sortable">{{::vm.translate.get('Display Order')}}</th>
+                            <th class="text-center">{{::vm.translate.get('Actions')}}</th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="form-group">
+                                    <input class="form-control" st-search="Name" />
+                                </div>
+                            </th>
+                            <th></th>
+                            <th>
+                                <div class="form-group">
+                                    <select class="form-control" st-search="IsFeaturedProduct">
+                                        <option value="">{{::vm.translate.get('All')}}</option>
+                                        <option value="true">{{::vm.translate.get('Yes')}}</option>
+                                        <option value="false">{{::vm.translate.get('No')}}</option>
+                                    </select>
+                                </div>
+                            </th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody ng-show="!vm.isLoading">
+                        <tr ng-repeat-start="product in vm.products">
+                            <td>{{product.productName}}</td>
+                            <td class="text-center"><i ng-attr-class="{{product.isProductPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+                            <td class="text-center"><i ng-attr-class="{{product.isFeaturedProduct && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+                            <td class="text-center">{{product.displayOrder}}</td>
+                            <td class="text-center">
+                                <a ng-show="!product.isEditing" ng-click="vm.editProduct(product)" title="Edit" class="btn btn-default btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+                            </td>
+                        </tr>
+                        <tr ng-if="product.isEditing" ng-repeat-end>
+                            <td colspan="5" style="text-align:right">
+                                <form class="form-inline">
+                                    <div class="checkbox">
+                                        <label>
+                                            {{::vm.translate.get('Is Featured in this Category')}} 
+                                            <input ng-model="product.editingIsFeaturedProduct" type="checkbox"> 
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="font-weight:normal; margin-left:20px;">{{::vm.translate.get('Display Order')}}</label>
+                                        <input type="number" ng-model="product.editingDisplayOrder" class="form-control" />
+                                    </div>
+                                    <button type="button" class="btn btn-default" ng-click="vm.saveProduct(product)">Save</button>
+                                    <button type="button" class="btn btn-default" ng-click="product.isEditing = false">Cancel</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody ng-show="vm.isLoading">
+                        <tr>
+                            <td colspan="5" class="text-center">Loading ... </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="5"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </uib-tab>
+</uib-tabset>
     </div>
 </div>

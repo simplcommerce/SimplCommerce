@@ -6,10 +6,12 @@
 
     /* @ngInject */
     function CategoryFormCtrl($q, $state, $stateParams, categoryService, translateService) {
-        var vm = this;
+        var vm = this,
+            tableStateRef;
         vm.translate = translateService;
-        vm.category = {};
+        vm.category = { isPublished: true };
         vm.categories = [];
+        vm.products = [];
         vm.categoryId = $stateParams.id;
         vm.isEditMode = vm.categoryId > 0;
 
@@ -17,6 +19,7 @@
             var promise;
             // ng-upload will post null as text
             vm.category.parentId = vm.category.parentId === null ? '' : vm.category.parentId;
+            vm.category.description = vm.category.description === null ? '' : vm.category.description;
 
             if (vm.isEditMode) {
                 promise = categoryService.editCategory(vm.category);
@@ -40,6 +43,39 @@
                     }
                 });
         };
+
+        vm.getProducts = function getProducts(tableState) {
+            if (!vm.categoryId) {
+                return;
+            }
+
+            tableStateRef = tableState;
+            vm.isLoading = true;
+            categoryService.getProducts(vm.categoryId, tableState).then(function (result) {
+                vm.products = result.data.items;
+                tableState.pagination.numberOfPages = result.data.numberOfPages;
+                vm.isLoading = false;
+            });
+        };
+
+        vm.editProduct = function editProduct(product) {
+            product.isEditing = true;
+            product.editingIsFeaturedProduct = product.isFeaturedProduct;
+            product.editingDisplayOrder = product.displayOrder;
+        }
+
+        vm.saveProduct = function saveProduct(product) {
+            var productCategory = {
+                'id' : product.id,
+                'isFeaturedProduct' : product.editingIsFeaturedProduct,
+                'displayOrder' : product.displayOrder
+            };
+            categoryService.saveProduct(productCategory).then(function () {
+                product.isEditing = false;
+                product.isFeaturedProduct = product.editingIsFeaturedProduct;
+                product.displayOrder = product.editingDisplayOrder;
+            });
+        }
 
         function init() {
             if (vm.isEditMode) {
