@@ -8,7 +8,7 @@
             restrict: 'E',
             templateUrl: 'modules/recently-viewed-products/admin/recently-viewed-products.directive.html',
             scope: {},
-            controller: RecentlyViewedProductCtrl,
+            controller: recentlyViewedProductCtrl,
             controllerAs: 'vm',
             bindToController: true
         };
@@ -17,12 +17,12 @@
     }
 
     /* @ngInject */
-    function RecentlyViewedProductCtrl(RecentlyViewedProductCtrlService, translateService) {
+    function recentlyViewedProductCtrl(recentlyViewedProductCtrlService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.products = [];
 
-        RecentlyViewedProductCtrlService.getRecentlyViewedEntities(3).then(function (result) {
+        recentlyViewedProductCtrlService.getRecentlyViewedEntities(3).then(function (result) {
             vm.products = result.data;
         });
     }
