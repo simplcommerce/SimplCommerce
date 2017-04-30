@@ -1,25 +1,29 @@
 ﻿(function () {
-    'use strict';
-
     angular
-        .module('app')
-        .directive('recently_viewed_products', recently_viewed_products);
+        .module('simplAdmin.c')
+        .directive('recentlyViewedProducts', recentlyViewedProducts);
 
-    recently_viewed_products.$inject = ['$window'];
-
-    function recently_viewed_products($window) {
-        // Usage:
-        //     <recently_viewed_products></recently_viewed_products>
-        // Creates:
-        // 
+    function recentlyViewedProducts() {
         var directive = {
-            link: link,
-            restrict: 'EA'
+            restrict: 'E',
+            templateUrl: 'modules/recently-viewed-products/admin/recently-viewed-products.directive.html',
+            scope: {},
+            controller: RecentlyViewedProductCtrl,
+            controllerAs: 'vm',
+            bindToController: true
         };
-        return directive;
 
-        function link(scope, element, attrs) {
-        }
+        return directive;
     }
 
+    /* @ngInject */
+    function RecentlyViewedProductCtrl(RecentlyViewedProductCtrlService, translateService) {
+        var vm = this;
+        vm.translate = translateService;
+        vm.products = [];
+
+        RecentlyViewedProductCtrlService.getRecentlyViewedEntities(3).then(function (result) {
+            vm.products = result.data;
+        });
+    }
 })();

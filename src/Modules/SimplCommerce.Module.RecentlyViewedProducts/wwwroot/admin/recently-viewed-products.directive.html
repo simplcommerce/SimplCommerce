@@ -1,11 +1,14 @@
-﻿<!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+﻿<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>{{::vm.translate.get('Product')}}</th>
+        <th>{{::vm.translate.get('Count')}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="product in vm.products">
+        <td><a href="/{{product.slug}}">{{product.name}}</a></td>
+        <td>{{product.viewedCount}}</td>
+    </tr>
+    </tbody>
+</table>

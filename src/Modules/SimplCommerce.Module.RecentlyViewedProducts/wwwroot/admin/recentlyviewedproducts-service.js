@@ -1,19 +1,17 @@
 ﻿(function () {
-    'use strict';
-
     angular
-        .module('app')
-        .factory('recentlyviewedproducts_service', recentlyviewedproducts_service);
+        .module('simplAdmin.recentlyViewedProducts')
+        .factory('recentlyViewedProductsService', recentlyViewedProductsService);
 
-    recentlyviewedproducts_service.$inject = ['$http'];
-
-    function recentlyviewedproducts_service($http) {
+    /* @ngInject */
+    function recentlyViewedProductsService($http) {
         var service = {
-            getData: getData
+            getRecentlyViewedEntities: getRecentlyViewedEntities
         };
-
         return service;
 
-        function getData() { }
+        function getRecentlyViewedEntities(entityTypeId) {
+            return $http.get('api/recentlyviewedproducts/recently-viewed-entities/' + entityTypeId);
+        }
     }
 })();
