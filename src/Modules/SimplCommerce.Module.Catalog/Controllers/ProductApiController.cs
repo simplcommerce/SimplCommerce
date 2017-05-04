@@ -141,9 +141,18 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 });
             }
 
-            foreach (var relatedProduct in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Relation).Select(x => x.LinkedProduct).Where(x => !x.IsDeleted).OrderBy(x => x.Id))
+            foreach (var relatedProduct in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Related).Select(x => x.LinkedProduct).Where(x => !x.IsDeleted).OrderBy(x => x.Id))
             {
-                productVm.RelatedProducts.Add(new RelatedProductVm
+                productVm.RelatedProducts.Add(new ProductLinkVm
+                {
+                    Id = relatedProduct.Id,
+                    Name = relatedProduct.Name
+                });
+            }
+
+            foreach (var relatedProduct in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.CrossSell).Select(x => x.LinkedProduct).Where(x => !x.IsDeleted).OrderBy(x => x.Id))
+            {
+                productVm.CrossSellProducts.Add(new ProductLinkVm
                 {
                     Id = relatedProduct.Id,
                     Name = relatedProduct.Name
@@ -316,7 +325,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             SaveProductMedias(model, product);
 
             MapProductVariationVmToProduct(model, product);
-            MapProductRelationVmToProduct(model, product);
+            MapProductLinkVmToProduct(model, product);
 
             _productService.Create(product);
 
@@ -385,7 +394,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             AddOrDeleteProductAttribute(model, product);
             AddOrDeleteCategories(model, product);
             AddOrDeleteProductVariation(model, product);
-            AddOrDeleteProductRelation(model, product);
+            AddOrDeleteProductLinks(model, product);
 
             _productService.Update(product);
 
@@ -468,13 +477,25 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
         }
 
-        private static void MapProductRelationVmToProduct(ProductForm model, Product product)
+        private static void MapProductLinkVmToProduct(ProductForm model, Product product)
         {
             foreach (var relationVm in model.Product.RelatedProducts)
             {
                 var productLink = new ProductLink
                 {
-                    LinkType = ProductLinkType.Relation,
+                    LinkType = ProductLinkType.Related,
+                    Product = product,
+                    LinkedProductId = relationVm.Id
+                };
+
+                product.AddProductLinks(productLink);
+            }
+
+            foreach (var relationVm in model.Product.CrossSellProducts)
+            {
+                var productLink = new ProductLink
+                {
+                    LinkType = ProductLinkType.CrossSell,
                     Product = product,
                     LinkedProductId = relationVm.Id
                 };
@@ -597,16 +618,16 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         // Due to some issue with EF Core, we have to use _productLinkRepository in this case.
-        private void AddOrDeleteProductRelation(ProductForm model, Product product)
+        private void AddOrDeleteProductLinks(ProductForm model, Product product)
         {
             foreach (var productRelationVm in model.Product.RelatedProducts)
             {
-                var productLink = product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Relation).FirstOrDefault(x => x.LinkedProductId == productRelationVm.Id);
+                var productLink = product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Related).FirstOrDefault(x => x.LinkedProductId == productRelationVm.Id);
                 if (productLink == null)
                 {
                     productLink = new ProductLink
                     {
-                        LinkType = ProductLinkType.Relation,
+                        LinkType = ProductLinkType.Related,
                         Product = product,
                         LinkedProductId = productRelationVm.Id,
                     };
@@ -615,9 +636,33 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 }
             }
 
-            foreach (var productLink in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Relation))
+            foreach (var productLink in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Related))
             {
                 if (model.Product.RelatedProducts.All(x => x.Id != productLink.LinkedProductId))
+                {
+                    _productLinkRepository.Remove(productLink);
+                }
+            }
+
+            foreach (var productRelationVm in model.Product.CrossSellProducts)
+            {
+                var productLink = product.ProductLinks.Where(x => x.LinkType == ProductLinkType.CrossSell).FirstOrDefault(x => x.LinkedProductId == productRelationVm.Id);
+                if (productLink == null)
+                {
+                    productLink = new ProductLink
+                    {
+                        LinkType = ProductLinkType.CrossSell,
+                        Product = product,
+                        LinkedProductId = productRelationVm.Id,
+                    };
+
+                    _productLinkRepository.Add(productLink);
+                }
+            }
+
+            foreach (var productLink in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.CrossSell))
+            {
+                if (model.Product.CrossSellProducts.All(x => x.Id != productLink.LinkedProductId))
                 {
                     _productLinkRepository.Remove(productLink);
                 }

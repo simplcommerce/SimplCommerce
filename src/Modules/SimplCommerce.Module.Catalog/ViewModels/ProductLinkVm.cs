@@ -1,6 +1,6 @@
 ﻿namespace SimplCommerce.Module.Catalog.ViewModels
 {
-    public class RelatedProductVm
+    public class ProductLinkVm
     {
         public long Id { get; set; }
 

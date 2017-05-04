@@ -15,6 +15,7 @@
         vm.product.variations = [];
         vm.product.attributes = [];
         vm.product.relatedProducts = [];
+        vm.product.crossSellProducts = [];
         vm.categories = [];
         vm.thumbnailImage = null;
         vm.productImages = [];
