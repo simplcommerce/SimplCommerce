@@ -17,6 +17,8 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public string Description { get; set; }
 
+        public int DisplayOrder { get; set; }
+
         public long? ParentId { get; set; }
 
         public bool IncludeInMenu { get; set; }
