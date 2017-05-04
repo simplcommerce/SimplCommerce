@@ -30,10 +30,10 @@ namespace SimplCommerce.Module.Contacts.Controllers
                 ContactAreas = GetContactArea()
             };
 
-            var currentUser = await _workContext.GetCurrentUser();
-            
             if(User.Identity.IsAuthenticated)
             {
+                var currentUser = await _workContext.GetCurrentUser();
+            
                 model.FullName = currentUser.FullName;
                 model.EmailAddress = currentUser.Email;
                 model.PhoneNumber = currentUser.PhoneNumber;
