@@ -14,6 +14,7 @@
     <tr>
         <th>{{::vm.translate.get('Name')}}</th>
         <th>{{::vm.translate.get('Include in menu')}}</th>
+        <th>{{::vm.translate.get('Display order')}}</th>
         <th class="text-center">{{::vm.translate.get('Is Published')}}</th>
         <th>{{::vm.translate.get('Actions')}}</th>
     </tr>
@@ -22,6 +23,7 @@
     <tr ng-repeat="category in vm.categories">
         <td>{{category.name}}</td>
         <td class="text-center"><i ng-attr-class="{{category.includeInMenu && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+        <td>{{category.displayOrder}}</td>
         <td class="text-center"><i ng-attr-class="{{category.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
         <td>
             <a ui-sref="category-edit({id: category.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>

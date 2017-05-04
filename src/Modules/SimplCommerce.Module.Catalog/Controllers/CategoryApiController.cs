@@ -48,6 +48,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             {
                 Id = category.Id,
                 Name = category.Name,
+                DisplayOrder = category.DisplayOrder,
                 Description = category.Description,
                 ParentId = category.ParentId,
                 IncludeInMenu = category.IncludeInMenu,
@@ -68,6 +69,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 {
                     Name = model.Name,
                     SeoTitle = model.Name.ToUrlFriendly(),
+                    DisplayOrder = model.DisplayOrder,
                     Description = model.Description,
                     ParentId = model.ParentId,
                     IncludeInMenu = model.IncludeInMenu,
@@ -93,6 +95,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 category.Name = model.Name;
                 category.SeoTitle = model.Name.ToUrlFriendly();
                 category.Description = model.Description;
+                category.DisplayOrder = model.DisplayOrder;
                 category.ParentId = model.ParentId;
                 category.IncludeInMenu = model.IncludeInMenu;
                 category.IsPublished = model.IsPublished;
