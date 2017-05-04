@@ -150,12 +150,12 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 });
             }
 
-            foreach (var relatedProduct in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.CrossSell).Select(x => x.LinkedProduct).Where(x => !x.IsDeleted).OrderBy(x => x.Id))
+            foreach (var crossSellProduct in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.CrossSell).Select(x => x.LinkedProduct).Where(x => !x.IsDeleted).OrderBy(x => x.Id))
             {
                 productVm.CrossSellProducts.Add(new ProductLinkVm
                 {
-                    Id = relatedProduct.Id,
-                    Name = relatedProduct.Name
+                    Id = crossSellProduct.Id,
+                    Name = crossSellProduct.Name
                 });
             }
 
@@ -479,25 +479,25 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
         private static void MapProductLinkVmToProduct(ProductForm model, Product product)
         {
-            foreach (var relationVm in model.Product.RelatedProducts)
+            foreach (var relatedProductVm in model.Product.RelatedProducts)
             {
                 var productLink = new ProductLink
                 {
                     LinkType = ProductLinkType.Related,
                     Product = product,
-                    LinkedProductId = relationVm.Id
+                    LinkedProductId = relatedProductVm.Id
                 };
 
                 product.AddProductLinks(productLink);
             }
 
-            foreach (var relationVm in model.Product.CrossSellProducts)
+            foreach (var crossSellProductVm in model.Product.CrossSellProducts)
             {
                 var productLink = new ProductLink
                 {
                     LinkType = ProductLinkType.CrossSell,
                     Product = product,
-                    LinkedProductId = relationVm.Id
+                    LinkedProductId = crossSellProductVm.Id
                 };
 
                 product.AddProductLinks(productLink);
@@ -620,16 +620,16 @@ namespace SimplCommerce.Module.Catalog.Controllers
         // Due to some issue with EF Core, we have to use _productLinkRepository in this case.
         private void AddOrDeleteProductLinks(ProductForm model, Product product)
         {
-            foreach (var productRelationVm in model.Product.RelatedProducts)
+            foreach (var relatedProductVm in model.Product.RelatedProducts)
             {
-                var productLink = product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Related).FirstOrDefault(x => x.LinkedProductId == productRelationVm.Id);
+                var productLink = product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Related).FirstOrDefault(x => x.LinkedProductId == relatedProductVm.Id);
                 if (productLink == null)
                 {
                     productLink = new ProductLink
                     {
                         LinkType = ProductLinkType.Related,
                         Product = product,
-                        LinkedProductId = productRelationVm.Id,
+                        LinkedProductId = relatedProductVm.Id,
                     };
 
                     _productLinkRepository.Add(productLink);
@@ -644,16 +644,16 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 }
             }
 
-            foreach (var productRelationVm in model.Product.CrossSellProducts)
+            foreach (var crossSellProductVm in model.Product.CrossSellProducts)
             {
-                var productLink = product.ProductLinks.Where(x => x.LinkType == ProductLinkType.CrossSell).FirstOrDefault(x => x.LinkedProductId == productRelationVm.Id);
+                var productLink = product.ProductLinks.Where(x => x.LinkType == ProductLinkType.CrossSell).FirstOrDefault(x => x.LinkedProductId == crossSellProductVm.Id);
                 if (productLink == null)
                 {
                     productLink = new ProductLink
                     {
                         LinkType = ProductLinkType.CrossSell,
                         Product = product,
-                        LinkedProductId = productRelationVm.Id,
+                        LinkedProductId = crossSellProductVm.Id,
                     };
 
                     _productLinkRepository.Add(productLink);
