@@ -32,7 +32,7 @@ namespace SimplCommerce.Module.Contacts.Controllers
 
             var currentUser = await _workContext.GetCurrentUser();
             
-            if(!(currentUser.Roles.Count == 1 && currentUser.Roles.First().RoleId == 3))
+            if(User.Identity.IsAuthenticated)
             {
                 model.FullName = currentUser.FullName;
                 model.EmailAddress = currentUser.Email;
