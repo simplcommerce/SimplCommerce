@@ -347,9 +347,25 @@
                     <table class="table table-striped">
                         <tr>
                             <th>{{::vm.translate.get('Name')}}</th>
+                            <th class="text-center">{{::vm.translate.get('Is Published')}}</th>
                         </tr>
                         <tr ng-repeat="product in vm.product.relatedProducts">
                             <td>{{product.name}}</td>
+                            <td class="text-center"><i ng-attr-class="{{product.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+                        </tr>
+                    </table>
+                </uib-tab>
+                <uib-tab index="5" heading="{{::vm.translate.get('Cross-sell Products')}}">
+                    <product-selection-directive model-id="productCrossSellSelector" title="Add cross-sell products" selected-products="vm.product.crossSellProducts"></product-selection-directive>
+                    <p><button type="button" class="btn btn-default" data-toggle="modal" data-target="#productCrossSellSelector">{{::vm.translate.get('Manage Cross-sell Products')}}</button></p>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>{{::vm.translate.get('Name')}}</th>
+                            <th class="text-center">{{::vm.translate.get('Is Published')}}</th>
+                        </tr>
+                        <tr ng-repeat="product in vm.product.crossSellProducts">
+                            <td>{{product.name}}</td>
+                            <td class="text-center"><i ng-attr-class="{{product.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
                         </tr>
                     </table>
                 </uib-tab>

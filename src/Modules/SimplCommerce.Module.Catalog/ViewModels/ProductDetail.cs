@@ -62,5 +62,7 @@ namespace SimplCommerce.Module.Catalog.ViewModels
         public IList<ProductDetailCategory> Categories { get; set; } = new List<ProductDetailCategory>();
 
         public IList<ProductThumbnail> RelatedProducts { get; set; } = new List<ProductThumbnail>();
+
+        public IList<ProductThumbnail> CrossSellProducts { get; set; } = new List<ProductThumbnail>();
     }
 }

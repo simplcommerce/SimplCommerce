@@ -4,7 +4,7 @@
     {
         Super = 1,
 
-        Relation = 2,
+        Related = 2,
 
         CrossSell = 3,
 

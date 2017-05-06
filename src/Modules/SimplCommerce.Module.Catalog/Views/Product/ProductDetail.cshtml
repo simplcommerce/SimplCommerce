@@ -214,6 +214,19 @@
     </div>
 }
 
+@if (Model.CrossSellProducts.Any())
+{
+    <h2 class="page-header">Cross-sell Products</h2>
+    <div class="row product-list">
+        @foreach (var product in Model.CrossSellProducts)
+        {
+            <div class="col-xs-6 col-md-3">
+                @await Html.PartialAsync("_ProductThumbnail", product)
+            </div>
+        }
+    </div>
+}
+
 <div>
     <h3>@Localizer["Customer reviews"]</h3>
     @await Component.InvokeAsync("Review", new { entityId = Model.Id, entityTypeId = (long)3 })

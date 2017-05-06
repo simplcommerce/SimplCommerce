@@ -113,32 +113,24 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
         private void MapRelatedProductToProductVm(Product product, ProductDetail model)
         {
-            foreach(var productLink in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Relation))
+            var publishedProductLinks = product.ProductLinks.Where(x => x.LinkedProduct.IsPublished && (x.LinkType == ProductLinkType.Related || x.LinkType == ProductLinkType.CrossSell));
+            foreach(var productLink in publishedProductLinks)
             {
-                var relatedProduct = productLink.LinkedProduct;
-                var productThumbnail = new ProductThumbnail
+                var linkedProduct = productLink.LinkedProduct;
+                var productThumbnail = ProductThumbnail.FromProduct(linkedProduct);
+
+                productThumbnail.ThumbnailUrl = _mediaService.GetThumbnailUrl(linkedProduct.ThumbnailImage);
+                productThumbnail.CalculatedProductPrice = _productPricingService.CalculateProductPrice(linkedProduct);
+
+                if(productLink.LinkType == ProductLinkType.Related)
                 {
-                    Id = relatedProduct.Id,
-                    Name = relatedProduct.Name,
-                    SeoTitle = relatedProduct.SeoTitle,
-                    Price = relatedProduct.Price,
-                    OldPrice = relatedProduct.OldPrice,
-                    SpecialPrice = relatedProduct.SpecialPrice,
-                    SpecialPriceStart = relatedProduct.SpecialPriceStart,
-                    SpecialPriceEnd = relatedProduct.SpecialPriceEnd,
-                    StockQuantity = relatedProduct.StockQuantity,
-                    IsAllowToOrder = relatedProduct.IsAllowToOrder,
-                    IsCallForPricing = relatedProduct.IsCallForPricing,
-                    ThumbnailImage = relatedProduct.ThumbnailImage,
-                    NumberVariation = relatedProduct.ProductLinks.Count,
-                    ReviewsCount = relatedProduct.ReviewsCount,
-                    RatingAverage = relatedProduct.RatingAverage
-                };
+                    model.RelatedProducts.Add(productThumbnail);
+                }
 
-                productThumbnail.ThumbnailUrl = _mediaService.GetThumbnailUrl(relatedProduct.ThumbnailImage);
-                productThumbnail.CalculatedProductPrice = _productPricingService.CalculateProductPrice(relatedProduct);
-
-                model.RelatedProducts.Add(productThumbnail);
+                if(productLink.LinkType == ProductLinkType.CrossSell)
+                {
+                    model.CrossSellProducts.Add(productThumbnail);
+                }
             }
         }
     }
