@@ -347,9 +347,11 @@
                     <table class="table table-striped">
                         <tr>
                             <th>{{::vm.translate.get('Name')}}</th>
+                            <th class="text-center">{{::vm.translate.get('Is Published')}}</th>
                         </tr>
                         <tr ng-repeat="product in vm.product.relatedProducts">
                             <td>{{product.name}}</td>
+                            <td class="text-center"><i ng-attr-class="{{product.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
                         </tr>
                     </table>
                 </uib-tab>
@@ -359,9 +361,11 @@
                     <table class="table table-striped">
                         <tr>
                             <th>{{::vm.translate.get('Name')}}</th>
+                            <th class="text-center">{{::vm.translate.get('Is Published')}}</th>
                         </tr>
                         <tr ng-repeat="product in vm.product.crossSellProducts">
                             <td>{{product.name}}</td>
+                            <td class="text-center"><i ng-attr-class="{{product.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
                         </tr>
                     </table>
                 </uib-tab>

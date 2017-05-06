@@ -146,7 +146,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 productVm.RelatedProducts.Add(new ProductLinkVm
                 {
                     Id = relatedProduct.Id,
-                    Name = relatedProduct.Name
+                    Name = relatedProduct.Name,
+                    IsPublished = relatedProduct.IsPublished
                 });
             }
 
@@ -155,7 +156,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 productVm.CrossSellProducts.Add(new ProductLinkVm
                 {
                     Id = crossSellProduct.Id,
-                    Name = crossSellProduct.Name
+                    Name = crossSellProduct.Name,
+                    IsPublished = crossSellProduct.IsPublished
                 });
             }
 

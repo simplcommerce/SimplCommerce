@@ -113,7 +113,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
         private void MapRelatedProductToProductVm(Product product, ProductDetail model)
         {
-            foreach(var productLink in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Related || x.LinkType == ProductLinkType.CrossSell))
+            var publishedProductLinks = product.ProductLinks.Where(x => x.LinkedProduct.IsPublished && (x.LinkType == ProductLinkType.Related || x.LinkType == ProductLinkType.CrossSell));
+            foreach(var productLink in publishedProductLinks)
             {
                 var linkedProduct = productLink.LinkedProduct;
                 var productThumbnail = ProductThumbnail.FromProduct(linkedProduct);

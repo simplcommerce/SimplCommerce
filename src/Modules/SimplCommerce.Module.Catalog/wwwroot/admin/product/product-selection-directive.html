@@ -12,6 +12,7 @@
                             <th>Selected</th>
                             <th st-sort="Name" class="sortable">Name</th>
                             <th class="text-center">Is Allowed<br />To Order</th>
+                            <th class="text-center">Is Published</th>
                         </tr>
                         <tr>
                             <th></th>
@@ -20,6 +21,7 @@
                                     <input class="form-control" st-search="Name" />
                                 </div>
                             </th>
+                            <th></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -34,16 +36,17 @@
                             </td>
                             <td>{{product.name}}</td>
                             <td class="text-center"><i ng-attr-class="{{product.isAllowToOrder && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+                            <td class="text-center"><i ng-attr-class="{{product.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
                         </tr>
                     </tbody>
                     <tbody ng-show="vm.isLoading">
                         <tr>
-                            <td colspan="3" class="text-center">Loading ... </td>
+                            <td colspan="4" class="text-center">Loading ... </td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td class="text-center" st-pagination="" st-items-by-page="5" st-displayed-pages="10" colspan="3"></td>
+                            <td class="text-center" st-pagination="" st-items-by-page="5" st-displayed-pages="10" colspan="4"></td>
                         </tr>
                     </tfoot>
                 </table>
