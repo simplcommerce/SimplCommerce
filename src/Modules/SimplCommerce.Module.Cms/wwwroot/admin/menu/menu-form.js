@@ -87,10 +87,13 @@
 
         function arrayToTree(arr) {
             var map = {}, node, roots = [];
+            // use map to look-up the parents
+            for (var i = 0; i < arr.length; i += 1) {
+                map[arr[i].id] = i;
+            }
+
             for (var i = 0; i < arr.length; i += 1) {
                 node = arr[i];
-                node.children = [];
-                map[node.id] = i; // use map to look-up the parents
                 if (node.parentId) {
                     arr[map[node.parentId]].children.push(node);
                 } else {
