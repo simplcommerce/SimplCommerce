@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
@@ -13,26 +14,23 @@ namespace SimplCommerce.Module.Cms.Controllers
     {
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
         private readonly IRepository<Widget> _widgetRespository;
+        private readonly IMapper _mapper;
 
-        public HtmlWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository, IRepository<Widget> widgetRespository)
+        public HtmlWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository, 
+            IRepository<Widget> widgetRespository,
+            IMapper mapper)
         {
             _widgetInstanceRepository = widgetInstanceRepository;
             _widgetRespository = widgetRespository;
+            _mapper = mapper;
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
             var widget = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
-            var model = new HtmlWidgetForm
-            {
-                Id = widget.Id,
-                Name = widget.Name,
-                WidgetZoneId = widget.WidgetZoneId,
-                HtmlContent = widget.HtmlData,
-                PublishStart = widget.PublishStart,
-                PublishEnd = widget.PublishEnd
-            };
+
+            var model = _mapper.Map<WidgetInstance, HtmlWidgetForm>(widget);
 
             return Json(model);
         }
@@ -42,15 +40,8 @@ namespace SimplCommerce.Module.Cms.Controllers
         {
             if (ModelState.IsValid)
             {
-                var widgetInstance = new WidgetInstance
-                {
-                    Name = model.Name,
-                    WidgetId = 2,
-                    WidgetZoneId = model.WidgetZoneId,
-                    HtmlData = model.HtmlContent,
-                    PublishStart = model.PublishStart,
-                    PublishEnd = model.PublishEnd
-                };
+                var widgetInstance = _mapper.Map<HtmlWidgetForm, WidgetInstance>(model);
+                widgetInstance.WidgetId = 2;
 
                 _widgetInstanceRepository.Add(widgetInstance);
                 _widgetInstanceRepository.SaveChange();
@@ -64,12 +55,12 @@ namespace SimplCommerce.Module.Cms.Controllers
         {
             if (ModelState.IsValid)
             {
-                var widgetInstance = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
-                widgetInstance.Name = model.Name;
-                widgetInstance.WidgetZoneId = model.WidgetZoneId;
-                widgetInstance.HtmlData = model.HtmlContent;
-                widgetInstance.PublishStart = model.PublishStart;
-                widgetInstance.PublishEnd = model.PublishEnd;
+                var widgetInstanceForModification = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
+                
+                _mapper.Map(model, widgetInstanceForModification, op => op.BeforeMap((fModel, tWidgetInstanceForModification) =>
+                {
+                    fModel.Id = tWidgetInstanceForModification.Id;
+                }));
 
                 _widgetInstanceRepository.SaveChange();
                 return Ok();

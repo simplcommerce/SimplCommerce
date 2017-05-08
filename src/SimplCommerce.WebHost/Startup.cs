@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -70,6 +72,7 @@ namespace SimplCommerce.WebHost
                 options => { options.ViewLocationExpanders.Add(new ModuleViewLocationExpander()); });
 
             services.AddCustomizedMvc(GlobalConfiguration.Modules);
+            services.AddAutoMapper(x=>x.AddProfiles(Modules.Select(m=>m.Assembly)));
 
             return services.Build(Configuration, _hostingEnvironment);
         }

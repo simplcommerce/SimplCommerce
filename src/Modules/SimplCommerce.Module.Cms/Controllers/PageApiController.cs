@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
@@ -15,11 +16,13 @@ namespace SimplCommerce.Module.Cms.Controllers
     {
         private readonly IRepository<Page> _pageRepository;
         private readonly IPageService _pageService;
+        private readonly IMapper _mapper;
 
-        public PageApiController(IRepository<Page> pageRepository, IPageService pageService)
+        public PageApiController(IRepository<Page> pageRepository, IPageService pageService, IMapper mapper)
         {
             _pageRepository = pageRepository;
             _pageService = pageService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -34,15 +37,9 @@ namespace SimplCommerce.Module.Cms.Controllers
         public IActionResult Get(long id)
         {
             var page = _pageRepository.Query().FirstOrDefault(x => x.Id == id);
-            var model = new PageForm
-            {
-                Id = page.Id,
-                Name = page.Name,
-                SeoTitle = page.SeoTitle,
-                Body = page.Body,
-                IsPublished = page.IsPublished
-            };
 
+            var model = _mapper.Map<Page, PageForm>(page);
+            
             return Json(model);
         }
 
@@ -51,13 +48,7 @@ namespace SimplCommerce.Module.Cms.Controllers
         {
             if (ModelState.IsValid)
             {
-                var page = new Page
-                {
-                    Name = model.Name,
-                    SeoTitle = model.SeoTitle,
-                    Body = model.Body,
-                    IsPublished = model.IsPublished
-                };
+                var page = _mapper.Map<PageForm, Page>(model);
 
                 _pageService.Create(page);
 
@@ -72,12 +63,13 @@ namespace SimplCommerce.Module.Cms.Controllers
             if (ModelState.IsValid)
             {
                 var page = _pageRepository.Query().FirstOrDefault(x => x.Id == id);
-                page.Name = model.Name;
-                page.SeoTitle = model.SeoTitle;
-                page.Body = model.Body;
-                page.IsPublished = model.IsPublished;
-                page.UpdatedOn = DateTimeOffset.Now;
 
+                _mapper.Map(model, page, op => op.BeforeMap((fPageFrom, tPage) =>
+                {
+                    fPageFrom.Id = tPage.Id;
+                    tPage.UpdatedOn = DateTimeOffset.Now;
+                }));
+                
                 _pageService.Update(page);
 
                 return Ok();
