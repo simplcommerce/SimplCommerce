@@ -32,8 +32,6 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public string ThumbnailUrl { get; set; }
 
-        public int NumberVariation { get; set; }
-
         public int ReviewsCount { get; set; }
 
         public double? RatingAverage { get; set; }
@@ -56,7 +54,6 @@ namespace SimplCommerce.Module.Catalog.ViewModels
                 IsAllowToOrder = product.IsAllowToOrder,
                 IsCallForPricing = product.IsCallForPricing,
                 ThumbnailImage = product.ThumbnailImage,
-                NumberVariation = product.ProductLinks.Count,
                 ReviewsCount = product.ReviewsCount,
                 RatingAverage = product.RatingAverage
             };
