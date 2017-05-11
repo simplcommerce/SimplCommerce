@@ -78,13 +78,7 @@ namespace SimplCommerce.WebHost
         {
             if (env.IsDevelopment())
             {
-                loggerFactory.WithFilter(new FilterLoggerSettings
-                {
-                    { "Microsoft", LogLevel.Warning },
-                    { "System", LogLevel.Warning },
-                    { "SimplCommerce", LogLevel.Debug }
-                })
-                .AddConsole()
+                loggerFactory.AddConsole()
                 .AddSerilog();
 
                 app.UseDeveloperExceptionPage();
@@ -92,13 +86,7 @@ namespace SimplCommerce.WebHost
             }
             else
             {
-                loggerFactory.WithFilter(new FilterLoggerSettings
-                {
-                    { "Microsoft", LogLevel.Warning },
-                    { "System", LogLevel.Warning },
-                    { "SimplCommerce", LogLevel.Error }
-                })
-                .AddSerilog();
+                loggerFactory.AddSerilog();
 
                 app.UseExceptionHandler("/Home/Error");
             }

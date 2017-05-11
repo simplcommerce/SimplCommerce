@@ -7,7 +7,7 @@ using SimplCommerce.Module.Core.Models;
 namespace SimplCommerce.Module.Core.Extensions
 {
     public class SimplUserStore : UserStore<User, Role, SimplDbContext, long, IdentityUserClaim<long>, UserRole,
-        IdentityUserLogin<long>,IdentityUserToken<long>>
+        IdentityUserLogin<long>,IdentityUserToken<long>, IdentityRoleClaim<long>>
     {
         public SimplUserStore(SimplDbContext context) : base(context)
         {
