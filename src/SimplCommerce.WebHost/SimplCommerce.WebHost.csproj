@@ -3,9 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
-    <AssemblyName>SimplCommerce.WebHost</AssemblyName>
-    <OutputType>Exe</OutputType>
-    <PackageId>SimplCommerce.WebHost</PackageId>
     <UserSecretsId>aspnet-Modular.WebHost-dca604fa-ee10-4a6c-8e7d-8cc79dca8c8f</UserSecretsId>
     <PackageTargetFallback>$(PackageTargetFallback);dotnet5.6;portable-net45+win8</PackageTargetFallback>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
@@ -28,25 +25,9 @@
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.1.0" />
     <PackageReference Include="MediatR" Version="3.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.0-preview1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0-preview1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.0.0-preview1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="2.0.0-preview1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="2.0.0-preview1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.0.0-preview1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="2.0.0-preview1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.0.0-preview1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.0-preview1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.0-preview1-final" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.0-preview1-final" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.0.0-preview1-final" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0-preview1-final" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.0.0-preview1-final" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0-preview1-final" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.0-preview1-final" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.0-preview1-final" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0-preview1-final" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0-preview1-final" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0-preview1-final" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0-preview1-final" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>

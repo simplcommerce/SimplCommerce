@@ -10,6 +10,7 @@ using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Events;
 using SimplCommerce.Module.Core.ViewModels;
+using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.Catalog.Controllers
 {
@@ -28,7 +29,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             _productPricingService = productPricingService;
         }
 
-        public IActionResult ProductDetail(long id)
+        public async Task<IActionResult> ProductDetail(long id)
         {
             var product = _productRepository.Query()
                 .Include(x => x.Categories).ThenInclude(c => c.Category)
@@ -68,7 +69,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 ThumbnailUrl = _mediaService.GetThumbnailUrl(productMedia.Media)
             }).ToList();
 
-            _mediator.Publish(new ActivityHappened {ActivityTypeId = 1, EntityId = product.Id, EntityTypeId = 3, TimeHappened = DateTimeOffset.Now});
+            await _mediator.Publish(new ActivityHappened {ActivityTypeId = 1, EntityId = product.Id, EntityTypeId = 3, TimeHappened = DateTimeOffset.Now});
             _productRepository.SaveChange();
 
             return View(model);

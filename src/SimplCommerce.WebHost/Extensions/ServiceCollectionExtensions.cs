@@ -19,7 +19,6 @@ using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Infrastructure.Web.ModelBinders;
-using Microsoft.AspNetCore.Authentication.Facebook;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -114,12 +113,17 @@ namespace SimplCommerce.WebHost.Extensions
                 .AddRoleStore<SimplRoleStore>()
                 .AddUserStore<SimplUserStore>()
                 .AddDefaultTokenProviders();
-            services.AddCookieAuthentication(x => x.LoginPath = new PathString("/login"));
+            services.ConfigureApplicationCookie(x => x.LoginPath = new PathString("/login"));
             services.AddFacebookAuthentication(x =>
             {
                 x.AppId = "1716532045292977";
                 x.AppSecret = "dfece01ae919b7b8af23f962a1f87f95";
             });
+            services.AddGoogleAuthentication(x =>
+                {
+                    x.ClientId = "583825788849-8g42lum4trd5g3319go0iqt6pn30gqlq.apps.googleusercontent.com";
+                    x.ClientSecret = "X8xIiuNEUjEYfiEfiNrWOfI4";
+                });
             return services;
         }
 
