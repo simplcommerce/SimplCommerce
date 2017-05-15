@@ -21,8 +21,6 @@ namespace SimplCommerce.WebHost
     {
         private readonly IHostingEnvironment _hostingEnvironment;
 
-        private static readonly IList<ModuleInfo> Modules = new List<ModuleInfo>();
-
         public Startup(IHostingEnvironment env)
         {
             _hostingEnvironment = env;
@@ -48,7 +46,7 @@ namespace SimplCommerce.WebHost
         {
             GlobalConfiguration.WebRootPath = _hostingEnvironment.WebRootPath;
             GlobalConfiguration.ContentRootPath = _hostingEnvironment.ContentRootPath;
-            services.LoadInstalledModules(Modules, _hostingEnvironment);
+            services.LoadInstalledModules(_hostingEnvironment.ContentRootPath);
 
             services.AddCustomizedDataStore(Configuration);
             services.AddCustomizedIdentity();

@@ -24,10 +24,10 @@ namespace SimplCommerce.WebHost.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection LoadInstalledModules(this IServiceCollection services,
-            IList<ModuleInfo> modules, IHostingEnvironment hostingEnvironment)
+        public static IServiceCollection LoadInstalledModules(this IServiceCollection services, string contentRootPath)
         {
-            var moduleRootFolder = new DirectoryInfo(Path.Combine(hostingEnvironment.ContentRootPath, "Modules"));
+            var modules = new List<ModuleInfo>();
+            var moduleRootFolder = new DirectoryInfo(Path.Combine(contentRootPath, "Modules"));
             var moduleFolders = moduleRootFolder.GetDirectories();
 
             foreach (var moduleFolder in moduleFolders)
