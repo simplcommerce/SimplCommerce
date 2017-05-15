@@ -5,7 +5,7 @@ using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Core.Models
 {
-    public class User : IdentityUser<long, IdentityUserClaim<long>, UserRole, IdentityUserLogin<long>>, IEntityWithTypedId<long>
+    public class User : IdentityUser<long, IdentityUserClaim<long>, UserRole, IdentityUserLogin<long>, IdentityUserToken<long>>, IEntityWithTypedId<long>
     {
         public User()
         {

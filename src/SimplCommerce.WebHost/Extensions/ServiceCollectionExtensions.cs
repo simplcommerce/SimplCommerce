@@ -8,6 +8,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -107,10 +108,22 @@ namespace SimplCommerce.WebHost.Extensions
 
         public static IServiceCollection AddCustomizedIdentity(this IServiceCollection services)
         {
-            services.AddIdentity<User, Role>(configure => { configure.Cookies.ApplicationCookie.LoginPath = "/login"; })
+            services
+                .AddIdentity<User, Role>()
                 .AddRoleStore<SimplRoleStore>()
                 .AddUserStore<SimplUserStore>()
                 .AddDefaultTokenProviders();
+            services.ConfigureApplicationCookie(x => x.LoginPath = new PathString("/login"));
+            services.AddFacebookAuthentication(x =>
+            {
+                x.AppId = "1716532045292977";
+                x.AppSecret = "dfece01ae919b7b8af23f962a1f87f95";
+            });
+            services.AddGoogleAuthentication(x =>
+                {
+                    x.ClientId = "583825788849-8g42lum4trd5g3319go0iqt6pn30gqlq.apps.googleusercontent.com";
+                    x.ClientSecret = "X8xIiuNEUjEYfiEfiNrWOfI4";
+                });
             return services;
         }
 

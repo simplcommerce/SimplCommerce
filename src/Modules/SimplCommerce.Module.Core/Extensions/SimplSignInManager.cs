@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -18,8 +19,9 @@ namespace SimplCommerce.Module.Core.Extensions
             IUserClaimsPrincipalFactory<TUser> claimsFactory,
             IOptions<IdentityOptions> optionsAccessor,
             ILogger<SignInManager<TUser>> logger,
+            IAuthenticationSchemeProvider schemes,
             IMediator mediator)
-            : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger)
+            : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes)
         {
             _mediator = mediator;
         }
