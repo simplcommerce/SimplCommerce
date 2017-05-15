@@ -4,7 +4,7 @@ ARG source=.
 WORKDIR /app
 COPY $source .
 
-RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.0" />#<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="1.1.0" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
+RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.2" />#<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="1.1.0" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
 
 RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Startup.cs
 RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Extensions/ServiceCollectionExtensions.cs
