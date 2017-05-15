@@ -1,4 +1,4 @@
-FROM simplcommerce/simpl-sdk
+FROM simplcommerce/simpl-sdk:v0.1-netcore1.1.2
   
 ARG source=.
 WORKDIR /app
