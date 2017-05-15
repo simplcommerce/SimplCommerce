@@ -7,14 +7,13 @@ namespace SimplCommerce.Module.Core.Extensions
 {
     public class EFConfigProvider : ConfigurationProvider
     {
+        private Action<DbContextOptionsBuilder> OptionsAction { get; }
+
         public EFConfigProvider(Action<DbContextOptionsBuilder> optionsAction)
         {
             OptionsAction = optionsAction;
         }
 
-        Action<DbContextOptionsBuilder> OptionsAction { get; }
-
-        // Load config data from EF DB.
         public override void Load()
         {
             var builder = new DbContextOptionsBuilder<EFConfigurationDbContext>();
@@ -22,14 +21,7 @@ namespace SimplCommerce.Module.Core.Extensions
 
             using (var dbContext = new EFConfigurationDbContext(builder.Options))
             {
-                try
-                {
-                    Data = dbContext.AppSettings.ToDictionary(c => c.Key, c => c.Value);
-                }
-                catch (Exception ex)
-                {
-                    // TODO:This might fail when run EF CLI because the table was not there. Need some workaround
-                }
+                Data = dbContext.AppSettings.ToDictionary(c => c.Key, c => c.Value);
             }
         }
     }
