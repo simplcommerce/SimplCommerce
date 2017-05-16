@@ -6,7 +6,6 @@ dotnet: 2.0.0-preview1-005977
 mono: none
 os:
   - linux
-  - osx
 
 branches:  
   only:
