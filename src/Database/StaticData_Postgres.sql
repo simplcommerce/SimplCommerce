@@ -466,7 +466,7 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Ed
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Widget Name', 'Nom du widget');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Widget Zone', 'Widget Zone');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Publish Start', 'Commencer à publier');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Publish End', 'Fin de publication')
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Publish End', 'Fin de publication');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Number of Products', 'Nombre de produits');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Order By', 'Commandé par');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Create Product Template', 'Créer un modèle de produit');
@@ -487,10 +487,10 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Ac
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Edit', 'Modifier');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Security', 'Sécurité');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Create', 'Créer');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'External Logins', 'Logins externes')
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'External Logins', 'Logins externes');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Manage', N'Gérer');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Default shipping address', 'Adresse de livraison par défaut');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Manage address', 'Gérer l''adresse')
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Manage address', 'Gérer l''adresse');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'You don''t have any default address', 'Vous n''avez aucune adresse par défaut');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Order History', 'Historique des commandes');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Address Book', 'Carnet d''adresses');
