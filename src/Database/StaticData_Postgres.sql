@@ -901,7 +901,7 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Se
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Edit Address', 'تعديل العنوان');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Create Address', 'إنشاء عنوان');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Your account', 'الحساب الخاص بك');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Date', 'تاريخ')
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (6, 'Date', 'تاريخ');
 
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (7, 'Register', '레지스터');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (7, 'Hello {0}!', '안녕하세요 {0}!');
