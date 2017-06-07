@@ -57,7 +57,7 @@
                                     {
                                         var shouldChecked = Model.Variations.First().Options.Any(x => x.Value == value);
                                         <li>
-                                            <input type="radio" value="@value" checked="@shouldChecked" name="@option.OptionName" />
+                                            <input type="radio" value="@value.Replace(" ", "")" checked="@shouldChecked" name="@option.OptionName" />
                                             <label>@value</label>
                                         </li>
                                     }
@@ -70,7 +70,7 @@
                 foreach (var variant in Model.Variations)
                 {
                     var hidden = variant != Model.Variations.First() ? "collapse" : "";
-                    <div class="product-variation @variant.NormalizedName @hidden">
+                    <div class="product-variation @variant.NormalizedName.Replace(" ", "") @hidden">
                         <div class="product-price">
                             @if (variant.IsCallForPricing)
                             {
