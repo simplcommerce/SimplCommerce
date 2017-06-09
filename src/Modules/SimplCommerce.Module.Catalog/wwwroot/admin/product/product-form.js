@@ -253,14 +253,16 @@
                     }
                 });
             } else {
+                vm.product.categoryIds.push(categoryId);
                 var category = getCategoryByProperty('id', categoryId);
                 if (category) {
                     var parentCategoryIds = getParentCategoryIds(category.parentId);
                     parentCategoryIds.forEach(function pushParentCategory(parentCategoryId) {
-                        vm.product.categoryIds.push(parentCategoryId);
+                        if (vm.product.categoryIds.indexOf(parentCategoryId) < 0) {
+                            vm.product.categoryIds.push(parentCategoryId);
+                        }
                     });
                 }
-                vm.product.categoryIds.push(categoryId);
             }
         };
 
