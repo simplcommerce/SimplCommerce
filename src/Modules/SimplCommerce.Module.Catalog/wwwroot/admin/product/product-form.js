@@ -246,6 +246,15 @@
             if (index > -1) {
                 vm.product.categoryIds.splice(index, 1);
             } else {
+                var category = getCategoryById(categoryId);
+               
+                if (category) {
+                    var parentIds = getParentCategories(category.parentId);
+
+                    for (var i = 0; i < parentIds.length; i++) {
+                        vm.product.categoryIds.push(parentIds[i]);
+                    }
+                }
                 vm.product.categoryIds.push(categoryId);
             }
         };
@@ -368,6 +377,27 @@
             getAttributes();
             getCategories();
             getBrands();
+        }
+
+        function getParentCategories(categoryId) {
+            if (!categoryId) {
+                return [];
+            }
+            var category = getCategoryById(categoryId);
+
+            return category ? [category.id].concat(getParentCategories(category.parentId)) : []; 
+        }
+
+        function getCategoryById(categoryId) {
+            var category;
+            for (var i = 0; i < vm.categories; i++) {
+                if (vm.categories[i].id == categoryId) {
+                    category = vm.categories[i];
+                    break;
+                }
+            }
+
+            return category;
         }
 
         init();
