@@ -19,6 +19,11 @@ using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Infrastructure.Web.ModelBinders;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authentication.Facebook;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -118,11 +123,20 @@ namespace SimplCommerce.WebHost.Extensions
             {
                 x.AppId = "1716532045292977";
                 x.AppSecret = "dfece01ae919b7b8af23f962a1f87f95";
+
+                x.Events = new OAuthEvents
+                {
+                    OnRemoteFailure = ctx => HandleRemoteLoginFailure(ctx)
+                };
             });
             services.AddGoogleAuthentication(x =>
                 {
                     x.ClientId = "583825788849-8g42lum4trd5g3319go0iqt6pn30gqlq.apps.googleusercontent.com";
                     x.ClientSecret = "X8xIiuNEUjEYfiEfiNrWOfI4";
+                    x.Events = new OAuthEvents
+                    {
+                        OnRemoteFailure = ctx => HandleRemoteLoginFailure(ctx)
+                    };
                 });
             return services;
         }
@@ -165,6 +179,13 @@ namespace SimplCommerce.WebHost.Extensions
             builder.Populate(services);
             var container = builder.Build();
             return container.Resolve<IServiceProvider>();
+        }
+
+        private static Task HandleRemoteLoginFailure(FailureContext ctx)
+        {
+            ctx.Response.Redirect("/Login");
+            ctx.HandleResponse();
+            return Task.CompletedTask;
         }
     }
 }
