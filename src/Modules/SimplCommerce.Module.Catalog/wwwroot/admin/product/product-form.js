@@ -245,15 +245,20 @@
             var index = vm.product.categoryIds.indexOf(categoryId);
             if (index > -1) {
                 vm.product.categoryIds.splice(index, 1);
-            } else {
-                var category = getCategoryById(categoryId);
-               
-                if (category) {
-                    var parentIds = getParentCategories(category.parentId);
-
-                    for (var i = 0; i < parentIds.length; i++) {
-                        vm.product.categoryIds.push(parentIds[i]);
+                var childCategoryIds = getChildCategoryIds(categoryId);
+                childCategoryIds.forEach(function spliceChildCategory(childCategoryId) {
+                    index = vm.product.categoryIds.indexOf(childCategoryId);
+                    if (index > -1) {
+                        vm.product.categoryIds.splice(index, 1)
                     }
+                });
+            } else {
+                var category = getCategoryByProperty('id', categoryId);
+                if (category) {
+                    var parentCategoryIds = getParentCategoryIds(category.parentId);
+                    parentCategoryIds.forEach(function pushParentCategory(parentCategoryId) {
+                        vm.product.categoryIds.push(parentCategoryId);
+                    });
                 }
                 vm.product.categoryIds.push(categoryId);
             }
@@ -379,25 +384,46 @@
             getBrands();
         }
 
-        function getParentCategories(categoryId) {
+        function getParentCategoryIds(categoryId) {
             if (!categoryId) {
                 return [];
             }
-            var category = getCategoryById(categoryId);
+            var category = getCategoryByProperty('id',categoryId);
 
-            return category ? [category.id].concat(getParentCategories(category.parentId)) : []; 
+            return category ? [category.id].concat(getParentCategoryIds(category.parentId)) : []; 
         }
 
-        function getCategoryById(categoryId) {
-            var category;
-            for (var i = 0; i < vm.categories; i++) {
-                if (vm.categories[i].id == categoryId) {
-                    category = vm.categories[i];
-                    break;
-                }
+        function getChildCategoryIds(categoryId) {
+            if (!categoryId) {
+                return [];
+            }
+            var result = [];
+            var queue = [];
+            queue.push(categoryId);
+            while (queue.length > 0) {
+                var current = queue.shift();
+                result.push(current);
+                var childCategories = getCategoriesByProperty('parentId', current);
+                childCategories.forEach(function pushChildCategoryToTheQueue(childCategory) {
+                    queue.push(childCategory.id);
+                });
             }
 
-            return category;
+            return result;
+        }
+
+        function getCategoriesByProperty(propertyKey, propertyValue) {
+            var result = [];
+            vm.categories.forEach(function getCategoryByPropertyInternal(category) {
+                if (category[propertyKey] == propertyValue) {
+                    result.push(category);
+                }
+            });
+            return result;
+        }
+
+        function getCategoryByProperty(propertyKey, propertyValue) {
+            return getCategoriesByProperty(propertyKey, propertyValue)[0];
         }
 
         init();
