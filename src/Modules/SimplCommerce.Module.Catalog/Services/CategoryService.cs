@@ -32,7 +32,8 @@ namespace SimplCommerce.Module.Catalog.Services
                     IsPublished = category.IsPublished,
                     IncludeInMenu = category.IncludeInMenu,
                     Name = category.Name,
-                    DisplayOrder = category.DisplayOrder
+                    DisplayOrder = category.DisplayOrder,
+                    ParentId = category.ParentId
                 };
 
                 var parentCategory = category.Parent;
