@@ -119,6 +119,16 @@
                     url: '/widget-product/edit/:id',
                     templateUrl: 'modules/catalog/admin/product-widget/product-widget-form.html',
                     controller: 'ProductWidgetFormCtrl as vm'
+                })
+                .state('widget-category-create', {
+                    url: '/widget-category/create',
+                    templateUrl: 'modules/catalog/admin/category-widget/category-widget-form.html',
+                    controller: 'CategoryWidgetFormCtrl as vm'
+                })
+                .state('widget-category-edit', {
+                    url: '/widget-category/edit/:id',
+                    templateUrl: 'modules/catalog/admin/category-widget/category-widget-form.html',
+                    controller: 'CategoryWidgetFormCtrl as vm'
                 });
         }]);
 })();
