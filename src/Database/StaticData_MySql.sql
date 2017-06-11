@@ -22,6 +22,7 @@ INSERT INTO ActivityLog_ActivityType (Id, Name) VALUES (1, 'ProductView');
 INSERT INTO Core_Widget (Id, Code, CreateUrl, CreatedOn, EditUrl, IsPublished, Name, ViewComponentName) VALUES (1, 'CarouselWidget', 'widget-carousel-create', CAST('2016-06-19 00:00:00.0000000' AS DateTime), 'widget-carousel-edit', 1, 'Carousel Widget', 'CarouselWidget');
 INSERT INTO Core_Widget (Id, Code, CreateUrl, CreatedOn, EditUrl, IsPublished, Name, ViewComponentName) VALUES (2, 'HtmlWidget', 'widget-html-create', CAST('2016-06-24 00:00:00.0000000' AS DateTime), 'widget-html-edit', 1, 'Html Widget', 'HtmlWidget');
 INSERT INTO Core_Widget (Id, Code, CreateUrl, CreatedOn, EditUrl, IsPublished, Name, ViewComponentName) VALUES (3, 'ProductWidget', 'widget-product-create', CAST('2016-07-08 00:00:00.0000000' AS DateTime), 'widget-product-edit', 1, 'Product Widget', 'ProductWidget');
+INSERT INTO Core_Widget (Id, Code, CreateUrl, CreatedOn, EditUrl, IsPublished, Name, ViewComponentName) VALUES (4, 'CategoryWidget', 'widget-category-create', CAST('2016-07-08 00:00:00.0000000' AS DateTime), 'widget-category-edit', 1, 'Category Widget', 'CategoryWidget');
 
 INSERT INTO Core_WidgetZone (Id, Description, Name) VALUES (1, NULL, 'Home Featured');
 INSERT INTO Core_WidgetZone (Id, Description, Name) VALUES (2, NULL, 'Home Main Content');

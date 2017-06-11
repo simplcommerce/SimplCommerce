@@ -30,6 +30,7 @@ SELECT pg_catalog.setval('"ActivityLog_ActivityType_Id_seq"', 1, true);
 INSERT INTO "Core_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (1, 'CarouselWidget', 'widget-carousel-create', '2016-06-19 00:00:00', 'widget-carousel-edit', true, 'Carousel Widget', 'CarouselWidget');
 INSERT INTO "Core_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (2, 'HtmlWidget', 'widget-html-create', '2016-06-24 00:00:00', 'widget-html-edit', true, 'Html Widget', 'HtmlWidget');
 INSERT INTO "Core_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (3, 'ProductWidget', 'widget-product-create', '2016-06-24 00:00:00', 'widget-product-edit', true, 'Product Widget', 'ProductWidget');
+INSERT INTO "Core_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (4, 'CategoryWidget', 'widget-category-create', '2016-06-24 00:00:00', 'widget-category-edit', true, 'Category Widget', 'CategoryWidget');
 SELECT pg_catalog.setval('"Core_Widget_Id_seq"', 3, true);
 
 INSERT INTO "Core_WidgetZone" ("Id", "Description", "Name") VALUES (1, NULL, 'Home Featured');
