@@ -254,7 +254,7 @@
                 });
             } else {
                 vm.product.categoryIds.push(categoryId);
-                var category = getCategoryByProperty('id', categoryId);
+                var category = vm.categories.find(function (item) { return item.id === categoryId; });
                 if (category) {
                     var parentCategoryIds = getParentCategoryIds(category.parentId);
                     parentCategoryIds.forEach(function pushParentCategory(parentCategoryId) {
@@ -390,7 +390,7 @@
             if (!categoryId) {
                 return [];
             }
-            var category = getCategoryByProperty('id',categoryId);
+            var category = vm.categories.find(function (item) { return item.id === categoryId });
 
             return category ? [category.id].concat(getParentCategoryIds(category.parentId)) : []; 
         }
@@ -405,27 +405,13 @@
             while (queue.length > 0) {
                 var current = queue.shift();
                 result.push(current);
-                var childCategories = getCategoriesByProperty('parentId', current);
+                var childCategories = vm.categories.filter(function (item) { return item.parentId === current });
                 childCategories.forEach(function pushChildCategoryToTheQueue(childCategory) {
                     queue.push(childCategory.id);
                 });
             }
 
             return result;
-        }
-
-        function getCategoriesByProperty(propertyKey, propertyValue) {
-            var result = [];
-            vm.categories.forEach(function getCategoryByPropertyInternal(category) {
-                if (category[propertyKey] == propertyValue) {
-                    result.push(category);
-                }
-            });
-            return result;
-        }
-
-        function getCategoryByProperty(propertyKey, propertyValue) {
-            return getCategoriesByProperty(propertyKey, propertyValue)[0];
         }
 
         init();
