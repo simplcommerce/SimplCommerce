@@ -245,8 +245,24 @@
             var index = vm.product.categoryIds.indexOf(categoryId);
             if (index > -1) {
                 vm.product.categoryIds.splice(index, 1);
+                var childCategoryIds = getChildCategoryIds(categoryId);
+                childCategoryIds.forEach(function spliceChildCategory(childCategoryId) {
+                    index = vm.product.categoryIds.indexOf(childCategoryId);
+                    if (index > -1) {
+                        vm.product.categoryIds.splice(index, 1);
+                    }
+                });
             } else {
                 vm.product.categoryIds.push(categoryId);
+                var category = vm.categories.find(function (item) { return item.id === categoryId; });
+                if (category) {
+                    var parentCategoryIds = getParentCategoryIds(category.parentId);
+                    parentCategoryIds.forEach(function pushParentCategory(parentCategoryId) {
+                        if (vm.product.categoryIds.indexOf(parentCategoryId) < 0) {
+                            vm.product.categoryIds.push(parentCategoryId);
+                        }
+                    });
+                }
             }
         };
 
@@ -368,6 +384,34 @@
             getAttributes();
             getCategories();
             getBrands();
+        }
+
+        function getParentCategoryIds(categoryId) {
+            if (!categoryId) {
+                return [];
+            }
+            var category = vm.categories.find(function (item) { return item.id === categoryId; });
+
+            return category ? [category.id].concat(getParentCategoryIds(category.parentId)) : []; 
+        }
+
+        function getChildCategoryIds(categoryId) {
+            if (!categoryId) {
+                return [];
+            }
+            var result = [];
+            var queue = [];
+            queue.push(categoryId);
+            while (queue.length > 0) {
+                var current = queue.shift();
+                result.push(current);
+                var childCategories = vm.categories.filter(function (item) { return item.parentId === current; });
+                childCategories.forEach(function pushChildCategoryToTheQueue(childCategory) {
+                    queue.push(childCategory.id);
+                });
+            }
+
+            return result;
         }
 
         init();
