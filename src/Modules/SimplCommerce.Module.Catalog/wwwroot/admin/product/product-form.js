@@ -249,7 +249,7 @@
                 childCategoryIds.forEach(function spliceChildCategory(childCategoryId) {
                     index = vm.product.categoryIds.indexOf(childCategoryId);
                     if (index > -1) {
-                        vm.product.categoryIds.splice(index, 1)
+                        vm.product.categoryIds.splice(index, 1);
                     }
                 });
             } else {
@@ -390,7 +390,7 @@
             if (!categoryId) {
                 return [];
             }
-            var category = vm.categories.find(function (item) { return item.id === categoryId });
+            var category = vm.categories.find(function (item) { return item.id === categoryId; });
 
             return category ? [category.id].concat(getParentCategoryIds(category.parentId)) : []; 
         }
@@ -405,7 +405,7 @@
             while (queue.length > 0) {
                 var current = queue.shift();
                 result.push(current);
-                var childCategories = vm.categories.filter(function (item) { return item.parentId === current });
+                var childCategories = vm.categories.filter(function (item) { return item.parentId === current; });
                 childCategories.forEach(function pushChildCategoryToTheQueue(childCategory) {
                     queue.push(childCategory.id);
                 });
