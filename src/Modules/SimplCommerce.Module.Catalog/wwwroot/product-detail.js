@@ -16,7 +16,7 @@
                 selectedproductOptions.push($(this).find('input[type=radio]:checked').val());
             });
             variationName = selectedproductOptions.join('-');
-            $variationDiv = $('div.' + variationName);
+            $variationDiv = $('div[data-variation-name="' + variationName +'"]');
             $('.product-variation').hide();
             if ($variationDiv.length > 0) {
                 $variationDiv.show();
