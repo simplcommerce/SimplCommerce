@@ -21,7 +21,7 @@ http://demo.simplcommerce.com
 #### Prerequisites
 
 - SQL Server
-- [Visual Studio 2017 Preview 3 with .NET Core Tools 2.0 Preview 1](https://www.microsoft.com/net/core/preview)
+- [Visual Studio 2017 version 15.3 Preview with .NET Core Tools 2.0 Preview 1](https://www.microsoft.com/net/core/preview)
 
 #### Steps to run
 
