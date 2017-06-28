@@ -26,11 +26,11 @@ namespace SimplCommerce.Module.Core.Extensions
             _mediator = mediator;
         }
 
-        public override async Task SignInAsync(TUser user, bool isPersistent, string authenticationMethod = null)
+        public override async Task SignInAsync(TUser user, bool isPersistent, string authenticationMethod = null, bool updateLastSignIn = true)
         {
             var userId = await UserManager.GetUserIdAsync(user);
             await _mediator.Publish(new UserSignedIn {UserId = long.Parse(userId)});
-            await base.SignInAsync(user, isPersistent, authenticationMethod);
+            await base.SignInAsync(user, isPersistent, authenticationMethod, updateLastSignIn);
         }
     }
 }
