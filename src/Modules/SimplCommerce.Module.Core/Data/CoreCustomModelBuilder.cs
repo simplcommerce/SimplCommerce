@@ -30,6 +30,8 @@ namespace SimplCommerce.Module.Core.Data
             modelBuilder.Entity<UserRole>(b =>
             {
                 b.HasKey(ur => new { ur.UserId, ur.RoleId });
+                b.HasOne(ur => ur.Role).WithMany().HasForeignKey(r => r.RoleId);
+                b.HasOne(ur => ur.User).WithMany().HasForeignKey(u => u.UserId);
                 b.ToTable("Core_UserRole");
             });
 
@@ -51,8 +53,6 @@ namespace SimplCommerce.Module.Core.Data
 
             modelBuilder.Entity<User>(u =>
             {
-                u.HasMany<UserRole>().WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
-
                 u.HasOne(x => x.DefaultShippingAddress)
                    .WithMany()
                    .HasForeignKey(x => x.DefaultShippingAddressId)
@@ -62,11 +62,6 @@ namespace SimplCommerce.Module.Core.Data
                     .WithMany()
                     .HasForeignKey(x => x.DefaultBillingAddressId)
                     .OnDelete(DeleteBehavior.Restrict);
-            });
-
-            modelBuilder.Entity<Role>(r =>
-            {
-                r.HasMany<UserRole>().WithOne().HasForeignKey(ur => ur.RoleId).IsRequired();
             });
 
             modelBuilder.Entity<UserAddress>()
