@@ -30,8 +30,8 @@ namespace SimplCommerce.Module.Core.Data
             modelBuilder.Entity<UserRole>(b =>
             {
                 b.HasKey(ur => new { ur.UserId, ur.RoleId });
-                b.HasOne(ur => ur.Role).WithMany().HasForeignKey(r => r.RoleId);
-                b.HasOne(ur => ur.User).WithMany().HasForeignKey(u => u.UserId);
+                b.HasOne(ur => ur.Role).WithMany(x => x.Users).HasForeignKey(r => r.RoleId);
+                b.HasOne(ur => ur.User).WithMany(x => x.Roles).HasForeignKey(u => u.UserId);
                 b.ToTable("Core_UserRole");
             });
 
