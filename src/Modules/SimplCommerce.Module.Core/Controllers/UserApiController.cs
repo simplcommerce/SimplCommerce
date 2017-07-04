@@ -29,7 +29,6 @@ namespace SimplCommerce.Module.Core.Controllers
         public IActionResult List([FromBody] SmartTableParam param)
         {
             var query = _userRepository.Query()
-                .Include(x => x.Roles).ThenInclude(r => r.Role)
                 .Where(x => !x.IsDeleted);
 
             if (param.Search.PredicateObject != null)

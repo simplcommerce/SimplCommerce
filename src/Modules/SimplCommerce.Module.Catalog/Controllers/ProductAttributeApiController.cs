@@ -23,7 +23,6 @@ namespace SimplCommerce.Module.Catalog.Controllers
         {
             var attributes = _productAttrRepository
                 .Query()
-                .Include(x => x.Group)
                 .Select(x => new
                 {
                     Id = x.Id,
