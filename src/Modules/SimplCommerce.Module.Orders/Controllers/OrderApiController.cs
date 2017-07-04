@@ -40,7 +40,6 @@ namespace SimplCommerce.Module.Orders.Controllers
 
             var query = _orderRepository
                 .Query()
-                .Include(x => x.CreatedBy)
                 .Where(x => x.OrderStatus == orderStatus);
 
             var currentUser = await _workContext.GetCurrentUser();
@@ -65,8 +64,7 @@ namespace SimplCommerce.Module.Orders.Controllers
         public async Task<ActionResult> List([FromBody] SmartTableParam param)
         {
             IQueryable<Order> query = _orderRepository
-                .Query()
-                .Include(x => x.CreatedBy);
+                .Query();
 
             var currentUser = await _workContext.GetCurrentUser();
             if (!User.IsInRole("admin"))

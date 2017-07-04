@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace SimplCommerce.Infrastructure.Web.SmartTable
 {
     public static class SmartTableExtension
     {
-        public static SmartTableResult<TResult> ToSmartTableResult<TModel, TResult>(this IQueryable<TModel> query, SmartTableParam param, Func<TModel, TResult> selector)
+        public static SmartTableResult<TResult> ToSmartTableResult<TModel, TResult>(this IQueryable<TModel> query, SmartTableParam param, Expression<Func<TModel, TResult>> selector)
         {
             if (param.Pagination.Number <= 0)
             {
