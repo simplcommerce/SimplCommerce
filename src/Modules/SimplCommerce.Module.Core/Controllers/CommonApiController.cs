@@ -22,7 +22,7 @@ namespace SimplCommerce.Module.Core.Controllers
         [HttpPost("upload")]
         public IActionResult UploadFile(IFormFile file)
         {
-            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
             mediaService.SaveMedia(file.OpenReadStream(), fileName, file.ContentType);
 

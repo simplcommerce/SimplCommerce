@@ -31,7 +31,6 @@ namespace SimplCommerce.Module.Contacts.Controllers
         public IActionResult Get([FromBody] SmartTableParam param)
         {
             var query = _contactRepository.Query()
-                .Include(x => x.ContactArea)
                 .Where(x => !x.IsDeleted);
 
             if (param.Search.PredicateObject != null)

@@ -24,8 +24,6 @@ namespace SimplCommerce.Module.Core.Controllers
         public IActionResult Get()
         {
             var widgetInstances = _widgetInstanceRepository.Query()
-                .Include(x => x.Widget)
-                .Include(x => x.WidgetZone)
                 .Select(x => new
                 {
                     Id = x.Id,

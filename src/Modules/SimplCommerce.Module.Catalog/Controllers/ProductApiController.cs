@@ -757,7 +757,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
         private string SaveFile(IFormFile file)
         {
-            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
             _mediaService.SaveMedia(file.OpenReadStream(), fileName, file.ContentType);
             return fileName;

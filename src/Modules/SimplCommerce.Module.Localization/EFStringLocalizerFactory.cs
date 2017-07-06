@@ -31,7 +31,7 @@ namespace SimplCommerce.Module.Localization
 
         private void LoadResources()
         {
-            _resourceStrings = _resourceRepository.Query().Include(x => x.Culture).Select(x => new ResourceString
+            _resourceStrings = _resourceRepository.Query().Select(x => new ResourceString
             {
                 Culture = x.Culture.Name,
                 Key = x.Key,

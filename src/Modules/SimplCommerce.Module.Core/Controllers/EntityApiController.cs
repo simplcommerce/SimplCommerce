@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
 
@@ -20,7 +19,7 @@ namespace SimplCommerce.Module.Core.Controllers
 
         public IActionResult Get(long? entityTypeId, string name)
         {
-            var query = _entityRepository.Query().Include(x => x.EntityType).Where(x => x.EntityType.IsMenuable);
+            var query = _entityRepository.Query().Where(x => x.EntityType.IsMenuable);
             if (entityTypeId.HasValue)
             {
                 query = query.Where(x => x.EntityTypeId == entityTypeId);

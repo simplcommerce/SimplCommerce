@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
 
@@ -31,8 +30,8 @@ namespace SimplCommerce.Module.Core.Data
             modelBuilder.Entity<UserRole>(b =>
             {
                 b.HasKey(ur => new { ur.UserId, ur.RoleId });
-                b.HasOne(ur => ur.Role).WithMany(r => r.Users).HasForeignKey(r => r.RoleId);
-                b.HasOne(ur => ur.User).WithMany(u => u.Roles).HasForeignKey(u => u.UserId);
+                b.HasOne(ur => ur.Role).WithMany(x => x.Users).HasForeignKey(r => r.RoleId);
+                b.HasOne(ur => ur.User).WithMany(x => x.Roles).HasForeignKey(u => u.UserId);
                 b.ToTable("Core_UserRole");
             });
 
@@ -55,17 +54,14 @@ namespace SimplCommerce.Module.Core.Data
             modelBuilder.Entity<User>(u =>
             {
                 u.HasOne(x => x.DefaultShippingAddress)
-               .WithMany()
-               .HasForeignKey(x => x.DefaultShippingAddressId)
-               .OnDelete(DeleteBehavior.Restrict);
-            });
+                   .WithMany()
+                   .HasForeignKey(x => x.DefaultShippingAddressId)
+                   .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<User>(u =>
-            {
                 u.HasOne(x => x.DefaultBillingAddress)
-               .WithMany()
-               .HasForeignKey(x => x.DefaultBillingAddressId)
-               .OnDelete(DeleteBehavior.Restrict);
+                    .WithMany()
+                    .HasForeignKey(x => x.DefaultBillingAddressId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<UserAddress>()

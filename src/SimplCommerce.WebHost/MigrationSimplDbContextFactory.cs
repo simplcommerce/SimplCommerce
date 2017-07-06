@@ -2,17 +2,17 @@
 using System.IO;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimplCommerce.Module.Core.Data;
 using SimplCommerce.WebHost.Extensions;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace SimplCommerce.WebHost
 {
-    public class MigrationSimplDbContextFactory : IDbContextFactory<SimplDbContext>
+    public class MigrationSimplDbContextFactory : IDesignTimeDbContextFactory<SimplDbContext>
     {
-        public SimplDbContext Create(string[] args)
+        public SimplDbContext CreateDbContext(string[] args)
         {
             var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
