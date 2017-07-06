@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Hosting;
 
 namespace SimplCommerce.WebHost
 {
@@ -14,13 +6,13 @@ namespace SimplCommerce.WebHost
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            BuildWebHost2(args).Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
+        // Changed to BuildWebHost2 to make EF don't pickup during design time
+        private static IWebHost BuildWebHost2(string[] args) =>
             Microsoft.AspNetCore.WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseDefaultServiceProvider(options => options.ValidateScopes = false)
                 .Build();
     }
 }
