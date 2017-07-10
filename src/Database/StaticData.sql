@@ -34,7 +34,7 @@ SET IDENTITY_INSERT [dbo].[Core_EntityType] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[ActivityLog_ActivityType] ON 
-INSERT [dbo].[ActivityLog_ActivityType] ([Id], [Name]) VALUES (1, N'ProductView')
+INSERT [dbo].[ActivityLog_ActivityType] ([Id], [Name]) VALUES (1, N'EntityView')
 SET IDENTITY_INSERT [dbo].[ActivityLog_ActivityType] OFF
 GO
 

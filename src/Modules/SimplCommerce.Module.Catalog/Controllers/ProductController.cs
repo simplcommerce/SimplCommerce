@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,6 @@ using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Events;
 using SimplCommerce.Module.Core.ViewModels;
-using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.Catalog.Controllers
 {
@@ -69,7 +69,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 ThumbnailUrl = _mediaService.GetThumbnailUrl(productMedia.Media)
             }).ToList();
 
-            await _mediator.Publish(new ActivityHappened {ActivityTypeId = 1, EntityId = product.Id, EntityTypeId = 3, TimeHappened = DateTimeOffset.Now});
+            await _mediator.Publish(new EntityViewed {EntityId = product.Id, EntityTypeId = 3});
             _productRepository.SaveChange();
 
             return View(model);
