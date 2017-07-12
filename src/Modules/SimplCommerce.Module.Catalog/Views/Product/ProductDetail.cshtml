@@ -227,7 +227,7 @@
     </div>
 }
 
-@await Component.InvokeAsync("ProductRecentlyViewed")
+@await Component.InvokeAsync("ProductRecentlyViewed", new { productId = Model.Id })
 
 <div>
     <h3>@Localizer["Customer reviews"]</h3>

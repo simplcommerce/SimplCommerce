@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SimplCommerce.Module.ActivityLog\SimplCommerce.Module.ActivityLog.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.Catalog\SimplCommerce.Module.Catalog.csproj" />
   </ItemGroup>
 
