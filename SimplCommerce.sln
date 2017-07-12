@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26621.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C9BFDDC4-5671-47A3-B57D-197C2A51FA8A}"
 EndProject
@@ -42,17 +42,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Vendor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D9FD9ABA-AE5E-4427-AA6B-6285BE2E212D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Infrastructure.Tests", "test\SimplCommerce.Infrastructure.Tests\SimplCommerce.Infrastructure.Tests.csproj", "{338A04B7-CB1A-4C98-84A7-02F48A41D860}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Infrastructure.Tests", "test\SimplCommerce.Infrastructure.Tests\SimplCommerce.Infrastructure.Tests.csproj", "{338A04B7-CB1A-4C98-84A7-02F48A41D860}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.Core.Tests", "test\SimplCommerce.Module.Core.Tests\SimplCommerce.Module.Core.Tests.csproj", "{52D24DE2-8661-4BBF-AC7B-B36BB1A655BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Core.Tests", "test\SimplCommerce.Module.Core.Tests\SimplCommerce.Module.Core.Tests.csproj", "{52D24DE2-8661-4BBF-AC7B-B36BB1A655BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.News", "src\Modules\SimplCommerce.Module.News\SimplCommerce.Module.News.csproj", "{4FE8CC2E-3DF9-4AE7-A04E-4293FABEE221}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.News", "src\Modules\SimplCommerce.Module.News\SimplCommerce.Module.News.csproj", "{4FE8CC2E-3DF9-4AE7-A04E-4293FABEE221}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.Cms.Tests", "test\SimplCommerce.Module.Cms.Tests\SimplCommerce.Module.Cms.Tests.csproj", "{483C5E8D-99A4-410D-8DB3-2F695B05BF40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Cms.Tests", "test\SimplCommerce.Module.Cms.Tests\SimplCommerce.Module.Cms.Tests.csproj", "{483C5E8D-99A4-410D-8DB3-2F695B05BF40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.ProductComparison", "src\Modules\SimplCommerce.Module.ProductComparison\SimplCommerce.Module.ProductComparison.csproj", "{3BA470E8-1A8A-4E36-A1AE-669838816770}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.ProductComparison", "src\Modules\SimplCommerce.Module.ProductComparison\SimplCommerce.Module.ProductComparison.csproj", "{3BA470E8-1A8A-4E36-A1AE-669838816770}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.Contacts", "src\Modules\SimplCommerce.Module.Contacts\SimplCommerce.Module.Contacts.csproj", "{EA8A1804-7807-4CC5-9412-CF835BEAFC06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Contacts", "src\Modules\SimplCommerce.Module.Contacts\SimplCommerce.Module.Contacts.csproj", "{EA8A1804-7807-4CC5-9412-CF835BEAFC06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.ProductRecentlyViewed", "src\Modules\SimplCommerce.Module.ProductRecentlyViewed\SimplCommerce.Module.ProductRecentlyViewed.csproj", "{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -280,6 +282,18 @@ Global
 		{EA8A1804-7807-4CC5-9412-CF835BEAFC06}.Release|x64.Build.0 = Release|Any CPU
 		{EA8A1804-7807-4CC5-9412-CF835BEAFC06}.Release|x86.ActiveCfg = Release|Any CPU
 		{EA8A1804-7807-4CC5-9412-CF835BEAFC06}.Release|x86.Build.0 = Release|Any CPU
+		{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB}.Debug|x64.Build.0 = Debug|Any CPU
+		{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB}.Debug|x86.Build.0 = Debug|Any CPU
+		{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB}.Release|x64.ActiveCfg = Release|Any CPU
+		{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB}.Release|x64.Build.0 = Release|Any CPU
+		{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB}.Release|x86.ActiveCfg = Release|Any CPU
+		{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -305,5 +319,9 @@ Global
 		{483C5E8D-99A4-410D-8DB3-2F695B05BF40} = {D9FD9ABA-AE5E-4427-AA6B-6285BE2E212D}
 		{3BA470E8-1A8A-4E36-A1AE-669838816770} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{EA8A1804-7807-4CC5-9412-CF835BEAFC06} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
+		{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B9D0D8F0-1AB9-44DD-839F-ED8CEE7DDB10}
 	EndGlobalSection
 EndGlobal
