@@ -70,25 +70,6 @@ During the application startup, the host will scan for all the *.dll in the Modu
 
 A ModuleViewLocationExpander is implemented to help the ViewEngine can find the right location for views in modules.
 
-Static files (wwwroot) in each module is served by configuring the static files middleware as follows:
-
-```cs
-    // Serving static file for modules
-    foreach (var module in modules)
-    {
-        var wwwrootDir = new DirectoryInfo(Path.Combine(module.Path, "wwwroot"));
-        if (!wwwrootDir.Exists)
-        {
-            continue;
-        }
-
-        app.UseStaticFiles(new StaticFileOptions()
-        {
-            FileProvider = new PhysicalFileProvider(wwwrootDir.FullName),
-            RequestPath = new PathString("/" + module.ShortName)
-        });
-    }
- ```
 #### For Entity Framework Core
 Every domain entity needs to inherit from Entity, then on the "OnModelCreating" method, we find them and register them to the DbContext:
 ```cs
@@ -124,6 +105,9 @@ https://github.com/simplcommerce/SimplCommerce/wiki/Roadmap
 
 - Report bugs or suggest features by create new issues or add comments to issues
 - Submit pull requests
+- If SimplCommerce has been helpful to you, then you might want to buy us a beer
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JWYGHJQSYLVVQ)
 
 ## License
 
