@@ -3,6 +3,10 @@ INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (1, N'Catalog.Produ
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (2, N'Global.AssetVersion', N'1.0')
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (3, N'News.PageSize', N'10')
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (4, N'GoogleAppKey', N'AIzaSyBmsQV2FUo6g52R1kovLyfvaYm4FryNs4g')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (5, N'SmtpServer', N'')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (6, N'SmtpPort', N'')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (7, N'SmtpUsername', N'')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (8, N'SmtpPassword', N'')
 SET IDENTITY_INSERT [dbo].[Core_AppSetting] OFF
 GO
 

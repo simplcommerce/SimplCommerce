@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26621.2
+VisualStudioVersion = 15.0.26711.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C9BFDDC4-5671-47A3-B57D-197C2A51FA8A}"
 EndProject
@@ -54,7 +54,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Produc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Contacts", "src\Modules\SimplCommerce.Module.Contacts\SimplCommerce.Module.Contacts.csproj", "{EA8A1804-7807-4CC5-9412-CF835BEAFC06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.ProductRecentlyViewed", "src\Modules\SimplCommerce.Module.ProductRecentlyViewed\SimplCommerce.Module.ProductRecentlyViewed.csproj", "{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.ProductRecentlyViewed", "src\Modules\SimplCommerce.Module.ProductRecentlyViewed\SimplCommerce.Module.ProductRecentlyViewed.csproj", "{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.EmailSenderSmtp", "src\Modules\SimplCommerce.Module.EmailSenderSmtp\SimplCommerce.Module.EmailSenderSmtp.csproj", "{254FDE42-A570-4702-9470-8035533292F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.EmailSenderSendgrid", "src\Modules\SimplCommerce.Module.EmailSenderSendgrid\SimplCommerce.Module.EmailSenderSendgrid.csproj", "{1D92B2D6-2438-4843-8ABF-38A289FFF7C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -294,6 +298,30 @@ Global
 		{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB}.Release|x64.Build.0 = Release|Any CPU
 		{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB}.Release|x86.ActiveCfg = Release|Any CPU
 		{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB}.Release|x86.Build.0 = Release|Any CPU
+		{254FDE42-A570-4702-9470-8035533292F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{254FDE42-A570-4702-9470-8035533292F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{254FDE42-A570-4702-9470-8035533292F6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{254FDE42-A570-4702-9470-8035533292F6}.Debug|x64.Build.0 = Debug|Any CPU
+		{254FDE42-A570-4702-9470-8035533292F6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{254FDE42-A570-4702-9470-8035533292F6}.Debug|x86.Build.0 = Debug|Any CPU
+		{254FDE42-A570-4702-9470-8035533292F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{254FDE42-A570-4702-9470-8035533292F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{254FDE42-A570-4702-9470-8035533292F6}.Release|x64.ActiveCfg = Release|Any CPU
+		{254FDE42-A570-4702-9470-8035533292F6}.Release|x64.Build.0 = Release|Any CPU
+		{254FDE42-A570-4702-9470-8035533292F6}.Release|x86.ActiveCfg = Release|Any CPU
+		{254FDE42-A570-4702-9470-8035533292F6}.Release|x86.Build.0 = Release|Any CPU
+		{1D92B2D6-2438-4843-8ABF-38A289FFF7C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D92B2D6-2438-4843-8ABF-38A289FFF7C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D92B2D6-2438-4843-8ABF-38A289FFF7C4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1D92B2D6-2438-4843-8ABF-38A289FFF7C4}.Debug|x64.Build.0 = Debug|Any CPU
+		{1D92B2D6-2438-4843-8ABF-38A289FFF7C4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1D92B2D6-2438-4843-8ABF-38A289FFF7C4}.Debug|x86.Build.0 = Debug|Any CPU
+		{1D92B2D6-2438-4843-8ABF-38A289FFF7C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D92B2D6-2438-4843-8ABF-38A289FFF7C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D92B2D6-2438-4843-8ABF-38A289FFF7C4}.Release|x64.ActiveCfg = Release|Any CPU
+		{1D92B2D6-2438-4843-8ABF-38A289FFF7C4}.Release|x64.Build.0 = Release|Any CPU
+		{1D92B2D6-2438-4843-8ABF-38A289FFF7C4}.Release|x86.ActiveCfg = Release|Any CPU
+		{1D92B2D6-2438-4843-8ABF-38A289FFF7C4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -320,6 +348,8 @@ Global
 		{3BA470E8-1A8A-4E36-A1AE-669838816770} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{EA8A1804-7807-4CC5-9412-CF835BEAFC06} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{1BEA949C-7D8E-4AED-92E1-EBFDE9F957AB} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
+		{254FDE42-A570-4702-9470-8035533292F6} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
+		{1D92B2D6-2438-4843-8ABF-38A289FFF7C4} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B9D0D8F0-1AB9-44DD-839F-ED8CEE7DDB10}
