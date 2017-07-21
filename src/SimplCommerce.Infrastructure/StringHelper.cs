@@ -14,14 +14,13 @@ namespace SimplCommerce.Infrastructure
             }
             name = name.ToLower();
             name = RemoveDiacritics(name);
-            name = ConvertEdgeCases(name);
             name = name.Replace(" ", "-");
             name = name.Strip(c =>
                 c != '-'
                 && c != '_'
                 && !c.IsLetter()
                 && !Char.IsDigit(c)
-                );
+            );
 
             while (name.Contains("--"))
                 name = name.Replace("--", "-");
@@ -34,7 +33,7 @@ namespace SimplCommerce.Infrastructure
 
         public static string RemoveDiacritics(string text)
         {
-            var normalizedString = text.Normalize(NormalizationForm.FormD);
+            var normalizedString = text.Normalize(NormalizationForm.FormC);
             var stringBuilder = new StringBuilder();
 
             foreach (var c in normalizedString)
@@ -46,12 +45,12 @@ namespace SimplCommerce.Infrastructure
                 }
             }
 
-            return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+            return stringBuilder.ToString().Normalize(NormalizationForm.FormKC);
         }
 
         public static bool IsLetter(this char c)
         {
-            return ('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z');
+            return char.IsLetter(c);
         }
 
         public static bool IsSpace(this char c)
@@ -83,7 +82,6 @@ namespace SimplCommerce.Infrastructure
 
         public static string Strip(this string subject, Func<char, bool> predicate)
         {
-
             var result = new char[subject.Length];
 
             var cursor = 0;
@@ -97,49 +95,6 @@ namespace SimplCommerce.Infrastructure
             }
 
             return new string(result, 0, cursor);
-        }
-
-        private static string ConvertEdgeCases(string text)
-        {
-            var sb = new StringBuilder();
-            foreach (var c in text)
-            {
-                sb.Append(ConvertEdgeCases(c));
-            }
-
-            return sb.ToString();
-        }
-
-        private static string ConvertEdgeCases(char c)
-        {
-            string swap;
-            switch (c)
-            {
-                case 'ı':
-                    swap = "i";
-                    break;
-                case 'ł':
-                case 'Ł':
-                    swap = "l";
-                    break;
-                case 'đ':
-                    swap = "d";
-                    break;
-                case 'ß':
-                    swap = "ss";
-                    break;
-                case 'ø':
-                    swap = "o";
-                    break;
-                case 'Þ':
-                    swap = "th";
-                    break;
-                default:
-                    swap = c.ToString();
-                    break;
-            }
-
-            return swap;
         }
     }
 }
