@@ -42,8 +42,8 @@ namespace SimplCommerce.Infrastructure.Tests
         [InlineData("frđendły url", "frđendły-url")]
         public void UrlWithEgdeCasesShouldBeReplacedCorrectly(string actual, string expected)
         {
-            var foo = "friendly---url".ToUrlFriendly();
-            Assert.Equal("friendly-url", foo);
+            var foo = actual.ToUrlFriendly();
+            Assert.Equal(expected, foo);
         }
     }
 }
