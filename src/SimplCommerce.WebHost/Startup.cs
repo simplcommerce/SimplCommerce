@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -13,34 +12,19 @@ using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Localization;
 using SimplCommerce.WebHost.Extensions;
-using Microsoft.EntityFrameworkCore;
 
 namespace SimplCommerce.WebHost
 {
     public class Startup
     {
         private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IConfigurationRoot _configuration;
 
-        public Startup(IHostingEnvironment env)
+        public Startup(IConfigurationRoot configuration, IHostingEnvironment hostingEnvironment)
         {
-            _hostingEnvironment = env;
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", true, true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
-
-            builder.AddEnvironmentVariables();
-            var connectionStringConfig = builder.Build();
-
-            builder.AddEntityFrameworkConfig(options =>
-                    options.UseSqlServer(connectionStringConfig.GetConnectionString("DefaultConnection"))
-           );
-
-            Configuration = builder.Build();
+            _configuration = configuration;
+            _hostingEnvironment = hostingEnvironment;
         }
-
-        private IConfigurationRoot Configuration { get; }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
@@ -48,12 +32,10 @@ namespace SimplCommerce.WebHost
             GlobalConfiguration.ContentRootPath = _hostingEnvironment.ContentRootPath;
             services.LoadInstalledModules(_hostingEnvironment.ContentRootPath);
 
-            services.AddCustomizedDataStore(Configuration);
+            services.AddCustomizedDataStore(_configuration);
             services.AddCustomizedIdentity();
 
             services.AddSingleton<IStringLocalizerFactory, EfStringLocalizerFactory>();
-            services.AddSingleton<IConfiguration>(Configuration);
-            services.AddSingleton<IConfigurationRoot>(Configuration);
             services.AddScoped<SignInManager<User>, SimplSignInManager<User>>();
             services.AddCloudscribePagination();
 
@@ -62,7 +44,7 @@ namespace SimplCommerce.WebHost
 
             services.AddCustomizedMvc(GlobalConfiguration.Modules);
 
-            return services.Build(Configuration, _hostingEnvironment);
+            return services.Build(_configuration, _hostingEnvironment);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
