@@ -1,15 +1,12 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using SimplCommerce.Module.Core.Extensions;
 
 namespace SimplCommerce.WebHost
 {
     public class Program
     {
-        private static IConfigurationRoot _configurationRoot;
-
         public static void Main(string[] args)
         {
             BuildWebHost2(args).Run();
@@ -20,10 +17,6 @@ namespace SimplCommerce.WebHost
             Microsoft.AspNetCore.WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .ConfigureAppConfiguration(SetupConfiguration)
-                .ConfigureServices(services => {
-                    services.AddSingleton(_configurationRoot);
-                    services.AddSingleton<IConfiguration>(_configurationRoot);
-                })
                 .Build();
 
         private static void SetupConfiguration(WebHostBuilderContext hostingContext, IConfigurationBuilder configBuilder)
@@ -38,8 +31,6 @@ namespace SimplCommerce.WebHost
             configBuilder.AddEntityFrameworkConfig(options =>
                     options.UseSqlServer(connectionStringConfig.GetConnectionString("DefaultConnection"))
             );
-
-            _configurationRoot = configBuilder.Build();
         }
     }
 }

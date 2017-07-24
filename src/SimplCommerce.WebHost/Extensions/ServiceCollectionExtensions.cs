@@ -141,7 +141,7 @@ namespace SimplCommerce.WebHost.Extensions
             return services;
         }
 
-        public static IServiceCollection AddCustomizedDataStore(this IServiceCollection services, IConfigurationRoot configuration)
+        public static IServiceCollection AddCustomizedDataStore(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<SimplDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
@@ -150,7 +150,7 @@ namespace SimplCommerce.WebHost.Extensions
         }
 
         public static IServiceProvider Build(this IServiceCollection services,
-            IConfigurationRoot configuration, IHostingEnvironment hostingEnvironment)
+            IConfiguration configuration, IHostingEnvironment hostingEnvironment)
         {
             var builder = new ContainerBuilder();
             builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>));

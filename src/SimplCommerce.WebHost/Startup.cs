@@ -18,9 +18,9 @@ namespace SimplCommerce.WebHost
     public class Startup
     {
         private readonly IHostingEnvironment _hostingEnvironment;
-        private readonly IConfigurationRoot _configuration;
+        private readonly IConfiguration _configuration;
 
-        public Startup(IConfigurationRoot configuration, IHostingEnvironment hostingEnvironment)
+        public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment)
         {
             _configuration = configuration;
             _hostingEnvironment = hostingEnvironment;
