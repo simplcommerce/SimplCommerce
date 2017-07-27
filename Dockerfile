@@ -19,6 +19,10 @@ RUN cd src/SimplCommerce.WebHost \
 	&& dotnet ef migrations script -o dbscript.sql \
 	&& dotnet publish -c Release -o out
 
+# remove BOM for psql	
+RUN sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/SimplCommerce.WebHost/dbscript.sql \
+	&& sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/Database/StaticData_Postgres.sql
+
 FROM microsoft/aspnetcore:2.0.0-preview2-jessie
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
