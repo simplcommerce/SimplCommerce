@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\**\*;web.config;Modules\**\*;Views\**\*">
+    <Content Include="wwwroot\**\*;web.config;appsettings.json;Modules\**\*;Views\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
