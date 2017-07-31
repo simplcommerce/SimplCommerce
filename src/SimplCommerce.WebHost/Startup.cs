@@ -37,6 +37,7 @@ namespace SimplCommerce.WebHost
 
             services.AddSingleton<IStringLocalizerFactory, EfStringLocalizerFactory>();
             services.AddScoped<SignInManager<User>, SimplSignInManager<User>>();
+            services.AddScoped<IWorkContext, WorkContext>();
             services.AddCloudscribePagination();
 
             services.Configure<RazorViewEngineOptions>(
