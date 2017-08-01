@@ -34,7 +34,7 @@
                                         <td class="entity-name">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" ng-click="vm.toggleEntity(entity)"> {{entity.name}}
+                                                    <input type="checkbox" ng-checked="entity.isChecked" ng-click="vm.toggleEntity(entity)"> {{entity.name}}
                                                 </label>
                                             </div>
                                         </td>

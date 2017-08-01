@@ -25,6 +25,7 @@
             } else {
                 vm.selectedEntities.push(entity);
             }
+            entity.isChecked = true;
         };
 
         vm.addMenuItems = function () {
@@ -36,6 +37,8 @@
                     item.children = [];
                     vm.menuItemTree.push(item);
                 });
+                vm.selectedEntities = [];
+                uncheckAllMenuItems();
             });
         };
 
@@ -120,9 +123,16 @@
             return items;
         }
 
+	function uncheckAllMenuItems() {
+            vm.entities.forEach(function (entity) {
+                entity.isChecked = false;
+            });
+        }
+		
         function init() {
             menuService.getEntities().then(function (result) {
                 vm.entities = result.data;
+                uncheckAllMenuItems();
             });
 
             menuService.getEntityTypes().then(function (result) {
