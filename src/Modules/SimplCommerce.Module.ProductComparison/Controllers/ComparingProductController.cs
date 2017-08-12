@@ -56,7 +56,6 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
             }
 
             var comparingProducts = _comparingProductRepository.Query()
-                .Include(x => x.Product).ThenInclude(x => x.ThumbnailImage)
                 .Where(x => x.UserId == currentUser.Id)
                 .Select(x => new ComparingProductVm()
                 {

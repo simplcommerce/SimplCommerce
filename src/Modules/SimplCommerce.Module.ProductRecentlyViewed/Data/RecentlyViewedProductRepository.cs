@@ -18,7 +18,8 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Data
         {
             return from product in DbSet
                 join e in Context.Set<RecentlyViewedProduct>() on product.Id equals e.ProductId
-                orderby e.LatestViewedOn descending
+                   where e.UserId == userId
+                   orderby e.LatestViewedOn descending
                 select product;
         }
     }
