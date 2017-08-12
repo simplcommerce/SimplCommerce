@@ -20,7 +20,8 @@
     "angular-summernote": "0.8.1",
     "toastr": "2.1.2",
     "bootbox": "4.4.0",
-    "matchHeight": "0.7.2"
+    "matchHeight": "0.7.2",
+    "angular-bootstrap-colorpicker": "3.0.31"
   },
   "resolutions": {
     "angular": "1.6.3"

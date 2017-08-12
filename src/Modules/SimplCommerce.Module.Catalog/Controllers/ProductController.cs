@@ -11,6 +11,8 @@ using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Events;
 using SimplCommerce.Module.Core.ViewModels;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace SimplCommerce.Module.Catalog.Controllers
 {
@@ -32,6 +34,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         public async Task<IActionResult> ProductDetail(long id)
         {
             var product = _productRepository.Query()
+                .Include(x => x.OptionValues)
                 .Include(x => x.Categories).ThenInclude(c => c.Category)
                 .Include(x => x.AttributeValues).ThenInclude(a => a.Attribute)
                 .Include(x => x.ProductLinks).ThenInclude(p => p.LinkedProduct).ThenInclude(m => m.ThumbnailImage)
@@ -62,6 +65,18 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
             MapProductVariantToProductVm(product, model);
             MapRelatedProductToProductVm(product, model);
+
+            foreach(var item in product.OptionValues)
+            {
+                var optionValues = JsonConvert.DeserializeObject<IList<ProductOptionValueVm>>(item.Value);
+                foreach(var value in optionValues)
+                {
+                    if (!model.OptionDisplayValues.ContainsKey(value.Key))
+                    {
+                        model.OptionDisplayValues.Add(value.Key, new ProductOptionDisplay { DisplayType = item.DisplayType, Value = value.Display});
+                    }
+                }
+            }
 
             model.Images = product.Medias.Where(x => x.Media.MediaType == Core.Models.MediaType.Image).Select(productMedia => new MediaViewModel
             {

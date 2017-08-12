@@ -53,6 +53,8 @@ namespace SimplCommerce.Module.Catalog.ViewModels
             }
         }
 
+        public IDictionary<string, ProductOptionDisplay> OptionDisplayValues { get; set; } = new Dictionary<string, ProductOptionDisplay>();
+
         public IList<MediaViewModel> Images { get; set; } = new List<MediaViewModel>();
 
         public IList<ProductDetailVariation> Variations { get; set; } = new List<ProductDetailVariation>();

@@ -46,7 +46,8 @@ var bower = {
     "matchheight": "matchheight/dist/*.js",
     "toastr": "toastr/toastr*.{js,css}",
     "bootbox": "bootbox/bootbox*.{js,css}",
-    "angular-ui-tree": "angular-ui-tree/dist/*.*"
+    "angular-ui-tree": "angular-ui-tree/dist/*.*",
+    "angular-bootstrap-colorpicker": "angular-bootstrap-colorpicker/{js,css,img}/*.*"
 };
 
 gulp.task('clean-module', function () {

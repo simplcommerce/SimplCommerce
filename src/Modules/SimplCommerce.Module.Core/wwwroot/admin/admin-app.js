@@ -10,6 +10,7 @@
         'ui.bootstrap.datetimepicker',
         'ui.tree',
         'summernote',
+        'colorpicker.module',
         'simplAdmin.common',
         'simplAdmin.dashboard',
         'simplAdmin.core',

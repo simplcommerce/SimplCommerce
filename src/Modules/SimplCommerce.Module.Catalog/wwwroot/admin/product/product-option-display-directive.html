@@ -1,0 +1,37 @@
+﻿<div id="{{vm.modelId}}" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{{vm.title}}</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group text-center">
+                        <label class="radio-inline">
+                            <input type="radio" ng-model="vm.option.displayType" value="text"> Display text
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" ng-model="vm.option.displayType" value="color"> Display color
+                        </label>
+                    </div>
+                    <div ng-repeat="val in vm.option.values">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">{{val.key}}</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-show="vm.option.displayType == 'text'" type="text" ng-model="val.display" />
+                                <div ng-show="vm.option.displayType == 'color'" class="form-inline">
+                                    <span class="form-control" style="display:inline-block;width:20px;background-color: {{val.display}}"></span>
+                                    <input type="text" class="form-control" colorpicker ng-model="val.display">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
