@@ -58,7 +58,21 @@
                                         var shouldChecked = Model.Variations.First().Options.Any(x => x.Value == value);
                                         <li>
                                             <input type="radio" value="@value" checked="@shouldChecked" name="@option.OptionName" />
-                                            <label>@value</label>
+                                            @if (Model.OptionDisplayValues.ContainsKey(value) && !String.IsNullOrWhiteSpace(Model.OptionDisplayValues[value].Value))
+                                            {
+                                                if (Model.OptionDisplayValues[value].DisplayType == "color")
+                                                {
+                                                    <label title="@value" class="color" style="background-color:@Model.OptionDisplayValues[value].Value"></label>
+                                                }
+                                                else
+                                                {
+                                                    <label>@Model.OptionDisplayValues[value].Value</label>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <label>@value</label>
+                                            }
                                         </li>
                                     }
                                 </ul>

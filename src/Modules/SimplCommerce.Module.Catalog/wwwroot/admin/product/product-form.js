@@ -61,6 +61,7 @@
         vm.addOption = function addOption() {
             onModifyOption(function() {
                 vm.addingOption.values = [];
+                vm.addingOption.displayType = "text";
                 var index = vm.options.indexOf(vm.addingOption);
                 vm.product.options.push(vm.addingOption);
                 vm.options.splice(index, 1);
@@ -92,6 +93,13 @@
             });
         }
 
+        vm.newOptionValue = function (chip) {
+            return {
+                key: chip,
+                value: ''
+            };
+        };
+
         vm.generateOptionCombination = function generateOptionCombination() {
             var maxIndexOption = vm.product.options.length - 1;
             vm.product.variations = [];
@@ -108,7 +116,7 @@
                     optionValue = {
                         optionName: vm.product.options[optionIndex].name,
                         optionId: vm.product.options[optionIndex].id,
-                        value: vm.product.options[optionIndex].values[j],
+                        value: vm.product.options[optionIndex].values[j].key,
                         sortIndex : optionIndex
                     };
                     optionCombinations.push(optionValue);

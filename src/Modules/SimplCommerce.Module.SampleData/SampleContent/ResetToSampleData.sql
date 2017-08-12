@@ -350,9 +350,9 @@ SET IDENTITY_INSERT [dbo].[Catalog_ProductOptionCombination] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[Catalog_ProductOptionValue] ON 
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [SortIndex], [OptionId], [ProductId], [Value]) VALUES (1, 0, 1, 1, N'["Silver","Gold","Gray"]')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [SortIndex], [OptionId], [ProductId], [Value]) VALUES (2, 0, 1, 5, N'["Gold","Black","Pink"]')
-INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [SortIndex], [OptionId], [ProductId], [Value]) VALUES (3, 0, 1, 9, N'["Gray","Pink","Gold", "Silver"]')
+INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [SortIndex], [DisplayType], [OptionId], [ProductId], [Value]) VALUES (1, 0, 'color', 1, 1, N'[{{"Key":"Silver","Display":"#E5E4EA"}},{{"Key":"Gold","Display":"#daa520"}},{{"Key":"Gray","Display":"#a9a9a9"}}]')
+INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [SortIndex], [DisplayType], [OptionId], [ProductId], [Value]) VALUES (2, 0, 'color', 1, 5, N'[{{"Key":"Gold","Display":"#daa520"}},{{"Key":"Black","Display":"#000000"}},{{"Key":"Pink","Display":"#FFC0CB"}}]')
+INSERT [dbo].[Catalog_ProductOptionValue] ([Id], [SortIndex], [DisplayType], [OptionId], [ProductId], [Value]) VALUES (3, 0, 'color', 1, 9, N'[{{"Key":"Gray","Display":"#a9a9a9"}},{{"Key":"Pink","Display":"#FFC0CB"}},{{"Key":"Gold","Display":"#daa520"}},{{"Key":"Silver","Display":"#E5E4EA"}}]')
 SET IDENTITY_INSERT [dbo].[Catalog_ProductOptionValue] OFF 
 GO
 

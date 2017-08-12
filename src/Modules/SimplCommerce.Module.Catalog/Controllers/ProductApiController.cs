@@ -119,7 +119,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 {
                     Id = x.OptionId,
                     Name = x.Option.Name,
-                    Values = JsonConvert.DeserializeObject<IList<string>>(x.Value)
+                    DisplayType = x.DisplayType,
+                    Values = JsonConvert.DeserializeObject<IList<ProductOptionValueVm>>(x.Value)
                 }).ToList();
 
             foreach (var variation in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Super).Select(x => x.LinkedProduct).Where(x => !x.IsDeleted).OrderBy(x => x.Id))
@@ -297,6 +298,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 product.AddOptionValue(new ProductOptionValue
                 {
                     OptionId = option.Id,
+                    DisplayType = option.DisplayType,
                     Value = JsonConvert.SerializeObject(option.Values),
                     SortIndex = optionIndex
                 });
@@ -545,6 +547,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     product.AddOptionValue(new ProductOptionValue
                     {
                         OptionId = optionVm.Id,
+                        DisplayType = optionVm.DisplayType,
                         Value = JsonConvert.SerializeObject(optionVm.Values),
                         SortIndex = optionIndex
                     });

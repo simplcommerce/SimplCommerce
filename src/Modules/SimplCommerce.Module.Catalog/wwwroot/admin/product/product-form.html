@@ -198,12 +198,20 @@
                                     <div class="form-group row">
                                         <div class="col-md-6">
                                             <md-chips ng-model="option.values"
+                                                      md-transform-chip="vm.newOptionValue($chip)"
                                                       placeholder="Enter a {{option.name}}"
                                                       delete-button-label="Remove {{option.name}}"
                                                       delete-hint="Press delete to remove {{option.name}}"
                                                       secondary-placeholder="+{{option.name}}">
+                                                <md-chip-template>
+                                                    <span>
+                                                        {{$chip.key}}
+                                                    </span>
+                                                </md-chip-template>
                                             </md-chips>
                                         </div>
+                                        <product-option-display-directive model-id="option_{{option.id}}" title="Configure Display" option="option"></product-option-display-directive>
+                                        <button class="btn btn-default" data-toggle="modal" data-target="#option_{{option.id}}">{{::vm.translate.get('Configure Display')}}</button>
                                         <button class="btn btn-default" ng-click="vm.deleteOption(option)">{{::vm.translate.get('Delete Option')}}</button>
                                     </div>
                                 </div>
@@ -257,7 +265,7 @@
                                                             <div ng-repeat="option in vm.product.options">
                                                                 <div class="col-md-4">
                                                                     <select class="form-control" ng-model="vm.addingVariation[option.name]"
-                                                                            ng-options="value as value for value in option.values | filter: vm.filterAddedOptionValue"></select>
+                                                                            ng-options="value.key as value.key for value in option.values | filter: vm.filterAddedOptionValue"></select>
                                                                 </div>
                                                             </div>
                                                         </div>
