@@ -309,9 +309,9 @@ INSERT INTO "Catalog_ProductOptionCombination" ("Id", "OptionId", "ProductId", "
 INSERT INTO "Catalog_ProductOptionCombination" ("Id", "OptionId", "ProductId", "Value", "SortIndex") VALUES (10, 1, 13, 'Silver', 0);
 SELECT pg_catalog.setval('"Catalog_ProductOptionCombination_Id_seq"', 10, true);
 
-INSERT INTO "Catalog_ProductOptionValue" ("Id", "OptionId", "ProductId", "Value", "SortIndex") VALUES (1, 1, 1, '[{{"Key":"Silver","Display":"#E5E4EA"}},{{"Key":"Gold","Display":"#daa520"}},{{"Key":"Gray","Display":"#a9a9a9"}}]', 0);
-INSERT INTO "Catalog_ProductOptionValue" ("Id", "OptionId", "ProductId", "Value", "SortIndex") VALUES (4, 1, 5, '[{{"Key":"Gold","Display":"#daa520"}},{{"Key":"Black","Display":"#000000"}},{{"Key":"Pink","Display":"#FFC0CB"}}]', 0);
-INSERT INTO "Catalog_ProductOptionValue" ("Id", "OptionId", "ProductId", "Value", "SortIndex") VALUES (7, 1, 9, '[{{"Key":"Gray","Display":"#a9a9a9"}},{{"Key":"Pink","Display":"#FFC0CB"}},{{"Key":"Gold","Display":"#daa520"}},{{"Key":"Silver","Display":"#E5E4EA"}}]', 0);
+INSERT INTO "Catalog_ProductOptionValue" ("Id", "DisplayType", "OptionId", "ProductId", "Value", "SortIndex") VALUES (1, 'color', 1, 1, '[{{"Key":"Silver","Display":"#E5E4EA"}},{{"Key":"Gold","Display":"#daa520"}},{{"Key":"Gray","Display":"#a9a9a9"}}]', 0);
+INSERT INTO "Catalog_ProductOptionValue" ("Id", "DisplayType", "OptionId", "ProductId", "Value", "SortIndex") VALUES (2, 'color', 1, 5, '[{{"Key":"Gold","Display":"#daa520"}},{{"Key":"Black","Display":"#000000"}},{{"Key":"Pink","Display":"#FFC0CB"}}]', 0);
+INSERT INTO "Catalog_ProductOptionValue" ("Id", "DisplayType", "OptionId", "ProductId", "Value", "SortIndex") VALUES (3, 'color', 1, 9, '[{{"Key":"Gray","Display":"#a9a9a9"}},{{"Key":"Pink","Display":"#FFC0CB"}},{{"Key":"Gold","Display":"#daa520"}},{{"Key":"Silver","Display":"#E5E4EA"}}]', 0);
 SELECT pg_catalog.setval('"Catalog_ProductOptionValue_Id_seq"', 3, true);
 
 
