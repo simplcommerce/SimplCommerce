@@ -3,7 +3,7 @@ FROM simplcommerce/simpl-sdk AS build-env
 WORKDIR /app
 COPY . ./
 
-RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.0-preview2-final" />#<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.0.0-preview2-final" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
+RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.0" />#<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.0.0-preview2-final" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
 RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Program.cs
 RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Extensions/ServiceCollectionExtensions.cs
 
@@ -23,7 +23,7 @@ RUN cd src/SimplCommerce.WebHost \
 RUN sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/SimplCommerce.WebHost/dbscript.sql \
 	&& sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/Database/StaticData_Postgres.sql
 
-FROM microsoft/aspnetcore:2.0.0-preview2-jessie
+FROM microsoft/aspnetcore:2.0.0-jessie
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
 		postgresql-client \
