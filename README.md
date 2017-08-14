@@ -21,7 +21,7 @@ http://demo.simplcommerce.com
 #### Prerequisites
 
 - SQL Server
-- [Visual Studio 2017 version 15.3 preview3 with .NET Core SDK 2.0 preview2](https://www.microsoft.com/net/core/preview)
+- [Visual Studio 2017 version 15.3 with .NET Core SDK 2.0](https://www.microsoft.com/net/core/)
 
 #### Steps to run
 
@@ -40,7 +40,7 @@ http://demo.simplcommerce.com
 
 - PostgreSQL
 - NodeJS
-- [.NET Core SDK 2.0 Preview 2](https://www.microsoft.com/net/core/preview)
+- [.NET Core SDK 2.0](https://www.microsoft.com/net/core/)
 
 #### Steps to run
 
@@ -52,12 +52,12 @@ http://demo.simplcommerce.com
 - Open browser, open http://localhost:5000. The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
 ## Technologies and frameworks used:
-- ASP.NET MVC Core 2.0.0 Preview 2 on .NET Core 2.0.0 Preview 2
-- Entity Framework Core 2.0.0 Preview 2
-- ASP.NET Identity Core 2.0.0 Preview 2
-- Autofac 4.1.0
+- ASP.NET MVC Core 2.0.0 on .NET Core 2.0.0 
+- Entity Framework Core 2.0.0
+- ASP.NET Identity Core 2.0.0
+- Autofac 4.2.0
 - Angular 1.6.3
-- MediatR for domain event
+- MediatR 3.0.1 for domain event
 
 ## The architecture highlight
 ![](https://raw.githubusercontent.com/simplcommerce/SimplCommerce/master/simplcommerce.png)

@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -26,11 +25,11 @@ namespace SimplCommerce.Module.Core.Extensions
             _mediator = mediator;
         }
 
-        public override async Task SignInAsync(TUser user, bool isPersistent, string authenticationMethod = null, bool updateLastSignIn = true)
+        public override async Task SignInAsync(TUser user, bool isPersistent, string authenticationMethod = null)
         {
             var userId = await UserManager.GetUserIdAsync(user);
             await _mediator.Publish(new UserSignedIn {UserId = long.Parse(userId)});
-            await base.SignInAsync(user, isPersistent, authenticationMethod, updateLastSignIn);
+            await base.SignInAsync(user, isPersistent, authenticationMethod);
         }
     }
 }

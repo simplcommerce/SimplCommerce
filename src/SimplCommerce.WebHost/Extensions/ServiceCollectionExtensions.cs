@@ -4,9 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
+using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.CodeAnalysis;
@@ -19,11 +24,6 @@ using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Infrastructure.Web.ModelBinders;
-using Microsoft.AspNetCore.Authentication.OAuth;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Authentication.Facebook;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -76,6 +76,7 @@ namespace SimplCommerce.WebHost.Extensions
             GlobalConfiguration.Modules = modules;
             return services;
         }
+
         public static IServiceCollection AddCustomizedMvc(this IServiceCollection services, IList<ModuleInfo> modules)
         {
             var mvcBuilder = services
@@ -118,8 +119,11 @@ namespace SimplCommerce.WebHost.Extensions
                 .AddRoleStore<SimplRoleStore>()
                 .AddUserStore<SimplUserStore>()
                 .AddDefaultTokenProviders();
-            services.ConfigureApplicationCookie(x => x.LoginPath = new PathString("/login"));
-            services.AddFacebookAuthentication(x =>
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(o => o.LoginPath = new PathString("/login"))
+                
+                .AddFacebook(x =>
             {
                 x.AppId = "1716532045292977";
                 x.AppSecret = "dfece01ae919b7b8af23f962a1f87f95";
@@ -128,8 +132,8 @@ namespace SimplCommerce.WebHost.Extensions
                 {
                     OnRemoteFailure = ctx => HandleRemoteLoginFailure(ctx)
                 };
-            });
-            services.AddGoogleAuthentication(x =>
+            })
+                .AddGoogle(x =>
                 {
                     x.ClientId = "583825788849-8g42lum4trd5g3319go0iqt6pn30gqlq.apps.googleusercontent.com";
                     x.ClientSecret = "X8xIiuNEUjEYfiEfiNrWOfI4";
@@ -138,12 +142,14 @@ namespace SimplCommerce.WebHost.Extensions
                         OnRemoteFailure = ctx => HandleRemoteLoginFailure(ctx)
                     };
                 });
+
+            services.ConfigureApplicationCookie(x => x.LoginPath = new PathString("/login"));
             return services;
         }
 
         public static IServiceCollection AddCustomizedDataStore(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<SimplDbContext>(options =>
+            services.AddDbContextPool<SimplDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly("SimplCommerce.WebHost")));
             return services;
@@ -182,7 +188,7 @@ namespace SimplCommerce.WebHost.Extensions
             return container.Resolve<IServiceProvider>();
         }
 
-        private static Task HandleRemoteLoginFailure(FailureContext ctx)
+        private static Task HandleRemoteLoginFailure(RemoteFailureContext ctx)
         {
             ctx.Response.Redirect("/Login");
             ctx.HandleResponse();

@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
-    <PackageReference Include="MailKit" Version="1.16.2" />
+    <PackageReference Include="MailKit" Version="1.18.0" />
   </ItemGroup>
 
 </Project>
