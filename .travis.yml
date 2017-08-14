@@ -2,7 +2,7 @@ language: csharp
 solution: SimplCommerce.sln
 sudo: required
 dist: trusty
-dotnet: 2.0.0-preview2-006497
+dotnet: 2.0.0
 mono: none
 os:
   - linux
