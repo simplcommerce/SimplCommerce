@@ -2,7 +2,11 @@
 INSERT INTO "Core_AppSetting" ("Id", "Key", "Value") VALUES (2, 'Global.AssetVersion', '1.0');
 INSERT INTO "Core_AppSetting" ("Id", "Key", "Value") VALUES (3, 'News.PageSize', '10');
 INSERT INTO "Core_AppSetting" ("Id", "Key", "Value") VALUES (4, 'GoogleAppKey', 'AIzaSyBmsQV2FUo6g52R1kovLyfvaYm4FryNs4g');
-SELECT pg_catalog.setval('"Core_AppSetting_Id_seq"', 4, true);
+INSERT INTO "Core_AppSetting" ("Id", "Key", "Value") VALUES (5, 'SmtpServer', 'smtp.gmail.com');
+INSERT INTO "Core_AppSetting" ("Id", "Key", "Value") VALUES (6, 'SmtpPort', '587');
+INSERT INTO "Core_AppSetting" ("Id", "Key", "Value") VALUES (7, 'SmtpUsername', '');
+INSERT INTO "Core_AppSetting" ("Id", "Key", "Value") VALUES (8, 'SmtpPassword', '');
+SELECT pg_catalog.setval('"Core_AppSetting_Id_seq"', 8, true);
 
 INSERT INTO "Core_Role" ("Id", "ConcurrencyStamp", "Name", "NormalizedName") VALUES (1, 'bd3bee0b-5f1d-482d-b890-ffdc01915da3', 'admin', 'ADMIN');
 INSERT INTO "Core_Role" ("Id", "ConcurrencyStamp", "Name", "NormalizedName") VALUES (2, 'bd3bee0b-5f1d-482d-b890-ffdc01915da3', 'customer', 'CUSTOMER');
