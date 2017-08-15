@@ -12,24 +12,24 @@ using Xunit;
 
 namespace SimplCommerce.Module.Core.Tests.Components
 {
-    public class DefaultAddressViewComponentTests
+    public class DefaultShippingAddressViewComponentTests
     {
         [Fact]
         public async Task DefaultAddressViewComponent_Should_Returns_DefaultAddress()
         {
-            var address = MakeAddress();
-            var component = MakeMockedDefaultAddressViewComponent(address, MakeUserWithShippingAdress());
+            var shippingAddress = MakeShippingAddress();
+            var component = MakeMockedDefaultAddressViewComponent(shippingAddress, MakeUserWithShippingAddress());
 
             var result = await component.InvokeAsync() as ViewViewComponentResult;
             var returnedModel = (result?.ViewData.Model as DefaultAddressViewComponentVm);
 
-            Assert.Equal(address.AddressLine1, returnedModel?.Address.AddressLine1);
+            Assert.Equal(shippingAddress.Address.AddressLine1, returnedModel?.Address.AddressLine1);
         }
 
         [Fact]
         public async Task DefaultAddressViewComponetn_ShouldReturns_CorrectModelType()
         {
-            var component = MakeMockedDefaultAddressViewComponent(MakeAddress(), MakeUserWithShippingAdress());
+            var component = MakeMockedDefaultAddressViewComponent(MakeShippingAddress(), MakeUserWithShippingAddress());
 
             var view = await component.InvokeAsync() as ViewViewComponentResult;
 
@@ -39,7 +39,7 @@ namespace SimplCommerce.Module.Core.Tests.Components
         [Fact]
         public async Task DefaultAddressViewComponetn_ShouldReturns_CorrectViewType()
         {
-            var component = MakeMockedDefaultAddressViewComponent(MakeAddress(), MakeUserWithShippingAdress());
+            var component = MakeMockedDefaultAddressViewComponent(MakeShippingAddress(), MakeUserWithShippingAddress());
 
             var view = await component.InvokeAsync() as ViewViewComponentResult;
 
@@ -49,7 +49,7 @@ namespace SimplCommerce.Module.Core.Tests.Components
         [Fact]
         public async Task DefaultAddressViewComponetn_ShouldReturns_NotNullView()
         {
-            var component = MakeMockedDefaultAddressViewComponent(MakeAddress(), MakeUserWithShippingAdress());
+            var component = MakeMockedDefaultAddressViewComponent(MakeShippingAddress(), MakeUserWithShippingAddress());
 
             var view = await component.InvokeAsync() as ViewViewComponentResult;
 
@@ -59,31 +59,31 @@ namespace SimplCommerce.Module.Core.Tests.Components
         [Fact]
         public async Task DefaultAddressViewComponetn_ShouldReturns_CorrectViewName()
         {
-            var component = MakeMockedDefaultAddressViewComponent(MakeAddress(), MakeUserWithShippingAdress());
+            var component = MakeMockedDefaultAddressViewComponent(MakeShippingAddress(), MakeUserWithShippingAddress());
 
             var view = await component.InvokeAsync() as ViewViewComponentResult;
 
-            Assert.Equal("/Modules/SimplCommerce.Module.Core/Views/Components/DefaultAddress.cshtml", view?.ViewName);
+            Assert.Equal("/Modules/SimplCommerce.Module.Core/Views/Components/DefaultShippingAddress.cshtml", view?.ViewName);
         }
 
-        private DefaultAddressViewComponent MakeMockedDefaultAddressViewComponent(Address address, User user)
+        private DefaultShippingAddressViewComponent MakeMockedDefaultAddressViewComponent(UserAddress address, User user)
         {
-            var mockRepository = new Mock<IRepository<Address>>();
+            var mockRepository = new Mock<IRepository<UserAddress>>();
             var mockWorkContext = new Mock<IWorkContext>();
 
-            mockRepository.Setup(x => x.Query()).Returns(new List<Address> { address }.AsQueryable());
+            mockRepository.Setup(x => x.Query()).Returns(new List<UserAddress> { address }.AsQueryable());
             mockWorkContext.Setup(x => x.GetCurrentUser()).Returns(Task.FromResult(user));
-            var component = new DefaultAddressViewComponent(mockRepository.Object, mockWorkContext.Object);
+            var component = new DefaultShippingAddressViewComponent(mockRepository.Object, mockWorkContext.Object);
 
             return component;
         }
 
-        private User MakeUserWithShippingAdress()
+        private User MakeUserWithShippingAddress()
         {
             return new User { Id = 1, FullName = "Maher", DefaultShippingAddressId = 0 };
         }
 
-        private Address MakeAddress()
+        private UserAddress MakeShippingAddress()
         {
             var country = new Country { Name = "France" };
             var stateOrProvince = new StateOrProvince { Name = "IDF", Country = country, Type = "State" };
@@ -98,7 +98,9 @@ namespace SimplCommerce.Module.Core.Tests.Components
                 District = district
             };
 
-            return address;
+            var userAddress = new UserAddress { UserId = 1, Address = address, AddressType = AddressType.Shipping };
+
+            return userAddress;
         }
     }
 }
