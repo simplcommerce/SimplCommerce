@@ -31,8 +31,6 @@ namespace SimplCommerce.Module.Orders.Controllers
             var user = await _workContext.GetCurrentUser();
             var model = _orderRepository
                 .Query()
-                .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.ThumbnailImage)
-                .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.OptionCombinations).ThenInclude(x => x.Option)
                 .Where(x => x.CreatedById == user.Id && x.ParentId == null)
                 .Select(x => new OrderHistoryListItem
                 {
