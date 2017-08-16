@@ -56,8 +56,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 .Query()
                 .Where(x => x.Categories.Any(c => c.CategoryId == category.Id) && x.IsPublished && x.IsVisibleIndividually);
 
-            model.FilterOption.Price.MaxPrice = query.Max(x => x.Price);
-            model.FilterOption.Price.MinPrice = query.Min(x => x.Price);
+            model.FilterOption.Price.MaxPrice = query.Select(x => x.Price).DefaultIfEmpty(0).Max();
+            model.FilterOption.Price.MinPrice = query.Select(x => x.Price).DefaultIfEmpty(0).Min();
 
             if (searchOption.MinPrice.HasValue)
             {
