@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-sed -i'' -e 's|<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.0" />|<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.0.0-preview2-final" />|' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
+sed -i'' -e 's|<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.0" />|<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.0.0" />|' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
 sed -i'' -e 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Program.cs
 sed -i'' -e 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Extensions/ServiceCollectionExtensions.cs
 
