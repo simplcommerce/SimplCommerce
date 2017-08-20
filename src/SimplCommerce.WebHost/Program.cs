@@ -2,18 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SimplCommerce.Module.Core.Extensions;
+using System.Threading.Tasks;
 
 namespace SimplCommerce.WebHost
 {
     public class Program
     {
-        public static void Main(string[] args)
-        {
-            BuildWebHost2(args).Run();
-        }
+        public static async Task Main(string[] args) => await BuildWebHost(args).RunAsync();
 
-        // Changed to BuildWebHost2 to make EF don't pickup during design time
-        private static IWebHost BuildWebHost2(string[] args) =>
+        private static IWebHost BuildWebHost(string[] args) =>
             Microsoft.AspNetCore.WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .ConfigureAppConfiguration(SetupConfiguration)
