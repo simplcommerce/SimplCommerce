@@ -23,7 +23,8 @@
         'simplAdmin.vendors',
         'simplAdmin.localization',
         'simplAdmin.news',
-        'simplAdmin.contacts'
+        'simplAdmin.contacts',
+        'simplAdmin.customergroups'
     ]);
 
     toastr.options.closeButton = true;

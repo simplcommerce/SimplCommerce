@@ -3,15 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SimplCommerce.Module.Core.Data;
 using System;
 
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    [Migration("20170820212011_AddedCustomerGroup")]
+    [Migration("20170821173423_AddedCustomerGroup")]
     partial class AddedCustomerGroup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -642,9 +640,25 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTimeOffset>("CreatedOn");
+
                     b.Property<string>("Description");
 
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsDeleted");
+
                     b.Property<string>("Name");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<DateTimeOffset>("UpdatedOn");
 
                     b.HasKey("Id");
 

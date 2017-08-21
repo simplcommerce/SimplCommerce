@@ -26,6 +26,7 @@ INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction
 INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction", "IsMenuable") VALUES (5, 'Vendor', 'Vendor', 'VendorDetail', false);
 INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction", "IsMenuable") VALUES (6, 'NewsCategory', 'NewsCategory', 'NewsCategoryDetail', true);
 INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction", "IsMenuable") VALUES (7, 'NewsItem', 'NewsItem', 'NewsItemDetail', false);
+INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction", "IsMenuable") VALUES (8, 'CustomerGroup', 'CustomerGroup', 'CustomerGroupDetail', false);
 SELECT pg_catalog.setval('"Core_EntityType_Id_seq"', 7, true);
 
 INSERT INTO "ActivityLog_ActivityType" ("Id", "Name") VALUES (1, 'ProductView');
@@ -294,6 +295,7 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Ed
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Create Address', 'Tạo địa chỉ mới');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Your account', 'Tài khoản của bạn');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Date', 'Ngày');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Customer Groups', 'Nhóm khách hàng');
 
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Register', 'S''inscrire');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Hello {0}!', 'Bonjour {0}!');

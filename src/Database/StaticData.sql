@@ -34,6 +34,7 @@ INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingActio
 INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction], [IsMenuable]) VALUES (5, N'Vendor', N'Vendor', N'VendorDetail', 0)
 INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction], [IsMenuable]) VALUES (6, N'NewsCategory', N'NewsCategory', N'NewsCategoryDetail', 1)
 INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction], [IsMenuable]) VALUES (7, N'NewsItem', N'NewsItem', N'NewsItemDetail', 0)
+INSERT [dbo].[Core_EntityType] ([Id], [Name], [RoutingController], [RoutingAction], [IsMenuable]) VALUES (8, N'CustomerGroup', N'CustomerGroup', N'CustomerGroupDetail', 0)
 SET IDENTITY_INSERT [dbo].[Core_EntityType] OFF
 GO
 
@@ -1066,6 +1067,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Create Address', N'Tạo địa chỉ mới')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Your account', N'Tài khoản của bạn')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Date', N'Ngày')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Customer Groups', N'Nhóm khách hàng')
 GO
 
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Register', N'S''inscrire')

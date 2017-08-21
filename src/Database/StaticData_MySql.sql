@@ -16,6 +16,7 @@ INSERT INTO Core_EntityType (Id, Name, RoutingController, RoutingAction) VALUES 
 INSERT INTO Core_EntityType (Id, Name, RoutingController, RoutingAction) VALUES (5, 'Vendor', 'Vendor', 'VendorDetail');
 INSERT INTO Core_EntityType (Id, Name, RoutingController, RoutingAction) VALUES (6, 'NewsCategory', 'NewsCategory', 'NewsCategoryDetail');
 INSERT INTO Core_EntityType (Id, Name, RoutingController, RoutingAction) VALUES (7, 'NewsItem', 'NewsItem', 'NewsItemDetail');
+INSERT INTO Core_EntityType (Id, Name, RoutingController, RoutingAction) VALUES (8, 'CustomerGroup', 'CustomerGroup', 'CustomerGroupDetail');
 
 INSERT INTO ActivityLog_ActivityType (Id, Name) VALUES (1, 'ProductView');
 
@@ -872,6 +873,8 @@ INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (1, 'Category
 INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (1, 'Brand', 'Nhãn hiệu');
 INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (1, 'Sort by:', 'Sắp xếp theo:');
 INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (1, 'results', 'kết quả');
+INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (1, 'Customer Groups', 'Nhóm khách hàng');
+
 
 INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (2, 'Register', 'S''inscrire');
 INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (2, 'Hello {0}!', 'Bonjour {0}!');
