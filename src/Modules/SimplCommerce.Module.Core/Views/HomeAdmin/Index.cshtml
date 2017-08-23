@@ -152,6 +152,11 @@
     <script simpl-append-version="true" src="~/modules/contacts/admin/contacts/contact-service.js"></script>
     <script simpl-append-version="true" src="~/modules/contacts/admin/contacts/contact-list.js"></script>
     <script simpl-append-version="true" src="~/modules/contacts/admin/contacts/contact.js"></script>
+
+    <script simpl-append-version="true" src="~/modules/pricing/admin/pricing.module.js"></script>
+    <script simpl-append-version="true" src="~/modules/pricing/admin/cartrule/cartrule-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/pricing/admin/cartrule/cartrule-list.js"></script>
+    <script simpl-append-version="true" src="~/modules/pricing/admin/cartrule/cartrule-form.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse">
@@ -174,6 +179,8 @@
                             <li><a ui-sref="users">@Localizer["Users"]</a></li>
                             <li><a ui-sref="vendors">@Localizer["Vendors"]</a></li>
                             <li><a ui-sref="reviews">@Localizer["Reviews"]</a></li>
+                            <li><a ui-sref="contact-area">@Localizer["Manage Contact Area"]</a></li>
+                            <li><a ui-sref="contact">@Localizer["Manage Contact"]</a></li>
                         </ul>
                     </li>
                     }
@@ -183,12 +190,12 @@
                             <li><a ui-sref="product">@Localizer["Products"]</a></li>
                             @if(User.IsInRole("admin"))
                             {
-                            <li><a ui-sref="category">@Localizer["Categories"]</a></li>
-                            <li><a ui-sref="brand">@Localizer["Brands"]</a></li>
-                            <li><a ui-sref="product-option">@Localizer["Product Options"]</a></li>
-                            <li><a ui-sref="product-attribute-group">@Localizer["Product Attribute Groups"]</a></li>
-                            <li><a ui-sref="product-attribute">@Localizer["Product Attributes"]</a></li>
-                            <li><a ui-sref="product-template">@Localizer["Product Templates"]</a></li>
+                                <li><a ui-sref="category">@Localizer["Categories"]</a></li>
+                                <li><a ui-sref="brand">@Localizer["Brands"]</a></li>
+                                <li><a ui-sref="product-option">@Localizer["Product Options"]</a></li>
+                                <li><a ui-sref="product-attribute-group">@Localizer["Product Attribute Groups"]</a></li>
+                                <li><a ui-sref="product-attribute">@Localizer["Product Attributes"]</a></li>
+                                <li><a ui-sref="product-template">@Localizer["Product Templates"]</a></li>
                             }
                         </ul>
                     </li>
@@ -201,7 +208,13 @@
                     @if (User.IsInRole("admin"))
                     {
                     <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Content Management"] <span class="caret"></span></a>
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Promotions"] <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="cartrule">@Localizer["Cart Price Rules"]</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Content"] <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a ui-sref="page">@Localizer["Pages"]</a></li>
                             <li><a ui-sref="menus">@Localizer["Menus"]</a></li>
@@ -215,13 +228,6 @@
                         <ul class="dropdown-menu">
                             <li><a ui-sref="configuration">@Localizer["Configuration"]</a></li>
                             <li><a ui-sref="localization">@Localizer["Translations"]</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Contact Management"] <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a ui-sref="contact-area">@Localizer["Manage Contact Area"]</a></li>
-                            <li><a ui-sref="contact">@Localizer["Manage Contact"]</a></li>
                         </ul>
                     </li>
                     }
