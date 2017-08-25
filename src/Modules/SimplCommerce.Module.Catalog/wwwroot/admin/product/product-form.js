@@ -157,7 +157,7 @@
 
         vm.isAddVariationFormValid = function () {
             var i;
-            if (!(!isNaN(vm.addingVariation.price) && angular.isNumber(+vm.addingVariation.price))) {
+            if (isNaN(vm.addingVariation.price) || vm.addingVariation.price === '') {
                 return false;
             }
 
