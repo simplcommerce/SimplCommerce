@@ -555,6 +555,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 else
                 {
                     optionValue.Value = JsonConvert.SerializeObject(optionVm.Values);
+                    optionValue.DisplayType = optionVm.DisplayType;
                     optionValue.SortIndex = optionIndex;
                 }
 

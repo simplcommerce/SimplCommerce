@@ -157,7 +157,7 @@
 
         vm.isAddVariationFormValid = function () {
             var i;
-            if (!angular.isNumber(vm.addingVariation.price)) {
+            if (!(!isNaN(vm.addingVariation.price) && angular.isNumber(+vm.addingVariation.price))) {
                 return false;
             }
 
@@ -198,6 +198,8 @@
             if (!vm.product.variations.find(function (item) { return item.name === variation.name; })) {
                 vm.product.variations.push(variation);
                 vm.addingVariation = { price: vm.product.price };
+            } else {
+                toastr.error('The ' + variation.name + ' has been existing');
             }
         };
 
