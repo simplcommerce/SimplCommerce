@@ -84,6 +84,10 @@ namespace SimplCommerce.Module.Core.Data
                     .WithMany()
                     .OnDelete(DeleteBehavior.Restrict);
             });
+
+            modelBuilder.Entity<CustomerGroup>()
+                .HasIndex(d => d.Name)
+                .IsUnique();
         }
     }
 }
