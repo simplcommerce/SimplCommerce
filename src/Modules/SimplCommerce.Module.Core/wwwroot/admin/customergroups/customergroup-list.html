@@ -1,0 +1,59 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{::vm.translate.get('Customer Groups')}}</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <a ui-sref="customergroup-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create Customer Group')}}</a>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped" st-pipe="vm.getCustomerGroups" st-table="vm.customergroups">
+    <thead>
+        <tr>
+            <th st-sort="Name" class="sortable">{{::vm.translate.get('Name')}}</th>
+            <th st-sort="Description" class="sortable">{{::vm.translate.get('Description')}}</th>
+            <th class="text-center">{{::vm.translate.get('Is Active')}}</th>
+            <th st-sort="CreatedOn" class="sortable">{{::vm.translate.get('Created On')}}</th>
+            <th>{{::vm.translate.get('Actions')}}</th>
+        </tr>
+        <tr>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="Name" />
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="Description" />
+                </div>
+            </th>
+            <th></th>
+            <th><st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-show="!vm.isLoading">
+        <tr ng-repeat="customergroup in vm.customergroups">
+            <td>{{customergroup.name}}</td>
+            <td>{{customergroup.description}}</td>
+            <td class="text-center"><i ng-attr-class="{{customergroup.isActive && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+            <td>{{customergroup.createdOn | date:'medium' }}</td>
+            <td>
+                <a ui-sref="customergroup-edit({id: customergroup.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+                <button ng-click="vm.deleteCustomerGroup(customergroup)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+            </td>
+        </tr>
+    </tbody>
+    <tbody ng-show="vm.isLoading">
+        <tr>
+            <td colspan="5" class="text-center">Loading ... </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="5"></td>
+        </tr>
+    </tfoot>
+</table>

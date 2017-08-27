@@ -872,6 +872,7 @@ INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (1, 'Category
 INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (1, 'Brand', 'Nhãn hiệu');
 INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (1, 'Sort by:', 'Sắp xếp theo:');
 INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (1, 'results', 'kết quả');
+INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (1, 'Customer Groups', 'Nhóm khách hàng');
 
 INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (2, 'Register', 'S''inscrire');
 INSERT INTO Localization_Resource (CultureId, `Key`, Value) VALUES (2, 'Hello {0}!', 'Bonjour {0}!');

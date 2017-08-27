@@ -294,6 +294,7 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Ed
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Create Address', 'Tạo địa chỉ mới');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Your account', 'Tài khoản của bạn');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Date', 'Ngày');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (1, 'Customer Groups', 'Nhóm khách hàng');
 
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Register', 'S''inscrire');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (2, 'Hello {0}!', 'Bonjour {0}!');

@@ -1066,6 +1066,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Create Address', N'Tạo địa chỉ mới')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Your account', N'Tài khoản của bạn')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Date', N'Ngày')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (1, N'Customer Groups', N'Nhóm khách hàng')
 GO
 
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (2, N'Register', N'S''inscrire')
