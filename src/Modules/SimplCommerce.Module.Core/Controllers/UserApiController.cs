@@ -29,6 +29,10 @@ namespace SimplCommerce.Module.Core.Controllers
         public IActionResult List([FromBody] SmartTableParam param)
         {
             var query = _userRepository.Query()
+                .Include(x => x.Roles)
+                    .ThenInclude(x => x.Role)
+                .Include(x => x.CustomerGroups)
+                    .ThenInclude(x => x.CustomerGroup)
                 .Where(x => !x.IsDeleted);
 
             if (param.Search.PredicateObject != null)
@@ -46,6 +50,27 @@ namespace SimplCommerce.Module.Core.Controllers
                     string fullName = search.FullName;
                     query = query.Where(x => x.FullName.Contains(fullName));
                 }
+
+                if (search.Role != null)
+                {
+                    string roleName = search.Role;
+
+                    query = ((from i in query
+                              from p in i.Roles
+                              where p.Role.Name.Contains(roleName)
+                              select i) as IQueryable<User>);
+                }
+
+                if (search.CustomerGroup != null)
+                {
+                    string customerGroupName = search.CustomerGroup;
+
+                    query = ((from i in query
+                              from p in i.CustomerGroups
+                              where p.CustomerGroup.Name.Contains(customerGroupName)
+                              select i) as IQueryable<User>);
+                }
+
 
                 if (search.CreatedOn != null)
                 {
@@ -71,7 +96,8 @@ namespace SimplCommerce.Module.Core.Controllers
                     Email = user.Email,
                     FullName = user.FullName,
                     CreatedOn = user.CreatedOn,
-                    Roles = string.Join(", ", user.Roles.Select(x => x.Role.Name))
+                    Roles = string.Join(", ", user.Roles.Select(x => x.Role.Name)),
+                    CustomerGroups = string.Join(", ", user.CustomerGroups.Select(x => x.CustomerGroup.Name))
                 });
 
             return Json(users);
@@ -80,7 +106,10 @@ namespace SimplCommerce.Module.Core.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
-            var user = _userRepository.Query().Include(x => x.Roles).FirstOrDefault(x => x.Id == id);
+            var user = _userRepository.Query()
+                .Include(x => x.Roles)
+                .Include(x => x.CustomerGroups)
+                .FirstOrDefault(x => x.Id == id);
 
             var model = new UserForm
             {
@@ -89,7 +118,8 @@ namespace SimplCommerce.Module.Core.Controllers
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 VendorId = user.VendorId,
-                RoleIds = user.Roles.Select(x => x.RoleId).ToList()
+                RoleIds = user.Roles.Select(x => x.RoleId).ToList(),
+                CustomerGroupIds = user.CustomerGroups.Select(x => x.CustomerGroupId).ToList()
             };
 
             return Json(model);
@@ -109,7 +139,7 @@ namespace SimplCommerce.Module.Core.Controllers
                     VendorId = model.VendorId
                 };
 
-                foreach(var roleId in model.RoleIds)
+                foreach (var roleId in model.RoleIds)
                 {
                     var userRole = new UserRole
                     {
@@ -118,6 +148,14 @@ namespace SimplCommerce.Module.Core.Controllers
 
                     user.Roles.Add(userRole);
                     userRole.User = user;
+                }
+
+                foreach (var customergroupId in model.CustomerGroupIds)
+                {
+                    var userCustomerGroup = new UserCustomerGroup
+                    {
+                        CustomerGroupId = customergroupId
+                    };
                 }
 
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -137,13 +175,18 @@ namespace SimplCommerce.Module.Core.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _userRepository.Query().Include(x => x.Roles).FirstOrDefault(x => x.Id == id);
+                var user = _userRepository.Query()
+                    .Include(x => x.Roles)
+                    .Include(x => x.CustomerGroups)
+                    .FirstOrDefault(x => x.Id == id);
+
                 user.Email = model.Email;
                 user.UserName = model.Email;
                 user.FullName = model.FullName;
                 user.PhoneNumber = model.PhoneNumber;
                 user.VendorId = model.VendorId;
                 AddOrDeleteRoles(model, user);
+                AddOrDeleteCustomerGroups(model, user);
 
                 var result = await _userManager.UpdateAsync(user);
 
@@ -197,6 +240,34 @@ namespace SimplCommerce.Module.Core.Controllers
             {
                 deletedUserRole.User = null;
                 user.Roles.Remove(deletedUserRole);
+            }
+        }
+
+        private void AddOrDeleteCustomerGroups(UserForm model, User user)
+        {
+            foreach (var customergroupId in model.CustomerGroupIds)
+            {
+                if (user.CustomerGroups.Any(x => x.CustomerGroupId == customergroupId))
+                {
+                    continue;
+                }
+
+                var userCustomerGroup = new UserCustomerGroup
+                {
+                    CustomerGroupId = customergroupId,
+                    User = user
+                };
+                user.CustomerGroups.Add(userCustomerGroup);
+            }
+
+            var deletedUserCustomerGroups =
+                user.CustomerGroups.Where(userCustomerGroup => !model.CustomerGroupIds.Contains(userCustomerGroup.CustomerGroupId))
+                    .ToList();
+
+            foreach (var deletedUserCustomerGroup in deletedUserCustomerGroups)
+            {
+                deletedUserCustomerGroup.User = null;
+                user.CustomerGroups.Remove(deletedUserCustomerGroup);
             }
         }
 
