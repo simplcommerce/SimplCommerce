@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Infrastructure.Web.SmartTable;
-using Microsoft.AspNetCore.Authorization;
+using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.ViewModels;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
 
 namespace SimplCommerce.Module.Core.Controllers
 {
@@ -68,6 +68,7 @@ namespace SimplCommerce.Module.Core.Controllers
 
             return Json(customerGroups);
         }
+
         public IActionResult Get()
         {
             var customerGroups = _customergroupRepository.Query().Select(x => new
@@ -107,6 +108,7 @@ namespace SimplCommerce.Module.Core.Controllers
                         Description = model.Description,
                         IsActive = model.IsActive
                     };
+
                     _customergroupRepository.Add(customergroup);
                     _customergroupRepository.SaveChange();
                     return Ok();
@@ -119,7 +121,8 @@ namespace SimplCommerce.Module.Core.Controllers
                     ModelState.AddModelError("Name", $"The Name '{model.Name}' is already in use, please enter a different name.");
                     return new BadRequestObjectResult(ModelState);
                 }
-                ModelState.AddModelError("", "Unable to create customer group.  Please try again.");
+
+                throw;
             }
             return new BadRequestObjectResult(ModelState);
         }
@@ -148,7 +151,8 @@ namespace SimplCommerce.Module.Core.Controllers
                         ModelState.AddModelError("Name", $"The Name '{model.Name}' is already in use, please enter a different name.");
                         return new BadRequestObjectResult(ModelState);
                     }
-                    ModelState.AddModelError("", "Unable to create customer group.  Please try again.");
+
+                    throw;
                 }
             }
             return new BadRequestObjectResult(ModelState);
@@ -162,19 +166,13 @@ namespace SimplCommerce.Module.Core.Controllers
             {
                 return new NotFoundResult();
             }
+
             customergroup.IsDeleted = true;
-            try
-            {
-                _customergroupRepository.SaveChange();
-                return Json(true);
-            }
-            catch (DbUpdateException)
-            {
-                ModelState.AddModelError("", "Unable to update customer group.  Please try again.");
-                return new BadRequestObjectResult(ModelState);
-            }
+            _customergroupRepository.SaveChange();
+            return Json(true);
         }
     }
+
     public static class ExceptionHelper
     {
         private static Exception GetInnermostException(Exception ex)

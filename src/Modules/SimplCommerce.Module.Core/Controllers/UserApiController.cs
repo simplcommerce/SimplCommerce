@@ -54,7 +54,6 @@ namespace SimplCommerce.Module.Core.Controllers
                 if (search.Role != null)
                 {
                     string roleName = search.Role;
-
                     query = ((from i in query
                               from p in i.Roles
                               where p.Role.Name.Contains(roleName)
@@ -64,13 +63,11 @@ namespace SimplCommerce.Module.Core.Controllers
                 if (search.CustomerGroup != null)
                 {
                     string customerGroupName = search.CustomerGroup;
-
                     query = ((from i in query
                               from p in i.CustomerGroups
                               where p.CustomerGroup.Name.Contains(customerGroupName)
                               select i) as IQueryable<User>);
                 }
-
 
                 if (search.CreatedOn != null)
                 {

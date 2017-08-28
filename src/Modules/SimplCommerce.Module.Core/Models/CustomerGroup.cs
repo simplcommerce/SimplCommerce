@@ -1,6 +1,6 @@
-﻿using SimplCommerce.Infrastructure.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Core.Models
 {
@@ -11,12 +11,19 @@ namespace SimplCommerce.Module.Core.Models
             CreatedOn = DateTimeOffset.Now;
             UpdatedOn = DateTimeOffset.Now;
         }
+
         public string Name { get; set; }
+
         public string Description { get; set; }
+
         public bool IsActive { get; set; }
+
         public bool IsDeleted { get; set; }
+
         public DateTimeOffset CreatedOn { get; set; }
+
         public DateTimeOffset UpdatedOn { get; set; }
+
         public IList<UserCustomerGroup> Users { get; set; } = new List<UserCustomerGroup>();
     }
 }
