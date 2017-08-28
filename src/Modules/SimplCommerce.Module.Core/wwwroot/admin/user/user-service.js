@@ -13,7 +13,8 @@
             editUser: editUser,
             deleteUser: deleteUser,
             getRoles: getRoles,
-            getVendors: getVendors
+            getVendors: getVendors,
+            getCustomerGroups: getCustomerGroups
         };
         return service;
 
@@ -43,6 +44,10 @@
 
         function getVendors() {
             return $http.get('api/vendors');
+        }
+
+        function getCustomerGroups() {
+            return $http.get('api/customergroups');
         }
     }
 })();
