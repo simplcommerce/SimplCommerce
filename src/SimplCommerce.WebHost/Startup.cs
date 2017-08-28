@@ -12,6 +12,8 @@ using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Localization;
 using SimplCommerce.WebHost.Extensions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Antiforgery;
 
 namespace SimplCommerce.WebHost
 {
@@ -39,6 +41,7 @@ namespace SimplCommerce.WebHost
             services.AddScoped<SignInManager<User>, SimplSignInManager<User>>();
             services.AddScoped<IWorkContext, WorkContext>();
             services.AddCloudscribePagination();
+            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-Token");
 
             services.Configure<RazorViewEngineOptions>(
                 options => { options.ViewLocationExpanders.Add(new ModuleViewLocationExpander()); });
@@ -48,7 +51,7 @@ namespace SimplCommerce.WebHost
             return services.Build(_configuration, _hostingEnvironment);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IAntiforgery antiforgery)
         {
             if (env.IsDevelopment())
             {
@@ -65,6 +68,18 @@ namespace SimplCommerce.WebHost
             app.UseCustomizedRequestLocalization();
             app.UseCustomizedStaticFiles(env);
             app.UseCustomizedIdentity();
+            app.Use(async (context, next) =>
+            {
+                string path = context.Request.Path.Value;
+                if (path != null && !path.ToLower().Contains("/api"))
+                {
+                    var tokens = antiforgery.GetAndStoreTokens(context);
+                    context.Response.Cookies.Append("XSRF-TOKEN",
+                      tokens.RequestToken, new CookieOptions { HttpOnly = false }
+                    );
+                }
+                await next();
+            });
             app.UseCustomizedMvc();
         }
     }
