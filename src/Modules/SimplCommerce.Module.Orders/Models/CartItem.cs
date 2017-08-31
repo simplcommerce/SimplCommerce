@@ -1,7 +1,6 @@
 ﻿using System;
 using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Catalog.Models;
-using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Orders.Models
 {
@@ -9,14 +8,14 @@ namespace SimplCommerce.Module.Orders.Models
     {
         public DateTimeOffset CreatedOn { get; set; }
 
-        public long UserId { get; set; }
-
-        public virtual User User { get; set; }
-
         public long ProductId { get; set; }
 
-        public virtual Product Product { get; set; }
+        public Product Product { get; set; }
 
         public int Quantity { get; set; }
+
+        public long CartId { get; set; }
+
+        public Cart Cart { get; set; }
     }
 }

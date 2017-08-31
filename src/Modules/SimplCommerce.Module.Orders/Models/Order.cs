@@ -23,6 +23,12 @@ namespace SimplCommerce.Module.Orders.Models
 
         public long? VendorId { get; set; }
 
+        public string CouponCode { get; set; }
+
+        public string CouponRuleName { get; set; }
+
+        public decimal Discount { get; set; }
+
         public decimal SubTotal { get; set; }
 
         public long ShippingAddressId { get; set; }

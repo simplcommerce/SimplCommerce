@@ -1,74 +1,130 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Orders.Models;
+using SimplCommerce.Module.Orders.ViewModels;
+using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.Pricing.Services;
 
 namespace SimplCommerce.Module.Orders.Services
 {
     public class CartService : ICartService
     {
+        private readonly IRepository<Cart> _cartRepository;
         private readonly IRepository<CartItem> _cartItemRepository;
+        private readonly IMediaService _mediaService;
+        private readonly ICouponService _couponService;
 
-        public CartService(IRepository<CartItem> cartItemRepository)
+        public CartService(IRepository<Cart> cartRepository, IRepository<CartItem> cartItemRepository, ICouponService couponService, IMediaService mediaService)
         {
+            _cartRepository = cartRepository;
             _cartItemRepository = cartItemRepository;
+            _couponService = couponService;
+            _mediaService = mediaService;
         }
 
-        public CartItem AddToCart(long userId, long productId, string variationName, int quantity)
+        public void AddToCart(long userId, long productId, int quantity)
         {
+            var cart = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.UserId == userId && x.IsActive);
+            if(cart == null)
+            {
+                cart = new Cart
+                {
+                    UserId = userId
+                };
 
-            var cartItemQuery = _cartItemRepository
-                .Query()
-                .Include(x => x.Product)
-                .Where(x => x.ProductId == productId && x.UserId == userId);
-
-            var cartItem = cartItemQuery.FirstOrDefault();
-
+                _cartRepository.Add(cart);
+            }
+            var cartItem = cart.Items.FirstOrDefault(x => x.ProductId == productId);
             if (cartItem == null)
             {
                 cartItem = new CartItem
                 {
-                    UserId = userId,
+                    Cart = cart,
                     ProductId = productId,
                     Quantity = quantity,
                     CreatedOn = DateTimeOffset.Now
                 };
 
-                _cartItemRepository.Add(cartItem);
+                cart.Items.Add(cartItem);
             }
             else
             {
                 cartItem.Quantity = quantity;
             }
 
-            _cartItemRepository.SaveChange();
-
-            return cartItem;
+            _cartRepository.SaveChange();
         }
 
-        public IList<CartItem> GetCartItems(long userId)
+        // TODO separate getting product thumbnail, varation options from here
+        public async Task<CartVm> GetCart(long userId)
         {
-            IQueryable<CartItem> query = _cartItemRepository
+            var cart = _cartRepository.Query().FirstOrDefault(x => x.UserId == userId && x.IsActive);
+            if(cart == null)
+            {
+                return new CartVm();
+            }
+
+            var cartVm = new CartVm()
+            {
+                Id = cart.Id,
+                CouponCode = cart.CouponCode,
+            };
+
+            cartVm.Items = _cartItemRepository
                 .Query()
                 .Include(x => x.Product).ThenInclude(p => p.ThumbnailImage)
                 .Include(x => x.Product).ThenInclude(p => p.OptionCombinations).ThenInclude(o => o.Option)
-                .Where(x => x.UserId == userId);
+                .Where(x => x.CartId == cart.Id)
+                .Select(x => new CartItemVm
+                {
+                    Id = x.Id,
+                    ProductId = x.ProductId,
+                    ProductName = x.Product.Name,
+                    ProductPrice = x.Product.Price,
+                    ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
+                    Quantity = x.Quantity,
+                    VariationOptions = CartItemVm.GetVariationOption(x.Product)
+                }).ToList();
 
-            return query.ToList();
+            cartVm.SubTotal = cartVm.Items.Sum(x => x.Quantity * x.ProductPrice);
+            if(!string.IsNullOrWhiteSpace(cartVm.CouponCode))
+            {
+                var couponValidationResult = await _couponService.Validate(cartVm.CouponCode);
+                if (couponValidationResult.Succeeded)
+                {
+                    cartVm.Discount = couponValidationResult.DiscountAmount;
+                }
+            }
+
+            return cartVm;
+        }
+
+        public async Task<CouponValidationResult> ApplyCoupon(long userId, string couponCode)
+        {
+            var couponValidationResult = await _couponService.Validate(couponCode);
+            if (couponValidationResult.Succeeded)
+            {
+                var cart = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.UserId == userId && x.IsActive);
+                cart.CouponCode = couponCode;
+                cart.CouponRuleName = couponValidationResult.CouponRuleName;
+                _cartItemRepository.SaveChange();
+            }
+
+            return couponValidationResult;
         }
 
         public void MigrateCart(long fromUserId, long toUserId)
         {
-            var cartItems = _cartItemRepository.Query().Where(x => x.UserId == fromUserId);
-
-            foreach (var cartItem in cartItems)
+            var cart = _cartRepository.Query().FirstOrDefault(x => x.UserId == fromUserId && x.IsActive);
+            if (cart != null)
             {
-                cartItem.UserId = toUserId;
+                cart.UserId = toUserId;
             }
 
-            _cartItemRepository.SaveChange();
+            _cartRepository.SaveChange();
         }
     }
 }

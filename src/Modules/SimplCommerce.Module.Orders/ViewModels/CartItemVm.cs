@@ -4,9 +4,11 @@ using SimplCommerce.Module.Catalog.Models;
 
 namespace SimplCommerce.Module.Orders.ViewModels
 {
-    public class CartListItem
+    public class CartItemVm
     {
         public long Id { get; set; }
+
+        public long ProductId { get; set; }
 
         public string ProductName { get; set; }
 

@@ -24,7 +24,7 @@ namespace SimplCommerce.Module.Pricing.Services
         public async Task<CouponValidationResult> Validate(string couponCode)
         {
             var coupon = _couponRepository.Query().Include(x => x.CartRule).FirstOrDefault(x => x.Code == couponCode);
-            var validationResult = new CouponValidationResult { IsValid = false };
+            var validationResult = new CouponValidationResult { Succeeded = false };
 
             if(coupon == null || !coupon.CartRule.IsActive)
             {
@@ -56,7 +56,8 @@ namespace SimplCommerce.Module.Pricing.Services
             switch (coupon.CartRule.RuleToApply)
             {
                 case "cart_fixed":
-                    validationResult.IsValid = true;
+                    validationResult.Succeeded = true;
+                    validationResult.CouponRuleName = coupon.CartRule.Name;
                     validationResult.DiscountAmount = coupon.CartRule.DiscountAmount;
                     return validationResult;
                 default:

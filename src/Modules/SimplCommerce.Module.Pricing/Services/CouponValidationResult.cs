@@ -2,9 +2,11 @@
 {
     public class CouponValidationResult
     {
-        public bool IsValid { get; set; }
+        public bool Succeeded { get; set; }
 
         public decimal DiscountAmount { get; set; }
+
+        public string CouponRuleName { get; set; }
 
         public string ErrorMessage { get; set; }
     }

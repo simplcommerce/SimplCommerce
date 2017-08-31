@@ -19,8 +19,8 @@ namespace SimplCommerce.Module.Orders.Components
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cartItemCount = _cartService.GetCartItems(currentUser.Id).Count;
-            return View("/Modules/SimplCommerce.Module.Orders/Views/Components/CartBadge.cshtml", cartItemCount);
+            var cart = await _cartService.GetCart(currentUser.Id);
+            return View("/Modules/SimplCommerce.Module.Orders/Views/Components/CartBadge.cshtml", cart.Items.Count);
         }
     }
 }
