@@ -1,5 +1,6 @@
 ﻿DELETE FROM "Cms_MenuItem";
 DELETE FROM "Core_Entity";
+DELETE FROM "Orders_Cart";
 DELETE FROM "Orders_CartItem";
 DELETE FROM "Orders_OrderItem";
 DELETE FROM "Orders_Order";

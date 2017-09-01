@@ -72,7 +72,7 @@ namespace SimplCommerce.Module.Orders.Controllers
         public async Task<IActionResult> List()
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = _cartService.GetCart(currentUser.Id);
+            var cart = await _cartService.GetCart(currentUser.Id);
 
             return Json(cart);
         }
@@ -93,13 +93,13 @@ namespace SimplCommerce.Module.Orders.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> ApplyCoupon([FromBody] string couponCode)
+        public async Task<ActionResult> ApplyCoupon([FromBody] ApplyCouponForm model)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var validationResult =  await _cartService.ApplyCoupon(currentUser.Id, couponCode);
+            var validationResult =  await _cartService.ApplyCoupon(currentUser.Id, model.CouponCode);
             if (validationResult.Succeeded)
             {
-                var cart = _cartService.GetCart(currentUser.Id);
+                var cart = await _cartService.GetCart(currentUser.Id);
                 return Json(cart);
             }
 

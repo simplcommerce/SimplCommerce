@@ -19,10 +19,15 @@
                     });
                 }
 
+                function applyCoupon(couponCode) {
+                    return $http.post('Cart/ApplyCoupon', { couponCode: couponCode });
+                }
+
                 return {
                     getShoppingCartItems: getShoppingCartItems,
                     removeShoppingCartItem: removeShoppingCartItem,
-                    updateQuantity: updateQuantity
+                    updateQuantity: updateQuantity,
+                    applyCoupon: applyCoupon
                 };
             }
         ]);
