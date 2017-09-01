@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SimplCommerce.WebHost.Migrations
 {
-    public partial class RefactorCart : Migration
+    public partial class MoreOnPricing : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,8 +18,59 @@ namespace SimplCommerce.WebHost.Migrations
                 table: "Orders_CartItem");
 
             migrationBuilder.DropColumn(
+                name: "OrderId",
+                table: "Pricing_CouponUsage");
+
+            migrationBuilder.DropColumn(
+                name: "ExpirationOn",
+                table: "Pricing_Coupon");
+
+            migrationBuilder.DropColumn(
+                name: "UsageLimit",
+                table: "Pricing_Coupon");
+
+            migrationBuilder.DropColumn(
+                name: "UsageLimitPerCustomer",
+                table: "Pricing_Coupon");
+
+            migrationBuilder.DropColumn(
                 name: "UserId",
                 table: "Orders_CartItem");
+
+            migrationBuilder.AlterColumn<decimal>(
+                name: "MaxDiscountAmount",
+                table: "Pricing_CatalogRule",
+                type: "decimal(18, 2)",
+                nullable: true,
+                oldClrType: typeof(decimal));
+
+            migrationBuilder.AlterColumn<int>(
+                name: "UsageLimitPerCustomer",
+                table: "Pricing_CartRule",
+                type: "int",
+                nullable: true,
+                oldClrType: typeof(int));
+
+            migrationBuilder.AlterColumn<int>(
+                name: "UsageLimitPerCoupon",
+                table: "Pricing_CartRule",
+                type: "int",
+                nullable: true,
+                oldClrType: typeof(int));
+
+            migrationBuilder.AlterColumn<decimal>(
+                name: "MaxDiscountAmount",
+                table: "Pricing_CartRule",
+                type: "decimal(18, 2)",
+                nullable: true,
+                oldClrType: typeof(decimal));
+
+            migrationBuilder.AlterColumn<int>(
+                name: "DiscountStep",
+                table: "Pricing_CartRule",
+                type: "int",
+                nullable: true,
+                oldClrType: typeof(int));
 
             migrationBuilder.AddColumn<string>(
                 name: "CouponCode",
@@ -35,6 +86,13 @@ namespace SimplCommerce.WebHost.Migrations
 
             migrationBuilder.AddColumn<decimal>(
                 name: "Discount",
+                table: "Orders_Order",
+                type: "decimal(18, 2)",
+                nullable: false,
+                defaultValue: 0m);
+
+            migrationBuilder.AddColumn<decimal>(
+                name: "SubTotalWithDiscount",
                 table: "Orders_Order",
                 type: "decimal(18, 2)",
                 nullable: false,
@@ -116,8 +174,75 @@ namespace SimplCommerce.WebHost.Migrations
                 table: "Orders_Order");
 
             migrationBuilder.DropColumn(
+                name: "SubTotalWithDiscount",
+                table: "Orders_Order");
+
+            migrationBuilder.DropColumn(
                 name: "CartId",
                 table: "Orders_CartItem");
+
+            migrationBuilder.AddColumn<long>(
+                name: "OrderId",
+                table: "Pricing_CouponUsage",
+                nullable: false,
+                defaultValue: 0L);
+
+            migrationBuilder.AddColumn<DateTimeOffset>(
+                name: "ExpirationOn",
+                table: "Pricing_Coupon",
+                nullable: true);
+
+            migrationBuilder.AddColumn<int>(
+                name: "UsageLimit",
+                table: "Pricing_Coupon",
+                nullable: false,
+                defaultValue: 0);
+
+            migrationBuilder.AddColumn<int>(
+                name: "UsageLimitPerCustomer",
+                table: "Pricing_Coupon",
+                nullable: false,
+                defaultValue: 0);
+
+            migrationBuilder.AlterColumn<decimal>(
+                name: "MaxDiscountAmount",
+                table: "Pricing_CatalogRule",
+                nullable: false,
+                oldClrType: typeof(decimal),
+                oldType: "decimal(18, 2)",
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<int>(
+                name: "UsageLimitPerCustomer",
+                table: "Pricing_CartRule",
+                nullable: false,
+                oldClrType: typeof(int),
+                oldType: "int",
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<int>(
+                name: "UsageLimitPerCoupon",
+                table: "Pricing_CartRule",
+                nullable: false,
+                oldClrType: typeof(int),
+                oldType: "int",
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<decimal>(
+                name: "MaxDiscountAmount",
+                table: "Pricing_CartRule",
+                nullable: false,
+                oldClrType: typeof(decimal),
+                oldType: "decimal(18, 2)",
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<int>(
+                name: "DiscountStep",
+                table: "Pricing_CartRule",
+                nullable: false,
+                oldClrType: typeof(int),
+                oldType: "int",
+                oldNullable: true);
 
             migrationBuilder.AddColumn<long>(
                 name: "UserId",

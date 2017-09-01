@@ -11,8 +11,8 @@ using System;
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    [Migration("20170901053848_RefactorCart")]
-    partial class RefactorCart
+    [Migration("20170901192956_MoreOnPricing")]
+    partial class MoreOnPricing
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1188,6 +1188,8 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<decimal>("SubTotal");
 
+                    b.Property<decimal>("SubTotalWithDiscount");
+
                     b.Property<DateTimeOffset?>("UpdatedOn");
 
                     b.Property<long?>("VendorId");
@@ -1266,7 +1268,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<decimal>("DiscountAmount");
 
-                    b.Property<int>("DiscountStep");
+                    b.Property<int?>("DiscountStep");
 
                     b.Property<DateTimeOffset?>("EndOn");
 
@@ -1274,7 +1276,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<bool>("IsCouponRequired");
 
-                    b.Property<decimal>("MaxDiscountAmount");
+                    b.Property<decimal?>("MaxDiscountAmount");
 
                     b.Property<string>("Name");
 
@@ -1282,9 +1284,9 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<DateTimeOffset?>("StartOn");
 
-                    b.Property<int>("UsageLimitPerCoupon");
+                    b.Property<int?>("UsageLimitPerCoupon");
 
-                    b.Property<int>("UsageLimitPerCustomer");
+                    b.Property<int?>("UsageLimitPerCustomer");
 
                     b.HasKey("Id");
 
@@ -1326,7 +1328,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<bool>("IsActive");
 
-                    b.Property<decimal>("MaxDiscountAmount");
+                    b.Property<decimal?>("MaxDiscountAmount");
 
                     b.Property<string>("Name");
 
@@ -1372,12 +1374,6 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<DateTimeOffset>("CreatedOn");
 
-                    b.Property<DateTimeOffset?>("ExpirationOn");
-
-                    b.Property<int>("UsageLimit");
-
-                    b.Property<int>("UsageLimitPerCustomer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CartRuleId");
@@ -1391,8 +1387,6 @@ namespace SimplCommerce.WebHost.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<long>("CouponId");
-
-                    b.Property<long>("OrderId");
 
                     b.Property<DateTimeOffset>("UsedOn");
 
