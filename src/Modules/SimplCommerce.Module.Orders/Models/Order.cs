@@ -31,6 +31,8 @@ namespace SimplCommerce.Module.Orders.Models
 
         public decimal SubTotal { get; set; }
 
+        public decimal SubTotalWithDiscount { get; set; }
+
         public long ShippingAddressId { get; set; }
 
         public OrderAddress ShippingAddress { get; set; }

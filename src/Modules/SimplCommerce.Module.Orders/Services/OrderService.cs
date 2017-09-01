@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Orders.Models;
+using SimplCommerce.Module.Pricing.Services;
 
 namespace SimplCommerce.Module.Orders.Services
 {
@@ -11,14 +13,16 @@ namespace SimplCommerce.Module.Orders.Services
     {
         private readonly IRepository<Cart> _cartRepository;
         private readonly IRepository<Order> _orderRepository;
+        private readonly ICouponService _couponService;
 
-        public OrderService(IRepository<Order> orderRepository, IRepository<Cart> cartRepository)
+        public OrderService(IRepository<Order> orderRepository, IRepository<Cart> cartRepository, ICouponService couponService)
         {
             _orderRepository = orderRepository;
             _cartRepository = cartRepository;
+            _couponService = couponService;
         }
 
-        public void CreateOrder(User user, Address billingAddress, Address shippingAddress)
+        public async Task CreateOrder(User user, Address billingAddress, Address shippingAddress)
         {
             var cart = _cartRepository
                 .Query()
@@ -28,6 +32,21 @@ namespace SimplCommerce.Module.Orders.Services
             if(cart == null)
             {
                 throw new ApplicationException($"Cart of user {user.Id} can no be found");
+            }
+
+            decimal discount = 0;
+            if (!string.IsNullOrWhiteSpace(cart.CouponCode))
+            {
+                var couponValidationResult = await _couponService.Validate(cart.CouponCode);
+                if (couponValidationResult.Succeeded)
+                {
+                    discount = couponValidationResult.DiscountAmount;
+                    _couponService.AddCouponUsage(user.Id, couponValidationResult.CouponId);
+                }
+                else
+                {
+                    throw new ApplicationException($"Unable to apply coupon {cart.CouponCode}. {couponValidationResult.ErrorMessage}");
+                }
             }
 
             var orderBillingAddress = new OrderAddress()
@@ -70,8 +89,13 @@ namespace SimplCommerce.Module.Orders.Services
             }
 
             order.CouponCode = cart.CouponCode;
+            order.CouponRuleName = cart.CouponRuleName;
+            order.Discount = discount;
             order.SubTotal = order.OrderItems.Sum(x => x.ProductPrice * x.Quantity);
+            order.SubTotalWithDiscount = order.SubTotal - discount;
             _orderRepository.Add(order);
+
+            cart.IsActive = false;
 
             var vendorIds = cart.Items.Where(x => x.Product.VendorId.HasValue).Select(x => x.Product.VendorId.Value).Distinct();
             foreach(var vendorId in vendorIds)

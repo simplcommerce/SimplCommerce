@@ -20,7 +20,7 @@ namespace SimplCommerce.Module.Pricing.Models
 
         public decimal DiscountAmount { get; set; }
 
-        public decimal MaxDiscountAmount { get; set; }
+        public decimal? MaxDiscountAmount { get; set; }
 
         public IList<CatalogRuleCustomerGroup> CustomerGroups { get; set; } = new List<CatalogRuleCustomerGroup>();
     }

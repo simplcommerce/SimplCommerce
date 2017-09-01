@@ -150,7 +150,9 @@ namespace SimplCommerce.Module.Orders.Controllers
                 OrderStatus = (int) order.OrderStatus,
                 OrderStatusString = order.OrderStatus.ToString(),
                 CustomerName = order.CreatedBy.FullName,
-                SubTotal = order.SubTotal,
+                Subtotal = order.SubTotal,
+                Discount = order.Discount,
+                SubTotalWithDiscount = order.SubTotalWithDiscount,
                 ShippingAddress = new ShippingAddressVm
                 {
                     AddressLine1 = order.ShippingAddress.AddressLine1,

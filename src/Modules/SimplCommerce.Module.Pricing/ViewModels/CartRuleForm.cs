@@ -1,9 +1,13 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace SimplCommerce.Module.Pricing.ViewModels
 {
     public class CartRuleForm
     {
+        public long Id { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -18,16 +22,18 @@ namespace SimplCommerce.Module.Pricing.ViewModels
 
         public string CouponCode { get; set; }
 
+        [Required]
         public string RuleToApply { get; set; }
 
+        [Required]
         public decimal DiscountAmount { get; set; }
 
-        public decimal MaxDiscountAmount { get; set; }
+        public decimal? MaxDiscountAmount { get; set; }
 
-        public int DiscountStep { get; set; }
+        public int? DiscountStep { get; set; }
 
-        public int UsageLimitPerCoupon { get; set; }
+        public int? UsageLimitPerCoupon { get; set; }
 
-        public int UsageLimitPerCustomer { get; set; }
+        public int? UsageLimitPerCustomer { get; set; }
     }
 }

@@ -16,12 +16,6 @@ namespace SimplCommerce.Module.Pricing.Models
 
         public string Code { get; set; }
 
-        public int UsageLimit { get; set; }
-
-        public int UsageLimitPerCustomer { get; set; }
-
         public DateTimeOffset CreatedOn { get; set; }
-
-        public DateTimeOffset? ExpirationOn { get; set; }
     }
 }

@@ -22,13 +22,13 @@ namespace SimplCommerce.Module.Pricing.Models
 
         public decimal DiscountAmount { get; set; }
 
-        public decimal MaxDiscountAmount { get; set; }
+        public decimal? MaxDiscountAmount { get; set; }
 
-        public int DiscountStep { get; set; }
+        public int? DiscountStep { get; set; }
 
-        public int UsageLimitPerCoupon { get; set; }
+        public int? UsageLimitPerCoupon { get; set; }
 
-        public int UsageLimitPerCustomer { get; set; }
+        public int? UsageLimitPerCustomer { get; set; }
 
         public IList<Coupon> Coupons { get; set; } = new List<Coupon>();
 

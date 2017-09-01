@@ -32,14 +32,20 @@ namespace SimplCommerce.Module.Pricing.Services
                 return validationResult;
             }
 
-            if (coupon.ExpirationOn.HasValue && coupon.ExpirationOn <= DateTimeOffset.Now)
+            if (coupon.CartRule.StartOn.HasValue && coupon.CartRule.StartOn > DateTimeOffset.Now)
+            {
+                validationResult.ErrorMessage = $"The coupon {couponCode} should be used after {coupon.CartRule.StartOn}.";
+                return validationResult;
+            }
+
+            if (coupon.CartRule.EndOn.HasValue && coupon.CartRule.EndOn <= DateTimeOffset.Now)
             {
                 validationResult.ErrorMessage = $"The coupon {couponCode} is expired.";
                 return validationResult;
             }
 
             var couponUsageCount = _couponUsageRepository.Query().Count(x => x.CouponId == coupon.Id);
-            if(couponUsageCount >= coupon.UsageLimit)
+            if(coupon.CartRule.UsageLimitPerCoupon.HasValue && couponUsageCount >= coupon.CartRule.UsageLimitPerCoupon)
             {
                 validationResult.ErrorMessage = $"The coupon {couponCode} is all used.";
                 return validationResult;
@@ -47,9 +53,9 @@ namespace SimplCommerce.Module.Pricing.Services
 
             var currentCustomer = await _workContext.GetCurrentUser();
             var couponUsageByCustomerCount = _couponUsageRepository.Query().Count(x => x.CouponId == coupon.Id && x.UserId == currentCustomer.Id);
-            if (couponUsageCount >= coupon.UsageLimitPerCustomer)
+            if (coupon.CartRule.UsageLimitPerCustomer.HasValue && couponUsageCount >= coupon.CartRule.UsageLimitPerCustomer)
             {
-                validationResult.ErrorMessage = $"You can use the coupon {couponCode} only {coupon.UsageLimitPerCustomer} times";
+                validationResult.ErrorMessage = $"You can use the coupon {couponCode} only {coupon.CartRule.UsageLimitPerCustomer} times";
                 return validationResult;
             }
 
@@ -59,10 +65,22 @@ namespace SimplCommerce.Module.Pricing.Services
                     validationResult.Succeeded = true;
                     validationResult.CouponRuleName = coupon.CartRule.Name;
                     validationResult.DiscountAmount = coupon.CartRule.DiscountAmount;
+                    validationResult.CouponId = coupon.Id;
                     return validationResult;
                 default:
                     throw new InvalidOperationException($"{coupon.CartRule.RuleToApply} is not supported");
             }
+        }
+
+        public void AddCouponUsage(long userId, long couponId)
+        {
+            var couponUsage = new CouponUsage
+            {
+                CouponId = couponId,
+                UserId = userId
+            };
+
+            _couponUsageRepository.Add(couponUsage);
         }
     }
 }

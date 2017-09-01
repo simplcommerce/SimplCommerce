@@ -9,5 +9,7 @@
         public string CouponRuleName { get; set; }
 
         public string ErrorMessage { get; set; }
+
+        public long CouponId { get; set; }
     }
 }

@@ -126,7 +126,7 @@ namespace SimplCommerce.Module.Orders.Controllers
                 billingAddress = shippingAddress = _userAddressRepository.Query().Where(x => x.Id == model.ShippingAddressId).Select(x => x.Address).First();
             }
 
-            _orderService.CreateOrder(currentUser, billingAddress, shippingAddress);
+            await _orderService.CreateOrder(currentUser, billingAddress, shippingAddress);
 
             return RedirectToAction("OrderConfirmation");
         }

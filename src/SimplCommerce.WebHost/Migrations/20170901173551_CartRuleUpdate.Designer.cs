@@ -11,9 +11,10 @@ using System;
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    partial class SimplDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170901173551_CartRuleUpdate")]
+    partial class CartRuleUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1187,8 +1188,6 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<decimal>("SubTotal");
 
-                    b.Property<decimal>("SubTotalWithDiscount");
-
                     b.Property<DateTimeOffset?>("UpdatedOn");
 
                     b.Property<long?>("VendorId");
@@ -1386,6 +1385,8 @@ namespace SimplCommerce.WebHost.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<long>("CouponId");
+
+                    b.Property<long>("OrderId");
 
                     b.Property<DateTimeOffset>("UsedOn");
 

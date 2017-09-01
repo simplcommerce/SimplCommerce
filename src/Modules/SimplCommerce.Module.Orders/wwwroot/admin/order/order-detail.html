@@ -11,8 +11,12 @@
             <dd>{{vm.order.createdOn}}</dd>
             <dt>{{::vm.translate.get('Customer')}}</dt>
             <dd>{{vm.order.customerName}}</dd>
-            <dt>{{::vm.translate.get('Sub Total')}}</dt>
-            <dd>{{vm.order.subTotalString}}</dd>
+            <dt>{{::vm.translate.get('Subtotal')}}</dt>
+            <dd>{{vm.order.subtotalString}}</dd>
+            <dt>{{::vm.translate.get('Discount')}}</dt>
+            <dd>{{vm.order.discountString}}</dd>
+            <dt>{{::vm.translate.get('Subtotal with discount')}}</dt>
+            <dd>{{vm.order.subtotalWithDiscountString}}</dd>
             <dt>{{::vm.translate.get('Order Status')}}</dt>
             <dd>{{vm.order.orderStatusString}} <button class="btn btn-link" ng-click="vm.isStatusFormOpen = !vm.isStatusFormOpen">{{::vm.translate.get('Change')}}</button>
                 <form ng-show="vm.isStatusFormOpen" class="form-inline inline">

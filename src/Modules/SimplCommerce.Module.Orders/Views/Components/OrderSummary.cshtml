@@ -27,7 +27,15 @@
         </tr>
     }
     <tr>
-        <td><strong>@Localizer["Subtotal"]</strong></td>
-        <td colspan="2" class="text-right"><strong>@Model.SubTotal.ToString("C")</strong></td>
+        <td>@Localizer["Subtotal"]</td>
+        <td colspan="2" class="text-right">@Model.SubTotal.ToString("C")</td>
+    </tr>
+    <tr>
+        <td>@Localizer["Discount"]</td>
+        <td colspan="2" class="text-right">@Model.Discount.ToString("C")</td>
+    </tr>
+    <tr>
+        <td><strong>@Localizer["Subtotal with discount"]</strong></td>
+        <td colspan="2" class="text-right"><strong>@Model.SubTotalWithDiscount.ToString("C")</strong></td>
     </tr>
 </table>

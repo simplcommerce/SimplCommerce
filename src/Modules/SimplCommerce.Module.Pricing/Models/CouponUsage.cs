@@ -6,6 +6,11 @@ namespace SimplCommerce.Module.Pricing.Models
 {
     public class CouponUsage : EntityBase
     {
+        public CouponUsage()
+        {
+            UsedOn = DateTimeOffset.Now;
+        }
+
         public long CouponId { get; set; }
 
         public Coupon Coupon { get; set; }
@@ -13,8 +18,6 @@ namespace SimplCommerce.Module.Pricing.Models
         public long UserId { get; set; }
 
         public User User { get; set; }
-
-        public long OrderId { get; set; }
 
         public DateTimeOffset UsedOn { get; set; }
     }
