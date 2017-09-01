@@ -6,11 +6,11 @@
             'shoppingCartService',
             function ($scope, shoppingCartService) {
                 var vm = this;
-                vm.cartViewModel = {};
+                vm.cart = {};
 
                 function cartDataCallback(result) {
-                    vm.cartViewModel = result.data;
-                    $('.cart-badge .badge').text(vm.cartViewModel.cartItems.length);
+                    vm.cart = result.data;
+                    $('.cart-badge .badge').text(vm.cart.items.length);
                 }
 
                 function getShoppingCartItems() {
@@ -19,12 +19,12 @@
 
                 vm.removeShoppingCartItem = function removeShoppingCartItem(item) {
                     shoppingCartService.removeShoppingCartItem(item.id).then(cartDataCallback);
-                }
+                };
 
                 vm.increaseQuantity = function increaseQuantity(item) {
                     item.quantity += 1;
                     shoppingCartService.updateQuantity(item.id, item.quantity).then(cartDataCallback);
-                }
+                };
 
                 vm.decreaseQuantity = function decreaseQuantity(item) {
                     if (item.quantity <= 1) {
@@ -32,7 +32,18 @@
                     }
                     item.quantity -= 1;
                     shoppingCartService.updateQuantity(item.id, item.quantity).then(cartDataCallback);
-                }
+                };
+
+                vm.applyCoupon = function applyCoupon() {
+                    vm.couponErrorMessage = '';
+                    shoppingCartService.applyCoupon(vm.couponCode).then(function (result) {
+                        if (result.data.succeeded == false) {
+                            vm.couponErrorMessage = result.data.errorMessage;
+                        } else {
+                            cartDataCallback(result);
+                        }
+                    });
+                };
 
                  getShoppingCartItems();
             }

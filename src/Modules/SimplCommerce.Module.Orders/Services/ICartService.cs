@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
-using SimplCommerce.Module.Orders.Models;
+﻿using System.Threading.Tasks;
+using SimplCommerce.Module.Orders.ViewModels;
+using SimplCommerce.Module.Pricing.Services;
 
 namespace SimplCommerce.Module.Orders.Services
 {
     public interface ICartService
     {
-        CartItem AddToCart(long userId, long productId, string variationName, int quantity);
+        void AddToCart(long userId, long productId, int quantity);
 
-        IList<CartItem> GetCartItems(long userId);
+        Task<CartVm> GetCart(long userId);
+
+        Task<CouponValidationResult> ApplyCoupon(long userId, string couponCode);
 
         void MigrateCart(long fromUserId, long toUserId);
     }

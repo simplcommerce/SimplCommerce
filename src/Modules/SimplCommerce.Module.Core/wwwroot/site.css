@@ -387,6 +387,14 @@ li.nav-item-group, li.nav-item-group a {
     text-transform: uppercase;
 }
 
+.coupon-form {
+    margin-top: 20px;
+}
+
+.coupon-form .form-group input {
+    width: 197px;
+}
+
 /* Checkout*/
 .btn-order {
     background: #18ba9b;

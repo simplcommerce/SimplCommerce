@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-if="vm.cartViewModel.cartItems.length" ng-repeat="cartItem in vm.cartViewModel.cartItems">
+                <tr ng-if="vm.cart.items.length" ng-repeat="cartItem in vm.cart.items">
                     <td class="product-image"><img ng-src="{{cartItem.productImage}}" /></td>
                     <td>
                         <h4>{{cartItem.productName}}</h4>
@@ -32,7 +32,7 @@
                     </td>
                     <td class="text-right"><button class="btn btn-link" ng-click="vm.removeShoppingCartItem(cartItem)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
                 </tr>
-                <tr ng-if="!vm.cartViewModel.cartItems.length">
+                <tr ng-if="!vm.cart.items.length">
                     <td colspan="5" class="text-center">
                         @Localizer["There are no items in this cart."] <a href="~/">@Localizer["Go to shopping"]</a>
                     </td>
@@ -41,13 +41,29 @@
         </table>
     </div>
     <div class="col-md-3">
-        <div class="order-summary" ng-if="vm.cartViewModel.cartItems.length">
+        <div class="order-summary" ng-if="vm.cart.items.length">
             <h4>@Localizer["Order summary"]</h4>
             <dl class="dl-horizontal">
                 <dt>@Localizer["Subtotal"]</dt>
-                <dd><strong>{{vm.cartViewModel.subTotal}}</strong></dd>
+                <dd><strong>{{vm.cart.subTotalString}}</strong></dd>
+                <dt>@Localizer["Discount"]</dt>
+                <dd><strong>{{vm.cart.discountString}}</strong></dd>
+                <dt>@Localizer["Subtotal with discount"]</dt>
+                <dd><strong>{{vm.cart.subTotalWithDiscountString}}</strong></dd>
             </dl>
             <p class="text-right"><a href="~/checkout" class="btn btn-primary">@Localizer["Process to Checkout"]</a></p>
+        </div>
+        <div class="coupon-form" ng-if="vm.cart.items.length">
+            <h4>@Localizer["Discount"]</h4>
+            <form class="form-inline">
+                <div class="form-group">
+                    <label>{{vm.couponErrorMessage}}</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="couponCode" ng-model="vm.couponCode" placeholder="Enter coupon">
+                    <button type="submit" class="btn btn-default" ng-click="vm.applyCoupon()">Apply</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

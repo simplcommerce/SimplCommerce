@@ -2,6 +2,8 @@
 GO
 DELETE FROM [dbo].[Core_Entity]
 GO
+DELETE FROM [dbo].[Orders_Cart]
+GO
 DELETE FROM [dbo].[Orders_CartItem]
 GO
 DELETE FROM [dbo].[Orders_OrderItem]

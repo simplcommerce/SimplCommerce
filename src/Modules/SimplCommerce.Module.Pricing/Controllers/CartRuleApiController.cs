@@ -46,6 +46,7 @@ namespace SimplCommerce.Module.Pricing.Controllers
             var catrtRule = _cartRuleRepository.Query().Include(x => x.Coupons).FirstOrDefault(x => x.Id == id);
             var model = new CartRuleForm
             {
+                Id = catrtRule.Id,
                 Name = catrtRule.Name,
                 Description = catrtRule.Description,
                 IsActive = catrtRule.IsActive,
@@ -98,16 +99,63 @@ namespace SimplCommerce.Module.Pricing.Controllers
                     var coupon = new Coupon
                     {
                         CartRule = cartRule,
-                        Code = model.CouponCode,
-                        ExpirationOn = model.EndOn,
-                        UsageLimit = model.UsageLimitPerCoupon,
-                        UsageLimitPerCustomer = model.UsageLimitPerCustomer
+                        Code = model.CouponCode
                     };
 
                     cartRule.Coupons.Add(coupon);
                 }
 
                 _cartRuleRepository.Add(cartRule);
+                _cartRuleRepository.SaveChange();
+
+                return Ok();
+            }
+            return new BadRequestObjectResult(ModelState);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(long id, [FromBody] CartRuleForm model)
+        {
+            if (ModelState.IsValid)
+            {
+                var cartRule = _cartRuleRepository.Query().Include(x => x.Coupons).FirstOrDefault(x => x.Id == id);
+                if(cartRule == null)
+                {
+                    return NotFound();
+                }
+
+                cartRule.Name = model.Name;
+                cartRule.Description = model.Description;
+                cartRule.StartOn = model.StartOn;
+                cartRule.EndOn = model.EndOn;
+                cartRule.IsActive = model.IsActive;
+                cartRule.IsCouponRequired = model.IsCouponRequired;
+                cartRule.RuleToApply = model.RuleToApply;
+                cartRule.DiscountAmount = model.DiscountAmount;
+                cartRule.DiscountStep = model.DiscountStep;
+                cartRule.MaxDiscountAmount = model.MaxDiscountAmount;
+                cartRule.UsageLimitPerCoupon = model.UsageLimitPerCoupon;
+                cartRule.UsageLimitPerCustomer = model.UsageLimitPerCustomer;
+
+                if (model.IsCouponRequired && !string.IsNullOrWhiteSpace(model.CouponCode))
+                {
+                    var coupon = cartRule.Coupons.FirstOrDefault();
+                    if (coupon == null)
+                    {
+                        coupon = new Coupon
+                        {
+                            CartRule = cartRule,
+                            Code = model.CouponCode
+                        };
+
+                        cartRule.Coupons.Add(coupon);
+                    }
+                    else
+                    {
+                        coupon.Code = model.CouponCode;
+                    }
+                }
+
                 _cartRuleRepository.SaveChange();
 
                 return Ok();
