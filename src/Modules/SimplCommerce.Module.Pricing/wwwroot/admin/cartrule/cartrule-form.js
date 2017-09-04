@@ -9,6 +9,7 @@
         var vm = this;
         vm.translate = translateService;
         vm.cartRule = {};
+        vm.cartRule.products = [];
         vm.cartRuleId = $stateParams.id;
         vm.isEditMode = vm.cartRuleId > 0;
 

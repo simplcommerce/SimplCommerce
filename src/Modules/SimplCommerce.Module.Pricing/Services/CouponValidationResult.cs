@@ -1,4 +1,6 @@
-﻿namespace SimplCommerce.Module.Pricing.Services
+﻿using System.Collections.Generic;
+
+namespace SimplCommerce.Module.Pricing.Services
 {
     public class CouponValidationResult
     {
