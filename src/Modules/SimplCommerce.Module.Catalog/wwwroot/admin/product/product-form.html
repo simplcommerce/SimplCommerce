@@ -350,7 +350,7 @@
                     </md-content>
                 </uib-tab>
                 <uib-tab index="4" heading="{{::vm.translate.get('Related Products')}}">
-                    <product-selection-directive model-id="productRelationSelector" title="Add related products" selected-products="vm.product.relatedProducts"></product-selection-directive>
+                    <product-selection-directive model-id="productRelationSelector" title="Add related products"  is-visible-individually="true" selected-products="vm.product.relatedProducts"></product-selection-directive>
                     <p><button type="button" class="btn btn-default" data-toggle="modal" data-target="#productRelationSelector">{{::vm.translate.get('Manage Related Products')}}</button></p>
                     <table class="table table-striped">
                         <tr>
@@ -364,7 +364,7 @@
                     </table>
                 </uib-tab>
                 <uib-tab index="5" heading="{{::vm.translate.get('Cross-sell Products')}}">
-                    <product-selection-directive model-id="productCrossSellSelector" title="Add cross-sell products" selected-products="vm.product.crossSellProducts"></product-selection-directive>
+                    <product-selection-directive model-id="productCrossSellSelector" title="Add cross-sell products" is-visible-individually="true" selected-products="vm.product.crossSellProducts"></product-selection-directive>
                     <p><button type="button" class="btn btn-default" data-toggle="modal" data-target="#productCrossSellSelector">{{::vm.translate.get('Manage Cross-sell Products')}}</button></p>
                     <table class="table table-striped">
                         <tr>
