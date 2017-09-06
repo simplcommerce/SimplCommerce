@@ -13,7 +13,7 @@
             <uib-tabset>
                 <uib-tab index="0" heading="{{::vm.translate.get('General Information')}}">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">{{::vm.translate.get('Name')}}</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Name')}} *</label>
                         <div class="col-sm-10">
                             <input name="name" ng-model="vm.cartRule.name" class="form-control" />
                         </div>
@@ -24,7 +24,7 @@
                             <textarea name="description" ng-model="vm.cartRule.description" rows="3" class="form-control" />
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div ng-show="false" class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
                                 <label>
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div ng-show="vm.cartRule.isCouponRequired" class="form-group">
-                        <label class="col-sm-2 control-label">{{::vm.translate.get('Coupon code')}}</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Coupon code')}} *</label>
                         <div class="col-sm-10">
                             <input name="couponCode" ng-model="vm.cartRule.couponCode" class="form-control" />
                         </div>
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">{{::vm.translate.get('Apply')}}</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Apply')}} *</label>
                         <div class="col-sm-10">
                             <select class="form-control" ng-model="vm.cartRule.ruleToApply">
                                 <option value="cart_fixed">Fixed amount discount for whole cart</option>
@@ -84,7 +84,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">{{::vm.translate.get('Discount Amount')}}</label>
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Discount Amount')}} *</label>
                         <div class="col-sm-10">
                             <input name="discountAmount" ng-model="vm.cartRule.discountAmount" class="form-control" />
                         </div>

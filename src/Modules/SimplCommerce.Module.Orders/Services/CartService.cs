@@ -92,7 +92,11 @@ namespace SimplCommerce.Module.Orders.Services
             cartVm.SubTotal = cartVm.Items.Sum(x => x.Quantity * x.ProductPrice);
             if(!string.IsNullOrWhiteSpace(cartVm.CouponCode))
             {
-                var couponValidationResult = await _couponService.Validate(cartVm.CouponCode);
+                var cartInfoForCoupon = new CartInfoForCoupon
+                {
+                    Items = cartVm.Items.Select(x => new CartItemForCoupon { ProductId = x.ProductId, Quantity = x.Quantity }).ToList()
+                };
+                var couponValidationResult = await _couponService.Validate(cartVm.CouponCode, cartInfoForCoupon);
                 if (couponValidationResult.Succeeded)
                 {
                     cartVm.Discount = couponValidationResult.DiscountAmount;
@@ -104,10 +108,15 @@ namespace SimplCommerce.Module.Orders.Services
 
         public async Task<CouponValidationResult> ApplyCoupon(long userId, string couponCode)
         {
-            var couponValidationResult = await _couponService.Validate(couponCode);
+            var cart = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.UserId == userId && x.IsActive);
+
+            var cartInfoForCoupon = new CartInfoForCoupon
+            {
+                Items = cart.Items.Select(x => new CartItemForCoupon { ProductId = x.ProductId, Quantity = x.Quantity }).ToList()
+            };
+            var couponValidationResult = await _couponService.Validate(couponCode, cartInfoForCoupon);
             if (couponValidationResult.Succeeded)
             {
-                var cart = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.UserId == userId && x.IsActive);
                 cart.CouponCode = couponCode;
                 cart.CouponRuleName = couponValidationResult.CouponRuleName;
                 _cartItemRepository.SaveChange();
