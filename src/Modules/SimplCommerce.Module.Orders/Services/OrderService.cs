@@ -37,7 +37,11 @@ namespace SimplCommerce.Module.Orders.Services
             decimal discount = 0;
             if (!string.IsNullOrWhiteSpace(cart.CouponCode))
             {
-                var couponValidationResult = await _couponService.Validate(cart.CouponCode);
+                var cartInfoForCoupon = new CartInfoForCoupon
+                {
+                    Items = cart.Items.Select(x => new CartItemForCoupon { ProductId = x.ProductId, Quantity = x.Quantity }).ToList()
+                };
+                var couponValidationResult = await _couponService.Validate(cart.CouponCode, cartInfoForCoupon);
                 if (couponValidationResult.Succeeded)
                 {
                     discount = couponValidationResult.DiscountAmount;

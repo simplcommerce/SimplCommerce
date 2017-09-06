@@ -8,7 +8,8 @@
     function CartRuleFormCtrl($state, $stateParams, cartRuleService, translateService) {
         var vm = this;
         vm.translate = translateService;
-        vm.cartRule = {};
+        vm.cartRule = { isCouponRequired: true };
+        vm.cartRule.products = [];
         vm.cartRuleId = $stateParams.id;
         vm.isEditMode = vm.cartRuleId > 0;
 

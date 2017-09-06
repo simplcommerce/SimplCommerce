@@ -6,7 +6,7 @@ namespace SimplCommerce.Module.Pricing.Models
     {
         public long CartRuleId { get; set; }
 
-        public CatalogRule CartRule { get; set; }
+        public CartRule CartRule { get; set; }
 
         public long CustomerGroupId { get; set; }
 

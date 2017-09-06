@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SimplCommerce.Module.Pricing.ViewModels
@@ -35,5 +36,7 @@ namespace SimplCommerce.Module.Pricing.ViewModels
         public int? UsageLimitPerCoupon { get; set; }
 
         public int? UsageLimitPerCustomer { get; set; }
+
+        public IList<CartRuleProductVm> Products { get; set; } = new List<CartRuleProductVm>();
     }
 }

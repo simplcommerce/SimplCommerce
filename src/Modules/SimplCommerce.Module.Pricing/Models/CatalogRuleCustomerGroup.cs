@@ -1,9 +1,8 @@
-﻿using SimplCommerce.Infrastructure.Models;
-using SimplCommerce.Module.Core.Models;
+﻿using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Pricing.Models
 {
-    public class CatalogRuleCustomerGroup : EntityBase
+    public class CatalogRuleCustomerGroup
     {
         public long CatalogRuleId { get; set; }
 

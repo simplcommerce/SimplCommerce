@@ -43,7 +43,10 @@ namespace SimplCommerce.Module.Pricing.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
-            var catrtRule = _cartRuleRepository.Query().Include(x => x.Coupons).FirstOrDefault(x => x.Id == id);
+            var catrtRule = _cartRuleRepository.Query()
+                .Include(x => x.Coupons)
+                .Include(x => x.Products).ThenInclude(p => p.Product)
+                .FirstOrDefault(x => x.Id == id);
             var model = new CartRuleForm
             {
                 Id = catrtRule.Id,
@@ -59,6 +62,7 @@ namespace SimplCommerce.Module.Pricing.Controllers
                 MaxDiscountAmount = catrtRule.MaxDiscountAmount,
                 UsageLimitPerCoupon = catrtRule.UsageLimitPerCoupon,
                 UsageLimitPerCustomer = catrtRule.UsageLimitPerCustomer,
+                Products = catrtRule.Products.Select(x => new CartRuleProductVm { Id = x.ProductId, Name = x.Product.Name, IsPublished = x.Product.IsPublished }).ToList()
             };
 
             if(catrtRule.IsCouponRequired)
@@ -105,6 +109,16 @@ namespace SimplCommerce.Module.Pricing.Controllers
                     cartRule.Coupons.Add(coupon);
                 }
 
+                foreach(var item in model.Products)
+                {
+                    var cartRuleProduct = new CartRuleProduct
+                    {
+                        CartRule = cartRule,
+                        ProductId = item.Id
+                    };
+                    cartRule.Products.Add(cartRuleProduct);
+                }
+
                 _cartRuleRepository.Add(cartRule);
                 _cartRuleRepository.SaveChange();
 
@@ -118,7 +132,10 @@ namespace SimplCommerce.Module.Pricing.Controllers
         {
             if (ModelState.IsValid)
             {
-                var cartRule = _cartRuleRepository.Query().Include(x => x.Coupons).FirstOrDefault(x => x.Id == id);
+                var cartRule = _cartRuleRepository.Query()
+                    .Include(x => x.Coupons)
+                    .Include(x => x.Products)
+                    .FirstOrDefault(x => x.Id == id);
                 if(cartRule == null)
                 {
                     return NotFound();
@@ -154,6 +171,28 @@ namespace SimplCommerce.Module.Pricing.Controllers
                     {
                         coupon.Code = model.CouponCode;
                     }
+                }
+
+                foreach (var item in model.Products)
+                {
+                    var cartRuleProduct = cartRule.Products.FirstOrDefault(x => x.ProductId == item.Id);
+                    if (cartRuleProduct == null)
+                    {
+                        cartRuleProduct = new CartRuleProduct
+                        {
+                            CartRule = cartRule,
+                            ProductId = item.Id
+                        };
+                        cartRule.Products.Add(cartRuleProduct);
+                    }
+                }
+
+                var modelProductIds = model.Products.Select(x => x.Id);
+                var deletedProducts = cartRule.Products.Where(x => !modelProductIds.Contains(x.ProductId)).ToList();
+                foreach(var item in deletedProducts)
+                {
+                    item.CartRule = null;
+                    cartRule.Products.Remove(item);
                 }
 
                 _cartRuleRepository.SaveChange();

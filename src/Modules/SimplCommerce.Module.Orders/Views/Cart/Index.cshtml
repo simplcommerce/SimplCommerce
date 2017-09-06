@@ -45,16 +45,16 @@
             <h4>@Localizer["Order summary"]</h4>
             <dl class="dl-horizontal">
                 <dt>@Localizer["Subtotal"]</dt>
-                <dd><strong>{{vm.cart.subTotalString}}</strong></dd>
-                <dt>@Localizer["Discount"]</dt>
-                <dd><strong>{{vm.cart.discountString}}</strong></dd>
+                <dd>{{vm.cart.subTotalString}}</dd>
+                <dt>@Localizer["Discount"] {{vm.cart.couponCode}}</dt>
+                <dd>{{vm.cart.discountString}}</dd>
                 <dt>@Localizer["Subtotal with discount"]</dt>
                 <dd><strong>{{vm.cart.subTotalWithDiscountString}}</strong></dd>
             </dl>
             <p class="text-right"><a href="~/checkout" class="btn btn-primary">@Localizer["Process to Checkout"]</a></p>
         </div>
         <div class="coupon-form" ng-if="vm.cart.items.length">
-            <h4>@Localizer["Discount"]</h4>
+            <h4>@Localizer["Coupon code"]</h4>
             <form class="form-inline">
                 <div class="form-group">
                     <label>{{vm.couponErrorMessage}}</label>

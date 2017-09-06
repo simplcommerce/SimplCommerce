@@ -32,6 +32,10 @@ namespace SimplCommerce.Module.Pricing.Models
 
         public IList<Coupon> Coupons { get; set; } = new List<Coupon>();
 
-        public IList<CatalogRuleCustomerGroup> CustomerGroups { get; set; } = new List<CatalogRuleCustomerGroup>();
+        public IList<CartRuleCustomerGroup> CustomerGroups { get; set; } = new List<CartRuleCustomerGroup>();
+
+        public IList<CartRuleProduct> Products { get; set; } = new List<CartRuleProduct>();
+
+        public IList<CartRuleCategory> Categories { get; set; } = new List<CartRuleCategory>();
     }
 }
