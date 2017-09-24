@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -112,7 +113,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public IActionResult Delete(long id)
+        public async Task<IActionResult> Delete(long id)
         {
             var category = _categoryRepository.Query().Include(x => x.Children).FirstOrDefault(x => x.Id == id);
             if (category == null)
@@ -125,7 +126,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 return BadRequest(new { Error = "Please make sure this category contains no children" });
             }
 
-            _categoryService.Delete(category);
+            await _categoryService.Delete(category);
 
             return Ok();
         }

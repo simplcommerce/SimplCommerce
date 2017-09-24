@@ -1,4 +1,5 @@
-﻿using SimplCommerce.Module.Cms.Models;
+﻿using System.Threading.Tasks;
+using SimplCommerce.Module.Cms.Models;
 
 namespace SimplCommerce.Module.Cms.Services
 {
@@ -8,6 +9,6 @@ namespace SimplCommerce.Module.Cms.Services
 
         void Update(Page page);
 
-        void Delete(Page page);
+        Task Delete(Page page);
     }
 }

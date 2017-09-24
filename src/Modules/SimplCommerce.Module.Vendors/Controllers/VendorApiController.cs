@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -143,7 +144,7 @@ namespace SimplCommerce.Module.Vendors.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
+        public async Task<IActionResult> Delete(long id)
         {
             var vendor = _vendorRepository.Query().FirstOrDefault(x => x.Id == id);
             if (vendor == null)
@@ -151,7 +152,7 @@ namespace SimplCommerce.Module.Vendors.Controllers
                 return new NotFoundResult();
             }
 
-            _vendorService.Delete(vendor);
+            await _vendorService.Delete(vendor);
             return Json(true);
         }
     }

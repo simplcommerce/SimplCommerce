@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
@@ -40,16 +41,16 @@ namespace SimplCommerce.Module.Vendors.Services
             _vendorRepository.SaveChange();
         }
 
-        public void Delete(long id)
+        public async Task Delete(long id)
         {
             var vendor = _vendorRepository.Query().First(x => x.Id == id);
-            Delete(vendor);
+            await Delete(vendor);
         }
 
-        public void Delete(Vendor vendor)
+        public async Task Delete(Vendor vendor)
         {
             vendor.IsDeleted = true;
-            _entityService.Remove(vendor.Id, VendorEntityTypeId);
+            await _entityService.Remove(vendor.Id, VendorEntityTypeId);
             _vendorRepository.SaveChange();
         }
     }

@@ -1,7 +1,5 @@
-﻿using SimplCommerce.Module.News.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Threading.Tasks;
+using SimplCommerce.Module.News.Models;
 
 namespace SimplCommerce.Module.News.Services
 {
@@ -11,8 +9,8 @@ namespace SimplCommerce.Module.News.Services
 
         void Update(NewsItem newsItem);
 
-        void Delete(long id);
+        Task Delete(long id);
 
-        void Delete(NewsItem newsItem);
+        Task Delete(NewsItem newsItem);
     }
 }

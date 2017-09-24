@@ -1,4 +1,5 @@
-﻿using SimplCommerce.Infrastructure.Data;
+﻿using System.Threading.Tasks;
+using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Cms.Models;
 using SimplCommerce.Module.Core.Services;
 
@@ -39,10 +40,10 @@ namespace SimplCommerce.Module.Cms.Services
             _pageRepository.SaveChange();
         }
 
-        public void Delete(Page page)
+        public async Task Delete(Page page)
         {
             _pageRepository.Remove(page);
-            _entityService.Remove(page.Id, PageEntityTypeId);
+            await _entityService.Remove(page.Id, PageEntityTypeId);
             _pageRepository.SaveChange();
         }
     }

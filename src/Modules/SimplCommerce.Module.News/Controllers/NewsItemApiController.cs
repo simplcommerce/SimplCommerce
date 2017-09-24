@@ -178,15 +178,12 @@ namespace SimplCommerce.Module.News.Controllers
         public async Task<IActionResult> Delete(long id)
         {
             var newsItem = _newsItemRepository.Query().FirstOrDefault(x => x.Id == id);
-
             if (newsItem == null)
             {
                 return NotFound();
             }
 
-            var currentUser = await _workContext.GetCurrentUser();
-            _newsItemService.Delete(newsItem);
-
+            await _newsItemService.Delete(newsItem);
             return Ok();
         }
 

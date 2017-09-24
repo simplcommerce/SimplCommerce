@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.News.Models;
@@ -40,16 +41,16 @@ namespace SimplCommerce.Module.News.Services
             _categoryRepository.SaveChange();
         }
 
-        public void Delete(long id)
+        public async Task Delete(long id)
         {
             var category = _categoryRepository.Query().First(x => x.Id == id);
-            Delete(category);
+            await Delete(category);
         }
 
-        public void Delete(NewsCategory category)
+        public async Task Delete(NewsCategory category)
         {
             category.IsDeleted = true;
-            _entityService.Remove(category.Id, NewsCategoryEntityTypeId);
+            await _entityService.Remove(category.Id, NewsCategoryEntityTypeId);
             _categoryRepository.SaveChange();
         }
     }

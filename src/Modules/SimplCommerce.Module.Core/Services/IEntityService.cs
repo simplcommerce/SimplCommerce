@@ -1,4 +1,5 @@
 ﻿using SimplCommerce.Module.Core.Models;
+using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.Core.Services
 {
@@ -12,6 +13,6 @@ namespace SimplCommerce.Module.Core.Services
 
         void Update(string newName, string newSlug, long entityId, long entityTypeId);
 
-        void Remove(long entityId, long entityTypeId);
+        Task Remove(long entityId, long entityTypeId);
     }
 }

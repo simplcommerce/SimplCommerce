@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure;
@@ -84,7 +85,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public IActionResult Delete(long id)
+        public async Task<IActionResult> Delete(long id)
         {
             var brand = _brandRepository.Query().FirstOrDefault(x => x.Id == id);
             if (brand == null)
@@ -92,7 +93,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 return new NotFoundResult();
             }
 
-            _brandService.Delete(brand);
+            await _brandService.Delete(brand);
             return Json(true);
         }
     }
