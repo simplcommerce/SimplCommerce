@@ -1,16 +1,21 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
+using MediatR;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
+using SimplCommerce.Module.Core.Events;
 
 namespace SimplCommerce.Module.Core.Services
 {
     public class EntityService : IEntityService
     {
         private readonly IRepository<Entity> _entityRepository;
+        private readonly IMediator _mediator;
 
-        public EntityService(IRepository<Entity> entityRepository)
+        public EntityService(IRepository<Entity> entityRepository, IMediator mediator)
         {
             _entityRepository = entityRepository;
+            _mediator = mediator;
         }
 
         public string ToSafeSlug(string slug, long entityId, long entityTypeId)
@@ -58,11 +63,13 @@ namespace SimplCommerce.Module.Core.Services
             entity.Slug = newSlug;
         }
 
-        public void Remove(long entityId, long entityTypeId)
+        public async Task Remove(long entityId, long entityTypeId)
         {
             var entity = _entityRepository.Query().FirstOrDefault(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
+
             if (entity != null)
             {
+                 await _mediator.Publish(new EntityDeleting { EntityId = entity.Id });
                 _entityRepository.Remove(entity);
             }
         }

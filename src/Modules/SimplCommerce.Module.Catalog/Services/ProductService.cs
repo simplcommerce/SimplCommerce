@@ -1,4 +1,5 @@
-﻿using SimplCommerce.Infrastructure.Data;
+﻿using System.Threading.Tasks;
+using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Services;
 
@@ -57,10 +58,10 @@ namespace SimplCommerce.Module.Catalog.Services
             _productRepository.SaveChange();
         }
 
-        public void Delete(Product product)
+        public async Task Delete(Product product)
         {
             product.IsDeleted = true;
-            _entityService.Remove(product.Id, ProductEntityTypeId);
+            await _entityService.Remove(product.Id, ProductEntityTypeId);
             _productRepository.SaveChange();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using SimplCommerce.Module.News.Models;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Services;
@@ -36,28 +37,28 @@ namespace SimplCommerce.Module.News.Services
             }
         }
 
-        public void Delete(long id)
-        {
-            var newsItem = _newsItemRepository.Query().First(x => x.Id == id);
-            Delete(newsItem);
-        }
-
-        public void Delete(NewsItem newsItem)
+        public void Update(NewsItem newsItem)
         {
             if (newsItem != null)
             {
-                newsItem.IsDeleted = true;
-                _entityService.Remove(newsItem.Id, NewsItemEntityTypeId);
+                newsItem.SeoTitle = _entityService.ToSafeSlug(newsItem.SeoTitle, newsItem.Id, NewsItemEntityTypeId);
+                _entityService.Update(newsItem.Name, newsItem.SeoTitle, newsItem.Id, NewsItemEntityTypeId);
                 _newsItemRepository.SaveChange();
             }
         }
 
-        public void Update(NewsItem newsItem)
+        public async Task Delete(long id)
         {
-            if( newsItem != null)
+            var newsItem = _newsItemRepository.Query().First(x => x.Id == id);
+            await Delete(newsItem);
+        }
+
+        public async Task Delete(NewsItem newsItem)
+        {
+            if (newsItem != null)
             {
-                newsItem.SeoTitle = _entityService.ToSafeSlug(newsItem.SeoTitle, newsItem.Id, NewsItemEntityTypeId);
-                _entityService.Update(newsItem.Name, newsItem.SeoTitle, newsItem.Id, NewsItemEntityTypeId);
+                newsItem.IsDeleted = true;
+                await _entityService.Remove(newsItem.Id, NewsItemEntityTypeId);
                 _newsItemRepository.SaveChange();
             }
         }

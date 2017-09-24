@@ -1,4 +1,5 @@
-﻿using SimplCommerce.Module.Catalog.Models;
+﻿using System.Threading.Tasks;
+using SimplCommerce.Module.Catalog.Models;
 
 namespace SimplCommerce.Module.Catalog.Services
 {
@@ -8,8 +9,8 @@ namespace SimplCommerce.Module.Catalog.Services
 
         void Update(Brand brand);
 
-        void Delete(long id);
+        Task Delete(long id);
 
-        void Delete(Brand brand);
+        Task Delete(Brand brand);
     }
 }

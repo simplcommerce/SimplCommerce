@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Threading.Tasks;
+using System.Collections.Generic;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.ViewModels;
 
@@ -12,6 +13,6 @@ namespace SimplCommerce.Module.Catalog.Services
 
         void Update(Category category);
 
-        void Delete(Category category);
+        Task Delete(Category category);
     }
 }

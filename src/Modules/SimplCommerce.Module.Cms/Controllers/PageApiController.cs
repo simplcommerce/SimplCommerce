@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
@@ -87,7 +88,7 @@ namespace SimplCommerce.Module.Cms.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
+        public async Task<IActionResult> Delete(long id)
         {
             var page = _pageRepository.Query().FirstOrDefault(x => x.Id == id);
             if (page == null)
@@ -95,8 +96,7 @@ namespace SimplCommerce.Module.Cms.Controllers
                 return new NotFoundResult();
             }
 
-            _pageService.Delete(page);
-
+            await _pageService.Delete(page);
             return Ok();
         }
     }

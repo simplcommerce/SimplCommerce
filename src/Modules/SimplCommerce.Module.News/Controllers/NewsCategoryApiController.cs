@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure;
@@ -75,7 +76,6 @@ namespace SimplCommerce.Module.News.Controllers
                 category.IsPublished = model.IsPublished;
 
                 _categoryService.Update(category);
-
                 return Ok();
             }
 
@@ -84,7 +84,7 @@ namespace SimplCommerce.Module.News.Controllers
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public IActionResult Delete(long id)
+        public async Task<IActionResult> Delete(long id)
         {
             var category = _categoryRepository.Query().FirstOrDefault(x => x.Id == id);
             if (category == null)
@@ -92,7 +92,7 @@ namespace SimplCommerce.Module.News.Controllers
                 return new NotFoundResult();
             }
 
-            _categoryService.Delete(category);
+            await _categoryService.Delete(category);
             return Json(true);
         }
     }

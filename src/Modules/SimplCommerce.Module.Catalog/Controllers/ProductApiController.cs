@@ -441,7 +441,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 return new BadRequestObjectResult(new { error = "You don't have permission to manage this product" });
             }
 
-            _productService.Delete(product);
+            await _productService.Delete(product);
 
             return Ok();
         }
