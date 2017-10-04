@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.Services;
@@ -38,6 +37,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             {
                 Id = brand.Id,
                 Name = brand.Name,
+                Slug = brand.SeoTitle,
                 IsPublished = brand.IsPublished
             };
 
@@ -53,7 +53,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 var brand = new Brand
                 {
                     Name = model.Name,
-                    SeoTitle = model.Name.ToUrlFriendly(),
+                    SeoTitle = model.Slug,
                     IsPublished = model.IsPublished
                 };
 
@@ -72,7 +72,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             {
                 var brand = _brandRepository.Query().FirstOrDefault(x => x.Id == id);
                 brand.Name = model.Name;
-                brand.SeoTitle = model.Name.ToUrlFriendly();
+                brand.SeoTitle = model.Slug;
                 brand.IsPublished = model.IsPublished;
 
                 _brandService.Update(brand);

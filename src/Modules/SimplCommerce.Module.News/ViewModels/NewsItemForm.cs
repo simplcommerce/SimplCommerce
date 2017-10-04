@@ -17,7 +17,7 @@ namespace SimplCommerce.Module.News.ViewModels
         public string Name { get; set; }
 
         [Required]
-        public string SeoTitle { get; set; }
+        public string Slug { get; set; }
 
         [Required]
         public string ShortContent { get; set; }

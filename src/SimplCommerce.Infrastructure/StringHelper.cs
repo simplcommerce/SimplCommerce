@@ -8,10 +8,12 @@ namespace SimplCommerce.Infrastructure
     {
         public static string ToUrlFriendly(this string name)
         {
+            // Fallback for product variations
             if (string.IsNullOrWhiteSpace(name))
             {
-                return string.Empty;
+                return Guid.NewGuid().ToString();
             }
+
             name = name.ToLower();
             name = RemoveDiacritics(name);
             name = ConvertEdgeCases(name);
@@ -28,6 +30,11 @@ namespace SimplCommerce.Infrastructure
 
             if (name.Length > 200)
                 name = name.Substring(0, 200);
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return Guid.NewGuid().ToString();
+            }
 
             return name;
         }

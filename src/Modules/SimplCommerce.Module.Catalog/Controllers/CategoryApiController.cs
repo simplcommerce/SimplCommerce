@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
-using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.Services;
@@ -49,6 +48,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             {
                 Id = category.Id,
                 Name = category.Name,
+                Slug = category.SeoTitle,
                 DisplayOrder = category.DisplayOrder,
                 Description = category.Description,
                 ParentId = category.ParentId,
@@ -69,7 +69,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 var category = new Category
                 {
                     Name = model.Name,
-                    SeoTitle = model.Name.ToUrlFriendly(),
+                    SeoTitle = model.Slug,
                     DisplayOrder = model.DisplayOrder,
                     Description = model.Description,
                     ParentId = model.ParentId,
@@ -94,7 +94,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             {
                 var category = _categoryRepository.Query().FirstOrDefault(x => x.Id == id);
                 category.Name = model.Name;
-                category.SeoTitle = model.Name.ToUrlFriendly();
+                category.SeoTitle = model.Slug;
                 category.Description = model.Description;
                 category.DisplayOrder = model.DisplayOrder;
                 category.ParentId = model.ParentId;

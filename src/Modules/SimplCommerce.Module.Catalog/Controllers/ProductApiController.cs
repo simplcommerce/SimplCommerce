@@ -76,6 +76,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             {
                 Id = product.Id,
                 Name = product.Name,
+                Slug = product.SeoTitle,
                 ShortDescription = product.ShortDescription,
                 Description = product.Description,
                 Specification = product.Specification,
@@ -259,7 +260,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             var product = new Product
             {
                 Name = model.Product.Name,
-                SeoTitle = model.Product.Name.ToUrlFriendly(),
+                SeoTitle = model.Product.Slug,
                 ShortDescription = model.Product.ShortDescription,
                 Description = model.Product.Description,
                 Specification = model.Product.Specification,
@@ -360,7 +361,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
 
             product.Name = model.Product.Name;
-            product.SeoTitle = product.Name.ToUrlFriendly();
+            product.SeoTitle = model.Product.Slug;
             product.ShortDescription = model.Product.ShortDescription;
             product.Description = model.Product.Description;
             product.Specification = model.Product.Specification;

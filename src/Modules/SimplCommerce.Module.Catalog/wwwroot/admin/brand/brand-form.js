@@ -12,6 +12,10 @@
         vm.brandId = $stateParams.id;
         vm.isEditMode = vm.brandId > 0;
 
+        vm.updateSlug = function () {
+            vm.brand.slug = slugify(vm.brand.name);
+        };
+
         vm.save = function save() {
             var promise;
             if (vm.isEditMode) {

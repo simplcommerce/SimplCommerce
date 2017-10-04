@@ -15,6 +15,10 @@
         vm.categoryId = $stateParams.id;
         vm.isEditMode = vm.categoryId > 0;
 
+        vm.updateSlug = function () {
+            vm.category.slug = slugify(vm.category.name);
+        };
+
         vm.save = function save() {
             var promise;
             // ng-upload will post null as text

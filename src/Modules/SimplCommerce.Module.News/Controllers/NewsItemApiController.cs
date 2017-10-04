@@ -72,7 +72,7 @@ namespace SimplCommerce.Module.News.Controllers
                 {
                     Id = x.Id,
                     Name = x.Name,
-                    SeoTitle = x.SeoTitle,
+                    Slug = x.SeoTitle,
                     IsPublished = x.IsPublished,
                     CreatedOn = x.CreatedOn
                 });
@@ -91,7 +91,7 @@ namespace SimplCommerce.Module.News.Controllers
             {
                 Name = newsItem.Name,
                 Id = newsItem.Id,
-                SeoTitle = newsItem.SeoTitle,
+                Slug = newsItem.SeoTitle,
                 ShortContent = newsItem.ShortContent,
                 FullContent = newsItem.FullContent,
                 IsPublished = newsItem.IsPublished,
@@ -114,7 +114,7 @@ namespace SimplCommerce.Module.News.Controllers
             var newsItem = new NewsItem
             {
                 Name = model.Name,
-                SeoTitle = model.SeoTitle,
+                SeoTitle = model.Slug,
                 ShortContent = model.ShortContent,
                 FullContent = model.FullContent,
                 IsPublished = model.IsPublished,
@@ -153,7 +153,7 @@ namespace SimplCommerce.Module.News.Controllers
             var currentUser = await _workContext.GetCurrentUser();
 
             newsItem.Name = model.Name;
-            newsItem.SeoTitle = model.SeoTitle;
+            newsItem.SeoTitle = model.Slug;
             newsItem.ShortContent = model.ShortContent;
             newsItem.FullContent = model.FullContent;
             newsItem.IsPublished = model.IsPublished;
