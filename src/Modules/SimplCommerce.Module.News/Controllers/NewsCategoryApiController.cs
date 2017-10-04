@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.News.Models;
 using SimplCommerce.Module.News.Services;
@@ -38,6 +37,7 @@ namespace SimplCommerce.Module.News.Controllers
             {
                 Id = category.Id,
                 Name = category.Name,
+                Slug = category.SeoTitle,
                 IsPublished = category.IsPublished
             };
 
@@ -53,7 +53,7 @@ namespace SimplCommerce.Module.News.Controllers
                 var category = new NewsCategory
                 {
                     Name = model.Name,
-                    SeoTitle = model.Name.ToUrlFriendly(),
+                    SeoTitle = model.Slug,
                     IsPublished = model.IsPublished
                 };
 
@@ -72,7 +72,7 @@ namespace SimplCommerce.Module.News.Controllers
             {
                 var category = _categoryRepository.Query().FirstOrDefault(x => x.Id == id);
                 category.Name = model.Name;
-                category.SeoTitle = model.Name.ToUrlFriendly();
+                category.SeoTitle = model.Slug;
                 category.IsPublished = model.IsPublished;
 
                 _categoryService.Update(category);

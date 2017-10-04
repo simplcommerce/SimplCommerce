@@ -19,6 +19,10 @@
                 });
         };
 
+        vm.updateSlug = function () {
+            vm.page.seoTitle = slugify(vm.page.name);
+        };
+
         vm.save = function save() {
             var promise;
             if (vm.isEditMode) {

@@ -14,6 +14,10 @@
         vm.newsItemId = $stateParams.id;
         vm.isEditMode = vm.newsItemId > 0;
 
+        vm.updateSlug = function () {
+            vm.newsItem.slug = slugify(vm.newsItem.name);
+        };
+
         vm.imageUpload = function (files) {
             summerNoteService.upload(files[0])
                 .then(function (response) {

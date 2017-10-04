@@ -33,7 +33,7 @@
     <tbody ng-show="!vm.isLoading">
         <tr ng-repeat="newsItem in vm.newsItems">
             <td>{{newsItem.name}}</td>
-            <td>{{newsItem.seoTitle}}</td>
+            <td>{{newsItem.slug}}</td>
             <td class="text-center"><i ng-attr-class="{{newsItem.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
             <td>{{newsItem.createdOn | date:'medium'}}</td>
             <td>

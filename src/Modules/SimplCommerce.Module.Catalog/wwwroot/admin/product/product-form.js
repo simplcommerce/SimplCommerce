@@ -33,6 +33,10 @@
         vm.datePickerSpecialPriceStart = {};
         vm.datePickerSpecialPriceEnd = {};
 
+        vm.updateSlug = function () {
+            vm.product.slug = slugify(vm.product.name);
+        };
+
         vm.openCalendar = function (e, picker) {
             vm[picker].open = true;
         };

@@ -14,6 +14,9 @@ namespace SimplCommerce.Module.News.ViewModels
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        public string Slug { get; set; }
+
         public bool IsPublished { get; set; }
     }
 }

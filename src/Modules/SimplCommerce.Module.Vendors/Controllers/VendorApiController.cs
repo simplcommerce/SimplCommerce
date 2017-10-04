@@ -9,7 +9,6 @@ using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Vendors.Services;
 using SimplCommerce.Module.Vendors.ViewModels;
-using SimplCommerce.Infrastructure;
 
 namespace SimplCommerce.Module.Vendors.Controllers
 {
@@ -78,7 +77,8 @@ namespace SimplCommerce.Module.Vendors.Controllers
             var vendors = _vendorRepository.Query().Select(x => new
             {
                 Id = x.Id,
-                Name = x.Name
+                Name = x.Name,
+                Slug = x.SeoTitle
             });
 
             return Json(vendors);
@@ -92,6 +92,7 @@ namespace SimplCommerce.Module.Vendors.Controllers
             {
                 Id = vendor.Id,
                 Name = vendor.Name,
+                Slug = vendor.SeoTitle,
                 Email = vendor.Email,
                 Description = vendor.Description,
                 IsActive = vendor.IsActive,
@@ -109,7 +110,7 @@ namespace SimplCommerce.Module.Vendors.Controllers
                 var vendor = new Vendor
                 {
                     Name = model.Name,
-                    SeoTitle = model.Name.ToUrlFriendly(),
+                    SeoTitle = model.Slug,
                     Email = model.Email,
                     Description = model.Description,
                     IsActive = model.IsActive
@@ -129,7 +130,7 @@ namespace SimplCommerce.Module.Vendors.Controllers
             {
                 var vendor = _vendorRepository.Query().FirstOrDefault(x => x.Id == id);
                 vendor.Name = model.Name;
-                vendor.SeoTitle = model.Name.ToUrlFriendly();
+                vendor.SeoTitle = model.Slug;
                 vendor.Email = model.Email;
                 vendor.Description = model.Description;
                 vendor.IsActive = model.IsActive;

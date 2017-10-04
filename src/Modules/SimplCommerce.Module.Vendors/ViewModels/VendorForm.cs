@@ -10,6 +10,9 @@ namespace SimplCommerce.Module.Vendors.ViewModels
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        public string Slug { get; set; }
+
         [EmailAddress]
         [Required]
         public string Email { get; set; }
