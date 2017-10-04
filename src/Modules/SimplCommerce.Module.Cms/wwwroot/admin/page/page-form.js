@@ -20,7 +20,7 @@
         };
 
         vm.updateSlug = function () {
-            vm.page.seoTitle = slugify(vm.page.name);
+            vm.page.slug = slugify(vm.page.name);
         };
 
         vm.save = function save() {
