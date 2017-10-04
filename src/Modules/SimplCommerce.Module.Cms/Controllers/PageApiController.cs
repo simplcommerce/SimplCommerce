@@ -39,7 +39,7 @@ namespace SimplCommerce.Module.Cms.Controllers
             {
                 Id = page.Id,
                 Name = page.Name,
-                SeoTitle = page.SeoTitle,
+                Slug = page.SeoTitle,
                 Body = page.Body,
                 IsPublished = page.IsPublished
             };
@@ -55,7 +55,7 @@ namespace SimplCommerce.Module.Cms.Controllers
                 var page = new Page
                 {
                     Name = model.Name,
-                    SeoTitle = model.SeoTitle,
+                    SeoTitle = model.Slug,
                     Body = model.Body,
                     IsPublished = model.IsPublished
                 };
@@ -74,7 +74,7 @@ namespace SimplCommerce.Module.Cms.Controllers
             {
                 var page = _pageRepository.Query().FirstOrDefault(x => x.Id == id);
                 page.Name = model.Name;
-                page.SeoTitle = model.SeoTitle;
+                page.SeoTitle = model.Slug;
                 page.Body = model.Body;
                 page.IsPublished = model.IsPublished;
                 page.UpdatedOn = DateTimeOffset.Now;
