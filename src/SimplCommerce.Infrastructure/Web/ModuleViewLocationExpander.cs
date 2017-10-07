@@ -13,13 +13,13 @@ namespace SimplCommerce.Infrastructure.Web
 
         public IEnumerable<string> ExpandViewLocations(ViewLocationExpanderContext context, IEnumerable<string> viewLocations)
         {
-            if (context.Values.ContainsKey(THEME_KEY) && !string.IsNullOrWhiteSpace(context.Values[THEME_KEY]))
-            {
-                var theme = context.Values[THEME_KEY];
+            context.Values.TryGetValue(THEME_KEY, out string theme);
+            context.Values.TryGetValue(MODULE_KEY, out string module);
 
-                if (context.Values.ContainsKey(MODULE_KEY) && !string.IsNullOrWhiteSpace(context.Values[MODULE_KEY]))
+            if (!string.IsNullOrWhiteSpace(theme))
+            {
+                if (!string.IsNullOrWhiteSpace(module))
                 {
-                    var module = context.Values[MODULE_KEY];
                     var moduleViewLocations = new string[]
                     {
                         $"/Themes/{theme}/Modules/SimplCommerce.Module.{module}/Views/{{1}}/{{0}}.cshtml",
