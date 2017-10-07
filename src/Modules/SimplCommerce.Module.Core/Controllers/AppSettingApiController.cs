@@ -15,10 +15,10 @@ namespace SimplCommerce.Module.Core.Controllers
         private readonly IRepository<AppSetting> _appSettingRepository;
         private readonly IConfigurationRoot _configurationRoot;
 
-        public AppSettingApiController(IRepository<AppSetting> appSettingRepository, IConfigurationRoot configurationRoot)
+        public AppSettingApiController(IRepository<AppSetting> appSettingRepository, IConfiguration configuration)
         {
             _appSettingRepository = appSettingRepository;
-            _configurationRoot = configurationRoot;
+            _configurationRoot = (IConfigurationRoot)configuration;
         }
 
         public IActionResult Get()

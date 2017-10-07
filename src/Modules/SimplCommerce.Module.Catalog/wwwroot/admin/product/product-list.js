@@ -5,9 +5,10 @@
         .controller('ProductListCtrl', ProductListCtrl);
 
     /* @ngInject */
-    function ProductListCtrl(productService) {
+    function ProductListCtrl(productService, translateService) {
         var vm = this,
             tableStateRef;
+        vm.translate = translateService;
         vm.products = [];
 
         vm.getProducts = function getProducts(tableState) {
@@ -34,8 +35,8 @@
                            vm.getProducts(tableStateRef);
                            toastr.success(product.name + ' has been deleted');
                        })
-                       .catch(function (error) {
-                           toastr.error(error.data.error);
+                        .catch(function (response) {
+                            toastr.error(response.data.error);
                        });
                 }
             });

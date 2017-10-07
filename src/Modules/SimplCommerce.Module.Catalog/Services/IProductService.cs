@@ -1,4 +1,5 @@
-﻿using SimplCommerce.Module.Catalog.Models;
+﻿using System.Threading.Tasks;
+using SimplCommerce.Module.Catalog.Models;
 
 namespace SimplCommerce.Module.Catalog.Services
 {
@@ -8,6 +9,6 @@ namespace SimplCommerce.Module.Catalog.Services
 
         void Update(Product product);
 
-        void Delete(Product product);
+        Task Delete(Product product);
     }
 }

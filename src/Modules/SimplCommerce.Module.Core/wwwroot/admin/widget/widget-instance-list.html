@@ -1,12 +1,12 @@
 ﻿<div class="page-header">
     <div class="row">
         <div class="col-md-8">
-            <h2>Widget Instance List</h2>
+            <h2>{{::vm.translate.get('Widget Instances')}}</h2>
         </div>
         <div class="col-md-4 text-right">
             <div class="btn-group">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-plus"></span> Create Widget <span class="caret"></span>
+                    <span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create Widget')}}<span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu pull-right" role="menu">
                     <li ng-repeat="widget in vm.widgets">
@@ -21,12 +21,12 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Widget Type</th>
-        <th>Widget Zone</th>
-        <th>Publish Start</th>
-        <th>Publish End</th>
-        <th>Actions</th>
+        <th>{{::vm.translate.get('Name')}}</th>
+        <th>{{::vm.translate.get('Widget Type')}}</th>
+        <th>{{::vm.translate.get('Widget Zone')}}</th>
+        <th>{{::vm.translate.get('Publish Start')}}</th>
+        <th>{{::vm.translate.get('Publish End')}}</th>
+        <th>{{::vm.translate.get('Actions')}}</th>
     </tr>
     </thead>
     <tbody>

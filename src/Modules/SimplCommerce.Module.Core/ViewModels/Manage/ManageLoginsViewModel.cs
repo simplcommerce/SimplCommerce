@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Http.Authentication;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 
 namespace SimplCommerce.Module.Core.ViewModels.Manage
@@ -8,6 +8,6 @@ namespace SimplCommerce.Module.Core.ViewModels.Manage
     {
         public IList<UserLoginInfo> CurrentLogins { get; set; }
 
-        public IList<AuthenticationDescription> OtherLogins { get; set; }
+        public IList<AuthenticationScheme> OtherLogins { get; set; }
     }
 }

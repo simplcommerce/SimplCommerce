@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Services;
-using SimplCommerce.Module.Orders.ViewModels;
 
 namespace SimplCommerce.Module.Orders.Components
 {
@@ -21,21 +20,9 @@ namespace SimplCommerce.Module.Orders.Components
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var curentUser = await _workContext.GetCurrentUser();
+            var cart = await _cartService.GetCart(curentUser.Id);
 
-            var cartItems = _cartService.GetCartItems(curentUser.Id);
-            var model = new CartViewModel
-            {
-                CartItems = cartItems.Select(x => new CartListItem
-                {
-                    Id = x.Id,
-                    ProductName = x.Product.Name,
-                    ProductPrice = x.Product.Price,
-                    Quantity = x.Quantity,
-                    VariationOptions = CartListItem.GetVariationOption(x.Product)
-                }).ToList()
-            };
-
-            return View("/Modules/SimplCommerce.Module.Orders/Views/Components/OrderSummary.cshtml", model);
+            return View("/Modules/SimplCommerce.Module.Orders/Views/Components/OrderSummary.cshtml", cart);
         }
     }
 }

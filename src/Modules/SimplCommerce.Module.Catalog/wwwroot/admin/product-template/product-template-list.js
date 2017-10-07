@@ -5,8 +5,9 @@
         .controller('ProductTemplateListCtrl', ProductTemplateListCtrl);
 
     /* @ngInject */
-    function ProductTemplateListCtrl(productTemplateService) {
+    function ProductTemplateListCtrl(productTemplateService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.productTemplates = [];
 
         vm.getProductTemplates = function getProductTemplates() {
@@ -23,8 +24,8 @@
                            vm.getProductTemplates();
                            toastr.success(productTemplate.name + ' has been deleted');
                        })
-                       .catch(function (error) {
-                           toastr.error(error.data.error);
+                        .catch(function (response) {
+                            toastr.error(response.data.error);
                        });
                 }
             });

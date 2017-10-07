@@ -84,14 +84,12 @@ namespace SimplCommerce.Module.Reviews.Controllers
                     if (search.CreatedOn.before != null)
                     {
                         DateTimeOffset before = search.CreatedOn.before;
-                        before = before.Date.AddDays(1);
                         query = query.Where(x => x.CreatedOn <= before);
                     }
 
                     if (search.CreatedOn.after != null)
                     {
                         DateTimeOffset after = search.CreatedOn.after;
-                        after = after.Date;
                         query = query.Where(x => x.CreatedOn >= after);
                     }
                 }

@@ -1,0 +1,36 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Manage Translations</h2>
+        <p>Note that the updated translations only be affected after the application is restarted</p>
+    </div>
+    <div class="panel-body">
+        <form name="cultureSelection" class="form-inline">
+            <div class="form-group">
+                <label>Select culture</label>
+                <select class="form-control" ng-model="vm.selectedCultureId" ng-options="culture.id as culture.name for culture in vm.cultures"></select>
+            </div>
+            <button class="btn btn-default" ng-click="vm.changeCulture()">Switch</button>
+        </form>
+        <form name="localizationForm" class="form-horizontal">
+            <div class="col-sm-offset-4 bg-danger" ng-show="vm.validationErrors">
+                <ul>
+                    <li ng-repeat="error in vm.validationErrors">{{error}}</li>
+                </ul>
+            </div>
+            <hr />
+            <div class="form-group" ng-repeat="item in vm.resources">
+                <label class="col-sm-4 control-label">{{item.key}}</label>
+                <div class="col-sm-8 has-feedback">
+                    <input name="name" ng-model="item.value" class="form-control" aria-describedby="inputSuccess2Status" />
+                    <span ng-hide="!item.isTranslated" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-8">
+                    <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> Save</button>
+                    <button ui-sref="dashboard" class="btn btn-default">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

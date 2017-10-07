@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SimplCommerce.Module.Core.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, vendor")]
     public class HomeAdminController : Controller
     {
         [Route("admin")]

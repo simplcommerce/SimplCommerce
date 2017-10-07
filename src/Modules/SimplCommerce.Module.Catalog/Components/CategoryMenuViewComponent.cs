@@ -18,10 +18,11 @@ namespace SimplCommerce.Module.Catalog.Components
 
         public IViewComponentResult Invoke()
         {
-            var categories = _categoryRepository.Query().Where(x => !x.IsDeleted).ToList();
+            var categories = _categoryRepository.Query().Where(x => !x.IsDeleted && x.IncludeInMenu).ToList();
 
             var categoryMenuItems = new List<CategoryMenuItem>();
-            foreach (var category in categories.Where(x => !x.ParentId.HasValue))
+            var topCategories = categories.Where(x => !x.ParentId.HasValue).OrderByDescending(x => x.DisplayOrder);
+            foreach (var category in topCategories)
             {
                 var categoryMenuItem = Map(category);
                 categoryMenuItems.Add(categoryMenuItem);
@@ -39,8 +40,8 @@ namespace SimplCommerce.Module.Catalog.Components
                 SeoTitle = category.SeoTitle
             };
 
-            var childCategories = category.Child;
-            foreach (var childCategory in childCategories)
+            var childCategories = category.Children;
+            foreach (var childCategory in childCategories.OrderByDescending(x => x.DisplayOrder))
             {
                 var childCategoryMenuItem = Map(childCategory);
                 categoryMenuItem.AddChildItem(childCategoryMenuItem);

@@ -44,25 +44,27 @@
             return $http.post('api/products/grid', params);
         }
 
-        function createProduct(product, thumbnailImage, productImages) {
+        function createProduct(product, thumbnailImage, productImages, productDocuments) {
             return Upload.upload({
                 url: 'api/products',
                 data: {
                     product: product,
                     thumbnailImage: thumbnailImage,
-                    productImages: productImages
+                    productImages: productImages,
+                    productDocuments: productDocuments
                 }
             });
         }
 
-        function editProduct(product, thumbnailImage, productImages) {
+        function editProduct(product, thumbnailImage, productImages, productDocuments) {
             return Upload.upload({
                 url: 'api/products/' + product.id,
                 method: 'PUT',
                 data: {
                     product: product,
                     thumbnailImage: thumbnailImage,
-                    productImages: productImages
+                    productImages: productImages,
+                    productDocuments: productDocuments
                 }
             });
         }

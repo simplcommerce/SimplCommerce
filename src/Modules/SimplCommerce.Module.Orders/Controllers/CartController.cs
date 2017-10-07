@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
@@ -37,31 +36,28 @@ namespace SimplCommerce.Module.Orders.Controllers
         public async Task<IActionResult> AddToCart([FromBody] AddToCartModel model)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            CartItem cartItem = _cartService.AddToCart(currentUser.Id, model.ProductId, model.VariationName, model.Quantity);
+            _cartService.AddToCart(currentUser.Id, model.ProductId, model.Quantity);
 
-            return RedirectToAction("AddToCartResult", new { cartItemId = cartItem.Id });
+            return RedirectToAction("AddToCartResult", new { productId = model.ProductId });
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddToCartResult(long cartItemId)
+        public async Task<IActionResult> AddToCartResult(long productId)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cartItem =
-                _cartItemRepository.Query()
-                    .Include(x => x.Product).ThenInclude(x => x.ThumbnailImage)
-                    .First(x => x.Id == cartItemId);
+            var cart = await _cartService.GetCart(currentUser.Id);
 
             var model = new AddToCartResult
             {
-                ProductName = cartItem.Product.Name,
-                ProductImage = _mediaService.GetThumbnailUrl(cartItem.Product.ThumbnailImage),
-                ProductPrice = cartItem.Product.Price,
-                Quantity = cartItem.Quantity
+                CartItemCount = cart.Items.Count,
+                CartAmount = cart.SubTotal
             };
 
-            var cartItems = _cartService.GetCartItems(currentUser.Id);
-            model.CartItemCount = cartItems.Count;
-            model.CartAmount = cartItems.Sum(x => x.Quantity * x.Product.Price);
+            var addedProduct = cart.Items.First(x => x.ProductId == productId);
+            model.ProductName = addedProduct.ProductName;
+            model.ProductImage = addedProduct.ProductImage;
+            model.ProductPrice = addedProduct.ProductPrice;
+            model.Quantity = addedProduct.Quantity;
 
             return PartialView(model);
         }
@@ -76,33 +72,38 @@ namespace SimplCommerce.Module.Orders.Controllers
         public async Task<IActionResult> List()
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cartItems = _cartService.GetCartItems(currentUser.Id);
+            var cart = await _cartService.GetCart(currentUser.Id);
 
-            var model = new CartViewModel
-            {
-                CartItems = cartItems.Select(x => new CartListItem
-                {
-                    Id = x.Id,
-                    ProductName = x.Product.Name,
-                    ProductPrice = x.Product.Price,
-                    ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
-                    Quantity = x.Quantity,
-                    VariationOptions = CartListItem.GetVariationOption(x.Product)
-                }).ToList()
-            };
-
-            return Json(model);
+            return Json(cart);
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateQuantity([FromBody] CartQuantityUpdate model)
         {
             var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == model.CartItemId);
-            cartItem.Quantity = model.Quantity;
+            if (cartItem == null)
+            {
+                return new NotFoundResult();
+            }
 
+            cartItem.Quantity = model.Quantity;
             _cartItemRepository.SaveChange();
 
             return await List();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ApplyCoupon([FromBody] ApplyCouponForm model)
+        {
+            var currentUser = await _workContext.GetCurrentUser();
+            var validationResult =  await _cartService.ApplyCoupon(currentUser.Id, model.CouponCode);
+            if (validationResult.Succeeded)
+            {
+                var cart = await _cartService.GetCart(currentUser.Id);
+                return Json(cart);
+            }
+
+            return Json(validationResult);
         }
 
         [HttpPost]

@@ -6,7 +6,7 @@
     function reviewWidget() {
         var directive = {
             restrict: 'E',
-            templateUrl: 'reviews/admin/review/review-widget.directive.html',
+            templateUrl: 'modules/reviews/admin/review/review-widget.directive.html',
             scope: {
                 status: '=',
                 numRecords: '='
@@ -20,12 +20,15 @@
     }
 
     /* @ngInject */
-    function ReviewWidgetCtrl(reviewService) {
+    function ReviewWidgetCtrl(reviewService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.reviews = [];
 
-        reviewService.getReviews(vm.status, vm.numRecords).then(function (result) {
-            vm.reviews = result.data;
-        });
+        vm.$onInit = function () {
+            reviewService.getReviews(vm.status, vm.numRecords).then(function (result) {
+                vm.reviews = result.data;
+            });
+        };
     }
 })();

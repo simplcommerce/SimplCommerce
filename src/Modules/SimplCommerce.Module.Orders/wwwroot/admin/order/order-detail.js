@@ -5,9 +5,9 @@
         .controller('OrderDetailCtrl', OrderDetailCtrl);
 
     /* @ngInject */
-    function OrderDetailCtrl($state, $stateParams, orderService) {
+    function OrderDetailCtrl($state, $stateParams, orderService, translateService) {
         var vm = this;
-
+        vm.translate = translateService;
         vm.orderId = $stateParams.id;
         vm.order = {};
         vm.orderStatus = [];
@@ -20,8 +20,8 @@
                     vm.order.orderStatusString = vm.orderStatus.find(function (item) { return item.id === vm.order.orderStatus; }).name;
                     toastr.success('The order now is ' + vm.order.orderStatusString);
                 })
-                .catch(function (error) {
-                    toastr.error(error.data.error);
+                .catch(function (response) {
+                    toastr.error(response.data.error);
                 });
         };
 

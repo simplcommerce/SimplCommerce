@@ -6,7 +6,7 @@
     function mostSearchKeyword() {
         var directive = {
             restrict: 'E',
-            templateUrl: 'search/admin/most-search-keywords.directive.html',
+            templateUrl: 'modules/search/admin/most-search-keywords.directive.html',
             scope: {},
             controller: MostSearchKeywordCtrl,
             controllerAs: 'vm',
@@ -17,8 +17,9 @@
     }
 
     /* @ngInject */
-    function MostSearchKeywordCtrl(searchService) {
+    function MostSearchKeywordCtrl(searchService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.keywords = [];
 
         searchService.getMostSearchKeywords().then(function (result) {

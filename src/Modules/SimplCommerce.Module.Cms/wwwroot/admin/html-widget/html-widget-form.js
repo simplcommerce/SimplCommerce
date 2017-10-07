@@ -5,8 +5,9 @@
         .controller('HtmlWidgetFormCtrl', HtmlWidgetFormCtrl);
 
     /* @ngInject */
-    function HtmlWidgetFormCtrl($state, $stateParams, summerNoteService, htmlWidgetService) {
+    function HtmlWidgetFormCtrl($state, $stateParams, summerNoteService, htmlWidgetService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.widgetZones = [];
         vm.widgetInstance = { widgetZoneId: 1, publishStart : new Date() };
         vm.widgetInstanceId = $stateParams.id;
@@ -21,8 +22,8 @@
 
         vm.imageUpload = function (files) {
             summerNoteService.upload(files[0])
-                .success(function (url) {
-                    $(vm.htmlContent).summernote('insertImage', url);
+                .then(function (response) {
+                    $(vm.htmlContent).summernote('insertImage', response.data);
                 });
         };
 
@@ -35,10 +36,11 @@
             }
 
             promise
-                .success(function (result) {
+                .then(function (result) {
                     $state.go('widget');
                 })
-                .error(function (error) {
+                .catch(function (response) {
+                    var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
                         for (var key in error) {

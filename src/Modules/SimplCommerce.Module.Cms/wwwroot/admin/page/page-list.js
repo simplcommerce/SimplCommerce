@@ -5,8 +5,9 @@
         .controller('PageListCtrl', PageListCtrl);
 
     /* @ngInject */
-    function PageListCtrl(pageService) {
+    function PageListCtrl(pageService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.pages = [];
 
         vm.getPages = function getpages() {
@@ -23,8 +24,8 @@
                            vm.getPages();
                            toastr.success(page.name + ' has been deleted');
                        })
-                       .catch(function (error) {
-                           toastr.error(error.data.error);
+                        .catch(function (response) {
+                            toastr.error(response.data.error);
                        });
                 }
             });

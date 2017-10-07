@@ -8,6 +8,8 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public string Name { get; set; }
 
-        public IList<string> Values { get; set; } = new List<string>();
+        public string DisplayType { get; set; }
+
+        public IList<ProductOptionValueVm> Values { get; set; } = new List<ProductOptionValueVm>();
     }
 }

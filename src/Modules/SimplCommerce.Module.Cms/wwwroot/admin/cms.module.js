@@ -7,37 +7,52 @@
             $stateProvider
                 .state('page', {
                     url: '/page',
-                    templateUrl: 'cms/admin/page/page-list.html',
+                    templateUrl: 'modules/cms/admin/page/page-list.html',
                     controller: 'PageListCtrl as vm'
                 })
                 .state('page-create', {
                     url: '/page/create',
-                    templateUrl: 'cms/admin/page/page-form.html',
+                    templateUrl: 'modules/cms/admin/page/page-form.html',
                     controller: 'PageFormCtrl as vm'
                 })
                 .state('page-edit', {
                     url: '/page/edit/:id',
-                    templateUrl: 'cms/admin/page/page-form.html',
+                    templateUrl: 'modules/cms/admin/page/page-form.html',
                     controller: 'PageFormCtrl as vm'
+                })
+                .state('menus', {
+                    url: '/menus/',
+                    templateUrl: 'modules/cms/admin/menu/menu-list.html',
+                    controller: 'MenuListCtrl as vm'
+                })
+                .state('menus-create', {
+                    url: '/menus-create/',
+                    templateUrl: 'modules/cms/admin/menu/menu-form-create.html',
+                    controller: 'MenuFormCreateCtrl as vm'
+                })
+                .state('menus-edit', {
+                    url: '/menus-edit/:id',
+                    templateUrl: 'modules/cms/admin/menu/menu-form.html',
+                    controller: 'MenuFormCtrl as vm'
                 })
                 .state('widget-carousel-create', {
                     url: '/widget-carousel/create',
-                    templateUrl: 'cms/admin/carousel-widget/carousel-widget-form.html',
+                    templateUrl: 'modules/cms/admin/carousel-widget/carousel-widget-form.html',
                     controller: 'CarouselWidgetFormCtrl as vm'
                 })
                 .state('widget-carousel-edit', {
                     url: '/widget-carousel/edit/:id',
-                    templateUrl: 'cms/admin/carousel-widget/carousel-widget-form.html',
+                    templateUrl: 'modules/cms/admin/carousel-widget/carousel-widget-form.html',
                     controller: 'CarouselWidgetFormCtrl as vm'
                 })
                 .state('widget-html-create', {
                     url: '/widget-html/create',
-                    templateUrl: 'cms/admin/html-widget/html-widget-form.html',
+                    templateUrl: 'modules/cms/admin/html-widget/html-widget-form.html',
                     controller: 'HtmlWidgetFormCtrl as vm'
                 })
                 .state('widget-html-edit', {
                     url: '/widget-html/edit/:id',
-                    templateUrl: 'cms/admin/html-widget/html-widget-form.html',
+                    templateUrl: 'modules/cms/admin/html-widget/html-widget-form.html',
                     controller: 'HtmlWidgetFormCtrl as vm'
                 });
         }]);

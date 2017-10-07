@@ -5,8 +5,9 @@
         .controller('ProductTemplateFormCtrl', ProductTemplateFormCtrl);
 
     /* @ngInject */
-    function ProductTemplateFormCtrl($state, $stateParams, productTemplateService, productAttributeService) {
+    function ProductTemplateFormCtrl($state, $stateParams, productTemplateService, productAttributeService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.productTemplateId = $stateParams.id;
         vm.isEditMode = vm.productTemplateId > 0;
         vm.productTemplate = { attributes : [] };
@@ -34,10 +35,11 @@
                 promise = productTemplateService.createProductTemplate(vm.productTemplate);
             }
 
-            promise.success(function () {
+            promise.then(function () {
                     $state.go('product-template');
                 })
-                .error(function (error) {
+                .catch(function (response) {
+                    var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
                         for (var key in error) {

@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Globalization;
-using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.Extensions.FileProviders;
-using SimplCommerce.Infrastructure;
+using Microsoft.Net.Http.Headers;
 using SimplCommerce.Module.Core.Extensions;
+using Microsoft.AspNetCore.Hosting;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -14,17 +13,7 @@ namespace SimplCommerce.WebHost.Extensions
     {
         public static IApplicationBuilder UseCustomizedIdentity(this IApplicationBuilder app)
         {
-            app.UseIdentity()
-                .UseGoogleAuthentication(new GoogleOptions
-                {
-                    ClientId = "583825788849-8g42lum4trd5g3319go0iqt6pn30gqlq.apps.googleusercontent.com",
-                    ClientSecret = "X8xIiuNEUjEYfiEfiNrWOfI4"
-                })
-                .UseFacebookAuthentication(new FacebookOptions
-                {
-                    AppId = "1716532045292977",
-                    AppSecret = "dfece01ae919b7b8af23f962a1f87f95"
-                });
+            app.UseAuthentication();
             return app;
         }
 
@@ -41,25 +30,40 @@ namespace SimplCommerce.WebHost.Extensions
             return app;
         }
 
-        public static IApplicationBuilder UseCustomizedStaticFiles(this IApplicationBuilder app, IList<ModuleInfo> modules)
+        public static IApplicationBuilder UseCustomizedStaticFiles(this IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseStaticFiles();
-
-            // Serving static file for modules
-            foreach (var module in modules)
+            if (env.IsDevelopment())
             {
-                var wwwrootDir = new DirectoryInfo(Path.Combine(module.Path, "wwwroot"));
-                if (!wwwrootDir.Exists)
-                {
-                    continue;
-                }
-
                 app.UseStaticFiles(new StaticFileOptions
                 {
-                    FileProvider = new PhysicalFileProvider(wwwrootDir.FullName),
-                    RequestPath = new PathString("/" + module.ShortName)
+                    OnPrepareResponse = (context) =>
+                    {
+                        var headers = context.Context.Response.GetTypedHeaders();
+                        headers.CacheControl = new CacheControlHeaderValue
+                        {
+                            NoCache = true,
+                            NoStore = true,
+                            MaxAge = TimeSpan.FromDays(-1)
+                        };
+                    }
                 });
             }
+            else
+            {
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    OnPrepareResponse = (context) =>
+                    {
+                        var headers = context.Context.Response.GetTypedHeaders();
+                        headers.CacheControl = new CacheControlHeaderValue
+                        {
+                            Public = true,
+                            MaxAge = TimeSpan.FromDays(60)
+                        };
+                    }
+                });
+            }
+
             return app;
         }
 
@@ -70,7 +74,12 @@ namespace SimplCommerce.WebHost.Extensions
                 new CultureInfo("en-US"),
                 new CultureInfo("vi-VN"),
                 new CultureInfo("fr-FR"),
-                new CultureInfo("pt-BR"), 
+                new CultureInfo("pt-BR"),
+                new CultureInfo("uk-UA"),
+                new CultureInfo("ru-RU"),
+                new CultureInfo("ar-TN"),
+                new CultureInfo("ko-KR"),
+                new CultureInfo("tr-TR")
             };
             app.UseRequestLocalization(new RequestLocalizationOptions
             {

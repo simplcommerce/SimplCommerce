@@ -1,5 +1,7 @@
-﻿using System.IO;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using SimplCommerce.Module.Core.Extensions;
 
 namespace SimplCommerce.WebHost
 {
@@ -7,15 +9,28 @@ namespace SimplCommerce.WebHost
     {
         public static void Main(string[] args)
         {
-            var host = new WebHostBuilder()
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseUrls("http://*:5000")
-                .UseIISIntegration()
+            BuildWebHost2(args).Run();
+        }
+
+        // Changed to BuildWebHost2 to make EF don't pickup during design time
+        private static IWebHost BuildWebHost2(string[] args) =>
+            Microsoft.AspNetCore.WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .ConfigureAppConfiguration(SetupConfiguration)
                 .Build();
 
-            host.Run();
+        private static void SetupConfiguration(WebHostBuilderContext hostingContext, IConfigurationBuilder configBuilder)
+        {
+            var env = hostingContext.HostingEnvironment;
+            configBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+
+            configBuilder.AddEnvironmentVariables();
+
+            var connectionStringConfig = configBuilder.Build();
+            configBuilder.AddEntityFrameworkConfig(options =>
+                    options.UseSqlServer(connectionStringConfig.GetConnectionString("DefaultConnection"))
+            );
         }
     }
 }

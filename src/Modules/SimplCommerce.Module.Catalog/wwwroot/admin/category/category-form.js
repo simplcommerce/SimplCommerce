@@ -5,15 +5,26 @@
         .controller('CategoryFormCtrl', CategoryFormCtrl);
 
     /* @ngInject */
-    function CategoryFormCtrl($q, $state, $stateParams, categoryService) {
-        var vm = this;
-        vm.category = {};
+    function CategoryFormCtrl($q, $state, $stateParams, categoryService, translateService) {
+        var vm = this,
+            tableStateRef;
+        vm.translate = translateService;
+        vm.category = { isPublished: true };
         vm.categories = [];
+        vm.products = [];
         vm.categoryId = $stateParams.id;
         vm.isEditMode = vm.categoryId > 0;
 
+        vm.updateSlug = function () {
+            vm.category.slug = slugify(vm.category.name);
+        };
+
         vm.save = function save() {
             var promise;
+            // ng-upload will post null as text
+            vm.category.parentId = vm.category.parentId === null ? '' : vm.category.parentId;
+            vm.category.description = vm.category.description === null ? '' : vm.category.description;
+
             if (vm.isEditMode) {
                 promise = categoryService.editCategory(vm.category);
             } else {
@@ -21,10 +32,11 @@
             }
 
             promise
-                .success(function (result) {
+                .then(function (result) {
                         $state.go('category');
                     })
-                .error(function (error) {
+                .catch(function (response) {
+                    var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
                         for (var key in error) {
@@ -35,6 +47,39 @@
                     }
                 });
         };
+
+        vm.getProducts = function getProducts(tableState) {
+            if (!vm.categoryId) {
+                return;
+            }
+
+            tableStateRef = tableState;
+            vm.isLoading = true;
+            categoryService.getProducts(vm.categoryId, tableState).then(function (result) {
+                vm.products = result.data.items;
+                tableState.pagination.numberOfPages = result.data.numberOfPages;
+                vm.isLoading = false;
+            });
+        };
+
+        vm.editProduct = function editProduct(product) {
+            product.isEditing = true;
+            product.editingIsFeaturedProduct = product.isFeaturedProduct;
+            product.editingDisplayOrder = product.displayOrder;
+        }
+
+        vm.saveProduct = function saveProduct(product) {
+            var productCategory = {
+                'id' : product.id,
+                'isFeaturedProduct' : product.editingIsFeaturedProduct,
+                'displayOrder' : product.displayOrder
+            };
+            categoryService.saveProduct(productCategory).then(function () {
+                product.isEditing = false;
+                product.isFeaturedProduct = product.editingIsFeaturedProduct;
+                product.displayOrder = product.editingDisplayOrder;
+            });
+        }
 
         function init() {
             if (vm.isEditMode) {

@@ -36,6 +36,9 @@ namespace SimplCommerce.Module.Catalog.ViewModels
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        public string Slug { get; set; }
+
         public string ShortDescription { get; set; }
 
         public string Description { get; set; }
@@ -56,10 +59,16 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public string ThumbnailImageUrl { get; set; }
 
-        public IList<ProductMediaVm> ProductMedias { get; set; } = new List<ProductMediaVm>();
+        public IList<ProductMediaVm> ProductImages { get; set; } = new List<ProductMediaVm>();
+
+        public IList<ProductMediaVm> ProductDocuments { get; set; } = new List<ProductMediaVm>();
 
         public IList<long> DeletedMediaIds { get; set; } = new List<long>();
 
         public long? BrandId { get; set; }
+
+        public List<ProductLinkVm> RelatedProducts { get; set; } = new List<ProductLinkVm>();
+
+        public List<ProductLinkVm> CrossSellProducts { get; set; } = new List<ProductLinkVm>();
     }
 }

@@ -1,0 +1,59 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{::vm.translate.get('Vendors')}}</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <a ui-sref="vendor-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create Vendor')}}</a>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped" st-pipe="vm.getVendors" st-table="vm.vendors">
+    <thead>
+        <tr>
+            <th st-sort="Name" class="sortable">{{::vm.translate.get('Name')}}</th>
+            <th st-sort="Email" class="sortable">{{::vm.translate.get('Email')}}</th>
+            <th class="text-center">{{::vm.translate.get('Is Active')}}</th>
+            <th st-sort="CreatedOn" class="sortable">{{::vm.translate.get('Created On')}}</th>
+            <th>{{::vm.translate.get('Actions')}}</th>
+        </tr>
+        <tr>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="FullName" />
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="Email"/>
+                </div>
+            </th>
+            <th></th>
+            <th><st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-show="!vm.isLoading">
+        <tr ng-repeat="vendor in vm.vendors">
+            <td>{{vendor.name}}</td>
+            <td>{{vendor.email}}</td>
+            <td class="text-center"><i ng-attr-class="{{vendor.isActive && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+            <td>{{vendor.createdOn | date:'medium' }}</td>
+            <td>
+                <a ui-sref="vendor-edit({id: vendor.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+                <button ng-click="vm.deleteVendor(vendor)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+            </td>
+        </tr>
+    </tbody>
+    <tbody ng-show="vm.isLoading">
+        <tr>
+            <td colspan="5" class="text-center">Loading ... </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="5"></td>
+        </tr>
+    </tfoot>
+</table>

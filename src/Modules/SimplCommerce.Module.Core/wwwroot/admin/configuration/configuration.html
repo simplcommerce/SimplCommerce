@@ -1,9 +1,9 @@
 ﻿<div class="panel panel-default">
     <div class="panel-heading">
-        <h2>Application Settings</h2>
+        <h2>{{::vm.translate.get('Application Settings')}}</h2>
     </div>
     <div class="panel-body">
-        <form name="pageForm" class="form-horizontal">
+        <form name="configurationForm" class="form-horizontal">
             <div class="col-sm-offset-2 bg-danger" ng-show="vm.validationErrors">
                 <ul>
                     <li ng-repeat="error in vm.validationErrors">{{error}}</li>

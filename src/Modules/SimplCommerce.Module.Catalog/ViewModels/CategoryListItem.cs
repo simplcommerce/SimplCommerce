@@ -6,6 +6,12 @@
 
         public string Name { get; set; }
 
+        public int DisplayOrder { get; set; }
+
+        public bool IncludeInMenu { get; set; }
+
         public bool IsPublished { get; set; }
+
+        public long? ParentId { get; set; }
     }
 }

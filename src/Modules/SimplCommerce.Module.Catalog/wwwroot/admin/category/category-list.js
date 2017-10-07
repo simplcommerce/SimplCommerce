@@ -5,8 +5,9 @@
         .controller('CategoryListCtrl', CategoryLitsCtrl);
 
     /* @ngInject */
-    function CategoryLitsCtrl(categoryService) {
+    function CategoryLitsCtrl(categoryService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.categories = [];
 
         vm.getCategories = function getCategories() {
@@ -23,8 +24,8 @@
                            vm.getCategories();
                            toastr.success(category.name + 'Have been deleted');
                         })
-                       .catch(function (error) {
-                            toastr.error(error.data.error);
+                        .catch(function (response) {
+                            toastr.error(response.data.error);
                         });
                 }
             });

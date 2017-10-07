@@ -53,6 +53,8 @@ namespace SimplCommerce.Module.Catalog.ViewModels
             }
         }
 
+        public IDictionary<string, ProductOptionDisplay> OptionDisplayValues { get; set; } = new Dictionary<string, ProductOptionDisplay>();
+
         public IList<MediaViewModel> Images { get; set; } = new List<MediaViewModel>();
 
         public IList<ProductDetailVariation> Variations { get; set; } = new List<ProductDetailVariation>();
@@ -60,5 +62,9 @@ namespace SimplCommerce.Module.Catalog.ViewModels
         public IList<ProductDetailAttribute> Attributes { get; set; } = new List<ProductDetailAttribute>();
 
         public IList<ProductDetailCategory> Categories { get; set; } = new List<ProductDetailCategory>();
+
+        public IList<ProductThumbnail> RelatedProducts { get; set; } = new List<ProductThumbnail>();
+
+        public IList<ProductThumbnail> CrossSellProducts { get; set; } = new List<ProductThumbnail>();
     }
 }

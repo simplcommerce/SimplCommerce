@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure;
@@ -27,14 +28,14 @@ namespace SimplCommerce.Module.Core.Data
 
             RegisterEntities(modelBuilder, typeToRegisters);
 
-            RegiserConvention(modelBuilder);
+            RegisterConvention(modelBuilder);
 
             base.OnModelCreating(modelBuilder);
 
             RegisterCustomMappings(modelBuilder, typeToRegisters);
         }
 
-        private static void RegiserConvention(ModelBuilder modelBuilder)
+        private static void RegisterConvention(ModelBuilder modelBuilder)
         {
             foreach (var entity in modelBuilder.Model.GetEntityTypes())
             {

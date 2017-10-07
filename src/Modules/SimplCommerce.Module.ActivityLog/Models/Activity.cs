@@ -9,6 +9,8 @@ namespace SimplCommerce.Module.ActivityLog.Models
 
         public ActivityType ActivityType { get; set; }
 
+        public long UserId { get; set; }
+
         public DateTimeOffset CreatedOn { get; set; }
 
         public long EntityId { get; set; }

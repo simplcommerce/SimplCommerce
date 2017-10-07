@@ -5,8 +5,9 @@
         .controller('CarouselWidgetFormCtrl', CarouselWidgetFormCtrl);
 
     /* @ngInject */
-    function CarouselWidgetFormCtrl($state, $stateParams, carouselWidgetService) {
+    function CarouselWidgetFormCtrl($state, $stateParams, carouselWidgetService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.widgetInstance = { widgetZoneId: 1, items: [{}], publishStart: new Date() };
         vm.widgetZones = [];
         vm.widgetInstanceId = $stateParams.id;
@@ -43,10 +44,11 @@
             }
 
             promise
-                .success(function (result) {
+                .then(function (result) {
                     $state.go('widget');
                 })
-                .error(function (error) {
+                .catch(function (response) {
+                    var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
                         for (var key in error) {

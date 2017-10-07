@@ -5,8 +5,9 @@
         .controller('ProductAttributeGroupListCtrl', ProductAttributeGroupListCtrl);
 
     /* @ngInject */
-    function ProductAttributeGroupListCtrl(productAttributeGroupService) {
+    function ProductAttributeGroupListCtrl(productAttributeGroupService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.productAttributeGroups = [];
 
         vm.getProductAttributeGroups = function getProductAttributeGroups() {
@@ -18,7 +19,7 @@
         vm.deleteProductAttributeGroup = function deleteProductAttributeGroup(productAttributeGroup) {
             if (confirm("Are you sure?")) {
                 productAttributeGroupService.deleteProductAttributeGroup(productAttributeGroup)
-                    .success(function (result) {
+                    .then(function (result) {
                         vm.getProductAttributeGroups();
                     });
             }

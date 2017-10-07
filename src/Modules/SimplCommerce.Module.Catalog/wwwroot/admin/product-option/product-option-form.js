@@ -5,8 +5,9 @@
         .controller('ProductOptionFormCtrl', ProductOptionFormCtrl);
 
     /* @ngInject */
-    function ProductOptionFormCtrl($state, $stateParams, productOptionService) {
+    function ProductOptionFormCtrl($state, $stateParams, productOptionService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.productOptionId = $stateParams.id;
         vm.isEditMode = vm.productOptionId > 0;
 
@@ -21,10 +22,11 @@
             }
 
             promise
-                .success(function (result) {
+                .then(function (result) {
                     $state.go('product-option');
                 })
-                .error(function (error) {
+                .catch(function (response) {
+                    var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
                         for (var key in error) {

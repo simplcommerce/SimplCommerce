@@ -5,8 +5,9 @@
         .controller('BrandListCtrl', BrandListCtrl);
 
     /* @ngInject */
-    function BrandListCtrl(brandService) {
+    function BrandListCtrl(brandService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.brands = [];
 
         vm.getBrands = function getBrands() {
@@ -23,8 +24,8 @@
                            vm.getBrands();
                            toastr.success(brand.name + ' has been deleted');
                        })
-                       .catch(function (error) {
-                           toastr.error(error.data.error);
+                       .catch(function (response) {
+                           toastr.error(response.data.error);
                        });
                 }
             });

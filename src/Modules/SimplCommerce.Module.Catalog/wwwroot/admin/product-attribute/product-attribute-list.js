@@ -5,8 +5,9 @@
         .controller('ProductAttributeListCtrl', ProductAttributeListCtrl);
 
     /* @ngInject */
-    function ProductAttributeListCtrl(productAttributeService) {
+    function ProductAttributeListCtrl(productAttributeService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.productAttributes = [];
 
         vm.getProductAttributes = function getProductAttributes() {
@@ -18,7 +19,7 @@
         vm.deleteProductAttribute = function deleteProductAttribute(productAttribute) {
             if (confirm("Are you sure?")) {
                 productAttributeService.deleteProductAttribute(productAttribute)
-                    .success(function (result) {
+                    .then(function (result) {
                         vm.getProductAttributes();
                     });
             }

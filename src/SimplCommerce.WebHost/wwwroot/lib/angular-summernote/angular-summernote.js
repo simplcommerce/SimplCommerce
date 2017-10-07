@@ -1,4 +1,4 @@
-/*  angular-summernote v0.8.0 | (c) 2016 JeongHoon Byun | MIT license */
+/*  angular-summernote v0.8.1 | (c) 2016 JeongHoon Byun | MIT license */
 /* global angular */
 angular.module('summernote', [])
 
@@ -22,7 +22,7 @@ angular.module('summernote', [])
     }
 
     summernoteConfig.callbacks = summernoteConfig.callbacks || {};
-    
+
     if (angular.isDefined($attrs.onInit)) {
       summernoteConfig.callbacks.onInit = function(evt) {
         $scope.init({evt:evt});
@@ -195,9 +195,8 @@ angular.module('summernote', [])
             });
             summernoteController.activate(scope, element, ngModel);
           } else {
-            scope.$watch(function() {
-              return ngModel.$viewValue;
-            }, function(value) {
+            var clearWatch = scope.$watch(function() { return ngModel.$viewValue; }, function(value) {
+              clearWatch();
               element.append(value);
               summernoteController.activate(scope, element, ngModel);
             }, true);

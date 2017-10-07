@@ -1,4 +1,4 @@
-﻿@model SimplCommerce.Module.Catalog.ViewModels.ProductDetail
+@model SimplCommerce.Module.Catalog.ViewModels.ProductDetail
 
 @{
     ViewBag.Title = Model.Name;
@@ -6,8 +6,8 @@
 
 @section head
 {
-    <link href="~/lib/smoothproducts/css/smoothproducts.css" rel="stylesheet" />
-    <link href="~/css/product-detail.css" rel="stylesheet" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/smoothproducts/css/smoothproducts.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/modules/catalog/product-detail.css" />
 }
 
 <div>
@@ -58,7 +58,21 @@
                                         var shouldChecked = Model.Variations.First().Options.Any(x => x.Value == value);
                                         <li>
                                             <input type="radio" value="@value" checked="@shouldChecked" name="@option.OptionName" />
-                                            <label>@value</label>
+                                            @if (Model.OptionDisplayValues.ContainsKey(value) && !String.IsNullOrWhiteSpace(Model.OptionDisplayValues[value].Value))
+                                            {
+                                                if (Model.OptionDisplayValues[value].DisplayType == "color")
+                                                {
+                                                    <label title="@value" class="color" style="background-color:@Model.OptionDisplayValues[value].Value"></label>
+                                                }
+                                                else
+                                                {
+                                                    <label>@Model.OptionDisplayValues[value].Value</label>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <label>@value</label>
+                                            }
                                         </li>
                                     }
                                 </ul>
@@ -70,7 +84,7 @@
                 foreach (var variant in Model.Variations)
                 {
                     var hidden = variant != Model.Variations.First() ? "collapse" : "";
-                    <div class="product-variation @variant.NormalizedName @hidden">
+                    <div class="product-variation @hidden" data-variation-name="@variant.NormalizedName">
                         <div class="product-price">
                             @if (variant.IsCallForPricing)
                             {
@@ -101,6 +115,18 @@
                                     <button type="button" class="quantity-button" name="add" value="+">+</button>
                                 </div>
                                 <button type="button" disabled="@(!variant.IsAllowToOrder || variant.StockQuantity <= 0)" class="btn btn-lg btn-add-cart">@Localizer["Add to cart"]</button>
+                                <div>
+                                    <ul class="list-inline add-to-wishlist">
+                                        @*<li class="wishlist-in">
+                                            <i class="fa fa-heart"></i>
+                                            <a href="#">Add to Wishlist</a>
+                                        </li>*@
+                                        <li class="compare-in">
+                                            <i class="fa fa-exchange"></i>
+                                            <a href="#" class="add-to-comparison">Add to Compare</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -141,22 +167,21 @@
                             <button type="button" class="quantity-button" name="add" value="+">+</button>
                         </div>
                         <button type="button" disabled="@(!Model.IsAllowToOrder || Model.StockQuantity <= 0)" class="btn btn-lg btn-add-cart">@Localizer["Add to cart"]</button>
+                        <div>
+                            <ul class="list-inline add-to-wishlist">
+                                @*<li class="wishlist-in">
+                                    <i class="fa fa-heart"></i>
+                                    <a href="#">Add to Wishlist</a>
+                                </li>*@
+                                <li class="compare-in">
+                                    <i class="fa fa-exchange"></i>
+                                    <a href="#" class="add-to-comparison">Add to Compare</a>
+                                </li>
+                            </ul>
+                        </div>
                     </form>
                 </div>
             }
-
-            <div>
-                <ul class="list-inline add-to-wishlist">
-                    <li class="wishlist-in">
-                        <i class="fa fa-heart"></i>
-                        <a href="#">Add to Wishlist</a>
-                    </li>
-                    <li class="compare-in">
-                        <i class="fa fa-exchange"></i>
-                        <a href="#">Add to Compare</a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </div>
     @if (!string.IsNullOrWhiteSpace(Model.Description))
@@ -189,15 +214,44 @@
             </table>
         </div>
     }
-    <div>
-        <h3>@Localizer["Customer reviews"]</h3>
-        @await Component.InvokeAsync("Review", new { entityId = Model.Id, entityTypeId = (long)3 })
-    </div>
 </div>
+
+@if (Model.RelatedProducts.Any()) {
+    <h2 class="page-header">Related Products</h2>
+    <div class="row product-list">
+        @foreach (var product in Model.RelatedProducts)
+        {
+            <div class="col-xs-6 col-md-3">
+                @await Html.PartialAsync("_ProductThumbnail", product)
+            </div>
+        }
+    </div>
+}
+
+@if (Model.CrossSellProducts.Any())
+{
+    <h2 class="page-header">Cross-sell Products</h2>
+    <div class="row product-list">
+        @foreach (var product in Model.CrossSellProducts)
+        {
+            <div class="col-xs-6 col-md-3">
+                @await Html.PartialAsync("_ProductThumbnail", product)
+            </div>
+        }
+    </div>
+}
+
+@await Component.InvokeAsync("ProductRecentlyViewed", new { productId = Model.Id })
+
+<div>
+    <h3>@Localizer["Customer reviews"]</h3>
+    @await Component.InvokeAsync("Review", new { entityId = Model.Id, entityTypeId = (long)3 })
+</div>
+
 
 @section scripts
 {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-    <script src="~/lib/smoothproducts/js/smoothproducts.js"></script>
-    <script src="~/catalog/product-detail.js"></script>
+    <script simpl-append-version="true" src="~/lib/smoothproducts/js/smoothproducts.js"></script>
+    <script simpl-append-version="true" src="~/modules/catalog/product-detail.js"></script>
 }

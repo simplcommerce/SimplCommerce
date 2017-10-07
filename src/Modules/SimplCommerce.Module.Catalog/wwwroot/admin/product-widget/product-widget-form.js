@@ -5,8 +5,9 @@
         .controller('ProductWidgetFormCtrl', ProductWidgetFormCtrl);
 
     /* @ngInject */
-    function ProductWidgetFormCtrl($state, $stateParams, productWidgetService) {
+    function ProductWidgetFormCtrl($state, $stateParams, productWidgetService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.widgetZones = [];
         vm.sorts = [];
         vm.widgetInstance = { widgetZoneId: 1, setting: { numberOfProducts: 4 }, publishStart: new Date() };
@@ -29,10 +30,11 @@
             }
 
             promise
-                .success(function (result) {
+                .then(function (result) {
                     $state.go('widget');
                 })
-                .error(function (error) {
+                .catch(function (response) {
+                    var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
                         for (var key in error) {

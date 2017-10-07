@@ -1,0 +1,59 @@
+﻿<div id="{{vm.modelId}}" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{{vm.title}}</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped" st-pipe="vm.getProducts" st-table="vm.products">
+                    <thead>
+                        <tr>
+                            <th>Selected</th>
+                            <th st-sort="Name" class="sortable">Name</th>
+                            <th class="text-center">Is Allowed<br />To Order</th>
+                            <th class="text-center">Is Published</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th>
+                                <div class="form-group">
+                                    <input class="form-control" st-search="Name" />
+                                </div>
+                            </th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody ng-show="!vm.isLoading">
+                        <tr ng-repeat="product in vm.products">
+                            <td>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-checked="vm.checkSelected(product)" ng-click="vm.toggleSelectedProducts(product)">
+                                    </label>
+                                </div>
+                            </td>
+                            <td>{{product.name}}</td>
+                            <td class="text-center"><i ng-attr-class="{{product.isAllowToOrder && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+                            <td class="text-center"><i ng-attr-class="{{product.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+                        </tr>
+                    </tbody>
+                    <tbody ng-show="vm.isLoading">
+                        <tr>
+                            <td colspan="4" class="text-center">Loading ... </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="text-center" st-pagination="" st-items-by-page="10" st-displayed-pages="10" colspan="4"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

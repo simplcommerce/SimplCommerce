@@ -1,0 +1,151 @@
+﻿.inline {
+    display: inline;
+}
+
+.page-header .text-right {
+    margin-top: 22px;
+}
+
+.panel-default > .panel-heading {
+    background: none;
+    border: none;
+}
+
+.nav-tabs {
+    margin-bottom: 15px;
+}
+
+th.sortable {
+    cursor: pointer;
+}
+
+.st-sort-ascent:before{
+    content: '\25B2';
+}
+
+.st-sort-descent:before{
+    content: '\25BC';
+}
+
+.st-selected{
+    background: #216eff !important;
+    color: white !important;
+}
+
+.date-filter {
+    width: 170px;
+}
+
+.product-image-edit {
+    display: inline-block;
+    position: relative;
+    border: 1px solid #ccc;
+    margin: 1px;
+}
+
+.product-image-edit button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.product-file-edit {
+    display: inline-block;
+    position: relative;
+    border: 1px solid #ccc;
+    margin: 1px;
+    padding: 10px;
+}
+
+    .product-file-edit button {
+        padding: 0 2px 0 10px;
+        font-size: 12px;
+    }
+
+table > tbody > tr > td.variation-form {
+    margin: 0;
+    padding: 0;
+}
+
+.order-item-list .product-image img {
+    width: 120px;
+}
+
+#toast-container>div {
+    opacity: 1;
+}
+
+.input-number {
+    position:relative;
+}
+.input-number label {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    cursor: pointer;
+    font-weight: normal;
+}
+.input-number input:focus + label {
+    display: none;
+}
+
+.simpl-datetime-picker {
+    width: 300px;
+}
+
+td>span.glyphicon-ok {
+    color: #5cb85c;
+}
+
+td>span.glyphicon-remove {
+    color: #d9534f;
+}
+
+/* --- Tree --- */
+.tree-node {
+    border: 1px solid #dae2ea;
+    background: #f8faff;
+    color: #7c9eb2;
+}
+
+.nodrop {
+    background-color: #f2dede;
+}
+
+.tree-node-content {
+    margin: 10px;
+}
+
+.tree-handle {
+    padding: 10px;
+    background: #428bca;
+    color: #FFF;
+    margin-right: 10px;
+}
+
+.angular-ui-tree-handle:hover {
+}
+
+.angular-ui-tree-placeholder {
+    background: #f0f9ff;
+    border: 2px dashed #bed2db;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.entity-selector thead, .entity-selector tbody {
+    display: block;
+}
+
+.entity-selector tbody {
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.entity-selector .entity-name {
+    width: 200px;
+}

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.ViewModels;
@@ -30,7 +31,10 @@ namespace SimplCommerce.Module.Catalog.Services
                 {
                     Id = category.Id,
                     IsPublished = category.IsPublished,
-                    Name = category.Name
+                    IncludeInMenu = category.IncludeInMenu,
+                    Name = category.Name,
+                    DisplayOrder = category.DisplayOrder,
+                    ParentId = category.ParentId
                 };
 
                 var parentCategory = category.Parent;
@@ -68,8 +72,9 @@ namespace SimplCommerce.Module.Catalog.Services
             _categoryRepository.SaveChange();
         }
 
-        public void Delete(Category category)
+        public async Task Delete(Category category)
         {
+             await _entityService.Remove(category.Id, CategoryEntityTypeId);
             _categoryRepository.Remove(category);
             _categoryRepository.SaveChange();
         }

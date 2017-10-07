@@ -5,17 +5,19 @@
         .controller('ConfigurationCtrl', ConfigurationCtrl);
 
     /* @ngInject */
-    function ConfigurationCtrl($state, configurationService) {
+    function ConfigurationCtrl($state, configurationService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.settings = {};
 
         vm.save = function save() {
-            vm.message = '';
+            vm.validationErrors = [];
             configurationService.updateSetting(vm.settings)
-                .success(function (result) {
+                .then(function (result) {
                     toastr.success('Application settings have been saved');
                 })
-                .error(function (error) {
+                .catch(function (response) {
+                    var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
                         for (var key in error) {

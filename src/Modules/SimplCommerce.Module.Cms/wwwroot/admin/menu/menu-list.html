@@ -1,0 +1,32 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{::vm.translate.get('Menus')}}</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <a ui-sref="menus-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create Menu')}}</a>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>{{::vm.translate.get('Name')}}</th>
+        <th>IsSystem</th>
+        <th class="text-center">{{::vm.translate.get('Is Published')}}</th>
+        <th>{{::vm.translate.get('Actions')}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="menu in vm.menus">
+        <td>{{menu.name}}</td>
+        <td>{{menu.isSystem}}</td>
+        <td class="text-center"><i ng-attr-class="{{menu.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+        <td>
+            <a ui-sref="menus-edit({id: menu.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+            <button ng-click="vm.deleteMenu(menu)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+        </td>
+    </tr>
+    </tbody>
+</table>

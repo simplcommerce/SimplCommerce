@@ -5,17 +5,21 @@
         .controller('ProductFormCtrl', ProductFormCtrl);
 
     /* @ngInject */
-    function ProductFormCtrl($state, $timeout, $stateParams, $http, categoryService, productService, summerNoteService, brandService) {
+    function ProductFormCtrl($state, $timeout, $stateParams, $http, categoryService, productService, summerNoteService, brandService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         // declare shoreDescription and description for summernote
         vm.product = { shortDescription: '', description: '', specification: '', isPublished: true, price: 0, isCallForPricing: false, isAllowToOrder: true };
         vm.product.categoryIds = [];
         vm.product.options = [];
         vm.product.variations = [];
         vm.product.attributes = [];
+        vm.product.relatedProducts = [];
+        vm.product.crossSellProducts = [];
         vm.categories = [];
         vm.thumbnailImage = null;
         vm.productImages = [];
+        vm.productDocuments = [];
         vm.options = [];
         vm.productTemplates = [];
         vm.addingOption = null;
@@ -29,34 +33,39 @@
         vm.datePickerSpecialPriceStart = {};
         vm.datePickerSpecialPriceEnd = {};
 
+        vm.updateSlug = function () {
+            vm.product.slug = slugify(vm.product.name);
+        };
+
         vm.openCalendar = function (e, picker) {
             vm[picker].open = true;
         };
 
         vm.shortDescUpload = function (files) {
             summerNoteService.upload(files[0])
-                .success(function (url) {
-                    $(vm.shortDescEditor).summernote('insertImage', url);
+                .then(function (response) {
+                    $(vm.shortDescEditor).summernote('insertImage', response.data);
                 });
         };
 
         vm.descUpload = function (files) {
             summerNoteService.upload(files[0])
-                .success(function (url) {
-                    $(vm.descEditor).summernote('insertImage', url);
+                .then(function (response) {
+                    $(vm.descEditor).summernote('insertImage', response.data);
                 });
         };
 
         vm.specUpload = function (files) {
             summerNoteService.upload(files[0])
-                .success(function (url) {
-                    $(vm.specEditor).summernote('insertImage', url);
+                .then(function (response) {
+                    $(vm.specEditor).summernote('insertImage', response.data);
                 });
         };
 
         vm.addOption = function addOption() {
             onModifyOption(function() {
                 vm.addingOption.values = [];
+                vm.addingOption.displayType = "text";
                 var index = vm.options.indexOf(vm.addingOption);
                 vm.product.options.push(vm.addingOption);
                 vm.options.splice(index, 1);
@@ -88,6 +97,13 @@
             });
         }
 
+        vm.newOptionValue = function (chip) {
+            return {
+                key: chip,
+                value: ''
+            };
+        };
+
         vm.generateOptionCombination = function generateOptionCombination() {
             var maxIndexOption = vm.product.options.length - 1;
             vm.product.variations = [];
@@ -104,7 +120,7 @@
                     optionValue = {
                         optionName: vm.product.options[optionIndex].name,
                         optionId: vm.product.options[optionIndex].id,
-                        value: vm.product.options[optionIndex].values[j],
+                        value: vm.product.options[optionIndex].values[j].key,
                         sortIndex : optionIndex
                     };
                     optionCombinations.push(optionValue);
@@ -131,10 +147,31 @@
             vm.product.variations.splice(index, 1);
         };
 
-        vm.removeMedia = function removeMedia(media) {
-            var index = vm.product.productMedias.indexOf(media);
-            vm.product.productMedias.splice(index, 1);
+        vm.removeImage = function removeImage(media) {
+            var index = vm.product.productImages.indexOf(media);
+            vm.product.productImages.splice(index, 1);
             vm.product.deletedMediaIds.push(media.id);
+        };
+
+        vm.removeDocument = function removeDocument(media) {
+            var index = vm.product.productDocuments.indexOf(media);
+            vm.product.productDocuments.splice(index, 1);
+            vm.product.deletedMediaIds.push(media.id);
+        };
+
+        vm.isAddVariationFormValid = function () {
+            var i;
+            if (isNaN(vm.addingVariation.price) || vm.addingVariation.price === '') {
+                return false;
+            }
+
+            for (i = 0; i < vm.product.options.length; i = i + 1) {
+                if (!vm.addingVariation[vm.product.options[i].name]) {
+                    return false;
+                }
+            }
+
+            return true;
         };
 
         vm.addVariation = function addVariation() {
@@ -165,6 +202,8 @@
             if (!vm.product.variations.find(function (item) { return item.name === variation.name; })) {
                 vm.product.variations.push(variation);
                 vm.addingVariation = { price: vm.product.price };
+            } else {
+                toastr.error('The ' + variation.name + ' has been existing');
             }
         };
 
@@ -173,8 +212,8 @@
             var template, i, index, workingAttr,
                 nonTemplateAttrs = [];
 
-            productService.getProductTemplate(vm.product.template.id).success(function (result) {
-                template = result;
+            productService.getProductTemplate(vm.product.template.id).then(function (response) {
+                template = response.data;
 
                 for (i = 0; i < template.attributes.length; i = i + 1) {
                     workingAttr = vm.product.attributes.find(function (item) { return item && item.id === template.attributes[i].id; });
@@ -220,8 +259,24 @@
             var index = vm.product.categoryIds.indexOf(categoryId);
             if (index > -1) {
                 vm.product.categoryIds.splice(index, 1);
+                var childCategoryIds = getChildCategoryIds(categoryId);
+                childCategoryIds.forEach(function spliceChildCategory(childCategoryId) {
+                    index = vm.product.categoryIds.indexOf(childCategoryId);
+                    if (index > -1) {
+                        vm.product.categoryIds.splice(index, 1);
+                    }
+                });
             } else {
                 vm.product.categoryIds.push(categoryId);
+                var category = vm.categories.find(function (item) { return item.id === categoryId; });
+                if (category) {
+                    var parentCategoryIds = getParentCategoryIds(category.parentId);
+                    parentCategoryIds.forEach(function pushParentCategory(parentCategoryId) {
+                        if (vm.product.categoryIds.indexOf(parentCategoryId) < 0) {
+                            vm.product.categoryIds.push(parentCategoryId);
+                        }
+                    });
+                }
             }
         };
 
@@ -256,15 +311,16 @@
             });
 
             if (vm.isEditMode) {
-                promise = productService.editProduct(vm.product, vm.thumbnailImage, vm.productImages);
+                promise = productService.editProduct(vm.product, vm.thumbnailImage, vm.productImages, vm.productDocuments);
             } else {
-                promise = productService.createProduct(vm.product, vm.thumbnailImage, vm.productImages);
+                promise = productService.createProduct(vm.product, vm.thumbnailImage, vm.productImages, vm.productDocuments);
             }
 
-            promise.success(function (result) {
+            promise.then(function (result) {
                     $state.go('product');
                 })
-                .error(function (error) {
+                .catch(function (response) {
+                    var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
                         for (var key in error) {
@@ -342,6 +398,34 @@
             getAttributes();
             getCategories();
             getBrands();
+        }
+
+        function getParentCategoryIds(categoryId) {
+            if (!categoryId) {
+                return [];
+            }
+            var category = vm.categories.find(function (item) { return item.id === categoryId; });
+
+            return category ? [category.id].concat(getParentCategoryIds(category.parentId)) : []; 
+        }
+
+        function getChildCategoryIds(categoryId) {
+            if (!categoryId) {
+                return [];
+            }
+            var result = [];
+            var queue = [];
+            queue.push(categoryId);
+            while (queue.length > 0) {
+                var current = queue.shift();
+                result.push(current);
+                var childCategories = vm.categories.filter(function (item) { return item.parentId === current; });
+                childCategories.forEach(function pushChildCategoryToTheQueue(childCategory) {
+                    queue.push(childCategory.id);
+                });
+            }
+
+            return result;
         }
 
         init();

@@ -15,9 +15,17 @@ namespace SimplCommerce.Module.Orders.ViewModels
 
         public int OrderStatus { get; set; }
 
-        public decimal SubTotal { get; set; }
+        public decimal Subtotal { get; set; }
 
-        public string SubTotalString { get { return SubTotal.ToString("C"); } }
+        public decimal Discount { get; set; }
+
+        public decimal SubTotalWithDiscount { get; set; }
+
+        public string SubtotalString { get { return Subtotal.ToString("C"); } }
+
+        public string DiscountString { get { return Discount.ToString("C"); } }
+
+        public string SubtotalWithDiscountString { get { return SubTotalWithDiscount.ToString("C"); } }
 
         public ShippingAddressVm ShippingAddress { get; set; }
 

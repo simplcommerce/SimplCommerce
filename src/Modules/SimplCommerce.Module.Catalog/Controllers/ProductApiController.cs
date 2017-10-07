@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,10 +17,11 @@ using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.Core.Extensions;
 
 namespace SimplCommerce.Module.Catalog.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, vendor")]
     [Route("api/products")]
     public class ProductApiController : Controller
     {
@@ -30,6 +32,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         private readonly IRepository<ProductOptionValue> _productOptionValueRepository;
         private readonly IRepository<Product> _productRepository;
         private readonly IProductService _productService;
+        private readonly IWorkContext _workContext;
 
         public ProductApiController(
             IRepository<Product> productRepository,
@@ -38,7 +41,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
             IRepository<ProductLink> productLinkRepository,
             IRepository<ProductCategory> productCategoryRepository,
             IRepository<ProductOptionValue> productOptionValueRepository,
-            IRepository<ProductAttributeValue> productAttributeValueRepository)
+            IRepository<ProductAttributeValue> productAttributeValueRepository,
+            IWorkContext workContext)
         {
             _productRepository = productRepository;
             _mediaService = mediaService;
@@ -47,10 +51,11 @@ namespace SimplCommerce.Module.Catalog.Controllers
             _productCategoryRepository = productCategoryRepository;
             _productOptionValueRepository = productOptionValueRepository;
             _productAttributeValueRepository = productAttributeValueRepository;
+            _workContext = workContext;
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(long id)
+        public async Task<IActionResult> Get(long id)
         {
             var product = _productRepository.Query()
                 .Include(x => x.ThumbnailImage)
@@ -61,10 +66,17 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 .Include(x => x.Categories)
                 .FirstOrDefault(x => x.Id == id);
 
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin") && product.VendorId != currentUser.VendorId)
+            {
+                return new BadRequestObjectResult(new { error = "You don't have permission to manage this product" });
+            }
+
             var productVm = new ProductVm
             {
                 Id = product.Id,
                 Name = product.Name,
+                Slug = product.SeoTitle,
                 ShortDescription = product.ShortDescription,
                 Description = product.Description,
                 Specification = product.Specification,
@@ -83,21 +95,33 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 BrandId = product.BrandId
             };
 
-            foreach (var productMedia in product.Medias)
+            foreach (var productMedia in product.Medias.Where(x => x.Media.MediaType == MediaType.Image))
             {
-                productVm.ProductMedias.Add(new ProductMediaVm
+                productVm.ProductImages.Add(new ProductMediaVm
                 {
                     Id = productMedia.Id,
                     MediaUrl = _mediaService.GetThumbnailUrl(productMedia.Media)
                 });
             }
 
+            foreach (var productMedia in product.Medias.Where(x => x.Media.MediaType == MediaType.File))
+            {
+                productVm.ProductDocuments.Add(new ProductMediaVm
+                {
+                    Id = productMedia.Id,
+                    Caption = productMedia.Media.Caption,
+                    MediaUrl = _mediaService.GetMediaUrl(productMedia.Media)
+                });
+            }
+
+
             productVm.Options = product.OptionValues.OrderBy(x => x.SortIndex).Select(x =>
                 new ProductOptionVm
                 {
                     Id = x.OptionId,
                     Name = x.Option.Name,
-                    Values = JsonConvert.DeserializeObject<IList<string>>(x.Value)
+                    DisplayType = x.DisplayType,
+                    Values = JsonConvert.DeserializeObject<IList<ProductOptionValueVm>>(x.Value)
                 }).ToList();
 
             foreach (var variation in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Super).Select(x => x.LinkedProduct).Where(x => !x.IsDeleted).OrderBy(x => x.Id))
@@ -119,6 +143,26 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 });
             }
 
+            foreach (var relatedProduct in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Related).Select(x => x.LinkedProduct).Where(x => !x.IsDeleted).OrderBy(x => x.Id))
+            {
+                productVm.RelatedProducts.Add(new ProductLinkVm
+                {
+                    Id = relatedProduct.Id,
+                    Name = relatedProduct.Name,
+                    IsPublished = relatedProduct.IsPublished
+                });
+            }
+
+            foreach (var crossSellProduct in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.CrossSell).Select(x => x.LinkedProduct).Where(x => !x.IsDeleted).OrderBy(x => x.Id))
+            {
+                productVm.CrossSellProducts.Add(new ProductLinkVm
+                {
+                    Id = crossSellProduct.Id,
+                    Name = crossSellProduct.Name,
+                    IsPublished = crossSellProduct.IsPublished
+                });
+            }
+
             productVm.Attributes = product.AttributeValues.Select(x => new ProductAttributeVm
             {
                 AttributeValueId = x.Id,
@@ -132,9 +176,15 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpPost("grid")]
-        public IActionResult List([FromBody] SmartTableParam param)
+        public async Task<IActionResult> List([FromBody] SmartTableParam param)
         {
             var query = _productRepository.Query().Where(x => !x.IsDeleted);
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin"))
+            {
+                query = query.Where(x => x.VendorId == currentUser.VendorId);
+            }
+
             if (param.Search.PredicateObject != null)
             {
                 dynamic search = param.Search.PredicateObject;
@@ -167,14 +217,12 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     if (search.CreatedOn.before != null)
                     {
                         DateTimeOffset before = search.CreatedOn.before;
-                        before = before.Date.AddDays(1);
                         query = query.Where(x => x.CreatedOn <= before);
                     }
 
                     if (search.CreatedOn.after != null)
                     {
                         DateTimeOffset after = search.CreatedOn.after;
-                        after = after.Date;
                         query = query.Where(x => x.CreatedOn >= after);
                     }
                 }
@@ -200,17 +248,19 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(ProductForm model)
+        public async Task<IActionResult> Post(ProductForm model)
         {
             if (!ModelState.IsValid)
             {
                 return new BadRequestObjectResult(ModelState);
             }
 
+            var currentUser = await _workContext.GetCurrentUser();
+
             var product = new Product
             {
                 Name = model.Product.Name,
-                SeoTitle = model.Product.Name.ToUrlFriendly(),
+                SeoTitle = model.Product.Slug,
                 ShortDescription = model.Product.ShortDescription,
                 Description = model.Product.Description,
                 Specification = model.Product.Specification,
@@ -225,8 +275,14 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 IsAllowToOrder = model.Product.IsAllowToOrder,
                 BrandId = model.Product.BrandId,
                 HasOptions = model.Product.Variations.Any() ? true : false,
-                IsVisibleIndividually = true
+                IsVisibleIndividually = true,
+                CreatedBy = currentUser
             };
+
+            if (!User.IsInRole("admin"))
+            {
+                product.VendorId = currentUser.VendorId;
+            }
 
             if (model.Product.IsOutOfStock)
             {
@@ -243,6 +299,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 product.AddOptionValue(new ProductOptionValue
                 {
                     OptionId = option.Id,
+                    DisplayType = option.DisplayType,
                     Value = JsonConvert.SerializeObject(option.Values),
                     SortIndex = optionIndex
                 });
@@ -270,9 +327,10 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 product.AddCategory(productCategory);
             }
 
-            SaveProductImages(model, product);
+            SaveProductMedias(model, product);
 
             MapProductVariationVmToProduct(model, product);
+            MapProductLinkVmToProduct(model, product);
 
             _productService.Create(product);
 
@@ -280,7 +338,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(long id, ProductForm model)
+        public async Task<IActionResult> Put(long id, ProductForm model)
         {
             if (!ModelState.IsValid)
             {
@@ -295,8 +353,15 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 .Include(x => x.AttributeValues).ThenInclude(a => a.Attribute).ThenInclude(g => g.Group)
                 .Include(x => x.Categories)
                 .FirstOrDefault(x => x.Id == id);
+
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin") && product.VendorId != currentUser.VendorId)
+            {
+                return new BadRequestObjectResult(new { error = "You don't have permission to manage this product" });
+            }
+
             product.Name = model.Product.Name;
-            product.SeoTitle = product.Name.ToUrlFriendly();
+            product.SeoTitle = model.Product.Slug;
             product.ShortDescription = model.Product.ShortDescription;
             product.Description = model.Product.Description;
             product.Specification = model.Product.Specification;
@@ -310,6 +375,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
             product.IsPublished = model.Product.IsPublished;
             product.IsCallForPricing = model.Product.IsCallForPricing;
             product.IsAllowToOrder = model.Product.IsAllowToOrder;
+            product.UpdatedBy = currentUser;
+
             if (model.Product.IsOutOfStock)
             {
                 product.StockQuantity = 0;
@@ -319,7 +386,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 product.StockQuantity = null;
             }
 
-            SaveProductImages(model, product);
+            SaveProductMedias(model, product);
 
             foreach (var productMediaId in model.Product.DeletedMediaIds)
             {
@@ -329,12 +396,10 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
 
             AddOrDeleteProductOption(model, product);
-
             AddOrDeleteProductAttribute(model, product);
-
             AddOrDeleteCategories(model, product);
-
             AddOrDeleteProductVariation(model, product);
+            AddOrDeleteProductLinks(model, product);
 
             _productService.Update(product);
 
@@ -342,12 +407,18 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpPost("change-status/{id}")]
-        public IActionResult ChangeStatus(long id)
+        public async Task<IActionResult> ChangeStatus(long id)
         {
             var product = _productRepository.Query().FirstOrDefault(x => x.Id == id);
             if (product == null)
             {
                 return NotFound();
+            }
+
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin") && product.VendorId != currentUser.VendorId)
+            {
+                return new BadRequestObjectResult(new { error = "You don't have permission to manage this product" });
             }
 
             product.IsPublished = !product.IsPublished;
@@ -357,7 +428,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
+        public async Task<IActionResult> Delete(long id)
         {
             var product = _productRepository.Query().FirstOrDefault(x => x.Id == id);
             if (product == null)
@@ -365,7 +436,13 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 return NotFound();
             }
 
-            _productService.Delete(product);
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin") && product.VendorId != currentUser.VendorId)
+            {
+                return new BadRequestObjectResult(new { error = "You don't have permission to manage this product" });
+            }
+
+            await _productService.Delete(product);
 
             return Ok();
         }
@@ -400,6 +477,33 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 }
 
                 productLink.LinkedProduct.ThumbnailImage = product.ThumbnailImage;
+
+                product.AddProductLinks(productLink);
+            }
+        }
+
+        private static void MapProductLinkVmToProduct(ProductForm model, Product product)
+        {
+            foreach (var relatedProductVm in model.Product.RelatedProducts)
+            {
+                var productLink = new ProductLink
+                {
+                    LinkType = ProductLinkType.Related,
+                    Product = product,
+                    LinkedProductId = relatedProductVm.Id
+                };
+
+                product.AddProductLinks(productLink);
+            }
+
+            foreach (var crossSellProductVm in model.Product.CrossSellProducts)
+            {
+                var productLink = new ProductLink
+                {
+                    LinkType = ProductLinkType.CrossSell,
+                    Product = product,
+                    LinkedProductId = crossSellProductVm.Id
+                };
 
                 product.AddProductLinks(productLink);
             }
@@ -444,6 +548,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     product.AddOptionValue(new ProductOptionValue
                     {
                         OptionId = optionVm.Id,
+                        DisplayType = optionVm.DisplayType,
                         Value = JsonConvert.SerializeObject(optionVm.Values),
                         SortIndex = optionIndex
                     });
@@ -451,6 +556,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 else
                 {
                     optionValue.Value = JsonConvert.SerializeObject(optionVm.Values);
+                    optionValue.DisplayType = optionVm.DisplayType;
                     optionValue.SortIndex = optionIndex;
                 }
 
@@ -518,6 +624,58 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
         }
 
+        // Due to some issue with EF Core, we have to use _productLinkRepository in this case.
+        private void AddOrDeleteProductLinks(ProductForm model, Product product)
+        {
+            foreach (var relatedProductVm in model.Product.RelatedProducts)
+            {
+                var productLink = product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Related).FirstOrDefault(x => x.LinkedProductId == relatedProductVm.Id);
+                if (productLink == null)
+                {
+                    productLink = new ProductLink
+                    {
+                        LinkType = ProductLinkType.Related,
+                        Product = product,
+                        LinkedProductId = relatedProductVm.Id,
+                    };
+
+                    _productLinkRepository.Add(productLink);
+                }
+            }
+
+            foreach (var productLink in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.Related))
+            {
+                if (model.Product.RelatedProducts.All(x => x.Id != productLink.LinkedProductId))
+                {
+                    _productLinkRepository.Remove(productLink);
+                }
+            }
+
+            foreach (var crossSellProductVm in model.Product.CrossSellProducts)
+            {
+                var productLink = product.ProductLinks.Where(x => x.LinkType == ProductLinkType.CrossSell).FirstOrDefault(x => x.LinkedProductId == crossSellProductVm.Id);
+                if (productLink == null)
+                {
+                    productLink = new ProductLink
+                    {
+                        LinkType = ProductLinkType.CrossSell,
+                        Product = product,
+                        LinkedProductId = crossSellProductVm.Id,
+                    };
+
+                    _productLinkRepository.Add(productLink);
+                }
+            }
+
+            foreach (var productLink in product.ProductLinks.Where(x => x.LinkType == ProductLinkType.CrossSell))
+            {
+                if (model.Product.CrossSellProducts.All(x => x.Id != productLink.LinkedProductId))
+                {
+                    _productLinkRepository.Remove(productLink);
+                }
+            }
+        }
+
         private void AddOrDeleteProductAttribute(ProductForm model, Product product)
         {
             foreach (var productAttributeVm in model.Product.Attributes)
@@ -551,7 +709,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
         }
 
-        private void SaveProductImages(ProductForm model, Product product)
+        private void SaveProductMedias(ProductForm model, Product product)
         {
             if (model.ThumbnailImage != null)
             {
@@ -573,6 +731,10 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 {
                     model.ProductImages.Add(file);
                 }
+                else if (file.ContentDisposition.Contains("productDocuments"))
+                {
+                    model.ProductDocuments.Add(file);
+                }
             }
 
             foreach (var file in model.ProductImages)
@@ -581,7 +743,18 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 var productMedia = new ProductMedia
                 {
                     Product = product,
-                    Media = new Media {FileName = fileName}
+                    Media = new Media {FileName = fileName, MediaType = MediaType.Image}
+                };
+                product.AddMedia(productMedia);
+            }
+
+            foreach (var file in model.ProductDocuments)
+            {
+                var fileName = SaveFile(file);
+                var productMedia = new ProductMedia
+                {
+                    Product = product,
+                    Media = new Media { FileName = fileName, MediaType = MediaType.File, Caption = file.FileName }
                 };
                 product.AddMedia(productMedia);
             }
@@ -589,7 +762,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
         private string SaveFile(IFormFile file)
         {
-            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
             _mediaService.SaveMedia(file.OpenReadStream(), fileName, file.ContentType);
             return fileName;

@@ -52,7 +52,7 @@ namespace SimplCommerce.Module.Core.Controllers
 
             foreach (var item in model)
             {
-                item.IsDefaultShippingAddress = item.AddressId == currentUser.DefaultShippingAddressId;
+                item.IsDefaultShippingAddress = item.UserAddressId == currentUser.DefaultShippingAddressId;
             }
 
             return View(model);
@@ -169,7 +169,6 @@ namespace SimplCommerce.Module.Core.Controllers
             var currentUser = await _workContext.GetCurrentUser();
 
             var userAddress = _userAddressRepository.Query()
-                .Include(x => x.Address)
                 .FirstOrDefault(x => x.Id == id && x.UserId == currentUser.Id);
 
             if (userAddress == null)
@@ -177,7 +176,7 @@ namespace SimplCommerce.Module.Core.Controllers
                 return NotFound();
             }
 
-            currentUser.DefaultShippingAddressId = userAddress.AddressId;
+            currentUser.DefaultShippingAddressId = userAddress.Id;
             _userRepository.SaveChange();
 
             return RedirectToAction("List");
@@ -189,12 +188,16 @@ namespace SimplCommerce.Module.Core.Controllers
             var currentUser = await _workContext.GetCurrentUser();
 
             var userAddress = _userAddressRepository.Query()
-                .Include(x => x.Address)
                 .FirstOrDefault(x => x.Id == id && x.UserId == currentUser.Id);
 
             if (userAddress == null)
             {
                 return NotFound();
+            }
+
+            if(currentUser.DefaultShippingAddressId == userAddress.Id)
+            {
+                currentUser.DefaultShippingAddressId = null;
             }
 
             _userAddressRepository.Remove(userAddress);

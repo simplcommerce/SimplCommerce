@@ -5,8 +5,9 @@
         .controller('ProductAttributeGroupFormCtrl', ProductAttributeGroupFormCtrl);
 
     /* @ngInject */
-    function ProductAttributeGroupFormCtrl($state, $stateParams, productAttributeGroupService) {
+    function ProductAttributeGroupFormCtrl($state, $stateParams, productAttributeGroupService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.productAttributeGroupId = $stateParams.id;
         vm.isEditMode = vm.productAttributeGroupId > 0;
 
@@ -21,10 +22,11 @@
             }
 
             promise
-                .success(function (result) {
+                .then(function (result) {
                     $state.go('product-attribute-group');
                 })
-                .error(function (error) {
+                .catch(function (response) {
+                    var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
                         for (var key in error) {

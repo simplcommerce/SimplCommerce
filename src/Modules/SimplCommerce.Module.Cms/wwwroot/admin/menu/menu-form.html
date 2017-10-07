@@ -1,0 +1,134 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 ng-if="!vm.isEditMode">{{::vm.translate.get('Create Menu')}}</h2>
+        <h2 ng-if="vm.isEditMode">{{::vm.translate.get('Edit Menu')}}</h2>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Add Menu Items</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form>
+                            <table class="entity-selector">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="entity-name">
+                                            <div class="form-group"><input type="text" ng-model="entityFilter.name" class="form-control" /></div>
+                                        </th>
+                                        <th>
+                                            <div class="form-group">
+                                                <select class="form-control" ng-model="entityFilter.entityTypeId" ng-options="entity.id as entity.name for entity in vm.entityTypes"></select>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="entity in vm.entities | filter: entityFilter">
+                                        <td class="entity-name">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" ng-checked="entity.isChecked" ng-click="vm.toggleEntity(entity)"> {{entity.name}}
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>{{entity.entityTypeName}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div style="margin-top: 10px">
+                                <button type="button" class="btn btn-default " ng-click="vm.addMenuItems()">Add</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Add Custom Link</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form name="addCustomLinkForm">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" required ng-model="vm.addingCustomLink.name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Link</label>
+                                <input type="text" required ng-model="vm.addingCustomLink.customLink" class="form-control">
+                            </div>
+                            <button type="button" ng-disabled="addCustomLinkForm.$invalid" ng-click="vm.addCustomLink()" class="btn btn-default">Add Custom Link</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <form name="pageForm" class="form-horizontal">
+                    <div class="col-sm-offset-2 bg-danger" ng-show="vm.validationErrors">
+                        <ul>
+                            <li ng-repeat="error in vm.validationErrors">{{error}}</li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Name')}}</label>
+                        <div class="col-sm-10">
+                            <input name="name" ng-model="vm.menu.name" class="form-control" />
+                        </div>
+                    </div>
+                    <script type="text/ng-template" id="nodes_renderer.html">
+                        <div class="tree-node">
+                            <div class="pull-left tree-handle" ui-tree-handle>
+                                <span class="glyphicon glyphicon-list"></span>
+                            </div>
+                            <div class="tree-node-content">
+                                <a class="btn btn-success btn-xs" ng-if="node.children && node.children.length > 0" data-nodrag ng-click="vm.toggle(this)">
+                                    <span class="glyphicon" ng-class="{ 'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed }"></span>
+                                </a>
+                                {{node.name}}
+                                <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="vm.remove(this)">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <ol ui-tree-nodes="" ng-model="node.children" ng-class="{hidden: collapsed}">
+                            <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">
+                            </li>
+                        </ol>
+                    </script>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('Items')}}</label>
+                        <div class="col-sm-10">
+                            <div ui-tree>
+                                <div ui-tree id="tree-root">
+                                    <ol ui-tree-nodes ng-model="vm.menuItemTree">
+                                        <li ng-repeat="node in vm.menuItemTree" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="vm.menu.isPublished"> {{::vm.translate.get('Is Published')}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> {{::vm.translate.get('Save')}}</button>
+                            <button ui-sref="menus" class="btn btn-default">{{::vm.translate.get('Cancel')}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

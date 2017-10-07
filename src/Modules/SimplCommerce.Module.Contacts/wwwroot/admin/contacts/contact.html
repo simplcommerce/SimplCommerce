@@ -1,0 +1,50 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 >{{ ::vm.translate.get('Contact information')}}</h2>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal">            
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Customer Name')}} </label>
+                <div class="col-sm-10">
+                    <span>{{vm.contact.fullName}}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Phone number')}} </label>
+                <div class="col-sm-10">
+                    <span>{{vm.contact.phoneNumber}}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Email Address')}} </label>
+                <div class="col-sm-10">
+                    <span>{{vm.contact.emailAddress}}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Address')}} </label>
+                <div class="col-sm-10">
+                    <span>{{vm.contact.address}}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Contact Area')}} </label>
+                <div class="col-sm-10">
+                    <span>{{vm.contact.contactArea}}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Content')}} </label>
+                <div class="col-sm-6">
+                    <p>{{vm.contact.content}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button ui-sref="contact" class="btn btn-default">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

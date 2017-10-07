@@ -5,8 +5,9 @@
         .controller('OrderListCtrl', OrderListCtrl);
 
     /* @ngInject */
-    function OrderListCtrl(orderService) {
+    function OrderListCtrl(orderService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.orders = [];
 
         orderService.getOrderStatus().then(function (result) {

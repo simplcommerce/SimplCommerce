@@ -7,7 +7,7 @@ using SimplCommerce.Module.Catalog.ViewModels;
 
 namespace SimplCommerce.Module.Catalog.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, vendor")]
     [Route("api/product-options")]
     public class ProductOptionApiController : Controller
     {
@@ -38,6 +38,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult Post([FromBody] ProductOptionFormVm model)
         {
             if (ModelState.IsValid)
@@ -56,6 +57,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public IActionResult Put(long id, [FromBody] ProductOptionFormVm model)
         {
             if (ModelState.IsValid)
@@ -72,6 +74,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(long id)
         {
             var productOption = _productOptionRepository.Query().FirstOrDefault(x => x.Id == id);

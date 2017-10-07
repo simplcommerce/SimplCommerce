@@ -8,7 +8,7 @@ using SimplCommerce.Module.Catalog.ViewModels;
 
 namespace SimplCommerce.Module.Catalog.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, vendor")]
     [Route("api/product-attributes")]
     public class ProductAttributeApiController : Controller
     {
@@ -23,7 +23,6 @@ namespace SimplCommerce.Module.Catalog.Controllers
         {
             var attributes = _productAttrRepository
                 .Query()
-                .Include(x => x.Group)
                 .Select(x => new
                 {
                     Id = x.Id,
@@ -49,6 +48,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult Post([FromBody] ProductAttributeFormVm model)
         {
             if (ModelState.IsValid)
@@ -68,6 +68,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public IActionResult Put(long id, [FromBody] ProductAttributeFormVm model)
         {
             if (ModelState.IsValid)
@@ -84,6 +85,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             return new BadRequestObjectResult(ModelState);
         }
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(long id)
         {
             var productAttribute = _productAttrRepository.Query().FirstOrDefault(x => x.Id == id);

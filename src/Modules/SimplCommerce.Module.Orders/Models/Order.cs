@@ -21,7 +21,17 @@ namespace SimplCommerce.Module.Orders.Models
 
         public User CreatedBy { get; set; }
 
+        public long? VendorId { get; set; }
+
+        public string CouponCode { get; set; }
+
+        public string CouponRuleName { get; set; }
+
+        public decimal Discount { get; set; }
+
         public decimal SubTotal { get; set; }
+
+        public decimal SubTotalWithDiscount { get; set; }
 
         public long ShippingAddressId { get; set; }
 
@@ -34,6 +44,12 @@ namespace SimplCommerce.Module.Orders.Models
         public IList<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
         public OrderStatus OrderStatus { get; set; }
+
+        public long? ParentId { get; set; }
+
+        public Order Parent { get; set; }
+
+        public IList<Order> Children { get; protected set; } = new List<Order>();
 
         public void AddOrderItem(OrderItem item)
         {

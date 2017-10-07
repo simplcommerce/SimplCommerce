@@ -32,12 +32,33 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public string ThumbnailUrl { get; set; }
 
-        public int NumberVariation { get; set; }
-
         public int ReviewsCount { get; set; }
 
         public double? RatingAverage { get; set; }
 
         public CalculatedProductPrice CalculatedProductPrice { get; set; }
+
+        public static ProductThumbnail FromProduct(Product product)
+        {
+            var productThumbnail = new ProductThumbnail
+            {
+                Id = product.Id,
+                Name = product.Name,
+                SeoTitle = product.SeoTitle,
+                Price = product.Price,
+                OldPrice = product.OldPrice,
+                SpecialPrice = product.SpecialPrice,
+                SpecialPriceStart = product.SpecialPriceStart,
+                SpecialPriceEnd = product.SpecialPriceEnd,
+                StockQuantity = product.StockQuantity,
+                IsAllowToOrder = product.IsAllowToOrder,
+                IsCallForPricing = product.IsCallForPricing,
+                ThumbnailImage = product.ThumbnailImage,
+                ReviewsCount = product.ReviewsCount,
+                RatingAverage = product.RatingAverage
+            };
+
+            return productThumbnail;
+        }
     }
 }
