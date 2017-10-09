@@ -4,9 +4,13 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h1>Thememe</h1>
-
 @await Html.PartialAsync("_WidgetInstances", Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeFeatured))
+
+<div>
+    <h2 class="page-header">Sample Theme</h2>
+    <p>It's very easy to find and installed new themes or create your own theme. </p>
+    <p>Check out <a href="https://github.com/simplcommerce/SimplCommerce/wiki/Theme-development" target="_blank"> the doc here</a> for more details</p>
+</div>
 
 @await Html.PartialAsync("_WidgetInstances", Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeMainContent))
 

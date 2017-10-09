@@ -33,7 +33,7 @@ namespace SimplCommerce.Module.Core.Services
                     Name = "Generic",
                     DisplayName = "Generic",
                     IsCurrent = "Generic" == _currentThemeName,
-                    ThumbnailUrl = "/themes/simpl-generic.png"
+                    ThumbnailUrl = "/themes/generic-theme.png"
                 }
             };
 
