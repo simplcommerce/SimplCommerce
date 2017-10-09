@@ -34,9 +34,8 @@ namespace SimplCommerce.Infrastructure.Web
             }
             else
             {
-                if (context.Values.ContainsKey(MODULE_KEY) && !string.IsNullOrWhiteSpace(context.Values[MODULE_KEY]))
+                if (!string.IsNullOrWhiteSpace(module))
                 {
-                    var module = context.Values[MODULE_KEY];
                     var moduleViewLocations = new string[]
                     {
                         $"/Modules/SimplCommerce.Module.{module}/Views/{{1}}/{{0}}.cshtml",
@@ -56,8 +55,16 @@ namespace SimplCommerce.Infrastructure.Web
             var moduleName = controller.Split('.')[2];
             context.Values[MODULE_KEY] = moduleName;
 
-            var config = context.ActionContext.HttpContext.RequestServices.GetService<IConfiguration>();
-            context.Values[THEME_KEY] = config["theme"];
+            context.ActionContext.HttpContext.Request.Cookies.TryGetValue("theme", out string previewingTheme);
+            if (!string.IsNullOrWhiteSpace(previewingTheme))
+            {
+                context.Values[THEME_KEY] = previewingTheme;
+            }
+            else
+            {
+                var config = context.ActionContext.HttpContext.RequestServices.GetService<IConfiguration>();
+                context.Values[THEME_KEY] = config["Theme"];
+            }
         }
     }
 }
