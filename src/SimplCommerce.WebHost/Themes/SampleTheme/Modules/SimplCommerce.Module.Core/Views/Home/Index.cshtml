@@ -1,0 +1,25 @@
+@model SimplCommerce.Module.Core.ViewModels.HomeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@await Html.PartialAsync("_WidgetInstances", Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeFeatured))
+
+<div>
+    <h2 class="page-header">Sample Theme</h2>
+    <p>It's very easy to find and installed new themes or create your own theme. </p>
+    <p>Check out <a href="https://github.com/simplcommerce/SimplCommerce/wiki/Theme-development" target="_blank"> the doc here</a> for more details</p>
+</div>
+
+@await Html.PartialAsync("_WidgetInstances", Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeMainContent))
+
+@await Html.PartialAsync("_WidgetInstances", Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeAfterMainContent))
+
+<div>
+    <h2 class="page-header">Sample data</h2>
+    <h1>Delete all current catalog data and create sample catalog</h1>
+    <form asp-controller="SampleData" asp-action="ResetToSample" method="post">
+        <button type="submit" class="btn btn-danger">Do it!</button>
+    </form>
+</div>
