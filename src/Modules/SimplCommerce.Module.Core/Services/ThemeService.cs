@@ -32,7 +32,7 @@ namespace SimplCommerce.Module.Core.Services
                 {
                     Name = "Generic",
                     DisplayName = "Generic",
-                    IsCurrent = string.IsNullOrWhiteSpace(_currentThemeName),
+                    IsCurrent = "Generic" == _currentThemeName,
                     ThumbnailUrl = "/themes/simpl-generic.png"
                 }
             };

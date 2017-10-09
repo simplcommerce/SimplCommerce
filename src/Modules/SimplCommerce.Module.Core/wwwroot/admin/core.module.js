@@ -9,7 +9,7 @@
                 url: '/users',
                 templateUrl: "modules/core/admin/user/user-list.html",
                 controller: 'UserListCtrl as vm'
-            })
+                })
                 .state('user-create', {
                     url: '/user/create',
                     templateUrl: 'modules/core/admin/user/user-form.html',
@@ -44,6 +44,11 @@
                     url: '/customergroups/edit/:id',
                     templateUrl: 'modules/core/admin/customergroups/customergroup-form.html',
                     controller: 'CustomerGroupFormCtrl as vm'
+                })
+                .state('themes', {
+                    url: '/themes',
+                    templateUrl: 'modules/core/admin/themes/theme-list.html',
+                    controller: 'ThemeListCtrl as vm'
                 });
         }]);
 })();

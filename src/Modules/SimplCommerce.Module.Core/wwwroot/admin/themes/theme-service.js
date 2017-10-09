@@ -2,22 +2,22 @@
 (function () {
     angular
         .module('simplAdmin.core')
-        .factory('configurationService', configurationService);
+        .factory('themeService', themeService);
 
     /* @ngInject */
-    function configurationService($http) {
+    function themeService($http) {
         var service = {
-            getSettings: getSettings,
-            updateSetting: updateSetting
+            getThemes: getThemes,
+            useTheme: useTheme
         };
         return service;
 
-        function getSettings() {
-            return $http.get('api/appsettings');
+        function getThemes() {
+            return $http.get('api/themes');
         }
 
-        function updateSetting(settings) {
-            return $http.put('api/appsettings/', settings);
+        function useTheme(theme) {
+            return $http.post('api/themes/use-theme', theme);
         }
     }
 })();

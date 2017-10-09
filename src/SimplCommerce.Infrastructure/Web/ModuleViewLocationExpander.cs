@@ -16,7 +16,7 @@ namespace SimplCommerce.Infrastructure.Web
             context.Values.TryGetValue(THEME_KEY, out string theme);
             context.Values.TryGetValue(MODULE_KEY, out string module);
 
-            if (!string.IsNullOrWhiteSpace(theme))
+            if (!string.IsNullOrWhiteSpace(theme) && !string.Equals(theme, "Generic", System.StringComparison.InvariantCultureIgnoreCase))
             {
                 if (!string.IsNullOrWhiteSpace(module))
                 {
