@@ -22,10 +22,10 @@ namespace SimplCommerce.Infrastructure.Web
                 {
                     var moduleViewLocations = new string[]
                     {
-                        $"/Themes/{theme}/Modules/SimplCommerce.Module.{module}/Views/{{1}}/{{0}}.cshtml",
-                        $"/Themes/{theme}/Modules/SimplCommerce.Module.{module}/Views/Shared/{{0}}.cshtml",
-                        $"/Modules/SimplCommerce.Module.{module}/Views/{{1}}/{{0}}.cshtml",
-                        $"/Modules/SimplCommerce.Module.{module}/Views/Shared/{{0}}.cshtml",
+                        $"/Themes/{theme}/Modules/{module}/Views/{{1}}/{{0}}.cshtml",
+                        $"/Themes/{theme}/Modules/{module}/Views/Shared/{{0}}.cshtml",
+                        $"/Modules/{module}/Views/{{1}}/{{0}}.cshtml",
+                        $"/Modules/{module}/Views/Shared/{{0}}.cshtml",
                         $"/Themes/{theme}/Views/Shared/{{0}}.cshtml"
                     };
 
@@ -38,8 +38,8 @@ namespace SimplCommerce.Infrastructure.Web
                 {
                     var moduleViewLocations = new string[]
                     {
-                        $"/Modules/SimplCommerce.Module.{module}/Views/{{1}}/{{0}}.cshtml",
-                        $"/Modules/SimplCommerce.Module.{module}/Views/Shared/{{0}}.cshtml"
+                        $"/Modules/{module}/Views/{{1}}/{{0}}.cshtml",
+                        $"/Modules/{module}/Views/Shared/{{0}}.cshtml"
                     };
 
                     viewLocations = moduleViewLocations.Concat(viewLocations);
@@ -51,8 +51,9 @@ namespace SimplCommerce.Infrastructure.Web
 
         public void PopulateValues(ViewLocationExpanderContext context)
         {
-            var controller = context.ActionContext.ActionDescriptor.DisplayName;
-            var moduleName = controller.Split('.')[2];
+            var controllerName = context.ActionContext.ActionDescriptor.DisplayName;
+            // Get assembly name
+            var moduleName = controllerName.Split('(', ')')[1];
             context.Values[MODULE_KEY] = moduleName;
 
             context.ActionContext.HttpContext.Request.Cookies.TryGetValue("theme", out string previewingTheme);

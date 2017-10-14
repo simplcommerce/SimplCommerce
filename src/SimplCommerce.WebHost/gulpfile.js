@@ -85,7 +85,7 @@ function loadModules() {
     var moduleManifestPaths,
         modules = [];
 
-    moduleManifestPaths = glob.sync(mPaths.devModules + 'SimplCommerce.Module.*/module.json', {});
+    moduleManifestPaths = glob.sync(mPaths.devModules + '*.*/module.json', {});
     moduleManifestPaths.forEach(function (moduleManifestPath) {
         var moduleManifest = require(moduleManifestPath);
         modules.push(moduleManifest);
