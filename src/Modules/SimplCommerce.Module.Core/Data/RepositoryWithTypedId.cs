@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Models;
+using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.Core.Data
 {
@@ -31,6 +32,11 @@ namespace SimplCommerce.Module.Core.Data
         public void SaveChange()
         {
             Context.SaveChanges();
+        }
+
+        public Task SaveChangesAsync()
+        {
+            return Context.SaveChangesAsync();
         }
 
         public IQueryable<T> Query()
