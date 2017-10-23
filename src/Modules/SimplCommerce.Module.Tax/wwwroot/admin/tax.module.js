@@ -19,6 +19,21 @@
                     url: '/tax-classes/edit/:id',
                     templateUrl: 'modules/tax/admin/tax-class/tax-class-form.html',
                     controller: 'TaxClassFormCtrl as vm'
+                })
+                .state('tax-rates', {
+                    url: '/tax-rates',
+                    templateUrl: 'modules/tax/admin/tax-rate/tax-rate-list.html',
+                    controller: 'TaxRateListCtrl as vm'
+                })
+                .state('tax-rates-create', {
+                    url: '/tax-rates/create',
+                    templateUrl: 'modules/tax/admin/tax-rate/tax-rate-form.html',
+                    controller: 'TaxRateFormCtrl as vm'
+                })
+                .state('tax-rates-edit', {
+                    url: '/tax-rates/edit/:id',
+                    templateUrl: 'modules/tax/admin/tax-rate/tax-rate-form.html',
+                    controller: 'TaxRateFormCtrl as vm'
                 });
         }]);
 })();

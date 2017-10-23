@@ -2,27 +2,27 @@
 (function () {
     angular
         .module('simplAdmin.tax')
-        .controller('TaxClassListCtrl', TaxClassListCtrl);
+        .controller('TaxRateListCtrl', TaxRateListCtrl);
 
     /* @ngInject */
-    function TaxClassListCtrl(taxClassService, translateService) {
+    function TaxRateListCtrl(taxRateService, translateService) {
         var vm = this;
         vm.translate = translateService;
-        vm.taxClasses = [];
+        vm.taxRates = [];
 
-        vm.getTaxClasses = function getTaxClasses() {
-            taxClassService.getTaxClasses().then(function (result) {
-                vm.taxClasses = result.data;
+        vm.getTaxRates = function getTaxRates() {
+            taxRateService.getTaxRates().then(function (result) {
+                vm.taxRates = result.data;
             });
         };
 
-        vm.deleteTaxClass = function deleteTaxClass(taxClass) {
-            bootbox.confirm('Are you sure you want to delete this taxClass: ' + taxClass.name, function (result) {
+        vm.deleteTaxRate = function deleteTaxRate(taxRate) {
+            bootbox.confirm('Are you sure you want to delete this taxRate: ' + taxRate.name, function (result) {
                 if (result) {
-                    taxClassService.deleteTaxClass(taxClass)
+                    taxRateService.deleteTaxRate(taxRate)
                         .then(function (result) {
-                            vm.getTaxClasses();
-                            toastr.success(taxClass.name + ' has been deleted');
+                            vm.getTaxRates();
+                            toastr.success(taxRate.name + ' has been deleted');
                         })
                         .catch(function (response) {
                             toastr.error(response.data.error);
@@ -31,6 +31,6 @@
             });
         };
 
-        vm.getTaxClasses();
+        vm.getTaxRates();
     }
 })();

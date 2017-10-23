@@ -2,37 +2,37 @@
 (function () {
     angular
         .module('simplAdmin.tax')
-        .factory('taxClassService', taxClassService);
+        .factory('taxRateService', taxRateService);
 
     /* @ngInject */
-    function taxClassService($http) {
+    function taxRateService($http) {
         var service = {
-            getTaxClass: getTaxClass,
-            createTaxClass: createTaxClass,
-            editTaxClass: editTaxClass,
-            deleteTaxClass: deleteTaxClass,
-            getTaxClasses: getTaxClasses
+            getTaxRate: getTaxRate,
+            createTaxRate: createTaxRate,
+            editTaxRate: editTaxRate,
+            deleteTaxRate: deleteTaxRate,
+            getTaxRates: getTaxRates
         };
         return service;
 
-        function getTaxClass(id) {
+        function getTaxRate(id) {
             return $http.get('api/tax-classes/' + id);
         }
 
-        function getTaxClasses() {
+        function getTaxRates() {
             return $http.get('api/tax-classes');
         }
 
-        function createTaxClass(taxClass) {
-            return $http.post('api/tax-classes', taxClass);
+        function createTaxRate(taxRate) {
+            return $http.post('api/tax-classes', taxRate);
         }
 
-        function editTaxClass(taxClass) {
-            return $http.put('api/tax-classes/' + taxClass.id, taxClass);
+        function editTaxRate(taxRate) {
+            return $http.put('api/tax-classes/' + taxRate.id, taxRate);
         }
 
-        function deleteTaxClass(taxClass) {
-            return $http.delete('api/tax-classes/' + taxClass.id, null);
+        function deleteTaxRate(taxRate) {
+            return $http.delete('api/tax-classes/' + taxRate.id, null);
         }
     }
 })();

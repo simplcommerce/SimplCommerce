@@ -169,6 +169,9 @@
     <script simpl-append-version="true" src="~/modules/tax/admin/tax-class/tax-class-service.js"></script>
     <script simpl-append-version="true" src="~/modules/tax/admin/tax-class/tax-class-list.js"></script>
     <script simpl-append-version="true" src="~/modules/tax/admin/tax-class/tax-class-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/tax/admin/tax-rate/tax-rate-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/tax/admin/tax-rate/tax-rate-list.js"></script>
+    <script simpl-append-version="true" src="~/modules/tax/admin/tax-rate/tax-rate-form.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse">
@@ -240,7 +243,8 @@
                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["System"] <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a ui-sref="themes">@Localizer["Themes"]</a></li>
-                            <li><a ui-sref="tax-classes">@Localizer["Taxes"]</a></li>
+                            <li><a ui-sref="tax-classes">@Localizer["Tax Classes"]</a></li>
+                            <li><a ui-sref="tax-rates">@Localizer["Tax Rates"]</a></li>
                             <li><a ui-sref="configuration">@Localizer["Settings"]</a></li>
                             <li><a ui-sref="localization">@Localizer["Translations"]</a></li>
                         </ul>
