@@ -1,4 +1,5 @@
 ﻿using SimplCommerce.Infrastructure.Models;
+using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Tax.Models
 {
@@ -12,12 +13,11 @@ namespace SimplCommerce.Module.Tax.Models
 
         public long CountryId { get; set; }
 
-        /// <summary>
-        /// 0 for all
-        /// </summary>
-        public long StateOrProvinceId { get; set; }
+        public Country Country { get; set; }
 
-        public string ZipCode { get; set; }
+        public long? StateOrProvinceId { get; set; }
+
+        public StateOrProvince StateOrProvince { get; set; }
 
         public decimal Rate { get; set; }
     }

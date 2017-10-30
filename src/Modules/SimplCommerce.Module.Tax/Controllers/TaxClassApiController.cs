@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,10 @@ namespace SimplCommerce.Module.Tax.Controllers
 
         public async Task<IActionResult> Get()
         {
-            var taxClasses = await _taxClassRepository.Query().ToListAsync();
+            var taxClasses = await _taxClassRepository
+                .Query()
+                .Select(x => new { Id = x.Id, Name = x.Name })
+                .ToListAsync();
             return Json(taxClasses);
         }
 
@@ -56,9 +60,9 @@ namespace SimplCommerce.Module.Tax.Controllers
                 _taxClassRepository.Add(tagClass);
                 await _taxClassRepository.SaveChangesAsync();
 
-                return Ok();
+                return CreatedAtAction(nameof(Get), new { id = tagClass.Id }, null);
             }
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpPut("{id}")]
@@ -74,10 +78,10 @@ namespace SimplCommerce.Module.Tax.Controllers
 
                 taxClass.Name = model.Name;
                 await _taxClassRepository.SaveChangesAsync();
-                return Ok();
+                return Accepted();
             }
 
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpDelete("{id}")]
@@ -91,7 +95,7 @@ namespace SimplCommerce.Module.Tax.Controllers
 
             _taxClassRepository.Remove(taxClass);
             await _taxClassRepository.SaveChangesAsync();
-            return Ok();
+            return NoContent();
         }
     }
 }

@@ -13,12 +13,20 @@
     <thead>
         <tr>
             <th>{{::vm.translate.get('Name')}}</th>
+            <th>{{::vm.translate.get('Tax Class')}}</th>
+            <th>{{::vm.translate.get('Country')}}</th>
+            <th>{{::vm.translate.get('State or Province')}}</th>
+            <th>{{::vm.translate.get('Rate')}}</th>
             <th>{{::vm.translate.get('Actions')}}</th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="taxRate in vm.taxRates">
             <td>{{taxRate.name}}</td>
+            <td>{{taxRate.tagClassName}}</td>
+            <td>{{taxRate.countryName}}</td>
+            <td>{{taxRate.stateOrProvinceName || "All"}}</td>
+            <td>{{taxRate.rate}}</td>
             <td>
                 <a ui-sref="tax-rates-edit({id: taxRate.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
                 <button ng-click="vm.deleteTaxRate(taxRate)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>

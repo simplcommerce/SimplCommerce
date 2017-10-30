@@ -7,6 +7,7 @@ using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Core.Controllers
 {
+    [Route("api/countries")]
     public class CountryApiController : Controller
     {
         private readonly IRepository<Country> _countryRepository;

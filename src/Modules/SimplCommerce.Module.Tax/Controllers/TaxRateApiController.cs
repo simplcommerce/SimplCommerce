@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,18 @@ namespace SimplCommerce.Module.Tax.Controllers
 
         public async Task<IActionResult> Get()
         {
-            var taxRates = await _taxRateRepository.Query().ToListAsync();
+            var taxRates = await _taxRateRepository
+                .Query()
+                .Select(x => new
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    TagClassName = x.TaxClass.Name,
+                    CountryName = x.Country.Name,
+                    StateOrProvinceName = x.StateOrProvince.Name,
+                    Rate = x.Rate
+                })
+                .ToListAsync();
             return Json(taxRates);
         }
 
@@ -38,6 +50,10 @@ namespace SimplCommerce.Module.Tax.Controllers
             {
                 Id = taxRate.Id,
                 Name = taxRate.Name,
+                TaxClassId = taxRate.TaxClassId,
+                CountryId = taxRate.CountryId,
+                StateOrProvinceId = taxRate.StateOrProvinceId,
+                Rate = taxRate.Rate
             };
 
             return Json(model);
@@ -50,15 +66,19 @@ namespace SimplCommerce.Module.Tax.Controllers
             {
                 var tagRate = new TaxRate
                 {
-                    Name = model.Name
+                    Name = model.Name,
+                    TaxClassId = model.TaxClassId,
+                    CountryId = model.CountryId,
+                    StateOrProvinceId = model.StateOrProvinceId,
+                    Rate = model.Rate
                 };
 
                 _taxRateRepository.Add(tagRate);
                 await _taxRateRepository.SaveChangesAsync();
 
-                return Ok();
+                return CreatedAtAction(nameof(Get), new { id = tagRate.Id }, null);
             }
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpPut("{id}")]
@@ -73,11 +93,16 @@ namespace SimplCommerce.Module.Tax.Controllers
                 }
 
                 taxRate.Name = model.Name;
+                taxRate.TaxClassId = model.TaxClassId;
+                taxRate.CountryId = model.CountryId;
+                taxRate.StateOrProvinceId = model.StateOrProvinceId;
+                taxRate.Rate = model.Rate;
+
                 await _taxRateRepository.SaveChangesAsync();
-                return Ok();
+                return Accepted();
             }
 
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpDelete("{id}")]
@@ -91,7 +116,7 @@ namespace SimplCommerce.Module.Tax.Controllers
 
             _taxRateRepository.Remove(taxRate);
             await _taxRateRepository.SaveChangesAsync();
-            return Ok();
+            return NoContent();
         }
     }
 }

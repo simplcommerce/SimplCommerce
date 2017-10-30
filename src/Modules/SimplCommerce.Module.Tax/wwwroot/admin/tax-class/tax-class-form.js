@@ -2,27 +2,27 @@
 (function ($) {
     angular
         .module('simplAdmin.tax')
-        .controller('TaxRateFormCtrl', TaxRateFormCtrl);
+        .controller('TaxClassFormCtrl', TaxClassFormCtrl);
 
     /* @ngInject */
-    function TaxRateFormCtrl($state, $stateParams, taxRateService, translateService) {
+    function TaxClassFormCtrl($state, $stateParams, taxClassService, translateService) {
         var vm = this;
         vm.translate = translateService;
-        vm.taxRate = {};
-        vm.taxRateId = $stateParams.id;
-        vm.isEditMode = vm.taxRateId > 0;
+        vm.taxClass = {};
+        vm.taxClassId = $stateParams.id;
+        vm.isEditMode = vm.taxClassId > 0;
 
         vm.save = function save() {
             var promise;
             if (vm.isEditMode) {
-                promise = taxRateService.editTaxRate(vm.taxRate);
+                promise = taxClassService.editTaxClass(vm.taxClass);
             } else {
-                promise = taxRateService.createTaxRate(vm.taxRate);
+                promise = taxClassService.createTaxClass(vm.taxClass);
             }
 
             promise
                 .then(function (result) {
-                    $state.go('tax-rates');
+                    $state.go('tax-classes');
                 })
                 .catch(function (response) {
                     var error = response.data;
@@ -32,15 +32,15 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add tax rate.');
+                        vm.validationErrors.push('Could not add/update tax class.');
                     }
                 });
         };
 
         function init() {
             if (vm.isEditMode) {
-                taxRateService.getTaxRate(vm.taxRateId).then(function (result) {
-                    vm.taxRate = result.data;
+                taxClassService.getTaxClass(vm.taxClassId).then(function (result) {
+                    vm.taxClass = result.data;
                 });
             }
         }
