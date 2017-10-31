@@ -29,6 +29,7 @@
         vm.isEditMode = vm.productId > 0;
         vm.addingVariation = { price: 0 };
         vm.brands = [];
+        vm.taxClasses = [];
 
         vm.datePickerSpecialPriceStart = {};
         vm.datePickerSpecialPriceEnd = {};
@@ -389,6 +390,12 @@
             });
         }
 
+        function getTaxClasses() {
+            productService.getTaxClasses().then(function (result) {
+                vm.taxClasses = result.data;
+            });
+        }
+
         function init() {
             if (vm.isEditMode) {
                 getProduct();
@@ -398,6 +405,7 @@
             getAttributes();
             getCategories();
             getBrands();
+            getTaxClasses();
         }
 
         function getParentCategoryIds(categoryId) {

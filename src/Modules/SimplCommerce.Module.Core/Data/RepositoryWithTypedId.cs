@@ -1,9 +1,9 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Models;
-using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.Core.Data
 {
