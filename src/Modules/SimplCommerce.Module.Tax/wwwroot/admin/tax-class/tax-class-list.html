@@ -1,0 +1,28 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{::vm.translate.get('Tax Classes')}}</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <a ui-sref="tax-classes-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create Tax Class')}}</a>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>{{::vm.translate.get('Name')}}</th>
+            <th>{{::vm.translate.get('Actions')}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="taxClass in vm.taxClasses">
+            <td>{{taxClass.name}}</td>
+            <td>
+                <a ui-sref="tax-classes-edit({id: taxClass.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+                <button ng-click="vm.deleteTaxClass(taxClass)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+            </td>
+        </tr>
+    </tbody>
+</table>

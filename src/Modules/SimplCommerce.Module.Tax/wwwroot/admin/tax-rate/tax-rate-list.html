@@ -1,0 +1,36 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{::vm.translate.get('Tax Rates')}}</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <a ui-sref="tax-rates-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create Tax Rate')}}</a>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>{{::vm.translate.get('Name')}}</th>
+            <th>{{::vm.translate.get('Tax Class')}}</th>
+            <th>{{::vm.translate.get('Country')}}</th>
+            <th>{{::vm.translate.get('State or Province')}}</th>
+            <th>{{::vm.translate.get('Rate')}}</th>
+            <th>{{::vm.translate.get('Actions')}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="taxRate in vm.taxRates">
+            <td>{{taxRate.name}}</td>
+            <td>{{taxRate.tagClassName}}</td>
+            <td>{{taxRate.countryName}}</td>
+            <td>{{taxRate.stateOrProvinceName || "All"}}</td>
+            <td>{{taxRate.rate}}</td>
+            <td>
+                <a ui-sref="tax-rates-edit({id: taxRate.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+                <button ng-click="vm.deleteTaxRate(taxRate)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+            </td>
+        </tr>
+    </tbody>
+</table>

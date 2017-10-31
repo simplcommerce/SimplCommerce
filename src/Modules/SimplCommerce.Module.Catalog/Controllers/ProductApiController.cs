@@ -92,7 +92,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 IsOutOfStock = product.StockQuantity == 0,
                 CategoryIds = product.Categories.Select(x => x.CategoryId).ToList(),
                 ThumbnailImageUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage),
-                BrandId = product.BrandId
+                BrandId = product.BrandId,
+                TaxClassId = product.TaxClassId
             };
 
             foreach (var productMedia in product.Medias.Where(x => x.Media.MediaType == MediaType.Image))
@@ -274,6 +275,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 IsCallForPricing = model.Product.IsCallForPricing,
                 IsAllowToOrder = model.Product.IsAllowToOrder,
                 BrandId = model.Product.BrandId,
+                TaxClassId = model.Product.TaxClassId,
                 HasOptions = model.Product.Variations.Any() ? true : false,
                 IsVisibleIndividually = true,
                 CreatedBy = currentUser
@@ -371,6 +373,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             product.SpecialPriceStart = model.Product.SpecialPriceStart;
             product.SpecialPriceEnd = model.Product.SpecialPriceEnd;
             product.BrandId = model.Product.BrandId;
+            product.TaxClassId = model.Product.TaxClassId;
             product.IsFeatured = model.Product.IsFeatured;
             product.IsPublished = model.Product.IsPublished;
             product.IsCallForPricing = model.Product.IsCallForPricing;

@@ -1,0 +1,56 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 ng-if="!vm.isEditMode">{{::vm.translate.get('Create Tax Rate')}}</h2>
+        <h2 ng-if="vm.isEditMode">{{::vm.translate.get('Edit Tax Rate')}}</h2>
+    </div>
+    <div class="panel-body">
+        <form name="taxRateForm" class="form-horizontal">
+            <div class="col-sm-offset-2 bg-danger" ng-show="vm.validationErrors">
+                <ul>
+                    <li ng-repeat="error in vm.validationErrors">{{error}}</li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Name')}}</label>
+                <div class="col-sm-10">
+                    <input name="name" ng-model="vm.taxRate.name" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Tax Class')}}</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="vm.taxRate.taxClassId" ng-options="taxClass.id as taxClass.name for taxClass in vm.taxClasses"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Country')}}</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="vm.taxRate.countryId" ng-options="country.id as country.name for country in vm.countries" ng-change="vm.reloadStatesOrProvinces()"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{::vm.translate.get('State or Province')}}</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="vm.taxRate.stateOrProvinceId" ng-options="stateOrProvince.id as stateOrProvince.name for stateOrProvince in vm.statesOrProvinces">
+                        <option value="">All State or Province</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Rate')}}</label>
+                <div class="col-sm-10">
+                    <div class="input-number">
+                        <input id="rate" type="text" decimal maxlength="10" name="rate" ng-model="vm.taxRate.rate" required class="form-control" />
+                        <label for="rate" class="form-control">{{vm.taxRate.rate | number}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> {{::vm.translate.get('Save')}}</button>
+                    <button ui-sref="tax-rates" class="btn btn-default">{{::vm.translate.get('Cancel')}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
