@@ -425,7 +425,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
 
             product.IsPublished = !product.IsPublished;
-            _productRepository.SaveChange();
+            _productRepository.SaveChanges();
 
             return Ok();
         }

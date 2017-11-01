@@ -80,7 +80,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
 
             _productTemplateRepository.Add(productTemplate);
-            _productAttributeRepository.SaveChange();
+            _productAttributeRepository.SaveChanges();
 
             return Ok();
         }
@@ -119,7 +119,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 _productTemplateProductAttributeRepository.Remove(deletedAttribute);
             }
 
-            _productAttributeRepository.SaveChange();
+            _productAttributeRepository.SaveChanges();
 
             return Ok();
         }
@@ -135,7 +135,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
 
             _productTemplateRepository.Remove(productTemplate);
-            _productAttributeRepository.SaveChange();
+            _productAttributeRepository.SaveChanges();
             return Json(true);
         }
     }

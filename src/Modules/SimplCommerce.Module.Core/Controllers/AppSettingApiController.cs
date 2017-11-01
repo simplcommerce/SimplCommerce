@@ -42,7 +42,7 @@ namespace SimplCommerce.Module.Core.Controllers
                     }
                 }
 
-                _appSettingRepository.SaveChange();
+                _appSettingRepository.SaveChanges();
                 _configurationRoot.Reload();
 
                 return Ok();

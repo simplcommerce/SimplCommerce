@@ -34,7 +34,7 @@ namespace SimplCommerce.Module.ProductComparison.Services
                 };
 
                 _comparingProductRepository.Add(comparingProduct);
-                _comparingProductRepository.SaveChange();
+                _comparingProductRepository.SaveChanges();
             }
         }
 
@@ -46,7 +46,7 @@ namespace SimplCommerce.Module.ProductComparison.Services
                 item.UserId = toUserId;
             }
 
-            _comparingProductRepository.SaveChange();
+            _comparingProductRepository.SaveChanges();
         }
     }
 }

@@ -29,7 +29,7 @@ namespace SimplCommerce.Module.Core.Data
             return Context.Database.BeginTransaction();
         }
 
-        public void SaveChange()
+        public void SaveChanges()
         {
             Context.SaveChanges();
         }

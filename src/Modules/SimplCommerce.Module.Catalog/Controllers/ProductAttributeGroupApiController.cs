@@ -56,7 +56,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 };
 
                 _productAttrGroupRepository.Add(productAttributeGroup);
-                _productAttrGroupRepository.SaveChange();
+                _productAttrGroupRepository.SaveChanges();
 
                 return Ok();
             }
@@ -72,7 +72,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 var productAttributeGroup = _productAttrGroupRepository.Query().FirstOrDefault(x => x.Id == id);
                 productAttributeGroup.Name = model.Name;
 
-                _productAttrGroupRepository.SaveChange();
+                _productAttrGroupRepository.SaveChanges();
 
                 return Ok();
             }

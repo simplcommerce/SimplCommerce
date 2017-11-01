@@ -130,7 +130,7 @@ namespace SimplCommerce.Module.Orders.Services
                 _orderRepository.Add(subOrder);
             }
 
-            _orderRepository.SaveChange();
+            _orderRepository.SaveChanges();
         }
     }
 }

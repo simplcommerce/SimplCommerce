@@ -69,7 +69,7 @@ namespace SimplCommerce.Module.Core.Services
         {
             var themeSetting = _appSettingRepository.Query().Where(x => x.Key == SimplConstants.ThemeConfigKey).First();
             themeSetting.Value = themeName;
-            _appSettingRepository.SaveChange();
+            _appSettingRepository.SaveChanges();
             _configurationRoot.Reload();
         }
     }

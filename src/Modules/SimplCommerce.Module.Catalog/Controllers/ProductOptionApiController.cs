@@ -49,7 +49,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 };
 
                 _productOptionRepository.Add(productOption);
-                _productOptionRepository.SaveChange();
+                _productOptionRepository.SaveChanges();
 
                 return Ok();
             }
@@ -65,7 +65,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 var productOption = _productOptionRepository.Query().FirstOrDefault(x => x.Id == id);
                 productOption.Name = model.Name;
 
-                _productOptionRepository.SaveChange();
+                _productOptionRepository.SaveChanges();
 
                 return Ok();
             }

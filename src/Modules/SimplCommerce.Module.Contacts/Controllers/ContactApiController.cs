@@ -110,7 +110,7 @@ namespace SimplCommerce.Module.Contacts.Controllers
             }
 
             contact.IsDeleted = true;
-            _contactRepository.SaveChange();
+            _contactRepository.SaveChanges();
 
             return Ok();
         }

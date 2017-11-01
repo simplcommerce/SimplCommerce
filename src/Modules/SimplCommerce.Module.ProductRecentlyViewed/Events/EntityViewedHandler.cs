@@ -43,7 +43,7 @@ namespace SimplCommerce.Module.ActivityLog.Events
                 }
 
                 recentlyViewedProduct.LatestViewedOn = DateTimeOffset.Now;
-                _recentlyViewedProductRepository.SaveChange();
+                _recentlyViewedProductRepository.SaveChanges();
             }
         }
     }

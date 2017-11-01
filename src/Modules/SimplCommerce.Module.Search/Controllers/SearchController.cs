@@ -183,7 +183,7 @@ namespace SimplCommerce.Module.Search.Controllers
             };
 
             _queryRepository.Add(query);
-            _queryRepository.SaveChange();
+            _queryRepository.SaveChanges();
         }
     }
 }

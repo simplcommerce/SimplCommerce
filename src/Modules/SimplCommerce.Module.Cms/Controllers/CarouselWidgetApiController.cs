@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
@@ -30,9 +31,9 @@ namespace SimplCommerce.Module.Cms.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(long id)
+        public async Task<IActionResult> Get(long id)
         {
-            var widgetInstance = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
+            var widgetInstance = await _widgetInstanceRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
             var model = new CarouselWidgetForm
             {
                 Id = widgetInstance.Id,
@@ -52,7 +53,7 @@ namespace SimplCommerce.Module.Cms.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(IFormCollection formCollection)
+        public async Task<IActionResult> Post(IFormCollection formCollection)
         {
             var model = ToCarouselWidgetFormModel(formCollection);
             if (ModelState.IsValid)
@@ -73,14 +74,14 @@ namespace SimplCommerce.Module.Cms.Controllers
                 };
 
                 _widgetInstanceRepository.Add(widgetInstance);
-                _widgetInstanceRepository.SaveChange();
-                return Ok();
+                await _widgetInstanceRepository.SaveChangesAsync();
+                return CreatedAtAction(nameof(Get), new { id = widgetInstance.Id }, null);
             }
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(long id, IFormCollection formCollection)
+        public async Task<IActionResult> Put(long id, IFormCollection formCollection)
         {
             var model = ToCarouselWidgetFormModel(formCollection);
 
@@ -98,18 +99,23 @@ namespace SimplCommerce.Module.Cms.Controllers
 
             if (ModelState.IsValid)
             {
-                var widgetInstance = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
+                var widgetInstance = await _widgetInstanceRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+                if(widgetInstance == null)
+                {
+                    return NotFound();
+                }
+
                 widgetInstance.Name = model.Name;
                 widgetInstance.PublishStart = model.PublishStart;
                 widgetInstance.PublishEnd = model.PublishEnd;
                 widgetInstance.WidgetZoneId = model.WidgetZoneId;
                 widgetInstance.Data = JsonConvert.SerializeObject(model.Items);
 
-                _widgetInstanceRepository.SaveChange();
-                return Ok();
+                await _widgetInstanceRepository.SaveChangesAsync();
+                return Accepted();
             }
 
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         private CarouselWidgetForm ToCarouselWidgetFormModel(IFormCollection formCollection)
