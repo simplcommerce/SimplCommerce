@@ -60,7 +60,7 @@ namespace SimplCommerce.Module.Cms.Controllers
             {
                 foreach (var item in model.Items)
                 {
-                    item.Image = SaveFile(item.UploadImage);
+                    item.Image = await SaveFile(item.UploadImage);
                 }
 
                 var widgetInstance = new WidgetInstance
@@ -91,9 +91,9 @@ namespace SimplCommerce.Module.Cms.Controllers
                 {
                     if (!string.IsNullOrWhiteSpace(item.Image))
                     {
-                        _mediaService.DeleteMedia(item.Image);
+                        await _mediaService.DeleteMediaAsync(item.Image);
                     }
-                    item.Image = SaveFile(item.UploadImage);
+                    item.Image = await SaveFile(item.UploadImage);
                 }
             }
 
@@ -149,11 +149,11 @@ namespace SimplCommerce.Module.Cms.Controllers
             return model;
         }
 
-        private string SaveFile(IFormFile file)
+        private async Task<string> SaveFile(IFormFile file)
         {
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
-            _mediaService.SaveMedia(file.OpenReadStream(), fileName, file.ContentType);
+            await _mediaService.SaveMediaAsync(file.OpenReadStream(), fileName, file.ContentType);
             return fileName;
         }
     }

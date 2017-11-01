@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,21 +13,21 @@ namespace SimplCommerce.Module.Core.Controllers
     [Route("api/common")]
     public class CommonApiController : Controller
     {
-        private readonly IMediaService mediaService;
+        private readonly IMediaService _mediaService;
 
         public CommonApiController(IMediaService mediaService)
         {
-            this.mediaService = mediaService;
+            _mediaService = mediaService;
         }
 
         [HttpPost("upload")]
-        public IActionResult UploadFile(IFormFile file)
+        public async Task<IActionResult> UploadFile(IFormFile file)
         {
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
-            mediaService.SaveMedia(file.OpenReadStream(), fileName, file.ContentType);
+            await _mediaService.SaveMediaAsync(file.OpenReadStream(), fileName, file.ContentType);
 
-            return Ok(mediaService.GetMediaUrl(fileName));
+            return Ok(_mediaService.GetMediaUrl(fileName));
         }
     }
 }
