@@ -55,7 +55,7 @@ namespace SimplCommerce.Module.Orders.Services
                 cartItem.Quantity = quantity;
             }
 
-            _cartRepository.SaveChange();
+            _cartRepository.SaveChanges();
         }
 
         // TODO separate getting product thumbnail, varation options from here
@@ -119,7 +119,7 @@ namespace SimplCommerce.Module.Orders.Services
             {
                 cart.CouponCode = couponCode;
                 cart.CouponRuleName = couponValidationResult.CouponRuleName;
-                _cartItemRepository.SaveChange();
+                _cartItemRepository.SaveChanges();
             }
 
             return couponValidationResult;
@@ -133,7 +133,7 @@ namespace SimplCommerce.Module.Orders.Services
                 cart.UserId = toUserId;
             }
 
-            _cartRepository.SaveChange();
+            _cartRepository.SaveChanges();
         }
     }
 }

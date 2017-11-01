@@ -174,7 +174,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             productCategory.IsFeaturedProduct = model.IsFeaturedProduct;
             productCategory.DisplayOrder = model.DisplayOrder;
 
-            _productCategoryRepository.SaveChange();
+            _productCategoryRepository.SaveChanges();
             return Ok();
         }
 

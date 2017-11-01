@@ -87,7 +87,7 @@ namespace SimplCommerce.Module.Orders.Controllers
             }
 
             cartItem.Quantity = model.Quantity;
-            _cartItemRepository.SaveChange();
+            _cartItemRepository.SaveChanges();
 
             return await List();
         }
@@ -116,7 +116,7 @@ namespace SimplCommerce.Module.Orders.Controllers
             }
 
             _cartItemRepository.Remove(cartItem);
-            _cartItemRepository.SaveChange();
+            _cartItemRepository.SaveChanges();
 
             return await List();
         }

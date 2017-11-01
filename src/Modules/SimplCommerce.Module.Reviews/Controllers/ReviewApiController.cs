@@ -125,7 +125,7 @@ namespace SimplCommerce.Module.Reviews.Controllers
             if (Enum.IsDefined(typeof(ReviewStatus), statusId))
             {
                 review.Status = (ReviewStatus) statusId;
-                _reviewRepository.SaveChange();
+                _reviewRepository.SaveChanges();
 
                 var rattings = _reviewRepository.Query()
                     .Where(x => x.EntityId == review.EntityId && x.EntityTypeId == review.EntityTypeId && x.Status == ReviewStatus.Approved);
@@ -147,7 +147,7 @@ namespace SimplCommerce.Module.Reviews.Controllers
                 }
 
                 _mediator.Publish(reviewSummary);
-                _reviewRepository.SaveChange();
+                _reviewRepository.SaveChanges();
                 return Ok();
             }
             return BadRequest(new {Error = "unsupported order status"});

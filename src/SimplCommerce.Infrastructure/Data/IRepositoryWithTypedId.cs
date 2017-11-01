@@ -13,7 +13,7 @@ namespace SimplCommerce.Infrastructure.Data
 
         IDbContextTransaction BeginTransaction();
 
-        void SaveChange();
+        void SaveChanges();
 
         Task SaveChangesAsync();
 

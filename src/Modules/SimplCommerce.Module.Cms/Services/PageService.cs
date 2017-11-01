@@ -18,33 +18,33 @@ namespace SimplCommerce.Module.Cms.Services
             _entityService = entityService;
         }
 
-        public void Create(Page page)
+        public async Task Create(Page page)
         {
             using (var transaction = _pageRepository.BeginTransaction())
             {
                 page.SeoTitle = _entityService.ToSafeSlug(page.SeoTitle, page.Id, PageEntityTypeId);
                 _pageRepository.Add(page);
-                _pageRepository.SaveChange();
+                await _pageRepository.SaveChangesAsync();
 
                 _entityService.Add(page.Name, page.SeoTitle, page.Id, PageEntityTypeId);
-                _pageRepository.SaveChange();
+                await _pageRepository.SaveChangesAsync();
 
                 transaction.Commit();
             }
         }
 
-        public void Update(Page page)
+        public async Task Update(Page page)
         {
             page.SeoTitle = _entityService.ToSafeSlug(page.SeoTitle, page.Id, PageEntityTypeId);
             _entityService.Update(page.Name, page.SeoTitle, page.Id, PageEntityTypeId);
-            _pageRepository.SaveChange();
+            await _pageRepository.SaveChangesAsync();
         }
 
         public async Task Delete(Page page)
         {
             _pageRepository.Remove(page);
             await _entityService.Remove(page.Id, PageEntityTypeId);
-            _pageRepository.SaveChange();
+            _pageRepository.SaveChanges();
         }
     }
 }

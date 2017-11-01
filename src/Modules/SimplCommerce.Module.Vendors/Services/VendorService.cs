@@ -25,10 +25,10 @@ namespace SimplCommerce.Module.Vendors.Services
             {
                 vendor.SeoTitle = _entityService.ToSafeSlug(vendor.SeoTitle, vendor.Id, VendorEntityTypeId);
                 _vendorRepository.Add(vendor);
-                _vendorRepository.SaveChange();
+                _vendorRepository.SaveChanges();
 
                 _entityService.Add(vendor.Name, vendor.SeoTitle, vendor.Id, VendorEntityTypeId);
-                _vendorRepository.SaveChange();
+                _vendorRepository.SaveChanges();
 
                 transaction.Commit();
             }
@@ -38,7 +38,7 @@ namespace SimplCommerce.Module.Vendors.Services
         {
             vendor.SeoTitle = _entityService.ToSafeSlug(vendor.SeoTitle, vendor.Id, VendorEntityTypeId);
             _entityService.Update(vendor.Name, vendor.SeoTitle, vendor.Id, VendorEntityTypeId);
-            _vendorRepository.SaveChange();
+            _vendorRepository.SaveChanges();
         }
 
         public async Task Delete(long id)
@@ -51,7 +51,7 @@ namespace SimplCommerce.Module.Vendors.Services
         {
             vendor.IsDeleted = true;
             await _entityService.Remove(vendor.Id, VendorEntityTypeId);
-            _vendorRepository.SaveChange();
+            _vendorRepository.SaveChanges();
         }
     }
 }

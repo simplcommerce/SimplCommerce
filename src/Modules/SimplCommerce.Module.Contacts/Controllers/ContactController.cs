@@ -59,7 +59,7 @@ namespace SimplCommerce.Module.Contacts.Controllers
                 };
 
                 _contactRepository.Add(contact);
-                _contactRepository.SaveChange();
+                _contactRepository.SaveChanges();
 
                 return View("SubmitContactResult", model);
             }

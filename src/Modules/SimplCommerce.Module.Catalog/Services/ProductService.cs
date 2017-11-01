@@ -24,10 +24,10 @@ namespace SimplCommerce.Module.Catalog.Services
             {
                 product.SeoTitle = _entityService.ToSafeSlug(product.SeoTitle, product.Id, ProductEntityTypeId);
                 _productRepository.Add(product);
-                _productRepository.SaveChange();
+                _productRepository.SaveChanges();
 
                 _entityService.Add(product.Name, product.SeoTitle, product.Id, ProductEntityTypeId);
-                _productRepository.SaveChange();
+                _productRepository.SaveChanges();
 
                 transaction.Commit();
             }
@@ -55,14 +55,14 @@ namespace SimplCommerce.Module.Catalog.Services
                     _entityService.Remove(product.Id, ProductEntityTypeId);
                 }
             }
-            _productRepository.SaveChange();
+            _productRepository.SaveChanges();
         }
 
         public async Task Delete(Product product)
         {
             product.IsDeleted = true;
             await _entityService.Remove(product.Id, ProductEntityTypeId);
-            _productRepository.SaveChange();
+            _productRepository.SaveChanges();
         }
     }
 }

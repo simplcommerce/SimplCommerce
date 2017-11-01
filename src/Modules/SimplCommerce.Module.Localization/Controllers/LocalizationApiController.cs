@@ -95,7 +95,7 @@ namespace SimplCommerce.Module.Localization.Controllers
                 }
             }
 
-            _resourceRepository.SaveChange();
+            _resourceRepository.SaveChanges();
 
             return Ok();
         }
