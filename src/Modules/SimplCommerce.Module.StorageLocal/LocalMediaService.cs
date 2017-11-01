@@ -2,18 +2,18 @@
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
+using SimplCommerce.Module.Core.Services;
 
-namespace SimplCommerce.Module.Core.Services
+namespace SimplCommerce.Module.StorageLocal
 {
     public class LocalMediaService : IMediaService
     {
         private const string MediaRootFoler = "user-content";
-
-        private IRepository<Media> _mediaRespository;
+        private readonly IRepository<Media> _mediaRespository;
 
         public LocalMediaService(IRepository<Media> mediaRespository)
         {
-            this._mediaRespository = mediaRespository;
+            _mediaRespository = mediaRespository;
         }
 
         public string GetMediaUrl(Media media)
