@@ -1,22 +1,39 @@
-﻿using SimplCommerce.Module.Core.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using SimplCommerce.Module.Core.Models;
+﻿using System.Diagnostics.Contracts;
 using System.IO;
+using System.Threading.Tasks;
 using Amazon.S3;
 using Amazon.S3.Model;
+using Microsoft.Extensions.Configuration;
+using SimplCommerce.Module.Core.Models;
+using SimplCommerce.Module.Core.Services;
+using Amazon;
 
 namespace SimplCommerce.Module.StorageAmazonS3
 {
     public class S3MediaService : IMediaService
     {
         private IAmazonS3 _amazonS3Client;
-        private string _bucketName = "simpl-user-content";
-        public S3MediaService()
+        private string _bucketName;
+        private string _publicEndpoint;
+        public S3MediaService(IConfiguration configuration)
         {
+            var regionEndpointName = configuration["AWS:S3:RegionEndpointName"];
+            var accessKeyId = configuration["AWS:S3:AccessKeyId"];
+            var secretAccessKey = configuration["AWS:S3:SecretAccessKey"];
+            _bucketName = configuration["AWS:S3:BucketName"];
+            _publicEndpoint = configuration["AWS:S3:PublicEndpoint"];
 
+            Contract.Requires(string.IsNullOrWhiteSpace(regionEndpointName));
+            Contract.Requires(string.IsNullOrWhiteSpace(accessKeyId));
+            Contract.Requires(string.IsNullOrWhiteSpace(secretAccessKey));
+            Contract.Requires(string.IsNullOrWhiteSpace(_bucketName));
+
+            _amazonS3Client = new AmazonS3Client(accessKeyId, secretAccessKey, RegionEndpoint.GetBySystemName(regionEndpointName));
+
+            if (string.IsNullOrWhiteSpace(_publicEndpoint))
+            {
+                _publicEndpoint = $"http://{_bucketName}.s3-website-{regionEndpointName}.amazonaws.com/";
+            }
         }
 
         public Task DeleteMediaAsync(Media media)
@@ -37,25 +54,26 @@ namespace SimplCommerce.Module.StorageAmazonS3
 
         public string GetMediaUrl(Media media)
         {
-            throw new NotImplementedException();
+            return string.Concat(_publicEndpoint, media.FileName);
         }
 
         public string GetMediaUrl(string fileName)
         {
-            throw new NotImplementedException();
+            return string.Concat(_publicEndpoint, fileName);
         }
 
         public string GetThumbnailUrl(Media media)
         {
-            throw new NotImplementedException();
+            return string.Concat(_publicEndpoint, media.FileName);
         }
 
         public async Task SaveMediaAsync(Stream mediaBinaryStream, string fileName, string mimeType = null)
         {
             var putObjectRequest = new PutObjectRequest
             {
-                BucketName = "simpl-user-content",
+                BucketName = _bucketName,
                 Key = fileName,
+                CannedACL = S3CannedACL.PublicRead,
                 InputStream = mediaBinaryStream
             };
 
