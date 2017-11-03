@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
@@ -31,9 +30,9 @@ namespace SimplCommerce.Module.Cms.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(long id)
+        public IActionResult Get(long id)
         {
-            var widgetInstance = await _widgetInstanceRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+            var widgetInstance = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
             var model = new CarouselWidgetForm
             {
                 Id = widgetInstance.Id,
@@ -53,14 +52,14 @@ namespace SimplCommerce.Module.Cms.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(IFormCollection formCollection)
+        public IActionResult Post(IFormCollection formCollection)
         {
             var model = ToCarouselWidgetFormModel(formCollection);
             if (ModelState.IsValid)
             {
                 foreach (var item in model.Items)
                 {
-                    item.Image = await SaveFile(item.UploadImage);
+                    item.Image = SaveFile(item.UploadImage);
                 }
 
                 var widgetInstance = new WidgetInstance
@@ -74,14 +73,14 @@ namespace SimplCommerce.Module.Cms.Controllers
                 };
 
                 _widgetInstanceRepository.Add(widgetInstance);
-                await _widgetInstanceRepository.SaveChangesAsync();
-                return CreatedAtAction(nameof(Get), new { id = widgetInstance.Id }, null);
+                _widgetInstanceRepository.SaveChange();
+                return Ok();
             }
-            return BadRequest(ModelState);
+            return new BadRequestObjectResult(ModelState);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, IFormCollection formCollection)
+        public IActionResult Put(long id, IFormCollection formCollection)
         {
             var model = ToCarouselWidgetFormModel(formCollection);
 
@@ -91,31 +90,26 @@ namespace SimplCommerce.Module.Cms.Controllers
                 {
                     if (!string.IsNullOrWhiteSpace(item.Image))
                     {
-                        await _mediaService.DeleteMediaAsync(item.Image);
+                        _mediaService.DeleteMedia(item.Image);
                     }
-                    item.Image = await SaveFile(item.UploadImage);
+                    item.Image = SaveFile(item.UploadImage);
                 }
             }
 
             if (ModelState.IsValid)
             {
-                var widgetInstance = await _widgetInstanceRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-                if(widgetInstance == null)
-                {
-                    return NotFound();
-                }
-
+                var widgetInstance = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
                 widgetInstance.Name = model.Name;
                 widgetInstance.PublishStart = model.PublishStart;
                 widgetInstance.PublishEnd = model.PublishEnd;
                 widgetInstance.WidgetZoneId = model.WidgetZoneId;
                 widgetInstance.Data = JsonConvert.SerializeObject(model.Items);
 
-                await _widgetInstanceRepository.SaveChangesAsync();
-                return Accepted();
+                _widgetInstanceRepository.SaveChange();
+                return Ok();
             }
 
-            return BadRequest(ModelState);
+            return new BadRequestObjectResult(ModelState);
         }
 
         private CarouselWidgetForm ToCarouselWidgetFormModel(IFormCollection formCollection)
@@ -149,11 +143,11 @@ namespace SimplCommerce.Module.Cms.Controllers
             return model;
         }
 
-        private async Task<string> SaveFile(IFormFile file)
+        private string SaveFile(IFormFile file)
         {
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
-            await _mediaService.SaveMediaAsync(file.OpenReadStream(), fileName, file.ContentType);
+            _mediaService.SaveMedia(file.OpenReadStream(), fileName, file.ContentType);
             return fileName;
         }
     }

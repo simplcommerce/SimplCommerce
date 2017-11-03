@@ -6,6 +6,9 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Pricing.Services;
+using SimplCommerce.Module.Shipping.Models;
+using SimplCommerce.Module.Shipping.Services;
+using SimplCommerce.Module.PaymentType.Services;
 
 namespace SimplCommerce.Module.Orders.Services
 {
@@ -13,16 +16,20 @@ namespace SimplCommerce.Module.Orders.Services
     {
         private readonly IRepository<Cart> _cartRepository;
         private readonly IRepository<Order> _orderRepository;
+        private readonly IShippingService _shippingService;
+        private readonly IPaymentType _paymenttypeService;
         private readonly ICouponService _couponService;
 
-        public OrderService(IRepository<Order> orderRepository, IRepository<Cart> cartRepository, ICouponService couponService)
+        public OrderService(IPaymentType paymenttypeService , IShippingService shippingService , IRepository<Order> orderRepository, IRepository<Cart> cartRepository, ICouponService couponService)
         {
             _orderRepository = orderRepository;
             _cartRepository = cartRepository;
             _couponService = couponService;
+            _shippingService = shippingService;
+            _paymenttypeService = paymenttypeService;
         }
 
-        public async Task CreateOrder(User user, Address billingAddress, Address shippingAddress)
+        public async Task<Order> CreateOrder(User user, Address billingAddress, Address shippingAddress , ShippingMethod shippingmethod, PaymentType.Models.PaymentType paymentmethod)
         {
             var cart = _cartRepository
                 .Query()
@@ -34,7 +41,7 @@ namespace SimplCommerce.Module.Orders.Services
                 throw new ApplicationException($"Cart of user {user.Id} can no be found");
             }
 
-            decimal discount = 0;
+            decimal discount = 0; 
             if (!string.IsNullOrWhiteSpace(cart.CouponCode))
             {
                 var cartInfoForCoupon = new CartInfoForCoupon
@@ -97,6 +104,12 @@ namespace SimplCommerce.Module.Orders.Services
             order.Discount = discount;
             order.SubTotal = order.OrderItems.Sum(x => x.ProductPrice * x.Quantity);
             order.SubTotalWithDiscount = order.SubTotal - discount;
+            order.PaymentCost = _paymenttypeService.Calculate(paymentmethod.Id, order.SubTotalWithDiscount);
+            order.ShippingCost = shippingmethod.ShippingPrice;
+            order.GranTotal = order.SubTotalWithDiscount + order.PaymentCost + order.ShippingCost ;
+            order.ShippingMethodId = shippingmethod.Id;
+            order.PaymentMethodId = paymentmethod.Id;
+            order.PaymentId = paymentmethod.Id;
             _orderRepository.Add(order);
 
             cart.IsActive = false;
@@ -127,10 +140,17 @@ namespace SimplCommerce.Module.Orders.Services
                 }
 
                 subOrder.SubTotal = subOrder.OrderItems.Sum(x => x.ProductPrice * x.Quantity);
+                subOrder.PaymentCost = _paymenttypeService.Calculate(paymentmethod.Id, order.SubTotalWithDiscount);
+                subOrder.ShippingCost = shippingmethod.ShippingPrice;
+                subOrder.GranTotal = order.SubTotalWithDiscount + order.PaymentCost + order.ShippingCost;
+                subOrder.ShippingMethodId = shippingmethod.Id;
+                subOrder.PaymentMethodId = paymentmethod.Id;
+                subOrder.PaymentId = paymentmethod.Id;
                 _orderRepository.Add(subOrder);
             }
 
-            _orderRepository.SaveChanges();
+            _orderRepository.SaveChange();
+            return order;
         }
     }
 }

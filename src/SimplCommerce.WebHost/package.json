@@ -4,6 +4,7 @@
 	"private": true,
   "devDependencies": {
     "gulp": "3.9.1",
+    "gulp-less": "3.3.0",
     "gulp-clean": "0.3.2",
     "glob": "7.1.1",
     "del": "2.2.0",
@@ -13,5 +14,7 @@
     "gulp-ignore": "^2.0.1",
     "gulp-uglify": "1.2.0",
     "rimraf": "2.2.8"
-  }
+
+
+  }, "-vs-binding":{"Clean":["install"]}
 }

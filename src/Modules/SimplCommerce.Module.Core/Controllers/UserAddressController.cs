@@ -94,7 +94,7 @@ namespace SimplCommerce.Module.Core.Controllers
                 };
 
                 _userAddressRepository.Add(userAddress);
-                _userAddressRepository.SaveChanges();
+                _userAddressRepository.SaveChange();
                 return RedirectToAction("List");
             }
 
@@ -155,7 +155,7 @@ namespace SimplCommerce.Module.Core.Controllers
                 userAddress.Address.DistrictId = model.DistrictId;
                 userAddress.Address.Phone = model.Phone;
 
-                _userAddressRepository.SaveChanges();
+                _userAddressRepository.SaveChange();
                 return RedirectToAction("List");
             }
 
@@ -177,7 +177,7 @@ namespace SimplCommerce.Module.Core.Controllers
             }
 
             currentUser.DefaultShippingAddressId = userAddress.Id;
-            _userRepository.SaveChanges();
+            _userRepository.SaveChange();
 
             return RedirectToAction("List");
         }
@@ -201,7 +201,7 @@ namespace SimplCommerce.Module.Core.Controllers
             }
 
             _userAddressRepository.Remove(userAddress);
-            _userAddressRepository.SaveChanges();
+            _userAddressRepository.SaveChange();
 
             return RedirectToAction("List");
         }

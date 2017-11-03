@@ -14,6 +14,12 @@ namespace SimplCommerce.Module.Orders.ViewModels
 
         public decimal Discount { get; set; }
 
+        public decimal paymentCost { get; set; }
+
+        public decimal ShippingCost { get; set; }
+
+        public decimal Total { get; set; }
+
         public string DiscountString { get { return Discount.ToString("C"); } }
 
         public decimal SubTotalWithDiscount

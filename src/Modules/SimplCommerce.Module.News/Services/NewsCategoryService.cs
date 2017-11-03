@@ -25,10 +25,10 @@ namespace SimplCommerce.Module.News.Services
             {
                 category.SeoTitle = _entityService.ToSafeSlug(category.SeoTitle, category.Id, NewsCategoryEntityTypeId);
                 _categoryRepository.Add(category);
-                _categoryRepository.SaveChanges();
+                _categoryRepository.SaveChange();
 
                 _entityService.Add(category.Name, category.SeoTitle, category.Id, NewsCategoryEntityTypeId);
-                _categoryRepository.SaveChanges();
+                _categoryRepository.SaveChange();
 
                 transaction.Commit();
             }
@@ -38,7 +38,7 @@ namespace SimplCommerce.Module.News.Services
         {
             category.SeoTitle = _entityService.ToSafeSlug(category.SeoTitle, category.Id, NewsCategoryEntityTypeId);
             _entityService.Update(category.Name, category.SeoTitle, category.Id, NewsCategoryEntityTypeId);
-            _categoryRepository.SaveChanges();
+            _categoryRepository.SaveChange();
         }
 
         public async Task Delete(long id)
@@ -51,7 +51,7 @@ namespace SimplCommerce.Module.News.Services
         {
             category.IsDeleted = true;
             await _entityService.Remove(category.Id, NewsCategoryEntityTypeId);
-            _categoryRepository.SaveChanges();
+            _categoryRepository.SaveChange();
         }
     }
 }

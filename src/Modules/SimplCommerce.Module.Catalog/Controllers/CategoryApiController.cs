@@ -62,7 +62,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Post(CategoryForm model)
+        public IActionResult Post(CategoryForm model)
         {
             if (ModelState.IsValid)
             {
@@ -77,25 +77,22 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     IsPublished = model.IsPublished
                 };
 
-                await SaveCategoryImage(category, model);
+                SaveCategoryImage(category, model);
+
                 _categoryService.Create(category);
-                return CreatedAtAction(nameof(Get), new { id = category.Id }, null);
+
+                return Ok();
             }
-            return BadRequest(ModelState);
+            return new BadRequestObjectResult(ModelState);
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Put(long id, CategoryForm model)
+        public IActionResult Put(long id, CategoryForm model)
         {
             if (ModelState.IsValid)
             {
-                var category = await _categoryRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-                if(category == null)
-                {
-                    return NotFound();
-                }
-
+                var category = _categoryRepository.Query().FirstOrDefault(x => x.Id == id);
                 category.Name = model.Name;
                 category.SeoTitle = model.Slug;
                 category.Description = model.Description;
@@ -104,14 +101,14 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 category.IncludeInMenu = model.IncludeInMenu;
                 category.IsPublished = model.IsPublished;
 
-                await SaveCategoryImage(category, model);
+                SaveCategoryImage(category, model);
 
                 _categoryService.Update(category);
 
-                return Accepted();
+                return Ok();
             }
 
-            return BadRequest(ModelState);
+            return new BadRequestObjectResult(ModelState);
         }
 
         [HttpDelete("{id}")]
@@ -131,7 +128,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
             await _categoryService.Delete(category);
 
-            return NoContent();
+            return Ok();
         }
 
         [HttpPost("{id}/products")]
@@ -177,15 +174,15 @@ namespace SimplCommerce.Module.Catalog.Controllers
             productCategory.IsFeaturedProduct = model.IsFeaturedProduct;
             productCategory.DisplayOrder = model.DisplayOrder;
 
-            _productCategoryRepository.SaveChanges();
+            _productCategoryRepository.SaveChange();
             return Ok();
         }
 
-        private async Task SaveCategoryImage(Category category, CategoryForm model)
+        private void SaveCategoryImage(Category category, CategoryForm model)
         {
             if (model.ThumbnailImage != null)
             {
-                var fileName = await SaveFile(model.ThumbnailImage);
+                var fileName = SaveFile(model.ThumbnailImage);
                 if (category.ThumbnailImage != null)
                 {
                     category.ThumbnailImage.FileName = fileName;
@@ -197,11 +194,11 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
         }
 
-        private async Task<string> SaveFile(IFormFile file)
+        private string SaveFile(IFormFile file)
         {
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
-            await _mediaService.SaveMediaAsync(file.OpenReadStream(), fileName, file.ContentType);
+            _mediaService.SaveMedia(file.OpenReadStream(), fileName, file.ContentType);
             return fileName;
         }
     }

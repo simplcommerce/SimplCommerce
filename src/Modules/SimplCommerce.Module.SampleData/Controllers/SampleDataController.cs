@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Module.SampleData.Services;
 
 namespace SimplCommerce.Module.SampleData.Controllers
@@ -19,9 +18,9 @@ namespace SimplCommerce.Module.SampleData.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ResetToSample()
+        public IActionResult ResetToSample()
         {
-            await _sampleDataService.ResetToSampleData();
+            _sampleDataService.ResetToSampleData();
             return Redirect("~/");
         }
     }

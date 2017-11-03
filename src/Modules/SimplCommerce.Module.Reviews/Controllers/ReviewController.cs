@@ -36,7 +36,7 @@ namespace SimplCommerce.Module.Reviews.Controllers
                 };
 
                 _reviewRepository.Add(review);
-                _reviewRepository.SaveChanges();
+                _reviewRepository.SaveChange();
 
                 return PartialView("_ReviewFormSuccess", model);
             }

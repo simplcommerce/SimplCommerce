@@ -27,6 +27,12 @@ namespace SimplCommerce.Module.Orders.Models
 
         public string CouponRuleName { get; set; }
 
+        public decimal CalculatedPayCharges { get; set; }
+
+        public decimal CalculatedShippingCharges { get; set; }
+
+        public decimal GranTotal { get; set; }
+
         public IList<CartItem> Items { get; set; } = new List<CartItem>();
     }
 }

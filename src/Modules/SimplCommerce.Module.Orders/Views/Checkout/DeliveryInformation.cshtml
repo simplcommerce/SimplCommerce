@@ -58,6 +58,21 @@
                     </div>
                 </div>
             </div>
+            <hr>
+            <div class="col-md-12">
+                <small>PAYMENT</small>
+                <div class="well well-sm" id="paymenttype">
+                    
+                </div>
+                <small>SHIPPING</small>
+                <div class="well well-sm" id="shippingmethod">
+
+                </div>
+                <div class="info">Info message</div>
+            </div>
+                   
+            <input asp-for="paymentmethodid" type="hidden">
+            <input asp-for="shippingmethodid" type="hidden">
             <div class="form-group">
                 <div class="col-md-12 text-right">
                     <button type="submit" class="btn btn-order">@Localizer["Order"]</button>
@@ -65,12 +80,14 @@
             </div>
         </form>
     </div>
-    <div class="col-md-5">
-        @await Component.InvokeAsync("OrderSummary")
+    
+    <div class="col-md-5" id="myComponentContainer">
     </div>
 </div>
 
 @section scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
     <script simpl-append-version="true" src="~/modules/orders/shipping.js"></script>
+<script simpl-append-version="true" src="~/modules/orders/paymenttype.js"></script>
+<script simpl-append-version="true" src="~/modules/orders/shippingmethod.js"></script>
 }

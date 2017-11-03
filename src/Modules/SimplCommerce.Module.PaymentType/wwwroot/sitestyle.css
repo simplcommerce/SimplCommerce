@@ -1,0 +1,207 @@
+﻿html {
+    box-sizing: border-box;
+}
+
+*, *::after, *::before {
+    box-sizing: inherit;
+}
+
+html {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 16px;
+    font-weight: 200;
+    background-color: whitesmoke;
+    box-sizing: border-box;
+    background-image: url("https://static.pexels.com/photos/92976/pexels-photo-92976.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+    body:before {
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+
+.form-wrapper {
+    position: relative;
+    display: block;
+    width: 400px;
+    margin: 100px auto;
+    padding: 40px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 45px rgba(0, 0, 0, 0.5);
+}
+
+    .form-wrapper p {
+        font-size: 14px;
+        line-height: 1.75;
+    }
+
+    .form-wrapper form {
+        position: relative;
+        display: block;
+        margin: 0;
+        padding: 20px 0;
+        border-top: 1px solid #e6e6e6;
+    }
+
+        .form-wrapper form label {
+            position: relative;
+            display: block;
+            width: 100%;
+            margin: 2px 0 0;
+            padding: 10px 0;
+        }
+
+            .form-wrapper form label input[type="radio"] {
+                position: relative;
+                display: inline-block;
+                margin-top: 3px;
+                margin-right: 15px;
+                font-size: 12px;
+                float: left;
+                z-index: 1;
+            }
+
+                .form-wrapper form label input[type="radio"]:checked + div span {
+                    position: absolute;
+                    display: inline-block;
+                    left: 100%;
+                    top: -5px;
+                    margin: 0 0 0 20px;
+                    padding: 8px 15px;
+                    font-size: 12px;
+                    font-weight: 400;
+                    color: #fff;
+                    text-align: center;
+                    white-space: nowrap;
+                    background-color: rgba(34, 34, 34, 0.9);
+                    border-radius: 4px;
+                    box-shadow: 0 0 10px rgba(34, 34, 34, 0.2);
+                    clear: both;
+                    visibility: visible;
+                    transform: translateX(0px);
+                    transition: transform 200ms ease;
+                }
+
+                    .form-wrapper form label input[type="radio"]:checked + div span:before {
+                        position: absolute;
+                        content: '';
+                        top: 4px;
+                        left: -1px;
+                        border-top: 8px solid transparent;
+                        border-right: 8px solid transparent;
+                        border-bottom: 8px solid rgba(34, 34, 34, 0.9);
+                        transform: rotate(45deg);
+                    }
+
+            .form-wrapper form label div {
+                position: relative;
+                display: inline-block;
+            }
+
+                .form-wrapper form label div span {
+                    position: absolute;
+                    visibility: hidden;
+                    transform: translateX(-10px);
+                    transition: transform 200ms ease;
+                }
+
+            .form-wrapper form label:nth-of-type(1) input[type="radio"]:checked + div span {
+                background-color: #2ecc71;
+            }
+
+                .form-wrapper form label:nth-of-type(1) input[type="radio"]:checked + div span:before {
+                    border-top: 8px solid transparent;
+                    border-right: 8px solid transparent;
+                    border-bottom: 8px solid rgba(46, 204, 113, 0.9);
+                }
+
+            .form-wrapper form label:nth-of-type(2) input[type="radio"]:checked + div span {
+                background-color: #3498db;
+            }
+
+                .form-wrapper form label:nth-of-type(2) input[type="radio"]:checked + div span:before {
+                    border-top: 8px solid transparent;
+                    border-right: 8px solid transparent;
+                    border-bottom: 8px solid rgba(52, 152, 219, 0.9);
+                }
+
+            .form-wrapper form label:nth-of-type(3) input[type="radio"]:checked + div span {
+                background-color: #f1c40f;
+            }
+
+                .form-wrapper form label:nth-of-type(3) input[type="radio"]:checked + div span:before {
+                    border-top: 8px solid transparent;
+                    border-right: 8px solid transparent;
+                    border-bottom: 8px solid rgba(241, 196, 15, 0.9);
+                }
+
+            .form-wrapper form label:nth-of-type(4) input[type="radio"]:checked + div span {
+                background-color: #9b59b6;
+            }
+
+                .form-wrapper form label:nth-of-type(4) input[type="radio"]:checked + div span:before {
+                    border-top: 8px solid transparent;
+                    border-right: 8px solid transparent;
+                    border-bottom: 8px solid rgba(155, 89, 182, 0.9);
+                }
+
+            .form-wrapper form label:nth-of-type(5) input[type="radio"]:checked + div span {
+                background-color: #e74c3c;
+            }
+
+                .form-wrapper form label:nth-of-type(5) input[type="radio"]:checked + div span:before {
+                    border-top: 8px solid transparent;
+                    border-right: 8px solid transparent;
+                    border-bottom: 8px solid rgba(231, 76, 60, 0.9);
+                }
+
+        .form-wrapper form button {
+            position: relative;
+            display: block;
+            margin: 40px auto 0;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 100;
+            letter-spacing: 1px;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            background-color: #ccc;
+            z-index: 0;
+        }
+
+            .form-wrapper form button:before {
+                position: absolute;
+                content: '';
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 0;
+                background-color: #9b59b6;
+                border-radius: 5px;
+                transition: height, 250ms ease;
+                z-index: -1;
+            }
+
+            .form-wrapper form button:hover {
+                box-shadow: 0 0 10px rgba(34, 34, 34, 0.3);
+            }
+
+                .form-wrapper form button:hover:before {
+                    height: 100%;
+                }

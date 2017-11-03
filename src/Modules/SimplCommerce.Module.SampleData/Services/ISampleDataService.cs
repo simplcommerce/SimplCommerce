@@ -1,9 +1,7 @@
-﻿using System.Threading.Tasks;
-
-namespace SimplCommerce.Module.SampleData.Services
+﻿namespace SimplCommerce.Module.SampleData.Services
 {
     public interface ISampleDataService
     {
-        Task ResetToSampleData();
+        void ResetToSampleData();
     }
 }

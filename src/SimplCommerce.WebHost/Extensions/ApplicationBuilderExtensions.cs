@@ -71,19 +71,14 @@ namespace SimplCommerce.WebHost.Extensions
         {
             var supportedCultures = new[]
             {
-                new CultureInfo("en-US"),
-                new CultureInfo("vi-VN"),
-                new CultureInfo("fr-FR"),
-                new CultureInfo("pt-BR"),
-                new CultureInfo("uk-UA"),
-                new CultureInfo("ru-RU"),
-                new CultureInfo("ar-TN"),
-                new CultureInfo("ko-KR"),
-                new CultureInfo("tr-TR")
+                new CultureInfo("es-ES"),
+                new CultureInfo("zh-CN"),
+                new CultureInfo("en-US")
+                
             };
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
-                DefaultRequestCulture = new RequestCulture("vi-VN", "vi-VN"),
+                DefaultRequestCulture = new RequestCulture("es-ES", "es-ES"),
                 SupportedCultures = supportedCultures,
                 SupportedUICultures = supportedCultures
             });

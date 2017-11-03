@@ -4,7 +4,7 @@
 var gulp = require('gulp'),
     clean = require('gulp-clean'),
     glob = require("glob"),
-	rimraf = require("rimraf"),
+    rimraf = require("rimraf"),
     concat = require("gulp-concat"),
     cssmin = require("gulp-cssmin"),
     uglify = require("gulp-uglify"),
@@ -31,7 +31,7 @@ var bower = {
     "jquery-validation": "jquery-validation/dist/*.js",
     "jquery-validation-unobtrusive": "jquery-validation-unobtrusive/*.js",
     "nouislider": "nouislider/distribute/*.{js,css}",
-    "wnumb" : "wnumb/wNumb.js",
+    "wnumb": "wnumb/wNumb.js",
     "angular": "angular/angular.js",
     "angular-animate": "angular-animate/angular*.js",
     "angular-aria": "angular-aria/angular*.js",
@@ -52,7 +52,7 @@ var bower = {
 
 gulp.task('clean-module', function () {
     return gulp.src([mPaths.hostModules + '*', mPaths.hostWwwrootModules + '*'], { read: false })
-    .pipe(clean());
+        .pipe(clean());
 });
 
 gulp.task('copy-modules', ['clean-module'], function () {
@@ -66,7 +66,7 @@ gulp.task('copy-modules', ['clean-module'], function () {
     });
 
     gulp.src(mPaths.devModules + 'SimplCommerce.Module.SampleData/SampleContent/**/*.*')
-            .pipe(gulp.dest(mPaths.hostModules + 'SimplCommerce.Module.SampleData/SampleContent'));
+        .pipe(gulp.dest(mPaths.hostModules + 'SimplCommerce.Module.SampleData/SampleContent'));
 });
 
 gulp.task('copy-static', function () {
@@ -78,7 +78,7 @@ gulp.task('copy-static', function () {
     });
 
     gulp.src(mPaths.devModules + 'SimplCommerce.Module.SampleData/SampleContent/**/*.*')
-            .pipe(gulp.dest(mPaths.hostModules + 'SimplCommerce.Module.SampleData/SampleContent'));
+        .pipe(gulp.dest(mPaths.hostModules + 'SimplCommerce.Module.SampleData/SampleContent'));
 });
 
 function loadModules() {
@@ -117,7 +117,7 @@ gulp.task("clean:lib", function () {
 });
 
 gulp.task("copy-lib", ["clean:lib"], function () {
-    var ignoreComponents = [ "**/npm.js" ];
+    var ignoreComponents = ["**/npm.js"];
 
     for (var desDir in bower) {
         gulp.src(paths.bower + bower[desDir])
@@ -129,7 +129,7 @@ gulp.task("copy-lib", ["clean:lib"], function () {
 gulp.task("min:js", function () {
     return gulp.src([paths.js, "!" + paths.minJs], { base: "." })
         .pipe(concat(paths.concatJsDest))
-       // .pipe(uglify())
+        // .pipe(uglify())
         .pipe(gulp.dest("."));
 });
 

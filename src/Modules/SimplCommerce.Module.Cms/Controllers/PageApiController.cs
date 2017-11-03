@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Cms.Models;
 using SimplCommerce.Module.Cms.Services;
@@ -25,27 +24,17 @@ namespace SimplCommerce.Module.Cms.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
-            var pageList = await _pageRepository.Query()
-                .Where(x => !x.IsDeleted)
-                .Select(x => new
-                {
-                    x.Id,
-                    x.Name,
-                    x.SeoTitle,
-                    x.CreatedOn,
-                    x.IsPublished
-                })
-                .ToListAsync();
+            var pageList = _pageRepository.Query().Where(x => !x.IsDeleted).ToList();
 
             return Json(pageList);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(long id)
+        public IActionResult Get(long id)
         {
-            var page = await _pageRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+            var page = _pageRepository.Query().FirstOrDefault(x => x.Id == id);
             var model = new PageForm
             {
                 Id = page.Id,
@@ -59,7 +48,7 @@ namespace SimplCommerce.Module.Cms.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] PageForm model)
+        public IActionResult Post([FromBody] PageForm model)
         {
             if (ModelState.IsValid)
             {
@@ -71,47 +60,44 @@ namespace SimplCommerce.Module.Cms.Controllers
                     IsPublished = model.IsPublished
                 };
 
-                await _pageService.Create(page);
-                return CreatedAtAction(nameof(Get), new { id = page.Id }, null);
+                _pageService.Create(page);
+
+                return Ok();
             }
-            return BadRequest(ModelState);
+            return new BadRequestObjectResult(ModelState);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, [FromBody] PageForm model)
+        public IActionResult Put(long id, [FromBody] PageForm model)
         {
             if (ModelState.IsValid)
             {
-                var page = await _pageRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-                if(page == null)
-                {
-                    return NotFound();
-                }
-
+                var page = _pageRepository.Query().FirstOrDefault(x => x.Id == id);
                 page.Name = model.Name;
                 page.SeoTitle = model.Slug;
                 page.Body = model.Body;
                 page.IsPublished = model.IsPublished;
                 page.UpdatedOn = DateTimeOffset.Now;
 
-                await _pageService.Update(page);
-                return Accepted();
+                _pageService.Update(page);
+
+                return Ok();
             }
 
-            return BadRequest(ModelState);
+            return new BadRequestObjectResult(ModelState);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
-            var page = await _pageRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+            var page = _pageRepository.Query().FirstOrDefault(x => x.Id == id);
             if (page == null)
             {
-                return NotFound();
+                return new NotFoundResult();
             }
 
             await _pageService.Delete(page);
-            return NoContent();
+            return Ok();
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Storage;
 using SimplCommerce.Infrastructure.Models;
 
@@ -13,9 +12,7 @@ namespace SimplCommerce.Infrastructure.Data
 
         IDbContextTransaction BeginTransaction();
 
-        void SaveChanges();
-
-        Task SaveChangesAsync();
+        void SaveChange();
 
         void Remove(T entity);
     }

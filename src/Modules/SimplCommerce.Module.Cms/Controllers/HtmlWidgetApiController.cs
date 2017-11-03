@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Cms.ViewModels;
 using SimplCommerce.Module.Core.Models;
@@ -22,9 +21,9 @@ namespace SimplCommerce.Module.Cms.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(long id)
+        public IActionResult Get(long id)
         {
-            var widget = await _widgetInstanceRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+            var widget = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
             var model = new HtmlWidgetForm
             {
                 Id = widget.Id,
@@ -39,7 +38,7 @@ namespace SimplCommerce.Module.Cms.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] HtmlWidgetForm model)
+        public IActionResult Post([FromBody] HtmlWidgetForm model)
         {
             if (ModelState.IsValid)
             {
@@ -54,29 +53,29 @@ namespace SimplCommerce.Module.Cms.Controllers
                 };
 
                 _widgetInstanceRepository.Add(widgetInstance);
-                await _widgetInstanceRepository.SaveChangesAsync();
-                return CreatedAtAction(nameof(Get), new { id = widgetInstance.Id }, null);
+                _widgetInstanceRepository.SaveChange();
+                return Ok();
             }
-            return BadRequest(ModelState);
+            return new BadRequestObjectResult(ModelState);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, [FromBody] HtmlWidgetForm model)
+        public IActionResult Put(long id, [FromBody] HtmlWidgetForm model)
         {
             if (ModelState.IsValid)
             {
-                var widgetInstance = await _widgetInstanceRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+                var widgetInstance = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
                 widgetInstance.Name = model.Name;
                 widgetInstance.WidgetZoneId = model.WidgetZoneId;
                 widgetInstance.HtmlData = model.HtmlContent;
                 widgetInstance.PublishStart = model.PublishStart;
                 widgetInstance.PublishEnd = model.PublishEnd;
 
-                await _widgetInstanceRepository.SaveChangesAsync();
-                return Accepted();
+                _widgetInstanceRepository.SaveChange();
+                return Ok();
             }
 
-            return BadRequest(ModelState);
+            return new BadRequestObjectResult(ModelState);
         }
     }
 }
