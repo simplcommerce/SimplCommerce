@@ -1,12 +1,13 @@
 ﻿using System.Diagnostics.Contracts;
 using System.IO;
 using System.Threading.Tasks;
+using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
+using Amazon.S3.Transfer;
 using Microsoft.Extensions.Configuration;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
-using Amazon;
 
 namespace SimplCommerce.Module.StorageAmazonS3
 {
@@ -32,7 +33,7 @@ namespace SimplCommerce.Module.StorageAmazonS3
 
             if (string.IsNullOrWhiteSpace(_publicEndpoint))
             {
-                _publicEndpoint = $"http://{_bucketName}.s3-website-{regionEndpointName}.amazonaws.com/";
+                _publicEndpoint = $"http://s3-{regionEndpointName}.amazonaws.com/{_bucketName}/";
             }
         }
 
@@ -69,7 +70,7 @@ namespace SimplCommerce.Module.StorageAmazonS3
 
         public async Task SaveMediaAsync(Stream mediaBinaryStream, string fileName, string mimeType = null)
         {
-            var putObjectRequest = new PutObjectRequest
+            var uploadRequest = new TransferUtilityUploadRequest
             {
                 BucketName = _bucketName,
                 Key = fileName,
@@ -77,7 +78,8 @@ namespace SimplCommerce.Module.StorageAmazonS3
                 InputStream = mediaBinaryStream
             };
 
-            var response = await _amazonS3Client.PutObjectAsync(putObjectRequest);
+            var transferUtility = new TransferUtility(_amazonS3Client);
+            await transferUtility.UploadAsync(uploadRequest);
         }
     }
 }
