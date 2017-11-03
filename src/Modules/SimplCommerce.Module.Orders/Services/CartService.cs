@@ -55,7 +55,7 @@ namespace SimplCommerce.Module.Orders.Services
                 cartItem.Quantity = quantity;
             }
 
-            _cartRepository.SaveChanges();
+            _cartRepository.SaveChange();
         }
 
         // TODO separate getting product thumbnail, varation options from here
@@ -71,6 +71,8 @@ namespace SimplCommerce.Module.Orders.Services
             {
                 Id = cart.Id,
                 CouponCode = cart.CouponCode,
+                paymentCost = cart.CalculatedPayCharges,
+                ShippingCost = cart.CalculatedShippingCharges
             };
 
             cartVm.Items = _cartItemRepository
@@ -102,7 +104,7 @@ namespace SimplCommerce.Module.Orders.Services
                     cartVm.Discount = couponValidationResult.DiscountAmount;
                 }
             }
-
+            cartVm.Total = (cartVm.SubTotalWithDiscount + cartVm.ShippingCost + cartVm.paymentCost);
             return cartVm;
         }
 
@@ -119,7 +121,7 @@ namespace SimplCommerce.Module.Orders.Services
             {
                 cart.CouponCode = couponCode;
                 cart.CouponRuleName = couponValidationResult.CouponRuleName;
-                _cartItemRepository.SaveChanges();
+                _cartItemRepository.SaveChange();
             }
 
             return couponValidationResult;
@@ -133,7 +135,37 @@ namespace SimplCommerce.Module.Orders.Services
                 cart.UserId = toUserId;
             }
 
-            _cartRepository.SaveChanges();
+            _cartRepository.SaveChange();
         }
+
+        public bool AddPaymentCost(long userId, decimal paymentcost)
+        {
+            var cart = _cartRepository.Query().FirstOrDefault(x => x.UserId == userId && x.IsActive);
+            if (cart == null)
+            {
+                return false;
+            }
+            else
+            {
+                cart.CalculatedPayCharges = paymentcost;
+                _cartItemRepository.SaveChange();
+                return true;
+            }
+        }
+        public bool AddShippingCost(long userId, decimal shippingcost)
+        {
+            var cart = _cartRepository.Query().FirstOrDefault(x => x.UserId == userId && x.IsActive);
+            if (cart == null)
+            {
+                return false;
+            }
+            else
+            {
+                cart.CalculatedShippingCharges = shippingcost;
+                _cartItemRepository.SaveChange();
+                return true;
+            }
+        }
+        
     }
 }

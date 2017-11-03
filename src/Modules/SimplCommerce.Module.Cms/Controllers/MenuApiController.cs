@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Cms.Models;
 using SimplCommerce.Module.Cms.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace SimplCommerce.Module.Cms.Controllers
 {
@@ -24,27 +23,16 @@ namespace SimplCommerce.Module.Cms.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
-            var menuList = await _menuRepository.Query()
-                .Select(x => new
-                {
-                    x.Id,
-                    x.Name,
-                    x.IsPublished,
-                    x.IsSystem
-                })
-                .ToListAsync();
+            var menuList = _menuRepository.Query().ToList();
             return Json(menuList);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(long id)
+        public IActionResult Get(long id)
         {
-            var menu = await _menuRepository.Query()
-                .Include(x => x.MenuItems)
-                .ThenInclude(m => m.Entity)
-                .FirstOrDefaultAsync(x => x.Id == id);
+            var menu = _menuRepository.Query().Include(x => x.MenuItems).ThenInclude(m => m.Entity).FirstOrDefault(x => x.Id == id);
             if(menu == null)
             {
                 return NotFound();
@@ -69,16 +57,11 @@ namespace SimplCommerce.Module.Cms.Controllers
         }
 
         [HttpPost("{id}/add-items")]
-        public async Task<IActionResult> AddItem(long id, [FromBody] IList<MenuItemForm> model)
+        public IActionResult AddItem(long id, [FromBody] IList<MenuItemForm> model)
         {
             if (ModelState.IsValid)
             {
-                var menu = await _menuRepository.Query().Include(x => x.MenuItems).FirstOrDefaultAsync(x => x.Id == id);
-                if(menu == null)
-                {
-                    return NotFound();
-                }
-
+                var menu = _menuRepository.Query().Include(x => x.MenuItems).FirstOrDefault(x => x.Id == id);
                 var addedMenuItems = new List<MenuItem>();
                 foreach (var item in model)
                 {
@@ -95,7 +78,7 @@ namespace SimplCommerce.Module.Cms.Controllers
                     addedMenuItems.Add(menuItem);
                 }
 
-                await _menuRepository.SaveChangesAsync();
+                _menuRepository.SaveChange();
                 return Ok(addedMenuItems.Select(x => new MenuItemForm
                 {
                     Id = x.Id,
@@ -104,26 +87,26 @@ namespace SimplCommerce.Module.Cms.Controllers
                     CustomLink = x.CustomLink
                 }));
             }
-            return BadRequest(ModelState);
+            return new BadRequestObjectResult(ModelState);
         }
 
         [HttpDelete("delete-item/{id}")]
-        public async Task<IActionResult> DeleteItem(long id)
+        public IActionResult DeleteItem(long id)
         {
-            var menuItem = await _menuItemRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+            var menuItem = _menuItemRepository.Query().FirstOrDefault(x => x.Id == id);
             if (menuItem == null)
             {
-                return NotFound();
+                return new NotFoundResult();
             }
 
             _menuItemRepository.Remove(menuItem);
-            await _menuItemRepository.SaveChangesAsync();
+            _menuItemRepository.SaveChange();
 
-            return NoContent();
+            return Ok();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] MenuForm model)
+        public IActionResult Post([FromBody] MenuForm model)
         {
             if (ModelState.IsValid)
             {
@@ -134,24 +117,19 @@ namespace SimplCommerce.Module.Cms.Controllers
                 };
 
                 _menuRepository.Add(menu);
-                await _menuRepository.SaveChangesAsync();
+                _menuRepository.SaveChange();
 
                 return Json(menu);
             }
-            return BadRequest(ModelState);
+            return new BadRequestObjectResult(ModelState);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, [FromBody] MenuForm model)
+        public IActionResult Put(long id, [FromBody] MenuForm model)
         {
             if (ModelState.IsValid)
             {
-                var menu = await _menuRepository.Query().Include(x => x.MenuItems).FirstOrDefaultAsync(x => x.Id == id);
-                if(menu == null)
-                {
-                    return NotFound();
-                }
-
+                var menu = _menuRepository.Query().Include(x => x.MenuItems).FirstOrDefault(x => x.Id == id);
                 menu.Name = model.Name;
                 menu.IsPublished = model.IsPublished;
                 foreach(var item in menu.MenuItems)
@@ -174,20 +152,20 @@ namespace SimplCommerce.Module.Cms.Controllers
                     _menuItemRepository.Remove(item);
                 }
 
-                await _menuRepository.SaveChangesAsync();
-                return Accepted();
+                _menuRepository.SaveChange();
+                return Ok();
             }
 
-            return BadRequest(ModelState);
+            return new BadRequestObjectResult(ModelState);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(long id)
+        public IActionResult Delete(long id)
         {
-            var menu = await _menuRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+            var menu = _menuRepository.Query().FirstOrDefault(x => x.Id == id);
             if (menu == null)
             {
-                return NotFound();
+                return new NotFoundResult();
             }
 
             if (menu.IsSystem)
@@ -196,8 +174,9 @@ namespace SimplCommerce.Module.Cms.Controllers
             }
 
             _menuRepository.Remove(menu);
-            await _menuRepository.SaveChangesAsync();
-            return NoContent();
+            _menuRepository.SaveChange();
+
+            return Ok();
         }
     }
 }

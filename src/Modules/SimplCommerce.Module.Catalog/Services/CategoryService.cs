@@ -56,10 +56,10 @@ namespace SimplCommerce.Module.Catalog.Services
             {
                 category.SeoTitle = _entityService.ToSafeSlug(category.SeoTitle, category.Id, CategoryEntityTypeId);
                 _categoryRepository.Add(category);
-                _categoryRepository.SaveChanges();
+                _categoryRepository.SaveChange();
 
                 _entityService.Add(category.Name, category.SeoTitle, category.Id, CategoryEntityTypeId);
-                _categoryRepository.SaveChanges();
+                _categoryRepository.SaveChange();
 
                 transaction.Commit();
             }
@@ -69,14 +69,14 @@ namespace SimplCommerce.Module.Catalog.Services
         {
             category.SeoTitle = _entityService.ToSafeSlug(category.SeoTitle, category.Id, CategoryEntityTypeId);
             _entityService.Update(category.Name, category.SeoTitle, category.Id, CategoryEntityTypeId);
-            _categoryRepository.SaveChanges();
+            _categoryRepository.SaveChange();
         }
 
         public async Task Delete(Category category)
         {
              await _entityService.Remove(category.Id, CategoryEntityTypeId);
             _categoryRepository.Remove(category);
-            _categoryRepository.SaveChanges();
+            _categoryRepository.SaveChange();
         }
     }
 }

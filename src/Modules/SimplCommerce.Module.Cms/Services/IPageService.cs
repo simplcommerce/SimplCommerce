@@ -5,9 +5,9 @@ namespace SimplCommerce.Module.Cms.Services
 {
     public interface IPageService
     {
-        Task Create(Page page);
+        void Create(Page page);
 
-        Task Update(Page page);
+        void Update(Page page);
 
         Task Delete(Page page);
     }

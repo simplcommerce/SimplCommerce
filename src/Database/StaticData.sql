@@ -1,4 +1,4 @@
-﻿SET IDENTITY_INSERT [dbo].[Core_AppSetting] ON 
+SET IDENTITY_INSERT [dbo].[Core_AppSetting] ON 
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (1, N'Catalog.ProductPageSize', N'10')
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (2, N'Global.AssetVersion', N'1.0')
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (3, N'News.PageSize', N'10')
@@ -2109,7 +2109,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (8, N'
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (8, N'Your account', N'Hesabınız')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (8, N'Date', N'Tarih')
 
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (9, N'Register', N'Registrar,')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (9, N'Register', N'Registrar,')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (9, N'Hello {0}!', N'Hola!')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (9, N'Log in', N' Iniciar sesión')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (9, N'Log off', N'Salir' )
@@ -2321,7 +2321,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (9, N'
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (9, N'Your account', N'Tu cuenta')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (9, N'Date', N'Fecha')
 
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (10, N'Register', N'注册,')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (10, N'Register', N'注册,')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (10, N'Hello {0}!', N'你好!')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (10, N'Log in', N'登录')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES (10, N'Log off', N'退出登录' )

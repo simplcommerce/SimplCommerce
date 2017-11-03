@@ -32,10 +32,22 @@
     </tr>
     <tr>
         <td>@Localizer["Discount"]</td>
-        <td colspan="2" class="text-right">@Model.Discount.ToString("C")</td>
+        <td colspan="2" class="text-right"></td>
+    </tr>
+    <tr>
+        <td>@Localizer["PaymentCost"]</td>
+        <td colspan="2" class="text-right">@Model.paymentCost.ToString("C")</td>
+    </tr>
+    <tr>
+        <td>@Localizer["ShippingCost"]</td>
+        <td colspan="2" class="text-right">@Model.ShippingCost.ToString("C")</td>
+    </tr>
+    <tr>
+        <td>@Localizer["Subtotal with discount"]</td>
+        <td colspan="2" class="text-right"><strong>@Model.SubTotalWithDiscount.ToString("C")</strong></td>
     </tr>
     <tr>
         <td><strong>@Localizer["Subtotal with discount"]</strong></td>
-        <td colspan="2" class="text-right"><strong>@Model.SubTotalWithDiscount.ToString("C")</strong></td>
+        <td colspan="2" class="text-right"><strong>@Model.Total.ToString("C")</strong></td>
     </tr>
 </table>

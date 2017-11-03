@@ -110,7 +110,7 @@ namespace SimplCommerce.Module.Core.Controllers
                     };
 
                     _customergroupRepository.Add(customergroup);
-                    _customergroupRepository.SaveChanges();
+                    _customergroupRepository.SaveChange();
                     return Ok();
                 }
             }
@@ -141,7 +141,7 @@ namespace SimplCommerce.Module.Core.Controllers
 
                 try
                 {
-                    _customergroupRepository.SaveChanges();
+                    _customergroupRepository.SaveChange();
                     return Ok();
                 }
                 catch (DbUpdateException ex)
@@ -168,7 +168,7 @@ namespace SimplCommerce.Module.Core.Controllers
             }
 
             customergroup.IsDeleted = true;
-            _customergroupRepository.SaveChanges();
+            _customergroupRepository.SaveChange();
             return Json(true);
         }
     }

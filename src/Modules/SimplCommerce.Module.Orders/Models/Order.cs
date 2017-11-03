@@ -29,7 +29,17 @@ namespace SimplCommerce.Module.Orders.Models
 
         public decimal Discount { get; set; }
 
+        public long ShippingMethodId { get; set; }
+
+        public long PaymentMethodId { get; set; }
+
         public decimal SubTotal { get; set; }
+
+        public decimal GranTotal { get; set; }
+
+        public decimal ShippingCost { get; set; }
+
+        public decimal PaymentCost { get; set; }
 
         public decimal SubTotalWithDiscount { get; set; }
 
@@ -46,6 +56,10 @@ namespace SimplCommerce.Module.Orders.Models
         public OrderStatus OrderStatus { get; set; }
 
         public long? ParentId { get; set; }
+
+        public long? PaymentId { get; set; }
+
+        public bool? OrderPayed { get; set; }
 
         public Order Parent { get; set; }
 

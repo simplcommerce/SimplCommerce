@@ -27,10 +27,10 @@ namespace SimplCommerce.Module.News.Services
                 {
                     newsItem.SeoTitle = _entityService.ToSafeSlug(newsItem.SeoTitle, newsItem.Id, NewsItemEntityTypeId);
                     _newsItemRepository.Add(newsItem);
-                    _newsItemRepository.SaveChanges();
+                    _newsItemRepository.SaveChange();
 
                     _entityService.Add(newsItem.Name, newsItem.SeoTitle, newsItem.Id, NewsItemEntityTypeId);
-                    _newsItemRepository.SaveChanges();
+                    _newsItemRepository.SaveChange();
 
                     transaction.Commit();
                 }
@@ -43,7 +43,7 @@ namespace SimplCommerce.Module.News.Services
             {
                 newsItem.SeoTitle = _entityService.ToSafeSlug(newsItem.SeoTitle, newsItem.Id, NewsItemEntityTypeId);
                 _entityService.Update(newsItem.Name, newsItem.SeoTitle, newsItem.Id, NewsItemEntityTypeId);
-                _newsItemRepository.SaveChanges();
+                _newsItemRepository.SaveChange();
             }
         }
 
@@ -59,7 +59,7 @@ namespace SimplCommerce.Module.News.Services
             {
                 newsItem.IsDeleted = true;
                 await _entityService.Remove(newsItem.Id, NewsItemEntityTypeId);
-                _newsItemRepository.SaveChanges();
+                _newsItemRepository.SaveChange();
             }
         }
     }

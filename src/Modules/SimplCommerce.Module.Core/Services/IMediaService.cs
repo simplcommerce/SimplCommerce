@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Threading.Tasks;
 using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Core.Services
@@ -12,10 +11,10 @@ namespace SimplCommerce.Module.Core.Services
 
         string GetThumbnailUrl(Media media);
 
-        Task SaveMediaAsync(Stream mediaBinaryStream, string fileName, string mimeType = null);
+        void SaveMedia(Stream mediaBinaryStream, string fileName, string mimeType = null);
 
-        Task DeleteMediaAsync(Media media);
+        void DeleteMedia(Media media);
 
-        Task DeleteMediaAsync(string fileName);
+        void DeleteMedia(string fileName);
     }
 }

@@ -13,5 +13,10 @@ namespace SimplCommerce.Module.Orders.Services
         Task<CouponValidationResult> ApplyCoupon(long userId, string couponCode);
 
         void MigrateCart(long fromUserId, long toUserId);
+
+        bool AddPaymentCost(long userId, decimal paymentcost);
+
+        bool AddShippingCost(long userId, decimal shippingcost);
+
     }
 }

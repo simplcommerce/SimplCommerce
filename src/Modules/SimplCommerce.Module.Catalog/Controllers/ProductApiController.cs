@@ -92,8 +92,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 IsOutOfStock = product.StockQuantity == 0,
                 CategoryIds = product.Categories.Select(x => x.CategoryId).ToList(),
                 ThumbnailImageUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage),
-                BrandId = product.BrandId,
-                TaxClassId = product.TaxClassId
+                BrandId = product.BrandId
             };
 
             foreach (var productMedia in product.Medias.Where(x => x.Media.MediaType == MediaType.Image))
@@ -275,7 +274,6 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 IsCallForPricing = model.Product.IsCallForPricing,
                 IsAllowToOrder = model.Product.IsAllowToOrder,
                 BrandId = model.Product.BrandId,
-                TaxClassId = model.Product.TaxClassId,
                 HasOptions = model.Product.Variations.Any() ? true : false,
                 IsVisibleIndividually = true,
                 CreatedBy = currentUser
@@ -329,13 +327,14 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 product.AddCategory(productCategory);
             }
 
-            await SaveProductMedias(model, product);
+            SaveProductMedias(model, product);
 
             MapProductVariationVmToProduct(model, product);
             MapProductLinkVmToProduct(model, product);
 
             _productService.Create(product);
-            return CreatedAtAction(nameof(Get), new { id = product.Id }, null);
+
+            return Ok();
         }
 
         [HttpPut("{id}")]
@@ -343,7 +342,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return new BadRequestObjectResult(ModelState);
             }
 
             var product = _productRepository.Query()
@@ -354,11 +353,6 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 .Include(x => x.AttributeValues).ThenInclude(a => a.Attribute).ThenInclude(g => g.Group)
                 .Include(x => x.Categories)
                 .FirstOrDefault(x => x.Id == id);
-
-            if(product == null)
-            {
-                return NotFound();
-            }
 
             var currentUser = await _workContext.GetCurrentUser();
             if (!User.IsInRole("admin") && product.VendorId != currentUser.VendorId)
@@ -377,7 +371,6 @@ namespace SimplCommerce.Module.Catalog.Controllers
             product.SpecialPriceStart = model.Product.SpecialPriceStart;
             product.SpecialPriceEnd = model.Product.SpecialPriceEnd;
             product.BrandId = model.Product.BrandId;
-            product.TaxClassId = model.Product.TaxClassId;
             product.IsFeatured = model.Product.IsFeatured;
             product.IsPublished = model.Product.IsPublished;
             product.IsCallForPricing = model.Product.IsCallForPricing;
@@ -393,12 +386,12 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 product.StockQuantity = null;
             }
 
-            await SaveProductMedias(model, product);
+            SaveProductMedias(model, product);
 
             foreach (var productMediaId in model.Product.DeletedMediaIds)
             {
                 var productMedia = product.Medias.First(x => x.Id == productMediaId);
-                await _mediaService.DeleteMediaAsync(productMedia.Media);
+                _mediaService.DeleteMedia(productMedia.Media);
                 product.RemoveMedia(productMedia);
             }
 
@@ -410,7 +403,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
             _productService.Update(product);
 
-            return Accepted();
+            return Ok();
         }
 
         [HttpPost("change-status/{id}")]
@@ -425,13 +418,13 @@ namespace SimplCommerce.Module.Catalog.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             if (!User.IsInRole("admin") && product.VendorId != currentUser.VendorId)
             {
-                return BadRequest(new { error = "You don't have permission to manage this product" });
+                return new BadRequestObjectResult(new { error = "You don't have permission to manage this product" });
             }
 
             product.IsPublished = !product.IsPublished;
-            await _productRepository.SaveChangesAsync();
+            _productRepository.SaveChange();
 
-            return Accepted();
+            return Ok();
         }
 
         [HttpDelete("{id}")]
@@ -451,7 +444,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
             await _productService.Delete(product);
 
-            return NoContent();
+            return Ok();
         }
 
         private static void MapProductVariationVmToProduct(ProductForm model, Product product)
@@ -716,11 +709,11 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
         }
 
-        private async Task SaveProductMedias(ProductForm model, Product product)
+        private void SaveProductMedias(ProductForm model, Product product)
         {
             if (model.ThumbnailImage != null)
             {
-                var fileName = await SaveFile(model.ThumbnailImage);
+                var fileName = SaveFile(model.ThumbnailImage);
                 if (product.ThumbnailImage != null)
                 {
                     product.ThumbnailImage.FileName = fileName;
@@ -746,7 +739,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
             foreach (var file in model.ProductImages)
             {
-                var fileName = await SaveFile(file);
+                var fileName = SaveFile(file);
                 var productMedia = new ProductMedia
                 {
                     Product = product,
@@ -757,7 +750,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
             foreach (var file in model.ProductDocuments)
             {
-                var fileName = await SaveFile(file);
+                var fileName = SaveFile(file);
                 var productMedia = new ProductMedia
                 {
                     Product = product,
@@ -767,11 +760,11 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
         }
 
-        private async Task<string> SaveFile(IFormFile file)
+        private string SaveFile(IFormFile file)
         {
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
-            await _mediaService.SaveMediaAsync(file.OpenReadStream(), fileName, file.ContentType);
+            _mediaService.SaveMedia(file.OpenReadStream(), fileName, file.ContentType);
             return fileName;
         }
     }

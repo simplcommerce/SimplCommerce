@@ -24,8 +24,7 @@
         'simplAdmin.localization',
         'simplAdmin.news',
         'simplAdmin.contacts',
-        'simplAdmin.pricing',
-        'simplAdmin.tax'
+        'simplAdmin.pricing'
     ]);
 
     toastr.options.closeButton = true;

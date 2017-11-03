@@ -208,7 +208,7 @@ namespace SimplCommerce.Module.Core.Controllers
             }
 
             user.IsDeleted = true;
-            _userRepository.SaveChanges();
+            _userRepository.SaveChange();
             return Json(true);
         }
 
