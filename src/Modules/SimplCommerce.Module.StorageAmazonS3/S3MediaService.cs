@@ -16,6 +16,7 @@ namespace SimplCommerce.Module.StorageAmazonS3
         private IAmazonS3 _amazonS3Client;
         private string _bucketName;
         private string _publicEndpoint;
+
         public S3MediaService(IConfiguration configuration)
         {
             var regionEndpointName = configuration["AWS:S3:RegionEndpointName"];
