@@ -854,7 +854,7 @@ INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (6, N'ar-TN')
 INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (7, N'ko-KR')
 INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (8, N'tr-TR')
 INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (9, N'es-ES')
-INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (10, N'ch-CH')
+INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (10, N'zh-CN')
 SET IDENTITY_INSERT [dbo].[Localization_Culture] OFF
 GO
 
