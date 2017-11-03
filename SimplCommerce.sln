@@ -64,7 +64,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Pricin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Tax", "src\Modules\SimplCommerce.Module.Tax\SimplCommerce.Module.Tax.csproj", "{78D8AEB4-BAE8-4671-9C89-482BE8CB58B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.StorageLocal", "src\Modules\SimplCommerce.Module.StorageLocal\SimplCommerce.Module.StorageLocal.csproj", "{D399504C-4288-4692-A980-8265FA3A29AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.StorageLocal", "src\Modules\SimplCommerce.Module.StorageLocal\SimplCommerce.Module.StorageLocal.csproj", "{D399504C-4288-4692-A980-8265FA3A29AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.StorageAmazonS3", "src\Modules\SimplCommerce.Module.StorageAmazonS3\SimplCommerce.Module.StorageAmazonS3.csproj", "{6A4B7653-86A2-438B-B9FA-6A48E506A103}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -364,6 +366,18 @@ Global
 		{D399504C-4288-4692-A980-8265FA3A29AA}.Release|x64.Build.0 = Release|Any CPU
 		{D399504C-4288-4692-A980-8265FA3A29AA}.Release|x86.ActiveCfg = Release|Any CPU
 		{D399504C-4288-4692-A980-8265FA3A29AA}.Release|x86.Build.0 = Release|Any CPU
+		{6A4B7653-86A2-438B-B9FA-6A48E506A103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A4B7653-86A2-438B-B9FA-6A48E506A103}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A4B7653-86A2-438B-B9FA-6A48E506A103}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6A4B7653-86A2-438B-B9FA-6A48E506A103}.Debug|x64.Build.0 = Debug|Any CPU
+		{6A4B7653-86A2-438B-B9FA-6A48E506A103}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6A4B7653-86A2-438B-B9FA-6A48E506A103}.Debug|x86.Build.0 = Debug|Any CPU
+		{6A4B7653-86A2-438B-B9FA-6A48E506A103}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A4B7653-86A2-438B-B9FA-6A48E506A103}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A4B7653-86A2-438B-B9FA-6A48E506A103}.Release|x64.ActiveCfg = Release|Any CPU
+		{6A4B7653-86A2-438B-B9FA-6A48E506A103}.Release|x64.Build.0 = Release|Any CPU
+		{6A4B7653-86A2-438B-B9FA-6A48E506A103}.Release|x86.ActiveCfg = Release|Any CPU
+		{6A4B7653-86A2-438B-B9FA-6A48E506A103}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -395,6 +409,7 @@ Global
 		{D85B0F77-00A0-4090-994F-BA7643FDF522} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{78D8AEB4-BAE8-4671-9C89-482BE8CB58B7} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{D399504C-4288-4692-A980-8265FA3A29AA} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
+		{6A4B7653-86A2-438B-B9FA-6A48E506A103} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B9D0D8F0-1AB9-44DD-839F-ED8CEE7DDB10}

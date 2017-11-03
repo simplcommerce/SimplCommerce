@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
@@ -36,27 +37,26 @@ namespace SimplCommerce.Module.StorageLocal
             return GetMediaUrl(media);
         }
 
-        public void SaveMedia(Stream mediaBinaryStream, string fileName, string mimeType = null)
+        public async Task SaveMediaAsync(Stream mediaBinaryStream, string fileName, string mimeType = null)
         {
             var filePath = Path.Combine(GlobalConfiguration.WebRootPath, MediaRootFoler, fileName);
             using (var output = new FileStream(filePath, FileMode.Create))
             {
-                mediaBinaryStream.CopyTo(output);
+                await mediaBinaryStream.CopyToAsync(output);
             }
         }
 
-        public void DeleteMedia(Media media)
+        public Task DeleteMediaAsync(Media media)
         {
-            _mediaRespository.Remove(media);
-            DeleteMedia(media.FileName);
+            return DeleteMediaAsync(media.FileName);
         }
 
-        public void DeleteMedia(string fileName)
+        public async Task DeleteMediaAsync(string fileName)
         {
             var filePath = Path.Combine(GlobalConfiguration.WebRootPath, MediaRootFoler, fileName);
             if (File.Exists(filePath))
             {
-                File.Delete(filePath);
+                await Task.Run(() => File.Delete(filePath));
             }
         }
     }
