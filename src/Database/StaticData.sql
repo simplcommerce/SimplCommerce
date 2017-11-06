@@ -70,12 +70,12 @@ SET IDENTITY_INSERT [dbo].[Catalog_ProductOption] OFF
 GO
 
 SET IDENTITY_INSERT Core_Country ON 
-INSERT INTO Core_Country (Id, Name) VALUES (1, N'Việt Nam')
+INSERT INTO Core_Country ([Id], [Name], [IsBillingEnabled], [IsShippingEnabled]) VALUES (1, N'Việt Nam', 1, 1)
 SET IDENTITY_INSERT Core_Country OFF 
 GO
 
 SET IDENTITY_INSERT Core_StateOrProvince ON 
-INSERT INTO Core_StateOrProvince (Id, CountryId, Name, [Type]) VALUES
+INSERT INTO Core_StateOrProvince ([Id], [CountryId], [Name], [Type]) VALUES
 (1, 1, N'Hà Nội', N'Thành Phố'),
 (2, 1, N'Hà Giang', N'Tỉnh'),
 (4, 1, N'Cao Bằng', N'Tỉnh'),
