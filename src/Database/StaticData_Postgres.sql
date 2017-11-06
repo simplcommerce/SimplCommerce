@@ -51,7 +51,7 @@ INSERT INTO "Catalog_ProductOption" ("Id", "Name") VALUES (1, 'Color');
 INSERT INTO "Catalog_ProductOption" ("Id", "Name") VALUES (2, 'Size');
 SELECT pg_catalog.setval('"Catalog_ProductOption_Id_seq"', 2, true);
 
-INSERT INTO "Core_Country" ("Id", "Name") VALUES (1, 'Việt Nam');
+INSERT INTO "Core_Country" ("Id", "Name", "IsBillingEnabled", "IsShippingEnabled") VALUES (1, 'Việt Nam', false, false);
 
 INSERT INTO "Core_StateOrProvince" ("Id", "CountryId", "Name", "Type") VALUES (79, 1, 'Hồ Chí Minh', 'Thành Phố');
 
@@ -1336,7 +1336,7 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (8, 'Cr
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (8, 'Your account', 'Hesabınız');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (8, 'Date', 'Tarih');
 
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (9, 'Register', 'Registrar,');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (9, 'Register', 'Registrar,');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (9, 'Hello {0}!', 'Hola!');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (9, 'Log in', ' Iniciar sesión');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (9, 'Log off', 'Salir');
@@ -1548,12 +1548,12 @@ INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (9, 'Cr
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (9, 'Your account', 'Tu cuenta');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (9, 'Date', 'Fecha');
 
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (10, 'Register', '注册,');
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (10, 'Register', '注册,');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (10, 'Hello {0}!', '你好!');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (10, 'Log in', '登录');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (10, 'Log off', '退出登录' )
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (10, 'Log off', '退出登录' );
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (10, 'The Email field is required.', '邮箱必填');
-INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (10, 'Email', '邮箱' )
+INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (10, 'Email', '邮箱' );
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (10, 'User List', '用户清单');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (10, 'Remember me?', '记住我?');
 INSERT INTO "Localization_Resource" ("CultureId", "Key", "Value") VALUES (10, 'Password', '密码');
