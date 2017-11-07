@@ -844,6 +844,10 @@ INSERT INTO Core_District (Id, Name, [Type], [Location], StateOrProvinceId) VALU
 SET IDENTITY_INSERT Core_District OFF 
 GO
 
+SET IDENTITY_INSERT [dbo].[Shipping_ShippingProvider] ON 
+INSERT [dbo].[Shipping_ShippingProvider] ([Id], [AdditionalSettings], [IsEnabled], [Name], [OnlyCountryIdsString], [OnlyStateOrProvinceIdsString], [RateServiceTypeName], [ToAllShippingEnabledCountries], [ToAllShippingEnabledStatesOrProvinces]) VALUES (1, N'{MinimumOrderAmount : 10000000}', 1, N'Free Ship', NULL, NULL, N'SimplCommerce.Module.ShippingFree.Services.FreeShippingService,SimplCommerce.Module.ShippingFree', 1, 1)
+SET IDENTITY_INSERT [dbo].[Shipping_ShippingProvider] OFF
+
 SET IDENTITY_INSERT [dbo].[Localization_Culture] ON
 INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (1, N'vi-VN')
 INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (2, N'fr-FR')
