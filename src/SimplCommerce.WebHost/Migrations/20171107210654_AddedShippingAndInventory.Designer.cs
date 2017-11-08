@@ -11,9 +11,10 @@ using System;
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    partial class SimplDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171107210654_AddedShippingAndInventory")]
+    partial class AddedShippingAndInventory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1618,24 +1619,6 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Shipping_ShippingProvider");
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.ShippingTableRate.Models.PriceAndDestination", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Country");
-
-                    b.Property<decimal>("MinOrderSubtotal");
-
-                    b.Property<decimal>("ShippingPrice");
-
-                    b.Property<string>("StateOrProvince");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ShippingTableRate_PriceAndDestination");
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Tax.Models.TaxClass", b =>
