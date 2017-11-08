@@ -1609,7 +1609,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("OnlyStateOrProvinceIdsString");
 
-                    b.Property<string>("RateServiceTypeName");
+                    b.Property<string>("ShippingPriceServiceTypeName");
 
                     b.Property<bool>("ToAllShippingEnabledCountries");
 

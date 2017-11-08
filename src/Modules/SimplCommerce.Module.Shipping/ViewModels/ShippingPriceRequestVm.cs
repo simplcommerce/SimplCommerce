@@ -1,6 +1,6 @@
 ﻿namespace SimplCommerce.Module.Shipping.ViewModels
 {
-    public class ShippingRateRequestVm
+    public class ShippingPriceRequestVm
     {
         public decimal OrderAmount { get; set; }
 

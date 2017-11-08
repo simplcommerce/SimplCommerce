@@ -5,6 +5,6 @@ namespace SimplCommerce.Module.Shipping.Services
 {
     public interface IShippingService
     {
-        Task<IList<ShippingRate>> GetApplicableShippingRates(GetShippingRateRequest request);
+        Task<IList<ShippingPrice>> GetApplicableShippingPrices(GetShippingPriceRequest request);
     }
 }

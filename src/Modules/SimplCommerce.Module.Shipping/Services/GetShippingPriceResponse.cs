@@ -2,9 +2,9 @@
 
 namespace SimplCommerce.Module.Shipping.Services
 {
-    public class GetShippingRateResponse
+    public class GetShippingPriceResponse
     {
-        public IList<ShippingRate> ApplicableRates = new List<ShippingRate>();
+        public IList<ShippingPrice> ApplicablePrices = new List<ShippingPrice>();
 
         public string CarrierName { get; set; }
 

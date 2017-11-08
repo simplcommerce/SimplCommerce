@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SimplCommerce.WebHost.Migrations
 {
-    public partial class AddedShippingAndInventory : Migration
+    public partial class AddedShippingInventory : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -72,13 +72,29 @@ namespace SimplCommerce.WebHost.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OnlyCountryIdsString = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OnlyStateOrProvinceIdsString = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RateServiceTypeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ShippingPriceServiceTypeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ToAllShippingEnabledCountries = table.Column<bool>(type: "bit", nullable: false),
                     ToAllShippingEnabledStatesOrProvinces = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Shipping_ShippingProvider", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShippingTableRate_PriceAndDestination",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MinOrderSubtotal = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
+                    ShippingPrice = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
+                    StateOrProvince = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShippingTableRate_PriceAndDestination", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -126,6 +142,9 @@ namespace SimplCommerce.WebHost.Migrations
 
             migrationBuilder.DropTable(
                 name: "Shipping_ShippingProvider");
+
+            migrationBuilder.DropTable(
+                name: "ShippingTableRate_PriceAndDestination");
 
             migrationBuilder.DropTable(
                 name: "Shipping_Shipment");

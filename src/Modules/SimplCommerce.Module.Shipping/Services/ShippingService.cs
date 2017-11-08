@@ -21,11 +21,11 @@ namespace SimplCommerce.Module.Shipping.Services
             _shippingProviderRepository = shippingProviderRepository;
         }
 
-        public async Task<IList<ShippingRate>> GetApplicableShippingRates(GetShippingRateRequest request)
+        public async Task<IList<ShippingPrice>> GetApplicableShippingPrices(GetShippingPriceRequest request)
         {
-            var applicableShippingRates = new List<ShippingRate>();
+            var applicableShippingPrices = new List<ShippingPrice>();
             var providers = await _shippingProviderRepository.Query().ToListAsync();
-            var shippingRateServices = _httpContext.RequestServices.GetServices<IShippingRateService>();
+            var shippingRateServices = _httpContext.RequestServices.GetServices<IShippingPriceService>();
 
             foreach(var provider in providers)
             {
@@ -50,13 +50,13 @@ namespace SimplCommerce.Module.Shipping.Services
                     }
                 }
 
-                var rateServiceType = Type.GetType(provider.RateServiceTypeName);
-                var rateService = shippingRateServices.Where(x => x.GetType() == rateServiceType).FirstOrDefault();
-                var response = await rateService.GetShippingRates(request, provider);
-                applicableShippingRates.AddRange(response.ApplicableRates);
+                var priceServiceType = Type.GetType(provider.ShippingPriceServiceTypeName);
+                var priceService = shippingRateServices.Where(x => x.GetType() == priceServiceType).FirstOrDefault();
+                var response = await priceService.GetShippingPrices(request, provider);
+                applicableShippingPrices.AddRange(response.ApplicablePrices);
             }
 
-            return applicableShippingRates;
+            return applicableShippingPrices;
         }
     }
 }

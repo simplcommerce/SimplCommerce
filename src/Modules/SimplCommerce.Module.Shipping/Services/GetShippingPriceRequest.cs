@@ -4,7 +4,7 @@ using SimplCommerce.Module.Shipping.Models;
 
 namespace SimplCommerce.Module.Shipping.Services
 {
-    public class GetShippingRateRequest
+    public class GetShippingPriceRequest
     {
         public Address ShippingAddress { get; set; }
 

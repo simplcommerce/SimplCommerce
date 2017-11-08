@@ -16,9 +16,9 @@ namespace SimplCommerce.Module.Shipping.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetShippingRate([FromBody] ShippingRateRequestVm model)
+        public async Task<IActionResult> GetShippingPrices([FromBody] ShippingPriceRequestVm model)
         {
-            var request = new GetShippingRateRequest
+            var request = new GetShippingPriceRequest
             {
                 OrderAmount = model.OrderAmount,
                 ShippingAddress = new Address
@@ -28,9 +28,9 @@ namespace SimplCommerce.Module.Shipping.Controllers
                     AddressLine1 = model.ShippingAddress.AddressLine1
                 }
             };
-            var applicableShippingRates = await _shippingService.GetApplicableShippingRates(request);
+            var applicableShippingPrices = await _shippingService.GetApplicableShippingPrices(request);
 
-            return Ok(applicableShippingRates);
+            return Ok(applicableShippingPrices);
         }
     }
 }

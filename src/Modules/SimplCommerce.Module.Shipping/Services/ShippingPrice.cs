@@ -1,6 +1,6 @@
 ﻿namespace SimplCommerce.Module.Shipping.Services
 {
-    public class ShippingRate
+    public class ShippingPrice
     {
         public string Name { get; set; }
 

@@ -11,8 +11,8 @@ using System;
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    [Migration("20171107210654_AddedShippingAndInventory")]
-    partial class AddedShippingAndInventory
+    [Migration("20171108171847_AddedShippingInventory")]
+    partial class AddedShippingInventory
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1610,7 +1610,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("OnlyStateOrProvinceIdsString");
 
-                    b.Property<string>("RateServiceTypeName");
+                    b.Property<string>("ShippingPriceServiceTypeName");
 
                     b.Property<bool>("ToAllShippingEnabledCountries");
 
@@ -1619,6 +1619,24 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Shipping_ShippingProvider");
+                });
+
+            modelBuilder.Entity("SimplCommerce.Module.ShippingTableRate.Models.PriceAndDestination", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Country");
+
+                    b.Property<decimal>("MinOrderSubtotal");
+
+                    b.Property<decimal>("ShippingPrice");
+
+                    b.Property<string>("StateOrProvince");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShippingTableRate_PriceAndDestination");
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Tax.Models.TaxClass", b =>

@@ -52,6 +52,6 @@ namespace SimplCommerce.Module.Shipping.Models
         /// <summary>
         /// The type that 
         /// </summary>
-        public string RateServiceTypeName { get; set; }
+        public string ShippingPriceServiceTypeName { get; set; }
     }
 }

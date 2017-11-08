@@ -6,11 +6,11 @@ using SimplCommerce.Module.Shipping.Models;
 
 namespace SimplCommerce.Module.ShippingFree.Services
 {
-    public class FreeShippingService : IShippingRateService
+    public class FreeShippingService : IShippingPriceService
     {
-        public Task<GetShippingRateResponse> GetShippingRates(GetShippingRateRequest request, ShippingProvider provider)
+        public Task<GetShippingPriceResponse> GetShippingPrices(GetShippingPriceRequest request, ShippingProvider provider)
         {
-            var response = new GetShippingRateResponse { IsSuccess = true };
+            var response = new GetShippingPriceResponse { IsSuccess = true };
 
             var freeShippingSetting = JsonConvert.DeserializeObject<FreeShippingSetting>(provider.AdditionalSettings);
 
@@ -19,7 +19,7 @@ namespace SimplCommerce.Module.ShippingFree.Services
                 return Task.FromResult(response);
             }
 
-            response.ApplicableRates.Add(new ShippingRate
+            response.ApplicablePrices.Add(new ShippingPrice
             {
                 Name = "Free",
                 Rate = 0

@@ -8,7 +8,7 @@ using SimplCommerce.Infrastructure.Data;
 
 namespace SimplCommerce.Module.ShippingTableRate.Services
 {
-    public class TableRateShippingService : IShippingRateService
+    public class TableRateShippingService : IShippingPriceService
     {
         public readonly IRepository<PriceAndDestination> _priceAndDestinationRepository;
 
@@ -17,9 +17,9 @@ namespace SimplCommerce.Module.ShippingTableRate.Services
             _priceAndDestinationRepository = priceAndDestinationRepository;
         }
 
-        public async Task<GetShippingRateResponse> GetShippingRates(GetShippingRateRequest request, ShippingProvider provider)
+        public async Task<GetShippingPriceResponse> GetShippingPrices(GetShippingPriceRequest request, ShippingProvider provider)
         {
-            var response = new GetShippingRateResponse { IsSuccess = true };
+            var response = new GetShippingPriceResponse { IsSuccess = true };
             var priceAndDestinations = await _priceAndDestinationRepository.Query().ToListAsync();
 
             var cheapestApplicable = priceAndDestinations.Where(x => (x.Country == "*" || x.Country == request.ShippingAddress.CountryId.ToString())
@@ -28,7 +28,7 @@ namespace SimplCommerce.Module.ShippingTableRate.Services
 
             if(cheapestApplicable != null)
             {
-                response.ApplicableRates.Add(new ShippingRate
+                response.ApplicablePrices.Add(new ShippingPrice
                 {
                     Name = "Best Way",
                     Rate = cheapestApplicable.ShippingPrice
