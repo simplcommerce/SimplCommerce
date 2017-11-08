@@ -31,6 +31,10 @@
         <td colspan="2" class="text-right">@Model.SubTotal.ToString("C")</td>
     </tr>
     <tr>
+        <td>@Localizer["Shipping"]</td>
+        <td colspan="2" class="text-right shipping-cost">FREE</td>
+    </tr>
+    <tr>
         <td>@Localizer["Discount"]</td>
         <td colspan="2" class="text-right">@Model.Discount.ToString("C")</td>
     </tr>

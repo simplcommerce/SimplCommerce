@@ -844,6 +844,18 @@ INSERT INTO Core_District (Id, Name, [Type], [Location], StateOrProvinceId) VALU
 SET IDENTITY_INSERT Core_District OFF 
 GO
 
+SET IDENTITY_INSERT [dbo].[Shipping_ShippingProvider] ON 
+INSERT [dbo].[Shipping_ShippingProvider] ([Id], [AdditionalSettings], [IsEnabled], [Name], [OnlyCountryIdsString], [OnlyStateOrProvinceIdsString], [ShippingPriceServiceTypeName], [ToAllShippingEnabledCountries], [ToAllShippingEnabledStatesOrProvinces]) VALUES (1, N'{MinimumOrderAmount : 10000000}', 1, N'Free Ship', NULL, NULL, N'SimplCommerce.Module.ShippingFree.Services.FreeShippingService,SimplCommerce.Module.ShippingFree', 1, 1)
+INSERT [dbo].[Shipping_ShippingProvider] ([Id], [AdditionalSettings], [IsEnabled], [Name], [OnlyCountryIdsString], [OnlyStateOrProvinceIdsString], [ShippingPriceServiceTypeName], [ToAllShippingEnabledCountries], [ToAllShippingEnabledStatesOrProvinces]) VALUES (2, NULL, 1, N'Table Rate', NULL, NULL, N'SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingService,SimplCommerce.Module.ShippingTableRate', 1, 1)
+SET IDENTITY_INSERT [dbo].[Shipping_ShippingProvider] OFF
+GO
+
+SET IDENTITY_INSERT [dbo].[ShippingTableRate_PriceAndDestination] ON 
+INSERT [dbo].[ShippingTableRate_PriceAndDestination] ([Id], [Country], [MinOrderSubtotal], [ShippingPrice], [StateOrProvince]) VALUES (1, N'*', CAST(0.00 AS Decimal(18, 2)), CAST(20.00 AS Decimal(18, 2)), N'*')
+INSERT [dbo].[ShippingTableRate_PriceAndDestination] ([Id], [Country], [MinOrderSubtotal], [ShippingPrice], [StateOrProvince]) VALUES (2, N'*', CAST(100000.00 AS Decimal(18, 2)), CAST(10.00 AS Decimal(18, 2)), N'*')
+SET IDENTITY_INSERT [dbo].[ShippingTableRate_PriceAndDestination] OFF
+GO
+
 SET IDENTITY_INSERT [dbo].[Localization_Culture] ON
 INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (1, N'vi-VN')
 INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES (2, N'fr-FR')
