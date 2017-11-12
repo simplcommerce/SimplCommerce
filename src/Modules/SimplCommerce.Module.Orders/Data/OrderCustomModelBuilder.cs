@@ -39,11 +39,6 @@ namespace SimplCommerce.Module.Orders.Data
                .HasForeignKey(x => x.BillingAddressId )
                .OnDelete(DeleteBehavior.Restrict);
             });
-            modelBuilder.Entity<OurPayment>(b =>
-            {
-
-                b.ToTable("OurPayments");
-            });
         }
     }
 }

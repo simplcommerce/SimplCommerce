@@ -48,7 +48,7 @@ namespace SimplCommerce.Module.Contacts.Controllers
                 };
 
                 _contactRepository.Add(category);
-                _contactRepository.SaveChange();
+                _contactRepository.SaveChanges();
 
                 return Ok();
             }
@@ -63,7 +63,7 @@ namespace SimplCommerce.Module.Contacts.Controllers
                 var category = _contactRepository.Query().FirstOrDefault(x => x.Id == id);
                 category.Name = model.Name;
 
-                _contactRepository.SaveChange();
+                _contactRepository.SaveChanges();
 
                 return Ok();
             }
@@ -81,7 +81,7 @@ namespace SimplCommerce.Module.Contacts.Controllers
             }
 
             category.IsDeleted = true;
-            _contactRepository.SaveChange();
+            _contactRepository.SaveChanges();
 
             return Json(true);
         }

@@ -120,7 +120,7 @@ namespace SimplCommerce.Module.Pricing.Controllers
                 }
 
                 _cartRuleRepository.Add(cartRule);
-                _cartRuleRepository.SaveChange();
+                _cartRuleRepository.SaveChanges();
 
                 return Ok();
             }
@@ -195,7 +195,7 @@ namespace SimplCommerce.Module.Pricing.Controllers
                     cartRule.Products.Remove(item);
                 }
 
-                _cartRuleRepository.SaveChange();
+                _cartRuleRepository.SaveChanges();
 
                 return Ok();
             }

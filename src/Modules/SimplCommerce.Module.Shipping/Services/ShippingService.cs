@@ -1,52 +1,56 @@
-﻿using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Shipping.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Shipping.Models;
 
 namespace SimplCommerce.Module.Shipping.Services
 {
     public class ShippingService : IShippingService
     {
-        private IRepository<ShippingMethod> _shippingmethodRepository;
+        private readonly IRepository<ShippingProvider> _shippingProviderRepository;
 
-        public ShippingService(IRepository<ShippingMethod> shippingmethodRepository)
+        public ShippingService(IRepository<ShippingProvider> shippingProviderRepository)
         {
-            _shippingmethodRepository = shippingmethodRepository;
+            _shippingProviderRepository = shippingProviderRepository;
         }
-        public decimal Calculate(long shippingid , decimal total)
-        {
-            decimal calculatedamount = 0;
-            var query = _shippingmethodRepository.Query().Where(x => x.Id == shippingid).FirstOrDefault();
 
-            if (query != null)
+        public async Task<IList<ShippingRate>> GetApplicableShippingRates(GetShippingRateRequest request)
+        {
+            var applicableShippingRates = new List<ShippingRate>();
+            var providers = await _shippingProviderRepository.Query().ToListAsync();
+
+            foreach(var provider in providers)
             {
-                decimal mincharge = 2;
-                
-                if (calculatedamount < mincharge)
+                if(!provider.IsEnabled)
                 {
-                    calculatedamount = mincharge;
+                    continue;
                 }
 
-                if (query.Name == "Correos")
+                if (!provider.ToAllShippingEnabledCountries)
                 {
-                    calculatedamount = query.ShippingPrice;
+                    if (!provider.OnlyCountryIds.Contains(request.ShippingAddress.CountryId))
+                    {
+                        continue;
+                    }
                 }
-                if (query.Name == "Nasic")
+
+                if (!provider.ToAllShippingEnabledStatesOrProvinces)
                 {
-                    calculatedamount = query.ShippingPrice;
+                    if (!provider.OnlyStateOrProvinceIds.Contains(request.ShippingAddress.StateOrProvinceId))
+                    {
+                        continue;
+                    }
                 }
-                else
-                {
-                    return calculatedamount;
-                }
+
+                var rateServiceType = Type.GetType(provider.RateServiceTypeName);
+                var rateService = (IShippingRateService)Activator.CreateInstance(rateServiceType);
+                var response = await rateService.GetShippingRates(request, provider);
+                applicableShippingRates.AddRange(response.ApplicableRates);
             }
-            return calculatedamount;
-        }
-        public ShippingMethod Find(long id)
-        {
-            return _shippingmethodRepository.Query().Where(x => x.Id == id).First();
+
+            return applicableShippingRates;
         }
     }
 }

@@ -16,7 +16,8 @@
             getProductOptions: getProductOptions,
             getProduct: getProduct,
             changeStatus: changeStatus,
-            deleteProduct: deleteProduct
+            deleteProduct: deleteProduct,
+            getTaxClasses: getTaxClasses
         };
         return service;
 
@@ -75,6 +76,10 @@
 
         function deleteProduct(product) {
             return $http.delete('api/products/' + product.id, null);
+        }
+
+        function getTaxClasses() {
+            return $http.get('api/tax-classes');
         }
     }
 })();

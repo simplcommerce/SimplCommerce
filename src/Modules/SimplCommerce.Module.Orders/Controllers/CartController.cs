@@ -9,8 +9,6 @@ using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.Orders.ViewModels;
-using SimplCommerce.Module.PaymentType.Services;
-using SimplCommerce.Module.Shipping.Services;
 
 namespace SimplCommerce.Module.Orders.Controllers
 {
@@ -20,24 +18,18 @@ namespace SimplCommerce.Module.Orders.Controllers
         private readonly ICartService _cartService;
         private readonly IMediaService _mediaService;
         private readonly IWorkContext _workContext;
-        private readonly IPaymentType _paymentService;
-        private readonly IShippingService _shippingService;
 
         public CartController(
             UserManager<User> userManager,
             IRepository<CartItem> cartItemRepository,
             ICartService cartService,
             IMediaService mediaService,
-            IPaymentType paymentservice,
-            IShippingService shippingservice,
             IWorkContext workContext)
         {
             _cartItemRepository = cartItemRepository;
             _cartService = cartService;
             _mediaService = mediaService;
             _workContext = workContext;
-            _paymentService = paymentservice;
-            _shippingService = shippingservice;
         }
 
         [HttpPost]
@@ -95,7 +87,7 @@ namespace SimplCommerce.Module.Orders.Controllers
             }
 
             cartItem.Quantity = model.Quantity;
-            _cartItemRepository.SaveChange();
+            _cartItemRepository.SaveChanges();
 
             return await List();
         }
@@ -124,41 +116,9 @@ namespace SimplCommerce.Module.Orders.Controllers
             }
 
             _cartItemRepository.Remove(cartItem);
-            _cartItemRepository.SaveChange();
+            _cartItemRepository.SaveChanges();
 
             return await List();
         }
-
-        [HttpGet]
-        public async Task<string> AddPaymentCost(int paymentid)
-        {
-            var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetCart(currentUser.Id);
-            decimal calculatedpayment = _paymentService.Calculate(paymentid, cart.SubTotal);
-            bool calculatedresult = _cartService.AddPaymentCost(currentUser.Id, calculatedpayment);
-            if (calculatedresult)
-            {
-                return "OK";
-            }
-            return "NOTOK";
-        }
-        [HttpGet]
-        public async Task<string> AddShippingCost(int shippingid)
-        {
-            var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetCart(currentUser.Id);
-            decimal calculatedshipping = _shippingService.Calculate(shippingid, cart.SubTotal);
-            bool calculatedresult = _cartService.AddShippingCost(currentUser.Id, calculatedshipping);
-            if (calculatedresult)
-            {
-                return "OK";
-            }
-            return "NOTOK";
-        }
-        public IActionResult OrderSummaryViewComponent()
-        {
-            return ViewComponent("OrderSummary");
-        }
-
     }
 }

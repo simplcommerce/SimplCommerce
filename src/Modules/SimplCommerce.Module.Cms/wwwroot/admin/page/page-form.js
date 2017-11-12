@@ -43,7 +43,7 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add page.');
+                        vm.validationErrors.push('Could not add or update page.');
                     }
                 });
         };

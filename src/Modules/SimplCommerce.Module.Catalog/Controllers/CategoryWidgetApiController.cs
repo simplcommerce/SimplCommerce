@@ -54,7 +54,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 };
 
                 _widgetInstanceRepository.Add(widgetInstance);
-                _widgetInstanceRepository.SaveChange();
+                _widgetInstanceRepository.SaveChanges();
                 return Ok();
             }
             return new BadRequestObjectResult(ModelState);
@@ -71,7 +71,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 widgetInstance.PublishStart = model.PublishStart;
                 widgetInstance.PublishEnd = model.PublishEnd;
                 widgetInstance.Data = JsonConvert.SerializeObject(model.Settings);
-                _widgetInstanceRepository.SaveChange();
+                _widgetInstanceRepository.SaveChanges();
                 return Ok();
             }
 

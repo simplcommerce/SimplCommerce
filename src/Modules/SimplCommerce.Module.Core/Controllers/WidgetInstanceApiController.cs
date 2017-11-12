@@ -49,7 +49,7 @@ namespace SimplCommerce.Module.Core.Controllers
             }
 
             _widgetInstanceRepository.Remove(widgetInstance);
-            _widgetInstanceRepository.SaveChange();
+            _widgetInstanceRepository.SaveChanges();
 
             return Ok();
         }

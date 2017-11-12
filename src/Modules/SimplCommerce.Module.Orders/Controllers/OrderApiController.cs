@@ -194,7 +194,7 @@ namespace SimplCommerce.Module.Orders.Controllers
             if (Enum.IsDefined(typeof(OrderStatus), statusId))
             {
                 order.OrderStatus = (OrderStatus) statusId;
-                _orderRepository.SaveChange();
+                _orderRepository.SaveChanges();
                 return Ok();
             }
             return BadRequest(new {Error = "unsupported order status"});

@@ -8,11 +8,6 @@ using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.Orders.ViewModels;
-using SimplCommerce.Module.Shipping.Models;
-using SimplCommerce.Module.PaymentType.Models;
-using SimplCommerce.Module.Orders.Models;
-using SimplCommerce.Module.PaymentType.Services;
-using SimplCommerce.Module.Shipping.Services;
 
 namespace SimplCommerce.Module.Orders.Controllers
 {
@@ -24,28 +19,19 @@ namespace SimplCommerce.Module.Orders.Controllers
         private readonly IRepository<StateOrProvince> _stateOrProvinceRepository;
         private readonly IRepository<UserAddress> _userAddressRepository;
         private readonly IWorkContext _workContext;
-        private readonly IRepository<ShippingMethod> _shippingservice;
-        private readonly IRepository<PaymentType.Models.PaymentType> _paymentTypeService;
 
         public CheckoutController(
-
             IRepository<StateOrProvince> stateOrProvinceRepository,
             IRepository<District> districtRepository,
             IRepository<UserAddress> userAddressRepository,
             IOrderService orderService,
-            IWorkContext workContext,
-             IRepository<PaymentType.Models.PaymentType> paymentRepository,
-             IRepository<ShippingMethod> shippingRepository
-
-            )
+            IWorkContext workContext)
         {
             _stateOrProvinceRepository = stateOrProvinceRepository;
             _districtRepository = districtRepository;
             _userAddressRepository = userAddressRepository;
             _orderService = orderService;
             _workContext = workContext;
-            _shippingservice = shippingRepository;
-            _paymentTypeService = paymentRepository;
         }
 
         public IActionResult Index()
@@ -103,7 +89,7 @@ namespace SimplCommerce.Module.Orders.Controllers
         [HttpPost]
         public async Task<IActionResult> DeliveryInformation(DeliveryInformationVm model)
         {
-            if (!ModelState.IsValid && (model.ShippingAddressId == 0) && (model.shippingmethodid == 0) && (model.paymentmethodid == 0))
+            if (!ModelState.IsValid && (model.ShippingAddressId == 0))
             {
                 return View(model);
             }
@@ -139,17 +125,9 @@ namespace SimplCommerce.Module.Orders.Controllers
             {
                 billingAddress = shippingAddress = _userAddressRepository.Query().Where(x => x.Id == model.ShippingAddressId).Select(x => x.Address).First();
             }
-            ShippingMethod shippingmethod = _shippingservice.Query().Where(x => x.Id == model.shippingmethodid).First();
-            PaymentType.Models.PaymentType paymenttype = _paymentTypeService.Query().Where(x => x.Id == model.paymentmethodid).First();
-           
-            //have to add one field with orderpaymentmethodname and bool if it is successfully payed
-            Order  createdorder  = await _orderService.CreateOrder(currentUser, billingAddress, shippingAddress, shippingmethod, paymenttype);
-            //Go for payment call pay method with created order which is current order 
-            if(paymenttype.Code == 0)
-            {
-                return RedirectToAction("Index", "payment", new { @Id = createdorder.Id });
-            }
-            
+
+            await _orderService.CreateOrder(currentUser, billingAddress, shippingAddress);
+
             return RedirectToAction("OrderConfirmation");
         }
 

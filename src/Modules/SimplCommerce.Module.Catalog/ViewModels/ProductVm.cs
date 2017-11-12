@@ -67,6 +67,8 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public long? BrandId { get; set; }
 
+        public long? TaxClassId { get; set; }
+
         public List<ProductLinkVm> RelatedProducts { get; set; } = new List<ProductLinkVm>();
 
         public List<ProductLinkVm> CrossSellProducts { get; set; } = new List<ProductLinkVm>();

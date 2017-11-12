@@ -83,7 +83,7 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
             }
 
             _comparingProductRepository.Remove(productComparison);
-            _comparingProductRepository.SaveChange();
+            _comparingProductRepository.SaveChanges();
 
             return Ok();
         }

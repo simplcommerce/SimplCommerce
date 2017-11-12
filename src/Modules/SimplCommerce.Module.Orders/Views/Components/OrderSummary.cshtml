@@ -1,7 +1,7 @@
 ﻿@model SimplCommerce.Module.Orders.ViewModels.CartVm
 
 <h3>@Localizer["Order summary"] (@Model.Items.Count() @Localizer["products"]) </h3>
-<table class="table table-striped">
+<table class="table table-striped" id="ordersummary">
     <tr>
         <th>@Localizer["Product"]</th>
         <th class="text-center">@Localizer["Quantity"]</th>
@@ -32,22 +32,11 @@
     </tr>
     <tr>
         <td>@Localizer["Discount"]</td>
-        <td colspan="2" class="text-right"></td>
-    </tr>
-    <tr>
-        <td>@Localizer["PaymentCost"]</td>
-        <td colspan="2" class="text-right">@Model.paymentCost.ToString("C")</td>
-    </tr>
-    <tr>
-        <td>@Localizer["ShippingCost"]</td>
-        <td colspan="2" class="text-right">@Model.ShippingCost.ToString("C")</td>
-    </tr>
-    <tr>
-        <td>@Localizer["Subtotal with discount"]</td>
-        <td colspan="2" class="text-right"><strong>@Model.SubTotalWithDiscount.ToString("C")</strong></td>
+        <td colspan="2" class="text-right">@Model.Discount.ToString("C")</td>
     </tr>
     <tr>
         <td><strong>@Localizer["Subtotal with discount"]</strong></td>
-        <td colspan="2" class="text-right"><strong>@Model.Total.ToString("C")</strong></td>
+        <td  colspan="2" class="text-right" id="subtotal"><strong>@Model.SubTotalWithDiscount.ToString("C")</strong></td>
     </tr>
 </table>
+

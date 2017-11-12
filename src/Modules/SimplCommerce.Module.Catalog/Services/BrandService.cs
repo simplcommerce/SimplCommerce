@@ -25,10 +25,10 @@ namespace SimplCommerce.Module.Catalog.Services
             {
                 brand.SeoTitle = _entityService.ToSafeSlug(brand.SeoTitle, brand.Id, BrandEntityTypeId);
                 _brandRepository.Add(brand);
-                _brandRepository.SaveChange();
+                _brandRepository.SaveChanges();
 
                 _entityService.Add(brand.Name, brand.SeoTitle, brand.Id, BrandEntityTypeId);
-                _brandRepository.SaveChange();
+                _brandRepository.SaveChanges();
 
                 transaction.Commit();
             }
@@ -38,7 +38,7 @@ namespace SimplCommerce.Module.Catalog.Services
         {
             brand.SeoTitle = _entityService.ToSafeSlug(brand.SeoTitle, brand.Id, BrandEntityTypeId);
             _entityService.Update(brand.Name, brand.SeoTitle, brand.Id, BrandEntityTypeId);
-            _brandRepository.SaveChange();
+            _brandRepository.SaveChanges();
         }
 
         public async Task Delete(long id)
@@ -51,7 +51,7 @@ namespace SimplCommerce.Module.Catalog.Services
         {
             brand.IsDeleted = true;
             await _entityService.Remove(brand.Id, BrandEntityTypeId);
-            _brandRepository.SaveChange();
+            _brandRepository.SaveChanges();
         }
     }
 }

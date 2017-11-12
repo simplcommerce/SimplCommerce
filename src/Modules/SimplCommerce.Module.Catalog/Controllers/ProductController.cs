@@ -85,7 +85,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }).ToList();
 
             await _mediator.Publish(new EntityViewed {EntityId = product.Id, EntityTypeId = 3});
-            _productRepository.SaveChange();
+            _productRepository.SaveChanges();
 
             return View(model);
         }

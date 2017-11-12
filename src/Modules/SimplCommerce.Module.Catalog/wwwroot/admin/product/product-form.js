@@ -29,6 +29,7 @@
         vm.isEditMode = vm.productId > 0;
         vm.addingVariation = { price: 0 };
         vm.brands = [];
+        vm.taxClasses = [];
 
         vm.datePickerSpecialPriceStart = {};
         vm.datePickerSpecialPriceEnd = {};
@@ -301,6 +302,7 @@
             var promise;
 
             // ng-upload will post null as text
+            vm.product.taxClassId = vm.product.taxClassId === null ? '' : vm.product.taxClassId;
             vm.product.brandId = vm.product.brandId === null ? '' : vm.product.brandId;
             vm.product.oldPrice = vm.product.oldPrice === null ? '' : vm.product.oldPrice;
             vm.product.specialPrice = vm.product.specialPrice === null ? '' : vm.product.specialPrice;
@@ -389,6 +391,12 @@
             });
         }
 
+        function getTaxClasses() {
+            productService.getTaxClasses().then(function (result) {
+                vm.taxClasses = result.data;
+            });
+        }
+
         function init() {
             if (vm.isEditMode) {
                 getProduct();
@@ -398,6 +406,7 @@
             getAttributes();
             getCategories();
             getBrands();
+            getTaxClasses();
         }
 
         function getParentCategoryIds(categoryId) {

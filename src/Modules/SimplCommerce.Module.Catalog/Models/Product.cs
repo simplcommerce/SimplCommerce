@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SimplCommerce.Module.Core.Models;
+using SimplCommerce.Module.Tax.Models;
 
 namespace SimplCommerce.Module.Catalog.Models
 {
@@ -63,6 +64,10 @@ namespace SimplCommerce.Module.Catalog.Models
         public long? BrandId { get; set; }
 
         public Brand Brand { get; set; }
+
+        public long? TaxClassId { get; set; }
+
+        public TaxClass TaxClass { get; set; }
 
         public void AddCategory(ProductCategory category)
         {
