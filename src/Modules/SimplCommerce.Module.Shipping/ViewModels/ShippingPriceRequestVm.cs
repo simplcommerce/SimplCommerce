@@ -4,6 +4,8 @@
     {
         public decimal OrderAmount { get; set; }
 
-        public ShippingAddressVm ShippingAddress { get; set; }
+        public ShippingAddressVm NewShippingAddress { get; set; }
+
+        public long ExistingShippingAddressId { get; set; }
     }
 }

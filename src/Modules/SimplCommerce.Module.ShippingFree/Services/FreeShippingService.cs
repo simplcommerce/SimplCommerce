@@ -22,7 +22,7 @@ namespace SimplCommerce.Module.ShippingFree.Services
             response.ApplicablePrices.Add(new ShippingPrice
             {
                 Name = "Free",
-                Rate = 0
+                Price = 0
             });
 
             return Task.FromResult(response);

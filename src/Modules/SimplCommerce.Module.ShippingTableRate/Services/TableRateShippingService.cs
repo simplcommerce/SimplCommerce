@@ -31,7 +31,7 @@ namespace SimplCommerce.Module.ShippingTableRate.Services
                 response.ApplicablePrices.Add(new ShippingPrice
                 {
                     Name = "Best Way",
-                    Rate = cheapestApplicable.ShippingPrice
+                    Price = cheapestApplicable.ShippingPrice
                 });
             }
 
