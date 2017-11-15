@@ -58,6 +58,15 @@
                     </div>
                 </div>
             </div>
+            <h3>@Localizer["Shipping methods"]</h3>
+            <div id="shippingMethods">
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="shippingMethod" value="free">
+                        <strong>FREE</strong>
+                    </label>
+                </div>
+            </div>
             <div class="form-group">
                 <div class="col-md-12 text-right">
                     <button type="submit" class="btn btn-order">@Localizer["Order"]</button>
@@ -72,5 +81,5 @@
 
 @section scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-    <script simpl-append-version="true" src="~/modules/orders/shipping.js"></script>
+    <script simpl-append-version="true" src="~/modules/shipping/shipping.js"></script>
 }
