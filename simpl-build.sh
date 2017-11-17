@@ -1,5 +1,7 @@
 #!/bin/bash
 
+-rm -rf src/SimplCommerce.WebHost/Migrations/*
+
 dotnet restore && dotnet build
 
 cd src/SimplCommerce.WebHost \
