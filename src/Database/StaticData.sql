@@ -845,8 +845,8 @@ SET IDENTITY_INSERT Core_District OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[Shipping_ShippingProvider] ON 
-INSERT [dbo].[Shipping_ShippingProvider] ([Id], [AdditionalSettings], [IsEnabled], [Name], [OnlyCountryIdsString], [OnlyStateOrProvinceIdsString], [ShippingPriceServiceTypeName], [ToAllShippingEnabledCountries], [ToAllShippingEnabledStatesOrProvinces]) VALUES (1, N'{MinimumOrderAmount : 10000000}', 1, N'Free Ship', NULL, NULL, N'SimplCommerce.Module.ShippingFree.Services.FreeShippingService,SimplCommerce.Module.ShippingFree', 1, 1)
-INSERT [dbo].[Shipping_ShippingProvider] ([Id], [AdditionalSettings], [IsEnabled], [Name], [OnlyCountryIdsString], [OnlyStateOrProvinceIdsString], [ShippingPriceServiceTypeName], [ToAllShippingEnabledCountries], [ToAllShippingEnabledStatesOrProvinces]) VALUES (2, NULL, 1, N'Table Rate', NULL, NULL, N'SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingService,SimplCommerce.Module.ShippingTableRate', 1, 1)
+INSERT [dbo].[Shipping_ShippingProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [Name], [OnlyCountryIdsString], [OnlyStateOrProvinceIdsString], [ShippingPriceServiceTypeName], [ToAllShippingEnabledCountries], [ToAllShippingEnabledStatesOrProvinces]) VALUES (1, N'{MinimumOrderAmount : 10000000}', N'shipping-free-config', 1, N'Free Ship', NULL, NULL, N'SimplCommerce.Module.ShippingFree.Services.FreeShippingService,SimplCommerce.Module.ShippingFree', 1, 1)
+INSERT [dbo].[Shipping_ShippingProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [Name], [OnlyCountryIdsString], [OnlyStateOrProvinceIdsString], [ShippingPriceServiceTypeName], [ToAllShippingEnabledCountries], [ToAllShippingEnabledStatesOrProvinces]) VALUES (2, NULL, 1, N'shipping-table-rate-config', N'Table Rate', NULL, NULL, N'SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingService,SimplCommerce.Module.ShippingTableRate', 1, 1)
 SET IDENTITY_INSERT [dbo].[Shipping_ShippingProvider] OFF
 GO
 
