@@ -537,58 +537,12 @@ AirlineTickets
             <!-- last words -->
         </div>
     </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
-    <script src="~/themes/AirlineTickets/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="~/themes/AirlineTickets/js/moment.min.js"></script>
-    <script src="~/themes/AirlineTickets/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="~/themes/AirlineTickets/js/bootstrap-spinner.js"></script>
-    <script src="~/themes/AirlineTickets/js/jquery.easy-autocomplete.min.js"></script>
-    <script src="~/themes/AirlineTickets/js/main.js"></script>
-    <script>
-        $(function () {
-            $('#gidis-tarihi').datetimepicker({
-                format: 'DD MMMM YYYY'
-            });
-            $('#donus-tarihi').datetimepicker({
-                useCurrent: false, //Important! See issue #1075
-                format: 'DD MMMM YYYY'
-            });
-            $("#gidis-tarihi").on("dp.change", function (e) {
-                $('#donus-tarihi').data("DateTimePicker").minDate(e.date);
-            });
-            $("#donus-tarihi").on("dp.change", function (e) {
-                $('#gidis-tarihi').data("DateTimePicker").maxDate(e.date);
-            });
-
-            var options = {
-                url: "data/airports.json",
-
-                getValue: "name",
-
-                list: {
-                    match: {
-                        enabled: true
-                    },
-                    showAnimation: {
-                        type: "fade", //normal|slide|fade
-                        time: 400,
-                        callback: function () { }
-                    },
-                    hideAnimation: {
-                        type: "slide", //normal|slide|fade
-                        time: 400,
-                        callback: function () { }
-                    }
-                }
-            };
-            $("#kalkis-yeri, #inis-yeri").easyAutocomplete(options);
-        });
-    </script>
     <script>
             window.simplGlobalSetting = {};
             window.simplGlobalSetting.lang = '@CultureInfo.CurrentCulture.Name';
     </script>
+    <script simpl-append-version="true" src="~/lib/jquery/jquery.js"></script>
+    <script simpl-append-version="true" src="~/lib/bootstrap/js/bootstrap.js"></script>
     <script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
     <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
     @if (CultureInfo.CurrentCulture.Name == "vi-VN")
@@ -598,6 +552,55 @@ AirlineTickets
     <script simpl-append-version="true" src="~/modules/core/main.js"></script>
     <script simpl-append-version="true" src="~/modules/orders/add-to-cart.js"></script>
     <script simpl-append-version="true" src="~/modules/product-comparison/product-comparison.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+    <script src="~/themes/AirlineTickets/js/moment.min.js"></script>
+    <script src="~/themes/AirlineTickets/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/themes/AirlineTickets/js/bootstrap-spinner.js"></script>
+    <script src="~/themes/AirlineTickets/js/jquery.easy-autocomplete.min.js"></script>
+    <script src="~/themes/AirlineTickets/js/main.js"></script>
+
+    <script>
+            $(function () {
+                $('#gidis-tarihi').datetimepicker({
+                    format: 'DD MMMM YYYY'
+                });
+                $('#donus-tarihi').datetimepicker({
+                    useCurrent: false, //Important! See issue #1075
+                    format: 'DD MMMM YYYY'
+                });
+                $("#gidis-tarihi").on("dp.change", function (e) {
+                    $('#donus-tarihi').data("DateTimePicker").minDate(e.date);
+                });
+                $("#donus-tarihi").on("dp.change", function (e) {
+                    $('#gidis-tarihi').data("DateTimePicker").maxDate(e.date);
+                });
+
+                var options = {
+                    url: "data/airports.json",
+
+                    getValue: "name",
+
+                    list: {
+                        match: {
+                            enabled: true
+                        },
+                        showAnimation: {
+                            type: "fade", //normal|slide|fade
+                            time: 400,
+                            callback: function () { }
+                        },
+                        hideAnimation: {
+                            type: "slide", //normal|slide|fade
+                            time: 400,
+                            callback: function () { }
+                        }
+                    }
+                };
+                $("#kalkis-yeri, #inis-yeri").easyAutocomplete(options);
+            });
+    </script>
+
     @RenderSection("scripts", required: false)
 </body>
 
