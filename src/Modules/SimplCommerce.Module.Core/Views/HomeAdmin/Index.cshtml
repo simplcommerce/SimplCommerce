@@ -172,6 +172,10 @@
     <script simpl-append-version="true" src="~/modules/tax/admin/tax-rate/tax-rate-service.js"></script>
     <script simpl-append-version="true" src="~/modules/tax/admin/tax-rate/tax-rate-list.js"></script>
     <script simpl-append-version="true" src="~/modules/tax/admin/tax-rate/tax-rate-form.js"></script>
+
+    <script simpl-append-version="true" src="~/modules/shipping/admin/shipping.module.js"></script>
+    <script simpl-append-version="true" src="~/modules/shipping/admin/provider/shipping-provider-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/shipping/admin/provider/shipping-provider-list.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse">
@@ -245,6 +249,7 @@
                             <li><a ui-sref="themes">@Localizer["Themes"]</a></li>
                             <li><a ui-sref="tax-classes">@Localizer["Tax Classes"]</a></li>
                             <li><a ui-sref="tax-rates">@Localizer["Tax Rates"]</a></li>
+                            <li><a ui-sref="shipping-providers">@Localizer["Shipping Providers"]</a></li>
                             <li><a ui-sref="configuration">@Localizer["Settings"]</a></li>
                             <li><a ui-sref="localization">@Localizer["Translations"]</a></li>
                         </ul>
