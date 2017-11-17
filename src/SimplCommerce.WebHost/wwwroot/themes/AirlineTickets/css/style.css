@@ -1,0 +1,591 @@
+/*
+Author: Mustafa Turhan;
+Contact: mustafa@turhan.gen.tr;
+*/
+
+
+/* Globals */
+
+::selection {
+   background: #e62a23;
+   color: #fff;
+}
+
+::-moz-selection {
+   background: #e62a23;
+   color: #fff;
+}
+
+body {
+   font-family: 'Open Sans', sans-serif;
+}
+
+.valign-wrapper {
+   display: -webkit-flex;
+   display: -ms-flexbox;
+   display: flex;
+   -webkit-align-items: center;
+   -ms-flex-align: center;
+   align-items: center
+}
+
+.valign-wrapper .valign {
+   display: block
+}
+
+
+/* Navbar */
+
+header {
+   color: #fff;
+   position: relative;
+   background: url(../img/bg.jpg) no-repeat;
+   top: 0;
+   left: 0;
+   width: 100%;
+   min-height: 550px;
+   background-size: cover;
+   background-position: center center;
+}
+
+section:first-child {
+   margin: 0;
+}
+
+section {
+   margin: 50px 0;
+}
+
+.navbar-airticket {
+   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%);
+   /* FF3.6-15 */
+   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%);
+   /* Chrome10-25,Safari5.1-6 */
+   background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%);
+   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+   filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#33000000', GradientType=0);
+   /* IE6-9 */
+}
+
+.navbar {
+   min-height: 65px;
+   border: none;
+}
+
+.navbar-brand {
+   height: 65px;
+}
+
+.navbar-nav>li>a {
+   margin-top: 15px;
+   color: #fff;
+   transition: .2s ease all;
+   border: 1px solid #fff;
+   margin-right: 10px;
+   padding: 5px 15px;
+}
+
+.navbar-nav>li>a:hover,
+.navbar-nav>li>a:focus {
+   background: none;
+   color: #e62a23;
+   border: 1px solid #e62a23;
+   transition: .2s ease all;
+}
+
+.navbar-nav>li>.no-border,
+.navbar-nav>li>.no-border:hover,
+.navbar-nav>li>.no-border:focus {
+   border: none;
+   background: none;
+}
+
+.navbar-nav>li>.dropdown-menu {
+   margin-right: 9px;
+}
+
+.dropdown-menu>li>a {
+   padding: 13px;
+}
+
+.currency {
+   margin-left: 10px;
+}
+
+
+/* Header Form */
+
+#form-coming {
+   z-index: 999;
+}
+
+#form-coming h2,
+#form-coming h4 {
+   text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5)
+}
+
+.form-container {
+   background: rgba(0, 0, 0, 0.8);
+   min-height: 50px;
+   padding: 10px 60px;
+   border-radius: 5px;
+   margin-top: 1em;
+   position: relative;
+   z-index: 999;
+}
+
+label>input[type=radio] {
+   visibility: hidden;
+}
+
+.btn-radio {
+   color: #fff;
+   padding-left: 0;
+}
+
+input[type="radio"]:checked+label {
+   font-weight: bold;
+}
+
+.btn-radio:hover,
+.btn-radio.active {
+   color: #e62a23;
+}
+
+.form-control {
+   border-radius: 0;
+   border: 0;
+   font-size: 16px;
+   height: 44px;
+   padding: 6px 16px;
+   cursor: pointer;
+}
+
+.form-control:focus {
+   border-bottom: 4px solid #e62a23;
+}
+
+.btn-submit {
+   border-radius: 0;
+   border: 0;
+   height: 44px;
+   background: #e62a23;
+   font-size: 20px;
+   transition: 0.2s ease all;
+}
+
+.btn-submit:hover {
+   background: #CE2A23;
+   transition: 0.2s ease all;
+}
+
+.check-label {
+   font-size: 12px;
+   margin-right: 10px;
+   color: #ccc;
+}
+
+input[type="checkbox"] {
+   margin-right: 5px;
+}
+
+fieldset {
+   margin: 5px 0;
+}
+
+fieldset:last-child {
+   margin-top: 10px;
+}
+
+fieldset:first-child {
+   margin-top: 0;
+}
+
+
+/* Promotions */
+
+section h2,
+section h5 {
+   letter-spacing: 1px;
+}
+
+section h2 {
+   font-weight: bold;
+}
+
+.box {
+   background: #f6f6f6;
+   min-height: 260px;
+   border-radius: 2px;
+   position: relative;
+   color: #8c8c8c;
+   margin-top: 20px;
+}
+
+.airlines-logo {
+   text-align: center;
+   position: absolute;
+   top: 30px;
+   left: 50%;
+   transform: translate(-50%, -30%);
+}
+
+.airlines-logo img {
+   height: 43px;
+   margin: 0 auto;
+}
+
+.price {
+   font-weight: bold;
+   font-size: 1.7em;
+   margin-right: 15px;
+   color: #e62a23;
+}
+
+.footer-promotion {
+   text-align: center;
+   position: absolute;
+   bottom: 0;
+   font-size: 0.9em;
+   padding: 0 10px;
+   left: 50%;
+   transform: translate(-50%, 0);
+   width: 100%;
+}
+
+.about-promotion {
+   position: absolute;
+   top: 50%;
+   width: 100%;
+}
+
+.about-promotion .text-left p {
+   padding-left: 10px;
+}
+
+a.promotion-link {
+   display: block;
+   width: 100%;
+   height: 100%;
+   position: absolute;
+   z-index: 1;
+   text-indent: -5000px;
+}
+
+.box-with-arrow {
+   position: relative;
+   background: #ffffff;
+}
+
+.box-with-arrow:after {
+   bottom: 100%;
+   left: 50%;
+   border: solid transparent;
+   content: " ";
+   height: 0;
+   width: 0;
+   position: absolute;
+   pointer-events: none;
+   border-color: rgba(255, 255, 255, 0);
+   border-bottom-color: #ffffff;
+   border-width: 8px;
+   margin-left: -8px;
+}
+
+.selectors {
+   width: 85%;
+   margin: 0 auto;
+   padding: 20px 0;
+   color: #000;
+}
+
+.select-list {
+   color: #000;
+   margin-bottom: 20px;
+}
+
+.select-list select {
+   width: 100%;
+   background: #fff;
+   height: 33px;
+   cursor: pointer;
+}
+
+.passenger-list {
+   height: 50px;
+}
+
+.passenger-list p {
+   padding: 0;
+   margin: 0;
+}
+
+.first-line {
+   font-weight: bold;
+   font-size: 0.9em;
+}
+
+.second-line {
+   font-size: 0.8em;
+}
+
+.btn-passenger {
+   border-radius: 0;
+   background: #ddd;
+}
+
+.passenger-input {
+   width: 45px;
+   height: 39px;
+   border: 0;
+}
+
+.form-control[readonly] {
+   background: #fff;
+   color: #999;
+}
+
+.form-control[readonly]:focus {
+   border: none;
+   box-shadow: none;
+}
+
+.spinner-input {
+   height: inherit;
+   border: 0;
+   box-shadow: none;
+   text-align: center;
+   font-size: 1em;
+}
+
+.row-passengers {
+   width: 40%;
+   position: absolute;
+   right: 10%;
+   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5)
+}
+
+
+/* Free Fly */
+
+#free-fly .box {
+   min-height: 330px;
+}
+
+.box-icon {
+   padding-top: 20px;
+   width: 40%;
+   margin: 0 auto;
+}
+
+.box-title {
+   padding: 10px;
+}
+
+.box-title h4 {
+   font-size: 1em;
+   font-weight: bold;
+   line-height: 1.5em;
+   color: #303030;
+}
+
+.box-desc {
+   padding: 0 10px;
+   text-align: center;
+}
+
+.box-desc p {
+   font-size: 0.9em;
+   line-height: 1.3em;
+}
+
+
+/* Register Now */
+
+#register-now {
+   position: relative;
+   background: url(../img/like-parallax.jpg) no-repeat;
+   background-size: cover;
+   background-position: center center;
+   height: 500px;
+   color: #fff;
+}
+
+.overlay {
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   background: rgba(230, 42, 35, 0.9);
+   top: 0;
+}
+
+.btn-special {
+   margin-top: 20px;
+   background: #fff;
+   padding: 20px 40px;
+   border-radius: 30px;
+   font-size: 1.2em;
+   font-weight: bold;
+   color: #e62a23;
+   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+section:last-child {
+   margin-bottom: 0;
+}
+
+
+/* Date Time Picker */
+
+.bootstrap-datetimepicker-widget {
+   color: #000;
+   z-index: 1000;
+   border-radius: 0;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu {
+   z-index: 999;
+   width: 21em;
+}
+
+
+/* Modal */
+
+.modal {
+   color: #000;
+}
+
+.modal-content {
+   border-radius: 0;
+}
+
+.modal-header {
+   background: #eee;
+}
+
+.modal-form {
+   width: 70%;
+   margin: 0 auto;
+}
+
+.modal-form .form-group {
+   border: 1px solid #eee;
+}
+
+.btn-rez {
+   width: 100%;
+   border-radius: 0;
+   padding-top: 10px;
+   padding-bottom: 10px;
+   background: #e62a23;
+   color: #fff;
+   margin: 5px 0;
+}
+
+.navbar-toggle {
+   color: #fff;
+   background: transparent;
+   margin-top: 12px;
+}
+
+
+/* Footer */
+
+.main-page-footer {
+   background: #404040;
+   min-height: 200px;
+   color: #fff;
+   padding-bottom: 20px;
+}
+
+.main-page-footer h3 {
+   font-size: 1.2em;
+   padding: 20px 0;
+   font-weight: bold;
+}
+
+.list-widget {
+   margin-bottom: 40px;
+}
+
+.list-widget li a {
+   color: #fff;
+   letter-spacing: 1px;
+   transition: 0.2s ease all;
+   font-size: 0.9em;
+}
+
+.list-widget li {
+   padding: 2px 0;
+}
+
+.list-widget li a:hover {
+   color: #e62a23;
+   text-decoration: none;
+   transition: 0.2s ease all;
+}
+
+.list-social {
+   background: #404040;
+   padding: 10px;
+   display: inline-block;
+}
+
+.social-area {
+   margin-bottom: 10px;
+}
+
+
+/* Autocomplete */
+
+.easy-autocomplete input {
+   border: none;
+   border-radius: 0;
+}
+
+@media only screen and (max-width: 1200px) {}
+
+
+/* Medium Devices, Desktops */
+
+@media only screen and (max-width: 992px) {
+   .row-passengers {
+      width: 82%;
+   }
+   .form-container {
+      width: 95%;
+      margin: 10px auto 50px auto;
+   }
+}
+
+
+/* Small Devices, Tablets */
+
+@media only screen and (max-width: 768px) {
+   .navbar-collapse .navbar-nav {
+      width: 95%;
+      margin: 0 auto;
+      padding-bottom: 15px;
+   }
+   .navbar-nav .open .dropdown-menu>li>a {
+      background: #fff;
+      padding: 12px;
+   }
+   .navbar-airticket {
+      background: rgba(39, 50, 61, 1);
+   }
+}
+
+
+/* Extra Small Devices, Phones */
+
+@media only screen and (max-width: 480px) {
+   .spinner-input {
+      padding: 6px 0;
+   }
+}
+
+
+/* Custom, iPhone Retina */
+
+@media only screen and (max-width: 320px) {}

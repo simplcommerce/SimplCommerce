@@ -1,0 +1,604 @@
+﻿@using System.Globalization
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Airticket</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&amp;subset=latin-ext" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/themes/AirlineTickets/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="~/themes/AirlineTickets/css/easy-autocomplete.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/themes/AirlineTickets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/themes/AirlineTickets/css/style.css">
+
+    @RenderSection("head", required: false)
+</head>
+AirlineTickets
+<body>
+    <header id="header">
+        <div class="bg"></div>
+        <nav class="navbar navbar-airticket" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-register">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="fa fa-2x fa-bars"></i>
+                    </button>
+                    <a href="#"><img class="navbar-brand" src="~/themes/AirlineTickets/img/logo-white.png" /></a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-register">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#" class="no-border" data-toggle="modal" data-target="#rezKontrol"><i class="fa fa-check"></i><span class="currency">Check Reservation</span></a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle no-border" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-try"></i><span class="currency">Currency</span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="fa fa-try"></i><span class="currency">Turkish Lira</span></a></li>
+                                <li><a href="#"><i class="fa fa-usd"></i><span class="currency">USA Dollar</span></a></li>
+                                <li><a href="#"><i class="fa fa-eur"></i><span class="currency">Euro</span></a></li>
+                            </ul>
+                        </li>
+                        @await Html.PartialAsync("_SelectLanguagePartial")
+                        @await Html.PartialAsync("_LoginPartial")
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <section id="form-coming">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <h2>Cheapest Tickets</h2>
+                        <h4>Find cheapest tickets like million people</h4>
+                    </div>
+                </div>
+                <div class="row form-container">
+                    <form action="#" method="post" class="form-inline" accept-charset="utf-8">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-sm-12 btn-group" data-toggle="buttons">
+                                    <label class="btn btn-radio btn-cift active">
+                                        <input class="this-is-checked" name="yonunu_sec" id="gidis-donus" value="gidis-donus" type="radio" checked> Round-Trip
+                                    </label>
+                                    <label class="btn btn-radio btn-tek-yon">
+                                        <input class="this-is-checked" name="yonunu_sec" id="tek-yon" value="tek-yon" type="radio"> One Way
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-sm-12 form-group">
+                                    <div class="col-lg-2 col-md-6 col-xs-12" style="padding: 0;">
+                                        <label class="sr-only" for="kalkis-yeri">Departure Places</label>
+                                        <input type="text" class="form-control" style="width: 100%;" id="kalkis-yeri" name="kalkis-yeri" placeholder="Departure">
+                                    </div>
+                                    <div class="col-lg-2 col-md-6 col-xs-12" style="padding: 0">
+                                        <label class="sr-only" for="inis-yeri">Landing Place</label>
+                                        <input type="text" class="form-control date" style="width: 100%" id="inis-yeri" name="inis-yeri" placeholder="Landing">
+                                    </div>
+                                    <div class="col-lg-2 col-md-6 col-xs-12 date" style="padding: 0">
+                                        <label class="sr-only" for="gidis-tarihi">Date of Departure</label>
+                                        <input type="text" class="form-control" style="width: 100%" id="gidis-tarihi" name="gidis-tarihi" placeholder="Date of Departure">
+                                    </div>
+                                    <div class="col-lg-2 col-md-6 col-xs-12 date" style="padding: 0">
+                                        <label class="sr-only" for="gidis-tarihi">Date of Return</label>
+                                        <input type="text" class="form-control" style="width: 100%" id="donus-tarihi" name="donus-tarihi" placeholder="Date of Return">
+                                    </div>
+                                    <div id="popup-opener" class="col-lg-2 col-md-6 col-xs-12" style="padding: 0">
+                                        <label class="sr-only" for="gidis-tarihi">Number of People</label>
+                                        <input type="text" class="form-control" style="width: 100%" id="kisi-sayisi" name="kisi-sayisi" placeholder="Number of People" readonly="readonly">
+                                    </div>
+                                    <div class="col-lg-2 col-md-6 col-xs-12" style="padding: 0">
+                                        <button type="submit" class="btn btn-submit" style="width: 100%"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="checkbox">
+                                        <label class="check-label">
+                                            <input type="checkbox" id="aktarmasiz"> Nonstop
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label class="check-label">
+                                            <input type="checkbox" id="iptal-edilebilir"> Cancelable
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <div class="row-passengers" style="display: none;">
+                        <div class="box-with-arrow">
+                            <div class="row selectors">
+                                <div class="select-list">
+                                    <select id="flight-class" name="flight-class">
+                                        <option value="0">Economic</option>
+                                        <option value="1">Business</option>
+                                        <option value="2">Comfort</option>
+                                        <option value="3">First Class</option>
+                                    </select>
+                                </div>
+                                <div class="passengers">
+                                    <div class="row passenger-list valign-wrapper">
+                                        <div class="col-lg-6 col-xs-12">
+                                            <p class="first-line">Adult</p>
+                                            <p class="second-line">(18+)</p>
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-passenger" data-value="decrease" data-target="#adult-passenger" data-toggle="spinner">
+                                                        <span class="glyphicon glyphicon-minus"></span>
+                                                    </button>
+                                                </span>
+                                                <input type="text" data-ride="spinner" id="adult-passenger" class="spinner-input form-control input-number" value="1" readonly="readonly">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-passenger" data-value="increase" data-target="#adult-passenger" data-toggle="spinner">
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row passenger-list valign-wrapper">
+                                        <div class="col-lg-6 col-xs-12">
+                                            <p class="first-line">Student</p>
+                                            <p class="second-line">(12-24)</p>
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-passenger" data-value="decrease" data-target="#student-passenger" data-toggle="spinner">
+                                                        <span class="glyphicon glyphicon-minus"></span>
+                                                    </button>
+                                                </span>
+                                                <input type="text" data-ride="spinner" id="student-passenger" class="spinner-input form-control input-number" value="0" readonly="readonly">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-passenger" data-value="increase" data-target="#student-passenger" data-toggle="spinner">
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row passenger-list valign-wrapper">
+                                        <div class="col-lg-6 col-xs-12">
+                                            <p class="first-line">Child</p>
+                                            <p class="second-line">(2-11)</p>
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-passenger" data-value="decrease" data-target="#child-passenger" data-toggle="spinner">
+                                                        <span class="glyphicon glyphicon-minus"></span>
+                                                    </button>
+                                                </span>
+                                                <input type="text" data-ride="spinner" id="child-passenger" class="spinner-input form-control input-number" value="0" readonly="readonly">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-passenger" data-value="increase" data-target="#child-passenger" data-toggle="spinner">
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row passenger-list valign-wrapper">
+                                        <div class="col-lg-6 col-xs-12">
+                                            <p class="first-line">Baby</p>
+                                            <p class="second-line">(0-2)</p>
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-passenger" data-value="decrease" data-target="#baby-passenger" data-toggle="spinner">
+                                                        <span class="glyphicon glyphicon-minus"></span>
+                                                    </button>
+                                                </span>
+                                                <input type="text" data-ride="spinner" id="baby-passenger" class="spinner-input form-control input-number" value="0" readonly="readonly">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-passenger" data-value="increase" data-target="#baby-passenger" data-toggle="spinner">
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="submit-icon">
+                                    <a class="btn btn-success" style="width: 100%; border-radius: 0; margin-top: 10px;">Save</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Modal -->
+        <div class="modal fade" id="rezKontrol" tabindex="-1" role="dialog" aria-labelledby="rezKontrolLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="rezKontrolLabel">Check Reservation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="modal-form" action="#" method="post" accept-charset="utf-8">
+                            <div class="form-group">
+                                <label class="sr-only" for="rez-no">Reservation Number</label>
+                                <input type="text" class="form-control" id="rez-no" placeholder="Reservation Number">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="rez-soyadi">Lastname</label>
+                                <input type="text" class="form-control" id="rez-soyadi" placeholder="Lastname">
+                            </div>
+                            <button type="submit" class="btn btn-rez">Find Reservation</button>
+                            <a href="#" class="btn btn-rez">Cancel & Refund</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- /header -->
+    <main>
+        <section id="promotions">
+            <div class="container">
+                <div class="row">
+                    @RenderBody()
+                </div>
+                <div class="row" id="promotions-list">
+                    <!-- promotion 01 -->
+                    <div class="col-sm-6 col-lg-4 col-xs-12">
+                        <div class="box">
+                            <a href="#" title="AnadoluJET Kampanyası" class="promotion-link">AnadoluJET Campaign</a>
+                            <div class="row">
+                                <div class="col-xs-12 airlines-logo">
+                                    <img src="img/airlines/logo-anadolujet.png" alt="Anadolu Jet">
+                                </div>
+                            </div>
+                            <div class="about-promotion">
+                                <div class="row">
+                                    <div class="col-xs-6 text-left">
+                                        <p>
+                                            <span class="fa-stack text-center fa-lg">
+                                                <i class="fa fa-circle fa-stack-2x" style="color: red;"></i><!-- kampanya rengi -->
+                                                <i class="fa fa-plane fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                            <span style="padding-left: 10px;"><strong>Last 3 days</strong></span>
+                                        </p>
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        <p class="price">-500 TL</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer-promotion">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime quas ratione ullam rem a accusamus ipsum consequatur provident amet molestias voluptatem, illo eaque unde quam ad suscipit. Earum, amet, natus!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- promotion 02 -->
+                    <div class="col-sm-6 col-lg-4 col-xs-12">
+                        <a href="#" title="boraJET Kampanyası" class="promotion-link">boraJET Campaign</a>
+                        <div class="box">
+                            <div class="row">
+                                <div class="col-xs-12 airlines-logo">
+                                    <img src="img/airlines/logo-borajet.png" alt="Bora Jet">
+                                </div>
+                            </div>
+                            <div class="about-promotion">
+                                <div class="row">
+                                    <div class="col-xs-6 text-left">
+                                        <p>
+                                            <span class="fa-stack text-center fa-lg">
+                                                <i class="fa fa-circle fa-stack-2x" style="color: green;"></i><!-- kampanya rengi -->
+                                                <i class="fa fa-plane fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                            <span style="padding-left: 10px;">Last <strong>5 days</strong></span>
+                                        </p>
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        <p class="price">-642 TL</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer-promotion">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime quas ratione ullam rem a accusamus ipsum consequatur provident amet molestias voluptatem, illo eaque unde quam ad suscipit. Earum, amet, natus!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- promotion 03 -->
+                    <div class="col-sm-12 col-md-12 col-lg-4 col-xs-12">
+                        <a href="#" title="Lufthansa Kampanyası" class="promotion-link">Lufthansa Kampanyası</a>
+                        <div class="box">
+                            <div class="row">
+                                <div class="col-xs-12 airlines-logo">
+                                    <img src="img/airlines/logo-lufthansa.png" alt="Lufthansa">
+                                </div>
+                            </div>
+                            <div class="about-promotion">
+                                <div class="row">
+                                    <div class="col-xs-6 text-left">
+                                        <p>
+                                            <span class="fa-stack text-center fa-lg">
+                                                <i class="fa fa-circle fa-stack-2x" style="color: red;"></i><!-- kampanya rengi -->
+                                                <i class="fa fa-plane fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                            <span style="padding-left: 10px;">Last <strong>3 days</strong></span>
+                                        </p>
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        <p class="price">-500 TL</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer-promotion">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime quas ratione ullam rem a accusamus ipsum consequatur provident amet molestias voluptatem, illo eaque unde quam ad suscipit. Earum, amet, natus!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="free-fly">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <h2>You can fly for free</h2>
+                        <h5>Meet our new "fly for free" system.</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div class="box">
+                            <div class="box-icon">
+                                <img src="img/icon/bars-chart.svg" />
+                            </div>
+                            <div class="box-title text-center">
+                                <h4>Look at graphics!</h4>
+                            </div>
+                            <div class="box-desc">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus, vero nesciunt voluptas impedit repellendus laborum, accusantium reiciendis reprehenderit deserunt velit enim adipisci</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div class="box">
+                            <div class="box-icon">
+                                <img src="img/icon/travel.svg" />
+                            </div>
+                            <div class="box-title text-center">
+                                <h4>Look at map!</h4>
+                            </div>
+                            <div class="box-desc">
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio amet odit nisi magni, deserunt quae in similique architecto eveniet, nobis aliquid officia perferendis praesentium dolorem, velit omnis adipisci, veritatis explicabo.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div class="box">
+                            <div class="box-icon">
+                                <img src="img/icon/credit-card.svg" />
+                            </div>
+                            <div class="box-title text-center">
+                                <h4>Take a your AIRTICKET card!</h4>
+                            </div>
+                            <div class="box-desc">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam ducimus itaque delectus fugiat eum, sequi quasi dolor labore commodi magnam hic facilis perferendis soluta atque ad totam animi vero dolorum.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-xs-12">
+                        <div class="box">
+                            <div class="box-icon">
+                                <img src="img/icon/collaboration.svg" />
+                            </div>
+                            <div class="box-title text-center">
+                                <h4>Meet people!</h4>
+                            </div>
+                            <div class="box-desc">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit voluptas possimus laborum molestias, ut magni recusandae suscipit amet. Debitis voluptas a.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="register-now" class="valign-wrapper">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <h2>Now, register and see our campaigns!</h2>
+                        <a class="btn btn-special" href="#">Register Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="main-page-footer">
+        <div class="container">
+            <!-- menü -->
+            <div class="col-xs-6 col-md-3">
+                <h3>About Us</h3>
+                <ul class="list-unstyled list-widget">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <h3>Campaigns</h3>
+                <ul class="list-unstyled list-widget">
+                    <li><a href="#">Türk Hava Yolları</a></li>
+                    <li><a href="#">Pegasus</a></li>
+                    <li><a href="#">Atlas Global</a></li>
+                    <li><a href="#">Anadolu Jet</a></li>
+                    <li><a href="#">Borajet</a></li>
+                    <li><a href="#">SunExpress</a></li>
+                    <li><a href="#">Special Campaigns</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <h3>Popular Countries</h3>
+                <ul class="list-unstyled list-widget">
+                    <li><a href="#">Türkiye</a></li>
+                    <li><a href="#">Kıbrıs</a></li>
+                    <li><a href="#">Almanya</a></li>
+                    <li><a href="#">Fransa</a></li>
+                    <li><a href="#">İsveç</a></li>
+                    <li><a href="#">Danimarka</a></li>
+                    <li><a href="#">Yeni Zelanda</a></li>
+                    <li><a href="#">Azarbeycan</a></li>
+                    <li><a href="#">Amerika</a></li>
+                    <li><a href="#">Malta</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <h3>Popüler Cities</h3>
+                <ul class="list-unstyled list-widget">
+                    <li><a href="#">Ankara</a></li>
+                    <li><a href="#">Bursa</a></li>
+                    <li><a href="#">İzmir</a></li>
+                    <li><a href="#">İstanbul</a></li>
+                    <li><a href="#">Bartın</a></li>
+                    <li><a href="#">Osmaniye</a></li>
+                    <li><a href="#">Ordu</a></li>
+                    <li><a href="#">Trabzon</a></li>
+                </ul>
+            </div>
+            <!-- menü -->
+            <!-- social -->
+            <div class="col-xs-12 social-area text-center">
+                <ul class="list-inline list-social">
+                    <li>
+                        <a href="#">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x" style="color: transparent; border: 1px solid #fff; border-radius: 50%;"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x" style="color: transparent; border: 1px solid #fff; border-radius: 50%;"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x" style="color: transparent; border: 1px solid #fff; border-radius: 50%;"></i>
+                                <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x" style="color: transparent; border: 1px solid #fff; border-radius: 50%;"></i>
+                                <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x" style="color: transparent; border: 1px solid #fff; border-radius: 50%;"></i>
+                                <i class="fa fa-youtube fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- social -->
+            <!-- last words -->
+            <div class="col-xs-12 col-md-5">
+                <p style="display: inline-block; font-size: 0.75em; color: #aaa;"><img style="display: inline-block; float:left; margin-right: 10px;" src="img/icon-iata.png" /><span style="margin-top:3px">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est fugiat, esse odit itaque aperiam, mollitia voluptatem expedita cumque sapiente dolore similique inventore, repudiandae atque. Iste omnis iure incidunt excepturi impedit!</span></p>
+            </div>
+            <div class="col-xs-12 col-md-2 text-center" style="margin: 20px 0;">
+                <img src="img/app-google-play.png" />
+            </div>
+            <div class="col-xs-12 col-md-5">
+                <p style="display: inline-block; font-size: 0.75em; color: #aaa; text-align: right"><img style="display: inline-block; float:right; margin-left: 10px;" src="img/icon-tursab.png" /><span style="margin-top:3px">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci iusto id ullam dignissimos ratione beatae, harum officiis vel aspernatur, eius dolorem dolore dolores delectus repudiandae. Cumque optio expedita veritatis maxime.</span></p>
+            </div>
+            <!-- last words -->
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+    <script src="~/themes/AirlineTickets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/themes/AirlineTickets/js/moment.min.js"></script>
+    <script src="~/themes/AirlineTickets/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/themes/AirlineTickets/js/bootstrap-spinner.js"></script>
+    <script src="~/themes/AirlineTickets/js/jquery.easy-autocomplete.min.js"></script>
+    <script src="~/themes/AirlineTickets/js/main.js"></script>
+    <script>
+        $(function () {
+            $('#gidis-tarihi').datetimepicker({
+                format: 'DD MMMM YYYY'
+            });
+            $('#donus-tarihi').datetimepicker({
+                useCurrent: false, //Important! See issue #1075
+                format: 'DD MMMM YYYY'
+            });
+            $("#gidis-tarihi").on("dp.change", function (e) {
+                $('#donus-tarihi').data("DateTimePicker").minDate(e.date);
+            });
+            $("#donus-tarihi").on("dp.change", function (e) {
+                $('#gidis-tarihi').data("DateTimePicker").maxDate(e.date);
+            });
+
+            var options = {
+                url: "data/airports.json",
+
+                getValue: "name",
+
+                list: {
+                    match: {
+                        enabled: true
+                    },
+                    showAnimation: {
+                        type: "fade", //normal|slide|fade
+                        time: 400,
+                        callback: function () { }
+                    },
+                    hideAnimation: {
+                        type: "slide", //normal|slide|fade
+                        time: 400,
+                        callback: function () { }
+                    }
+                }
+            };
+            $("#kalkis-yeri, #inis-yeri").easyAutocomplete(options);
+        });
+    </script>
+    <script>
+            window.simplGlobalSetting = {};
+            window.simplGlobalSetting.lang = '@CultureInfo.CurrentCulture.Name';
+    </script>
+    <script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
+    <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
+    @if (CultureInfo.CurrentCulture.Name == "vi-VN")
+    {
+        <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/vi-vn.js"></script>
+    }
+    <script simpl-append-version="true" src="~/modules/core/main.js"></script>
+    <script simpl-append-version="true" src="~/modules/orders/add-to-cart.js"></script>
+    <script simpl-append-version="true" src="~/modules/product-comparison/product-comparison.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>
