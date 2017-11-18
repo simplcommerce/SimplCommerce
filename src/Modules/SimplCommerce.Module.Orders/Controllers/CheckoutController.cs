@@ -14,21 +14,21 @@ namespace SimplCommerce.Module.Orders.Controllers
     [Authorize]
     public class CheckoutController : Controller
     {
-        private readonly IRepository<District> _districtRepository;
         private readonly IOrderService _orderService;
+        private readonly IRepository<Country> _countryRepository;
         private readonly IRepository<StateOrProvince> _stateOrProvinceRepository;
         private readonly IRepository<UserAddress> _userAddressRepository;
         private readonly IWorkContext _workContext;
 
         public CheckoutController(
             IRepository<StateOrProvince> stateOrProvinceRepository,
-            IRepository<District> districtRepository,
+            IRepository<Country> countryRepository,
             IRepository<UserAddress> userAddressRepository,
             IOrderService orderService,
             IWorkContext workContext)
         {
             _stateOrProvinceRepository = stateOrProvinceRepository;
-            _districtRepository = districtRepository;
+            _countryRepository = countryRepository;
             _userAddressRepository = userAddressRepository;
             _orderService = orderService;
             _workContext = workContext;
@@ -62,8 +62,8 @@ namespace SimplCommerce.Module.Orders.Controllers
 
             model.ShippingAddressId = currentUser.DefaultShippingAddressId ?? 0;
 
-            model.NewAddressForm.StateOrProvinces = _stateOrProvinceRepository
-                .Query()
+            model.NewAddressForm.ShipableContries = _countryRepository.Query()
+                .Where(x => x.IsShippingEnabled)
                 .OrderBy(x => x.Name)
                 .Select(x => new SelectListItem
                 {
@@ -71,17 +71,19 @@ namespace SimplCommerce.Module.Orders.Controllers
                     Value = x.Id.ToString()
                 }).ToList();
 
-            var selectedStateOrProvince = long.Parse(model.NewAddressForm.StateOrProvinces.First().Value);
-
-            model.NewAddressForm.Districts = _districtRepository
+            if(model.NewAddressForm.ShipableContries.Count == 1)
+            {
+                var onlyShipableCountryId = long.Parse(model.NewAddressForm.ShipableContries.First().Value);
+                model.NewAddressForm.StateOrProvinces = _stateOrProvinceRepository
                 .Query()
-                .Where(x => x.StateOrProvinceId == selectedStateOrProvince)
+                .Where(x => x.CountryId == onlyShipableCountryId)
                 .OrderBy(x => x.Name)
                 .Select(x => new SelectListItem
                 {
                     Text = x.Name,
                     Value = x.Id.ToString()
                 }).ToList();
+            }
 
             return View(model);
         }
@@ -104,7 +106,7 @@ namespace SimplCommerce.Module.Orders.Controllers
                 {
                     AddressLine1 = model.NewAddressForm.AddressLine1,
                     ContactName = model.NewAddressForm.ContactName,
-                    CountryId = 1,
+                    CountryId = model.NewAddressForm.CountryId,
                     StateOrProvinceId = model.NewAddressForm.StateOrProvinceId,
                     DistrictId = model.NewAddressForm.DistrictId,
                     Phone = model.NewAddressForm.Phone
