@@ -105,10 +105,13 @@ namespace SimplCommerce.Module.Orders.Controllers
                 var address = new Address
                 {
                     AddressLine1 = model.NewAddressForm.AddressLine1,
+                    AddressLine2 = model.NewAddressForm.AddressLine2,
                     ContactName = model.NewAddressForm.ContactName,
                     CountryId = model.NewAddressForm.CountryId,
                     StateOrProvinceId = model.NewAddressForm.StateOrProvinceId,
                     DistrictId = model.NewAddressForm.DistrictId,
+                    City = model.NewAddressForm.City,
+                    PostalCode = model.NewAddressForm.PostalCode,
                     Phone = model.NewAddressForm.Phone
                 };
 

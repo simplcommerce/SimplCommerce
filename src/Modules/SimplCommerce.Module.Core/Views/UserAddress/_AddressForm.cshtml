@@ -1,18 +1,6 @@
 ﻿@model SimplCommerce.Module.Core.ViewModels.UserAddressFormViewModel
 
 <div class="form-group">
-    <label class="col-sm-2 control-label">@Localizer["Contact name"]</label>
-    <div class="col-sm-10">
-        <input asp-for="ContactName" type="text" class="form-control">
-    </div>
-</div>
-<div class="form-group">
-    <label class="col-sm-2 control-label">@Localizer["Address"]</label>
-    <div class="col-sm-10">
-        <input asp-for="AddressLine1" type="text" class="form-control">
-    </div>
-</div>
-<div class="form-group">
     <label class="col-sm-2 control-label">@Localizer["Country"]</label>
     <div class="col-sm-10">
         <select asp-for="CountryId" asp-items="Model.Countries" class="form-control"></select>
@@ -30,8 +18,38 @@
     <label class="col-sm-2 control-label">@Localizer["District"]</label>
     <div class="col-sm-10">
         <select asp-for="DistrictId" asp-items="Model.Districts" class="form-control">
-            <option value="">@Localizer["Choose one"]</option>
+            <option value=""></option>
         </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">@Localizer["City"]</label>
+    <div class="col-sm-10">
+        <input asp-for="City" type="text" class="form-control">
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">@Localizer["Postal Code"]</label>
+    <div class="col-sm-10">
+        <input asp-for="PostalCode" type="text" class="form-control">
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">@Localizer["Address"]</label>
+    <div class="col-sm-10">
+        <input asp-for="AddressLine1" type="text" class="form-control">
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">@Localizer["Address Line 2"]</label>
+    <div class="col-sm-10">
+        <input asp-for="AddressLine2" type="text" class="form-control">
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">@Localizer["Contact name"]</label>
+    <div class="col-sm-10">
+        <input asp-for="ContactName" type="text" class="form-control">
     </div>
 </div>
 <div class="form-group">

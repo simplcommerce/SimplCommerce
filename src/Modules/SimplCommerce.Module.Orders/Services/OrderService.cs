@@ -56,20 +56,26 @@ namespace SimplCommerce.Module.Orders.Services
             var orderBillingAddress = new OrderAddress()
             {
                 AddressLine1 = billingAddress.AddressLine1,
+                AddressLine2 = billingAddress.AddressLine2,
                 ContactName = billingAddress.ContactName,
                 CountryId = billingAddress.CountryId,
                 StateOrProvinceId = billingAddress.StateOrProvinceId,
                 DistrictId = billingAddress.DistrictId,
+                City = billingAddress.City,
+                PostalCode = billingAddress.PostalCode,
                 Phone = billingAddress.Phone
             };
 
             var orderShippingAddress = new OrderAddress()
             {
                 AddressLine1 = shippingAddress.AddressLine1,
+                AddressLine2 = shippingAddress.AddressLine2,
                 ContactName = shippingAddress.ContactName,
                 CountryId = shippingAddress.CountryId,
                 StateOrProvinceId = shippingAddress.StateOrProvinceId,
                 DistrictId = shippingAddress.DistrictId,
+                City = shippingAddress.City,
+                PostalCode = shippingAddress.PostalCode,
                 Phone = shippingAddress.Phone
             };
 
