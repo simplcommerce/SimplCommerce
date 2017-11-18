@@ -18,20 +18,5 @@
 
 @section scripts {
 @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-<script>
-    $(function () {
-         $('#StateOrProvinceId').on('change', function () {
-            var selectedStateOrProvinceId = this.value;
-
-            $.getJSON("/Location/GetDistricts/" + selectedStateOrProvinceId, function (data) {
-                var $districtSelect = $("#DistrictId");
-                $districtSelect.empty();
-
-                $.each(data, function (index, option) {
-                    $districtSelect.append($("<option></option>").attr("value", option.value).text(option.text));
-                });
-            });
-        });
-    });
-</script>
+<script src="~/modules/core/user-address.js"></script>
 }

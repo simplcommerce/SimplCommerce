@@ -40,15 +40,25 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-sm-4 control-label">@Localizer["Country"]</label>
+                    <div class="col-sm-8">
+                        <select asp-for="NewAddressForm.CountryId" asp-items="Model.NewAddressForm.ShipableContries" class="form-control"></select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-sm-4 control-label">@Localizer["State or Province"]</label>
                     <div class="col-sm-8">
-                        <select asp-for="NewAddressForm.StateOrProvinceId" asp-items="Model.NewAddressForm.StateOrProvinces" class="form-control"></select>
+                        <select asp-for="NewAddressForm.StateOrProvinceId" asp-items="Model.NewAddressForm.StateOrProvinces" class="form-control">
+                            <option value="">@Localizer["Choose one"]</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-4 control-label">@Localizer["District"]</label>
                     <div class="col-sm-8">
-                        <select asp-for="NewAddressForm.DistrictId" asp-items="Model.NewAddressForm.Districts" class="form-control"></select>
+                        <select asp-for="NewAddressForm.DistrictId" asp-items="Model.NewAddressForm.Districts" class="form-control">
+                            <option value="">@Localizer["Choose one"]</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">

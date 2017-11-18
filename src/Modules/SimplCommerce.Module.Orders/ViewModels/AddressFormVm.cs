@@ -19,8 +19,12 @@ namespace SimplCommerce.Module.Orders.ViewModels
 
         public long DistrictId { get; set; }
 
+        public long CountryId { get; set; }
+
         public IList<SelectListItem> StateOrProvinces { get; set; }
 
         public IList<SelectListItem> Districts { get; set; }
+
+        public IList<SelectListItem> ShipableContries { get; set; }
     }
 }
