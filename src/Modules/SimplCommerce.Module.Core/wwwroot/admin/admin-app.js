@@ -26,7 +26,8 @@
         'simplAdmin.contacts',
         'simplAdmin.pricing',
         'simplAdmin.tax',
-        'simplAdmin.shippings'
+        'simplAdmin.shippings',
+        'simplAdmin.shipping-tablerate'
     ]);
 
     toastr.options.closeButton = true;
