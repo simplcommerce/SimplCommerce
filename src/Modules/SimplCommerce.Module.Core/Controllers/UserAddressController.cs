@@ -81,10 +81,13 @@ namespace SimplCommerce.Module.Core.Controllers
                 var address = new Address
                 {
                     AddressLine1 = model.AddressLine1,
+                    AddressLine2 = model.AddressLine2,
                     ContactName = model.ContactName,
                     CountryId = model.CountryId,
                     StateOrProvinceId = model.StateOrProvinceId,
                     DistrictId = model.DistrictId,
+                    City = model.City,
+                    PostalCode = model.PostalCode,
                     Phone = model.Phone
                 };
 
@@ -124,9 +127,12 @@ namespace SimplCommerce.Module.Core.Controllers
                 ContactName = userAddress.Address.ContactName,
                 Phone = userAddress.Address.Phone,
                 AddressLine1 = userAddress.Address.AddressLine1,
+                AddressLine2 = userAddress.Address.AddressLine2,
                 CountryId = userAddress.Address.CountryId,
                 DistrictId = userAddress.Address.DistrictId,
-                StateOrProvinceId = userAddress.Address.StateOrProvinceId
+                StateOrProvinceId = userAddress.Address.StateOrProvinceId,
+                City = userAddress.Address.City,
+                PostalCode = userAddress.Address.PostalCode
             };
 
             PopulateAddressFormData(model);
@@ -152,10 +158,13 @@ namespace SimplCommerce.Module.Core.Controllers
                 }
 
                 userAddress.Address.AddressLine1 = model.AddressLine1;
+                userAddress.Address.AddressLine2 = model.AddressLine2;
                 userAddress.Address.ContactName = model.ContactName;
                 userAddress.Address.CountryId = model.CountryId;
                 userAddress.Address.StateOrProvinceId = model.StateOrProvinceId;
                 userAddress.Address.DistrictId = model.DistrictId;
+                userAddress.Address.City = model.City;
+                userAddress.Address.PostalCode = model.PostalCode;
                 userAddress.Address.Phone = model.Phone;
 
                 _userAddressRepository.SaveChanges();
@@ -220,19 +229,16 @@ namespace SimplCommerce.Module.Core.Controllers
                     Value = x.Id.ToString()
                 }).ToList();
 
-            if(model.Countries.Count == 1 || model.CountryId > 0 )
-            {
-                var onlyShipableCountryId = model.CountryId > 0 ? model.CountryId : long.Parse(model.Countries.First().Value);
-                model.StateOrProvinces = _stateOrProvinceRepository
-                    .Query()
-                    .Where(x => x.CountryId == onlyShipableCountryId)
-                    .OrderBy(x => x.Name)
-                    .Select(x => new SelectListItem
-                    {
-                        Text = x.Name,
-                        Value = x.Id.ToString()
-                    }).ToList();
-            }
+            var onlyShipableCountryId = model.CountryId > 0 ? model.CountryId : long.Parse(model.Countries.First().Value);
+            model.StateOrProvinces = _stateOrProvinceRepository
+                .Query()
+                .Where(x => x.CountryId == onlyShipableCountryId)
+                .OrderBy(x => x.Name)
+                .Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }).ToList();
 
             if(model.StateOrProvinceId > 0)
             {
