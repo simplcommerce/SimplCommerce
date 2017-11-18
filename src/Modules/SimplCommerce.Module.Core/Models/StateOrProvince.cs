@@ -6,7 +6,11 @@ namespace SimplCommerce.Module.Core.Models
     {
         public long CountryId { get; set; }
 
-        public virtual Country Country { get; set; }
+        public Country Country { get; set; }
+
+        public string CountryCode { get; set; }
+
+        public string Code { get; set; }
 
         public string Name { get; set; }
 

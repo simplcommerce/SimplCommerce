@@ -69,76 +69,320 @@ INSERT [dbo].[Catalog_ProductOption] ([Id], [Name]) VALUES (2, N'Size')
 SET IDENTITY_INSERT [dbo].[Catalog_ProductOption] OFF
 GO
 
-SET IDENTITY_INSERT Core_Country ON 
-INSERT INTO Core_Country ([Id], [Name], [IsBillingEnabled], [IsShippingEnabled]) VALUES (1, N'Việt Nam', 1, 1)
-SET IDENTITY_INSERT Core_Country OFF 
+SET IDENTITY_INSERT [dbo].[Core_Country] ON 
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (1, N'Afghanistan', N'AF', N'AFG', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (2, N'Albania', N'AL', N'ALB', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (3, N'Algeria', N'DZ', N'DZA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (4, N'American Samoa', N'AS', N'ASM', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (5, N'Andorra', N'AD', N'AND', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (6, N'Angola', N'AO', N'AGO', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (7, N'Anguilla', N'AI', N'AIA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (8, N'Antarctica', N'AQ', N'ATA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (9, N'Antigua &amp; Barbuda', N'AG', N'ATG', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (10, N'Argentina', N'AR', N'ARG', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (11, N'Armenia', N'AM', N'ARM', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (12, N'Aruba', N'AW', N'ABW', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (13, N'Australia', N'AU', N'AUS', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (14, N'Austria', N'AT', N'AUT', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (15, N'Azerbaijan', N'AZ', N'AZE', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (16, N'Bahamas', N'BS', N'BHS', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (17, N'Bahrain', N'BH', N'BHR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (18, N'Bangladesh', N'BD', N'BGD', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (19, N'Barbados', N'BB', N'BRB', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (20, N'Belarus', N'BY', N'BLR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (21, N'Belgium', N'BE', N'BEL', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (22, N'Belize', N'BZ', N'BLZ', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (23, N'Benin', N'BJ', N'BEN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (24, N'Bermuda', N'BM', N'BMU', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (25, N'Bhutan', N'BT', N'BTN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (26, N'Bolivia', N'BO', N'BOL', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (27, N'Bosnia &amp; Herzegovina', N'BA', N'BIH', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (28, N'Botswana', N'BW', N'BWA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (29, N'Bouvet Island', N'BV', N'BVT', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (30, N'Brazil', N'BR', N'BRA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (31, N'British Indian Ocean Territory', N'IO', N'IOT', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (32, N'British Virgin Islands', N'VG', N'VGB', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (33, N'Brunei', N'BN', N'BRN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (34, N'Bulgaria', N'BG', N'BGR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (35, N'Burkina Faso', N'BF', N'BFA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (36, N'Burundi', N'BI', N'BDI', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (37, N'Cambodia', N'KH', N'KHM', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (38, N'Cameroon', N'CM', N'CMR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (39, N'Canada', N'CA', N'CAN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (40, N'Cape Verde', N'CV', N'CPV', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (41, N'Cayman Islands', N'KY', N'CYM', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (42, N'Central African Republic', N'CF', N'CAF', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (43, N'Chad', N'TD', N'TCD', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (44, N'Chile', N'CL', N'CHL', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (45, N'China', N'CN', N'CHN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (46, N'Christmas Island', N'CX', N'CXR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (47, N'Cocos (Keeling) Islands', N'CC', N'CCK', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (48, N'Colombia', N'CO', N'COL', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (49, N'Comoros', N'KM', N'COM', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (50, N'Congo - Brazzaville', N'CG', N'COG', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (51, N'Congo - Kinshasa', N'CD', N'COD', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (52, N'Cook Islands', N'CK', N'COK', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (53, N'Costa Rica', N'CR', N'CRI', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (54, N'Croatia', N'HR', N'HRV', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (55, N'Cuba', N'CU', N'CUB', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (56, N'Cyprus', N'CY', N'CYP', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (57, N'Czech Republic', N'CZ', N'CZE', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (58, N'Côte d’Ivoire', N'CI', N'CIV', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (59, N'Denmark', N'DK', N'DNK', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (60, N'Djibouti', N'DJ', N'DJI', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (61, N'Dominica', N'DM', N'DMA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (62, N'Dominican Republic', N'DO', N'DOM', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (63, N'Ecuador', N'EC', N'ECU', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (64, N'Egypt', N'EG', N'EGY', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (65, N'El Salvador', N'SV', N'SLV', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (66, N'Equatorial Guinea', N'GQ', N'GNQ', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (67, N'Eritrea', N'ER', N'ERI', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (68, N'Estonia', N'EE', N'EST', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (69, N'Ethiopia', N'ET', N'ETH', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (70, N'Falkland Islands', N'FK', N'FLK', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (71, N'Faroe Islands', N'FO', N'FRO', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (72, N'Fiji', N'FJ', N'FJI', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (73, N'Finland', N'FI', N'FIN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (74, N'France', N'FR', N'FRA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (75, N'French Guiana', N'GF', N'GUF', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (76, N'French Polynesia', N'PF', N'PYF', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (77, N'French Southern Territories', N'TF', N'ATF', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (78, N'Gabon', N'GA', N'GAB', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (79, N'Gambia', N'GM', N'GMB', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (80, N'Georgia', N'GE', N'GEO', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (81, N'Germany', N'DE', N'DEU', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (82, N'Ghana', N'GH', N'GHA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (83, N'Gibraltar', N'GI', N'GIB', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (84, N'Greece', N'GR', N'GRC', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (85, N'Greenland', N'GL', N'GRL', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (86, N'Grenada', N'GD', N'GRD', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (87, N'Guadeloupe', N'GP', N'GLP', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (88, N'Guam', N'GU', N'GUM', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (89, N'Guatemala', N'GT', N'GTM', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (90, N'Guernsey', N'GG', N'GGY', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (91, N'Guinea', N'GN', N'GIN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (92, N'Guinea-Bissau', N'GW', N'GNB', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (93, N'Guyana', N'GY', N'GUY', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (94, N'Haiti', N'HT', N'HTI', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (95, N'Heard &amp; McDonald Islands', N'HM', N'HMD', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (96, N'Honduras', N'HN', N'HND', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (97, N'Hong Kong SAR China', N'HK', N'HKG', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (98, N'Hungary', N'HU', N'HUN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (99, N'Iceland', N'IS', N'ISL', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (100, N'India', N'IN', N'IND', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (101, N'Indonesia', N'ID', N'IDN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (102, N'Iran', N'IR', N'IRN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (103, N'Iraq', N'IQ', N'IRQ', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (104, N'Ireland', N'IE', N'IRL', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (105, N'Isle of Man', N'IM', N'IMN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (106, N'Israel', N'IL', N'ISR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (107, N'Italy', N'IT', N'ITA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (108, N'Jamaica', N'JM', N'JAM', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (109, N'Japan', N'JP', N'JPN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (110, N'Jersey', N'JE', N'JEY', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (111, N'Jordan', N'JO', N'JOR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (112, N'Kazakhstan', N'KZ', N'KAZ', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (113, N'Kenya', N'KE', N'KEN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (114, N'Kiribati', N'KI', N'KIR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (115, N'Kuwait', N'KW', N'KWT', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (116, N'Kyrgyzstan', N'KG', N'KGZ', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (117, N'Laos', N'LA', N'LAO', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (118, N'Latvia', N'LV', N'LVA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (119, N'Lebanon', N'LB', N'LBN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (120, N'Lesotho', N'LS', N'LSO', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (121, N'Liberia', N'LR', N'LBR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (122, N'Libya', N'LY', N'LBY', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (123, N'Liechtenstein', N'LI', N'LIE', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (124, N'Lithuania', N'LT', N'LTU', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (125, N'Luxembourg', N'LU', N'LUX', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (126, N'Macau SAR China', N'MO', N'MAC', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (127, N'Macedonia', N'MK', N'MKD', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (128, N'Madagascar', N'MG', N'MDG', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (129, N'Malawi', N'MW', N'MWI', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (130, N'Malaysia', N'MY', N'MYS', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (131, N'Maldives', N'MV', N'MDV', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (132, N'Mali', N'ML', N'MLI', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (133, N'Malta', N'MT', N'MLT', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (134, N'Marshall Islands', N'MH', N'MHL', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (135, N'Martinique', N'MQ', N'MTQ', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (136, N'Mauritania', N'MR', N'MRT', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (137, N'Mauritius', N'MU', N'MUS', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (138, N'Mayotte', N'YT', N'MYT', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (139, N'Mexico', N'MX', N'MEX', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (140, N'Micronesia', N'FM', N'FSM', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (141, N'Moldova', N'MD', N'MDA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (142, N'Monaco', N'MC', N'MCO', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (143, N'Mongolia', N'MN', N'MNG', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (144, N'Montenegro', N'ME', N'MNE', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (145, N'Montserrat', N'MS', N'MSR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (146, N'Morocco', N'MA', N'MAR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (147, N'Mozambique', N'MZ', N'MOZ', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (148, N'Myanmar (Burma)', N'MM', N'MMR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (149, N'Namibia', N'NA', N'NAM', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (150, N'Nauru', N'NR', N'NRU', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (151, N'Nepal', N'NP', N'NPL', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (152, N'Netherlands', N'NL', N'NLD', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (153, N'New Caledonia', N'NC', N'NCL', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (154, N'New Zealand', N'NZ', N'NZL', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (155, N'Nicaragua', N'NI', N'NIC', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (156, N'Niger', N'NE', N'NER', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (157, N'Nigeria', N'NG', N'NGA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (158, N'Niue', N'NU', N'NIU', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (159, N'Norfolk Island', N'NF', N'NFK', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (160, N'North Korea', N'KP', N'PRK', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (161, N'Northern Mariana Islands', N'MP', N'MNP', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (162, N'Norway', N'NO', N'NOR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (163, N'Oman', N'OM', N'OMN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (164, N'Pakistan', N'PK', N'PAK', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (165, N'Palau', N'PW', N'PLW', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (166, N'Palestinian Territories', N'PS', N'PSE', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (167, N'Panama', N'PA', N'PAN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (168, N'Papua New Guinea', N'PG', N'PNG', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (169, N'Paraguay', N'PY', N'PRY', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (170, N'Peru', N'PE', N'PER', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (171, N'Philippines', N'PH', N'PHL', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (172, N'Pitcairn Islands', N'PN', N'PCN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (173, N'Poland', N'PL', N'POL', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (174, N'Portugal', N'PT', N'PRT', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (175, N'Qatar', N'QA', N'QAT', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (176, N'Romania', N'RO', N'ROU', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (177, N'Russia', N'RU', N'RUS', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (178, N'Rwanda', N'RW', N'RWA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (179, N'Réunion', N'RE', N'REU', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (180, N'Samoa', N'WS', N'WSM', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (181, N'San Marino', N'SM', N'SMR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (182, N'Saudi Arabia', N'SA', N'SAU', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (183, N'Senegal', N'SN', N'SEN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (184, N'Serbia', N'RS', N'SRB', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (185, N'Seychelles', N'SC', N'SYC', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (186, N'Sierra Leone', N'SL', N'SLE', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (187, N'Singapore', N'SG', N'SGP', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (188, N'Slovakia', N'SK', N'SVK', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (189, N'Slovenia', N'SI', N'SVN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (190, N'Solomon Islands', N'SB', N'SLB', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (191, N'Somalia', N'SO', N'SOM', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (192, N'South Africa', N'ZA', N'ZAF', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (193, N'South Georgia &amp; South Sandwich Islands', N'GS', N'SGS', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (194, N'South Korea', N'KR', N'KOR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (195, N'Spain', N'ES', N'ESP', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (196, N'Sri Lanka', N'LK', N'LKA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (197, N'St. Barthélemy', N'BL', N'BLM', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (198, N'St. Helena', N'SH', N'SHN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (199, N'St. Kitts &amp; Nevis', N'KN', N'KNA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (200, N'St. Lucia', N'LC', N'LCA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (201, N'St. Martin', N'MF', N'MAF', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (202, N'St. Pierre &amp; Miquelon', N'PM', N'SPM', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (203, N'St. Vincent &amp; Grenadines', N'VC', N'VCT', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (204, N'Sudan', N'SD', N'SDN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (205, N'Suriname', N'SR', N'SUR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (206, N'Svalbard &amp; Jan Mayen', N'SJ', N'SJM', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (207, N'Swaziland', N'SZ', N'SWZ', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (208, N'Sweden', N'SE', N'SWE', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (209, N'Switzerland', N'CH', N'CHE', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (210, N'Syria', N'SY', N'SYR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (211, N'São Tomé &amp; Príncipe', N'ST', N'STP', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (212, N'Taiwan', N'TW', N'TWN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (213, N'Tajikistan', N'TJ', N'TJK', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (214, N'Tanzania', N'TZ', N'TZA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (215, N'Thailand', N'TH', N'THA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (216, N'Timor-Leste', N'TL', N'TLS', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (217, N'Togo', N'TG', N'TGO', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (218, N'Tokelau', N'TK', N'TKL', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (219, N'Tonga', N'TO', N'TON', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (220, N'Trinidad &amp; Tobago', N'TT', N'TTO', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (221, N'Tunisia', N'TN', N'TUN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (222, N'Turkey', N'TR', N'TUR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (223, N'Turkmenistan', N'TM', N'TKM', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (224, N'Turks &amp; Caicos Islands', N'TC', N'TCA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (225, N'Tuvalu', N'TV', N'TUV', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (226, N'U.S. Outlying Islands', N'UM', N'UMI', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (227, N'U.S. Virgin Islands', N'VI', N'VIR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (228, N'Uganda', N'UG', N'UGA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (229, N'Ukraine', N'UA', N'UKR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (230, N'United Arab Emirates', N'AE', N'ARE', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (231, N'United Kingdom', N'GB', N'GBR', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (232, N'United States', N'US', N'USA', 1, 1)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (233, N'Uruguay', N'UY', N'URY', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (234, N'Uzbekistan', N'UZ', N'UZB', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (235, N'Vanuatu', N'VU', N'VUT', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (236, N'Vatican City', N'VA', N'VAT', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (237, N'Venezuela', N'VE', N'VEN', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (238, N'Vietnam', N'VN', N'VNM', 1, 1)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (239, N'Wallis &amp; Futuna', N'WF', N'WLF', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (240, N'Western Sahara', N'EH', N'ESH', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (241, N'Yemen', N'YE', N'YEM', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (242, N'Zambia', N'ZM', N'ZMB', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (243, N'Zimbabwe', N'ZW', N'ZWE', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (244, N'Åland Islands', N'AX', N'ALA', 0, 0)
+INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (245, N'Netherlands Antilles', N'AN', N'ANT', 0, 0)
+SET IDENTITY_INSERT [dbo].[Core_Country] OFF
 GO
 
 SET IDENTITY_INSERT Core_StateOrProvince ON 
 INSERT INTO Core_StateOrProvince ([Id], [CountryId], [Name], [Type]) VALUES
-(1, 1, N'Hà Nội', N'Thành Phố'),
-(2, 1, N'Hà Giang', N'Tỉnh'),
-(4, 1, N'Cao Bằng', N'Tỉnh'),
-(6, 1, N'Bắc Kạn', N'Tỉnh'),
-(8, 1, N'Tuyên Quang', N'Tỉnh'),
-(10, 1, N'Lào Cai', N'Tỉnh'),
-(11, 1, N'Điện Biên', N'Tỉnh'),
-(12, 1, N'Lai Châu', N'Tỉnh'),
-(14, 1, N'Sơn La', N'Tỉnh'),
-(15, 1, N'Yên Bái', N'Tỉnh'),
-(17, 1, N'Hòa Bình', N'Tỉnh'),
-(19, 1, N'Thái Nguyên', N'Tỉnh'),
-(20, 1, N'Lạng Sơn', N'Tỉnh'),
-(22, 1, N'Quảng Ninh', N'Tỉnh'),
-(24, 1, N'Bắc Giang', N'Tỉnh'),
-(25, 1, N'Phú Thọ', N'Tỉnh'),
-(26, 1, N'Vĩnh Phúc', N'Tỉnh'),
-(27, 1, N'Bắc Ninh', N'Tỉnh'),
-(30, 1, N'Hải Dương', N'Tỉnh'),
-(31, 1, N'Hải Phòng', N'Thành Phố'),
-(33, 1, N'Hưng Yên', N'Tỉnh'),
-(34, 1, N'Thái Bình', N'Tỉnh'),
-(35, 1, N'Hà Nam', N'Tỉnh'),
-(36, 1, N'Nam Định', N'Tỉnh'),
-(37, 1, N'Ninh Bình', N'Tỉnh'),
-(38, 1, N'Thanh Hóa', N'Tỉnh'),
-(40, 1, N'Nghệ An', N'Tỉnh'),
-(42, 1, N'Hà Tĩnh', N'Tỉnh'),
-(44, 1, N'Quảng Bình', N'Tỉnh'),
-(45, 1, N'Quảng Trị', N'Tỉnh'),
-(46, 1, N'Thừa Thiên Huế', N'Tỉnh'),
-(48, 1, N'Đà Nẵng', N'Thành Phố'),
-(49, 1, N'Quảng Nam', N'Tỉnh'),
-(51, 1, N'Quảng Ngãi', N'Tỉnh'),
-(52, 1, N'Bình Định', N'Tỉnh'),
-(54, 1, N'Phú Yên', N'Tỉnh'),
-(56, 1, N'Khánh Hòa', N'Tỉnh'),
-(58, 1, N'Ninh Thuận', N'Tỉnh'),
-(60, 1, N'Bình Thuận', N'Tỉnh'),
-(62, 1, N'Kon Tum', N'Tỉnh'),
-(64, 1, N'Gia Lai', N'Tỉnh'),
-(66, 1, N'Đắk Lắk', N'Tỉnh'),
-(67, 1, N'Đắk Nông', N'Tỉnh'),
-(68, 1, N'Lâm Đồng', N'Tỉnh'),
-(70, 1, N'Bình Phước', N'Tỉnh'),
-(72, 1, N'Tây Ninh', N'Tỉnh'),
-(74, 1, N'Bình Dương', N'Tỉnh'),
-(75, 1, N'Đồng Nai', N'Tỉnh'),
-(77, 1, N'Bà Rịa - Vũng Tàu', N'Tỉnh'),
-(79, 1, N'Hồ Chí Minh', N'Thành Phố'),
-(80, 1, N'Long An', N'Tỉnh'),
-(82, 1, N'Tiền Giang', N'Tỉnh'),
-(83, 1, N'Bến Tre', N'Tỉnh'),
-(84, 1, N'Trà Vinh', N'Tỉnh'),
-(86, 1, N'Vĩnh Long', N'Tỉnh'),
-(87, 1, N'Đồng Tháp', N'Tỉnh'),
-(89, 1, N'An Giang', N'Tỉnh'),
-(91, 1, N'Kiên Giang', N'Tỉnh'),
-(92, 1, N'Cần Thơ', N'Thành Phố'),
-(93, 1, N'Hậu Giang', N'Tỉnh'),
-(94, 1, N'Sóc Trăng', N'Tỉnh'),
-(95, 1, N'Bạc Liêu', N'Tỉnh'),
-(96, 1, N'Cà Mau', N'Tỉnh');
+(1, 238, N'Hà Nội', N'Thành Phố'),
+(2, 238, N'Hà Giang', N'Tỉnh'),
+(4, 238, N'Cao Bằng', N'Tỉnh'),
+(6, 238, N'Bắc Kạn', N'Tỉnh'),
+(8, 238, N'Tuyên Quang', N'Tỉnh'),
+(10, 238, N'Lào Cai', N'Tỉnh'),
+(11, 238, N'Điện Biên', N'Tỉnh'),
+(12, 238, N'Lai Châu', N'Tỉnh'),
+(14, 238, N'Sơn La', N'Tỉnh'),
+(15, 238, N'Yên Bái', N'Tỉnh'),
+(17, 238, N'Hòa Bình', N'Tỉnh'),
+(19, 238, N'Thái Nguyên', N'Tỉnh'),
+(20, 238, N'Lạng Sơn', N'Tỉnh'),
+(22, 238, N'Quảng Ninh', N'Tỉnh'),
+(24, 238, N'Bắc Giang', N'Tỉnh'),
+(25, 238, N'Phú Thọ', N'Tỉnh'),
+(26, 238, N'Vĩnh Phúc', N'Tỉnh'),
+(27, 238, N'Bắc Ninh', N'Tỉnh'),
+(30, 238, N'Hải Dương', N'Tỉnh'),
+(31, 238, N'Hải Phòng', N'Thành Phố'),
+(33, 238, N'Hưng Yên', N'Tỉnh'),
+(34, 238, N'Thái Bình', N'Tỉnh'),
+(35, 238, N'Hà Nam', N'Tỉnh'),
+(36, 238, N'Nam Định', N'Tỉnh'),
+(37, 238, N'Ninh Bình', N'Tỉnh'),
+(38, 238, N'Thanh Hóa', N'Tỉnh'),
+(40, 238, N'Nghệ An', N'Tỉnh'),
+(42, 238, N'Hà Tĩnh', N'Tỉnh'),
+(44, 238, N'Quảng Bình', N'Tỉnh'),
+(45, 238, N'Quảng Trị', N'Tỉnh'),
+(46, 238, N'Thừa Thiên Huế', N'Tỉnh'),
+(48, 238, N'Đà Nẵng', N'Thành Phố'),
+(49, 238, N'Quảng Nam', N'Tỉnh'),
+(51, 238, N'Quảng Ngãi', N'Tỉnh'),
+(52, 238, N'Bình Định', N'Tỉnh'),
+(54, 238, N'Phú Yên', N'Tỉnh'),
+(56, 238, N'Khánh Hòa', N'Tỉnh'),
+(58, 238, N'Ninh Thuận', N'Tỉnh'),
+(60, 238, N'Bình Thuận', N'Tỉnh'),
+(62, 238, N'Kon Tum', N'Tỉnh'),
+(64, 238, N'Gia Lai', N'Tỉnh'),
+(66, 238, N'Đắk Lắk', N'Tỉnh'),
+(67, 238, N'Đắk Nông', N'Tỉnh'),
+(68, 238, N'Lâm Đồng', N'Tỉnh'),
+(70, 238, N'Bình Phước', N'Tỉnh'),
+(72, 238, N'Tây Ninh', N'Tỉnh'),
+(74, 238, N'Bình Dương', N'Tỉnh'),
+(75, 238, N'Đồng Nai', N'Tỉnh'),
+(77, 238, N'Bà Rịa - Vũng Tàu', N'Tỉnh'),
+(79, 238, N'Hồ Chí Minh', N'Thành Phố'),
+(80, 238, N'Long An', N'Tỉnh'),
+(82, 238, N'Tiền Giang', N'Tỉnh'),
+(83, 238, N'Bến Tre', N'Tỉnh'),
+(84, 238, N'Trà Vinh', N'Tỉnh'),
+(86, 238, N'Vĩnh Long', N'Tỉnh'),
+(87, 238, N'Đồng Tháp', N'Tỉnh'),
+(89, 238, N'An Giang', N'Tỉnh'),
+(91, 238, N'Kiên Giang', N'Tỉnh'),
+(92, 238, N'Cần Thơ', N'Thành Phố'),
+(93, 238, N'Hậu Giang', N'Tỉnh'),
+(94, 238, N'Sóc Trăng', N'Tỉnh'),
+(95, 238, N'Bạc Liêu', N'Tỉnh'),
+(96, 238, N'Cà Mau', N'Tỉnh');
 SET IDENTITY_INSERT Core_StateOrProvince OFF 
 GO
 
@@ -846,7 +1090,7 @@ GO
 
 SET IDENTITY_INSERT [dbo].[Shipping_ShippingProvider] ON 
 INSERT [dbo].[Shipping_ShippingProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [Name], [OnlyCountryIdsString], [OnlyStateOrProvinceIdsString], [ShippingPriceServiceTypeName], [ToAllShippingEnabledCountries], [ToAllShippingEnabledStatesOrProvinces]) VALUES (1, N'{MinimumOrderAmount : 10000000}', N'shipping-free-config', 1, N'Free Ship', NULL, NULL, N'SimplCommerce.Module.ShippingFree.Services.FreeShippingService,SimplCommerce.Module.ShippingFree', 1, 1)
-INSERT [dbo].[Shipping_ShippingProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [Name], [OnlyCountryIdsString], [OnlyStateOrProvinceIdsString], [ShippingPriceServiceTypeName], [ToAllShippingEnabledCountries], [ToAllShippingEnabledStatesOrProvinces]) VALUES (2, NULL, 1, N'shipping-table-rate-config', N'Table Rate', NULL, NULL, N'SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingService,SimplCommerce.Module.ShippingTableRate', 1, 1)
+INSERT [dbo].[Shipping_ShippingProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [Name], [OnlyCountryIdsString], [OnlyStateOrProvinceIdsString], [ShippingPriceServiceTypeName], [ToAllShippingEnabledCountries], [ToAllShippingEnabledStatesOrProvinces]) VALUES (2, NULL, N'shipping-table-rate-config', 1, N'Table Rate', NULL, NULL, N'SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingService,SimplCommerce.Module.ShippingTableRate', 1, 1)
 SET IDENTITY_INSERT [dbo].[Shipping_ShippingProvider] OFF
 GO
 
