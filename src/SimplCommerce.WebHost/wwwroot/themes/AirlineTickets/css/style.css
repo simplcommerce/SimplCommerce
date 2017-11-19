@@ -43,7 +43,6 @@ header {
    top: 0;
    left: 0;
    width: 100%;
-   min-height: 550px;
    background-size: cover;
    background-position: center center;
 }
@@ -117,6 +116,7 @@ section {
 
 #form-coming {
    z-index: 999;
+   padding-bottom: 5px;
 }
 
 #form-coming h2,
