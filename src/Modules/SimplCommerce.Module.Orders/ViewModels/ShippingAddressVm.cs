@@ -14,7 +14,11 @@
 
         public string DistrictName { get; set; }
 
+        public long StateOrProvinceId { get; set; }
+
         public string StateOrProvinceName { get; set; }
+
+        public long CountryId { get; set; }
 
         public string CountryName { get; set; }
     }

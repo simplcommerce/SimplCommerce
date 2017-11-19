@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.ViewModels;
 using SimplCommerce.Module.Core.ViewModels.Manage;
-using Microsoft.EntityFrameworkCore;
 
 namespace SimplCommerce.Module.Core.Components
 {
@@ -29,25 +29,19 @@ namespace SimplCommerce.Module.Core.Components
 
             if (curentUser.DefaultShippingAddressId.HasValue)
             {
-                var userAddress = _userAddressRepository.Query().Include(a => a.Address)
-                    .ThenInclude(x => x.District)
-                    .ThenInclude(x => x.StateOrProvince)
-                    .ThenInclude(x => x.Country)
-                    .First(x => x.Id == curentUser.DefaultShippingAddressId.Value);
-                if (userAddress != null)
-                {
-                    model.Address = new UserAddressListItem
-                    {
-                        UserAddressId = userAddress.Id,
-                        ContactName = userAddress.Address.ContactName,
-                        Phone = userAddress.Address.Phone,
-                        AddressLine1 = userAddress.Address.AddressLine1,
-                        AddressLine2 = userAddress.Address.AddressLine1,
-                        DistrictName = userAddress.Address.District.Name,
-                        StateOrProvinceName = userAddress.Address.StateOrProvince.Name,
-                        CountryName = userAddress.Address.Country.Name
-                    };
-                }
+                model.Address = await _userAddressRepository.Query()
+                    .Where(x => x.Id == curentUser.DefaultShippingAddressId.Value)
+                    .Select(x => new UserAddressListItem {
+                        UserAddressId = x.Id,
+                        ContactName = x.Address.ContactName,
+                        Phone = x.Address.Phone,
+                        AddressLine1 = x.Address.AddressLine1,
+                        AddressLine2 = x.Address.AddressLine2,
+                        DistrictName = x.Address.District.Name,
+                        StateOrProvinceName = x.Address.StateOrProvince.Name,
+                        CountryName = x.Address.Country.Name
+                    })
+                    .FirstOrDefaultAsync();
             }
 
             return View("/Modules/SimplCommerce.Module.Core/Views/Components/DefaultShippingAddress.cshtml", model);

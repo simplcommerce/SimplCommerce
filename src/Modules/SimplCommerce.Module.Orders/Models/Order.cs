@@ -49,6 +49,10 @@ namespace SimplCommerce.Module.Orders.Models
 
         public Order Parent { get; set; }
 
+        public string ShippingMethod { get; set; }
+
+        public decimal ShippingPrice { get; set; }
+
         public IList<Order> Children { get; protected set; } = new List<Order>();
 
         public void AddOrderItem(OrderItem item)

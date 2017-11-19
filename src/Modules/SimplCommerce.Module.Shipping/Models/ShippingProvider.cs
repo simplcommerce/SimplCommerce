@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using SimplCommerce.Infrastructure.Models;
 using System.Linq;
+using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Shipping.Models
 {
@@ -9,6 +9,8 @@ namespace SimplCommerce.Module.Shipping.Models
         public string Name { get; set; }
 
         public bool IsEnabled { get; set; }
+
+        public string ConfigureUrl { get; set; }
 
         public bool ToAllShippingEnabledCountries { get; set; }
 

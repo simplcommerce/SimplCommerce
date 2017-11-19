@@ -17,9 +17,14 @@ namespace SimplCommerce.Module.Core.Controllers
             _countryRepository = countryRepository;
         }
 
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery]bool? shippingEnabled)
         {
-            var countries = await _countryRepository.Query()
+            var query = _countryRepository.Query();
+            if (shippingEnabled.HasValue)
+            {
+                query = query.Where(x => x.IsShippingEnabled == shippingEnabled.Value);
+            }
+            var countries = await query
                 .OrderBy(x => x.Name)
                 .Select(x => new
                 {

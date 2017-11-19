@@ -13,7 +13,11 @@ namespace SimplCommerce.Module.Orders.Models
 
         public string AddressLine2 { get; set; }
 
-        public long DistrictId { get; set; }
+        public string City { get; set; }
+
+        public string PostalCode { get; set; }
+
+        public long? DistrictId { get; set; }
 
         public District District { get; set; }
 

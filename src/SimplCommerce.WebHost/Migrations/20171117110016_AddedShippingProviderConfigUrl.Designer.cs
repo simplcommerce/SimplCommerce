@@ -11,9 +11,10 @@ using System;
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    partial class SimplDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171117110016_AddedShippingProviderConfigUrl")]
+    partial class AddedShippingProviderConfigUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -593,17 +594,13 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("AddressLine2");
 
-                    b.Property<string>("City");
-
                     b.Property<string>("ContactName");
 
                     b.Property<long>("CountryId");
 
-                    b.Property<long?>("DistrictId");
+                    b.Property<long>("DistrictId");
 
                     b.Property<string>("Phone");
-
-                    b.Property<string>("PostalCode");
 
                     b.Property<long>("StateOrProvinceId");
 
@@ -782,10 +779,6 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Code");
-
-                    b.Property<string>("CountryCode");
 
                     b.Property<long>("CountryId");
 
@@ -1271,17 +1264,13 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("AddressLine2");
 
-                    b.Property<string>("City");
-
                     b.Property<string>("ContactName");
 
                     b.Property<long>("CountryId");
 
-                    b.Property<long?>("DistrictId");
+                    b.Property<long>("DistrictId");
 
                     b.Property<string>("Phone");
-
-                    b.Property<string>("PostalCode");
 
                     b.Property<long>("StateOrProvinceId");
 
@@ -1643,21 +1632,15 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<long?>("CountryId");
+                    b.Property<string>("Country");
 
                     b.Property<decimal>("MinOrderSubtotal");
 
-                    b.Property<string>("Note");
-
                     b.Property<decimal>("ShippingPrice");
 
-                    b.Property<long?>("StateOrProvinceId");
+                    b.Property<string>("StateOrProvince");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CountryId");
-
-                    b.HasIndex("StateOrProvinceId");
 
                     b.ToTable("ShippingTableRate_PriceAndDestination");
                 });
@@ -2248,17 +2231,6 @@ namespace SimplCommerce.WebHost.Migrations
                         .WithMany()
                         .HasForeignKey("ShipmentId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.ShippingTableRate.Models.PriceAndDestination", b =>
-                {
-                    b.HasOne("SimplCommerce.Module.Core.Models.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId");
-
-                    b.HasOne("SimplCommerce.Module.Core.Models.StateOrProvince", "StateOrProvince")
-                        .WithMany()
-                        .HasForeignKey("StateOrProvinceId");
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Tax.Models.TaxRate", b =>

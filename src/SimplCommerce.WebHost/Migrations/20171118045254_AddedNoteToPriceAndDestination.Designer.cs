@@ -11,9 +11,10 @@ using System;
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    partial class SimplDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171118045254_AddedNoteToPriceAndDestination")]
+    partial class AddedNoteToPriceAndDestination
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -593,17 +594,13 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("AddressLine2");
 
-                    b.Property<string>("City");
-
                     b.Property<string>("ContactName");
 
                     b.Property<long>("CountryId");
 
-                    b.Property<long?>("DistrictId");
+                    b.Property<long>("DistrictId");
 
                     b.Property<string>("Phone");
-
-                    b.Property<string>("PostalCode");
 
                     b.Property<long>("StateOrProvinceId");
 
@@ -1271,17 +1268,13 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("AddressLine2");
 
-                    b.Property<string>("City");
-
                     b.Property<string>("ContactName");
 
                     b.Property<long>("CountryId");
 
-                    b.Property<long?>("DistrictId");
+                    b.Property<long>("DistrictId");
 
                     b.Property<string>("Phone");
-
-                    b.Property<string>("PostalCode");
 
                     b.Property<long>("StateOrProvinceId");
 

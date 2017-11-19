@@ -28,11 +28,11 @@
     }
     <tr>
         <td>@Localizer["Subtotal"]</td>
-        <td colspan="2" class="text-right">@Model.SubTotal.ToString("C")</td>
+        <td colspan="2" class="text-right">@Model.SubTotal.ToString("C")<input type="hidden" id="orderSubtotal" value="@Model.SubTotal" /></td>
     </tr>
     <tr>
         <td>@Localizer["Shipping"]</td>
-        <td colspan="2" class="text-right shipping-cost">FREE</td>
+        <td colspan="2" id="orderSummaryShipping" class="text-right">FREE</td>
     </tr>
     <tr>
         <td>@Localizer["Discount"]</td>
