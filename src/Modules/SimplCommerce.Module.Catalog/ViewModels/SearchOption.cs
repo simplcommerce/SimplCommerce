@@ -14,6 +14,10 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public string Category { get; set; }
 
+        public string Departure { get; set; }
+
+        public string Return { get; set; }
+
         public int Page { get; set; }
 
         public int PageSize { get; set; }
