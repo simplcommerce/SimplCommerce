@@ -8,15 +8,21 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 {
     public class SearchOption
     {
+        public string Departure { get; set; }
+
+        public string Landing { get; set; }
+
+        public string DepartureDate { get; set; }
+
+        public string ReturnDate { get; set; }
+
+        public string NumberOfPeople { get; set; }
+
         public string Query { get; set; }
 
         public string Brand { get; set; }
 
         public string Category { get; set; }
-
-        public string Departure { get; set; }
-
-        public string Return { get; set; }
 
         public int Page { get; set; }
 

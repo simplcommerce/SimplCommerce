@@ -43,6 +43,19 @@ namespace SimplCommerce.Module.Search.Controllers
         [HttpGet("search")]
         public IActionResult Index(SearchOption searchOption)
         {
+            var query = _productRepository.Query().Where(x =>
+                x.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "Departure").Value == searchOption.Departure &&
+                x.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "Landing").Value == searchOption.Landing &&
+                //x.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "DepartureDate").Value == searchOption.DepartureDate &&
+                x.IsPublished && x.IsVisibleIndividually);
+
+            var model = new SearchResult
+            {
+                CurrentSearchOption = searchOption,
+                FilterOption = new FilterOption()
+            };
+
+            /*
             if (string.IsNullOrWhiteSpace(searchOption.Query))
             {
                 return Redirect("~/");
@@ -60,7 +73,6 @@ namespace SimplCommerce.Module.Search.Controllers
                 FilterOption = new FilterOption()
             };
 
-            var query = _productRepository.Query().Where(x => x.Name.Contains(searchOption.Query) && x.IsPublished && x.IsVisibleIndividually);
 
             model.FilterOption.Price.MaxPrice = query.Select(x => x.Price).DefaultIfEmpty(0).Max();
             model.FilterOption.Price.MinPrice = query.Select(x => x.Price).DefaultIfEmpty(0).Min();
@@ -92,6 +104,7 @@ namespace SimplCommerce.Module.Search.Controllers
                 var brandIs = _brandRepository.Query().Where(x => brands.Contains(x.SeoTitle)).Select(x => x.Id).ToList();
                 query = query.Where(x => x.BrandId.HasValue && brandIs.Contains(x.BrandId.Value));
             }
+            */
 
             model.TotalProduct = query.Count();
             var currentPageNum = searchOption.Page <= 0 ? 1 : searchOption.Page;
@@ -101,7 +114,7 @@ namespace SimplCommerce.Module.Search.Controllers
                 currentPageNum--;
                 offset = (_pageSize * currentPageNum) - _pageSize;
             }
-
+            
             SaveSearchQuery(searchOption, model);
 
             query = query
