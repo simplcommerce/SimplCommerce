@@ -1,0 +1,39 @@
+@model SimplCommerce.Module.Catalog.ViewModels.ProductThumbnail
+
+<div class="thumbnail" style="overflow: hidden; margin:10px 20px;">
+    <a href="~/@Model.SeoTitle">
+        
+        <div class="col-md-2 col-xs-2">
+            <img alt="@Model.Name" src="@Model.ThumbnailUrl" style="max-width: 130px;">
+        </div>
+        
+        <div class="col-md-10 col-xs-10 caption">
+            <h4 class="product-name">@Model.Name</h4>
+            <p class="product-price">
+                @if (Model.IsCallForPricing)
+                {
+                    @Localizer["Call for pricing"]
+                }
+                else
+                {
+                    @Model.CalculatedProductPrice.Price.ToString("C")
+                    if (Model.CalculatedProductPrice.PercentOfSaving > 0)
+                    {
+                        <span class="product-price-saving">-@(Model.CalculatedProductPrice.PercentOfSaving)%</span>
+                        <br />
+                        <span class="product-price-regular">@Model.CalculatedProductPrice.OldPrice.Value.ToString("C")</span>
+                    }
+                }
+            </p>
+            <ul class="list-inline product-ratings">
+                <li><input value="@Model.RatingAverage" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
+                @if (Model.ReviewsCount > 0)
+                {
+                    <li class="product-review-list">
+                        <span>(@Model.ReviewsCount reviews)</span>
+                    </li>
+                }
+            </ul>
+        </div>
+    </a>
+</div>
