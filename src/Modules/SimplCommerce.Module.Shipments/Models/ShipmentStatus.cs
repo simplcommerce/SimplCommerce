@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.Shipping.Models
 {
-    public enum ShippingStatus
+    public enum ShipmentStatus
     {
     }
 }

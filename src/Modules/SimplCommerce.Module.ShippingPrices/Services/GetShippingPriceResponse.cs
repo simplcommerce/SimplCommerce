@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SimplCommerce.Module.Shipping.Services
+namespace SimplCommerce.Module.ShippingPrices.Services
 {
     public class GetShippingPriceResponse
     {

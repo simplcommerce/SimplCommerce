@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SimplCommerce.Module.Shipping.Services
+namespace SimplCommerce.Module.ShippingPrices.Services
 {
-    public interface IShippingService
+    public interface IShippingPriceService
     {
         Task<IList<ShippingPrice>> GetApplicableShippingPrices(GetShippingPriceRequest request);
     }

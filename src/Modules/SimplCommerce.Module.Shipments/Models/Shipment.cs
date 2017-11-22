@@ -1,7 +1,8 @@
-﻿using SimplCommerce.Infrastructure.Models;
-using System;
+﻿using System;
+using SimplCommerce.Infrastructure.Models;
+using SimplCommerce.Module.Orders.Models;
 
-namespace SimplCommerce.Module.Shipping.Models
+namespace SimplCommerce.Module.Shipments.Models
 {
     public class Shipment : EntityBase
     {
@@ -12,6 +13,8 @@ namespace SimplCommerce.Module.Shipping.Models
         }
 
         public long OrderId { get; set; }
+
+        public Order Order { get; set; }
 
         public long UserId { get; set; }
 

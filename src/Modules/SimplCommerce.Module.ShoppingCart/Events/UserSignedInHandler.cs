@@ -20,7 +20,7 @@ namespace SimplCommerce.Module.ShoppingCart.Events
         public async Task Handle(UserSignedIn user)
         {
             var guestUser = await _workContext.GetCurrentUser();
-            _cartService.MigrateCart(guestUser.Id, user.UserId);
+            await _cartService.MigrateCart(guestUser.Id, user.UserId);
         }
     }
 }

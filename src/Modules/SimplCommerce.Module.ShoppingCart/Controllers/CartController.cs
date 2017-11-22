@@ -36,7 +36,7 @@ namespace SimplCommerce.Module.ShoppingCart.Controllers
         public async Task<IActionResult> AddToCart([FromBody] AddToCartModel model)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            _cartService.AddToCart(currentUser.Id, model.ProductId, model.Quantity);
+            await _cartService.AddToCart(currentUser.Id, model.ProductId, model.Quantity);
 
             return RedirectToAction("AddToCartResult", new { productId = model.ProductId });
         }
@@ -119,12 +119,6 @@ namespace SimplCommerce.Module.ShoppingCart.Controllers
             _cartItemRepository.SaveChanges();
 
             return await List();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> GetTax(long shippingAddress, long countryId, long stateOrProvinceId)
-        {
-            return Ok();
         }
     }
 }

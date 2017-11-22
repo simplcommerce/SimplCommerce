@@ -1,6 +1,6 @@
 ﻿using SimplCommerce.Infrastructure.Models;
 
-namespace SimplCommerce.Module.Shipping.Models
+namespace SimplCommerce.Module.Shipments.Models
 {
     public class ShipmentItem : EntityBase
     {

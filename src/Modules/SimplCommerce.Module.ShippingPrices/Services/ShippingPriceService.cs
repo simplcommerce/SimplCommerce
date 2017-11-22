@@ -8,14 +8,14 @@ using Microsoft.Extensions.DependencyInjection;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Shipping.Models;
 
-namespace SimplCommerce.Module.Shipping.Services
+namespace SimplCommerce.Module.ShippingPrices.Services
 {
-    public class ShippingService : IShippingService
+    public class ShippingPriceService : IShippingPriceService
     {
         private HttpContext _httpContext;
         private readonly IRepository<ShippingProvider> _shippingProviderRepository;
 
-        public ShippingService(IHttpContextAccessor contextAccessor, IRepository<ShippingProvider> shippingProviderRepository)
+        public ShippingPriceService(IHttpContextAccessor contextAccessor, IRepository<ShippingProvider> shippingProviderRepository)
         {
             _httpContext = contextAccessor.HttpContext;
             _shippingProviderRepository = shippingProviderRepository;
@@ -25,7 +25,7 @@ namespace SimplCommerce.Module.Shipping.Services
         {
             var applicableShippingPrices = new List<ShippingPrice>();
             var providers = await _shippingProviderRepository.Query().ToListAsync();
-            var shippingRateServices = _httpContext.RequestServices.GetServices<IShippingPriceService>();
+            var shippingRateServices = _httpContext.RequestServices.GetServices<IShippingPriceServiceProvider>();
 
             foreach(var provider in providers)
             {

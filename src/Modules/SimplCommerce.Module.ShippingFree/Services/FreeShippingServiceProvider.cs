@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
 using Newtonsoft.Json;
-using SimplCommerce.Module.Shipping.Services;
+using SimplCommerce.Module.ShippingPrices.Services;
 using SimplCommerce.Module.ShippingFree.Models;
 using SimplCommerce.Module.Shipping.Models;
 
 namespace SimplCommerce.Module.ShippingFree.Services
 {
-    public class FreeShippingService : IShippingPriceService
+    public class FreeShippingServiceProvider : IShippingPriceServiceProvider
     {
         public Task<GetShippingPriceResponse> GetShippingPrices(GetShippingPriceRequest request, ShippingProvider provider)
         {
