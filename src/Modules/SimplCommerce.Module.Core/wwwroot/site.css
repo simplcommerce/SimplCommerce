@@ -368,12 +368,10 @@ li.nav-item-group, li.nav-item-group a {
 
 .cart-list .order-summary dt {
     text-align: left;
-    width: 100px;
 }
 
 .cart-list .order-summary dd {
     text-align: right;
-    margin-left: 100px;
 }
 
 .cart-list .order-summary .btn {

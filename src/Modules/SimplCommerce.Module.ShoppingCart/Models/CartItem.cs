@@ -2,7 +2,7 @@
 using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Catalog.Models;
 
-namespace SimplCommerce.Module.Orders.Models
+namespace SimplCommerce.Module.ShoppingCart.Models
 {
     public class CartItem : EntityBase
     {

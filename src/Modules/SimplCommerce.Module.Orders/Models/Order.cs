@@ -51,7 +51,9 @@ namespace SimplCommerce.Module.Orders.Models
 
         public string ShippingMethod { get; set; }
 
-        public decimal ShippingPrice { get; set; }
+        public decimal ShippingAmount { get; set; }
+
+        public decimal TaxAmount { get; set; }
 
         public IList<Order> Children { get; protected set; } = new List<Order>();
 

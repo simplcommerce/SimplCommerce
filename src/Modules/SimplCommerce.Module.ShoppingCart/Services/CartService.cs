@@ -3,12 +3,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Orders.Models;
-using SimplCommerce.Module.Orders.ViewModels;
+using SimplCommerce.Module.ShoppingCart.Models;
+using SimplCommerce.Module.ShoppingCart.ViewModels;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Pricing.Services;
 
-namespace SimplCommerce.Module.Orders.Services
+namespace SimplCommerce.Module.ShoppingCart.Services
 {
     public class CartService : ICartService
     {
@@ -28,7 +28,7 @@ namespace SimplCommerce.Module.Orders.Services
         public void AddToCart(long userId, long productId, int quantity)
         {
             var cart = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.UserId == userId && x.IsActive);
-            if(cart == null)
+            if (cart == null)
             {
                 cart = new Cart
                 {
@@ -62,7 +62,7 @@ namespace SimplCommerce.Module.Orders.Services
         public async Task<CartVm> GetCart(long userId)
         {
             var cart = _cartRepository.Query().FirstOrDefault(x => x.UserId == userId && x.IsActive);
-            if(cart == null)
+            if (cart == null)
             {
                 return new CartVm();
             }
@@ -90,7 +90,7 @@ namespace SimplCommerce.Module.Orders.Services
                 }).ToList();
 
             cartVm.SubTotal = cartVm.Items.Sum(x => x.Quantity * x.ProductPrice);
-            if(!string.IsNullOrWhiteSpace(cartVm.CouponCode))
+            if (!string.IsNullOrWhiteSpace(cartVm.CouponCode))
             {
                 var cartInfoForCoupon = new CartInfoForCoupon
                 {
@@ -123,6 +123,12 @@ namespace SimplCommerce.Module.Orders.Services
             }
 
             return couponValidationResult;
+        }
+
+        public decimal GetTax(long cartOwnerUserId, long countryId, long stateOrProvinceId)
+        {
+            var cart = _cartRepository.Query().FirstOrDefault(x => x.UserId == cartOwnerUserId && x.IsActive);
+            return 0;
         }
 
         public void MigrateCart(long fromUserId, long toUserId)

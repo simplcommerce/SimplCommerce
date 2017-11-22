@@ -1,4 +1,4 @@
-﻿namespace SimplCommerce.Module.Orders.ViewModels
+﻿namespace SimplCommerce.Module.ShoppingCart.ViewModels
 {
     public class ProductVariationOption
     {

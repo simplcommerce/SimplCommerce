@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Core.Models;
-using System.Collections.Generic;
 
-namespace SimplCommerce.Module.Orders.Models
+namespace SimplCommerce.Module.ShoppingCart.Models
 {
     public class Cart : EntityBase
     {
