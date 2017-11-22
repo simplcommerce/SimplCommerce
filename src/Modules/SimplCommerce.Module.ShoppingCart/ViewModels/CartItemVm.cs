@@ -2,7 +2,7 @@
 using System.Linq;
 using SimplCommerce.Module.Catalog.Models;
 
-namespace SimplCommerce.Module.Orders.ViewModels
+namespace SimplCommerce.Module.ShoppingCart.ViewModels
 {
     public class CartItemVm
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SimplCommerce.Module.Orders.ViewModels
+namespace SimplCommerce.Module.ShoppingCart.ViewModels
 {
     public class CartVm
     {
@@ -16,12 +16,14 @@ namespace SimplCommerce.Module.Orders.ViewModels
 
         public string DiscountString { get { return Discount.ToString("C"); } }
 
-        public decimal SubTotalWithDiscount
+        public bool IsTaxIncludedInProductPrice { get; set; }
+
+        public decimal OrderTotal
         {
             get { return SubTotal - Discount; }
         }
 
-        public string SubTotalWithDiscountString { get { return SubTotalWithDiscount.ToString("C"); } }
+        public string OrderTotalString { get { return OrderTotal.ToString("C"); } }
 
         public IList<CartItemVm> Items { get; set; } = new List<CartItemVm>();
     }

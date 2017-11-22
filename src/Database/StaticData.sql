@@ -8,6 +8,7 @@ INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (6, N'SmtpPort', N'
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (7, N'SmtpUsername', N'')
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (8, N'SmtpPassword', N'')
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (9, N'Theme', N'Generic')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (10, N'Tax_IsProductPriceIncludingTax', N'true')
 SET IDENTITY_INSERT [dbo].[Core_AppSetting] OFF
 GO
 

@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using SimplCommerce.Module.Orders.ViewModels;
 using SimplCommerce.Module.Pricing.Services;
+using SimplCommerce.Module.ShoppingCart.ViewModels;
 
-namespace SimplCommerce.Module.Orders.Services
+namespace SimplCommerce.Module.ShoppingCart.Services
 {
     public interface ICartService
     {

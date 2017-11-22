@@ -6,6 +6,7 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Pricing.Services;
+using SimplCommerce.Module.ShoppingCart.Models;
 
 namespace SimplCommerce.Module.Orders.Services
 {

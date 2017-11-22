@@ -12,15 +12,15 @@
 
     function updateShippingInfo()
     {
-        if (!$('#NewAddressForm_StateOrProvinceId').val()) {
+        if ($('input[name=shippingAddressId]:checked').val() === "0" && !$('#NewAddressForm_StateOrProvinceId').val()) {
             return;
         }
         var postData = {
             existingShippingAddressId: $('input[name=shippingAddressId]:checked').val(),
             orderAmount: $('#orderSubtotal').val(),
             newShippingAddress: {
-                countryId: $('#NewAddressForm_CountryId').val(),
-                stateOrProvinceId: $('#NewAddressForm_StateOrProvinceId').val(),
+                countryId: $('#NewAddressForm_CountryId').val() || 0,
+                stateOrProvinceId: $('#NewAddressForm_StateOrProvinceId').val() || 0,
             }
         };
 
@@ -32,14 +32,18 @@
             success: function (data) {
                 var $shippingMethods = $('#shippingMethods');
                 $shippingMethods.empty();
-                $.each(data, function (index, value) {
-                    $shippingMethods.append('<div class="radio"> \
+                if (data.length > 0) {
+                    $.each(data, function (index, value) {
+                        $shippingMethods.append('<div class="radio"> \
                         <label> \
-                        <input type="radio" name="shippingMethod" data-price ="'+ value.priceText +'" value="' + value.name + '"> \
+                        <input type="radio" name="shippingMethod" data-price ="'+ value.priceText + '" value="' + value.name + '"> \
                             <strong> ' + value.name + ' (' + value.priceText + ')</strong> \
                         </label> \
                        </div>')
-                });
+                    });
+                } else {
+                    $shippingMethods.append("Sorry, this items can't be shipped to your selected address");
+                }
 
                 $shippingMethods.find('label:first > input').prop('checked', true);
                 updateSelectedShippingPrice();

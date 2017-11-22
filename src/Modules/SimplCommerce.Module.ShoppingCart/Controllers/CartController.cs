@@ -6,11 +6,11 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
-using SimplCommerce.Module.Orders.Models;
-using SimplCommerce.Module.Orders.Services;
-using SimplCommerce.Module.Orders.ViewModels;
+using SimplCommerce.Module.ShoppingCart.Models;
+using SimplCommerce.Module.ShoppingCart.Services;
+using SimplCommerce.Module.ShoppingCart.ViewModels;
 
-namespace SimplCommerce.Module.Orders.Controllers
+namespace SimplCommerce.Module.ShoppingCart.Controllers
 {
     public class CartController : Controller
     {
@@ -119,6 +119,12 @@ namespace SimplCommerce.Module.Orders.Controllers
             _cartItemRepository.SaveChanges();
 
             return await List();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetTax(long shippingAddress, long countryId, long stateOrProvinceId)
+        {
+            return Ok();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using SimplCommerce.Module.Catalog.Models;
+using SimplCommerce.Module.ShoppingCart.ViewModels;
 
 namespace SimplCommerce.Module.Orders.ViewModels
 {

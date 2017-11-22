@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Module.Core.Extensions;
-using SimplCommerce.Module.Orders.Services;
+using SimplCommerce.Module.ShoppingCart.Services;
 
 namespace SimplCommerce.Module.Orders.Components
 {

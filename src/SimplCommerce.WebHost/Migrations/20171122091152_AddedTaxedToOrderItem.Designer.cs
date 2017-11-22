@@ -11,9 +11,10 @@ using System;
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    partial class SimplDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171122091152_AddedTaxedToOrderItem")]
+    partial class AddedTaxedToOrderItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1168,6 +1169,52 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("News_NewsItemCategory");
                 });
 
+            modelBuilder.Entity("SimplCommerce.Module.Orders.Models.Cart", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CouponCode");
+
+                    b.Property<string>("CouponRuleName");
+
+                    b.Property<DateTimeOffset>("CreatedOn");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<DateTimeOffset?>("UpdatedOn");
+
+                    b.Property<long>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders_Cart");
+                });
+
+            modelBuilder.Entity("SimplCommerce.Module.Orders.Models.CartItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<long>("CartId");
+
+                    b.Property<DateTimeOffset>("CreatedOn");
+
+                    b.Property<long>("ProductId");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Orders_CartItem");
+                });
+
             modelBuilder.Entity("SimplCommerce.Module.Orders.Models.Order", b =>
                 {
                     b.Property<long>("Id")
@@ -1622,52 +1669,6 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("ShippingTableRate_PriceAndDestination");
                 });
 
-            modelBuilder.Entity("SimplCommerce.Module.ShoppingCart.Models.Cart", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CouponCode");
-
-                    b.Property<string>("CouponRuleName");
-
-                    b.Property<DateTimeOffset>("CreatedOn");
-
-                    b.Property<bool>("IsActive");
-
-                    b.Property<DateTimeOffset?>("UpdatedOn");
-
-                    b.Property<long>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ShoppingCart_Cart");
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.ShoppingCart.Models.CartItem", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<long>("CartId");
-
-                    b.Property<DateTimeOffset>("CreatedOn");
-
-                    b.Property<long>("ProductId");
-
-                    b.Property<int>("Quantity");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ShoppingCart_CartItem");
-                });
-
             modelBuilder.Entity("SimplCommerce.Module.Tax.Models.TaxClass", b =>
                 {
                     b.Property<long>("Id")
@@ -2068,6 +2069,27 @@ namespace SimplCommerce.WebHost.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("SimplCommerce.Module.Orders.Models.Cart", b =>
+                {
+                    b.HasOne("SimplCommerce.Module.Core.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SimplCommerce.Module.Orders.Models.CartItem", b =>
+                {
+                    b.HasOne("SimplCommerce.Module.Orders.Models.Cart", "Cart")
+                        .WithMany("Items")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SimplCommerce.Module.Catalog.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("SimplCommerce.Module.Orders.Models.Order", b =>
                 {
                     b.HasOne("SimplCommerce.Module.Orders.Models.OrderAddress", "BillingAddress")
@@ -2244,27 +2266,6 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasOne("SimplCommerce.Module.Core.Models.StateOrProvince", "StateOrProvince")
                         .WithMany()
                         .HasForeignKey("StateOrProvinceId");
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.ShoppingCart.Models.Cart", b =>
-                {
-                    b.HasOne("SimplCommerce.Module.Core.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.ShoppingCart.Models.CartItem", b =>
-                {
-                    b.HasOne("SimplCommerce.Module.ShoppingCart.Models.Cart", "Cart")
-                        .WithMany("Items")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SimplCommerce.Module.Catalog.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Tax.Models.TaxRate", b =>

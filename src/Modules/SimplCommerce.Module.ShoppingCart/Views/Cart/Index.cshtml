@@ -3,7 +3,7 @@
 }
 
 <div class="row cart-list" ng-app="simpl.shoppingCart" ng-controller="shoppingCartListCtrl as vm" ng-cloak>
-    <div class="col-md-9">
+    <div class="col-md-8">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -40,7 +40,7 @@
             </tbody>
         </table>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="order-summary" ng-if="vm.cart.items.length">
             <h4>@Localizer["Order summary"]</h4>
             <dl class="dl-horizontal">
@@ -48,8 +48,8 @@
                 <dd>{{vm.cart.subTotalString}}</dd>
                 <dt>@Localizer["Discount"] {{vm.cart.couponCode}}</dt>
                 <dd>{{vm.cart.discountString}}</dd>
-                <dt>@Localizer["Subtotal with discount"]</dt>
-                <dd><strong>{{vm.cart.subTotalWithDiscountString}}</strong></dd>
+                <dt>@Localizer["Order Total"]</dt>
+                <dd><strong>{{vm.cart.orderTotalString}}</strong></dd>
             </dl>
             <p class="text-right"><a href="~/checkout" class="btn btn-primary">@Localizer["Process to Checkout"]</a></p>
         </div>
@@ -70,6 +70,6 @@
 
 @section head{
     <script simpl-append-version="true" src="~/lib/angular/angular.js"></script>
-    <script simpl-append-version="true" src="~/modules/orders/shoppingcart-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/orders/shoppingcart-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/shopping-cart/shoppingcart-list.js"></script>
+    <script simpl-append-version="true" src="~/modules/shopping-cart/shoppingcart-service.js"></script>
 }
