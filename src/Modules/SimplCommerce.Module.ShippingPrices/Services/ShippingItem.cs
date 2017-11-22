@@ -1,6 +1,6 @@
 ﻿using SimplCommerce.Module.Catalog.Models;
 
-namespace SimplCommerce.Module.Shipping.Services
+namespace SimplCommerce.Module.ShippingPrices.Services
 {
     public class ShippingItem
     {

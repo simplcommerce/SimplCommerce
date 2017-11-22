@@ -25,7 +25,7 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             _mediaService = mediaService;
         }
 
-        public void AddToCart(long userId, long productId, int quantity)
+        public async Task AddToCart(long userId, long productId, int quantity)
         {
             var cart = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.UserId == userId && x.IsActive);
             if (cart == null)
@@ -55,7 +55,7 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 cartItem.Quantity = quantity;
             }
 
-            _cartRepository.SaveChanges();
+           await  _cartRepository.SaveChangesAsync();
         }
 
         // TODO separate getting product thumbnail, varation options from here
@@ -125,21 +125,14 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             return couponValidationResult;
         }
 
-        public decimal GetTax(long cartOwnerUserId, long countryId, long stateOrProvinceId)
-        {
-            var cart = _cartRepository.Query().FirstOrDefault(x => x.UserId == cartOwnerUserId && x.IsActive);
-            return 0;
-        }
-
-        public void MigrateCart(long fromUserId, long toUserId)
+        public async Task MigrateCart(long fromUserId, long toUserId)
         {
             var cart = _cartRepository.Query().FirstOrDefault(x => x.UserId == fromUserId && x.IsActive);
             if (cart != null)
             {
                 cart.UserId = toUserId;
+               await _cartRepository.SaveChangesAsync();
             }
-
-            _cartRepository.SaveChanges();
         }
     }
 }

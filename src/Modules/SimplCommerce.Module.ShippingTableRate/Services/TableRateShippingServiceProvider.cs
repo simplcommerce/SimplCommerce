@@ -1,18 +1,18 @@
 ﻿using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Module.Shipping.Models;
-using SimplCommerce.Module.Shipping.Services;
+using SimplCommerce.Module.ShippingPrices.Services;
 using SimplCommerce.Module.ShippingTableRate.Models;
 using SimplCommerce.Infrastructure.Data;
 
 namespace SimplCommerce.Module.ShippingTableRate.Services
 {
-    public class TableRateShippingService : IShippingPriceService
+    public class TableRateShippingServiceProvider : IShippingPriceServiceProvider
     {
         public readonly IRepository<PriceAndDestination> _priceAndDestinationRepository;
 
-        public TableRateShippingService(IRepository<PriceAndDestination> priceAndDestinationRepository)
+        public TableRateShippingServiceProvider(IRepository<PriceAndDestination> priceAndDestinationRepository)
         {
             _priceAndDestinationRepository = priceAndDestinationRepository;
         }

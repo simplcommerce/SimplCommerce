@@ -2,7 +2,7 @@
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Shipping.Models;
 
-namespace SimplCommerce.Module.Shipping.Services
+namespace SimplCommerce.Module.ShippingPrices.Services
 {
     public class GetShippingPriceRequest
     {

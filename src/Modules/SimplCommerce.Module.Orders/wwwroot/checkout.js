@@ -10,8 +10,7 @@
         }
     }
 
-    function updateShippingInfo()
-    {
+    function updateShippingInfo() {
         if ($('input[name=shippingAddressId]:checked').val() === "0" && !$('#NewAddressForm_StateOrProvinceId').val()) {
             return;
         }
@@ -26,14 +25,14 @@
 
         $.ajax({
             type: "POST",
-            url: "/Shipping/GetShippingPrices",
+            url: "/Checkout/GetTaxAndShippingPrice",
             data: JSON.stringify(postData),
             contentType: "application/json",
             success: function (data) {
                 var $shippingMethods = $('#shippingMethods');
                 $shippingMethods.empty();
-                if (data.length > 0) {
-                    $.each(data, function (index, value) {
+                if (data.shippingPrices.length > 0) {
+                    $.each(data.shippingPrices, function (index, value) {
                         $shippingMethods.append('<div class="radio"> \
                         <label> \
                         <input type="radio" name="shippingMethod" data-price ="'+ value.priceText + '" value="' + value.name + '"> \
@@ -55,7 +54,7 @@
         $('#orderSummaryShipping').text($('#shippingMethods label > input:checked').attr('data-price'));
     }
 
-    $('input[name=shippingAddressId]').on('change', function() {
+    $('input[name=shippingAddressId]').on('change', function () {
         toggleCreateShippingAddress();
     });
 

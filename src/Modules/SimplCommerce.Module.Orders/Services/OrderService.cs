@@ -7,6 +7,8 @@ using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Pricing.Services;
 using SimplCommerce.Module.ShoppingCart.Models;
+using SimplCommerce.Module.Tax.Models;
+using SimplCommerce.Module.Orders.ViewModels;
 
 namespace SimplCommerce.Module.Orders.Services
 {
@@ -15,12 +17,16 @@ namespace SimplCommerce.Module.Orders.Services
         private readonly IRepository<Cart> _cartRepository;
         private readonly IRepository<Order> _orderRepository;
         private readonly ICouponService _couponService;
+        private readonly IRepository<CartItem> _cartItemRepository;
+        private readonly IRepository<TaxRate> _taxRateRepository;
 
-        public OrderService(IRepository<Order> orderRepository, IRepository<Cart> cartRepository, ICouponService couponService)
+        public OrderService(IRepository<Order> orderRepository, IRepository<Cart> cartRepository, ICouponService couponService, IRepository<CartItem> cartItemRepository, IRepository<TaxRate> taxRateRepository)
         {
             _orderRepository = orderRepository;
             _cartRepository = cartRepository;
             _couponService = couponService;
+            _cartItemRepository = cartItemRepository;
+            _taxRateRepository = taxRateRepository;
         }
 
         public async Task CreateOrder(User user, Address billingAddress, Address shippingAddress)
@@ -138,6 +144,43 @@ namespace SimplCommerce.Module.Orders.Services
             }
 
             _orderRepository.SaveChanges();
+        }
+
+        public async Task<decimal> GetTax(long cartOwnerUserId, long countryId, long stateOrProvinceId)
+        {
+            decimal taxAmount = 0;
+            var cart = await _cartRepository.Query().FirstOrDefaultAsync(x => x.UserId == cartOwnerUserId && x.IsActive);
+            if (cart == null)
+            {
+                throw new ApplicationException($"No active cart of user {cartOwnerUserId}");
+            }
+
+            var cartItems = _cartItemRepository.Query()
+                .Where(x => x.CartId == cart.Id)
+                .Select(x => new CartItemVm
+                {
+                    Quantity = x.Quantity,
+                    Price = x.Product.Price,
+                    TaxClassId = x.Product.TaxClass.Id
+                }).ToList();
+
+            foreach (var cartItem in cartItems)
+            {
+                if (cartItem.TaxClassId.HasValue)
+                {
+                    var taxRate = await _taxRateRepository.Query()
+                        .Where(x => x.CountryId == countryId
+                        && (x.StateOrProvinceId == stateOrProvinceId || x.StateOrProvinceId == null)
+                        && x.TaxClassId == cartItem.TaxClassId.Value).FirstOrDefaultAsync();
+
+                    if (taxRate != null)
+                    {
+                        taxAmount = taxAmount + cartItem.Quantity * cartItem.Price * taxRate.Rate / 100;
+                    }
+                }
+            }
+
+            return taxAmount;
         }
     }
 }

@@ -3,11 +3,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.Orders.ViewModels;
+using SimplCommerce.Module.ShippingPrices.Services;
 
 namespace SimplCommerce.Module.Orders.Controllers
 {
@@ -18,18 +20,21 @@ namespace SimplCommerce.Module.Orders.Controllers
         private readonly IRepository<Country> _countryRepository;
         private readonly IRepository<StateOrProvince> _stateOrProvinceRepository;
         private readonly IRepository<UserAddress> _userAddressRepository;
+        private readonly IShippingPriceService _shippingPriceService;
         private readonly IWorkContext _workContext;
 
         public CheckoutController(
             IRepository<StateOrProvince> stateOrProvinceRepository,
             IRepository<Country> countryRepository,
             IRepository<UserAddress> userAddressRepository,
+            IShippingPriceService shippingPriceService,
             IOrderService orderService,
             IWorkContext workContext)
         {
             _stateOrProvinceRepository = stateOrProvinceRepository;
             _countryRepository = countryRepository;
             _userAddressRepository = userAddressRepository;
+            _shippingPriceService = shippingPriceService;
             _orderService = orderService;
             _workContext = workContext;
         }
@@ -134,6 +139,41 @@ namespace SimplCommerce.Module.Orders.Controllers
             await _orderService.CreateOrder(currentUser, billingAddress, shippingAddress);
 
             return RedirectToAction("OrderConfirmation");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetTaxAndShippingPrice([FromBody] TaxAndShippingPriceRequestVm model)
+        {
+            var currentUser = await _workContext.GetCurrentUser();
+            Address address;
+            if (model.ExistingShippingAddressId != 0)
+            {
+                address = await _userAddressRepository.Query().Where(x => x.Id == model.ExistingShippingAddressId).Select(x => x.Address).FirstOrDefaultAsync();
+                if (address == null)
+                {
+                    return NotFound();
+                }
+            }
+            else
+            {
+                address = new Address
+                {
+                    CountryId = model.NewShippingAddress.CountryId,
+                    StateOrProvinceId = model.NewShippingAddress.StateOrProvinceId,
+                    AddressLine1 = model.NewShippingAddress.AddressLine1
+                };
+            }
+
+            var request = new GetShippingPriceRequest
+            {
+                OrderAmount = model.OrderAmount,
+                ShippingAddress = address
+            };
+
+            var orderTaxAndShippingPrice = new OrderTaxAndShippingPriceVm();
+            orderTaxAndShippingPrice.ShippingPrices = await _shippingPriceService.GetApplicableShippingPrices(request);
+            orderTaxAndShippingPrice.TaxAmount = await _orderService.GetTax(currentUser.Id, address.CountryId, address.StateOrProvinceId);
+            return Ok(orderTaxAndShippingPrice);
         }
 
         [HttpGet]
