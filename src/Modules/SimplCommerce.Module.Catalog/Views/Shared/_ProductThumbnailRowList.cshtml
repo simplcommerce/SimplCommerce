@@ -3,7 +3,7 @@
 <div class="thumbnail" style="overflow: hidden; margin:10px 20px;">
     <a href="~/@Model.SeoTitle">
 
-        <div class="col-md-2 col-xs-2">
+        <div class="col-md-2 col-xs-2 caption">
             <img alt="@Model.Name" src="@Model.ThumbnailUrl" style="max-width: 130px;">
         </div>
 
@@ -35,12 +35,12 @@
                 }
             </ul>
         </div>
-        <div class="col-md-3 col-xs-3">
+        <div class="col-md-3 col-xs-3 caption">
             <h4>&nbsp;</h4>
             <p>Departure: @Model.Departure.ToString()</p>
             <p>Landing: @Model.Landing.ToString()</p>
         </div>
-        <div class="col-md-4 col-xs-4">
+        <div class="col-md-4 col-xs-4 caption">
             <h4>&nbsp;</h4>
             <p>@Model.DepartureDate.ToString()</p>
             <p>@Model.LandingDate.ToString()</p>
