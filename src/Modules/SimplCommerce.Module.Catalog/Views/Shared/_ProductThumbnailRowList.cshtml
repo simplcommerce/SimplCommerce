@@ -2,12 +2,12 @@
 
 <div class="thumbnail" style="overflow: hidden; margin:10px 20px;">
     <a href="~/@Model.SeoTitle">
-        
+
         <div class="col-md-2 col-xs-2">
             <img alt="@Model.Name" src="@Model.ThumbnailUrl" style="max-width: 130px;">
         </div>
-        
-        <div class="col-md-10 col-xs-10 caption">
+
+        <div class="col-md-3 col-xs-3 caption">
             <h4 class="product-name">@Model.Name</h4>
             <p class="product-price">
                 @if (Model.IsCallForPricing)
@@ -35,5 +35,11 @@
                 }
             </ul>
         </div>
+        <div class="col-md-7 col-xs-7">
+            <h4>&nbsp;</h4>
+            <p>Departure: @Model.Departure.ToString()</p>
+            <p>Landing: @Model.Landing.ToString()</p>
+        </div>
+
     </a>
-</div>
+</div>O
