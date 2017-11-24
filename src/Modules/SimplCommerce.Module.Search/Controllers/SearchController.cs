@@ -118,7 +118,8 @@ namespace SimplCommerce.Module.Search.Controllers
             SaveSearchQuery(searchOption, model);
 
             query = query
-                .Include(x => x.ThumbnailImage);
+                .Include(x => x.ThumbnailImage)
+                .Include(x => x.AttributeValues).ThenInclude(a => a.Attribute);
 
             query = AppySort(searchOption, query);
 

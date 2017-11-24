@@ -1,6 +1,7 @@
 ﻿using System;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Models;
+using System.Linq;
 
 namespace SimplCommerce.Module.Catalog.ViewModels
 {
@@ -38,6 +39,14 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public CalculatedProductPrice CalculatedProductPrice { get; set; }
 
+        public string Departure { get; set; }
+
+        public string Landing { get; set; }
+
+        public string DepartureDate { get; set; }
+
+        public string LandingDate { get; set; }
+
         public static ProductThumbnail FromProduct(Product product)
         {
             var productThumbnail = new ProductThumbnail
@@ -55,7 +64,12 @@ namespace SimplCommerce.Module.Catalog.ViewModels
                 IsCallForPricing = product.IsCallForPricing,
                 ThumbnailImage = product.ThumbnailImage,
                 ReviewsCount = product.ReviewsCount,
-                RatingAverage = product.RatingAverage
+                RatingAverage = product.RatingAverage,
+                Departure = product.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "Departure")?.Value,
+                Landing = product.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "Landing")?.Value,
+                DepartureDate = product.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "DepartureDate")?.Value,
+                LandingDate = product.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "LandingDate")?.Value
+
             };
 
             return productThumbnail;
