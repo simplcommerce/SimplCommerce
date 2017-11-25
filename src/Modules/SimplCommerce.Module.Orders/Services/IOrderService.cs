@@ -5,7 +5,7 @@ namespace SimplCommerce.Module.Orders.Services
 {
     public interface IOrderService
     {
-        Task CreateOrder(User user, Address billingAddress, Address shippingAddress);
+        Task CreateOrder(User user, string shippingMethod, Address billingAddress, Address shippingAddress);
 
         Task<decimal> GetTax(long cartOwnerUserId, long countryId, long stateOrProvinceId);
     }

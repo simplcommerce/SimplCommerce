@@ -2,7 +2,7 @@
 {
     public class TaxAndShippingPriceRequestVm
     {
-        public decimal OrderAmount { get; set; }
+        public string SelectedShippingMethodName { get; set; }
 
         public ShippingAddressVm NewShippingAddress { get; set; }
 

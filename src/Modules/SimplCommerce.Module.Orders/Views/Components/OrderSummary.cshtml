@@ -47,6 +47,6 @@
     </tr>
     <tr>
         <td><strong>@Localizer["Order Total"]</strong>@if (Model.IsTaxIncludedInProductPrice) { @Localizer["VAT included"] }</td>
-        <td colspan="2" class="text-right"><strong>@Model.OrderTotal.ToString("C")</strong></td>
+        <td colspan="2" class="text-right"><strong id="orderTotal">@Model.OrderTotal.ToString("C")</strong></td>
     </tr>
 </table>
