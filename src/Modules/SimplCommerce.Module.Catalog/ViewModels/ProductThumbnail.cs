@@ -67,8 +67,8 @@ namespace SimplCommerce.Module.Catalog.ViewModels
                 RatingAverage = product.RatingAverage,
                 Departure = product.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "Departure")?.Value,
                 Landing = product.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "Landing")?.Value,
-                DepartureDate = product.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "DepartureDate")?.Value,
-                LandingDate = product.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "LandingDate")?.Value
+                DepartureDate = product.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "Departure Date")?.Value,
+                LandingDate = product.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "Landing Date")?.Value
 
             };
 
