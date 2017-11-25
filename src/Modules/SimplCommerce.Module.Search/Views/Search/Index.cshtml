@@ -26,7 +26,7 @@
                     </div>
                     <div id="collapse-category" class="panel-collapse collapse in">
                         <div class="panel-body">
-                            <ul class="list-unstyled checkbox-list">
+                            <ul class="list-unstyled checkbox-list" style="padding-left:20px">
                                 @foreach (var category in Model.FilterOption.Categories)
                                 {
                                     <li>
@@ -81,10 +81,10 @@
                             </a>
                         </h2>
                     </div>
-                    <div id="collapse-price" class="panel-collapse collapse in">
+                    <div id="collapse-price" class="panel-collapse collapse in" style="padding:10px">
                         <div class="panel-body">
-                            <div id="priceSlider"></div>
-                            <div>
+                            <div id="priceSlider" ></div>
+                            <div style="padding:5px"> 
                                 <input type="hidden" id="originMinPrice" value="@Model.FilterOption.Price.MinPrice.ToString("F0")"/>
                                 <input type="hidden" id="originMaxPrice" value="@Model.FilterOption.Price.MaxPrice.ToString("F0")" />
                                 <span id="minPrice"></span>
