@@ -16,7 +16,7 @@
         }
         var postData = {
             existingShippingAddressId: $('input[name=shippingAddressId]:checked').val(),
-            orderAmount: $('#orderSubtotal').val(),
+            selectedShippingMethodName: $('input[name=shippingMethod]:checked').val(),
             newShippingAddress: {
                 countryId: $('#NewAddressForm_CountryId').val() || 0,
                 stateOrProvinceId: $('#NewAddressForm_StateOrProvinceId').val() || 0,
@@ -44,27 +44,23 @@
                     $shippingMethods.append("Sorry, this items can't be shipped to your selected address");
                 }
 
-                $shippingMethods.find('label:first > input').prop('checked', true);
-                updateSelectedShippingPrice();
+                $('#orderSummaryTax').text(data.cart.taxAmountString);
+                $('#orderTotal').text(data.cart.orderTotalString);
+                $('#orderSummaryShipping').text(data.cart.shippingAmountString);
+
+                $shippingMethods.find('input[value="' + data.selectedShippingMethodName + '"]').prop('checked', true);
             }
         });
-    }
-
-    function updateSelectedShippingPrice() {
-        $('#orderSummaryShipping').text($('#shippingMethods label > input:checked').attr('data-price'));
     }
 
     $('input[name=shippingAddressId]').on('change', function () {
         toggleCreateShippingAddress();
     });
 
-    $(document).on('change', 'input[name=shippingAddressId], #NewAddressForm_StateOrProvinceId', function () {
+    $(document).on('change', 'input[name=shippingAddressId], #NewAddressForm_StateOrProvinceId, #shippingMethods input:radio', function () {
         updateShippingInfo();
     });
 
-    $(document).on('change', '#shippingMethods label > input', function () {
-        updateSelectedShippingPrice();
-    });
 
     function resetSelect($select) {
         var $defaultOption = $select.find("option:first-child");

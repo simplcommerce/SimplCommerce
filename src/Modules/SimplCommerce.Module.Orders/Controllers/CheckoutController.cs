@@ -10,6 +10,7 @@ using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.Orders.ViewModels;
 using SimplCommerce.Module.ShippingPrices.Services;
+using SimplCommerce.Module.ShoppingCart.Services;
 
 namespace SimplCommerce.Module.Orders.Controllers
 {
@@ -21,6 +22,7 @@ namespace SimplCommerce.Module.Orders.Controllers
         private readonly IRepository<StateOrProvince> _stateOrProvinceRepository;
         private readonly IRepository<UserAddress> _userAddressRepository;
         private readonly IShippingPriceService _shippingPriceService;
+        private readonly ICartService _cartService;
         private readonly IWorkContext _workContext;
 
         public CheckoutController(
@@ -29,6 +31,7 @@ namespace SimplCommerce.Module.Orders.Controllers
             IRepository<UserAddress> userAddressRepository,
             IShippingPriceService shippingPriceService,
             IOrderService orderService,
+            ICartService cartService,
             IWorkContext workContext)
         {
             _stateOrProvinceRepository = stateOrProvinceRepository;
@@ -36,6 +39,7 @@ namespace SimplCommerce.Module.Orders.Controllers
             _userAddressRepository = userAddressRepository;
             _shippingPriceService = shippingPriceService;
             _orderService = orderService;
+            _cartService = cartService;
             _workContext = workContext;
         }
 
@@ -50,45 +54,7 @@ namespace SimplCommerce.Module.Orders.Controllers
             var model = new DeliveryInformationVm();
 
             var currentUser = await _workContext.GetCurrentUser();
-            model.ExistingShippingAddresses = _userAddressRepository
-                .Query()
-                .Where(x => (x.AddressType == AddressType.Shipping) && (x.UserId == currentUser.Id))
-                .Select(x => new ShippingAddressVm
-                {
-                    UserAddressId = x.Id,
-                    ContactName = x.Address.ContactName,
-                    Phone = x.Address.Phone,
-                    AddressLine1 = x.Address.AddressLine1,
-                    AddressLine2 = x.Address.AddressLine1,
-                    DistrictName = x.Address.District.Name,
-                    StateOrProvinceName = x.Address.StateOrProvince.Name,
-                    CountryName = x.Address.Country.Name
-                }).ToList();
-
-            model.ShippingAddressId = currentUser.DefaultShippingAddressId ?? 0;
-
-            model.NewAddressForm.ShipableContries = _countryRepository.Query()
-                .Where(x => x.IsShippingEnabled)
-                .OrderBy(x => x.Name)
-                .Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                }).ToList();
-
-            if(model.NewAddressForm.ShipableContries.Count == 1)
-            {
-                var onlyShipableCountryId = long.Parse(model.NewAddressForm.ShipableContries.First().Value);
-                model.NewAddressForm.StateOrProvinces = _stateOrProvinceRepository
-                .Query()
-                .Where(x => x.CountryId == onlyShipableCountryId)
-                .OrderBy(x => x.Name)
-                .Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                }).ToList();
-            }
+            PopulateShippingForm(model, currentUser);
 
             return View(model);
         }
@@ -96,15 +62,16 @@ namespace SimplCommerce.Module.Orders.Controllers
         [HttpPost]
         public async Task<IActionResult> DeliveryInformation(DeliveryInformationVm model)
         {
+            var currentUser = await _workContext.GetCurrentUser();
+            // TODO Handle error messages
             if (!ModelState.IsValid && (model.ShippingAddressId == 0))
             {
+                PopulateShippingForm(model, currentUser);
                 return View(model);
             }
 
-            var currentUser = await _workContext.GetCurrentUser();
             Address billingAddress;
             Address shippingAddress;
-
             if (model.ShippingAddressId == 0)
             {
                 var address = new Address
@@ -136,7 +103,7 @@ namespace SimplCommerce.Module.Orders.Controllers
                 billingAddress = shippingAddress = _userAddressRepository.Query().Where(x => x.Id == model.ShippingAddressId).Select(x => x.Address).First();
             }
 
-            await _orderService.CreateOrder(currentUser, billingAddress, shippingAddress);
+            await _orderService.CreateOrder(currentUser, model.ShippingMethod, billingAddress, shippingAddress);
 
             return RedirectToAction("OrderConfirmation");
         }
@@ -164,15 +131,25 @@ namespace SimplCommerce.Module.Orders.Controllers
                 };
             }
 
+            var orderTaxAndShippingPrice = new OrderTaxAndShippingPriceVm();
+            orderTaxAndShippingPrice.Cart = await _cartService.GetCart(currentUser.Id);
+            orderTaxAndShippingPrice.Cart.TaxAmount = await _orderService.GetTax(currentUser.Id, address.CountryId, address.StateOrProvinceId);
             var request = new GetShippingPriceRequest
             {
-                OrderAmount = model.OrderAmount,
+                OrderAmount = orderTaxAndShippingPrice.Cart.OrderTotal,
                 ShippingAddress = address
             };
 
-            var orderTaxAndShippingPrice = new OrderTaxAndShippingPriceVm();
             orderTaxAndShippingPrice.ShippingPrices = await _shippingPriceService.GetApplicableShippingPrices(request);
-            orderTaxAndShippingPrice.TaxAmount = await _orderService.GetTax(currentUser.Id, address.CountryId, address.StateOrProvinceId);
+            var selectedShippingMethod = string.IsNullOrWhiteSpace(model.SelectedShippingMethodName) 
+                ? orderTaxAndShippingPrice.ShippingPrices.FirstOrDefault() 
+                : orderTaxAndShippingPrice.ShippingPrices.FirstOrDefault(x => x.Name == model.SelectedShippingMethodName);
+            if(selectedShippingMethod != null)
+            {
+                orderTaxAndShippingPrice.Cart.ShippingAmount = selectedShippingMethod.Price;
+                orderTaxAndShippingPrice.SelectedShippingMethodName = selectedShippingMethod.Name;
+            }
+
             return Ok(orderTaxAndShippingPrice);
         }
 
@@ -180,6 +157,49 @@ namespace SimplCommerce.Module.Orders.Controllers
         public IActionResult OrderConfirmation()
         {
             return View();
+        }
+
+        private void PopulateShippingForm(DeliveryInformationVm model, User currentUser)
+        {
+            model.ExistingShippingAddresses = _userAddressRepository
+                .Query()
+                .Where(x => (x.AddressType == AddressType.Shipping) && (x.UserId == currentUser.Id))
+                .Select(x => new ShippingAddressVm
+                {
+                    UserAddressId = x.Id,
+                    ContactName = x.Address.ContactName,
+                    Phone = x.Address.Phone,
+                    AddressLine1 = x.Address.AddressLine1,
+                    AddressLine2 = x.Address.AddressLine1,
+                    DistrictName = x.Address.District.Name,
+                    StateOrProvinceName = x.Address.StateOrProvince.Name,
+                    CountryName = x.Address.Country.Name
+                }).ToList();
+
+            model.ShippingAddressId = currentUser.DefaultShippingAddressId ?? 0;
+
+            model.NewAddressForm.ShipableContries = _countryRepository.Query()
+                .Where(x => x.IsShippingEnabled)
+                .OrderBy(x => x.Name)
+                .Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }).ToList();
+
+            if (model.NewAddressForm.ShipableContries.Count == 1)
+            {
+                var onlyShipableCountryId = long.Parse(model.NewAddressForm.ShipableContries.First().Value);
+                model.NewAddressForm.StateOrProvinces = _stateOrProvinceRepository
+                .Query()
+                .Where(x => x.CountryId == onlyShipableCountryId)
+                .OrderBy(x => x.Name)
+                .Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }).ToList();
+            }
         }
     }
 }
