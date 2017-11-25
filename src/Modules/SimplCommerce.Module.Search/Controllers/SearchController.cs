@@ -49,18 +49,6 @@ namespace SimplCommerce.Module.Search.Controllers
                 //x.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "DepartureDate").Value == searchOption.DepartureDate &&
                 x.IsPublished && x.IsVisibleIndividually);
 
-            var model = new SearchResult
-            {
-                CurrentSearchOption = searchOption,
-                FilterOption = new FilterOption()
-            };
-
-            /*
-            if (string.IsNullOrWhiteSpace(searchOption.Query))
-            {
-                return Redirect("~/");
-            }
-
             var brand = _brandRepository.Query().FirstOrDefault(x => x.Name == searchOption.Query && x.IsPublished);
             if(brand != null)
             {
@@ -104,7 +92,6 @@ namespace SimplCommerce.Module.Search.Controllers
                 var brandIs = _brandRepository.Query().Where(x => brands.Contains(x.SeoTitle)).Select(x => x.Id).ToList();
                 query = query.Where(x => x.BrandId.HasValue && brandIs.Contains(x.BrandId.Value));
             }
-            */
 
             model.TotalProduct = query.Count();
             var currentPageNum = searchOption.Page <= 0 ? 1 : searchOption.Page;
