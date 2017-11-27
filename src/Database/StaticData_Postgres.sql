@@ -51,7 +51,8 @@ INSERT INTO "Catalog_ProductOption" ("Id", "Name") VALUES (1, 'Color');
 INSERT INTO "Catalog_ProductOption" ("Id", "Name") VALUES (2, 'Size');
 SELECT pg_catalog.setval('"Catalog_ProductOption_Id_seq"', 2, true);
 
-INSERT INTO "Core_Country" ("Id", "Name", "IsBillingEnabled", "IsShippingEnabled") VALUES (1, 'Việt Nam', false, false);
+INSERT INTO "Core_Country" ("Id", "Name", "IsBillingEnabled", "IsShippingEnabled") VALUES (1, 'Việt Nam', true, true);
+INSERT INTO "Core_Country" ("Id", "Name", "IsBillingEnabled", "IsShippingEnabled") VALUES (2, 'United States', true, true);
 
 INSERT INTO "Core_StateOrProvince" ("Id", "CountryId", "Name", "Type") VALUES (79, 1, 'Hồ Chí Minh', 'Thành Phố');
 
@@ -75,11 +76,10 @@ INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Typ
 INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Type") VALUES (18, NULL, 'Phú Nhuận', 79, NULL);
 INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Type") VALUES (19, NULL, 'Bình Chánh', 79, NULL);
 
-INSERT INTO "Shipping_ShippingProvider" ("Id", "AdditionalSettings", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces") VALUES (1, '{MinimumOrderAmount : 10000000}', 1, 'Free Ship', NULL, NULL, 'SimplCommerce.Module.ShippingFree.Services.FreeShippingService,SimplCommerce.Module.ShippingFree', 1, 1);
-INSERT INTO "Shipping_ShippingProvider" ("Id", "AdditionalSettings", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces") VALUES (1, NULL, 1, 'Table Rate', NULL, NULL, 'SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingService,SimplCommerce.Module.ShippingTableRate', 1, 1);
+INSERT INTO "Shipping_ShippingProvider" ("Id", "AdditionalSettings", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces") VALUES (1, '{MinimumOrderAmount : 10000000}', true, 'Free Ship', NULL, NULL, 'SimplCommerce.Module.ShippingFree.Services.FreeShippingService,SimplCommerce.Module.ShippingFree', true, true);
+INSERT INTO "Shipping_ShippingProvider" ("Id", "AdditionalSettings", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces") VALUES (2, NULL, true, 'Table Rate', NULL, NULL, 'SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingService,SimplCommerce.Module.ShippingTableRate', true, true);
 
-INSERT "dbo"."ShippingTableRate_PriceAndDestination" ("Id", "Country", "MinOrderSubtotal", "ShippingPrice", "StateOrProvince") VALUES (1, '*', 0, 20, '*');
-INSERT "dbo"."ShippingTableRate_PriceAndDestination" ("Id", "Country", "MinOrderSubtotal", "ShippingPrice", "StateOrProvince") VALUES (2, '*', 100000, 10, '*');
+INSERT INTO "ShippingTableRate_PriceAndDestination" ("Id", "CountryId", "MinOrderSubtotal", "ShippingPrice", "StateOrProvinceId") VALUES (1, 1, 100000, 10, NULL);
 
 INSERT INTO "Localization_Culture" ("Id", "Name") VALUES (1, 'vi-VN');
 INSERT INTO "Localization_Culture" ("Id", "Name") VALUES (2, 'fr-FR');

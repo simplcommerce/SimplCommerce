@@ -59,7 +59,7 @@ gulp.task('copy-modules', ['clean-module'], function () {
     modules.forEach(function (module) {
         gulp.src([mPaths.devModules + module.fullName + '/Views/**/*.*', mPaths.devModules + module.fullName + '/module.json'], { base: module.fullName })
             .pipe(gulp.dest(mPaths.hostModules + module.fullName));
-        gulp.src(mPaths.devModules + module.fullName + '/bin/Debug/netcoreapp2.0/**/*.*')
+        gulp.src(mPaths.devModules + module.fullName + '/bin/Release/netcoreapp2.0/**/*.*')
             .pipe(gulp.dest(mPaths.hostModules + module.fullName + '/bin'));
         gulp.src(mPaths.devModules + module.fullName + '/wwwroot/**/*.*')
             .pipe(gulp.dest(mPaths.hostWwwrootModules + module.name));
