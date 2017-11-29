@@ -33,6 +33,8 @@ namespace SimplCommerce.Module.Core.Data
             base.OnModelCreating(modelBuilder);
 
             RegisterCustomMappings(modelBuilder, typeToRegisters);
+
+            ManyToManyMapping(modelBuilder);
         }
 
         private static void RegisterConvention(ModelBuilder modelBuilder)
@@ -68,6 +70,22 @@ namespace SimplCommerce.Module.Core.Data
                     builder.Build(modelBuilder);
                 }
             }
+        }
+
+        private static void ManyToManyMapping(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserAddress>()
+                .HasKey(ua => new { ua.UserId, ua.AddressId });
+
+            modelBuilder.Entity<UserAddress>()
+                .HasOne(ua => ua.User)
+                .WithMany(u => u.UserAddresses)
+                .HasForeignKey(ua => ua.UserId);
+
+            modelBuilder.Entity<UserAddress>()
+                .HasOne(ua => ua.Address)
+                .WithMany(a => a.UserAddresses)
+                .HasForeignKey(ua => ua.AddressId);
         }
     }
 }
