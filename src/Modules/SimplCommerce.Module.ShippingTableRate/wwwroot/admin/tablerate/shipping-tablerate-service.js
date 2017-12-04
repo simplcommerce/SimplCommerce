@@ -26,7 +26,7 @@
         }
 
         function getCountries() {
-            return $http.get('api/countries');
+            return $http.get('api/countries?shippingEnabled=true');
         }
 
         function getStatesOrProvinces(countryId) {

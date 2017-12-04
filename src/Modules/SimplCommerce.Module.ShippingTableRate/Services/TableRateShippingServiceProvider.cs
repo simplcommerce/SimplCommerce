@@ -22,8 +22,8 @@ namespace SimplCommerce.Module.ShippingTableRate.Services
             var response = new GetShippingPriceResponse { IsSuccess = true };
             var priceAndDestinations = await _priceAndDestinationRepository.Query().ToListAsync();
 
-            var cheapestApplicable = priceAndDestinations.Where(x => (x.CountryId == 0 || x.CountryId == request.ShippingAddress.CountryId)
-                && (x.StateOrProvinceId == 0 || x.StateOrProvinceId == request.ShippingAddress.StateOrProvinceId)
+            var cheapestApplicable = priceAndDestinations.Where(x => (x.CountryId == null || x.CountryId == request.ShippingAddress.CountryId)
+                && (x.StateOrProvinceId == null || x.StateOrProvinceId == request.ShippingAddress.StateOrProvinceId)
                 && request.OrderAmount >= x.MinOrderSubtotal).OrderBy(x => x.ShippingPrice).FirstOrDefault();
 
             if(cheapestApplicable != null)
