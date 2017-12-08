@@ -18,26 +18,26 @@ namespace SimplCommerce.Module.ShoppingCart.ViewModels
 
         public bool IsTaxIncludedInProductPrice { get; set; }
 
-        public decimal TaxAmount { get; set; }
+        public decimal? TaxAmount { get; set; }
 
         public string TaxAmountString
         {
             get
             {
-                return TaxAmount.ToString("C");
+                return TaxAmount.HasValue ? TaxAmount.Value.ToString("C") : "-";
             }
         }
 
-        public decimal ShippingAmount { get; set; }
+        public decimal? ShippingAmount { get; set; }
 
         public string ShippingAmountString
         {
-            get { return ShippingAmount.ToString("C"); }
+            get { return ShippingAmount.HasValue ? ShippingAmount.Value.ToString("C") : "-"; }
         }
 
         public decimal OrderTotal
         {
-            get { return SubTotal + TaxAmount + ShippingAmount - Discount; }
+            get { return SubTotal + (TaxAmount ?? 0) + (ShippingAmount ?? 0) - Discount; }
         }
 
         public string OrderTotalString { get { return OrderTotal.ToString("C"); } }

@@ -71,6 +71,8 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             {
                 Id = cart.Id,
                 CouponCode = cart.CouponCode,
+                TaxAmount = cart.TaxAmount,
+                ShippingAmount = cart.ShippingAmount
             };
 
             cartVm.Items = _cartItemRepository

@@ -42,7 +42,7 @@ namespace SimplCommerce.Module.Orders.Services
 
             if (cart == null)
             {
-                throw new ApplicationException($"Cart of user {user.Id} can no be found");
+                throw new ApplicationException($"Cart of user {user.Id} cannot be found");
             }
 
             var discount = await ApplyDiscount(user, cart);

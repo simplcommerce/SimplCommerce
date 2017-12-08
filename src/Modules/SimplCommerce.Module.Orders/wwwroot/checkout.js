@@ -25,7 +25,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/Checkout/GetTaxAndShippingPrice",
+            url: "/checkout/update-tax-and-shipping-prices",
             data: JSON.stringify(postData),
             contentType: "application/json",
             success: function (data) {

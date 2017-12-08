@@ -11,9 +11,10 @@ using System;
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    partial class SimplDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171207221346_AddedPayment")]
+    partial class AddedPayment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1661,13 +1662,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<bool>("IsActive");
 
-                    b.Property<decimal?>("ShippingAmount");
-
                     b.Property<string>("ShippingData");
-
-                    b.Property<string>("ShippingMethod");
-
-                    b.Property<decimal?>("TaxAmount");
 
                     b.Property<DateTimeOffset?>("UpdatedOn");
 
