@@ -12,9 +12,15 @@
             {
                 <div class="radio">
                     <label>
-                        <input type="radio" name="shippingAddressId" value="@paymentProvider.Name">
+                        <input type="radio" name="paymentProviderId" value="@paymentProvider.Name">
                          @paymentProvider.Name
                     </label>
+                </div>
+                <div class="paymentProvider-@paymentProvider.Id">
+                    @if(!string.IsNullOrWhiteSpace(paymentProvider.LandingViewComponentName))
+                    {
+                        @await Component.InvokeAsync(paymentProvider.LandingViewComponentName)
+                    }
                 </div>
             }
             <div class="form-group">

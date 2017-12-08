@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
@@ -9,12 +13,9 @@ using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.Orders.ViewModels;
 using SimplCommerce.Module.Payment.Models;
+using SimplCommerce.Module.Payment.Services;
 using SimplCommerce.Module.Payment.ViewModels;
 using SimplCommerce.Module.ShoppingCart.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.Payment.Controllers
 {
@@ -26,19 +27,16 @@ namespace SimplCommerce.Module.Payment.Controllers
         private readonly IRepository<Cart> _cartRepository;
         private readonly IOrderService _orderService;
         private readonly IWorkContext _workContext;
-        private readonly IRepository<UserAddress> _userAddressRepository;
 
         public CheckoutController(IRepository<PaymentProvider> paymentProviderRepository,
             IRepository<Cart> cartRepository,
             IOrderService orderService,
-            IWorkContext workContext,
-            IRepository<UserAddress> userAddressRepository)
+            IWorkContext workContext)
         {
             _paymentProviderRepository = paymentProviderRepository;
             _cartRepository = cartRepository;
             _orderService = orderService;
             _workContext = workContext;
-            _userAddressRepository = userAddressRepository;
         }
 
         [HttpGet("payment")]
@@ -47,7 +45,12 @@ namespace SimplCommerce.Module.Payment.Controllers
             var checkoutPaymentForm = new CheckoutPaymentForm();
             checkoutPaymentForm.PaymentProviders = await _paymentProviderRepository.Query()
                 .Where(x => x.IsEnabled)
-                .Select(x => new PaymentProviderVm { Name = x.Name }).ToListAsync();
+                .Select(x => new PaymentProviderVm
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    LandingViewComponentName = x.LandingViewComponentName
+                }).ToListAsync();
 
             return View(checkoutPaymentForm);
         }
@@ -55,51 +58,19 @@ namespace SimplCommerce.Module.Payment.Controllers
         [HttpPost("payment")]
         public async Task<IActionResult> Payment(IFormCollection formCollection)
         {
+            var selectedPaymentMethod = "";
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartRepository
-               .Query()
-               .Where(x => x.UserId == currentUser.Id && x.IsActive).FirstOrDefaultAsync();
+            //var provider = _paymentProviderRepository.Query().Where(x => x.Name == selectedPaymentMethod).FirstOrDefault();
+            //var paymentProviderServiceType = Type.GetType(provider.PaymentProviderTypeName);
+            //var paymentServiceProviders = HttpContext.RequestServices.GetServices<IPaymentServiceProvider>();
+            //var paymentProviderService = paymentServiceProviders.Where(x => x.GetType() == paymentProviderServiceType).FirstOrDefault();
 
-            if (cart == null)
-            {
-                throw new ApplicationException($"Cart of user {currentUser.Id} cannot be found");
-            }
-
-            var shippingData = JsonConvert.DeserializeObject<DeliveryInformationVm>(cart.ShippingData);
-            Address billingAddress;
-            Address shippingAddress;
-            if (shippingData.ShippingAddressId == 0)
-            {
-                var address = new Address
-                {
-                    AddressLine1 = shippingData.NewAddressForm.AddressLine1,
-                    AddressLine2 = shippingData.NewAddressForm.AddressLine2,
-                    ContactName = shippingData.NewAddressForm.ContactName,
-                    CountryId = shippingData.NewAddressForm.CountryId,
-                    StateOrProvinceId = shippingData.NewAddressForm.StateOrProvinceId,
-                    DistrictId = shippingData.NewAddressForm.DistrictId,
-                    City = shippingData.NewAddressForm.City,
-                    PostalCode = shippingData.NewAddressForm.PostalCode,
-                    Phone = shippingData.NewAddressForm.Phone
-                };
-
-                var userAddress = new UserAddress
-                {
-                    Address = address,
-                    AddressType = AddressType.Shipping,
-                    UserId = currentUser.Id
-                };
-
-                _userAddressRepository.Add(userAddress);
-
-                billingAddress = shippingAddress = address;
-            }
-            else
-            {
-                billingAddress = shippingAddress = _userAddressRepository.Query().Where(x => x.Id == shippingData.ShippingAddressId).Select(x => x.Address).First();
-            }
-
-            await _orderService.CreateOrder(currentUser, shippingData.ShippingMethod, billingAddress, shippingAddress);
+            //var response = await paymentProviderService.ProcessPaymentPreOrder(new ProcessPaymentRequest());
+            //if (response.IsSuccess)
+            //{
+                await _orderService.CreateOrder(currentUser, selectedPaymentMethod);
+            //    await paymentProviderService.ProcessPaymentPostOrder();
+            //}
 
             return Redirect("~/checkout/congratulation");
         }

@@ -4,8 +4,8 @@ namespace SimplCommerce.Module.Payment.Services
 {
     public interface IPaymentServiceProvider
     {
-        Task<ProcessPaymentResult> ProcessPaymentPreOrder(ProcessPaymentRequest processPaymentRequest);
+        Task<ProcessPaymentResponse> ProcessPaymentPreOrder(ProcessPaymentRequest processPaymentRequest);
 
-        Task<ProcessPaymentResult> ProcessPaymentPostOrder();
+        Task<ProcessPaymentResponse> ProcessPaymentPostOrder();
     }
 }
