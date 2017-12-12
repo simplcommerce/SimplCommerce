@@ -45,6 +45,13 @@ namespace SimplCommerce.WebHost
 
             services.AddCustomizedMvc(GlobalConfiguration.Modules);
 
+            var sp = services.BuildServiceProvider();
+            var moduleInitializers = sp.GetServices<IModuleInitializer>();
+            foreach (var moduleInitializer in moduleInitializers)
+            {
+                moduleInitializer.ConfigureServices(services);
+            }
+
             return services.Build(_configuration, _hostingEnvironment);
         }
 
@@ -66,6 +73,12 @@ namespace SimplCommerce.WebHost
             app.UseCustomizedStaticFiles(env);
             app.UseCustomizedIdentity();
             app.UseCustomizedMvc();
+
+            var moduleInitializers = app.ApplicationServices.GetServices<IModuleInitializer>();
+            foreach (var moduleInitializer in moduleInitializers)
+            {
+                moduleInitializer.Configure(app, env);
+            }
         }
     }
 }
