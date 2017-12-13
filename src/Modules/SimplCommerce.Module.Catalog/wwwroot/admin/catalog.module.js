@@ -129,6 +129,16 @@
                     url: '/widget-category/edit/:id',
                     templateUrl: 'modules/catalog/admin/category-widget/category-widget-form.html',
                     controller: 'CategoryWidgetFormCtrl as vm'
+                })
+            .state('widget-spacebar-create', {
+                url: '/widget-spacebar/create',
+                templateUrl: 'modules/catalog/admin/spacebar-widget/spacebar-widget-form.html',
+                controller: 'SpaceBarWidgetFormCtrl as vm'
+            })
+                .state('widget-spacebar-edit', {
+                    url: '/widget-spacebar/edit/:id',
+                    templateUrl: 'modules/catalog/admin/spacebar-widget/spacebar-widget-form.html',
+                    controller: 'SpaceBarWidgetFormCtrl as vm'
                 });
         }]);
 })();
