@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using SimplCommerce.Module.Payment.Services;
+using SimplCommerce.Module.Payments.Services;
 
 namespace SimplCommerce.Module.PaymentPaypalExpress.Services
 {

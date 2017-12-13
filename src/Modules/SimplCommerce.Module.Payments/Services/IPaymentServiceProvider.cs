@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace SimplCommerce.Module.Payment.Services
+namespace SimplCommerce.Module.Payments.Services
 {
     public interface IPaymentServiceProvider
     {

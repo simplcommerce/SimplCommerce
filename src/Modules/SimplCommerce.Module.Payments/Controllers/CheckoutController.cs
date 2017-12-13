@@ -12,12 +12,12 @@ using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.Orders.ViewModels;
-using SimplCommerce.Module.Payment.Models;
-using SimplCommerce.Module.Payment.Services;
-using SimplCommerce.Module.Payment.ViewModels;
+using SimplCommerce.Module.Payments.Models;
+using SimplCommerce.Module.Payments.Services;
+using SimplCommerce.Module.Payments.ViewModels;
 using SimplCommerce.Module.ShoppingCart.Models;
 
-namespace SimplCommerce.Module.Payment.Controllers
+namespace SimplCommerce.Module.Payments.Controllers
 {
     [Route("checkout")]
     [Authorize]

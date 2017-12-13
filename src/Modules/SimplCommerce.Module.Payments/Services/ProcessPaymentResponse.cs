@@ -1,4 +1,4 @@
-﻿namespace SimplCommerce.Module.Payment.Services
+﻿namespace SimplCommerce.Module.Payments.Services
 {
     public class ProcessPaymentResponse
     {

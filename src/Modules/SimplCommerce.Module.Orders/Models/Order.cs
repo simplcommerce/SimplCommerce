@@ -59,8 +59,6 @@ namespace SimplCommerce.Module.Orders.Models
 
         public string PaymentMethod { get; set; }
 
-        public string PaymentId { get; set; }
-
         public IList<Order> Children { get; protected set; } = new List<Order>();
 
         public void AddOrderItem(OrderItem item)

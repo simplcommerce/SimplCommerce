@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SimplCommerce.Module.Payment.Services
+namespace SimplCommerce.Module.Payments.Services
 {
     public class ProcessPaymentRequest
     {

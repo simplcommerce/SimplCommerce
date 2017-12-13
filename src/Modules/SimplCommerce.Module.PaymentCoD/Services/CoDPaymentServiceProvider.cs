@@ -1,4 +1,4 @@
-﻿using SimplCommerce.Module.Payment.Services;
+﻿using SimplCommerce.Module.Payments.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

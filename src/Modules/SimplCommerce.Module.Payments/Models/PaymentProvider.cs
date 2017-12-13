@@ -1,6 +1,6 @@
 ﻿using SimplCommerce.Infrastructure.Models;
 
-namespace SimplCommerce.Module.Payment.Models
+namespace SimplCommerce.Module.Payments.Models
 {
     public class PaymentProvider : EntityBase
     {

@@ -3,7 +3,7 @@ using Stripe;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Services;
-using SimplCommerce.Module.ShoppingCart.Models;;
+using SimplCommerce.Module.ShoppingCart.Models;
 using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.PaymentStripe.Controllers
@@ -44,7 +44,7 @@ namespace SimplCommerce.Module.PaymentStripe.Controllers
                 CustomerId = customer.Id
             });
 
-            await _orderService.CreateOrder(currentUser, "Stripe", charge.Id);
+            await _orderService.CreateOrder(currentUser, "Stripe");
 
             return View();
         }
