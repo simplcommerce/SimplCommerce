@@ -27,6 +27,17 @@ namespace SimplCommerce.Module.ShoppingCart.Models
 
         public string CouponRuleName { get; set; }
 
+        public string ShippingMethod { get; set; }
+
+        public decimal? ShippingAmount { get; set; }
+
+        public decimal? TaxAmount { get; set; }
+
         public IList<CartItem> Items { get; set; } = new List<CartItem>();
+
+        /// <summary>
+        /// Json serialized of shipping form
+        /// </summary>
+        public string ShippingData { get; set; }
     }
 }

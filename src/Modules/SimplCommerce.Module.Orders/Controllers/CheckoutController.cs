@@ -1,20 +1,24 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.Orders.ViewModels;
 using SimplCommerce.Module.ShippingPrices.Services;
+using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.ShoppingCart.Services;
 
 namespace SimplCommerce.Module.Orders.Controllers
 {
     [Authorize]
+    [Route("checkout")]
     public class CheckoutController : Controller
     {
         private readonly IOrderService _orderService;
@@ -24,6 +28,7 @@ namespace SimplCommerce.Module.Orders.Controllers
         private readonly IShippingPriceService _shippingPriceService;
         private readonly ICartService _cartService;
         private readonly IWorkContext _workContext;
+        private readonly IRepository<Cart> _cartRepository;
 
         public CheckoutController(
             IRepository<StateOrProvince> stateOrProvinceRepository,
@@ -32,7 +37,8 @@ namespace SimplCommerce.Module.Orders.Controllers
             IShippingPriceService shippingPriceService,
             IOrderService orderService,
             ICartService cartService,
-            IWorkContext workContext)
+            IWorkContext workContext,
+            IRepository<Cart> cartRepository)
         {
             _stateOrProvinceRepository = stateOrProvinceRepository;
             _countryRepository = countryRepository;
@@ -41,15 +47,11 @@ namespace SimplCommerce.Module.Orders.Controllers
             _orderService = orderService;
             _cartService = cartService;
             _workContext = workContext;
+            _cartRepository = cartRepository;
         }
 
-        public IActionResult Index()
-        {
-            return RedirectToAction("DeliveryInformation");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> DeliveryInformation()
+        [HttpGet("shipping")]
+        public async Task<IActionResult> Shipping()
         {
             var model = new DeliveryInformationVm();
 
@@ -59,8 +61,8 @@ namespace SimplCommerce.Module.Orders.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> DeliveryInformation(DeliveryInformationVm model)
+        [HttpPost("shipping")]
+        public async Task<IActionResult> Shipping(DeliveryInformationVm model)
         {
             var currentUser = await _workContext.GetCurrentUser();
             // TODO Handle error messages
@@ -70,46 +72,22 @@ namespace SimplCommerce.Module.Orders.Controllers
                 return View(model);
             }
 
-            Address billingAddress;
-            Address shippingAddress;
-            if (model.ShippingAddressId == 0)
+            var cart = await _cartRepository
+               .Query()
+               .Where(x => x.UserId == currentUser.Id && x.IsActive).FirstOrDefaultAsync();
+
+            if (cart == null)
             {
-                var address = new Address
-                {
-                    AddressLine1 = model.NewAddressForm.AddressLine1,
-                    AddressLine2 = model.NewAddressForm.AddressLine2,
-                    ContactName = model.NewAddressForm.ContactName,
-                    CountryId = model.NewAddressForm.CountryId,
-                    StateOrProvinceId = model.NewAddressForm.StateOrProvinceId,
-                    DistrictId = model.NewAddressForm.DistrictId,
-                    City = model.NewAddressForm.City,
-                    PostalCode = model.NewAddressForm.PostalCode,
-                    Phone = model.NewAddressForm.Phone
-                };
-
-                var userAddress = new UserAddress
-                {
-                    Address = address,
-                    AddressType = AddressType.Shipping,
-                    UserId = currentUser.Id
-                };
-
-                _userAddressRepository.Add(userAddress);
-
-                billingAddress = shippingAddress = address;
-            }
-            else
-            {
-                billingAddress = shippingAddress = _userAddressRepository.Query().Where(x => x.Id == model.ShippingAddressId).Select(x => x.Address).First();
+                throw new ApplicationException($"Cart of user {currentUser.Id} cannot be found");
             }
 
-            await _orderService.CreateOrder(currentUser, model.ShippingMethod, billingAddress, shippingAddress);
-
-            return RedirectToAction("OrderConfirmation");
+            cart.ShippingData = JsonConvert.SerializeObject(model);
+            await _cartRepository.SaveChangesAsync();
+            return Redirect("~/checkout/payment");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> GetTaxAndShippingPrice([FromBody] TaxAndShippingPriceRequestVm model)
+        [HttpPost("update-tax-and-shipping-prices")]
+        public async Task<IActionResult> GetTaxAndShippingPrices([FromBody] TaxAndShippingPriceRequestVm model)
         {
             var currentUser = await _workContext.GetCurrentUser();
             Address address;
@@ -133,7 +111,10 @@ namespace SimplCommerce.Module.Orders.Controllers
 
             var orderTaxAndShippingPrice = new OrderTaxAndShippingPriceVm();
             orderTaxAndShippingPrice.Cart = await _cartService.GetCart(currentUser.Id);
-            orderTaxAndShippingPrice.Cart.TaxAmount = await _orderService.GetTax(currentUser.Id, address.CountryId, address.StateOrProvinceId);
+
+            var cart = await _cartRepository.Query().Where(x => x.Id == orderTaxAndShippingPrice.Cart.Id).FirstOrDefaultAsync();
+            cart.TaxAmount = orderTaxAndShippingPrice.Cart.TaxAmount = await _orderService.GetTax(currentUser.Id, address.CountryId, address.StateOrProvinceId);
+
             var request = new GetShippingPriceRequest
             {
                 OrderAmount = orderTaxAndShippingPrice.Cart.OrderTotal,
@@ -146,14 +127,15 @@ namespace SimplCommerce.Module.Orders.Controllers
                 : orderTaxAndShippingPrice.ShippingPrices.FirstOrDefault(x => x.Name == model.SelectedShippingMethodName);
             if(selectedShippingMethod != null)
             {
-                orderTaxAndShippingPrice.Cart.ShippingAmount = selectedShippingMethod.Price;
-                orderTaxAndShippingPrice.SelectedShippingMethodName = selectedShippingMethod.Name;
+                cart.ShippingAmount = orderTaxAndShippingPrice.Cart.ShippingAmount = selectedShippingMethod.Price;
+                cart.ShippingMethod = orderTaxAndShippingPrice.SelectedShippingMethodName = selectedShippingMethod.Name;
             }
 
+            await _cartRepository.SaveChangesAsync();
             return Ok(orderTaxAndShippingPrice);
         }
 
-        [HttpGet]
+        [HttpGet("congratulation")]
         public IActionResult OrderConfirmation()
         {
             return View();

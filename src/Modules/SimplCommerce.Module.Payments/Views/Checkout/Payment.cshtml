@@ -1,0 +1,36 @@
+﻿@model SimplCommerce.Module.Payments.ViewModels.CheckoutPaymentForm
+
+@{
+    ViewBag.Title = "Payment Information";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-controller="Checkout" asp-action="Payment" method="POST" id="checkout-payment" class="form-horizontal">
+            <h3>@Localizer["Choose a payment methods"]</h3>
+            @foreach (var paymentProvider in Model.PaymentProviders)
+            {
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="paymentProviderId" value="@paymentProvider.Name">
+                         @paymentProvider.Name
+                    </label>
+                </div>
+                <div class="paymentProvider-@paymentProvider.Id">
+                    @if(!string.IsNullOrWhiteSpace(paymentProvider.LandingViewComponentName))
+                    {
+                        @await Component.InvokeAsync(paymentProvider.LandingViewComponentName)
+                    }
+                </div>
+            }
+            <div class="form-group">
+                <div class="col-md-12 text-right">
+                    <button type="submit" class="btn btn-order">@Localizer["Order"]</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+        @await Component.InvokeAsync("OrderSummary")
+    </div>
+</div>

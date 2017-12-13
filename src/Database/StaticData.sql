@@ -70,6 +70,12 @@ INSERT [dbo].[Catalog_ProductOption] ([Id], [Name]) VALUES (2, N'Size')
 SET IDENTITY_INSERT [dbo].[Catalog_ProductOption] OFF
 GO
 
+SET IDENTITY_INSERT [dbo].[Payments_PaymentProvider] ON 
+INSERT [dbo].[Payments_PaymentProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [LandingViewComponentName], [Name], [PaymentProviderTypeName]) VALUES (1, NULL, NULL, 1, NULL, N'Cash On Delivery', NULL)
+INSERT [dbo].[Payments_PaymentProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [LandingViewComponentName], [Name], [PaymentProviderTypeName]) VALUES (2, NULL, NULL, 1, N'PaypalExpressLanding', N'Paypal Express', NULL)
+INSERT [dbo].[Payments_PaymentProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [LandingViewComponentName], [Name], [PaymentProviderTypeName]) VALUES (3, NULL, NULL, 1, N'StripeLanding', N'Stripe', NULL)
+SET IDENTITY_INSERT [dbo].[Payments_PaymentProvider] OFF
+
 SET IDENTITY_INSERT [dbo].[Core_Country] ON 
 INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (1, N'Afghanistan', N'AF', N'AFG', 0, 0)
 INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (2, N'Albania', N'AL', N'ALB', 0, 0)

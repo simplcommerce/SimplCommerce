@@ -1,12 +1,12 @@
 @model SimplCommerce.Module.Orders.ViewModels.DeliveryInformationVm
 
 @{
-    ViewBag.Title = "Delivery Information";
+    ViewBag.Title = "Shipping Information";
 }
 
 <div class="row">
     <div class="col-md-8">
-        <form asp-controller="Checkout" asp-action="DeliveryInformation" method="POST" id="checkout-delivery-address" class="form-horizontal">
+        <form asp-controller="Checkout" asp-action="Shipping" method="POST" id="checkout-delivery-address" class="form-horizontal">
             <h3>@Localizer["Shipping address"]</h3>
             @foreach(var address in Model.ExistingShippingAddresses)
             {
@@ -88,7 +88,7 @@
             </div>
             <div class="form-group">
                 <div class="col-md-12 text-right">
-                    <button type="submit" class="btn btn-order">@Localizer["Order"]</button>
+                    <button type="submit" class="btn btn-order">@Localizer["Continue"]</button>
                 </div>
             </div>
         </form>

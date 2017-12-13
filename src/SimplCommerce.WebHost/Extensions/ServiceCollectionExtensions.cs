@@ -73,6 +73,15 @@ namespace SimplCommerce.WebHost.Extensions
                 }
             }
 
+            foreach (var module in modules)
+            {
+                var moduleInitializerType = module.Assembly.GetTypes().FirstOrDefault(x => typeof(IModuleInitializer).IsAssignableFrom(x));
+                if ((moduleInitializerType != null) && (moduleInitializerType != typeof(IModuleInitializer)))
+                {
+                    services.AddSingleton(typeof(IModuleInitializer), moduleInitializerType);
+                }
+            }
+
             GlobalConfiguration.Modules = modules;
             return services;
         }
@@ -96,17 +105,7 @@ namespace SimplCommerce.WebHost.Extensions
 
             foreach (var module in modules)
             {
-                // Register controller from modules
                 mvcBuilder.AddApplicationPart(module.Assembly);
-
-                // Register dependency in modules
-                var moduleInitializerType =
-                    module.Assembly.GetTypes().FirstOrDefault(x => typeof(IModuleInitializer).IsAssignableFrom(x));
-                if ((moduleInitializerType != null) && (moduleInitializerType != typeof(IModuleInitializer)))
-                {
-                    var moduleInitializer = (IModuleInitializer)Activator.CreateInstance(moduleInitializerType);
-                    moduleInitializer.Init(services);
-                }
             }
 
             return services;
@@ -178,7 +177,10 @@ namespace SimplCommerce.WebHost.Extensions
 
             foreach (var module in GlobalConfiguration.Modules)
             {
-                builder.RegisterAssemblyTypes(module.Assembly).AsImplementedInterfaces();
+                builder.RegisterAssemblyTypes(module.Assembly).Where(t => t.Name.EndsWith("Repository")).AsImplementedInterfaces();
+                builder.RegisterAssemblyTypes(module.Assembly).Where(t => t.Name.EndsWith("Service")).AsImplementedInterfaces();
+                builder.RegisterAssemblyTypes(module.Assembly).Where(t => t.Name.EndsWith("ServiceProvider")).AsImplementedInterfaces();
+                builder.RegisterAssemblyTypes(module.Assembly).Where(t => t.Name.EndsWith("Handler")).AsImplementedInterfaces();
             }
 
             builder.RegisterInstance(configuration);

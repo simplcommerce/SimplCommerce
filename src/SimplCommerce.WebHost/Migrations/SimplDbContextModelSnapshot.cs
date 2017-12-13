@@ -1191,6 +1191,8 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<long?>("ParentId");
 
+                    b.Property<string>("PaymentMethod");
+
                     b.Property<long>("ShippingAddressId");
 
                     b.Property<decimal>("ShippingAmount");
@@ -1278,6 +1280,52 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Orders_OrderItem");
+                });
+
+            modelBuilder.Entity("SimplCommerce.Module.Payments.Models.Payment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("Amount");
+
+                    b.Property<DateTimeOffset>("CreatedOn");
+
+                    b.Property<string>("GatewayTransactionId");
+
+                    b.Property<long>("OrderId");
+
+                    b.Property<string>("PaymentMethod");
+
+                    b.Property<DateTimeOffset?>("UpdatedOn");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Payments_Payment");
+                });
+
+            modelBuilder.Entity("SimplCommerce.Module.Payments.Models.PaymentProvider", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AdditionalSettings");
+
+                    b.Property<string>("ConfigureUrl");
+
+                    b.Property<bool>("IsEnabled");
+
+                    b.Property<string>("LandingViewComponentName");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("PaymentProviderTypeName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Payments_PaymentProvider");
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Pricing.Models.CartRule", b =>
@@ -1638,6 +1686,14 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<DateTimeOffset>("CreatedOn");
 
                     b.Property<bool>("IsActive");
+
+                    b.Property<decimal?>("ShippingAmount");
+
+                    b.Property<string>("ShippingData");
+
+                    b.Property<string>("ShippingMethod");
+
+                    b.Property<decimal?>("TaxAmount");
 
                     b.Property<DateTimeOffset?>("UpdatedOn");
 
@@ -2121,6 +2177,14 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasOne("SimplCommerce.Module.Catalog.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SimplCommerce.Module.Payments.Models.Payment", b =>
+                {
+                    b.HasOne("SimplCommerce.Module.Orders.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

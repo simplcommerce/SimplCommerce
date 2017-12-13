@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
@@ -21,9 +22,15 @@ namespace SimplCommerce.Module.Orders.Services
         private readonly IRepository<CartItem> _cartItemRepository;
         private readonly ITaxService _taxService;
         private readonly IShippingPriceService _shippingPriceService;
+        private readonly IRepository<UserAddress> _userAddressRepository;
 
-        public OrderService(IRepository<Order> orderRepository, IRepository<Cart> cartRepository, ICouponService couponService,
-            IRepository<CartItem> cartItemRepository, ITaxService taxService, IShippingPriceService shippingPriceService)
+        public OrderService(IRepository<Order> orderRepository,
+            IRepository<Cart> cartRepository,
+            ICouponService couponService,
+            IRepository<CartItem> cartItemRepository,
+            ITaxService taxService,
+            IShippingPriceService shippingPriceService,
+            IRepository<UserAddress> userAddressRepository)
         {
             _orderRepository = orderRepository;
             _cartRepository = cartRepository;
@@ -31,9 +38,58 @@ namespace SimplCommerce.Module.Orders.Services
             _cartItemRepository = cartItemRepository;
             _taxService = taxService;
             _shippingPriceService = shippingPriceService;
+            _userAddressRepository = userAddressRepository;
         }
 
-        public async Task CreateOrder(User user, string shippingMethodName, Address billingAddress, Address shippingAddress)
+        public async Task CreateOrder(User user, string paymentMethod)
+        {
+            var cart = await _cartRepository
+               .Query()
+               .Where(x => x.UserId == user.Id && x.IsActive).FirstOrDefaultAsync();
+
+            if (cart == null)
+            {
+                throw new ApplicationException($"Cart of user {user.Id} cannot be found");
+            }
+
+            var shippingData = JsonConvert.DeserializeObject<DeliveryInformationVm>(cart.ShippingData);
+            Address billingAddress;
+            Address shippingAddress;
+            if (shippingData.ShippingAddressId == 0)
+            {
+                var address = new Address
+                {
+                    AddressLine1 = shippingData.NewAddressForm.AddressLine1,
+                    AddressLine2 = shippingData.NewAddressForm.AddressLine2,
+                    ContactName = shippingData.NewAddressForm.ContactName,
+                    CountryId = shippingData.NewAddressForm.CountryId,
+                    StateOrProvinceId = shippingData.NewAddressForm.StateOrProvinceId,
+                    DistrictId = shippingData.NewAddressForm.DistrictId,
+                    City = shippingData.NewAddressForm.City,
+                    PostalCode = shippingData.NewAddressForm.PostalCode,
+                    Phone = shippingData.NewAddressForm.Phone
+                };
+
+                var userAddress = new UserAddress
+                {
+                    Address = address,
+                    AddressType = AddressType.Shipping,
+                    UserId = user.Id
+                };
+
+                _userAddressRepository.Add(userAddress);
+
+                billingAddress = shippingAddress = address;
+            }
+            else
+            {
+                billingAddress = shippingAddress = _userAddressRepository.Query().Where(x => x.Id == shippingData.ShippingAddressId).Select(x => x.Address).First();
+            }
+
+            await CreateOrder(user, paymentMethod, shippingData.ShippingMethod, billingAddress, shippingAddress);
+        }
+
+        public async Task CreateOrder(User user, string paymentMethod, string shippingMethodName, Address billingAddress, Address shippingAddress)
         {
             var cart = _cartRepository
                 .Query()
@@ -42,7 +98,7 @@ namespace SimplCommerce.Module.Orders.Services
 
             if (cart == null)
             {
-                throw new ApplicationException($"Cart of user {user.Id} can no be found");
+                throw new ApplicationException($"Cart of user {user.Id} cannot be found");
             }
 
             var discount = await ApplyDiscount(user, cart);
@@ -79,7 +135,8 @@ namespace SimplCommerce.Module.Orders.Services
                 CreatedOn = DateTimeOffset.Now,
                 CreatedById = user.Id,
                 BillingAddress = orderBillingAddress,
-                ShippingAddress = orderShippingAddress
+                ShippingAddress = orderShippingAddress,
+                PaymentMethod = paymentMethod,
             };
 
             foreach (var cartItem in cart.Items)

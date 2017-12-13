@@ -32,13 +32,13 @@
     </tr>
     <tr>
         <td>@Localizer["Shipping"]</td>
-        <td colspan="2" id="orderSummaryShipping" class="text-right">-</td>
+        <td colspan="2" id="orderSummaryShipping" class="text-right">@Model.ShippingAmountString</td>
     </tr>
     @if (!Model.IsTaxIncludedInProductPrice)
     {
     <tr>
         <td>Tax</td>
-        <td colspan="2" id="orderSummaryTax" class="text-right">-</td>
+        <td colspan="2" id="orderSummaryTax" class="text-right">@Model.TaxAmountString</td>
     </tr>
     }
     <tr>
