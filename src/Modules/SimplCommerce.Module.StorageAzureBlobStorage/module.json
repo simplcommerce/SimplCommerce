@@ -1,0 +1,5 @@
+﻿{
+  "name": "storageAzure",
+  "fullName": "SimplCommerce.Module.StorageAzureBlobStorage",
+  "version": "1.0.0"
+}
