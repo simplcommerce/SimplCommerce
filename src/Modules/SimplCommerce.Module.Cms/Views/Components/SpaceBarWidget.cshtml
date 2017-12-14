@@ -1,0 +1,15 @@
+﻿@model SimplCommerce.Module.Cms.ViewModels.SpaceBarWidgetComponentVm
+<div align="center" class="row">
+    @foreach (var item in Model.Items)
+    {
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <i class='@item.IconHtml' aria-hidden='true'></i>
+            <div class="portfolio-overlay">
+                <h4>@item.Title</h4>
+                <p>
+                    @item.Description
+                </p>
+            </div>
+        </div>
+    }
+</div>

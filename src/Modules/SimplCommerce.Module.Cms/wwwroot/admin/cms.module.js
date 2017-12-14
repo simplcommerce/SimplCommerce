@@ -54,6 +54,16 @@
                     url: '/widget-html/edit/:id',
                     templateUrl: 'modules/cms/admin/html-widget/html-widget-form.html',
                     controller: 'HtmlWidgetFormCtrl as vm'
+                })
+                .state('widget-spacebar-create', {
+                    url: '/widget-spacebar/create',
+                    templateUrl: 'modules/Cms/admin/spacebar-widget/spacebar-widget-form.html',
+                    controller: 'SpaceBarWidgetFormCtrl as vm'
+                })
+                .state('widget-spacebar-edit', {
+                    url: '/widget-spacebar/edit/:id',
+                    templateUrl: 'modules/Cms/admin/spacebar-widget/spacebar-widget-form.html',
+                    controller: 'SpaceBarWidgetFormCtrl as vm'
                 });
         }]);
 })();
