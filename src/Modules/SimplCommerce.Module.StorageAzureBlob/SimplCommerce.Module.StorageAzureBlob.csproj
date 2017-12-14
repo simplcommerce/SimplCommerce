@@ -5,16 +5,25 @@
     <PreserveCompilationContext>false</PreserveCompilationContext>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
     <OutputType>Library</OutputType>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <RootNamespace>SimplCommerce.Module.StorageAzureBlob</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="WindowsAzure.Storage" Version="8.6.0" />
+    <PackageReference Include="WindowsAzure.Storage" Version="8.3.0" />
   </ItemGroup>
-
 
   <ItemGroup>
     <ProjectReference Include="..\..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Connected Services\" />
   </ItemGroup>
 
 </Project>

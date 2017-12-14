@@ -2,7 +2,7 @@
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Module.Core.Services;
 
-namespace SimplCommerce.Module.StorageAzureBlobStorage
+namespace SimplCommerce.Module.StorageAzureBlob
 {
     public class ModuleInitializer : IModuleInitializer
     {
