@@ -1,0 +1,28 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{::vm.translate.get('Payment providers')}}</h2>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>{{::vm.translate.get('Name')}}</th>
+        <th class="text-center">{{::vm.translate.get('IsEnabled')}}</th>
+        <th>{{::vm.translate.get('Configure')}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="provider in vm.paymentProviders">
+        <td>{{provider.name}}</td>
+        <td class="text-center"><i ng-attr-class="{{provider.isEnabled && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+        <td>
+            <button ng-if="provider.isEnabled" title="Disable" ng-click="vm.disableProvider(provider)" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pause"></span></button>
+            <button ng-if="!provider.isEnabled" title="Enable" ng-click="vm.enableProvider(provider)" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-play"></span></button>
+            <a ng-if="provider.configureUrl" ui-sref="{{provider.configureUrl}}" title="Configure" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-cog"></span></a>
+        </td>
+    </tr>
+    </tbody>
+</table>

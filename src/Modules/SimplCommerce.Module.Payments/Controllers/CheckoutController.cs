@@ -54,25 +54,5 @@ namespace SimplCommerce.Module.Payments.Controllers
 
             return View(checkoutPaymentForm);
         }
-
-        [HttpPost("payment")]
-        public async Task<IActionResult> Payment(IFormCollection formCollection)
-        {
-            var selectedPaymentMethod = "";
-            var currentUser = await _workContext.GetCurrentUser();
-            //var provider = _paymentProviderRepository.Query().Where(x => x.Name == selectedPaymentMethod).FirstOrDefault();
-            //var paymentProviderServiceType = Type.GetType(provider.PaymentProviderTypeName);
-            //var paymentServiceProviders = HttpContext.RequestServices.GetServices<IPaymentServiceProvider>();
-            //var paymentProviderService = paymentServiceProviders.Where(x => x.GetType() == paymentProviderServiceType).FirstOrDefault();
-
-            //var response = await paymentProviderService.ProcessPaymentPreOrder(new ProcessPaymentRequest());
-            //if (response.IsSuccess)
-            //{
-                await _orderService.CreateOrder(currentUser, selectedPaymentMethod);
-            //    await paymentProviderService.ProcessPaymentPostOrder();
-            //}
-
-            return Redirect("~/checkout/congratulation");
-        }
     }
 }
