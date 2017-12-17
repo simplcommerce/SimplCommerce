@@ -1,0 +1,4 @@
+speclial price start -> takeoff
+speclial price end -> landing
+brand -> carrier
+tax class -> aircraft

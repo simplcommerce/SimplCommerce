@@ -13,9 +13,73 @@
             <uib-tabset>
                 <uib-tab index="0" heading="{{::vm.translate.get('General Information')}}">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">{{::vm.translate.get('Product Name')}}</label>
+                        <label class="col-sm-2 control-label">Flight #</label>
                         <div class="col-sm-10">
                             <input name="name" ng-model="vm.product.name" ng-change="vm.updateSlug()" required class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">From</label>
+                        <div class="col-sm-10">
+                            <input name="name" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">To</label>
+                        <div class="col-sm-10">
+                            <input name="name" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Take Off</label>
+                        <div class="col-sm-10">
+                            <p class="input-group simpl-datetime-picker">
+                                <input type="text" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="vm.product.specialPriceStart" is-open="vm.datePickerSpecialPriceStart.open" datepicker-options="vm.datePickerSpecialPriceStart.datepickerOptions" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="vm.openCalendar($event, 'datePickerSpecialPriceStart')"><i class="fa fa-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Landing</label>
+                        <div class="col-sm-10">
+                            <p class="input-group simpl-datetime-picker">
+                                <input type="text" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="vm.product.specialPriceEnd" is-open="vm.datePickerSpecialPriceEnd.open" datepicker-options="vm.datePickerSpecialPriceEnd.datepickerOptions" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="vm.openCalendar($event, 'datePickerSpecialPriceEnd')"><i class="fa fa-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Carrier</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" ng-model="vm.product.brandId" ng-options="brand.id as brand.name for brand in vm.brands"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Aircraft</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" ng-model="vm.product.taxClassId" ng-options="taxClass.id as taxClass.name for taxClass in vm.taxClasses"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Adult Price</label>
+                        <div class="col-sm-10">
+                            <div class="input-number">
+                                <input id="productPrice" type="text" decimal maxlength="10" name="price" ng-model="vm.product.price" required class="form-control" />
+                                <label for="productPrice" class="form-control">{{vm.product.price | number}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Infant Price</label>
+                        <div class="col-sm-10">
+                            <div class="input-number">
+                                <input id="productOldPrice" type="text" decimal maxlength="10" name="oldPrice" ng-model="vm.product.oldPrice" class="form-control" />
+                                <label class="form-control" for="productOldPrice">{{vm.product.oldPrice | number}}</label>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -24,12 +88,7 @@
                             <input name="slug" ng-model="vm.product.slug" class="form-control" />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">{{::vm.translate.get('Brand')}}</label>
-                        <div class="col-sm-10">
-                            <select class="form-control" ng-model="vm.product.brandId" ng-options="brand.id as brand.name for brand in vm.brands"></select>
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label class="col-sm-2 control-label">{{::vm.translate.get('Short Description')}}</label>
                         <div class="col-sm-10">
@@ -48,24 +107,7 @@
                             <summernote on-image-upload="vm.specUpload(files)" editor="vm.specEditor" ng-model="vm.product.specification"></summernote>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">{{::vm.translate.get('Price')}}</label>
-                        <div class="col-sm-10">
-                            <div class="input-number">
-                                <input id="productPrice" type="text" decimal maxlength="10" name="price" ng-model="vm.product.price" required class="form-control" />
-                                <label for="productPrice" class="form-control">{{vm.product.price | number}}</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">{{::vm.translate.get('Old Price')}}</label>
-                        <div class="col-sm-10">
-                            <div class="input-number">
-                                <input id="productOldPrice" type="text" decimal maxlength="10" name="oldPrice" ng-model="vm.product.oldPrice" class="form-control" />
-                                <label class="form-control" for="productOldPrice">{{vm.product.oldPrice | number}}</label>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label class="col-sm-2 control-label">{{::vm.translate.get('Special Price')}}</label>
                         <div class="col-sm-10">
@@ -75,34 +117,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">{{::vm.translate.get('Special Price Start')}}</label>
-                        <div class="col-sm-10">
-                            <p class="input-group simpl-datetime-picker">
-                                <input type="text" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="vm.product.specialPriceStart" is-open="vm.datePickerSpecialPriceStart.open" datepicker-options="vm.datePickerSpecialPriceStart.datepickerOptions" />
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-click="vm.openCalendar($event, 'datePickerSpecialPriceStart')"><i class="fa fa-calendar"></i></button>
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">{{::vm.translate.get('Special Price End')}}</label>
-                        <div class="col-sm-10">
-                            <p class="input-group simpl-datetime-picker">
-                                <input type="text" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="vm.product.specialPriceEnd" is-open="vm.datePickerSpecialPriceEnd.open" datepicker-options="vm.datePickerSpecialPriceEnd.datepickerOptions" />
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-click="vm.openCalendar($event, 'datePickerSpecialPriceEnd')"><i class="fa fa-calendar"></i></button>
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">{{::vm.translate.get('Tax Class')}}</label>
-                        <div class="col-sm-10">
-                            <select class="form-control" ng-model="vm.product.taxClassId" ng-options="taxClass.id as taxClass.name for taxClass in vm.taxClasses"></select>
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label class="col-sm-2 control-label">{{::vm.translate.get('Thumbnail')}}</label>
                         <div class="col-sm-10">
