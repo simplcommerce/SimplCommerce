@@ -5,11 +5,8 @@ using Microsoft.WindowsAzure.Storage.RetryPolicies;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 

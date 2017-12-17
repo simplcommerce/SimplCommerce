@@ -1,29 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <PreserveCompilationContext>false</PreserveCompilationContext>
-    <EnableDefaultContentItems>false</EnableDefaultContentItems>
-    <OutputType>Library</OutputType>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <RootNamespace>SimplCommerce.Module.StorageAzureBlob</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="WindowsAzure.Storage" Version="8.3.0" />
+    <PackageReference Include="WindowsAzure.Storage" Version="8.7.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Connected Services\" />
   </ItemGroup>
 
 </Project>

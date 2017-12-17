@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2003
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C9BFDDC4-5671-47A3-B57D-197C2A51FA8A}"
 EndProject
@@ -84,7 +84,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Shippi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Shipments", "src\Modules\SimplCommerce.Module.Shipments\SimplCommerce.Module.Shipments.csproj", "{FC706C20-D4F4-45DA-856C-174E04FD3C4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.StorageAzureBlob", "src\Modules\SimplCommerce.Module.StorageAzureBlob\SimplCommerce.Module.StorageAzureBlob.csproj", "{7ED0569C-C45F-4E72-961F-2FA1A5F65A0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.StorageAzureBlob", "src\Modules\SimplCommerce.Module.StorageAzureBlob\SimplCommerce.Module.StorageAzureBlob.csproj", "{7ED0569C-C45F-4E72-961F-2FA1A5F65A0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.StorageAzure", "src\Modules\SimplCommerce.Module.StorageAzure\SimplCommerce.Module.StorageAzure.csproj", "{3B04ECF3-9290-4FF2-B50D-84E00ADA47C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -504,6 +506,18 @@ Global
 		{7ED0569C-C45F-4E72-961F-2FA1A5F65A0D}.Release|x64.Build.0 = Release|Any CPU
 		{7ED0569C-C45F-4E72-961F-2FA1A5F65A0D}.Release|x86.ActiveCfg = Release|Any CPU
 		{7ED0569C-C45F-4E72-961F-2FA1A5F65A0D}.Release|x86.Build.0 = Release|Any CPU
+		{3B04ECF3-9290-4FF2-B50D-84E00ADA47C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B04ECF3-9290-4FF2-B50D-84E00ADA47C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B04ECF3-9290-4FF2-B50D-84E00ADA47C2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3B04ECF3-9290-4FF2-B50D-84E00ADA47C2}.Debug|x64.Build.0 = Debug|Any CPU
+		{3B04ECF3-9290-4FF2-B50D-84E00ADA47C2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3B04ECF3-9290-4FF2-B50D-84E00ADA47C2}.Debug|x86.Build.0 = Debug|Any CPU
+		{3B04ECF3-9290-4FF2-B50D-84E00ADA47C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B04ECF3-9290-4FF2-B50D-84E00ADA47C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B04ECF3-9290-4FF2-B50D-84E00ADA47C2}.Release|x64.ActiveCfg = Release|Any CPU
+		{3B04ECF3-9290-4FF2-B50D-84E00ADA47C2}.Release|x64.Build.0 = Release|Any CPU
+		{3B04ECF3-9290-4FF2-B50D-84E00ADA47C2}.Release|x86.ActiveCfg = Release|Any CPU
+		{3B04ECF3-9290-4FF2-B50D-84E00ADA47C2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -545,6 +559,7 @@ Global
 		{AF595CF6-8D45-47D2-BF5E-50C9AB1D8192} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{FC706C20-D4F4-45DA-856C-174E04FD3C4F} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{7ED0569C-C45F-4E72-961F-2FA1A5F65A0D} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
+		{3B04ECF3-9290-4FF2-B50D-84E00ADA47C2} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B9D0D8F0-1AB9-44DD-839F-ED8CEE7DDB10}

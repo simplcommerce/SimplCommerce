@@ -50,7 +50,7 @@ namespace SimplCommerce.WebHost.Extensions
                     {
                         assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(file.FullName);
                     }
-                    catch (FileLoadException)
+                    catch (FileLoadException ex)
                     {
                         // Get loaded assembly
                         assembly = Assembly.Load(new AssemblyName(Path.GetFileNameWithoutExtension(file.Name)));
