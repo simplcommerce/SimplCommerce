@@ -21,13 +21,13 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">From</label>
                         <div class="col-sm-10">
-                            <input name="name" class="form-control" />
+                            <input name="name" class="form-control" ng-model="vm.product.shortDescription"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">To</label>
                         <div class="col-sm-10">
-                            <input name="name" class="form-control" />
+                            <input name="name" class="form-control" ng-model="vm.product.description" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -89,18 +89,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">{{::vm.translate.get('Short Description')}}</label>
-                        <div class="col-sm-10">
-                            <summernote on-image-upload="vm.shortDescUpload(files)" editor="vm.shortDescEditor" ng-model="vm.product.shortDescription"></summernote>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">{{::vm.translate.get('Description')}}</label>
-                        <div class="col-sm-10">
-                            <summernote on-image-upload="vm.descUpload(files)" editor="vm.descEditor" ng-model="vm.product.description"></summernote>
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">{{::vm.translate.get('Specification')}}</label>
                         <div class="col-sm-10">
