@@ -41,7 +41,7 @@ namespace SimplCommerce.Module.Orders.Services
             _userAddressRepository = userAddressRepository;
         }
 
-        public async Task CreateOrder(User user, string paymentMethod)
+        public async Task<Order> CreateOrder(User user, string paymentMethod)
         {
             var cart = await _cartRepository
                .Query()
@@ -86,10 +86,10 @@ namespace SimplCommerce.Module.Orders.Services
                 billingAddress = shippingAddress = _userAddressRepository.Query().Where(x => x.Id == shippingData.ShippingAddressId).Select(x => x.Address).First();
             }
 
-            await CreateOrder(user, paymentMethod, shippingData.ShippingMethod, billingAddress, shippingAddress);
+            return await CreateOrder(user, paymentMethod, shippingData.ShippingMethod, billingAddress, shippingAddress);
         }
 
-        public async Task CreateOrder(User user, string paymentMethod, string shippingMethodName, Address billingAddress, Address shippingAddress)
+        public async Task<Order> CreateOrder(User user, string paymentMethod, string shippingMethodName, Address billingAddress, Address shippingAddress)
         {
             var cart = _cartRepository
                 .Query()
@@ -201,6 +201,7 @@ namespace SimplCommerce.Module.Orders.Services
             }
 
             _orderRepository.SaveChanges();
+            return order;
         }
 
         public async Task<decimal> GetTax(long cartOwnerUserId, long countryId, long stateOrProvinceId)

@@ -1,14 +1,14 @@
 ﻿SET IDENTITY_INSERT [dbo].[Core_AppSetting] ON 
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (1, N'Catalog.ProductPageSize', N'10')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (2, N'Global.AssetVersion', N'1.0')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (3, N'News.PageSize', N'10')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (4, N'GoogleAppKey', N'AIzaSyBmsQV2FUo6g52R1kovLyfvaYm4FryNs4g')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (5, N'SmtpServer', N'smtp.gmail.com')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (6, N'SmtpPort', N'587')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (7, N'SmtpUsername', N'')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (8, N'SmtpPassword', N'')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (9, N'Theme', N'Generic')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (10, N'Tax_IsProductPriceIncludedTax', N'true')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (1, N'Catalog.ProductPageSize', N'10', 1, N'Catalog')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (2, N'Global.AssetVersion', N'1.0', 1, N'Core')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (3, N'News.PageSize', N'10', 1, N'News')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (4, N'GoogleAppKey', N'AIzaSyBmsQV2FUo6g52R1kovLyfvaYm4FryNs4g', 0, N'Core')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (5, N'SmtpServer', N'smtp.gmail.com', 0, N'Core')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (6, N'SmtpPort', N'587', 0, N'Core')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (7, N'SmtpUsername', N'', 0, N'Core')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (8, N'SmtpPassword', N'', 0, N'Core')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (9, N'Theme', N'Generic', 0, N'Core')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (10, N'Tax_IsProductPriceIncludedTax', N'true', 1, N'Tax')
 SET IDENTITY_INSERT [dbo].[Core_AppSetting] OFF
 GO
 
@@ -74,7 +74,7 @@ GO
 SET IDENTITY_INSERT [dbo].[Payments_PaymentProvider] ON 
 INSERT [dbo].[Payments_PaymentProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [LandingViewComponentName], [Name], [PaymentProviderTypeName]) VALUES (1, NULL, NULL, 1, N'CoDLanding', N'Cash On Delivery', NULL)
 INSERT [dbo].[Payments_PaymentProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [LandingViewComponentName], [Name], [PaymentProviderTypeName]) VALUES (2, NULL, NULL, 1, N'PaypalExpressLanding', N'Paypal Express', NULL)
-INSERT [dbo].[Payments_PaymentProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [LandingViewComponentName], [Name], [PaymentProviderTypeName]) VALUES (3, NULL, NULL, 1, N'StripeLanding', N'Stripe', NULL)
+INSERT [dbo].[Payments_PaymentProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [LandingViewComponentName], [Name], [PaymentProviderTypeName]) VALUES (3, N'{"PublicKey": "pk_test_6pRNASCoBOKtIshFeQd4XMUh", "PrivateKey" : "sk_test_BQokikJOvBiI2HlWgH4olfQ2"}', N'payments-stripe-config', 1, N'StripeLanding', N'Stripe', NULL)
 SET IDENTITY_INSERT [dbo].[Payments_PaymentProvider] OFF
 
 SET IDENTITY_INSERT [dbo].[Core_Country] ON 

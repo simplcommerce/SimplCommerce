@@ -1,12 +1,12 @@
-﻿@using Microsoft.Extensions.Configuration
-@inject IConfiguration Config
+﻿@model SimplCommerce.Module.PaymentStripe.ViewModels.StripeCheckoutForm
 
 <form asp-controller="Stripe" asp-action="Charge" method="POST">
     <script src="//checkout.stripe.com/v2/checkout.js"
             class="stripe-button"
-            data-key="@Config["Stripe:PublishableKey"]"
+            data-key="@Model.PublicKey"
             data-locale="auto"
-            data-description="Sample Charge"
-            data-amount="500">
+            data-currency="@Model.ISOCurrencyCode"
+            data-description="Payment with Stripe"
+            data-amount="@Model.Amount">
     </script>
 </form>

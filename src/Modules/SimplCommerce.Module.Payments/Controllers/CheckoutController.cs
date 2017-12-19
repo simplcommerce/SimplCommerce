@@ -1,19 +1,12 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
-using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Orders.Services;
-using SimplCommerce.Module.Orders.ViewModels;
 using SimplCommerce.Module.Payments.Models;
-using SimplCommerce.Module.Payments.Services;
 using SimplCommerce.Module.Payments.ViewModels;
 using SimplCommerce.Module.ShoppingCart.Models;
 

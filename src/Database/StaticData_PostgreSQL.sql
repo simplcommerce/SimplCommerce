@@ -1,13 +1,14 @@
-﻿INSERT INTO "Core_AppSetting" ("Id", "Key", "Value") VALUES (1, 'Catalog.ProductPageSize', '10');
-INSERT INTO "Core_AppSetting" ("Id", "Key", "Value") VALUES (2, 'Global.AssetVersion', '1.0');
-INSERT INTO "Core_AppSetting" ("Id", "Key", "Value") VALUES (3, 'News.PageSize', '10');
-INSERT INTO "Core_AppSetting" ("Id", "Key", "Value") VALUES (4, 'GoogleAppKey', 'AIzaSyBmsQV2FUo6g52R1kovLyfvaYm4FryNs4g');
-INSERT INTO "Core_AppSetting" ("Id", "Key", "Value") VALUES (5, 'SmtpServer', 'smtp.gmail.com');
-INSERT INTO "Core_AppSetting" ("Id", "Key", "Value") VALUES (6, 'SmtpPort', '587');
-INSERT INTO "Core_AppSetting" ("Id", "Key", "Value") VALUES (7, 'SmtpUsername', '');
-INSERT INTO "Core_AppSetting" ("Id", "Key", "Value") VALUES (8, 'SmtpPassword', '');
-INSERT INTO "Core_AppSetting" ("Id", "Key", "Value") VALUES (9, 'Theme', 'Generic');
-SELECT pg_catalog.setval('"Core_AppSetting_Id_seq"', 9, true);
+﻿INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPage", "Module") VALUES (1, 'Catalog.ProductPageSize', '10', true, 'Catalog');
+INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPage", "Module") VALUES (2, 'Global.AssetVersion', '1.0', true, 'Core');
+INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPage", "Module") VALUES (3, 'News.PageSize', '10', true, 'News');
+INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPage", "Module") VALUES (4, 'GoogleAppKey', 'AIzaSyBmsQV2FUo6g52R1kovLyfvaYm4FryNs4g', false, 'Core');
+INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPage", "Module") VALUES (5, 'SmtpServer', 'smtp.gmail.com', false, 'Core');
+INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPage", "Module") VALUES (6, 'SmtpPort', '587', false, 'Core');
+INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPage", "Module") VALUES (7, 'SmtpUsername', '', false, 'Core');
+INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPage", "Module") VALUES (8, 'SmtpPassword', '', false, 'Core');
+INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPage", "Module") VALUES (9, 'Theme', 'Generic', false, 'Core');
+INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPage", "Module") VALUES (10, 'Tax_IsProductPriceIncludedTax', 'true', true, 'Tax');
+SELECT pg_catalog.setval('"Core_AppSetting_Id_seq"', 10, true);
 
 INSERT INTO "Core_Role" ("Id", "ConcurrencyStamp", "Name", "NormalizedName") VALUES (1, 'bd3bee0b-5f1d-482d-b890-ffdc01915da3', 'admin', 'ADMIN');
 INSERT INTO "Core_Role" ("Id", "ConcurrencyStamp", "Name", "NormalizedName") VALUES (2, 'bd3bee0b-5f1d-482d-b890-ffdc01915da3', 'customer', 'CUSTOMER');
@@ -51,6 +52,11 @@ INSERT INTO "Catalog_ProductOption" ("Id", "Name") VALUES (1, 'Color');
 INSERT INTO "Catalog_ProductOption" ("Id", "Name") VALUES (2, 'Size');
 SELECT pg_catalog.setval('"Catalog_ProductOption_Id_seq"', 2, true);
 
+INSERT INTO "Payments_PaymentProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "LandingViewComponentName", "Name", "PaymentProviderTypeName") VALUES (1, NULL, NULL, true, 'CoDLanding', 'Cash On Delivery', NULL);
+INSERT INTO "Payments_PaymentProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "LandingViewComponentName", "Name", "PaymentProviderTypeName") VALUES (2, NULL, NULL, true, 'PaypalExpressLanding', 'Paypal Express', NULL);
+INSERT INTO "Payments_PaymentProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "LandingViewComponentName", "Name", "PaymentProviderTypeName") VALUES (3, '{"PublicKey": "pk_test_6pRNASCoBOKtIshFeQd4XMUh", "PrivateKey" : "sk_test_BQokikJOvBiI2HlWgH4olfQ2"}', 'payments-stripe-config', true, 'StripeLanding', 'Stripe', NULL);
+SELECT pg_catalog.setval('"Payments_PaymentProvider_Id_seq"', 3, true);
+
 INSERT INTO "Core_Country" ("Id", "Name", "IsBillingEnabled", "IsShippingEnabled") VALUES (1, 'Việt Nam', true, true);
 INSERT INTO "Core_Country" ("Id", "Name", "IsBillingEnabled", "IsShippingEnabled") VALUES (2, 'United States', true, true);
 
@@ -76,10 +82,10 @@ INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Typ
 INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Type") VALUES (18, NULL, 'Phú Nhuận', 79, NULL);
 INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Type") VALUES (19, NULL, 'Bình Chánh', 79, NULL);
 
-INSERT INTO "Shipping_ShippingProvider" ("Id", "AdditionalSettings", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces") VALUES (1, '{MinimumOrderAmount : 100}', true, 'Free Ship', NULL, NULL, 'SimplCommerce.Module.ShippingFree.Services.FreeShippingServiceProvider,SimplCommerce.Module.ShippingFree', true, true);
-INSERT INTO "Shipping_ShippingProvider" ("Id", "AdditionalSettings", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces") VALUES (2, NULL, true, 'Table Rate', NULL, NULL, 'SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingServiceProvider,SimplCommerce.Module.ShippingTableRate', true, true);
+INSERT INTO "Shipping_ShippingProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces") VALUES (1, N'{MinimumOrderAmount : 10}', N'shipping-free-config', true, N'Free Ship', NULL, NULL, N'SimplCommerce.Module.ShippingFree.Services.FreeShippingServiceProvider,SimplCommerce.Module.ShippingFree', true, true);
+INSERT INTO "Shipping_ShippingProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces") VALUES (2, NULL, N'shipping-table-rate-config', true, N'Table Rate', NULL, NULL, N'SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingServiceProvider,SimplCommerce.Module.ShippingTableRate', true, true);
 
-INSERT INTO "ShippingTableRate_PriceAndDestination" ("Id", "CountryId", "MinOrderSubtotal", "ShippingPrice", "StateOrProvinceId") VALUES (1, 1, 100000, 10, NULL);
+INSERT INTO "ShippingTableRate_PriceAndDestination" ("Id", "CountryId", "MinOrderSubtotal", "ShippingPrice", "StateOrProvinceId") VALUES (1, 1, 100, 10, NULL);
 
 INSERT INTO "Localization_Culture" ("Id", "Name") VALUES (1, 'vi-VN');
 INSERT INTO "Localization_Culture" ("Id", "Name") VALUES (2, 'fr-FR');
