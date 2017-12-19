@@ -35,6 +35,14 @@ namespace SimplCommerce.Module.ShoppingCart.ViewModels
             get { return ShippingAmount.HasValue ? ShippingAmount.Value.ToString("C") : "-"; }
         }
 
+        public decimal SubTotalWithDiscount
+        {
+            get
+            {
+                return SubTotal - Discount;
+            }
+        }
+
         public decimal OrderTotal
         {
             get { return SubTotal + (TaxAmount ?? 0) + (ShippingAmount ?? 0) - Discount; }

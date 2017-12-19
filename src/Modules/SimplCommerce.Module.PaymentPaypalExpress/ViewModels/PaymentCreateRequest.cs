@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SimplCommerce.Module.PaymentPaypalExpress.ViewModels
+﻿namespace SimplCommerce.Module.PaymentPaypalExpress.ViewModels
 {
     public class PaymentCreateRequest
     {
         public string intent { get; set; }
+
+        public string experience_profile_id { get; set; }
+
         public Payer payer { get; set; }
+
         public Transaction[] transactions { get; set; }
+
         public string note_to_payer { get; set; }
+
         public Redirect_Urls redirect_urls { get; set; }
     }
 
