@@ -65,11 +65,10 @@ namespace SimplCommerce.Module.Catalog.ViewModels
                 ThumbnailImage = product.ThumbnailImage,
                 ReviewsCount = product.ReviewsCount,
                 RatingAverage = product.RatingAverage,
-                Departure = product.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "Departure")?.Value,
-                Landing = product.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "Landing")?.Value,
-                DepartureDate = product.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "Departure Date")?.Value,
-                LandingDate = product.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "Landing Date")?.Value
-
+                Departure = product.ShortDescription,
+                Landing = product.Description,
+                DepartureDate = product.SpecialPriceStart.ToString(),
+                LandingDate = product.SpecialPriceEnd.ToString()
             };
 
             return productThumbnail;

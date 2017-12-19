@@ -43,10 +43,9 @@ namespace SimplCommerce.Module.Search.Controllers
         [HttpGet("search")]
         public IActionResult Index(SearchOption searchOption)
         {
-            var query = _productRepository.Query().Where(x =>
-                x.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "Departure").Value == searchOption.Departure &&
-                x.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "Landing").Value == searchOption.Landing &&
-                //x.AttributeValues.FirstOrDefault(a => a.Attribute.Name == "DepartureDate").Value == searchOption.DepartureDate &&
+            var query = _productRepository.Query().Where(x => 
+                x.ShortDescription == searchOption.Departure &&
+                x.Description == searchOption.Landing &&
                 x.IsPublished && x.IsVisibleIndividually);
 
             var brand = _brandRepository.Query().FirstOrDefault(x => x.Name == searchOption.Query && x.IsPublished);
