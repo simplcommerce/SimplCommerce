@@ -9,8 +9,6 @@ INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingP
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (8, N'SmtpPassword', N'', 0, N'Core')
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (9, N'Theme', N'Generic', 0, N'Core')
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (10, N'Tax_IsProductPriceIncludedTax', N'true', 1, N'Tax')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (11, N'Stripe:SecretKey', N'sk_test_BQokikJOvBiI2HlWgH4olfQ2', 0, N'PaymentStripe')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (12, N'Stripe:PublishableKey', N'pk_test_6pRNASCoBOKtIshFeQd4XMUh', 0, N'PaymentStripe')
 SET IDENTITY_INSERT [dbo].[Core_AppSetting] OFF
 GO
 
@@ -76,7 +74,7 @@ GO
 SET IDENTITY_INSERT [dbo].[Payments_PaymentProvider] ON 
 INSERT [dbo].[Payments_PaymentProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [LandingViewComponentName], [Name], [PaymentProviderTypeName]) VALUES (1, NULL, NULL, 1, N'CoDLanding', N'Cash On Delivery', NULL)
 INSERT [dbo].[Payments_PaymentProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [LandingViewComponentName], [Name], [PaymentProviderTypeName]) VALUES (2, NULL, NULL, 1, N'PaypalExpressLanding', N'Paypal Express', NULL)
-INSERT [dbo].[Payments_PaymentProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [LandingViewComponentName], [Name], [PaymentProviderTypeName]) VALUES (3, NULL, N'payments-stripe-config', 1, N'StripeLanding', N'Stripe', NULL)
+INSERT [dbo].[Payments_PaymentProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [LandingViewComponentName], [Name], [PaymentProviderTypeName]) VALUES (3, N'{"PublicKey": "pk_test_6pRNASCoBOKtIshFeQd4XMUh", "PrivateKey" : "sk_test_BQokikJOvBiI2HlWgH4olfQ2"}', N'payments-stripe-config', 1, N'StripeLanding', N'Stripe', NULL)
 SET IDENTITY_INSERT [dbo].[Payments_PaymentProvider] OFF
 
 SET IDENTITY_INSERT [dbo].[Core_Country] ON 

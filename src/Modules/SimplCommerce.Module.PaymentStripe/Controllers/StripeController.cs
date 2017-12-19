@@ -1,7 +1,9 @@
 ﻿using System;
-using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Stripe;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
@@ -9,7 +11,8 @@ using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Module.Payments.Models;
-using System.Globalization;
+using SimplCommerce.Module.PaymentStripe.ViewModels;
+using SimplCommerce.Module.PaymentStripe.Models;
 
 namespace SimplCommerce.Module.PaymentStripe.Controllers
 {
@@ -18,29 +21,30 @@ namespace SimplCommerce.Module.PaymentStripe.Controllers
         private readonly IRepository<Cart> _cartRepository;
         private readonly IOrderService _orderService;
         private readonly IWorkContext _workContext;
-        private readonly IConfiguration _configuration;
+        private readonly IRepository<PaymentProvider> _paymentProviderRepository;
         private readonly IRepository<Payment> _paymentRepository;
-        private readonly string _secretKey;
 
         public StripeController(
             IRepository<Cart> cartRepository,
             IOrderService orderService,
             IWorkContext workContext,
-            IConfiguration configuration,
+            IRepository<PaymentProvider> paymentProviderRepository,
             IRepository<Payment> paymentRepository)
         {
             _cartRepository = cartRepository;
             _orderService = orderService;
             _workContext = workContext;
-            _configuration = configuration;
+            _paymentProviderRepository = paymentProviderRepository;
             _paymentRepository = paymentRepository;
-            _secretKey = _configuration["Stripe:SecretKey"];
         }
 
         public async Task<IActionResult> Charge(string stripeEmail, string stripeToken)
         {
-            var customers = new StripeCustomerService(_secretKey);
-            var charges = new StripeChargeService(_secretKey);
+            var stripeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.StripeProviderId);
+            var stripeSetting = JsonConvert.DeserializeObject<StripeConfigForm>(stripeProvider.AdditionalSettings);
+
+            var customers = new StripeCustomerService(stripeSetting.PrivateKey);
+            var charges = new StripeChargeService(stripeSetting.PrivateKey);
             var currentUser = await _workContext.GetCurrentUser();
             var order = await _orderService.CreateOrder(currentUser, "Stripe");
 
@@ -58,6 +62,7 @@ namespace SimplCommerce.Module.PaymentStripe.Controllers
 
             var regionInfo = new RegionInfo(CultureInfo.CurrentCulture.LCID);
 
+            // TODO handle exception
             var charge = charges.Create(new StripeChargeCreateOptions
             {
                 Amount = (int)zeroDecimalOrderAmount,

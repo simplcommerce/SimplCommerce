@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Core.Models;
+using SimplCommerce.Module.Payments.Models;
+using SimplCommerce.Module.PaymentStripe.Models;
 using SimplCommerce.Module.PaymentStripe.ViewModels;
 
 namespace SimplCommerce.Module.PaymentStripe.Controllers
@@ -14,26 +14,18 @@ namespace SimplCommerce.Module.PaymentStripe.Controllers
     [Route("api/stripe")]
     public class StripeApiController : Controller
     {
-        private readonly IRepository<AppSetting> _appSettingRepository;
-        private readonly IConfigurationRoot _configurationRoot;
+        private readonly IRepository<PaymentProvider> _paymentProviderRepository;
 
-        public StripeApiController(IRepository<AppSetting> appSettingRepository, IConfiguration configuration)
+        public StripeApiController(IRepository<PaymentProvider> paymentProviderRepository)
         {
-            _appSettingRepository = appSettingRepository;
-            _configurationRoot = (IConfigurationRoot)configuration;
+            _paymentProviderRepository = paymentProviderRepository;
         }
 
         [HttpGet("config")]
         public async Task<IActionResult> Config()
         {
-            var settings = await _appSettingRepository.Query().Where(x => x.Module == "PaymentStripe").ToListAsync();
-            var model = new StripeConfigForm();
-            var privateKey = settings.First(x => x.Key == "Stripe:SecretKey");
-            model.PrivateKey = privateKey.Value;
-
-            var publicKey = settings.First(x => x.Key == "Stripe:PublishableKey");
-            model.PublicKey = publicKey.Value;
-
+            var stripeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.StripeProviderId);
+            var model = JsonConvert.DeserializeObject<StripeConfigForm>(stripeProvider.AdditionalSettings);
             return Ok(model);
         }
 
@@ -42,16 +34,9 @@ namespace SimplCommerce.Module.PaymentStripe.Controllers
         {
             if (ModelState.IsValid)
             {
-                var settings = await _appSettingRepository.Query().Where(x => x.Module == "PaymentStripe").ToListAsync();
-                var privateKey = settings.First(x => x.Key == "Stripe:SecretKey");
-                privateKey.Value = model.PrivateKey;
-
-                var publicKey = settings.First(x => x.Key == "Stripe:PublishableKey");
-                publicKey.Value = model.PublicKey;
-
-                await _appSettingRepository.SaveChangesAsync();
-                _configurationRoot.Reload();
-
+                var stripeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.StripeProviderId);
+                stripeProvider.AdditionalSettings = JsonConvert.SerializeObject(model);
+                await _paymentProviderRepository.SaveChangesAsync();
                 return Accepted();
             }
 
