@@ -87,7 +87,7 @@ namespace SimplCommerce.Module.Orders.Controllers
         }
 
         [HttpPost("update-tax-and-shipping-prices")]
-        public async Task<IActionResult> GetTaxAndShippingPrices([FromBody] TaxAndShippingPriceRequestVm model)
+        public async Task<IActionResult> UpdateTaxAndShippingPrices([FromBody] TaxAndShippingPriceRequestVm model)
         {
             var currentUser = await _workContext.GetCurrentUser();
             Address address;
