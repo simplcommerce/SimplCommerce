@@ -85,7 +85,7 @@ INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Typ
 INSERT INTO "Shipping_ShippingProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces") VALUES (1, N'{MinimumOrderAmount : 10}', N'shipping-free-config', true, N'Free Ship', NULL, NULL, N'SimplCommerce.Module.ShippingFree.Services.FreeShippingServiceProvider,SimplCommerce.Module.ShippingFree', true, true);
 INSERT INTO "Shipping_ShippingProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces") VALUES (2, NULL, N'shipping-table-rate-config', true, N'Table Rate', NULL, NULL, N'SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingServiceProvider,SimplCommerce.Module.ShippingTableRate', true, true);
 
-INSERT INTO "ShippingTableRate_PriceAndDestination" ("Id", "CountryId", "MinOrderSubtotal", "ShippingPrice", "StateOrProvinceId") VALUES (1, 1, 100000, 10, NULL);
+INSERT INTO "ShippingTableRate_PriceAndDestination" ("Id", "CountryId", "MinOrderSubtotal", "ShippingPrice", "StateOrProvinceId") VALUES (1, 1, 100, 10, NULL);
 
 INSERT INTO "Localization_Culture" ("Id", "Name") VALUES (1, 'vi-VN');
 INSERT INTO "Localization_Culture" ("Id", "Name") VALUES (2, 'fr-FR');
