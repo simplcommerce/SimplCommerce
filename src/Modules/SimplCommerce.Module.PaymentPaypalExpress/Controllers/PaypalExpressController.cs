@@ -63,7 +63,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             var paymentCreateRequest = new PaymentCreateRequest
             {
-                experience_profile_id = _setting.Value.ExperienceProfileId,
+               // experience_profile_id = _setting.Value.ExperienceProfileId,
                 intent = "sale",
                 payer = new Payer
                 {
