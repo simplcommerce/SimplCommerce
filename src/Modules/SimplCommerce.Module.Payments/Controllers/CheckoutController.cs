@@ -35,6 +35,13 @@ namespace SimplCommerce.Module.Payments.Controllers
         [HttpGet("payment")]
         public async Task<IActionResult> Payment()
         {
+            var currentUser = await _workContext.GetCurrentUser();
+            var cart = _cartRepository.Query().FirstOrDefault(x => x.UserId == currentUser.Id && x.IsActive);
+            if(cart == null)
+            {
+                return Redirect("~/");
+            }
+
             var checkoutPaymentForm = new CheckoutPaymentForm();
             checkoutPaymentForm.PaymentProviders = await _paymentProviderRepository.Query()
                 .Where(x => x.IsEnabled)

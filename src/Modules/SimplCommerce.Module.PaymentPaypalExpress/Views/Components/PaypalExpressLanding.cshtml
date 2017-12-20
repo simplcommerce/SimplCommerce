@@ -1,23 +1,25 @@
-﻿<div id="paypal-button"></div>
+﻿@model SimplCommerce.Module.PaymentPaypalExpress.ViewModels.PaypalExpressCheckoutForm
+
+<div id="paypal-button"></div>
 
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 
 <script>
     paypal.Button.render({
-        env: 'sandbox', // sandbox | production
+        env: '@Model.Environment', // sandbox | production
         // Show the buyer a 'Pay Now' button in the checkout flow
         commit: true,
         payment: function (data, actions) {
-            return paypal.request.post('/PaymentExpress/CreatePayment')
+            return paypal.request.post('/PaypalExpress/CreatePayment')
                 .then(function (res) { return res.paymentId; });
         },
 
         onAuthorize: function (data, actions) {
-            return paypal.request.post('/PaymentExpress/ExecutePayment', {
+            return paypal.request.post('/PaypalExpress/ExecutePayment', {
                 paymentID: data.paymentID,
                 payerID: data.payerID
             }).then(function (res) {
-                console.log('Payment complete!')
+                window.location = "/checkout/congratulation";
             });
         }
     }, '#paypal-button');
