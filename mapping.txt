@@ -1,0 +1,6 @@
+speclial price start -> takeoff
+speclial price end -> landing
+brand -> carrier
+tax class -> aircraft
+product.description -> takeoff airport
+product.shortDescription -> destination

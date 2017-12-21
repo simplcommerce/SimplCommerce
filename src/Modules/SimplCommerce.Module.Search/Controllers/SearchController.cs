@@ -43,10 +43,10 @@ namespace SimplCommerce.Module.Search.Controllers
         [HttpGet("search")]
         public IActionResult Index(SearchOption searchOption)
         {
-            if (string.IsNullOrWhiteSpace(searchOption.Query))
-            {
-                return Redirect("~/");
-            }
+            var query = _productRepository.Query().Where(x => 
+                x.ShortDescription == searchOption.Departure &&
+                x.Description == searchOption.Landing &&
+                x.IsPublished && x.IsVisibleIndividually);
 
             var brand = _brandRepository.Query().FirstOrDefault(x => x.Name == searchOption.Query && x.IsPublished);
             if(brand != null)
@@ -60,7 +60,6 @@ namespace SimplCommerce.Module.Search.Controllers
                 FilterOption = new FilterOption()
             };
 
-            var query = _productRepository.Query().Where(x => x.Name.Contains(searchOption.Query) && x.IsPublished && x.IsVisibleIndividually);
 
             model.FilterOption.Price.MaxPrice = query.Select(x => x.Price).DefaultIfEmpty(0).Max();
             model.FilterOption.Price.MinPrice = query.Select(x => x.Price).DefaultIfEmpty(0).Min();
@@ -101,11 +100,12 @@ namespace SimplCommerce.Module.Search.Controllers
                 currentPageNum--;
                 offset = (_pageSize * currentPageNum) - _pageSize;
             }
-
+            
             SaveSearchQuery(searchOption, model);
 
             query = query
-                .Include(x => x.ThumbnailImage);
+                .Include(x => x.ThumbnailImage)
+                .Include(x => x.AttributeValues).ThenInclude(a => a.Attribute);
 
             query = AppySort(searchOption, query);
 
