@@ -34,7 +34,7 @@ namespace SimplCommerce.Module.StorageAmazonS3
 
             if (string.IsNullOrWhiteSpace(_publicEndpoint))
             {
-                _publicEndpoint = $"http://s3-{regionEndpointName}.amazonaws.com/{_bucketName}/";
+                _publicEndpoint = $"http://s3.{regionEndpointName}.amazonaws.com/{_bucketName}/";
             }
         }
 

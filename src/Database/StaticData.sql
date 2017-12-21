@@ -1,13 +1,14 @@
 ﻿SET IDENTITY_INSERT [dbo].[Core_AppSetting] ON 
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (1, N'Catalog.ProductPageSize', N'10')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (2, N'Global.AssetVersion', N'1.0')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (3, N'News.PageSize', N'10')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (4, N'GoogleAppKey', N'AIzaSyBmsQV2FUo6g52R1kovLyfvaYm4FryNs4g')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (5, N'SmtpServer', N'smtp.gmail.com')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (6, N'SmtpPort', N'587')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (7, N'SmtpUsername', N'')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (8, N'SmtpPassword', N'')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value]) VALUES (9, N'Theme', N'Generic')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (1, N'Catalog.ProductPageSize', N'10', 1, N'Catalog')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (2, N'Global.AssetVersion', N'1.0', 1, N'Core')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (3, N'News.PageSize', N'10', 1, N'News')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (4, N'GoogleAppKey', N'AIzaSyBmsQV2FUo6g52R1kovLyfvaYm4FryNs4g', 0, N'Core')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (5, N'SmtpServer', N'smtp.gmail.com', 0, N'Core')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (6, N'SmtpPort', N'587', 0, N'Core')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (7, N'SmtpUsername', N'', 0, N'Core')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (8, N'SmtpPassword', N'', 0, N'Core')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (9, N'Theme', N'Generic', 0, N'Core')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (10, N'Tax_IsProductPriceIncludedTax', N'true', 1, N'Tax')
 SET IDENTITY_INSERT [dbo].[Core_AppSetting] OFF
 GO
 
@@ -48,6 +49,7 @@ INSERT [dbo].[Core_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [
 INSERT [dbo].[Core_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (2, N'HtmlWidget', N'widget-html-create', CAST(N'2016-06-24 00:00:00.0000000' AS DateTime2), N'widget-html-edit', 1, N'Html Widget', N'HtmlWidget')
 INSERT [dbo].[Core_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (3, N'ProductWidget', N'widget-product-create', CAST(N'2016-07-08 00:00:00.0000000' AS DateTime2), N'widget-product-edit', 1, N'Product Widget', N'ProductWidget')
 INSERT [dbo].[Core_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (4, N'CategoryWidget', N'widget-category-create', CAST(N'2016-07-08 00:00:00.0000000' AS DateTime2), N'widget-category-edit', 1, N'Category Widget', N'CategoryWidget')
+INSERT [dbo].[Core_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (5, N'SpaceBarWidget', N'widget-spacebar-create', CAST(N'2016-07-08 00:00:00.0000000' AS DateTime2), N'widget-spacebar-edit', 1, N'SpaceBar Widget', N'SpaceBarWidget')
 SET IDENTITY_INSERT [dbo].[Core_Widget] OFF
 GO
 
@@ -68,6 +70,12 @@ INSERT [dbo].[Catalog_ProductOption] ([Id], [Name]) VALUES (1, N'Color')
 INSERT [dbo].[Catalog_ProductOption] ([Id], [Name]) VALUES (2, N'Size')
 SET IDENTITY_INSERT [dbo].[Catalog_ProductOption] OFF
 GO
+
+SET IDENTITY_INSERT [dbo].[Payments_PaymentProvider] ON 
+INSERT [dbo].[Payments_PaymentProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [LandingViewComponentName], [Name], [PaymentProviderTypeName]) VALUES (1, NULL, NULL, 1, N'CoDLanding', N'Cash On Delivery', NULL)
+INSERT [dbo].[Payments_PaymentProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [LandingViewComponentName], [Name], [PaymentProviderTypeName]) VALUES (2, N'{"IsSandbox":true,"ClientId":"","ClientSecret":""}', N'payments-paypalExpress-config', 1, N'PaypalExpressLanding', N'Paypal Express', NULL)
+INSERT [dbo].[Payments_PaymentProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [LandingViewComponentName], [Name], [PaymentProviderTypeName]) VALUES (3, N'{"PublicKey": "pk_test_6pRNASCoBOKtIshFeQd4XMUh", "PrivateKey" : "sk_test_BQokikJOvBiI2HlWgH4olfQ2"}', N'payments-stripe-config', 1, N'StripeLanding', N'Stripe', NULL)
+SET IDENTITY_INSERT [dbo].[Payments_PaymentProvider] OFF
 
 SET IDENTITY_INSERT [dbo].[Core_Country] ON 
 INSERT [dbo].[Core_Country] ([Id], [Name], [Code2], [Code3], [IsBillingEnabled], [IsShippingEnabled]) VALUES (1, N'Afghanistan', N'AF', N'AFG', 0, 0)
@@ -1222,8 +1230,8 @@ SET IDENTITY_INSERT Core_District OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[Shipping_ShippingProvider] ON 
-INSERT [dbo].[Shipping_ShippingProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [Name], [OnlyCountryIdsString], [OnlyStateOrProvinceIdsString], [ShippingPriceServiceTypeName], [ToAllShippingEnabledCountries], [ToAllShippingEnabledStatesOrProvinces]) VALUES (1, N'{MinimumOrderAmount : 10000000}', N'shipping-free-config', 1, N'Free Ship', NULL, NULL, N'SimplCommerce.Module.ShippingFree.Services.FreeShippingService,SimplCommerce.Module.ShippingFree', 1, 1)
-INSERT [dbo].[Shipping_ShippingProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [Name], [OnlyCountryIdsString], [OnlyStateOrProvinceIdsString], [ShippingPriceServiceTypeName], [ToAllShippingEnabledCountries], [ToAllShippingEnabledStatesOrProvinces]) VALUES (2, NULL, N'shipping-table-rate-config', 1, N'Table Rate', NULL, NULL, N'SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingService,SimplCommerce.Module.ShippingTableRate', 1, 1)
+INSERT [dbo].[Shipping_ShippingProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [Name], [OnlyCountryIdsString], [OnlyStateOrProvinceIdsString], [ShippingPriceServiceTypeName], [ToAllShippingEnabledCountries], [ToAllShippingEnabledStatesOrProvinces]) VALUES (1, N'{MinimumOrderAmount : 10000000}', N'shipping-free-config', 1, N'Free Ship', NULL, NULL, N'SimplCommerce.Module.ShippingFree.Services.FreeShippingServiceProvider,SimplCommerce.Module.ShippingFree', 1, 1)
+INSERT [dbo].[Shipping_ShippingProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [Name], [OnlyCountryIdsString], [OnlyStateOrProvinceIdsString], [ShippingPriceServiceTypeName], [ToAllShippingEnabledCountries], [ToAllShippingEnabledStatesOrProvinces]) VALUES (2, NULL, N'shipping-table-rate-config', 1, N'Table Rate', NULL, NULL, N'SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingServiceProvider,SimplCommerce.Module.ShippingTableRate', 1, 1)
 SET IDENTITY_INSERT [dbo].[Shipping_ShippingProvider] OFF
 GO
 

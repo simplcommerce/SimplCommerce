@@ -49,6 +49,11 @@
                     url: '/themes',
                     templateUrl: 'modules/core/admin/themes/theme-list.html',
                     controller: 'ThemeListCtrl as vm'
+                })
+                .state('countries', {
+                    url: '/countries',
+                    templateUrl: 'modules/core/admin/countries/country-list.html',
+                    controller: 'CountryListCtrl as vm'
                 });
         }]);
 })();

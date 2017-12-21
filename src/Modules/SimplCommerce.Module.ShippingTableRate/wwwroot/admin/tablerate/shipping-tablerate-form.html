@@ -39,7 +39,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat-start="priceAndDestination in vm.pricesAndDestinations">
-                    <td>{{priceAndDestination.countryName || 'All countries'}}</td>
+                    <td>{{priceAndDestination.countryName || 'All shipping enabled countries'}}</td>
                     <td>{{priceAndDestination.stateOrProvinceName || 'All states/provinces'}}</td>
                     <td class="text-right">{{priceAndDestination.minOrderSubtotal | number}}</td>
                     <td class="text-right">{{priceAndDestination.shippingPrice | number}}</td>
@@ -53,7 +53,7 @@
                     <td>
                         <select class="form-control" ng-change="vm.onCountrySelected(priceAndDestination.countryId)" ng-model="priceAndDestination.countryId"
                                 ng-options="country.id as country.name for country in vm.countries">
-                            <option value="">All countries</option>
+                            <option value="">All shipping enabled countries</option>
                         </select>
                     </td>
                     <td>
@@ -86,7 +86,7 @@
                     <td>
                         <select class="form-control" ng-change="vm.onCountrySelected(vm.addingPriceAndDestination.countryId)" ng-model="vm.addingPriceAndDestination.countryId"
                                 ng-options="country.id as country.name for country in vm.countries">
-                            <option value="">All countries</option>
+                            <option value="">All shipping enabled countries</option>
                         </select>
                     </td>
                     <td>

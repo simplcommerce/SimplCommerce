@@ -1,0 +1,42 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{::vm.translate.get('Countries')}}</h2>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped" st-pipe="vm.getCountries" st-table="vm.users">
+    <thead>
+        <tr>
+            <th st-sort="Name" class="sortable">{{::vm.translate.get('Name')}}</th>
+            <th st-sort="IsShippingEnabled" class="sortable" st-sort-default="reverse">{{::vm.translate.get('Is Shipping Enabled')}}</th>
+        </tr>
+        <tr>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="Name"/>
+                </div>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-show="!vm.isLoading">
+        <tr ng-repeat="country in vm.countries">
+            <td>{{country.name}}</td>
+            <td>
+                 <input type="checkbox" ng-model="country.isShippingEnabled" ng-click="vm.toggleShipping(country)">
+            </td>
+        </tr>
+    </tbody>
+    <tbody ng-show="vm.isLoading">
+        <tr>
+            <td colspan="2" class="text-center">Loading ... </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="2"></td>
+        </tr>
+    </tfoot>
+</table>	
