@@ -15,7 +15,6 @@ using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.PaymentPaypalExpress.Models;
 using SimplCommerce.Module.PaymentPaypalExpress.ViewModels;
 using SimplCommerce.Module.Payments.Models;
-using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.ShoppingCart.Services;
 
 namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
