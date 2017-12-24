@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/SimplCommerce.WebHost",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:49209/",
       "sslPort": 0
