@@ -1,0 +1,110 @@
+﻿@using SimplCommerce.Module.Orders.Models
+@model SimplCommerce.Module.Orders.Models.Order
+@{
+    Layout = null;
+}
+
+<table border="0" cellpadding="0" cellspacing="0" style="background:#ffffff" width="100%">
+    <tbody>
+        <tr>
+            <td align="center" valign="top">
+                <table border="0" cellpadding="0" cellspacing="0" style="width:650px;border-top:1px #cccccc">
+                    <tbody>
+                        <tr>
+                            <td align="left" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#333333;background:#fff" valign="top">
+                                <h1 style="line-height:normal"><span style="font-size:20px;color:#cc0000">Chúc mừng quý khách đã đặt hàng thành công</span></h1> <span style="display:block;padding:10px 0px">Chào <strong>@Model.CreatedBy.FullName</strong>,</span>
+                                <p style="margin-bottom:0.0001pt;line-height:normal;background-position:initial initial;background-repeat:initial initial">Quý khách đã đặt hàng thành công với thông tin đơn hàng như sau:&nbsp;</p>
+                                <p></p>
+                                <div style="background:#eff0f4;border:1px solid #e2e2e2;margin-top:10px;width:100%">
+                                    <table bgcolor="#FFFFFF" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                        <tbody>
+                                            <tr style="padding:10px">
+                                                <td colspan="2" style="border-top:1px solid #eff0f4">
+                                                    <table style="padding:7px 0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="padding:2px 8px 0px 15px">Mã đơn hàng:</td>
+                                                                <td style="padding:2px 8px 0px 15px"><strong>@Model.Id</strong></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="padding: 2px 8px 0px 15px">Thời gian đặt hàng:</td>
+                                                                <td style="padding: 2px 8px 0px 15px"><strong>@Model.CreatedOn</strong></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="padding: 2px 8px 0px 15px">Thông tin người nhận:</td>
+                                                                <td style="padding: 2px 8px 0px 15px"><strong>@Model.ShippingAddress.ContactName</strong></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="padding: 2px 8px 0px 15px">Trạng thái đơn hàng:</td>
+                                                                <td style="padding: 2px 8px 0px 15px; color: green">
+                                                                    @switch (Model.OrderStatus)
+                                                                    {
+                                                                        case OrderStatus.Pending:
+                                                                            <strong>
+                                                                                Chờ xử lý
+                                                                            </strong>
+                                                                            break;
+                                                                        case OrderStatus.Processing:
+                                                                            <strong>
+                                                                                Đang xử lý
+                                                                            </strong>
+                                                                            break;
+                                                                        case OrderStatus.Complete:
+                                                                            <strong>
+                                                                                Hoàn tất
+                                                                            </strong>
+                                                                            break;
+                                                                        default:
+                                                                            <strong>
+                                                                                Đã hủy
+                                                                            </strong>
+                                                                            break;
+                                                                    }
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div style="background:#eff0f4;border:1px solid #e2e2e2;margin-top:10px;width:100%">
+                                    <table bgcolor="#FFFFFF" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                        <tbody>
+                                            <tr bgcolor="#cc0000" style="color:#fff;height:25px">
+                                                <th scope="col" style="padding:5px">Sản phẩm</th>
+                                                <th scope="col" style="padding:5px">Đơn giá</th>
+                                                <th scope="col" style="padding:5px">Số lượng</th>
+                                                <th scope="col" style="padding:5px">Thành tiền</th>
+                                            </tr>
+                                            @foreach (var item in Model.OrderItems)
+                                            {
+                                                <tr>
+                                                    <td style="padding:5px 0 5px 15px">
+                                                        <div>@item.Product.Name</div>
+                                                    </td>
+                                                    <td style="padding:5px 0;text-align:right">@item.ProductPrice.ToString("C0")</td>
+                                                    <td style="padding:5px 0;text-align:center">@item.Quantity</td>
+                                                    <td style="padding:5px 15px 5px 0px;text-align:right">@((item.ProductPrice * item.Quantity).ToString("C0"))</td>
+                                                </tr>
+                                            }
+                                            <tr align="center">
+                                                <td align="right" colspan="4" style="border-bottom:1px solid #eff0f4;padding:5px"><strong>Tổng giá trị đơn hàng</strong></td>
+                                                <td align="right" style="border-bottom:1px solid #eff0f4;padding:5px 16px 5px 5px"><strong>@Model.SubTotal.ToString("C0")</strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <p style="line-height:115%">
+                    Thank you!
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
