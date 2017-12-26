@@ -600,6 +600,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     productLink.LinkedProduct.NormalizedName = productVariationVm.NormalizedName;
                     productLink.LinkedProduct.HasOptions = false;
                     productLink.LinkedProduct.IsVisibleIndividually = false;
+                    productLink.LinkedProduct.ThumbnailImage = product.ThumbnailImage;
 
                     foreach (var combinationVm in productVariationVm.OptionCombinations)
                     {
