@@ -24,6 +24,7 @@ using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Infrastructure.Web.ModelBinders;
+using SimplCommerce.Infrastructure.Web;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -160,6 +161,7 @@ namespace SimplCommerce.WebHost.Extensions
             var builder = new ContainerBuilder();
             builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>));
             builder.RegisterGeneric(typeof(RepositoryWithTypedId<,>)).As(typeof(IRepositoryWithTypedId<,>));
+            builder.RegisterType<RazorViewRenderer>().As<IRazorViewRenderer>();
 
             builder.RegisterAssemblyTypes(typeof(IMediator).GetTypeInfo().Assembly).AsImplementedInterfaces();
             builder.RegisterType<SequentialMediator>().As<IMediator>();

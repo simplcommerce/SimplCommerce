@@ -23,6 +23,7 @@ namespace SimplCommerce.Module.Orders.Services
         private readonly ITaxService _taxService;
         private readonly IShippingPriceService _shippingPriceService;
         private readonly IRepository<UserAddress> _userAddressRepository;
+        private readonly IOrderEmailService _orderEmailService;
 
         public OrderService(IRepository<Order> orderRepository,
             IRepository<Cart> cartRepository,
@@ -30,7 +31,8 @@ namespace SimplCommerce.Module.Orders.Services
             IRepository<CartItem> cartItemRepository,
             ITaxService taxService,
             IShippingPriceService shippingPriceService,
-            IRepository<UserAddress> userAddressRepository)
+            IRepository<UserAddress> userAddressRepository,
+            IOrderEmailService orderEmailService)
         {
             _orderRepository = orderRepository;
             _cartRepository = cartRepository;
@@ -39,6 +41,7 @@ namespace SimplCommerce.Module.Orders.Services
             _taxService = taxService;
             _shippingPriceService = shippingPriceService;
             _userAddressRepository = userAddressRepository;
+            _orderEmailService = orderEmailService;
         }
 
         public async Task<Order> CreateOrder(User user, string paymentMethod)
@@ -201,6 +204,7 @@ namespace SimplCommerce.Module.Orders.Services
             }
 
             _orderRepository.SaveChanges();
+           // await _orderEmailService.SendEmailToUser(user, order);
             return order;
         }
 
