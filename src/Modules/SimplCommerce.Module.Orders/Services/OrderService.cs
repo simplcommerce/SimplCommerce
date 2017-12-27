@@ -204,7 +204,7 @@ namespace SimplCommerce.Module.Orders.Services
             }
 
             _orderRepository.SaveChanges();
-            await _orderEmailService.SendEmailToUser(user, order);
+           // await _orderEmailService.SendEmailToUser(user, order);
             return order;
         }
 
