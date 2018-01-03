@@ -720,3 +720,7 @@ li.nav-item-group, li.nav-item-group a {
     height: 334px;
     margin-top: 75px;
 }
+
+.space-bar-widget-icon {
+    font-size: 140px;
+}
