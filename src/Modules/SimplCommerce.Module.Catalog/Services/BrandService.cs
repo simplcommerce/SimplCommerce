@@ -19,26 +19,26 @@ namespace SimplCommerce.Module.Catalog.Services
             _entityService = entityService;
         }
 
-        public void Create(Brand brand)
+        public async Task Create(Brand brand)
         {
             using (var transaction = _brandRepository.BeginTransaction())
             {
                 brand.SeoTitle = _entityService.ToSafeSlug(brand.SeoTitle, brand.Id, BrandEntityTypeId);
                 _brandRepository.Add(brand);
-                _brandRepository.SaveChanges();
+                await _brandRepository.SaveChangesAsync();
 
                 _entityService.Add(brand.Name, brand.SeoTitle, brand.Id, BrandEntityTypeId);
-                _brandRepository.SaveChanges();
+                await _brandRepository.SaveChangesAsync();
 
                 transaction.Commit();
             }
         }
 
-        public void Update(Brand brand)
+        public async Task Update(Brand brand)
         {
             brand.SeoTitle = _entityService.ToSafeSlug(brand.SeoTitle, brand.Id, BrandEntityTypeId);
             _entityService.Update(brand.Name, brand.SeoTitle, brand.Id, BrandEntityTypeId);
-            _brandRepository.SaveChanges();
+            await _brandRepository.SaveChangesAsync();
         }
 
         public async Task Delete(long id)
