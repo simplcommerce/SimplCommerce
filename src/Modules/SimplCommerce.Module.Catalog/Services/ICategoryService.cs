@@ -7,11 +7,11 @@ namespace SimplCommerce.Module.Catalog.Services
 {
     public interface ICategoryService
     {
-        IList<CategoryListItem> GetAll();
+        Task<IList<CategoryListItem>> GetAll();
 
-        void Create(Category category);
+        Task Create(Category category);
 
-        void Update(Category category);
+        Task Update(Category category);
 
         Task Delete(Category category);
     }
