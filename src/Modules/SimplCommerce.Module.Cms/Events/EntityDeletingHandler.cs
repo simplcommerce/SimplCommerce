@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using MediatR;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Cms.Models;
@@ -15,13 +17,15 @@ namespace SimplCommerce.Module.Cms.Events
             _menuItemRepository = menuItemRepository;
         }
 
-        public void Handle(EntityDeleting notification)
+        public Task Handle(EntityDeleting notification, CancellationToken cancellationToken)
         {
             var items = _menuItemRepository.Query().Where(x => x.EntityId == notification.EntityId).ToList();
             foreach(var item in items)
             {
                 _menuItemRepository.Remove(item);
             }
+
+            return Task.CompletedTask;
         }
     }
 }

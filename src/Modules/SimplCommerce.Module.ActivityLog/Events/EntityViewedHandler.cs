@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using SimplCommerce.Infrastructure.Data;
@@ -8,7 +9,7 @@ using SimplCommerce.Module.Core.Extensions;
 
 namespace SimplCommerce.Module.ActivityLog.Events
 {
-    public class EntityViewedHandler : IAsyncNotificationHandler<EntityViewed>
+    public class EntityViewedHandler : INotificationHandler<EntityViewed>
     {
         private readonly IRepository<Activity> _activityRepository;
         private readonly IWorkContext _workContext;
@@ -20,7 +21,7 @@ namespace SimplCommerce.Module.ActivityLog.Events
             _workContext = workcontext;
         }
 
-        public async Task Handle(EntityViewed notification)
+        public async Task Handle(EntityViewed notification, CancellationToken cancellationToken)
         {
             var user = await _workContext.GetCurrentUser();
             var activity = new Activity

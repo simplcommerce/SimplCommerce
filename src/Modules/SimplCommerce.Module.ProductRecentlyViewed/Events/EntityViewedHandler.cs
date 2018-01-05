@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using SimplCommerce.Infrastructure.Data;
@@ -9,7 +10,7 @@ using SimplCommerce.Module.ProductRecentlyViewed.Models;
 
 namespace SimplCommerce.Module.ActivityLog.Events
 {
-    public class EntityViewedHandler : IAsyncNotificationHandler<EntityViewed>
+    public class EntityViewedHandler : INotificationHandler<EntityViewed>
     {
         private const long ProductEntityTypeId = 3;
         private readonly IRepository<RecentlyViewedProduct> _recentlyViewedProductRepository;
@@ -21,7 +22,7 @@ namespace SimplCommerce.Module.ActivityLog.Events
             _workContext = workcontext;
         }
 
-        public async Task Handle(EntityViewed notification)
+        public async Task Handle(EntityViewed notification, CancellationToken cancellationToken)
         {
             if (notification.EntityTypeId == ProductEntityTypeId)
             {
