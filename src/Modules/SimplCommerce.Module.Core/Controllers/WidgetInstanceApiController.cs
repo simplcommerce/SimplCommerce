@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,9 +22,9 @@ namespace SimplCommerce.Module.Core.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var widgetInstances = _widgetInstanceRepository.Query()
+            var widgetInstances = await _widgetInstanceRepository.Query()
                 .Select(x => new
                 {
                     Id = x.Id,
@@ -34,15 +35,15 @@ namespace SimplCommerce.Module.Core.Controllers
                     EditUrl = x.Widget.EditUrl,
                     PublishStart = x.PublishStart,
                     PublishEnd = x.PublishEnd
-                }).ToList();
+                }).ToListAsync();
 
             return Json(widgetInstances);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
+        public async Task<IActionResult> Delete(long id)
         {
-            var widgetInstance = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
+            var widgetInstance = await _widgetInstanceRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
             if (widgetInstance == null)
             {
                 return NotFound();
@@ -51,7 +52,7 @@ namespace SimplCommerce.Module.Core.Controllers
             _widgetInstanceRepository.Remove(widgetInstance);
             _widgetInstanceRepository.SaveChanges();
 
-            return Ok();
+            return NoContent();
         }
     }
 }

@@ -19,26 +19,26 @@ namespace SimplCommerce.Module.News.Services
             _entityService = entityService;
         }
 
-        public void Create(NewsCategory category)
+        public async Task Create(NewsCategory category)
         {
             using (var transaction = _categoryRepository.BeginTransaction())
             {
                 category.SeoTitle = _entityService.ToSafeSlug(category.SeoTitle, category.Id, NewsCategoryEntityTypeId);
                 _categoryRepository.Add(category);
-                _categoryRepository.SaveChanges();
+                await _categoryRepository.SaveChangesAsync();
 
                 _entityService.Add(category.Name, category.SeoTitle, category.Id, NewsCategoryEntityTypeId);
-                _categoryRepository.SaveChanges();
+                await _categoryRepository.SaveChangesAsync();
 
                 transaction.Commit();
             }
         }
 
-        public void Update(NewsCategory category)
+        public async Task Update(NewsCategory category)
         {
             category.SeoTitle = _entityService.ToSafeSlug(category.SeoTitle, category.Id, NewsCategoryEntityTypeId);
             _entityService.Update(category.Name, category.SeoTitle, category.Id, NewsCategoryEntityTypeId);
-            _categoryRepository.SaveChanges();
+            await _categoryRepository.SaveChangesAsync();
         }
 
         public async Task Delete(long id)

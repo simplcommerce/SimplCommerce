@@ -80,12 +80,17 @@ namespace SimplCommerce.Module.News.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(long id)
+        public async Task<IActionResult> Get(long id)
         {
-            var newsItem = _newsItemRepository.Query()
+            var newsItem = await _newsItemRepository.Query()
                .Include(x => x.ThumbnailImage)
                .Include(x => x.Categories)
-               .FirstOrDefault(x => x.Id == id);
+               .FirstOrDefaultAsync(x => x.Id == id);
+
+            if(newsItem == null)
+            {
+                return NotFound();
+            }
 
             var model = new NewsItemForm()
             {
@@ -107,7 +112,7 @@ namespace SimplCommerce.Module.News.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return new BadRequestObjectResult(ModelState);
+                return BadRequest(ModelState);
             }
 
             var currentUser = await _workContext.GetCurrentUser();
@@ -140,13 +145,17 @@ namespace SimplCommerce.Module.News.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return new BadRequestObjectResult(ModelState);
+                return BadRequest(ModelState);
             } 
 
-            var newsItem = _newsItemRepository.Query()
+            var newsItem = await _newsItemRepository.Query()
                .Include(x => x.ThumbnailImage)
                .Include(x => x.Categories)
-               .FirstOrDefault(x => x.Id == id);
+               .FirstOrDefaultAsync(x => x.Id == id);
+            if(newsItem == null)
+            {
+                return NotFound();
+            }
 
             var currentUser = await _workContext.GetCurrentUser();
 
@@ -173,7 +182,7 @@ namespace SimplCommerce.Module.News.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
-            var newsItem = _newsItemRepository.Query().FirstOrDefault(x => x.Id == id);
+            var newsItem = await _newsItemRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
             if (newsItem == null)
             {
                 return NotFound();

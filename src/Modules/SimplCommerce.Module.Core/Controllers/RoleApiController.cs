@@ -1,8 +1,10 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace SimplCommerce.Module.Core.Controllers
 {
@@ -17,13 +19,13 @@ namespace SimplCommerce.Module.Core.Controllers
             _roleRepository = roleRepository;
         }
 
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var roles = _roleRepository.Query().Select(x => new
+            var roles = await _roleRepository.Query().Select(x => new
             {
-                Id = x.Id,
-                Name = x.Name
-            });
+                x.Id,
+                x.Name
+            }).ToListAsync();
 
             return Json(roles);
         }
