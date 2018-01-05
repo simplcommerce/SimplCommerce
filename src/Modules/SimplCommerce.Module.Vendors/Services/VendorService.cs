@@ -19,26 +19,26 @@ namespace SimplCommerce.Module.Vendors.Services
             _entityService = entityService;
         }
 
-        public void Create(Vendor vendor)
+        public async Task Create(Vendor vendor)
         {
             using (var transaction = _vendorRepository.BeginTransaction())
             {
                 vendor.SeoTitle = _entityService.ToSafeSlug(vendor.SeoTitle, vendor.Id, VendorEntityTypeId);
                 _vendorRepository.Add(vendor);
-                _vendorRepository.SaveChanges();
+                await _vendorRepository.SaveChangesAsync();
 
                 _entityService.Add(vendor.Name, vendor.SeoTitle, vendor.Id, VendorEntityTypeId);
-                _vendorRepository.SaveChanges();
+                await _vendorRepository.SaveChangesAsync();
 
                 transaction.Commit();
             }
         }
 
-        public void Update(Vendor vendor)
+        public async Task Update(Vendor vendor)
         {
             vendor.SeoTitle = _entityService.ToSafeSlug(vendor.SeoTitle, vendor.Id, VendorEntityTypeId);
             _entityService.Update(vendor.Name, vendor.SeoTitle, vendor.Id, VendorEntityTypeId);
-            _vendorRepository.SaveChanges();
+            await _vendorRepository.SaveChangesAsync();
         }
 
         public async Task Delete(long id)

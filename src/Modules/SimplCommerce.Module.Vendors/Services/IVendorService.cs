@@ -5,9 +5,9 @@ namespace SimplCommerce.Module.Vendors.Services
 {
     public interface IVendorService
     {
-        void Create(Vendor brand);
+        Task Create(Vendor brand);
 
-        void Update(Vendor brand);
+        Task Update(Vendor brand);
 
         Task Delete(long id);
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -16,17 +15,17 @@ namespace SimplCommerce.Module.Core.Controllers
     [Route("api/customergroups")]
     public class CustomerGroupApiController : Controller
     {
-        private readonly IRepository<CustomerGroup> _customergroupRepository;
+        private readonly IRepository<CustomerGroup> _customerGroupRepository;
 
         public CustomerGroupApiController(IRepository<CustomerGroup> customergroupRepository)
         {
-            _customergroupRepository = customergroupRepository;
+            _customerGroupRepository = customergroupRepository;
         }
 
         [HttpPost("grid")]
         public ActionResult List([FromBody] SmartTableParam param)
         {
-            var query = _customergroupRepository.Query()
+            var query = _customerGroupRepository.Query()
                 .Where(x => !x.IsDeleted);
 
             if (param.Search.PredicateObject != null)
@@ -69,13 +68,13 @@ namespace SimplCommerce.Module.Core.Controllers
             return Json(customerGroups);
         }
 
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var customerGroups = _customergroupRepository.Query().Select(x => new
+            var customerGroups = await _customerGroupRepository.Query().Select(x => new
             {
                 Id = x.Id,
                 Name = x.Name
-            });
+            }).ToListAsync();
 
             return Json(customerGroups);
         }
@@ -83,113 +82,77 @@ namespace SimplCommerce.Module.Core.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(long id)
         {
-            var customergroup = await _customergroupRepository.Query().Include(x => x.Users).FirstOrDefaultAsync(x => x.Id == id);
+            var customerGroup = await _customerGroupRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+            if(customerGroup == null)
+            {
+                return NotFound();
+            }
+
             var model = new CustomerGroupForm
             {
-                Id = customergroup.Id,
-                Name = customergroup.Name,
-                Description = customergroup.Description,
-                IsActive = customergroup.IsActive
+                Id = customerGroup.Id,
+                Name = customerGroup.Name,
+                Description = customerGroup.Description,
+                IsActive = customerGroup.IsActive
             };
 
             return Json(model);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] CustomerGroupForm model)
+        public async Task<IActionResult> Post([FromBody] CustomerGroupForm model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                var customerGroup = new CustomerGroup
                 {
-                    var customergroup = new CustomerGroup
-                    {
-                        Name = model.Name,
-                        Description = model.Description,
-                        IsActive = model.IsActive
-                    };
+                    Name = model.Name,
+                    Description = model.Description,
+                    IsActive = model.IsActive
+                };
 
-                    _customergroupRepository.Add(customergroup);
-                    _customergroupRepository.SaveChanges();
-                    return Ok();
-                }
+                _customerGroupRepository.Add(customerGroup);
+                await _customerGroupRepository.SaveChangesAsync();
+                return CreatedAtAction(nameof(Get), new { id = customerGroup.Id }, null);
             }
-            catch (DbUpdateException ex)
-            {
-                if (ExceptionHelper.IsUniqueConstraintViolation(ex))
-                {
-                    ModelState.AddModelError("Name", $"The Name '{model.Name}' is already in use, please enter a different name.");
-                    return new BadRequestObjectResult(ModelState);
-                }
 
-                throw;
-            }
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(long id, [FromBody] CustomerGroupForm model)
         {
-
             if (ModelState.IsValid)
             {
-                var customergroup = await _customergroupRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-                customergroup.Name = model.Name;
-                customergroup.Description = model.Description;
-                customergroup.IsActive = model.IsActive;
-                customergroup.UpdatedOn = DateTimeOffset.Now;
-
-                try
+                var customerGroup = await _customerGroupRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+                if(customerGroup == null)
                 {
-                    _customergroupRepository.SaveChanges();
-                    return Ok();
+                    return NotFound();
                 }
-                catch (DbUpdateException ex)
-                {
-                    if (ExceptionHelper.IsUniqueConstraintViolation(ex))
-                    {
-                        ModelState.AddModelError("Name", $"The Name '{model.Name}' is already in use, please enter a different name.");
-                        return new BadRequestObjectResult(ModelState);
-                    }
 
-                    throw;
-                }
+                customerGroup.Name = model.Name;
+                customerGroup.Description = model.Description;
+                customerGroup.IsActive = model.IsActive;
+                customerGroup.UpdatedOn = DateTimeOffset.Now;
+
+                await  _customerGroupRepository.SaveChangesAsync();
+                return Accepted();
             }
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
-            var customergroup = await _customergroupRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-            if (customergroup == null)
+            var customerGroup = await _customerGroupRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+            if (customerGroup == null)
             {
-                return new NotFoundResult();
+                return NotFound();
             }
 
-            customergroup.IsDeleted = true;
-            _customergroupRepository.SaveChanges();
-            return Json(true);
-        }
-    }
-
-    public static class ExceptionHelper
-    {
-        private static Exception GetInnermostException(Exception ex)
-        {
-            while (ex.InnerException != null)
-            {
-                ex = ex.InnerException;
-            }
-            return ex;
-        }
-
-        public static bool IsUniqueConstraintViolation(Exception ex)
-        {
-            var innermost = GetInnermostException(ex);
-            var sqlException = innermost as SqlException;
-
-            return sqlException != null && sqlException.Class == 14 && (sqlException.Number == 2601 || sqlException.Number == 2627);
+            customerGroup.IsDeleted = true;
+            await  _customerGroupRepository.SaveChangesAsync();
+            return NoContent();
         }
     }
 }

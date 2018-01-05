@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.News.Models;
 using SimplCommerce.Module.News.Services;
@@ -22,17 +23,22 @@ namespace SimplCommerce.Module.News.Controllers
             _categoryService = categoryService;
         }
 
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var categoryList = _categoryRepository.Query().Where(x => !x.IsDeleted).ToList();
+            var categoryList = await _categoryRepository.Query().Where(x => !x.IsDeleted).ToListAsync();
 
             return Json(categoryList);
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(long id)
+        public async Task<IActionResult> Get(long id)
         {
-            var category = _categoryRepository.Query().FirstOrDefault(x => x.Id == id);
+            var category = await _categoryRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+            if(category == null)
+            {
+                return NotFound();
+            }
+
             var model = new NewsCategoryForm
             {
                 Id = category.Id,
@@ -46,7 +52,7 @@ namespace SimplCommerce.Module.News.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public IActionResult Post([FromBody] NewsCategoryForm model)
+        public async Task<IActionResult> Post([FromBody] NewsCategoryForm model)
         {
             if (ModelState.IsValid)
             {
@@ -57,16 +63,16 @@ namespace SimplCommerce.Module.News.Controllers
                     IsPublished = model.IsPublished
                 };
 
-                _categoryService.Create(category);
-
-                return Ok();
+                await _categoryService.Create(category);
+                return CreatedAtAction(nameof(Get), new { id = category.Id }, null);
             }
-            return new BadRequestObjectResult(ModelState);
+
+            return BadRequest(ModelState);
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
-        public IActionResult Put(long id, [FromBody] NewsCategoryForm model)
+        public async Task<IActionResult> Put(long id, [FromBody] NewsCategoryForm model)
         {
             if (ModelState.IsValid)
             {
@@ -75,25 +81,25 @@ namespace SimplCommerce.Module.News.Controllers
                 category.SeoTitle = model.Slug;
                 category.IsPublished = model.IsPublished;
 
-                _categoryService.Update(category);
-                return Ok();
+                await _categoryService.Update(category);
+                return Accepted();
             }
 
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(long id)
         {
-            var category = _categoryRepository.Query().FirstOrDefault(x => x.Id == id);
+            var category = await _categoryRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
             if (category == null)
             {
-                return new NotFoundResult();
+                return NotFound();
             }
 
             await _categoryService.Delete(category);
-            return Json(true);
+            return NoContent();
         }
     }
 }

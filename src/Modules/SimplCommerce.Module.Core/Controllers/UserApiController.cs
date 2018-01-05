@@ -108,6 +108,11 @@ namespace SimplCommerce.Module.Core.Controllers
                 .Include(x => x.CustomerGroups)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
+            if(user == null)
+            {
+                return NotFound();
+            }
+
             var model = new UserForm
             {
                 Id = user.Id,
