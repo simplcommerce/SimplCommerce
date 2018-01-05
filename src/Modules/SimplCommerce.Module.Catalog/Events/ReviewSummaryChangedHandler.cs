@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Events;
@@ -15,16 +17,14 @@ namespace SimplCommerce.Module.Catalog.Events
             _productRepository = productRepository;
         }
 
-        public void Handle(ReviewSummaryChanged notification)
+        public async Task Handle(ReviewSummaryChanged notification, CancellationToken cancellationToken)
         {
-            if (notification.EntityTypeId != 3)
+            if (notification.EntityTypeId == 3)
             {
-                return;
+                var product = await _productRepository.Query().FirstAsync(x => x.Id == notification.EntityId);
+                product.ReviewsCount = notification.ReviewsCount;
+                product.RatingAverage = notification.RatingAverage;
             }
-
-            var product = _productRepository.Query().First(x => x.Id == notification.EntityId);
-            product.ReviewsCount = notification.ReviewsCount;
-            product.RatingAverage = notification.RatingAverage;
         }
     }
 }
