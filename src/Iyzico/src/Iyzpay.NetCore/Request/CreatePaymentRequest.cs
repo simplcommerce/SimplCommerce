@@ -5,6 +5,11 @@ namespace Iyzpay.NetCore.Request
 {
     public class CreatePaymentRequest : BaseRequest
     {
+        public CreatePaymentRequest()
+        {
+            BasketItems= new List<BasketItem>();
+        }
+
         public string Price { get; set; }
         public string PaidPrice { get; set; }
         public int? Installment { get; set; }

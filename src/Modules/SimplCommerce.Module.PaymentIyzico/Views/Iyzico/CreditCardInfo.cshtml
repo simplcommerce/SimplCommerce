@@ -1,0 +1,87 @@
+﻿@model SimplCommerce.Module.PaymentIyzico.ViewModels.CreditCardInfoFormVm
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Iyzico Securtiy Payment</h4>
+        </div>
+        <div class="modal-body">
+            <form asp-controller="Iyzico" asp-action="Pay"  method="post" class="form-horizontal" role="form">
+                <fieldset>
+                    <legend>@Localizer["Payment"]</legend>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Name on Card</label>
+                        <div class="col-sm-9">
+                            <input asp-for="CardHolderName" type="text" class="form-control" placeholder="@Localizer["Card Holder's Name"]">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Card Number</label>
+                        <div class="col-sm-9">
+                            <input asp-for="CardNumber" type="text" class="form-control" placeholder="Debit/Credit Card Number">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Expiration Date</label>
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <select asp-for="ExpiryMonth" class="form-control col-sm-2">
+                                        <option>Month</option>
+                                        <option value="01">Jan (01)</option>
+                                        <option value="02">Feb (02)</option>
+                                        <option value="03">Mar (03)</option>
+                                        <option value="04">Apr (04)</option>
+                                        <option value="05">May (05)</option>
+                                        <option value="06">June (06)</option>
+                                        <option value="07">July (07)</option>
+                                        <option value="08">Aug (08)</option>
+                                        <option value="09">Sep (09)</option>
+                                        <option value="10">Oct (10)</option>
+                                        <option value="11">Nov (11)</option>
+                                        <option value="12">Dec (12)</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-3">
+                                    <select asp-for="ExpiryYear" class="form-control">
+                                        <option value="18">2018</option>
+                                        <option value="19">2019</option>
+                                        <option value="20">2020</option>
+                                        <option value="21">2021</option>
+                                        <option value="22">2022</option>
+                                        <option value="23">2023</option>
+                                        <option value="24">2024</option>
+                                        <option value="25">2025</option>
+                                        <option value="26">2026</option>
+                                        <option value="27">2027</option>
+                                        <option value="28">2029</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Card CVV</label>
+                        <div class="col-sm-3">
+                            <input asp-for="Cvv" type="text" class="form-control" placeholder="Security Code">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">3D Pay</label>
+                        <div class="col-sm-3">
+                            <input asp-for="Is3DSecure" type="checkbox" class="form-control" placeholder="3D Pay"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="submit" class="btn btn-success">Pay Now</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a id="credit-card-close" type="button" class="btn btn-default" href="~/checkout/payment"  data-dismiss="modal">@Localizer["Close"]</a>
+        </div>
+    </div>
+
+</div>

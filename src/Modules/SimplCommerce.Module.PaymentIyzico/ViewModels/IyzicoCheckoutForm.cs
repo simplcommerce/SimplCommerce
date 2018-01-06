@@ -1,4 +1,6 @@
-﻿namespace SimplCommerce.Module.PaymentIyzico.ViewModels
+﻿using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators;
+
+namespace SimplCommerce.Module.PaymentIyzico.ViewModels
 {
     public class IyzicoCheckoutForm
     {

@@ -17,6 +17,10 @@
     <ProjectReference Include="..\SimplCommerce.Module.Payments\SimplCommerce.Module.Payments.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Iyzico\" />
+  </ItemGroup>
+
   
 
 </Project>
