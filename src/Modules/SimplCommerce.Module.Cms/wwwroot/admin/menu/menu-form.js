@@ -65,8 +65,7 @@
         vm.save = function save() {
             var promise;
             vm.menu.items = treeToArray(vm.menuItemTree);
-            console.log(vm.menu.items);
-            console.log(vm.isEditMode);
+
             if (vm.isEditMode) {
                 promise = menuService.editMenu(vm.menu);
             } else {
