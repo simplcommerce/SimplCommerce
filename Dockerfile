@@ -1,4 +1,4 @@
-FROM simplcommerce/simpl-sdk AS build-env
+FROM microsoft/aspnetcore-build:2.0.3-jessie AS build-env
   
 WORKDIR /app
 COPY . ./
@@ -23,7 +23,7 @@ RUN cd src/SimplCommerce.WebHost \
 RUN sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/SimplCommerce.WebHost/dbscript.sql \
 	&& sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/Database/StaticData_PostgreSQL.sql
 
-FROM microsoft/aspnetcore:2.0.0-jessie
+FROM microsoft/aspnetcore:2.0.3-jessie
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
 		postgresql-client \
