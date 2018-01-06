@@ -61,8 +61,9 @@ namespace SimplCommerce.Module.Cms.Controllers
                     EntityId = x.EntityId,
                     ParentId = x.ParentId,
                     Name = x.Entity == null ? x.Name : x.Entity.Name,
-                    CustomLink = x.CustomLink
-                }).ToList()
+                    CustomLink = x.CustomLink,
+                    DisplayOrder = x.DisplayOrder,
+                }).OrderBy(x => x.DisplayOrder).ToList()
             };
 
             return Json(model);
@@ -88,7 +89,8 @@ namespace SimplCommerce.Module.Cms.Controllers
                         CustomLink = item.CustomLink,
                         Name = item.Name,
                         EntityId = item.EntityId,
-                        ParentId = item.ParentId
+                        ParentId = item.ParentId,
+                        DisplayOrder = item.DisplayOrder,
                     };
 
                     menu.MenuItems.Add(menuItem);
@@ -166,6 +168,7 @@ namespace SimplCommerce.Module.Cms.Controllers
                     item.Name = modelMenuItem.Name;
                     item.CustomLink = modelMenuItem.CustomLink;
                     item.ParentId = modelMenuItem.ParentId;
+                    item.DisplayOrder = modelMenuItem.DisplayOrder;
                 }
 
                 var deletedMenuItems = menu.MenuItems.Where(x => !model.Items.Any(m => m.Id == x.Id));
