@@ -30,17 +30,17 @@ namespace SimplCommerce.WebHost
 
             configBuilder.AddEnvironmentVariables();
 
-            var connectionStringConfig = configBuilder.Build();
+            var configuration = configBuilder.Build();
             configBuilder.AddEntityFrameworkConfig(options =>
-                    options.UseSqlServer(connectionStringConfig.GetConnectionString("DefaultConnection"))
+                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
             );
             Log.Logger = new LoggerConfiguration()
-                       .ReadFrom.Configuration(configBuilder.Build())
+                       .ReadFrom.Configuration(configuration)
                        .CreateLogger();
         }
         private static void SetupLogging(WebHostBuilderContext hostingContext, ILoggingBuilder loggingBuilder)
         {
-            loggingBuilder.AddSerilog();         
+            loggingBuilder.AddSerilog();
         }
     }
 }
