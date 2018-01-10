@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Iyzpay.NetCore;
@@ -17,7 +16,6 @@ using SimplCommerce.Module.PaymentIyzico.Models;
 using SimplCommerce.Module.PaymentIyzico.ViewModels;
 using SimplCommerce.Module.Payments.Models;
 using SimplCommerce.Module.ShoppingCart.Services;
-using Iyzpay.NetCore.Model;
 using SimplCommerce.Module.ShoppingCart.ViewModels;
 using Address = Iyzpay.NetCore.Model.Address;
 using Payment = Iyzpay.NetCore.Model.Payment;

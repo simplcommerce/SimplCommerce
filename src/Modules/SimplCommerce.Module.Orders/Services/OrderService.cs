@@ -100,7 +100,7 @@ namespace SimplCommerce.Module.Orders.Services
             {
                 throw new ApplicationException($"Cart of user {user.Id} cannot be found");
             }
-
+            var shippingData = JsonConvert.DeserializeObject<DeliveryInformationVm>(cart.ShippingData);
             var discount = await ApplyDiscount(user, cart);
             var shippingMethod = await ValidateShippingMethod(shippingMethodName, shippingAddress, cart);
 
@@ -114,7 +114,10 @@ namespace SimplCommerce.Module.Orders.Services
                 DistrictId = billingAddress.DistrictId,
                 City = billingAddress.City,
                 PostalCode = billingAddress.PostalCode,
-                Phone = billingAddress.Phone
+                Phone = billingAddress.Phone,
+                TaxId = shippingData.NewAddressForm.TaxId,
+                LastName = shippingData.NewAddressForm.LastName
+                
             };
 
             var orderShippingAddress = new OrderAddress()

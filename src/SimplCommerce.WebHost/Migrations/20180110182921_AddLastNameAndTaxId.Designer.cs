@@ -3,17 +3,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
+
 using SimplCommerce.Module.Core.Data;
+
 using System;
 
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    partial class SimplDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180110182921_AddLastNameAndTaxId")]
+    partial class AddLastNameAndTaxId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1240,11 +1241,15 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<long?>("DistrictId");
 
+                    b.Property<string>("LastName");
+
                     b.Property<string>("Phone");
 
                     b.Property<string>("PostalCode");
 
                     b.Property<long>("StateOrProvinceId");
+
+                    b.Property<long>("TaxId");
 
                     b.HasKey("Id");
 
