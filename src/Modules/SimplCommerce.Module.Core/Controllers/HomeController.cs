@@ -28,7 +28,9 @@ namespace SimplCommerce.Module.Core.Controllers
         {
             var model = new HomeViewModel();
 
-            model.WidgetInstances = _widgetInstanceService.GetPublished().Select(x => new WidgetInstanceViewModel
+            model.WidgetInstances = _widgetInstanceService.GetPublished()
+                .OrderBy(x => x.DisplayOrder)
+                .Select(x => new WidgetInstanceViewModel
             {
                 Id = x.Id,
                 Name = x.Name,

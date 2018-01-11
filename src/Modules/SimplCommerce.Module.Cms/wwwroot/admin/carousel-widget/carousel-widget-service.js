@@ -10,7 +10,8 @@
             getWidgetZones: getWidgetZones,
             getCarouselWidget: getCarouselWidget,
             createCarouselWidget: createCarouselWidget,
-            editCarouselWidget: editCarouselWidget
+            editCarouselWidget: editCarouselWidget,
+            getNumberOfWidgets: getNumberOfWidgets
         };
         return service;
 
@@ -37,6 +38,10 @@
                 data: widgetInstance,
                 method: 'PUT'
             });
+        }
+
+        function getNumberOfWidgets() {
+            return $http.get('api/widget-instances/number-of-widgets');
         }
     }
 })();

@@ -36,6 +36,7 @@ namespace SimplCommerce.Module.Cms.Controllers
                 WidgetZoneId = widgetInstance.WidgetZoneId,
                 PublishStart = widgetInstance.PublishStart,
                 PublishEnd = widgetInstance.PublishEnd,
+                DisplayOrder = widgetInstance.DisplayOrder,
                 Items = JsonConvert.DeserializeObject<IList<SpaceBarWidgetSetting>>(widgetInstance.Data)
             };
 
@@ -55,6 +56,7 @@ namespace SimplCommerce.Module.Cms.Controllers
                     WidgetZoneId = model.WidgetZoneId,
                     PublishStart = model.PublishStart,
                     PublishEnd = model.PublishEnd,
+                    DisplayOrder = model.DisplayOrder,
                     Data = JsonConvert.SerializeObject(model.Items)
                 };
                 _widgetInstanceRepository.Add(widgetInstance);
@@ -74,6 +76,7 @@ namespace SimplCommerce.Module.Cms.Controllers
                 widgetInstance.PublishStart = model.PublishStart;
                 widgetInstance.PublishEnd = model.PublishEnd;
                 widgetInstance.WidgetZoneId = model.WidgetZoneId;
+                widgetInstance.DisplayOrder = model.DisplayOrder;
                 widgetInstance.Data = JsonConvert.SerializeObject(model.Items);
                 _widgetInstanceRepository.SaveChanges();
                 return Ok();
@@ -87,6 +90,7 @@ namespace SimplCommerce.Module.Cms.Controllers
             var model = new SpaceBarWidgetForm();
             model.Name = formCollection["name"];
             model.WidgetZoneId = int.Parse(formCollection["widgetZoneId"]);
+            model.DisplayOrder = int.Parse(formCollection["displayOrder"]);
             if (DateTimeOffset.TryParse(formCollection["publishStart"], out publishStart))
             {
                 model.PublishStart = publishStart;

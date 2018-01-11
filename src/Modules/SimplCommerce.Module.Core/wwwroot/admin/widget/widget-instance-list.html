@@ -26,6 +26,7 @@
         <th>{{::vm.translate.get('Widget Zone')}}</th>
         <th>{{::vm.translate.get('Publish Start')}}</th>
         <th>{{::vm.translate.get('Publish End')}}</th>
+        <th>{{::vm.translate.get('Display Order')}}</th>
         <th>{{::vm.translate.get('Actions')}}</th>
     </tr>
     </thead>
@@ -36,6 +37,7 @@
         <td>{{instance.widgetZone}}</td>
         <td>{{instance.publishStart | date:'medium'}}</td>
         <td>{{instance.publishEnd | date:'medium'}}</td>
+        <td>{{instance.displayOrder}}</td>
         <td>
             <a ui-sref="{{instance.editUrl}}({id: instance.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
             <button ng-click="vm.deleteWidgetInstance(instance)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>

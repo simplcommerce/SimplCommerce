@@ -12,6 +12,7 @@
             getCategoryWidget: getCategoryWidget,
             createCategoryWidget: createCategoryWidget,
             editCategoryWidget: editCategoryWidget,
+            getNumberOfWidgets: getNumberOfWidgets
         };
         return service;
 
@@ -33,6 +34,10 @@
 
         function getCategories() {
             return $http.get('api/categories');
+        }
+
+        function getNumberOfWidgets() {
+            return $http.get('api/widget-instances/number-of-widgets');
         }
     }
 })();
