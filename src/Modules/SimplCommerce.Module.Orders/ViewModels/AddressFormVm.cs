@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Remotion.Linq.Parsing.Structure.IntermediateModel;
 
 namespace SimplCommerce.Module.Orders.ViewModels
 {

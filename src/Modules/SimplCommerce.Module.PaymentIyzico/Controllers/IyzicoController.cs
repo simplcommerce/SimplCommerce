@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Catalog.Models;
+using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Orders.Models;
@@ -31,16 +33,24 @@ namespace SimplCommerce.Module.PaymentIyzico.Controllers
         private readonly IWorkContext _workContext;
         private readonly IRepository<PaymentProvider> _paymentProviderRepository;
         private readonly IRepository<Payments.Models.Payment> _paymentRepository;
+        private readonly IRepository<ProductCategory> _productCategoryRepository;
+        private readonly IRepository<Category> _categoryRepository;
         private Lazy<IyzicoConfigForm> _setting;
 
-        public IyzicoController(ICartService cartService, IOrderService orderService, IWorkContext workContext, IRepository<PaymentProvider> paymentProviderRepository, IRepository<Payments.Models.Payment> paymentRepository)
+        public IyzicoController(ICartService cartService, IOrderService orderService, IWorkContext workContext, IRepository<PaymentProvider> paymentProviderRepository, IRepository<Payments.Models.Payment> paymentRepository, IRepository<ProductCategory> productCategoryRepository
+, IRepository<Category> categoryRepository)
         {
+
             _cartService = cartService;
             _orderService = orderService;
             _workContext = workContext;
             _paymentProviderRepository = paymentProviderRepository;
             _paymentRepository = paymentRepository;
+            _productCategoryRepository = productCategoryRepository;
+            _categoryRepository = categoryRepository;
+            _categoryRepository = categoryRepository;
             _setting = new Lazy<IyzicoConfigForm>(GetSetting);
+
         }
         private IyzicoConfigForm GetSetting()
         {
@@ -61,7 +71,11 @@ namespace SimplCommerce.Module.PaymentIyzico.Controllers
             var order = await _orderService.CreateOrder(currentUser, "Iyzico");
             var cart = await _cartService.GetCart(currentUser.Id);
             var status = CreatePayment(request, order, cart, currentUser);
-            return View(status.Status == Status.SUCCESS.ToString() ? "Shared/success" : "Shared/unsuccessful");
+            if (status.Status == Status.SUCCESS.ToString())
+            {
+                return View("Shared/success");
+            }
+            return View("Shared/unsuccessful", new UnsuccessfulVm { Status = status.Status, ErrorMessage = status.ErrorMessage });
         }
         [HttpPost("3dPay")]
         public async Task<IActionResult> ThreeDPay(CreditCardInfoFormVm request)
@@ -69,7 +83,7 @@ namespace SimplCommerce.Module.PaymentIyzico.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             var order = await _orderService.CreateOrder(currentUser, "Iyzico");
             var cart = await _cartService.GetCart(currentUser.Id);
-            var create3DPayment = Create3dPayment(request,order,cart,currentUser);
+            var create3DPayment = Create3dPayment(request, order, cart, currentUser);
             var options = GetIyzcioOptions();
             var threedsInitialize = ThreedsInitialize.Create(create3DPayment, options);
             if (threedsInitialize.Status == Status.SUCCESS.ToString())
@@ -77,13 +91,13 @@ namespace SimplCommerce.Module.PaymentIyzico.Controllers
                 return View(threedsInitialize.HtmlContent);
             }
 
-            return View("Shared/unsuccessful",threedsInitialize.ErrorMessage);
+            return View("Shared/unsuccessful", threedsInitialize.ErrorMessage);
 
         }
 
         private Payment CreatePayment(CreditCardInfoFormVm request, Order order, CartVm cartVm, User currentUser)
         {
-            
+
             var paymentRequest = CreatePaymentRequest(request, order, cartVm, currentUser);
             var options = GetIyzcioOptions();
             return Payment.Create(paymentRequest, options);
@@ -131,19 +145,19 @@ namespace SimplCommerce.Module.PaymentIyzico.Controllers
                 Surname = order.BillingAddress.LastName,
                 GsmNumber = currentUser.PhoneNumber,
                 Email = currentUser.Email,
-                IdentityNumber = order.ShippingAddress.TaxId.ToString(),
+                IdentityNumber = order.BillingAddress.TaxId.ToString(),
                 RegistrationDate = currentUser.CreatedOn.Date.ToString(),
                 Ip = HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString(),
-                City = currentUser.DefaultBillingAddress.Address.City,
-                Country = currentUser.DefaultBillingAddress.Address.Country.Name,
-                ZipCode = currentUser.DefaultBillingAddress.Address.PostalCode
+                City = order.BillingAddress.City,
+                Country = "Turkey",
+                ZipCode = order.BillingAddress.PostalCode
             };
             paymentRequest.Buyer = buyer;
             var shippingAddress = new Address
             {
                 ContactName = order.ShippingAddress.ContactName,
                 City = order.ShippingAddress.City,
-                Country = order.ShippingAddress.Country.Name,
+                Country = "Turkey",
                 Description =
                     $"{order.ShippingAddress.AddressLine1} {order.ShippingAddress.AddressLine2} {order.ShippingAddress.District} {order.ShippingAddress.City}",
                 ZipCode = order.ShippingAddress.PostalCode
@@ -153,7 +167,7 @@ namespace SimplCommerce.Module.PaymentIyzico.Controllers
             {
                 ContactName = order.BillingAddress.ContactName,
                 City = order.BillingAddress.City,
-                Country = order.BillingAddress.Country.Name,
+                Country = "Turkey",
                 Description =
                     $"{order.BillingAddress.AddressLine1} {order.BillingAddress.AddressLine2} {order.BillingAddress.District} {order.BillingAddress.City}",
                 ZipCode = order.ShippingAddress.PostalCode
@@ -161,11 +175,14 @@ namespace SimplCommerce.Module.PaymentIyzico.Controllers
             paymentRequest.BillingAddress = billingAddress;
             foreach (var orderItem in order.OrderItems)
             {
+                var productCategory = _productCategoryRepository.Query().FirstOrDefault(f => f.ProductId == orderItem.ProductId);
+                var category = _categoryRepository.Query().FirstOrDefault(f => f.Id == productCategory.CategoryId);
+
                 paymentRequest.BasketItems.Add(new BasketItem
                 {
                     Id = orderItem.Id.ToString(),
                     Name = orderItem.Product.Name,
-                    Category1 = orderItem.Product.Categories.First().Category.Name,
+                    Category1 = category.Name,
                     ItemType = BasketItemType.PHYSICAL.ToString(),
                     Price = Convert.ToString(orderItem.ProductPrice)
                 });
@@ -176,7 +193,7 @@ namespace SimplCommerce.Module.PaymentIyzico.Controllers
 
         private CreatePaymentRequest Create3dPayment(CreditCardInfoFormVm request, Order order, CartVm cartVm, User currentUser)
         {
-            
+
             var paymentRequest = CreatePaymentRequest(request, order, cartVm, currentUser);
             paymentRequest.CallbackUrl = new Uri($"{Request.Scheme}://{Request.Host}/iyzico/threeds").AbsolutePath;
             return paymentRequest;
