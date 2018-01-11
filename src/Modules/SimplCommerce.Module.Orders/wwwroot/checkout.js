@@ -40,8 +40,10 @@
                         </label> \
                        </div>')
                     });
+                    $('.btn-order').prop('disabled', false);
                 } else {
                     $shippingMethods.append("Sorry, this items can't be shipped to your selected address");
+                    $('.btn-order').prop('disabled', true);
                 }
 
                 $('#orderSummaryTax').text(data.cart.taxAmountString);

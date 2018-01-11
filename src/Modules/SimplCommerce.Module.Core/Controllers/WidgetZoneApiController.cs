@@ -1,6 +1,8 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
 
@@ -18,14 +20,14 @@ namespace SimplCommerce.Module.Core.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var widgetZones = _widgetZoneRespository.Query().Select(x => new
+            var widgetZones = await _widgetZoneRespository.Query().Select(x => new
             {
                 Id = x.Id,
                 Name = x.Name,
                 Description = x.Description
-            }).ToList();
+            }).ToListAsync();
 
             return Json(widgetZones);
         }

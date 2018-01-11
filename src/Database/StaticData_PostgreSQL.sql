@@ -52,9 +52,9 @@ INSERT INTO "Catalog_ProductOption" ("Id", "Name") VALUES (1, 'Color');
 INSERT INTO "Catalog_ProductOption" ("Id", "Name") VALUES (2, 'Size');
 SELECT pg_catalog.setval('"Catalog_ProductOption_Id_seq"', 2, true);
 
-INSERT INTO "Payments_PaymentProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "LandingViewComponentName", "Name", "PaymentProviderTypeName") VALUES (1, NULL, NULL, true, 'CoDLanding', 'Cash On Delivery', NULL);
-INSERT INTO "Payments_PaymentProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "LandingViewComponentName", "Name", "PaymentProviderTypeName") VALUES (2, '{"IsSandbox":true,"ClientId":"","ClientSecret":""}', 'payments-paypalExpress-config', true, 'PaypalExpressLanding', 'Paypal Express', NULL);
-INSERT INTO "Payments_PaymentProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "LandingViewComponentName", "Name", "PaymentProviderTypeName") VALUES (3, '{"PublicKey": "pk_test_6pRNASCoBOKtIshFeQd4XMUh", "PrivateKey" : "sk_test_BQokikJOvBiI2HlWgH4olfQ2"}', 'payments-stripe-config', true, 'StripeLanding', 'Stripe', NULL);
+INSERT INTO "Payments_PaymentProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "LandingViewComponentName", "Name") VALUES (1, NULL, NULL, true, 'CoDLanding', 'Cash On Delivery');
+INSERT INTO "Payments_PaymentProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "LandingViewComponentName", "Name") VALUES (2, '{"IsSandbox":true,"ClientId":"","ClientSecret":""}', 'payments-paypalExpress-config', true, 'PaypalExpressLanding', 'Paypal Express');
+INSERT INTO "Payments_PaymentProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "LandingViewComponentName", "Name") VALUES (3, '{"PublicKey": "pk_test_6pRNASCoBOKtIshFeQd4XMUh", "PrivateKey" : "sk_test_BQokikJOvBiI2HlWgH4olfQ2"}', 'payments-stripe-config', true, 'StripeLanding', 'Stripe');
 SELECT pg_catalog.setval('"Payments_PaymentProvider_Id_seq"', 3, true);
 
 INSERT INTO "Core_Country" ("Id", "Name", "IsBillingEnabled", "IsShippingEnabled") VALUES (1, 'Việt Nam', true, true);

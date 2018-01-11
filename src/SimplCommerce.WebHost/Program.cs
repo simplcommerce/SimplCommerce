@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Serilog;
 using SimplCommerce.Module.Core.Extensions;
 
 namespace SimplCommerce.WebHost
@@ -17,6 +19,7 @@ namespace SimplCommerce.WebHost
             Microsoft.AspNetCore.WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .ConfigureAppConfiguration(SetupConfiguration)
+                .ConfigureLogging(SetupLogging)
                 .Build();
 
         private static void SetupConfiguration(WebHostBuilderContext hostingContext, IConfigurationBuilder configBuilder)
@@ -27,10 +30,17 @@ namespace SimplCommerce.WebHost
 
             configBuilder.AddEnvironmentVariables();
 
-            var connectionStringConfig = configBuilder.Build();
+            var configuration = configBuilder.Build();
             configBuilder.AddEntityFrameworkConfig(options =>
-                    options.UseSqlServer(connectionStringConfig.GetConnectionString("DefaultConnection"))
+                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
             );
+            Log.Logger = new LoggerConfiguration()
+                       .ReadFrom.Configuration(configuration)
+                       .CreateLogger();
+        }
+        private static void SetupLogging(WebHostBuilderContext hostingContext, ILoggingBuilder loggingBuilder)
+        {
+            loggingBuilder.AddSerilog();
         }
     }
 }

@@ -72,22 +72,27 @@ namespace SimplCommerce.Module.Vendors.Controllers
             return Json(vendors);
         }
 
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var vendors = _vendorRepository.Query().Select(x => new
+            var vendors = await _vendorRepository.Query().Select(x => new
             {
                 Id = x.Id,
                 Name = x.Name,
                 Slug = x.SeoTitle
-            });
+            }).ToListAsync();
 
             return Json(vendors);
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(long id)
+        public async Task<IActionResult> Get(long id)
         {
-            var vendor = _vendorRepository.Query().Include(x => x.Users).FirstOrDefault(x => x.Id == id);
+            var vendor = await _vendorRepository.Query().Include(x => x.Users).FirstOrDefaultAsync(x => x.Id == id);
+            if(vendor == null)
+            {
+                return NotFound();
+            }
+
             var model = new VendorForm
             {
                 Id = vendor.Id,
@@ -103,7 +108,7 @@ namespace SimplCommerce.Module.Vendors.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] VendorForm model)
+        public async Task<IActionResult> Post([FromBody] VendorForm model)
         {
             if (ModelState.IsValid)
             {
@@ -116,15 +121,14 @@ namespace SimplCommerce.Module.Vendors.Controllers
                     IsActive = model.IsActive
                 };
 
-                _vendorService.Create(vendor);
-
-                return Ok();
+                await _vendorService.Create(vendor);
+                return CreatedAtAction(nameof(Get), new { id = vendor.Id }, null);
             }
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(long id, [FromBody] VendorForm model)
+        public async Task<IActionResult> Put(long id, [FromBody] VendorForm model)
         {
             if (ModelState.IsValid)
             {
@@ -136,25 +140,24 @@ namespace SimplCommerce.Module.Vendors.Controllers
                 vendor.IsActive = model.IsActive;
                 vendor.UpdatedOn = DateTimeOffset.Now;
 
-                _vendorService.Update(vendor);
-
-                return Ok();
+                await _vendorService.Update(vendor);
+                return Accepted();
             }
 
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
-            var vendor = _vendorRepository.Query().FirstOrDefault(x => x.Id == id);
+            var vendor = await _vendorRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
             if (vendor == null)
             {
-                return new NotFoundResult();
+                return NotFound();
             }
 
             await _vendorService.Delete(vendor);
-            return Json(true);
+            return NoContent();
         }
     }
 }

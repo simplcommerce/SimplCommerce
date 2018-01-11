@@ -129,10 +129,40 @@ namespace SimplCommerce.Module.ShoppingCart.Services
 
         public async Task MigrateCart(long fromUserId, long toUserId)
         {
-            var cart = _cartRepository.Query().FirstOrDefault(x => x.UserId == fromUserId && x.IsActive);
-            if (cart != null)
+            var cartFrom = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.UserId == fromUserId && x.IsActive);
+            if (cartFrom != null && cartFrom.Items.Any())
             {
-                cart.UserId = toUserId;
+                var cartTo = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.UserId == toUserId && x.IsActive);
+                if (cartTo == null)
+                {
+                    cartTo = new Cart
+                    {
+                        UserId = toUserId
+                    };
+
+                    _cartRepository.Add(cartTo);
+                }
+
+                foreach (var fromItem in cartFrom.Items)
+                {
+                    var toItem = cartTo.Items.FirstOrDefault(x => x.ProductId == fromItem.ProductId);
+                    if(toItem == null)
+                    {
+                        toItem = new CartItem
+                        {
+                            Cart = cartTo,
+                            ProductId = fromItem.ProductId,
+                            Quantity = fromItem.Quantity,
+                            CreatedOn = DateTimeOffset.Now
+                        };
+                        cartTo.Items.Add(toItem);
+                    }
+                    else
+                    {
+                        toItem.Quantity = toItem.Quantity + fromItem.Quantity;
+                    }
+                }
+
                await _cartRepository.SaveChangesAsync();
             }
         }

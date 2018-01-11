@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.Services;
@@ -22,17 +23,17 @@ namespace SimplCommerce.Module.Catalog.Controllers
             _brandService = brandService;
         }
 
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var brandList = _brandRepository.Query().Where(x => !x.IsDeleted).ToList();
+            var brandList = await _brandRepository.Query().Where(x => !x.IsDeleted).ToListAsync();
 
             return Json(brandList);
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(long id)
+        public async Task<IActionResult> Get(long id)
         {
-            var brand = _brandRepository.Query().FirstOrDefault(x => x.Id == id);
+            var brand = await _brandRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
             var model = new BrandForm
             {
                 Id = brand.Id,
@@ -46,7 +47,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public IActionResult Post([FromBody] BrandForm model)
+        public async Task<IActionResult> Post([FromBody] BrandForm model)
         {
             if (ModelState.IsValid)
             {
@@ -57,30 +58,33 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     IsPublished = model.IsPublished
                 };
 
-                _brandService.Create(brand);
-
-                return Ok();
+                await _brandService.Create(brand);
+                return CreatedAtAction(nameof(Get), new { id = brand.Id }, null);
             }
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
-        public IActionResult Put(long id, [FromBody] BrandForm model)
+        public async Task<IActionResult> Put(long id, [FromBody] BrandForm model)
         {
             if (ModelState.IsValid)
             {
                 var brand = _brandRepository.Query().FirstOrDefault(x => x.Id == id);
+                if(brand == null)
+                {
+                    return NotFound();
+                }
+
                 brand.Name = model.Name;
                 brand.SeoTitle = model.Slug;
                 brand.IsPublished = model.IsPublished;
 
-                _brandService.Update(brand);
-
-                return Ok();
+                await _brandService.Update(brand);
+                return Accepted();
             }
 
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpDelete("{id}")]
@@ -90,11 +94,11 @@ namespace SimplCommerce.Module.Catalog.Controllers
             var brand = _brandRepository.Query().FirstOrDefault(x => x.Id == id);
             if (brand == null)
             {
-                return new NotFoundResult();
+                return NotFound();
             }
 
             await _brandService.Delete(brand);
-            return Json(true);
+            return NoContent();
         }
     }
 }

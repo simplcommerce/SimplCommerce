@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.ViewModels;
 using SimplCommerce.Infrastructure.Data;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace SimplCommerce.Module.Core.Services
 {
@@ -24,7 +26,7 @@ namespace SimplCommerce.Module.Core.Services
             _currentThemeName = configuration[SimplConstants.ThemeConfigKey];
         }
 
-        public IList<ThemeListItem> GetInstalledThemes()
+        public async Task<IList<ThemeListItem>> GetInstalledThemes()
         {
             IList<ThemeListItem> themes = new List<ThemeListItem>
             {
@@ -48,7 +50,7 @@ namespace SimplCommerce.Module.Core.Services
                     throw new ApplicationException($"Cannot found theme.json for theme {themeFolder.Name}");
                 }
 
-                var manifestStr = File.ReadAllText(themeJsonPath);
+                var manifestStr = await File.ReadAllTextAsync(themeJsonPath);
                 ThemeManifest themeManifest;
                 themeManifest = JsonConvert.DeserializeObject<ThemeManifest>(manifestStr);
                 var theme = new ThemeListItem
@@ -65,11 +67,11 @@ namespace SimplCommerce.Module.Core.Services
             return themes;
         }
 
-        public void SetCurrentTheme(string themeName)
+        public async Task SetCurrentTheme(string themeName)
         {
-            var themeSetting = _appSettingRepository.Query().Where(x => x.Key == SimplConstants.ThemeConfigKey).First();
+            var themeSetting = await _appSettingRepository.Query().Where(x => x.Key == SimplConstants.ThemeConfigKey).FirstAsync();
             themeSetting.Value = themeName;
-            _appSettingRepository.SaveChanges();
+            await _appSettingRepository.SaveChangesAsync();
             _configurationRoot.Reload();
         }
     }
