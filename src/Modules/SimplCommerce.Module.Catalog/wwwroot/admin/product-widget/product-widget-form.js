@@ -10,7 +10,7 @@
         vm.translate = translateService;
         vm.widgetZones = [];
         vm.sorts = [];
-        vm.widgetInstance = { widgetZoneId: 1, setting: { numberOfProducts: 4 }, publishStart: new Date(), };
+        vm.widgetInstance = { widgetZoneId: 1, setting: { numberOfProducts: 4 }, publishStart: new Date()};
         vm.widgetInstanceId = $stateParams.id;
         vm.isEditMode = vm.widgetInstanceId > 0;
         vm.numberOfWidgets = [];
