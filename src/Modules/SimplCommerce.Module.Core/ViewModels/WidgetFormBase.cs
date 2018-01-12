@@ -15,5 +15,7 @@ namespace SimplCommerce.Module.Core.ViewModels
         public DateTimeOffset? PublishStart { get; set; }
 
         public DateTimeOffset? PublishEnd { get; set; }
+
+        public int DisplayOrder { get; set; }
     }
 }

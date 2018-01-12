@@ -46,6 +46,13 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Display Order')}}</label>
+                <div class="col-sm-10">
+                    <select ng-model="vm.widgetInstance.displayOrder" class="form-control"
+                            ng-options="n for n in vm.numberOfWidgets"></select>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-sm-2 control-label">{{::vm.translate.get('Category')}}</label>
                 <div class="col-sm-10">
                     <select class="form-control" ng-model="vm.widgetInstance.settings.categoryId"

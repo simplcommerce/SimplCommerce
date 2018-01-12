@@ -11,7 +11,8 @@
             getProductWidget: getProductWidget,
             createProductWidget: createProductWidget,
             editProductWidget: editProductWidget,
-            getProductWidgetAvailableOrderBy: getProductWidgetAvailableOrderBy
+            getProductWidgetAvailableOrderBy: getProductWidgetAvailableOrderBy,
+            getNumberOfWidgets: getNumberOfWidgets
         };
         return service;
 
@@ -33,6 +34,10 @@
 
         function getProductWidgetAvailableOrderBy() {
             return $http.get('api/product-widgets/available-orderby');
+        }
+
+        function getNumberOfWidgets() {
+            return $http.get('api/widget-instances/number-of-widgets');
         }
     }
 })();

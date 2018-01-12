@@ -12,6 +12,7 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Cms.ViewModels;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
+using System.Linq;
 
 namespace SimplCommerce.Module.Cms.Controllers
 {
@@ -33,6 +34,8 @@ namespace SimplCommerce.Module.Cms.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(long id)
         {
+            var totalWidgets = _widgetInstanceRepository.Query().ToList().Count();
+
             var widgetInstance = await _widgetInstanceRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
             var model = new CarouselWidgetForm
             {
@@ -41,6 +44,7 @@ namespace SimplCommerce.Module.Cms.Controllers
                 WidgetZoneId = widgetInstance.WidgetZoneId,
                 PublishStart = widgetInstance.PublishStart,
                 PublishEnd = widgetInstance.PublishEnd,
+                DisplayOrder = widgetInstance.DisplayOrder,
                 Items = JsonConvert.DeserializeObject<IList<CarouselWidgetItemForm>>(widgetInstance.Data)
             };
 
@@ -70,6 +74,7 @@ namespace SimplCommerce.Module.Cms.Controllers
                     WidgetZoneId = model.WidgetZoneId,
                     PublishStart = model.PublishStart,
                     PublishEnd = model.PublishEnd,
+                    DisplayOrder = model.DisplayOrder,
                     Data = JsonConvert.SerializeObject(model.Items)
                 };
 
@@ -109,6 +114,7 @@ namespace SimplCommerce.Module.Cms.Controllers
                 widgetInstance.PublishStart = model.PublishStart;
                 widgetInstance.PublishEnd = model.PublishEnd;
                 widgetInstance.WidgetZoneId = model.WidgetZoneId;
+                widgetInstance.DisplayOrder = model.DisplayOrder;
                 widgetInstance.Data = JsonConvert.SerializeObject(model.Items);
 
                 await _widgetInstanceRepository.SaveChangesAsync();
@@ -125,7 +131,8 @@ namespace SimplCommerce.Module.Cms.Controllers
             var model = new CarouselWidgetForm();
             model.Name = formCollection["name"];
             model.WidgetZoneId = int.Parse(formCollection["widgetZoneId"]);
-            if(DateTimeOffset.TryParse(formCollection["publishStart"], out publishStart))
+            model.DisplayOrder = int.Parse(formCollection["displayOrder"]);
+            if (DateTimeOffset.TryParse(formCollection["publishStart"], out publishStart))
             {
                 model.PublishStart = publishStart;
             }

@@ -34,7 +34,8 @@ namespace SimplCommerce.Module.Core.Controllers
                     CreatedOn = x.CreatedOn,
                     EditUrl = x.Widget.EditUrl,
                     PublishStart = x.PublishStart,
-                    PublishEnd = x.PublishEnd
+                    PublishEnd = x.PublishEnd,
+                    DisplayOrder = x.DisplayOrder,
                 }).ToListAsync();
 
             return Json(widgetInstances);
@@ -53,6 +54,14 @@ namespace SimplCommerce.Module.Core.Controllers
             _widgetInstanceRepository.SaveChanges();
 
             return NoContent();
+        }
+
+        [HttpGet("number-of-widgets")]
+        public IActionResult GetNumberOfWidgets()
+        {
+            var total = _widgetInstanceRepository.Query().Count();
+
+            return Json(total);
         }
     }
 }
