@@ -11,11 +11,11 @@ using Newtonsoft.Json.Linq;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.PaymentPaypalExpress.Models;
 using SimplCommerce.Module.PaymentPaypalExpress.ViewModels;
 using SimplCommerce.Module.Payments.Models;
-using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.ShoppingCart.Services;
 
 namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
@@ -104,7 +104,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
         {
             var accessToken = await GetAccessToken();
             var currentUser = await _workContext.GetCurrentUser();
-            var order = await _orderService.CreateOrder(currentUser, "PaypalExpress");
+            var order = await _orderService.CreateOrder(currentUser, "PaypalExpress", OrderStatus.PendingPayment);
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             var paymentExecuteRequest = new PaymentExecuteRequest
@@ -128,7 +128,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
                 GatewayTransactionId = payPalPaymentId
             };
 
-            order.OrderStatus = Orders.Models.OrderStatus.Processing;
+            order.OrderStatus =OrderStatus.PaymentReceived;
             _paymentRepository.Add(payment);
             await _paymentRepository.SaveChangesAsync();
 

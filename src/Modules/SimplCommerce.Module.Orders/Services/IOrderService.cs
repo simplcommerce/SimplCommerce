@@ -11,9 +11,9 @@ namespace SimplCommerce.Module.Orders.Services
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        Task<Order> CreateOrder(User user, string paymentMethod);
+        Task<Order> CreateOrder(User user, string paymentMethod, OrderStatus orderStatus = OrderStatus.New);
 
-        Task<Order> CreateOrder(User user, string paymentMethod, string shippingMethod, Address billingAddress, Address shippingAddress);
+        Task<Order> CreateOrder(User user, string paymentMethod, string shippingMethod, Address billingAddress, Address shippingAddress, OrderStatus orderStatus = OrderStatus.New);
 
         Task<decimal> GetTax(long cartOwnerUserId, long countryId, long stateOrProvinceId);
     }
