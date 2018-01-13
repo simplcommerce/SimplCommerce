@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.Net.Http.Headers;
 using SimplCommerce.Module.Core.Extensions;
 using Microsoft.AspNetCore.Hosting;
+using SimplCommerce.Infrastructure.Web.Middlewares;
+using Microsoft.Extensions.Options;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -90,6 +92,10 @@ namespace SimplCommerce.WebHost.Extensions
                 SupportedUICultures = supportedCultures
             });
             return app;
+        }
+        public static IApplicationBuilder UseApiErrorHandler(this IApplicationBuilder app, ApiErrorHandlerOptions options = null)
+        {
+            return app.UseMiddleware<ApiErrorHandlerMiddleware>(Options.Create(options));
         }
     }
 }
