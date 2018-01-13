@@ -44,7 +44,7 @@ namespace SimplCommerce.Module.Orders.Services
             _orderEmailService = orderEmailService;
         }
 
-        public async Task<Order> CreateOrder(User user, string paymentMethod)
+        public async Task<Order> CreateOrder(User user, string paymentMethod, OrderStatus orderStatus = OrderStatus.New)
         {
             var cart = await _cartRepository
                .Query()
@@ -92,7 +92,7 @@ namespace SimplCommerce.Module.Orders.Services
             return await CreateOrder(user, paymentMethod, shippingData.ShippingMethod, billingAddress, shippingAddress);
         }
 
-        public async Task<Order> CreateOrder(User user, string paymentMethod, string shippingMethodName, Address billingAddress, Address shippingAddress)
+        public async Task<Order> CreateOrder(User user, string paymentMethod, string shippingMethodName, Address billingAddress, Address shippingAddress, OrderStatus orderStatus = OrderStatus.New)
         {
             var cart = _cartRepository
                 .Query()
@@ -156,6 +156,7 @@ namespace SimplCommerce.Module.Orders.Services
                 order.AddOrderItem(orderItem);
             }
 
+            order.OrderStatus = orderStatus;
             order.CouponCode = cart.CouponCode;
             order.CouponRuleName = cart.CouponRuleName;
             order.Discount = discount;
