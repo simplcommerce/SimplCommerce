@@ -136,7 +136,7 @@ namespace SimplCommerce.Module.Orders.Controllers
 
             if (order == null)
             {
-                return new NotFoundResult();
+                return NotFound();
             }
 
             var currentUser = await _workContext.GetCurrentUser();
@@ -152,9 +152,14 @@ namespace SimplCommerce.Module.Orders.Controllers
                 OrderStatus = (int) order.OrderStatus,
                 OrderStatusString = order.OrderStatus.ToString(),
                 CustomerName = order.CreatedBy.FullName,
+                ShippingMethod = order.ShippingMethod,
+                PaymentMethod = order.PaymentMethod,
                 Subtotal = order.SubTotal,
                 Discount = order.Discount,
                 SubTotalWithDiscount = order.SubTotalWithDiscount,
+                TaxAmount = order.TaxAmount,
+                ShippingAmount = order.ShippingAmount,
+                OrderTotal = order.OrderTotal,
                 ShippingAddress = new ShippingAddressVm
                 {
                     AddressLine1 = order.ShippingAddress.AddressLine1,
