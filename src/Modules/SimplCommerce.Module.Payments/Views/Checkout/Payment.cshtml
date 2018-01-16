@@ -9,13 +9,8 @@
         <h3>@Localizer["Choose a payment methods"]</h3>
         @foreach (var paymentProvider in Model.PaymentProviders)
         {
-            <div class="radio">
-                <label>
-                    <input type="radio" name="paymentProviderId" value="@paymentProvider.Name">
-                        @paymentProvider.Name
-                </label>
-            </div>
-            <div class="paymentProvider-@paymentProvider.Id">
+            <div class="payment-method paymentProvider-@paymentProvider.Id">
+                <label>@paymentProvider.Name</label>
                 @if(!string.IsNullOrWhiteSpace(paymentProvider.LandingViewComponentName))
                 {
                     @await Component.InvokeAsync(paymentProvider.LandingViewComponentName)
