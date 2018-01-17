@@ -10,19 +10,35 @@ namespace SimplCommerce.Module.Orders.ViewModels
     {
         public long Id { get; set; }
 
+        public long ProductId { get; set; }
+
         public string ProductName { get; set; }
 
         public string ProductImage { get; set; }
 
         public decimal ProductPrice { get; set; }
 
-        public string ProductPriceString => ProductPrice.ToString("C");
-
         public int Quantity { get; set; }
+
+        public decimal TaxAmount { get; set; }
+
+        public decimal TaxPercent { get; set; }
+
+        public decimal DiscountAmount { get; set; }
 
         public decimal Total => Quantity * ProductPrice;
 
+        public decimal RowTotal => Total + TaxAmount - DiscountAmount;
+
+        public string TaxAmountString => TaxAmount.ToString("C");
+
+        public string ProductPriceString => ProductPrice.ToString("C");
+
+        public string DiscountAmountString => DiscountAmount.ToString("C");
+
         public string TotalString => Total.ToString("C");
+
+        public string RowTotalString => RowTotal.ToString("C");
 
         public IEnumerable<ProductVariationOptionVm> VariationOptions { get; set; } =
             new List<ProductVariationOptionVm>();

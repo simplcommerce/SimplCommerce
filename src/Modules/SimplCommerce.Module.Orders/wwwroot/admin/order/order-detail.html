@@ -1,4 +1,4 @@
-﻿<h2>{{::vm.translate.get('Order Detail')}}: #{{vm.order.id}}</h2>
+﻿<h2>{{::vm.translate.get('Order Details')}}: #{{vm.order.id}}</h2>
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -28,11 +28,11 @@
                 <table class="table table-striped">
                     <tr>
                         <td>Customer Name</td>
-                        <td>{{vm.order.customerName}}</td>
+                        <td><a ui-sref="user-edit({id: vm.order.customerId})">{{vm.order.customerName}}</a></td>
                     </tr>
                     <tr>
                         <td>Email</td>
-                        <td></td>
+                        <td>{{vm.order.customerEmail}}</td>
                     </tr>
                     <tr>
                         <td>Customer Group</td>
@@ -56,7 +56,7 @@
             <div class="col-md-6">
                 <h5>Shipping Address</h5>
                 <p>
-                    <strong>{{vm.order.shippingAddress.contactName}} </strong><br />
+                    {{vm.order.shippingAddress.contactName}} <br />
                     {{vm.order.shippingAddress.addressLine1}} <br />
                     {{vm.order.shippingAddress.districtName}}, {{vm.order.shippingAddress.stateOrProvinceName}} <br />
                     Phone: {{vm.order.shippingAddress.phone}}
@@ -74,36 +74,33 @@
         <table class="table table-striped order-item-list">
             <thead>
                 <tr>
-                    <th colspan="2">{{::vm.translate.get('Product')}}</th>
-                    <th>{{::vm.translate.get('Price')}}</th>
-                    <th>{{::vm.translate.get('Quantity')}}</th>
-                    <th>{{::vm.translate.get('Total')}}</th>
-                    <th>{{::vm.translate.get('Tax Amount')}}</th>
-                    <th>{{::vm.translate.get('Tax Percent')}}</th>
-                    <th>{{::vm.translate.get('Discount Amount')}}</th>
-                    <th>{{::vm.translate.get('Row Total')}}</th>
+                    <th>{{::vm.translate.get('Product')}}</th>
+                    <th class="text-right">{{::vm.translate.get('Price')}}</th>
+                    <th class="text-right">{{::vm.translate.get('Quantity')}}</th>
+                    <th class="text-right">{{::vm.translate.get('Total')}}</th>
+                    <th class="text-right">{{::vm.translate.get('Tax Amount')}}</th>
+                    <th class="text-right">{{::vm.translate.get('Tax Percent')}}</th>
+                    <th class="text-right">{{::vm.translate.get('Discount Amount')}}</th>
+                    <th class="text-right">{{::vm.translate.get('Row Total')}}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="item in vm.order.orderItems">
-                    <td class="product-image"><img ng-src="{{item.productImage}}" /></td>
                     <td>
-                        <h4>{{item.productName}}</h4>
-                        <ul class="list-unstyled">
+                        <a ui-sref="product-edit({id: item.productId})">{{item.productName}}</a>
+                        <ul ng-if="item.variationOptions.length > 0" class="list-unstyled">
                             <li ng-repeat="opt in item.variationOptions">
                                 <span>{{opt.optionName}}:</span> {{opt.value}}
                             </li>
                         </ul>
                     </td>
-                    <td>{{item.productPriceString}}</td>
-                    <td>
-                        <span>{{item.quantity}}</span>
-                    </td>
-                    <td>{{item.totalString}}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td class="text-right">{{item.productPriceString}}</td>
+                    <td class="text-right">{{item.quantity}}</td>
+                    <td class="text-right">{{item.totalString}}</td>
+                    <td class="text-right">{{item.taxAmountString}}</td>
+                    <td class="text-right">{{item.taxPercent}}</td>
+                    <td class="text-right">{{item.discountAmountString}}</td>
+                    <td class="text-right">{{item.rowTotalString}}</td>
                 </tr>
             </tbody>
         </table>
@@ -151,34 +148,37 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">{{::vm.translate.get('Note')}}</label>
                         <div class="col-sm-10">
-                            <textarea name="description" ng-model="vm.category.description" rows="3" class="form-control" />
+                            <textarea name="description" ng-model="vm.orderStatusNote" rows="3" class="form-control" />
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> {{::vm.translate.get('Save')}}</button>
+                            <button class="btn btn-primary" ng-click="vm.changeOrderStatus()"><span class="glyphicon glyphicon-ok"></span> {{::vm.translate.get('Save')}}</button>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="col-md-6">
-                <h5>Order Total {{vm.order.orderTotalString}}</h5>
                 <table class="table table-striped">
                     <tr>
                         <td>Subtotal</td>
-                        <td>{{vm.order.subtotalString}}</td>
+                        <td class="text-right">{{vm.order.subtotalString}}</td>
                     </tr>
                     <tr>
                         <td>Shipping</td>
-                        <td>{{vm.order.shippingAmountString}}</td>
+                        <td class="text-right">{{vm.order.shippingAmountString}}</td>
                     </tr>
                     <tr>
                         <td>Tax</td>
-                        <td>{{vm.order.taxAmountString}}</td>
+                        <td class="text-right">{{vm.order.taxAmountString}}</td>
                     </tr>
                     <tr>
                         <td>Discount</td>
-                        <td>{{vm.order.discountString}}</td>
+                        <td class="text-right">{{vm.order.discountString}}</td>
+                    </tr>
+                    <tr>
+                        <td>Order Total</td>
+                        <td class="text-right"><strong>{{vm.order.orderTotalString}}</strong></td>
                     </tr>
                 </table>
             </div>

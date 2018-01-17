@@ -31,8 +31,8 @@
             return $http.get('api/orders/order-status');
         }
 
-        function changeOrderStatus(orderId, statusId) {
-            return $http.post('api/orders/change-order-status/' + orderId, statusId);
+        function changeOrderStatus(orderId, statusModel) {
+            return $http.post('api/orders/change-order-status/' + orderId, statusModel);
         }
     }
 })();
