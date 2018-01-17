@@ -4,13 +4,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MediatR;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
-using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Orders.ViewModels;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Orders.Events;
 
 namespace SimplCommerce.Module.Orders.Controllers
 {
@@ -18,15 +19,15 @@ namespace SimplCommerce.Module.Orders.Controllers
     [Route("api/orders")]
     public class OrderApiController : Controller
     {
-        private readonly IMediaService _mediaService;
         private readonly IRepository<Order> _orderRepository;
         private readonly IWorkContext _workContext;
+        private readonly IMediator _mediator;
 
-        public OrderApiController(IRepository<Order> orderRepository, IMediaService mediaService, IWorkContext workContext)
+        public OrderApiController(IRepository<Order> orderRepository, IWorkContext workContext, IMediator mediator)
         {
             _orderRepository = orderRepository;
-            _mediaService = mediaService;
             _workContext = workContext;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -151,7 +152,9 @@ namespace SimplCommerce.Module.Orders.Controllers
                 CreatedOn = order.CreatedOn,
                 OrderStatus = (int) order.OrderStatus,
                 OrderStatusString = order.OrderStatus.ToString(),
+                CustomerId = order.CreatedById,
                 CustomerName = order.CreatedBy.FullName,
+                CustomerEmail = order.CreatedBy.Email,
                 ShippingMethod = order.ShippingMethod,
                 PaymentMethod = order.PaymentMethod,
                 Subtotal = order.SubTotal,
@@ -172,10 +175,12 @@ namespace SimplCommerce.Module.Orders.Controllers
                 OrderItems = order.OrderItems.Select(x => new OrderItemVm
                 {
                     Id = x.Id,
+                    ProductId = x.Product.Id,
                     ProductName = x.Product.Name,
                     ProductPrice = x.ProductPrice,
-                    ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
                     Quantity = x.Quantity,
+                    TaxAmount = x.TaxAmount,
+                    TaxPercent = x.TaxPercent,
                     VariationOptions = OrderItemVm.GetVariationOption(x.Product)
                 }).ToList()
             };
@@ -184,7 +189,7 @@ namespace SimplCommerce.Module.Orders.Controllers
         }
 
         [HttpPost("change-order-status/{id}")]
-        public async Task<IActionResult> ChangeStatus(long id, [FromBody] int statusId)
+        public async Task<IActionResult> ChangeStatus(long id, [FromBody] OrderStatusForm model)
         {
             var order = _orderRepository.Query().FirstOrDefault(x => x.Id == id);
             if (order == null)
@@ -195,15 +200,27 @@ namespace SimplCommerce.Module.Orders.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             if (!User.IsInRole("admin") && order.VendorId != currentUser.VendorId)
             {
-                return new BadRequestObjectResult(new { error = "You don't have permission to manage this order" });
+                return BadRequest(new { error = "You don't have permission to manage this order" });
             }
 
-            if (Enum.IsDefined(typeof(OrderStatus), statusId))
+            if (Enum.IsDefined(typeof(OrderStatus), model.StatusId))
             {
-                order.OrderStatus = (OrderStatus) statusId;
-                _orderRepository.SaveChanges();
-                return Ok();
+                order.OrderStatus = (OrderStatus) model.StatusId;
+                await _orderRepository.SaveChangesAsync();
+
+                var orderStatusChanged = new OrderStatusChanged
+                {
+                    OrderId = order.Id,
+                    OldStatus = OrderStatus.PendingPayment,
+                    NewStatus = OrderStatus.Canceled,
+                    UserId = 0,
+                    Note = "System cancel"
+                };
+
+                await _mediator.Publish(orderStatusChanged);
+                return Accepted();
             }
+
             return BadRequest(new {Error = "unsupported order status"});
         }
 

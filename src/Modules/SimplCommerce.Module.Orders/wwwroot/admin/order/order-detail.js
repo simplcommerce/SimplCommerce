@@ -11,14 +11,13 @@
         vm.orderId = $stateParams.id;
         vm.order = {};
         vm.orderStatus = [];
-        vm.isStatusFormOpen = false;
 
         vm.changeOrderStatus = function () {
-            orderService.changeOrderStatus(vm.order.id, vm.order.orderStatus)
+            orderService.changeOrderStatus(vm.order.id, { statusId : vm.order.orderStatus, note : vm.orderStatusNote })
                 .then(function () {
-                    vm.isStatusFormOpen = false;
                     vm.order.orderStatusString = vm.orderStatus.find(function (item) { return item.id === vm.order.orderStatus; }).name;
                     toastr.success('The order now is ' + vm.order.orderStatusString);
+                    vm.orderStatusNote = '';
                 })
                 .catch(function (response) {
                     toastr.error(response.data.error);

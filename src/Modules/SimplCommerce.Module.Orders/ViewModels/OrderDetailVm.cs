@@ -7,7 +7,11 @@ namespace SimplCommerce.Module.Orders.ViewModels
     {
         public long Id { get; set; }
 
+        public long CustomerId { get; set; }
+
         public string CustomerName { get; set; }
+
+        public string CustomerEmail { get; set; }
 
         public DateTimeOffset CreatedOn { get; set; }
 
