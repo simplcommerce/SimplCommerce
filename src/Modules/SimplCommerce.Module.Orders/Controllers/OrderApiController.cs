@@ -39,9 +39,11 @@ namespace SimplCommerce.Module.Orders.Controllers
                 numRecords = 5;
             }
 
-            var query = _orderRepository
-                .Query()
-                .Where(x => x.OrderStatus == orderStatus);
+            var query = _orderRepository.Query();
+            if(orderStatus != 0)
+            {
+                query = query.Where(x => x.OrderStatus == orderStatus);
+            }
 
             var currentUser = await _workContext.GetCurrentUser();
             if (!User.IsInRole("admin"))
@@ -54,7 +56,9 @@ namespace SimplCommerce.Module.Orders.Controllers
                 .Select(x => new
                 {
                     x.Id,
-                    CustomerName = x.CreatedBy.FullName, x.SubTotal,
+                    CustomerName = x.CreatedBy.FullName,
+                    x.OrderTotal,
+                    OrderTotalString = x.OrderTotal.ToString("C"),
                     OrderStatus = x.OrderStatus.ToString(), x.CreatedOn
                 });
 
