@@ -1229,6 +1229,11 @@ INSERT INTO Core_District (Id, Name, [Type], [Location], StateOrProvinceId) VALU
 SET IDENTITY_INSERT Core_District OFF 
 GO
 
+SET IDENTITY_INSERT [dbo].[Inventory_Warehouse] ON 
+INSERT [dbo].[Inventory_Warehouse] ([Id], [AddressId], [Name]) VALUES (1, NULL, N'Default warehouse')
+SET IDENTITY_INSERT [dbo].[Inventory_Warehouse] OFF
+GO
+
 SET IDENTITY_INSERT [dbo].[Shipping_ShippingProvider] ON 
 INSERT [dbo].[Shipping_ShippingProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [Name], [OnlyCountryIdsString], [OnlyStateOrProvinceIdsString], [ShippingPriceServiceTypeName], [ToAllShippingEnabledCountries], [ToAllShippingEnabledStatesOrProvinces]) VALUES (1, N'{MinimumOrderAmount : 100}', N'shipping-free-config', 1, N'Free Ship', NULL, NULL, N'SimplCommerce.Module.ShippingFree.Services.FreeShippingServiceProvider,SimplCommerce.Module.ShippingFree', 1, 1)
 INSERT [dbo].[Shipping_ShippingProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [Name], [OnlyCountryIdsString], [OnlyStateOrProvinceIdsString], [ShippingPriceServiceTypeName], [ToAllShippingEnabledCountries], [ToAllShippingEnabledStatesOrProvinces]) VALUES (2, NULL, N'shipping-table-rate-config', 1, N'Table Rate', NULL, NULL, N'SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingServiceProvider,SimplCommerce.Module.ShippingTableRate', 1, 1)

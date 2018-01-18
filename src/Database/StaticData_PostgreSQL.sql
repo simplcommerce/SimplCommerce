@@ -82,10 +82,14 @@ INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Typ
 INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Type") VALUES (18, NULL, 'Phú Nhuận', 79, NULL);
 INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Type") VALUES (19, NULL, 'Bình Chánh', 79, NULL);
 
+INSERT INTO "Inventory_Warehouse" ("Id", "AddressId", "Name") VALUES (1, NULL, 'Default warehouse');
+SELECT pg_catalog.setval('"Inventory_Warehouse_Id_seq"', 1, true);
+
 INSERT INTO "Shipping_ShippingProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces") VALUES (1, N'{MinimumOrderAmount : 10}', N'shipping-free-config', true, N'Free Ship', NULL, NULL, N'SimplCommerce.Module.ShippingFree.Services.FreeShippingServiceProvider,SimplCommerce.Module.ShippingFree', true, true);
 INSERT INTO "Shipping_ShippingProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces") VALUES (2, NULL, N'shipping-table-rate-config', true, N'Table Rate', NULL, NULL, N'SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingServiceProvider,SimplCommerce.Module.ShippingTableRate', true, true);
 
 INSERT INTO "ShippingTableRate_PriceAndDestination" ("Id", "CountryId", "MinOrderSubtotal", "ShippingPrice", "StateOrProvinceId") VALUES (1, 1, 100, 10, NULL);
+SELECT pg_catalog.setval('"ShippingTableRate_PriceAndDestination_Id_seq"', 1, true);
 
 INSERT INTO "Localization_Culture" ("Id", "Name") VALUES (1, 'vi-VN');
 INSERT INTO "Localization_Culture" ("Id", "Name") VALUES (2, 'fr-FR');

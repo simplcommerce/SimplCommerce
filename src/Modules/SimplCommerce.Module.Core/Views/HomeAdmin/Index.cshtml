@@ -196,6 +196,10 @@
     <script simpl-append-version="true" src="~/modules/paymentPaypalExpress/admin/paypalExpress.module.js"></script>
     <script simpl-append-version="true" src="~/modules/paymentPaypalExpress/admin/config/paypalExpress-service.js"></script>
     <script simpl-append-version="true" src="~/modules/paymentPaypalExpress/admin/config/config-form.js"></script>
+
+    <script simpl-append-version="true" src="~/modules/inventory/admin/inventory.module.js"></script>
+    <script simpl-append-version="true" src="~/modules/inventory/admin/stock/stock-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/inventory/admin/stock/stock-form.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse">
@@ -243,6 +247,7 @@
                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Sales"] <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a ui-sref="order">@Localizer["Orders"]</a></li>
+                            <li><a ui-sref="stocks">@Localizer["Stocks"]</a></li>
                         </ul>
                     </li>
                     @if (User.IsInRole("admin"))

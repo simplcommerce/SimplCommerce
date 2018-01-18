@@ -154,6 +154,7 @@ namespace SimplCommerce.Module.Orders.Services
                     TaxAmount = cartItem.Quantity * (cartItem.Product.Price * taxPercent / 100)
                 };
                 order.AddOrderItem(orderItem);
+                cartItem.Product.StockQuantity = cartItem.Product.StockQuantity - cartItem.Quantity;
             }
 
             order.OrderStatus = orderStatus;

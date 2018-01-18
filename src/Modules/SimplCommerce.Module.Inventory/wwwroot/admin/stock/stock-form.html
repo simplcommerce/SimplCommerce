@@ -1,0 +1,68 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{::vm.translate.get('Stock management')}}</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label>{{::vm.translate.get('Warehouse')}}</label>
+                    <select class="form-control" ng-model="vm.selectedWarehouseId"
+                            ng-options="warehouse.id as warehouse.name for warehouse in vm.warehouses"></select>
+                </div>
+                <button class="btn btn-primary" ng-click="vm.addAllProducts()">Add All Products</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped" st-pipe="vm.getStocks" st-table="vm.stocks">
+    <thead>
+        <tr>
+            <th>{{::vm.translate.get('Product Name')}}</th>
+            <th>{{::vm.translate.get('Product Sku')}}</th>
+            <th class="text-right">{{::vm.translate.get('Current Quantity')}}</th>
+            <th class="text-right">(+/-) Adjusted Quantity</th>
+            <th>Notes</th>
+        </tr>
+        <tr>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="ProductName" />
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="ProductSku" />
+                </div>
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-show="!vm.isLoading">
+        <tr ng-repeat="item in vm.stocks">
+            <td>{{item.productName}}</td>
+            <td>{{item.productSku}}</td>
+            <td class="text-right">{{item.quantity}}</td>
+            <td>
+                <input class="form-control text-right" ng-model="item.adjustedQuantity" />
+            </td>
+            <td>
+                <input class="form-control" ng-model="item.note" />
+            </td>
+        </tr>
+    </tbody>
+    <tbody ng-show="vm.isLoading">
+        <tr>
+            <td colspan="5" class="text-center">Loading ... </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="5"></td>
+        </tr>
+    </tfoot>
+</table>
+<button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> {{::vm.translate.get('Save')}}</button>

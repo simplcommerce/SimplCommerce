@@ -89,7 +89,6 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 IsPublished = product.IsPublished,
                 IsCallForPricing =  product.IsCallForPricing,
                 IsAllowToOrder = product.IsAllowToOrder,
-                IsOutOfStock = product.StockQuantity == 0,
                 CategoryIds = product.Categories.Select(x => x.CategoryId).ToList(),
                 ThumbnailImageUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage),
                 BrandId = product.BrandId,
@@ -286,15 +285,6 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 product.VendorId = currentUser.VendorId;
             }
 
-            if (model.Product.IsOutOfStock)
-            {
-                product.StockQuantity = 0;
-            }
-            else
-            {
-                product.StockQuantity = null;
-            }
-
             var optionIndex = 0;
             foreach (var option in model.Product.Options)
             {
@@ -383,15 +373,6 @@ namespace SimplCommerce.Module.Catalog.Controllers
             product.IsCallForPricing = model.Product.IsCallForPricing;
             product.IsAllowToOrder = model.Product.IsAllowToOrder;
             product.UpdatedBy = currentUser;
-
-            if (model.Product.IsOutOfStock)
-            {
-                product.StockQuantity = 0;
-            }
-            else
-            {
-                product.StockQuantity = null;
-            }
 
             await SaveProductMedias(model, product);
 
