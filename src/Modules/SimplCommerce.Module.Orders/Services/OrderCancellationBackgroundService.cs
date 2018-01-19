@@ -14,6 +14,7 @@ namespace SimplCommerce.Module.Orders.Services
     {
         private readonly IMediator _mediator;
         private readonly IRepository<Order> _orderRepository;
+        private readonly long SystemUserId = 2;
 
         public OrderCancellationBackgroundService(IMediator mediator, IRepository<Order> orderRepository)
         {
@@ -38,12 +39,13 @@ namespace SimplCommerce.Module.Orders.Services
                 order.OrderStatus = OrderStatus.Canceled;
                 order.UpdatedOn = DateTimeOffset.Now;
                 // TODO Rollback product stock
-                var orderStatusChanged = new OrderStatusChanged
+                var orderStatusChanged = new OrderChanged
                 {
                     OrderId = order.Id,
                     OldStatus = OrderStatus.PendingPayment,
                     NewStatus = OrderStatus.Canceled,
-                    UserId = 0,
+                    UserId = SystemUserId,
+                    Order = order,
                     Note = "System cancel"
                 };
 

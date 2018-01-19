@@ -3,11 +3,13 @@ using SimplCommerce.Module.Orders.Models;
 
 namespace SimplCommerce.Module.Orders.Events
 {
-    public class OrderStatusChanged : INotification
+    public class OrderChanged : INotification
     {
         public long OrderId { get; set; }
 
-        public OrderStatus OldStatus { get; set; }
+        public Order Order { get; set; }
+
+        public OrderStatus? OldStatus { get; set; }
 
         public OrderStatus NewStatus { get; set; }
 

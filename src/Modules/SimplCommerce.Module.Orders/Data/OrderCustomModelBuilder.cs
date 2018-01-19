@@ -39,6 +39,14 @@ namespace SimplCommerce.Module.Orders.Data
                .HasForeignKey(x => x.BillingAddressId )
                .OnDelete(DeleteBehavior.Restrict);
             });
+
+            modelBuilder.Entity<OrderHistory>(o =>
+            {
+                o.HasOne(x => x.CreatedBy)
+                .WithMany()
+                .HasForeignKey(x => x.CreatedById)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
         }
     }
 }
