@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Core.Models;
 
@@ -20,6 +21,7 @@ namespace SimplCommerce.Module.Orders.Models
 
         public long CreatedById { get; set; }
 
+        [JsonIgnore]
         public User CreatedBy { get; set; }
 
         public long? VendorId { get; set; }

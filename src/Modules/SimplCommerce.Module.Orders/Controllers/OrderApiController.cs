@@ -209,16 +209,18 @@ namespace SimplCommerce.Module.Orders.Controllers
 
             if (Enum.IsDefined(typeof(OrderStatus), model.StatusId))
             {
+                var oldStatus = order.OrderStatus;
                 order.OrderStatus = (OrderStatus) model.StatusId;
                 await _orderRepository.SaveChangesAsync();
 
-                var orderStatusChanged = new OrderStatusChanged
+                var orderStatusChanged = new OrderChanged
                 {
                     OrderId = order.Id,
-                    OldStatus = OrderStatus.PendingPayment,
-                    NewStatus = OrderStatus.Canceled,
-                    UserId = 0,
-                    Note = "System cancel"
+                    OldStatus = oldStatus,
+                    NewStatus = order.OrderStatus,
+                    Order = order,
+                    UserId = currentUser.Id,
+                    Note = model.Note
                 };
 
                 await _mediator.Publish(orderStatusChanged);

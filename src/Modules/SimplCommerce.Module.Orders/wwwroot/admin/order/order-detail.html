@@ -132,7 +132,28 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-md-6">
-                <h5>Action & History</h5>
+                <h5>History & Action</h5>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>{{::vm.translate.get('Date')}}</th>
+                            <th>{{::vm.translate.get('Status')}}</th>
+                            <th>{{::vm.translate.get('Changed by')}}</th>
+                            <th>{{::vm.translate.get('Note')}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in vm.orderHistories">
+                            <td>{{item.createdOn | date:'medium'}}</td>
+                            <td><span ng-if="item.oldStatus">{{item.oldStatus}} &rarr; </span>{{item.newStatus}}</td>
+                            <td>
+                                <a ng-if="item.userId >= 10" ui-sref="user-edit({id: item.userId})">{{item.userFullName}}</a>
+                                <span ng-if="item.userId < 10">{{item.userFullName}}</span>
+                            </td>
+                            <td>{{item.note}}</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <form name="orderStatusForm" class="form-horizontal">
                     <div class="col-sm-offset-2 bg-danger" ng-show="vm.validationErrors">
                         <ul>

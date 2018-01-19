@@ -11,7 +11,8 @@
             getOrdersForGrid: getOrdersForGrid,
             getOrder: getOrder,
             getOrderStatus: getOrderStatus,
-            changeOrderStatus: changeOrderStatus
+            changeOrderStatus: changeOrderStatus,
+            getOrderHistory: getOrderHistory
         };
         return service;
 
@@ -33,6 +34,10 @@
 
         function changeOrderStatus(orderId, statusModel) {
             return $http.post('api/orders/change-order-status/' + orderId, statusModel);
+        }
+
+        function getOrderHistory(orderId) {
+            return $http.get('api/orders/' + orderId + '/history');
         }
     }
 })();

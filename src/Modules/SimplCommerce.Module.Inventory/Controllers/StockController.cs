@@ -43,7 +43,7 @@ namespace SimplCommerce.Module.Inventory.Controllers
         [HttpPost("grid")]
         public IActionResult Get(long warehouseId, [FromBody] SmartTableParam param)
         {
-            var query = _stockRepository.Query().Where(x => x.WarehouseId == warehouseId);
+            var query = _stockRepository.Query().Where(x => x.WarehouseId == warehouseId && !x.Product.HasOptions && !x.Product.IsDeleted);
             if (param.Search.PredicateObject != null)
             {
                 dynamic search = param.Search.PredicateObject;
