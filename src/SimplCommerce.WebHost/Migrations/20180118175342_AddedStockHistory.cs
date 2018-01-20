@@ -22,12 +22,15 @@ namespace SimplCommerce.WebHost.Migrations
                 nullable: false,
                 defaultValue: 0);
 
-            migrationBuilder.AlterColumn<int>(
+            migrationBuilder.DropColumn(
+                name: "StockQuantity",
+                table: "Catalog_Product");
+
+            migrationBuilder.AddColumn<int>(
                 name: "StockQuantity",
                 table: "Catalog_Product",
                 nullable: false,
-                oldClrType: typeof(int),
-                oldNullable: true);
+                defaultValue: 0);
 
             migrationBuilder.CreateTable(
                 name: "Inventory_StockHistory",
