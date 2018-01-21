@@ -10,6 +10,8 @@ namespace SimplCommerce.Module.Shipments.Models
 
         public long OrderItemId { get; set; }
 
+        public long ProductId { get; set; }
+
         public int Quantity { get; set; }
     }
 }
