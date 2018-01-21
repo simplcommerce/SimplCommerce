@@ -14,13 +14,13 @@ namespace SimplCommerce.Module.Inventory.Controllers
 {
     [Authorize(Roles = "admin")]
     [Route("api/stocks")]
-    public class StockController : Controller
+    public class StockApiController : Controller
     {
         private readonly IRepository<Stock> _stockRepository;
         private readonly IStockService _stockService;
         private readonly IWorkContext _workContext;
 
-        public StockController(IRepository<Stock> stockRepository, IStockService stockService, IWorkContext workContext)
+        public StockApiController(IRepository<Stock> stockRepository, IStockService stockService, IWorkContext workContext)
         {
             _stockRepository = stockRepository;
             _stockService = stockService;
@@ -41,7 +41,7 @@ namespace SimplCommerce.Module.Inventory.Controllers
         }
 
         [HttpPost("grid")]
-        public IActionResult Get(long warehouseId, [FromBody] SmartTableParam param)
+        public IActionResult List(long warehouseId, [FromBody] SmartTableParam param)
         {
             var query = _stockRepository.Query().Where(x => x.WarehouseId == warehouseId && !x.Product.HasOptions && !x.Product.IsDeleted);
             if (param.Search.PredicateObject != null)

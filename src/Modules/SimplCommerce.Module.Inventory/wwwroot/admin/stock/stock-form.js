@@ -45,7 +45,7 @@
 
         stockService.getWarehouses().then(function (result) {
             vm.warehouses = result.data;
-            if (vm.warehouses.length === 1) {
+            if (vm.warehouses.length >= 1) {
                 vm.selectedWarehouseId = vm.warehouses[0].id;
             }
         });

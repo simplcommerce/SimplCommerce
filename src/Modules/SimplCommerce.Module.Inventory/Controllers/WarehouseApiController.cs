@@ -10,11 +10,11 @@ namespace SimplCommerce.Module.Inventory.Controllers
 {
     [Authorize(Roles = "admin")]
     [Route("api/warehouses")]
-    public class WarehouseController : Controller
+    public class WarehouseApiController : Controller
     {
         private readonly IRepository<Warehouse> _warehouseRepository;
 
-        public WarehouseController(IRepository<Warehouse> warehouseRepository)
+        public WarehouseApiController(IRepository<Warehouse> warehouseRepository)
         {
             _warehouseRepository = warehouseRepository;
         }
