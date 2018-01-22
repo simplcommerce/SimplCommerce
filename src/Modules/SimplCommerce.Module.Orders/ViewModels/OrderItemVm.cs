@@ -20,6 +20,8 @@ namespace SimplCommerce.Module.Orders.ViewModels
 
         public int Quantity { get; set; }
 
+        public int ShippedQuantity { get; set; }
+
         public decimal TaxAmount { get; set; }
 
         public decimal TaxPercent { get; set; }

@@ -8,6 +8,7 @@
     function shipmentService($http) {
         var service = {
             getWarehouses: getWarehouses,
+            getShipments: getShipments,
             getItemsToShip: getItemsToShip,
             createShipment: createShipment
         };
@@ -15,6 +16,10 @@
 
         function getWarehouses() {
             return $http.get('api/warehouses/');
+        }
+
+        function getShipments(params) {
+            return $http.post('api/shipments/grid', params);
         }
 
         function getItemsToShip(orderId, warehouseId) {

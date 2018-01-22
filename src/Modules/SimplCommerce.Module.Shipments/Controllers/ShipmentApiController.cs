@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Shipments.Models;
 using SimplCommerce.Module.Shipments.Services;
@@ -37,7 +38,7 @@ namespace SimplCommerce.Module.Shipments.Controllers
             };
 
             var itemsToShip = await _shipmentService.GetItemToShip(orderId, warehouseId);
-            foreach(var item in itemsToShip)
+            foreach (var item in itemsToShip)
             {
                 item.QuantityToShip = item.OrderedQuantity - item.ShippedQuantity;
             }
@@ -47,18 +48,87 @@ namespace SimplCommerce.Module.Shipments.Controllers
         }
 
         [HttpGet("/api/orders/{orderId}/shipments")]
-        public async Task<IActionResult> Get(long orderId)
+        public async Task<IActionResult> GetByOrder(long orderId)
         {
             var shipments = await _shipmentRepository.Query()
                 .Where(x => x.OrderId == orderId)
                 .Select(x => new
                 {
-                   
+
                 }).ToListAsync();
 
             return Ok(shipments);
         }
 
+        [HttpPost("grid")]
+        public IActionResult List([FromBody] SmartTableParam param)
+        {
+            var query = _shipmentRepository.Query();
+
+            if (param.Search.PredicateObject != null)
+            {
+                dynamic search = param.Search.PredicateObject;
+
+                if (search.TrackingNumber != null)
+                {
+                    string trackingNumber = search.TrackingNumber;
+                    query = query.Where(x => x.TrackingNumber.Contains(trackingNumber));
+                }
+
+                if (search.OrderId != null)
+                {
+                    string orderIdString = search.OrderId;
+                    if (long.TryParse(orderIdString, out long orderId))
+                    {
+                        query = query.Where(x => x.OrderId == orderId);
+                    }
+                }
+
+                if (search.CreatedOn != null)
+                {
+                    if (search.CreatedOn.before != null)
+                    {
+                        DateTimeOffset before = search.CreatedOn.before;
+                        query = query.Where(x => x.CreatedOn <= before);
+                    }
+
+                    if (search.CreatedOn.after != null)
+                    {
+                        DateTimeOffset after = search.CreatedOn.after;
+                        query = query.Where(x => x.CreatedOn >= after);
+                    }
+                }
+            }
+
+            var shipments = query.ToSmartTableResult(
+                param,
+                x => new
+                {
+                    x.Id,
+                    x.TrackingNumber,
+                    x.OrderId,
+                    WarehouseName = x.Warehouse.Name,
+                    x.CreatedOn
+                });
+
+            return Json(shipments);
+        }
+
+        [HttpGet("id")]
+        public async Task<IActionResult> Get(long id)
+        {
+            var shipment = await _shipmentRepository.Query()
+                .Select(x => new {
+                    x.Id,
+                    x.OrderId,
+                    x.Warehouse.Name
+                })
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return Ok(shipment);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Post([FromBody] ShipmentForm model)
         {
             if (ModelState.IsValid)
@@ -76,6 +146,11 @@ namespace SimplCommerce.Module.Shipments.Controllers
 
                 foreach(var item in model.Items)
                 {
+                    if(item.QuantityToShip <= 0)
+                    {
+                        continue;
+                    }
+
                     var shipmentItem = new ShipmentItem
                     {
                         Shipment = shipment,
@@ -87,9 +162,13 @@ namespace SimplCommerce.Module.Shipments.Controllers
                     shipment.Items.Add(shipmentItem);
                 }
 
-                _shipmentRepository.Add(shipment);
-                await _shipmentRepository.SaveChangesAsync();
-                return NoContent();
+                var result = await _shipmentService.CreateShipment(shipment);
+                if (result.Success)
+                {
+                    return CreatedAtAction(nameof(Get), new { id = shipment.Id }, null);
+                }
+
+                return BadRequest(result.Error);
             }
 
             return BadRequest(ModelState);

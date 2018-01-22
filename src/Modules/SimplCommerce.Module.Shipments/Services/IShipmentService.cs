@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using SimplCommerce.Infrastructure;
+using SimplCommerce.Module.Shipments.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.Shipments.Services
@@ -8,5 +10,7 @@ namespace SimplCommerce.Module.Shipments.Services
         Task<IList<ShipmentItemVm>> GetShipmentItem(long orderId);
 
         Task<IList<ShipmentItemVm>> GetItemToShip(long orderId, long warehouseId);
+
+        Task<Result> CreateShipment(Shipment shipment);
     }
 }

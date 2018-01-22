@@ -19,7 +19,7 @@
                     toastr.success('Shipment is created');
                 })
                 .catch(function (response) {
-                    toastr.error(response.data.error);
+                    toastr.error(response.data);
                 });
         };
 

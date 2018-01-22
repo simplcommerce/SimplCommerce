@@ -95,7 +95,9 @@
                         </ul>
                     </td>
                     <td class="text-right">{{item.productPriceString}}</td>
-                    <td class="text-right">{{item.quantity}}</td>
+                    <td class="text-right">
+                        Ordered {{item.quantity}}<span ng-if="item.shippedQuantity"><br />Shipped {{item.shippedQuantity}}</span>
+                    </td>
                     <td class="text-right">{{item.totalString}}</td>
                     <td class="text-right">{{item.taxAmountString}}</td>
                     <td class="text-right">{{item.taxPercent}}</td>
