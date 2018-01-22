@@ -201,6 +201,11 @@
     <script simpl-append-version="true" src="~/modules/inventory/admin/inventory.module.js"></script>
     <script simpl-append-version="true" src="~/modules/inventory/admin/stock/stock-service.js"></script>
     <script simpl-append-version="true" src="~/modules/inventory/admin/stock/stock-form.js"></script>
+
+    <script simpl-append-version="true" src="~/modules/shipments/admin/shipment.module.js"></script>
+    <script simpl-append-version="true" src="~/modules/shipments/admin/shipment/shipment-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/shipments/admin/shipment/shipment-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/shipments/admin/shipment/shipment-list.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse">
@@ -249,6 +254,7 @@
                         <ul class="dropdown-menu">
                             <li><a ui-sref="order">@Localizer["Orders"]</a></li>
                             <li><a ui-sref="stocks">@Localizer["Stocks"]</a></li>
+                            <li><a ui-sref="shipments">@Localizer["Shipments"]</a></li>
                         </ul>
                     </li>
                     @if (User.IsInRole("admin"))

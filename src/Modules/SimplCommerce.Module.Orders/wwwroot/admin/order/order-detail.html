@@ -95,7 +95,9 @@
                         </ul>
                     </td>
                     <td class="text-right">{{item.productPriceString}}</td>
-                    <td class="text-right">{{item.quantity}}</td>
+                    <td class="text-right">
+                        Ordered {{item.quantity}}<span ng-if="item.shippedQuantity"><br />Shipped {{item.shippedQuantity}}</span>
+                    </td>
                     <td class="text-right">{{item.totalString}}</td>
                     <td class="text-right">{{item.taxAmountString}}</td>
                     <td class="text-right">{{item.taxPercent}}</td>
@@ -118,8 +120,8 @@
                 <p>{{vm.order.paymentMethod}}</p>
             </div>
             <div class="col-md-6">
-                <h5>Shipping</h5>
-                <p>{{vm.order.shippingMethod}}</p>
+                <h5>Shipping: {{vm.order.shippingMethod}}</h5>
+                <div class="text-right"><button class="btn btn-default" ui-sref="shipment-create({orderId: vm.order.id})">Add Shipment</button></div>
             </div>
         </div>
     </div>

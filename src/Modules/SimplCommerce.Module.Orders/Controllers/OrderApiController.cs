@@ -189,6 +189,8 @@ namespace SimplCommerce.Module.Orders.Controllers
                 }).ToList()
             };
 
+            await _mediator.Publish(new OrderDetailGot { OrderDetailVm = model });
+
             return Json(model);
         }
 
