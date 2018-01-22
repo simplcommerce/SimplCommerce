@@ -3,6 +3,9 @@
         <div class="col-md-8">
             <h2>{{::vm.translate.get('Countries')}}</h2>
         </div>
+        <div class="col-md-4 text-right">
+            <a ui-sref="country-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create Country')}}</a>
+        </div>
     </div>
 </div>
 
@@ -11,6 +14,8 @@
         <tr>
             <th st-sort="Name" class="sortable">{{::vm.translate.get('Name')}}</th>
             <th st-sort="IsShippingEnabled" class="sortable" st-sort-default="reverse">{{::vm.translate.get('Is Shipping Enabled')}}</th>
+            <th st-sort="IsBillingEnabled" class="sortable">{{::vm.translate.get('Is Billing Enabled')}}</th>
+            <th class="sortable">&nbsp;</th>
         </tr>
         <tr>
             <th>
@@ -25,18 +30,25 @@
         <tr ng-repeat="country in vm.countries">
             <td>{{country.name}}</td>
             <td>
-                 <input type="checkbox" ng-model="country.isShippingEnabled" ng-click="vm.toggleShipping(country)">
+                <input type="checkbox" ng-model="country.isShippingEnabled" ng-click="vm.toggleShippingOrBilling(country)">
+            </td>
+            <td>
+                <input type="checkbox" ng-model="country.isBillingEnabled" ng-click="vm.toggleShippingOrBilling(country)">
+            </td>
+            <td>
+                <a ui-sref="country-edit({id: country.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+                <button ng-click="vm.deleteCountry(country)" title="Delete" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
             </td>
         </tr>
     </tbody>
     <tbody ng-show="vm.isLoading">
         <tr>
-            <td colspan="2" class="text-center">Loading ... </td>
+            <td colspan="4" class="text-center">Loading ... </td>
         </tr>
     </tbody>
     <tfoot>
         <tr>
-            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="2"></td>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="4"></td>
         </tr>
     </tfoot>
-</table>	
+</table>

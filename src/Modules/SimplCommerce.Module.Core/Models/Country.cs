@@ -13,5 +13,8 @@ namespace SimplCommerce.Module.Core.Models
         public bool IsBillingEnabled { get; set; }
 
         public bool IsShippingEnabled { get; set; }
+
+        //TODO: Implement Non-destrutive delete?
+        //public bool IsDeleted { get; set; }
     }
 }

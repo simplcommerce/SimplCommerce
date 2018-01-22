@@ -6,6 +6,8 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.Core.Controllers
 {
@@ -13,10 +15,12 @@ namespace SimplCommerce.Module.Core.Controllers
     public class CountryApiController : Controller
     {
         private readonly IRepository<Country> _countryRepository;
+        private readonly ICountryService _countryService;
 
-        public CountryApiController(IRepository<Country> countryRepository)
+        public CountryApiController(IRepository<Country> countryRepository, ICountryService countryService)
         {
             _countryRepository = countryRepository;
+            _countryService = countryService;
         }
 
         public async Task<IActionResult> Get([FromQuery]bool? shippingEnabled)
@@ -58,10 +62,33 @@ namespace SimplCommerce.Module.Core.Controllers
                 {
                     c.Id,
                     c.Name,
-                    c.IsShippingEnabled
+                    c.IsShippingEnabled,
+                    c.IsBillingEnabled
                 });
 
             return Json(countries);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(long id)
+        {
+            var country = await _countryRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+            if (country == null)
+            {
+                return NotFound();
+            }
+
+            var model = new CountryForm
+            {
+                Id = country.Id,
+                Name = country.Name,
+                Code2 = country.Code2,
+                Code3 = country.Code3,
+                IsBillingEnabled = country.IsBillingEnabled,
+                IsShippingEnabled = country.IsShippingEnabled,
+            };
+
+            return Json(model);
         }
 
         [HttpPut("{id}")]
@@ -73,14 +100,57 @@ namespace SimplCommerce.Module.Core.Controllers
             }
 
             var country = await _countryRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-            if(country == null)
+            if (country == null)
             {
                 return NotFound();
             }
 
+            country.Name = model.Name;
+            country.Code2 = model.Code2;
+            country.Code3 = model.Code3;
             country.IsShippingEnabled = model.IsShippingEnabled;
-            await _countryRepository.SaveChangesAsync();
+            country.IsBillingEnabled = model.IsBillingEnabled;
+
+            await _countryService.Update(country);
+
             return Accepted();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Post([FromBody] CountryForm model)
+        {
+            if (ModelState.IsValid)
+            {
+                var country = new Country
+                {
+                    Name = model.Name,
+                    Code2 = model.Code2,
+                    Code3 = model.Code3,
+                    IsBillingEnabled = model.IsBillingEnabled,
+                    IsShippingEnabled = model.IsShippingEnabled
+                };
+
+                await _countryService.Create(country);
+
+                return Ok();
+            }
+            return new BadRequestObjectResult(ModelState);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Delete(long id)
+        {
+            var country = await _countryRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+            if (country == null)
+            {
+                return NotFound();
+            }
+
+            await _countryService.Delete(country);
+
+            return NoContent();
         }
     }
 }
