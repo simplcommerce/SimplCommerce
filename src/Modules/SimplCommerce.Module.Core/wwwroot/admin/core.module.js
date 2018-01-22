@@ -54,6 +54,16 @@
                     url: '/countries',
                     templateUrl: 'modules/core/admin/countries/country-list.html',
                     controller: 'CountryListCtrl as vm'
+                })
+                .state('country-create', {
+                    url: '/countries/create',
+                    templateUrl: 'modules/core/admin/countries/country-form.html',
+                    controller: 'CountryFormCtrl as vm'
+                })
+                .state('country-edit', {
+                    url: '/countries/edit/:id',
+                    templateUrl: 'modules/core/admin/countries/country-form.html',
+                    controller: 'CountryFormCtrl as vm'
                 });
         }]);
 })();

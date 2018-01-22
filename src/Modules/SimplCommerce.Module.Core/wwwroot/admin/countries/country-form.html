@@ -1,0 +1,58 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 ng-if="!vm.isEditMode">{{::vm.translate.get('Create Country')}}</h2>
+        <h2 ng-if="vm.isEditMode">{{::vm.translate.get('Edit Country')}}</h2>
+    </div>
+    <div class="panel-body">
+        <form name="countryForm" class="form-horizontal">
+            <div class="col-sm-offset-2 bg-danger" ng-show="vm.validationErrors">
+                <ul>
+                    <li ng-repeat="error in vm.validationErrors track by $index">{{error}}</li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Name')}}</label>
+                <div class="col-sm-10">
+                    <input name="name" ng-model="vm.country.name" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Code2')}}</label>
+                <div class="col-sm-10">
+                    <input name="slug" ng-model="vm.country.code2" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Code3')}}</label>
+                <div class="col-sm-10">
+                    <input name="slug" ng-model="vm.country.code3" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="vm.country.isShippingEnabled"> {{::vm.translate.get('Is Shipping Enabled')}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="vm.country.isBillingEnabled"> {{::vm.translate.get('Is Billing Enabled')}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> {{::vm.translate.get('Save')}}</button>
+                    <button ui-sref="countries" class="btn btn-default">{{::vm.translate.get('Cancel')}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
