@@ -1,7 +1,7 @@
-﻿using SimplCommerce.Infrastructure;
-using SimplCommerce.Module.Shipments.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using SimplCommerce.Infrastructure;
+using SimplCommerce.Module.Shipments.Models;
 
 namespace SimplCommerce.Module.Shipments.Services
 {
