@@ -24,7 +24,7 @@
         vm.toggleShippingOrBilling = function (country) {
             countryService.editCountry(country)
                 .then(function (result) {
-                    toastr.success(country.name + translateService.get(' has been updated'));
+                    toastr.success(country.name + ' has been updated');
                 })
                 .catch(function (response) {
                     toastr.error(response.data.error);
@@ -35,7 +35,7 @@
             countryService.deleteCountry(country)
                 .then(function (result) {
                     vm.getCountries(tableStateRef);
-                    toastr.success(country.name + translateService.get(' has been deleted'));
+                    toastr.success(country.name + ' has been deleted');
                 })
                 .catch(function (response) {
                     toastr.error(response.data.error);

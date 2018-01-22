@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,6 @@ using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.Core.Controllers
 {
@@ -15,12 +15,10 @@ namespace SimplCommerce.Module.Core.Controllers
     public class CountryApiController : Controller
     {
         private readonly IRepository<Country> _countryRepository;
-        private readonly ICountryService _countryService;
 
-        public CountryApiController(IRepository<Country> countryRepository, ICountryService countryService)
+        public CountryApiController(IRepository<Country> countryRepository)
         {
             _countryRepository = countryRepository;
-            _countryService = countryService;
         }
 
         public async Task<IActionResult> Get([FromQuery]bool? shippingEnabled)
@@ -111,7 +109,7 @@ namespace SimplCommerce.Module.Core.Controllers
             country.IsShippingEnabled = model.IsShippingEnabled;
             country.IsBillingEnabled = model.IsBillingEnabled;
 
-            await _countryService.Update(country);
+            await _countryRepository.SaveChangesAsync();
 
             return Accepted();
         }
@@ -131,11 +129,12 @@ namespace SimplCommerce.Module.Core.Controllers
                     IsShippingEnabled = model.IsShippingEnabled
                 };
 
-                await _countryService.Create(country);
+                _countryRepository.Add(country);
+                await _countryRepository.SaveChangesAsync();
 
-                return Ok();
+                return CreatedAtAction(nameof(Get), new { id = country.Id }, null);
             }
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpDelete("{id}")]
@@ -148,7 +147,15 @@ namespace SimplCommerce.Module.Core.Controllers
                 return NotFound();
             }
 
-            await _countryService.Delete(country);
+            try
+            {
+                _countryRepository.Remove(country);
+                await _countryRepository.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { Error = $"The country {country.Name} can't not be deleted because it is referenced by other tables" });
+            }
 
             return NoContent();
         }
