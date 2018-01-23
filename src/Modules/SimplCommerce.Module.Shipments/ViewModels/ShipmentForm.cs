@@ -1,5 +1,5 @@
-﻿using SimplCommerce.Module.Shipments.Services;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using SimplCommerce.Module.Shipments.Services;
 
 namespace SimplCommerce.Module.Shipments.ViewModels
 {

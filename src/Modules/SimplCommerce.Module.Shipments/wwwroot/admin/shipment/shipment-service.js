@@ -10,7 +10,9 @@
             getWarehouses: getWarehouses,
             getShipments: getShipments,
             getItemsToShip: getItemsToShip,
-            createShipment: createShipment
+            createShipment: createShipment,
+            getShipment: getShipment,
+            getShipmentsByOrder: getShipmentsByOrder
         };
         return service;
 
@@ -28,6 +30,14 @@
 
         function createShipment(shipment) {
             return $http.post('api/shipments', shipment);
+        }
+
+        function getShipment(id) {
+            return $http.get('api/shipments/' + id);
+        }
+
+        function getShipmentsByOrder(orderId) {
+            return $http.get('api/orders/' + orderId + '/shipments');
         }
     }
 })();

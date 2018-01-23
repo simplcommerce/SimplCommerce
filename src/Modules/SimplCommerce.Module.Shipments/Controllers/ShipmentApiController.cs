@@ -54,7 +54,11 @@ namespace SimplCommerce.Module.Shipments.Controllers
                 .Where(x => x.OrderId == orderId)
                 .Select(x => new
                 {
-
+                    x.Id,
+                    x.TrackingNumber,
+                    x.OrderId,
+                    WarehouseName = x.Warehouse.Name,
+                    x.CreatedOn
                 }).ToListAsync();
 
             return Ok(shipments);
@@ -114,16 +118,38 @@ namespace SimplCommerce.Module.Shipments.Controllers
             return Json(shipments);
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> Get(long id)
         {
             var shipment = await _shipmentRepository.Query()
                 .Select(x => new {
                     x.Id,
                     x.OrderId,
-                    x.Warehouse.Name
+                    WarehouseName = x.Warehouse.Name,
+                    x.CreatedOn,
+                    ShippingAddress = new
+                    {
+                        x.Order.ShippingAddress.AddressLine1,
+                        x.Order.ShippingAddress.AddressLine2,
+                        x.Order.ShippingAddress.ContactName,
+                        DistrictName = x.Order.ShippingAddress.District.Name,
+                        StateOrProvinceName = x.Order.ShippingAddress.StateOrProvince.Name,
+                        x.Order.ShippingAddress.Phone
+                    },
+                    Items = x.Items.Select(i => new
+                    {
+                        i.Id,
+                        ProductId = i.Product.Id,
+                        ProductName = i.Product.Name,
+                        i.Quantity
+                    })
                 })
                 .FirstOrDefaultAsync(x => x.Id == id);
+
+            if(shipment == null)
+            {
+                return NotFound();
+            }
 
             return Ok(shipment);
         }

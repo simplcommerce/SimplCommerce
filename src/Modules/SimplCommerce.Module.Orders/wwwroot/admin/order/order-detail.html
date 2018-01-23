@@ -122,6 +122,7 @@
             <div class="col-md-6">
                 <h5>Shipping: {{vm.order.shippingMethod}}</h5>
                 <div class="text-right"><button class="btn btn-default" ui-sref="shipment-create({orderId: vm.order.id})">Add Shipment</button></div>
+                <shipment-list-by-order order-id="vm.orderId"></shipment-list-by-order>
             </div>
         </div>
     </div>
