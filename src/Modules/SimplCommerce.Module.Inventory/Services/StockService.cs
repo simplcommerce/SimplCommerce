@@ -24,7 +24,7 @@ namespace SimplCommerce.Module.Inventory.Services
         public async Task AddAllProduct(long warehouseId)
         {
             // TODO Need refactor for better performance
-            var productIds = await _productRepository.Query().Select(x => x.Id).ToListAsync();
+            var productIds = await _productRepository.Query().Where(x => !x.HasOptions).Select(x => x.Id).ToListAsync();
             var inStockProductIds = await _stockRepository.Query().Where(x => x.WarehouseId== warehouseId).Select(x => x.ProductId).ToListAsync();
             foreach(var productId in productIds)
             {
