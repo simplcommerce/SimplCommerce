@@ -1,0 +1,18 @@
+﻿<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>{{::vm.translate.get('#')}}</th>
+            <th>{{::vm.translate.get('Amount')}}</th>
+            <th>{{::vm.translate.get('Gateway Id')}}</th>
+            <th>{{::vm.translate.get('Created On')}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in vm.payments">
+            <td>{{item.id}}</td>
+            <td>{{item.amountString}}</td>
+            <td>{{item.gatewayTransactionId}}</td>
+            <td>{{item.createdOn | date:'medium' }}</td>
+        </tr>
+    </tbody>
+</table>
