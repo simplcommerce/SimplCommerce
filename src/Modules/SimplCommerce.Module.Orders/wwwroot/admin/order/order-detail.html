@@ -116,13 +116,13 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-md-6">
-                <h5>Payment</h5>
-                <p>{{vm.order.paymentMethod}}</p>
+                <h5>Payment: {{vm.order.paymentMethod}}</h5>
+                <payment-list-by-order order-id="vm.orderId"></payment-list-by-order>
             </div>
             <div class="col-md-6">
                 <h5>Shipping: {{vm.order.shippingMethod}}</h5>
-                <div class="text-right"><button class="btn btn-default" ui-sref="shipment-create({orderId: vm.order.id})">Add Shipment</button></div>
                 <shipment-list-by-order order-id="vm.orderId"></shipment-list-by-order>
+                <div class="text-right"><button class="btn btn-default" ui-sref="shipment-create({orderId: vm.order.id})">Add Shipment</button></div>
             </div>
         </div>
     </div>
