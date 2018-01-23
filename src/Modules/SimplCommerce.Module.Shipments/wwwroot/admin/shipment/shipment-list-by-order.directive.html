@@ -1,0 +1,20 @@
+﻿<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>{{::vm.translate.get('#')}}</th>
+            <th>{{::vm.translate.get('Tracking Number')}}</th>
+            <th>{{::vm.translate.get('Warehouse')}}</th>
+            <th>{{::vm.translate.get('Created On')}}</th>
+            <th class="text-right">{{::vm.translate.get('Actions')}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in vm.shipments">
+            <td>{{item.id}}</td>
+            <td>{{item.trackingNumber}}</td>
+            <td>{{item.warehouseName}}</td>
+            <td>{{item.createdOn | date:'medium' }}</td>
+            <td class="text-right"><a ui-sref="shipment-details({id: item.id})" title="View" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-eye-open"></span></a></td>
+        </tr>
+    </tbody>
+</table>

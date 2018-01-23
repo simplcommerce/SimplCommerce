@@ -1,4 +1,5 @@
 ﻿using SimplCommerce.Infrastructure.Models;
+using SimplCommerce.Module.Catalog.Models;
 
 namespace SimplCommerce.Module.Shipments.Models
 {
@@ -11,6 +12,8 @@ namespace SimplCommerce.Module.Shipments.Models
         public long OrderItemId { get; set; }
 
         public long ProductId { get; set; }
+
+        public Product Product { get; set; }
 
         public int Quantity { get; set; }
     }
