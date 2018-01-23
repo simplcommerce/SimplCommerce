@@ -2,6 +2,9 @@
 DELETE FROM "Core_Entity";
 DELETE FROM "ShoppingCart_Cart";
 DELETE FROM "ShoppingCart_CartItem";
+DELETE FROM "Payments_Payment";
+DELETE FROM "Shipments_ShipmentItem";
+DELETE FROM "Shipments_Shipment";
 DELETE FROM "Orders_OrderItem";
 DELETE FROM "Orders_Order";
 DELETE FROM "Inventory_StockHistory";

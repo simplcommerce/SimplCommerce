@@ -6,6 +6,12 @@ DELETE FROM [dbo].[ShoppingCart_Cart]
 GO
 DELETE FROM [dbo].[ShoppingCart_CartItem]
 GO
+DELETE FROM [dbo].[Payments_Payment]
+GO
+DELETE FROM [dbo].[Shipments_ShipmentItem]
+GO
+DELETE FROM [dbo].[Shipments_Shipment]
+GO
 DELETE FROM [dbo].[Orders_OrderItem]
 GO
 DELETE FROM [dbo].[Orders_Order]
