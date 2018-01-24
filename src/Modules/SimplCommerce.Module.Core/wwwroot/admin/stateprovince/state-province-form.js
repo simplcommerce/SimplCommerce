@@ -2,23 +2,23 @@
 (function () {
     angular
         .module('simplAdmin.core')
-        .controller('CountryFormCtrl', CountryFormCtrl);
+        .controller('StateProvinceFormCtrl', StateProvinceFormCtrl);
 
     /* @ngInject */
-    function CountryFormCtrl($state, $stateParams, countryService, stateProvinceService, translateService) {
+    function StateProvinceFormCtrl($state, $stateParams, stateProvinceService, translateService) {
         var vm = this;
         vm.translate = translateService;
-        vm.country = {};
-        vm.countryId = $stateParams.id;
-        vm.isEditMode = vm.countryId > 0;
+        vm.stateProvince = {};
+        vm.stateProvinceId = $stateParams.id;
+        vm.isEditMode = vm.stateProvinceId > 0;
 
 
         vm.save = function save() {
             var promise;
             if (vm.isEditMode) {
-                promise = countryService.editCountry(vm.country);
+                promise = stateProvinceService.editStateProvince(vm.stateProvince);
             } else {
-                promise = countryService.createCountry(vm.country);
+                promise = stateProvinceService.createStateProvince(vm.stateProvince);
             }
 
             promise
@@ -38,20 +38,10 @@
                 });
         };
 
-        vm.getStateOrProvinces = function (tableState) {
-            tableStateRef = tableState;
-            vm.isLoading = true;
-            stateProvinceService.getStateOrProvinces(vm.countryId,tableState).then(function (result) {
-                vm.stateOrProvinces = result.data.items;
-                tableState.pagination.numberOfPages = result.data.numberOfPages;
-                vm.isLoading = false;
-            });
-        };
-
         function init() {
             if (vm.isEditMode) {
-                countryService.getCountry(vm.countryId).then(function (result) {
-                    vm.country = result.data;
+                stateProvinceService.getStateProvince(vm.stateProvinceId).then(function (result) {
+                    vm.stateProvince = result.data;
                 });
             }
         }
