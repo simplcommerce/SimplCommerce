@@ -12,9 +12,9 @@
             Error = error;
         }
 
-        public static Result Fail(string message)
+        public static Result Fail(string error)
         {
-            return new Result(false, message);
+            return new Result(false, error);
         }
 
         public static Result Ok()
@@ -22,9 +22,14 @@
             return new Result(true, null);
         }
 
-        public static OkResult<T> Ok<T>(T value)
+        public static Result<TValue> Ok<TValue>(TValue value)
         {
-            return new OkResult<T>(value);
+            return new Result<TValue>(value, true, null);
+        }
+
+        public static Result<TValue> Fail<TValue>(string error)
+        {
+            return new Result<TValue>(default(TValue), false, error);
         }
     }
 }
