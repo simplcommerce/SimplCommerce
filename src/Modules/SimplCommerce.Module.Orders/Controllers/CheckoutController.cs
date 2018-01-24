@@ -109,8 +109,10 @@ namespace SimplCommerce.Module.Orders.Controllers
                 };
             }
 
-            var orderTaxAndShippingPrice = new OrderTaxAndShippingPriceVm();
-            orderTaxAndShippingPrice.Cart = await _cartService.GetCart(currentUser.Id);
+            var orderTaxAndShippingPrice = new OrderTaxAndShippingPriceVm
+            {
+                Cart = await _cartService.GetCart(currentUser.Id)
+            };
 
             var cart = await _cartRepository.Query().Where(x => x.Id == orderTaxAndShippingPrice.Cart.Id).FirstOrDefaultAsync();
             cart.TaxAmount = orderTaxAndShippingPrice.Cart.TaxAmount = await _orderService.GetTax(currentUser.Id, address.CountryId, address.StateOrProvinceId);

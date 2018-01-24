@@ -47,8 +47,14 @@ namespace SimplCommerce.Module.PaymentStripe.Controllers
             var customers = new StripeCustomerService(stripeSetting.PrivateKey);
             var charges = new StripeChargeService(stripeSetting.PrivateKey);
             var currentUser = await _workContext.GetCurrentUser();
-            var order = await _orderService.CreateOrder(currentUser, "Stripe", OrderStatus.PendingPayment);
+            var orderCreationResult = await _orderService.CreateOrder(currentUser, "Stripe", OrderStatus.PendingPayment);
+            if(!orderCreationResult.Success)
+            {
+                TempData["Error"] = orderCreationResult.Error;
+                return Redirect("~/checkout/payment");
+            }
 
+            var order = orderCreationResult.Value;
             var customer = customers.Create(new StripeCustomerCreateOptions
             {
                 Email = stripeEmail,

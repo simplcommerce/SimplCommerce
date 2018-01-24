@@ -3,13 +3,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
+using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Orders.Models;
-using SimplCommerce.Module.Pricing.Services;
-using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.Orders.ViewModels;
+using SimplCommerce.Module.Pricing.Services;
 using SimplCommerce.Module.ShippingPrices.Services;
+using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.Tax.Services;
 
 namespace SimplCommerce.Module.Orders.Services
@@ -44,7 +45,7 @@ namespace SimplCommerce.Module.Orders.Services
             _orderEmailService = orderEmailService;
         }
 
-        public async Task<Order> CreateOrder(User user, string paymentMethod, OrderStatus orderStatus = OrderStatus.New)
+        public async Task<Result<Order>> CreateOrder(User user, string paymentMethod, OrderStatus orderStatus = OrderStatus.New)
         {
             var cart = await _cartRepository
                .Query()
@@ -52,7 +53,7 @@ namespace SimplCommerce.Module.Orders.Services
 
             if (cart == null)
             {
-                throw new ApplicationException($"Cart of user {user.Id} cannot be found");
+                return Result.Fail<Order>($"Cart of user {user.Id} cannot be found");
             }
 
             var shippingData = JsonConvert.DeserializeObject<DeliveryInformationVm>(cart.ShippingData);
@@ -92,7 +93,7 @@ namespace SimplCommerce.Module.Orders.Services
             return await CreateOrder(user, paymentMethod, shippingData.ShippingMethod, billingAddress, shippingAddress);
         }
 
-        public async Task<Order> CreateOrder(User user, string paymentMethod, string shippingMethodName, Address billingAddress, Address shippingAddress, OrderStatus orderStatus = OrderStatus.New)
+        public async Task<Result<Order>> CreateOrder(User user, string paymentMethod, string shippingMethodName, Address billingAddress, Address shippingAddress, OrderStatus orderStatus = OrderStatus.New)
         {
             var cart = _cartRepository
                 .Query()
@@ -101,11 +102,22 @@ namespace SimplCommerce.Module.Orders.Services
 
             if (cart == null)
             {
-                throw new ApplicationException($"Cart of user {user.Id} cannot be found");
+                return Result.Fail<Order>($"Cart of user {user.Id} cannot be found");
             }
 
-            var discount = await ApplyDiscount(user, cart);
-            var shippingMethod = await ValidateShippingMethod(shippingMethodName, shippingAddress, cart);
+            var applyDiscountResult = await ApplyDiscountIfAny(user, cart);
+            if (!applyDiscountResult.Success)
+            {
+                return Result.Fail<Order>(applyDiscountResult.Error);
+            }
+
+            var validateShippingMethodResult = await ValidateShippingMethod(shippingMethodName, shippingAddress, cart);
+            if (!validateShippingMethodResult.Success)
+            {
+                return Result.Fail<Order>(validateShippingMethodResult.Error);
+            }
+
+            var shippingMethod = validateShippingMethodResult.Value;
 
             var orderBillingAddress = new OrderAddress()
             {
@@ -144,6 +156,11 @@ namespace SimplCommerce.Module.Orders.Services
 
             foreach (var cartItem in cart.Items)
             {
+                if(cartItem.Product.StockQuantity < cartItem.Quantity)
+                {
+                    return Result.Fail<Order>($"There are only {cartItem.Product.StockQuantity} items available for {cartItem.Product.Name}");
+                }
+
                 var taxPercent = await _taxService.GetTaxPercent(cartItem.Product.TaxClassId, shippingAddress.CountryId, shippingAddress.StateOrProvinceId);
                 var orderItem = new OrderItem
                 {
@@ -160,12 +177,12 @@ namespace SimplCommerce.Module.Orders.Services
             order.OrderStatus = orderStatus;
             order.CouponCode = cart.CouponCode;
             order.CouponRuleName = cart.CouponRuleName;
-            order.Discount = discount;
+            order.Discount = applyDiscountResult.Value;
             order.ShippingAmount = shippingMethod.Price;
             order.ShippingMethod = shippingMethod.Name;
             order.TaxAmount = order.OrderItems.Sum(x => x.TaxAmount);
             order.SubTotal = order.OrderItems.Sum(x => x.ProductPrice * x.Quantity);
-            order.SubTotalWithDiscount = order.SubTotal - discount;
+            order.SubTotalWithDiscount = order.SubTotal - applyDiscountResult.Value;
             order.OrderTotal = order.SubTotal + order.TaxAmount + order.ShippingAmount - order.Discount;
             _orderRepository.Add(order);
 
@@ -206,8 +223,8 @@ namespace SimplCommerce.Module.Orders.Services
             }
 
             _orderRepository.SaveChanges();
-           // await _orderEmailService.SendEmailToUser(user, order);
-            return order;
+            // await _orderEmailService.SendEmailToUser(user, order);
+            return Result.Ok(order);
         }
 
         public async Task<decimal> GetTax(long cartOwnerUserId, long countryId, long stateOrProvinceId)
@@ -240,31 +257,33 @@ namespace SimplCommerce.Module.Orders.Services
             return taxAmount;
         }
 
-        private async Task<decimal> ApplyDiscount(User user, Cart cart)
+        private async Task<Result<decimal>> ApplyDiscountIfAny(User user, Cart cart)
         {
             decimal discount = 0;
-            if (!string.IsNullOrWhiteSpace(cart.CouponCode))
+            if (string.IsNullOrWhiteSpace(cart.CouponCode))
             {
-                var cartInfoForCoupon = new CartInfoForCoupon
-                {
-                    Items = cart.Items.Select(x => new CartItemForCoupon { ProductId = x.ProductId, Quantity = x.Quantity }).ToList()
-                };
-                var couponValidationResult = await _couponService.Validate(cart.CouponCode, cartInfoForCoupon);
-                if (couponValidationResult.Succeeded)
-                {
-                    discount = couponValidationResult.DiscountAmount;
-                    _couponService.AddCouponUsage(user.Id, couponValidationResult.CouponId);
-                }
-                else
-                {
-                    throw new ApplicationException($"Unable to apply coupon {cart.CouponCode}. {couponValidationResult.ErrorMessage}");
-                }
+                return Result.Ok(discount);
             }
 
-            return discount;
+            var cartInfoForCoupon = new CartInfoForCoupon
+            {
+                Items = cart.Items.Select(x => new CartItemForCoupon { ProductId = x.ProductId, Quantity = x.Quantity }).ToList()
+            };
+
+            var couponValidationResult = await _couponService.Validate(cart.CouponCode, cartInfoForCoupon);
+            if (couponValidationResult.Succeeded)
+            {
+                discount = couponValidationResult.DiscountAmount;
+                _couponService.AddCouponUsage(user.Id, couponValidationResult.CouponId);
+                return Result.Ok(discount);
+            }
+            else
+            {
+                return Result.Fail<decimal>($"Unable to apply coupon {cart.CouponCode}. {couponValidationResult.ErrorMessage}");
+            }
         }
 
-        private async Task<ShippingPrice> ValidateShippingMethod(string shippingMethodName, Address shippingAddress, Cart cart)
+        private async Task<Result<ShippingPrice>> ValidateShippingMethod(string shippingMethodName, Address shippingAddress, Cart cart)
         {
             var applicableShippingPrices = await _shippingPriceService.GetApplicableShippingPrices(new GetShippingPriceRequest
             {
@@ -275,10 +294,10 @@ namespace SimplCommerce.Module.Orders.Services
             var shippingMethod = applicableShippingPrices.FirstOrDefault(x => x.Name == shippingMethodName);
             if (shippingMethod == null)
             {
-                throw new ApplicationException($"Invalid shipping method {shippingMethod}");
+                return Result.Fail<ShippingPrice>($"Invalid shipping method {shippingMethod}");
             }
 
-            return shippingMethod;
+            return Result.Ok(shippingMethod);
         }
     }
 }
