@@ -63,7 +63,7 @@
             <h2 ng-if="vm.isEditMode">{{::vm.translate.get('State or Province')}}</h2>
         </div>
         <div class="col-md-4 text-right">
-            <a ui-sref="state-province-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create State or Providence')}}</a>
+            <a ui-sref="state-province-create({countryId: vm.countryId})" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create State or Providence')}}</a>
         </div>
     </div>
 
@@ -71,9 +71,9 @@
         <thead>
             <tr>
                 <th st-sort="Name" class="sortable">{{::vm.translate.get('Name')}}</th>
-                <th st-sort="Name" class="sortable">{{::vm.translate.get('Code')}}</th>
-                <th st-sort="Name" class="sortable">{{::vm.translate.get('CountryCode')}}</th>
-                <th class="sortable">&nbsp;</th>
+                <th st-sort="Code" class="sortable">{{::vm.translate.get('Code')}}</th>
+                <th st-sort="CountryCode" class="sortable">{{::vm.translate.get('CountryCode')}}</th>
+                <th>&nbsp;</th>
             </tr>
         </thead>
         <tbody ng-show="!vm.isLoading">
@@ -81,7 +81,7 @@
                 <td>{{stateOrProvince.name}}</td>
                 <td>{{stateOrProvince.code}}</td>
                 <td>{{stateOrProvince.countryCode}}</td>
-                <td><a ui-sref="state-province-edit({id: stateOrProvince.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a></td>
+                <td><a ui-sref="state-province-edit({id: stateOrProvince.id, countryId: vm.countryId})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a></td>
             </tr>
         </tbody>
         <tbody ng-show="vm.isLoading">

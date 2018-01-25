@@ -66,12 +66,12 @@
                     controller: 'CountryFormCtrl as vm'
                 })
                 .state('state-province-create', {
-                    url: '/state-province/create',
+                    url: '/:countryId/state-province/create',
                     templateUrl: 'modules/core/admin/stateprovince/state-province-form.html',
                     controller: 'StateProvinceFormCtrl as vm'
                 })
                 .state('state-province-edit', {
-                    url: '/state-province/edit/:id',
+                    url: '/:countryId/state-province/edit/:id',
                     templateUrl: 'modules/core/admin/stateprovince/state-province-form.html',
                     controller: 'StateProvinceFormCtrl as vm'
                 });

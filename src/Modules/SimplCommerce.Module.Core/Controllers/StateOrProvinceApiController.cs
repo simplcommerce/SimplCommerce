@@ -16,10 +16,12 @@ namespace SimplCommerce.Module.Core.Controllers
     public class StateOrProvinceApiController : Controller
     {
         private readonly IRepository<StateOrProvince> _stateOrProvinceRepository;
+        private readonly IRepository<Country> _countryRepository;
 
-        public StateOrProvinceApiController(IRepository<StateOrProvince> stateOrProvinceRepository)
+        public StateOrProvinceApiController(IRepository<StateOrProvince> stateOrProvinceRepository, IRepository<Country> countryRepository)
         {
             _stateOrProvinceRepository = stateOrProvinceRepository;
+            _countryRepository = countryRepository;
         }
 
         [Route("/api/countries/{countryId}/states-provinces")]
@@ -120,15 +122,21 @@ namespace SimplCommerce.Module.Core.Controllers
         {
             if (ModelState.IsValid)
             {
+                var country = await _countryRepository.Query().FirstOrDefaultAsync(x => x.Id == model.CountryId);
+                if (country == null)
+                {
+                    return NotFound();
+                }
+
                 var stateProvince = new StateOrProvince
                 {
                     Name = model.Name,
                     Code = model.Code,
                     CountryCode = model.CountryCode,
                     CountryId = model.CountryId,
+                    Country = country,
                     Type = model.Type
                 };
-
                 _stateOrProvinceRepository.Add(stateProvince);
                 await _stateOrProvinceRepository.SaveChangesAsync();
 

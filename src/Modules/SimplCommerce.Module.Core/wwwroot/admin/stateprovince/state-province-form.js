@@ -10,6 +10,7 @@
         vm.translate = translateService;
         vm.stateProvince = {};
         vm.stateProvinceId = $stateParams.id;
+        vm.countryId = $stateParams.countryId;
         vm.isEditMode = vm.stateProvinceId > 0;
 
 
@@ -18,12 +19,13 @@
             if (vm.isEditMode) {
                 promise = stateProvinceService.editStateProvince(vm.stateProvince);
             } else {
+                vm.stateProvince.countryId = vm.countryId;
                 promise = stateProvinceService.createStateProvince(vm.stateProvince);
             }
 
             promise
                 .then(function (result) {
-                    $state.go('countries');
+                    $state.go('country-edit', {id: vm.countryId});
                 })
                 .catch(function (response) {
                     var error = response.data;
