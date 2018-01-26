@@ -25,7 +25,7 @@
 
             promise
                 .then(function (result) {
-                    $state.go('country-edit', {id: vm.countryId});
+                    $state.go('states-provinces', {countryId: vm.countryId});
                 })
                 .catch(function (response) {
                     var error = response.data;
@@ -35,7 +35,7 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else { 
-                        vm.validationErrors.push(translateService.get('Could not add country.'));
+                        vm.validationErrors.push(translateService.get('Could not add State or Province.'));
                     }
                 });
         };

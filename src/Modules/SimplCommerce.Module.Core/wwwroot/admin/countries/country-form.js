@@ -38,16 +38,6 @@
                 });
         };
 
-        vm.getStateOrProvinces = function (tableState) {
-            tableStateRef = tableState;
-            vm.isLoading = true;
-            stateProvinceService.getStateOrProvinces(vm.countryId,tableState).then(function (result) {
-                vm.stateOrProvinces = result.data.items;
-                tableState.pagination.numberOfPages = result.data.numberOfPages;
-                vm.isLoading = false;
-            });
-        };
-
         function init() {
             if (vm.isEditMode) {
                 countryService.getCountry(vm.countryId).then(function (result) {

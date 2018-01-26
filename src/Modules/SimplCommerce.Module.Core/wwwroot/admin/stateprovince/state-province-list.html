@@ -1,0 +1,56 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>{{::vm.translate.get('State or Province')}}</h2>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group">
+        <label class="col-sm-1 control-label">{{::vm.translate.get('Countries')}}</label>
+        <div class="col-sm-3">
+            <select class="form-control" ng-model="vm.countryId" ng-change="vm.onCountrySelected(vm.countryId)" ng-options="''+ country.id as country.name for country in vm.countries"></select>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="row" ng-show="vm.isCountrySelected">
+    <div class="col-md-12 text-right">
+        <a ui-sref="state-province-create({countryId: vm.countryId})" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create State or Providence')}}</a>
+    </div>
+</div>
+
+<div class="row" ng-if="vm.isCountrySelected">
+    <table class="table table-striped" st-pipe="vm.getStateOrProvinces" st-table="vm.stateOrProvinces">
+        <thead>
+            <tr>
+                <th st-sort="Name" class="sortable">{{::vm.translate.get('Name')}}</th>
+                <th st-sort="Code" class="sortable">{{::vm.translate.get('Code')}}</th>
+                <th st-sort="CountryCode" class="sortable">{{::vm.translate.get('CountryCode')}}</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="stateOrProvince in vm.stateOrProvinces">
+                <td>{{stateOrProvince.name}}</td>
+                <td>{{stateOrProvince.code}}</td>
+                <td>{{stateOrProvince.countryCode}}</td>
+                <td><a ui-sref="state-province-edit({id: stateOrProvince.id, countryId: vm.countryId})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a></td>
+            </tr>
+        </tbody>
+        <tbody ng-show="vm.isLoading">
+            <tr>
+                <td colspan="4" class="text-center">Loading ... </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="4"></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
