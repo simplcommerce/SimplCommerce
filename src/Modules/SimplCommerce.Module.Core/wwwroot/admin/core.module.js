@@ -66,7 +66,7 @@
                     controller: 'CountryFormCtrl as vm'
                 })
                 .state('states-provinces', {
-                    url: '/states-provinces',
+                    url: '/countries/states-provinces',
                     params: {
                         countryId: null,
                     },
