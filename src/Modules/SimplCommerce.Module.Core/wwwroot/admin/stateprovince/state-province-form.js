@@ -2,28 +2,30 @@
 (function () {
     angular
         .module('simplAdmin.core')
-        .controller('CountryFormCtrl', CountryFormCtrl);
+        .controller('StateProvinceFormCtrl', StateProvinceFormCtrl);
 
     /* @ngInject */
-    function CountryFormCtrl($state, $stateParams, countryService, stateProvinceService, translateService) {
+    function StateProvinceFormCtrl($state, $stateParams, stateProvinceService, translateService) {
         var vm = this;
         vm.translate = translateService;
-        vm.country = {};
-        vm.countryId = $stateParams.id;
-        vm.isEditMode = vm.countryId > 0;
+        vm.stateProvince = {};
+        vm.stateProvinceId = $stateParams.id;
+        vm.countryId = $stateParams.countryId;
+        vm.isEditMode = vm.stateProvinceId > 0;
 
 
         vm.save = function save() {
             var promise;
             if (vm.isEditMode) {
-                promise = countryService.editCountry(vm.country);
+                promise = stateProvinceService.editStateProvince(vm.stateProvince);
             } else {
-                promise = countryService.createCountry(vm.country);
+                vm.stateProvince.countryId = vm.countryId;
+                promise = stateProvinceService.createStateProvince(vm.stateProvince);
             }
 
             promise
                 .then(function (result) {
-                    $state.go('countries');
+                    $state.go('states-provinces', {countryId: vm.countryId});
                 })
                 .catch(function (response) {
                     var error = response.data;
@@ -33,15 +35,15 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else { 
-                        vm.validationErrors.push(translateService.get('Could not add country.'));
+                        vm.validationErrors.push(translateService.get('Could not add State or Province.'));
                     }
                 });
         };
 
         function init() {
             if (vm.isEditMode) {
-                countryService.getCountry(vm.countryId).then(function (result) {
-                    vm.country = result.data;
+                stateProvinceService.getStateProvince(vm.stateProvinceId).then(function (result) {
+                    vm.stateProvince = result.data;
                 });
             }
         }

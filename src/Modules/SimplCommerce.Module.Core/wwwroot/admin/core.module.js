@@ -64,6 +64,24 @@
                     url: '/countries/edit/:id',
                     templateUrl: 'modules/core/admin/countries/country-form.html',
                     controller: 'CountryFormCtrl as vm'
+                })
+                .state('states-provinces', {
+                    url: '/countries/states-provinces',
+                    params: {
+                        countryId: null,
+                    },
+                    templateUrl: 'modules/core/admin/stateprovince/state-province-list.html',
+                    controller: 'StateProvinceListCtrl as vm'
+                })
+                .state('state-province-create', {
+                    url: '/countries/:countryId/state-province/create',
+                    templateUrl: 'modules/core/admin/stateprovince/state-province-form.html',
+                    controller: 'StateProvinceFormCtrl as vm'
+                })
+                .state('state-province-edit', {
+                    url: '/countries/:countryId/state-province/edit/:id',
+                    templateUrl: 'modules/core/admin/stateprovince/state-province-form.html',
+                    controller: 'StateProvinceFormCtrl as vm'
                 });
         }]);
 })();
