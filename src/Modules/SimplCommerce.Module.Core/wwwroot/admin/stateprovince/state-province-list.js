@@ -11,19 +11,14 @@
 
         vm.countries = [];
         vm.stateOrProvinces = [];
+        vm.countryId = $stateParams.countryId;
         vm.translate = translateService;
 
         vm.onCountrySelected = function (countryId) {
-            if (countryId) {
-                vm.isCountrySelected = true;
-                vm.getStateOrProvinces(tableStateRef);
-            }
+            vm.getStateOrProvinces(tableStateRef);
         };
 
-
         vm.getStateOrProvinces = function (tableState) {
-            if (!vm.isCountrySelected || !tableState ) return;
-
             tableStateRef = tableState;
             vm.isLoading = true;
             stateProvinceService.getStateOrProvinces(vm.countryId, tableState).then(function (result) {
@@ -36,8 +31,7 @@
         function init() {
             countryService.getAllCountries().then(function (result) {
                 vm.countries = result.data;
-                vm.countryId = $stateParams.countryId;
-                vm.isCountrySelected = vm.countryId > 0;
+                vm.countryId = vm.countryId || vm.countries[0].id.toString();
             });
         }
 

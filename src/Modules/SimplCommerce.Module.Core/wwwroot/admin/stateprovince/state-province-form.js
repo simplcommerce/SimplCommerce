@@ -13,7 +13,6 @@
         vm.countryId = $stateParams.countryId;
         vm.isEditMode = vm.stateProvinceId > 0;
 
-
         vm.save = function save() {
             var promise;
             if (vm.isEditMode) {
@@ -25,7 +24,7 @@
 
             promise
                 .then(function (result) {
-                    $state.go('states-provinces', {countryId: vm.countryId});
+                    $state.go('country-states-provinces', {countryId: vm.countryId});
                 })
                 .catch(function (response) {
                     var error = response.data;

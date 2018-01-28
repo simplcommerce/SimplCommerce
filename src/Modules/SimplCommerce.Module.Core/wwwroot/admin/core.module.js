@@ -66,10 +66,12 @@
                     controller: 'CountryFormCtrl as vm'
                 })
                 .state('states-provinces', {
-                    url: '/countries/states-provinces',
-                    params: {
-                        countryId: null,
-                    },
+                    url: '/states-provinces',
+                    templateUrl: 'modules/core/admin/stateprovince/state-province-list.html',
+                    controller: 'StateProvinceListCtrl as vm'
+                })
+                .state('country-states-provinces', {
+                    url: '/countries/:countryId/states-provinces',
                     templateUrl: 'modules/core/admin/stateprovince/state-province-list.html',
                     controller: 'StateProvinceListCtrl as vm'
                 })

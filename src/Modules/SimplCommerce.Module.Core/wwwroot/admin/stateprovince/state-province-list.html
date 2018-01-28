@@ -17,20 +17,30 @@
 
 <hr />
 
-<div class="row" ng-show="vm.isCountrySelected">
+<div class="row" ng-show="vm.countryId">
     <div class="col-md-12 text-right">
         <a ui-sref="state-province-create({countryId: vm.countryId})" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create State or Providence')}}</a>
     </div>
 </div>
 
-<div class="row" ng-if="vm.isCountrySelected">
+<div class="row">
     <table class="table table-striped" st-pipe="vm.getStateOrProvinces" st-table="vm.stateOrProvinces">
         <thead>
             <tr>
                 <th st-sort="Name" class="sortable">{{::vm.translate.get('Name')}}</th>
                 <th st-sort="Code" class="sortable">{{::vm.translate.get('Code')}}</th>
                 <th st-sort="CountryCode" class="sortable">{{::vm.translate.get('CountryCode')}}</th>
-                <th>&nbsp;</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>
+                    <div class="form-group">
+                        <input class="form-control" st-search="Name" />
+                    </div>
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>

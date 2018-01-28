@@ -107,12 +107,9 @@ namespace SimplCommerce.Module.Core.Controllers
 
             stateProvince.Name = model.Name;
             stateProvince.Code = model.Code;
-            stateProvince.CountryCode = model.CountryCode;
-            stateProvince.CountryId = model.CountryId;
             stateProvince.Type = model.Type;
 
             await _stateOrProvinceRepository.SaveChangesAsync();
-
             return Accepted();
         }
 
@@ -132,8 +129,8 @@ namespace SimplCommerce.Module.Core.Controllers
                 {
                     Name = model.Name,
                     Code = model.Code,
-                    CountryCode = model.CountryCode,
-                    CountryId = model.CountryId,
+                    CountryCode = country.Code2,
+                    CountryId = country.Id,
                     Country = country,
                     Type = model.Type
                 };

@@ -19,27 +19,21 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">{{::vm.translate.get('Code')}}</label>
                 <div class="col-sm-10">
-                    <input name="slug" ng-model="vm.stateProvince.code" class="form-control" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">{{::vm.translate.get('CountryCode')}}</label>
-                <div class="col-sm-10">
-                    <input name="slug" ng-model="vm.stateProvince.countryCode" class="form-control" />
+                    <input name="code" ng-model="vm.stateProvince.code" class="form-control" />
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">{{::vm.translate.get('Type')}}</label>
                 <div class="col-sm-10">
-                    <input name="slug" ng-model="vm.stateProvince.type" class="form-control" />
+                    <input name="type" ng-model="vm.stateProvince.type" class="form-control" />
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> {{::vm.translate.get('Save')}}</button>
-                    <button ui-sref="country-edit({id: vm.countryId})" class="btn btn-default">{{::vm.translate.get('Cancel')}}</button>
+                    <button ui-sref="country-states-provinces({countryId: vm.countryId})" class="btn btn-default">{{::vm.translate.get('Cancel')}}</button>
                 </div>
             </div>
         </form>
