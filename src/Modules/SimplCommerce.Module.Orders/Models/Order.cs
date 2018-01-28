@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Core.Models;
 
@@ -10,15 +11,17 @@ namespace SimplCommerce.Module.Orders.Models
         public Order()
         {
             CreatedOn = DateTimeOffset.Now;
-            OrderStatus = OrderStatus.Pending;
+            UpdatedOn = DateTimeOffset.Now;
+            OrderStatus = OrderStatus.New;
         }
 
         public DateTimeOffset CreatedOn { get; set; }
 
-        public DateTimeOffset? UpdatedOn { get; set; }
+        public DateTimeOffset UpdatedOn { get; set; }
 
         public long CreatedById { get; set; }
 
+        [JsonIgnore]
         public User CreatedBy { get; set; }
 
         public long? VendorId { get; set; }
@@ -27,7 +30,7 @@ namespace SimplCommerce.Module.Orders.Models
 
         public string CouponRuleName { get; set; }
 
-        public decimal Discount { get; set; }
+        public decimal DiscountAmount { get; set; }
 
         public decimal SubTotal { get; set; }
 

@@ -23,5 +23,7 @@ namespace SimplCommerce.Module.Cms.Models
         public string CustomLink { get; set; }
 
         public string Name { get; set; }
+
+        public int DisplayOrder { get; set; }
     }
 }

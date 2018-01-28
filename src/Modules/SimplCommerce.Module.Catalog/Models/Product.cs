@@ -33,7 +33,7 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public bool IsAllowToOrder { get; set; }
 
-        public int? StockQuantity { get; set; }
+        public int StockQuantity { get; set; }
 
         public string Sku { get; set; }
 

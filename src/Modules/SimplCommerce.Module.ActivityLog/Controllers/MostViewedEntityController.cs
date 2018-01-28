@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Module.ActivityLog.Data;
 using SimplCommerce.Module.ActivityLog.Models;
 
@@ -19,9 +21,9 @@ namespace SimplCommerce.Module.ActivityLog.Controllers
         }
 
         [HttpGet("most-viewed-entities/{entityTypeId}")]
-        public IList<MostViewEntityDto> GetMostViewedEntities(long entityTypeId)
+        public async Task<IList<MostViewEntityDto>> GetMostViewedEntities(long entityTypeId)
         {
-            return _activityTypeRepository.List().Where(x => x.EntityTypeId == entityTypeId).Take(10).ToList();
+            return await _activityTypeRepository.List().Where(x => x.EntityTypeId == entityTypeId).Take(10).ToListAsync();
         }
     }
 }

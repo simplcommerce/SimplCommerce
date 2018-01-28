@@ -28,7 +28,8 @@ namespace SimplCommerce.Module.Cms.Components
             }
 
             var menuItemVms = new List<MenuItemVm>();
-            foreach (var item in menu.MenuItems.Where(x => !x.ParentId.HasValue))
+            var menuItems = menu.MenuItems.Where(x => !x.ParentId.HasValue).OrderBy(x => x.DisplayOrder);
+            foreach (var item in menuItems)
             {
                 var menuItemVm = Map(item);
                 menuItemVms.Add(menuItemVm);
@@ -46,7 +47,7 @@ namespace SimplCommerce.Module.Cms.Components
                 Link = menuItem.Entity == null ? menuItem.CustomLink : $"/{menuItem.Entity.Slug}"
             };
 
-            var childItems = menuItem.Children;
+            var childItems = menuItem.Children.OrderBy(x => x.DisplayOrder);
             foreach (var childItem in childItems)
             {
                 var childMenuItemVm = Map(childItem);

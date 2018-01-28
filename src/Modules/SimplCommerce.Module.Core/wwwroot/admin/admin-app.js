@@ -31,6 +31,9 @@
         'simplAdmin.payments',
         'simplAdmin.paymentStripe',
         'simplAdmin.paymentPaypalExpress',
+        'simplAdmin.inventory',
+        'simplAdmin.shipment',
+        
         'simplAdmin.paymentIyzico'
     ]);
 

@@ -9,7 +9,8 @@
             getWidgetZones: getWidgetZones,
             getSpaceBarWidget: getSpaceBarWidget,
             createSpaceBarWidget: createSpaceBarWidget,
-            editSpaceBarWidget: editSpaceBarWidget
+            editSpaceBarWidget: editSpaceBarWidget,
+            getNumberOfWidgets: getNumberOfWidgets
         };
         return service;
         function getWidgetZones() {
@@ -33,5 +34,9 @@
                 method: 'PUT'
             });
         }   
+
+        function getNumberOfWidgets() {
+            return $http.get('api/widget-instances/number-of-widgets');
+        }
     }
 })();

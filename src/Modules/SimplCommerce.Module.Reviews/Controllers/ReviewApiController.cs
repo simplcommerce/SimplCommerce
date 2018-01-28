@@ -148,7 +148,7 @@ namespace SimplCommerce.Module.Reviews.Controllers
 
                 _mediator.Publish(reviewSummary);
                 _reviewRepository.SaveChanges();
-                return Ok();
+                return Accepted();
             }
             return BadRequest(new {Error = "unsupported order status"});
         }

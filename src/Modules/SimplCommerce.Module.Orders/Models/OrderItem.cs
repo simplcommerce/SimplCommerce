@@ -15,6 +15,8 @@ namespace SimplCommerce.Module.Orders.Models
 
         public int Quantity { get; set; }
 
+        public decimal DiscountAmount { get; set; }
+
         public decimal TaxAmount { get; set; }
 
         public decimal TaxPercent { get; set; }

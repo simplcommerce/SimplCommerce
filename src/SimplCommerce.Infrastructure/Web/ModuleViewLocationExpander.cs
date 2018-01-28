@@ -52,6 +52,11 @@ namespace SimplCommerce.Infrastructure.Web
         public void PopulateValues(ViewLocationExpanderContext context)
         {
             var controllerName = context.ActionContext.ActionDescriptor.DisplayName;
+            if(controllerName == null) // in case of render view to string
+            {
+                return;
+            }
+
             // Get assembly name
             var moduleName = controllerName.Split('(', ')')[1];
             context.Values[MODULE_KEY] = moduleName;

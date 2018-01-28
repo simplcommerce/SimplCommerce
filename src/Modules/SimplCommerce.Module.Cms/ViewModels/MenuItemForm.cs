@@ -11,5 +11,7 @@
         public string Name { get; set; }
 
         public string CustomLink { get; set; }
+
+        public int DisplayOrder { get; set; }
     }
 }

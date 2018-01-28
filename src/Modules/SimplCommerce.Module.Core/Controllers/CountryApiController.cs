@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SimplCommerce.Module.Core.Controllers
 {
@@ -58,10 +60,33 @@ namespace SimplCommerce.Module.Core.Controllers
                 {
                     c.Id,
                     c.Name,
-                    c.IsShippingEnabled
+                    c.IsShippingEnabled,
+                    c.IsBillingEnabled
                 });
 
             return Json(countries);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(long id)
+        {
+            var country = await _countryRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+            if (country == null)
+            {
+                return NotFound();
+            }
+
+            var model = new CountryForm
+            {
+                Id = country.Id,
+                Name = country.Name,
+                Code2 = country.Code2,
+                Code3 = country.Code3,
+                IsBillingEnabled = country.IsBillingEnabled,
+                IsShippingEnabled = country.IsShippingEnabled,
+            };
+
+            return Json(model);
         }
 
         [HttpPut("{id}")]
@@ -73,14 +98,66 @@ namespace SimplCommerce.Module.Core.Controllers
             }
 
             var country = await _countryRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-            if(country == null)
+            if (country == null)
             {
                 return NotFound();
             }
 
+            country.Name = model.Name;
+            country.Code2 = model.Code2;
+            country.Code3 = model.Code3;
             country.IsShippingEnabled = model.IsShippingEnabled;
+            country.IsBillingEnabled = model.IsBillingEnabled;
+
             await _countryRepository.SaveChangesAsync();
+
             return Accepted();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Post([FromBody] CountryForm model)
+        {
+            if (ModelState.IsValid)
+            {
+                var country = new Country
+                {
+                    Name = model.Name,
+                    Code2 = model.Code2,
+                    Code3 = model.Code3,
+                    IsBillingEnabled = model.IsBillingEnabled,
+                    IsShippingEnabled = model.IsShippingEnabled
+                };
+
+                _countryRepository.Add(country);
+                await _countryRepository.SaveChangesAsync();
+
+                return CreatedAtAction(nameof(Get), new { id = country.Id }, null);
+            }
+            return BadRequest(ModelState);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Delete(long id)
+        {
+            var country = await _countryRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+            if (country == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                _countryRepository.Remove(country);
+                await _countryRepository.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return BadRequest(new { Error = $"The country {country.Name} can't not be deleted because it is referenced by other tables" });
+            }
+
+            return NoContent();
         }
     }
 }

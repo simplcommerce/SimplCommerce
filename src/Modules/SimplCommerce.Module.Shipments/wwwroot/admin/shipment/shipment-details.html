@@ -1,0 +1,73 @@
+﻿<h2>{{::vm.translate.get('Shipment Details')}}: #{{vm.shipment.id}}</h2>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Shipping Information</h5>
+                <table class="table">
+                    <tr>
+                        <td>Created Date</td>
+                        <td>{{vm.shipment.createdOn | date:'medium'}}</td>
+                    </tr>
+                    <tr>
+                        <td>Tracking Number</td>
+                        <td>{{vm.shipment.trackingNumber}}</td>
+                    </tr>
+                    <tr>
+                        <td>Warehouse</td>
+                        <td>{{vm.shipment.warehouseName}}</td>
+                    </tr>
+                    <tr>
+                        <td>Order Id</td>
+                        <td><a ui-sref="order-detail({id: vm.shipment.orderId})" title="View"># {{vm.shipment.orderId}}</a></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h5>Shipping Address</h5>
+                <p>
+                    {{vm.shipment.shippingAddress.contactName}} <br />
+                    {{vm.shipment.shippingAddress.addressLine1}} <br />
+                    {{vm.shipment.shippingAddress.districtName}}, {{vm.shipment.shippingAddress.stateOrProvinceName}} <br />
+                    Phone: {{vm.shipment.shippingAddress.phone}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{::vm.translate.get('Product Information')}}</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped order-item-list">
+            <thead>
+                <tr>
+                    <th>{{::vm.translate.get('Product')}}</th>
+                    <th>{{::vm.translate.get('Sku')}}</th>
+                    <th class="text-right">{{::vm.translate.get('Quantity')}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.shipment.items">
+                    <td>
+                        <a ui-sref="product-edit({id: item.productId})">{{item.productName}}</a>
+                        <ul ng-if="item.variationOptions.length > 0" class="list-unstyled">
+                            <li ng-repeat="opt in item.variationOptions">
+                                <span>{{opt.optionName}}:</span> {{opt.value}}
+                            </li>
+                        </ul>
+                    </td>
+                    <td>{{item.productSku}}</td>
+                    <td class="text-right">{{item.quantity}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div>
+    <button ui-sref="shipments" class="btn btn-default">{{::vm.translate.get('Shipment List')}}</button>
+</div>

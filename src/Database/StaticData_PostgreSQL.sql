@@ -16,10 +16,11 @@ INSERT INTO "Core_Role" ("Id", "ConcurrencyStamp", "Name", "NormalizedName") VAL
 INSERT INTO "Core_Role" ("Id", "ConcurrencyStamp", "Name", "NormalizedName") VALUES (4, 'bd3bee0b-5f1d-482d-b890-ffdc01915da3', 'vendor', 'VENDOR');
 SELECT pg_catalog.setval('"Core_Role_Id_seq"', 4, true);
 
-INSERT INTO "Core_User" ("Id", "UserGuid", "AccessFailedCount", "ConcurrencyStamp", "CreatedOn", "Email", "EmailConfirmed", "FullName", "IsDeleted", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedOn", "UserName") VALUES (1, '1FFF10CE-0231-43A2-8B7D-C8DB18504F65', 0, '8620916f-e6b6-4f12-9041-83737154b338', '2016-05-20 16:50:05.707655', 'admin@simplcommerce.com', false, 'Shop Admin', false, true, NULL, 'ADMIN@SIMPLCOMMERCE.COM', 'ADMIN@SIMPLCOMMERCE.COM', 'AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==', NULL, false, '9e87ce89-64c0-45b9-8b52-6e0eaa79e5b7', false, '2016-05-20 16:50:05.707655', 'admin@simplcommerce.com');
-SELECT pg_catalog.setval('"Core_User_Id_seq"', 1, true);
+INSERT INTO "Core_User" ("Id", "UserGuid", "AccessFailedCount", "ConcurrencyStamp", "CreatedOn", "Email", "EmailConfirmed", "FullName", "IsDeleted", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedOn", "UserName") VALUES (2, '1FFF10CE-0231-43A2-8B7D-C8DB18504F64', 0, '8620916f-e6b6-4f12-9041-83737154b337', '2016-05-20 16:50:05.707655', 'system@simplcommerce.com', false, 'System', true, true, '2050-05-20 16:50:05.707655', 'SYSTEM@SIMPLCOMMERCE.COM', 'SYSTEM@SIMPLCOMMERCE.COM', 'AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==', NULL, false, '9e87ce89-64c0-45b9-8b52-6e0eaa79e5b6', false, '2016-05-20 16:50:05.707655', 'system@simplcommerce.com');
+INSERT INTO "Core_User" ("Id", "UserGuid", "AccessFailedCount", "ConcurrencyStamp", "CreatedOn", "Email", "EmailConfirmed", "FullName", "IsDeleted", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedOn", "UserName") VALUES (10, '1FFF10CE-0231-43A2-8B7D-C8DB18504F65', 0, '8620916f-e6b6-4f12-9041-83737154b338', '2016-05-20 16:50:05.707655', 'admin@simplcommerce.com', false, 'Shop Admin', false, true, NULL, 'ADMIN@SIMPLCOMMERCE.COM', 'ADMIN@SIMPLCOMMERCE.COM', 'AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==', NULL, false, '9e87ce89-64c0-45b9-8b52-6e0eaa79e5b7', false, '2016-05-20 16:50:05.707655', 'admin@simplcommerce.com');
+SELECT pg_catalog.setval('"Core_User_Id_seq"', 10, true);
 
-INSERT INTO "Core_UserRole" ("UserId", "RoleId") VALUES (1, 1);
+INSERT INTO "Core_UserRole" ("UserId", "RoleId") VALUES (10, 1);
 
 INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction", "IsMenuable") VALUES (1, 'Category', 'Category', 'CategoryDetail', true);
 INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction", "IsMenuable") VALUES (2, 'Brand', 'Brand', 'BrandDetail', true);
@@ -52,9 +53,9 @@ INSERT INTO "Catalog_ProductOption" ("Id", "Name") VALUES (1, 'Color');
 INSERT INTO "Catalog_ProductOption" ("Id", "Name") VALUES (2, 'Size');
 SELECT pg_catalog.setval('"Catalog_ProductOption_Id_seq"', 2, true);
 
-INSERT INTO "Payments_PaymentProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "LandingViewComponentName", "Name", "PaymentProviderTypeName") VALUES (1, NULL, NULL, true, 'CoDLanding', 'Cash On Delivery', NULL);
-INSERT INTO "Payments_PaymentProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "LandingViewComponentName", "Name", "PaymentProviderTypeName") VALUES (2, '{"IsSandbox":true,"ClientId":"","ClientSecret":""}', 'payments-paypalExpress-config', true, 'PaypalExpressLanding', 'Paypal Express', NULL);
-INSERT INTO "Payments_PaymentProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "LandingViewComponentName", "Name", "PaymentProviderTypeName") VALUES (3, '{"PublicKey": "pk_test_6pRNASCoBOKtIshFeQd4XMUh", "PrivateKey" : "sk_test_BQokikJOvBiI2HlWgH4olfQ2"}', 'payments-stripe-config', true, 'StripeLanding', 'Stripe', NULL);
+INSERT INTO "Payments_PaymentProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "LandingViewComponentName", "Name") VALUES (1, NULL, NULL, true, 'CoDLanding', 'Cash On Delivery');
+INSERT INTO "Payments_PaymentProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "LandingViewComponentName", "Name") VALUES (2, '{"IsSandbox":true,"ClientId":"","ClientSecret":""}', 'payments-paypalExpress-config', true, 'PaypalExpressLanding', 'Paypal Express');
+INSERT INTO "Payments_PaymentProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "LandingViewComponentName", "Name") VALUES (3, '{"PublicKey": "pk_test_6pRNASCoBOKtIshFeQd4XMUh", "PrivateKey" : "sk_test_BQokikJOvBiI2HlWgH4olfQ2"}', 'payments-stripe-config', true, 'StripeLanding', 'Stripe');
 SELECT pg_catalog.setval('"Payments_PaymentProvider_Id_seq"', 3, true);
 
 INSERT INTO "Core_Country" ("Id", "Name", "IsBillingEnabled", "IsShippingEnabled") VALUES (1, 'Việt Nam', true, true);
@@ -82,10 +83,14 @@ INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Typ
 INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Type") VALUES (18, NULL, 'Phú Nhuận', 79, NULL);
 INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Type") VALUES (19, NULL, 'Bình Chánh', 79, NULL);
 
+INSERT INTO "Inventory_Warehouse" ("Id", "AddressId", "Name") VALUES (1, NULL, 'Default warehouse');
+SELECT pg_catalog.setval('"Inventory_Warehouse_Id_seq"', 1, true);
+
 INSERT INTO "Shipping_ShippingProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces") VALUES (1, N'{MinimumOrderAmount : 10}', N'shipping-free-config', true, N'Free Ship', NULL, NULL, N'SimplCommerce.Module.ShippingFree.Services.FreeShippingServiceProvider,SimplCommerce.Module.ShippingFree', true, true);
 INSERT INTO "Shipping_ShippingProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces") VALUES (2, NULL, N'shipping-table-rate-config', true, N'Table Rate', NULL, NULL, N'SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingServiceProvider,SimplCommerce.Module.ShippingTableRate', true, true);
 
 INSERT INTO "ShippingTableRate_PriceAndDestination" ("Id", "CountryId", "MinOrderSubtotal", "ShippingPrice", "StateOrProvinceId") VALUES (1, 1, 100, 10, NULL);
+SELECT pg_catalog.setval('"ShippingTableRate_PriceAndDestination_Id_seq"', 1, true);
 
 INSERT INTO "Localization_Culture" ("Id", "Name") VALUES (1, 'vi-VN');
 INSERT INTO "Localization_Culture" ("Id", "Name") VALUES (2, 'fr-FR');

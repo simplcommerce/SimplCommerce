@@ -1,0 +1,46 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{::vm.translate.get('Add Shipment for Order')}} #{{vm.orderId}}</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label>{{::vm.translate.get('Warehouse')}}</label>
+                    <select class="form-control" ng-model="vm.selectedWarehouseId"
+                            ng-options="warehouse.id as warehouse.name for warehouse in vm.warehouses"></select>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>{{::vm.translate.get('Product Name')}}</th>
+            <th>{{::vm.translate.get('Product Sku')}}</th>
+            <th>{{::vm.translate.get('Quantity')}}</th>
+            <th>{{::vm.translate.get('Quantity to ship')}}</th>
+            <th>{{::vm.translate.get('Available Quantity')}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in vm.shipmentForm.items">
+            <td>{{item.productName}}</td>
+            <td>{{item.productSku}}</td>
+            <td>
+                Ordered {{item.orderedQuantity}}
+                <span ng-if="item.shippedQuantity"><br />Shipped {{item.shippedQuantity}}</span>
+            </td>
+            <td>
+                <input class="form-control" ng-model="item.quantityToShip" />
+            </td>
+            <td>{{item.availableQuantity}}</td>
+        </tr>
+    </tbody>
+</table>
+<div class="text-right">
+    <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> {{::vm.translate.get('Save')}}</button>
+    <button  ui-sref="order-detail({id: vm.orderId})" class="btn btn-default">{{::vm.translate.get('Back')}}</button>
+</div>

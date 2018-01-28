@@ -65,6 +65,7 @@
         vm.save = function save() {
             var promise;
             vm.menu.items = treeToArray(vm.menuItemTree);
+
             if (vm.isEditMode) {
                 promise = menuService.editMenu(vm.menu);
             } else {
@@ -110,9 +111,10 @@
         function treeToArray(tree) {
             var items = [];
             function readNodes(nodes, parentNode) {
-                nodes.forEach(function (node) {
+                nodes.forEach(function (node, i) {
                     var parentId = (parentNode) ? parentNode.id : "";
-                    var item = { id: node.id, name: node.name, entityId: node.entityId, customLink: node.customLink, parentId: parentId };
+                    var displayOrder = i;
+                    var item = { id: node.id, name: node.name, entityId: node.entityId, customLink: node.customLink, parentId: parentId, displayOrder: displayOrder };
                     items.push(item);
                     if (node.children.length > 0) {
                         readNodes(node.children, node)

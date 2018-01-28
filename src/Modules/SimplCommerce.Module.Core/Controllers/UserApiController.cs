@@ -101,12 +101,17 @@ namespace SimplCommerce.Module.Core.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(long id)
+        public async Task<IActionResult> Get(long id)
         {
-            var user = _userRepository.Query()
+            var user = await _userRepository.Query()
                 .Include(x => x.Roles)
                 .Include(x => x.CustomerGroups)
-                .FirstOrDefault(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if(user == null)
+            {
+                return NotFound();
+            }
 
             var model = new UserForm
             {
@@ -158,13 +163,13 @@ namespace SimplCommerce.Module.Core.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    return Ok();
+                    return CreatedAtAction(nameof(Get), new { id = user.Id }, null);
                 }
 
                 AddErrors(result);
             }
 
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpPut("{id}")]
@@ -172,10 +177,15 @@ namespace SimplCommerce.Module.Core.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _userRepository.Query()
+                var user = await _userRepository.Query()
                     .Include(x => x.Roles)
                     .Include(x => x.CustomerGroups)
-                    .FirstOrDefault(x => x.Id == id);
+                    .FirstOrDefaultAsync(x => x.Id == id);
+
+                if(user == null)
+                {
+                    return NotFound();
+                }
 
                 user.Email = model.Email;
                 user.UserName = model.Email;
@@ -189,27 +199,27 @@ namespace SimplCommerce.Module.Core.Controllers
 
                 if (result.Succeeded)
                 {
-                    return Ok();
+                    return Accepted();
                 }
 
                 AddErrors(result);
             }
 
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
+        public async Task<IActionResult> Delete(long id)
         {
-            var user = _userRepository.Query().FirstOrDefault(x => x.Id == id);
+            var user = await _userRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
             if (user == null)
             {
-                return new NotFoundResult();
+                return NotFound();
             }
 
             user.IsDeleted = true;
-            _userRepository.SaveChanges();
-            return Json(true);
+            await _userRepository.SaveChangesAsync();
+            return NoContent();
         }
 
         private void AddOrDeleteRoles(UserForm model, User user)

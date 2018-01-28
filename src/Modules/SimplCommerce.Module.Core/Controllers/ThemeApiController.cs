@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Core.ViewModels;
@@ -16,22 +17,22 @@ namespace SimplCommerce.Module.Core.Controllers
             _themeService = themeService;
         }
 
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var themes = _themeService.GetInstalledThemes();
+            var themes = await _themeService.GetInstalledThemes();
             return Json(themes);
         }
 
         [HttpPost("use-theme")]
-        public IActionResult Post([FromBody] ThemeListItem model)
+        public async Task<IActionResult> Post([FromBody] ThemeListItem model)
         {
             if (ModelState.IsValid)
             {
-                _themeService.SetCurrentTheme(model.Name);
+                await _themeService.SetCurrentTheme(model.Name);
 
-                return Ok();
+                return Accepted();
             }
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
     }
 }

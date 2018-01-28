@@ -18,7 +18,7 @@
             <th class="text-center">{{::vm.translate.get('Is Featured')}}</th>
             <th class="text-center">{{::vm.translate.get('Is Allowed To Order')}}</th>
             <th class="text-center">{{::vm.translate.get('Is Called For Pricing')}}</th>
-            <th>{{::vm.translate.get('Stock Quantity')}}</th>
+            <th class="text-right">{{::vm.translate.get('Stock Quantity')}}</th>
             <th st-sort="IsPublished" class="text-center sortable">{{::vm.translate.get('Is Published')}}</th>
             <th st-sort="CreatedOn" class="text-center sortable">{{::vm.translate.get('Created On')}}</th>
             <th class="text-center">{{::vm.translate.get('Actions')}}</th>
@@ -72,7 +72,7 @@
             <td class="text-center"><i ng-attr-class="{{product.isFeatured && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
             <td class="text-center"><i ng-attr-class="{{product.isAllowToOrder && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
             <td class="text-center"><i ng-attr-class="{{product.isCallForPricing && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
-            <td class="text-center">{{product.stockQuantity}}</td>
+            <td class="text-right">{{product.stockQuantity}}</td>
             <td class="text-center"><i ng-attr-class="{{product.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
             <td class="text-center">{{product.createdOn | date:'medium'}}</td>
             <td class="text-center">

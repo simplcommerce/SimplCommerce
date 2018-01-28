@@ -11,7 +11,6 @@ namespace SimplCommerce.Module.Catalog.ViewModels
             IsPublished = true;
             IsCallForPricing = false;
             IsAllowToOrder = true;
-            IsOutOfStock = false;
             Price = 0;
         }
 
@@ -30,8 +29,6 @@ namespace SimplCommerce.Module.Catalog.ViewModels
         public bool IsCallForPricing { get; set; }
 
         public bool IsAllowToOrder { get; set; }
-
-        public bool IsOutOfStock { get; set; }
 
         [Required]
         public string Name { get; set; }

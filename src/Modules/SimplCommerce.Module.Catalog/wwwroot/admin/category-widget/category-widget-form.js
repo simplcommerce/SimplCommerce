@@ -13,6 +13,7 @@
         vm.widgetInstance = { widgetZoneId: 1, settings: { categoryId: 1 }, publishStart: new Date() };
         vm.widgetInstanceId = $stateParams.id;
         vm.isEditMode = vm.widgetInstanceId > 0;
+        vm.numberOfWidgets = [];
 
         vm.datePickerPublishStart = {};
         vm.datePickerPublishEnd = {};
@@ -52,6 +53,16 @@
             });
             categoryWidgetService.getCategories().then(function (result) {
                 vm.categories = result.data;
+            });
+
+            categoryWidgetService.getNumberOfWidgets().then(function (result) {
+                var count = parseInt(result.data);
+                if (!vm.isEditMode) {
+                    count = count + 1;
+                }
+
+                for (var i = 1; i <= count; i++)
+                    vm.numberOfWidgets.push(i);
             });
 
             if (vm.isEditMode) {
