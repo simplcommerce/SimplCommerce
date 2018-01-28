@@ -108,7 +108,7 @@ namespace SimplCommerce.Module.Orders.Services
                 return Result.Fail<Order>($"Cart of user {user.Id} cannot be found");
             }
             var shippingData = JsonConvert.DeserializeObject<DeliveryInformationVm>(cart.ShippingData);
-            var discount = await ApplyDiscount(user, cart);
+            //var discount = await ApplyDiscount(user, cart);
            
 
             var applyDiscountResult = await ApplyDiscountIfAny(user, cart);

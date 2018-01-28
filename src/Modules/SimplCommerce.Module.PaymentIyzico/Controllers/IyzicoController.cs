@@ -70,7 +70,7 @@ namespace SimplCommerce.Module.PaymentIyzico.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             var order = await _orderService.CreateOrder(currentUser, "Iyzico");
             var cart = await _cartService.GetCart(currentUser.Id);
-            var status = CreatePayment(request, order, cart, currentUser);
+            var status = CreatePayment(request, order.Value, cart, currentUser);
             if (status.Status == Status.SUCCESS.ToString())
             {
                 return View("Shared/success");
@@ -83,7 +83,7 @@ namespace SimplCommerce.Module.PaymentIyzico.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             var order = await _orderService.CreateOrder(currentUser, "Iyzico");
             var cart = await _cartService.GetCart(currentUser.Id);
-            var create3DPayment = Create3dPayment(request, order, cart, currentUser);
+            var create3DPayment = Create3dPayment(request, order.Value, cart, currentUser);
             var options = GetIyzcioOptions();
             var threedsInitialize = ThreedsInitialize.Create(create3DPayment, options);
             if (threedsInitialize.Status == Status.SUCCESS.ToString())
