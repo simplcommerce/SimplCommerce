@@ -21,7 +21,7 @@ namespace SimplCommerce.Module.Orders.ViewModels
 
         public decimal Subtotal { get; set; }
 
-        public decimal Discount { get; set; }
+        public decimal DiscountAmount { get; set; }
 
         public decimal SubTotalWithDiscount { get; set; }
 
@@ -37,7 +37,7 @@ namespace SimplCommerce.Module.Orders.ViewModels
 
         public string SubtotalString { get { return Subtotal.ToString("C"); } }
 
-        public string DiscountString { get { return Discount.ToString("C"); } }
+        public string DiscountAmountString { get { return DiscountAmount.ToString("C"); } }
 
         public string SubtotalWithDiscountString { get { return SubTotalWithDiscount.ToString("C"); } }
 

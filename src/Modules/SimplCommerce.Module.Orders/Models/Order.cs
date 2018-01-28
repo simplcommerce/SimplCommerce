@@ -30,7 +30,7 @@ namespace SimplCommerce.Module.Orders.Models
 
         public string CouponRuleName { get; set; }
 
-        public decimal Discount { get; set; }
+        public decimal DiscountAmount { get; set; }
 
         public decimal SubTotal { get; set; }
 

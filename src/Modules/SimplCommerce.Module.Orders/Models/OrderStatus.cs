@@ -10,6 +10,8 @@
 
         PaymentReceived = 30,
 
+        PaymentFailed = 35,
+
         Invoiced = 40,
 
         Shipping = 50,

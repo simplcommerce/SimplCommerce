@@ -19,5 +19,9 @@ namespace SimplCommerce.Module.Payments.Models
         public string PaymentMethod { get; set; }
 
         public string GatewayTransactionId { get; set; }
+
+        public PaymentStatus Status { get; set; }
+
+        public string FailureMessage { get; set; }
     }
 }

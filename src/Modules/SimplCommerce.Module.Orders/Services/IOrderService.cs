@@ -16,6 +16,8 @@ namespace SimplCommerce.Module.Orders.Services
 
         Task<Result<Order>> CreateOrder(User user, string paymentMethod, string shippingMethod, Address billingAddress, Address shippingAddress, OrderStatus orderStatus = OrderStatus.New);
 
+        void CancelOrder(Order order);
+
         Task<decimal> GetTax(long cartOwnerUserId, long countryId, long stateOrProvinceId);
     }
 }

@@ -21,6 +21,7 @@ namespace SimplCommerce.Module.Orders.Services
         private readonly IRepository<Order> _orderRepository;
         private readonly ICouponService _couponService;
         private readonly IRepository<CartItem> _cartItemRepository;
+        private readonly IRepository<OrderItem> _orderItemRepository;
         private readonly ITaxService _taxService;
         private readonly IShippingPriceService _shippingPriceService;
         private readonly IRepository<UserAddress> _userAddressRepository;
@@ -30,6 +31,7 @@ namespace SimplCommerce.Module.Orders.Services
             IRepository<Cart> cartRepository,
             ICouponService couponService,
             IRepository<CartItem> cartItemRepository,
+            IRepository<OrderItem> orderItemRepository,
             ITaxService taxService,
             IShippingPriceService shippingPriceService,
             IRepository<UserAddress> userAddressRepository,
@@ -39,6 +41,7 @@ namespace SimplCommerce.Module.Orders.Services
             _cartRepository = cartRepository;
             _couponService = couponService;
             _cartItemRepository = cartItemRepository;
+            _orderItemRepository = orderItemRepository;
             _taxService = taxService;
             _shippingPriceService = shippingPriceService;
             _userAddressRepository = userAddressRepository;
@@ -177,13 +180,13 @@ namespace SimplCommerce.Module.Orders.Services
             order.OrderStatus = orderStatus;
             order.CouponCode = cart.CouponCode;
             order.CouponRuleName = cart.CouponRuleName;
-            order.Discount = applyDiscountResult.Value;
+            order.DiscountAmount = applyDiscountResult.Value;
             order.ShippingAmount = shippingMethod.Price;
             order.ShippingMethod = shippingMethod.Name;
             order.TaxAmount = order.OrderItems.Sum(x => x.TaxAmount);
             order.SubTotal = order.OrderItems.Sum(x => x.ProductPrice * x.Quantity);
             order.SubTotalWithDiscount = order.SubTotal - applyDiscountResult.Value;
-            order.OrderTotal = order.SubTotal + order.TaxAmount + order.ShippingAmount - order.Discount;
+            order.OrderTotal = order.SubTotal + order.TaxAmount + order.ShippingAmount - order.DiscountAmount;
             _orderRepository.Add(order);
 
             cart.IsActive = false;
@@ -218,13 +221,25 @@ namespace SimplCommerce.Module.Orders.Services
 
                 subOrder.SubTotal = subOrder.OrderItems.Sum(x => x.ProductPrice * x.Quantity);
                 subOrder.TaxAmount = subOrder.OrderItems.Sum(x => x.TaxAmount);
-                subOrder.OrderTotal = subOrder.SubTotal + subOrder.TaxAmount + subOrder.ShippingAmount - subOrder.Discount;
+                subOrder.OrderTotal = subOrder.SubTotal + subOrder.TaxAmount + subOrder.ShippingAmount - subOrder.DiscountAmount;
                 _orderRepository.Add(subOrder);
             }
 
             _orderRepository.SaveChanges();
             // await _orderEmailService.SendEmailToUser(user, order);
             return Result.Ok(order);
+        }
+
+        public void CancelOrder(Order order)
+        {
+            order.OrderStatus = OrderStatus.Canceled;
+            order.UpdatedOn = DateTimeOffset.Now;
+
+            var orderItems = _orderItemRepository.Query().Include(x => x.Product).Where(x => x.Order.Id == order.Id);
+            foreach(var item in orderItems)
+            {
+                item.Product.StockQuantity = item.Product.StockQuantity + item.Quantity;
+            }
         }
 
         public async Task<decimal> GetTax(long cartOwnerUserId, long countryId, long stateOrProvinceId)
