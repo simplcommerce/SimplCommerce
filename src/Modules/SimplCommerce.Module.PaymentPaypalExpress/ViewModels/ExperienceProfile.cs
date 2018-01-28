@@ -6,6 +6,8 @@
 
         public string name { get; set; }
 
+        public bool temporary { get; set; }
+
         public InputFields input_fields { get; set; }
 
     }

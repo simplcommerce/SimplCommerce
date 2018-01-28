@@ -10,6 +10,7 @@
         {
             <div class="alert alert-danger" role="alert">@TempData["Error"]</div>
         }
+        <div id="paymentError" class="alert alert-danger hidden" role="alert"></div>
 
         <h3>@Localizer["Choose a payment methods"]</h3>
         @foreach (var paymentProvider in Model.PaymentProviders)

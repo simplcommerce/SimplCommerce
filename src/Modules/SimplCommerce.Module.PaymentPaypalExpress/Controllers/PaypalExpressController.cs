@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SimplCommerce.Infrastructure;
@@ -46,24 +45,18 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
 
         public async Task<ActionResult> CreatePayment()
         {
+            var hostingDomain = Request.Host.Value;
             var accessToken = await GetAccessToken();
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetCart(currentUser.Id);
             var regionInfo = new RegionInfo(CultureInfo.CurrentCulture.LCID);
-
-            if (string.IsNullOrWhiteSpace(_setting.Value.ExperienceProfileId))
-            {
-                _setting.Value.ExperienceProfileId = await CreateExperienceProfile();
-                var stripeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.PaypalExpressProviderId);
-                stripeProvider.AdditionalSettings = JsonConvert.SerializeObject(_setting.Value);
-                await _paymentProviderRepository.SaveChangesAsync();
-            }
+            var experienceProfileId = await CreateExperienceProfile(accessToken);
 
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             var paymentCreateRequest = new PaymentCreateRequest
             {
-               // experience_profile_id = _setting.Value.ExperienceProfileId,
+                 experience_profile_id = experienceProfileId,
                 intent = "sale",
                 payer = new Payer
                 {
@@ -87,17 +80,21 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
                 },
                 redirect_urls = new Redirect_Urls
                 {
-                    cancel_url = "http://localhost:49209/PaypalExpress/Cancel",
-                    return_url = "http://localhost:49209/PaypalExpress/Success",
+                    cancel_url = $"http://{hostingDomain}/PaypalExpress/Cancel", //Haven't seen it being used anywhere
+                    return_url = $"http://{hostingDomain}/PaypalExpress/Success", //Haven't seen it being used anywhere
                 }
             };
 
             var response = await httpClient.PostJsonAsync($"https://api{_setting.Value.EnvironmentUrlPart}.paypal.com/v1/payments/payment", paymentCreateRequest);
             var responseBody = await response.Content.ReadAsStringAsync();
             dynamic payment = JObject.Parse(responseBody);
-            // Has to explicitly declare the type to be able to get the propery
-            string paymentId = payment.id;
-            return Ok(new { PaymentId = paymentId, Debug = responseBody });
+            if (response.IsSuccessStatusCode)
+            {
+                string paymentId = payment.id;
+                return Ok(new { PaymentId = paymentId});
+            }
+
+            return BadRequest(responseBody);
         }
 
         public async Task<ActionResult> ExecutePayment(PaymentExecuteVm model)
@@ -111,6 +108,13 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
             }
 
             var order = orderCreateResult.Value;
+            var payment = new Payment()
+            {
+                OrderId = order.Id,
+                Amount = order.OrderTotal,
+                PaymentMethod = "Paypal Express",
+                CreatedOn = DateTimeOffset.UtcNow,
+            };
 
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
@@ -121,25 +125,26 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
 
             var response = await httpClient.PostJsonAsync($"https://api{_setting.Value.EnvironmentUrlPart}.paypal.com/v1/payments/payment/{model.paymentID}/execute", paymentExecuteRequest);
             var responseBody = await response.Content.ReadAsStringAsync();
-            response.EnsureSuccessStatusCode();
-            dynamic payPalPayment = JObject.Parse(responseBody);
-            // Has to explicitly declare the type to be able to get the propery
-            string payPalPaymentId = payPalPayment.id;
-
-            var payment = new Payment()
+            dynamic responseObject = JObject.Parse(responseBody);
+            if (response.IsSuccessStatusCode)
             {
-                OrderId = order.Id,
-                Amount = order.OrderTotal,
-                PaymentMethod = "Stripe",
-                CreatedOn = DateTimeOffset.UtcNow,
-                GatewayTransactionId = payPalPaymentId
-            };
+                // Has to explicitly declare the type to be able to get the propery
+                string payPalPaymentId = responseObject.id;
+                payment.Status = PaymentStatus.Succeeded;
+                payment.GatewayTransactionId = payPalPaymentId;
+                _paymentRepository.Add(payment);
+                await _paymentRepository.SaveChangesAsync();
+                return Ok(new { status = "success" });
+            }
 
-            order.OrderStatus =OrderStatus.PaymentReceived;
+            payment.Status = PaymentStatus.Failed;
+            payment.FailureMessage = responseBody;
             _paymentRepository.Add(payment);
             await _paymentRepository.SaveChangesAsync();
 
-            return Ok(new { status = "success" });
+            string errorName = responseObject.name;
+            string errorDescription = responseObject.message;
+            return BadRequest($"{errorName} - {errorDescription}");
         }
 
         private async Task<string> GetAccessToken()
@@ -158,24 +163,25 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
             return accessToken;
         }
 
-        private async Task<string> CreateExperienceProfile()
+        private async Task<string> CreateExperienceProfile(string accessToken)
         {
-            var accessToken = await GetAccessToken();
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             var experienceRequest = new ExperienceProfile
             {
-                name = "SimplCommerceProfile",
+                name = $"simpl_{Guid.NewGuid()}",
                 input_fields = new InputFields
                 {
                     no_shipping = 1
-                }
+                },
+                temporary = true
             };
             var response = await httpClient.PostJsonAsync($"https://api{_setting.Value.EnvironmentUrlPart}.paypal.com/v1/payment-experience/web-profiles", experienceRequest);
             var responseBody = await response.Content.ReadAsStringAsync();
             dynamic experience = JObject.Parse(responseBody);
             // Has to explicitly declare the type to be able to get the propery
-            return experience.id;
+            string profileId = experience.id;
+            return profileId;
         }
 
         private PaypalExpressConfigForm GetSetting()
