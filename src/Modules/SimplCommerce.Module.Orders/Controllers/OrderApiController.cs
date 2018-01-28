@@ -162,7 +162,7 @@ namespace SimplCommerce.Module.Orders.Controllers
                 ShippingMethod = order.ShippingMethod,
                 PaymentMethod = order.PaymentMethod,
                 Subtotal = order.SubTotal,
-                Discount = order.Discount,
+                DiscountAmount = order.DiscountAmount,
                 SubTotalWithDiscount = order.SubTotalWithDiscount,
                 TaxAmount = order.TaxAmount,
                 ShippingAmount = order.ShippingAmount,

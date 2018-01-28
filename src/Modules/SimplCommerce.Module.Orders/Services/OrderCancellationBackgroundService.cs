@@ -14,12 +14,14 @@ namespace SimplCommerce.Module.Orders.Services
     {
         private readonly IMediator _mediator;
         private readonly IRepository<Order> _orderRepository;
+        private readonly IOrderService _orderService;
         private readonly long SystemUserId = 2;
 
-        public OrderCancellationBackgroundService(IMediator mediator, IRepository<Order> orderRepository)
+        public OrderCancellationBackgroundService(IMediator mediator, IRepository<Order> orderRepository, IOrderService orderService)
         {
             _mediator = mediator;
             _orderRepository = orderRepository;
+            _orderService = orderService;
         }
 
         protected async override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -33,12 +35,12 @@ namespace SimplCommerce.Module.Orders.Services
 
         private async Task CancelFailedPaymentOrders(CancellationToken stoppingToken)
         {
-            var shouldCancelFailedPaymentOrders = _orderRepository.Query().Where(x => x.OrderStatus == OrderStatus.PendingPayment && x.UpdatedOn < DateTimeOffset.Now.AddMinutes(-5));
+            var shouldCancelFailedPaymentOrders = _orderRepository.Query().Where(x =>
+            (x.OrderStatus == OrderStatus.PendingPayment || x.OrderStatus == OrderStatus.PaymentFailed) 
+            && x.UpdatedOn < DateTimeOffset.Now.AddMinutes(-5));
             foreach(var order in shouldCancelFailedPaymentOrders)
             {
-                order.OrderStatus = OrderStatus.Canceled;
-                order.UpdatedOn = DateTimeOffset.Now;
-                // TODO Rollback product stock
+                _orderService.CancelOrder(order);
                 var orderStatusChanged = new OrderChanged
                 {
                     OrderId = order.Id,
@@ -46,7 +48,7 @@ namespace SimplCommerce.Module.Orders.Services
                     NewStatus = OrderStatus.Canceled,
                     UserId = SystemUserId,
                     Order = order,
-                    Note = "System cancel"
+                    Note = "System canceled"
                 };
 
                 await _mediator.Publish(orderStatusChanged, stoppingToken);
