@@ -31,6 +31,7 @@ namespace SimplCommerce.Module.Payments.Controllers
                     AmountString = x.Amount.ToString("C"),
                     x.OrderId,
                     x.GatewayTransactionId,
+                    Status = x.Status.ToString(),
                     x.CreatedOn
                 }).ToListAsync();
 
