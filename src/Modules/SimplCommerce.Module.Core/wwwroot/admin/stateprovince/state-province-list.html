@@ -48,7 +48,10 @@
                 <td>{{stateOrProvince.name}}</td>
                 <td>{{stateOrProvince.code}}</td>
                 <td>{{stateOrProvince.countryCode}}</td>
-                <td><a ui-sref="state-province-edit({id: stateOrProvince.id, countryId: vm.countryId})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a></td>
+                <td>
+                    <a ui-sref="state-province-edit({id: stateOrProvince.id, countryId: vm.countryId})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+                    <button ng-click="vm.deleteStateOrProvince(stateOrProvince)" title="Delete" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+                </td>
             </tr>
         </tbody>
         <tbody ng-show="vm.isLoading">

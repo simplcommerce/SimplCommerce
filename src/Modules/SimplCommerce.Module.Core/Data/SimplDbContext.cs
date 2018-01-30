@@ -46,6 +46,11 @@ namespace SimplCommerce.Module.Core.Data
                     modelBuilder.Entity(entity.Name).ToTable(tableName);
                 }
             }
+
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
         }
 
         private static void RegisterEntities(ModelBuilder modelBuilder, IEnumerable<Type> typeToRegisters)

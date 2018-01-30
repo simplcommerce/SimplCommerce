@@ -152,7 +152,7 @@ namespace SimplCommerce.Module.Core.Controllers
                 _countryRepository.Remove(country);
                 await _countryRepository.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (DbUpdateException)
             {
                 return BadRequest(new { Error = $"The country {country.Name} can't not be deleted because it is referenced by other tables" });
             }
