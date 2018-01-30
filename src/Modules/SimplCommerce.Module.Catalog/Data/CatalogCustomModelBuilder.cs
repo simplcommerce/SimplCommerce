@@ -26,11 +26,13 @@ namespace SimplCommerce.Module.Catalog.Data
             modelBuilder.Entity<ProductTemplateProductAttribute>()
                 .HasOne(pt => pt.ProductTemplate)
                 .WithMany(p => p.ProductAttributes)
-                .HasForeignKey(pt => pt.ProductTemplateId);
+                .HasForeignKey(pt => pt.ProductTemplateId)
+                .OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<ProductTemplateProductAttribute>()
                 .HasOne(pt => pt.ProductAttribute)
                 .WithMany(t => t.ProductTemplates)
-                .HasForeignKey(pt => pt.ProductAttributeId);
+                .HasForeignKey(pt => pt.ProductAttributeId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

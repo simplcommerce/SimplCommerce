@@ -28,6 +28,21 @@
             });
         };
 
+        vm.deleteStateOrProvince = function deleteStateOrProvince(stateOrProvince) {
+            bootbox.confirm('Are you sure you want to delete this state or province: ' + stateOrProvince.name, function (result) {
+                if (result) {
+                    stateProvinceService.deleteStateProvince(stateOrProvince)
+                        .then(function (result) {
+                            vm.getStateOrProvinces(tableStateRef);
+                            toastr.success(stateOrProvince.name + ' has been deleted');
+                        })
+                        .catch(function (response) {
+                            toastr.error(response.data.error);
+                        });
+                }
+            });
+        };
+
         function init() {
             countryService.getAllCountries().then(function (result) {
                 vm.countries = result.data;

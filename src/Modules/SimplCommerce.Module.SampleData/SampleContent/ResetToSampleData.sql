@@ -2,9 +2,9 @@
 GO
 DELETE FROM [dbo].[Core_Entity]
 GO
-DELETE FROM [dbo].[ShoppingCart_Cart]
-GO
 DELETE FROM [dbo].[ShoppingCart_CartItem]
+GO
+DELETE FROM [dbo].[ShoppingCart_Cart]
 GO
 DELETE FROM [dbo].[Payments_Payment]
 GO

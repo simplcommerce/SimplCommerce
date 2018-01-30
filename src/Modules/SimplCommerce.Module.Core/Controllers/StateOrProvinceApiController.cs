@@ -157,7 +157,7 @@ namespace SimplCommerce.Module.Core.Controllers
                 _stateOrProvinceRepository.Remove(stateProvince);
                 await _stateOrProvinceRepository.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (DbUpdateException)
             {
                 return BadRequest(new { Error = $"The state or province {stateProvince.Name} can't not be deleted because it is referenced by other tables" });
             }
