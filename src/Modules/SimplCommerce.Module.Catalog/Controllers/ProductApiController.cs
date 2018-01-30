@@ -32,6 +32,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         private readonly IRepository<ProductOptionValue> _productOptionValueRepository;
         private readonly IRepository<Product> _productRepository;
         private readonly IProductService _productService;
+        private readonly IRepository<ProductMedia> _productMediaRepository;
         private readonly IWorkContext _workContext;
 
         public ProductApiController(
@@ -42,6 +43,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             IRepository<ProductCategory> productCategoryRepository,
             IRepository<ProductOptionValue> productOptionValueRepository,
             IRepository<ProductAttributeValue> productAttributeValueRepository,
+            IRepository<ProductMedia> productMediaRepository,
             IWorkContext workContext)
         {
             _productRepository = productRepository;
@@ -51,6 +53,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             _productCategoryRepository = productCategoryRepository;
             _productOptionValueRepository = productOptionValueRepository;
             _productAttributeValueRepository = productAttributeValueRepository;
+            _productMediaRepository = productMediaRepository;
             _workContext = workContext;
         }
 
@@ -252,7 +255,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return new BadRequestObjectResult(ModelState);
+                return BadRequest(ModelState);
             }
 
             var currentUser = await _workContext.GetCurrentUser();
@@ -353,7 +356,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             if (!User.IsInRole("admin") && product.VendorId != currentUser.VendorId)
             {
-                return new BadRequestObjectResult(new { error = "You don't have permission to manage this product" });
+                return BadRequest(new { error = "You don't have permission to manage this product" });
             }
 
             product.Name = model.Product.Name;
@@ -379,8 +382,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
             foreach (var productMediaId in model.Product.DeletedMediaIds)
             {
                 var productMedia = product.Medias.First(x => x.Id == productMediaId);
+                _productMediaRepository.Remove(productMedia);
                 await _mediaService.DeleteMediaAsync(productMedia.Media);
-                product.RemoveMedia(productMedia);
             }
 
             AddOrDeleteProductOption(model, product);
