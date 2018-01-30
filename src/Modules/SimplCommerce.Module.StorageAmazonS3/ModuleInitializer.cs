@@ -15,7 +15,7 @@ namespace SimplCommerce.Module.StorageAmazonS3
 
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton<IMediaService, S3MediaService>();
+            serviceCollection.AddSingleton<IStorageService, S3StorageService>();
         }
     }
 }
