@@ -71,9 +71,6 @@ https://github.com/simplcommerce/SimplCommerce/wiki/Roadmap
 
 - Report bugs or suggest features by create new issues or add comments to issues
 - Submit pull requests
-- If SimplCommerce has been helpful to you, then you might want to buy us a beer
-
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JWYGHJQSYLVVQ)
 
 ## License
 
