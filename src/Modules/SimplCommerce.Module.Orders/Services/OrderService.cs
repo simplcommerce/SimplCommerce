@@ -173,6 +173,11 @@ namespace SimplCommerce.Module.Orders.Services
                     TaxPercent = taxPercent,
                     TaxAmount = cartItem.Quantity * (cartItem.Product.Price * taxPercent / 100)
                 };
+                if (cart.IsProductPriceIncludeTax)
+                {
+                    orderItem.ProductPrice = orderItem.ProductPrice - orderItem.TaxAmount;
+                }
+
                 order.AddOrderItem(orderItem);
                 cartItem.Product.StockQuantity = cartItem.Product.StockQuantity - cartItem.Quantity;
             }
@@ -215,6 +220,11 @@ namespace SimplCommerce.Module.Orders.Services
                         TaxPercent = taxPercent,
                         TaxAmount = cartItem.Quantity * (cartItem.Product.Price * taxPercent / 100)
                     };
+
+                    if (cart.IsProductPriceIncludeTax)
+                    {
+                        orderItem.ProductPrice = orderItem.ProductPrice - orderItem.TaxAmount;
+                    }
 
                     subOrder.AddOrderItem(orderItem);
                 }

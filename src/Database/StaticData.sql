@@ -8,7 +8,7 @@ INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingP
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (7, N'SmtpUsername', N'', 0, N'Core')
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (8, N'SmtpPassword', N'', 0, N'Core')
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (9, N'Theme', N'Generic', 0, N'Core')
-INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (10, N'Tax_IsProductPriceIncludedTax', N'true', 1, N'Tax')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (10, N'Tax.IsProductPriceIncludeTax', N'true', 1, N'Tax')
 SET IDENTITY_INSERT [dbo].[Core_AppSetting] OFF
 GO
 

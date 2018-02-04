@@ -34,7 +34,7 @@
         <td>@Localizer["Shipping"]</td>
         <td colspan="2" id="orderSummaryShipping" class="text-right">@Model.ShippingAmountString</td>
     </tr>
-    @if (!Model.IsTaxIncludedInProductPrice)
+    @if (!Model.IsProductPriceIncludeTax)
     {
     <tr>
         <td>Tax</td>
@@ -46,7 +46,7 @@
         <td colspan="2" class="text-right">@Model.Discount.ToString("C")</td>
     </tr>
     <tr>
-        <td><strong>@Localizer["Order Total"]</strong>@if (Model.IsTaxIncludedInProductPrice) { @Localizer["VAT included"] }</td>
+        <td><strong>@Localizer["Order Total"]</strong>@if (Model.IsProductPriceIncludeTax) { <span> (@Localizer["VAT included"])</span>}</td>
         <td colspan="2" class="text-right"><strong id="orderTotal">@Model.OrderTotal.ToString("C")</strong></td>
     </tr>
 </table>

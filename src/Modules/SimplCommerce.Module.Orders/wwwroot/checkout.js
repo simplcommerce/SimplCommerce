@@ -46,7 +46,11 @@
                     $('.btn-order').prop('disabled', true);
                 }
 
-                $('#orderSummaryTax').text(data.cart.taxAmountString);
+                var $tax = $('#orderSummaryTax');
+                if ($tax) {
+                    $tax.text(data.cart.taxAmountString);
+                }
+
                 $('#orderTotal').text(data.cart.orderTotalString);
                 $('#orderSummaryShipping').text(data.cart.shippingAmountString);
 

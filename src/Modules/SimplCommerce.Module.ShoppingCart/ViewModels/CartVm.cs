@@ -16,7 +16,7 @@ namespace SimplCommerce.Module.ShoppingCart.ViewModels
 
         public string DiscountString { get { return Discount.ToString("C"); } }
 
-        public bool IsTaxIncludedInProductPrice { get; set; }
+        public bool IsProductPriceIncludeTax { get; set; }
 
         public decimal? TaxAmount { get; set; }
 
@@ -45,7 +45,15 @@ namespace SimplCommerce.Module.ShoppingCart.ViewModels
 
         public decimal OrderTotal
         {
-            get { return SubTotal + (TaxAmount ?? 0) + (ShippingAmount ?? 0) - Discount; }
+            get
+            {
+                if (IsProductPriceIncludeTax)
+                {
+                    return SubTotal + (ShippingAmount ?? 0) - Discount;
+                }
+
+                return SubTotal + (TaxAmount ?? 0) + (ShippingAmount ?? 0) - Discount;
+            }
         }
 
         public string OrderTotalString { get { return OrderTotal.ToString("C"); } }

@@ -7,7 +7,7 @@ INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPa
 INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPage", "Module") VALUES (7, 'SmtpUsername', '', false, 'Core');
 INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPage", "Module") VALUES (8, 'SmtpPassword', '', false, 'Core');
 INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPage", "Module") VALUES (9, 'Theme', 'Generic', false, 'Core');
-INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPage", "Module") VALUES (10, 'Tax_IsProductPriceIncludedTax', 'true', true, 'Tax');
+INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPage", "Module") VALUES (10, 'Tax.IsProductPriceIncludeTax', 'true', true, 'Tax');
 SELECT pg_catalog.setval('"Core_AppSetting_Id_seq"', 10, true);
 
 INSERT INTO "Core_Role" ("Id", "ConcurrencyStamp", "Name", "NormalizedName") VALUES (1, 'bd3bee0b-5f1d-482d-b890-ffdc01915da3', 'admin', 'ADMIN');
