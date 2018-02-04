@@ -47,7 +47,7 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push(translateService.get('Could not add Warehouse.'));
+                        vm.validationErrors.push(translateService.get('Could not save Warehouse.'));
                     }
                 });
         };
@@ -56,23 +56,21 @@
             warehouseService.getCountries().then(function (result) {
                 vm.countries = result.data;
                 vm.warehouse.countryId = vm.warehouse.countryId || vm.countries[0].id.toString();
-            });
+            }).catch(function (err) { });
         };
 
         getStatesOrProvinces = function (countryId) {
-            vm.districts = [];
-
             warehouseService.getStatesOrProvinces(countryId).then(function (result) {
                 vm.statesOrProvinces = result.data;
                 vm.warehouse.stateOrProvinceId = vm.warehouse.stateOrProvinceId || vm.statesOrProvinces[0].id.toString();
-            });
+            }).catch(function (err) { });
         };
 
         getDistricts = function (stateOrProvinceId) {
             warehouseService.getDistricts(stateOrProvinceId).then(function (result) {
                 vm.districts = result.data;
                 vm.warehouse.districtId = vm.warehouse.districtId || vm.districts[0].id.toString();
-            });
+            }).catch(function (err) { });
         };
 
 
@@ -81,6 +79,8 @@
         };
 
         vm.onCountrySelected = function (countryId) {
+            vm.statesOrProvinces = [];
+            vm.districts = [];
             getStatesOrProvinces(countryId);
         };
 
@@ -88,10 +88,17 @@
             if (vm.isEditMode) {
                 warehouseService.getWarehouse(vm.warehouseId).then(function (result) {
                     vm.warehouse = result.data;
+
+                    getCountries();
+
+                    getStatesOrProvinces(vm.warehouse.countryId);
+
+                    getDistricts(vm.warehouse.stateOrProvinceId);
                 });
+            } else {
+                getCountries();
             }
 
-            getCountries();
 
         }
 

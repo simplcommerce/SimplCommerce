@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
+using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Inventory.Models;
 using SimplCommerce.Module.Inventory.ViewModels;
 
@@ -15,10 +17,12 @@ namespace SimplCommerce.Module.Inventory.Controllers
     public class WarehouseApiController : Controller
     {
         private readonly IRepository<Warehouse> _warehouseRepository;
+        private readonly IRepository<Address> _addressRepository;
 
-        public WarehouseApiController(IRepository<Warehouse> warehouseRepository)
+        public WarehouseApiController(IRepository<Warehouse> warehouseRepository, IRepository<Address> addressRepository)
         {
             _warehouseRepository = warehouseRepository;
+            _addressRepository = addressRepository;
         }
 
         public async Task<IActionResult> Get()
@@ -61,20 +65,144 @@ namespace SimplCommerce.Module.Inventory.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(long id)
         {
-            var warehouse = await _warehouseRepository.Query().FirstOrDefaultAsync(w => w.Id == id);
+            var warehouse = await _warehouseRepository.Query().Include(w => w.Address).FirstOrDefaultAsync(w => w.Id == id);
 
-            if(warehouse == null)
+            if (warehouse == null)
+            {
+                return NotFound();
+
+            }
+
+            var address = warehouse.Address ?? new Address();
+
+            var model = new WarehouseVm
+            {
+                Id = warehouse.Id,
+                Name = warehouse.Name,
+                AddressId = address.Id,
+                ContactName = address.ContactName,
+                AddressLine1 = address.AddressLine1,
+                AddressLine2 = address.AddressLine2,
+                Phone = address.Phone,
+                StateOrProvinceId = address.StateOrProvinceId,
+                CountryId = address.CountryId,
+                City = address.City,
+                DistrictId = address.DistrictId,
+                PostalCode = address.PostalCode
+            };
+
+            return Json(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] WarehouseVm model)
+        {
+            if (ModelState.IsValid)
+            {
+                var address = new Address
+                {
+                    ContactName = model.ContactName,
+                    AddressLine1 = model.AddressLine1,
+                    AddressLine2 = model.AddressLine2,
+                    Phone = model.Phone,
+                    StateOrProvinceId = model.StateOrProvinceId,
+                    CountryId = model.CountryId,
+                    City = model.City,
+                    DistrictId = model.DistrictId,
+                    PostalCode = model.PostalCode
+                };
+
+                var warehouse = new Warehouse
+                {
+                    Name = model.Name,
+                    Address = address
+                };
+
+                using (var transaction = _warehouseRepository.BeginTransaction())
+                {
+                    _addressRepository.Add(address);
+                    await _addressRepository.SaveChangesAsync();
+
+                    _warehouseRepository.Add(warehouse);
+                    await _warehouseRepository.SaveChangesAsync();
+
+                    transaction.Commit();
+                }
+
+                return CreatedAtAction(nameof(Get), new { id = warehouse.Id }, null);
+            }
+            return BadRequest(ModelState);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(long id, [FromBody] WarehouseVm model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var warehouse = await _warehouseRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+            if (warehouse == null)
             {
                 return NotFound();
             }
 
-            var model = new WarehouseVm
-            {
-                Name = warehouse.Name,
-                ContactName = warehouse.Address?.ContactName
-            };
+            var address = await _addressRepository.Query().FirstOrDefaultAsync(a => a.Id == model.AddressId);
 
-            return Json(model);
+            if (address != null)
+            {
+                address.ContactName = model.ContactName;
+                address.Phone = model.Phone;
+                address.PostalCode = model.PostalCode;
+                address.StateOrProvinceId = model.StateOrProvinceId;
+                address.CountryId = model.CountryId;
+                address.DistrictId = model.DistrictId;
+
+                await _addressRepository.SaveChangesAsync();
+            }
+
+            warehouse.Address = address;
+            warehouse.Name = model.Name;
+
+            await _warehouseRepository.SaveChangesAsync();
+
+            return Accepted();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(long id)
+        {
+            var warehouse = await _warehouseRepository.Query().Include(w=> w.Address).FirstOrDefaultAsync(x => x.Id == id);
+            if (warehouse == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                using (var tranaction = _warehouseRepository.BeginTransaction())
+                {
+                    _warehouseRepository.Remove(warehouse);
+                    await _warehouseRepository.SaveChangesAsync();
+
+                    _addressRepository.Remove(warehouse.Address);
+                    await _addressRepository.SaveChangesAsync();
+
+                    tranaction.Commit();
+                }
+
+            }
+            catch (DbUpdateException)
+            {
+                return BadRequest(new { Error = $"The warehouse {warehouse.Name} can't not be deleted because it is referenced by other tables" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Error = ex.GetBaseException().Message });
+            }
+
+            return NoContent();
         }
     }
 }

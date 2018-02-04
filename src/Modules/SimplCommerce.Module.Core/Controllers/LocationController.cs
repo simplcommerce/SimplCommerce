@@ -34,11 +34,16 @@ namespace SimplCommerce.Module.Core.Controllers
         [Route("districts")]
         public IActionResult Get(long? stateOrProvinceId)
         {
-            IQueryable<District> districts = districtRepository.Query();
+            var districts = districtRepository.Query();
 
             if (stateOrProvinceId.HasValue)
             {
-                districts.Where(d => d.StateOrProvinceId == stateOrProvinceId.GetValueOrDefault());
+                districts = districts.Where(d => d.StateOrProvinceId == stateOrProvinceId.GetValueOrDefault());
+            }
+
+            if (!districts.Any())
+            {
+                return NotFound();
             }
 
             districts = districts.OrderBy(x => x.Name);

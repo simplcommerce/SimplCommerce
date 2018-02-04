@@ -22,13 +22,13 @@
         };
 
 
-        vm.deleteCountry = function (country) {
-            bootbox.confirm('Are you sure you want to delete this country: ' + country.name, function (result) {
+        vm.deleteWarehouse = function (warehouse) {
+            bootbox.confirm('Are you sure you want to delete this warehouse: ' + warehouse.name, function (result) {
                 if (result) {
-                    countryService.deleteCountry(country)
+                    warehouseService.deleteWarehouse(warehouse)
                         .then(function (result) {
-                            vm.getCountries(tableStateRef);
-                            toastr.success(country.name + ' has been deleted');
+                            vm.getWarehouses(tableStateRef);
+                            toastr.success(warehouse.name + ' has been deleted');
                         })
                         .catch(function (response) {
                             toastr.error(response.data.error);

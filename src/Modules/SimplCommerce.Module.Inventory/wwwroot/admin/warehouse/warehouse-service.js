@@ -45,18 +45,15 @@
         }
 
         function editWarehouse(warehouse) {
-            console.log(warehouse);
-
             return $http.put('api/warehouses/' + warehouse.id, warehouse);
         }
 
         function createWarehouse(warehouse) {
-            console.log(warehouse);
-            return $http.post('api/warehouses/', country);
+            return $http.post('api/warehouses/', warehouse);
         }
 
         function deleteWarehouse(warehouse) {
-            return $http.delete('api/warehouses/' + country.id, null);
+            return $http.delete('api/warehouses/' + warehouse.id, null);
         }
     }
 })();
