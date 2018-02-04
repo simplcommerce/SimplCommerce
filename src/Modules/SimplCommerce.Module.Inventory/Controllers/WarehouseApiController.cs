@@ -118,16 +118,9 @@ namespace SimplCommerce.Module.Inventory.Controllers
                     Address = address
                 };
 
-                using (var transaction = _warehouseRepository.BeginTransaction())
-                {
-                    _addressRepository.Add(address);
-                    await _addressRepository.SaveChangesAsync();
+                _warehouseRepository.Add(warehouse);
 
-                    _warehouseRepository.Add(warehouse);
-                    await _warehouseRepository.SaveChangesAsync();
-
-                    transaction.Commit();
-                }
+                await _warehouseRepository.SaveChangesAsync();
 
                 return CreatedAtAction(nameof(Get), new { id = warehouse.Id }, null);
             }
@@ -173,7 +166,7 @@ namespace SimplCommerce.Module.Inventory.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
-            var warehouse = await _warehouseRepository.Query().Include(w=> w.Address).FirstOrDefaultAsync(x => x.Id == id);
+            var warehouse = await _warehouseRepository.Query().Include(w => w.Address).FirstOrDefaultAsync(x => x.Id == id);
             if (warehouse == null)
             {
                 return NotFound();
@@ -181,17 +174,10 @@ namespace SimplCommerce.Module.Inventory.Controllers
 
             try
             {
-                using (var tranaction = _warehouseRepository.BeginTransaction())
-                {
-                    _warehouseRepository.Remove(warehouse);
-                    await _warehouseRepository.SaveChangesAsync();
+                _warehouseRepository.Remove(warehouse);
+                _addressRepository.Remove(warehouse.Address);
 
-                    _addressRepository.Remove(warehouse.Address);
-                    await _addressRepository.SaveChangesAsync();
-
-                    tranaction.Commit();
-                }
-
+                await _warehouseRepository.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

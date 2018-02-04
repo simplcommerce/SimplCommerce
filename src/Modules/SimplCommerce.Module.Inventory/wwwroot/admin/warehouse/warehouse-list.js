@@ -21,7 +21,6 @@
             });
         };
 
-
         vm.deleteWarehouse = function (warehouse) {
             bootbox.confirm('Are you sure you want to delete this warehouse: ' + warehouse.name, function (result) {
                 if (result) {
