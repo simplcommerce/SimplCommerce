@@ -40,10 +40,24 @@ namespace SimplCommerce.Module.Core.Controllers
             return Ok(statesOrProvinces);
         }
 
+        public async Task<IActionResult> Get()
+        {
+            var statesOrProvinces = await _stateOrProvinceRepository.Query()
+                .OrderBy(x => x.Name)
+                .Select(x => new
+                {
+                    x.Id,
+                    x.Name
+                })
+                .ToListAsync();
+
+            return Ok(statesOrProvinces);
+        }
+
         [HttpPost("grid")]
         public IActionResult List(int countryId, [FromBody] SmartTableParam param)
         {
-            var query = _stateOrProvinceRepository.Query().Where(sp=> sp.CountryId == countryId);
+            var query = _stateOrProvinceRepository.Query().Where(sp => sp.CountryId == countryId);
 
             if (param.Search.PredicateObject != null)
             {
@@ -58,13 +72,13 @@ namespace SimplCommerce.Module.Core.Controllers
 
             var stateProvinces = query.ToSmartTableResult(
                 param,
-                 sp=> new
-                {
-                    sp.Id,
-                    sp.Name,
-                    sp.Code,
-                    sp.CountryCode
-                });
+                 sp => new
+                 {
+                     sp.Id,
+                     sp.Name,
+                     sp.Code,
+                     sp.CountryCode
+                 });
 
             return Json(stateProvinces);
         }

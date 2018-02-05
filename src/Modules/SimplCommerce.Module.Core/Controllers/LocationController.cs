@@ -5,6 +5,7 @@ using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Core.Controllers
 {
+    [Route("api/location")]
     public class LocationController : Controller
     {
         private readonly IRepository<District> districtRepository;
@@ -28,6 +29,26 @@ namespace SimplCommerce.Module.Core.Controllers
                 }).ToList();
 
             return Json(districts);
+        }
+
+        [Route("districts")]
+        public IActionResult Get(long? stateOrProvinceId)
+        {
+            var districts = districtRepository.Query();
+
+            if (stateOrProvinceId.HasValue)
+            {
+                districts = districts.Where(d => d.StateOrProvinceId == stateOrProvinceId.GetValueOrDefault());
+            }
+
+            if (!districts.Any())
+            {
+                return NotFound();
+            }
+
+            districts = districts.OrderBy(x => x.Name);
+
+            return Json(districts.Select(d=> new { d.Id, d.Name }).ToList());
         }
     }
 }
