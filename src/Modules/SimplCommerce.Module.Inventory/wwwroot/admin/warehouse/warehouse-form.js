@@ -6,8 +6,7 @@
 
     /* @ngInject */
     function WarehouseFormCtrl(warehouseService, translateService, $state, $stateParams) {
-        var vm = this,
-            tableStateRef;
+        var vm = this;
         vm.translate = translateService;
         vm.warehouseId = $stateParams.id;
         vm.isEditMode = vm.warehouseId > 0;
@@ -16,16 +15,6 @@
         vm.countries = [];
         vm.statesOrProvinces = [];
         vm.districts = [];
-
-        vm.getStocks = function getStocks(tableState) {
-            tableStateRef = tableState;
-            vm.isLoading = true;
-            stockService.getStocks(vm.selectedWarehouseId, tableState).then(function (result) {
-                vm.stocks = result.data.items;
-                tableState.pagination.numberOfPages = result.data.numberOfPages;
-                vm.isLoading = false;
-            });
-        };
 
         vm.save = function save() {
             var promise;
@@ -56,23 +45,22 @@
             warehouseService.getCountries().then(function (result) {
                 vm.countries = result.data;
                 vm.warehouse.countryId = vm.warehouse.countryId || vm.countries[0].id.toString();
-            }).catch(function (err) { });
+            });
         };
 
         getStatesOrProvinces = function (countryId) {
             warehouseService.getStatesOrProvinces(countryId).then(function (result) {
                 vm.statesOrProvinces = result.data;
                 vm.warehouse.stateOrProvinceId = vm.warehouse.stateOrProvinceId || vm.statesOrProvinces[0].id.toString();
-            }).catch(function (err) { });
+            });
         };
 
         getDistricts = function (stateOrProvinceId) {
             warehouseService.getDistricts(stateOrProvinceId).then(function (result) {
                 vm.districts = result.data;
-                vm.warehouse.districtId = vm.warehouse.districtId || vm.districts[0].id.toString();
-            }).catch(function (err) { });
+                vm.warehouse.districtId = vm.warehouse.districtId || vm.districts[0].id;
+            });
         };
-
 
         vm.onStateOrProvinceSelected = function (stateOrProvinceId) {
             getDistricts(stateOrProvinceId);
@@ -85,24 +73,22 @@
         };
 
         function init() {
+            getCountries();
             if (vm.isEditMode) {
                 warehouseService.getWarehouse(vm.warehouseId).then(function (result) {
                     vm.warehouse = result.data;
 
-                    getCountries();
+                    if (vm.warehouse.countryId) {
+                        getStatesOrProvinces(vm.warehouse.countryId);
+                    }
 
-                    getStatesOrProvinces(vm.warehouse.countryId);
-
-                    getDistricts(vm.warehouse.stateOrProvinceId);
+                    if (vm.warehouse.stateOrProvinceId) {
+                        getDistricts(vm.warehouse.stateOrProvinceId);
+                    }
                 });
-            } else {
-                getCountries();
             }
-
-
         }
 
         init();
-
     }
 })();

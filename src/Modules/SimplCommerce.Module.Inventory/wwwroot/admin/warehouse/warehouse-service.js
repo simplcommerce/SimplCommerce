@@ -27,21 +27,15 @@
         }
 
         function getStatesOrProvinces(countryId) {
-            if (countryId)
-                return $http.get('api/countries/' + countryId + '/states-provinces');
-
-            return $http.get('api/states-provinces');
+            return $http.get('api/countries/' + countryId + '/states-provinces');
         }
 
         function getDistricts(stateOrProvinceId) {
-            if (stateOrProvinceId)
-                return $http.get('api/location/districts/' + stateOrProvinceId);
-
-            return $http.get('api/location/districts');
+            return $http.get('api/states-provinces/' + stateOrProvinceId + '/districts');
         }
 
         function getWarehouse(id) {
-            return $http.get('api/warehouses/' + id, null);
+            return $http.get('api/warehouses/' + id);
         }
 
         function editWarehouse(warehouse) {
@@ -53,7 +47,7 @@
         }
 
         function deleteWarehouse(warehouse) {
-            return $http.delete('api/warehouses/' + warehouse.id, null);
+            return $http.delete('api/warehouses/' + warehouse.id);
         }
     }
 })();

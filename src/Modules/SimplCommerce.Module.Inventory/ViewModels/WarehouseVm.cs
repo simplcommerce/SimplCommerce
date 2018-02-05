@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SimplCommerce.Module.Inventory.ViewModels
 {
@@ -30,11 +25,10 @@ namespace SimplCommerce.Module.Inventory.ViewModels
 
         public long? DistrictId { get; set; }
 
-        [Required]
+        [Range(1, long.MaxValue, ErrorMessage = "State or Province is required")]
         public long StateOrProvinceId { get; set; }
 
-        [Required]
+        [Range(1, long.MaxValue, ErrorMessage = "Country is required")]
         public long CountryId { get; set; }
-
     }
 }

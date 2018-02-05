@@ -11,6 +11,8 @@ namespace SimplCommerce.Module.Inventory.Models
 
         public long WarehouseId { get; set; }
 
+        public Warehouse Warehouse { get; set; }
+
         public int Quantity { get; set; }
 
         public int ReservedQuantity { get; set; }
