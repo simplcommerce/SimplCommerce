@@ -106,6 +106,7 @@ namespace SimplCommerce.Module.Core.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Put(long id, [FromBody] StateOrProvinceForm model)
         {
             if (!ModelState.IsValid)

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -66,15 +65,12 @@ namespace SimplCommerce.Module.Inventory.Controllers
         public async Task<IActionResult> Get(long id)
         {
             var warehouse = await _warehouseRepository.Query().Include(w => w.Address).FirstOrDefaultAsync(w => w.Id == id);
-
             if (warehouse == null)
             {
                 return NotFound();
-
             }
 
             var address = warehouse.Address ?? new Address();
-
             var model = new WarehouseVm
             {
                 Id = warehouse.Id,
@@ -119,11 +115,10 @@ namespace SimplCommerce.Module.Inventory.Controllers
                 };
 
                 _warehouseRepository.Add(warehouse);
-
                 await _warehouseRepository.SaveChangesAsync();
-
                 return CreatedAtAction(nameof(Get), new { id = warehouse.Id }, null);
             }
+
             return BadRequest(ModelState);
         }
 
@@ -135,31 +130,27 @@ namespace SimplCommerce.Module.Inventory.Controllers
                 return BadRequest(ModelState);
             }
 
-            var warehouse = await _warehouseRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+            var warehouse = await _warehouseRepository.Query().Include(x => x.Address).FirstOrDefaultAsync(x => x.Id == id);
             if (warehouse == null)
             {
                 return NotFound();
             }
 
-            var address = await _addressRepository.Query().FirstOrDefaultAsync(a => a.Id == model.AddressId);
-
-            if (address != null)
+            warehouse.Name = model.Name;
+            if (warehouse.Address == null)
             {
-                address.ContactName = model.ContactName;
-                address.Phone = model.Phone;
-                address.PostalCode = model.PostalCode;
-                address.StateOrProvinceId = model.StateOrProvinceId;
-                address.CountryId = model.CountryId;
-                address.DistrictId = model.DistrictId;
-
-                await _addressRepository.SaveChangesAsync();
+                warehouse.Address = new Address();
+                _addressRepository.Add(warehouse.Address);
             }
 
-            warehouse.Address = address;
-            warehouse.Name = model.Name;
+            warehouse.Address.ContactName = model.ContactName;
+            warehouse.Address.Phone = model.Phone;
+            warehouse.Address.PostalCode = model.PostalCode;
+            warehouse.Address.StateOrProvinceId = model.StateOrProvinceId;
+            warehouse.Address.CountryId = model.CountryId;
+            warehouse.Address.DistrictId = model.DistrictId;
 
             await _warehouseRepository.SaveChangesAsync();
-
             return Accepted();
         }
 
@@ -182,10 +173,6 @@ namespace SimplCommerce.Module.Inventory.Controllers
             catch (DbUpdateException)
             {
                 return BadRequest(new { Error = $"The warehouse {warehouse.Name} can't not be deleted because it is referenced by other tables" });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { Error = ex.GetBaseException().Message });
             }
 
             return NoContent();

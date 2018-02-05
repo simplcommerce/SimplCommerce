@@ -30,12 +30,12 @@
             return;
         }
 
-        $.getJSON("/Location/GetDistricts/" + selectedStateOrProvinceId, function (data) {
+        $.getJSON("/api/states-provinces/" + selectedStateOrProvinceId + "/districts", function (data) {
             var $districtSelect = $("#DistrictId");
             resetSelect($districtSelect);
 
             $.each(data, function (index, option) {
-                $districtSelect.append($("<option></option>").attr("value", option.value).text(option.text));
+                $districtSelect.append($("<option></option>").attr("value", option.id).text(option.name));
             });
         });
     });
