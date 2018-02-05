@@ -308,8 +308,12 @@
             vm.product.specialPrice = vm.product.specialPrice === null ? '' : vm.product.specialPrice;
             vm.product.specialPriceStart = vm.product.specialPriceStart === null ? '' : vm.product.specialPriceStart;
             vm.product.specialPriceEnd = vm.product.specialPriceEnd === null ? '' : vm.product.specialPriceEnd;
+            vm.product.sku = vm.product.sku === null ? '' : vm.product.sku;
+            vm.product.gtin = vm.product.gtin === null ? '' : vm.product.gtin;
             vm.product.variations.forEach(function (item) {
                 item.oldPrice = item.oldPrice === null ? '' : item.oldPrice;
+                item.sku = item.sku === null ? '' : item.sku;
+                item.gtin = item.gtin === null ? '' : item.gtin;
             });
 
             if (vm.isEditMode) {

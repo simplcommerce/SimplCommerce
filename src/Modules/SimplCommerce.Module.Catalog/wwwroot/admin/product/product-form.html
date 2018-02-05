@@ -49,6 +49,18 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('SKU')}}</label>
+                        <div class="col-sm-10">
+                            <input name="sku" ng-model="vm.product.sku" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{::vm.translate.get('GTIN')}}</label>
+                        <div class="col-sm-10">
+                            <input name="gtin" ng-model="vm.product.gtin" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">{{::vm.translate.get('Price')}}</label>
                         <div class="col-sm-10">
                             <div class="input-number">
@@ -231,14 +243,22 @@
                         <div class="col-sm-10">
                             <table class="table table-striped">
                                 <tr>
-                                    <th class="col-sm-4">{{::vm.translate.get('Option Combinations')}}</th>
-                                    <th class="col-sm-2">{{::vm.translate.get('Price')}}</th>
-                                    <th class="col-sm-2">{{::vm.translate.get('Old Price')}}</th>
-                                    <th class="col-sm-2">{{::vm.translate.get('Images')}}</th>
-                                    <th class="col-sm-2">{{::vm.translate.get('Actions')}}</th>
+                                    <th>{{::vm.translate.get('Option Combinations')}}</th>
+                                    <th>{{::vm.translate.get('SKU')}}</th>
+                                    <th>{{::vm.translate.get('GTIN')}}</th>
+                                    <th>{{::vm.translate.get('Price')}}</th>
+                                    <th>{{::vm.translate.get('Old Price')}}</th>
+                                    <th>{{::vm.translate.get('Images')}}</th>
+                                    <th>{{::vm.translate.get('Actions')}}</th>
                                 </tr>
                                 <tr ng-repeat="variation in vm.product.variations">
                                     <td>{{variation.name}}</td>
+                                    <td>
+                                        <input id="{{variation.normalizedName}}Sku" type="text" maxlength="100" class="form-control" ng-model="variation.sku" />
+                                    </td>
+                                    <td>
+                                        <input id="{{variation.normalizedName}}Gtin" type="text" maxlength="100" class="form-control" ng-model="variation.gtin" />
+                                    </td>
                                     <td>
                                         <div class="input-number">
                                             <input id="{{variation.normalizedName}}Price" type="text" decimal maxlength="10" required class="form-control" ng-model="variation.price" />
@@ -247,7 +267,7 @@
                                     </td>
                                     <td>
                                         <div class="input-number">
-                                            <input id="{{variation.normalizedName}}OldPrice" type="text" decimal  maxlength="10" class="form-control" ng-model="variation.oldPrice" />
+                                            <input id="{{variation.normalizedName}}OldPrice" type="text" decimal maxlength="10" class="form-control" ng-model="variation.oldPrice" />
                                             <label for="{{variation.normalizedName}}OldPrice" class="form-control">{{variation.oldPrice | number}}</label>
                                         </div>
                                     </td>

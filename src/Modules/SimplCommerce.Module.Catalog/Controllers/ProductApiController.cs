@@ -80,6 +80,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 Id = product.Id,
                 Name = product.Name,
                 Slug = product.SeoTitle,
+                Sku = product.Sku,
+                Gtin = product.Gtin,
                 ShortDescription = product.ShortDescription,
                 Description = product.Description,
                 Specification = product.Specification,
@@ -133,6 +135,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 {
                     Id = variation.Id,
                     Name = variation.Name,
+                    Sku = variation.Sku,
+                    Gtin = variation.Gtin,
                     Price = variation.Price,
                     OldPrice = variation.OldPrice,
                     NormalizedName = variation.NormalizedName,
@@ -264,6 +268,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
             {
                 Name = model.Product.Name,
                 SeoTitle = model.Product.Slug,
+                Sku = model.Product.Sku,
+                Gtin = model.Product.Gtin,
                 ShortDescription = model.Product.ShortDescription,
                 Description = model.Product.Description,
                 Specification = model.Product.Specification,
@@ -361,6 +367,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
             product.Name = model.Product.Name;
             product.SeoTitle = model.Product.Slug;
+            product.Sku = model.Product.Sku;
+            product.Gtin = model.Product.Gtin;
             product.ShortDescription = model.Product.ShortDescription;
             product.Description = model.Product.Description;
             product.Specification = model.Product.Specification;
@@ -451,6 +459,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
                 productLink.LinkedProduct.Name = variationVm.Name;
                 productLink.LinkedProduct.SeoTitle = variationVm.Name.ToUrlFriendly();
+                productLink.LinkedProduct.Sku = variationVm.Sku;
+                productLink.LinkedProduct.Gtin = variationVm.Gtin;
                 productLink.LinkedProduct.Price = variationVm.Price;
                 productLink.LinkedProduct.OldPrice = variationVm.OldPrice;
                 productLink.LinkedProduct.NormalizedName = variationVm.NormalizedName;
@@ -579,6 +589,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
                     productLink.LinkedProduct.Name = productVariationVm.Name;
                     productLink.LinkedProduct.SeoTitle = StringHelper.ToUrlFriendly(productVariationVm.Name);
+                    productLink.LinkedProduct.Sku = productVariationVm.Sku;
+                    productLink.LinkedProduct.Gtin = productVariationVm.Gtin;
                     productLink.LinkedProduct.Price = productVariationVm.Price;
                     productLink.LinkedProduct.OldPrice = productVariationVm.OldPrice;
                     productLink.LinkedProduct.NormalizedName = productVariationVm.NormalizedName;
@@ -600,6 +612,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 }
                 else
                 {
+                    productLink.LinkedProduct.Sku = productVariationVm.Sku;
+                    productLink.LinkedProduct.Gtin = productVariationVm.Gtin;
                     productLink.LinkedProduct.Price = productVariationVm.Price;
                     productLink.LinkedProduct.OldPrice = productVariationVm.OldPrice;
                     productLink.LinkedProduct.IsDeleted = false;
