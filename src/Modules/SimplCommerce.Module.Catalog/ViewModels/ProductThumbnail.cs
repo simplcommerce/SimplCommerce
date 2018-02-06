@@ -37,6 +37,7 @@ namespace SimplCommerce.Module.Catalog.ViewModels
         public double? RatingAverage { get; set; }
 
         public CalculatedProductPrice CalculatedProductPrice { get; set; }
+        public DateTimeOffset CreatedOn { get; private set; }
 
         public static ProductThumbnail FromProduct(Product product)
         {
@@ -55,7 +56,8 @@ namespace SimplCommerce.Module.Catalog.ViewModels
                 IsCallForPricing = product.IsCallForPricing,
                 ThumbnailImage = product.ThumbnailImage,
                 ReviewsCount = product.ReviewsCount,
-                RatingAverage = product.RatingAverage
+                RatingAverage = product.RatingAverage,
+                CreatedOn = product.CreatedOn
             };
 
             return productThumbnail;

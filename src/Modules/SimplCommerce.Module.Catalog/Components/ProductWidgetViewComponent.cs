@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -43,7 +44,6 @@ namespace SimplCommerce.Module.Catalog.Components
 
             model.Products = query
               .Include(x => x.ThumbnailImage)
-              .OrderByDescending(x => x.CreatedOn)
               .Take(model.Setting.NumberOfProducts)
               .Select(x => ProductThumbnail.FromProduct(x)).ToList();
 
@@ -52,6 +52,22 @@ namespace SimplCommerce.Module.Catalog.Components
                 product.ThumbnailUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage);
                 product.CalculatedProductPrice = _productPricingService.CalculateProductPrice(product);
             }
+
+            if (model.Setting.OrderBy == ProductWidgetOrderBy.Newest)
+            {
+                model.Products = model.Products.OrderByDescending(p => p.CreatedOn).ToList();
+            }
+
+            if (model.Setting.OrderBy == ProductWidgetOrderBy.Discount)
+            {
+                model.Products = model.Products.OrderByDescending(p => p.CalculatedProductPrice.PercentOfSaving).ToList();
+            }
+
+            if (model.Setting.OrderBy == ProductWidgetOrderBy.BestSelling)
+            {
+                //query OrderItems for top ordered products?
+            }
+
 
             return View("/Modules/SimplCommerce.Module.Catalog/Views/Components/ProductWidget.cshtml", model);
         }
