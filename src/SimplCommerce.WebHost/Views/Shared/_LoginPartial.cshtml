@@ -8,6 +8,10 @@
     <li>
         <a asp-controller="Manage" asp-action="Index" title="@Localizer["Manage"]">@Localizer["Hello {0}!", UserManager.GetUserName(User)]</a>
     </li>
+    @if (User.IsInRole("admin") || User.IsInRole("vendor"))
+    {
+        <li><a asp-controller="HomeAdmin" asp-action="Index">@Localizer["Dashboard"]</a></li>
+    }
     <li>
         <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="">
             <button type="submit" class="btn btn-link">@Localizer["Log off"]</button>
