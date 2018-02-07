@@ -54,6 +54,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
 
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            var paypalAcceptedNumericFormatCulture = CultureInfo.CreateSpecificCulture("en-US");
             var paymentCreateRequest = new PaymentCreateRequest
             {
                  experience_profile_id = experienceProfileId,
@@ -67,13 +68,13 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
                     new Transaction {
                         amount = new Amount
                         {
-                            total = cart.OrderTotal.ToString(),
+                            total = cart.OrderTotal.ToString("N2", paypalAcceptedNumericFormatCulture),
                             currency = regionInfo.ISOCurrencySymbol,
                             details = new Details
                             {
-                                subtotal = cart.SubTotalWithDiscount.ToString(),
-                                tax = cart.TaxAmount.ToString(),
-                                shipping = cart.ShippingAmount.ToString()
+                                subtotal = cart.SubTotalWithDiscount.ToString("N2", paypalAcceptedNumericFormatCulture),
+                                tax = cart.TaxAmount?.ToString("N2", paypalAcceptedNumericFormatCulture) ?? "0",
+                                shipping = cart.ShippingAmount?.ToString("N2", paypalAcceptedNumericFormatCulture) ?? "0"
                             }
                         }
                     }
