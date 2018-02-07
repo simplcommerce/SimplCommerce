@@ -16,6 +16,8 @@ namespace SimplCommerce.Module.ShoppingCart.ViewModels
 
         public string DiscountString { get { return Discount.ToString("C"); } }
 
+        public string CouponValidationErrorMessage { get; set; }
+
         public bool IsProductPriceIncludeTax { get; set; }
 
         public decimal? TaxAmount { get; set; }

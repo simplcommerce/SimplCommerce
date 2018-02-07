@@ -109,9 +109,9 @@ namespace SimplCommerce.Module.Orders.Services
             }
 
             var applyDiscountResult = await ApplyDiscountIfAny(user, cart);
-            if (!applyDiscountResult.Success)
+            if (!applyDiscountResult.Succeeded)
             {
-                return Result.Fail<Order>(applyDiscountResult.Error);
+                return Result.Fail<Order>(applyDiscountResult.ErrorMessage);
             }
 
             var validateShippingMethodResult = await ValidateShippingMethod(shippingMethodName, shippingAddress, cart);
@@ -178,19 +178,25 @@ namespace SimplCommerce.Module.Orders.Services
                     orderItem.ProductPrice = orderItem.ProductPrice - orderItem.TaxAmount;
                 }
 
+                var discountedItem = applyDiscountResult.DiscountedProducts.FirstOrDefault(x => x.Id == cartItem.ProductId);
+                if(discountedItem != null)
+                {
+                    orderItem.DiscountAmount = discountedItem.DiscountAmount;
+                }
+
                 order.AddOrderItem(orderItem);
                 cartItem.Product.StockQuantity = cartItem.Product.StockQuantity - cartItem.Quantity;
             }
 
             order.OrderStatus = orderStatus;
-            order.CouponCode = cart.CouponCode;
+            order.CouponCode = applyDiscountResult.CouponCode;
             order.CouponRuleName = cart.CouponRuleName;
-            order.DiscountAmount = applyDiscountResult.Value;
+            order.DiscountAmount = applyDiscountResult.DiscountAmount;
             order.ShippingAmount = shippingMethod.Price;
             order.ShippingMethod = shippingMethod.Name;
             order.TaxAmount = order.OrderItems.Sum(x => x.TaxAmount);
             order.SubTotal = order.OrderItems.Sum(x => x.ProductPrice * x.Quantity);
-            order.SubTotalWithDiscount = order.SubTotal - applyDiscountResult.Value;
+            order.SubTotalWithDiscount = order.SubTotal - applyDiscountResult.DiscountAmount;
             order.OrderTotal = order.SubTotal + order.TaxAmount + order.ShippingAmount - order.DiscountAmount;
             _orderRepository.Add(order);
 
@@ -282,12 +288,11 @@ namespace SimplCommerce.Module.Orders.Services
             return taxAmount;
         }
 
-        private async Task<Result<decimal>> ApplyDiscountIfAny(User user, Cart cart)
+        private async Task<CouponValidationResult> ApplyDiscountIfAny(User user, Cart cart)
         {
-            decimal discount = 0;
             if (string.IsNullOrWhiteSpace(cart.CouponCode))
             {
-                return Result.Ok(discount);
+                return new CouponValidationResult { Succeeded = true, DiscountAmount = 0 };
             }
 
             var cartInfoForCoupon = new CartInfoForCoupon
@@ -298,14 +303,16 @@ namespace SimplCommerce.Module.Orders.Services
             var couponValidationResult = await _couponService.Validate(cart.CouponCode, cartInfoForCoupon);
             if (couponValidationResult.Succeeded)
             {
-                discount = couponValidationResult.DiscountAmount;
-                _couponService.AddCouponUsage(user.Id, couponValidationResult.CouponId);
-                return Result.Ok(discount);
+                foreach (var item in couponValidationResult.DiscountedProducts)
+                {
+                    for (var i = 0; i < item.Quantity; i++)
+                    {
+                        _couponService.AddCouponUsage(user.Id, couponValidationResult.CouponId);
+                    }
+                }
             }
-            else
-            {
-                return Result.Fail<decimal>($"Unable to apply coupon {cart.CouponCode}. {couponValidationResult.ErrorMessage}");
-            }
+
+            return couponValidationResult;
         }
 
         private async Task<Result<ShippingPrice>> ValidateShippingMethod(string shippingMethodName, Address shippingAddress, Cart cart)
