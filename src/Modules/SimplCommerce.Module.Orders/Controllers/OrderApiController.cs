@@ -183,6 +183,7 @@ namespace SimplCommerce.Module.Orders.Controllers
                     ProductName = x.Product.Name,
                     ProductPrice = x.ProductPrice,
                     Quantity = x.Quantity,
+                    DiscountAmount = x.DiscountAmount,
                     TaxAmount = x.TaxAmount,
                     TaxPercent = x.TaxPercent,
                     VariationOptions = OrderItemVm.GetVariationOption(x.Product)

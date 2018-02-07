@@ -60,31 +60,60 @@ namespace SimplCommerce.Module.Pricing.Services
 
             var currentCustomer = await _workContext.GetCurrentUser();
             var couponUsageByCustomerCount = _couponUsageRepository.Query().Count(x => x.CouponId == coupon.Id && x.UserId == currentCustomer.Id);
-            if (coupon.CartRule.UsageLimitPerCustomer.HasValue && couponUsageCount >= coupon.CartRule.UsageLimitPerCustomer)
+            if (coupon.CartRule.UsageLimitPerCustomer.HasValue && couponUsageByCustomerCount >= coupon.CartRule.UsageLimitPerCustomer)
             {
                 validationResult.ErrorMessage = $"You can use the coupon {couponCode} only {coupon.CartRule.UsageLimitPerCustomer} times";
                 return validationResult;
             }
 
-            IList<DiscountedProduct> discountedProducts = new List<DiscountedProduct>();
-            if(coupon.CartRule.Products.Any() || coupon.CartRule.Categories.Any())
+            IList<DiscountableProduct> discountableProducts = new List<DiscountableProduct>();
+            if(!coupon.CartRule.Products.Any() && !coupon.CartRule.Categories.Any())
             {
-                var discounttableProducts = GetDiscountableProduct(coupon.CartRule.Products, coupon.CartRule.Categories);
-                foreach(var item in cart.Items)
-                {
-                    var discounttableProduct = discounttableProducts.FirstOrDefault(x => x.Id == item.ProductId);
+                var productIds = cart.Items.Select(x => x.ProductId);
+                discountableProducts = _productRepository.Query()
+                   .Where(x => productIds.Contains(x.Id))
+                   .Select(x => new DiscountableProduct { Id = x.Id, Name = x.Name, Price = x.Price }).ToList();
+            }
+            else
+            {
+                discountableProducts = GetDiscountableProduct(coupon.CartRule.Products, coupon.CartRule.Categories);
+            }
 
-                    if (discounttableProduct != null)
+            foreach (var item in cart.Items)
+            {
+                if ((coupon.CartRule.UsageLimitPerCoupon.HasValue && couponUsageCount >= coupon.CartRule.UsageLimitPerCoupon) ||
+                    (coupon.CartRule.UsageLimitPerCustomer.HasValue && couponUsageByCustomerCount >= coupon.CartRule.UsageLimitPerCustomer))
+                {
+                    break;
+                }
+
+                var discountableProduct = discountableProducts.FirstOrDefault(x => x.Id == item.ProductId);
+                if (discountableProduct != null)
+                {
+                    var discountedProduct = new DiscountedProduct { Id = discountableProduct.Id, Name = discountableProduct.Name, Price = discountableProduct.Price, Quantity = 1 };
+                    couponUsageCount = couponUsageCount + 1;
+                    couponUsageByCustomerCount = couponUsageByCustomerCount + 1;
+                    for (var i = 1; i < item.Quantity; i++)
                     {
-                        discountedProducts.Add(new DiscountedProduct { Id = discounttableProduct.Id, Name = discounttableProduct.Name, Price = discounttableProduct.Price, Quantity = item.Quantity });
-                    }
-                }
+                        if ((coupon.CartRule.UsageLimitPerCoupon.HasValue && couponUsageCount >= coupon.CartRule.UsageLimitPerCoupon) ||
+                            (coupon.CartRule.UsageLimitPerCustomer.HasValue && couponUsageByCustomerCount >= coupon.CartRule.UsageLimitPerCustomer))
+                        {
+                            break;
+                        }
 
-                if (!discountedProducts.Any())
-                {
-                    validationResult.ErrorMessage = $"The coupon {couponCode} doesn't apply to any products in your cart";
-                    return validationResult;
+                        discountedProduct.Quantity = discountedProduct.Quantity + 1;
+                        couponUsageCount = couponUsageCount + 1;
+                        couponUsageByCustomerCount = couponUsageByCustomerCount + 1;
+                    }
+
+                    validationResult.DiscountedProducts.Add(discountedProduct);
                 }
+            }
+
+            if (!validationResult.DiscountedProducts.Any())
+            {
+                validationResult.ErrorMessage = $"The coupon {couponCode} doesn't apply to any products in your cart";
+                return validationResult;
             }
 
             switch (coupon.CartRule.RuleToApply)
@@ -92,14 +121,21 @@ namespace SimplCommerce.Module.Pricing.Services
                 case "cart_fixed":
                     validationResult.Succeeded = true;
                     validationResult.CouponId = coupon.Id;
+                    validationResult.CouponCode = coupon.Code;
                     validationResult.CouponRuleName = coupon.CartRule.Name;
                     validationResult.DiscountAmount = coupon.CartRule.DiscountAmount;
                     return validationResult;
                 case "by_percent":
                     validationResult.Succeeded = true;
                     validationResult.CouponId = coupon.Id;
+                    validationResult.CouponCode = coupon.Code;
                     validationResult.CouponRuleName = coupon.CartRule.Name;
-                    validationResult.DiscountAmount = discountedProducts.Sum(x => (x.Price * coupon.CartRule.DiscountAmount / 100) * x.Quantity);
+                    foreach(var item in validationResult.DiscountedProducts)
+                    {
+                        item.DiscountAmount = (item.Price * coupon.CartRule.DiscountAmount / 100) * item.Quantity;
+                    }
+
+                    validationResult.DiscountAmount = validationResult.DiscountedProducts.Sum(x => x.DiscountAmount);
                     return validationResult;
                 default:
                     throw new InvalidOperationException($"{coupon.CartRule.RuleToApply} is not supported");

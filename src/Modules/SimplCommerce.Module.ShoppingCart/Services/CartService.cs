@@ -108,6 +108,10 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 {
                     cartVm.Discount = couponValidationResult.DiscountAmount;
                 }
+                else
+                {
+                    cartVm.CouponValidationErrorMessage = couponValidationResult.ErrorMessage;
+                }
             }
 
             return cartVm;
