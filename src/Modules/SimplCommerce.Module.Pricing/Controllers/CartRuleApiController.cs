@@ -1,11 +1,12 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Pricing.Models;
 using SimplCommerce.Module.Pricing.ViewModels;
-using Microsoft.EntityFrameworkCore;
 
 namespace SimplCommerce.Module.Pricing.Controllers
 {
@@ -41,12 +42,12 @@ namespace SimplCommerce.Module.Pricing.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(long id)
+        public async Task<IActionResult> Get(long id)
         {
-            var catrtRule = _cartRuleRepository.Query()
+            var catrtRule = await _cartRuleRepository.Query()
                 .Include(x => x.Coupons)
                 .Include(x => x.Products).ThenInclude(p => p.Product)
-                .FirstOrDefault(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
             var model = new CartRuleForm
             {
                 Id = catrtRule.Id,
@@ -78,7 +79,7 @@ namespace SimplCommerce.Module.Pricing.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] CartRuleForm model)
+        public async Task<IActionResult> Post([FromBody] CartRuleForm model)
         {
             if (ModelState.IsValid)
             {
@@ -120,22 +121,22 @@ namespace SimplCommerce.Module.Pricing.Controllers
                 }
 
                 _cartRuleRepository.Add(cartRule);
-                _cartRuleRepository.SaveChanges();
+                await _cartRuleRepository.SaveChangesAsync();
 
-                return Ok();
+                return CreatedAtAction(nameof(Get), new { id = cartRule.Id }, null);
             }
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(long id, [FromBody] CartRuleForm model)
+        public async Task<IActionResult> Put(long id, [FromBody] CartRuleForm model)
         {
             if (ModelState.IsValid)
             {
-                var cartRule = _cartRuleRepository.Query()
+                var cartRule = await _cartRuleRepository.Query()
                     .Include(x => x.Coupons)
                     .Include(x => x.Products)
-                    .FirstOrDefault(x => x.Id == id);
+                    .FirstOrDefaultAsync(x => x.Id == id);
                 if(cartRule == null)
                 {
                     return NotFound();
@@ -195,11 +196,32 @@ namespace SimplCommerce.Module.Pricing.Controllers
                     cartRule.Products.Remove(item);
                 }
 
-                _cartRuleRepository.SaveChanges();
-
-                return Ok();
+                await _cartRuleRepository.SaveChangesAsync();
+                return Accepted();
             }
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(long id)
+        {
+            var cartRule = await _cartRuleRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+            if (cartRule == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                _cartRuleRepository.Remove(cartRule);
+                await _cartRuleRepository.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                return BadRequest(new { Error = $"The cart rule {cartRule.Name} can't not be deleted because it has been used" });
+            }
+
+            return NoContent();
         }
     }
 }
