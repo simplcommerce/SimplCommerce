@@ -11,7 +11,7 @@ using SimplCommerce.Module.Pricing.ViewModels;
 namespace SimplCommerce.Module.Pricing.Controllers
 {
     [Authorize(Roles = "admin")]
-    [Route("api/cartrules")]
+    [Route("api/cart-rules")]
     public class CartRuleApiController : Controller
     {
         private readonly IRepository<CartRule> _cartRuleRepository;

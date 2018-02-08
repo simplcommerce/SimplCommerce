@@ -169,9 +169,11 @@
     <script simpl-append-version="true" src="~/modules/contacts/admin/contacts/contact.js"></script>
 
     <script simpl-append-version="true" src="~/modules/pricing/admin/pricing.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/pricing/admin/cartrule/cartrule-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/pricing/admin/cartrule/cartrule-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/pricing/admin/cartrule/cartrule-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/pricing/admin/cart-rule/cart-rule-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/pricing/admin/cart-rule/cart-rule-list.js"></script>
+    <script simpl-append-version="true" src="~/modules/pricing/admin/cart-rule/cart-rule-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/pricing/admin/cart-rule-usage/cart-rule-usage-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/pricing/admin/cart-rule-usage/cart-rule-usage-list.js"></script>
 
     <script simpl-append-version="true" src="~/modules/tax/admin/tax.module.js"></script>
     <script simpl-append-version="true" src="~/modules/tax/admin/tax-class/tax-class-service.js"></script>
@@ -272,7 +274,8 @@
                     <li class="dropdown">
                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Promotions"] <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a ui-sref="cartrule">@Localizer["Cart Price Rules"]</a></li>
+                            <li><a ui-sref="cart-rules">@Localizer["Cart Price Rules"]</a></li>
+                            <li><a ui-sref="cart-rule-usages">@Localizer["Cart Price Rule Usages"]</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">

@@ -16,23 +16,23 @@
         return service;
 
         function getCartRule(id) {
-            return $http.get('api/cartrules/' + id);
+            return $http.get('api/cart-rules/' + id);
         }
 
         function getCartRules(params) {
-            return $http.post('api/cartrules/grid', params);
+            return $http.post('api/cart-rules/grid', params);
         }
 
         function createCartRule(cartRule) {
-            return $http.post('api/cartrules', cartRule);
+            return $http.post('api/cart-rules', cartRule);
         }
 
         function editCartRule(cartRule) {
-            return $http.put('api/cartrules/' + cartRule.id, cartRule);
+            return $http.put('api/cart-rules/' + cartRule.id, cartRule);
         }
 
         function deleteCartRule(cartRule) {
-            return $http.delete('api/cartrules/' + cartRule.id, null);
+            return $http.delete('api/cart-rules/' + cartRule.id, null);
         }
     }
 })();
