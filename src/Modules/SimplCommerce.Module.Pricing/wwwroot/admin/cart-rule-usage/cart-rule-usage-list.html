@@ -1,0 +1,57 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{::vm.translate.get('Cart Price Rule Usages')}}</h2>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped" st-pipe="vm.getCartRuleUsages" st-table="vm.cartRuleUsages">
+    <thead>
+        <tr>
+            <th>{{::vm.translate.get('Rule Name')}}</th>
+            <th>{{::vm.translate.get('Coupon Code')}}</th>
+            <th>{{::vm.translate.get('Customer')}}</th>
+            <th>{{::vm.translate.get('Order')}}</th>
+            <th st-sort="CreatedOn" class="sortable">{{::vm.translate.get('Created On')}}</th>
+        </tr>
+        <tr>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="RuleName"/>
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="CouponCode" />
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="FullName"/>
+                </div>
+            </th>
+            <th></th>
+            <th><st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range></th>
+        </tr>
+    </thead>
+    <tbody ng-show="!vm.isLoading">
+        <tr ng-repeat="item in vm.cartRuleUsages">
+            <td><a ui-sref="cart-rule-edit({id: item.cartRuleId})">{{item.cartRuleName}}</a></td>
+            <td>{{item.couponCode}}</td>
+            <td><a ui-sref="user-edit({id: item.userId})">{{item.fullName}}</a></td>
+            <td><a ui-sref="order-detail({id: item.orderId})">#{{item.orderId}}</a></td>
+            <td>{{item.createdOn | date:'medium' }}</td>
+        </tr>
+    </tbody>
+    <tbody ng-show="vm.isLoading">
+        <tr>
+            <td colspan="5" class="text-center">Loading ... </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="5"></td>
+        </tr>
+    </tfoot>
+</table>	

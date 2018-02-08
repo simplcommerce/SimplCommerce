@@ -6,6 +6,6 @@ namespace SimplCommerce.Module.Pricing.Services
     {
         Task<CouponValidationResult> Validate(string couponCode, CartInfoForCoupon cart);
 
-        void AddCouponUsage(long userId, long couponId);
+        void AddCouponUsage(long userId, long orderId, CouponValidationResult couponValidationResult);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SimplCommerce.Module.Pricing.Models;
+using System.Collections.Generic;
 
 namespace SimplCommerce.Module.Pricing.Services
 {
@@ -15,6 +16,8 @@ namespace SimplCommerce.Module.Pricing.Services
         public string ErrorMessage { get; set; }
 
         public long CouponId { get; set; }
+
+        public CartRule CartRule { get; set; }
 
         public IList<DiscountedProduct> DiscountedProducts { get; set; } = new List<DiscountedProduct>();
     }
