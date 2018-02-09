@@ -10,6 +10,7 @@ DELETE FROM "Orders_OrderItem";
 DELETE FROM "Orders_Order";
 DELETE FROM "Inventory_StockHistory";
 DELETE FROM "Inventory_Stock";
+DELETE FROM "ProductComparison_ComparingProduct";
 DELETE FROM "Catalog_ProductAttributeValue";
 DELETE FROM "Catalog_ProductOptionCombination";
 DELETE FROM "Catalog_ProductOptionValue";

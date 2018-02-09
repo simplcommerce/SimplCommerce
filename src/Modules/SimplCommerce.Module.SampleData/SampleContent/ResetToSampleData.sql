@@ -22,6 +22,8 @@ DELETE FROM [dbo].[Inventory_StockHistory]
 GO
 DELETE FROM [dbo].[Inventory_Stock]
 GO
+DELETE FROM [dbo].[ProductComparison_ComparingProduct]
+GO
 DELETE FROM [dbo].[Catalog_ProductAttributeValue]
 GO
 DELETE FROM [dbo].[Catalog_ProductOptionCombination]
