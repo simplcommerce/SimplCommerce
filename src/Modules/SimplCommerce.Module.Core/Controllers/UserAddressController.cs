@@ -210,7 +210,7 @@ namespace SimplCommerce.Module.Core.Controllers
                 return NotFound();
             }
 
-            if(currentUser.DefaultShippingAddressId == userAddress.Id)
+            if (currentUser.DefaultShippingAddressId == userAddress.Id)
             {
                 currentUser.DefaultShippingAddressId = null;
             }
@@ -236,11 +236,15 @@ namespace SimplCommerce.Module.Core.Controllers
 
             var onlyShipableCountryId = model.CountryId > 0 ? model.CountryId : long.Parse(model.Countries.First().Value);
 
-            var selectedCountry = shippableCountries.First(c => c.Id == onlyShipableCountryId);
+            var selectedCountry = shippableCountries.FirstOrDefault(c => c.Id == model.CountryId);
 
-            model.DisplayCity = selectedCountry.IsCityEnabled;
-            model.DisplayDistrict = selectedCountry.IsDistrictEnabled;
-            model.DisplayPostalCode = selectedCountry.IsPostalCodeEnabled;
+            if (selectedCountry != null)
+            {
+                model.DisplayCity = selectedCountry.IsCityEnabled;
+                model.DisplayDistrict = selectedCountry.IsDistrictEnabled;
+                model.DisplayPostalCode = selectedCountry.IsPostalCodeEnabled;
+            }
+
 
             model.StateOrProvinces = _stateOrProvinceRepository
                 .Query()
@@ -252,7 +256,7 @@ namespace SimplCommerce.Module.Core.Controllers
                     Value = x.Id.ToString()
                 }).ToList();
 
-            if(model.StateOrProvinceId > 0)
+            if (model.StateOrProvinceId > 0)
             {
                 model.Districts = _districtRepository
                     .Query()

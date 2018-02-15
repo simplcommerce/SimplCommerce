@@ -35,10 +35,10 @@ namespace SimplCommerce.Module.Core.ViewModels
 
         public IList<SelectListItem> Countries { get; set; }
 
-        public bool DisplayDistrict { get; set; }
+        public bool DisplayDistrict { get; set; } = true;
 
-        public bool DisplayPostalCode { get; set; }
+        public bool DisplayPostalCode { get; set; } = true;
 
-        public bool DisplayCity { get; set; }
+        public bool DisplayCity { get; set; } = true;
     }
 }
