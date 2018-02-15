@@ -49,7 +49,10 @@ namespace SimplCommerce.Module.Core.Controllers
                     AddressLine2 = x.Address.AddressLine1,
                     DistrictName = x.Address.District.Name,
                     StateOrProvinceName = x.Address.StateOrProvince.Name,
-                    CountryName = x.Address.Country.Name
+                    CountryName = x.Address.Country.Name,
+                    DisplayCity = x.Address.Country.IsCityEnabled,
+                    DisplayPostalCode = x.Address.Country.IsPostalCodeEnabled,
+                    DisplayDistrict = x.Address.Country.IsDistrictEnabled
                 }).ToList();
 
             foreach (var item in model)
@@ -220,9 +223,11 @@ namespace SimplCommerce.Module.Core.Controllers
 
         private void PopulateAddressFormData(UserAddressFormViewModel model)
         {
-            model.Countries = _countryRepository.Query()
+            var shippableCountries = _countryRepository.Query()
                 .Where(x => x.IsShippingEnabled)
-                .OrderBy(x => x.Name)
+                .OrderBy(x => x.Name);
+
+            model.Countries = shippableCountries
                 .Select(x => new SelectListItem
                 {
                     Text = x.Name,
@@ -230,6 +235,13 @@ namespace SimplCommerce.Module.Core.Controllers
                 }).ToList();
 
             var onlyShipableCountryId = model.CountryId > 0 ? model.CountryId : long.Parse(model.Countries.First().Value);
+
+            var selectedCountry = shippableCountries.First(c => c.Id == onlyShipableCountryId);
+
+            model.DisplayCity = selectedCountry.IsCityEnabled;
+            model.DisplayDistrict = selectedCountry.IsDistrictEnabled;
+            model.DisplayPostalCode = selectedCountry.IsPostalCodeEnabled;
+
             model.StateOrProvinces = _stateOrProvinceRepository
                 .Query()
                 .Where(x => x.CountryId == onlyShipableCountryId)

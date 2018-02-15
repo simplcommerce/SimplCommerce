@@ -13,5 +13,12 @@ namespace SimplCommerce.Module.Core.Models
         public bool IsBillingEnabled { get; set; }
 
         public bool IsShippingEnabled { get; set; }
+
+        public bool IsCityEnabled { get; set; } = true;
+
+        public bool IsPostalCodeEnabled { get; set; } = true;
+
+        public bool IsDistrictEnabled { get; set; } = true;
+
     }
 }

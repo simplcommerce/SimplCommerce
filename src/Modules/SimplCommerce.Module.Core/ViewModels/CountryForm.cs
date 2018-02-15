@@ -13,5 +13,11 @@
         public bool IsBillingEnabled { get; set; }
 
         public bool IsShippingEnabled { get; set; }
+
+        public bool IsCityEnabled { get;  set; }
+
+        public bool IsPostalCodeEnabled { get;  set; }
+
+        public bool IsDistrictEnabled { get;  set; }
     }
 }
