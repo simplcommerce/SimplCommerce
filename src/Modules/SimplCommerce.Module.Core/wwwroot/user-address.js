@@ -11,16 +11,20 @@
             return;
         }
 
-        $.getJSON('/api/countries/' + selectedCountryId + '/states-provinces', function (data) {
+        $.getJSON('/api/country-states-provinces/' + selectedCountryId, function (data) {
             var $stateOrProvinceSelect = $("#StateOrProvinceId");
             resetSelect($stateOrProvinceSelect);
 
             var $districtSelect = $("#DistrictId");
             resetSelect($districtSelect);
 
-            $.each(data, function (index, option) {
+            $.each(data.statesOrProvinces, function (index, option) {
                 $stateOrProvinceSelect.append($("<option></option>").attr("value", option.id).text(option.name));
             });
+
+            $("#form-group-district").toggleClass("hidden", !data.isDistrictEnabled);
+            $("#form-group-city").toggleClass("hidden", !data.isCityEnabled);
+            $("#form-group-postalcode").toggleClass("hidden", !data.isPostalCodeEnabled);
         });
     });
 

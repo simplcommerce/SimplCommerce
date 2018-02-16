@@ -1,4 +1,5 @@
-﻿using SimplCommerce.Infrastructure.Models;
+﻿using System.Collections.Generic;
+using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Core.Models
 {
@@ -19,6 +20,8 @@ namespace SimplCommerce.Module.Core.Models
         public bool IsPostalCodeEnabled { get; set; } = true;
 
         public bool IsDistrictEnabled { get; set; } = true;
+
+        public IList<StateOrProvince> StatesOrProvinces { get; set; } = new List<StateOrProvince>();
 
     }
 }

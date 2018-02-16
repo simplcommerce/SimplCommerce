@@ -14,9 +14,7 @@
         </select>
     </div>
 </div>
-@if (Model.DisplayDistrict)
-{
-<div class="form-group">
+<div id="form-group-district" class="form-group @(@Model.DisplayDistrict ? "" : "hidden")">
     <label class="col-sm-2 control-label">@Localizer["District"]</label>
     <div class="col-sm-10">
         <select asp-for="DistrictId" asp-items="Model.Districts" class="form-control">
@@ -24,40 +22,30 @@
         </select>
     </div>
 </div>
-}
-
-@if (Model.DisplayCity)
-{
-<div class="form-group">
+<div id="form-group-city" class="form-group @(@Model.DisplayCity ? "" : "hidden")">
     <label class="col-sm-2 control-label">@Localizer["City"]</label>
     <div class="col-sm-10">
         <input asp-for="City" type="text" class="form-control">
     </div>
 </div>
-}
-
-@if (Model.DisplayPostalCode)
-{
-<div class="form-group">
+<div id="form-group-postalcode" class="form-group @(@Model.DisplayPostalCode ? "" : "hidden")">
     <label class="col-sm-2 control-label">@Localizer["Postal Code"]</label>
     <div class="col-sm-10">
         <input asp-for="PostalCode" type="text" class="form-control">
     </div>
 </div>
-}
-
 <div class="form-group">
     <label class="col-sm-2 control-label">@Localizer["Address"]</label>
     <div class="col-sm-10">
         <input asp-for="AddressLine1" type="text" class="form-control">
     </div>
 </div>
-<div class="form-group">
+@*<div class="form-group">
     <label class="col-sm-2 control-label">@Localizer["Address Line 2"]</label>
     <div class="col-sm-10">
         <input asp-for="AddressLine2" type="text" class="form-control">
     </div>
-</div>
+</div>*@
 <div class="form-group">
     <label class="col-sm-2 control-label">@Localizer["Contact name"]</label>
     <div class="col-sm-10">

@@ -63,6 +63,30 @@ namespace SimplCommerce.Module.Core.Controllers
             return View(model);
         }
 
+        [HttpGet("api/country-states-provinces/{countryId}")]
+        public async Task<IActionResult> Get(long countryId)
+        {
+            var country = await _countryRepository.Query().Include(x => x.StatesOrProvinces).FirstOrDefaultAsync(x => x.Id == countryId);
+            if (country == null)
+            {
+                return NotFound();
+            }
+
+            var model = new
+            {
+                CountryId = country.Id,
+                CountryName = country.Name,
+                country.IsBillingEnabled,
+                country.IsShippingEnabled,
+                country.IsCityEnabled,
+                country.IsPostalCodeEnabled,
+                country.IsDistrictEnabled,
+                StatesOrProvinces = country.StatesOrProvinces.Select(x => new { x.Id, x.Name })
+            };
+
+            return Json(model);
+        }
+
         [Route("user/address/create")]
         public IActionResult Create()
         {
@@ -227,6 +251,11 @@ namespace SimplCommerce.Module.Core.Controllers
                 .Where(x => x.IsShippingEnabled)
                 .OrderBy(x => x.Name);
 
+            if (!shippableCountries.Any())
+            {
+                return;
+            }
+
             model.Countries = shippableCountries
                 .Select(x => new SelectListItem
                 {
@@ -234,10 +263,8 @@ namespace SimplCommerce.Module.Core.Controllers
                     Value = x.Id.ToString()
                 }).ToList();
 
-            var onlyShipableCountryId = model.CountryId > 0 ? model.CountryId : long.Parse(model.Countries.First().Value);
-
-            var selectedCountry = shippableCountries.FirstOrDefault(c => c.Id == model.CountryId);
-
+            var selectedShipableCountryId = model.CountryId > 0 ? model.CountryId : long.Parse(model.Countries.First().Value);
+            var selectedCountry = shippableCountries.FirstOrDefault(c => c.Id == selectedShipableCountryId);
             if (selectedCountry != null)
             {
                 model.DisplayCity = selectedCountry.IsCityEnabled;
@@ -245,10 +272,9 @@ namespace SimplCommerce.Module.Core.Controllers
                 model.DisplayPostalCode = selectedCountry.IsPostalCodeEnabled;
             }
 
-
             model.StateOrProvinces = _stateOrProvinceRepository
                 .Query()
-                .Where(x => x.CountryId == onlyShipableCountryId)
+                .Where(x => x.CountryId == selectedShipableCountryId)
                 .OrderBy(x => x.Name)
                 .Select(x => new SelectListItem
                 {

@@ -139,7 +139,6 @@ namespace SimplCommerce.Module.Core.Controllers
                     IsCityEnabled = model.IsCityEnabled,
                     IsPostalCodeEnabled = model.IsPostalCodeEnabled,
                     IsDistrictEnabled = model.IsDistrictEnabled
-
             };
 
                 _countryRepository.Add(country);
