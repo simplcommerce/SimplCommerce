@@ -14,6 +14,10 @@ DELETE FROM [dbo].[Shipments_Shipment]
 GO
 DELETE FROM [dbo].[Pricing_CartRuleUsage]
 GO
+DELETE FROM [dbo].[Pricing_CartRule]
+GO
+DELETE FROM [dbo].[Orders_OrderHistory]
+GO
 DELETE FROM [dbo].[Orders_OrderItem]
 GO
 DELETE FROM [dbo].[Orders_Order]
