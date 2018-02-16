@@ -157,7 +157,10 @@ namespace SimplCommerce.Module.Orders.Controllers
                     AddressLine2 = x.Address.AddressLine1,
                     DistrictName = x.Address.District.Name,
                     StateOrProvinceName = x.Address.StateOrProvince.Name,
-                    CountryName = x.Address.Country.Name
+                    CountryName = x.Address.Country.Name,
+                    DisplayCity = x.Address.Country.IsCityEnabled,
+                    DisplayPostalCode = x.Address.Country.IsPostalCodeEnabled,
+                    DisplayDistrict = x.Address.Country.IsDistrictEnabled
                 }).ToList();
 
             model.ShippingAddressId = currentUser.DefaultShippingAddressId ?? 0;
@@ -174,6 +177,7 @@ namespace SimplCommerce.Module.Orders.Controllers
             if (model.NewAddressForm.ShipableContries.Count == 1)
             {
                 var onlyShipableCountryId = long.Parse(model.NewAddressForm.ShipableContries.First().Value);
+
                 model.NewAddressForm.StateOrProvinces = _stateOrProvinceRepository
                 .Query()
                 .Where(x => x.CountryId == onlyShipableCountryId)

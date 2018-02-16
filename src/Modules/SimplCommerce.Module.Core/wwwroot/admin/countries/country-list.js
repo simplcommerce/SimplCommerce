@@ -21,7 +21,7 @@
             });
         };
 
-        vm.toggleShippingOrBilling = function (country) {
+        vm.update = function (country) {
             countryService.editCountry(country)
                 .then(function (result) {
                     toastr.success(country.name + ' has been updated');

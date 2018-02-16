@@ -15,6 +15,9 @@
             <th st-sort="Name" class="sortable">{{::vm.translate.get('Name')}}</th>
             <th st-sort="IsShippingEnabled" class="sortable" st-sort-default="reverse">{{::vm.translate.get('Is Shipping Enabled')}}</th>
             <th st-sort="IsBillingEnabled" class="sortable">{{::vm.translate.get('Is Billing Enabled')}}</th>
+            <th st-sort="IsBillingEnabled" class="sortable">{{::vm.translate.get('Display City')}}</th>
+            <th st-sort="IsBillingEnabled" class="sortable">{{::vm.translate.get('Display Postal Code')}}</th>
+            <th st-sort="IsBillingEnabled" class="sortable">{{::vm.translate.get('Display District')}}</th>
             <th class="sortable">&nbsp;</th>
         </tr>
         <tr>
@@ -30,10 +33,19 @@
         <tr ng-repeat="country in vm.countries">
             <td>{{country.name}}</td>
             <td>
-                <input type="checkbox" ng-model="country.isShippingEnabled" ng-click="vm.toggleShippingOrBilling(country)">
+                <input type="checkbox" ng-model="country.isShippingEnabled" ng-click="vm.update(country)">
             </td>
             <td>
-                <input type="checkbox" ng-model="country.isBillingEnabled" ng-click="vm.toggleShippingOrBilling(country)">
+                <input type="checkbox" ng-model="country.isBillingEnabled" ng-click="vm.update(country)">
+            </td>
+            <td>
+                <input type="checkbox" ng-model="country.isCityEnabled" ng-click="vm.update(country)">
+            </td>
+            <td>
+                <input type="checkbox" ng-model="country.isPostalCodeEnabled" ng-click="vm.update(country)">
+            </td>
+            <td>
+                <input type="checkbox" ng-model="country.isDistrictEnabled" ng-click="vm.update(country)">
             </td>
             <td>
                 <a ui-sref="country-edit({id: country.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
