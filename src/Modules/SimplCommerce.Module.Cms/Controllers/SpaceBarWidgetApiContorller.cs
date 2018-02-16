@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Cms.ViewModels;
 using SimplCommerce.Module.Core.Models;
+using SimplCommerce.Module.Core.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,11 +21,13 @@ namespace SimplCommerce.Module.Cms.Controllers
     {
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
         private readonly IRepository<Widget> _widgetRespository;
+        private readonly IMediaService _mediaService;
 
-        public SpaceBarWidgetApiContorller(IRepository<WidgetInstance> widgetInstanceRepository, IRepository<Widget> widgetRepository)
+        public SpaceBarWidgetApiContorller(IRepository<WidgetInstance> widgetInstanceRepository, IRepository<Widget> widgetRepository, IMediaService mediaService)
         {
             _widgetInstanceRepository = widgetInstanceRepository;
             _widgetRespository = widgetRepository;
+            _mediaService = mediaService;
         }
 
         [HttpGet("{id}")]
@@ -39,16 +44,24 @@ namespace SimplCommerce.Module.Cms.Controllers
                 DisplayOrder = widgetInstance.DisplayOrder,
                 Items = JsonConvert.DeserializeObject<IList<SpaceBarWidgetSetting>>(widgetInstance.Data)
             };
-
+            foreach (var item in model.Items)
+            {
+                item.ImageUrl = _mediaService.GetMediaUrl(item.Image);
+            }
             return Json(model);
         }
 
         [HttpPost]
-        public IActionResult Post(IFormCollection formCollection)
+        public async Task<IActionResult> Post(IFormCollection formCollection)
         {
             var model = ToSpaceBarWidgetFormModel(formCollection);
             if (ModelState.IsValid)
             {
+                foreach (var item in model.Items)
+                {
+                    item.Image = await SaveFile(item.UploadImage);
+                }
+
                 var widgetInstance = new WidgetInstance
                 {
                     Name = model.Name,
@@ -66,9 +79,21 @@ namespace SimplCommerce.Module.Cms.Controllers
             return new BadRequestObjectResult(ModelState);
         }
         [HttpPut("{id}")]
-        public IActionResult Put(long id, IFormCollection formCollection)
+        public async Task<IActionResult> Put(long id, IFormCollection formCollection)
         {
             var model = ToSpaceBarWidgetFormModel(formCollection);
+
+            foreach (var item in model.Items)
+            {
+                if (item.UploadImage != null)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.Image))
+                    {
+                        await _mediaService.DeleteMediaAsync(item.Image);
+                    }
+                    item.Image = await SaveFile(item.UploadImage);
+                }
+            }
             if (ModelState.IsValid)
             {
                 var widgetInstance = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
@@ -106,9 +131,18 @@ namespace SimplCommerce.Module.Cms.Controllers
                 item.Title = formCollection[$"items[{i}][title]"];
                 item.Description = formCollection[$"items[{i}][description]"];
                 item.IconHtml = formCollection[$"items[{i}][iconHtml]"];
+                item.Image = formCollection[$"items[{i}][image]"];
+                item.UploadImage = formCollection.Files[$"items[{i}][uploadImage]"];
                 model.Items.Add(item);
             }
             return model;
+        }
+        private async Task<string> SaveFile(IFormFile file)
+        {
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
+            await _mediaService.SaveMediaAsync(file.OpenReadStream(), fileName, file.ContentType);
+            return fileName;
         }
     }
 }
