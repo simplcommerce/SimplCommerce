@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SimplCommerce.Module.ActivityLog.Models
+﻿namespace SimplCommerce.Module.ActivityLog.Models
 {
     public class MostViewEntityDto
     {

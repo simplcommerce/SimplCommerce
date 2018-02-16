@@ -9,6 +9,14 @@ namespace SimplCommerce.Module.Orders.ViewModels
         [Required]
         public string ContactName { get; set; }
 
+
+        [Required]
+        public string LastName { get; set; }
+
+        [Required]
+        public long TaxId { get; set; }
+
+
         [Required]
         public string Phone { get; set; }
 

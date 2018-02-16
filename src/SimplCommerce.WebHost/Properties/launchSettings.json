@@ -2,8 +2,12 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://dev.simplcommerce.com",
+      "sslPort": 0
+    },
     "iisExpress": {
-      "applicationUrl": "http://localhost:49209/",
+      "applicationUrl": "http://dev.simplcommerce.com",
       "sslPort": 0
     }
   },
@@ -16,11 +20,11 @@
       }
     },
     "SimplCommerce.WebHost": {
-      "commandName": "Project",
-      "launchBrowser": true,
+      "commandName": "IISExpress",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
+      "use64Bit": true,
       "applicationUrl": "http://localhost:49208/"
     }
   }

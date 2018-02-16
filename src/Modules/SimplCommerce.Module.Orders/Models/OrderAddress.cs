@@ -5,7 +5,11 @@ namespace SimplCommerce.Module.Orders.Models
 {
     public class OrderAddress : EntityBase
     {
+        public long TaxId { get; set; }
+
         public string ContactName { get; set; }
+
+        public string LastName { get; set; }
 
         public string Phone { get; set; }
 
