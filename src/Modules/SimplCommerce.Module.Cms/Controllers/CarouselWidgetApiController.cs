@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +13,6 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Cms.ViewModels;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
-using System.Linq;
 
 namespace SimplCommerce.Module.Cms.Controllers
 {
@@ -35,7 +35,6 @@ namespace SimplCommerce.Module.Cms.Controllers
         public async Task<IActionResult> Get(long id)
         {
             var totalWidgets = _widgetInstanceRepository.Query().ToList().Count();
-
             var widgetInstance = await _widgetInstanceRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
             var model = new CarouselWidgetForm
             {
@@ -82,6 +81,7 @@ namespace SimplCommerce.Module.Cms.Controllers
                 await _widgetInstanceRepository.SaveChangesAsync();
                 return CreatedAtAction(nameof(Get), new { id = widgetInstance.Id }, null);
             }
+
             return BadRequest(ModelState);
         }
 
@@ -126,18 +126,16 @@ namespace SimplCommerce.Module.Cms.Controllers
 
         private CarouselWidgetForm ToCarouselWidgetFormModel(IFormCollection formCollection)
         {
-            DateTimeOffset publishStart;
-            DateTimeOffset publishEnd;
             var model = new CarouselWidgetForm();
             model.Name = formCollection["name"];
             model.WidgetZoneId = int.Parse(formCollection["widgetZoneId"]);
             model.DisplayOrder = int.Parse(formCollection["displayOrder"]);
-            if (DateTimeOffset.TryParse(formCollection["publishStart"], out publishStart))
+            if (DateTimeOffset.TryParse(formCollection["publishStart"], out DateTimeOffset publishStart))
             {
                 model.PublishStart = publishStart;
             }
 
-            if(DateTimeOffset.TryParse(formCollection["publishEnd"], out publishEnd))
+            if(DateTimeOffset.TryParse(formCollection["publishEnd"], out DateTimeOffset publishEnd))
             {
                 model.PublishEnd = publishEnd;
             }

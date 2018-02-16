@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
@@ -7,11 +12,6 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Cms.ViewModels;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.Cms.Controllers
 {
@@ -44,10 +44,17 @@ namespace SimplCommerce.Module.Cms.Controllers
                 DisplayOrder = widgetInstance.DisplayOrder,
                 Items = JsonConvert.DeserializeObject<IList<SpaceBarWidgetSetting>>(widgetInstance.Data)
             };
+
             foreach (var item in model.Items)
             {
+                if(string.IsNullOrEmpty(item.Image))
+                {
+                    continue;
+                }
+
                 item.ImageUrl = _mediaService.GetMediaUrl(item.Image);
             }
+
             return Json(model);
         }
 
@@ -72,12 +79,15 @@ namespace SimplCommerce.Module.Cms.Controllers
                     DisplayOrder = model.DisplayOrder,
                     Data = JsonConvert.SerializeObject(model.Items)
                 };
+
                 _widgetInstanceRepository.Add(widgetInstance);
                 _widgetInstanceRepository.SaveChanges();
-                return Ok();
+                return CreatedAtAction(nameof(Get), new { id = widgetInstance.Id }, null);
             }
-            return new BadRequestObjectResult(ModelState);
+
+            return BadRequest(ModelState);
         }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(long id, IFormCollection formCollection)
         {
@@ -94,6 +104,7 @@ namespace SimplCommerce.Module.Cms.Controllers
                     item.Image = await SaveFile(item.UploadImage);
                 }
             }
+
             if (ModelState.IsValid)
             {
                 var widgetInstance = _widgetInstanceRepository.Query().FirstOrDefault(x => x.Id == id);
@@ -104,26 +115,28 @@ namespace SimplCommerce.Module.Cms.Controllers
                 widgetInstance.DisplayOrder = model.DisplayOrder;
                 widgetInstance.Data = JsonConvert.SerializeObject(model.Items);
                 _widgetInstanceRepository.SaveChanges();
-                return Ok();
+                return Accepted();
             }
-            return new BadRequestObjectResult(ModelState);
+
+            return BadRequest(ModelState);
         }
+
         private SpaceBarWidgetForm ToSpaceBarWidgetFormModel(IFormCollection formCollection)
         {
-            DateTimeOffset publishStart;
-            DateTimeOffset publishEnd;
             var model = new SpaceBarWidgetForm();
             model.Name = formCollection["name"];
             model.WidgetZoneId = int.Parse(formCollection["widgetZoneId"]);
             model.DisplayOrder = int.Parse(formCollection["displayOrder"]);
-            if (DateTimeOffset.TryParse(formCollection["publishStart"], out publishStart))
+            if (DateTimeOffset.TryParse(formCollection["publishStart"], out DateTimeOffset publishStart))
             {
                 model.PublishStart = publishStart;
             }
-            if (DateTimeOffset.TryParse(formCollection["publishEnd"], out publishEnd))
+
+            if (DateTimeOffset.TryParse(formCollection["publishEnd"], out DateTimeOffset publishEnd))
             {
                 model.PublishEnd = publishEnd;
             }
+
             int numberOfItems = int.Parse(formCollection["numberOfItems"]);
             for (var i = 0; i < numberOfItems; i++)
             {
@@ -135,8 +148,10 @@ namespace SimplCommerce.Module.Cms.Controllers
                 item.UploadImage = formCollection.Files[$"items[{i}][uploadImage]"];
                 model.Items.Add(item);
             }
+
             return model;
         }
+
         private async Task<string> SaveFile(IFormFile file)
         {
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');

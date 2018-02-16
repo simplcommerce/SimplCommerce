@@ -1,8 +1,5 @@
-﻿using SimplCommerce.Module.Core.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using SimplCommerce.Module.Core.ViewModels;
 
 namespace SimplCommerce.Module.Cms.ViewModels
 {

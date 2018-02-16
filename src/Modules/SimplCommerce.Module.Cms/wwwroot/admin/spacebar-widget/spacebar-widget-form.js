@@ -3,6 +3,7 @@
     angular
         .module('simplAdmin.cms')
         .controller('SpaceBarWidgetFormCtrl', SpaceBarWidgetFormCtrl);
+
     /* @ngInject */
     function SpaceBarWidgetFormCtrl($state, $stateParams, spacebarWidgetService, translateService) {
         var vm = this;
@@ -17,15 +18,23 @@
         vm.openCalendar = function (e, picker) {
             vm[picker].open = true;
         };
+
         vm.addItem = function addItem() {
             vm.widgetInstance.items.push({});
         }
+
         vm.removeItem = function removeItem(item) {
             var index = vm.widgetInstance.items.indexOf(item);
             vm.widgetInstance.items.splice(index, 1);
         }
+
         vm.save = function save() {
             var promise;
+            // ng-upload will post null as text
+            angular.forEach(vm.widgetInstance.items, function (item) {
+                item.image = item.image === null ? '' : item.image;
+            });
+
             if (vm.isEditMode) {
                 promise = spacebarWidgetService.editSpaceBarWidget(vm.widgetInstance);
             } else {
@@ -46,7 +55,8 @@
                         vm.validationErrors.push('Could not carousel widget.');
                     }
                 });
-               };
+        };
+
         function init() {
             spacebarWidgetService.getWidgetZones().then(function (result) {
                 vm.widgetZones = result.data;
@@ -75,6 +85,7 @@
                 });
             }
         }
+
         init();
     }
 })(jQuery);
