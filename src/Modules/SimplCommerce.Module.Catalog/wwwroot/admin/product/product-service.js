@@ -17,7 +17,8 @@
             getProduct: getProduct,
             changeStatus: changeStatus,
             deleteProduct: deleteProduct,
-            getTaxClasses: getTaxClasses
+            getTaxClasses: getTaxClasses,
+            getDefaultTaxClass: getDefaultTaxClass
         };
         return service;
 
@@ -80,6 +81,10 @@
 
         function getTaxClasses() {
             return $http.get('api/tax-classes');
+        }
+
+        function getDefaultTaxClass() {
+            return $http.get('api/tax-classes/default');
         }
     }
 })();

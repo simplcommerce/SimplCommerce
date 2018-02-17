@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Tax.Models;
 using SimplCommerce.Module.Tax.ViewModels;
@@ -14,10 +15,12 @@ namespace SimplCommerce.Module.Tax.Controllers
     public class TaxClassApiController : Controller
     {
         private readonly IRepository<TaxClass> _taxClassRepository;
+        private readonly int _defaultTaxClassId;
 
-        public TaxClassApiController(IRepository<TaxClass> taxClassRepository)
+        public TaxClassApiController(IRepository<TaxClass> taxClassRepository, IConfiguration config)
         {
             _taxClassRepository = taxClassRepository;
+            _defaultTaxClassId =config.GetValue<int>("Tax.DefaultTaxClassId");
         }
 
         public async Task<IActionResult> Get()
@@ -45,6 +48,20 @@ namespace SimplCommerce.Module.Tax.Controllers
             };
 
             return Json(model);
+        }
+
+        [HttpGet("default")]
+        public async Task<IActionResult> Default()
+        {
+            var defaultTaxClass = await _taxClassRepository.Query()
+                .Select(x => new
+                {
+                    x.Id,
+                    x.Name
+                })
+                .FirstOrDefaultAsync(x => x.Id == _defaultTaxClassId);
+
+            return Ok(defaultTaxClass);
         }
 
         [HttpPost]
@@ -93,8 +110,16 @@ namespace SimplCommerce.Module.Tax.Controllers
                 return NotFound();
             }
 
-            _taxClassRepository.Remove(taxClass);
-            await _taxClassRepository.SaveChangesAsync();
+            try
+            {
+                _taxClassRepository.Remove(taxClass);
+                await _taxClassRepository.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                return BadRequest(new { Error = $"The tax class {taxClass.Name} can't not be deleted because it is referenced by other tables" });
+            }
+
             return NoContent();
         }
     }
