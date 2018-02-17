@@ -401,9 +401,20 @@
             });
         }
 
+        function getDefaultTaxClass() {
+            productService.getDefaultTaxClass().then(function (result) {
+                if (result.data) {
+                    vm.product.taxClassId = result.data.id;
+                }
+            });
+        }
+
         function init() {
             if (vm.isEditMode) {
                 getProduct();
+            }
+            else {
+                getDefaultTaxClass();
             }
             getProductOptions();
             getProductTemplates();

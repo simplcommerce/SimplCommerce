@@ -114,8 +114,16 @@ namespace SimplCommerce.Module.Tax.Controllers
                 return NotFound();
             }
 
-            _taxRateRepository.Remove(taxRate);
-            await _taxRateRepository.SaveChangesAsync();
+            try
+            {
+                _taxRateRepository.Remove(taxRate);
+                await _taxRateRepository.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                return BadRequest(new { Error = $"The tax rate {taxRate.Name} can't not be deleted because it is referenced by other tables" });
+            }
+
             return NoContent();
         }
     }

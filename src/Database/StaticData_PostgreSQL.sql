@@ -8,7 +8,8 @@ INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPa
 INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPage", "Module") VALUES (8, 'SmtpPassword', '', false, 'Core');
 INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPage", "Module") VALUES (9, 'Theme', 'Generic', false, 'Core');
 INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPage", "Module") VALUES (10, 'Tax.IsProductPriceIncludeTax', 'true', true, 'Tax');
-SELECT pg_catalog.setval('"Core_AppSetting_Id_seq"', 10, true);
+INSERT INTO "Core_AppSetting" ("Id", "Key", "Value", "IsVisibleInCommonSettingPage", "Module") VALUES (11, 'Tax.DefaultTaxClassId', '1', true, 'Tax');
+SELECT pg_catalog.setval('"Core_AppSetting_Id_seq"', 11, true);
 
 INSERT INTO "Core_Role" ("Id", "ConcurrencyStamp", "Name", "NormalizedName") VALUES (1, 'bd3bee0b-5f1d-482d-b890-ffdc01915da3', 'admin', 'ADMIN');
 INSERT INTO "Core_Role" ("Id", "ConcurrencyStamp", "Name", "NormalizedName") VALUES (2, 'bd3bee0b-5f1d-482d-b890-ffdc01915da3', 'customer', 'CUSTOMER');
@@ -83,7 +84,16 @@ INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Typ
 INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Type") VALUES (18, NULL, 'Phú Nhuận', 79, NULL);
 INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Type") VALUES (19, NULL, 'Bình Chánh', 79, NULL);
 
-INSERT INTO "Inventory_Warehouse" ("Id", "AddressId", "Name") VALUES (1, NULL, 'Default warehouse');
+INSERT INTO "Tax_TaxClass" ("Id", "Name") VALUES (1, 'Standard VAT');
+SELECT pg_catalog.setval('"Tax_TaxClass_Id_seq"', 1, true);
+
+INSERT INTO "Tax_TaxRate" ("Id", "CountryId", "Name", "Rate", "StateOrProvinceId", "TaxClassId") VALUES (1, 238, 'Standard VN VAT', CAST(10.00 AS Decimal(18, 2)), NULL, 1);
+SELECT pg_catalog.setval('"Tax_TaxRate_Id_seq"', 1, true);
+
+INSERT INTO "Core_Address" ("Id", "AddressLine1", "ContactName", "CountryId", "DistrictId", "Phone", "StateOrProvinceId", "City", "PostalCode") VALUES (1, NULL, 'SimplCommerce', 238, NULL, NULL, 93, NULL, NULL);
+SELECT pg_catalog.setval('"Core_Address_Id_seq"', 1, true);
+
+INSERT INTO "Inventory_Warehouse" ("Id", "AddressId", "Name") VALUES (1, 1, 'Default warehouse');
 SELECT pg_catalog.setval('"Inventory_Warehouse_Id_seq"', 1, true);
 
 INSERT INTO "Shipping_ShippingProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces") VALUES (1, N'{MinimumOrderAmount : 10}', N'shipping-free-config', true, N'Free Ship', NULL, NULL, N'SimplCommerce.Module.ShippingFree.Services.FreeShippingServiceProvider,SimplCommerce.Module.ShippingFree', true, true);

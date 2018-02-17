@@ -9,6 +9,7 @@ INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingP
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (8, N'SmtpPassword', N'', 0, N'Core')
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (9, N'Theme', N'Generic', 0, N'Core')
 INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (10, N'Tax.IsProductPriceIncludeTax', N'true', 1, N'Tax')
+INSERT [dbo].[Core_AppSetting] ([Id], [Key], [Value], [IsVisibleInCommonSettingPage], [Module]) VALUES (11, N'Tax.DefaultTaxClassId', N'1', 1, N'Tax')
 SET IDENTITY_INSERT [dbo].[Core_AppSetting] OFF
 GO
 
@@ -1230,8 +1231,23 @@ INSERT INTO Core_District (Id, Name, [Type], [Location], StateOrProvinceId) VALU
 SET IDENTITY_INSERT Core_District OFF 
 GO
 
+SET IDENTITY_INSERT [dbo].[Tax_TaxClass] ON 
+INSERT [dbo].[Tax_TaxClass] ([Id], [Name]) VALUES (1, N'Standard VAT')
+SET IDENTITY_INSERT [dbo].[Tax_TaxClass] OFF
+GO
+
+SET IDENTITY_INSERT [dbo].[Tax_TaxRate] ON 
+INSERT [dbo].[Tax_TaxRate] ([Id], [CountryId], [Name], [Rate], [StateOrProvinceId], [TaxClassId]) VALUES (1, 238, N'Standard VN VAT', CAST(10.00 AS Decimal(18, 2)), NULL, 1)
+SET IDENTITY_INSERT [dbo].[Tax_TaxRate] OFF
+GO
+
+SET IDENTITY_INSERT [dbo].[Core_Address] ON 
+INSERT [dbo].[Core_Address] ([Id], [AddressLine1], [ContactName], [CountryId], [DistrictId], [Phone], [StateOrProvinceId], [City], [PostalCode]) VALUES (1, NULL, N'SimplCommerce', 238, NULL, NULL, 93, NULL, NULL)
+SET IDENTITY_INSERT [dbo].[Core_Address] OFF
+GO
+
 SET IDENTITY_INSERT [dbo].[Inventory_Warehouse] ON 
-INSERT [dbo].[Inventory_Warehouse] ([Id], [AddressId], [Name]) VALUES (1, NULL, N'Default warehouse')
+INSERT [dbo].[Inventory_Warehouse] ([Id], [AddressId], [Name]) VALUES (1, 1, N'Default warehouse')
 SET IDENTITY_INSERT [dbo].[Inventory_Warehouse] OFF
 GO
 
