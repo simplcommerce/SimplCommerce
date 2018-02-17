@@ -1,14 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Diagnostics.Contracts;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using SimplCommerce.Module.Core.Services;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.StorageAzureBlob
 {
@@ -47,9 +43,7 @@ namespace SimplCommerce.Module.StorageAzureBlob
             await _blobContainer.CreateIfNotExistsAsync();
 
             var blockBlob = _blobContainer.GetBlockBlobReference(fileName);
-
             await blockBlob.UploadFromStreamAsync(mediaBinaryStream);
         }
-
     }
 }
