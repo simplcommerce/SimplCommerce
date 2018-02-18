@@ -104,6 +104,12 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 category.IncludeInMenu = model.IncludeInMenu;
                 category.IsPublished = model.IsPublished;
 
+                if (category.ParentId.HasValue && await HaveCircularNesting(category.Id, category.ParentId.Value))
+                {
+                    ModelState.AddModelError("ParentId", "Parent category cannot be itself children");
+                    return BadRequest(ModelState);
+                }
+
                 await SaveCategoryImage(category, model);
                 await _categoryService.Update(category);
 
@@ -206,6 +212,24 @@ namespace SimplCommerce.Module.Catalog.Controllers
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
             await _mediaService.SaveMediaAsync(file.OpenReadStream(), fileName, file.ContentType);
             return fileName;
+        }
+
+        private async Task<bool> HaveCircularNesting(long childId, long parentId)
+        {
+            var category = await _categoryRepository.Query().FirstOrDefaultAsync(x => x.Id == parentId);
+            var parentCategoryId = category.ParentId;
+            while (parentCategoryId.HasValue)
+            {
+                if(parentCategoryId.Value == childId)
+                {
+                    return true;
+                }
+
+                var parentCategory = await _categoryRepository.Query().FirstAsync(x => x.Id == parentCategoryId);
+                parentCategoryId = parentCategory.ParentId;
+            }
+
+            return false;
         }
     }
 }
