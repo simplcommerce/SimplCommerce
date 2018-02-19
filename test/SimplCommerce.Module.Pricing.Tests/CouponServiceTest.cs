@@ -166,7 +166,7 @@ namespace SimplCommerce.Module.Pricing.Tests
 
         }
 
-        [Fact(DisplayName = "CouponService_WithDiscountAndFixedCartRule_ShouldReturns_SameDiscountAmount")]
+        [Fact(DisplayName = "WithDiscountAndFixedCartRule_ShouldReturns_SameDiscountAmount")]
         public async Task CouponService_WithDiscountAndFixedCartRule_ShouldReturns_SameDiscountAmount()
         {
             var user = MakeMockUser();
@@ -191,7 +191,7 @@ namespace SimplCommerce.Module.Pricing.Tests
             Assert.Equal(coupon.CartRule.DiscountAmount, result.DiscountAmount);
         }
 
-        [Fact(DisplayName = "CouponService_WithDiscountAndByPercentCartRule_ShouldReturns_DiscountedAmount")]
+        [Fact(DisplayName = "WithDiscountAndByPercentCartRule_ShouldReturns_DiscountedAmount")]
         public async Task CouponService_WithDiscountAndByPercentCartRule_ShouldReturns_DiscountedAmount()
         {
             var user = MakeMockUser();
