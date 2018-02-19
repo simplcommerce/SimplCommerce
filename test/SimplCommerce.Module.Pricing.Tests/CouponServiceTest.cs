@@ -16,7 +16,7 @@ using Xunit;
 
 namespace SimplCommerce.Module.Pricing.Tests
 {
-    public class CouponServiceTest : IDisposable
+    public class CouponServiceTest
     {
         [Fact(DisplayName = "WithNoCoupon_ShouldReturns_CouponNotExistMessage")]
         public async Task CouponService_WithNoCoupon_ShouldReturns_CouponNotExistMessage()
