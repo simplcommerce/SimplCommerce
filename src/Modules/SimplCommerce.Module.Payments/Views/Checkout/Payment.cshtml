@@ -11,18 +11,21 @@
             <div class="alert alert-danger" role="alert">@TempData["Error"]</div>
         }
         <div id="paymentError" class="alert alert-danger hidden" role="alert"></div>
-
         <h3>@Localizer["Choose a payment methods"]</h3>
+        <div class="row">
         @foreach (var paymentProvider in Model.PaymentProviders)
         {
-            <div class="payment-method paymentProvider-@paymentProvider.Id">
-                <label>@paymentProvider.Name</label>
-                @if(!string.IsNullOrWhiteSpace(paymentProvider.LandingViewComponentName))
-                {
-                    @await Component.InvokeAsync(paymentProvider.LandingViewComponentName)
-                }
+            <div class="col-sm-12 col-md-6">
+                <div class="payment-method paymentProvider-@paymentProvider.Id">
+                    <label>@paymentProvider.Name</label>
+                    @if(!string.IsNullOrWhiteSpace(paymentProvider.LandingViewComponentName))
+                    {
+                        @await Component.InvokeAsync(paymentProvider.LandingViewComponentName)
+                    }
+                </div>
             </div>
         }
+        </div>
     </div>
     <div class="col-md-4">
         @await Component.InvokeAsync("OrderSummary")
