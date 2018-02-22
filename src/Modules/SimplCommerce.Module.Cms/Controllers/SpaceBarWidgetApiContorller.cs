@@ -66,7 +66,10 @@ namespace SimplCommerce.Module.Cms.Controllers
             {
                 foreach (var item in model.Items)
                 {
-                    item.Image = await SaveFile(item.UploadImage);
+                    if(item.UploadImage != null)
+                    {
+                        item.Image = await SaveFile(item.UploadImage);
+                    }
                 }
 
                 var widgetInstance = new WidgetInstance
@@ -126,7 +129,8 @@ namespace SimplCommerce.Module.Cms.Controllers
             var model = new SpaceBarWidgetForm();
             model.Name = formCollection["name"];
             model.WidgetZoneId = int.Parse(formCollection["widgetZoneId"]);
-            model.DisplayOrder = int.Parse(formCollection["displayOrder"]);
+            int.TryParse(formCollection["displayOrder"], out int displayOrder);
+            model.DisplayOrder = displayOrder;
             if (DateTimeOffset.TryParse(formCollection["publishStart"], out DateTimeOffset publishStart))
             {
                 model.PublishStart = publishStart;

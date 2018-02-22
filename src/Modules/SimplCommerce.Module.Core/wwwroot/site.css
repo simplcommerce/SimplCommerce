@@ -726,12 +726,10 @@ li.nav-item-group, li.nav-item-group a {
 }
 
 .payment-method {
-    width: 250px;
     height: 100px;
-    float: left;
     border: 1px solid #e7e7e7;
     border-radius: 4px;
     padding: 17px 5px 5px;
-    margin: 5px;
+    margin-bottom: 25px;
     text-align: center;
 }
