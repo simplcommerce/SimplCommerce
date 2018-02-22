@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SimplCommerce.Module.Core.Data;
 using System;
 
@@ -14,8 +17,7 @@ namespace SimplCommerce.WebHost.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "2.0.1-rtm-125");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>
                 {
@@ -683,8 +685,7 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Core_CustomerGroup");
                 });
@@ -783,8 +784,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasName("RoleNameIndex");
 
                     b.ToTable("Core_Role");
                 });
@@ -876,8 +876,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasName("UserNameIndex");
 
                     b.HasIndex("VendorId");
 
@@ -2092,7 +2091,7 @@ namespace SimplCommerce.WebHost.Migrations
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.StateOrProvince", b =>
                 {
                     b.HasOne("SimplCommerce.Module.Core.Models.Country", "Country")
-                        .WithMany()
+                        .WithMany("StatesOrProvinces")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
