@@ -14,6 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{0A
 		src\Database\StaticData.sql = src\Database\StaticData.sql
 		src\Database\StaticData_MySql.sql = src\Database\StaticData_MySql.sql
 		src\Database\StaticData_PostgreSQL.sql = src\Database\StaticData_PostgreSQL.sql
+		src\Database\StaticData_SQLite.sql = src\Database\StaticData_SQLite.sql
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.WebHost", "src\SimplCommerce.WebHost\SimplCommerce.WebHost.csproj", "{13367B7A-E91C-47EE-BA5E-C50664D65767}"
