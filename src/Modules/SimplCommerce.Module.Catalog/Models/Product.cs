@@ -128,6 +128,7 @@ namespace SimplCommerce.Module.Catalog.Models
             product.StockQuantity = StockQuantity;
             product.BrandId = BrandId;
             product.VendorId = VendorId;
+            product.TaxClassId = TaxClassId;
 
             foreach (var attribute in AttributeValues)
             {
