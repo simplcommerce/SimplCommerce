@@ -30,7 +30,7 @@
 
             promise
                 .then(function (result) {
-                    $state.go('cartrule');
+                    $state.go('cart-rules');
                 })
                 .catch(function (response) {
                     var error = response.data;

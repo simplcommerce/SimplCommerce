@@ -6,18 +6,17 @@ using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using Microsoft.Extensions.Configuration;
-using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.StorageAmazonS3
 {
-    public class S3MediaService : IMediaService
+    public class S3StorageService : IStorageService
     {
         private IAmazonS3 _amazonS3Client;
         private string _bucketName;
         private string _publicEndpoint;
 
-        public S3MediaService(IConfiguration configuration)
+        public S3StorageService(IConfiguration configuration)
         {
             var regionEndpointName = configuration["AWS:S3:RegionEndpointName"];
             var accessKeyId = configuration["AWS:S3:AccessKeyId"];
@@ -38,11 +37,6 @@ namespace SimplCommerce.Module.StorageAmazonS3
             }
         }
 
-        public Task DeleteMediaAsync(Media media)
-        {
-            return DeleteMediaAsync(media.FileName);
-        }
-
         public async Task DeleteMediaAsync(string fileName)
         {
             var deleteObjectRequest = new DeleteObjectRequest
@@ -54,19 +48,9 @@ namespace SimplCommerce.Module.StorageAmazonS3
             await _amazonS3Client.DeleteObjectAsync(deleteObjectRequest);
         }
 
-        public string GetMediaUrl(Media media)
-        {
-            return string.Concat(_publicEndpoint, media.FileName);
-        }
-
         public string GetMediaUrl(string fileName)
         {
             return string.Concat(_publicEndpoint, fileName);
-        }
-
-        public string GetThumbnailUrl(Media media)
-        {
-            return string.Concat(_publicEndpoint, media.FileName);
         }
 
         public async Task SaveMediaAsync(Stream mediaBinaryStream, string fileName, string mimeType = null)

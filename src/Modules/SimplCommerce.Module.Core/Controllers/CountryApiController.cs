@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -61,7 +60,10 @@ namespace SimplCommerce.Module.Core.Controllers
                     c.Id,
                     c.Name,
                     c.IsShippingEnabled,
-                    c.IsBillingEnabled
+                    c.IsBillingEnabled,
+                    c.IsCityEnabled,
+                    c.IsPostalCodeEnabled,
+                    c.IsDistrictEnabled
                 });
 
             return Json(countries);
@@ -84,12 +86,16 @@ namespace SimplCommerce.Module.Core.Controllers
                 Code3 = country.Code3,
                 IsBillingEnabled = country.IsBillingEnabled,
                 IsShippingEnabled = country.IsShippingEnabled,
+                IsCityEnabled = country.IsCityEnabled,
+                IsPostalCodeEnabled = country.IsPostalCodeEnabled,
+                IsDistrictEnabled = country.IsDistrictEnabled
             };
 
             return Json(model);
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Put(long id, [FromBody] CountryForm model)
         {
             if (!ModelState.IsValid)
@@ -108,6 +114,9 @@ namespace SimplCommerce.Module.Core.Controllers
             country.Code3 = model.Code3;
             country.IsShippingEnabled = model.IsShippingEnabled;
             country.IsBillingEnabled = model.IsBillingEnabled;
+            country.IsCityEnabled = model.IsCityEnabled;
+            country.IsPostalCodeEnabled = model.IsPostalCodeEnabled;
+            country.IsDistrictEnabled = model.IsDistrictEnabled;
 
             await _countryRepository.SaveChangesAsync();
 
@@ -126,8 +135,11 @@ namespace SimplCommerce.Module.Core.Controllers
                     Code2 = model.Code2,
                     Code3 = model.Code3,
                     IsBillingEnabled = model.IsBillingEnabled,
-                    IsShippingEnabled = model.IsShippingEnabled
-                };
+                    IsShippingEnabled = model.IsShippingEnabled,
+                    IsCityEnabled = model.IsCityEnabled,
+                    IsPostalCodeEnabled = model.IsPostalCodeEnabled,
+                    IsDistrictEnabled = model.IsDistrictEnabled
+            };
 
                 _countryRepository.Add(country);
                 await _countryRepository.SaveChangesAsync();
@@ -152,7 +164,7 @@ namespace SimplCommerce.Module.Core.Controllers
                 _countryRepository.Remove(country);
                 await _countryRepository.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (DbUpdateException)
             {
                 return BadRequest(new { Error = $"The country {country.Name} can't not be deleted because it is referenced by other tables" });
             }

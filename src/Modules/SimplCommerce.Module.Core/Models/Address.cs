@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Core.Models
@@ -21,10 +22,12 @@ namespace SimplCommerce.Module.Core.Models
 
         public District District { get; set; }
 
+        [Required]
         public long StateOrProvinceId { get; set; }
 
         public StateOrProvince StateOrProvince { get; set; }
 
+        [Required]
         public long CountryId { get; set; }
 
         public Country Country { get; set; }

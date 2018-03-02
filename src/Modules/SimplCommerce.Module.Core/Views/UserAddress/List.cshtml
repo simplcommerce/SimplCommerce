@@ -15,7 +15,10 @@
             <div>
                 <strong>@address.ContactName </strong><br />
                 @address.AddressLine1 <br />
-                @address.DistrictName, @address.StateOrProvinceName <br />
+                @if(address.DisplayDistrict){
+                    <text>@address.DistrictName,</text>
+                }
+                @address.StateOrProvinceName <br />
                 Phone: @address.Phone
             </div>
             <div>

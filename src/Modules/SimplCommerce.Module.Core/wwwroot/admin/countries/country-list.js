@@ -21,7 +21,7 @@
             });
         };
 
-        vm.toggleShippingOrBilling = function (country) {
+        vm.update = function (country) {
             countryService.editCountry(country)
                 .then(function (result) {
                     toastr.success(country.name + ' has been updated');
@@ -32,14 +32,18 @@
         };
 
         vm.deleteCountry = function (country) {
-            countryService.deleteCountry(country)
-                .then(function (result) {
-                    vm.getCountries(tableStateRef);
-                    toastr.success(country.name + ' has been deleted');
-                })
-                .catch(function (response) {
-                    toastr.error(response.data.error);
-                });
+            bootbox.confirm('Are you sure you want to delete this country: ' + country.name, function (result) {
+                if (result) {
+                    countryService.deleteCountry(country)
+                        .then(function (result) {
+                            vm.getCountries(tableStateRef);
+                            toastr.success(country.name + ' has been deleted');
+                        })
+                        .catch(function (response) {
+                            toastr.error(response.data.error);
+                        });
+                }
+            });
         };
     }
 })();

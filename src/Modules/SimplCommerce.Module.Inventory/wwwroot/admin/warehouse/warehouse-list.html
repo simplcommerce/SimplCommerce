@@ -1,0 +1,46 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{::vm.translate.get('Warehouses')}}</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <a ui-sref="warehouse-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create Warehouse')}}</a>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped" st-pipe="vm.getWarehouses" st-table="vm.stWarehouses">
+    <thead>
+        <tr>
+            <th st-sort="Name" class="sortable">{{::vm.translate.get('Name')}}</th>
+            <th class="sortable">&nbsp;</th>
+        </tr>
+        <tr>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="Name"/>
+                </div>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-show="!vm.isLoading">
+        <tr ng-repeat="warehouse in vm.warehouses">
+            <td>{{warehouse.name}}</td>
+            <td>
+                <a ui-sref="warehouse-edit({id: warehouse.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+                <button ng-click="vm.deleteWarehouse(warehouse)" title="Delete" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+            </td>
+        </tr>
+    </tbody>
+    <tbody ng-show="vm.isLoading">
+        <tr>
+            <td colspan="4" class="text-center">Loading ... </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="4"></td>
+        </tr>
+    </tfoot>
+</table>

@@ -8,6 +8,7 @@
     function countryService($http) {
         var service = {
             getCountries: getCountries,
+            getAllCountries: getAllCountries,
             editCountry: editCountry,
             getCountry: getCountry,
             createCountry: createCountry,
@@ -17,6 +18,10 @@
 
         function getCountries(params) {
             return $http.post('api/countries/grid', params);
+        }
+
+        function getAllCountries() {
+            return $http.get('api/countries');
         }
 
         function getCountry(id) {

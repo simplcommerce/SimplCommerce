@@ -36,6 +36,10 @@ namespace SimplCommerce.Module.Catalog.ViewModels
         [Required]
         public string Slug { get; set; }
 
+        public string Sku { get; set; }
+
+        public string Gtin { get; set; }
+
         public string ShortDescription { get; set; }
 
         public string Description { get; set; }

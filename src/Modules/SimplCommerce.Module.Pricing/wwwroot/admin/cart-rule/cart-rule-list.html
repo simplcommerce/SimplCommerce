@@ -4,7 +4,7 @@
             <h2>{{::vm.translate.get('Cart Price Rule')}}</h2>
         </div>
         <div class="col-md-4 text-right">
-            <a ui-sref="cartrule-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create Cart Price Rule')}}</a>
+            <a ui-sref="cart-rule-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create Cart Price Rule')}}</a>
         </div>
     </div>
 </div>
@@ -26,7 +26,7 @@
         <td>{{rule.endOn | date:'medium'}}</td>
         <td class="text-center"><i ng-attr-class="{{rule.isActive && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
         <td>
-            <a ui-sref="cartrule-edit({id: rule.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+            <a ui-sref="cart-rule-edit({id: rule.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
             <button ng-click="vm.deleteCartRule(rule)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
         </td>
     </tr>

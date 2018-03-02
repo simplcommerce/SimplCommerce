@@ -141,6 +141,7 @@ namespace SimplCommerce.Module.Shipments.Controllers
                         i.Id,
                         ProductId = i.Product.Id,
                         ProductName = i.Product.Name,
+                        ProductSku = i.Product.Sku,
                         i.Quantity
                     })
                 })

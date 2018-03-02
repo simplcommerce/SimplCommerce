@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2003
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C9BFDDC4-5671-47A3-B57D-197C2A51FA8A}"
 EndProject
@@ -14,6 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{0A
 		src\Database\StaticData.sql = src\Database\StaticData.sql
 		src\Database\StaticData_MySql.sql = src\Database\StaticData_MySql.sql
 		src\Database\StaticData_PostgreSQL.sql = src\Database\StaticData_PostgreSQL.sql
+		src\Database\StaticData_SQLite.sql = src\Database\StaticData_SQLite.sql
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.WebHost", "src\SimplCommerce.WebHost\SimplCommerce.WebHost.csproj", "{13367B7A-E91C-47EE-BA5E-C50664D65767}"
@@ -91,6 +92,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.PaymentPaypalExpress", "src\Modules\SimplCommerce.Module.PaymentPaypalExpress\SimplCommerce.Module.PaymentPaypalExpress.csproj", "{A43132C2-BD56-4B39-8BDB-280A3230D8C9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.PaymentStripe", "src\Modules\SimplCommerce.Module.PaymentStripe\SimplCommerce.Module.PaymentStripe.csproj", "{91C58341-5EE8-4FF1-9FAB-BED234C3EBE6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.StorageAzureBlob", "src\Modules\SimplCommerce.Module.StorageAzureBlob\SimplCommerce.Module.StorageAzureBlob.csproj", "{21A7421A-DF8B-4E1C-96A8-1FF7FF8EA6F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.Pricing.Tests", "test\SimplCommerce.Module.Pricing.Tests\SimplCommerce.Module.Pricing.Tests.csproj", "{BF0C0613-B127-4580-8C3E-492BCBC2744E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -546,6 +551,30 @@ Global
 		{91C58341-5EE8-4FF1-9FAB-BED234C3EBE6}.Release|x64.Build.0 = Release|Any CPU
 		{91C58341-5EE8-4FF1-9FAB-BED234C3EBE6}.Release|x86.ActiveCfg = Release|Any CPU
 		{91C58341-5EE8-4FF1-9FAB-BED234C3EBE6}.Release|x86.Build.0 = Release|Any CPU
+		{21A7421A-DF8B-4E1C-96A8-1FF7FF8EA6F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21A7421A-DF8B-4E1C-96A8-1FF7FF8EA6F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21A7421A-DF8B-4E1C-96A8-1FF7FF8EA6F6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{21A7421A-DF8B-4E1C-96A8-1FF7FF8EA6F6}.Debug|x64.Build.0 = Debug|Any CPU
+		{21A7421A-DF8B-4E1C-96A8-1FF7FF8EA6F6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{21A7421A-DF8B-4E1C-96A8-1FF7FF8EA6F6}.Debug|x86.Build.0 = Debug|Any CPU
+		{21A7421A-DF8B-4E1C-96A8-1FF7FF8EA6F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21A7421A-DF8B-4E1C-96A8-1FF7FF8EA6F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21A7421A-DF8B-4E1C-96A8-1FF7FF8EA6F6}.Release|x64.ActiveCfg = Release|Any CPU
+		{21A7421A-DF8B-4E1C-96A8-1FF7FF8EA6F6}.Release|x64.Build.0 = Release|Any CPU
+		{21A7421A-DF8B-4E1C-96A8-1FF7FF8EA6F6}.Release|x86.ActiveCfg = Release|Any CPU
+		{21A7421A-DF8B-4E1C-96A8-1FF7FF8EA6F6}.Release|x86.Build.0 = Release|Any CPU
+		{BF0C0613-B127-4580-8C3E-492BCBC2744E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF0C0613-B127-4580-8C3E-492BCBC2744E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF0C0613-B127-4580-8C3E-492BCBC2744E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BF0C0613-B127-4580-8C3E-492BCBC2744E}.Debug|x64.Build.0 = Debug|Any CPU
+		{BF0C0613-B127-4580-8C3E-492BCBC2744E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BF0C0613-B127-4580-8C3E-492BCBC2744E}.Debug|x86.Build.0 = Debug|Any CPU
+		{BF0C0613-B127-4580-8C3E-492BCBC2744E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF0C0613-B127-4580-8C3E-492BCBC2744E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF0C0613-B127-4580-8C3E-492BCBC2744E}.Release|x64.ActiveCfg = Release|Any CPU
+		{BF0C0613-B127-4580-8C3E-492BCBC2744E}.Release|x64.Build.0 = Release|Any CPU
+		{BF0C0613-B127-4580-8C3E-492BCBC2744E}.Release|x86.ActiveCfg = Release|Any CPU
+		{BF0C0613-B127-4580-8C3E-492BCBC2744E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -590,6 +619,8 @@ Global
 		{A87A5CF6-3FFB-40D0-A82B-0BD29C0F0C65} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{A43132C2-BD56-4B39-8BDB-280A3230D8C9} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{91C58341-5EE8-4FF1-9FAB-BED234C3EBE6} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
+		{21A7421A-DF8B-4E1C-96A8-1FF7FF8EA6F6} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
+		{BF0C0613-B127-4580-8C3E-492BCBC2744E} = {D9FD9ABA-AE5E-4427-AA6B-6285BE2E212D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B9D0D8F0-1AB9-44DD-839F-ED8CEE7DDB10}

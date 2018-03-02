@@ -21,5 +21,11 @@
         public long CountryId { get; set; }
 
         public string CountryName { get; set; }
+
+        public bool DisplayDistrict { get; set; }
+
+        public bool DisplayPostalCode { get; set; }
+
+        public bool DisplayCity { get; set; }
     }
 }

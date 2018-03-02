@@ -8,8 +8,6 @@
 
         public string ClientSecret { get; set; }
 
-        public string ExperienceProfileId { get; set; }
-
         public string Environment
         {
             get

@@ -5,7 +5,7 @@
         .controller('CountryFormCtrl', CountryFormCtrl);
 
     /* @ngInject */
-    function CountryFormCtrl($state, $stateParams, countryService, translateService) {
+    function CountryFormCtrl($state, $stateParams, countryService, stateProvinceService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.country = {};

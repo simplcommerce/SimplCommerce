@@ -29,6 +29,8 @@ namespace SimplCommerce.Module.ShoppingCart.Models
 
         public string ShippingMethod { get; set; }
 
+        public bool IsProductPriceIncludeTax { get; set; }
+
         public decimal? ShippingAmount { get; set; }
 
         public decimal? TaxAmount { get; set; }

@@ -46,7 +46,11 @@
                     $('.btn-order').prop('disabled', true);
                 }
 
-                $('#orderSummaryTax').text(data.cart.taxAmountString);
+                var $tax = $('#orderSummaryTax');
+                if ($tax) {
+                    $tax.text(data.cart.taxAmountString);
+                }
+
                 $('#orderTotal').text(data.cart.orderTotalString);
                 $('#orderSummaryShipping').text(data.cart.shippingAmountString);
 
@@ -73,28 +77,32 @@
     $('#NewAddressForm_CountryId').on('change', function () {
         var countryId = this.value;
 
-        $.getJSON('/api/countries/' + countryId + '/states-provinces', function (data) {
+        $.getJSON('/api/country-states-provinces/' + countryId, function (data) {
             var $stateOrProvinceSelect = $("#NewAddressForm_StateOrProvinceId");
             resetSelect($stateOrProvinceSelect);
 
             var $districtSelect = $("#NewAddressForm_DistrictId");
             resetSelect($districtSelect);
 
-            $.each(data, function (index, option) {
+            $.each(data.statesOrProvinces, function (index, option) {
                 $stateOrProvinceSelect.append($("<option></option>").attr("value", option.id).text(option.name));
             });
+
+            $("#form-group-district").toggleClass("hidden", !data.isDistrictEnabled);
+            $("#form-group-city").toggleClass("hidden", !data.isCityEnabled);
+            $("#form-group-postalcode").toggleClass("hidden", !data.isPostalCodeEnabled);
         });
     });
 
     $('#NewAddressForm_StateOrProvinceId').on('change', function () {
         var selectedStateOrProvinceId = this.value;
 
-        $.getJSON("/Location/GetDistricts/" + selectedStateOrProvinceId, function (data) {
+        $.getJSON("/api/states-provinces/" + selectedStateOrProvinceId + "/districts", function (data) {
             var $districtSelect = $("#NewAddressForm_DistrictId");
             resetSelect($districtSelect);
 
             $.each(data, function (index, option) {
-                $districtSelect.append($("<option></option>").attr("value", option.value).text(option.text));
+                $districtSelect.append($("<option></option>").attr("value", option.id).text(option.name));
             });
         });
     });

@@ -75,8 +75,8 @@ namespace SimplCommerce.Module.Catalog.Services
 
         public async Task Delete(Category category)
         {
-             await _entityService.Remove(category.Id, CategoryEntityTypeId);
-            _categoryRepository.Remove(category);
+            await _entityService.Remove(category.Id, CategoryEntityTypeId);
+            category.IsDeleted = true;
             _categoryRepository.SaveChanges();
         }
     }
