@@ -7,7 +7,7 @@
         public string ClientId { get; set; }
 
         public string ClientSecret { get; set; }
-
+        public decimal PaymentFee { get; set; }
         public string Environment
         {
             get
