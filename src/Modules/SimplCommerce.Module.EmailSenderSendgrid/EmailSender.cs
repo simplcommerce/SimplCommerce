@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.Contracts;
-using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
