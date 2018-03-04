@@ -17,7 +17,6 @@
         {
             <div class="col-sm-12 col-md-6">
                 <div class="payment-method paymentProvider-@paymentProvider.Id">
-                    <label>@paymentProvider.Name</label>
                     @if(!string.IsNullOrWhiteSpace(paymentProvider.LandingViewComponentName))
                     {
                         @await Component.InvokeAsync(paymentProvider.LandingViewComponentName)

@@ -25,6 +25,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Components
 
             var model = new PaypalExpressCheckoutForm();
             model.Environment = paypalExpressSetting.Environment;
+            model.PaymentFee = paypalExpressSetting.PaymentFee;
 
             return View("/Modules/SimplCommerce.Module.PaymentPaypalExpress/Views/Components/PaypalExpressLanding.cshtml", model);
         }

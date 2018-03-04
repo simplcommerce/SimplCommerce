@@ -29,6 +29,8 @@ namespace SimplCommerce.Module.Payments.Controllers
                     x.Id,
                     x.Amount,
                     AmountString = x.Amount.ToString("C"),
+                    x.PaymentFee,
+                    PaymentFeeString = x.PaymentFee.ToString("C"),
                     x.OrderId,
                     x.GatewayTransactionId,
                     Status = x.Status.ToString(),

@@ -1,5 +1,13 @@
 ﻿@model SimplCommerce.Module.PaymentPaypalExpress.ViewModels.PaypalExpressCheckoutForm
 
+@{ 
+    var feeDisplay = "";
+    if(Model.PaymentFee > 0)
+    {
+        feeDisplay = $"(+ {Model.PaymentFee}% Fee)";
+    }
+}
+<label>Paypal Express @feeDisplay</label>
 <div id="paypal-button"></div>
 
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
