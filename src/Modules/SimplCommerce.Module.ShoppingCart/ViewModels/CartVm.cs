@@ -45,6 +45,19 @@ namespace SimplCommerce.Module.ShoppingCart.ViewModels
             }
         }
 
+        public decimal SubTotalWithDiscountWithoutTax
+        {
+            get
+            {
+                if (IsProductPriceIncludeTax)
+                {
+                    return SubTotalWithDiscount - TaxAmount ?? 0;
+                }
+
+                return SubTotalWithDiscount;
+            }
+        }
+
         public decimal OrderTotal
         {
             get

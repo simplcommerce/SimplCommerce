@@ -3,6 +3,7 @@
         <tr>
             <th>{{::vm.translate.get('#')}}</th>
             <th>{{::vm.translate.get('Amount')}}</th>
+            <th>{{::vm.translate.get('Fee')}}</th>
             <th>{{::vm.translate.get('Status')}}</th>
             <th>{{::vm.translate.get('Gateway Transaction Id')}}</th>
             <th>{{::vm.translate.get('Created On')}}</th>
@@ -12,6 +13,7 @@
         <tr ng-repeat="item in vm.payments">
             <td>{{item.id}}</td>
             <td>{{item.amountString}}</td>
+            <td>{{item.paymentFeeString}}</td>
             <td>{{item.status}}</td>
             <td>{{item.gatewayTransactionId}}</td>
             <td>{{item.createdOn | date:'medium' }}</td>

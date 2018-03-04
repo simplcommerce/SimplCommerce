@@ -57,7 +57,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
             var paypalAcceptedNumericFormatCulture = CultureInfo.CreateSpecificCulture("en-US");
             var paymentCreateRequest = new PaymentCreateRequest
             {
-                 experience_profile_id = experienceProfileId,
+                experience_profile_id = experienceProfileId,
                 intent = "sale",
                 payer = new Payer
                 {
@@ -68,11 +68,12 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
                     new Transaction {
                         amount = new Amount
                         {
-                            total = cart.OrderTotal.ToString("N2", paypalAcceptedNumericFormatCulture),
+                            total = (cart.OrderTotal + CalculatePaymentFee(cart.OrderTotal)).ToString("N2", paypalAcceptedNumericFormatCulture),
                             currency = regionInfo.ISOCurrencySymbol,
                             details = new Details
                             {
-                                subtotal = cart.SubTotalWithDiscount.ToString("N2", paypalAcceptedNumericFormatCulture),
+                                handling_fee = CalculatePaymentFee(cart.OrderTotal).ToString("N2", paypalAcceptedNumericFormatCulture),
+                                subtotal = cart.SubTotalWithDiscountWithoutTax.ToString("N2", paypalAcceptedNumericFormatCulture),
                                 tax = cart.TaxAmount?.ToString("N2", paypalAcceptedNumericFormatCulture) ?? "0",
                                 shipping = cart.ShippingAmount?.ToString("N2", paypalAcceptedNumericFormatCulture) ?? "0"
                             }
@@ -92,7 +93,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
             if (response.IsSuccessStatusCode)
             {
                 string paymentId = payment.id;
-                return Ok(new { PaymentId = paymentId});
+                return Ok(new { PaymentId = paymentId });
             }
 
             return BadRequest(responseBody);
@@ -103,7 +104,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
             var accessToken = await GetAccessToken();
             var currentUser = await _workContext.GetCurrentUser();
             var orderCreateResult = await _orderService.CreateOrder(currentUser, "PaypalExpress", OrderStatus.PendingPayment);
-            if(!orderCreateResult.Success)
+            if (!orderCreateResult.Success)
             {
                 return BadRequest(orderCreateResult.Error);
             }
@@ -112,7 +113,8 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
             var payment = new Payment()
             {
                 OrderId = order.Id,
-                Amount = order.OrderTotal,
+                PaymentFee = CalculatePaymentFee(order.OrderTotal),
+                Amount = order.OrderTotal + CalculatePaymentFee(order.OrderTotal),
                 PaymentMethod = "Paypal Express",
                 CreatedOn = DateTimeOffset.UtcNow,
             };
@@ -183,6 +185,12 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
             // Has to explicitly declare the type to be able to get the propery
             string profileId = experience.id;
             return profileId;
+        }
+
+        private decimal CalculatePaymentFee(decimal total)
+        {
+            var percent = _setting.Value.PaymentFee;
+            return (total / 100) * percent;
         }
 
         private PaypalExpressConfigForm GetSetting()
