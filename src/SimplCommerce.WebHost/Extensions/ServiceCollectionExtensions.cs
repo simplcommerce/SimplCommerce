@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -60,6 +61,18 @@ namespace SimplCommerce.WebHost.Extensions
                         if (assembly == null)
                         {
                             throw;
+                        }
+
+                        var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+                        string loadedAssemblyVersion = fvi.FileVersion;
+
+                        fvi = FileVersionInfo.GetVersionInfo(file.FullName);
+                        string tryToLoadAssemblyVersion = fvi.FileVersion;
+
+                        // Or log the exception somewhere and don't add the module to list so that it will not be initialized
+                        if (tryToLoadAssemblyVersion != loadedAssemblyVersion)
+                        {
+                            throw new Exception($"Cannot load {file.FullName} {tryToLoadAssemblyVersion} because {assembly.Location} {loadedAssemblyVersion} has been loaded");
                         }
                     }
 
