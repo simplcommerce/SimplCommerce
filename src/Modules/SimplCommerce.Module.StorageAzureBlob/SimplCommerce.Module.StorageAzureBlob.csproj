@@ -5,11 +5,12 @@
     <PreserveCompilationContext>false</PreserveCompilationContext>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
     <OutputType>Library</OutputType>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <WindowsAzurePackageVersion>9.0.0</WindowsAzurePackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="WindowsAzure.Storage" Version="9.0.0" />
+    <Content CopyToOutputDirectory="PreserveNewest" Include="$(NuGetPackageRoot)WindowsAzure.Storage\$(WindowsAzurePackageVersion)\lib\netstandard1.3\*.dll" />
+    <PackageReference Include="WindowsAzure.Storage" Version="$(WindowsAzurePackageVersion)" />
     <ProjectReference Include="..\..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
   </ItemGroup>

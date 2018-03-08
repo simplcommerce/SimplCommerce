@@ -5,11 +5,15 @@
     <PreserveCompilationContext>false</PreserveCompilationContext>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
     <OutputType>Library</OutputType>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <AwsCoreVersion>3.3.21.6</AwsCoreVersion>
+    <AwsS3Vervion>3.3.16.2</AwsS3Vervion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.S3" Version="3.3.16.2" />
+    <Content CopyToOutputDirectory="PreserveNewest" Include="$(NuGetPackageRoot)awssdk.core\$(AwsCoreVersion)\lib\netstandard1.3\*.dll" />
+    <Content CopyToOutputDirectory="PreserveNewest" Include="$(NuGetPackageRoot)awssdk.s3\$(AwsS3Vervion)\lib\netstandard1.3\*.dll" />
+    <PackageReference Include="AWSSDK.Core" Version="$(AwsCoreVersion)" />
+    <PackageReference Include="AWSSDK.S3" Version="$(AwsS3Vervion)" />
     <ProjectReference Include="..\..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
   </ItemGroup>
