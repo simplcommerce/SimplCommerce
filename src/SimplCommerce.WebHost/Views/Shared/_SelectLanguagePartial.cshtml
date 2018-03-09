@@ -64,8 +64,8 @@
         }
     };
 }
-<li class="dropdown">
-    <a href="#" class="ropdown-toggle" data-toggle="dropdown">
+<li class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
         Language (@requestCulture.RequestCulture.UICulture.Name)
         <span class="caret"></span>
     </a>
@@ -74,11 +74,11 @@
         {
             if (lang.Value == requestCulture.RequestCulture.UICulture.Name)
             {
-                <li><a href="#" data-value="@lang.Value">@lang.Text <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></li>
+                <li class="dropdown-item"><a href="#" data-value="@lang.Value">@lang.Text <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></li>
             }
             else
             {
-                <li><a href="#" data-value="@lang.Value">@lang.Text</a></li>
+                <li class="dropdown-item"><a href="#" data-value="@lang.Value">@lang.Text</a></li>
             }
         }
     </ul>
