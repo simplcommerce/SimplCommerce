@@ -90,14 +90,9 @@ textarea {
 
 .main-nav {
     background-color: #f3f3f3;
-}
-
-@media (min-width : 768px) {
-    .main-menu {
-        display: table;
-        float: none;
-        margin: 0 auto;
-    }
+    min-height: 50px;
+    margin-bottom: 20px;
+    border: 1px solid #e7e7e7;
 }
 
 #navbarMain > ul {
@@ -155,22 +150,6 @@ li.nav-item-group, li.nav-item-group a {
     }
 
 
-/* Carousel */
-.carousel-caption {
-    z-index: 10 !important;
-}
-
-    .carousel-caption p {
-        font-size: 20px;
-        line-height: 1.4;
-    }
-
-@media (min-width: 768px) {
-    .carousel-caption {
-        z-index: 10 !important;
-    }
-}
-
 /* product list*/
 .product-list a:hover {
     text-decoration: none;
@@ -206,7 +185,7 @@ li.nav-item-group, li.nav-item-group a {
     font-size: 11px;
 }
 
-.product-list .thumbnail:hover {
+.product-list .card:hover {
     border-color: #337ab7;
 }
 
@@ -241,7 +220,7 @@ li.nav-item-group, li.nav-item-group a {
     width: 100%
 }
 
-.product-list .thumbnail:hover .btn-add-cart-style {
+.product-list .card:hover .btn-add-cart-style {
     background: #2cd5b6;
     color: #fff;
 }
