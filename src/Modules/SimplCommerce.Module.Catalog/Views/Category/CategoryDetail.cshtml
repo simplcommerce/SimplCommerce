@@ -11,16 +11,16 @@
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/nouislider/nouislider.min.css"/>
 }
 
-<div>
+<nav>
     <ol class="breadcrumb">
-        <li><a href="~/">Home</a></li>
+        <li class="breadcrumb-item"><a href="~/">Home</a></li>
         @if (Model.ParentCategorId.HasValue)
         {
             @await Component.InvokeAsync("CategoryBreadcrumb", new { categoryId = Model.ParentCategorId.Value })
         }
-        <li><span class="active">@Model.CategoryName</span></li>
+        <li class="breadcrumb-item active">@Model.CategoryName</li>
     </ol>
-</div>
+</nav>
 <div class="row">
     <div class="col-md-3 product-list-filters">
         <h3>@Localizer["Filter by"]</h3>

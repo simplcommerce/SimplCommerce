@@ -1,6 +1,6 @@
 ﻿/*global jQuery, noUiSlider, wNumb, window, document, productFilter*/
 (function ($, currentSearchOption, priceSetting) {
-    $(window).load(function () {
+    $(function () {
         function createUrl() {
             var key,
                 value,

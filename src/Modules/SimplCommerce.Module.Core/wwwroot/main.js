@@ -1,5 +1,5 @@
 ﻿/*global jQuery, window*/
-(function ($) {
+$(function () {
     $('.lang-selector li').on('click', function (e) {
         var lang = $(this).find('a').attr('data-value'),
             $langForm = $('#lang-form'),
@@ -13,8 +13,9 @@
             $cultureInput.val(lang);
             $langForm.submit();
         }
+    });
 
-        $('.product-list .thumbnail').matchHeight({
+        $('.product-list .card').matchHeight({
             byRow: true,
             property: 'height',
             target: null,
@@ -26,5 +27,4 @@
             filledStar: '<i class="fa fa-star"></i>',
             emptyStar: '<i class="fa fa-star-o"></i>'
         });
-    });
-})(jQuery);
+});

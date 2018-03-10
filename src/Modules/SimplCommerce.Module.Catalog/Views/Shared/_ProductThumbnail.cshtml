@@ -22,7 +22,7 @@
                 }
             </p>
             <ul class="list-inline product-ratings">
-                <li><input value="@Model.RatingAverage" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
+                <li><input type="hidden" value="@Model.RatingAverage" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
                 @if (Model.ReviewsCount > 0)
                 {
                     <li class="product-review-list">
