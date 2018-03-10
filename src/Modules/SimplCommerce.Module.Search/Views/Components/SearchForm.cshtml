@@ -4,7 +4,7 @@
     <div class="form-group search-input">
         <input type="text" name="query" asp-for="Query" class="form-control" placeholder="Search here...">
     </div>
-    <div class="form-group search-category hidden-xs">
+    <div class="form-group search-category d-none d-lg-block">
         <select name="category" asp-for="Category" asp-items="Model.AvailableCategories" class="form-control">
             <option value="all">All Categories</option>
         </select>

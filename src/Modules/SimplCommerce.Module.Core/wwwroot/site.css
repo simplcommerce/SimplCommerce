@@ -74,7 +74,7 @@ textarea {
     right:22px;
 }
 
-@media (max-width : 768px) {
+@media (max-width : 992px) {
     .main-header .search-input {
         width: calc(100% - 35px)
     }
