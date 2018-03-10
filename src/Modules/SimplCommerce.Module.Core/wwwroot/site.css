@@ -126,6 +126,7 @@ li.nav-item-group, li.nav-item-group a {
         right: 5px;
         position: absolute;
         background: red;
+        color: white;
     }
 
 .navbar-toggle {

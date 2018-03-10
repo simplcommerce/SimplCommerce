@@ -32,13 +32,13 @@
             </div>
             <div class="create-shipping-address collapse">
                 <div class="form-group row">
-                    <label class="col-sm-4 control-label">@Localizer["Contact name"]</label>
+                    <label class="col-sm-4 col-form-label">@Localizer["Contact name"]</label>
                     <div class="col-sm-8">
                         <input asp-for="NewAddressForm.ContactName" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 control-label">@Localizer["Country"]</label>
+                    <label class="col-sm-4 col-form-label">@Localizer["Country"]</label>
                     <div class="col-sm-8">
                         <select asp-for="NewAddressForm.CountryId" asp-items="Model.NewAddressForm.ShipableContries" class="form-control">
                             <option value="">@Localizer["Choose one"]</option>
@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 control-label">@Localizer["State or Province"]</label>
+                    <label class="col-sm-4 col-form-label">@Localizer["State or Province"]</label>
                     <div class="col-sm-8">
                         <select asp-for="NewAddressForm.StateOrProvinceId" asp-items="Model.NewAddressForm.StateOrProvinces" class="form-control">
                             <option value="">@Localizer["Choose one"]</option>
@@ -55,7 +55,7 @@
                 </div>
 
                 <div id="form-group-district" class="form-group row">
-                    <label class="col-sm-4 control-label">@Localizer["District"]</label>
+                    <label class="col-sm-4 col-form-label">@Localizer["District"]</label>
                     <div class="col-sm-8">
                         <select asp-for="NewAddressForm.DistrictId" asp-items="Model.NewAddressForm.Districts" class="form-control">
                             <option value=""></option>
@@ -64,27 +64,27 @@
                 </div>
 
                 <div id="form-group-city" class="form-group row">
-                    <label class="col-sm-4 control-label">@Localizer["City"]</label>
+                    <label class="col-sm-4 col-form-label">@Localizer["City"]</label>
                     <div class="col-sm-8">
                         <input asp-for="NewAddressForm.City" type="text" class="form-control">
                     </div>
                 </div>
 
                 <div id="form-group-postalcode" class="form-group row">
-                    <label class="col-sm-4 control-label">@Localizer["Postal Code"]</label>
+                    <label class="col-sm-4 col-form-label">@Localizer["Postal Code"]</label>
                     <div class="col-sm-8">
                         <input asp-for="NewAddressForm.PostalCode" type="text" class="form-control">
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-4 control-label">@Localizer["Address"]</label>
+                    <label class="col-sm-4 col-form-label">@Localizer["Address"]</label>
                     <div class="col-sm-8">
                         <input asp-for="NewAddressForm.AddressLine1" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 control-label">@Localizer["Phone"]</label>
+                    <label class="col-sm-4 col-form-label">@Localizer["Phone"]</label>
                     <div class="col-sm-8">
                         <input asp-for="NewAddressForm.Phone" type="text" class="form-control">
                     </div>
