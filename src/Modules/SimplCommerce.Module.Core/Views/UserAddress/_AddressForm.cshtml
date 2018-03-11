@@ -1,66 +1,60 @@
 ﻿@model SimplCommerce.Module.Core.ViewModels.UserAddressFormViewModel
 
-<div class="form-group">
-    <label class="col-sm-2 control-label">@Localizer["Country"]</label>
-    <div class="col-sm-10">
+<div class="form-group row">
+    <label class="col-sm-4 col-form-label">@Localizer["Country"]</label>
+    <div class="col-sm-8">
         <select asp-for="CountryId" asp-items="Model.Countries" class="form-control"></select>
     </div>
 </div>
-<div class="form-group">
-    <label class="col-sm-2 control-label">@Localizer["State or Province"]</label>
-    <div class="col-sm-10">
+<div class="form-group row">
+    <label class="col-sm-4 col-form-label">@Localizer["State or Province"]</label>
+    <div class="col-sm-8">
         <select asp-for="StateOrProvinceId" asp-items="Model.StateOrProvinces" class="form-control">
             <option value="">@Localizer["Choose one"]</option>
         </select>
     </div>
 </div>
-<div id="form-group-district" class="form-group @(@Model.DisplayDistrict ? "" : "hidden")">
-    <label class="col-sm-2 control-label">@Localizer["District"]</label>
-    <div class="col-sm-10">
+<div id="form-group-district" class="form-group row @(@Model.DisplayDistrict ? "" : "d-none")">
+    <label class="col-sm-4 col-form-label">@Localizer["District"]</label>
+    <div class="col-sm-8">
         <select asp-for="DistrictId" asp-items="Model.Districts" class="form-control">
             <option value=""></option>
         </select>
     </div>
 </div>
-<div id="form-group-city" class="form-group @(@Model.DisplayCity ? "" : "hidden")">
-    <label class="col-sm-2 control-label">@Localizer["City"]</label>
-    <div class="col-sm-10">
+<div id="form-group-city" class="form-group row @(@Model.DisplayCity ? "" : "d-none")">
+    <label class="col-sm-4 col-form-label">@Localizer["City"]</label>
+    <div class="col-sm-8">
         <input asp-for="City" type="text" class="form-control">
     </div>
 </div>
-<div id="form-group-postalcode" class="form-group @(@Model.DisplayPostalCode ? "" : "hidden")">
-    <label class="col-sm-2 control-label">@Localizer["Postal Code"]</label>
-    <div class="col-sm-10">
+<div id="form-group-postalcode" class="form-group row @(@Model.DisplayPostalCode ? "" : "d-none")">
+    <label class="col-sm-4 col-form-label">@Localizer["Postal Code"]</label>
+    <div class="col-sm-8">
         <input asp-for="PostalCode" type="text" class="form-control">
     </div>
 </div>
-<div class="form-group">
-    <label class="col-sm-2 control-label">@Localizer["Address"]</label>
-    <div class="col-sm-10">
+<div class="form-group row">
+    <label class="col-sm-4 col-form-label">@Localizer["Address"]</label>
+    <div class="col-sm-8">
         <input asp-for="AddressLine1" type="text" class="form-control">
     </div>
 </div>
-@*<div class="form-group">
-    <label class="col-sm-2 control-label">@Localizer["Address Line 2"]</label>
-    <div class="col-sm-10">
-        <input asp-for="AddressLine2" type="text" class="form-control">
-    </div>
-</div>*@
-<div class="form-group">
-    <label class="col-sm-2 control-label">@Localizer["Contact name"]</label>
-    <div class="col-sm-10">
+<div class="form-group row">
+    <label class="col-sm-4 col-form-label">@Localizer["Contact name"]</label>
+    <div class="col-sm-8">
         <input asp-for="ContactName" type="text" class="form-control">
     </div>
 </div>
-<div class="form-group">
-    <label class="col-sm-2 control-label">@Localizer["Phone"]</label>
-    <div class="col-sm-10">
+<div class="form-group row">
+    <label class="col-sm-4 col-form-label">@Localizer["Phone"]</label>
+    <div class="col-sm-8">
         <input asp-for="Phone" type="text" class="form-control">
     </div>
 </div>
-<div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
+<div class="form-group row">
+    <div class="offset-md-4 col-md-8">
         <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
-        <a href="~/user/address" class="btn btn-default">@Localizer["Cancel"]</a>
+        <a href="~/user/address" class="btn btn-secondary">@Localizer["Cancel"]</a>
     </div>
 </div>

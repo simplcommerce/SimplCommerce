@@ -14,18 +14,18 @@
     <div class="col-md-3 product-list-filters">
         <h3>@Localizer["Filter by"]</h3>
         <form id="productFilter" name="productFilter" method="GET" action="~/@Model.BrandSeoTitle">
-            <div class="panel-group" id="accordion-category">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion-category" href="#collapse-category">
+            <div id="accordion-category">
+                <div class="card">
+                    <div class="card-header" id="cardHeaderCategory">
+                        <h5 class="mb-0">
+                            <a data-toggle="collapse" href="#collapse-category" aria-expanded="true" aria-controls="collapse-category">
                                 @Localizer["Category"]
                                 <i class="fa fa-angle-down"></i>
                             </a>
-                        </h2>
+                        </h5>
                     </div>
-                    <div id="collapse-category" class="panel-collapse collapse in">
-                        <div class="panel-body">
+                    <div id="collapse-category" class="collapse show" aria-labelledby="cardHeaderCategory" data-parent="#accordion-category">
+                        <div class="card-body">
                             <ul class="list-unstyled checkbox-list">
                                 @foreach (var category in Model.FilterOption.Categories)
                                 {
@@ -43,18 +43,18 @@
                 </div>
             </div>
             @if (Model.FilterOption.Price.MaxPrice != Model.FilterOption.Price.MinPrice) {
-            <div class="panel-group" id="accordion-price">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion-price" href="#collapse-price">
+            <div id="accordion-price" class="mt-4">
+                <div class="card">
+                    <div class="card-header" id="cardHeaderPrice">
+                        <h5 class="mb-0">
+                            <a data-toggle="collapse" href="#collapse-price" aria-expanded="true" aria-controls="collapse-price">
                                 @Localizer["Price"]
                                 <i class="fa fa-angle-down"></i>
                             </a>
-                        </h2>
+                        </h5>
                     </div>
-                    <div id="collapse-price" class="panel-collapse collapse in">
-                        <div class="panel-body">
+                    <div id="collapse-price" class="collapse show" aria-labelledby="cardHeaderPrice" data-parent="#accordion-price">
+                        <div class="card-body">
                             <div id="priceSlider"></div>
                             <div>
                                 <input type="hidden" id="originMinPrice" value="@Model.FilterOption.Price.MinPrice.ToString("F0")"/>
@@ -62,7 +62,7 @@
                                 <span id="minPrice"></span>
                                 <span id="maxPrice"></span>
                             </div>
-                            <div class="price-actions">
+                            <div class="price-actions mb-3">
                                 <button id="reset-price" type="button" class="btn btn-default">Reset</button>
                                 <button id="apply-price" type="button" class="btn btn-default">Apply</button>
                             </div>
@@ -74,7 +74,7 @@
         </form>
     </div>
     <div class="col-md-9">
-        <div class="row">
+        <div class="row mb-3">
             <div class="col-sm-6 category-result">
                 <h2>@Model.BrandName</h2>
                 <small class="badge-results">@Model.TotalProduct @Localizer["results"]</small>

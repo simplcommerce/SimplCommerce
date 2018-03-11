@@ -182,16 +182,21 @@
 }
 
 .rating-item .progress {
-    width: 180px;
+    width: 175px;
     display: inline-block;
     height: 17px;
     vertical-align: middle;
     margin: 0;
 }
 
-#addreview {
-    border-left: solid 1px #e2e2e2;
-}
+    .rating-item .progress-bar{
+        height: 100%;
+    }
+
+    #addreview {
+        border-left: solid 1px #e2e2e2;
+        padding-left: 15px;
+    }
 
 #addreview input, #addreview textarea {
     max-width: 100%;
