@@ -28,15 +28,15 @@
                         <div class="card-body">
                             <ul class="list-unstyled checkbox-list">
                                 @foreach (var category in Model.FilterOption.Categories)
-                    {
-                        <li>
-                            <label class="checkbox">
-                                <input type="checkbox" value="@category.SeoTitle" name="category" checked="@Model.CurrentSearchOption.GetCategories().Contains(category.SeoTitle)">
-                                @category.Name
-                                <small>(@category.Count)</small>
-                            </label>
-                        </li>
-        }
+                                {
+                                <li>
+                                    <label class="checkbox">
+                                        <input type="checkbox" value="@category.SeoTitle" name="category" checked="@Model.CurrentSearchOption.GetCategories().Contains(category.SeoTitle)">
+                                        @category.Name
+                                        <small>(@category.Count)</small>
+                                    </label>
+                                </li>
+                                 }
                             </ul>
                         </div>
                     </div>

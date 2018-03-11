@@ -14,7 +14,7 @@
         </select>
     </div>
 </div>
-<div id="form-group-district" class="form-group row @(@Model.DisplayDistrict ? "" : "hidden")">
+<div id="form-group-district" class="form-group row @(@Model.DisplayDistrict ? "" : "d-none")">
     <label class="col-sm-4 col-form-label">@Localizer["District"]</label>
     <div class="col-sm-8">
         <select asp-for="DistrictId" asp-items="Model.Districts" class="form-control">
@@ -22,13 +22,13 @@
         </select>
     </div>
 </div>
-<div id="form-group-city" class="form-group row @(@Model.DisplayCity ? "" : "hidden")">
+<div id="form-group-city" class="form-group row @(@Model.DisplayCity ? "" : "d-none")">
     <label class="col-sm-4 col-form-label">@Localizer["City"]</label>
     <div class="col-sm-8">
         <input asp-for="City" type="text" class="form-control">
     </div>
 </div>
-<div id="form-group-postalcode" class="form-group row @(@Model.DisplayPostalCode ? "" : "hidden")">
+<div id="form-group-postalcode" class="form-group row @(@Model.DisplayPostalCode ? "" : "d-none")">
     <label class="col-sm-4 col-form-label">@Localizer["Postal Code"]</label>
     <div class="col-sm-8">
         <input asp-for="PostalCode" type="text" class="form-control">
