@@ -22,9 +22,9 @@
                 $stateOrProvinceSelect.append($("<option></option>").attr("value", option.id).text(option.name));
             });
 
-            $("#form-group-district").toggleClass("hidden", !data.isDistrictEnabled);
-            $("#form-group-city").toggleClass("hidden", !data.isCityEnabled);
-            $("#form-group-postalcode").toggleClass("hidden", !data.isPostalCodeEnabled);
+            $("#form-group-district").toggleClass("d-none", !data.isDistrictEnabled);
+            $("#form-group-city").toggleClass("d-none", !data.isCityEnabled);
+            $("#form-group-postalcode").toggleClass("d-none", !data.isPostalCodeEnabled);
         });
     });
 
