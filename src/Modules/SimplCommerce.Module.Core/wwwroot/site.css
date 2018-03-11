@@ -235,12 +235,12 @@ li.nav-item-group, li.nav-item-group a {
 }
 
 #minPrice {
-    width: 110px;
+    width: 80px;
     float: left;
 }
 
 #maxPrice {
-    width: 110px;
+    width: 80px;
     float: right;
     text-align: right;
 }
@@ -257,7 +257,7 @@ li.nav-item-group, li.nav-item-group a {
 }
 
 .category-result .badge-results {
-    top: 26px;
+    top: 10px;
     color: #fff;
     font-size: 12px;
     padding: 3px 8px;
@@ -276,15 +276,16 @@ li.nav-item-group, li.nav-item-group a {
     .product-list-display-options .show-option {
         float: right;
         padding-right: 0;
+        margin-left: 3px;
     }
 
         .product-list-display-options .show-option i {
             color: #fff;
-            width: 30px;
-            height: 30px;
+            width: 37px;
+            height: 37px;
             padding: 6px;
-            font-size: 18px;
-            line-height: 20px;
+            font-size: 24px;
+            line-height: 30px;
             text-align: center;
             background: #18ba9b;
             display: inline-block;
