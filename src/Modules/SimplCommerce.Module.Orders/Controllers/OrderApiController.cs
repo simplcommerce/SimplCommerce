@@ -161,11 +161,12 @@ namespace SimplCommerce.Module.Orders.Controllers
                 CustomerEmail = order.CreatedBy.Email,
                 ShippingMethod = order.ShippingMethod,
                 PaymentMethod = order.PaymentMethod,
+                PaymentFeeAmount = order.PaymentFeeAmount,
                 Subtotal = order.SubTotal,
                 DiscountAmount = order.DiscountAmount,
                 SubTotalWithDiscount = order.SubTotalWithDiscount,
                 TaxAmount = order.TaxAmount,
-                ShippingAmount = order.ShippingAmount,
+                ShippingAmount = order.ShippingFeeAmount,
                 OrderTotal = order.OrderTotal,
                 ShippingAddress = new ShippingAddressVm
                 {
