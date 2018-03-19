@@ -48,7 +48,7 @@ namespace SimplCommerce.Module.Orders.Services
             _orderEmailService = orderEmailService;
         }
 
-        public async Task<Result<Order>> CreateOrder(User user, string paymentMethod, OrderStatus orderStatus = OrderStatus.New)
+        public async Task<Result<Order>> CreateOrder(User user, string paymentMethod, decimal paymentFeeAmount, OrderStatus orderStatus = OrderStatus.New)
         {
             var cart = await _cartRepository
                .Query()
@@ -93,10 +93,10 @@ namespace SimplCommerce.Module.Orders.Services
                 billingAddress = shippingAddress = _userAddressRepository.Query().Where(x => x.Id == shippingData.ShippingAddressId).Select(x => x.Address).First();
             }
 
-            return await CreateOrder(user, paymentMethod, shippingData.ShippingMethod, billingAddress, shippingAddress);
+            return await CreateOrder(user, paymentMethod, paymentFeeAmount, shippingData.ShippingMethod, billingAddress, shippingAddress, orderStatus);
         }
 
-        public async Task<Result<Order>> CreateOrder(User user, string paymentMethod, string shippingMethodName, Address billingAddress, Address shippingAddress, OrderStatus orderStatus = OrderStatus.New)
+        public async Task<Result<Order>> CreateOrder(User user, string paymentMethod, decimal paymentFeeAmount, string shippingMethodName, Address billingAddress, Address shippingAddress, OrderStatus orderStatus = OrderStatus.New)
         {
             var cart = _cartRepository
                 .Query()
@@ -155,6 +155,7 @@ namespace SimplCommerce.Module.Orders.Services
                 BillingAddress = orderBillingAddress,
                 ShippingAddress = orderShippingAddress,
                 PaymentMethod = paymentMethod,
+                PaymentFeeAmount = paymentFeeAmount
             };
 
             foreach (var cartItem in cart.Items)
@@ -192,12 +193,12 @@ namespace SimplCommerce.Module.Orders.Services
             order.CouponCode = checkingDiscountResult.CouponCode;
             order.CouponRuleName = cart.CouponRuleName;
             order.DiscountAmount = checkingDiscountResult.DiscountAmount;
-            order.ShippingAmount = shippingMethod.Price;
+            order.ShippingFeeAmount = shippingMethod.Price;
             order.ShippingMethod = shippingMethod.Name;
             order.TaxAmount = order.OrderItems.Sum(x => x.TaxAmount);
             order.SubTotal = order.OrderItems.Sum(x => x.ProductPrice * x.Quantity);
             order.SubTotalWithDiscount = order.SubTotal - checkingDiscountResult.DiscountAmount;
-            order.OrderTotal = order.SubTotal + order.TaxAmount + order.ShippingAmount - order.DiscountAmount;
+            order.OrderTotal = order.SubTotal + order.TaxAmount + order.ShippingFeeAmount + order.PaymentFeeAmount - order.DiscountAmount;
             _orderRepository.Add(order);
 
             cart.IsActive = false;
@@ -237,7 +238,7 @@ namespace SimplCommerce.Module.Orders.Services
 
                 subOrder.SubTotal = subOrder.OrderItems.Sum(x => x.ProductPrice * x.Quantity);
                 subOrder.TaxAmount = subOrder.OrderItems.Sum(x => x.TaxAmount);
-                subOrder.OrderTotal = subOrder.SubTotal + subOrder.TaxAmount + subOrder.ShippingAmount - subOrder.DiscountAmount;
+                subOrder.OrderTotal = subOrder.SubTotal + subOrder.TaxAmount + subOrder.ShippingFeeAmount - subOrder.DiscountAmount;
                 _orderRepository.Add(subOrder);
             }
 

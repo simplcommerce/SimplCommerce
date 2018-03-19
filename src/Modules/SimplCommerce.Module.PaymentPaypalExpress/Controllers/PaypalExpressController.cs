@@ -103,7 +103,8 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
         {
             var accessToken = await GetAccessToken();
             var currentUser = await _workContext.GetCurrentUser();
-            var orderCreateResult = await _orderService.CreateOrder(currentUser, "PaypalExpress", OrderStatus.PendingPayment);
+            var cart = await _cartService.GetCart(currentUser.Id);
+            var orderCreateResult = await _orderService.CreateOrder(currentUser, "PaypalExpress", CalculatePaymentFee(cart.OrderTotal), OrderStatus.PendingPayment);
             if (!orderCreateResult.Success)
             {
                 return BadRequest(orderCreateResult.Error);
@@ -113,8 +114,8 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
             var payment = new Payment()
             {
                 OrderId = order.Id,
-                PaymentFee = CalculatePaymentFee(order.OrderTotal),
-                Amount = order.OrderTotal + CalculatePaymentFee(order.OrderTotal),
+                PaymentFee = order.PaymentFeeAmount,
+                Amount = order.OrderTotal,
                 PaymentMethod = "Paypal Express",
                 CreatedOn = DateTimeOffset.UtcNow,
             };
@@ -136,6 +137,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
                 payment.Status = PaymentStatus.Succeeded;
                 payment.GatewayTransactionId = payPalPaymentId;
                 _paymentRepository.Add(payment);
+                order.OrderStatus = OrderStatus.PaymentReceived;
                 await _paymentRepository.SaveChangesAsync();
                 return Ok(new { status = "success" });
             }
@@ -143,6 +145,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
             payment.Status = PaymentStatus.Failed;
             payment.FailureMessage = responseBody;
             _paymentRepository.Add(payment);
+            order.OrderStatus = OrderStatus.PaymentFailed;
             await _paymentRepository.SaveChangesAsync();
 
             string errorName = responseObject.name;

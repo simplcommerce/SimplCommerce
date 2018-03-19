@@ -24,7 +24,7 @@ namespace SimplCommerce.Module.PaymentCoD.Controllers
         public async Task<IActionResult> CoDCheckout()
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var orderCreateResult = await _orderService.CreateOrder(currentUser, "CashOnDelivery");
+            var orderCreateResult = await _orderService.CreateOrder(currentUser, "CashOnDelivery", 0);
             if(!orderCreateResult.Success)
             {
                 TempData["Error"] = orderCreateResult.Error;
