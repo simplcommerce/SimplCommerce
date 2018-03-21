@@ -17,7 +17,7 @@ namespace SimplCommerce.Module.Core.Models
 
         public bool IsCityEnabled { get; set; } = true;
 
-        public bool IsPostalCodeEnabled { get; set; } = true;
+        public bool IsZipCodeEnabled { get; set; } = true;
 
         public bool IsDistrictEnabled { get; set; } = true;
 

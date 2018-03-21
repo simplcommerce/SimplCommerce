@@ -24,7 +24,7 @@
 
             $("#form-group-district").toggleClass("d-none", !data.isDistrictEnabled);
             $("#form-group-city").toggleClass("d-none", !data.isCityEnabled);
-            $("#form-group-postalcode").toggleClass("d-none", !data.isPostalCodeEnabled);
+            $("#form-group-postalcode").toggleClass("d-none", !data.isZipCodeEnabled);
         });
     });
 

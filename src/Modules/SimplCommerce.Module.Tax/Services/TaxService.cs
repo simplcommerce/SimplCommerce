@@ -15,23 +15,29 @@ namespace SimplCommerce.Module.Tax.Services
             _taxRateRepository = taxRateRepository;
         }
 
-        public async Task<decimal> GetTaxPercent(long? taxClassId, long countryId, long stateOrProvinceId)
+        public async Task<decimal> GetTaxPercent(long? taxClassId, long countryId, long stateOrProvinceId, string zipCode)
         {
-            decimal taxPercent = 0;
-            if (taxClassId.HasValue)
+            if (!taxClassId.HasValue)
             {
-                var taxRate = await _taxRateRepository.Query()
-                           .Where(x => x.CountryId == countryId
-                           && (x.StateOrProvinceId == stateOrProvinceId || x.StateOrProvinceId == null)
-                           && x.TaxClassId == taxClassId.Value).FirstOrDefaultAsync();
-
-                if (taxRate != null)
-                {
-                    taxPercent = taxRate.Rate;
-                }
+                return 0;
             }
 
-            return taxPercent;
+            var query = _taxRateRepository.Query()
+                           .Where(x => x.CountryId == countryId
+                           && (x.StateOrProvinceId == stateOrProvinceId || x.StateOrProvinceId == null)
+                           && x.TaxClassId == taxClassId.Value);
+            if (!string.IsNullOrEmpty(zipCode))
+            {
+                query = query.Where(x => x.ZipCode == zipCode);
+            }
+
+            var taxRate = await query.FirstOrDefaultAsync();
+            if (taxRate != null)
+            {
+                return taxRate.Rate;
+            }
+
+            return 0;
         }
     }
 }

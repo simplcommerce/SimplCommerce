@@ -84,7 +84,7 @@ namespace SimplCommerce.Module.Inventory.Controllers
                 CountryId = address.CountryId,
                 City = address.City,
                 DistrictId = address.DistrictId,
-                PostalCode = address.PostalCode
+                ZipCode = address.ZipCode
             };
 
             return Json(model);
@@ -105,7 +105,7 @@ namespace SimplCommerce.Module.Inventory.Controllers
                     CountryId = model.CountryId,
                     City = model.City,
                     DistrictId = model.DistrictId,
-                    PostalCode = model.PostalCode
+                    ZipCode = model.ZipCode
                 };
 
                 var warehouse = new Warehouse
@@ -145,7 +145,7 @@ namespace SimplCommerce.Module.Inventory.Controllers
 
             warehouse.Address.ContactName = model.ContactName;
             warehouse.Address.Phone = model.Phone;
-            warehouse.Address.PostalCode = model.PostalCode;
+            warehouse.Address.ZipCode = model.ZipCode;
             warehouse.Address.StateOrProvinceId = model.StateOrProvinceId;
             warehouse.Address.CountryId = model.CountryId;
             warehouse.Address.DistrictId = model.DistrictId;

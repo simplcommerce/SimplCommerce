@@ -1242,7 +1242,7 @@ SET IDENTITY_INSERT [dbo].[Tax_TaxRate] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[Core_Address] ON 
-INSERT [dbo].[Core_Address] ([Id], [AddressLine1], [ContactName], [CountryId], [DistrictId], [Phone], [StateOrProvinceId], [City], [PostalCode]) VALUES (1, NULL, N'SimplCommerce', 238, NULL, NULL, 93, NULL, NULL)
+INSERT [dbo].[Core_Address] ([Id], [AddressLine1], [ContactName], [CountryId], [DistrictId], [Phone], [StateOrProvinceId], [City], [ZipCode]) VALUES (1, NULL, N'SimplCommerce', 238, NULL, NULL, 93, NULL, NULL)
 SET IDENTITY_INSERT [dbo].[Core_Address] OFF
 GO
 

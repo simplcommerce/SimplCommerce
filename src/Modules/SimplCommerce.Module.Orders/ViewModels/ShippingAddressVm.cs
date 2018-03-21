@@ -24,7 +24,7 @@
 
         public bool DisplayDistrict { get; set; }
 
-        public bool DisplayPostalCode { get; set; }
+        public bool DisplayZipCode { get; set; }
 
         public bool DisplayCity { get; set; }
     }

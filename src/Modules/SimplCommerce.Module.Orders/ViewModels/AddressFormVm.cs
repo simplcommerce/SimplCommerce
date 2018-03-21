@@ -25,7 +25,7 @@ namespace SimplCommerce.Module.Orders.ViewModels
 
         public string City { get; set; }
 
-        public string PostalCode { get; set; }
+        public string ZipCode { get; set; }
 
         public IList<SelectListItem> StateOrProvinces { get; set; }
 

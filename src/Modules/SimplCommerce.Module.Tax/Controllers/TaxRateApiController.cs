@@ -26,12 +26,13 @@ namespace SimplCommerce.Module.Tax.Controllers
                 .Query()
                 .Select(x => new
                 {
-                    Id = x.Id,
-                    Name = x.Name,
+                    x.Id,
+                    x.Name,
                     TagClassName = x.TaxClass.Name,
                     CountryName = x.Country.Name,
                     StateOrProvinceName = x.StateOrProvince.Name,
-                    Rate = x.Rate
+                    x.ZipCode,
+                    x.Rate
                 })
                 .ToListAsync();
             return Json(taxRates);
@@ -53,6 +54,7 @@ namespace SimplCommerce.Module.Tax.Controllers
                 TaxClassId = taxRate.TaxClassId,
                 CountryId = taxRate.CountryId,
                 StateOrProvinceId = taxRate.StateOrProvinceId,
+                ZipCode = taxRate.ZipCode,
                 Rate = taxRate.Rate
             };
 
@@ -70,6 +72,7 @@ namespace SimplCommerce.Module.Tax.Controllers
                     TaxClassId = model.TaxClassId,
                     CountryId = model.CountryId,
                     StateOrProvinceId = model.StateOrProvinceId,
+                    ZipCode = model.ZipCode,
                     Rate = model.Rate
                 };
 
@@ -96,6 +99,7 @@ namespace SimplCommerce.Module.Tax.Controllers
                 taxRate.TaxClassId = model.TaxClassId;
                 taxRate.CountryId = model.CountryId;
                 taxRate.StateOrProvinceId = model.StateOrProvinceId;
+                taxRate.ZipCode = model.ZipCode;
                 taxRate.Rate = model.Rate;
 
                 await _taxRateRepository.SaveChangesAsync();
