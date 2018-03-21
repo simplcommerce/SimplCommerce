@@ -19,5 +19,7 @@ namespace SimplCommerce.Module.Tax.ViewModels
         public decimal Rate { get; set; }
 
         public long? StateOrProvinceId { get; set; }
+
+        public string ZipCode { get; set; }
     }
 }

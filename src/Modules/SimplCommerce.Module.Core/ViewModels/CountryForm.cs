@@ -16,7 +16,7 @@
 
         public bool IsCityEnabled { get;  set; }
 
-        public bool IsPostalCodeEnabled { get;  set; }
+        public bool IsZipCodeEnabled { get;  set; }
 
         public bool IsDistrictEnabled { get;  set; }
     }

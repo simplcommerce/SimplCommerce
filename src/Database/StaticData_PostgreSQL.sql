@@ -90,7 +90,7 @@ SELECT pg_catalog.setval('"Tax_TaxClass_Id_seq"', 1, true);
 INSERT INTO "Tax_TaxRate" ("Id", "CountryId", "Name", "Rate", "StateOrProvinceId", "TaxClassId") VALUES (1, 238, 'Standard VN VAT', CAST(10.00 AS Decimal(18, 2)), NULL, 1);
 SELECT pg_catalog.setval('"Tax_TaxRate_Id_seq"', 1, true);
 
-INSERT INTO "Core_Address" ("Id", "AddressLine1", "ContactName", "CountryId", "DistrictId", "Phone", "StateOrProvinceId", "City", "PostalCode") VALUES (1, NULL, 'SimplCommerce', 238, NULL, NULL, 93, NULL, NULL);
+INSERT INTO "Core_Address" ("Id", "AddressLine1", "ContactName", "CountryId", "DistrictId", "Phone", "StateOrProvinceId", "City", "ZipCode") VALUES (1, NULL, 'SimplCommerce', 238, NULL, NULL, 93, NULL, NULL);
 SELECT pg_catalog.setval('"Core_Address_Id_seq"', 1, true);
 
 INSERT INTO "Inventory_Warehouse" ("Id", "AddressId", "Name") VALUES (1, 1, 'Default warehouse');
