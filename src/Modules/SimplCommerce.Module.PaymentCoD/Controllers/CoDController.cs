@@ -1,15 +1,15 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
+using System.Linq;
+using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.ShoppingCart.Services;
 using SimplCommerce.Module.Payments.Models;
-using SimplCommerce.Infrastructure.Data;
-using System;
 using SimplCommerce.Module.PaymentCoD.Models;
-using System.Linq;
-using Newtonsoft.Json;
 
 namespace SimplCommerce.Module.PaymentCoD.Controllers
 {
@@ -37,8 +37,6 @@ namespace SimplCommerce.Module.PaymentCoD.Controllers
         [HttpPost]
         public async Task<IActionResult> CoDCheckout()
         {
-
-
             if (!await ValidateCod())
             {
                 TempData["Error"] = "Payment Method is not eligible for this order.";
@@ -57,35 +55,20 @@ namespace SimplCommerce.Module.PaymentCoD.Controllers
             return Redirect("~/checkout/congratulation");
         }
 
-
-
         private CODfee GetSetting()
         {
             var CodProvider = _paymentProviderRepository.Query().FirstOrDefault(x => x.Id == PaymentProviderHelper.CODProviderId);
             var paypalExpressSetting = JsonConvert.DeserializeObject<CODfee>(CodProvider.AdditionalSettings);
+
             return paypalExpressSetting;
         }
+
         private async Task<bool> ValidateCod()
         {
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetCart(currentUser.Id);
-            if (_setting.Value.CartTotalMinValue && _setting.Value.CartTotalMaxValue)
-            {
-                return cart.OrderTotal >= _setting.Value.MinValue && cart.OrderTotal <= _setting.Value.MaxValue;            
-            }
-            else if (_setting.Value.CartTotalMinValue)
-            {
-                return (cart.OrderTotal <= _setting.Value.MinValue) ? false : true;
-            }
-            else if (_setting.Value.CartTotalMaxValue)
-            {
-                return (cart.OrderTotal >= _setting.Value.MaxValue) ? false : true;
-            }
-            else
-            {
-                return false;
-            }
-            
+
+            return cart.OrderTotal >= _setting.Value.MinValue && cart.OrderTotal <= _setting.Value.MaxValue;
         }
 
         private async Task<decimal> CalculateFee()
@@ -93,6 +76,7 @@ namespace SimplCommerce.Module.PaymentCoD.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetCart(currentUser.Id);
             var percent = _setting.Value.PaymentFee;
+
             return (cart.OrderTotal / 100) * percent;
         }
     }

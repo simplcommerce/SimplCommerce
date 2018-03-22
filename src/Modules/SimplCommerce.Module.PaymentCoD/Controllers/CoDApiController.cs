@@ -1,14 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.PaymentCoD.Models;
 using SimplCommerce.Module.Payments.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace SimplCommerce.Module.PaymentCoD.Controllers
 {
@@ -23,15 +21,12 @@ namespace SimplCommerce.Module.PaymentCoD.Controllers
             _paymentProviderRepository = paymentProviderRepository;
         }
 
-        protected CoDApiController()
-        {
-        }
-
         [HttpGet("config")]
         public async Task<IActionResult> Config()
         {
             var codProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.CODProviderId);
             var model = JsonConvert.DeserializeObject<CODfee>(codProvider.AdditionalSettings);
+
             return Ok(model);
         }
 
