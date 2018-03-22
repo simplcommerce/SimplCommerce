@@ -20,7 +20,8 @@ namespace SimplCommerce.Module.PaymentCoD.Controllers
         private readonly IWorkContext _workContext;
         private readonly ICartService _cartService;
         private readonly IRepository<PaymentProvider> _paymentProviderRepository;
-        private Lazy<CODfee> _setting;
+        private Lazy<CoDSetting> _setting;
+
         public CoDController(
             ICartService cartService,
             IOrderService orderService,
@@ -31,13 +32,13 @@ namespace SimplCommerce.Module.PaymentCoD.Controllers
             _cartService = cartService;
             _orderService = orderService;
             _workContext = workContext;
-            _setting = new Lazy<CODfee>(GetSetting());
+            _setting = new Lazy<CoDSetting>(GetSetting());
         }
 
         [HttpPost]
         public async Task<IActionResult> CoDCheckout()
         {
-            if (!await ValidateCod())
+            if (!await ValidateCoD())
             {
                 TempData["Error"] = "Payment Method is not eligible for this order.";
                 return Redirect("~/checkout/payment");
@@ -55,20 +56,33 @@ namespace SimplCommerce.Module.PaymentCoD.Controllers
             return Redirect("~/checkout/congratulation");
         }
 
-        private CODfee GetSetting()
+        private CoDSetting GetSetting()
         {
-            var CodProvider = _paymentProviderRepository.Query().FirstOrDefault(x => x.Id == PaymentProviderHelper.CODProviderId);
-            var paypalExpressSetting = JsonConvert.DeserializeObject<CODfee>(CodProvider.AdditionalSettings);
+            var coDProvider = _paymentProviderRepository.Query().FirstOrDefault(x => x.Id == PaymentProviderHelper.CODProviderId);
+            if (string.IsNullOrEmpty(coDProvider.AdditionalSettings))
+            {
+                return new CoDSetting();
+            }
 
-            return paypalExpressSetting;
+            var coDSetting = JsonConvert.DeserializeObject<CoDSetting>(coDProvider.AdditionalSettings);
+            return coDSetting;
         }
 
-        private async Task<bool> ValidateCod()
+        private async Task<bool> ValidateCoD()
         {
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetCart(currentUser.Id);
+            if (_setting.Value.MinOrderValue.HasValue && _setting.Value.MinOrderValue.Value > cart.OrderTotal)
+            {
+                return false;
+            }
 
-            return cart.OrderTotal >= _setting.Value.MinValue && cart.OrderTotal <= _setting.Value.MaxValue;
+            if (_setting.Value.MaxOrderValue.HasValue && _setting.Value.MaxOrderValue.Value < cart.OrderTotal)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private async Task<decimal> CalculateFee()

@@ -74,7 +74,7 @@ SET IDENTITY_INSERT [dbo].[Catalog_ProductOption] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[Payments_PaymentProvider] ON 
-INSERT [dbo].[Payments_PaymentProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [LandingViewComponentName], [Name]) VALUES (1,  N'{"CartTotalMinValue":true,"CartTotalMaxValue":true,"MinValue":10.0,"MaxValue":100.0,"PaymentFee":2.0}',  N'payments-cod-config', 1, N'CoDLanding', N'Cash On Delivery')
+INSERT [dbo].[Payments_PaymentProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [LandingViewComponentName], [Name]) VALUES (1,  NULL,  N'payments-cod-config', 1, N'CoDLanding', N'Cash On Delivery')
 INSERT [dbo].[Payments_PaymentProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [LandingViewComponentName], [Name]) VALUES (2, N'{"IsSandbox":true,"ClientId":"","ClientSecret":""}', N'payments-paypalExpress-config', 1, N'PaypalExpressLanding', N'Paypal Express')
 INSERT [dbo].[Payments_PaymentProvider] ([Id], [AdditionalSettings], [ConfigureUrl], [IsEnabled], [LandingViewComponentName], [Name]) VALUES (3, N'{"PublicKey": "pk_test_6pRNASCoBOKtIshFeQd4XMUh", "PrivateKey" : "sk_test_BQokikJOvBiI2HlWgH4olfQ2"}', N'payments-stripe-config', 1, N'StripeLanding', N'Stripe')
 SET IDENTITY_INSERT [dbo].[Payments_PaymentProvider] OFF

@@ -7,7 +7,6 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.PaymentCoD.Models;
 using SimplCommerce.Module.Payments.Models;
 
-
 namespace SimplCommerce.Module.PaymentCoD.Controllers
 {
     [Authorize(Roles = "admin")]
@@ -25,13 +24,17 @@ namespace SimplCommerce.Module.PaymentCoD.Controllers
         public async Task<IActionResult> Config()
         {
             var codProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.CODProviderId);
-            var model = JsonConvert.DeserializeObject<CODfee>(codProvider.AdditionalSettings);
+            if (string.IsNullOrEmpty(codProvider.AdditionalSettings))
+            {
+                return Ok(new CoDSetting());
+            }
 
+            var model = JsonConvert.DeserializeObject<CoDSetting>(codProvider.AdditionalSettings);
             return Ok(model);
         }
 
         [HttpPut("config")]
-        public async Task<IActionResult> Config([FromBody] CODfee model)
+        public async Task<IActionResult> Config([FromBody] CoDSetting model)
         {
             if (ModelState.IsValid)
             {

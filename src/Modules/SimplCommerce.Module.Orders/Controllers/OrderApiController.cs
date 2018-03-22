@@ -119,8 +119,10 @@ namespace SimplCommerce.Module.Orders.Controllers
                 order => new
                 {
                     order.Id,
-                    CustomerName = order.CreatedBy.FullName, order.SubTotal,
-                    OrderStatus = order.OrderStatus.ToString(), order.CreatedOn
+                    CustomerName = order.CreatedBy.FullName,
+                    order.OrderTotal,
+                    OrderStatus = order.OrderStatus.ToString(),
+                    order.CreatedOn
                 });
 
             return Json(orders);
