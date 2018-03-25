@@ -335,13 +335,13 @@ li.nav-item-group, li.nav-item-group a {
     border: 1px solid #eee;
 }
 
-.cart-list .table > thead > tr > th {
+.cart-list .cart-items > thead > tr > th {
     border-bottom: none;
     text-transform: uppercase;
     color: #687074;
 }
 
-.cart-list .table > tbody > tr > td {
+.cart-list .cart-items > tbody > tr > td {
     border-top: none;
 }
 
@@ -349,14 +349,6 @@ li.nav-item-group, li.nav-item-group a {
     text-transform: uppercase;
     color: #687074;
     padding-bottom: 20px;
-}
-
-.cart-list .order-summary dt {
-    text-align: left;
-}
-
-.cart-list .order-summary dd {
-    text-align: right;
 }
 
 .cart-list .order-summary .btn {
