@@ -1,15 +1,16 @@
 ﻿@using System.Globalization
 
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewData["Title"] - SimplCommerce</title>
 
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap4/css/bootstrap.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap-star-rating/css/star-rating.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/multi-dropdown-menu/css/bootstrap-4-navbar.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/modules/core/site.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/themes/SampleTheme/site.css" />
 
@@ -18,7 +19,7 @@
 <body>
     <div class="top-bar">
         <div class="container">
-            <ul class="list-inline list-unstyled pull-right">
+            <ul class="nav justify-content-end">
                 @await Html.PartialAsync("_SelectLanguagePartial")
                 @await Html.PartialAsync("_LoginPartial")
             </ul>
@@ -27,31 +28,26 @@
     <div class="main-header">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-md-4 logo">
+                <div class="col-12 col-md-6 col-lg-4 logo">
                     <a asp-controller="Home" asp-action="Index">
                         <img alt="SimplCommerce" src="~/modules/core/Logo_SimplCommerce.png" />
                     </a>
                 </div>
-                <div class="col-xs-10 col-md-7 search-box">
+                <div class="col-10 col-md-5 col-lg-7 search-box">
                     @await Component.InvokeAsync("SearchForm")
                 </div>
-                <div class="col-xs-2 col-md-1 cart-btn">
+                <div class="col-2 col-md-1 cart-btn">
                     @await Component.InvokeAsync("CartBadge")
                 </div>
             </div>
         </div>
     </div>
-    <div class="navbar navbar-default main-nav">
+    <div class="navbar navbar-expand-lg navbar-light bg-light btco-hover-menu main-nav">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse navbar-responsive-collapse">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
                 @await Component.InvokeAsync("CategoryMenu")
             </div>
         </div>
@@ -92,8 +88,13 @@
             window.simplGlobalSetting = {};
             window.simplGlobalSetting.lang = '@CultureInfo.CurrentCulture.Name';
     </script>
-    <script simpl-append-version="true" src="~/lib/jquery/jquery.js"></script>
-    <script simpl-append-version="true" src="~/lib/bootstrap/js/bootstrap.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    @*<script simpl-append-version="true" src="~/lib/jquery/jquery.js"></script>*@
+    <script simpl-append-version="true" src="~/lib/bootstrap4/js/bootstrap.js"></script>
+    <script simpl-append-version="true" src="~/lib/multi-dropdown-menu/js/bootstrap-4-navbar.js"></script>
     <script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
     <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
     @if (CultureInfo.CurrentCulture.Name == "vi-VN")

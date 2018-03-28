@@ -119,8 +119,10 @@ namespace SimplCommerce.Module.Orders.Controllers
                 order => new
                 {
                     order.Id,
-                    CustomerName = order.CreatedBy.FullName, order.SubTotal,
-                    OrderStatus = order.OrderStatus.ToString(), order.CreatedOn
+                    CustomerName = order.CreatedBy.FullName,
+                    order.OrderTotal,
+                    OrderStatus = order.OrderStatus.ToString(),
+                    order.CreatedOn
                 });
 
             return Json(orders);
@@ -161,11 +163,12 @@ namespace SimplCommerce.Module.Orders.Controllers
                 CustomerEmail = order.CreatedBy.Email,
                 ShippingMethod = order.ShippingMethod,
                 PaymentMethod = order.PaymentMethod,
+                PaymentFeeAmount = order.PaymentFeeAmount,
                 Subtotal = order.SubTotal,
                 DiscountAmount = order.DiscountAmount,
                 SubTotalWithDiscount = order.SubTotalWithDiscount,
                 TaxAmount = order.TaxAmount,
-                ShippingAmount = order.ShippingAmount,
+                ShippingAmount = order.ShippingFeeAmount,
                 OrderTotal = order.OrderTotal,
                 ShippingAddress = new ShippingAddressVm
                 {

@@ -1,11 +1,11 @@
 ﻿@model SimplCommerce.Module.Catalog.ViewModels.ProductThumbnail
 
-<div class="thumbnail">
+<div class="card mb-4">
     <a href="~/@Model.SeoTitle">
-        <img alt="@Model.Name" src="@Model.ThumbnailUrl">
-        <div class="caption">
-            <h4 class="product-name">@Model.Name</h4>
-            <p class="product-price">
+        <img alt="@Model.Name" class="card-img-top" src="@Model.ThumbnailUrl">
+        <div class="card-body">
+            <h5 class="card-title product-name">@Model.Name</h5>
+            <p class="card-text product-price">
                 @if (Model.IsCallForPricing)
                 {
                     @Localizer["Call for pricing"]
@@ -22,7 +22,7 @@
                 }
             </p>
             <ul class="list-inline product-ratings">
-                <li><input value="@Model.RatingAverage" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
+                <li><input type="hidden" value="@Model.RatingAverage" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
                 @if (Model.ReviewsCount > 0)
                 {
                     <li class="product-review-list">

@@ -51,7 +51,7 @@ namespace SimplCommerce.Module.Core.Controllers
                     StateOrProvinceName = x.Address.StateOrProvince.Name,
                     CountryName = x.Address.Country.Name,
                     DisplayCity = x.Address.Country.IsCityEnabled,
-                    DisplayPostalCode = x.Address.Country.IsPostalCodeEnabled,
+                    DisplayZipCode = x.Address.Country.IsZipCodeEnabled,
                     DisplayDistrict = x.Address.Country.IsDistrictEnabled
                 }).ToList();
 
@@ -79,7 +79,7 @@ namespace SimplCommerce.Module.Core.Controllers
                 country.IsBillingEnabled,
                 country.IsShippingEnabled,
                 country.IsCityEnabled,
-                country.IsPostalCodeEnabled,
+                country.IsZipCodeEnabled,
                 country.IsDistrictEnabled,
                 StatesOrProvinces = country.StatesOrProvinces.Select(x => new { x.Id, x.Name })
             };
@@ -114,7 +114,7 @@ namespace SimplCommerce.Module.Core.Controllers
                     StateOrProvinceId = model.StateOrProvinceId,
                     DistrictId = model.DistrictId,
                     City = model.City,
-                    PostalCode = model.PostalCode,
+                    ZipCode = model.ZipCode,
                     Phone = model.Phone
                 };
 
@@ -159,7 +159,7 @@ namespace SimplCommerce.Module.Core.Controllers
                 DistrictId = userAddress.Address.DistrictId,
                 StateOrProvinceId = userAddress.Address.StateOrProvinceId,
                 City = userAddress.Address.City,
-                PostalCode = userAddress.Address.PostalCode
+                ZipCode = userAddress.Address.ZipCode
             };
 
             PopulateAddressFormData(model);
@@ -191,7 +191,7 @@ namespace SimplCommerce.Module.Core.Controllers
                 userAddress.Address.StateOrProvinceId = model.StateOrProvinceId;
                 userAddress.Address.DistrictId = model.DistrictId;
                 userAddress.Address.City = model.City;
-                userAddress.Address.PostalCode = model.PostalCode;
+                userAddress.Address.ZipCode = model.ZipCode;
                 userAddress.Address.Phone = model.Phone;
 
                 _userAddressRepository.SaveChanges();
@@ -269,7 +269,7 @@ namespace SimplCommerce.Module.Core.Controllers
             {
                 model.DisplayCity = selectedCountry.IsCityEnabled;
                 model.DisplayDistrict = selectedCountry.IsDistrictEnabled;
-                model.DisplayPostalCode = selectedCountry.IsPostalCodeEnabled;
+                model.DisplayZipCode = selectedCountry.IsZipCodeEnabled;
             }
 
             model.StateOrProvinces = _stateOrProvinceRepository

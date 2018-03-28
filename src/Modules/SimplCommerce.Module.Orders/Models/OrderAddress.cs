@@ -15,7 +15,7 @@ namespace SimplCommerce.Module.Orders.Models
 
         public string City { get; set; }
 
-        public string PostalCode { get; set; }
+        public string ZipCode { get; set; }
 
         public long? DistrictId { get; set; }
 

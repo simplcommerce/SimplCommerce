@@ -12,12 +12,12 @@ namespace SimplCommerce.Module.Orders.Services
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        Task<Result<Order>> CreateOrder(User user, string paymentMethod, OrderStatus orderStatus = OrderStatus.New);
+        Task<Result<Order>> CreateOrder(User user, string paymentMethod, decimal paymentFeeAmount, OrderStatus orderStatus = OrderStatus.New);
 
-        Task<Result<Order>> CreateOrder(User user, string paymentMethod, string shippingMethod, Address billingAddress, Address shippingAddress, OrderStatus orderStatus = OrderStatus.New);
+        Task<Result<Order>> CreateOrder(User user, string paymentMethod, decimal paymentFeeAmount, string shippingMethod, Address billingAddress, Address shippingAddress, OrderStatus orderStatus = OrderStatus.New);
 
         void CancelOrder(Order order);
 
-        Task<decimal> GetTax(long cartOwnerUserId, long countryId, long stateOrProvinceId);
+        Task<decimal> GetTax(long cartOwnerUserId, long countryId, long stateOrProvinceId, string zipCode);
     }
 }

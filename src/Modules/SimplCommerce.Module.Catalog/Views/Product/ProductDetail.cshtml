@@ -10,16 +10,16 @@
     <link simpl-append-version="true" rel="stylesheet" href="~/modules/catalog/product-detail.css" />
 }
 
-<div>
+<nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li><a href="~/">@Localizer["Home"]</a></li>
+        <li class="breadcrumb-item"><a href="~/">@Localizer["Home"]</a></li>
         @if (Model.Categories.Any())
         {
             @await Component.InvokeAsync("CategoryBreadcrumb", new { categoryIds = Model.Categories.Select(x => x.Id) })
         }
-        <li><span class="active">@Model.Name</span></li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
     </ol>
-</div>
+</nav>
 
 <div class="product-detail">
     <div class="row">
@@ -38,7 +38,7 @@
                 <h1 class="">@Model.Name</h1>
             </div>
             <ul class="list-inline product-ratings">
-                <li><input value="@Model.RatingAverage" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
+                <li><input type="hidden" value="@Model.RatingAverage" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
                 <li class="product-review-list">
                     <span>(@Model.ReviewsCount) <a href="#reviews">@Localizer["reviews"]</a> | <a href="#addreview"> @Localizer["Add Review"]</a></span>
                 </li>
@@ -56,7 +56,7 @@
                                     @foreach (var value in option.Values)
                                     {
                                         var shouldChecked = Model.Variations.First().Options.Any(x => x.Value == value);
-                                        <li>
+                                        <li class="list-inline-item">
                                             <input type="radio" value="@value" checked="@shouldChecked" name="@option.OptionName" />
                                             @if (Model.OptionDisplayValues.ContainsKey(value) && !String.IsNullOrWhiteSpace(Model.OptionDisplayValues[value].Value))
                                             {

@@ -5,6 +5,7 @@
     <PreserveCompilationContext>false</PreserveCompilationContext>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
     <OutputType>Library</OutputType>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup>

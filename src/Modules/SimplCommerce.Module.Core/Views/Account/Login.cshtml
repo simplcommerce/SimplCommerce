@@ -11,26 +11,26 @@
 <div class="row">
     <div class="col-md-8">
         <section>
-            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
                 <h4>@Localizer["Use a local account to log in."]</h4>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Email" class="col-md-4 control-label">@Localizer["Email"]</label>
+                <div class="form-group row">
+                    <label asp-for="Email" class="col-md-4 col-form-label">@Localizer["Email"]</label>
                     <div class="col-md-8">
                         <input asp-for="Email" class="form-control" />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Password" class="col-md-4 control-label">@Localizer["Password"]</label>
+                <div class="form-group row">
+                    <label asp-for="Password" class="col-md-4 col-form-label">@Localizer["Password"]</label>
                     <div class="col-md-8">
                         <input asp-for="Password" class="form-control" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-4 col-md-8">
+                <div class="form-group row">
+                    <div class="offset-md-4 col-md-8">
                         <div class="checkbox">
                             <label asp-for="RememberMe">
                                 <input asp-for="RememberMe" />
@@ -39,9 +39,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-4 col-md-8">
-                        <button type="submit" class="btn btn-default">@Localizer["Log in"]</button>
+                <div class="form-group row">
+                    <div class="offset-md-4 col-md-8">
+                        <button type="submit" class="btn btn-primary">@Localizer["Log in"]</button>
                     </div>
                 </div>
                 <p>
@@ -76,7 +76,7 @@
                             <p>
                                 @foreach (var provider in loginProviders)
                                 {
-                                    <button type="submit" class="btn btn-default" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.Name</button>
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.Name</button>
                                 }
                             </p>
                         </div>

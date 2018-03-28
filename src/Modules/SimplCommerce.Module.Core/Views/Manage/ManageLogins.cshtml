@@ -33,7 +33,7 @@
                                 else
                                 {
                                     @: &nbsp;
-                        }
+                                }
                             </td>
                         </tr>
                     }
@@ -48,7 +48,7 @@
                 <div id="socialLoginList">
                     <p>
                         @foreach (var provider in Model.OtherLogins)
-                {
+                         {
                             <button type="submit" class="btn btn-default" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.Name</button>
                         }
                     </p>

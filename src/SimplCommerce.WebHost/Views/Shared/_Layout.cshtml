@@ -1,107 +1,108 @@
 ﻿@using System.Globalization
 
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@ViewData["Title"] - SimplCommerce</title>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewData["Title"] - SimplCommerce</title>
 
-        <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
-        <link simpl-append-version="true" rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
-        <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap-star-rating/css/star-rating.css" />
-        <link simpl-append-version="true" rel="stylesheet" href="~/modules/core/site.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap4/css/bootstrap.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap-star-rating/css/star-rating.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/multi-dropdown-menu/css/bootstrap-4-navbar.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/modules/core/site.css" />
 
-        @RenderSection("head", required: false)
-    </head>
-    <body>
-        <div class="top-bar">
-            <div class="container">
-                <ul class="list-inline list-unstyled pull-right">
-                    @await Html.PartialAsync("_SelectLanguagePartial")
-                    @await Html.PartialAsync("_LoginPartial")
-                </ul>
-            </div>
+    @RenderSection("head", required: false)
+</head>
+<body>
+    <div class="top-bar">
+        <div class="container">
+            <ul class="nav justify-content-end">
+                @await Html.PartialAsync("_SelectLanguagePartial")
+                @await Html.PartialAsync("_LoginPartial")
+            </ul>
         </div>
-        <div class="main-header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 col-md-4 logo">
-                        <a asp-controller="Home" asp-action="Index">
-                            <img alt="SimplCommerce" src="~/modules/core/Logo_SimplCommerce.png" />
-                        </a>
-                    </div>
-                    <div class="col-xs-10 col-md-7 search-box">
-                        @await Component.InvokeAsync("SearchForm")
-                    </div>
-                    <div class="col-xs-2 col-md-1 cart-btn">
-                        @await Component.InvokeAsync("CartBadge")
-                    </div>
+    </div>
+    <div class="main-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4 logo">
+                    <a asp-controller="Home" asp-action="Index">
+                        <img alt="SimplCommerce" src="~/modules/core/Logo_SimplCommerce.png" />
+                    </a>
+                </div>
+                <div class="col-10 col-md-5 col-lg-7 search-box">
+                    @await Component.InvokeAsync("SearchForm")
+                </div>
+                <div class="col-2 col-md-1 cart-btn">
+                    @await Component.InvokeAsync("CartBadge")
                 </div>
             </div>
         </div>
-        <div class="navbar navbar-default main-nav">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="collapse navbar-collapse navbar-responsive-collapse">
-                    @await Component.InvokeAsync("CategoryMenu")
-                </div>
+    </div>
+    <div class="navbar navbar-expand-lg navbar-light bg-light btco-hover-menu main-nav">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                @await Component.InvokeAsync("CategoryMenu")
             </div>
         </div>
-        <div class="container body-content">
-            @RenderBody()
-        </div>
-        <div class="footer-content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3">
-                        <h4>@Localizer["Customer Service"]</h4>
-                        <vc:menu menu-id="1"></vc:menu>
-                    </div>
-                    <div class="col-md-3">
-                        <h4>Information</h4>
-                        <vc:menu menu-id="2"></vc:menu>
-                    </div>
-                    <div class="col-md-6">
-                        <h4>SimplCommerce</h4>
-                        <p>The first ecommerce system built on .NET Core.</p>
-                        <p>Simple to use and easy to customize</p>
-                        <p>Cross platform and Open source</p>
-                    </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <div class="footer-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h4>@Localizer["Customer Service"]</h4>
+                    <vc:menu menu-id="1"></vc:menu>
                 </div>
-                <hr />
-                <p class="pull-left">&copy; @DateTime.Now.Year - SimplCommerce</p>
-                <p class="pull-right">Powered by <a href="http://www.SimplCommerce.com"><strong>SimplCommerce</strong></a></p>
-            </div>
-        </div>
-        <div id="shopModal" class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="col-md-3">
+                    <h4>Information</h4>
+                    <vc:menu menu-id="2"></vc:menu>
+                </div>
+                <div class="col-md-6">
+                    <h4>SimplCommerce</h4>
+                    <p>The first ecommerce system built on .NET Core.</p>
+                    <p>Simple to use and easy to customize</p>
+                    <p>Cross platform and Open source</p>
                 </div>
             </div>
+            <hr />
+            <p class="pull-left">&copy; @DateTime.Now.Year - SimplCommerce</p>
+            <p class="pull-right">Powered by <a href="http://www.SimplCommerce.com"><strong>SimplCommerce</strong></a></p>
         </div>
-        <script>
+    </div>
+    <div id="shopModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+    <script>
             window.simplGlobalSetting = {};
             window.simplGlobalSetting.lang = '@CultureInfo.CurrentCulture.Name';
-        </script>
-        <script simpl-append-version="true" src="~/lib/jquery/jquery.js"></script>
-        <script simpl-append-version="true" src="~/lib/bootstrap/js/bootstrap.js"></script>
-        <script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
-        <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
-        @if (CultureInfo.CurrentCulture.Name == "vi-VN")
-        {
-            <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/vi-vn.js"></script>
-        }
-        <script simpl-append-version="true" src="~/modules/core/main.js"></script>
-        <script simpl-append-version="true" src="~/modules/shopping-cart/add-to-cart.js"></script>
-        <script simpl-append-version="true" src="~/modules/product-comparison/product-comparison.js"></script>
-        @RenderSection("scripts", required: false)
-    </body>
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    @*<script simpl-append-version="true" src="~/lib/jquery/jquery.js"></script>*@
+    <script simpl-append-version="true" src="~/lib/bootstrap4/js/bootstrap.js"></script>
+    <script simpl-append-version="true" src="~/lib/multi-dropdown-menu/js/bootstrap-4-navbar.js"></script>
+    <script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
+    <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
+    @if (CultureInfo.CurrentCulture.Name == "vi-VN")
+    {
+        <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/vi-vn.js"></script>
+    }
+    <script simpl-append-version="true" src="~/modules/core/main.js"></script>
+    <script simpl-append-version="true" src="~/modules/shopping-cart/add-to-cart.js"></script>
+    <script simpl-append-version="true" src="~/modules/product-comparison/product-comparison.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
 </html>

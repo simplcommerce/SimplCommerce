@@ -14,13 +14,13 @@
             }
         }
     </ol>
-    <div class="carousel-inner" role="listbox">
+    <div class="carousel-inner">
     @foreach (var item in Model.Items)
     {
-        <div class="item @(item == Model.Items.First() ? "active" : null)">
+        <div class="carousel-item @(item == Model.Items.First() ? "active" : null)">
             <a href="@item.TargetUrl">
-                <img src="@item.Image" alt="@item.Caption" class="img-responsive" />
-                <div class="carousel-caption" role="option">
+                <img src="@item.Image" alt="@item.Caption" class="img-fluid" />
+                <div class="carousel-caption d-none d-md-block" role="option">
                     <p>
                         @item.Caption
                     </p>
@@ -29,12 +29,12 @@
         </div>
     }
     </div>
-    <a class="left carousel-control" href="#carousel@(Model.Id)" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <a class="carousel-control-prev" href="#carousel@(Model.Id)" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
     </a>
-    <a class="right carousel-control" href="#carousel@(Model.Id)" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <a class="carousel-control-next" href="#carousel@(Model.Id)" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
 </div>

@@ -46,7 +46,7 @@ namespace SimplCommerce.Module.PaymentStripe.Controllers
 
             var stripeChargeService = new StripeChargeService(stripeSetting.PrivateKey);
             var currentUser = await _workContext.GetCurrentUser();
-            var orderCreationResult = await _orderService.CreateOrder(currentUser, "Stripe", OrderStatus.PendingPayment);
+            var orderCreationResult = await _orderService.CreateOrder(currentUser, "Stripe", 0, OrderStatus.PendingPayment);
             if(!orderCreationResult.Success)
             {
                 TempData["Error"] = orderCreationResult.Error;

@@ -1,13 +1,13 @@
 ﻿@model SimplCommerce.Module.ShoppingCart.ViewModels.AddToCartResult
 
 <div class="modal-header">
+    <h5 class="modal-title" id="myModalLabel">@Localizer["The product has been added to your cart"]</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h4 class="modal-title" id="myModalLabel">@Localizer["The product has been added to your cart"]</h4>
 </div>
 <div class="modal-body">
     <div class="row">
         <div class="col-md-3">
-            <img alt="@Model.ProductName" class="img-responsive" src="@Model.ProductImage">
+            <img alt="@Model.ProductName" class="img-fluid" src="@Model.ProductImage">
         </div>
         <div class="col-md-6">
             <h4>@Model.ProductName</h4>
@@ -27,6 +27,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">@Localizer["Continue shopping"]</button>
-    <a href="~/cart" type="button" class="btn btn-default">@Localizer["View cart"]</a>
+    <button type="button" class="btn btn-light" data-dismiss="modal">@Localizer["Continue shopping"]</button>
+    <a href="~/cart" role="button" class="btn btn-light">@Localizer["View cart"]</a>
 </div>

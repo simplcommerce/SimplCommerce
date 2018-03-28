@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SimplCommerce.Module.Core.Data;
 using System;
 
@@ -604,9 +607,9 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Phone");
 
-                    b.Property<string>("PostalCode");
-
                     b.Property<long>("StateOrProvinceId");
+
+                    b.Property<string>("ZipCode");
 
                     b.HasKey("Id");
 
@@ -652,9 +655,9 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<bool>("IsDistrictEnabled");
 
-                    b.Property<bool>("IsPostalCodeEnabled");
-
                     b.Property<bool>("IsShippingEnabled");
+
+                    b.Property<bool>("IsZipCodeEnabled");
 
                     b.Property<string>("Name");
 
@@ -1233,11 +1236,13 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<long?>("ParentId");
 
+                    b.Property<decimal>("PaymentFeeAmount");
+
                     b.Property<string>("PaymentMethod");
 
                     b.Property<long>("ShippingAddressId");
 
-                    b.Property<decimal>("ShippingAmount");
+                    b.Property<decimal>("ShippingFeeAmount");
 
                     b.Property<string>("ShippingMethod");
 
@@ -1283,9 +1288,9 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Phone");
 
-                    b.Property<string>("PostalCode");
-
                     b.Property<long>("StateOrProvinceId");
+
+                    b.Property<string>("ZipCode");
 
                     b.HasKey("Id");
 
@@ -1368,6 +1373,8 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<string>("GatewayTransactionId");
 
                     b.Property<long>("OrderId");
+
+                    b.Property<decimal>("PaymentFee");
 
                     b.Property<string>("PaymentMethod");
 
@@ -1825,6 +1832,8 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<long>("TaxClassId");
 
+                    b.Property<string>("ZipCode");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
@@ -2092,7 +2101,7 @@ namespace SimplCommerce.WebHost.Migrations
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.StateOrProvince", b =>
                 {
                     b.HasOne("SimplCommerce.Module.Core.Models.Country", "Country")
-                        .WithMany()
+                        .WithMany("StatesOrProvinces")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

@@ -62,7 +62,7 @@ namespace SimplCommerce.Module.Core.Controllers
                     c.IsShippingEnabled,
                     c.IsBillingEnabled,
                     c.IsCityEnabled,
-                    c.IsPostalCodeEnabled,
+                    c.IsZipCodeEnabled,
                     c.IsDistrictEnabled
                 });
 
@@ -87,7 +87,7 @@ namespace SimplCommerce.Module.Core.Controllers
                 IsBillingEnabled = country.IsBillingEnabled,
                 IsShippingEnabled = country.IsShippingEnabled,
                 IsCityEnabled = country.IsCityEnabled,
-                IsPostalCodeEnabled = country.IsPostalCodeEnabled,
+                IsZipCodeEnabled = country.IsZipCodeEnabled,
                 IsDistrictEnabled = country.IsDistrictEnabled
             };
 
@@ -115,7 +115,7 @@ namespace SimplCommerce.Module.Core.Controllers
             country.IsShippingEnabled = model.IsShippingEnabled;
             country.IsBillingEnabled = model.IsBillingEnabled;
             country.IsCityEnabled = model.IsCityEnabled;
-            country.IsPostalCodeEnabled = model.IsPostalCodeEnabled;
+            country.IsZipCodeEnabled = model.IsZipCodeEnabled;
             country.IsDistrictEnabled = model.IsDistrictEnabled;
 
             await _countryRepository.SaveChangesAsync();
@@ -137,7 +137,7 @@ namespace SimplCommerce.Module.Core.Controllers
                     IsBillingEnabled = model.IsBillingEnabled,
                     IsShippingEnabled = model.IsShippingEnabled,
                     IsCityEnabled = model.IsCityEnabled,
-                    IsPostalCodeEnabled = model.IsPostalCodeEnabled,
+                    IsZipCodeEnabled = model.IsZipCodeEnabled,
                     IsDistrictEnabled = model.IsDistrictEnabled
             };
 

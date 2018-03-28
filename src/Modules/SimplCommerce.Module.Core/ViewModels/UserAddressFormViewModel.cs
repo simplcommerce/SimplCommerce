@@ -19,7 +19,7 @@ namespace SimplCommerce.Module.Core.ViewModels
 
         public string AddressLine2 { get; set; }
 
-        public string PostalCode { get; set; }
+        public string ZipCode { get; set; }
 
         public string City { get; set; }
 
@@ -37,7 +37,7 @@ namespace SimplCommerce.Module.Core.ViewModels
 
         public bool DisplayDistrict { get; set; } = true;
 
-        public bool DisplayPostalCode { get; set; } = true;
+        public bool DisplayZipCode { get; set; } = true;
 
         public bool DisplayCity { get; set; } = true;
     }
