@@ -30,7 +30,7 @@
                         <input type="text" class="quantity-field" ng-model="cartItem.quantity" readonly="readonly" />
                         <button type="button" class="quantity-button" ng-click="vm.increaseQuantity(cartItem)" name="subtract" value="+">+</button>
                     </td>
-                    <td class="text-right"><button class="btn btn-link" ng-click="vm.removeShoppingCartItem(cartItem)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+                    <td class="text-right"><button class="btn btn-link" ng-click="vm.removeShoppingCartItem(cartItem)"><span class="fa fa-remove" aria-hidden="true"></span></button></td>
                 </tr>
                 <tr ng-if="!vm.cart.items.length">
                     <td colspan="5" class="text-center">
