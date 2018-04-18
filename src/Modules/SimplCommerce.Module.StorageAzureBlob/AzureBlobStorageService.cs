@@ -11,11 +11,13 @@ namespace SimplCommerce.Module.StorageAzureBlob
     public class AzureBlobStorageService : IStorageService
     {
         private CloudBlobContainer _blobContainer;
+        private string _publicEndpoint;
 
         public AzureBlobStorageService(IConfiguration configuration)
         {
             var storageConnectionString = configuration["Azure:Blob:StorageConnectionString"];
             var containerName = configuration["Azure:Blob:ContainerName"];
+            _publicEndpoint = configuration["Azure:Blob:PublicEndpoint"];
 
             Contract.Requires(string.IsNullOrWhiteSpace(storageConnectionString));
             Contract.Requires(string.IsNullOrWhiteSpace(containerName));
@@ -24,6 +26,11 @@ namespace SimplCommerce.Module.StorageAzureBlob
 
             var blobClient = storageAccount.CreateCloudBlobClient();
             _blobContainer = blobClient.GetContainerReference(containerName);
+
+            if (string.IsNullOrWhiteSpace(_publicEndpoint))
+            {
+                _publicEndpoint = _blobContainer.Uri.AbsoluteUri;
+            }
 
         }
         public async Task DeleteMediaAsync(string fileName)
@@ -34,7 +41,7 @@ namespace SimplCommerce.Module.StorageAzureBlob
 
         public string GetMediaUrl(string fileName)
         {
-            return $"{_blobContainer.Uri.AbsoluteUri}/{fileName}";
+            return $"{_publicEndpoint}/{fileName}";
         }
 
         public async Task SaveMediaAsync(Stream mediaBinaryStream, string fileName, string mimeType = null)
