@@ -24,6 +24,6 @@ namespace SimplCommerce.Module.Core.Models
 
         public DateTimeOffset UpdatedOn { get; set; }
 
-        public IList<UserCustomerGroup> Users { get; set; } = new List<UserCustomerGroup>();
+        public IList<CustomerGroupUser> Users { get; set; } = new List<CustomerGroupUser>();
     }
 }
