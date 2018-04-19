@@ -14,6 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.EmailSenderSmtp\SimplCommerce.Module.EmailSenderSmtp.csproj" />
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentStripe\SimplCommerce.Module.PaymentStripe.csproj" />
     <ProjectReference Include="..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Localization\SimplCommerce.Module.Localization.csproj" />
