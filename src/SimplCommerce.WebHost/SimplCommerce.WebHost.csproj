@@ -38,8 +38,6 @@
     <ProjectReference Include="..\Modules\SimplCommerce.Module.ShippingTableRate\SimplCommerce.Module.ShippingTableRate.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Shipping\SimplCommerce.Module.Shipping.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.ShoppingCart\SimplCommerce.Module.ShoppingCart.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.StorageAmazonS3\SimplCommerce.Module.StorageAmazonS3.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.StorageAzureBlob\SimplCommerce.Module.StorageAzureBlob.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Tax\SimplCommerce.Module.Tax.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Vendors\SimplCommerce.Module.Vendors.csproj" />
     <ProjectReference Include="..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
