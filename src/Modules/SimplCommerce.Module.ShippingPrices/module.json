@@ -1,5 +1,6 @@
 {
   "name": "shipping-prices",
   "fullName": "SimplCommerce.Module.ShippingPrices",
+  "isBundledWithHost": true,
   "version": "1.0.0"
 }

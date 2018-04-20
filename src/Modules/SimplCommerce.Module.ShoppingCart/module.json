@@ -1,5 +1,6 @@
 {
   "name": "shopping-cart",
   "fullName": "SimplCommerce.Module.ShoppingCart",
+  "isBundledWithHost": true,
   "version": "1.0.0"
 }

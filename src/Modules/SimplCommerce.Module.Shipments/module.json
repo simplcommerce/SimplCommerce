@@ -1,5 +1,6 @@
 {
   "name": "shipments",
   "fullName": "SimplCommerce.Module.Shipments",
+  "isBundledWithHost": true,
   "version": "1.0.0"
 }

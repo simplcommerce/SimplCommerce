@@ -1,5 +1,6 @@
 {
   "name": "sample-data",
   "fullName": "SimplCommerce.Module.SampleData",
+  "isBundledWithHost": true,
   "version": "1.0.0"
 }

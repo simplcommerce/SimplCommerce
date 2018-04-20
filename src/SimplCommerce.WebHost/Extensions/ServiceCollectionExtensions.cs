@@ -40,52 +40,24 @@ namespace SimplCommerce.WebHost.Extensions
 
             foreach (var moduleFolder in moduleFolders)
             {
+                Assembly moduleMainAssembly = null;
                 var binFolder = new DirectoryInfo(Path.Combine(moduleFolder.FullName, "bin"));
-                if (!binFolder.Exists)
+                if (binFolder.Exists)
                 {
-                    continue;
+                    moduleMainAssembly = LoadModule(moduleFolder, binFolder);
                 }
 
-                foreach (var file in binFolder.GetFileSystemInfos("*.dll", SearchOption.AllDirectories))
+                if (moduleMainAssembly == null)
                 {
-                    Assembly assembly;
-                    try
-                    {
-                        assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(file.FullName);
-                    }
-                    catch (FileLoadException)
-                    {
-                        // Get loaded assembly
-                        assembly = Assembly.Load(new AssemblyName(Path.GetFileNameWithoutExtension(file.Name)));
-
-                        if (assembly == null)
-                        {
-                            throw;
-                        }
-
-                        var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-                        string loadedAssemblyVersion = fvi.FileVersion;
-
-                        fvi = FileVersionInfo.GetVersionInfo(file.FullName);
-                        string tryToLoadAssemblyVersion = fvi.FileVersion;
-
-                        // Or log the exception somewhere and don't add the module to list so that it will not be initialized
-                        if (tryToLoadAssemblyVersion != loadedAssemblyVersion)
-                        {
-                            throw new Exception($"Cannot load {file.FullName} {tryToLoadAssemblyVersion} because {assembly.Location} {loadedAssemblyVersion} has been loaded");
-                        }
-                    }
-
-                    if (assembly.FullName.Contains(moduleFolder.Name))
-                    {
-                        modules.Add(new ModuleInfo
-                        {
-                            Name = moduleFolder.Name,
-                            Assembly = assembly,
-                            Path = moduleFolder.FullName
-                        });
-                    }
+                    moduleMainAssembly = Assembly.Load(new AssemblyName(moduleFolder.Name));
                 }
+
+                modules.Add(new ModuleInfo
+                {
+                    Name = moduleFolder.Name,
+                    Assembly = moduleMainAssembly,
+                    Path = moduleFolder.FullName
+                });
             }
 
             foreach (var module in modules)
@@ -99,6 +71,49 @@ namespace SimplCommerce.WebHost.Extensions
 
             GlobalConfiguration.Modules = modules;
             return services;
+        }
+
+        private static Assembly LoadModule(DirectoryInfo moduleFolder, DirectoryInfo binFolder)
+        {
+            Assembly moduleMainAssembly = null;
+
+            foreach (var file in binFolder.GetFileSystemInfos("*.dll", SearchOption.AllDirectories))
+            {
+                Assembly assembly;
+                try
+                {
+                    assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(file.FullName);
+                }
+                catch (FileLoadException)
+                {
+                    // Get loaded assembly
+                    assembly = Assembly.Load(new AssemblyName(Path.GetFileNameWithoutExtension(file.Name)));
+
+                    if (assembly == null)
+                    {
+                        throw;
+                    }
+
+                    var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+                    string loadedAssemblyVersion = fvi.FileVersion;
+
+                    fvi = FileVersionInfo.GetVersionInfo(file.FullName);
+                    string tryToLoadAssemblyVersion = fvi.FileVersion;
+
+                    // Or log the exception somewhere and don't add the module to list so that it will not be initialized
+                    if (tryToLoadAssemblyVersion != loadedAssemblyVersion)
+                    {
+                        throw new Exception($"Cannot load {file.FullName} {tryToLoadAssemblyVersion} because {assembly.Location} {loadedAssemblyVersion} has been loaded");
+                    }
+                }
+
+                if (assembly.FullName.Contains(moduleFolder.Name))
+                {
+                    moduleMainAssembly = assembly;
+                }
+            }
+
+            return moduleMainAssembly;
         }
 
         public static IServiceCollection AddCustomizedMvc(this IServiceCollection services, IList<ModuleInfo> modules)
