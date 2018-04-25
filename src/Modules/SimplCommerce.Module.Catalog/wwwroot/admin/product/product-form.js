@@ -310,6 +310,9 @@
             vm.product.specialPriceEnd = vm.product.specialPriceEnd === null ? '' : vm.product.specialPriceEnd;
             vm.product.sku = vm.product.sku === null ? '' : vm.product.sku;
             vm.product.gtin = vm.product.gtin === null ? '' : vm.product.gtin;
+            vm.product.metaTitle = vm.product.metaTitle === null ? '' : vm.product.metaTitle;
+            vm.product.metaKeywords = vm.product.metaKeywords === null ? '' : vm.product.metaKeywords;
+            vm.product.metaDescription = vm.product.metaDescription === null ? '' : vm.product.metaDescription;
             vm.product.variations.forEach(function (item) {
                 item.oldPrice = item.oldPrice === null ? '' : item.oldPrice;
                 item.sku = item.sku === null ? '' : item.sku;

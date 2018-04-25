@@ -11,6 +11,12 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public string SeoTitle { get; set; }
 
+        public string MetaTitle { get; set; }
+
+        public string MetaKeywords { get; set; }
+
+        public string MetaDescription { get; set; }
+
         [StringLength(5000)]
         public string Description { get; set; }
 

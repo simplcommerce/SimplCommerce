@@ -48,6 +48,9 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 ParentCategorId = category.ParentId,
                 CategoryName = category.Name,
                 CategorySeoTitle = category.SeoTitle,
+                CategoryMetaTitle = category.MetaTitle,
+                CategoryMetaKeywords = category.MetaKeywords,
+                CategoryMetaDescription = category.MetaDescription,
                 CurrentSearchOption = searchOption,
                 FilterOption = new FilterOption()
             };

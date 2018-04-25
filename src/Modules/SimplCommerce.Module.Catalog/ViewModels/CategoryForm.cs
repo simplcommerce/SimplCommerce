@@ -20,6 +20,12 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public string Description { get; set; }
 
+        public string MetaTitle { get; set; }
+
+        public string MetaKeywords { get; set; }
+
+        public string MetaDescription { get; set; }
+
         public int DisplayOrder { get; set; }
 
         public long? ParentId { get; set; }

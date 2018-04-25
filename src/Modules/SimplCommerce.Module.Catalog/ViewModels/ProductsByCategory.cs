@@ -13,6 +13,12 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public string CategorySeoTitle { get; set; }
 
+        public string CategoryMetaTitle { get; set; }
+
+        public string CategoryMetaKeywords { get; set; }
+
+        public string CategoryMetaDescription { get; set; }
+
         public int TotalProduct { get; set; }
 
         public IList<ProductThumbnail> Products { get; set; } = new List<ProductThumbnail>();

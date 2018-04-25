@@ -44,6 +44,9 @@ namespace SimplCommerce.Module.News.Controllers
                 Id = category.Id,
                 Name = category.Name,
                 Slug = category.SeoTitle,
+                MetaTitle = category.MetaTitle,
+                MetaKeywords = category.MetaKeywords,
+                MetaDescription = category.MetaDescription,
                 IsPublished = category.IsPublished
             };
 
@@ -60,6 +63,9 @@ namespace SimplCommerce.Module.News.Controllers
                 {
                     Name = model.Name,
                     SeoTitle = model.Slug,
+                    MetaTitle = model.MetaTitle,
+                    MetaKeywords = model.MetaKeywords,
+                    MetaDescription = model.MetaDescription,
                     IsPublished = model.IsPublished
                 };
 
@@ -79,6 +85,9 @@ namespace SimplCommerce.Module.News.Controllers
                 var category = _categoryRepository.Query().FirstOrDefault(x => x.Id == id);
                 category.Name = model.Name;
                 category.SeoTitle = model.Slug;
+                category.MetaTitle = model.MetaTitle;
+                category.MetaKeywords = model.MetaKeywords;
+                category.MetaDescription = model.MetaDescription;
                 category.IsPublished = model.IsPublished;
 
                 await _categoryService.Update(category);
