@@ -13,6 +13,12 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public string ShortDescription { get; set; }
 
+        public string MetaTitle { get; set; }
+
+        public string MetaKeywords { get; set; }
+
+        public string MetaDescription { get; set; }
+
         public CalculatedProductPrice CalculatedProductPrice { get; set; }
 
         public string Description { get; set; }

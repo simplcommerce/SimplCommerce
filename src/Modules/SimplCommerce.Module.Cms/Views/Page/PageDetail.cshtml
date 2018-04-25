@@ -1,7 +1,13 @@
 ﻿@model SimplCommerce.Module.Cms.Models.Page
 
 @{
-    ViewBag.Title = Model.Name;
+    ViewBag.Title = Model.MetaTitle ?? Model.Name;
+}
+
+@section additionalMeta {
+    <meta name="title" content="@ViewBag.Title" />
+    <meta name="keywords" content="@Model.MetaKeywords" />
+    <meta name="description" content="@Model.MetaDescription" />
 }
 
 <div>@Html.Raw(Model.Body)</div>

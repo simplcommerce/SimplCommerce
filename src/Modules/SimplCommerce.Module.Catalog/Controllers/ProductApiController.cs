@@ -80,6 +80,9 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 Id = product.Id,
                 Name = product.Name,
                 Slug = product.SeoTitle,
+                MetaTitle = product.MetaTitle,
+                MetaKeywords = product.MetaKeywords,
+                MetaDescription = product.MetaDescription,
                 Sku = product.Sku,
                 Gtin = product.Gtin,
                 ShortDescription = product.ShortDescription,
@@ -268,6 +271,9 @@ namespace SimplCommerce.Module.Catalog.Controllers
             {
                 Name = model.Product.Name,
                 SeoTitle = model.Product.Slug,
+                MetaTitle = model.Product.MetaTitle,
+                MetaKeywords = model.Product.MetaKeywords,
+                MetaDescription = model.Product.MetaDescription,
                 Sku = model.Product.Sku,
                 Gtin = model.Product.Gtin,
                 ShortDescription = model.Product.ShortDescription,
@@ -367,6 +373,9 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
             product.Name = model.Product.Name;
             product.SeoTitle = model.Product.Slug;
+            product.MetaTitle = model.Product.MetaTitle;
+            product.MetaKeywords = model.Product.MetaKeywords;
+            product.MetaDescription = model.Product.MetaDescription;
             product.Sku = model.Product.Sku;
             product.Gtin = model.Product.Gtin;
             product.ShortDescription = model.Product.ShortDescription;

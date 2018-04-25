@@ -19,6 +19,12 @@ namespace SimplCommerce.Module.News.ViewModels
         [Required]
         public string Slug { get; set; }
 
+        public string MetaTitle { get; set; }
+
+        public string MetaKeywords { get; set; }
+
+        public string MetaDescription { get; set; }
+
         [Required]
         public string ShortContent { get; set; }
 

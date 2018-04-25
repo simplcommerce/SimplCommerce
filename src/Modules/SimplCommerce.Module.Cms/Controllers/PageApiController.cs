@@ -51,6 +51,9 @@ namespace SimplCommerce.Module.Cms.Controllers
                 Id = page.Id,
                 Name = page.Name,
                 Slug = page.SeoTitle,
+                MetaTitle = page.MetaTitle,
+                MetaKeywords = page.MetaKeywords,
+                MetaDescription = page.MetaDescription,
                 Body = page.Body,
                 IsPublished = page.IsPublished
             };
@@ -67,6 +70,9 @@ namespace SimplCommerce.Module.Cms.Controllers
                 {
                     Name = model.Name,
                     SeoTitle = model.Slug,
+                    MetaTitle = model.MetaTitle,
+                    MetaKeywords = model.MetaKeywords,
+                    MetaDescription = model.MetaDescription,
                     Body = model.Body,
                     IsPublished = model.IsPublished
                 };
@@ -90,6 +96,9 @@ namespace SimplCommerce.Module.Cms.Controllers
 
                 page.Name = model.Name;
                 page.SeoTitle = model.Slug;
+                page.MetaTitle = model.MetaTitle;
+                page.MetaKeywords = model.MetaKeywords;
+                page.MetaDescription = model.MetaDescription;
                 page.Body = model.Body;
                 page.IsPublished = model.IsPublished;
                 page.UpdatedOn = DateTimeOffset.Now;
