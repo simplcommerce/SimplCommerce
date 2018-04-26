@@ -36,6 +36,11 @@ namespace SimplCommerce.Module.Catalog.Components
             var query = _productRepository.Query()
               .Where(x => x.IsPublished && x.IsVisibleIndividually);
 
+            if (model.Setting.CategoryId.HasValue && model.Setting.CategoryId.Value > 0)
+            {
+                query = query.Where(x => x.Categories.Any(c => c.CategoryId == model.Setting.CategoryId.Value));
+            }
+
             if (model.Setting.FeaturedOnly)
             {
                 query = query.Where(x => x.IsFeatured);

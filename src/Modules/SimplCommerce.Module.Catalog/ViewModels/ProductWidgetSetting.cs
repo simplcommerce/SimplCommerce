@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace SimplCommerce.Module.Catalog.ViewModels
@@ -8,7 +7,7 @@ namespace SimplCommerce.Module.Catalog.ViewModels
     {
         public int NumberOfProducts { get; set; }
 
-        public IList<long> CategoryIds { get; set; }
+        public long? CategoryId { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
         public ProductWidgetOrderBy OrderBy { get; set; }

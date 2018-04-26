@@ -46,6 +46,15 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Category')}}</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="vm.widgetInstance.setting.categoryId"
+                            ng-options="category.id as category.name for category in vm.categories">
+                        <option value="">All categories</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-sm-2 control-label">{{::vm.translate.get('Number of Products')}}</label>
                 <div class="col-sm-10">
                     <input name="name" ng-model="vm.widgetInstance.setting.numberOfProducts" class="form-control" />
@@ -61,9 +70,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">{{::vm.translate.get('Display Order')}}</label>
                 <div class="col-sm-10">
-                    <select ng-model="vm.widgetInstance.displayOrder" class="form-control" 
-                            ng-options="n for n in vm.numberOfWidgets">
-                    </select>
+                    <input type="number" name="displayOrder" ng-model="vm.widgetInstance.displayOrder" class="form-control" />
                 </div>
             </div>
             <div class="form-group">
