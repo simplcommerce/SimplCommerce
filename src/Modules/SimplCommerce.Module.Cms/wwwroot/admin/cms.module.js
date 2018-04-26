@@ -64,16 +64,6 @@
                     url: '/widget-spacebar/edit/:id',
                     templateUrl: 'modules/cms/admin/spacebar-widget/spacebar-widget-form.html',
                     controller: 'SpaceBarWidgetFormCtrl as vm'
-                })
-                .state('widget-homeproduct-create', {
-                    url: '/widget-homeproduct/create',
-                    templateUrl: 'modules/cms/admin/homeproducts-widget/homeproduct-widget-form.html',
-                    controller: 'HomeProductWidgetFormCtrl as vm'
-                })
-                .state('widget-homeproduct-edit', {
-                    url: '/widget-homeproduct/edit/:id',
-                    templateUrl: 'modules/cms/admin/homeproducts-widget/homeproduct-widget-form.html',
-                    controller: 'HomeProductWidgetFormCtrl as vm'
                 });
         }]);
 })();

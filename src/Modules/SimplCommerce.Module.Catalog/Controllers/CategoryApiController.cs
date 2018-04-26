@@ -87,6 +87,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 await _categoryService.Create(category);
                 return CreatedAtAction(nameof(Get), new { id = category.Id }, null);
             }
+
             return BadRequest(ModelState);
         }
 
