@@ -11,7 +11,7 @@ using SimplCommerce.Module.Core.Extensions;
 
 namespace SimplCommerce.Module.Catalog.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, vendor")]
     [Route("api/product-prices")]
     public class ProductPriceApiController : Controller
     {
@@ -25,9 +25,15 @@ namespace SimplCommerce.Module.Catalog.Controllers
         }
 
         [HttpPost("grid")]
-        public IActionResult List([FromBody] SmartTableParam param)
+        public async Task<IActionResult> List([FromBody] SmartTableParam param)
         {
             var query = _productRepository.Query().Where(x => !x.HasOptions && !x.IsDeleted);
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin"))
+            {
+                query = query.Where(x => x.VendorId == currentUser.VendorId);
+            }
+
             if (param.Search.PredicateObject != null)
             {
                 dynamic search = param.Search.PredicateObject;
@@ -74,7 +80,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 }
 
                 var product = _productRepository.Query().FirstOrDefault(x => x.Id == item.Id);
-                if(product != null)
+                if(product != null && (User.IsInRole("admin") || product.VendorId == currentUser.VendorId))
                 {
                     if (item.NewOldPrice.HasValue)
                     {
