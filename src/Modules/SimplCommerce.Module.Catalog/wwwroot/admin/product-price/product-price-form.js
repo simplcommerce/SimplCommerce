@@ -24,7 +24,7 @@
         vm.save = function save() {
             productPriceService.updateProductPrices(vm.products).then(function (result) {
                 vm.getProducts(tableStateRef);
-                toastr.success('Stocks have been updated');
+                toastr.success('Product prices have been updated');
             })
                 .catch(function (response) {
                     toastr.error(response.data.error);
