@@ -139,6 +139,11 @@
                     url: '/widget-simple-product/edit/:id',
                     templateUrl: 'modules/catalog/admin/simple-product-widget/simple-product-widget-form.html',
                     controller: 'SimpleProductWidgetFormCtrl as vm'
+                })
+                .state('product-prices', {
+                    url: '/product-prices',
+                    templateUrl: 'modules/catalog/admin/product-price/product-price-form.html',
+                    controller: 'ProductPriceFormCtrl as vm'
                 });
         }]);
 })();
