@@ -18,9 +18,6 @@
             <th class="text-right">{{::vm.translate.get('End')}}</th>
             <th class="text-right">{{::vm.translate.get('New Price')}}</th>
             <th class="text-right">{{::vm.translate.get('New Old Price')}}</th>
-            <th class="text-right">{{::vm.translate.get('New Special Price')}}</th>
-            <th class="text-right">{{::vm.translate.get('Start')}}</th>
-            <th class="text-right">{{::vm.translate.get('End')}}</th>
         </tr>
         <tr>
             <th>
@@ -40,45 +37,39 @@
             <th></th>
             <th></th>
             <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
         </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">
         <tr ng-repeat="item in vm.products">
             <td>{{item.name}}</td>
             <td>{{item.sku}}</td>
-            <td class="text-right">{{item.price}}</td>
-            <td class="text-right">{{item.oldPrice || '-'}}</td>
+            <td class="text-right">{{item.price | number}}</td>
+            <td class="text-right">{{(item.oldPrice | number) || '-'}}</td>
             <td class="text-right">{{item.specialPrice || '-'}}</td>
-            <td class="text-right">{{item.specialPriceStart || '-'}}</td>
-            <td class="text-right">{{item.specialPriceEnd || '-'}}</td>
+            <td class="text-right">{{(item.specialPriceStart | date:'short') || '-'}}</td>
+            <td class="text-right">{{(item.specialPriceEnd | date:'short') || '-'}}</td>
             <td>
-                <input class="form-control text-right" ng-model="item.newPrice" />
+                <div class="input-number">
+                    <input id="newPrice_{{item.id}}" type="text" decimal maxlength="10" name="newPrice" ng-model="item.newPrice" class="form-control" />
+                    <label class="form-control" for="newPrice_{{item.id}}">{{item.newPrice | number}}</label>
+                </div>
             </td>
             <td>
-                <input class="form-control text-right" ng-model="item.newOldPrice" />
-            </td>
-            <td>
-                <input class="form-control text-right" ng-model="item.newSpecialPrice" />
-            </td>
-            <td>
-                <input class="form-control text-right" ng-model="item.newSpecialPriceStart" />
-            </td>
-            <td>
-                <input class="form-control text-right" ng-model="item.newSpecialPriceEnd" />
+                <div class="input-number">
+                    <input id="newOldPrice_{{item.id}}" type="text" decimal maxlength="10" name="newOldPrice" ng-model="item.newOldPrice" class="form-control" />
+                    <label class="form-control" for="newOldPrice_{{item.id}}">{{item.newOldPrice | number}}</label>
+                </div>
             </td>
         </tr>
     </tbody>
     <tbody ng-show="vm.isLoading">
         <tr>
-            <td colspan="12" class="text-center">Loading ... </td>
+            <td colspan="9" class="text-center">Loading ... </td>
         </tr>
     </tbody>
     <tfoot>
         <tr>
-            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="12"></td>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="9"></td>
         </tr>
     </tfoot>
 </table>
