@@ -110,6 +110,8 @@
     <script simpl-append-version="true" src="~/modules/catalog/admin/category-widget/category-widget-form.js"></script>
     <script simpl-append-version="true" src="~/modules/catalog/admin/simple-product-widget/simple-product-widget-service.js"></script>
     <script simpl-append-version="true" src="~/modules/catalog/admin/simple-product-widget/simple-product-widget-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/catalog/admin/product-price/product-price-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/catalog/admin/product-price/product-price-form.js"></script>
 
     <script simpl-append-version="true" src="~/modules/orders/admin/orders.module.js"></script>
     <script simpl-append-version="true" src="~/modules/orders/admin/order/order-service.js"></script>
@@ -258,7 +260,8 @@
                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Catalog"] <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a ui-sref="product">@Localizer["Products"]</a></li>
-                            @if(User.IsInRole("admin"))
+                            <li><a ui-sref="product-prices">@Localizer["Product Prices"]</a></li>
+                            @if (User.IsInRole("admin"))
                             {
                                 <li><a ui-sref="category">@Localizer["Categories"]</a></li>
                                 <li><a ui-sref="brand">@Localizer["Brands"]</a></li>
