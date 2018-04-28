@@ -24,7 +24,7 @@ namespace SimplCommerce.Module.Search.Components
                 .Where(x => x.IsPublished && x.Parent == null)
                 .Select(x => new SelectListItem
                 {
-                    Value = x.SeoTitle,
+                    Value = x.Slug,
                     Text = x.Name
                 }).ToList();
 

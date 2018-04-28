@@ -10,7 +10,7 @@
             @foreach (var item in Model.NewsCategory)
             {
                 <div class="btn-group" role="group">
-                    <a type="button" class="btn btn-default" href="~/@item.SeoTitle"> @item.Name</a>
+                    <a type="button" class="btn btn-default" href="~/@item.Slug"> @item.Name</a>
                 </div>
             }
         </div>
@@ -31,7 +31,7 @@
         <cs-pager cs-paging-pagesize="@Model.PageSize"
                   cs-paging-pagenumber="@Model.Page"
                   cs-paging-totalitems="@Model.TotalItem"
-                  asp-basehref="~/@Model.CurrentNewsCategory.SeoTitle"
+                  asp-basehref="~/@Model.CurrentNewsCategory.Slug"
                   cs-pagenumber-param="page"></cs-pager>
     </div>
 </div>

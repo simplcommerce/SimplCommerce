@@ -22,11 +22,11 @@ namespace SimplCommerce.Module.Catalog.Services
         {
             using (var transaction = _productRepository.BeginTransaction())
             {
-                product.SeoTitle = _entityService.ToSafeSlug(product.SeoTitle, product.Id, ProductEntityTypeId);
+                product.Slug = _entityService.ToSafeSlug(product.Slug, product.Id, ProductEntityTypeId);
                 _productRepository.Add(product);
                 _productRepository.SaveChanges();
 
-                _entityService.Add(product.Name, product.SeoTitle, product.Id, ProductEntityTypeId);
+                _entityService.Add(product.Name, product.Slug, product.Id, ProductEntityTypeId);
                 _productRepository.SaveChanges();
 
                 transaction.Commit();
@@ -38,14 +38,14 @@ namespace SimplCommerce.Module.Catalog.Services
             var slug = _entityService.Get(product.Id, ProductEntityTypeId);
             if (product.IsVisibleIndividually)
             {
-                product.SeoTitle = _entityService.ToSafeSlug(product.SeoTitle, product.Id, ProductEntityTypeId);
+                product.Slug = _entityService.ToSafeSlug(product.Slug, product.Id, ProductEntityTypeId);
                 if (slug != null)
                 {
-                    _entityService.Update(product.Name, product.SeoTitle, product.Id, ProductEntityTypeId);
+                    _entityService.Update(product.Name, product.Slug, product.Id, ProductEntityTypeId);
                 }
                 else
                 {
-                    _entityService.Add(product.Name, product.SeoTitle, product.Id, ProductEntityTypeId);
+                    _entityService.Add(product.Name, product.Slug, product.Id, ProductEntityTypeId);
                 }
             }
             else

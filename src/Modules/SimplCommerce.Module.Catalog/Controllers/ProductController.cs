@@ -63,7 +63,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 ReviewsCount = product.ReviewsCount,
                 RatingAverage = product.RatingAverage,
                 Attributes = product.AttributeValues.Select(x => new ProductDetailAttribute { Name = x.Attribute.Name, Value = x.Value }).ToList(),
-                Categories = product.Categories.Select(x => new ProductDetailCategory { Id = x.CategoryId, Name = x.Category.Name, SeoTitle = x.Category.SeoTitle }).ToList()
+                Categories = product.Categories.Select(x => new ProductDetailCategory { Id = x.CategoryId, Name = x.Category.Name, Slug = x.Category.Slug }).ToList()
             };
 
             MapProductVariantToProductVm(product, model);

@@ -9,7 +9,7 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public string BrandName { get; set; }
 
-        public string BrandSeoTitle { get; set; }
+        public string BrandSlug { get; set; }
 
         public int TotalProduct { get; set; }
 

@@ -42,7 +42,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             {
                 BrandId = id,
                 BrandName = brand.Name,
-                BrandSeoTitle = brand.SeoTitle,
+                BrandSlug = brand.Slug,
                 CurrentSearchOption = searchOption,
                 FilterOption = new FilterOption()
             };
@@ -66,7 +66,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             var categories = searchOption.GetCategories();
             if (categories.Any())
             {
-                var categoryIds = _categoryRepository.Query().Where(x => categories.Contains(x.SeoTitle)).Select(x => x.Id).ToList();
+                var categoryIds = _categoryRepository.Query().Where(x => categories.Contains(x.Slug)).Select(x => x.Id).ToList();
                 query = query.Where(x => x.Categories.Any(c => categoryIds.Contains(c.CategoryId)));
             }
 
@@ -126,13 +126,13 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 .GroupBy(x => new {
                     x.Category.Id,
                     x.Category.Name,
-                    x.Category.SeoTitle
+                    x.Category.Slug
                 })
                 .Select(g => new FilterCategory
                 {
                     Id = (int)g.Key.Id,
                     Name = g.Key.Name,
-                    SeoTitle = g.Key.SeoTitle,
+                    Slug = g.Key.Slug,
                     Count = g.Count()
                 }).ToList();
         }

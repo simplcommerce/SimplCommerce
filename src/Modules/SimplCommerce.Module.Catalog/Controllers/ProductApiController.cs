@@ -79,7 +79,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             {
                 Id = product.Id,
                 Name = product.Name,
-                Slug = product.SeoTitle,
+                Slug = product.Slug,
                 MetaTitle = product.MetaTitle,
                 MetaKeywords = product.MetaKeywords,
                 MetaDescription = product.MetaDescription,
@@ -270,7 +270,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             var product = new Product
             {
                 Name = model.Product.Name,
-                SeoTitle = model.Product.Slug,
+                Slug = model.Product.Slug,
                 MetaTitle = model.Product.MetaTitle,
                 MetaKeywords = model.Product.MetaKeywords,
                 MetaDescription = model.Product.MetaDescription,
@@ -372,7 +372,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
 
             product.Name = model.Product.Name;
-            product.SeoTitle = model.Product.Slug;
+            product.Slug = model.Product.Slug;
             product.MetaTitle = model.Product.MetaTitle;
             product.MetaKeywords = model.Product.MetaKeywords;
             product.MetaDescription = model.Product.MetaDescription;
@@ -467,7 +467,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 };
 
                 productLink.LinkedProduct.Name = variationVm.Name;
-                productLink.LinkedProduct.SeoTitle = variationVm.Name.ToUrlFriendly();
+                productLink.LinkedProduct.Slug = variationVm.Name.ToUrlFriendly();
                 productLink.LinkedProduct.Sku = variationVm.Sku;
                 productLink.LinkedProduct.Gtin = variationVm.Gtin;
                 productLink.LinkedProduct.Price = variationVm.Price;
@@ -597,7 +597,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     };
 
                     productLink.LinkedProduct.Name = productVariationVm.Name;
-                    productLink.LinkedProduct.SeoTitle = StringHelper.ToUrlFriendly(productVariationVm.Name);
+                    productLink.LinkedProduct.Slug = StringHelper.ToUrlFriendly(productVariationVm.Name);
                     productLink.LinkedProduct.Sku = productVariationVm.Sku;
                     productLink.LinkedProduct.Gtin = productVariationVm.Gtin;
                     productLink.LinkedProduct.Price = productVariationVm.Price;

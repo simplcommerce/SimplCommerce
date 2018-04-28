@@ -31,7 +31,7 @@
                                 {
                                 <li>
                                     <label class="checkbox">
-                                        <input type="checkbox" value="@category.SeoTitle" name="category" checked="@Model.CurrentSearchOption.GetCategories().Contains(category.SeoTitle)">
+                                        <input type="checkbox" value="@category.Slug" name="category" checked="@Model.CurrentSearchOption.GetCategories().Contains(category.Slug)">
                                         @category.Name
                                         <small>(@category.Count)</small>
                                     </label>
@@ -59,7 +59,7 @@
                                 {
                                     <li>
                                         <label class="checkbox">
-                                            <input type="checkbox" value="@brand.SeoTitle" name="brand" checked="@Model.CurrentSearchOption.GetBrands().Contains(brand.SeoTitle)">
+                                            <input type="checkbox" value="@brand.Slug" name="brand" checked="@Model.CurrentSearchOption.GetBrands().Contains(brand.Slug)">
                                             @brand.Name
                                             <small>(@brand.Count)</small>
                                         </label>

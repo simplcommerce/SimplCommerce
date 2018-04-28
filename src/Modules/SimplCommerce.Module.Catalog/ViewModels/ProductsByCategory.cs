@@ -11,7 +11,7 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public string CategoryName { get; set; }
 
-        public string CategorySeoTitle { get; set; }
+        public string CategorySlug { get; set; }
 
         public string CategoryMetaTitle { get; set; }
 

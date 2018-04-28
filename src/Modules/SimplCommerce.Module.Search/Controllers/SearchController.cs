@@ -51,7 +51,7 @@ namespace SimplCommerce.Module.Search.Controllers
             var brand = _brandRepository.Query().FirstOrDefault(x => x.Name == searchOption.Query && x.IsPublished);
             if(brand != null)
             {
-                return Redirect(string.Format("~/{0}", brand.SeoTitle));
+                return Redirect(string.Format("~/{0}", brand.Slug));
             }
 
             var model = new SearchResult
@@ -81,7 +81,7 @@ namespace SimplCommerce.Module.Search.Controllers
                 var categories = searchOption.GetCategories();
                 if (categories.Any())
                 {
-                    var categoryIds = _categoryRepository.Query().Where(x => categories.Contains(x.SeoTitle)).Select(x => x.Id).ToList();
+                    var categoryIds = _categoryRepository.Query().Where(x => categories.Contains(x.Slug)).Select(x => x.Id).ToList();
                     query = query.Where(x => x.Categories.Any(c => categoryIds.Contains(c.CategoryId)));
                 }
             }
@@ -89,7 +89,7 @@ namespace SimplCommerce.Module.Search.Controllers
             var brands = searchOption.GetBrands();
             if (brands.Any())
             {
-                var brandIs = _brandRepository.Query().Where(x => brands.Contains(x.SeoTitle)).Select(x => x.Id).ToList();
+                var brandIs = _brandRepository.Query().Where(x => brands.Contains(x.Slug)).Select(x => x.Id).ToList();
                 query = query.Where(x => x.BrandId.HasValue && brandIs.Contains(x.BrandId.Value));
             }
 
@@ -151,13 +151,13 @@ namespace SimplCommerce.Module.Search.Controllers
                 .GroupBy(x => new {
                     x.Category.Id,
                     x.Category.Name,
-                    x.Category.SeoTitle
+                    x.Category.Slug
                 })
                 .Select(g => new FilterCategory
                 {
                     Id = (int)g.Key.Id,
                     Name = g.Key.Name,
-                    SeoTitle = g.Key.SeoTitle,
+                    Slug = g.Key.Slug,
                     Count = g.Count()
                 }).ToList();
 
@@ -168,7 +168,7 @@ namespace SimplCommerce.Module.Search.Controllers
                {
                    Id = (int)g.Key.Id,
                    Name = g.Key.Name,
-                   SeoTitle = g.Key.SeoTitle,
+                   Slug = g.Key.Slug,
                    Count = g.Count()
                }).ToList();
         }

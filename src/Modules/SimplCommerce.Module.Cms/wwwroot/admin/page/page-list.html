@@ -21,7 +21,7 @@
     <tbody>
     <tr ng-repeat="page in vm.pages">
         <td>{{page.name}}</td>
-        <td>{{page.seoTitle}}</td>
+        <td>{{page.slug}}</td>
         <td class="text-center"><i ng-attr-class="{{page.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
         <td>
             <a ui-sref="page-edit({id: page.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>

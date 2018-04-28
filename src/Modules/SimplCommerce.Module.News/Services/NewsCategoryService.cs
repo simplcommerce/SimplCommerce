@@ -23,11 +23,11 @@ namespace SimplCommerce.Module.News.Services
         {
             using (var transaction = _categoryRepository.BeginTransaction())
             {
-                category.SeoTitle = _entityService.ToSafeSlug(category.SeoTitle, category.Id, NewsCategoryEntityTypeId);
+                category.Slug = _entityService.ToSafeSlug(category.Slug, category.Id, NewsCategoryEntityTypeId);
                 _categoryRepository.Add(category);
                 await _categoryRepository.SaveChangesAsync();
 
-                _entityService.Add(category.Name, category.SeoTitle, category.Id, NewsCategoryEntityTypeId);
+                _entityService.Add(category.Name, category.Slug, category.Id, NewsCategoryEntityTypeId);
                 await _categoryRepository.SaveChangesAsync();
 
                 transaction.Commit();
@@ -36,8 +36,8 @@ namespace SimplCommerce.Module.News.Services
 
         public async Task Update(NewsCategory category)
         {
-            category.SeoTitle = _entityService.ToSafeSlug(category.SeoTitle, category.Id, NewsCategoryEntityTypeId);
-            _entityService.Update(category.Name, category.SeoTitle, category.Id, NewsCategoryEntityTypeId);
+            category.Slug = _entityService.ToSafeSlug(category.Slug, category.Id, NewsCategoryEntityTypeId);
+            _entityService.Update(category.Name, category.Slug, category.Id, NewsCategoryEntityTypeId);
             await _categoryRepository.SaveChangesAsync();
         }
 

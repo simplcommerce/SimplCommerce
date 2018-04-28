@@ -65,7 +65,7 @@ namespace SimplCommerce.Module.Vendors.Controllers
                     Name = x.Name,
                     Email = x.Email,
                     IsActive = x.IsActive,
-                    SeoTitle = x.SeoTitle,
+                    Slug = x.Slug,
                     CreatedOn = x.CreatedOn
                 });
 
@@ -78,7 +78,7 @@ namespace SimplCommerce.Module.Vendors.Controllers
             {
                 Id = x.Id,
                 Name = x.Name,
-                Slug = x.SeoTitle
+                Slug = x.Slug
             }).ToListAsync();
 
             return Json(vendors);
@@ -97,7 +97,7 @@ namespace SimplCommerce.Module.Vendors.Controllers
             {
                 Id = vendor.Id,
                 Name = vendor.Name,
-                Slug = vendor.SeoTitle,
+                Slug = vendor.Slug,
                 Email = vendor.Email,
                 Description = vendor.Description,
                 IsActive = vendor.IsActive,
@@ -115,7 +115,7 @@ namespace SimplCommerce.Module.Vendors.Controllers
                 var vendor = new Vendor
                 {
                     Name = model.Name,
-                    SeoTitle = model.Slug,
+                    Slug = model.Slug,
                     Email = model.Email,
                     Description = model.Description,
                     IsActive = model.IsActive
@@ -134,7 +134,7 @@ namespace SimplCommerce.Module.Vendors.Controllers
             {
                 var vendor = _vendorRepository.Query().FirstOrDefault(x => x.Id == id);
                 vendor.Name = model.Name;
-                vendor.SeoTitle = model.Slug;
+                vendor.Slug = model.Slug;
                 vendor.Email = model.Email;
                 vendor.Description = model.Description;
                 vendor.IsActive = model.IsActive;
