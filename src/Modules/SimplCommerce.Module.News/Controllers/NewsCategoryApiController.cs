@@ -43,7 +43,7 @@ namespace SimplCommerce.Module.News.Controllers
             {
                 Id = category.Id,
                 Name = category.Name,
-                Slug = category.SeoTitle,
+                Slug = category.Slug,
                 MetaTitle = category.MetaTitle,
                 MetaKeywords = category.MetaKeywords,
                 MetaDescription = category.MetaDescription,
@@ -62,7 +62,7 @@ namespace SimplCommerce.Module.News.Controllers
                 var category = new NewsCategory
                 {
                     Name = model.Name,
-                    SeoTitle = model.Slug,
+                    Slug = model.Slug,
                     MetaTitle = model.MetaTitle,
                     MetaKeywords = model.MetaKeywords,
                     MetaDescription = model.MetaDescription,
@@ -84,7 +84,7 @@ namespace SimplCommerce.Module.News.Controllers
             {
                 var category = _categoryRepository.Query().FirstOrDefault(x => x.Id == id);
                 category.Name = model.Name;
-                category.SeoTitle = model.Slug;
+                category.Slug = model.Slug;
                 category.MetaTitle = model.MetaTitle;
                 category.MetaKeywords = model.MetaKeywords;
                 category.MetaDescription = model.MetaDescription;

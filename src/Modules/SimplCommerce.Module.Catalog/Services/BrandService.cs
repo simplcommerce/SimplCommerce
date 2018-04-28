@@ -23,11 +23,11 @@ namespace SimplCommerce.Module.Catalog.Services
         {
             using (var transaction = _brandRepository.BeginTransaction())
             {
-                brand.SeoTitle = _entityService.ToSafeSlug(brand.SeoTitle, brand.Id, BrandEntityTypeId);
+                brand.Slug = _entityService.ToSafeSlug(brand.Slug, brand.Id, BrandEntityTypeId);
                 _brandRepository.Add(brand);
                 await _brandRepository.SaveChangesAsync();
 
-                _entityService.Add(brand.Name, brand.SeoTitle, brand.Id, BrandEntityTypeId);
+                _entityService.Add(brand.Name, brand.Slug, brand.Id, BrandEntityTypeId);
                 await _brandRepository.SaveChangesAsync();
 
                 transaction.Commit();
@@ -36,8 +36,8 @@ namespace SimplCommerce.Module.Catalog.Services
 
         public async Task Update(Brand brand)
         {
-            brand.SeoTitle = _entityService.ToSafeSlug(brand.SeoTitle, brand.Id, BrandEntityTypeId);
-            _entityService.Update(brand.Name, brand.SeoTitle, brand.Id, BrandEntityTypeId);
+            brand.Slug = _entityService.ToSafeSlug(brand.Slug, brand.Id, BrandEntityTypeId);
+            _entityService.Update(brand.Name, brand.Slug, brand.Id, BrandEntityTypeId);
             await _brandRepository.SaveChangesAsync();
         }
 

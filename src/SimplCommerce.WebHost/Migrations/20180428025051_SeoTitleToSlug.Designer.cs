@@ -5,15 +5,21 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
+using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Data;
+using SimplCommerce.Module.Core.Models;
+using SimplCommerce.Module.Orders.Models;
+using SimplCommerce.Module.Payments.Models;
+using SimplCommerce.Module.Reviews.Models;
 using System;
 
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    partial class SimplDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180428025051_SeoTitleToSlug")]
+    partial class SeoTitleToSlug
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

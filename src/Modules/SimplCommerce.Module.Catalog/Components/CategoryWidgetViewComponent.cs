@@ -37,7 +37,7 @@ namespace SimplCommerce.Module.Catalog.Components
                     Id = category.Id,
                     Description = category.Description,
                     Name = category.Name,
-                    SeoTitle = category.SeoTitle,
+                    Slug = category.Slug,
                     ThumbnailImage = category.ThumbnailImage,
                     ThumbnailUrl = _mediaService.GetThumbnailUrl(category.ThumbnailImage)
                 };

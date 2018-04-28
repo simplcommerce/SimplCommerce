@@ -15,7 +15,7 @@ namespace SimplCommerce.Module.Core.Models
 
         public string Name { get; set; }
 
-        public string SeoTitle { get; set; }
+        public string Slug { get; set; }
 
         public string MetaTitle { get; set; }
 

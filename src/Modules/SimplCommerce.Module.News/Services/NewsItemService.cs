@@ -25,11 +25,11 @@ namespace SimplCommerce.Module.News.Services
             {
                 using (var transaction = _newsItemRepository.BeginTransaction())
                 {
-                    newsItem.SeoTitle = _entityService.ToSafeSlug(newsItem.SeoTitle, newsItem.Id, NewsItemEntityTypeId);
+                    newsItem.Slug = _entityService.ToSafeSlug(newsItem.Slug, newsItem.Id, NewsItemEntityTypeId);
                     _newsItemRepository.Add(newsItem);
                     _newsItemRepository.SaveChanges();
 
-                    _entityService.Add(newsItem.Name, newsItem.SeoTitle, newsItem.Id, NewsItemEntityTypeId);
+                    _entityService.Add(newsItem.Name, newsItem.Slug, newsItem.Id, NewsItemEntityTypeId);
                     _newsItemRepository.SaveChanges();
 
                     transaction.Commit();
@@ -41,8 +41,8 @@ namespace SimplCommerce.Module.News.Services
         {
             if (newsItem != null)
             {
-                newsItem.SeoTitle = _entityService.ToSafeSlug(newsItem.SeoTitle, newsItem.Id, NewsItemEntityTypeId);
-                _entityService.Update(newsItem.Name, newsItem.SeoTitle, newsItem.Id, NewsItemEntityTypeId);
+                newsItem.Slug = _entityService.ToSafeSlug(newsItem.Slug, newsItem.Id, NewsItemEntityTypeId);
+                _entityService.Update(newsItem.Name, newsItem.Slug, newsItem.Id, NewsItemEntityTypeId);
                 _newsItemRepository.SaveChanges();
             }
         }

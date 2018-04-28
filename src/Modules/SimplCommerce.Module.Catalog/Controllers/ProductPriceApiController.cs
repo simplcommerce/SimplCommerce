@@ -58,7 +58,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     x.Id,
                     x.Name,
                     x.Sku,
-                    x.SeoTitle,
+                    x.Slug,
                     x.Price,
                     x.OldPrice,
                     x.SpecialPrice,

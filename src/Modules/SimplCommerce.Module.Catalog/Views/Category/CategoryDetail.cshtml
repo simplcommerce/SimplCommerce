@@ -30,7 +30,7 @@
 <div class="row">
     <div class="col-md-3 product-list-filters">
         <h3>@Localizer["Filter by"]</h3>
-        <form id="productFilter" name="productFilter" method="GET" action="~/@Model.CategorySeoTitle">
+        <form id="productFilter" name="productFilter" method="GET" action="~/@Model.CategorySlug">
             <div id="accordion-brand">
                 <div class="card">
                     <div class="card-header" id="cardBrandHeader">
@@ -48,7 +48,7 @@
                                 {
                                     <li>
                                         <label class="checkbox">
-                                            <input type="checkbox" value="@brand.SeoTitle" name="brand" checked="@Model.CurrentSearchOption.GetBrands().Contains(brand.SeoTitle)">
+                                            <input type="checkbox" value="@brand.Slug" name="brand" checked="@Model.CurrentSearchOption.GetBrands().Contains(brand.Slug)">
                                             @brand.Name
                                             <small>(@brand.Count)</small>
                                         </label>
@@ -139,7 +139,7 @@
                           cs-paging-pagenumber="@Model.CurrentSearchOption.Page"
                           cs-paging-totalitems="@Model.TotalProduct"
                           cs-pagenumber-param="page"
-                          asp-basehref="~/@Model.CategorySeoTitle"
+                          asp-basehref="~/@Model.CategorySlug"
                           asp-all-route-data="@Model.CurrentSearchOption.ToDictionary()"></cs-pager>
             </div>
         </div>
