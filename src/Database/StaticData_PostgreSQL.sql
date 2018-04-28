@@ -32,14 +32,16 @@ INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction
 INSERT INTO "Core_EntityType" ("Id", "Name", "RoutingController", "RoutingAction", "IsMenuable") VALUES (7, 'NewsItem', 'NewsItem', 'NewsItemDetail', false);
 SELECT pg_catalog.setval('"Core_EntityType_Id_seq"', 7, true);
 
-INSERT INTO "ActivityLog_ActivityType" ("Id", "Name") VALUES (1, 'ProductView');
+INSERT INTO "ActivityLog_ActivityType" ("Id", "Name") VALUES (1, 'EntityView');
 SELECT pg_catalog.setval('"ActivityLog_ActivityType_Id_seq"', 1, true);
 
 INSERT INTO "Core_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (1, 'CarouselWidget', 'widget-carousel-create', '2016-06-19 00:00:00', 'widget-carousel-edit', true, 'Carousel Widget', 'CarouselWidget');
 INSERT INTO "Core_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (2, 'HtmlWidget', 'widget-html-create', '2016-06-24 00:00:00', 'widget-html-edit', true, 'Html Widget', 'HtmlWidget');
 INSERT INTO "Core_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (3, 'ProductWidget', 'widget-product-create', '2016-06-24 00:00:00', 'widget-product-edit', true, 'Product Widget', 'ProductWidget');
 INSERT INTO "Core_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (4, 'CategoryWidget', 'widget-category-create', '2016-06-24 00:00:00', 'widget-category-edit', true, 'Category Widget', 'CategoryWidget');
-SELECT pg_catalog.setval('"Core_Widget_Id_seq"', 4, true);
+INSERT INTO "Core_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (5, 'SpaceBarWidget', 'widget-spacebar-create', '2016-06-24 00:00:00', 'widget-spacebar-edit', true, 'SpaceBar Widget', 'SpaceBarWidget');
+INSERT INTO "Core_Widget" ("Id", "Code", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName") VALUES (6, 'SimpleProductWidget', 'widget-simple-product-create', '2016-06-24 00:00:00', 'widget-simple-product-edit', true, 'Simple Product Widget', 'SimpleProductWidget');
+SELECT pg_catalog.setval('"Core_Widget_Id_seq"', 6, true);
 
 INSERT INTO "Core_WidgetZone" ("Id", "Description", "Name") VALUES (1, NULL, 'Home Featured');
 INSERT INTO "Core_WidgetZone" ("Id", "Description", "Name") VALUES (2, NULL, 'Home Main Content');
@@ -59,10 +61,10 @@ INSERT INTO "Payments_PaymentProvider" ("Id", "AdditionalSettings", "ConfigureUr
 INSERT INTO "Payments_PaymentProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "LandingViewComponentName", "Name") VALUES (3, '{"PublicKey": "pk_test_6pRNASCoBOKtIshFeQd4XMUh", "PrivateKey" : "sk_test_BQokikJOvBiI2HlWgH4olfQ2"}', 'payments-stripe-config', true, 'StripeLanding', 'Stripe');
 SELECT pg_catalog.setval('"Payments_PaymentProvider_Id_seq"', 3, true);
 
-INSERT INTO "Core_Country" ("Id", "Name", "IsBillingEnabled", "IsShippingEnabled") VALUES (1, 'Việt Nam', true, true);
-INSERT INTO "Core_Country" ("Id", "Name", "IsBillingEnabled", "IsShippingEnabled") VALUES (2, 'United States', true, true);
+INSERT INTO "Core_Country" ("Id", "Name", "Code2", "Code3", "IsBillingEnabled", "IsShippingEnabled", "IsCityEnabled", "IsDistrictEnabled", "IsZipCodeEnabled") VALUES (232, 'United States', 'US', 'USA', true, true, true, false, true);
+INSERT INTO "Core_Country" ("Id", "Name", "Code2", "Code3", "IsBillingEnabled", "IsShippingEnabled", "IsCityEnabled", "IsDistrictEnabled", "IsZipCodeEnabled") VALUES (238, 'Việt Nam', 'VN', 'VNM', true, true, false, true, false);
 
-INSERT INTO "Core_StateOrProvince" ("Id", "CountryId", "Name", "Type") VALUES (79, 1, 'Hồ Chí Minh', 'Thành Phố');
+INSERT INTO "Core_StateOrProvince" ("Id", "CountryId", "Name", "Type") VALUES (79, 238, 'Hồ Chí Minh', 'Thành Phố');
 
 INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Type") VALUES (1, NULL, 'Quận 1', 79, NULL);
 INSERT INTO "Core_District" ("Id", "Location", "Name", "StateOrProvinceId", "Type") VALUES (2, NULL, 'Quận 2', 79, NULL);
@@ -90,7 +92,7 @@ SELECT pg_catalog.setval('"Tax_TaxClass_Id_seq"', 1, true);
 INSERT INTO "Tax_TaxRate" ("Id", "CountryId", "Name", "Rate", "StateOrProvinceId", "TaxClassId") VALUES (1, 238, 'Standard VN VAT', CAST(10.00 AS Decimal(18, 2)), NULL, 1);
 SELECT pg_catalog.setval('"Tax_TaxRate_Id_seq"', 1, true);
 
-INSERT INTO "Core_Address" ("Id", "AddressLine1", "ContactName", "CountryId", "DistrictId", "Phone", "StateOrProvinceId", "City", "ZipCode") VALUES (1, NULL, 'SimplCommerce', 238, NULL, NULL, 93, NULL, NULL);
+INSERT INTO "Core_Address" ("Id", "AddressLine1", "ContactName", "CountryId", "DistrictId", "Phone", "StateOrProvinceId", "City", "ZipCode") VALUES (1, NULL, 'SimplCommerce', 238, NULL, NULL, 79, NULL, NULL);
 SELECT pg_catalog.setval('"Core_Address_Id_seq"', 1, true);
 
 INSERT INTO "Inventory_Warehouse" ("Id", "AddressId", "Name") VALUES (1, 1, 'Default warehouse');
@@ -99,7 +101,7 @@ SELECT pg_catalog.setval('"Inventory_Warehouse_Id_seq"', 1, true);
 INSERT INTO "Shipping_ShippingProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces") VALUES (1, N'{MinimumOrderAmount : 10}', N'shipping-free-config', true, N'Free Ship', NULL, NULL, N'SimplCommerce.Module.ShippingFree.Services.FreeShippingServiceProvider,SimplCommerce.Module.ShippingFree', true, true);
 INSERT INTO "Shipping_ShippingProvider" ("Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces") VALUES (2, NULL, N'shipping-table-rate-config', true, N'Table Rate', NULL, NULL, N'SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingServiceProvider,SimplCommerce.Module.ShippingTableRate', true, true);
 
-INSERT INTO "ShippingTableRate_PriceAndDestination" ("Id", "CountryId", "MinOrderSubtotal", "ShippingPrice", "StateOrProvinceId") VALUES (1, 1, 100, 10, NULL);
+INSERT INTO "ShippingTableRate_PriceAndDestination" ("Id", "CountryId", "MinOrderSubtotal", "ShippingPrice", "StateOrProvinceId") VALUES (1, 238, 100, 10, NULL);
 SELECT pg_catalog.setval('"ShippingTableRate_PriceAndDestination_Id_seq"', 1, true);
 
 INSERT INTO "Localization_Culture" ("Id", "Name") VALUES (1, 'vi-VN');
