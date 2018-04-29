@@ -16,7 +16,7 @@
     </div>
 </div>
 
-<table class="table table-striped" st-pipe="vm.getStocks" st-table="vm.stocks">
+<table ng-if="vm.selectedWarehouseId" class="table table-striped" st-pipe="vm.getStocks" st-table="vm.stocks">
     <thead>
         <tr>
             <th>{{::vm.translate.get('Product Name')}}</th>
