@@ -41,6 +41,10 @@
             toastr.success('The previewing of ' + theme.displayName + ' has been cancelled.');
         };
 
+        vm.downloadTheme = function downloadTheme(theme) {
+            window.open('api/themes/' + theme.name + '/download', '_blank', '');
+        }
+
         function getCookie(name) {
             var value = "; " + document.cookie;
             var parts = value.split("; " + name + "=");
