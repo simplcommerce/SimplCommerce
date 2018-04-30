@@ -14,5 +14,7 @@ namespace SimplCommerce.Module.Core.Services
         string PackTheme(string themeName);
 
         Task Install(Stream stream, string themeName);
+
+        void Delete(string themeName);
     }
 }

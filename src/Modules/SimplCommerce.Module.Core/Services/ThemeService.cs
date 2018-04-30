@@ -88,6 +88,7 @@ namespace SimplCommerce.Module.Core.Services
 
             var destinationArchiveFileName = Path.Combine(GlobalConfiguration.ContentRootPath, "Temps", $"{tempFolderName}.zip");
             ZipFile.CreateFromDirectory(tempDir.FullName, destinationArchiveFileName);
+            Directory.Delete(tempDir.FullName, true);
             return destinationArchiveFileName;
         }
 
@@ -106,6 +107,15 @@ namespace SimplCommerce.Module.Core.Services
             var themeFolderWWWroot = new DirectoryInfo(Path.Combine(GlobalConfiguration.WebRootPath, "themes", themeName));
             DirectoryCopy(Path.Combine(extractPath, "Themes", themeName), themeFolder.FullName, true);
             DirectoryCopy(Path.Combine(extractPath, "wwwroot", "themes", themeName), themeFolderWWWroot.FullName, true);
+
+            Directory.Delete(extractPath, true);
+            File.Delete(zipFilePath);
+        }
+
+        public void Delete(string themeName)
+        {
+            Directory.Delete(Path.Combine(GlobalConfiguration.ContentRootPath, "Themes", themeName), true);
+            Directory.Delete(Path.Combine(GlobalConfiguration.WebRootPath, "themes", themeName), true);
         }
 
         private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)

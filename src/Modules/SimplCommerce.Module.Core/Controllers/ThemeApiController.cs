@@ -27,7 +27,7 @@ namespace SimplCommerce.Module.Core.Controllers
             return Json(themes);
         }
 
-        [HttpGet("onlines")]
+        [HttpGet("/api/online-themes")]
         public async Task<IActionResult> GetOnlineThemes()
         {
             var client = new HttpClient();
@@ -42,11 +42,11 @@ namespace SimplCommerce.Module.Core.Controllers
             return Ok(onlineThemes);
         }
 
-        [HttpGet("onlines/{id}")]
-        public async Task<IActionResult> GetOnlineTheme(long id)
+        [HttpGet("/api/online-themes/{name}")]
+        public async Task<IActionResult> Details(string name)
         {
             var client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync($"http://marketplace.simplcommerce.com/api/projects/{id}");
+            HttpResponseMessage response = await client.GetAsync($"http://marketplace.simplcommerce.com/api/projects/{name}");
             var projectDetailsVm = new ProjectDetailsVm();
             if (response.IsSuccessStatusCode)
             {
@@ -57,11 +57,11 @@ namespace SimplCommerce.Module.Core.Controllers
             return Ok(projectDetailsVm);
         }
 
-        [HttpGet("onlines/{id}/install")]
-        public async Task<IActionResult> Install(long id)
+        [HttpPut("/api/online-themes/{name}/install")]
+        public async Task<IActionResult> Install(string name)
         {
             var client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync($"http://marketplace.simplcommerce.com/api/projects/{id}");
+            HttpResponseMessage response = await client.GetAsync($"http://marketplace.simplcommerce.com/api/projects/{name}");
             var projectDetailsVm = new ProjectDetailsVm();
             if (response.IsSuccessStatusCode)
             {
@@ -69,7 +69,7 @@ namespace SimplCommerce.Module.Core.Controllers
                 projectDetailsVm = JsonConvert.DeserializeObject<ProjectDetailsVm>(json);
             }
 
-            HttpResponseMessage response2 = await client.GetAsync($"http://marketplace.simplcommerce.com/api/projects/{id}/download");
+            HttpResponseMessage response2 = await client.GetAsync($"http://marketplace.simplcommerce.com/api/projects/{name}/download");
             if (response2.IsSuccessStatusCode)
             {
                 var responsStream = await response2.Content.ReadAsStreamAsync();
@@ -77,6 +77,13 @@ namespace SimplCommerce.Module.Core.Controllers
             }
 
             return Accepted();
+        }
+
+        [HttpDelete("{themeName}")]
+        public IActionResult Delete(string themeName)
+        {
+            _themeService.Delete(themeName);
+            return NoContent();
         }
 
         [HttpPost("use-theme")]
