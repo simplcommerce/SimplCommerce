@@ -4,7 +4,7 @@
             <h2>{{::vm.translate.get('Installed themes')}}</h2>
         </div>
         <div class="col-md-4 text-right">
-            <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Find more themes')}}</a>
+            <a ui-sref="online-themes" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('View Online Themes')}}</a>
         </div>
     </div>
 </div>
@@ -19,12 +19,16 @@
                     <button class="btn btn-default" role="button" ng-click="vm.useTheme(theme)">Use</button>
                     <button ng-hide="theme.name === vm.previewingTheme" class="btn btn-default" role="button" ng-click="vm.previewTheme(theme)">Preview</button>
                     <button ng-show="theme.name === vm.previewingTheme" class="btn btn-primary" role="button" ng-click="vm.cancelPreviewTheme(theme)">Cancel Preview</button>
+                    <button ng-if="theme.name !== 'Generic'" class="btn btn-default" role="button" ng-click="vm.downloadTheme(theme)">Download</button>
+                    <button ng-if="theme.name !== 'Generic'" class="btn btn-default" role="button" ng-click="vm.deleteTheme(theme)">Delete</button>
                 </p>
                 <p ng-show="theme.isCurrent">
                     <button type="button" disabled="disabled" class="btn btn-primary">
                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Current theme
                     </button>
+                    <button ng-if="theme.name !== 'Generic'" class="btn btn-default" role="button" ng-click="vm.downloadTheme(theme)">Download</button>
                 </p>
+
             </div>
          </div>
     </div>

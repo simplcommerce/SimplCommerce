@@ -1,0 +1,24 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{::vm.translate.get('Online Themes')}}</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <a ui-sref="themes" class="btn btn-primary">{{::vm.translate.get('View Installed Themes')}}</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div ng-repeat="theme in vm.themes" class="col-xs-4 col-md-2">
+        <div class="thumbnail">
+            <a ui-sref="theme-details({ name: theme.name })">
+                <img alt="{{theme.name}}" ng-src="{{theme.thumbnailUrl}}">
+                <div class="caption">
+                    <h4>{{theme.name}}</h4>
+                </div>
+            </a>
+         </div>
+    </div>
+</div>
+	

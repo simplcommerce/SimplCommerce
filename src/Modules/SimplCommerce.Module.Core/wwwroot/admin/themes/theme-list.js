@@ -41,6 +41,25 @@
             toastr.success('The previewing of ' + theme.displayName + ' has been cancelled.');
         };
 
+        vm.downloadTheme = function downloadTheme(theme) {
+            window.open('api/themes/' + theme.name + '/download', '_blank', '');
+        }
+
+        vm.deleteTheme = function deleteTheme(theme) {
+            bootbox.confirm('Are you sure you want to delete this ' + theme.name, function (result) {
+                if (result) {
+                    themeService.deleteTheme(theme.name)
+                        .then(function (result) {
+                            vm.getThemes();
+                            toastr.success(theme.name + ' has been deleted');
+                        })
+                        .catch(function (response) {
+                            toastr.error(response.data.error);
+                        });
+                }
+            });
+        }
+
         function getCookie(name) {
             var value = "; " + document.cookie;
             var parts = value.split("; " + name + "=");

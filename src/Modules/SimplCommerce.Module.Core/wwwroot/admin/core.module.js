@@ -50,6 +50,16 @@
                     templateUrl: 'modules/core/admin/themes/theme-list.html',
                     controller: 'ThemeListCtrl as vm'
                 })
+                .state('online-themes', {
+                    url: '/online-themes',
+                    templateUrl: 'modules/core/admin/themes/online-theme-list.html',
+                    controller: 'OnlineThemeListCtrl as vm'
+                })
+                .state('theme-details', {
+                    url: '/theme-details/:name',
+                    templateUrl: 'modules/core/admin/themes/theme-details.html',
+                    controller: 'ThemeDetailsCtrl as vm'
+                })
                 .state('countries', {
                     url: '/countries',
                     templateUrl: 'modules/core/admin/countries/country-list.html',

@@ -1,0 +1,35 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{::vm.translate.get('Theme Details')}}</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <a ui-sref="themes" class="btn btn-primary">{{::vm.translate.get('View Installed Themes')}}</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <img class="img-responsive" ng-src="{{vm.theme.thumbnailUrl}}" />
+    </div>
+    <div class="col-md-8">
+        <p>{{vm.theme.publisher}}</p>
+        <p>Free</p>
+        <p>Package size: {{vm.theme.packageSize}}</p>
+        <p>Target SimplCommerce version: {{vm.theme.simplCommerceVersion}}</p>
+        <p ng-if="!vm.theme.isInstalled"><button type="button" ng-click="vm.installTheme(vm.theme.name)" class="btn btn-primary">Install</button></p>
+        <p ng-if="vm.theme.isInstalled"><button type="button" disabled="disabled" class="btn btn-primary">Installed</button></p>
+    </div>
+</div>
+
+<h4 ng-if="vm.theme.description">Description</h4>
+<p ng-if="vm.theme.description">{{vm.theme.description}}</p>
+
+<h4>Screenshots</h4>
+<div class="row">
+    <div ng-repeat="imgUrl in vm.theme.screenshotUrls" class="col-md-4">
+        <img class="img-responsive" ng-src="{{imgUrl}}" />
+    </div>
+</div>
+	
