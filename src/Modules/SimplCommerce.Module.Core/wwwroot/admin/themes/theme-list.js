@@ -51,7 +51,7 @@
                     themeService.deleteTheme(theme.name)
                         .then(function (result) {
                             vm.getThemes();
-                            toastr.success(theme.name + 'Have been deleted');
+                            toastr.success(theme.name + ' has been deleted');
                         })
                         .catch(function (response) {
                             toastr.error(response.data.error);

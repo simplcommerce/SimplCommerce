@@ -19,5 +19,7 @@ namespace SimplCommerce.Module.Core.ViewModels
         public string SimplCommerceVersion { get; set; }
 
         public string Publisher { get; set; }
+
+        public bool IsInstalled { get; set; }
     }
 }

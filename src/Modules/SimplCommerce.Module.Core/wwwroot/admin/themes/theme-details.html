@@ -18,7 +18,8 @@
         <p>Free</p>
         <p>Package size: {{vm.theme.packageSize}}</p>
         <p>Target SimplCommerce version: {{vm.theme.simplCommerceVersion}}</p>
-        <p><button type="button" ng-click="vm.installTheme(vm.theme.name)" class="btn btn-primary">Install</button></p>
+        <p ng-if="!vm.theme.isInstalled"><button type="button" ng-click="vm.installTheme(vm.theme.name)" class="btn btn-primary">Install</button></p>
+        <p ng-if="vm.theme.isInstalled"><button type="button" disabled="disabled" class="btn btn-primary">Installed</button></p>
     </div>
 </div>
 

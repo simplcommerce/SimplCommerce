@@ -20,7 +20,7 @@
         vm.installTheme = function installTheme(name) {
             themeService.installTheme(name)
                 .then(function (result) {
-                    toastr.success(name + 'has been installed');
+                    toastr.success(name + ' has been installed');
                     $state.go('themes');
                 })
                 .catch(function (response) {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -54,12 +55,21 @@ namespace SimplCommerce.Module.Core.Controllers
                 projectDetailsVm = JsonConvert.DeserializeObject<ProjectDetailsVm>(json);
             }
 
+            var installedThemes = await _themeService.GetInstalledThemes();
+            projectDetailsVm.IsInstalled = installedThemes.Any(x => x.Name == name);
+
             return Ok(projectDetailsVm);
         }
 
         [HttpPut("/api/online-themes/{name}/install")]
         public async Task<IActionResult> Install(string name)
         {
+            var installedThemes = await _themeService.GetInstalledThemes();
+            if(installedThemes.Any(x => x.Name == name))
+            {
+                return NoContent();
+            }
+
             var client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync($"http://marketplace.simplcommerce.com/api/projects/{name}");
             var projectDetailsVm = new ProjectDetailsVm();
