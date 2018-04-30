@@ -1,16 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.IO.Compression;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure;
-using System.Collections.Generic;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.ViewModels;
 using SimplCommerce.Infrastructure.Data;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using System.IO.Compression;
 
 namespace SimplCommerce.Module.Core.Services
 {
