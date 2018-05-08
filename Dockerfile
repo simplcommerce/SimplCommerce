@@ -1,9 +1,19 @@
-FROM microsoft/aspnetcore-build:2.0.3-jessie AS build-env
+FROM microsoft/dotnet:2.1-sdk AS build-env
+
+#setup node
+ENV NODE_VERSION 8.9.4
+ENV NODE_DOWNLOAD_SHA 21fb4690e349f82d708ae766def01d7fec1b085ce1f5ab30d9bda8ee126ca8fc
+
+RUN curl -SL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz" --output nodejs.tar.gz \
+    && echo "$NODE_DOWNLOAD_SHA nodejs.tar.gz" | sha256sum -c - \
+    && tar -xzf "nodejs.tar.gz" -C /usr/local --strip-components=1 \
+    && rm nodejs.tar.gz \
+    && ln -s /usr/local/bin/node /usr/local/bin/nodejs
   
 WORKDIR /app
 COPY . ./
 
-RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.2" />#<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.0.2" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
+RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0-rc1-final" />#<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.0.2" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
 RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Program.cs
 RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Extensions/ServiceCollectionExtensions.cs
 
@@ -23,13 +33,11 @@ RUN cd src/SimplCommerce.WebHost \
 RUN sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/SimplCommerce.WebHost/dbscript.sql \
 	&& sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/Database/StaticData_PostgreSQL.sql
 
-FROM microsoft/aspnetcore:2.0.3-jessie
+FROM microsoft/dotnet:2.1-aspnetcore-runtime
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
 		postgresql-client \
-	&& rm -rf /var/lib/apt/lists/*
-	
-ENV ASPNETCORE_URLS http://+:5000
+	&& rm -rf /var/lib/apt/lists/*	
 
 WORKDIR /app	
 COPY --from=build-env /app/src/SimplCommerce.WebHost/out ./
