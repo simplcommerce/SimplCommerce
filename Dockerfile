@@ -22,6 +22,7 @@ RUN dotnet restore && dotnet build -c Release
 RUN cd src/SimplCommerce.WebHost \
     && sed -i 's/Debug/Release/' gulpfile.js \
 	&& npm install \
+	&& npm install --global gulp-cli \
 	&& gulp copy-modules \
 	&& dotnet ef migrations add initialSchema \
 	&& sed -i '/using SimplCommerce.Module.*.Models;/d' Migrations/SimplDbContextModelSnapshot.cs \
