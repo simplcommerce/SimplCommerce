@@ -35,10 +35,14 @@ RUN sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/SimplCommerce.WebHost/dbscript.sql \
 	&& sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/Database/StaticData_PostgreSQL.sql
 
 FROM microsoft/dotnet:2.1-aspnetcore-runtime
+
+# hack to make postgresql-client install work on slim
+RUN mkdir -p /usr/share/man/man1 \
+    && mkdir -p /usr/share/man/man7
+
 RUN apt-get update \
-	&& apt-get install -y --no-install-recommends \
-		postgresql-client \
-	&& rm -rf /var/lib/apt/lists/*	
+	&& apt-get install -y --no-install-recommends postgresql-client \
+	&& rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app	
 COPY --from=build-env /app/src/SimplCommerce.WebHost/out ./
