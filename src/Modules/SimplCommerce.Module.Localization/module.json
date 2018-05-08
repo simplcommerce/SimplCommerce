@@ -1,5 +1,6 @@
 {
   "name": "localization",
   "fullName": "SimplCommerce.Module.Localization",
+  "isBundledWithHost": true,
   "version": "1.0.0"
 }

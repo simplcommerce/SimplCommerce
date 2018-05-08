@@ -55,12 +55,15 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 IsAllowToOrder = product.IsAllowToOrder,
                 StockQuantity = product.StockQuantity,
                 ShortDescription = product.ShortDescription,
+                MetaTitle = product.MetaTitle,
+                MetaKeywords = product.MetaKeywords,
+                MetaDescription = product.MetaDescription,
                 Description = product.Description,
                 Specification = product.Specification,
                 ReviewsCount = product.ReviewsCount,
                 RatingAverage = product.RatingAverage,
                 Attributes = product.AttributeValues.Select(x => new ProductDetailAttribute { Name = x.Attribute.Name, Value = x.Value }).ToList(),
-                Categories = product.Categories.Select(x => new ProductDetailCategory { Id = x.CategoryId, Name = x.Category.Name, SeoTitle = x.Category.SeoTitle }).ToList()
+                Categories = product.Categories.Select(x => new ProductDetailCategory { Id = x.CategoryId, Name = x.Category.Name, Slug = x.Category.Slug }).ToList()
             };
 
             MapProductVariantToProductVm(product, model);

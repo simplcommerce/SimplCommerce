@@ -136,7 +136,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("SeoTitle");
+                    b.Property<string>("Slug");
 
                     b.HasKey("Id");
 
@@ -159,11 +159,17 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<bool>("IsPublished");
 
+                    b.Property<string>("MetaDescription");
+
+                    b.Property<string>("MetaKeywords");
+
+                    b.Property<string>("MetaTitle");
+
                     b.Property<string>("Name");
 
                     b.Property<long?>("ParentId");
 
-                    b.Property<string>("SeoTitle");
+                    b.Property<string>("Slug");
 
                     b.Property<long?>("ThumbnailImageId");
 
@@ -227,11 +233,11 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<int>("ReviewsCount");
 
-                    b.Property<string>("SeoTitle");
-
                     b.Property<string>("ShortDescription");
 
                     b.Property<string>("Sku");
+
+                    b.Property<string>("Slug");
 
                     b.Property<decimal?>("SpecialPrice");
 
@@ -531,7 +537,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<DateTimeOffset?>("PublishedOn");
 
-                    b.Property<string>("SeoTitle");
+                    b.Property<string>("Slug");
 
                     b.Property<long?>("UpdatedById");
 
@@ -690,6 +696,19 @@ namespace SimplCommerce.WebHost.Migrations
                         .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("Core_CustomerGroup");
+                });
+
+            modelBuilder.Entity("SimplCommerce.Module.Core.Models.CustomerGroupUser", b =>
+                {
+                    b.Property<long>("UserId");
+
+                    b.Property<long>("CustomerGroupId");
+
+                    b.HasKey("UserId", "CustomerGroupId");
+
+                    b.HasIndex("CustomerGroupId");
+
+                    b.ToTable("Core_CustomerGroupUser");
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.District", b =>
@@ -909,24 +928,6 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("Core_UserAddress");
                 });
 
-            modelBuilder.Entity("SimplCommerce.Module.Core.Models.UserCustomerGroup", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<long>("CustomerGroupId");
-
-                    b.Property<long>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerGroupId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Core_UserCustomerGroup");
-                });
-
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.UserRole", b =>
                 {
                     b.Property<long>("UserId");
@@ -957,7 +958,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("SeoTitle");
+                    b.Property<string>("Slug");
 
                     b.Property<DateTimeOffset>("UpdatedOn");
 
@@ -1145,9 +1146,15 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<bool>("IsPublished");
 
+                    b.Property<string>("MetaDescription");
+
+                    b.Property<string>("MetaKeywords");
+
+                    b.Property<string>("MetaTitle");
+
                     b.Property<string>("Name");
 
-                    b.Property<string>("SeoTitle");
+                    b.Property<string>("Slug");
 
                     b.HasKey("Id");
 
@@ -1179,9 +1186,9 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<DateTimeOffset?>("PublishedOn");
 
-                    b.Property<string>("SeoTitle");
-
                     b.Property<string>("ShortContent");
+
+                    b.Property<string>("Slug");
 
                     b.Property<long?>("ThumbnailImageId");
 
@@ -2082,6 +2089,19 @@ namespace SimplCommerce.WebHost.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("SimplCommerce.Module.Core.Models.CustomerGroupUser", b =>
+                {
+                    b.HasOne("SimplCommerce.Module.Core.Models.CustomerGroup", "CustomerGroup")
+                        .WithMany("Users")
+                        .HasForeignKey("CustomerGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SimplCommerce.Module.Core.Models.User", "User")
+                        .WithMany("CustomerGroups")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.District", b =>
                 {
                     b.HasOne("SimplCommerce.Module.Core.Models.StateOrProvince", "StateOrProvince")
@@ -2133,19 +2153,6 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.HasOne("SimplCommerce.Module.Core.Models.User", "User")
                         .WithMany("UserAddresses")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.Core.Models.UserCustomerGroup", b =>
-                {
-                    b.HasOne("SimplCommerce.Module.Core.Models.CustomerGroup", "CustomerGroup")
-                        .WithMany("Users")
-                        .HasForeignKey("CustomerGroupId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("SimplCommerce.Module.Core.Models.User", "User")
-                        .WithMany("CustomerGroups")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

@@ -10,7 +10,7 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public string Name { get; set; }
 
-        public string SeoTitle { get; set; }
+        public string Slug { get; set; }
 
         public decimal Price { get; set; }
 
@@ -44,7 +44,7 @@ namespace SimplCommerce.Module.Catalog.ViewModels
             {
                 Id = product.Id,
                 Name = product.Name,
-                SeoTitle = product.SeoTitle,
+                Slug = product.Slug,
                 Price = product.Price,
                 OldPrice = product.OldPrice,
                 SpecialPrice = product.SpecialPrice,

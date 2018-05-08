@@ -24,6 +24,9 @@
             // ng-upload will post null as text
             vm.category.parentId = vm.category.parentId === null ? '' : vm.category.parentId;
             vm.category.description = vm.category.description === null ? '' : vm.category.description;
+            vm.category.metaTitle = vm.category.metaTitle === null ? '' : vm.category.metaTitle;
+            vm.category.metaKeywords = vm.category.metaKeywords === null ? '' : vm.category.metaKeywords;
+            vm.category.metaDescription = vm.category.metaDescription === null ? '' : vm.category.metaDescription;
 
             if (vm.isEditMode) {
                 promise = categoryService.editCategory(vm.category);

@@ -1,5 +1,6 @@
 {
   "name": "product-comparison",
   "fullName": "SimplCommerce.Module.ProductComparison",
+  "isBundledWithHost": true,
   "version": "1.0.0"
 }

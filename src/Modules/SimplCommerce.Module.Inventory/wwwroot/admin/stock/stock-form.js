@@ -22,6 +22,10 @@
             });
         };
 
+        vm.wareHouseSelectChange = function wareHouseSelectChange() {
+            vm.getStocks(tableStateRef);
+        };
+
         vm.addAllProducts = function addAllProducts() {
             stockService.addAllProducts(vm.selectedWarehouseId)
                 .then(function (result) {

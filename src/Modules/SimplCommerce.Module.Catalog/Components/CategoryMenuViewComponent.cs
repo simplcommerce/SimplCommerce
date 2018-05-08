@@ -37,7 +37,7 @@ namespace SimplCommerce.Module.Catalog.Components
             {
                 Id = category.Id,
                 Name = category.Name,
-                SeoTitle = category.SeoTitle
+                Slug = category.Slug
             };
 
             var childCategories = category.Children;

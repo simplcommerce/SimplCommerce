@@ -22,11 +22,11 @@ namespace SimplCommerce.Module.Cms.Services
         {
             using (var transaction = _pageRepository.BeginTransaction())
             {
-                page.SeoTitle = _entityService.ToSafeSlug(page.SeoTitle, page.Id, PageEntityTypeId);
+                page.Slug = _entityService.ToSafeSlug(page.Slug, page.Id, PageEntityTypeId);
                 _pageRepository.Add(page);
                 await _pageRepository.SaveChangesAsync();
 
-                _entityService.Add(page.Name, page.SeoTitle, page.Id, PageEntityTypeId);
+                _entityService.Add(page.Name, page.Slug, page.Id, PageEntityTypeId);
                 await _pageRepository.SaveChangesAsync();
 
                 transaction.Commit();
@@ -35,8 +35,8 @@ namespace SimplCommerce.Module.Cms.Services
 
         public async Task Update(Page page)
         {
-            page.SeoTitle = _entityService.ToSafeSlug(page.SeoTitle, page.Id, PageEntityTypeId);
-            _entityService.Update(page.Name, page.SeoTitle, page.Id, PageEntityTypeId);
+            page.Slug = _entityService.ToSafeSlug(page.Slug, page.Id, PageEntityTypeId);
+            _entityService.Update(page.Name, page.Slug, page.Id, PageEntityTypeId);
             await _pageRepository.SaveChangesAsync();
         }
 

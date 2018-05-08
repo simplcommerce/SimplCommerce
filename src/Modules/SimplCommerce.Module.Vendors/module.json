@@ -1,5 +1,6 @@
 {
   "name": "vendors",
   "fullName": "SimplCommerce.Module.Vendors",
+  "isBundledWithHost": true,
   "version": "1.0.0"
 }

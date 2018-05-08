@@ -2,6 +2,10 @@
     display: inline;
 }
 
+.page-header {
+    margin-top: 10px;
+}
+
 .page-header .text-right {
     margin-top: 22px;
 }
@@ -148,4 +152,8 @@ td>span.glyphicon-remove {
 
 .entity-selector .entity-name {
     width: 200px;
+}
+
+.mt-3 {
+    margin-top: 40px !important;
 }

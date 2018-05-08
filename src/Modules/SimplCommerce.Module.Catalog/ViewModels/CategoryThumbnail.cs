@@ -9,7 +9,7 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public string Name { get; set; }
 
-        public string SeoTitle { get; set; }
+        public string Slug { get; set; }
 
         public string Description { get; set; }
 
@@ -22,7 +22,7 @@ namespace SimplCommerce.Module.Catalog.ViewModels
             var result = new CategoryThumbnail() {
                 Id = category.Id,
                 Name = category.Name,
-                SeoTitle = category.SeoTitle,
+                Slug = category.Slug,
                 Description = category.Description,
                 ThumbnailImage = category.ThumbnailImage
             };

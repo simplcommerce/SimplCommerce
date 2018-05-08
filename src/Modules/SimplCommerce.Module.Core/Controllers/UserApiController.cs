@@ -154,7 +154,7 @@ namespace SimplCommerce.Module.Core.Controllers
 
                 foreach (var customergroupId in model.CustomerGroupIds)
                 {
-                    var userCustomerGroup = new UserCustomerGroup
+                    var userCustomerGroup = new CustomerGroupUser
                     {
                         CustomerGroupId = customergroupId
                     };
@@ -259,7 +259,7 @@ namespace SimplCommerce.Module.Core.Controllers
                     continue;
                 }
 
-                var userCustomerGroup = new UserCustomerGroup
+                var userCustomerGroup = new CustomerGroupUser
                 {
                     CustomerGroupId = customergroupId,
                     User = user

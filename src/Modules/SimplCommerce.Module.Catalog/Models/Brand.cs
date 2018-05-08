@@ -7,7 +7,7 @@ namespace SimplCommerce.Module.Catalog.Models
     {
         public string Name { get; set; }
 
-        public string SeoTitle { get; set; }
+        public string Slug { get; set; }
 
         [StringLength(5000)]
         public string Description { get; set; }

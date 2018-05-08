@@ -1,5 +1,6 @@
 {
   "name": "reviews",
   "fullName": "SimplCommerce.Module.Reviews",
+  "isBundledWithHost": true,
   "version": "1.0.0"
 }

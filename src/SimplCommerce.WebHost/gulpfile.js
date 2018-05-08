@@ -95,8 +95,10 @@ gulp.task('copy-modules', ['clean-module'], function () {
     gulp.start(['copy-static']);
 
     modules.forEach(function (module) {
-        gulp.src(paths.dev.modules + module.fullName + paths.dev.moduleBin + '**/*.*')
-            .pipe(gulp.dest(paths.host.modules + module.fullName + paths.host.moduleBin));
+        if (!module.isBundledWithHost) {
+            gulp.src(paths.dev.modules + module.fullName + paths.dev.moduleBin + '**/*.*')
+                .pipe(gulp.dest(paths.host.modules + module.fullName + paths.host.moduleBin));
+        }
     });
 });
 

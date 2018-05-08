@@ -1,0 +1,78 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{::vm.translate.get('Product Price Management')}}</h2>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped" st-pipe="vm.getProducts" st-table="vm.products">
+    <thead>
+        <tr>
+            <th>{{::vm.translate.get('Product Name')}}</th>
+            <th>{{::vm.translate.get('Product Sku')}}</th>
+            <th class="text-right">{{::vm.translate.get('Current Price')}}</th>
+            <th class="text-right">{{::vm.translate.get('Old Price')}}</th>
+            <th class="text-right">{{::vm.translate.get('Special Price')}}</th>
+            <th class="text-right">{{::vm.translate.get('Start')}}</th>
+            <th class="text-right">{{::vm.translate.get('End')}}</th>
+            <th class="text-right">{{::vm.translate.get('New Price')}}</th>
+            <th class="text-right">{{::vm.translate.get('New Old Price')}}</th>
+        </tr>
+        <tr>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="ProductName" />
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="ProductSku" />
+                </div>
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-show="!vm.isLoading">
+        <tr ng-repeat="item in vm.products">
+            <td>{{item.name}}</td>
+            <td>{{item.sku}}</td>
+            <td class="text-right">{{item.price | number}}</td>
+            <td class="text-right">{{(item.oldPrice | number) || '-'}}</td>
+            <td class="text-right">{{item.specialPrice || '-'}}</td>
+            <td class="text-right">{{(item.specialPriceStart | date:'short') || '-'}}</td>
+            <td class="text-right">{{(item.specialPriceEnd | date:'short') || '-'}}</td>
+            <td>
+                <div class="input-number">
+                    <input id="newPrice_{{item.id}}" type="text" decimal maxlength="10" name="newPrice" ng-model="item.newPrice" class="form-control" />
+                    <label class="form-control" for="newPrice_{{item.id}}">{{item.newPrice | number}}</label>
+                </div>
+            </td>
+            <td>
+                <div class="input-number">
+                    <input id="newOldPrice_{{item.id}}" type="text" decimal maxlength="10" name="newOldPrice" ng-model="item.newOldPrice" class="form-control" />
+                    <label class="form-control" for="newOldPrice_{{item.id}}">{{item.newOldPrice | number}}</label>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+    <tbody ng-show="vm.isLoading">
+        <tr>
+            <td colspan="9" class="text-center">Loading ... </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="9"></td>
+        </tr>
+    </tfoot>
+</table>
+<div class="text-right">
+    <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> {{::vm.translate.get('Save')}}</button>
+</div>

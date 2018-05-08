@@ -1,9 +1,8 @@
 ﻿@using System.Globalization
 @using Microsoft.Extensions.Configuration;
-@using Microsoft.AspNetCore.Identity
-@using SimplCommerce.Module.Core.Models
+@using SimplCommerce.Module.Core.Extensions
 
-@inject UserManager<User> UserManager
+@inject IWorkContext WorkContext
 @inject IConfiguration Config
 
 @{ 
@@ -73,6 +72,8 @@
     <script simpl-append-version="true" src="~/modules/core/admin/customergroups/customergroup-form.js"></script>
     <script simpl-append-version="true" src="~/modules/core/admin/themes/theme-service.js"></script>
     <script simpl-append-version="true" src="~/modules/core/admin/themes/theme-list.js"></script>
+    <script simpl-append-version="true" src="~/modules/core/admin/themes/online-theme-list.js"></script>
+    <script simpl-append-version="true" src="~/modules/core/admin/themes/theme-details.js"></script>
     <script simpl-append-version="true" src="~/modules/core/admin/countries/country-service.js"></script>
     <script simpl-append-version="true" src="~/modules/core/admin/countries/country-list.js"></script>
     <script simpl-append-version="true" src="~/modules/core/admin/countries/country-form.js"></script>
@@ -108,6 +109,10 @@
     <script simpl-append-version="true" src="~/modules/catalog/admin/product-widget/product-widget-form.js"></script>
     <script simpl-append-version="true" src="~/modules/catalog/admin/category-widget/category-widget-service.js"></script>
     <script simpl-append-version="true" src="~/modules/catalog/admin/category-widget/category-widget-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/catalog/admin/simple-product-widget/simple-product-widget-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/catalog/admin/simple-product-widget/simple-product-widget-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/catalog/admin/product-price/product-price-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/catalog/admin/product-price/product-price-form.js"></script>
 
     <script simpl-append-version="true" src="~/modules/orders/admin/orders.module.js"></script>
     <script simpl-append-version="true" src="~/modules/orders/admin/order/order-service.js"></script>
@@ -129,6 +134,8 @@
     <script simpl-append-version="true" src="~/modules/cms/admin/html-widget/html-widget-form.js"></script>
     <script simpl-append-version="true" src="~/modules/cms/admin/spacebar-widget/spacebar-widget-service.js"></script>
     <script simpl-append-version="true" src="~/modules/cms/admin/spacebar-widget/spacebar-widget-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/cms/admin/html-widget/html-widget-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/cms/admin/html-widget/html-widget-form.js"></script>
 
     <script simpl-append-version="true" src="~/modules/search/admin/search.module.js"></script>
     <script simpl-append-version="true" src="~/modules/search/admin/search-service.js"></script>
@@ -254,7 +261,8 @@
                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Catalog"] <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a ui-sref="product">@Localizer["Products"]</a></li>
-                            @if(User.IsInRole("admin"))
+                            <li><a ui-sref="product-prices">@Localizer["Product Prices"]</a></li>
+                            @if (User.IsInRole("admin"))
                             {
                                 <li><a ui-sref="category">@Localizer["Categories"]</a></li>
                                 <li><a ui-sref="brand">@Localizer["Brands"]</a></li>
@@ -312,7 +320,7 @@
                 <form asp-area="" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">@Localizer["Hello {0}!", UserManager.GetUserName(User)]</a>
+                            <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">@Localizer["Hello {0}!", (await WorkContext.GetCurrentUser()).FullName]</a>
                         </li>
                         <li>
                             <button type="submit" class="btn btn-link navbar-btn navbar-link">@Localizer["Log off"]</button>

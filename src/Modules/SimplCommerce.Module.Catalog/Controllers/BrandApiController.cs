@@ -38,7 +38,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             {
                 Id = brand.Id,
                 Name = brand.Name,
-                Slug = brand.SeoTitle,
+                Slug = brand.Slug,
                 IsPublished = brand.IsPublished
             };
 
@@ -54,7 +54,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 var brand = new Brand
                 {
                     Name = model.Name,
-                    SeoTitle = model.Slug,
+                    Slug = model.Slug,
                     IsPublished = model.IsPublished
                 };
 
@@ -77,7 +77,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 }
 
                 brand.Name = model.Name;
-                brand.SeoTitle = model.Slug;
+                brand.Slug = model.Slug;
                 brand.IsPublished = model.IsPublished;
 
                 await _brandService.Update(brand);

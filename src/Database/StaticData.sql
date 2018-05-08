@@ -52,6 +52,7 @@ INSERT [dbo].[Core_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [
 INSERT [dbo].[Core_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (3, N'ProductWidget', N'widget-product-create', CAST(N'2016-07-08 00:00:00.0000000' AS DateTime2), N'widget-product-edit', 1, N'Product Widget', N'ProductWidget')
 INSERT [dbo].[Core_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (4, N'CategoryWidget', N'widget-category-create', CAST(N'2016-07-08 00:00:00.0000000' AS DateTime2), N'widget-category-edit', 1, N'Category Widget', N'CategoryWidget')
 INSERT [dbo].[Core_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (5, N'SpaceBarWidget', N'widget-spacebar-create', CAST(N'2016-07-08 00:00:00.0000000' AS DateTime2), N'widget-spacebar-edit', 1, N'SpaceBar Widget', N'SpaceBarWidget')
+INSERT [dbo].[Core_Widget] ([Id], [Code], [CreateUrl], [CreatedOn], [EditUrl], [IsPublished], [Name], [ViewComponentName]) VALUES (6, N'SimpleProductWidget', N'widget-simple-product-create', CAST(N'2016-07-08 00:00:00.0000000' AS DateTime2), N'widget-simple-product-edit', 1, N'Simple Product Widget', N'SimpleProductWidget')
 SET IDENTITY_INSERT [dbo].[Core_Widget] OFF
 GO
 

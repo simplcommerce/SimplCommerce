@@ -44,7 +44,7 @@ namespace SimplCommerce.Module.Catalog.Components
                 new BreadcrumbViewModel
                 {
                     Text = category.Name,
-                    Url = category.SeoTitle
+                    Url = category.Slug
                 }
             };
             var parentCategory = category.Parent;
@@ -53,7 +53,7 @@ namespace SimplCommerce.Module.Catalog.Components
                 breadcrumbModels.Insert(0, new BreadcrumbViewModel
                 {
                     Text = parentCategory.Name,
-                    Url = parentCategory.SeoTitle
+                    Url = parentCategory.Slug
                 });
                 parentCategory = parentCategory.Parent;
             }

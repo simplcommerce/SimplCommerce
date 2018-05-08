@@ -1,8 +1,6 @@
-﻿using SimplCommerce.Infrastructure.Models;
-
-namespace SimplCommerce.Module.Core.Models
+﻿namespace SimplCommerce.Module.Core.Models
 {
-    public class UserCustomerGroup : EntityBase
+    public class CustomerGroupUser
     {
         public long UserId { get; set; }
 
