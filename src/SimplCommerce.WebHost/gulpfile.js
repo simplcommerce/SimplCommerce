@@ -20,7 +20,7 @@ var paths = {
     },
     dev: {
         modules: "../Modules/",
-        moduleBin: "/bin/Debug/netcoreapp2.0/"
+        moduleBin: "/bin/Debug/netcoreapp2.1/"
     }
 };
 

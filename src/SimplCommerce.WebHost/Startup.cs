@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +29,13 @@ namespace SimplCommerce.WebHost
             GlobalConfiguration.WebRootPath = _hostingEnvironment.WebRootPath;
             GlobalConfiguration.ContentRootPath = _hostingEnvironment.ContentRootPath;
             services.LoadInstalledModules(_hostingEnvironment.ContentRootPath);
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
 
             services.AddCustomizedDataStore(_configuration);
             services.AddCustomizedIdentity();
@@ -66,6 +74,7 @@ namespace SimplCommerce.WebHost
 
             app.UseCustomizedRequestLocalization();
             app.UseCustomizedStaticFiles(env);
+            app.UseCookiePolicy();
             app.UseCustomizedIdentity();
             app.UseCustomizedMvc();
 
