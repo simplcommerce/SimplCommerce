@@ -39,6 +39,7 @@ namespace SimplCommerce.WebHost
 
             services.AddCustomizedDataStore(_configuration);
             services.AddCustomizedIdentity();
+            services.AddHttpClient();
 
             services.AddSingleton<IStringLocalizerFactory, EfStringLocalizerFactory>();
             services.AddCloudscribePagination();

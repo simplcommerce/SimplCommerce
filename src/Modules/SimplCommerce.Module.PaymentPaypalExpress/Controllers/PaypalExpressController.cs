@@ -27,13 +27,15 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
         private readonly IRepository<PaymentProvider> _paymentProviderRepository;
         private readonly IRepository<Payment> _paymentRepository;
         private Lazy<PaypalExpressConfigForm> _setting;
+        private readonly IHttpClientFactory _httpClientFactory;
 
         public PaypalExpressController(
             ICartService cartService,
             IOrderService orderService,
             IWorkContext workContext,
             IRepository<PaymentProvider> paymentProviderRepository,
-            IRepository<Payment> paymentRepository)
+            IRepository<Payment> paymentRepository,
+            IHttpClientFactory httpClientFactory)
         {
             _cartService = cartService;
             _orderService = orderService;
@@ -41,6 +43,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
             _paymentProviderRepository = paymentProviderRepository;
             _paymentRepository = paymentRepository;
             _setting = new Lazy<PaypalExpressConfigForm>(GetSetting());
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<ActionResult> CreatePayment()
@@ -52,7 +55,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
             var regionInfo = new RegionInfo(CultureInfo.CurrentCulture.LCID);
             var experienceProfileId = await CreateExperienceProfile(accessToken);
 
-            var httpClient = new HttpClient();
+            var httpClient = _httpClientFactory.CreateClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             var paypalAcceptedNumericFormatCulture = CultureInfo.CreateSpecificCulture("en-US");
             var paymentCreateRequest = new PaymentCreateRequest
@@ -120,7 +123,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
                 CreatedOn = DateTimeOffset.UtcNow,
             };
 
-            var httpClient = new HttpClient();
+            var httpClient = _httpClientFactory.CreateClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             var paymentExecuteRequest = new PaymentExecuteRequest
             {
@@ -155,7 +158,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
 
         private async Task<string> GetAccessToken()
         {
-            var httpClient = new HttpClient();
+            var httpClient = _httpClientFactory.CreateClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
                 "Basic",
                 Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes($"{_setting.Value.ClientId}:{_setting.Value.ClientSecret}")));
@@ -171,7 +174,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
 
         private async Task<string> CreateExperienceProfile(string accessToken)
         {
-            var httpClient = new HttpClient();
+            var httpClient = _httpClientFactory.CreateClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             var experienceRequest = new ExperienceProfile
             {
