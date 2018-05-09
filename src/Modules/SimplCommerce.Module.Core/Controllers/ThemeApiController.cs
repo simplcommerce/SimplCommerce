@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Core.ViewModels;
 
@@ -16,10 +15,12 @@ namespace SimplCommerce.Module.Core.Controllers
     public class ThemeApiController : Controller
     {
         private readonly IThemeService _themeService;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public ThemeApiController(IThemeService themeService)
+        public ThemeApiController(IThemeService themeService, IHttpClientFactory httpClientFactory)
         {
             _themeService = themeService;
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task<IActionResult> Get()
@@ -31,29 +32,22 @@ namespace SimplCommerce.Module.Core.Controllers
         [HttpGet("/api/online-themes")]
         public async Task<IActionResult> GetOnlineThemes()
         {
-            var client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync("http://marketplace.simplcommerce.com/api/projects/themes");
-            var onlineThemes = new List<ProjectItemVm>();
-            if (response.IsSuccessStatusCode)
-            {
-                string json = await response.Content.ReadAsStringAsync();
-                onlineThemes = JsonConvert.DeserializeObject<List<ProjectItemVm>>(json);
-            }
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync("http://marketplace.simplcommerce.com/api/projects/themes");
+            response.EnsureSuccessStatusCode();
 
+            var onlineThemes = await response.Content.ReadAsAsync<List<ProjectItemVm>>();
             return Ok(onlineThemes);
         }
 
         [HttpGet("/api/online-themes/{name}")]
         public async Task<IActionResult> Details(string name)
         {
-            var client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync($"http://marketplace.simplcommerce.com/api/projects/{name}");
-            var projectDetailsVm = new ProjectDetailsVm();
-            if (response.IsSuccessStatusCode)
-            {
-                string json = await response.Content.ReadAsStringAsync();
-                projectDetailsVm = JsonConvert.DeserializeObject<ProjectDetailsVm>(json);
-            }
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync($"http://marketplace.simplcommerce.com/api/projects/{name}");
+            response.EnsureSuccessStatusCode();
+
+            var projectDetailsVm = await response.Content.ReadAsAsync<ProjectDetailsVm>();
 
             var installedThemes = await _themeService.GetInstalledThemes();
             projectDetailsVm.IsInstalled = installedThemes.Any(x => x.Name == name);
@@ -70,21 +64,12 @@ namespace SimplCommerce.Module.Core.Controllers
                 return NoContent();
             }
 
-            var client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync($"http://marketplace.simplcommerce.com/api/projects/{name}");
-            var projectDetailsVm = new ProjectDetailsVm();
-            if (response.IsSuccessStatusCode)
-            {
-                string json = await response.Content.ReadAsStringAsync();
-                projectDetailsVm = JsonConvert.DeserializeObject<ProjectDetailsVm>(json);
-            }
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync($"http://marketplace.simplcommerce.com/api/projects/{name}/download");
+            response.EnsureSuccessStatusCode();
 
-            HttpResponseMessage response2 = await client.GetAsync($"http://marketplace.simplcommerce.com/api/projects/{name}/download");
-            if (response2.IsSuccessStatusCode)
-            {
-                var responsStream = await response2.Content.ReadAsStreamAsync();
-                await _themeService.Install(responsStream, projectDetailsVm.Name);
-            }
+            var responsStream = await response.Content.ReadAsStreamAsync();
+            await _themeService.Install(responsStream, name);
 
             return Accepted();
         }
