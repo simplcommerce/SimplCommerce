@@ -93,7 +93,6 @@
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    @*<script simpl-append-version="true" src="~/lib/jquery/jquery.js"></script>*@
     <script simpl-append-version="true" src="~/lib/bootstrap4/js/bootstrap.js"></script>
     <script simpl-append-version="true" src="~/lib/multi-dropdown-menu/js/bootstrap-4-navbar.js"></script>
     <script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
@@ -106,5 +105,7 @@
     <script simpl-append-version="true" src="~/modules/shopping-cart/add-to-cart.js"></script>
     <script simpl-append-version="true" src="~/modules/product-comparison/product-comparison.js"></script>
     @RenderSection("scripts", required: false)
+
+    @await Html.PartialAsync("_AnalyticsScript")
 </body>
 </html>
