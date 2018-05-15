@@ -54,19 +54,13 @@ namespace SimplCommerce.Module.Core.Controllers
                 if (search.Role != null)
                 {
                     string roleName = search.Role;
-                    query = ((from i in query
-                              from p in i.Roles
-                              where p.Role.Name.Contains(roleName)
-                              select i) as IQueryable<User>);
+                    query = query.Where(x => x.Roles.Any(r => r.Role.Name.Contains(roleName)));
                 }
 
                 if (search.CustomerGroup != null)
                 {
                     string customerGroupName = search.CustomerGroup;
-                    query = ((from i in query
-                              from p in i.CustomerGroups
-                              where p.CustomerGroup.Name.Contains(customerGroupName)
-                              select i) as IQueryable<User>);
+                    query = query.Where(x => x.CustomerGroups.Any(g => g.CustomerGroup.Name.Contains(customerGroupName)));
                 }
 
                 if (search.CreatedOn != null)
@@ -85,16 +79,16 @@ namespace SimplCommerce.Module.Core.Controllers
                 }
             }
 
-            var users = query.ToSmartTableResult(
+            var users = query.ToSmartTableResultNoProjection(
                 param,
                 user => new
                 {
-                    Id = user.Id,
-                    Email = user.Email,
-                    FullName = user.FullName,
-                    CreatedOn = user.CreatedOn,
-                    Roles = string.Join(", ", user.Roles.Select(x => x.Role.Name)),
-                    CustomerGroups = string.Join(", ", user.CustomerGroups.Select(x => x.CustomerGroup.Name))
+                    user.Id,
+                    user.Email,
+                    user.FullName,
+                    user.CreatedOn,
+                    Roles = user.Roles.Select(x => x.Role.Name),
+                    CustomerGroups = user.CustomerGroups.Select(x => x.CustomerGroup.Name)
                 });
 
             return Json(users);

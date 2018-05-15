@@ -48,8 +48,8 @@
         <tr ng-repeat="user in vm.users">
             <td>{{user.email}}</td>
             <td>{{user.fullName}}</td>
-            <td>{{user.roles}}</td>
-            <td>{{user.customerGroups}}</td>
+            <td>{{user.roles.join(', ')}}</td>
+            <td>{{user.customerGroups.join(', ')}}</td>
             <td>{{user.createdOn | date:'medium' }}</td>
             <td>
                 <a ui-sref="user-edit({id: user.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
