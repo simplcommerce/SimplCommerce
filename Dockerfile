@@ -25,8 +25,6 @@ RUN cd src/SimplCommerce.WebHost \
 	&& npm install --global gulp-cli \
 	&& gulp copy-modules \
 	&& dotnet ef migrations add initialSchema \
-	&& sed -i '/using SimplCommerce.Module.*.Models;/d' Migrations/SimplDbContextModelSnapshot.cs \
-	&& sed -i '/using SimplCommerce.Module.*.Models;/d' Migrations/*_initialSchema.Designer.cs \
 	&& dotnet ef migrations script -o dbscript.sql \
 	&& dotnet publish -c Release -o out
 

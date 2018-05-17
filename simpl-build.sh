@@ -14,8 +14,6 @@ cd src/SimplCommerce.WebHost \
 	&& npm install --global gulp-cli \
 	&& gulp copy-modules \
 	&& dotnet ef migrations add initialSchema \
-	&& sed -i'' -e '/using SimplCommerce.Module.*.Models;/d' Migrations/SimplDbContextModelSnapshot.cs \
-	&& sed -i'' -e '/using SimplCommerce.Module.*.Models;/d' Migrations/*_initialSchema.Designer.cs \
 	&& dotnet ef database update
 	
 echo "The database schema has been created. Please execute the src/Database/StaticData_Postgres.sql to insert static data."
