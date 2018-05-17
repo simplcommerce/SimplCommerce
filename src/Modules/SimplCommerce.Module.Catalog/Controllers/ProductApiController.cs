@@ -336,8 +336,11 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
             await SaveProductMedias(model, product);
 
-            MapProductVariationVmToProduct(model, product);
+            MapProductVariationVmToProduct(currentUser, model, product);
             MapProductLinkVmToProduct(model, product);
+
+            var productPriceHistory = CreatePriceHistory(currentUser, product);
+            product.PriceHistories.Add(productPriceHistory);
 
             _productService.Create(product);
             return CreatedAtAction(nameof(Get), new { id = product.Id }, null);
@@ -371,6 +374,12 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 return BadRequest(new { error = "You don't have permission to manage this product" });
             }
 
+            var productPriceHistory = new ProductPriceHistory
+            {
+                Product = product,
+                CreatedBy = currentUser
+            };
+
             product.Name = model.Product.Name;
             product.Slug = model.Product.Slug;
             product.MetaTitle = model.Product.MetaTitle;
@@ -381,6 +390,42 @@ namespace SimplCommerce.Module.Catalog.Controllers
             product.ShortDescription = model.Product.ShortDescription;
             product.Description = model.Product.Description;
             product.Specification = model.Product.Specification;
+
+            if (product.Price != model.Product.Price)
+            {
+                productPriceHistory.IsPriceChange = true;
+                productPriceHistory.Price = model.Product.Price;
+            }
+
+            if (product.OldPrice != model.Product.OldPrice)
+            {
+                productPriceHistory.IsPriceChange = true;
+                productPriceHistory.OldPrice = model.Product.OldPrice;
+            }
+
+            if (product.SpecialPrice != model.Product.SpecialPrice)
+            {
+                productPriceHistory.IsPriceChange = true;
+                productPriceHistory.SpecialPrice = model.Product.SpecialPrice;
+            }
+
+            if (product.SpecialPriceStart != model.Product.SpecialPriceStart)
+            {
+                productPriceHistory.IsPriceChange = true;
+                productPriceHistory.SpecialPriceStart = model.Product.SpecialPriceStart;
+            }
+
+            if(product.SpecialPriceEnd != model.Product.SpecialPriceEnd)
+            {
+                productPriceHistory.IsPriceChange = true;
+                productPriceHistory.SpecialPriceEnd = model.Product.SpecialPriceEnd;
+            }
+
+            if (productPriceHistory.IsPriceChange)
+            {
+                product.PriceHistories.Add(productPriceHistory);
+            }
+
             product.Price = model.Product.Price;
             product.OldPrice = model.Product.OldPrice;
             product.SpecialPrice = model.Product.SpecialPrice;
@@ -406,7 +451,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             AddOrDeleteProductOption(model, product);
             AddOrDeleteProductAttribute(model, product);
             AddOrDeleteCategories(model, product);
-            AddOrDeleteProductVariation(model, product);
+            AddOrDeleteProductVariation(currentUser, model, product);
             AddOrDeleteProductLinks(model, product);
 
             _productService.Update(product);
@@ -455,7 +500,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             return NoContent();
         }
 
-        private static void MapProductVariationVmToProduct(ProductForm model, Product product)
+        private static void MapProductVariationVmToProduct(User loginUser, ProductForm model, Product product)
         {
             foreach (var variationVm in model.Product.Variations)
             {
@@ -488,8 +533,25 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
                 productLink.LinkedProduct.ThumbnailImage = product.ThumbnailImage;
 
+                var productPriceHistory = CreatePriceHistory(loginUser, productLink.LinkedProduct);
+                product.PriceHistories.Add(productPriceHistory);
+
                 product.AddProductLinks(productLink);
             }
+        }
+
+        private static ProductPriceHistory CreatePriceHistory(User loginUser, Product product)
+        {
+            return new ProductPriceHistory
+            {
+                CreatedBy = loginUser,
+                Product = product,
+                Price = product.Price,
+                OldPrice = product.OldPrice,
+                SpecialPrice = product.SpecialPrice,
+                SpecialPriceStart = product.SpecialPriceStart,
+                SpecialPriceEnd = product.SpecialPriceEnd
+            };
         }
 
         private static void MapProductLinkVmToProduct(ProductForm model, Product product)
@@ -582,7 +644,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             }
         }
 
-        private void AddOrDeleteProductVariation(ProductForm model, Product product)
+        private void AddOrDeleteProductVariation(User loginUser,  ProductForm model, Product product)
         {
             foreach (var productVariationVm in model.Product.Variations)
             {
@@ -617,10 +679,42 @@ namespace SimplCommerce.Module.Catalog.Controllers
                         });
                     }
 
+                    var productPriceHistory = new ProductPriceHistory
+                    {
+                        CreatedBy = loginUser,
+                        Product = productLink.LinkedProduct,
+                        Price = productVariationVm.Price,
+                        OldPrice = productVariationVm.OldPrice
+                    };
+                    productLink.LinkedProduct.PriceHistories.Add(productPriceHistory);
+
                     product.AddProductLinks(productLink);
                 }
                 else
                 {
+                    var productPriceHistory = new ProductPriceHistory
+                    {
+                        Product = productLink.LinkedProduct,
+                        CreatedBy = loginUser,
+                    };
+
+                    if (productLink.LinkedProduct.Price != productVariationVm.Price)
+                    {
+                        productPriceHistory.IsPriceChange = true;
+                        productPriceHistory.Price = productVariationVm.Price;
+                    }
+
+                    if (productLink.LinkedProduct.OldPrice != productVariationVm.OldPrice)
+                    {
+                        productPriceHistory.IsPriceChange = true;
+                        productPriceHistory.OldPrice = productVariationVm.OldPrice;
+                    }
+
+                    if (productPriceHistory.IsPriceChange)
+                    {
+                        productLink.LinkedProduct.PriceHistories.Add(productPriceHistory);
+                    }
+
                     productLink.LinkedProduct.Sku = productVariationVm.Sku;
                     productLink.LinkedProduct.Gtin = productVariationVm.Gtin;
                     productLink.LinkedProduct.Price = productVariationVm.Price;

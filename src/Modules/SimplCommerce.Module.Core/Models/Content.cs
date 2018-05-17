@@ -44,12 +44,12 @@ namespace SimplCommerce.Module.Core.Models
             }
         }
 
-        public virtual User CreatedBy { get; set; }
+        public User CreatedBy { get; set; }
 
         public DateTimeOffset CreatedOn { get; set; }
 
         public DateTimeOffset UpdatedOn { get; set; }
 
-        public virtual User UpdatedBy { get; set; }
+        public User UpdatedBy { get; set; }
     }
 }

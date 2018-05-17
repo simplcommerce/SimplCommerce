@@ -59,6 +59,8 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public IList<ProductCategory> Categories { get; protected set; } = new List<ProductCategory>();
 
+        public IList<ProductPriceHistory> PriceHistories { get; protected set; } = new List<ProductPriceHistory>();
+
         public int ReviewsCount { get; set; }
 
         public double? RatingAverage { get; set; }

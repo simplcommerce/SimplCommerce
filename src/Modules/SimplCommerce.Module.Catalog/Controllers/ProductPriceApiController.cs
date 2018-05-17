@@ -82,15 +82,24 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 var product = _productRepository.Query().FirstOrDefault(x => x.Id == item.Id);
                 if(product != null && (User.IsInRole("admin") || product.VendorId == currentUser.VendorId))
                 {
+                    var productPriceHistory = new ProductPriceHistory
+                    {
+                        Product = product,
+                        CreatedBy = currentUser
+                    };
+
                     if (item.NewOldPrice.HasValue)
                     {
-                        product.OldPrice = item.NewOldPrice.Value;
+                        product.OldPrice = productPriceHistory.OldPrice = item.NewOldPrice.Value;
                     }
 
                     if (item.NewPrice.HasValue)
                     {
                         product.Price = item.NewPrice.Value;
+                        productPriceHistory.Price = item.NewPrice.Value;
                     }
+
+                    product.PriceHistories.Add(productPriceHistory);
                 }
             }
 

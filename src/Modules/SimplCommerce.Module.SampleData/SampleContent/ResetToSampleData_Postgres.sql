@@ -21,6 +21,7 @@ DELETE FROM "Catalog_ProductAttributeGroup";
 DELETE FROM "Catalog_ProductMedia";
 DELETE FROM "Catalog_ProductCategory";
 DELETE FROM "Catalog_ProductLink";
+DELETE FROM "Catalog_ProductPriceHistory";
 DELETE FROM "Catalog_Product";
 DELETE FROM "Catalog_Category";
 DELETE FROM "News_NewsItem";

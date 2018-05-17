@@ -44,6 +44,8 @@ DELETE FROM [dbo].[Catalog_ProductCategory]
 GO
 DELETE FROM [dbo].[Catalog_ProductLink]
 GO
+DELETE FROM [dbo].[Catalog_ProductPriceHistory]
+GO
 DELETE FROM [dbo].[Catalog_Product]
 GO
 DELETE FROM [dbo].[Catalog_Category]
