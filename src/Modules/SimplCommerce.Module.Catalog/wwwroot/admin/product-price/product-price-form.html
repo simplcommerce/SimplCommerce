@@ -41,7 +41,7 @@
     </thead>
     <tbody ng-show="!vm.isLoading">
         <tr ng-repeat="item in vm.products">
-            <td>{{item.name}}</td>
+            <td><a ui-sref="product-edit({id: item.id})">{{item.name}}</a></td>
             <td>{{item.sku}}</td>
             <td class="text-right">{{item.price | number}}</td>
             <td class="text-right">{{(item.oldPrice | number) || '-'}}</td>

@@ -374,11 +374,16 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 return BadRequest(new { error = "You don't have permission to manage this product" });
             }
 
-            var productPriceHistory = new ProductPriceHistory
+            var isPriceChanged = false;
+            if (product.Price != model.Product.Price ||
+                product.OldPrice != model.Product.OldPrice ||
+                product.SpecialPrice != model.Product.SpecialPrice ||
+                product.SpecialPriceStart != model.Product.SpecialPriceStart ||
+                product.SpecialPriceEnd != model.Product.SpecialPriceEnd)
             {
-                Product = product,
-                CreatedBy = currentUser
-            };
+                isPriceChanged = true;
+            }
+
 
             product.Name = model.Product.Name;
             product.Slug = model.Product.Slug;
@@ -390,42 +395,6 @@ namespace SimplCommerce.Module.Catalog.Controllers
             product.ShortDescription = model.Product.ShortDescription;
             product.Description = model.Product.Description;
             product.Specification = model.Product.Specification;
-
-            if (product.Price != model.Product.Price)
-            {
-                productPriceHistory.IsPriceChange = true;
-                productPriceHistory.Price = model.Product.Price;
-            }
-
-            if (product.OldPrice != model.Product.OldPrice)
-            {
-                productPriceHistory.IsPriceChange = true;
-                productPriceHistory.OldPrice = model.Product.OldPrice;
-            }
-
-            if (product.SpecialPrice != model.Product.SpecialPrice)
-            {
-                productPriceHistory.IsPriceChange = true;
-                productPriceHistory.SpecialPrice = model.Product.SpecialPrice;
-            }
-
-            if (product.SpecialPriceStart != model.Product.SpecialPriceStart)
-            {
-                productPriceHistory.IsPriceChange = true;
-                productPriceHistory.SpecialPriceStart = model.Product.SpecialPriceStart;
-            }
-
-            if(product.SpecialPriceEnd != model.Product.SpecialPriceEnd)
-            {
-                productPriceHistory.IsPriceChange = true;
-                productPriceHistory.SpecialPriceEnd = model.Product.SpecialPriceEnd;
-            }
-
-            if (productPriceHistory.IsPriceChange)
-            {
-                product.PriceHistories.Add(productPriceHistory);
-            }
-
             product.Price = model.Product.Price;
             product.OldPrice = model.Product.OldPrice;
             product.SpecialPrice = model.Product.SpecialPrice;
@@ -438,6 +407,12 @@ namespace SimplCommerce.Module.Catalog.Controllers
             product.IsCallForPricing = model.Product.IsCallForPricing;
             product.IsAllowToOrder = model.Product.IsAllowToOrder;
             product.UpdatedBy = currentUser;
+
+            if (isPriceChanged)
+            {
+                var productPriceHistory = CreatePriceHistory(currentUser, product);
+                product.PriceHistories.Add(productPriceHistory);
+            }
 
             await SaveProductMedias(model, product);
 
@@ -679,40 +654,18 @@ namespace SimplCommerce.Module.Catalog.Controllers
                         });
                     }
 
-                    var productPriceHistory = new ProductPriceHistory
-                    {
-                        CreatedBy = loginUser,
-                        Product = productLink.LinkedProduct,
-                        Price = productVariationVm.Price,
-                        OldPrice = productVariationVm.OldPrice
-                    };
+                    var productPriceHistory = CreatePriceHistory(loginUser, productLink.LinkedProduct);
                     productLink.LinkedProduct.PriceHistories.Add(productPriceHistory);
 
                     product.AddProductLinks(productLink);
                 }
                 else
                 {
-                    var productPriceHistory = new ProductPriceHistory
+                    var isPriceChanged = false;
+                    if(productLink.LinkedProduct.Price != productVariationVm.Price ||
+                        productLink.LinkedProduct.OldPrice != productVariationVm.OldPrice)
                     {
-                        Product = productLink.LinkedProduct,
-                        CreatedBy = loginUser,
-                    };
-
-                    if (productLink.LinkedProduct.Price != productVariationVm.Price)
-                    {
-                        productPriceHistory.IsPriceChange = true;
-                        productPriceHistory.Price = productVariationVm.Price;
-                    }
-
-                    if (productLink.LinkedProduct.OldPrice != productVariationVm.OldPrice)
-                    {
-                        productPriceHistory.IsPriceChange = true;
-                        productPriceHistory.OldPrice = productVariationVm.OldPrice;
-                    }
-
-                    if (productPriceHistory.IsPriceChange)
-                    {
-                        productLink.LinkedProduct.PriceHistories.Add(productPriceHistory);
+                        isPriceChanged = true;
                     }
 
                     productLink.LinkedProduct.Sku = productVariationVm.Sku;
@@ -720,6 +673,12 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     productLink.LinkedProduct.Price = productVariationVm.Price;
                     productLink.LinkedProduct.OldPrice = productVariationVm.OldPrice;
                     productLink.LinkedProduct.IsDeleted = false;
+
+                    if (isPriceChanged)
+                    {
+                        var productPriceHistory = CreatePriceHistory(loginUser, productLink.LinkedProduct);
+                        productLink.LinkedProduct.PriceHistories.Add(productPriceHistory);
+                    }
                 }
             }
 

@@ -85,7 +85,12 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     var productPriceHistory = new ProductPriceHistory
                     {
                         Product = product,
-                        CreatedBy = currentUser
+                        CreatedBy = currentUser,
+                        OldPrice = product.OldPrice,
+                        Price = product.Price,
+                        SpecialPrice = product.SpecialPrice,
+                        SpecialPriceStart = product.SpecialPriceStart,
+                        SpecialPriceEnd = product.SpecialPriceEnd
                     };
 
                     if (item.NewOldPrice.HasValue)
