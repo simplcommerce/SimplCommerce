@@ -1,10 +1,9 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SimplCommerce.WebHost.Migrations
 {
-    public partial class SimplCommerce_1_0_0_RC : Migration
+    public partial class DataSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +12,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -26,7 +25,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     Slug = table.Column<string>(nullable: true),
                     Description = table.Column<string>(maxLength: 5000, nullable: true),
@@ -43,7 +42,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -56,7 +55,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -69,7 +68,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -82,7 +81,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     IsPublished = table.Column<bool>(nullable: false),
                     IsSystem = table.Column<bool>(nullable: false)
@@ -97,7 +96,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
@@ -111,7 +110,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Key = table.Column<string>(nullable: true),
                     Value = table.Column<string>(nullable: true),
                     Module = table.Column<string>(nullable: true),
@@ -127,7 +126,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     Code2 = table.Column<string>(nullable: true),
                     Code3 = table.Column<string>(nullable: true),
@@ -147,7 +146,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
@@ -165,7 +164,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     IsMenuable = table.Column<bool>(nullable: false),
                     RoutingController = table.Column<string>(nullable: true),
@@ -181,7 +180,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Caption = table.Column<string>(nullable: true),
                     FileSize = table.Column<int>(nullable: false),
                     FileName = table.Column<string>(nullable: true),
@@ -197,7 +196,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true)
@@ -212,7 +211,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     Slug = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
@@ -232,7 +231,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Code = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     ViewComponentName = table.Column<string>(nullable: true),
@@ -251,7 +250,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true)
                 },
@@ -265,7 +264,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -278,7 +277,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     Slug = table.Column<string>(nullable: true),
                     MetaTitle = table.Column<string>(nullable: true),
@@ -299,7 +298,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     IsEnabled = table.Column<bool>(nullable: false),
                     ConfigureUrl = table.Column<string>(nullable: true),
@@ -316,7 +315,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
@@ -340,7 +339,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
@@ -360,7 +359,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<long>(nullable: false),
                     ProductId = table.Column<long>(nullable: false),
                     LatestViewedOn = table.Column<DateTimeOffset>(nullable: false)
@@ -375,7 +374,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     QueryText = table.Column<string>(nullable: true),
                     ResultsCount = table.Column<int>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false)
@@ -390,7 +389,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     IsEnabled = table.Column<bool>(nullable: false),
                     ConfigureUrl = table.Column<string>(nullable: true),
@@ -411,7 +410,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -424,7 +423,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ActivityTypeId = table.Column<long>(nullable: false),
                     UserId = table.Column<long>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
@@ -447,7 +446,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     GroupId = table.Column<long>(nullable: false)
                 },
@@ -467,7 +466,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     FullName = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     EmailAddress = table.Column<string>(nullable: true),
@@ -493,7 +492,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     CountryId = table.Column<long>(nullable: false),
                     CountryCode = table.Column<string>(nullable: true),
                     Code = table.Column<string>(nullable: true),
@@ -516,7 +515,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Slug = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     EntityId = table.Column<long>(nullable: false),
@@ -538,7 +537,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     Slug = table.Column<string>(nullable: true),
                     MetaTitle = table.Column<string>(nullable: true),
@@ -574,7 +573,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     RoleId = table.Column<long>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -595,7 +594,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
                     UpdatedOn = table.Column<DateTimeOffset>(nullable: false),
@@ -629,7 +628,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Key = table.Column<string>(nullable: true),
                     Value = table.Column<string>(nullable: true),
                     CultureId = table.Column<long>(nullable: false)
@@ -674,7 +673,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     CartRuleId = table.Column<long>(nullable: false),
                     Code = table.Column<string>(nullable: true),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false)
@@ -743,7 +742,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     StateOrProvinceId = table.Column<long>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Type = table.Column<string>(nullable: true),
@@ -765,7 +764,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     CountryId = table.Column<long>(nullable: true),
                     StateOrProvinceId = table.Column<long>(nullable: true),
                     Note = table.Column<string>(nullable: true),
@@ -794,7 +793,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     TaxClassId = table.Column<long>(nullable: false),
                     CountryId = table.Column<long>(nullable: false),
@@ -830,7 +829,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ParentId = table.Column<long>(nullable: true),
                     MenuId = table.Column<long>(nullable: false),
                     EntityId = table.Column<long>(nullable: true),
@@ -890,7 +889,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ContactName = table.Column<string>(nullable: true),
                     Phone = table.Column<string>(nullable: true),
                     AddressLine1 = table.Column<string>(nullable: true),
@@ -929,7 +928,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ContactName = table.Column<string>(nullable: true),
                     Phone = table.Column<string>(nullable: true),
                     AddressLine1 = table.Column<string>(nullable: true),
@@ -968,7 +967,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: false),
                     AddressId = table.Column<long>(nullable: true)
                 },
@@ -988,7 +987,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     Slug = table.Column<string>(nullable: true),
                     MetaTitle = table.Column<string>(nullable: true),
@@ -1054,7 +1053,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     AttributeId = table.Column<long>(nullable: false),
                     ProductId = table.Column<long>(nullable: false),
                     Value = table.Column<string>(nullable: true)
@@ -1081,7 +1080,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     IsFeaturedProduct = table.Column<bool>(nullable: false),
                     DisplayOrder = table.Column<int>(nullable: false),
                     CategoryId = table.Column<long>(nullable: false),
@@ -1109,7 +1108,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ProductId = table.Column<long>(nullable: false),
                     LinkedProductId = table.Column<long>(nullable: false),
                     LinkType = table.Column<int>(nullable: false)
@@ -1136,7 +1135,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ProductId = table.Column<long>(nullable: false),
                     MediaId = table.Column<long>(nullable: false),
                     DisplayOrder = table.Column<int>(nullable: false)
@@ -1163,7 +1162,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ProductId = table.Column<long>(nullable: false),
                     OptionId = table.Column<long>(nullable: false),
                     Value = table.Column<string>(nullable: true),
@@ -1191,7 +1190,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     OptionId = table.Column<long>(nullable: false),
                     ProductId = table.Column<long>(nullable: false),
                     Value = table.Column<string>(nullable: true),
@@ -1220,7 +1219,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ProductId = table.Column<long>(nullable: false),
                     WarehouseId = table.Column<long>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
@@ -1272,7 +1271,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ProductId = table.Column<long>(nullable: true),
                     CreatedById = table.Column<long>(nullable: true),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
@@ -1298,7 +1297,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     OrderId = table.Column<long>(nullable: true),
                     ProductId = table.Column<long>(nullable: false),
                     ProductPrice = table.Column<decimal>(nullable: false),
@@ -1323,7 +1322,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
                     UserId = table.Column<long>(nullable: false),
                     ProductId = table.Column<long>(nullable: false)
@@ -1344,7 +1343,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ShipmentId = table.Column<long>(nullable: false),
                     OrderItemId = table.Column<long>(nullable: false),
                     ProductId = table.Column<long>(nullable: false),
@@ -1366,7 +1365,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
                     ProductId = table.Column<long>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
@@ -1388,7 +1387,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<long>(nullable: false),
                     AddressId = table.Column<long>(nullable: false),
                     AddressType = table.Column<int>(nullable: false),
@@ -1412,7 +1411,7 @@ namespace SimplCommerce.WebHost.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     EmailConfirmed = table.Column<bool>(nullable: false),
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
@@ -1462,7 +1461,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     Slug = table.Column<string>(nullable: true),
                     MetaTitle = table.Column<string>(nullable: true),
@@ -1523,7 +1522,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<long>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -1608,7 +1607,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ProductId = table.Column<long>(nullable: false),
                     WareHouseId = table.Column<long>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
@@ -1632,7 +1631,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     Slug = table.Column<string>(nullable: true),
                     MetaTitle = table.Column<string>(nullable: true),
@@ -1677,7 +1676,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
                     UpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CreatedById = table.Column<long>(nullable: false),
@@ -1732,7 +1731,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     CartRuleId = table.Column<long>(nullable: false),
                     CouponId = table.Column<long>(nullable: true),
                     UserId = table.Column<long>(nullable: false),
@@ -1767,7 +1766,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<long>(nullable: false),
                     Title = table.Column<string>(nullable: true),
                     Comment = table.Column<string>(nullable: true),
@@ -1794,7 +1793,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<long>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
                     UpdatedOn = table.Column<DateTimeOffset>(nullable: true),
@@ -1847,7 +1846,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     OrderId = table.Column<long>(nullable: false),
                     OldStatus = table.Column<int>(nullable: true),
                     NewStatus = table.Column<int>(nullable: false),
@@ -1878,7 +1877,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     OrderId = table.Column<long>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
                     UpdatedOn = table.Column<DateTimeOffset>(nullable: true),
@@ -1905,7 +1904,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     OrderId = table.Column<long>(nullable: false),
                     TrackingNumber = table.Column<string>(nullable: true),
                     WarehouseId = table.Column<long>(nullable: false),
@@ -2105,8 +2104,7 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "IX_Core_CustomerGroup_Name",
                 table: "Core_CustomerGroup",
                 column: "Name",
-                unique: true,
-                filter: "[Name] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Core_CustomerGroupUser_CustomerGroupId",
@@ -2127,8 +2125,7 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "RoleNameIndex",
                 table: "Core_Role",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Core_RoleClaim_RoleId",
@@ -2159,8 +2156,7 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "UserNameIndex",
                 table: "Core_User",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Core_User_VendorId",

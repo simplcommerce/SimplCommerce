@@ -32,7 +32,7 @@ namespace SimplCommerce.WebHost
 
             var configuration = configBuilder.Build();
             configBuilder.AddEntityFrameworkConfig(options =>
-                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
+                    options.UseSqlite(configuration.GetConnectionString("DefaultConnection"))
             );
             Log.Logger = new LoggerConfiguration()
                        .ReadFrom.Configuration(configuration)
