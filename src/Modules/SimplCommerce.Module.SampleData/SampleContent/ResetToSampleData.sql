@@ -483,13 +483,13 @@ SET IDENTITY_INSERT [dbo].[Core_Entity] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[Cms_MenuItem] ON 
-INSERT [dbo].[Cms_MenuItem] ([Id], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (1, NULL, 21, 1, NULL, N'Help Center')
-INSERT [dbo].[Cms_MenuItem] ([Id], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (2, NULL, 22, 1, NULL, N'How to buy')
-INSERT [dbo].[Cms_MenuItem] ([Id], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (3, NULL, 23, 1, NULL, N'Shipping')
-INSERT [dbo].[Cms_MenuItem] ([Id], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (4, NULL, 24, 1, NULL, N'How to return')
-INSERT [dbo].[Cms_MenuItem] ([Id], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (5, NULL, 25, 1, NULL, N'Warranty')
-INSERT [dbo].[Cms_MenuItem] ([Id], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (6, NULL, 18, 2, NULL, N'About Us')
-INSERT [dbo].[Cms_MenuItem] ([Id], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (7, NULL, 19, 2, NULL, N'Terms of Use')
-INSERT [dbo].[Cms_MenuItem] ([Id], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (8, NULL, 20, 2, NULL, N'Privacy')
+INSERT [dbo].[Cms_MenuItem] ([Id], [DisplayOrder], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (1, 1, NULL, 21, 1, NULL, N'Help Center')
+INSERT [dbo].[Cms_MenuItem] ([Id], [DisplayOrder], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (2, 2, NULL, 22, 1, NULL, N'How to buy')
+INSERT [dbo].[Cms_MenuItem] ([Id], [DisplayOrder], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (3, 3, NULL, 23, 1, NULL, N'Shipping')
+INSERT [dbo].[Cms_MenuItem] ([Id], [DisplayOrder], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (4, 4, NULL, 24, 1, NULL, N'How to return')
+INSERT [dbo].[Cms_MenuItem] ([Id], [DisplayOrder], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (5, 5, NULL, 25, 1, NULL, N'Warranty')
+INSERT [dbo].[Cms_MenuItem] ([Id], [DisplayOrder], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (6, 6, NULL, 18, 2, NULL, N'About Us')
+INSERT [dbo].[Cms_MenuItem] ([Id], [DisplayOrder], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (7, 7, NULL, 19, 2, NULL, N'Terms of Use')
+INSERT [dbo].[Cms_MenuItem] ([Id], [DisplayOrder], [CustomLink], [EntityId], [MenuId], [ParentId], [Name]) VALUES (8, 8, NULL, 20, 2, NULL, N'Privacy')
 SET IDENTITY_INSERT [dbo].[Cms_MenuItem] OFF 
 GO
