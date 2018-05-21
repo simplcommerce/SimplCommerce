@@ -15,13 +15,10 @@ namespace SimplCommerce.Module.Catalog.Controllers
     public class SimpleProductWidgetApiController : Controller
     {
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
-        private readonly IRepository<Widget> _widgetRespository;
-        private const int WidgetId = 6;
 
-        public SimpleProductWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository, IRepository<Widget> widgetRepository, IMediaService mediaService)
+        public SimpleProductWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository, IMediaService mediaService)
         {
             _widgetInstanceRepository = widgetInstanceRepository;
-            _widgetRespository = widgetRepository;
         }
 
         [HttpGet("{id}")]
@@ -55,7 +52,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 var widgetInstance = new WidgetInstance
                 {
                     Name = model.Name,
-                    WidgetId = WidgetId,
+                    WidgetId = "SimpleProductWidget",
                     WidgetZoneId = model.WidgetZoneId,
                     PublishStart = model.PublishStart,
                     PublishEnd = model.PublishEnd,

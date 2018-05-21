@@ -2,9 +2,12 @@
 
 namespace SimplCommerce.Module.Core.Models
 {
-    public class AppSetting : EntityBase
+    public class AppSetting : EntityBaseWithTypedId<string>
     {
-        public string Key { get; set; }
+        public AppSetting(string id)
+        {
+            Id = id;
+        }
 
         public string Value { get; set; }
 

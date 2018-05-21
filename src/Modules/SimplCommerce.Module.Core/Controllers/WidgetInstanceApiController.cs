@@ -13,9 +13,9 @@ namespace SimplCommerce.Module.Core.Controllers
     public class WidgetInstanceApiController : Controller
     {
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
-        private readonly IRepository<Widget> _widgetRespository;
+        private readonly IRepositoryWithTypedId<Widget, string> _widgetRespository;
 
-        public WidgetInstanceApiController(IRepository<WidgetInstance> widgetInstanceRepository, IRepository<Widget> widgetRespository)
+        public WidgetInstanceApiController(IRepository<WidgetInstance> widgetInstanceRepository, IRepositoryWithTypedId<Widget, string> widgetRespository)
         {
             _widgetInstanceRepository = widgetInstanceRepository;
             _widgetRespository = widgetRespository;

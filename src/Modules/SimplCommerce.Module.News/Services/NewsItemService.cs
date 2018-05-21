@@ -8,7 +8,7 @@ namespace SimplCommerce.Module.News.Services
 {
     public class NewsItemService : INewsItemService
     {
-        private const long NewsItemEntityTypeId = 7;
+        private const string NewsItemEntityTypeId = "NewsItem";
 
         private readonly IRepository<NewsItem> _newsItemRepository;
         private readonly IEntityService _entityService;

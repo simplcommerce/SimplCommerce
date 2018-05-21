@@ -5,6 +5,16 @@ namespace SimplCommerce.Module.Cms.Models
 {
     public class Menu : EntityBase
     {
+        public Menu()
+        {
+
+        }
+
+        public Menu(long id)
+        {
+            Id = id;
+        }
+
         public string Name { get; set; }
 
         public bool IsPublished { get; set; }

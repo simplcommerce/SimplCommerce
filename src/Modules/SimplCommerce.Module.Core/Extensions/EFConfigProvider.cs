@@ -21,7 +21,7 @@ namespace SimplCommerce.Module.Core.Extensions
 
             using (var dbContext = new EFConfigurationDbContext(builder.Options))
             {
-                Data = dbContext.AppSettings.ToDictionary(c => c.Key, c => c.Value);
+                Data = dbContext.AppSettings.ToDictionary(c => c.Id, c => c.Value);
             }
         }
     }

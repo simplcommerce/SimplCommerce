@@ -8,7 +8,7 @@ namespace SimplCommerce.Module.Catalog.Services
 {
     public class BrandService : IBrandService
     {
-        private const long BrandEntityTypeId = 2;
+        private const string BrandEntityTypeId = "Brand";
 
         private readonly IRepository<Brand> _brandRepository;
         private readonly IEntityService _entityService;

@@ -10,9 +10,9 @@ namespace SimplCommerce.Module.Core.Controllers
     [Route("api/entity-types")]
     public class EntityTypeApiController : Controller
     {
-        private readonly IRepository<EntityType> _entityTypeRepository;
+        private readonly IRepositoryWithTypedId<EntityType, string> _entityTypeRepository;
 
-        public EntityTypeApiController(IRepository<EntityType> entityTypeRepository)
+        public EntityTypeApiController(IRepositoryWithTypedId<EntityType, string> entityTypeRepository)
         {
             _entityTypeRepository = entityTypeRepository;
         }

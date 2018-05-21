@@ -18,7 +18,7 @@ namespace SimplCommerce.Module.Core.Services
             _mediator = mediator;
         }
 
-        public string ToSafeSlug(string slug, long entityId, long entityTypeId)
+        public string ToSafeSlug(string slug, long entityId, string entityTypeId)
         {
             var i = 2;
             while (true)
@@ -38,12 +38,12 @@ namespace SimplCommerce.Module.Core.Services
             return slug;
         }
 
-        public Entity Get(long entityId, long entityTypeId)
+        public Entity Get(long entityId, string entityTypeId)
         {
             return _entityRepository.Query().FirstOrDefault(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
         }
 
-        public void Add(string name, string slug, long entityId, long entityTypeId)
+        public void Add(string name, string slug, long entityId, string entityTypeId)
         {
             var entity = new Entity
             {
@@ -56,14 +56,14 @@ namespace SimplCommerce.Module.Core.Services
             _entityRepository.Add(entity);
         }
 
-        public void Update(string newName, string newSlug, long entityId, long entityTypeId)
+        public void Update(string newName, string newSlug, long entityId, string entityTypeId)
         {
             var entity = _entityRepository.Query().First(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
             entity.Name = newName;
             entity.Slug = newSlug;
         }
 
-        public async Task Remove(long entityId, long entityTypeId)
+        public async Task Remove(long entityId, string entityTypeId)
         {
             var entity = _entityRepository.Query().FirstOrDefault(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
 

@@ -8,7 +8,7 @@ namespace SimplCommerce.Module.Vendors.Services
 {
     public class VendorService : IVendorService
     {
-        private const long VendorEntityTypeId = 2;
+        private const string VendorEntityTypeId = "Vendor";
 
         private readonly IRepository<Vendor> _vendorRepository;
         private readonly IEntityService _entityService;

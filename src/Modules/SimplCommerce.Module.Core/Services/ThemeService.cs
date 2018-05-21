@@ -17,10 +17,10 @@ namespace SimplCommerce.Module.Core.Services
     public class ThemeService : IThemeService
     {
         private readonly IConfigurationRoot _configurationRoot;
-        private readonly IRepository<AppSetting> _appSettingRepository;
+        private readonly IRepositoryWithTypedId<AppSetting, string> _appSettingRepository;
         private string _currentThemeName;
 
-        public ThemeService(IConfiguration configuration, IRepository<AppSetting> appSettingRepository)
+        public ThemeService(IConfiguration configuration, IRepositoryWithTypedId<AppSetting, string> appSettingRepository)
         {
             _configurationRoot = (IConfigurationRoot)configuration;
             _appSettingRepository = appSettingRepository;
@@ -70,7 +70,7 @@ namespace SimplCommerce.Module.Core.Services
 
         public async Task SetCurrentTheme(string themeName)
         {
-            var themeSetting = await _appSettingRepository.Query().Where(x => x.Key == SimplConstants.ThemeConfigKey).FirstAsync();
+            var themeSetting = await _appSettingRepository.Query().Where(x => x.Id == SimplConstants.ThemeConfigKey).FirstAsync();
             themeSetting.Value = themeName;
             await _appSettingRepository.SaveChangesAsync();
             _configurationRoot.Reload();

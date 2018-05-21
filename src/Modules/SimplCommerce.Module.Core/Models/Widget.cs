@@ -3,9 +3,21 @@ using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Core.Models
 {
-    public class Widget : EntityBase
+    public class Widget : EntityBaseWithTypedId<string>
     {
-        public string Code { get; set; }
+        public Widget(string id)
+        {
+            Id = id;
+            CreatedOn = DateTimeOffset.Now;
+        }
+
+        public string Code
+        {
+            get
+            {
+                return Id;
+            }
+        }
 
         public string Name { get; set; }
 

@@ -13,12 +13,10 @@ namespace SimplCommerce.Module.Cms.Controllers
     public class HtmlWidgetApiController : Controller
     {
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
-        private readonly IRepository<Widget> _widgetRespository;
 
-        public HtmlWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository, IRepository<Widget> widgetRespository)
+        public HtmlWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository)
         {
             _widgetInstanceRepository = widgetInstanceRepository;
-            _widgetRespository = widgetRespository;
         }
 
         [HttpGet("{id}")]
@@ -47,7 +45,7 @@ namespace SimplCommerce.Module.Cms.Controllers
                 var widgetInstance = new WidgetInstance
                 {
                     Name = model.Name,
-                    WidgetId = 2,
+                    WidgetId = "HtmlWidget",
                     WidgetZoneId = model.WidgetZoneId,
                     HtmlData = model.HtmlContent,
                     PublishStart = model.PublishStart,
