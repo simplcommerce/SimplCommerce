@@ -2,6 +2,6 @@
 {
     public static class PaymentProviderHelper
     {
-        public static readonly long PaypalExpressProviderId = 2;
+        public static readonly string PaypalExpressProviderId = "PaypalExpress";
     }
 }

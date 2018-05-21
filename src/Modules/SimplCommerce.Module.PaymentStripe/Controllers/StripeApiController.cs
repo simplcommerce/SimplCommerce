@@ -14,9 +14,9 @@ namespace SimplCommerce.Module.PaymentStripe.Controllers
     [Route("api/stripe")]
     public class StripeApiController : Controller
     {
-        private readonly IRepository<PaymentProvider> _paymentProviderRepository;
+        private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
 
-        public StripeApiController(IRepository<PaymentProvider> paymentProviderRepository)
+        public StripeApiController(IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository)
         {
             _paymentProviderRepository = paymentProviderRepository;
         }

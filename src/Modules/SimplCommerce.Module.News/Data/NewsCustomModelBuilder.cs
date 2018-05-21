@@ -1,6 +1,7 @@
 ﻿using SimplCommerce.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Module.News.Models;
+using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.News.Data
 {
@@ -15,6 +16,15 @@ namespace SimplCommerce.Module.News.Data
                 b.HasOne(ur => ur.NewsItem).WithMany(u => u.Categories).HasForeignKey(u => u.NewsItemId).OnDelete(DeleteBehavior.Cascade);
                 b.ToTable("News_NewsItemCategory");
             });
+
+            modelBuilder.Entity<AppSetting>().HasData(
+                new AppSetting("News.PageSize") { Module = "News", IsVisibleInCommonSettingPage = true, Value = "10" }
+            );
+
+            modelBuilder.Entity<EntityType>().HasData(
+                new EntityType("NewsCategory") { RoutingController = "NewsCategory", RoutingAction = "NewsCategoryDetail", IsMenuable = true },
+                new EntityType("NewsItem") { RoutingController = "NewsItem", RoutingAction = "NewsItemDetail", IsMenuable = false }
+            );
         }
     }
 }

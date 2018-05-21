@@ -10,7 +10,7 @@
         vm.translate = translateService;
         vm.country = {};
         vm.countryId = $stateParams.id;
-        vm.isEditMode = vm.countryId > 0;
+        vm.isEditMode = vm.countryId;
 
 
         vm.save = function save() {

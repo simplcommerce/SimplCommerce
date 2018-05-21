@@ -12,9 +12,9 @@ namespace SimplCommerce.Module.Payments.Controllers
     [Route("api/payments-providers")]
     public class PaymentProviderApiController : Controller
     {
-        private readonly IRepository<PaymentProvider> _paymentProviderRepository;
+        private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
 
-        public PaymentProviderApiController(IRepository<PaymentProvider> paymentProviderRepositor)
+        public PaymentProviderApiController(IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepositor)
         {
             _paymentProviderRepository = paymentProviderRepositor;
         }
@@ -35,7 +35,7 @@ namespace SimplCommerce.Module.Payments.Controllers
         }
 
         [HttpPost("{id}/enable")]
-        public async Task<IActionResult> Enable(long id)
+        public async Task<IActionResult> Enable(string id)
         {
             var provider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
             provider.IsEnabled = true;
@@ -44,7 +44,7 @@ namespace SimplCommerce.Module.Payments.Controllers
         }
 
         [HttpPost("{id}/disable")]
-        public async Task<IActionResult> Disable(long id)
+        public async Task<IActionResult> Disable(string id)
         {
             var provider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
             provider.IsEnabled = false;

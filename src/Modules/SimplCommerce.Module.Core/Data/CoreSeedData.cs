@@ -38,6 +38,25 @@ namespace SimplCommerce.Module.Core.Data
                 new WidgetZone(2) { Name = "Home Main Content" },
                 new WidgetZone(3) { Name = "Home After Main Content" }
                 );
+
+            builder.Entity<Country>().HasData(
+                new Country("VN") { Code3 = "VNM", Name = "Việt Nam", IsBillingEnabled = true, IsShippingEnabled = true, IsCityEnabled = false, IsZipCodeEnabled = false, IsDistrictEnabled = true },
+                new Country("US") { Code3 = "USA", Name = "United States", IsBillingEnabled = true, IsShippingEnabled = true, IsCityEnabled = true, IsZipCodeEnabled = true, IsDistrictEnabled = false }
+            );
+
+            builder.Entity<StateOrProvince>().HasData(
+                new StateOrProvince(1) { CountryId = "VN", Name = "Hồ Chí Minh", Type = "Thành Phố" },
+                new StateOrProvince(2) { CountryId = "US", Name = "Washington", Code = "WA" }
+            );
+
+            builder.Entity<District>().HasData(
+                new District(1) { Name = "Quận 1", StateOrProvinceId = 1, Type = "Quận" },
+                new District(2) { Name = "Quận 2", StateOrProvinceId = 1, Type = "Quận" }
+            );
+
+            builder.Entity<Address>().HasData(
+                new Address(1) { AddressLine1 = "364 Cong Hoa", ContactName = "Thien Nguyen", CountryId = "VN", StateOrProvinceId = 1 }
+            );
         }
     }
 }

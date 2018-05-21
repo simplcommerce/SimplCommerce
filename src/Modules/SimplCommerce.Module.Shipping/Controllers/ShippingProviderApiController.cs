@@ -12,9 +12,9 @@ namespace SimplCommerce.Module.Shipping.Controllers
     [Route("api/shipping-providers")]
     public class ShippingProviderApiController : Controller
     {
-        private readonly IRepository<ShippingProvider> _shippingProviderRepositor;
+        private readonly IRepositoryWithTypedId<ShippingProvider, string> _shippingProviderRepositor;
 
-        public ShippingProviderApiController(IRepository<ShippingProvider> shippingProviderRepositor)
+        public ShippingProviderApiController(IRepositoryWithTypedId<ShippingProvider, string> shippingProviderRepositor)
         {
             _shippingProviderRepositor = shippingProviderRepositor;
         }

@@ -35,6 +35,11 @@ namespace SimplCommerce.Module.Catalog.Data
                 .HasForeignKey(pt => pt.ProductAttributeId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<AppSetting>().HasData(
+                new AppSetting("Catalog.ProductPageSize") { Module = "Catalog", IsVisibleInCommonSettingPage = true, Value = "10" },
+                new AppSetting("Catalog.IsProductPriceIncludeTax") { Module = "Catalog", IsVisibleInCommonSettingPage = true, Value = "true" }
+                );
+
             modelBuilder.Entity<EntityType>().HasData(
                 new EntityType("Category") { RoutingController = "Category", RoutingAction = "CategoryDetail", IsMenuable = true },
                 new EntityType("Brand") { RoutingController = "Brand", RoutingAction = "BrandDetail", IsMenuable = true },

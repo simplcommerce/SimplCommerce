@@ -16,12 +16,12 @@ namespace SimplCommerce.Module.Payments.Controllers
     [Authorize]
     public class CheckoutController : Controller
     {
-        private readonly IRepository<PaymentProvider> _paymentProviderRepository;
+        private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private readonly IRepository<Cart> _cartRepository;
         private readonly IOrderService _orderService;
         private readonly IWorkContext _workContext;
 
-        public CheckoutController(IRepository<PaymentProvider> paymentProviderRepository,
+        public CheckoutController(IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
             IRepository<Cart> cartRepository,
             IOrderService orderService,
             IWorkContext workContext)

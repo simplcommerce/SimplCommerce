@@ -19,13 +19,13 @@ namespace SimplCommerce.Module.PaymentCoD.Controllers
         private readonly IOrderService _orderService;
         private readonly IWorkContext _workContext;
         private readonly ICartService _cartService;
-        private readonly IRepository<PaymentProvider> _paymentProviderRepository;
+        private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private Lazy<CoDSetting> _setting;
 
         public CoDController(
             ICartService cartService,
             IOrderService orderService,
-            IRepository<PaymentProvider> paymentProviderRepository,
+            IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
             IWorkContext workContext)
         {
             _paymentProviderRepository = paymentProviderRepository;

@@ -24,7 +24,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
         private readonly ICartService _cartService;
         private readonly IOrderService _orderService;
         private readonly IWorkContext _workContext;
-        private readonly IRepository<PaymentProvider> _paymentProviderRepository;
+        private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private readonly IRepository<Payment> _paymentRepository;
         private Lazy<PaypalExpressConfigForm> _setting;
         private readonly IHttpClientFactory _httpClientFactory;
@@ -33,7 +33,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
             ICartService cartService,
             IOrderService orderService,
             IWorkContext workContext,
-            IRepository<PaymentProvider> paymentProviderRepository,
+            IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
             IRepository<Payment> paymentRepository,
             IHttpClientFactory httpClientFactory)
         {
