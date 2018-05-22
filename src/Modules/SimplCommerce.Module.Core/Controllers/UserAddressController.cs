@@ -263,7 +263,7 @@ namespace SimplCommerce.Module.Core.Controllers
                     Value = x.Id.ToString()
                 }).ToList();
 
-            var selectedShipableCountryId = string.IsNullOrEmpty(model.CountryId) ? model.CountryId : model.Countries.First().Value;
+            var selectedShipableCountryId = !string.IsNullOrEmpty(model.CountryId) ? model.CountryId : model.Countries.First().Value;
             var selectedCountry = shippableCountries.FirstOrDefault(c => c.Id == selectedShipableCountryId);
             if (selectedCountry != null)
             {
