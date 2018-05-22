@@ -59,6 +59,7 @@ namespace SimplCommerce.Module.Core.Controllers
                 {
                     c.Id,
                     c.Name,
+                    c.Code3,
                     c.IsShippingEnabled,
                     c.IsBillingEnabled,
                     c.IsCityEnabled,
