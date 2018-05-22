@@ -916,10 +916,10 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("Core_Role");
 
                     b.HasData(
-                        new { Id = 1L, ConcurrencyStamp = "5dc3bdef-5124-49b7-9f43-3104a5d5cc33", Name = "admin", NormalizedName = "ADMIN" },
-                        new { Id = 2L, ConcurrencyStamp = "3d22081c-c867-4039-9197-9042e0f949af", Name = "customer", NormalizedName = "CUSTOMER" },
-                        new { Id = 3L, ConcurrencyStamp = "78c528cb-45c7-41d4-8da0-a6f56f92d549", Name = "guest", NormalizedName = "GUEST" },
-                        new { Id = 4L, ConcurrencyStamp = "6fb79a17-5037-4259-9a8c-d2deca706eed", Name = "vendor", NormalizedName = "VENDOR" }
+                        new { Id = 1L, ConcurrencyStamp = "e7fb7383-921d-4788-8f33-665d58b008db", Name = "admin", NormalizedName = "ADMIN" },
+                        new { Id = 2L, ConcurrencyStamp = "583097af-9468-47f6-96e9-2f7d68da157f", Name = "customer", NormalizedName = "CUSTOMER" },
+                        new { Id = 3L, ConcurrencyStamp = "ece15d63-ccdf-4e9a-94e8-019e9a4782bb", Name = "guest", NormalizedName = "GUEST" },
+                        new { Id = 4L, ConcurrencyStamp = "3d7d212e-df7a-4a27-b871-da99ba07e4d5", Name = "vendor", NormalizedName = "VENDOR" }
                     );
                 });
 
@@ -1023,8 +1023,8 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("Core_User");
 
                     b.HasData(
-                        new { Id = 2L, AccessFailedCount = 0, ConcurrencyStamp = "c7d4a395-bf49-4a5a-ab63-f4b7bda458ec", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 2, 34, 7, 669, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), Email = "system@simplcommerce.com", EmailConfirmed = false, FullName = "System User", IsDeleted = true, LockoutEnabled = false, NormalizedEmail = "SYSTEM@SIMPLCOMMERCE.COM", NormalizedUserName = "SYSTEM@SIMPLCOMMERCE.COM", PasswordHash = "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", PhoneNumberConfirmed = false, SecurityStamp = "9336c6a0-dda4-4785-9a9b-ed6950771ea8", TwoFactorEnabled = false, UpdatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 2, 34, 7, 669, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), UserGuid = new Guid("847dda5c-2dd4-4d7d-bf91-db288c7c19d5"), UserName = "system@simplcommerce.com" },
-                        new { Id = 10L, AccessFailedCount = 0, ConcurrencyStamp = "3e29d724-18f8-487d-b604-cc8822c36705", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 2, 34, 7, 670, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), Email = "admin@simplcommerce.com", EmailConfirmed = false, FullName = "Shop Admin", IsDeleted = false, LockoutEnabled = false, NormalizedEmail = "ADMIN@SIMPLCOMMERCE.COM", NormalizedUserName = "ADMIN@SIMPLCOMMERCE.COM", PasswordHash = "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", PhoneNumberConfirmed = false, SecurityStamp = "dfec4379-cd47-496e-aa9e-b08ee9d8cb3e", TwoFactorEnabled = false, UpdatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 2, 34, 7, 670, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), UserGuid = new Guid("4111ed83-a468-4c5a-9492-2eed69e0e9c0"), UserName = "admin@simplcommerce.com" }
+                        new { Id = 2L, AccessFailedCount = 0, ConcurrencyStamp = "43975a72-0ecf-4d38-b07e-0eaa6e2d8a3d", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 718, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), Email = "system@simplcommerce.com", EmailConfirmed = false, FullName = "System User", IsDeleted = true, LockoutEnabled = false, NormalizedEmail = "SYSTEM@SIMPLCOMMERCE.COM", NormalizedUserName = "SYSTEM@SIMPLCOMMERCE.COM", PasswordHash = "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", PhoneNumberConfirmed = false, SecurityStamp = "0a88c82c-4a89-48b7-9a2d-0175e3398c99", TwoFactorEnabled = false, UpdatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 718, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), UserGuid = new Guid("29c7b4c1-87d3-44b8-b25c-82ddf296275a"), UserName = "system@simplcommerce.com" },
+                        new { Id = 10L, AccessFailedCount = 0, ConcurrencyStamp = "a6a8aea4-cce8-4f85-8f90-c3c483374817", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 720, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), Email = "admin@simplcommerce.com", EmailConfirmed = false, FullName = "Shop Admin", IsDeleted = false, LockoutEnabled = false, NormalizedEmail = "ADMIN@SIMPLCOMMERCE.COM", NormalizedUserName = "ADMIN@SIMPLCOMMERCE.COM", PasswordHash = "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", PhoneNumberConfirmed = false, SecurityStamp = "6f35b0d1-9e0e-4843-99ef-f49ec9299b38", TwoFactorEnabled = false, UpdatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 720, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), UserGuid = new Guid("5d4927ad-71e4-490c-87f1-65b67af3f402"), UserName = "admin@simplcommerce.com" }
                     );
                 });
 
@@ -1117,12 +1117,12 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("Core_Widget");
 
                     b.HasData(
-                        new { Id = "CategoryWidget", CreateUrl = "widget-category-create", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 2, 34, 7, 622, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), EditUrl = "widget-category-edit", IsPublished = false, Name = "Category Widget", ViewComponentName = "CategoryWidget" },
-                        new { Id = "ProductWidget", CreateUrl = "widget-product-create", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 2, 34, 7, 627, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), EditUrl = "widget-product-edit", IsPublished = false, Name = "Product Widget", ViewComponentName = "ProductWidget" },
-                        new { Id = "SimpleProductWidget", CreateUrl = "widget-simple-product-create", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 2, 34, 7, 627, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), EditUrl = "widget-simple-product-edit", IsPublished = false, Name = "Simple Product Widget", ViewComponentName = "SimpleProductWidget" },
-                        new { Id = "HtmlWidget", CreateUrl = "widget-html-create", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 2, 34, 7, 633, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), EditUrl = "widget-html-edit", IsPublished = false, Name = "Html Widget", ViewComponentName = "HtmlWidget" },
-                        new { Id = "CarouselWidget", CreateUrl = "widget-carousel-create", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 2, 34, 7, 633, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), EditUrl = "widget-carousel-edit", IsPublished = false, Name = "Carousel Widget", ViewComponentName = "CarouselWidget" },
-                        new { Id = "SpaceBarWidget", CreateUrl = "widget-spacebar-create", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 2, 34, 7, 633, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), EditUrl = "widget-spacebar-edit", IsPublished = false, Name = "SpaceBar Widget", ViewComponentName = "SpaceBarWidget" }
+                        new { Id = "CategoryWidget", CreateUrl = "widget-category-create", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 661, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), EditUrl = "widget-category-edit", IsPublished = false, Name = "Category Widget", ViewComponentName = "CategoryWidget" },
+                        new { Id = "ProductWidget", CreateUrl = "widget-product-create", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 664, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), EditUrl = "widget-product-edit", IsPublished = false, Name = "Product Widget", ViewComponentName = "ProductWidget" },
+                        new { Id = "SimpleProductWidget", CreateUrl = "widget-simple-product-create", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 664, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), EditUrl = "widget-simple-product-edit", IsPublished = false, Name = "Simple Product Widget", ViewComponentName = "SimpleProductWidget" },
+                        new { Id = "HtmlWidget", CreateUrl = "widget-html-create", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 667, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), EditUrl = "widget-html-edit", IsPublished = false, Name = "Html Widget", ViewComponentName = "HtmlWidget" },
+                        new { Id = "CarouselWidget", CreateUrl = "widget-carousel-create", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 667, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), EditUrl = "widget-carousel-edit", IsPublished = false, Name = "Carousel Widget", ViewComponentName = "CarouselWidget" },
+                        new { Id = "SpaceBarWidget", CreateUrl = "widget-spacebar-create", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 667, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), EditUrl = "widget-spacebar-edit", IsPublished = false, Name = "SpaceBar Widget", ViewComponentName = "SpaceBarWidget" }
                     );
                 });
 
@@ -1572,12 +1572,12 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PaymentProvider");
+                    b.ToTable("Payments_PaymentProvider");
 
                     b.HasData(
                         new { Id = "CoD", ConfigureUrl = "payments-cod-config", IsEnabled = true, LandingViewComponentName = "CoDLanding", Name = "Cash On Delivery" },
                         new { Id = "PaypalExpress", AdditionalSettings = "{ \"IsSandbox\":true, \"ClientId\":\"\", \"ClientSecret\":\"\" }", ConfigureUrl = "payments-paypalExpress-config", IsEnabled = true, LandingViewComponentName = "PaypalExpressLanding", Name = "Paypal Express" },
-                        new { Id = "Stripe", AdditionalSettings = "{\"PublicKey\": \"pk_test_6pRNASCoBOKtIshFeQd4XMUh\", \"PrivateKey\" : \"sk_test_BQokikJOvBiI2HlWgH4olfQ2\"}", ConfigureUrl = "payments-stripe-config", IsEnabled = true, LandingViewComponentName = "StripeLanding'", Name = "Stripe" }
+                        new { Id = "Stripe", AdditionalSettings = "{\"PublicKey\": \"pk_test_6pRNASCoBOKtIshFeQd4XMUh\", \"PrivateKey\" : \"sk_test_BQokikJOvBiI2HlWgH4olfQ2\"}", ConfigureUrl = "payments-stripe-config", IsEnabled = true, LandingViewComponentName = "StripeLanding", Name = "Stripe" }
                     );
                 });
 
