@@ -22,14 +22,14 @@ namespace SimplCommerce.Module.PaymentStripe.Controllers
         private readonly IRepository<Cart> _cartRepository;
         private readonly IOrderService _orderService;
         private readonly IWorkContext _workContext;
-        private readonly IRepository<PaymentProvider> _paymentProviderRepository;
+        private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private readonly IRepository<Payment> _paymentRepository;
 
         public StripeController(
             IRepository<Cart> cartRepository,
             IOrderService orderService,
             IWorkContext workContext,
-            IRepository<PaymentProvider> paymentProviderRepository,
+            IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
             IRepository<Payment> paymentRepository)
         {
             _cartRepository = cartRepository;

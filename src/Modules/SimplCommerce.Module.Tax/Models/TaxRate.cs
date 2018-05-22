@@ -11,7 +11,7 @@ namespace SimplCommerce.Module.Tax.Models
 
         public TaxClass TaxClass { get; set; }
 
-        public long CountryId { get; set; }
+        public string CountryId { get; set; }
 
         public Country Country { get; set; }
 

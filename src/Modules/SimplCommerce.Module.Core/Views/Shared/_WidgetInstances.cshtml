@@ -2,7 +2,7 @@
 
 @foreach (var widgetInstance in Model)
 {
-    if (widgetInstance.WidgetId == 2)
+    if (widgetInstance.WidgetId == "HtmlWidget")
     {
         @Html.Raw(widgetInstance.HtmlData)
     }

@@ -17,10 +17,10 @@ namespace SimplCommerce.Module.Core.Controllers
             _entityRepository = entityRepository;
         }
 
-        public IActionResult Get(long? entityTypeId, string name)
+        public IActionResult Get(string entityTypeId, string name)
         {
             var query = _entityRepository.Query().Where(x => x.EntityType.IsMenuable);
-            if (entityTypeId.HasValue)
+            if (!string.IsNullOrWhiteSpace(entityTypeId))
             {
                 query = query.Where(x => x.EntityTypeId == entityTypeId);
             }

@@ -110,9 +110,7 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Core_AppSetting",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Key = table.Column<string>(nullable: true),
+                    Id = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true),
                     Module = table.Column<string>(nullable: true),
                     IsVisibleInCommonSettingPage = table.Column<bool>(nullable: false)
@@ -126,10 +124,8 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Core_Country",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Code2 = table.Column<string>(nullable: true),
                     Code3 = table.Column<string>(nullable: true),
                     IsBillingEnabled = table.Column<bool>(nullable: false),
                     IsShippingEnabled = table.Column<bool>(nullable: false),
@@ -164,9 +160,7 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Core_EntityType",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    Id = table.Column<string>(nullable: false),
                     IsMenuable = table.Column<bool>(nullable: false),
                     RoutingController = table.Column<string>(nullable: true),
                     RoutingAction = table.Column<string>(nullable: true)
@@ -231,9 +225,7 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Core_Widget",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Code = table.Column<string>(nullable: true),
+                    Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     ViewComponentName = table.Column<string>(nullable: true),
                     CreateUrl = table.Column<string>(nullable: true),
@@ -298,8 +290,7 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Payments_PaymentProvider",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     IsEnabled = table.Column<bool>(nullable: false),
                     ConfigureUrl = table.Column<string>(nullable: true),
@@ -386,11 +377,10 @@ namespace SimplCommerce.WebHost.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Shipping_ShippingProvider",
+                name: "ShippingProvider",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     IsEnabled = table.Column<bool>(nullable: false),
                     ConfigureUrl = table.Column<string>(nullable: true),
@@ -403,7 +393,7 @@ namespace SimplCommerce.WebHost.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Shipping_ShippingProvider", x => x.Id);
+                    table.PrimaryKey("PK_ShippingProvider", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -429,7 +419,7 @@ namespace SimplCommerce.WebHost.Migrations
                     UserId = table.Column<long>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
                     EntityId = table.Column<long>(nullable: false),
-                    EntityTypeId = table.Column<long>(nullable: false)
+                    EntityTypeId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -494,8 +484,7 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CountryId = table.Column<long>(nullable: false),
-                    CountryCode = table.Column<string>(nullable: true),
+                    CountryId = table.Column<string>(nullable: true),
                     Code = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Type = table.Column<string>(nullable: true)
@@ -520,7 +509,7 @@ namespace SimplCommerce.WebHost.Migrations
                     Slug = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     EntityId = table.Column<long>(nullable: false),
-                    EntityTypeId = table.Column<long>(nullable: false)
+                    EntityTypeId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -601,7 +590,7 @@ namespace SimplCommerce.WebHost.Migrations
                     UpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PublishStart = table.Column<DateTimeOffset>(nullable: true),
                     PublishEnd = table.Column<DateTimeOffset>(nullable: true),
-                    WidgetId = table.Column<long>(nullable: false),
+                    WidgetId = table.Column<string>(nullable: true),
                     WidgetZoneId = table.Column<long>(nullable: false),
                     DisplayOrder = table.Column<int>(nullable: false),
                     Data = table.Column<string>(nullable: true),
@@ -766,7 +755,7 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CountryId = table.Column<long>(nullable: true),
+                    CountryId = table.Column<string>(nullable: true),
                     StateOrProvinceId = table.Column<long>(nullable: true),
                     Note = table.Column<string>(nullable: true),
                     MinOrderSubtotal = table.Column<decimal>(nullable: false),
@@ -797,7 +786,7 @@ namespace SimplCommerce.WebHost.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     TaxClassId = table.Column<long>(nullable: false),
-                    CountryId = table.Column<long>(nullable: false),
+                    CountryId = table.Column<string>(nullable: true),
                     StateOrProvinceId = table.Column<long>(nullable: true),
                     Rate = table.Column<decimal>(nullable: false),
                     ZipCode = table.Column<string>(nullable: true)
@@ -899,7 +888,7 @@ namespace SimplCommerce.WebHost.Migrations
                     ZipCode = table.Column<string>(nullable: true),
                     DistrictId = table.Column<long>(nullable: true),
                     StateOrProvinceId = table.Column<long>(nullable: false),
-                    CountryId = table.Column<long>(nullable: false)
+                    CountryId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -938,7 +927,7 @@ namespace SimplCommerce.WebHost.Migrations
                     ZipCode = table.Column<string>(nullable: true),
                     DistrictId = table.Column<long>(nullable: true),
                     StateOrProvinceId = table.Column<long>(nullable: false),
-                    CountryId = table.Column<long>(nullable: false)
+                    CountryId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -970,7 +959,7 @@ namespace SimplCommerce.WebHost.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: false),
-                    AddressId = table.Column<long>(nullable: true)
+                    AddressId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1775,7 +1764,7 @@ namespace SimplCommerce.WebHost.Migrations
                     ReviewerName = table.Column<string>(nullable: true),
                     Status = table.Column<int>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    EntityTypeId = table.Column<long>(nullable: false),
+                    EntityTypeId = table.Column<string>(nullable: true),
                     EntityId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
@@ -1935,6 +1924,172 @@ namespace SimplCommerce.WebHost.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.InsertData(
+                table: "ActivityLog_ActivityType",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 1L, "EntityView" });
+
+            migrationBuilder.InsertData(
+                table: "Catalog_ProductOption",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1L, "Color" },
+                    { 2L, "Size" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Cms_Menu",
+                columns: new[] { "Id", "IsPublished", "IsSystem", "Name" },
+                values: new object[,]
+                {
+                    { 1L, true, true, "Customer Services" },
+                    { 2L, true, true, "Information" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Core_AppSetting",
+                columns: new[] { "Id", "IsVisibleInCommonSettingPage", "Module", "Value" },
+                values: new object[,]
+                {
+                    { "Tax.DefaultTaxClassId", true, "Tax", "1" },
+                    { "News.PageSize", true, "News", "10" },
+                    { "SmtpPassword", false, "EmailSenderSmpt", "" },
+                    { "SmtpUsername", false, "EmailSenderSmpt", "" },
+                    { "SmtpPort", false, "EmailSenderSmpt", "587" },
+                    { "SmtpServer", false, "EmailSenderSmpt", "smtp.gmail.com" },
+                    { "Theme", true, "Core", "Generic" },
+                    { "Global.AssetVersion", true, "Core", "1.0" },
+                    { "GoogleAppKey", false, "Contact", "" },
+                    { "Catalog.IsProductPriceIncludeTax", true, "Catalog", "true" },
+                    { "Catalog.ProductPageSize", true, "Catalog", "10" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Core_Country",
+                columns: new[] { "Id", "Code3", "IsBillingEnabled", "IsCityEnabled", "IsDistrictEnabled", "IsShippingEnabled", "IsZipCodeEnabled", "Name" },
+                values: new object[,]
+                {
+                    { "VN", "VNM", true, false, true, true, false, "Việt Nam" },
+                    { "US", "USA", true, true, false, true, true, "United States" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Core_EntityType",
+                columns: new[] { "Id", "IsMenuable", "RoutingAction", "RoutingController" },
+                values: new object[,]
+                {
+                    { "NewsItem", false, "NewsItemDetail", "NewsItem" },
+                    { "NewsCategory", true, "NewsCategoryDetail", "NewsCategory" },
+                    { "Page", true, "PageDetail", "Page" },
+                    { "Vendor", false, "VendorDetail", "Vendor" },
+                    { "Brand", true, "BrandDetail", "Brand" },
+                    { "Category", true, "CategoryDetail", "Category" },
+                    { "Product", false, "ProductDetail", "Product" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Core_Role",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { 1L, "e7fb7383-921d-4788-8f33-665d58b008db", "admin", "ADMIN" },
+                    { 2L, "583097af-9468-47f6-96e9-2f7d68da157f", "customer", "CUSTOMER" },
+                    { 3L, "ece15d63-ccdf-4e9a-94e8-019e9a4782bb", "guest", "GUEST" },
+                    { 4L, "3d7d212e-df7a-4a27-b871-da99ba07e4d5", "vendor", "VENDOR" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Core_User",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedOn", "DefaultBillingAddressId", "DefaultShippingAddressId", "Email", "EmailConfirmed", "FullName", "IsDeleted", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedOn", "UserGuid", "UserName", "VendorId" },
+                values: new object[,]
+                {
+                    { 2L, 0, "43975a72-0ecf-4d38-b07e-0eaa6e2d8a3d", new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 718, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null, null, "system@simplcommerce.com", false, "System User", true, false, null, "SYSTEM@SIMPLCOMMERCE.COM", "SYSTEM@SIMPLCOMMERCE.COM", "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", null, false, "0a88c82c-4a89-48b7-9a2d-0175e3398c99", false, new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 718, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new Guid("29c7b4c1-87d3-44b8-b25c-82ddf296275a"), "system@simplcommerce.com", null },
+                    { 10L, 0, "a6a8aea4-cce8-4f85-8f90-c3c483374817", new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 720, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null, null, "admin@simplcommerce.com", false, "Shop Admin", false, false, null, "ADMIN@SIMPLCOMMERCE.COM", "ADMIN@SIMPLCOMMERCE.COM", "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", null, false, "6f35b0d1-9e0e-4843-99ef-f49ec9299b38", false, new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 720, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new Guid("5d4927ad-71e4-490c-87f1-65b67af3f402"), "admin@simplcommerce.com", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Core_Widget",
+                columns: new[] { "Id", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName" },
+                values: new object[,]
+                {
+                    { "SimpleProductWidget", "widget-simple-product-create", new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 664, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-simple-product-edit", false, "Simple Product Widget", "SimpleProductWidget" },
+                    { "SpaceBarWidget", "widget-spacebar-create", new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 667, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-spacebar-edit", false, "SpaceBar Widget", "SpaceBarWidget" },
+                    { "CarouselWidget", "widget-carousel-create", new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 667, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-carousel-edit", false, "Carousel Widget", "CarouselWidget" },
+                    { "ProductWidget", "widget-product-create", new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 664, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-product-edit", false, "Product Widget", "ProductWidget" },
+                    { "CategoryWidget", "widget-category-create", new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 661, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-category-edit", false, "Category Widget", "CategoryWidget" },
+                    { "HtmlWidget", "widget-html-create", new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 667, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-html-edit", false, "Html Widget", "HtmlWidget" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Core_WidgetZone",
+                columns: new[] { "Id", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1L, null, "Home Featured" },
+                    { 2L, null, "Home Main Content" },
+                    { 3L, null, "Home After Main Content" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Payments_PaymentProvider",
+                columns: new[] { "Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "LandingViewComponentName", "Name" },
+                values: new object[,]
+                {
+                    { "PaypalExpress", "{ \"IsSandbox\":true, \"ClientId\":\"\", \"ClientSecret\":\"\" }", "payments-paypalExpress-config", true, "PaypalExpressLanding", "Paypal Express" },
+                    { "CoD", null, "payments-cod-config", true, "CoDLanding", "Cash On Delivery" },
+                    { "Stripe", "{\"PublicKey\": \"pk_test_6pRNASCoBOKtIshFeQd4XMUh\", \"PrivateKey\" : \"sk_test_BQokikJOvBiI2HlWgH4olfQ2\"}", "payments-stripe-config", true, "StripeLanding", "Stripe" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ShippingProvider",
+                columns: new[] { "Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces" },
+                values: new object[,]
+                {
+                    { "TableRate", null, "shipping-table-rate-config", true, "Table Rate", null, null, "SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingServiceProvider,SimplCommerce.Module.ShippingTableRate", true, true },
+                    { "FreeShip", "{MinimumOrderAmount : 100}", "shipping-free-config", true, "Free Ship", null, null, "SimplCommerce.Module.ShippingFree.Services.FreeShippingServiceProvider,SimplCommerce.Module.ShippingFree", true, true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Tax_TaxClass",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 1L, "Standard VAT" });
+
+            migrationBuilder.InsertData(
+                table: "Core_StateOrProvince",
+                columns: new[] { "Id", "Code", "CountryId", "Name", "Type" },
+                values: new object[] { 1L, null, "VN", "Hồ Chí Minh", "Thành Phố" });
+
+            migrationBuilder.InsertData(
+                table: "Core_StateOrProvince",
+                columns: new[] { "Id", "Code", "CountryId", "Name", "Type" },
+                values: new object[] { 2L, "WA", "US", "Washington", null });
+
+            migrationBuilder.InsertData(
+                table: "Core_UserRole",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[] { 10L, 1L });
+
+            migrationBuilder.InsertData(
+                table: "Core_Address",
+                columns: new[] { "Id", "AddressLine1", "AddressLine2", "City", "ContactName", "CountryId", "DistrictId", "Phone", "StateOrProvinceId", "ZipCode" },
+                values: new object[] { 1L, "364 Cong Hoa", null, null, "Thien Nguyen", "VN", null, null, 1L, null });
+
+            migrationBuilder.InsertData(
+                table: "Core_District",
+                columns: new[] { "Id", "Location", "Name", "StateOrProvinceId", "Type" },
+                values: new object[] { 1L, null, "Quận 1", 1L, "Quận" });
+
+            migrationBuilder.InsertData(
+                table: "Core_District",
+                columns: new[] { "Id", "Location", "Name", "StateOrProvinceId", "Type" },
+                values: new object[] { 2L, null, "Quận 2", 1L, "Quận" });
+
+            migrationBuilder.InsertData(
+                table: "Inventory_Warehouse",
+                columns: new[] { "Id", "AddressId", "Name" },
+                values: new object[] { 1L, 1L, "Default warehouse" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ActivityLog_Activity_ActivityTypeId",
@@ -2613,7 +2768,7 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Shipments_ShipmentItem");
 
             migrationBuilder.DropTable(
-                name: "Shipping_ShippingProvider");
+                name: "ShippingProvider");
 
             migrationBuilder.DropTable(
                 name: "ShippingTableRate_PriceAndDestination");

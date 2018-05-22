@@ -14,10 +14,10 @@ namespace SimplCommerce.Module.Core.Controllers
     [Route("api/appsettings")]
     public class AppSettingApiController : Controller
     {
-        private readonly IRepository<AppSetting> _appSettingRepository;
+        private readonly IRepositoryWithTypedId<AppSetting, string> _appSettingRepository;
         private readonly IConfigurationRoot _configurationRoot;
 
-        public AppSettingApiController(IRepository<AppSetting> appSettingRepository, IConfiguration configuration)
+        public AppSettingApiController(IRepositoryWithTypedId<AppSetting, string> appSettingRepository, IConfiguration configuration)
         {
             _appSettingRepository = appSettingRepository;
             _configurationRoot = (IConfigurationRoot)configuration;
@@ -37,7 +37,7 @@ namespace SimplCommerce.Module.Core.Controllers
                 var settings = await _appSettingRepository.Query().Where(x => x.IsVisibleInCommonSettingPage).ToListAsync();
                 foreach(var item in settings)
                 {
-                    var vm = model.FirstOrDefault(x => x.Key == item.Key);
+                    var vm = model.FirstOrDefault(x => x.Id == item.Id);
                     if (vm != null)
                     {
                         item.Value = vm.Value;

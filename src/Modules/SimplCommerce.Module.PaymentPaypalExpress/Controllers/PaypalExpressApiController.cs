@@ -14,9 +14,9 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
     [Route("api/paypal-express")]
     public class PaypalExpressApiController : Controller
     {
-        private readonly IRepository<PaymentProvider> _paymentProviderRepository;
+        private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
 
-        public PaypalExpressApiController(IRepository<PaymentProvider> paymentProviderRepository)
+        public PaypalExpressApiController(IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository)
         {
             _paymentProviderRepository = paymentProviderRepository;
         }

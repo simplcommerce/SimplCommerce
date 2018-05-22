@@ -45,7 +45,6 @@ RUN apt-get update \
 WORKDIR /app	
 COPY --from=build-env /app/src/SimplCommerce.WebHost/out ./
 COPY --from=build-env /app/src/SimplCommerce.WebHost/dbscript.sql ./
-COPY --from=build-env /app/src/Database/StaticData_PostgreSQL.sql ./
 
 COPY --from=build-env /app/docker-entrypoint.sh /
 RUN chmod 755 /docker-entrypoint.sh

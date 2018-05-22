@@ -433,10 +433,9 @@ SET IDENTITY_INSERT [dbo].[Cms_Page] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[Core_WidgetInstance] ON 
-INSERT [dbo].[Core_WidgetInstance] ([Id], [CreatedOn], [Data], [DisplayOrder], [HtmlData], [Name], [PublishEnd], [PublishStart], [UpdatedOn], [WidgetId], [WidgetZoneId]) VALUES (1, CAST(N'2016-07-11 05:29:31.1868415' AS DateTime2), N'[{{"Image":"7d868097-58a5-43f8-a882-6d7872345fe7.jpg","ImageUrl":null,"Caption":null,"TargetUrl":"#"}},{{"Image":"d539b558-15ea-4317-9a5b-62e4db9a45f5.jpg","ImageUrl":null,"Caption":null,"TargetUrl":"#"}},{{"Image":"e543ed8e-5feb-4a39-8860-51d94a00ee31.jpg","ImageUrl":null,"Caption":null,"TargetUrl":"#"}},{{"Image":"c015d99d-6c3b-4337-9ba7-26822d75a8e2.jpg","ImageUrl":null,"Caption":null,"TargetUrl":"#"}}]', 0, NULL, N'Home Carousel', NULL, CAST(N'2016-07-11 05:42:44.7523284' AS DateTime2), CAST(N'2016-07-11 05:29:31.1868415' AS DateTime2), 1, 1)
-
-INSERT [dbo].[Core_WidgetInstance] ([Id], [CreatedOn], [Data], [DisplayOrder], [HtmlData], [Name], [PublishEnd], [PublishStart], [UpdatedOn], [WidgetId], [WidgetZoneId]) VALUES (2, CAST(N'2016-07-11 05:30:49.3473494' AS DateTime2), N'{{"NumberOfProducts":4,"CategoryIds":null,"OrderBy":0,"FeaturedOnly":false}}', 0, NULL, N'Latest Products', NULL, CAST(N'2016-07-11 05:42:44.7523284' AS DateTime2), CAST(N'2016-07-11 05:30:49.3473494' AS DateTime2), 3, 2)
-INSERT [dbo].[Core_WidgetInstance] ([Id], [CreatedOn], [Data], [DisplayOrder], [HtmlData], [Name], [PublishEnd], [PublishStart], [UpdatedOn], [WidgetId], [WidgetZoneId]) VALUES (3, CAST(N'2018-01-03T15:20:53.1550824+07:00' AS DateTimeOffset), N'[{{"IconHtml":"fa fa-truck","Title":"Free Shipping","Description":"For orders over $99"}},{{"IconHtml":"fa fa-money","Title":"Money Return","Description":"30 days money return"}},{{"IconHtml":"fa fa-credit-card-alt","Title":"Safe Payment","Description":"Protected online payment"}}]', 0, NULL, N'Home Promote Content', NULL, CAST(N'2018-01-03T08:16:47.1160000+00:00' AS DateTimeOffset), CAST(N'2018-01-03T15:20:53.1552733+07:00' AS DateTimeOffset), 5, 3)
+INSERT [dbo].[Core_WidgetInstance] ([Id], [CreatedOn], [Data], [DisplayOrder], [HtmlData], [Name], [PublishEnd], [PublishStart], [UpdatedOn], [WidgetId], [WidgetZoneId]) VALUES (1, CAST(N'2016-07-11 05:29:31.1868415' AS DateTime2), N'[{{"Image":"7d868097-58a5-43f8-a882-6d7872345fe7.jpg","ImageUrl":null,"Caption":null,"TargetUrl":"#"}},{{"Image":"d539b558-15ea-4317-9a5b-62e4db9a45f5.jpg","ImageUrl":null,"Caption":null,"TargetUrl":"#"}},{{"Image":"e543ed8e-5feb-4a39-8860-51d94a00ee31.jpg","ImageUrl":null,"Caption":null,"TargetUrl":"#"}},{{"Image":"c015d99d-6c3b-4337-9ba7-26822d75a8e2.jpg","ImageUrl":null,"Caption":null,"TargetUrl":"#"}}]', 0, NULL, N'Home Carousel', NULL, CAST(N'2016-07-11 05:42:44.7523284' AS DateTime2), CAST(N'2016-07-11 05:29:31.1868415' AS DateTime2), N'CarouselWidget', 1)
+INSERT [dbo].[Core_WidgetInstance] ([Id], [CreatedOn], [Data], [DisplayOrder], [HtmlData], [Name], [PublishEnd], [PublishStart], [UpdatedOn], [WidgetId], [WidgetZoneId]) VALUES (2, CAST(N'2016-07-11 05:30:49.3473494' AS DateTime2), N'{{"NumberOfProducts":4,"CategoryIds":null,"OrderBy":0,"FeaturedOnly":false}}', 0, NULL, N'Latest Products', NULL, CAST(N'2016-07-11 05:42:44.7523284' AS DateTime2), CAST(N'2016-07-11 05:30:49.3473494' AS DateTime2), N'ProductWidget', 2)
+INSERT [dbo].[Core_WidgetInstance] ([Id], [CreatedOn], [Data], [DisplayOrder], [HtmlData], [Name], [PublishEnd], [PublishStart], [UpdatedOn], [WidgetId], [WidgetZoneId]) VALUES (3, CAST(N'2018-01-03T15:20:53.1550824+07:00' AS DateTimeOffset), N'[{{"IconHtml":"fa fa-truck","Title":"Free Shipping","Description":"For orders over $99"}},{{"IconHtml":"fa fa-money","Title":"Money Return","Description":"30 days money return"}},{{"IconHtml":"fa fa-credit-card-alt","Title":"Safe Payment","Description":"Protected online payment"}}]', 0, NULL, N'Home Promote Content', NULL, CAST(N'2018-01-03T08:16:47.1160000+00:00' AS DateTimeOffset), CAST(N'2018-01-03T15:20:53.1552733+07:00' AS DateTimeOffset), N'SpaceBarWidget', 3)
 INSERT [dbo].[Core_WidgetInstance] ([Id], [CreatedOn], [Data], [DisplayOrder], [HtmlData], [Name], [PublishEnd], [PublishStart], [UpdatedOn], [WidgetId], [WidgetZoneId]) VALUES (4, CAST(N'2016-07-11 05:42:44.7523284' AS DateTime2), NULL, 0, N'
 <div>
     <h2 class="page-header">Administrator</h2>
@@ -444,41 +443,41 @@ INSERT [dbo].[Core_WidgetInstance] ([Id], [CreatedOn], [Data], [DisplayOrder], [
     <p>
         <a class="btn btn-primary" href="Admin" role="button">Go to Dashboard</a>
     </p>
-</div>', N'Administration', NULL, CAST(N'2016-07-11 05:42:44.7523284' AS DateTime2), CAST(N'2016-07-11 05:42:44.7523284' AS DateTime2), 2, 3)
+</div>', N'Administration', NULL, CAST(N'2016-07-11 05:42:44.7523284' AS DateTime2), CAST(N'2016-07-11 05:42:44.7523284' AS DateTime2), N'HtmlWidget', 3)
 SET IDENTITY_INSERT [dbo].[Core_WidgetInstance] OFF 
 GO
 
 SET IDENTITY_INSERT [dbo].[Core_Entity] ON 
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (1, 1, 1, N'Phones', N'phones')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (2, 2, 1, N'Smart Phones', N'smart-phones')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (3, 3, 1, N'Basic Phones', N'basic-phones')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (4, 4, 1, N'Tablets', N'tablets')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (5, 5, 1, N'Wifi Cellular Tablets', N'wifi-cellular-tablets')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (6, 6, 1, N'Cellular Tablets', N'cellular-tablets')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (7, 7, 1, N'Computers', N'computers')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (8, 8, 1, N'Gaming', N'gaming')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (9, 9, 1, N'Business', N'business')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (10, 10, 1, N'Accessories', N'accessories')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (11, 11, 1, N'Headphones', N'headphones')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (12, 12, 1, N'Cables', N'cables')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (13, 13, 1, N'Usb Drives', N'usb-drives')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (18, 1, 4, N'About Us', N'about-us')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (19, 2, 4, N'Terms of Use', N'terms-of-use')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (20, 3, 4, N'Privacy', N'privacy')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (21, 4, 4, N'Help Center', N'help-center')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (22, 5, 4, N'How to buy', N'help-center/how-to-buy')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (23, 6, 4, N'Shipping', N'help-center/shipping')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (24, 7, 4, N'How to return', N'help-center/how-to-return')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (25, 8, 4, N'Warranty', N'help-center/warranty')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (26, 1, 3, N'IPad pro Wifi 4G 128GB', N'ipad-pro-wi-fi-4g-128gb')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (27, 5, 3, N'Samsung Galaxy A5', N'samsung-galaxy-a5')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (28, 9, 3, N'IPhone 6S 16GB', N'iphone-6s-16gb')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (29, 1, 2, N'Apple', N'apple')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (30, 2, 2, N'Samsung', N'samsung')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (31, 3, 2, N'Dell', N'dell')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (32, 14, 3, N'Dell XPS 15 9550', N'dell-xps-15-9550')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (33, 14, 1, N'Test 1', N'test-1')
-INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (34, 15, 1, N'Test 2', N'test-2')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (1, 1, N'Category', N'Phones', N'phones')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (2, 2, N'Category', N'Smart Phones', N'smart-phones')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (3, 3, N'Category', N'Basic Phones', N'basic-phones')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (4, 4, N'Category', N'Tablets', N'tablets')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (5, 5, N'Category', N'Wifi Cellular Tablets', N'wifi-cellular-tablets')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (6, 6, N'Category', N'Cellular Tablets', N'cellular-tablets')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (7, 7, N'Category', N'Computers', N'computers')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (8, 8, N'Category', N'Gaming', N'gaming')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (9, 9, N'Category', N'Business', N'business')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (10, 10, N'Category', N'Accessories', N'accessories')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (11, 11, N'Category', N'Headphones', N'headphones')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (12, 12, N'Category', N'Cables', N'cables')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (13, 13, N'Category', N'Usb Drives', N'usb-drives')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (33, 14, N'Category', N'Test 1', N'test-1')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (34, 15, N'Category', N'Test 2', N'test-2')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (18, 1, N'Page', N'About Us', N'about-us')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (19, 2, N'Page', N'Terms of Use', N'terms-of-use')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (20, 3, N'Page', N'Privacy', N'privacy')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (21, 4, N'Page', N'Help Center', N'help-center')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (22, 5, N'Page', N'How to buy', N'help-center/how-to-buy')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (23, 6, N'Page', N'Shipping', N'help-center/shipping')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (24, 7, N'Page', N'How to return', N'help-center/how-to-return')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (25, 8, N'Page', N'Warranty', N'help-center/warranty')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (29, 1, N'Brand', N'Apple', N'apple')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (30, 2, N'Brand', N'Samsung', N'samsung')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (31, 3, N'Brand', N'Dell', N'dell')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (26, 1, N'Product', N'IPad pro Wifi 4G 128GB', N'ipad-pro-wi-fi-4g-128gb')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (27, 5, N'Product', N'Samsung Galaxy A5', N'samsung-galaxy-a5')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (28, 9, N'Product', N'IPhone 6S 16GB', N'iphone-6s-16gb')
+INSERT [dbo].[Core_Entity] ([Id], [EntityId], [EntityTypeId], [Name], [Slug]) VALUES (32, 14, N'Product', N'Dell XPS 15 9550', N'dell-xps-15-9550')
 SET IDENTITY_INSERT [dbo].[Core_Entity] OFF 
 GO
 

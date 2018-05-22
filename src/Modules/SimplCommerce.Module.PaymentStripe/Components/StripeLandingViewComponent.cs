@@ -17,9 +17,9 @@ namespace SimplCommerce.Module.PaymentStripe.Components
     {
         private readonly ICartService _cartService;
         private readonly IWorkContext _workContext;
-        private readonly IRepository<PaymentProvider> _paymentProviderRepository;
+        private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
 
-        public StripeLandingViewComponent(ICartService cartService, IWorkContext workContext, IRepository<PaymentProvider> paymentProviderRepository)
+        public StripeLandingViewComponent(ICartService cartService, IWorkContext workContext, IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository)
         {
             _cartService = cartService;
             _workContext = workContext;

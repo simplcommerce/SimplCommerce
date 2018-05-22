@@ -10,7 +10,7 @@ namespace SimplCommerce.Module.Core.Models
 
         public long EntityId { get; set; }
 
-        public long EntityTypeId { get; set; }
+        public string EntityTypeId { get; set; }
 
         public EntityType EntityType { get; set; }
     }

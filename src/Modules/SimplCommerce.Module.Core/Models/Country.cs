@@ -3,11 +3,14 @@ using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Core.Models
 {
-    public class Country : EntityBase
+    public class Country : EntityBaseWithTypedId<string>
     {
-        public string Name { get; set; }
+        public Country(string id)
+        {
+            Id = id;
+        }
 
-        public string Code2 { get; set; }
+        public string Name { get; set; }
 
         public string Code3 { get; set; }
 

@@ -13,9 +13,9 @@ namespace SimplCommerce.Module.Core.Controllers
     [Route("api/countries")]
     public class CountryApiController : Controller
     {
-        private readonly IRepository<Country> _countryRepository;
+        private readonly IRepositoryWithTypedId<Country, string> _countryRepository;
 
-        public CountryApiController(IRepository<Country> countryRepository)
+        public CountryApiController(IRepositoryWithTypedId<Country, string> countryRepository)
         {
             _countryRepository = countryRepository;
         }
@@ -70,7 +70,7 @@ namespace SimplCommerce.Module.Core.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(long id)
+        public async Task<IActionResult> Get(string id)
         {
             var country = await _countryRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
             if (country == null)
@@ -82,7 +82,6 @@ namespace SimplCommerce.Module.Core.Controllers
             {
                 Id = country.Id,
                 Name = country.Name,
-                Code2 = country.Code2,
                 Code3 = country.Code3,
                 IsBillingEnabled = country.IsBillingEnabled,
                 IsShippingEnabled = country.IsShippingEnabled,
@@ -96,7 +95,7 @@ namespace SimplCommerce.Module.Core.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Put(long id, [FromBody] CountryForm model)
+        public async Task<IActionResult> Put(string id, [FromBody] CountryForm model)
         {
             if (!ModelState.IsValid)
             {
@@ -110,7 +109,6 @@ namespace SimplCommerce.Module.Core.Controllers
             }
 
             country.Name = model.Name;
-            country.Code2 = model.Code2;
             country.Code3 = model.Code3;
             country.IsShippingEnabled = model.IsShippingEnabled;
             country.IsBillingEnabled = model.IsBillingEnabled;
@@ -129,10 +127,9 @@ namespace SimplCommerce.Module.Core.Controllers
         {
             if (ModelState.IsValid)
             {
-                var country = new Country
+                var country = new Country(model.Id)
                 {
                     Name = model.Name,
-                    Code2 = model.Code2,
                     Code3 = model.Code3,
                     IsBillingEnabled = model.IsBillingEnabled,
                     IsShippingEnabled = model.IsShippingEnabled,
@@ -151,7 +148,7 @@ namespace SimplCommerce.Module.Core.Controllers
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Delete(long id)
+        public async Task<IActionResult> Delete(string id)
         {
             var country = await _countryRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
             if (country == null)

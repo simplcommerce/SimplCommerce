@@ -25,7 +25,7 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             _cartItemRepository = cartItemRepository;
             _couponService = couponService;
             _mediaService = mediaService;
-            _isProductPriceIncludeTax = config.GetValue<bool>("Tax.IsProductPriceIncludeTax");
+            _isProductPriceIncludeTax = config.GetValue<bool>("Catalog.IsProductPriceIncludeTax");
         }
 
         public async Task AddToCart(long userId, long productId, int quantity)

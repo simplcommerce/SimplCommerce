@@ -87,7 +87,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 ThumbnailUrl = _mediaService.GetThumbnailUrl(productMedia.Media)
             }).ToList();
 
-            await _mediator.Publish(new EntityViewed {EntityId = product.Id, EntityTypeId = 3});
+            await _mediator.Publish(new EntityViewed { EntityId = product.Id, EntityTypeId = "Product" });
             _productRepository.SaveChanges();
 
             return View(model);

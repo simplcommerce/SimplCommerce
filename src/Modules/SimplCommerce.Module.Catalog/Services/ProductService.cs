@@ -7,7 +7,7 @@ namespace SimplCommerce.Module.Catalog.Services
 {
     public class ProductService : IProductService
     {
-        private const long ProductEntityTypeId = 3;
+        private const string ProductEntityTypeId = "Product";
 
         private readonly IRepository<Product> _productRepository;
         private readonly IEntityService _entityService;

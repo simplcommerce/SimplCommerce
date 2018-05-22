@@ -13,9 +13,9 @@ namespace SimplCommerce.Module.ShippingPrices.Services
     public class ShippingPriceService : IShippingPriceService
     {
         private HttpContext _httpContext;
-        private readonly IRepository<ShippingProvider> _shippingProviderRepository;
+        private readonly IRepositoryWithTypedId<ShippingProvider, string> _shippingProviderRepository;
 
-        public ShippingPriceService(IHttpContextAccessor contextAccessor, IRepository<ShippingProvider> shippingProviderRepository)
+        public ShippingPriceService(IHttpContextAccessor contextAccessor, IRepositoryWithTypedId<ShippingProvider, string> shippingProviderRepository)
         {
             _httpContext = contextAccessor.HttpContext;
             _shippingProviderRepository = shippingProviderRepository;

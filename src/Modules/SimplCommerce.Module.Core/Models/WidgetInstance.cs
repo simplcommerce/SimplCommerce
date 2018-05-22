@@ -21,7 +21,7 @@ namespace SimplCommerce.Module.Core.Models
 
         public DateTimeOffset? PublishEnd { get; set; }
 
-        public long WidgetId { get; set; }
+        public string WidgetId { get; set; }
 
         public Widget Widget { get; set; }
 

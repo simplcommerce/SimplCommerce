@@ -105,13 +105,13 @@ namespace SimplCommerce.Module.Core.Tests.Components
 
         private UserAddress MakeShippingAddress()
         {
-            var country = new Country { Name = "France" };
+            var country = new Country("FR") { Name = "France" };
             var stateOrProvince = new StateOrProvince { Name = "IDF", Country = country, Type = "State" };
             var district = new District { Location = "Center", StateOrProvince = stateOrProvince, Name = "Paris" };
 
             var address = new Address
             {
-                CountryId = 1,
+                CountryId = "FR",
                 AddressLine1 = "115 Rue Marcel",
                 Country = country,
                 StateOrProvince = stateOrProvince,

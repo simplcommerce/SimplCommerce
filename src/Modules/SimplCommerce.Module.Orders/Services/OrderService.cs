@@ -266,7 +266,7 @@ namespace SimplCommerce.Module.Orders.Services
             }
         }
 
-        public async Task<decimal> GetTax(long cartOwnerUserId, long countryId, long stateOrProvinceId, string zipCode)
+        public async Task<decimal> GetTax(long cartOwnerUserId, string countryId, long stateOrProvinceId, string zipCode)
         {
             decimal taxAmount = 0;
             var cart = await _cartRepository.Query().FirstOrDefaultAsync(x => x.UserId == cartOwnerUserId && x.IsActive);

@@ -101,7 +101,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<long>("EntityId");
 
-                    b.Property<long>("EntityTypeId");
+                    b.Property<string>("EntityTypeId");
 
                     b.Property<long>("UserId");
 
@@ -123,6 +123,10 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ActivityLog_ActivityType");
+
+                    b.HasData(
+                        new { Id = 1L, Name = "EntityView" }
+                    );
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Catalog.Models.Brand", b =>
@@ -407,6 +411,11 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Catalog_ProductOption");
+
+                    b.HasData(
+                        new { Id = 1L, Name = "Color" },
+                        new { Id = 2L, Name = "Size" }
+                    );
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Catalog.Models.ProductOptionCombination", b =>
@@ -530,6 +539,11 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Cms_Menu");
+
+                    b.HasData(
+                        new { Id = 1L, IsPublished = true, IsSystem = true, Name = "Customer Services" },
+                        new { Id = 2L, IsPublished = true, IsSystem = true, Name = "Information" }
+                    );
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Cms.Models.MenuItem", b =>
@@ -660,7 +674,8 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("ContactName");
 
-                    b.Property<long>("CountryId");
+                    b.Property<string>("CountryId")
+                        .IsRequired();
 
                     b.Property<long?>("DistrictId");
 
@@ -679,17 +694,18 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasIndex("StateOrProvinceId");
 
                     b.ToTable("Core_Address");
+
+                    b.HasData(
+                        new { Id = 1L, AddressLine1 = "364 Cong Hoa", ContactName = "Thien Nguyen", CountryId = "VN", StateOrProvinceId = 1L }
+                    );
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.AppSetting", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("IsVisibleInCommonSettingPage");
-
-                    b.Property<string>("Key");
 
                     b.Property<string>("Module");
 
@@ -698,15 +714,26 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Core_AppSetting");
+
+                    b.HasData(
+                        new { Id = "Catalog.ProductPageSize", IsVisibleInCommonSettingPage = true, Module = "Catalog", Value = "10" },
+                        new { Id = "Catalog.IsProductPriceIncludeTax", IsVisibleInCommonSettingPage = true, Module = "Catalog", Value = "true" },
+                        new { Id = "GoogleAppKey", IsVisibleInCommonSettingPage = false, Module = "Contact", Value = "" },
+                        new { Id = "Global.AssetVersion", IsVisibleInCommonSettingPage = true, Module = "Core", Value = "1.0" },
+                        new { Id = "Theme", IsVisibleInCommonSettingPage = true, Module = "Core", Value = "Generic" },
+                        new { Id = "SmtpServer", IsVisibleInCommonSettingPage = false, Module = "EmailSenderSmpt", Value = "smtp.gmail.com" },
+                        new { Id = "SmtpPort", IsVisibleInCommonSettingPage = false, Module = "EmailSenderSmpt", Value = "587" },
+                        new { Id = "SmtpUsername", IsVisibleInCommonSettingPage = false, Module = "EmailSenderSmpt", Value = "" },
+                        new { Id = "SmtpPassword", IsVisibleInCommonSettingPage = false, Module = "EmailSenderSmpt", Value = "" },
+                        new { Id = "News.PageSize", IsVisibleInCommonSettingPage = true, Module = "News", Value = "10" },
+                        new { Id = "Tax.DefaultTaxClassId", IsVisibleInCommonSettingPage = true, Module = "Tax", Value = "1" }
+                    );
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.Country", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Code2");
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Code3");
 
@@ -725,6 +752,11 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Core_Country");
+
+                    b.HasData(
+                        new { Id = "VN", Code3 = "VNM", IsBillingEnabled = true, IsCityEnabled = false, IsDistrictEnabled = true, IsShippingEnabled = true, IsZipCodeEnabled = false, Name = "Việt Nam" },
+                        new { Id = "US", Code3 = "USA", IsBillingEnabled = true, IsCityEnabled = true, IsDistrictEnabled = false, IsShippingEnabled = true, IsZipCodeEnabled = true, Name = "United States" }
+                    );
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.CustomerGroup", b =>
@@ -786,6 +818,11 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasIndex("StateOrProvinceId");
 
                     b.ToTable("Core_District");
+
+                    b.HasData(
+                        new { Id = 1L, Name = "Quận 1", StateOrProvinceId = 1L, Type = "Quận" },
+                        new { Id = 2L, Name = "Quận 2", StateOrProvinceId = 1L, Type = "Quận" }
+                    );
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.Entity", b =>
@@ -796,7 +833,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<long>("EntityId");
 
-                    b.Property<long>("EntityTypeId");
+                    b.Property<string>("EntityTypeId");
 
                     b.Property<string>("Name");
 
@@ -811,13 +848,10 @@ namespace SimplCommerce.WebHost.Migrations
 
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.EntityType", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("IsMenuable");
-
-                    b.Property<string>("Name");
 
                     b.Property<string>("RoutingAction");
 
@@ -826,6 +860,16 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Core_EntityType");
+
+                    b.HasData(
+                        new { Id = "Category", IsMenuable = true, RoutingAction = "CategoryDetail", RoutingController = "Category" },
+                        new { Id = "Brand", IsMenuable = true, RoutingAction = "BrandDetail", RoutingController = "Brand" },
+                        new { Id = "Product", IsMenuable = false, RoutingAction = "ProductDetail", RoutingController = "Product" },
+                        new { Id = "Page", IsMenuable = true, RoutingAction = "PageDetail", RoutingController = "Page" },
+                        new { Id = "Vendor", IsMenuable = false, RoutingAction = "VendorDetail", RoutingController = "Vendor" },
+                        new { Id = "NewsCategory", IsMenuable = true, RoutingAction = "NewsCategoryDetail", RoutingController = "NewsCategory" },
+                        new { Id = "NewsItem", IsMenuable = false, RoutingAction = "NewsItemDetail", RoutingController = "NewsItem" }
+                    );
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.Media", b =>
@@ -870,6 +914,13 @@ namespace SimplCommerce.WebHost.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("Core_Role");
+
+                    b.HasData(
+                        new { Id = 1L, ConcurrencyStamp = "e7fb7383-921d-4788-8f33-665d58b008db", Name = "admin", NormalizedName = "ADMIN" },
+                        new { Id = 2L, ConcurrencyStamp = "583097af-9468-47f6-96e9-2f7d68da157f", Name = "customer", NormalizedName = "CUSTOMER" },
+                        new { Id = 3L, ConcurrencyStamp = "ece15d63-ccdf-4e9a-94e8-019e9a4782bb", Name = "guest", NormalizedName = "GUEST" },
+                        new { Id = 4L, ConcurrencyStamp = "3d7d212e-df7a-4a27-b871-da99ba07e4d5", Name = "vendor", NormalizedName = "VENDOR" }
+                    );
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.StateOrProvince", b =>
@@ -880,9 +931,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Code");
 
-                    b.Property<string>("CountryCode");
-
-                    b.Property<long>("CountryId");
+                    b.Property<string>("CountryId");
 
                     b.Property<string>("Name");
 
@@ -893,6 +942,11 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("Core_StateOrProvince");
+
+                    b.HasData(
+                        new { Id = 1L, CountryId = "VN", Name = "Hồ Chí Minh", Type = "Thành Phố" },
+                        new { Id = 2L, Code = "WA", CountryId = "US", Name = "Washington" }
+                    );
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.User", b =>
@@ -967,6 +1021,11 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasIndex("VendorId");
 
                     b.ToTable("Core_User");
+
+                    b.HasData(
+                        new { Id = 2L, AccessFailedCount = 0, ConcurrencyStamp = "43975a72-0ecf-4d38-b07e-0eaa6e2d8a3d", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 718, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), Email = "system@simplcommerce.com", EmailConfirmed = false, FullName = "System User", IsDeleted = true, LockoutEnabled = false, NormalizedEmail = "SYSTEM@SIMPLCOMMERCE.COM", NormalizedUserName = "SYSTEM@SIMPLCOMMERCE.COM", PasswordHash = "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", PhoneNumberConfirmed = false, SecurityStamp = "0a88c82c-4a89-48b7-9a2d-0175e3398c99", TwoFactorEnabled = false, UpdatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 718, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), UserGuid = new Guid("29c7b4c1-87d3-44b8-b25c-82ddf296275a"), UserName = "system@simplcommerce.com" },
+                        new { Id = 10L, AccessFailedCount = 0, ConcurrencyStamp = "a6a8aea4-cce8-4f85-8f90-c3c483374817", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 720, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), Email = "admin@simplcommerce.com", EmailConfirmed = false, FullName = "Shop Admin", IsDeleted = false, LockoutEnabled = false, NormalizedEmail = "ADMIN@SIMPLCOMMERCE.COM", NormalizedUserName = "ADMIN@SIMPLCOMMERCE.COM", PasswordHash = "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", PhoneNumberConfirmed = false, SecurityStamp = "6f35b0d1-9e0e-4843-99ef-f49ec9299b38", TwoFactorEnabled = false, UpdatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 720, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), UserGuid = new Guid("5d4927ad-71e4-490c-87f1-65b67af3f402"), UserName = "admin@simplcommerce.com" }
+                    );
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.UserAddress", b =>
@@ -1003,6 +1062,10 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Core_UserRole");
+
+                    b.HasData(
+                        new { UserId = 10L, RoleId = 1L }
+                    );
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.Vendor", b =>
@@ -1034,11 +1097,8 @@ namespace SimplCommerce.WebHost.Migrations
 
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.Widget", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Code");
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("CreateUrl");
 
@@ -1055,6 +1115,15 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Core_Widget");
+
+                    b.HasData(
+                        new { Id = "CategoryWidget", CreateUrl = "widget-category-create", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 661, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), EditUrl = "widget-category-edit", IsPublished = false, Name = "Category Widget", ViewComponentName = "CategoryWidget" },
+                        new { Id = "ProductWidget", CreateUrl = "widget-product-create", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 664, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), EditUrl = "widget-product-edit", IsPublished = false, Name = "Product Widget", ViewComponentName = "ProductWidget" },
+                        new { Id = "SimpleProductWidget", CreateUrl = "widget-simple-product-create", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 664, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), EditUrl = "widget-simple-product-edit", IsPublished = false, Name = "Simple Product Widget", ViewComponentName = "SimpleProductWidget" },
+                        new { Id = "HtmlWidget", CreateUrl = "widget-html-create", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 667, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), EditUrl = "widget-html-edit", IsPublished = false, Name = "Html Widget", ViewComponentName = "HtmlWidget" },
+                        new { Id = "CarouselWidget", CreateUrl = "widget-carousel-create", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 667, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), EditUrl = "widget-carousel-edit", IsPublished = false, Name = "Carousel Widget", ViewComponentName = "CarouselWidget" },
+                        new { Id = "SpaceBarWidget", CreateUrl = "widget-spacebar-create", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 667, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), EditUrl = "widget-spacebar-edit", IsPublished = false, Name = "SpaceBar Widget", ViewComponentName = "SpaceBarWidget" }
+                    );
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Core.Models.WidgetInstance", b =>
@@ -1079,7 +1148,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<DateTimeOffset>("UpdatedOn");
 
-                    b.Property<long>("WidgetId");
+                    b.Property<string>("WidgetId");
 
                     b.Property<long>("WidgetZoneId");
 
@@ -1105,6 +1174,12 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Core_WidgetZone");
+
+                    b.HasData(
+                        new { Id = 1L, Name = "Home Featured" },
+                        new { Id = 2L, Name = "Home Main Content" },
+                        new { Id = 3L, Name = "Home After Main Content" }
+                    );
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Inventory.Models.Stock", b =>
@@ -1161,7 +1236,7 @@ namespace SimplCommerce.WebHost.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("AddressId");
+                    b.Property<long>("AddressId");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -1171,6 +1246,10 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasIndex("AddressId");
 
                     b.ToTable("Inventory_Warehouse");
+
+                    b.HasData(
+                        new { Id = 1L, AddressId = 1L, Name = "Default warehouse" }
+                    );
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Localization.Models.Culture", b =>
@@ -1366,7 +1445,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("ContactName");
 
-                    b.Property<long>("CountryId");
+                    b.Property<string>("CountryId");
 
                     b.Property<long?>("DistrictId");
 
@@ -1478,9 +1557,8 @@ namespace SimplCommerce.WebHost.Migrations
 
             modelBuilder.Entity("SimplCommerce.Module.Payments.Models.PaymentProvider", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("AdditionalSettings");
 
@@ -1495,6 +1573,12 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Payments_PaymentProvider");
+
+                    b.HasData(
+                        new { Id = "CoD", ConfigureUrl = "payments-cod-config", IsEnabled = true, LandingViewComponentName = "CoDLanding", Name = "Cash On Delivery" },
+                        new { Id = "PaypalExpress", AdditionalSettings = "{ \"IsSandbox\":true, \"ClientId\":\"\", \"ClientSecret\":\"\" }", ConfigureUrl = "payments-paypalExpress-config", IsEnabled = true, LandingViewComponentName = "PaypalExpressLanding", Name = "Paypal Express" },
+                        new { Id = "Stripe", AdditionalSettings = "{\"PublicKey\": \"pk_test_6pRNASCoBOKtIshFeQd4XMUh\", \"PrivateKey\" : \"sk_test_BQokikJOvBiI2HlWgH4olfQ2\"}", ConfigureUrl = "payments-stripe-config", IsEnabled = true, LandingViewComponentName = "StripeLanding", Name = "Stripe" }
+                    );
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Pricing.Models.CartRule", b =>
@@ -1707,7 +1791,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<long>("EntityId");
 
-                    b.Property<long>("EntityTypeId");
+                    b.Property<string>("EntityTypeId");
 
                     b.Property<int>("Rating");
 
@@ -1797,9 +1881,8 @@ namespace SimplCommerce.WebHost.Migrations
 
             modelBuilder.Entity("SimplCommerce.Module.Shipping.Models.ShippingProvider", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("AdditionalSettings");
 
@@ -1821,7 +1904,12 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Shipping_ShippingProvider");
+                    b.ToTable("ShippingProvider");
+
+                    b.HasData(
+                        new { Id = "FreeShip", AdditionalSettings = "{MinimumOrderAmount : 100}", ConfigureUrl = "shipping-free-config", IsEnabled = true, Name = "Free Ship", ShippingPriceServiceTypeName = "SimplCommerce.Module.ShippingFree.Services.FreeShippingServiceProvider,SimplCommerce.Module.ShippingFree", ToAllShippingEnabledCountries = true, ToAllShippingEnabledStatesOrProvinces = true },
+                        new { Id = "TableRate", ConfigureUrl = "shipping-table-rate-config", IsEnabled = true, Name = "Table Rate", ShippingPriceServiceTypeName = "SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingServiceProvider,SimplCommerce.Module.ShippingTableRate", ToAllShippingEnabledCountries = true, ToAllShippingEnabledStatesOrProvinces = true }
+                    );
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.ShippingTableRate.Models.PriceAndDestination", b =>
@@ -1830,7 +1918,7 @@ namespace SimplCommerce.WebHost.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("CountryId");
+                    b.Property<string>("CountryId");
 
                     b.Property<decimal>("MinOrderSubtotal");
 
@@ -1918,6 +2006,10 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tax_TaxClass");
+
+                    b.HasData(
+                        new { Id = 1L, Name = "Standard VAT" }
+                    );
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Tax.Models.TaxRate", b =>
@@ -1926,7 +2018,7 @@ namespace SimplCommerce.WebHost.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("CountryId");
+                    b.Property<string>("CountryId");
 
                     b.Property<string>("Name");
 

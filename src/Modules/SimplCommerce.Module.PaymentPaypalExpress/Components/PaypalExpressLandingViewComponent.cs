@@ -11,9 +11,9 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Components
 {
     public class PaypalExpressLandingViewComponent : ViewComponent
     {
-        private readonly IRepository<PaymentProvider> _paymentProviderRepository;
+        private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
 
-        public PaypalExpressLandingViewComponent(IRepository<PaymentProvider> paymentProviderRepository)
+        public PaypalExpressLandingViewComponent(IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository)
         {
             _paymentProviderRepository = paymentProviderRepository;
         }

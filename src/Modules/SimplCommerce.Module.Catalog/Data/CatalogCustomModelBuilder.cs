@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
+using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Catalog.Data
 {
@@ -33,6 +34,28 @@ namespace SimplCommerce.Module.Catalog.Data
                 .WithMany(t => t.ProductTemplates)
                 .HasForeignKey(pt => pt.ProductAttributeId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<AppSetting>().HasData(
+                new AppSetting("Catalog.ProductPageSize") { Module = "Catalog", IsVisibleInCommonSettingPage = true, Value = "10" },
+                new AppSetting("Catalog.IsProductPriceIncludeTax") { Module = "Catalog", IsVisibleInCommonSettingPage = true, Value = "true" }
+                );
+
+            modelBuilder.Entity<EntityType>().HasData(
+                new EntityType("Category") { RoutingController = "Category", RoutingAction = "CategoryDetail", IsMenuable = true },
+                new EntityType("Brand") { RoutingController = "Brand", RoutingAction = "BrandDetail", IsMenuable = true },
+                new EntityType("Product") { RoutingController = "Product", RoutingAction = "ProductDetail", IsMenuable = false }
+                );
+
+            modelBuilder.Entity<ProductOption>().HasData(
+                new ProductOption(1) { Name = "Color" },
+                new ProductOption(2) { Name = "Size" }
+                );
+
+            modelBuilder.Entity<Widget>().HasData(
+                new Widget("CategoryWidget") { Name = "Category Widget", ViewComponentName = "CategoryWidget", CreateUrl = "widget-category-create", EditUrl = "widget-category-edit" },
+                new Widget("ProductWidget") { Name = "Product Widget", ViewComponentName = "ProductWidget", CreateUrl = "widget-product-create", EditUrl = "widget-product-edit" },
+                new Widget("SimpleProductWidget") { Name = "Simple Product Widget", ViewComponentName = "SimpleProductWidget", CreateUrl = "widget-simple-product-create", EditUrl = "widget-simple-product-edit" }
+                );
         }
     }
 }

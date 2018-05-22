@@ -28,7 +28,7 @@ namespace SimplCommerce.Module.Inventory.ViewModels
         [Range(1, long.MaxValue, ErrorMessage = "State or Province is required")]
         public long StateOrProvinceId { get; set; }
 
-        [Range(1, long.MaxValue, ErrorMessage = "Country is required")]
-        public long CountryId { get; set; }
+        [Required]
+        public string CountryId { get; set; }
     }
 }

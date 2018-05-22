@@ -17,7 +17,7 @@ namespace SimplCommerce.Module.Reviews.Components
             _reviewRepository = reviewRepository;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(long entityId, long entityTypeId)
+        public async Task<IViewComponentResult> InvokeAsync(long entityId, string entityTypeId)
         {
             var model = new ReviewVm
             {

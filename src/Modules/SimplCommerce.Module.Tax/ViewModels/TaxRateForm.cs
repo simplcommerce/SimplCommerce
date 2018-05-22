@@ -12,8 +12,8 @@ namespace SimplCommerce.Module.Tax.ViewModels
         [Range(1, long.MaxValue, ErrorMessage = "Tax Class is required")]
         public long TaxClassId { get; set; }
 
-        [Range(1, long.MaxValue, ErrorMessage = "Country is required")]
-        public long CountryId { get; set; }
+        [Required]
+        public string CountryId { get; set; }
 
         [Required]
         public decimal Rate { get; set; }

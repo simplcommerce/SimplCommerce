@@ -13,9 +13,9 @@ namespace SimplCommerce.Module.PaymentCoD.Controllers
     [Route("api/cod")]
     public class CoDApiController : Controller
     {
-        private readonly IRepository<PaymentProvider> _paymentProviderRepository;
+        private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
 
-        public CoDApiController(IRepository<PaymentProvider> paymentProviderRepository)
+        public CoDApiController(IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository)
         {
             _paymentProviderRepository = paymentProviderRepository;
         }

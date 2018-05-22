@@ -22,7 +22,7 @@ namespace SimplCommerce.Module.Orders.Controllers
     public class CheckoutController : Controller
     {
         private readonly IOrderService _orderService;
-        private readonly IRepository<Country> _countryRepository;
+        private readonly IRepositoryWithTypedId<Country, string> _countryRepository;
         private readonly IRepository<StateOrProvince> _stateOrProvinceRepository;
         private readonly IRepository<UserAddress> _userAddressRepository;
         private readonly IShippingPriceService _shippingPriceService;
@@ -32,7 +32,7 @@ namespace SimplCommerce.Module.Orders.Controllers
 
         public CheckoutController(
             IRepository<StateOrProvince> stateOrProvinceRepository,
-            IRepository<Country> countryRepository,
+            IRepositoryWithTypedId<Country, string> countryRepository,
             IRepository<UserAddress> userAddressRepository,
             IShippingPriceService shippingPriceService,
             IOrderService orderService,
@@ -176,7 +176,7 @@ namespace SimplCommerce.Module.Orders.Controllers
 
             if (model.NewAddressForm.ShipableContries.Count == 1)
             {
-                var onlyShipableCountryId = long.Parse(model.NewAddressForm.ShipableContries.First().Value);
+                var onlyShipableCountryId = model.NewAddressForm.ShipableContries.First().Value;
 
                 model.NewAddressForm.StateOrProvinces = _stateOrProvinceRepository
                 .Query()

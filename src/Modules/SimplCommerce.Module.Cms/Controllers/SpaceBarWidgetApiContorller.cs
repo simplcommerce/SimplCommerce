@@ -20,13 +20,11 @@ namespace SimplCommerce.Module.Cms.Controllers
     public class SpaceBarWidgetApiContorller : Controller
     {
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
-        private readonly IRepository<Widget> _widgetRespository;
         private readonly IMediaService _mediaService;
 
-        public SpaceBarWidgetApiContorller(IRepository<WidgetInstance> widgetInstanceRepository, IRepository<Widget> widgetRepository, IMediaService mediaService)
+        public SpaceBarWidgetApiContorller(IRepository<WidgetInstance> widgetInstanceRepository, IMediaService mediaService)
         {
             _widgetInstanceRepository = widgetInstanceRepository;
-            _widgetRespository = widgetRepository;
             _mediaService = mediaService;
         }
 
@@ -75,7 +73,7 @@ namespace SimplCommerce.Module.Cms.Controllers
                 var widgetInstance = new WidgetInstance
                 {
                     Name = model.Name,
-                    WidgetId = 5,
+                    WidgetId = "HtmlWidget",
                     WidgetZoneId = model.WidgetZoneId,
                     PublishStart = model.PublishStart,
                     PublishEnd = model.PublishEnd,

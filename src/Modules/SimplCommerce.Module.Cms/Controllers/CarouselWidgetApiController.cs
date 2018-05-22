@@ -21,13 +21,11 @@ namespace SimplCommerce.Module.Cms.Controllers
     public class CarouselWidgetApiController : Controller
     {
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
-        private readonly IRepository<Widget> _widgetRespository;
         private readonly IMediaService _mediaService;
 
-        public CarouselWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository, IRepository<Widget> widgetRespository, IMediaService mediaService)
+        public CarouselWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository, IMediaService mediaService)
         {
             _widgetInstanceRepository = widgetInstanceRepository;
-            _widgetRespository = widgetRespository;
             _mediaService = mediaService;
         }
 
@@ -69,7 +67,7 @@ namespace SimplCommerce.Module.Cms.Controllers
                 var widgetInstance = new WidgetInstance
                 {
                     Name = model.Name,
-                    WidgetId = 1,
+                    WidgetId = "CarouselWidget",
                     WidgetZoneId = model.WidgetZoneId,
                     PublishStart = model.PublishStart,
                     PublishEnd = model.PublishEnd,

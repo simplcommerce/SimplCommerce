@@ -14,12 +14,10 @@ namespace SimplCommerce.Module.Catalog.Controllers
     public class ProductWidgetApiController : Controller
     {
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
-        private readonly IRepository<Widget> _widgetRespository;
 
-        public ProductWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository, IRepository<Widget> widgetRepository)
+        public ProductWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository)
         {
             _widgetInstanceRepository = widgetInstanceRepository;
-            _widgetRespository = widgetRepository;
         }
 
         [HttpGet("{id}")]
@@ -49,7 +47,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 var widgetInstance = new WidgetInstance
                 {
                     Name = model.Name,
-                    WidgetId = 3,
+                    WidgetId = "ProductWidget",
                     WidgetZoneId = model.WidgetZoneId,
                     PublishStart = model.PublishStart,
                     PublishEnd = model.PublishEnd,
