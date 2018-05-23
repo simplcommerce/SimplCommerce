@@ -72,6 +72,7 @@ namespace SimplCommerce.WebHost
             }
 
             app.UseStatusCodePagesWithReExecute("/Home/ErrorWithCode/{0}");
+            app.UseApiErrorHandler();
 
             app.UseCustomizedRequestLocalization();
             app.UseCustomizedStaticFiles(env);
