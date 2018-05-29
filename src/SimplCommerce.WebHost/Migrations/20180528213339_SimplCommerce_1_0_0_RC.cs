@@ -256,9 +256,9 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Localization_Culture",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    IsDefault = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -621,7 +621,7 @@ namespace SimplCommerce.WebHost.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Key = table.Column<string>(nullable: true),
                     Value = table.Column<string>(nullable: true),
-                    CultureId = table.Column<long>(nullable: false)
+                    CultureId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1981,9 +1981,9 @@ namespace SimplCommerce.WebHost.Migrations
                 values: new object[,]
                 {
                     { "NewsItem", false, "NewsItemDetail", "NewsItem" },
-                    { "NewsCategory", true, "NewsCategoryDetail", "NewsCategory" },
-                    { "Page", true, "PageDetail", "Page" },
                     { "Vendor", false, "VendorDetail", "Vendor" },
+                    { "Page", true, "PageDetail", "Page" },
+                    { "NewsCategory", true, "NewsCategoryDetail", "NewsCategory" },
                     { "Brand", true, "BrandDetail", "Brand" },
                     { "Category", true, "CategoryDetail", "Category" },
                     { "Product", false, "ProductDetail", "Product" }
@@ -1994,10 +1994,10 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1L, "e7fb7383-921d-4788-8f33-665d58b008db", "admin", "ADMIN" },
-                    { 2L, "583097af-9468-47f6-96e9-2f7d68da157f", "customer", "CUSTOMER" },
-                    { 3L, "ece15d63-ccdf-4e9a-94e8-019e9a4782bb", "guest", "GUEST" },
-                    { 4L, "3d7d212e-df7a-4a27-b871-da99ba07e4d5", "vendor", "VENDOR" }
+                    { 1L, "4776a1b2-dbe4-4056-82ec-8bed211d1454", "admin", "ADMIN" },
+                    { 2L, "00d172be-03a0-4856-8b12-26d63fcf4374", "customer", "CUSTOMER" },
+                    { 3L, "d4754388-8355-4018-b728-218018836817", "guest", "GUEST" },
+                    { 4L, "71f10604-8c4d-4a7d-ac4a-ffefb11cefeb", "vendor", "VENDOR" }
                 });
 
             migrationBuilder.InsertData(
@@ -2005,8 +2005,8 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedOn", "DefaultBillingAddressId", "DefaultShippingAddressId", "Email", "EmailConfirmed", "FullName", "IsDeleted", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedOn", "UserGuid", "UserName", "VendorId" },
                 values: new object[,]
                 {
-                    { 2L, 0, "43975a72-0ecf-4d38-b07e-0eaa6e2d8a3d", new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 718, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null, null, "system@simplcommerce.com", false, "System User", true, false, null, "SYSTEM@SIMPLCOMMERCE.COM", "SYSTEM@SIMPLCOMMERCE.COM", "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", null, false, "0a88c82c-4a89-48b7-9a2d-0175e3398c99", false, new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 718, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new Guid("29c7b4c1-87d3-44b8-b25c-82ddf296275a"), "system@simplcommerce.com", null },
-                    { 10L, 0, "a6a8aea4-cce8-4f85-8f90-c3c483374817", new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 720, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null, null, "admin@simplcommerce.com", false, "Shop Admin", false, false, null, "ADMIN@SIMPLCOMMERCE.COM", "ADMIN@SIMPLCOMMERCE.COM", "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", null, false, "6f35b0d1-9e0e-4843-99ef-f49ec9299b38", false, new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 720, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new Guid("5d4927ad-71e4-490c-87f1-65b67af3f402"), "admin@simplcommerce.com", null }
+                    { 2L, 0, "101cd6ae-a8ef-4a37-97fd-04ac2dd630e4", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 189, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null, null, "system@simplcommerce.com", false, "System User", true, false, null, "SYSTEM@SIMPLCOMMERCE.COM", "SYSTEM@SIMPLCOMMERCE.COM", "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", null, false, "a9565acb-cee6-425f-9833-419a793f5fba", false, new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 189, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new Guid("5f72f83b-7436-4221-869c-1b69b2e23aae"), "system@simplcommerce.com", null },
+                    { 10L, 0, "c83afcbc-312c-4589-bad7-8686bd4754c0", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 190, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null, null, "admin@simplcommerce.com", false, "Shop Admin", false, false, null, "ADMIN@SIMPLCOMMERCE.COM", "ADMIN@SIMPLCOMMERCE.COM", "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", null, false, "d6847450-47f0-4c7a-9fed-0c66234bf61f", false, new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 190, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new Guid("ed8210c3-24b0-4823-a744-80078cf12eb4"), "admin@simplcommerce.com", null }
                 });
 
             migrationBuilder.InsertData(
@@ -2014,12 +2014,12 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: new[] { "Id", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName" },
                 values: new object[,]
                 {
-                    { "SimpleProductWidget", "widget-simple-product-create", new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 664, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-simple-product-edit", false, "Simple Product Widget", "SimpleProductWidget" },
-                    { "SpaceBarWidget", "widget-spacebar-create", new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 667, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-spacebar-edit", false, "SpaceBar Widget", "SpaceBarWidget" },
-                    { "CarouselWidget", "widget-carousel-create", new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 667, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-carousel-edit", false, "Carousel Widget", "CarouselWidget" },
-                    { "ProductWidget", "widget-product-create", new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 664, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-product-edit", false, "Product Widget", "ProductWidget" },
-                    { "CategoryWidget", "widget-category-create", new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 661, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-category-edit", false, "Category Widget", "CategoryWidget" },
-                    { "HtmlWidget", "widget-html-create", new DateTimeOffset(new DateTime(2018, 5, 22, 20, 57, 9, 667, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-html-edit", false, "Html Widget", "HtmlWidget" }
+                    { "SpaceBarWidget", "widget-spacebar-create", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-spacebar-edit", false, "SpaceBar Widget", "SpaceBarWidget" },
+                    { "CarouselWidget", "widget-carousel-create", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-carousel-edit", false, "Carousel Widget", "CarouselWidget" },
+                    { "HtmlWidget", "widget-html-create", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-html-edit", false, "Html Widget", "HtmlWidget" },
+                    { "ProductWidget", "widget-product-create", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 163, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-product-edit", false, "Product Widget", "ProductWidget" },
+                    { "CategoryWidget", "widget-category-create", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 160, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-category-edit", false, "Category Widget", "CategoryWidget" },
+                    { "SimpleProductWidget", "widget-simple-product-create", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 163, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-simple-product-edit", false, "Simple Product Widget", "SimpleProductWidget" }
                 });
 
             migrationBuilder.InsertData(
@@ -2033,12 +2033,17 @@ namespace SimplCommerce.WebHost.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Localization_Culture",
+                columns: new[] { "Id", "IsDefault", "Name" },
+                values: new object[] { "en-US", true, "English (US)" });
+
+            migrationBuilder.InsertData(
                 table: "Payments_PaymentProvider",
                 columns: new[] { "Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "LandingViewComponentName", "Name" },
                 values: new object[,]
                 {
-                    { "PaypalExpress", "{ \"IsSandbox\":true, \"ClientId\":\"\", \"ClientSecret\":\"\" }", "payments-paypalExpress-config", true, "PaypalExpressLanding", "Paypal Express" },
                     { "CoD", null, "payments-cod-config", true, "CoDLanding", "Cash On Delivery" },
+                    { "PaypalExpress", "{ \"IsSandbox\":true, \"ClientId\":\"\", \"ClientSecret\":\"\" }", "payments-paypalExpress-config", true, "PaypalExpressLanding", "Paypal Express" },
                     { "Stripe", "{\"PublicKey\": \"pk_test_6pRNASCoBOKtIshFeQd4XMUh\", \"PrivateKey\" : \"sk_test_BQokikJOvBiI2HlWgH4olfQ2\"}", "payments-stripe-config", true, "StripeLanding", "Stripe" }
                 });
 

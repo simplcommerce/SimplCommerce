@@ -8,7 +8,7 @@ namespace SimplCommerce.Module.Localization.Models
 
         public string Value { get; set; }
 
-        public long CultureId { get; set; }
+        public string CultureId { get; set; }
 
         public Culture Culture { get; set; }
     }

@@ -11,10 +11,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{7EFA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{0A27C140-4CCB-40DD-BE48-F5DE16D1177B}"
 	ProjectSection(SolutionItems) = preProject
-		src\Database\StaticData.sql = src\Database\StaticData.sql
-		src\Database\StaticData_MySql.sql = src\Database\StaticData_MySql.sql
-		src\Database\StaticData_PostgreSQL.sql = src\Database\StaticData_PostgreSQL.sql
-		src\Database\StaticData_SQLite.sql = src\Database\StaticData_SQLite.sql
+		src\Database\Countries.sql = src\Database\Countries.sql
+		src\Database\StaticData-BR.sql = src\Database\StaticData-BR.sql
+		src\Database\StaticData-CN.sql = src\Database\StaticData-CN.sql
+		src\Database\StaticData-ES.sql = src\Database\StaticData-ES.sql
+		src\Database\StaticData-FR.sql = src\Database\StaticData-FR.sql
+		src\Database\StaticData-KR.sql = src\Database\StaticData-KR.sql
+		src\Database\StaticData-RU.sql = src\Database\StaticData-RU.sql
+		src\Database\StaticData-TN.sql = src\Database\StaticData-TN.sql
+		src\Database\StaticData-TR.sql = src\Database\StaticData-TR.sql
+		src\Database\StaticData-UA.sql = src\Database\StaticData-UA.sql
+		src\Database\StaticData-US.sql = src\Database\StaticData-US.sql
+		src\Database\StaticData-VN.sql = src\Database\StaticData-VN.sql
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.WebHost", "src\SimplCommerce.WebHost\SimplCommerce.WebHost.csproj", "{13367B7A-E91C-47EE-BA5E-C50664D65767}"
@@ -95,7 +103,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Paymen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.StorageAzureBlob", "src\Modules\SimplCommerce.Module.StorageAzureBlob\SimplCommerce.Module.StorageAzureBlob.csproj", "{21A7421A-DF8B-4E1C-96A8-1FF7FF8EA6F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.Pricing.Tests", "test\SimplCommerce.Module.Pricing.Tests\SimplCommerce.Module.Pricing.Tests.csproj", "{BF0C0613-B127-4580-8C3E-492BCBC2744E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Pricing.Tests", "test\SimplCommerce.Module.Pricing.Tests\SimplCommerce.Module.Pricing.Tests.csproj", "{BF0C0613-B127-4580-8C3E-492BCBC2744E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -14,12 +14,12 @@ namespace SimplCommerce.Module.Localization.Controllers
     [Route("api/localization")]
     public class LocalizationApiController : Controller
     {
-        private const long STANDARD_CULTURE_ID = 1;
+        private const string STANDARD_CULTURE_ID = "vi-VN";
         private readonly IStringLocalizer _localizer;
         private readonly IRepository<Resource> _resourceRepository;
-        private readonly IRepository<Culture> _cultureRepository;
+        private readonly IRepositoryWithTypedId<Culture, string> _cultureRepository;
 
-        public LocalizationApiController(IStringLocalizerFactory stringLocalizerFactory, IRepository<Resource> resourceRepository, IRepository<Culture> cultureRepository)
+        public LocalizationApiController(IStringLocalizerFactory stringLocalizerFactory, IRepository<Resource> resourceRepository, IRepositoryWithTypedId<Culture, string> cultureRepository)
         {
             _localizer = stringLocalizerFactory.Create(null);
             _resourceRepository = resourceRepository;
@@ -41,7 +41,7 @@ namespace SimplCommerce.Module.Localization.Controllers
         }
 
         [HttpGet("get-resources")]
-        public async Task<IActionResult> GetResources(long cultureId)
+        public async Task<IActionResult> GetResources(string cultureId)
         {
             var resources = await _resourceRepository.Query()
                 .Where(x => x.CultureId == cultureId)
@@ -73,7 +73,7 @@ namespace SimplCommerce.Module.Localization.Controllers
 
         [HttpPost("update-resources")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> UpdateResource(long cultureId, [FromBody] IList<ResourceItemVm> model)
+        public async Task<IActionResult> UpdateResource(string cultureId, [FromBody] IList<ResourceItemVm> model)
         {
             var resources = await _resourceRepository.Query().Where(x => x.CultureId == cultureId).ToListAsync();
 

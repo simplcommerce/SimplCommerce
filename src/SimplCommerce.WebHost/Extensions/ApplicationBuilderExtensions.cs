@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
 using SimplCommerce.Module.Core.Extensions;
-using Microsoft.AspNetCore.Hosting;
+using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Localization.Models;
+using SimplCommerce.Infrastructure;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -69,23 +74,20 @@ namespace SimplCommerce.WebHost.Extensions
 
         public static IApplicationBuilder UseCustomizedRequestLocalization(this IApplicationBuilder app)
         {
-            var supportedCultures = new[]
+            var cultureRepository = app.ApplicationServices.GetRequiredService<IRepositoryWithTypedId<Culture, string>>();
+            var cultures = cultureRepository.Query().ToList();
+
+            GlobalConfiguration.SimpleCultures = cultures.Select(x => new SimpleCulture { Id = x.Id, Name = x.Name }).ToList();
+            var supportedCultures = cultures.Select(x => new CultureInfo(x.Id)).ToList();
+            var defaultCulture = cultures.Where(x => x.IsDefault).Select(x => new CultureInfo(x.Id)).FirstOrDefault();
+            if(defaultCulture == null)
             {
-                new CultureInfo("en-US"),
-                new CultureInfo("vi-VN"),
-                new CultureInfo("fr-FR"),
-                new CultureInfo("pt-BR"),
-                new CultureInfo("uk-UA"),
-                new CultureInfo("ru-RU"),
-                new CultureInfo("ar-TN"),
-                new CultureInfo("ko-KR"),
-                new CultureInfo("tr-TR"),
-                new CultureInfo("es-ES"),
-                new CultureInfo("zh-CN")
-            };
+                defaultCulture = new CultureInfo("en-US");
+            }
+
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
-                DefaultRequestCulture = new RequestCulture("en-US", "en-US"),
+                DefaultRequestCulture = new RequestCulture(defaultCulture, defaultCulture),
                 SupportedCultures = supportedCultures,
                 SupportedUICultures = supportedCultures
             });
