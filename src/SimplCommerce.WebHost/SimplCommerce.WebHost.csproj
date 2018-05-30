@@ -51,9 +51,9 @@
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.1-dev-00767" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
     <PackageReference Include="MediatR" Version="4.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.0-rc1-final" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0-rc1-final" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0-rc1-final" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.2.1" />
   </ItemGroup>
 

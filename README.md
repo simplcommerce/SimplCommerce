@@ -21,7 +21,7 @@ http://demo.simplcommerce.com
 #### Prerequisites
 
 - SQL Server
-- [Visual Studio 2017 version 15.7 with .NET Core SDK 2.1](https://www.microsoft.com/net/core/)
+- [Visual Studio 2017 version 15.7 with .NET Core SDK 2.1](https://www.microsoft.com/net/download/all)
 
 #### Steps to run
 
@@ -38,7 +38,7 @@ http://demo.simplcommerce.com
 
 - PostgreSQL
 - NodeJS
-- [.NET Core SDK 2.1](https://www.microsoft.com/net/core/)
+- [.NET Core SDK 2.1](https://www.microsoft.com/net/download/all)
 
 #### Steps to run
 

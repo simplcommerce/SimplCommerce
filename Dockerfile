@@ -13,7 +13,7 @@ RUN curl -SL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-lin
 WORKDIR /app
 COPY . ./
 
-RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0-rc1-final" />#<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.0-rc1" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
+RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0" />#<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.0-rc1" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
 RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Program.cs
 RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Extensions/ServiceCollectionExtensions.cs
 
