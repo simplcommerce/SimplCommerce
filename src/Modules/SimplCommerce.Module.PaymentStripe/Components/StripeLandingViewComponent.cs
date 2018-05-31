@@ -8,6 +8,7 @@ using SimplCommerce.Module.ShoppingCart.Services;
 using SimplCommerce.Module.PaymentStripe.ViewModels;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Payments.Models;
 using SimplCommerce.Module.PaymentStripe.Models;
 
@@ -44,7 +45,7 @@ namespace SimplCommerce.Module.PaymentStripe.Components
             model.Amount = (int)zeroDecimalAmount;
             model.ISOCurrencyCode = regionInfo.ISOCurrencySymbol;
 
-            return View("/Modules/SimplCommerce.Module.PaymentStripe/Views/Components/StripeLanding.cshtml", model);
+            return View(this.GetViewPath(), model);
         }
     }
 }

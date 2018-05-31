@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Cms.ViewModels;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Core.ViewModels;
@@ -29,7 +30,7 @@ namespace SimplCommerce.Module.Cms.Components
                 item.Image = _mediaService.GetMediaUrl(item.Image);
             }
 
-            return View("/Modules/SimplCommerce.Module.Cms/Views/Components/CarouselWidget.cshtml", model);
+            return View(this.GetViewPath(), model);
         }
     }
 }

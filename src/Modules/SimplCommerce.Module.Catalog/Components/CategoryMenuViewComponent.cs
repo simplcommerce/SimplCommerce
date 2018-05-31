@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.ViewModels;
 
@@ -28,7 +29,7 @@ namespace SimplCommerce.Module.Catalog.Components
                 categoryMenuItems.Add(categoryMenuItem);
             }
 
-            return View("/Modules/SimplCommerce.Module.Catalog/Views/Components/CategoryMenu.cshtml", categoryMenuItems);
+            return View(this.GetViewPath(), categoryMenuItems);
         }
 
         private CategoryMenuItem Map(Category category)

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.ViewModels;
@@ -44,7 +45,7 @@ namespace SimplCommerce.Module.Core.Components
                     .FirstOrDefaultAsync();
             }
 
-            return View("/Modules/SimplCommerce.Module.Core/Views/Components/DefaultShippingAddress.cshtml", model);
+            return View(this.GetViewPath(), model);
         }
     }
 }

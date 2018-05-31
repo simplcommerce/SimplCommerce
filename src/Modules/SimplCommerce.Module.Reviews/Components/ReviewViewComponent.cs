@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Reviews.Models;
 using SimplCommerce.Module.Reviews.ViewModels;
 
@@ -46,7 +47,7 @@ namespace SimplCommerce.Module.Reviews.Components
             model.Rating4Count = model.Items.Count(x => x.Rating == 4);
             model.Rating5Count = model.Items.Count(x => x.Rating == 5);
 
-            return View("/Modules/SimplCommerce.Module.Reviews/Views/Components/Review.cshtml", model);
+            return View(this.GetViewPath(), model);
         }
     }
 }

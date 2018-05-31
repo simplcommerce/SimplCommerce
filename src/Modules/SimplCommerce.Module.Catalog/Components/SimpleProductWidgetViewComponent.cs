@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Catalog.ViewModels;
@@ -45,7 +46,7 @@ namespace SimplCommerce.Module.Catalog.Components
                 }
             }
 
-            return View("/Modules/SimplCommerce.Module.Catalog/Views/Components/SimpleProductWidget.cshtml", model);
+            return View(this.GetViewPath(), model);
         }
     }
 }

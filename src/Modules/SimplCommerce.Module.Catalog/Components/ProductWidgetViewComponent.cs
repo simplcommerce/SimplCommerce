@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Catalog.ViewModels;
@@ -58,7 +59,7 @@ namespace SimplCommerce.Module.Catalog.Components
                 product.CalculatedProductPrice = _productPricingService.CalculateProductPrice(product);
             }
 
-            return View("/Modules/SimplCommerce.Module.Catalog/Views/Components/ProductWidget.cshtml", model);
+            return View(this.GetViewPath(), model);
         }
     }
 }

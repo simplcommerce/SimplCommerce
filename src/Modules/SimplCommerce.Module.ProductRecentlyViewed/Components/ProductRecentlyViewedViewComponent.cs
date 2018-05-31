@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Services;
@@ -45,7 +46,7 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Components
                 product.CalculatedProductPrice = _productPricingService.CalculateProductPrice(product);
             }
 
-            return View("/Modules/SimplCommerce.Module.ProductRecentlyViewed/Views/Components/ProductRecentlyViewed.cshtml", model);
+            return View(this.GetViewPath(), model);
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Search.ViewModels;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace SimplCommerce.Module.Search.Components
 {
@@ -31,7 +32,7 @@ namespace SimplCommerce.Module.Search.Components
             model.Query = Request.Query["query"];
             model.Category = Request.Query["category"];
 
-            return View("/Modules/SimplCommerce.Module.Search/Views/Components/SearchForm.cshtml", model);
+            return View(this.GetViewPath(), model);
         }
     }
 }
