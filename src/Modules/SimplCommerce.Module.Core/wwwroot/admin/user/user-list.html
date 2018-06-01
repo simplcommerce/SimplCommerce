@@ -32,16 +32,25 @@
             </th>
             <th>
                 <div class="form-group">
-                    <input class="form-control" st-search="Role" />
+                    <select class="form-control" st-search="RoleId">
+                        <option value="">{{::vm.translate.get('All')}}</option>
+                        <option ng-repeat="role in vm.roles" value="{{role.id}}">{{role.name}}</option>
+                    </select>
                 </div>
             </th>
             <th>
                 <div class="form-group">
-                    <input class="form-control" st-search="CustomerGroup" />
+                    <select class="form-control" st-search="CustomerGroupId">
+                        <option value="">{{::vm.translate.get('All')}}</option>
+                        <option ng-repeat="group in vm.customerGroups" value="{{group.id}}">{{group.name}}</option>
+                    </select>
                 </div>
             </th>
             <th><st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range></th>
             <th></th>
+        </tr>
+        <tr>
+            <th ng-show="!vm.isLoading" colspan="6">{{vm.tableStateRef.pagination.totalItemCount | number:0}} records found</th>
         </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">
@@ -59,12 +68,12 @@
     </tbody>
     <tbody ng-show="vm.isLoading">
         <tr>
-            <td colspan="5" class="text-center">Loading ... </td>
+            <td colspan="6" class="text-center">Loading ... </td>
         </tr>
     </tbody>
     <tfoot>
         <tr>
-            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="5"></td>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="6"></td>
         </tr>
     </tfoot>
 </table>	

@@ -51,16 +51,16 @@ namespace SimplCommerce.Module.Core.Controllers
                     query = query.Where(x => x.FullName.Contains(fullName));
                 }
 
-                if (search.Role != null)
+                if (search.RoleId != null)
                 {
-                    string roleName = search.Role;
-                    query = query.Where(x => x.Roles.Any(r => r.Role.Name.Contains(roleName)));
+                    long roleId = search.RoleId;
+                    query = query.Where(x => x.Roles.Any(r => r.RoleId == roleId));
                 }
 
-                if (search.CustomerGroup != null)
+                if (search.CustomerGroupId != null)
                 {
-                    string customerGroupName = search.CustomerGroup;
-                    query = query.Where(x => x.CustomerGroups.Any(g => g.CustomerGroup.Name.Contains(customerGroupName)));
+                    long customerGroupId = search.CustomerGroupId;
+                    query = query.Where(x => x.CustomerGroups.Any(g => g.CustomerGroupId == customerGroupId));
                 }
 
                 if (search.CreatedOn != null)
