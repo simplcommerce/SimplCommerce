@@ -13,6 +13,12 @@ namespace SimplCommerce.Module.ShippingTableRate.Models
 
         public long? StateOrProvinceId { get; set; }
 
+        public District District { get; set; }
+
+        public long? DistrictId { get; set; }
+
+        public string ZipCode { get; set; }
+
         public string Note { get; set; }
 
         public decimal MinOrderSubtotal { get; set; }

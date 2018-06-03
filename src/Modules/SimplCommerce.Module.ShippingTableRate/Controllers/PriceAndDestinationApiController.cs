@@ -30,6 +30,9 @@ namespace SimplCommerce.Module.ShippingTableRate.Controllers
                     CountryName = x.Country.Name,
                     StateOrProvinceId = x.StateOrProvinceId,
                     StateOrProvinceName = x.StateOrProvince.Name,
+                    DistrictId = x.DistrictId,
+                    DistrictName = x.District.Name,
+                    ZipCode = x.ZipCode,
                     MinOrderSubtotal = x.MinOrderSubtotal,
                     ShippingPrice = x.ShippingPrice,
                     Note = x.Note
@@ -48,6 +51,9 @@ namespace SimplCommerce.Module.ShippingTableRate.Controllers
                 CountryName = x.Country.Name,
                 StateOrProvinceId = x.StateOrProvinceId,
                 StateOrProvinceName = x.StateOrProvince.Name,
+                DistrictId = x.DistrictId,
+                DistrictName = x.District.Name,
+                ZipCode = x.ZipCode,
                 MinOrderSubtotal = x.MinOrderSubtotal,
                 ShippingPrice = x.ShippingPrice,
                 Note = x.Note
@@ -64,6 +70,8 @@ namespace SimplCommerce.Module.ShippingTableRate.Controllers
                 {
                     CountryId = model.CountryId,
                     StateOrProvinceId = model.StateOrProvinceId,
+                    DistrictId = model.DistrictId,
+                    ZipCode = model.ZipCode,
                     MinOrderSubtotal = model.MinOrderSubtotal,
                     ShippingPrice = model.ShippingPrice,
                     Note = model.Note
@@ -90,6 +98,8 @@ namespace SimplCommerce.Module.ShippingTableRate.Controllers
 
                 priceAndDestination.CountryId = model.CountryId;
                 priceAndDestination.StateOrProvinceId = model.StateOrProvinceId;
+                priceAndDestination.DistrictId = model.DistrictId;
+                priceAndDestination.ZipCode = model.ZipCode;
                 priceAndDestination.ShippingPrice = model.ShippingPrice;
                 priceAndDestination.MinOrderSubtotal = model.MinOrderSubtotal;
                 priceAndDestination.Note = model.Note;

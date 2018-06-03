@@ -10,14 +10,14 @@ using SimplCommerce.Module.Core.Data;
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    [Migration("20180528213339_SimplCommerce_1_0_0_RC")]
+    [Migration("20180603060406_SimplCommerce_1_0_0_RC")]
     partial class SimplCommerce_1_0_0_RC
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.0-rc1-32029")
+                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -1911,10 +1911,10 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ShippingProvider");
+                    b.ToTable("Shipping_ShippingProvider");
 
                     b.HasData(
-                        new { Id = "FreeShip", AdditionalSettings = "{MinimumOrderAmount : 100}", ConfigureUrl = "shipping-free-config", IsEnabled = true, Name = "Free Ship", ShippingPriceServiceTypeName = "SimplCommerce.Module.ShippingFree.Services.FreeShippingServiceProvider,SimplCommerce.Module.ShippingFree", ToAllShippingEnabledCountries = true, ToAllShippingEnabledStatesOrProvinces = true },
+                        new { Id = "FreeShip", AdditionalSettings = "{MinimumOrderAmount : 100}", ConfigureUrl = "", IsEnabled = true, Name = "Free Ship", ShippingPriceServiceTypeName = "SimplCommerce.Module.ShippingFree.Services.FreeShippingServiceProvider,SimplCommerce.Module.ShippingFree", ToAllShippingEnabledCountries = true, ToAllShippingEnabledStatesOrProvinces = true },
                         new { Id = "TableRate", ConfigureUrl = "shipping-table-rate-config", IsEnabled = true, Name = "Table Rate", ShippingPriceServiceTypeName = "SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingServiceProvider,SimplCommerce.Module.ShippingTableRate", ToAllShippingEnabledCountries = true, ToAllShippingEnabledStatesOrProvinces = true }
                     );
                 });
@@ -1927,6 +1927,8 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("CountryId");
 
+                    b.Property<long?>("DistrictId");
+
                     b.Property<decimal>("MinOrderSubtotal");
 
                     b.Property<string>("Note");
@@ -1935,9 +1937,13 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<long?>("StateOrProvinceId");
 
+                    b.Property<string>("ZipCode");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
+
+                    b.HasIndex("DistrictId");
 
                     b.HasIndex("StateOrProvinceId");
 
@@ -2670,6 +2676,11 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasOne("SimplCommerce.Module.Core.Models.Country", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SimplCommerce.Module.Core.Models.District", "District")
+                        .WithMany()
+                        .HasForeignKey("DistrictId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("SimplCommerce.Module.Core.Models.StateOrProvince", "StateOrProvince")

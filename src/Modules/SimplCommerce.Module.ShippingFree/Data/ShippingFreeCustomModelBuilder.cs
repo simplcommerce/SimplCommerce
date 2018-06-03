@@ -8,7 +8,7 @@ namespace SimplCommerce.Module.ShippingFree.Data
     {
         public void Build(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ShippingProvider>().HasData(new ShippingProvider("FreeShip") { Name = "Free Ship", IsEnabled = true, ConfigureUrl = "shipping-free-config", ShippingPriceServiceTypeName = "SimplCommerce.Module.ShippingFree.Services.FreeShippingServiceProvider,SimplCommerce.Module.ShippingFree", AdditionalSettings = "{MinimumOrderAmount : 100}", ToAllShippingEnabledCountries = true, ToAllShippingEnabledStatesOrProvinces = true });
+            modelBuilder.Entity<ShippingProvider>().HasData(new ShippingProvider("FreeShip") { Name = "Free Ship", IsEnabled = true, ConfigureUrl = "", ShippingPriceServiceTypeName = "SimplCommerce.Module.ShippingFree.Services.FreeShippingServiceProvider,SimplCommerce.Module.ShippingFree", AdditionalSettings = "{MinimumOrderAmount : 100}", ToAllShippingEnabledCountries = true, ToAllShippingEnabledStatesOrProvinces = true });
         }
     }
 }
