@@ -10,7 +10,7 @@ namespace SimplCommerce.Module.Core.Data
         {
             builder.Entity<AppSetting>().HasData(
                 new AppSetting("Global.AssetVersion") { Module = "Core", IsVisibleInCommonSettingPage = true, Value = "1.0" },
-                new AppSetting("Theme") { Module = "Core", IsVisibleInCommonSettingPage = true, Value = "Generic" }
+                new AppSetting("Theme") { Module = "Core", IsVisibleInCommonSettingPage = false, Value = "Generic" }
             );
 
             builder.Entity<EntityType>().HasData(

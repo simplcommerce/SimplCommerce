@@ -1967,7 +1967,7 @@ namespace SimplCommerce.WebHost.Migrations
                     { "SmtpUsername", false, "EmailSenderSmpt", "" },
                     { "SmtpPort", false, "EmailSenderSmpt", "587" },
                     { "SmtpServer", false, "EmailSenderSmpt", "smtp.gmail.com" },
-                    { "Theme", true, "Core", "Generic" },
+                    { "Theme", false, "Core", "Generic" },
                     { "Global.AssetVersion", true, "Core", "1.0" },
                     { "GoogleAppKey", false, "Contact", "" },
                     { "Catalog.IsProductPriceIncludeTax", true, "Catalog", "true" },

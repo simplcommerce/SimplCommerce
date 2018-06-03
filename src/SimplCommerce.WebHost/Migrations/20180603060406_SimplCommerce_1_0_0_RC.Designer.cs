@@ -722,7 +722,7 @@ namespace SimplCommerce.WebHost.Migrations
                         new { Id = "Catalog.IsProductPriceIncludeTax", IsVisibleInCommonSettingPage = true, Module = "Catalog", Value = "true" },
                         new { Id = "GoogleAppKey", IsVisibleInCommonSettingPage = false, Module = "Contact", Value = "" },
                         new { Id = "Global.AssetVersion", IsVisibleInCommonSettingPage = true, Module = "Core", Value = "1.0" },
-                        new { Id = "Theme", IsVisibleInCommonSettingPage = true, Module = "Core", Value = "Generic" },
+                        new { Id = "Theme", IsVisibleInCommonSettingPage = false, Module = "Core", Value = "Generic" },
                         new { Id = "SmtpServer", IsVisibleInCommonSettingPage = false, Module = "EmailSenderSmpt", Value = "smtp.gmail.com" },
                         new { Id = "SmtpPort", IsVisibleInCommonSettingPage = false, Module = "EmailSenderSmpt", Value = "587" },
                         new { Id = "SmtpUsername", IsVisibleInCommonSettingPage = false, Module = "EmailSenderSmpt", Value = "" },
