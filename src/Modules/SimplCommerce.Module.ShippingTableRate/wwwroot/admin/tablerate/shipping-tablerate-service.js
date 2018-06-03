@@ -7,19 +7,16 @@
     /* @ngInject */
     function shippingTableRateService($http) {
         var service = {
-            updateSetting: updateSetting,
             getPricesAndDestinations: getPricesAndDestinations,
             getCountries: getCountries,
             getStatesOrProvinces: getStatesOrProvinces,
+            getDistricts: getDistricts,
             addPriceAndDestination: addPriceAndDestination,
             updatePriceAndDestination: updatePriceAndDestination,
             deletePriceAndDestination: deletePriceAndDestination
         };
         return service;
 
-        function updateSetting(settings) {
-            return $http.post('api/shippings/tablerate/setting', settings);
-        }
 
         function getPricesAndDestinations() {
             return $http.get('api/shippings/table-rate/price-destinations');
@@ -31,6 +28,10 @@
 
         function getStatesOrProvinces(countryId) {
             return $http.get('api/countries/' + countryId + '/states-provinces');
+        }
+
+        function getDistricts(stateOrProvinceId) {
+            return $http.get('/api/states-provinces/' + stateOrProvinceId + '/districts');
         }
 
         function addPriceAndDestination(priceAndDestination) {

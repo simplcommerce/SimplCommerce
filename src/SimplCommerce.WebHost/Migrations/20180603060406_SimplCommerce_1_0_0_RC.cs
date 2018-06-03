@@ -377,7 +377,7 @@ namespace SimplCommerce.WebHost.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShippingProvider",
+                name: "Shipping_ShippingProvider",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -393,7 +393,7 @@ namespace SimplCommerce.WebHost.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ShippingProvider", x => x.Id);
+                    table.PrimaryKey("PK_Shipping_ShippingProvider", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -750,35 +750,6 @@ namespace SimplCommerce.WebHost.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShippingTableRate_PriceAndDestination",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CountryId = table.Column<string>(nullable: true),
-                    StateOrProvinceId = table.Column<long>(nullable: true),
-                    Note = table.Column<string>(nullable: true),
-                    MinOrderSubtotal = table.Column<decimal>(nullable: false),
-                    ShippingPrice = table.Column<decimal>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ShippingTableRate_PriceAndDestination", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ShippingTableRate_PriceAndDestination_Core_Country_CountryId",
-                        column: x => x.CountryId,
-                        principalTable: "Core_Country",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ShippingTableRate_PriceAndDestination_Core_StateOrProvince_StateOrProvinceId",
-                        column: x => x.StateOrProvinceId,
-                        principalTable: "Core_StateOrProvince",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Tax_TaxRate",
                 columns: table => new
                 {
@@ -946,6 +917,43 @@ namespace SimplCommerce.WebHost.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Orders_OrderAddress_Core_StateOrProvince_StateOrProvinceId",
+                        column: x => x.StateOrProvinceId,
+                        principalTable: "Core_StateOrProvince",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShippingTableRate_PriceAndDestination",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CountryId = table.Column<string>(nullable: true),
+                    StateOrProvinceId = table.Column<long>(nullable: true),
+                    DistrictId = table.Column<long>(nullable: true),
+                    ZipCode = table.Column<string>(nullable: true),
+                    Note = table.Column<string>(nullable: true),
+                    MinOrderSubtotal = table.Column<decimal>(nullable: false),
+                    ShippingPrice = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShippingTableRate_PriceAndDestination", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ShippingTableRate_PriceAndDestination_Core_Country_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "Core_Country",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ShippingTableRate_PriceAndDestination_Core_District_DistrictId",
+                        column: x => x.DistrictId,
+                        principalTable: "Core_District",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ShippingTableRate_PriceAndDestination_Core_StateOrProvince_StateOrProvinceId",
                         column: x => x.StateOrProvinceId,
                         principalTable: "Core_StateOrProvince",
                         principalColumn: "Id",
@@ -2048,12 +2056,12 @@ namespace SimplCommerce.WebHost.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "ShippingProvider",
+                table: "Shipping_ShippingProvider",
                 columns: new[] { "Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces" },
                 values: new object[,]
                 {
                     { "TableRate", null, "shipping-table-rate-config", true, "Table Rate", null, null, "SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingServiceProvider,SimplCommerce.Module.ShippingTableRate", true, true },
-                    { "FreeShip", "{MinimumOrderAmount : 100}", "shipping-free-config", true, "Free Ship", null, null, "SimplCommerce.Module.ShippingFree.Services.FreeShippingServiceProvider,SimplCommerce.Module.ShippingFree", true, true }
+                    { "FreeShip", "{MinimumOrderAmount : 100}", "", true, "Free Ship", null, null, "SimplCommerce.Module.ShippingFree.Services.FreeShippingServiceProvider,SimplCommerce.Module.ShippingFree", true, true }
                 });
 
             migrationBuilder.InsertData(
@@ -2553,6 +2561,11 @@ namespace SimplCommerce.WebHost.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ShippingTableRate_PriceAndDestination_DistrictId",
+                table: "ShippingTableRate_PriceAndDestination",
+                column: "DistrictId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ShippingTableRate_PriceAndDestination_StateOrProvinceId",
                 table: "ShippingTableRate_PriceAndDestination",
                 column: "StateOrProvinceId");
@@ -2773,7 +2786,7 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Shipments_ShipmentItem");
 
             migrationBuilder.DropTable(
-                name: "ShippingProvider");
+                name: "Shipping_ShippingProvider");
 
             migrationBuilder.DropTable(
                 name: "ShippingTableRate_PriceAndDestination");

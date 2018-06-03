@@ -773,14 +773,6 @@ INSERT INTO Core_District (Id, Name, [Type], [Location], StateOrProvinceId) VALU
 SET IDENTITY_INSERT Core_District OFF 
 GO
 
-
-SET IDENTITY_INSERT [dbo].[ShippingTableRate_PriceAndDestination] ON 
-INSERT [dbo].[ShippingTableRate_PriceAndDestination] ([Id], [CountryId], [MinOrderSubtotal], [ShippingPrice], [StateOrProvinceId]) VALUES ('TableRate', 238, CAST(0.00 AS Decimal(18, 2)), CAST(7.00 AS Decimal(18, 2)), 92)
-INSERT [dbo].[ShippingTableRate_PriceAndDestination] ([Id], [CountryId], [MinOrderSubtotal], [ShippingPrice], [StateOrProvinceId]) VALUES ('TableRate', 238, CAST(100.00 AS Decimal(18, 2)), CAST(3.00 AS Decimal(18, 2)), 92)
-SET IDENTITY_INSERT [dbo].[ShippingTableRate_PriceAndDestination] OFF
-GO
-
-
 SET IDENTITY_INSERT [dbo].[ShippingTableRate_PriceAndDestination] ON 
 INSERT [dbo].[ShippingTableRate_PriceAndDestination] ([Id], [CountryId], [MinOrderSubtotal], [ShippingPrice], [StateOrProvinceId]) VALUES (1, 'VN', CAST(0.00 AS Decimal(18, 2)), CAST(7.00 AS Decimal(18, 2)), 92)
 INSERT [dbo].[ShippingTableRate_PriceAndDestination] ([Id], [CountryId], [MinOrderSubtotal], [ShippingPrice], [StateOrProvinceId]) VALUES (2, 'VN', CAST(100.00 AS Decimal(18, 2)), CAST(3.00 AS Decimal(18, 2)), 92)

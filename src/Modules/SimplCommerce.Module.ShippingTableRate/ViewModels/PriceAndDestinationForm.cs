@@ -12,6 +12,12 @@
 
         public string StateOrProvinceName { get; set; }
 
+        public long? DistrictId { get; set; }
+
+        public string DistrictName { get; set; }
+
+        public string ZipCode { get; set; }
+
         public string Note { get; set; }
 
         public decimal MinOrderSubtotal { get; set; }

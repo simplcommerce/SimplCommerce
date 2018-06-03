@@ -105,7 +105,9 @@ namespace SimplCommerce.Module.Orders.Controllers
                 {
                     CountryId = model.NewShippingAddress.CountryId,
                     StateOrProvinceId = model.NewShippingAddress.StateOrProvinceId,
-                    AddressLine1 = model.NewShippingAddress.AddressLine1
+                    DistrictId = model.NewShippingAddress.DistrictId,
+                    ZipCode = model.NewShippingAddress.ZipCode,
+                    AddressLine1 = model.NewShippingAddress.AddressLine1,
                 };
             }
 
@@ -158,9 +160,9 @@ namespace SimplCommerce.Module.Orders.Controllers
                     DistrictName = x.Address.District.Name,
                     StateOrProvinceName = x.Address.StateOrProvince.Name,
                     CountryName = x.Address.Country.Name,
-                    DisplayCity = x.Address.Country.IsCityEnabled,
-                    DisplayZipCode = x.Address.Country.IsZipCodeEnabled,
-                    DisplayDistrict = x.Address.Country.IsDistrictEnabled
+                    IsCityEnabled = x.Address.Country.IsCityEnabled,
+                    IsZipCodeEnabled = x.Address.Country.IsZipCodeEnabled,
+                    IsDistrictEnabled = x.Address.Country.IsDistrictEnabled
                 }).ToList();
 
             model.ShippingAddressId = currentUser.DefaultShippingAddressId ?? 0;

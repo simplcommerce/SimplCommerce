@@ -3,34 +3,14 @@
         <h2>{{::vm.translate.get('Shipping - Table Rate Configuration')}}</h2>
     </div>
     <div class="panel-body">
-        <form name="pageForm" class="form-horizontal">
-            <div class="col-sm-offset-2 bg-danger" ng-show="vm.validationErrors">
-                <ul>
-                    <li ng-repeat="error in vm.validationErrors">{{error}}</li>
-                </ul>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" ng-model="vm.product.isOutOfStock">{{::vm.translate.get('Enabled')}}
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span>{{::vm.translate.get('Save')}}</button>
-                    <button ui-sref="shipping-providers" class="btn btn-default">{{::vm.translate.get('Back')}}</button>
-                </div>
-            </div>
-        </form>
         <h4>Price and Destination configuration</h4>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>{{::vm.translate.get('Country')}}</th>
                     <th>{{::vm.translate.get('State/Province')}}</th>
+                    <th>{{::vm.translate.get('District')}}</th>
+                    <th>{{::vm.translate.get('ZipCode')}}</th>
                     <th class="text-right">{{::vm.translate.get('Minimum Order Amount')}}</th>
                     <th class="text-right">{{::vm.translate.get('Shipping Price')}}</th>
                     <th>{{::vm.translate.get('Note')}}</th>
@@ -41,6 +21,8 @@
                 <tr ng-repeat-start="priceAndDestination in vm.pricesAndDestinations">
                     <td>{{priceAndDestination.countryName || 'All shipping enabled countries'}}</td>
                     <td>{{priceAndDestination.stateOrProvinceName || 'All states/provinces'}}</td>
+                    <td>{{priceAndDestination.districtName || 'All districts'}}</td>
+                    <td>{{priceAndDestination.zipCode}}</td>
                     <td class="text-right">{{priceAndDestination.minOrderSubtotal | number}}</td>
                     <td class="text-right">{{priceAndDestination.shippingPrice | number}}</td>
                     <td>{{priceAndDestination.note}}</td>
@@ -57,16 +39,25 @@
                         </select>
                     </td>
                     <td>
-                        <select class="form-control" ng-init="" ng-model="priceAndDestination.stateOrProvinceId"
+                        <select class="form-control" ng-change="vm.onStateOrProvinceSelected(priceAndDestination.stateOrProvinceId)" ng-model="priceAndDestination.stateOrProvinceId"
                                 ng-options="item.id as item.name for item in vm.statesOrProvinces">
                             <option value="">All States/Provinces</option>
                         </select>
                     </td>
                     <td>
+                        <select class="form-control" ng-model="priceAndDestination.districtId"
+                                ng-options="item.id as item.name for item in vm.districts">
+                            <option value="">All Districts</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" ng-model="priceAndDestination.zipCode" />
+                    </td>
+                    <td>
                         <div class="input-number">
                             <input id="orderAmount_{{priceAndDestination.id}}" type="text" decimal maxlength="10" ng-model="priceAndDestination.minOrderSubtotal" class="form-control" />
                             <label for="orderAmount_{{priceAndDestination.id}}" class="form-control">{{priceAndDestination.minOrderSubtotal | number}}</label>
-                         </div>
+                        </div>
                     </td>
                     <td>
                         <div class="input-number">
@@ -90,10 +81,19 @@
                         </select>
                     </td>
                     <td>
-                        <select class="form-control" ng-init="" ng-model="vm.addingPriceAndDestination.stateOrProvinceId"
+                        <select class="form-control" ng-change="vm.onStateOrProvinceSelected(vm.addingPriceAndDestination.stateOrProvinceId)" ng-model="vm.addingPriceAndDestination.stateOrProvinceId"
                                 ng-options="item.id as item.name for item in vm.statesOrProvinces">
                             <option value="">All States/Provinces</option>
                         </select>
+                    </td>
+                    <td>
+                        <select class="form-control" ng-model="vm.addingPriceAndDestination.districtId"
+                                ng-options="item.id as item.name for item in vm.districts">
+                            <option value="">All Districts</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" ng-model="vm.addingPriceAndDestination.zipCode" />
                     </td>
                     <td>
                         <div class="input-number">
@@ -111,7 +111,7 @@
                         <input ng-model="vm.addingPriceAndDestination.note" class="form-control" />
                     </td>
                     <td>
-                        <button ng-click="vm.addPriceAndDestination()"title="Add" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-plus"></span></button>
+                        <button ng-click="vm.addPriceAndDestination()" title="Add" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-plus"></span></button>
                     </td>
                 </tr>
             </tbody>
