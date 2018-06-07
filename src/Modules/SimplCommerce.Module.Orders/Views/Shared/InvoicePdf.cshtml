@@ -1,0 +1,109 @@
+﻿@using SimplCommerce.Module.Orders.ViewModels;
+
+@model OrderDetailVm
+
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Invoice - SimplCommerce</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 text-center">
+                <h2>SimplCommerce</h2>
+                <p>Address: 364 Cong Hoa, Tan Binh, HCMC, Vietnam</p>
+                <p>Phone: 000000000</p>
+                <hr />
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row mt-4">
+            <div class="col text-center">
+                <h2>INVOICE</h2>
+                <p>Date: @Model.CreatedOn</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p>Customer: @Model.CustomerName</p>
+                <p>
+                    Address: @Model.ShippingAddress.AddressLine1, @Model.ShippingAddress.DistrictName @Model.ShippingAddress.StateOrProvinceName
+                </p>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th class="text-right">Quantity</th>
+                            <th class="text-right">Price</th>
+                            <th class="text-right">Amount</th>
+                            <th class="text-right">VAT rate</th>
+                            <th class="text-right">VAT Included Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderItems)
+                        {
+                            <tr>
+                                <td>
+                                    @item.ProductName
+                                    @foreach (var opt in item.VariationOptions)
+                                    {
+                                        <span>@opt.OptionName: @opt.Value</span>
+                                    }
+                                </td>
+                                <td class="text-right">@item.Quantity</td>
+                                <td class="text-right">@item.ProductPriceString</td>
+                                <td class="text-right">@item.TotalString</td>
+                                <td class="text-right">@item.TaxPercent</td>
+                                <td class="text-right">@((item.Total + item.TaxAmount).ToString("C"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row justify-content-end">
+            <div class="col-6" style="float:right">
+                <table class="table">
+                    <tr>
+                        <td>Subtotal</td>
+                        <td class="text-right">@Model.SubtotalString</td>
+                    </tr>
+                    <tr>
+                        <td>Shipping</td>
+                        <td class="text-right">@Model.ShippingAmountString</td>
+                    </tr>
+                    <tr>
+                        <td>Tax</td>
+                        <td class="text-right">@Model.TaxAmountString</td>
+                    </tr>
+                    <tr>
+                        <td>Discount</td>
+                        <td class="text-right">@Model.DiscountAmountString</td>
+                    </tr>
+                    <tr>
+                        <td>Payment Fee</td>
+                        <td class="text-right">@Model.PaymentFeeAmountString</td>
+                    </tr>
+                    <tr>
+                        <td>Order Total</td>
+                        <td class="text-right"><strong>@Model.OrderTotalString</strong></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
