@@ -1,4 +1,13 @@
-﻿<h2>{{::vm.translate.get('Order Details')}}: #{{vm.order.id}}</h2>
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{::vm.translate.get('Order Details')}}: #{{vm.order.id}}</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <a href="/api/invoices/print/{{vm.order.id}}" target="_blank" class="btn btn-info"><span class="glyphicon glyphicon-download-alt"></span> {{::vm.translate.get('Download Invoice')}}</a>
+        </div>
+    </div>
+</div>
 
 <div class="panel panel-default">
     <div class="panel-heading">
