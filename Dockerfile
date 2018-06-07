@@ -40,6 +40,7 @@ RUN mkdir -p /usr/share/man/man1 \
 
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends postgresql-client \
+	&& apt-get install libgdiplus -y \
 	&& rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app	
