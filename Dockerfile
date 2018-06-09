@@ -20,10 +20,6 @@ RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Extensions/Serv
 RUN rm src/SimplCommerce.WebHost/Migrations/* && cp -f src/SimplCommerce.WebHost/appsettings.docker.json src/SimplCommerce.WebHost/appsettings.json
 RUN dotnet restore && dotnet build -c Release
 RUN cd src/SimplCommerce.WebHost \
-    && sed -i 's/Debug/Release/' gulpfile.js \
-	&& npm install \
-	&& npm install --global gulp-cli \
-	&& gulp copy-modules \
 	&& dotnet ef migrations add initialSchema \
 	&& dotnet ef migrations script -o dbscript.sql \
 	&& dotnet publish -c Release -o out
