@@ -18,6 +18,8 @@ notifications:
 
 before_script:
   - dotnet restore
+  - cd src/SimplCommerce.WebHost
+  - npm install
 
 script:
   - dotnet build ./SimplCommerce.sln
