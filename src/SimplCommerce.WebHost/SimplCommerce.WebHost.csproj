@@ -58,7 +58,7 @@
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.2.1" />
   </ItemGroup>
 
-  <Target Name="RestoreNpmPackage" AfterTargets="CollectPackageReferences">
+  <Target Name="RestoreNpmPackage" AfterTargets="CollectPackageReferences" Condition="!Exists('node_modules') ">
     <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
     <Exec WorkingDirectory="." Command="npm install" />
   </Target>
