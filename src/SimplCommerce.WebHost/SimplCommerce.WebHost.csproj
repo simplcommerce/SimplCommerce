@@ -58,10 +58,11 @@
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.2.1" />
   </ItemGroup>
 
-  <Target Name="RestoreNpmPackage" AfterTargets="Restore">
+  <Target Name="RestoreNpmPackage" AfterTargets="CollectPackageReferences">
     <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
     <Exec WorkingDirectory="." Command="npm install" />
   </Target>
+
   <Target Name="CopyModules" AfterTargets="Build">
     <Exec WorkingDirectory="." Command="npm run gulp-copy-modules -- --configurationName $(ConfigurationName)" />
   </Target>
