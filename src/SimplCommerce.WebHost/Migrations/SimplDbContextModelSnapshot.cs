@@ -2031,8 +2031,6 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("CountryId");
 
-                    b.Property<string>("Name");
-
                     b.Property<decimal>("Rate");
 
                     b.Property<long?>("StateOrProvinceId");
