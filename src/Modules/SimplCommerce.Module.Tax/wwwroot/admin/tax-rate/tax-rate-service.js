@@ -5,10 +5,11 @@
         .factory('taxRateService', taxRateService);
 
     /* @ngInject */
-    function taxRateService($http) {
+    function taxRateService($http, Upload) {
         var service = {
             getTaxRate: getTaxRate,
             createTaxRate: createTaxRate,
+            importTaxRates: importTaxRates,
             editTaxRate: editTaxRate,
             deleteTaxRate: deleteTaxRate,
             getTaxRates: getTaxRates,
@@ -27,6 +28,13 @@
 
         function createTaxRate(taxRate) {
             return $http.post('api/tax-rates', taxRate);
+        }
+
+        function importTaxRates(taxRateImport) {
+            return Upload.upload({
+                url: 'api/tax-rates/import',
+                data: taxRateImport
+            });
         }
 
         function editTaxRate(taxRate) {
