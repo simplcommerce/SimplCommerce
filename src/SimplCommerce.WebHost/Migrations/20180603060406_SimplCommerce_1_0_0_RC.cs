@@ -755,7 +755,6 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
                     TaxClassId = table.Column<long>(nullable: false),
                     CountryId = table.Column<string>(nullable: true),
                     StateOrProvinceId = table.Column<long>(nullable: true),

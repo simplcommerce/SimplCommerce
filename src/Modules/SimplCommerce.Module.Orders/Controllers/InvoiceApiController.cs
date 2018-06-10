@@ -96,7 +96,7 @@ namespace SimplCommerce.Module.Orders.Controllers
 
             var invoiceHtml = await _viewRender.RenderViewToStringAsync("/Modules/SimplCommerce.Module.Orders/Views/Shared/InvoicePdf.cshtml", model);
             byte[] pdf = _pdfConverter.Convert(invoiceHtml);
-            return new FileContentResult(pdf, "application/pdf");
+            return File(pdf, "application/pdf", $"Invoice-{id}.pdf");
         }
     }
 }
