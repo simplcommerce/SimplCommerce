@@ -166,18 +166,20 @@ namespace SimplCommerce.Module.Orders.Services
                 }
 
                 var taxPercent = await _taxService.GetTaxPercent(cartItem.Product.TaxClassId, shippingAddress.CountryId, shippingAddress.StateOrProvinceId, shippingAddress.ZipCode);
+                var productPrice = cartItem.Product.Price;
+                if (cart.IsProductPriceIncludeTax)
+                {
+                    productPrice = productPrice / (1 + (taxPercent / 100));
+                }
+
                 var orderItem = new OrderItem
                 {
                     Product = cartItem.Product,
-                    ProductPrice = cartItem.Product.Price,
+                    ProductPrice = productPrice,
                     Quantity = cartItem.Quantity,
                     TaxPercent = taxPercent,
-                    TaxAmount = cartItem.Quantity * (cartItem.Product.Price * taxPercent / 100)
+                    TaxAmount = cartItem.Quantity * (productPrice * taxPercent / 100)
                 };
-                if (cart.IsProductPriceIncludeTax)
-                {
-                    orderItem.ProductPrice = orderItem.ProductPrice - orderItem.TaxAmount;
-                }
 
                 var discountedItem = checkingDiscountResult.DiscountedProducts.FirstOrDefault(x => x.Id == cartItem.ProductId);
                 if(discountedItem != null)
@@ -219,13 +221,19 @@ namespace SimplCommerce.Module.Orders.Services
                 foreach (var cartItem in cart.Items.Where(x => x.Product.VendorId == vendorId))
                 {
                     var taxPercent = await _taxService.GetTaxPercent(cartItem.Product.TaxClassId, shippingAddress.CountryId, shippingAddress.StateOrProvinceId, shippingAddress.ZipCode);
+                    var productPrice = cartItem.Product.Price;
+                    if (cart.IsProductPriceIncludeTax)
+                    {
+                        productPrice = productPrice / (1 + (taxPercent / 100));
+                    }
+
                     var orderItem = new OrderItem
                     {
                         Product = cartItem.Product,
-                        ProductPrice = cartItem.Product.Price,
+                        ProductPrice = productPrice,
                         Quantity = cartItem.Quantity,
                         TaxPercent = taxPercent,
-                        TaxAmount = cartItem.Quantity * (cartItem.Product.Price * taxPercent / 100)
+                        TaxAmount = cartItem.Quantity * (productPrice * taxPercent / 100)
                     };
 
                     if (cart.IsProductPriceIncludeTax)
