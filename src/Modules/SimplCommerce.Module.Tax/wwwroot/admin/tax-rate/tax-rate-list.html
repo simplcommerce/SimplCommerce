@@ -4,6 +4,8 @@
             <h2>{{::vm.translate.get('Tax Rates')}}</h2>
         </div>
         <div class="col-md-4 text-right">
+            <a href="/api/tax-rates/export" target="_blank" class="btn btn-info"><span class="glyphicon glyphicon-download-alt"></span> {{::vm.translate.get('Export')}}</a>
+            <a ui-sref="tax-rates-import" class="btn btn-primary"><span class="glyphicon glyphicon-upload"></span> {{::vm.translate.get('Import')}}</a>
             <a ui-sref="tax-rates-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create Tax Rate')}}</a>
         </div>
     </div>
@@ -12,7 +14,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>{{::vm.translate.get('Name')}}</th>
+            <th>{{::vm.translate.get('Id')}}</th>
             <th>{{::vm.translate.get('Tax Class')}}</th>
             <th>{{::vm.translate.get('Country')}}</th>
             <th>{{::vm.translate.get('State or Province')}}</th>
@@ -23,7 +25,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="taxRate in vm.taxRates">
-            <td>{{taxRate.name}}</td>
+            <td>{{taxRate.id}}</td>
             <td>{{taxRate.tagClassName}}</td>
             <td>{{taxRate.countryName}}</td>
             <td>{{taxRate.stateOrProvinceName || "All"}}</td>
