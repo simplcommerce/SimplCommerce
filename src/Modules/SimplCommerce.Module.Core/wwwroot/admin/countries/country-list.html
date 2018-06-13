@@ -23,10 +23,13 @@
         <tr>
             <th>
                 <div class="form-group">
-                    <input class="form-control" st-search="Name"/>
+                    <input class="form-control" st-search="Name" />
                 </div>
             </th>
             <th></th>
+        </tr>
+        <tr>
+            <th ng-show="!vm.isLoading" colspan="7">{{vm.tableStateRef.pagination.totalItemCount | number:0}} records found</th>
         </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">
@@ -55,12 +58,12 @@
     </tbody>
     <tbody ng-show="vm.isLoading">
         <tr>
-            <td colspan="4" class="text-center">Loading ... </td>
+            <td colspan="7" class="text-center">Loading ... </td>
         </tr>
     </tbody>
     <tfoot>
         <tr>
-            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="4"></td>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="7"></td>
         </tr>
     </tfoot>
 </table>

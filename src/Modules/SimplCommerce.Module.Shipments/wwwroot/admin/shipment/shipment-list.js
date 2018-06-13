@@ -6,17 +6,18 @@
 
     /* @ngInject */
     function ShipmentListCtrl(shipmentService, translateService) {
-        var vm = this,
-            tableStateRef;
+        var vm = this;
+        vm.tableStateRef = {};
         vm.shipments = [];
         vm.translate = translateService;
 
         vm.getShipments = function getShipments(tableState) {
-            tableStateRef = tableState;
+            vm.tableStateRef = tableState;
             vm.isLoading = true;
             shipmentService.getShipments(tableState).then(function (result) {
                 vm.shipments = result.data.items;
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
+                tableState.pagination.totalItemCount = result.data.totalRecord;
                 vm.isLoading = false;
             });
         };

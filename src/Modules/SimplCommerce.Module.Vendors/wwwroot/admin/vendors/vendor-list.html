@@ -26,12 +26,15 @@
             </th>
             <th>
                 <div class="form-group">
-                    <input class="form-control" st-search="Email"/>
+                    <input class="form-control" st-search="Email" />
                 </div>
             </th>
             <th></th>
             <th><st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range></th>
             <th></th>
+        </tr>
+        <tr>
+            <th ng-show="!vm.isLoading" colspan="5">{{vm.tableStateRef.pagination.totalItemCount | number:0}} records found</th>
         </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">

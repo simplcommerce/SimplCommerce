@@ -41,6 +41,9 @@
             <th></th>
             <th></th>
         </tr>
+        <tr>
+            <th ng-show="!vm.isLoading" colspan="6">{{vm.tableStateRef.pagination.totalItemCount | number:0}} records found</th>
+        </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">
         <tr ng-repeat="order in vm.orders">

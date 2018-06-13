@@ -6,17 +6,18 @@
 
     /* @ngInject */
     function CustomerGroupListCtrl(customergroupService, translateService) {
-        var vm = this,
-            tableStateRef;
+        var vm = this;
+        vm.tableStateRef = {};
         vm.customergroups = [];
         vm.translate = translateService;
 
         vm.getCustomerGroups = function getCustomerGroups(tableState) {
-            tableStateRef = tableState;
+            vm.tableStateRef = tableState;
             vm.isLoading = true;
             customergroupService.getCustomerGroups(tableState).then(function (result) {
                 vm.customergroups = result.data.items;
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
+                tableState.pagination.totalItemCount = result.data.totalRecord;
                 vm.isLoading = false;
             });
         };
@@ -26,7 +27,7 @@
                 if (result) {
                     customergroupService.deleteCustomerGroup(customergroup)
                         .then(function (result) {
-                            vm.getCustomerGroups(tableStateRef);
+                            vm.getCustomerGroups(vm.tableStateRef);
                             toastr.success(customergroup.name + ' has been deleted');
                         })
                         .catch(function (response) {

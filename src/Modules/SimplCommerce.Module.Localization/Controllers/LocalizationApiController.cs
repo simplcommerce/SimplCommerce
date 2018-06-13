@@ -36,7 +36,7 @@ namespace SimplCommerce.Module.Localization.Controllers
         [HttpGet("get-cultures")]
         public async Task<IActionResult> GetCultures()
         {
-            var cultures = await _cultureRepository.Query().ToArrayAsync();
+            var cultures = await _cultureRepository.Query().Where(x => x.Id != "en-US").ToListAsync();
             return Ok(cultures);
         }
 
@@ -96,8 +96,7 @@ namespace SimplCommerce.Module.Localization.Controllers
             }
 
             _resourceRepository.SaveChanges();
-
-            return Ok();
+            return Accepted();
         }
     }
 }

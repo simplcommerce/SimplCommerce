@@ -6,17 +6,18 @@
 
     /* @ngInject */
     function VendorListCtrl(vendorService, translateService) {
-        var vm = this,
-            tableStateRef;
+        var vm = this;
+        vm.tableStateRef = {};
         vm.vendors = [];
         vm.translate = translateService;
 
         vm.getVendors = function getVendors(tableState) {
-            tableStateRef = tableState;
+            vm.tableStateRef = tableState;
             vm.isLoading = true;
             vendorService.getVendors(tableState).then(function (result) {
                 vm.vendors = result.data.items;
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
+                tableState.pagination.totalItemCount = result.data.totalRecord;
                 vm.isLoading = false;
             });
         };
@@ -26,7 +27,7 @@
                 if (result) {
                     vendorService.deleteVendor(vendor)
                         .then(function (result) {
-                            vm.getVendors(tableStateRef);
+                            vm.getVendors(vm.tableStateRef);
                             toastr.success(vendor.name + ' has been deleted');
                         })
                         .catch(function (response) {

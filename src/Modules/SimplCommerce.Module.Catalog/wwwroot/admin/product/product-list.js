@@ -6,17 +6,18 @@
 
     /* @ngInject */
     function ProductListCtrl(productService, translateService) {
-        var vm = this,
-            tableStateRef;
+        var vm = this;
+        vm.tableStateRef = {};
         vm.translate = translateService;
         vm.products = [];
 
         vm.getProducts = function getProducts(tableState) {
-            tableStateRef = tableState;
+            vm.tableStateRef = tableState;
             vm.isLoading = true;
             productService.getProducts(tableState).then(function (result) {
                 vm.products = result.data.items;
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
+                tableState.pagination.totalItemCount = result.data.totalRecord;
                 vm.isLoading = false;
             });
         };
@@ -32,7 +33,7 @@
                 if (result) {
                     productService.deleteProduct(product)
                        .then(function (result) {
-                           vm.getProducts(tableStateRef);
+                           vm.getProducts(vm.tableStateRef);
                            toastr.success(product.name + ' has been deleted');
                        })
                         .catch(function (response) {
