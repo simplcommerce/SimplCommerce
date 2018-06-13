@@ -6,8 +6,8 @@
 
     /* @ngInject */
     function ContactListCtrl(contactService, contactAreaService, translateService) {
-        var vm = this,
-            tableStateRef;
+        var vm = this;
+        vm.tableStateRef = {};
         vm.translate = translateService;
         vm.contacts = [];
 
@@ -15,12 +15,13 @@
             vm.contactAreas = result.data;
         });
 
-        vm.getContacts = function getContacts(tableState) {            
-            tableStateRef = tableState;
+        vm.getContacts = function getContacts(tableState) {
+            vm.tableStateRef = tableState;
             vm.isLoading = true;
-            contactService.getContacts(tableState).then(function (result) {               
+            contactService.getContacts(tableState).then(function (result) {
                 vm.contacts = result.data.items
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
+                tableState.pagination.totalItemCount = result.data.totalRecord;
                 vm.isLoading = false;;
             });
         };        
@@ -30,7 +31,7 @@
                 if (result) {
                     contactService.deleteContact(contact)
                        .then(function (result) {
-                           vm.getContacts(tableStateRef);
+                           vm.getContacts(vm.tableStateRef);
                            toastr.success(contact.name + ' has been deleted');
                        })
                        .catch(function (response) {

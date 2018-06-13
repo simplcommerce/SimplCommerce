@@ -7,7 +7,7 @@
     /* @ngInject */
     function UserListCtrl(userService, translateService) {
         var vm = this;
-        vm.tableStateRef;
+        vm.tableStateRef = {};
         vm.users = [];
         vm.roles = [];
         vm.customerGroups = [];

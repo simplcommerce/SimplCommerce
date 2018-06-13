@@ -9,7 +9,7 @@
         var vm = this;
         vm.resources = [];
         vm.cultures = [];
-        vm.selectedCultureId = 1;
+        vm.selectedCultureId = 'vi-VN';
 
         vm.changeCulture = function changeCulture()
         {

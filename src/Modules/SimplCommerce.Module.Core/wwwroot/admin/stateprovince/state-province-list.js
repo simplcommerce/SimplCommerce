@@ -6,8 +6,8 @@
 
     /* @ngInject */
     function StateProvinceListCtrl(countryService, stateProvinceService, translateService, $state, $stateParams) {
-        var vm = this,
-            tableStateRef;
+        var vm = this;
+        vm.tableStateRef = {};
 
         vm.countries = [];
         vm.stateOrProvinces = [];
@@ -15,15 +15,16 @@
         vm.translate = translateService;
 
         vm.onCountrySelected = function (countryId) {
-            vm.getStateOrProvinces(tableStateRef);
+            vm.getStateOrProvinces(vm.tableStateRef);
         };
 
         vm.getStateOrProvinces = function (tableState) {
-            tableStateRef = tableState;
+            vm.tableStateRef = tableState;
             vm.isLoading = true;
             stateProvinceService.getStateOrProvinces(vm.countryId, tableState).then(function (result) {
                 vm.stateOrProvinces = result.data.items;
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
+                tableState.pagination.totalItemCount = result.data.totalRecord;
                 vm.isLoading = false;
             });
         };
@@ -33,7 +34,7 @@
                 if (result) {
                     stateProvinceService.deleteStateProvince(stateOrProvince)
                         .then(function (result) {
-                            vm.getStateOrProvinces(tableStateRef);
+                            vm.getStateOrProvinces(vm.tableStateRef);
                             toastr.success(stateOrProvince.name + ' has been deleted');
                         })
                         .catch(function (response) {
