@@ -243,13 +243,13 @@
                         <div class="col-sm-10">
                             <table class="table table-striped">
                                 <tr>
-                                    <th>{{::vm.translate.get('Option Combinations')}}</th>
-                                    <th>{{::vm.translate.get('SKU')}}</th>
-                                    <th>{{::vm.translate.get('GTIN')}}</th>
-                                    <th>{{::vm.translate.get('Price')}}</th>
-                                    <th>{{::vm.translate.get('Old Price')}}</th>
-                                    <th>{{::vm.translate.get('Images')}}</th>
-                                    <th>{{::vm.translate.get('Actions')}}</th>
+                                    <th class="col-md-2">{{::vm.translate.get('Option Combinations')}}</th>
+                                    <th class="col-md-2">{{::vm.translate.get('SKU')}}</th>
+                                    <th class="col-md-2">{{::vm.translate.get('GTIN')}}</th>
+                                    <th class="col-md-2">{{::vm.translate.get('Price')}}</th>
+                                    <th class="col-md-2">{{::vm.translate.get('Old Price')}}</th>
+                                    <th class="col-md-1">{{::vm.translate.get('Images')}}</th>
+                                    <th class="col-md-1">{{::vm.translate.get('Actions')}}</th>
                                 </tr>
                                 <tr ng-repeat="variation in vm.product.variations">
                                     <td>{{variation.name}}</td>
@@ -279,34 +279,40 @@
                                     </td>
                                 </tr>
                                 <tr ng-show="vm.product.options.length > 0">
-                                    <td class="variation-form" colspan="5">
+                                    <td class="variation-form" colspan="7">
                                         <ng-form name="addingVariationForm">
                                             <table class="table">
                                                 <tr>
-                                                    <td class="col-sm-4">
+                                                    <td class="col-md-2">
                                                         <div class="form-group row">
                                                             <div ng-repeat="option in vm.product.options">
-                                                                <div class="col-md-4">
+                                                                <div>
                                                                     <select class="form-control" ng-model="vm.addingVariation[option.name]"
                                                                             ng-options="value.key as value.key for value in option.values | filter: vm.filterAddedOptionValue"></select>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="col-sm-2">
+                                                    <td class="col-md-2">
+                                                        <input id="addingVariationSku" type="text" maxlength="100" class="form-control" ng-model="vm.addingVariation.sku" />
+                                                    </td>
+                                                    <td class="col-md-2">
+                                                        <input id="addingVariationGtin" type="text" maxlength="100" class="form-control" ng-model="vm.addingVariation.gtin" />
+                                                    </td>
+                                                    <td class="col-md-2">
                                                         <div class="input-number">
                                                             <input id="addingVariationPrice" type="text" decimal maxlength="10" class="form-control" ng-model="vm.addingVariation.price" />
                                                             <label for="addingVariationPrice" class="form-control">{{vm.addingVariation.price | number}}</label>
                                                         </div>
                                                     </td>
-                                                    <td class="col-sm-2">
+                                                    <td class="col-md-2">
                                                         <div class="input-number">
                                                             <input id="addingVariationOldPrice" type="text" decimal maxlength="10" class="form-control" ng-model="vm.addingVariation.oldPrice" />
                                                             <label for="addingVariationOldPrice" class="form-control">{{vm.addingVariation.oldPrice | number}}</label>
                                                         </div>
                                                     </td>
-                                                    <td class="col-sm-2"></td>
-                                                    <td class="col-sm-2"><button type="button" class="btn btn-primary" ng-disabled="!vm.isAddVariationFormValid()" ng-click="vm.addVariation()"><span class="glyphicon glyphicon-plus"></span></button></td>
+                                                    <td class="col-md-1"></td>
+                                                    <td class="col-md-1"><button type="button" class="btn btn-primary" ng-disabled="!vm.isAddVariationFormValid()" ng-click="vm.addVariation()"><span class="glyphicon glyphicon-plus"></span></button></td>
                                                 </tr>
                                             </table>
                                         </ng-form>
