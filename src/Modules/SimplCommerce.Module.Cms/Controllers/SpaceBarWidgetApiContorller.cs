@@ -73,7 +73,7 @@ namespace SimplCommerce.Module.Cms.Controllers
                 var widgetInstance = new WidgetInstance
                 {
                     Name = model.Name,
-                    WidgetId = "HtmlWidget",
+                    WidgetId = "SpaceBarWidget",
                     WidgetZoneId = model.WidgetZoneId,
                     PublishStart = model.PublishStart,
                     PublishEnd = model.PublishEnd,
