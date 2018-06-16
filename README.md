@@ -64,8 +64,13 @@ https://github.com/simplcommerce/SimplCommerce/wiki/Roadmap
 
 ## How to contribute
 
+- Star this project on GitHub.
 - Report bugs or suggest features by create new issues or add comments to issues
 - Submit pull requests
+- Spread the word by blogging about SimplCommerce or sharing it on social networks
+- Donate us 
+
+     [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JWYGHJQSYLVVQ)
 
 ## License
 
