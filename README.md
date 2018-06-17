@@ -51,7 +51,7 @@ http://demo.simplcommerce.com
 - Entity Framework Core 2.1
 - ASP.NET Identity Core 2.1
 - Autofac 4.2.0
-- Angular 1.6.3
+- Angular 1.6.6
 - MediatR 3.0.1 for domain event
 
 ## Docs
