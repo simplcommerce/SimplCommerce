@@ -18,11 +18,16 @@ RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Program.cs
 RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Extensions/ServiceCollectionExtensions.cs
 
 RUN rm src/SimplCommerce.WebHost/Migrations/* && cp -f src/SimplCommerce.WebHost/appsettings.docker.json src/SimplCommerce.WebHost/appsettings.json
-RUN dotnet restore && dotnet build -c Release
-RUN cd src/SimplCommerce.WebHost \
-    && dotnet build -c Release \
-	&& dotnet ef migrations add initialSchema \
+
+RUN dotnet restore && dotnet build \
+    && cd src/SimplCommerce.WebHost \
+    && npm run gulp-copy-modules -- --configurationName Debug \
 	&& dotnet ef migrations script -o dbscript.sql \
+	&& dotnet ef migrations add initialSchema \
+
+RUN dotnet build -c Release \
+	&& cd src/SimplCommerce.WebHost \
+	&& npm run gulp-copy-modules -- --configurationName Release \
 	&& dotnet publish -c Release -o out
 
 # remove BOM for psql	
