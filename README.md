@@ -22,6 +22,7 @@ http://demo.simplcommerce.com
 
 - SQL Server
 - [Visual Studio 2017 version 15.7 with .NET Core SDK 2.1](https://www.microsoft.com/net/download/all)
+- Node.js (LTS)
 
 #### Steps to run
 
@@ -36,8 +37,8 @@ http://demo.simplcommerce.com
 #### Prerequisite
 
 - PostgreSQL
-- NodeJS
 - [.NET Core SDK 2.1](https://www.microsoft.com/net/download/all)
+- Node.js (LTS)
 
 #### Steps to run
 
