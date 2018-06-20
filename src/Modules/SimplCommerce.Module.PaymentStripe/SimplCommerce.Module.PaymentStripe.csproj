@@ -12,7 +12,7 @@
     <ProjectReference Include="..\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.Orders\SimplCommerce.Module.Orders.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.Payments\SimplCommerce.Module.Payments.csproj" />
-    <PackageReference Include="Stripe.net" Version="11.10.0" />
+    <PackageReference Include="Stripe.net" Version="16.10.0" />
   </ItemGroup>
 
 </Project>

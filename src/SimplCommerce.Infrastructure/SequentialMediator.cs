@@ -6,7 +6,7 @@ namespace SimplCommerce.Infrastructure
 {
     public class SequentialMediator : Mediator
     {
-        public SequentialMediator(SingleInstanceFactory singleInstanceFactory, MultiInstanceFactory multiInstanceFactory) : base(singleInstanceFactory, multiInstanceFactory)
+        public SequentialMediator(ServiceFactory serviceFactory) : base(serviceFactory)
         {
         }
 
