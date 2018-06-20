@@ -34,7 +34,7 @@ RUN dotnet build -c Release \
 RUN sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/SimplCommerce.WebHost/dbscript.sql \
 	&& sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/Database/StaticData_PostgreSQL.sql
 
-FROM microsoft/dotnet:2.1-aspnetcore-runtime
+FROM microsoft/dotnet:2.1.1-aspnetcore-runtime
 
 # hack to make postgresql-client install work on slim
 RUN mkdir -p /usr/share/man/man1 \
