@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
+using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@ using Autofac.Features.Variance;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
@@ -21,6 +23,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Data;
@@ -143,7 +146,7 @@ namespace SimplCommerce.WebHost.Extensions
             return services;
         }
 
-        public static IServiceCollection AddCustomizedIdentity(this IServiceCollection services)
+        public static IServiceCollection AddCustomizedIdentity(this IServiceCollection services, IConfiguration configuration)
         {
             services
                 .AddIdentity<User, Role>(options =>
@@ -160,18 +163,17 @@ namespace SimplCommerce.WebHost.Extensions
                 .AddDefaultTokenProviders();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(o => o.LoginPath = new PathString("/login"))
-
+                .AddCookie()
                 .AddFacebook(x =>
-            {
-                x.AppId = "1716532045292977";
-                x.AppSecret = "dfece01ae919b7b8af23f962a1f87f95";
-
-                x.Events = new OAuthEvents
                 {
-                    OnRemoteFailure = ctx => HandleRemoteLoginFailure(ctx)
-                };
-            })
+                    x.AppId = "1716532045292977";
+                    x.AppSecret = "dfece01ae919b7b8af23f962a1f87f95";
+
+                    x.Events = new OAuthEvents
+                    {
+                        OnRemoteFailure = ctx => HandleRemoteLoginFailure(ctx)
+                    };
+                })
                 .AddGoogle(x =>
                 {
                     x.ClientId = "583825788849-8g42lum4trd5g3319go0iqt6pn30gqlq.apps.googleusercontent.com";
@@ -180,8 +182,20 @@ namespace SimplCommerce.WebHost.Extensions
                     {
                         OnRemoteFailure = ctx => HandleRemoteLoginFailure(ctx)
                     };
+                })
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = configuration["Jwt:Issuer"],
+                        ValidAudience = configuration["Jwt:Issuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
+                    };
                 });
-
             services.ConfigureApplicationCookie(x => x.LoginPath = new PathString("/login"));
             return services;
         }
@@ -229,7 +243,7 @@ namespace SimplCommerce.WebHost.Extensions
 
         private static Task HandleRemoteLoginFailure(RemoteFailureContext ctx)
         {
-            ctx.Response.Redirect("/Login");
+            ctx.Response.Redirect("/login");
             ctx.HandleResponse();
             return Task.CompletedTask;
         }
