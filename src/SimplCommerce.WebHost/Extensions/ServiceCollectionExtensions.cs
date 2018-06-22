@@ -205,20 +205,12 @@ namespace SimplCommerce.WebHost.Extensions
             builder.RegisterSource(new ContravariantRegistrationSource());
             builder.RegisterType<SequentialMediator>().As<IMediator>().InstancePerLifetimeScope();
             builder
-              .Register<SingleInstanceFactory>(ctx =>
+              .Register<ServiceFactory>(ctx =>
               {
                   var c = ctx.Resolve<IComponentContext>();
                   return t => { object o; return c.TryResolve(t, out o) ? o : null; };
               })
-              .InstancePerLifetimeScope();
-
-            builder
-              .Register<MultiInstanceFactory>(ctx =>
-              {
-                  var c = ctx.Resolve<IComponentContext>();
-                  return t => (IEnumerable<object>)c.Resolve(typeof(IEnumerable<>).MakeGenericType(t));
-              })
-              .InstancePerLifetimeScope();
+              .InstancePerLifetimeScope();            
 
             foreach (var module in GlobalConfiguration.Modules)
             {
