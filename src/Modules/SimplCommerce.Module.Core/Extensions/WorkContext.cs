@@ -33,13 +33,8 @@ namespace SimplCommerce.Module.Core.Extensions
                 return _currentUser;
             }
 
-            // On external login callback Identity.IsAuthenticated = true. But it's an external claim principal
-            // Login by google, get _userManager.GetUserAsync from ClaimsPrincipal throw exception becasue the UserIdClaimType has value but too big.
-            if (_httpContext.User.Identity.AuthenticationType == "Identity.Application")
-            {
-                var contextUser = _httpContext.User;
-                _currentUser = await _userManager.GetUserAsync(contextUser);
-            }
+            var contextUser = _httpContext.User;
+            _currentUser = await _userManager.GetUserAsync(contextUser);
 
             if (_currentUser != null)
             {
