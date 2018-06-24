@@ -68,10 +68,16 @@ namespace SimplCommerce.WebHost
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseWhen(
+                    context => !context.Request.Path.StartsWithSegments("/api"),
+                    a => a.UseExceptionHandler("/Home/Error")
+                );
             }
 
-            app.UseStatusCodePagesWithReExecute("/Home/ErrorWithCode/{0}");
+            app.UseWhen(
+                context => !context.Request.Path.StartsWithSegments("/api"),
+                a => a.UseStatusCodePagesWithReExecute("/Home/ErrorWithCode/{0}")
+            );
 
             app.UseCustomizedRequestLocalization();
             app.UseCustomizedStaticFiles(env);
