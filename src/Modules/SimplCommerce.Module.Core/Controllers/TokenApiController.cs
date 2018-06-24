@@ -1,54 +1,79 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using SimplCommerce.Module.Core.Models;
+using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.Core.Controllers
 {
+    [ApiController]
     public class TokenApiController : Controller
     {
-        private IConfiguration _config;
-        private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
+        private readonly ITokenService _tokenService;
 
-        public TokenApiController(IConfiguration config, SignInManager<User> signInManager, UserManager<User> userManager)
+        public TokenApiController(UserManager<User> userManager, ITokenService tokenService)
         {
-            _config = config;
-            _signInManager = signInManager;
             _userManager = userManager;
+            _tokenService = tokenService;
         }
 
         [AllowAnonymous]
-        [HttpPost]
-        [Route("/api/token/create")]
-        public async Task<IActionResult> CreateToken([FromBody]LoginModel login)
+        [HttpPost("/api/token/create")]
+        public async Task<IActionResult> CreateToken([FromBody]TokenLoginModel login, bool includeRefreshToken)
         {
-            var user = await Authenticate(login);
-
-            if (user != null)
+            var user = await _userManager.FindByNameAsync(login.Username);
+            if (user == null || !await _userManager.CheckPasswordAsync(user, login.Password))
             {
-                var tokenString = await BuildToken(user);
-                return Ok(new { token = tokenString });
+                return BadRequest(new { Error = "Invalid username or password" });
             }
 
-            return BadRequest(new { Error = "Invalid username or password" });
+            var claims = await BuildClaims(user);
+            var token = _tokenService.GenerateAccessToken(claims);
+            if (includeRefreshToken)
+            {
+                var refreshToken = _tokenService.GenerateRefreshToken();
+                user.RefreshTokenHash = _userManager.PasswordHasher.HashPassword(user, refreshToken);
+                await _userManager.UpdateAsync(user);
+                return Ok(new { token = token, refreshToken = refreshToken});
+            }
+
+            return Ok(new { token = token });
         }
 
-        private async Task<string> BuildToken(User user)
+        [AllowAnonymous]
+        [HttpPost("/api/token/refresh")]
+        public async Task<IActionResult> RefeshToken(RefreshTokenModel model)
+        {
+            var principal = _tokenService.GetPrincipalFromExpiredToken(model.Token);
+            if(principal == null)
+            {
+                return BadRequest(new { Error = "Invalid token" });
+            }
+
+            var user = await _userManager.GetUserAsync(principal);
+            var verifyRefreshTokenResult =_userManager.PasswordHasher.VerifyHashedPassword(user, user.RefreshTokenHash, model.RefreshToken);
+            if(verifyRefreshTokenResult == PasswordVerificationResult.Success)
+            {
+                var claims = await BuildClaims(user);
+                var newToken = _tokenService.GenerateAccessToken(claims);
+                return Ok(new { token = newToken });
+            }
+
+            return Forbid();
+        }
+
+        private async Task<IList<Claim>> BuildClaims(User user)
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Jti,  Guid.NewGuid().ToString())
             };
 
             var userRoles = await _userManager.GetRolesAsync(user);
@@ -57,34 +82,25 @@ namespace SimplCommerce.Module.Core.Controllers
                 claims.Add(new Claim(ClaimTypes.Role, userRole));
             }
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-              _config["Jwt:Issuer"],
-              _config["Jwt:Issuer"],
-              claims,
-              expires: DateTime.Now.AddMinutes(30),
-              signingCredentials: creds);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return claims;
         }
 
-        private async Task<User> Authenticate(LoginModel login)
+        public class TokenLoginModel
         {
-            var user = await _signInManager.UserManager.FindByNameAsync(login.Username);
-            if (user != null && await _signInManager.UserManager.CheckPasswordAsync(user, login.Password))
-            {
-               return user;
-            }
-
-            return null;
-        }
-
-        public class LoginModel
-        {
+            [Required]
             public string Username { get; set; }
+
+            [Required]
             public string Password { get; set; }
+        }
+
+        public class RefreshTokenModel
+        {
+            [Required]
+            public string Token { get; set; }
+
+            [Required]
+            public string RefreshToken { get; set; }
         }
     }
 }
