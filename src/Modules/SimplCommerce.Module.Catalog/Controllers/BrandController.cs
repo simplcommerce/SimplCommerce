@@ -49,8 +49,13 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
             var query = _productRepository.Query().Where(x => x.BrandId == id && x.IsPublished && x.IsVisibleIndividually);
 
-            model.FilterOption.Price.MaxPrice = query.Select(x => x.Price).DefaultIfEmpty(0).Max();
-            model.FilterOption.Price.MinPrice = query.Select(x => x.Price).DefaultIfEmpty(0).Min();
+            if (query.Count() == 0)
+            {
+                model.TotalProduct = 0;
+                return View(model);
+            }
+
+            AppendFilterOptionsToModel(model, query);
 
             if (searchOption.MinPrice.HasValue)
             {
@@ -62,7 +67,6 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 query = query.Where(x => x.Price <= searchOption.MaxPrice.Value);
             }
 
-            AppendFilterOptionsToModel(model, query);
             var categories = searchOption.GetCategories();
             if (categories.Any())
             {
@@ -121,6 +125,9 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
         private static void AppendFilterOptionsToModel(ProductsByBrand model, IQueryable<Product> query)
         {
+            model.FilterOption.Price.MaxPrice = query.Max(x => x.Price);
+            model.FilterOption.Price.MinPrice = query.Min(x => x.Price);
+
             model.FilterOption.Categories = query
                 .SelectMany(x => x.Categories).Where(x => x.Category.Parent == null)
                 .GroupBy(x => new {
