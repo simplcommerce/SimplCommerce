@@ -11,6 +11,7 @@ namespace SimplCommerce.Module.Localization.Data
             modelBuilder.Entity<Culture>().HasData(
                new Culture("en-US") { Name = "English (US)", IsDefault = true }
             );
+            modelBuilder.Entity<Culture>().Property(x => x.IsDefault).HasDefaultValue(false);
         }
     }
 }
