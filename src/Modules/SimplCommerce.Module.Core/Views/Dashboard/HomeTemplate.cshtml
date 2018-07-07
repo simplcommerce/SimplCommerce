@@ -35,6 +35,21 @@
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
+                <h3 class="panel-title">@Localizer["Pending review replies"]</h3>
+            </div>
+            <div class="panel-body">
+                <review-reply-widget status="1" num-records="5"></review-reply-widget>
+            </div>
+        </div>
+    </div>
+</div>
+}
+@if (User.IsInRole("admin"))
+{
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
                 <h3 class="panel-title">@Localizer["Most search keywords"]</h3>
             </div>
             <div class="panel-body">

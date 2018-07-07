@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SimplCommerce.Module.Reviews.ViewModels
 {
@@ -15,5 +16,7 @@ namespace SimplCommerce.Module.Reviews.ViewModels
         public string ReviewerName { get; set; }
 
         public DateTimeOffset CreatedOn { get; set; }
+
+        public IList<Reply> Replies { get; set; } = new List<Reply>();
     }
 }

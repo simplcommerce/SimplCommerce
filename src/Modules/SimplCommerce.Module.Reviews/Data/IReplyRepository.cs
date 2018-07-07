@@ -4,8 +4,8 @@ using System.Linq;
 
 namespace SimplCommerce.Module.Reviews.Data
 {
-    public interface IReviewRepository : IRepository<Review>
+    public interface IReplyRepository : IRepository<Reply>
     {
-        IQueryable<ReviewListItemDto> List();
+        IQueryable<ReplyListItemDto> List();
     }
 }

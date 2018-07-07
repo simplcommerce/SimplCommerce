@@ -59,24 +59,54 @@
         }
         <div class="col-md-7">
             <div id="addreview">
-                @Html.Partial("/Modules/SimplCommerce.Module.Reviews/Views/Review/_ReviewForm.cshtml", new ReviewForm {EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId})
+                @Html.Partial("/Modules/SimplCommerce.Module.Reviews/Views/Review/_ReviewForm.cshtml", new ReviewForm { EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId })
             </div>
         </div>
     </div>
-    <hr/>
+    <hr />
     <div id="reviews" class="review-item-list">
-        @foreach (var review in Model.Items)
+        @if (Model.ReviewsCount > 0)
         {
-            <div>
-                <ul class="list-inline product-ratings">
-                    <li><input type="hidden" value="@review.Rating" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
-                    <li class="review-title">
-                        @review.Title
-                    </li>
+            @foreach (var review in Model.Items.Data)
+            {
+        <div>
+            <ul class="list-inline product-ratings">
+                <li><input type="hidden" value="@review.Rating" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
+                <li class="review-title">
+                    @review.Title
+                </li>
+            </ul>
+            <p>@review.Comment</p>
+            <p>By: <strong>@review.ReviewerName</strong> on <span>@review.CreatedOn</span></p>
+            @if (review.Replies.Count > 0)
+            {
+                <button class="btn-review-replies btn-view-review-replies btn btn-link">@Localizer["View Replies"]<i class="arrow-down"></i></button>
+                <button class="btn-review-replies btn-hide-review-replies btn btn-link d-none">@Localizer["Hide Replies"]<i class="arrow-up"></i></button>
+                <ul class="review-replies d-none">
+                    @foreach (var reply in review.Replies)
+                    {
+                        <li class="review-reply">
+                            <p>@reply.Comment</p>
+                            <p>By: <strong>@reply.ReplierName</strong> on <span>@reply.CreatedOn</span></p>
+                        </li>
+                    }
                 </ul>
-                <p>@review.Comment</p>
-                <p>By: <strong>@review.ReviewerName</strong> on <span>@review.CreatedOn</span></p>
+            }
+            <div>
+                <button class="btn-add-review-reply btn btn-link">@Localizer["Add Reply"]</button>
+                <div class="add-review-reply d-none">
+                    @Html.Partial("/Modules/SimplCommerce.Module.Reviews/Views/Reply/_ReplyForm.cshtml", new ReplyForm { ReviewId = review.Id })
+                </div>
             </div>
+        </div>
+            }
+
+            <a asp-controller="Review"
+                asp-action="List"
+                asp-route-entityId="@Model.EntityId"
+                asp-route-entityTypeId="@Model.EntityTypeId"
+                asp-route-pageNumber="1"
+                asp-route-pageSize="25">View all @Model.ReviewsCount reviews</a>
         }
     </div>
 </div>

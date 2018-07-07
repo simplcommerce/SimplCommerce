@@ -1,20 +1,27 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Reviews.Models;
 using SimplCommerce.Module.Reviews.ViewModels;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.Reviews.Controllers
 {
     public class ReviewController : Controller
     {
+        private const int DefaultPageSize = 25;
+
         private readonly IRepository<Review> _reviewRepository;
+        private readonly IRepository<Product> _productRepository;
         private readonly IWorkContext _workContext;
 
-        public ReviewController(IRepository<Review> reviewRepository, IWorkContext workContext)
+        public ReviewController(IRepository<Review> reviewRepository, IRepository<Product> productRepository, IWorkContext workContext)
         {
             _reviewRepository = reviewRepository;
+            _productRepository = productRepository;
             _workContext = workContext;
         }
 
@@ -41,6 +48,73 @@ namespace SimplCommerce.Module.Reviews.Controllers
                 return PartialView("_ReviewFormSuccess", model);
             }
             return PartialView("_ReviewForm", model);
+        }
+
+        public async Task<IActionResult> List(long entityId, string entityTypeId, int? pageNumber, int? pageSize)
+        {
+            var product = _productRepository.Query()
+                .FirstOrDefault(x => x.Id == entityId && x.IsPublished);
+
+            if (product == null)
+            {
+                return Redirect("~/Error/FindNotFound");
+            }
+
+            var itemsPerPage = pageSize.HasValue ? pageSize.Value : DefaultPageSize;
+            var currentPageNum = pageNumber.HasValue ? pageNumber.Value : 1;
+            var offset = (itemsPerPage * currentPageNum) - itemsPerPage;
+
+            var model = new ReviewVm();
+
+            model.EntityName = product.Name;
+            model.EntitySlug = product.Slug;
+
+            var query = _reviewRepository
+                .Query()
+                .Where(x => (x.EntityId == entityId) && (x.EntityTypeId == entityTypeId) && (x.Status == ReviewStatus.Approved))
+                .OrderByDescending(x => x.CreatedOn)
+                .Select(x => new ReviewItem
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Rating = x.Rating,
+                    Comment = x.Comment,
+                    ReviewerName = x.ReviewerName,
+                    CreatedOn = x.CreatedOn,
+                    Replies = x.Replies
+                        .Where(r => r.Status == ReplyStatus.Approved)
+                        .OrderByDescending(r => r.CreatedOn)
+                        .Select(r => new ViewModels.Reply
+                        {
+                            Comment = r.Comment,
+                            ReplierName = r.ReplierName,
+                            CreatedOn = r.CreatedOn
+                        })
+                        .ToList()
+                });
+       
+            model.Items.Data = await query
+                .Skip(offset)
+                .Take(itemsPerPage)
+                .ToListAsync();
+
+            model.Items.PageNumber = currentPageNum;
+            model.Items.PageSize = itemsPerPage;
+            model.Items.TotalItems = await query.CountAsync();
+
+            var allItems = await query.ToListAsync();
+
+            model.ReviewsCount = allItems.Count;
+            model.Rating1Count = allItems.Count(x => x.Rating == 1);
+            model.Rating2Count = allItems.Count(x => x.Rating == 2);
+            model.Rating3Count = allItems.Count(x => x.Rating == 3);
+            model.Rating4Count = allItems.Count(x => x.Rating == 4);
+            model.Rating5Count = allItems.Count(x => x.Rating == 5);
+
+            model.EntityId = entityId;
+            model.EntityTypeId = entityTypeId;
+
+            return View(model);
         }
     }
 }
