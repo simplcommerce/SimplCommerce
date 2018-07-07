@@ -12,19 +12,21 @@ using SimplCommerce.Module.Inventory.ViewModels;
 
 namespace SimplCommerce.Module.Inventory.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, vendor")]
     [Route("api/stocks")]
     public class StockApiController : Controller
     {
         private readonly IRepository<Stock> _stockRepository;
         private readonly IStockService _stockService;
         private readonly IWorkContext _workContext;
+        private readonly IRepository<Warehouse> _warehouseRepository;
 
-        public StockApiController(IRepository<Stock> stockRepository, IStockService stockService, IWorkContext workContext)
+        public StockApiController(IRepository<Stock> stockRepository, IStockService stockService, IWorkContext workContext, IRepository<Warehouse> warehouseRepository)
         {
             _stockRepository = stockRepository;
             _stockService = stockService;
             _workContext = workContext;
+            _warehouseRepository = warehouseRepository;
         }
 
         [HttpPost("add-products")]
@@ -36,13 +38,37 @@ namespace SimplCommerce.Module.Inventory.Controllers
         [HttpPost("add-all-product")]
         public async Task<IActionResult> AddAllProducts(long warehouseId)
         {
-            await _stockService.AddAllProduct(warehouseId);
+            var currentUser = await _workContext.GetCurrentUser();
+            var warehouse = _warehouseRepository.Query().FirstOrDefault(x => x.Id == warehouseId);
+            if (warehouse == null)
+            {
+                return NotFound();
+            }
+
+            if (!User.IsInRole("admin") && warehouse.VendorId != currentUser.VendorId)
+            {
+                return BadRequest(new { error = "You don't have permission to manage this warehouse" });
+            }
+
+            await _stockService.AddAllProduct(warehouse);
             return Accepted();
         }
 
         [HttpPost("grid")]
-        public IActionResult List(long warehouseId, [FromBody] SmartTableParam param)
+        public async Task<IActionResult> List(long warehouseId, [FromBody] SmartTableParam param)
         {
+            var currentUser = await _workContext.GetCurrentUser();
+            var warehouse = _warehouseRepository.Query().FirstOrDefault(x => x.Id == warehouseId);
+            if(warehouse == null)
+            {
+                return NotFound();
+            }
+
+            if (!User.IsInRole("admin") && warehouse.VendorId != currentUser.VendorId)
+            {
+                return BadRequest(new { error = "You don't have permission to manage this warehouse" });
+            }
+
             var query = _stockRepository.Query().Where(x => x.WarehouseId == warehouseId && !x.Product.HasOptions && !x.Product.IsDeleted);
             if (param.Search.PredicateObject != null)
             {
@@ -79,6 +105,17 @@ namespace SimplCommerce.Module.Inventory.Controllers
         public async Task<IActionResult> Put(long warehouseId, [FromBody] IList<StockVm> stockVms)
         {
             var currentUser = await _workContext.GetCurrentUser();
+            var warehouse = _warehouseRepository.Query().FirstOrDefault(x => x.Id == warehouseId);
+            if (warehouse == null)
+            {
+                return NotFound();
+            }
+
+            if (!User.IsInRole("admin") && warehouse.VendorId != currentUser.VendorId)
+            {
+                return BadRequest(new { error = "You don't have permission to manage this warehouse" });
+            }
+
             foreach(var item in stockVms)
             {
                 if(item.AdjustedQuantity == 0)

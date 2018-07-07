@@ -23,6 +23,8 @@ namespace SimplCommerce.Module.Shipments.Models
 
         public long WarehouseId { get; set; }
 
+        public long? VendorId { get; set; }
+
         public Warehouse Warehouse { get; set; }
 
         public long CreatedById { get; set; }

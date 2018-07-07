@@ -5,28 +5,38 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
+using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Inventory.Models;
 using SimplCommerce.Module.Inventory.ViewModels;
 
 namespace SimplCommerce.Module.Inventory.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, vendor")]
     [Route("api/warehouses")]
     public class WarehouseApiController : Controller
     {
         private readonly IRepository<Warehouse> _warehouseRepository;
         private readonly IRepository<Address> _addressRepository;
+        private readonly IWorkContext _workContext;
 
-        public WarehouseApiController(IRepository<Warehouse> warehouseRepository, IRepository<Address> addressRepository)
+        public WarehouseApiController(IRepository<Warehouse> warehouseRepository, IWorkContext workContext, IRepository<Address> addressRepository)
         {
             _warehouseRepository = warehouseRepository;
             _addressRepository = addressRepository;
+            _workContext = workContext;
         }
 
         public async Task<IActionResult> Get()
         {
-            var warehouses = await _warehouseRepository.Query().Select(x => new
+            var query = _warehouseRepository.Query();
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin"))
+            {
+                query = query.Where(x => x.VendorId == currentUser.VendorId);
+            }
+
+            var warehouses = await query.Select(x => new
             {
                 x.Id,
                 x.Name
@@ -36,7 +46,7 @@ namespace SimplCommerce.Module.Inventory.Controllers
         }
 
         [HttpPost("grid")]
-        public IActionResult List([FromBody] SmartTableParam param)
+        public async Task<IActionResult> List([FromBody] SmartTableParam param)
         {
             var query = _warehouseRepository.Query();
             if (param.Search.PredicateObject != null)
@@ -50,12 +60,19 @@ namespace SimplCommerce.Module.Inventory.Controllers
                 }
             }
 
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin"))
+            {
+                query = query.Where(x => x.VendorId == currentUser.VendorId);
+            }
+
             var warehouses = query.ToSmartTableResult(
                 param,
                  sp => new
                  {
                      sp.Id,
-                     sp.Name
+                     sp.Name,
+                     VendorName = sp.Vendor.Name
                  });
 
             return Json(warehouses);
@@ -68,6 +85,12 @@ namespace SimplCommerce.Module.Inventory.Controllers
             if (warehouse == null)
             {
                 return NotFound();
+            }
+
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin") && warehouse.VendorId != currentUser.VendorId)
+            {
+                return BadRequest(new { error = "You don't have permission to manage this warehouse" });
             }
 
             var address = warehouse.Address ?? new Address();
@@ -114,6 +137,12 @@ namespace SimplCommerce.Module.Inventory.Controllers
                     Address = address
                 };
 
+                var currentUser = await _workContext.GetCurrentUser();
+                if (!User.IsInRole("admin"))
+                {
+                    warehouse.VendorId = currentUser.VendorId;
+                }
+
                 _warehouseRepository.Add(warehouse);
                 await _warehouseRepository.SaveChangesAsync();
                 return CreatedAtAction(nameof(Get), new { id = warehouse.Id }, null);
@@ -134,6 +163,12 @@ namespace SimplCommerce.Module.Inventory.Controllers
             if (warehouse == null)
             {
                 return NotFound();
+            }
+
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin") && warehouse.VendorId != currentUser.VendorId)
+            {
+                return BadRequest(new { error = "You don't have permission to manage this warehouse" });
             }
 
             warehouse.Name = model.Name;
@@ -161,6 +196,12 @@ namespace SimplCommerce.Module.Inventory.Controllers
             if (warehouse == null)
             {
                 return NotFound();
+            }
+
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin") && warehouse.VendorId != currentUser.VendorId)
+            {
+                return BadRequest(new { error = "You don't have permission to manage this warehouse" });
             }
 
             try
