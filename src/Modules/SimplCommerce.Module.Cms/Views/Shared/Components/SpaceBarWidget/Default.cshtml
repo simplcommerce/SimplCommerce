@@ -6,7 +6,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12">
             @if (!string.IsNullOrEmpty(item.ImageUrl))
             {
-                <img src="@item.ImageUrl" alt="" class="img-responsive" />
+                <img src="@item.ImageUrl" alt="@item.Title" class="img-fluid" />
             }
             else if(!(string.IsNullOrEmpty(item.IconHtml)))
             {
