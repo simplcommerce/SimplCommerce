@@ -13,7 +13,8 @@
     <thead>
         <tr>
             <th st-sort="Name" class="sortable">{{::vm.translate.get('Name')}}</th>
-            <th class="sortable">&nbsp;</th>
+            <th>{{::vm.translate.get('Vendor Name')}}</th>
+            <th class="sortable">{{::vm.translate.get('Actions')}}</th>
         </tr>
         <tr>
             <th>
@@ -22,14 +23,16 @@
                 </div>
             </th>
             <th></th>
+            <th></th>
         </tr>
         <tr>
-            <th ng-show="!vm.isLoading" colspan="2">{{vm.tableStateRef.pagination.totalItemCount | number:0}} records found</th>
+            <th ng-show="!vm.isLoading" colspan="3">{{vm.tableStateRef.pagination.totalItemCount | number:0}} records found</th>
         </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">
         <tr ng-repeat="warehouse in vm.warehouses">
             <td>{{warehouse.name}}</td>
+            <td>{{warehouse.vendorName}}</td>
             <td>
                 <a ui-sref="warehouse-edit({id: warehouse.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
                 <button ng-click="vm.deleteWarehouse(warehouse)" title="Delete" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
@@ -38,12 +41,12 @@
     </tbody>
     <tbody ng-show="vm.isLoading">
         <tr>
-            <td colspan="2" class="text-center">Loading ... </td>
+            <td colspan="3" class="text-center">Loading ... </td>
         </tr>
     </tbody>
     <tfoot>
         <tr>
-            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="2"></td>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="3"></td>
         </tr>
     </tfoot>
 </table>

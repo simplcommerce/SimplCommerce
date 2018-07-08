@@ -21,11 +21,11 @@ namespace SimplCommerce.Module.Inventory.Services
             _stockHistoryRepository = stockHistoryRepository;
         }
 
-        public async Task AddAllProduct(long warehouseId)
+        public async Task AddAllProduct(Warehouse warehouse)
         {
             // TODO Need refactor for better performance
-            var productIds = await _productRepository.Query().Where(x => !x.HasOptions).Select(x => x.Id).ToListAsync();
-            var inStockProductIds = await _stockRepository.Query().Where(x => x.WarehouseId== warehouseId).Select(x => x.ProductId).ToListAsync();
+            var productIds = await _productRepository.Query().Where(x => !x.HasOptions && x.VendorId == warehouse.VendorId).Select(x => x.Id).ToListAsync();
+            var inStockProductIds = await _stockRepository.Query().Where(x => x.WarehouseId== warehouse.Id).Select(x => x.ProductId).ToListAsync();
             foreach(var productId in productIds)
             {
                 if (!inStockProductIds.Contains(productId))
@@ -33,7 +33,7 @@ namespace SimplCommerce.Module.Inventory.Services
                     var stock = new Stock
                     {
                         ProductId = productId,
-                        WarehouseId = warehouseId,
+                        WarehouseId = warehouse.Id,
                         Quantity = 0
                     };
 

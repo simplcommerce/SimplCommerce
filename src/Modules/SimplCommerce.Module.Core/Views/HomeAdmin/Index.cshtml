@@ -278,8 +278,14 @@
                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Sales"] <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a ui-sref="order">@Localizer["Orders"]</a></li>
-                            <li><a ui-sref="stocks">@Localizer["Stocks"]</a></li>
                             <li><a ui-sref="shipments">@Localizer["Shipments"]</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Inventory"] <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="stocks">@Localizer["Stocks"]</a></li>
+                            <li><a ui-sref="warehouses">@Localizer["Warehouses"]</a></li>
                         </ul>
                     </li>
                     @if (User.IsInRole("admin"))
@@ -310,7 +316,6 @@
                             <li><a ui-sref="tax-classes">@Localizer["Tax Classes"]</a></li>
                             <li><a ui-sref="tax-rates">@Localizer["Tax Rates"]</a></li>
                             <li><a ui-sref="shipping-providers">@Localizer["Shipping Providers"]</a></li>
-                            <li><a ui-sref="warehouses">@Localizer["Warehouses"]</a></li>
                             <li><a ui-sref="payment-providers">@Localizer["Payment Providers"]</a></li>
                             <li><a ui-sref="configuration">@Localizer["Settings"]</a></li>
                             <li><a ui-sref="localization">@Localizer["Translations"]</a></li>
