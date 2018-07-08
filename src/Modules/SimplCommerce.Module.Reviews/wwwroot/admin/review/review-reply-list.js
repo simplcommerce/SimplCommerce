@@ -1,7 +1,7 @@
 /*global angular*/
 (function () {
     angular
-        .module('simplAdmin.review-replies')
+        .module('simplAdmin.reviews')
         .controller('ReviewReplyListCtrl', ReviewReplyListCtrl);
 
     /* @ngInject */

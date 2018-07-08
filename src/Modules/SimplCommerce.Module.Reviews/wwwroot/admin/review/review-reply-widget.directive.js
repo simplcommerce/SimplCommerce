@@ -1,6 +1,6 @@
 (function() {
     angular
-        .module('simplAdmin.review-replies')
+        .module('simplAdmin.reviews')
         .directive('reviewReplyWidget', reviewReplyWidget);
 
     function reviewReplyWidget() {

@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Reviews.Data;
 using SimplCommerce.Module.Reviews.Models;
 using SimplCommerce.Module.Reviews.ViewModels;
 using System.Linq;
@@ -14,14 +13,12 @@ namespace SimplCommerce.Module.Reviews.Controllers
     {
         private const int DefaultPageSize = 25;
 
-        private readonly IRepository<Review> _reviewRepository;
-        private readonly IRepository<Product> _productRepository;
+        private readonly IReviewRepository _reviewRepository;
         private readonly IWorkContext _workContext;
 
-        public ReviewController(IRepository<Review> reviewRepository, IRepository<Product> productRepository, IWorkContext workContext)
+        public ReviewController(IReviewRepository reviewRepository, IWorkContext workContext)
         {
             _reviewRepository = reviewRepository;
-            _productRepository = productRepository;
             _workContext = workContext;
         }
 
@@ -52,10 +49,11 @@ namespace SimplCommerce.Module.Reviews.Controllers
 
         public async Task<IActionResult> List(long entityId, string entityTypeId, int? pageNumber, int? pageSize)
         {
-            var product = _productRepository.Query()
-                .FirstOrDefault(x => x.Id == entityId && x.IsPublished);
+            var entity = _reviewRepository
+                .List()
+                .FirstOrDefault();
 
-            if (product == null)
+            if (entity == null)
             {
                 return Redirect("~/Error/FindNotFound");
             }
@@ -66,8 +64,8 @@ namespace SimplCommerce.Module.Reviews.Controllers
 
             var model = new ReviewVm();
 
-            model.EntityName = product.Name;
-            model.EntitySlug = product.Slug;
+            model.EntityName = entity.EntityName;
+            model.EntitySlug = entity.EntitySlug;
 
             var query = _reviewRepository
                 .Query()
@@ -92,7 +90,7 @@ namespace SimplCommerce.Module.Reviews.Controllers
                         })
                         .ToList()
                 });
-       
+
             model.Items.Data = await query
                 .Skip(offset)
                 .Take(itemsPerPage)

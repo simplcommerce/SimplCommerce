@@ -19,7 +19,6 @@
         'simplAdmin.cms',
         'simplAdmin.search',
         'simplAdmin.reviews',
-        'simplAdmin.review-replies',
         'simplAdmin.activityLog',
         'simplAdmin.vendors',
         'simplAdmin.localization',
