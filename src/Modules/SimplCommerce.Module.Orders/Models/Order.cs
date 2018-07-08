@@ -13,6 +13,7 @@ namespace SimplCommerce.Module.Orders.Models
             CreatedOn = DateTimeOffset.Now;
             UpdatedOn = DateTimeOffset.Now;
             OrderStatus = OrderStatus.New;
+            IsMasterOrder = false;
         }
 
         public DateTimeOffset CreatedOn { get; set; }
@@ -51,6 +52,8 @@ namespace SimplCommerce.Module.Orders.Models
         public long? ParentId { get; set; }
 
         public Order Parent { get; set; }
+
+        public bool IsMasterOrder { get; set; }
 
         public string ShippingMethod { get; set; }
 

@@ -155,6 +155,7 @@ namespace SimplCommerce.Module.Orders.Controllers
             var model = new OrderDetailVm
             {
                 Id = order.Id,
+                IsMasterOrder = order.IsMasterOrder,
                 CreatedOn = order.CreatedOn,
                 OrderStatus = (int) order.OrderStatus,
                 OrderStatusString = order.OrderStatus.ToString(),
@@ -192,6 +193,11 @@ namespace SimplCommerce.Module.Orders.Controllers
                     VariationOptions = OrderItemVm.GetVariationOption(x.Product)
                 }).ToList()
             };
+
+            if (order.IsMasterOrder)
+            {
+                model.SubOrderIds = _orderRepository.Query().Where(x => x.ParentId == order.Id).Select(x => x.Id).ToList();
+            }
 
             await _mediator.Publish(new OrderDetailGot { OrderDetailVm = model });
 

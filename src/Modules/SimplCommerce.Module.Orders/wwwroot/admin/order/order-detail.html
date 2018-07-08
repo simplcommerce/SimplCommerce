@@ -30,6 +30,16 @@
                         <td>Order Total</td>
                         <td>{{vm.order.orderTotalString}}</td>
                     </tr>
+                    <tr ng-if="vm.order.isMasterOrder">
+                        <td>Sub Orders</td>
+                        <td>
+                            <ul class="list-inline">
+                                <li ng-repeat="id in vm.order.subOrderIds">
+                                    <a ui-sref="order-detail({id: id})">order #{{id}}</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
                 </table>
             </div>
             <div class="col-md-6">

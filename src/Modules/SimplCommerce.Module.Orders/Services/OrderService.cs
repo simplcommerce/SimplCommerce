@@ -206,6 +206,11 @@ namespace SimplCommerce.Module.Orders.Services
             cart.IsActive = false;
 
             var vendorIds = cart.Items.Where(x => x.Product.VendorId.HasValue).Select(x => x.Product.VendorId.Value).Distinct();
+            if (vendorIds.Any())
+            {
+                order.IsMasterOrder = true;
+            }
+
             foreach (var vendorId in vendorIds)
             {
                 var subOrder = new Order
