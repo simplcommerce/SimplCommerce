@@ -1,0 +1,22 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>{{::vm.translate.get('Customer')}}</th>
+            <th>{{::vm.translate.get('Entity Name')}}</th>
+            <th>{{::vm.translate.get('Review Title')}}</th>
+            <th>{{::vm.translate.get('Comment')}}</th>
+            <th>{{::vm.translate.get('Created On')}}</th>
+            <th>{{::vm.translate.get('Status')}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="reply in vm.replies">
+            <td>{{reply.replierName}}</td>
+            <td><a href="/{{reply.entitySlug}}">{{reply.entityName}}</a></td>
+            <td>{{reply.reviewTitle}}</td>
+            <td>{{reply.comment}}</td>
+            <td>{{reply.createdOn | date:'medium'}}</td>
+            <td>{{reply.status }}</td>
+        </tr>
+    </tbody>
+</table>

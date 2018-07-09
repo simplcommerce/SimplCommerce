@@ -3,19 +3,21 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimplCommerce.Module.Core.Data;
 
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    partial class SimplDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180625022440_Add_Review_Reply")]
+    partial class Add_Review_Reply
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -991,8 +993,6 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<string>("RefreshTokenHash");
-
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");
@@ -1243,13 +1243,9 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<long?>("VendorId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
-
-                    b.HasIndex("VendorId");
 
                     b.ToTable("Inventory_Warehouse");
 
@@ -1263,9 +1259,7 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("IsDefault")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(false);
+                    b.Property<bool>("IsDefault");
 
                     b.Property<string>("Name");
 
@@ -1404,8 +1398,6 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<DateTimeOffset>("CreatedOn");
 
                     b.Property<decimal>("DiscountAmount");
-
-                    b.Property<bool>("IsMasterOrder");
 
                     b.Property<int>("OrderStatus");
 
@@ -1885,8 +1877,6 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<DateTimeOffset>("UpdatedOn");
 
-                    b.Property<long?>("VendorId");
-
                     b.Property<long>("WarehouseId");
 
                     b.HasKey("Id");
@@ -2069,6 +2059,8 @@ namespace SimplCommerce.WebHost.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CountryId");
+
+                    b.Property<string>("Name");
 
                     b.Property<decimal>("Rate");
 
@@ -2459,11 +2451,6 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasOne("SimplCommerce.Module.Core.Models.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("SimplCommerce.Module.Core.Models.Vendor", "Vendor")
-                        .WithMany()
-                        .HasForeignKey("VendorId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

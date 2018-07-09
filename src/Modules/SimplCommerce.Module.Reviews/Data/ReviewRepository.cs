@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using SimplCommerce.Module.Core.Data;
+﻿using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Reviews.Models;
+using System.Linq;
 
 namespace SimplCommerce.Module.Reviews.Data
 {

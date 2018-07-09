@@ -1,0 +1,61 @@
+<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{::vm.translate.get('Review Replies')}}</h2>
+        </div>
+        <div class="col-md-4 text-right">
+        </div>
+    </div>
+</div>
+<table class="table table-striped" st-pipe="vm.getReplies" st-table="vm.replies">
+    <thead>
+        <tr>
+            <th>{{::vm.translate.get('Customer')}}</th>
+            <th>{{::vm.translate.get('Entity Name')}}</th>
+            <th>{{::vm.translate.get('Review Title')}}</th>
+            <th>{{::vm.translate.get('Comment')}}</th>
+            <th st-sort="CreatedOn" class="sortable">{{::vm.translate.get('Created On')}}</th>
+            <th>{{::vm.translate.get('Status')}}</th>
+            <th>{{::vm.translate.get('Actions')}}</th>
+        </tr>
+        <tr>
+            <th></th>
+            <th><input class="form-control" st-search="EntityName" /></th>
+            <th></th>
+            <th></th>
+            <th><st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range></th>
+            <th>
+                <div class="form-group">
+                    <select class="form-control" st-search="Status">
+                        <option value="">{{::vm.translate.get('All')}}</option>
+                        <option value="1">{{::vm.translate.get('Pending')}}</option>
+                        <option value="5">{{::vm.translate.get('Approved')}}</option>
+                        <option value="8">{{::vm.translate.get('Not Approved')}}</option>
+                    </select>
+                </div>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody ng-show="!vm.isLoading">
+        <tr ng-repeat="reply in vm.replies">
+            <td>{{reply.replierName}}</td>
+            <td><a href="/{{reply.entitySlug}}">{{reply.entityName}}</a></td>
+            <td>{{reply.reviewTitle}}</td>
+            <td>{{reply.comment}}</td>
+            <td>{{reply.createdOn | date:'medium'}}</td>
+            <td>{{reply.status }}</td>
+            <td><button ng-if="reply.status ==='Pending'" title="Approve" ng-click="vm.approve(reply)" class="btn btn-primary btn-xs">{{::vm.translate.get('Approve')}}</button></td>
+        </tr>
+    </tbody>
+    <tbody ng-show="vm.isLoading">
+        <tr>
+            <td colspan="8" class="text-center">Loading ... </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="8"></td>
+        </tr>
+    </tfoot>
+</table>	
