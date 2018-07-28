@@ -81,4 +81,15 @@ $(document).ready(function () {
         $('.add-review-reply').addClass('d-none');
         $(this).parent().find('.add-review-reply').removeClass('d-none');
     });
+
+    $('#addcomment').on('click', '#btn-addcomment', function (e) {
+        e.preventDefault();
+        var $form = $('#form-addcomment');
+        if (!$form.valid || $form.valid()) {
+            $.post($form.attr('action'), $form.serializeArray())
+                .done(function (result) {
+                    $('#addcomment').html(result);
+                });
+        }
+    });
 });

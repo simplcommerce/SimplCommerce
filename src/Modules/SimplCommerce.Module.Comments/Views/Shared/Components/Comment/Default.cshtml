@@ -1,0 +1,44 @@
+﻿@using SimplCommerce.Module.Comments.ViewModels
+@model CommentVm
+
+<div class="container">
+    <div class="row">
+        @if (Model.CommentsCount > 0)
+        {
+            <div class="col-md-5">
+                <div class="row">
+                    <div class="col-md-5">
+                        <p>(@Model.CommentsCount @Localizer["comments"])</p>
+                    </div>
+                    <div class="col-md-7">
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-md-7">
+            <div id="addcomment">
+                @Html.Partial("/Modules/SimplCommerce.Module.Comments/Views/Comment/_CommentForm.cshtml", new CommentForm { EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId })
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div id="comments" class="comment-item-list">
+        @if (Model.CommentsCount > 0)
+        {
+            @foreach (var comment in Model.Items.Data)
+            {
+                <div>
+                    <p>@comment.CommentText</p>
+                    <p>By: <strong>@comment.CommenterName</strong> on <span>@comment.CreatedOn</span></p>
+                </div>
+            }
+
+            <a asp-controller="Comment"
+               asp-action="List"
+               asp-route-entityId="@Model.EntityId"
+               asp-route-entityTypeId="@Model.EntityTypeId"
+               asp-route-pageNumber="1"
+               asp-route-pageSize="25">View all @Model.CommentsCount comments</a>
+        }
+    </div>    
+</div>
