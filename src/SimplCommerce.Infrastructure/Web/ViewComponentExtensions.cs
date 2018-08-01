@@ -26,7 +26,7 @@ namespace SimplCommerce.Infrastructure.Web
             {
                 var themeViewPath = $"/Themes/{theme}{viewPath}";
                 var viewEngine = viewComponent.ViewContext.HttpContext.RequestServices.GetRequiredService<ICompositeViewEngine>();
-                var result = viewEngine.FindView(viewComponent.ViewContext, themeViewPath, isMainPage: false);
+                var result = viewEngine.GetView("", themeViewPath, isMainPage: false);
                 if (result.Success)
                 {
                     viewPath = themeViewPath;
