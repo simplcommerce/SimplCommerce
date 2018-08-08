@@ -81,30 +81,30 @@
                                                     <td style="padding:5px 0 5px 15px">
                                                         <div>@item.Product.Name</div>
                                                     </td>
-                                                    <td style="padding:5px 0;text-align:right">@item.ProductPrice.ToString("C0")</td>
+                                                    <td style="padding:5px 0;text-align:right">@item.ProductPrice.ToString("C")</td>
                                                     <td style="padding:5px 0;text-align:center">@item.Quantity</td>
-                                                    <td style="padding:5px 15px 5px 0px;text-align:right">@((item.ProductPrice * item.Quantity).ToString("C0"))</td>
+                                                    <td style="padding:5px 15px 5px 0px;text-align:right">@((item.ProductPrice * item.Quantity).ToString("C"))</td>
                                                 </tr>
                                             }
                                             <tr>
                                                 <td align="right" colspan="3" style="border-top:1px solid #eff0f4;border-bottom:1px solid #eff0f4;padding:5px">@Localizer["Discount"]</td>
-                                                <td align="right" style="border-top:1px solid #eff0f4;border-bottom:1px solid #eff0f4;padding:5px 16px 5px 5px">@Model.DiscountAmount.ToString("C0")</td>
+                                                <td align="right" style="border-top:1px solid #eff0f4;border-bottom:1px solid #eff0f4;padding:5px 16px 5px 5px">@Model.DiscountAmount.ToString("C")</td>
                                             </tr>
                                             <tr>
                                                 <td align="right" colspan="3" style="border-bottom:1px solid #eff0f4;padding:5px">@Localizer["Payment fee"]</td>
-                                                <td align="right" style="border-bottom:1px solid #eff0f4;padding:5px 16px 5px 5px">@Model.PaymentFeeAmount.ToString("C0")</td>
+                                                <td align="right" style="border-bottom:1px solid #eff0f4;padding:5px 16px 5px 5px">@Model.PaymentFeeAmount.ToString("C")</td>
                                             </tr>
                                             <tr>
                                                 <td align="right" colspan="3" style="border-bottom:1px solid #eff0f4;padding:5px">@Localizer["Shipping fee"]</td>
-                                                <td align="right" style="border-bottom:1px solid #eff0f4;padding:5px 16px 5px 5px">@Model.ShippingFeeAmount.ToString("C0")</td>
+                                                <td align="right" style="border-bottom:1px solid #eff0f4;padding:5px 16px 5px 5px">@Model.ShippingFeeAmount.ToString("C")</td>
                                             </tr>
                                             <tr>
                                                 <td align="right" colspan="3" style="border-bottom:1px solid #eff0f4;padding:5px">@Localizer["Tax"]</td>
-                                                <td align="right" style="border-bottom:1px solid #eff0f4;padding:5px 16px 5px 5px">@Model.TaxAmount.ToString("C0")</td>
+                                                <td align="right" style="border-bottom:1px solid #eff0f4;padding:5px 16px 5px 5px">@Model.TaxAmount.ToString("C")</td>
                                             </tr>
                                             <tr>
                                                 <td align="right" colspan="3" style="border-bottom:1px solid #eff0f4;padding:5px"><strong>@Localizer["Order Total"]</strong></td>
-                                                <td align="right" style="border-bottom:1px solid #eff0f4;padding:5px 16px 5px 5px"><strong>@Model.OrderTotal.ToString("C0")</strong></td>
+                                                <td align="right" style="border-bottom:1px solid #eff0f4;padding:5px 16px 5px 5px"><strong>@Model.OrderTotal.ToString("C")</strong></td>
                                             </tr>
                                         </tbody>
                                     </table>
