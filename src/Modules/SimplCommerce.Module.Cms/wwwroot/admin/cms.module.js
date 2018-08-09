@@ -55,6 +55,16 @@
                     templateUrl: 'modules/cms/admin/html-widget/html-widget-form.html',
                     controller: 'HtmlWidgetFormCtrl as vm'
                 })
+                .state('widget-recently-viewed-create', {
+                    url: '/widget-recently-viewed/create',
+                    templateUrl: 'modules/cms/admin/recently-viewed-widget/recently-viewed-widget-form.html',
+                    controller: 'RecentlyViewedWidgetFormCtrl as vm'
+                })
+                .state('widget-recently-viewed-edit', {
+                    url: '/widget-recently-viewed/edit/:id',
+                    templateUrl: 'modules/cms/admin/recently-viewed-widget/recently-viewed-widget-form.html',
+                    controller: 'RecentlyViewedWidgetFormCtrl as vm'
+                })
                 .state('widget-spacebar-create', {
                     url: '/widget-spacebar/create',
                     templateUrl: 'modules/cms/admin/spacebar-widget/spacebar-widget-form.html',
