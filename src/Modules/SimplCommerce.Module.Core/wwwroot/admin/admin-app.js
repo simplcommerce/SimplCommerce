@@ -19,6 +19,7 @@
         'simplAdmin.cms',
         'simplAdmin.search',
         'simplAdmin.reviews',
+        'simplAdmin.comments',
         'simplAdmin.activityLog',
         'simplAdmin.vendors',
         'simplAdmin.localization',

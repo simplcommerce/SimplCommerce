@@ -55,6 +55,26 @@
                         <p>@comment.CommentText</p>
                         <p>By: <strong>@comment.CommenterName</strong> on <span>@comment.CreatedOn</span></p>
                     </div>
+                    @if (comment.Replies.Count > 0)
+                     {
+                         <button class="btn-review-replies btn-view-review-replies btn btn-link">@Localizer["View Replies"]<i class="arrow-down"></i></button>
+                         <button class="btn-review-replies btn-hide-review-replies btn btn-link d-none">@Localizer["Hide Replies"]<i class="arrow-up"></i></button>
+                         <ul class="review-replies d-none">
+                             @foreach (var reply in comment.Replies)
+                             {
+                                 <li class="review-reply">
+                                     <p>@reply.Comment</p>
+                                     <p>By: <strong>@reply.ReplierName</strong> on <span>@reply.CreatedOn</span></p>
+                                 </li>
+                             }
+                         </ul>
+                     }
+                    <div>
+                        <button class="btn-add-review-reply btn btn-link">@Localizer["Add Reply"]</button>
+                        <div class="add-review-reply d-none">
+                            @Html.Partial("/Modules/SimplCommerce.Module.Comments/Views/CommentReply/_ReplyForm.cshtml", new ReplyForm { CommentId = comment.Id })
+                        </div>
+                    </div>
                 }
             }
         </div>

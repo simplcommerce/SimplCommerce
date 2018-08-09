@@ -1,0 +1,4 @@
+﻿-- Add a new setting to determine if comments require approval  
+INSERT into [SimplCommerce].[dbo].[Core_AppSetting values] ('Product.IsCommentsRequireApproval', 'true', 'Catalog', 1)
+
+

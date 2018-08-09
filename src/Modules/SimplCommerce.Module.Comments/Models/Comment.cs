@@ -29,5 +29,7 @@ namespace SimplCommerce.Module.Comments.Models
 
         public long EntityId { get; set; }
 
+        public IList<Reply> Replies { get; protected set; } = new List<Reply>();
+
     }
 }

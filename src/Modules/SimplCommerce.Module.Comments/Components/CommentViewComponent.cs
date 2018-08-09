@@ -38,6 +38,16 @@ namespace SimplCommerce.Module.Comments.Components
                     CommentText = x.CommentText,
                     CommenterName = x.CommenterName,
                     CreatedOn = x.CreatedOn,
+                    Replies = x.Replies
+                        .Where(r => r.Status == ReplyStatus.Approved)
+                        .OrderByDescending(r => r.CreatedOn)
+                        .Select(r => new ViewModels.Reply
+                        {
+                            Comment = r.CommentText,
+                            ReplierName = r.ReplierName,
+                            CreatedOn = r.CreatedOn
+                        })
+                        .ToList()
                 }).ToListAsync();
 
             model.CommentsCount = model.Items.Data.Count;

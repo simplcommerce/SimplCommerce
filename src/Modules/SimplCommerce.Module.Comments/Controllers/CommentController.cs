@@ -6,6 +6,7 @@ using SimplCommerce.Module.Comments.Models;
 using SimplCommerce.Module.Comments.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace SimplCommerce.Module.Comments.Controllers
 {
@@ -15,11 +16,13 @@ namespace SimplCommerce.Module.Comments.Controllers
 
         private readonly ICommentRepository _commentRepository;
         private readonly IWorkContext _workContext;
+        private readonly bool _isCommentsRequireApproval;
 
-        public CommentController(ICommentRepository commentRepository, IWorkContext workContext)
+        public CommentController(ICommentRepository commentRepository, IWorkContext workContext, IConfiguration config)
         {
             _commentRepository = commentRepository;
             _workContext = workContext;
+            _isCommentsRequireApproval = config.GetValue<bool>("Product.IsCommentsRequireApproval");
         }
 
         [HttpPost]
@@ -28,16 +31,17 @@ namespace SimplCommerce.Module.Comments.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _workContext.GetCurrentUser();
-                var review = new Comment
+                var comment = new Comment
                 {
                     CommentText = model.CommentText,
                     CommenterName = model.CommenterName,
+                    Status = _isCommentsRequireApproval ? CommentStatus.Pending : CommentStatus.Approved,
                     EntityId = model.EntityId,
                     EntityTypeId = model.EntityTypeId,
                     UserId = user.Id
                 };
 
-                _commentRepository.Add(review);
+                _commentRepository.Add(comment);
                 _commentRepository.SaveChanges();
 
                 return PartialView("_CommentFormSuccess", model);
@@ -74,7 +78,17 @@ namespace SimplCommerce.Module.Comments.Controllers
                     Id = x.Id,
                     CommentText = x.CommentText,
                     CommenterName = x.CommenterName,
-                    CreatedOn = x.CreatedOn
+                    CreatedOn = x.CreatedOn,
+                    Replies = x.Replies
+                        .Where(r => r.Status == ReplyStatus.Approved)
+                        .OrderByDescending(r => r.CreatedOn)
+                        .Select(r => new ViewModels.Reply
+                        {
+                        Comment = r.CommentText,
+                        ReplierName = r.ReplierName,
+                        CreatedOn = r.CreatedOn
+                        })
+                        .ToList()
                 });
 
             model.Items.Data = await query
