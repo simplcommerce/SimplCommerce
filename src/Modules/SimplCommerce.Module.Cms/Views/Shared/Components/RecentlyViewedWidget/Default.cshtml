@@ -1,3 +1,3 @@
 ﻿@model SimplCommerce.Module.Cms.ViewModels.RecentlyViewedWidgetViewComponentVm
 
-@await Component.InvokeAsync("ProductRecentlyViewed", new { })
+@await Component.InvokeAsync("ProductRecentlyViewed", new { itemCount = Model.ItemCount})
