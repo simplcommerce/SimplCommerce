@@ -64,6 +64,8 @@ DELETE FROM [dbo].[Cms_Page]
 GO
 DELETE FROM [dbo].[Core_WidgetInstance]
 GO
+DELETE FROM [dbo].[Reviews_Reply]
+GO
 DELETE FROM [dbo].[Reviews_Review]
 GO
 

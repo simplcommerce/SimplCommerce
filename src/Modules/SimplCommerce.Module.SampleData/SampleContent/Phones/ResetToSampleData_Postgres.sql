@@ -31,6 +31,7 @@ DELETE FROM "Catalog_ProductTemplateProductAttribute";
 DELETE FROM "Catalog_ProductTemplate";
 DELETE FROM "Cms_Page";
 DELETE FROM "Core_WidgetInstance";
+DELETE FROM "Reviews_Reply";
 DELETE FROM "Reviews_Review";
 
 INSERT INTO "Catalog_Category" ("Id", "Name", "Slug", "Description", "DisplayOrder", "IsPublished", "IsDeleted", "ParentId", "ThumbnailImageId", "IncludeInMenu") VALUES (1, 'Phones', 'phones', NULL, 0, true, false, NULL, NULL, true);

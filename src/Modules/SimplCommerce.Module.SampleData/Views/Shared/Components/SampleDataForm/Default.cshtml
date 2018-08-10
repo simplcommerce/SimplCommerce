@@ -1,0 +1,19 @@
+﻿@model SimplCommerce.Module.SampleData.ViewModels.SampleDataOption
+
+<div>
+    <h2 class="page-header">Sample data</h2>
+    <h4>Delete all current catalog data and create sample catalog</h4>
+    <form asp-controller="SampleData" asp-action="ResetToSample" method="post">
+        <div class="form-row">
+            <div class="col-auto">
+                <label class="col-form-label" asp-for="Industry">Industry</label>
+            </div>
+            <div class="col-auto">
+                <select class="form-control" asp-for="Industry" asp-items="Model.AvailableIndustries.Select(x => new SelectListItem { Value = x, Text = x })"></select>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-danger">Do it!</button>
+            </div>
+        </div>
+    </form>
+</div>
