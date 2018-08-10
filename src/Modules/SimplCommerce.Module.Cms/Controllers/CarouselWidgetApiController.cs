@@ -144,7 +144,9 @@ namespace SimplCommerce.Module.Cms.Controllers
             {
                 var item = new CarouselWidgetItemForm();
                 item.Caption = formCollection[$"items[{i}][caption]"];
+                item.SubCaption = formCollection[$"items[{i}][subCaption]"];
                 item.TargetUrl = formCollection[$"items[{i}][targetUrl]"];
+                item.LinkText = formCollection[$"items[{i}][linkText]"];
                 item.Image = formCollection[$"items[{i}][image]"];
                 item.UploadImage = formCollection.Files[$"items[{i}][uploadImage]"];
                 model.Items.Add(item);
