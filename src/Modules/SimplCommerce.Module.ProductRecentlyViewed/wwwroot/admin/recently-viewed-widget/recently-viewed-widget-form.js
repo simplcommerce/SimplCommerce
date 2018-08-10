@@ -1,7 +1,7 @@
 ﻿/*global angular, jQuery*/
 (function ($) {
     angular
-        .module('simplAdmin.cms')
+        .module('simplAdmin.recentlyViewed')
         .controller('RecentlyViewedWidgetFormCtrl', RecentlyViewedWidgetFormCtrl);
 
     /* @ngInject */

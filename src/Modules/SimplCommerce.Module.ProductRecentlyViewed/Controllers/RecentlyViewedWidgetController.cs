@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Cms.ViewModels;
+using SimplCommerce.Module.ProductRecentlyViewed.ViewModels;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
 
-namespace SimplCommerce.Module.Cms.Controllers
+namespace SimplCommerce.Module.ProductRecentlyViewed.Controllers
 {
     [Authorize(Roles = "admin")]
     [Route("api/recently-viewed-widgets")]

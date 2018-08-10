@@ -1,7 +1,7 @@
 ﻿/*global angular*/
 (function () {
     angular
-        .module('simplAdmin.cms')
+        .module('simplAdmin.recentlyViewed')
         .factory('recentlyViewedWidgetService', recentlyViewedWidgetService);
 
     /* @ngInject */
