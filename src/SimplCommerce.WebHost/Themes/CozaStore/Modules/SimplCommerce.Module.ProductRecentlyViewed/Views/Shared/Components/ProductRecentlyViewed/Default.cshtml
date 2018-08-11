@@ -1,0 +1,14 @@
+﻿@model IList<SimplCommerce.Module.Catalog.ViewModels.ProductThumbnail>
+
+@if (Model.Any())
+{
+<h3 class="p-t-25 p-b-25">@Localizer["Recently viewed products"]</h3>
+<div class="row product-list">
+    @foreach (var product in Model)
+    {
+        <div class="col-xs-6 col-md-3">
+            @await Html.PartialAsync("/Themes/CozaStore/Modules/SimplCommerce.Module.Catalog/Views/Shared/_ProductThumbnail.cshtml", product)
+        </div>
+    }
+</div>
+}

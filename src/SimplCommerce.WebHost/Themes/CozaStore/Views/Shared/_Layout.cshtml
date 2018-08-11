@@ -1,0 +1,267 @@
+﻿@using System.Globalization
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewData["Title"] - SimplCommerce</title>
+    @RenderSection("additionalMeta", false)
+
+    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/lib/bootstrap4/css/bootstrap.css" />
+    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/fonts/iconic/css/material-design-iconic-font.min.css" />
+    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/fonts/linearicons-v1.0.0/icon-font.min.css" />
+    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/lib/bootstrap-star-rating/css/star-rating.css" />
+    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/vendor/animate/animate.css" />
+    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/vendor/css-hamburgers/hamburgers.min.css" />
+    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/vendor/animsition/css/animsition.min.css" />
+    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/vendor/slick/slick.css" />
+    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/css/util.css" />
+    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/css/main.css" />
+    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/css/simpl.css" />
+
+    @RenderSection("head", required: false)
+</head>
+<body class="animsition">
+    <!-- Header -->
+    <header class="header-v4">
+        <!-- Header desktop -->
+        <div class="container-menu-desktop">
+            <!-- Topbar -->
+            <div class="top-bar">
+                <div class="content-topbar flex-sb-m h-full container">
+                    <div class="left-top-bar">
+                        Free shipping for standard order over $100
+                    </div>
+
+                    <div class="right-top-bar flex-w h-full">
+                        <a href="~/help-center" class="flex-c-m trans-04 p-lr-25">
+                            Help & FAQs
+                        </a>
+                        @await Html.PartialAsync("_LoginPartial")
+                    </div>
+                </div>
+            </div>
+
+            <div class="wrap-menu-desktop">
+                <nav class="limiter-menu-desktop container">
+
+                    <!-- Logo desktop -->
+                    <a href="~/" class="logo">
+                        <img src="~/themes/CozaStore/images/icons/logo-01.png" alt="IMG-LOGO">
+                    </a>
+
+                    <!-- Menu desktop -->
+                    <div class="menu-desktop">
+                        <ul class="main-menu">
+                            @await Component.InvokeAsync("CategoryMenu")
+                        </ul>
+                    </div>
+
+                    <!-- Icon header -->
+                    <div class="wrap-icon-header flex-w flex-r-m">
+                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+                            <i class="zmdi zmdi-search"></i>
+                        </div>
+
+                        @await Component.InvokeAsync("CartBadge")
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- Header Mobile -->
+        <div class="wrap-header-mobile">
+            <!-- Logo moblie -->
+            <div class="logo-mobile">
+                <a href="index.html"><img src="~/themes/CozaStore/images/icons/logo-01.png" alt="IMG-LOGO"></a>
+            </div>
+
+            <!-- Icon header -->
+            <div class="wrap-icon-header flex-w flex-r-m m-r-15">
+                <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
+                    <i class="zmdi zmdi-search"></i>
+                </div>
+
+                @await Component.InvokeAsync("CartBadge")
+            </div>
+
+            <!-- Button show menu -->
+            <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </div>
+        </div>
+        <!-- Menu Mobile -->
+        <div class="menu-mobile">
+            <ul class="topbar-mobile">
+                <li>
+                    <div class="left-top-bar">
+                        Free shipping for standard order over $100
+                    </div>
+                </li>
+
+                <li>
+                    <div class="right-top-bar flex-w h-full">
+                        <a href="#" class="flex-c-m p-lr-10 trans-04">
+                            Help & FAQs
+                        </a>
+
+                        @await Html.PartialAsync("_LoginPartial")
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="main-menu-m">
+                @await Component.InvokeAsync("CategoryMenu")
+            </ul>
+        </div>
+        <!-- Modal Search -->
+        @await Component.InvokeAsync("SearchForm")
+    </header>
+
+    @RenderSection("featured", false)
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <!-- Footer -->
+    <footer class="bg3 p-t-75 p-b-32 m-t-75">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-lg-3 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">
+                        Categories
+                    </h4>
+                    <vc:menu menu-id="2"></vc:menu>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">
+                        Help
+                    </h4>
+                    <vc:menu menu-id="1"></vc:menu>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">
+                        GET IN TOUCH
+                    </h4>
+
+                    <p class="stext-107 cl7 size-201">
+                        Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+                    </p>
+
+                    <div class="p-t-27">
+                        <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+
+                        <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+
+                        <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                            <i class="fa fa-pinterest-p"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">
+                        Newsletter
+                    </h4>
+
+                    <form>
+                        <div class="wrap-input1 w-full p-b-4">
+                            <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" placeholder="email@example.com">
+                            <div class="focus-input1 trans-04"></div>
+                        </div>
+
+                        <div class="p-t-18">
+                            <button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
+                                Subscribe
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="p-t-40">
+                <div class="flex-c-m flex-w p-b-18">
+                    <a href="#" class="m-all-1">
+                        <img src="~/themes/CozaStore/images/icons/icon-pay-01.png" alt="ICON-PAY">
+                    </a>
+
+                    <a href="#" class="m-all-1">
+                        <img src="~/themes/CozaStore/images/icons/icon-pay-02.png" alt="ICON-PAY">
+                    </a>
+
+                    <a href="#" class="m-all-1">
+                        <img src="~/themes/CozaStore/images/icons/icon-pay-03.png" alt="ICON-PAY">
+                    </a>
+
+                    <a href="#" class="m-all-1">
+                        <img src="~/themes/CozaStore/images/icons/icon-pay-04.png" alt="ICON-PAY">
+                    </a>
+
+                    <a href="#" class="m-all-1">
+                        <img src="~/themes/CozaStore/images/icons/icon-pay-05.png" alt="ICON-PAY">
+                    </a>
+                </div>
+
+                <p class="stext-107 cl6 txt-center">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Back to top -->
+    <div class="btn-back-to-top" id="myBtn">
+        <span class="symbol-btn-back-to-top">
+            <i class="zmdi zmdi-chevron-up"></i>
+        </span>
+    </div>
+    <div id="shopModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+    <script>
+        window.simplGlobalSetting = {};
+        window.simplGlobalSetting.lang = '@CultureInfo.CurrentCulture.Name';
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script simpl-append-version="true" src="~/lib/bootstrap4/js/bootstrap.js"></script>
+    <script simpl-append-version="true" src="~/lib/multi-dropdown-menu/js/bootstrap-4-navbar.js"></script>
+    <script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
+    <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
+    @if (CultureInfo.CurrentCulture.Name == "vi-VN")
+    {
+        <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/vi-vn.js"></script>
+    }
+
+    <script src="~/themes/CozaStore/vendor/animsition/js/animsition.min.js"></script>
+    <script src="~/themes/CozaStore/vendor/slick/slick.min.js"></script>
+    <script src="~/themes/CozaStore/js/slick-custom.js"></script>
+    <script src="~/themes/CozaStore/js/cozastore.js"></script>
+
+    <script simpl-append-version="true" src="~/modules/core/main.js"></script>
+    <script simpl-append-version="true" src="~/modules/shopping-cart/add-to-cart.js"></script>
+    <script simpl-append-version="true" src="~/modules/product-comparison/product-comparison.js"></script>
+    @RenderSection("scripts", required: false)
+
+    @await Html.PartialAsync("_AnalyticsScript")
+</body>
+</html>
