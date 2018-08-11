@@ -323,3 +323,7 @@ footer input, footer label, .container-search-header input{
     outline: none;
     border: none;
 }
+
+#shopModal {
+    z-index: 2000;
+}
