@@ -34,14 +34,6 @@ ul, li {
 	list-style-type: none;
 }
 
-
-/*---------------------------------------------*/
-input, textarea, label {
-	display: block;
-	outline: none;
-	border: none;
-}
-
 /*---------------------------------------------*/
 button {
 	outline: none;
