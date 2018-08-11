@@ -389,3 +389,8 @@ INSERT [dbo].[Inventory_StockHistory] ([Id], [ProductId], [WareHouseId], [Create
 INSERT [dbo].[Inventory_StockHistory] ([Id], [ProductId], [WareHouseId], [CreatedOn], [CreatedById], [AdjustedQuantity], [Note]) VALUES (25, 8, 1, CAST(N'2018-08-11T21:20:52.3045421+07:00' AS DateTimeOffset), 10, 100, NULL)
 SET IDENTITY_INSERT [dbo].[Inventory_StockHistory] OFF 
 GO
+SET IDENTITY_INSERT [dbo].[Reviews_Review] ON 
+INSERT [dbo].[Reviews_Review] ([Id], [UserId], [Title], [Comment], [Rating], [ReviewerName], [Status], [CreatedOn], [EntityTypeId], [EntityId]) VALUES (1, 10, N'Good', N'very good', 5, N'very good', 5, CAST(N'2018-08-11T19:20:55.4863839+07:00' AS DateTimeOffset), N'Product', 20)
+INSERT [dbo].[Reviews_Review] ([Id], [UserId], [Title], [Comment], [Rating], [ReviewerName], [Status], [CreatedOn], [EntityTypeId], [EntityId]) VALUES (2, 10, N'excellent', N'very good', 5, N'Thien', 5, CAST(N'2018-08-11T20:43:11.1216762+07:00' AS DateTimeOffset), N'Product', 22)
+SET IDENTITY_INSERT [dbo].[Reviews_Review] OFF 
+GO
