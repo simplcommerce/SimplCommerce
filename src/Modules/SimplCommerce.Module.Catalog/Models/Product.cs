@@ -33,6 +33,8 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public bool IsAllowToOrder { get; set; }
 
+        public bool StockTrackingIsEnabled { get; set; }
+
         public int StockQuantity { get; set; }
 
         public string Sku { get; set; }
@@ -131,6 +133,7 @@ namespace SimplCommerce.Module.Catalog.Models
             product.BrandId = BrandId;
             product.VendorId = VendorId;
             product.TaxClassId = TaxClassId;
+            product.StockTrackingIsEnabled = StockTrackingIsEnabled;
 
             foreach (var attribute in AttributeValues)
             {
