@@ -110,7 +110,7 @@
                                 }
                             }
                         </div>
-                        @if (variant.StockQuantity <= 0)
+                        @if (variant.StockTrackingIsEnabled && variant.StockQuantity <= 0)
                         {
                             <div class="out-of-stock">
                                 <span class="label label-danger">@Localizer["Out of stock"]</span>
@@ -124,7 +124,7 @@
                                     <input type="text" class="quantity-field" readonly="readonly" name="qty" value="1">
                                     <button type="button" class="quantity-button" name="add" value="+">+</button>
                                 </div>
-                                <button type="button" disabled="@(!variant.IsAllowToOrder || variant.StockQuantity <= 0)" class="btn btn-lg btn-add-cart">@Localizer["Add to cart"]</button>
+                                <button type="button" disabled="@(!variant.IsAllowToOrder || (variant.StockTrackingIsEnabled && variant.StockQuantity <= 0))" class="btn btn-lg btn-add-cart">@Localizer["Add to cart"]</button>
                                 <div>
                                     <ul class="list-inline add-to-wishlist">
                                         @*<li class="wishlist-in">
@@ -162,7 +162,7 @@
                         }
                     }
                 </div>
-                if (Model.StockQuantity <= 0)
+                if (Model.StockTrackingIsEnabled && Model.StockQuantity <= 0)
                 {
                     <div class="out-of-stock">
                         <span class="label label-danger">@Localizer["Out of stock"]</span>
@@ -176,7 +176,7 @@
                             <input type="text" class="quantity-field" readonly="readonly" name="qty" value="1">
                             <button type="button" class="quantity-button" name="add" value="+">+</button>
                         </div>
-                        <button type="button" disabled="@(!Model.IsAllowToOrder || Model.StockQuantity <= 0)" class="btn btn-lg btn-add-cart">@Localizer["Add to cart"]</button>
+                        <button type="button" disabled="@(!Model.IsAllowToOrder || (Model.StockTrackingIsEnabled && Model.StockQuantity <= 0))" class="btn btn-lg btn-add-cart">@Localizer["Add to cart"]</button>
                         <div>
                             <ul class="list-inline add-to-wishlist">
                                 @*<li class="wishlist-in">
