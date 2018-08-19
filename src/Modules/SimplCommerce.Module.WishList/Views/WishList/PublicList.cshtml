@@ -1,0 +1,58 @@
+﻿@using cloudscribe.Web.Pagination
+@model SimplCommerce.Module.WishList.ViewModels.WishListVm
+@{
+    ViewData["Title"] = Localizer["Wish List"];
+}
+
+@section head
+{
+    <link simpl-append-version="true" rel="stylesheet" href="~/modules/wish-list/public-list.css" />
+}
+
+<div class="row">
+    <div class="wishlist col-md-12">
+        <h2>@Localizer["Wish List"]</h2>
+        <hr />
+        @if (Model.Items.TotalItems > 0)
+        {
+            @foreach (var item in Model.Items.Data)
+            {
+                <div class="row item">
+                    <div class="col-md-4">
+                        <img alt="@item.ProductName" class="img-fluid" src="@item.ProductImage">
+                    </div>
+                    <div class="col-md-8">
+                        <h4>@item.ProductName</h4>
+                        <p>@item.Description</p>
+                        <form>
+                            <p>@Localizer["Quantity"]: @item.Quantity</p>
+                            <input type="hidden" name="itemId" value="@item.Id" />
+                            <input type="hidden" name="productId" value="@item.ProductId" />
+                            <input type="hidden" name="quantity" class="quantity-field" value="@item.Quantity" />
+                            <button type="button" class="btn btn-lg btn-add-cart">@Localizer["Add to cart"]</button>
+                        </form>
+                    </div>
+                </div>
+            }
+            <div>
+                <cs-pager cs-paging-pagesize="@Model.Items.PageSize"
+                          cs-paging-pagenumber="@Model.Items.PageNumber"
+                          cs-paging-totalitems="@Model.Items.TotalItems"
+                          cs-pagenumber-param="pageNumber"
+                          asp-controller="WishList"
+                          asp-action="PublicList"
+                          asp-route-id="@Model.SharingCode"
+                          asp-route-pageSize="@Model.Items.PageSize"
+                          cs-pager-li-current-class="page-item active"
+                          cs-pager-li-other-class="page-item"
+                          cs-pager-li-non-active-class="page-item disabled"
+                          cs-pager-link-current-class="page-link"
+                          cs-pager-link-other-class="page-link"></cs-pager>
+            </div>
+        }
+        else
+        {
+            <p>@Localizer["There are currently no items in the wish list."]</p>
+        }
+    </div>
+</div>
