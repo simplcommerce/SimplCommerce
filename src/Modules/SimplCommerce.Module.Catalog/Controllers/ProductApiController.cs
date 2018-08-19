@@ -72,7 +72,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             if (!User.IsInRole("admin") && product.VendorId != currentUser.VendorId)
             {
-                return new BadRequestObjectResult(new { error = "You don't have permission to manage this product" });
+                return BadRequest(new { error = "You don't have permission to manage this product" });
             }
 
             var productVm = new ProductVm
@@ -470,7 +470,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             if (!User.IsInRole("admin") && product.VendorId != currentUser.VendorId)
             {
-                return new BadRequestObjectResult(new { error = "You don't have permission to manage this product" });
+                return BadRequest(new { error = "You don't have permission to manage this product" });
             }
 
             await _productService.Delete(product);

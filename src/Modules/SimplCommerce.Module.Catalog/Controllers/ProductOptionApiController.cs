@@ -53,7 +53,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
                 return Ok();
             }
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpPut("{id}")]
@@ -70,7 +70,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 return Ok();
             }
 
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpDelete("{id}")]
@@ -80,7 +80,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             var productOption = _productOptionRepository.Query().FirstOrDefault(x => x.Id == id);
             if (productOption == null)
             {
-                return new NotFoundResult();
+                return NotFound();
             }
 
             _productOptionRepository.Remove(productOption);

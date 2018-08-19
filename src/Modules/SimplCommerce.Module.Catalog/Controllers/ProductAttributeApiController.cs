@@ -64,7 +64,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
                 return Ok();
             }
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpPut("{id}")]
@@ -82,7 +82,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 return Ok();
             }
 
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
@@ -91,7 +91,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             var productAttribute = _productAttrRepository.Query().FirstOrDefault(x => x.Id == id);
             if (productAttribute == null)
             {
-                return new NotFoundResult();
+                return NotFound();
             }
 
             _productAttrRepository.Remove(productAttribute);

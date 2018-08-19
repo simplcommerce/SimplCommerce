@@ -60,7 +60,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
                 return Ok();
             }
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpPut("{id}")]
@@ -77,7 +77,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 return Ok();
             }
 
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpDelete("{id}")]
@@ -87,7 +87,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             var productAttributeGroup = _productAttrGroupRepository.Query().FirstOrDefault(x => x.Id == id);
             if (productAttributeGroup == null)
             {
-                return new NotFoundResult();
+                return NotFound();
             }
 
             _productAttrGroupRepository.Remove(productAttributeGroup);
