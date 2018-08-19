@@ -125,7 +125,7 @@ namespace SimplCommerce.Module.WishList.Controllers
 
             if (wishList == null)
             {
-                return new NotFoundResult();
+                return NotFound();
             }
 
             var wishlistVm = await List(wishList, pageNumber, pageSize);
@@ -187,11 +187,12 @@ namespace SimplCommerce.Module.WishList.Controllers
 
                 if (product == null)
                 {
-                    return new NotFoundResult();
+                    return NotFound();
                 }
 
                 var wishList = await _wishListRepository
                     .Query()
+                    .Include(x => x.Items)
                     .SingleOrDefaultAsync(x => x.UserId == user.Id);
 
                 if (wishList == null)
@@ -205,10 +206,10 @@ namespace SimplCommerce.Module.WishList.Controllers
                     await _wishListRepository.SaveChangesAsync();
                 }
 
-                var existingWishlistItem = await _wishListItemRepository
-                    .Query()
-                    .SingleOrDefaultAsync(x => x.ProductId == model.ProductId);
-            
+                var existingWishlistItem = wishList
+                    .Items
+                    .SingleOrDefault(x => x.ProductId == model.ProductId);
+
                 if (existingWishlistItem != null)
                 {
                     resultModel.Message = "The product already exists in your wish list";
@@ -231,7 +232,6 @@ namespace SimplCommerce.Module.WishList.Controllers
                     };
 
                     _wishListItemRepository.Add(wishListItem);
-                    await _wishListItemRepository.SaveChangesAsync();
 
                     wishList.UpdatedOn = DateTimeOffset.Now;
                     await _wishListRepository.SaveChangesAsync();
@@ -250,7 +250,7 @@ namespace SimplCommerce.Module.WishList.Controllers
                 return PartialView("AddToWishListResult", resultModel);
             }
 
-            return new NotFoundResult();
+            return NotFound();
         }
 
         [Authorize]
@@ -261,19 +261,24 @@ namespace SimplCommerce.Module.WishList.Controllers
 
             var wishList = await _wishListRepository
                 .Query()
+                .Include(x => x.Items)
                 .SingleOrDefaultAsync(x => x.UserId == user.Id);
 
-            var wishListItem = await _wishListItemRepository
-                .Query()
-                .SingleOrDefaultAsync(x => x.Id == id);
-
-            if (wishList == null || wishListItem == null)
+            if (wishList == null)
             {
-                return new NotFoundResult();
+                return NotFound();
+            }
+
+            var wishListItem = wishList
+                .Items
+                .SingleOrDefault(x => x.Id == id);
+
+            if (wishListItem == null)
+            {
+                return NotFound();
             }
 
             _wishListItemRepository.Remove(wishListItem);
-            await _wishListItemRepository.SaveChangesAsync();
 
             wishList.UpdatedOn = DateTimeOffset.Now;
             await _wishListRepository.SaveChangesAsync();
@@ -291,26 +296,26 @@ namespace SimplCommerce.Module.WishList.Controllers
                 var returnModel = new AddToWishListResult();
 
                 var wishList = await _wishListRepository.Query()
+                    .Include(x => x.Items)
                     .SingleOrDefaultAsync(x => x.UserId == user.Id);
 
                 if (wishList == null)
                 {
-                    return new NotFoundResult();
+                    return NotFound();
                 }
 
-                var item = _wishListItemRepository.Query()
+                var wishListItem = wishList
+                    .Items
                     .SingleOrDefault(x => x.Id == model.ItemId);
 
-                if (item == null)
+                if (wishListItem == null)
                 {
-                    return new NotFoundResult();
+                    return NotFound();
                 }
 
-                item.Description = String.IsNullOrWhiteSpace(model.Description) ? null : model.Description;
-                item.Quantity = model.Quantity;
-                item.UpdatedOn = DateTimeOffset.Now;
-
-                await _wishListItemRepository.SaveChangesAsync();
+                wishListItem.Description = String.IsNullOrWhiteSpace(model.Description) ? null : model.Description;
+                wishListItem.Quantity = model.Quantity;
+                wishListItem.UpdatedOn = DateTimeOffset.Now;
 
                 wishList.UpdatedOn = DateTimeOffset.Now;
                 await _wishListRepository.SaveChangesAsync();
@@ -318,7 +323,7 @@ namespace SimplCommerce.Module.WishList.Controllers
                 return PartialView("UpdateItemResult");
             }
 
-            return new NotFoundResult();
+            return NotFound();
         }
     }
 }

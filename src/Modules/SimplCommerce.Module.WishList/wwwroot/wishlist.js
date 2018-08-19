@@ -58,7 +58,7 @@ $(function () {
     });
 
     $('body').on('click', '.remove-from-wishlist', function (e) {
-        var $row = $(this).closest(".row"),
+        var $item = $(this).closest(".item"),
             itemId = $(this).closest("form").find('input[name=itemId]').val(),
             reload = $(this).attr("data-reload");
         e.preventDefault();
@@ -68,7 +68,7 @@ $(function () {
             url: '/wishlist/removeitem?id=' + itemId,
             contentType: 'application/json; charset=utf-8'
         }).done(function () {
-            $row.remove();
+            $item.remove();
             window.location.href = '/user/wishlist';
         });
     });
