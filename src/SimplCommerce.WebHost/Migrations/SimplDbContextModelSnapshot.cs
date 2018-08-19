@@ -1344,8 +1344,7 @@ namespace SimplCommerce.WebHost.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CultureId")
-                        .IsRequired()
-                        .HasMaxLength(250);
+                        .IsRequired();
 
                     b.Property<string>("Key")
                         .IsRequired()

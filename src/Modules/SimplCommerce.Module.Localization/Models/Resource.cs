@@ -12,7 +12,6 @@ namespace SimplCommerce.Module.Localization.Models
         public string Value { get; set; }
 
         [Required]
-        [StringLength(250)]
         public string CultureId { get; set; }
 
         public Culture Culture { get; set; }

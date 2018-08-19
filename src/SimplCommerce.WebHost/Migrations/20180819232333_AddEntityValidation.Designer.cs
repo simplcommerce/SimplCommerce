@@ -10,7 +10,7 @@ using SimplCommerce.Module.Core.Data;
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    [Migration("20180819230224_AddEntityValidation")]
+    [Migration("20180819232333_AddEntityValidation")]
     partial class AddEntityValidation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1346,8 +1346,7 @@ namespace SimplCommerce.WebHost.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CultureId")
-                        .IsRequired()
-                        .HasMaxLength(250);
+                        .IsRequired();
 
                     b.Property<string>("Key")
                         .IsRequired()

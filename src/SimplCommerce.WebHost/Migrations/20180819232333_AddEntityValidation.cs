@@ -125,7 +125,6 @@ namespace SimplCommerce.WebHost.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "CultureId",
                 table: "Localization_Resource",
-                maxLength: 250,
                 nullable: false,
                 oldClrType: typeof(string),
                 oldNullable: true);
@@ -501,8 +500,7 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "CultureId",
                 table: "Localization_Resource",
                 nullable: true,
-                oldClrType: typeof(string),
-                oldMaxLength: 250);
+                oldClrType: typeof(string));
 
             migrationBuilder.AlterColumn<string>(
                 name: "Name",
