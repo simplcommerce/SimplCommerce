@@ -12,8 +12,8 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public long ProductId { get; set; }
 
-        public virtual Category Category { get; set; }
+        public Category Category { get; set; }
 
-        public virtual Product Product { get; set; }
+        public Product Product { get; set; }
     }
 }

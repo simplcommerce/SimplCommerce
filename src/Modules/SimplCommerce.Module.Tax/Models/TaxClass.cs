@@ -1,4 +1,5 @@
-﻿using SimplCommerce.Infrastructure.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Tax.Models
 {
@@ -11,6 +12,8 @@ namespace SimplCommerce.Module.Tax.Models
             Id = id;
         }
 
+        [Required]
+        [StringLength(250)]
         public string Name { get; set; }
     }
 }

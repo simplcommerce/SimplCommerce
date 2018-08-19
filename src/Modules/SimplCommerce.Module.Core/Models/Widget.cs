@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Core.Models
@@ -19,6 +20,8 @@ namespace SimplCommerce.Module.Core.Models
             }
         }
 
+        [Required]
+        [StringLength(250)]
         public string Name { get; set; }
 
         public string ViewComponentName { get; set; }
