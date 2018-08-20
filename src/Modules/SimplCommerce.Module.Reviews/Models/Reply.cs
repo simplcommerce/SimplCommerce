@@ -1,6 +1,6 @@
-﻿using SimplCommerce.Infrastructure.Models;
+﻿using System;
+using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Core.Models;
-using System;
 
 namespace SimplCommerce.Module.Reviews.Models
 {

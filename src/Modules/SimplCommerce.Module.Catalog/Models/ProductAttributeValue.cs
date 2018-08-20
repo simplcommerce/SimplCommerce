@@ -6,7 +6,7 @@ namespace SimplCommerce.Module.Catalog.Models
     {
         public long AttributeId { get; set; }
 
-        public virtual ProductAttribute Attribute { get; set; }
+        public ProductAttribute Attribute { get; set; }
 
         public long ProductId { get; set; }
 

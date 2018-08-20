@@ -1,4 +1,5 @@
 ﻿using SimplCommerce.Infrastructure.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace SimplCommerce.Module.Core.Models
 {
@@ -14,6 +15,8 @@ namespace SimplCommerce.Module.Core.Models
             Id = id;
         }
 
+        [Required]
+        [StringLength(450)]
         public string Name { get { return Id; } }
 
         public bool IsMenuable { get; set; }

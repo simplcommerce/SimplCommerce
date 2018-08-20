@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Inventory.Models;
@@ -19,6 +20,7 @@ namespace SimplCommerce.Module.Shipments.Models
 
         public Order Order { get; set; }
 
+        [StringLength(450)]
         public string TrackingNumber { get; set; }
 
         public long WarehouseId { get; set; }
