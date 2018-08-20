@@ -13,7 +13,7 @@
 <div class="row">
     <div class="col-md-3 product-list-filters">
         <h3>@Localizer["Filter by"]</h3>
-        <form id="productFilter" name="productFilter" method="GET" action="~/@Model.BrandSeoTitle">
+        <form id="productFilter" name="productFilter" method="GET" action="~/@Model.BrandSlug">
             <div id="accordion-category">
                 <div class="card">
                     <div class="card-header" id="cardHeaderCategory">
@@ -31,7 +31,7 @@
                                 {
                                     <li>
                                         <label class="checkbox">
-                                            <input type="checkbox" value="@category.SeoTitle" name="category" checked="@Model.CurrentSearchOption.GetCategories().Contains(category.SeoTitle)">
+                                            <input type="checkbox" value="@category.Slug" name="category" checked="@Model.CurrentSearchOption.GetCategories().Contains(category.Slug)">
                                             @category.Name
                                             <small>(@category.Count)</small>
                                         </label>
@@ -62,10 +62,6 @@
                                 <span id="minPrice"></span>
                                 <span id="maxPrice"></span>
                             </div>
-                            <div class="price-actions mb-3">
-                                <button id="reset-price" type="button" class="btn btn-default">Reset</button>
-                                <button id="apply-price" type="button" class="btn btn-default">Apply</button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -81,10 +77,6 @@
             </div>
             <div class="col-sm-6">
                 <ul class="list-inline clear-both product-list-display-options">
-                    <li class="show-option">
-                        <a href="#"><i class="fa fa-th-list"></i></a>
-                        <a href="#"><i class="fa fa-th"></i></a>
-                    </li>
                     <li class="sort-by">
                         <label>@Localizer["Sort by:"]</label>
                         <div class="btn-group">
@@ -121,7 +113,7 @@
                           cs-paging-pagenumber="@Model.CurrentSearchOption.Page"
                           cs-paging-totalitems="@Model.TotalProduct"
                           cs-pagenumber-param="page"
-                          asp-basehref="~/@Model.BrandSeoTitle"
+                          asp-basehref="~/@Model.BrandSlug"
                           asp-all-route-data="@Model.CurrentSearchOption.ToDictionary()"></cs-pager>
             </div>
         </div>

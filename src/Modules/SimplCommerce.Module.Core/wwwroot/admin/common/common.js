@@ -19,7 +19,7 @@
                         return val.replace(",", ".");
                     }
 
-                    return undefined;
+                    return null;
                 }
                 ngModelController.$parsers.push(transform);
             }

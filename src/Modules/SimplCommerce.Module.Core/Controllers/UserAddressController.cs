@@ -15,13 +15,13 @@ namespace SimplCommerce.Module.Core.Controllers
     public class UserAddressController : Controller
     {
         private readonly IRepository<UserAddress> _userAddressRepository;
-        private readonly IRepository<Country> _countryRepository;
+        private readonly IRepositoryWithTypedId<Country, string> _countryRepository;
         private readonly IRepository<StateOrProvince> _stateOrProvinceRepository;
         private readonly IRepository<District> _districtRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IWorkContext _workContext;
 
-        public UserAddressController(IRepository<UserAddress> userAddressRepository, IRepository<Country> countryRepository, IRepository<StateOrProvince> stateOrProvinceRepository,
+        public UserAddressController(IRepository<UserAddress> userAddressRepository, IRepositoryWithTypedId<Country, string> countryRepository, IRepository<StateOrProvince> stateOrProvinceRepository,
             IRepository<District> districtRepository, IRepository<User> userRepository, IWorkContext workContext)
         {
             _userAddressRepository = userAddressRepository;
@@ -64,7 +64,7 @@ namespace SimplCommerce.Module.Core.Controllers
         }
 
         [HttpGet("api/country-states-provinces/{countryId}")]
-        public async Task<IActionResult> Get(long countryId)
+        public async Task<IActionResult> Get(string countryId)
         {
             var country = await _countryRepository.Query().Include(x => x.StatesOrProvinces).FirstOrDefaultAsync(x => x.Id == countryId);
             if (country == null)
@@ -263,7 +263,7 @@ namespace SimplCommerce.Module.Core.Controllers
                     Value = x.Id.ToString()
                 }).ToList();
 
-            var selectedShipableCountryId = model.CountryId > 0 ? model.CountryId : long.Parse(model.Countries.First().Value);
+            var selectedShipableCountryId = !string.IsNullOrEmpty(model.CountryId) ? model.CountryId : model.Countries.First().Value;
             var selectedCountry = shippableCountries.FirstOrDefault(c => c.Id == selectedShipableCountryId);
             if (selectedCountry != null)
             {

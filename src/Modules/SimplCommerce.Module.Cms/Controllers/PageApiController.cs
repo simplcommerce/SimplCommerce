@@ -8,6 +8,7 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Cms.Models;
 using SimplCommerce.Module.Cms.Services;
 using SimplCommerce.Module.Cms.ViewModels;
+using SimplCommerce.Module.Core.Extensions;
 
 namespace SimplCommerce.Module.Cms.Controllers
 {
@@ -17,11 +18,13 @@ namespace SimplCommerce.Module.Cms.Controllers
     {
         private readonly IRepository<Page> _pageRepository;
         private readonly IPageService _pageService;
+        private readonly IWorkContext _workContext;
 
-        public PageApiController(IRepository<Page> pageRepository, IPageService pageService)
+        public PageApiController(IRepository<Page> pageRepository, IPageService pageService, IWorkContext workContext)
         {
             _pageRepository = pageRepository;
             _pageService = pageService;
+            _workContext = workContext;
         }
 
         [HttpGet]
@@ -33,7 +36,7 @@ namespace SimplCommerce.Module.Cms.Controllers
                 {
                     x.Id,
                     x.Name,
-                    x.SeoTitle,
+                    x.Slug,
                     x.CreatedOn,
                     x.IsPublished
                 })
@@ -50,7 +53,10 @@ namespace SimplCommerce.Module.Cms.Controllers
             {
                 Id = page.Id,
                 Name = page.Name,
-                Slug = page.SeoTitle,
+                Slug = page.Slug,
+                MetaTitle = page.MetaTitle,
+                MetaKeywords = page.MetaKeywords,
+                MetaDescription = page.MetaDescription,
                 Body = page.Body,
                 IsPublished = page.IsPublished
             };
@@ -63,12 +69,17 @@ namespace SimplCommerce.Module.Cms.Controllers
         {
             if (ModelState.IsValid)
             {
+                var currentUser = await _workContext.GetCurrentUser();
                 var page = new Page
                 {
                     Name = model.Name,
-                    SeoTitle = model.Slug,
+                    Slug = model.Slug,
+                    MetaTitle = model.MetaTitle,
+                    MetaKeywords = model.MetaKeywords,
+                    MetaDescription = model.MetaDescription,
                     Body = model.Body,
-                    IsPublished = model.IsPublished
+                    IsPublished = model.IsPublished,
+                    CreatedBy = currentUser
                 };
 
                 await _pageService.Create(page);
@@ -88,11 +99,17 @@ namespace SimplCommerce.Module.Cms.Controllers
                     return NotFound();
                 }
 
+                var currentUser = await _workContext.GetCurrentUser();
+
                 page.Name = model.Name;
-                page.SeoTitle = model.Slug;
+                page.Slug = model.Slug;
+                page.MetaTitle = model.MetaTitle;
+                page.MetaKeywords = model.MetaKeywords;
+                page.MetaDescription = model.MetaDescription;
                 page.Body = model.Body;
                 page.IsPublished = model.IsPublished;
                 page.UpdatedOn = DateTimeOffset.Now;
+                page.UpdatedBy = currentUser;
 
                 await _pageService.Update(page);
                 return Accepted();

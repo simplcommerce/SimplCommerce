@@ -1,11 +1,24 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Shipping.Models
 {
-    public class ShippingProvider : EntityBase
+    public class ShippingProvider : EntityBaseWithTypedId<string>
     {
+        public ShippingProvider()
+        {
+
+        }
+
+        public ShippingProvider(string id)
+        {
+            Id = id;
+        }
+
+        [Required]
+        [StringLength(450)]
         public string Name { get; set; }
 
         public bool IsEnabled { get; set; }
@@ -16,16 +29,16 @@ namespace SimplCommerce.Module.Shipping.Models
 
         public string OnlyCountryIdsString { get; set; }
 
-        public IList<long> OnlyCountryIds
+        public IList<string> OnlyCountryIds
         {
             get
             {
                 if (string.IsNullOrWhiteSpace(OnlyCountryIdsString))
                 {
-                    return new List<long>();
+                    return new List<string>();
                 }
 
-                return OnlyCountryIdsString.Split(',').Select(long.Parse).ToList();
+                return OnlyCountryIdsString.Split(',').ToList();
             }
         }
 

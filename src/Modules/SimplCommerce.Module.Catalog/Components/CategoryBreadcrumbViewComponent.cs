@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.ViewModels;
 
@@ -30,7 +31,7 @@ namespace SimplCommerce.Module.Catalog.Components
                 breadcrumbs = breadcrumbList.OrderByDescending(x => x.Count).First();
             }
 
-            return View("/Modules/SimplCommerce.Module.Catalog/Views/Components/CategoryBreadcrumb.cshtml", breadcrumbs);
+            return View(this.GetViewPath(), breadcrumbs);
         }
 
         private IList<BreadcrumbViewModel> Create(long categoryId)
@@ -44,7 +45,7 @@ namespace SimplCommerce.Module.Catalog.Components
                 new BreadcrumbViewModel
                 {
                     Text = category.Name,
-                    Url = category.SeoTitle
+                    Url = category.Slug
                 }
             };
             var parentCategory = category.Parent;
@@ -53,7 +54,7 @@ namespace SimplCommerce.Module.Catalog.Components
                 breadcrumbModels.Insert(0, new BreadcrumbViewModel
                 {
                     Text = parentCategory.Name,
-                    Url = parentCategory.SeoTitle
+                    Url = parentCategory.Slug
                 });
                 parentCategory = parentCategory.Parent;
             }

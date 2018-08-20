@@ -25,7 +25,7 @@ namespace SimplCommerce.Module.Orders.Models
 
         public StateOrProvince StateOrProvince { get; set; }
 
-        public long CountryId { get; set; }
+        public string CountryId { get; set; }
 
         public Country Country { get; set; }
     }

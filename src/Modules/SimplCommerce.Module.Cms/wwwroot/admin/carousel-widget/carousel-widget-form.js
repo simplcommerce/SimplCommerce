@@ -36,6 +36,8 @@
             // ng-upload will post null as text
             angular.forEach(vm.widgetInstance.items, function (item) {
                 item.caption = item.caption === null ? '' : item.caption;
+                item.subCaption = item.subCaption === null ? '' : item.subCaption;
+                item.linkText = item.linkText === null ? '' : item.linkText;
             });
 
             if (vm.isEditMode) {

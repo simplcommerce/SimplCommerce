@@ -7,9 +7,8 @@
         <form name="cultureSelection" class="form-inline">
             <div class="form-group">
                 <label>Select culture</label>
-                <select class="form-control" ng-model="vm.selectedCultureId" ng-options="culture.id as culture.name for culture in vm.cultures"></select>
+                <select class="form-control" ng-model="vm.selectedCultureId" ng-change="vm.changeCulture()" ng-options="culture.id as culture.name for culture in vm.cultures"></select>
             </div>
-            <button class="btn btn-default" ng-click="vm.changeCulture()">Switch</button>
         </form>
         <form name="localizationForm" class="form-horizontal">
             <div class="col-sm-offset-4 bg-danger" ng-show="vm.validationErrors">

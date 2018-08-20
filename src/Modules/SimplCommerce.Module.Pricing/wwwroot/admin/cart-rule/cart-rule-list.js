@@ -6,17 +6,18 @@
 
     /* @ngInject */
     function CartRuleListCtrl(cartRuleService, translateService) {
-        var vm = this,
-            tableStateRef;
+        var vm = this;
+        vm.tableStateRef = {};
         vm.translate = translateService;
         vm.cartRules = [];
 
         vm.getCartRules = function getCartRules(tableState) {
-            tableStateRef = tableState;
+            vm.tableStateRef = tableState;
             vm.isLoading = true;
             cartRuleService.getCartRules(tableState).then(function (result) {
                 vm.cartRules = result.data.items;
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
+                tableState.pagination.totalItemCount = result.data.totalRecord;
                 vm.isLoading = false;
             });
         };
@@ -26,7 +27,7 @@
                 if (result) {
                     cartRuleService.deleteCartRule(cartRule)
                        .then(function (result) {
-                           vm.getCartRules(tableStateRef);
+                           vm.getCartRules(vm.tableStateRef);
                            toastr.success(cartRule.name + ' has been deleted');
                        })
                         .catch(function (response) {

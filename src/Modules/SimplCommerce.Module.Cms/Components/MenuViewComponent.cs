@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Cms.Models;
 using SimplCommerce.Module.Cms.ViewModels;
 
@@ -35,7 +36,7 @@ namespace SimplCommerce.Module.Cms.Components
                 menuItemVms.Add(menuItemVm);
             }
 
-            return View("/Modules/SimplCommerce.Module.Cms/Views/Components/Menu.cshtml", menuItemVms);
+            return View(this.GetViewPath(), menuItemVms);
         }
 
         private MenuItemVm Map(MenuItem menuItem)

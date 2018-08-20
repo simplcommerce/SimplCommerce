@@ -52,7 +52,7 @@ namespace SimplCommerce.Module.Contacts.Controllers
 
                 return Ok();
             }
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpPut("{id}")]
@@ -68,7 +68,7 @@ namespace SimplCommerce.Module.Contacts.Controllers
                 return Ok();
             }
 
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpDelete("{id}")]
@@ -77,7 +77,7 @@ namespace SimplCommerce.Module.Contacts.Controllers
             var category = _contactRepository.Query().FirstOrDefault(x => x.Id == id);
             if (category == null)
             {
-                return new NotFoundResult();
+                return NotFound();
             }
 
             category.IsDeleted = true;

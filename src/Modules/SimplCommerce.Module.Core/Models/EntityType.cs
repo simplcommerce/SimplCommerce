@@ -1,10 +1,23 @@
 ﻿using SimplCommerce.Infrastructure.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace SimplCommerce.Module.Core.Models
 {
-    public class EntityType : EntityBase
+    public class EntityType : EntityBaseWithTypedId<string>
     {
-        public string Name { get; set; }
+        public EntityType()
+        {
+
+        }
+
+        public EntityType(string id)
+        {
+            Id = id;
+        }
+
+        [Required]
+        [StringLength(450)]
+        public string Name { get { return Id; } }
 
         public bool IsMenuable { get; set; }
 

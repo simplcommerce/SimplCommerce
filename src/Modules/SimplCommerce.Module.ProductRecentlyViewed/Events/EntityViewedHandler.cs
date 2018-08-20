@@ -12,7 +12,7 @@ namespace SimplCommerce.Module.ActivityLog.Events
 {
     public class EntityViewedHandler : INotificationHandler<EntityViewed>
     {
-        private const long ProductEntityTypeId = 3;
+        private const string ProductEntityTypeId = "Product";
         private readonly IRepository<RecentlyViewedProduct> _recentlyViewedProductRepository;
         private readonly IWorkContext _workContext;
 

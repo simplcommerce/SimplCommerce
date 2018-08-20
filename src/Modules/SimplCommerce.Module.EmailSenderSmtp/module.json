@@ -1,5 +1,6 @@
 {
   "name": "email-sender-smtp",
   "fullName": "SimplCommerce.Module.EmailSenderSmtp",
+  "isBundledWithHost": false,
   "version": "1.0.0"
 }

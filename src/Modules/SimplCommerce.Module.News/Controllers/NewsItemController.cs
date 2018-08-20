@@ -37,7 +37,7 @@ namespace SimplCommerce.Module.News.Controllers
                 {
                     Id = x.Id,
                     Name = x.Name,
-                    SeoTitle = x.SeoTitle
+                    Slug = x.Slug
                 })
                 .ToList();
 
@@ -65,7 +65,7 @@ namespace SimplCommerce.Module.News.Controllers
                 ShortContent = x.ShortContent,
                 ImageUrl = _mediaService.GetMediaUrl(x.ThumbnailImage),
                 PublishedOn = x.CreatedOn,
-                SeoTitle = x.SeoTitle
+                Slug = x.Slug
             })
             .Skip(offset)
             .Take(_pageSize)

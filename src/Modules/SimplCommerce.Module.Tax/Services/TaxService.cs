@@ -15,7 +15,7 @@ namespace SimplCommerce.Module.Tax.Services
             _taxRateRepository = taxRateRepository;
         }
 
-        public async Task<decimal> GetTaxPercent(long? taxClassId, long countryId, long stateOrProvinceId, string zipCode)
+        public async Task<decimal> GetTaxPercent(long? taxClassId, string countryId, long stateOrProvinceId, string zipCode)
         {
             if (!taxClassId.HasValue)
             {

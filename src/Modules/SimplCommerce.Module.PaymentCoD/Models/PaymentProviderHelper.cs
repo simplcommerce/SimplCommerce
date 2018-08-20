@@ -2,6 +2,6 @@
 {
     public class PaymentProviderHelper
     {
-        public static readonly long CODProviderId = 1;
+        public static readonly string CODProviderId = "CoD";
     }
 }

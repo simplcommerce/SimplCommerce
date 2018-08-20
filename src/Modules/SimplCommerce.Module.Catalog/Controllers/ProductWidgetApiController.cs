@@ -14,12 +14,10 @@ namespace SimplCommerce.Module.Catalog.Controllers
     public class ProductWidgetApiController : Controller
     {
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
-        private readonly IRepository<Widget> _widgetRespository;
 
-        public ProductWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository, IRepository<Widget> widgetRepository)
+        public ProductWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository)
         {
             _widgetInstanceRepository = widgetInstanceRepository;
-            _widgetRespository = widgetRepository;
         }
 
         [HttpGet("{id}")]
@@ -38,7 +36,6 @@ namespace SimplCommerce.Module.Catalog.Controllers
             };
 
             var enumMetaData = MetadataProvider.GetMetadataForType(typeof(ProductWidgetOrderBy));
-
             return Json(model);
         }
 
@@ -50,7 +47,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 var widgetInstance = new WidgetInstance
                 {
                     Name = model.Name,
-                    WidgetId = 3,
+                    WidgetId = "ProductWidget",
                     WidgetZoneId = model.WidgetZoneId,
                     PublishStart = model.PublishStart,
                     PublishEnd = model.PublishEnd,
@@ -60,9 +57,10 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
                 _widgetInstanceRepository.Add(widgetInstance);
                 _widgetInstanceRepository.SaveChanges();
-                return Ok();
+                return CreatedAtAction(nameof(Get), new { id = widgetInstance.Id }, null);
             }
-            return new BadRequestObjectResult(ModelState);
+
+            return BadRequest(ModelState);
         }
 
         [HttpPut("{id}")]
@@ -79,10 +77,10 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 widgetInstance.Data = JsonConvert.SerializeObject(model.Setting);
 
                 _widgetInstanceRepository.SaveChanges();
-                return Ok();
+                return Accepted();
             }
 
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpGet("available-orderby")]

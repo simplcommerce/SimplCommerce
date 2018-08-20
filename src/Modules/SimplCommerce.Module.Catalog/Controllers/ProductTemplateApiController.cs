@@ -66,7 +66,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return new BadRequestObjectResult(ModelState);
+                return BadRequest(ModelState);
             }
 
             var productTemplate = new ProductTemplate
@@ -91,7 +91,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return new BadRequestObjectResult(ModelState);
+                return BadRequest(ModelState);
             }
 
             var productTemplate = _productTemplateRepository
@@ -131,7 +131,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             var productTemplate = _productTemplateRepository.Query().FirstOrDefault(x => x.Id == id);
             if (productTemplate == null)
             {
-                return new NotFoundResult();
+                return NotFound();
             }
 
             _productTemplateRepository.Remove(productTemplate);

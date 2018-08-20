@@ -51,7 +51,7 @@ namespace SimplCommerce.Module.Search.Controllers
             var brand = _brandRepository.Query().FirstOrDefault(x => x.Name == searchOption.Query && x.IsPublished);
             if(brand != null)
             {
-                return Redirect(string.Format("~/{0}", brand.SeoTitle));
+                return Redirect(string.Format("~/{0}", brand.Slug));
             }
 
             var model = new SearchResult
@@ -62,8 +62,13 @@ namespace SimplCommerce.Module.Search.Controllers
 
             var query = _productRepository.Query().Where(x => x.Name.Contains(searchOption.Query) && x.IsPublished && x.IsVisibleIndividually);
 
-            model.FilterOption.Price.MaxPrice = query.Select(x => x.Price).DefaultIfEmpty(0).Max();
-            model.FilterOption.Price.MinPrice = query.Select(x => x.Price).DefaultIfEmpty(0).Min();
+            if (query.Count() == 0)
+            {
+                model.TotalProduct = 0;
+                return View(model);
+            }
+
+            AppendFilterOptionsToModel(model, query);
 
             if (searchOption.MinPrice.HasValue)
             {
@@ -75,13 +80,12 @@ namespace SimplCommerce.Module.Search.Controllers
                 query = query.Where(x => x.Price <= searchOption.MaxPrice.Value);
             }
 
-            AppendFilterOptionsToModel(model, query);
             if (string.Compare(model.CurrentSearchOption.Category, "all", StringComparison.OrdinalIgnoreCase) != 0)
             {
                 var categories = searchOption.GetCategories();
                 if (categories.Any())
                 {
-                    var categoryIds = _categoryRepository.Query().Where(x => categories.Contains(x.SeoTitle)).Select(x => x.Id).ToList();
+                    var categoryIds = _categoryRepository.Query().Where(x => categories.Contains(x.Slug)).Select(x => x.Id).ToList();
                     query = query.Where(x => x.Categories.Any(c => categoryIds.Contains(c.CategoryId)));
                 }
             }
@@ -89,7 +93,7 @@ namespace SimplCommerce.Module.Search.Controllers
             var brands = searchOption.GetBrands();
             if (brands.Any())
             {
-                var brandIs = _brandRepository.Query().Where(x => brands.Contains(x.SeoTitle)).Select(x => x.Id).ToList();
+                var brandIs = _brandRepository.Query().Where(x => brands.Contains(x.Slug)).Select(x => x.Id).ToList();
                 query = query.Where(x => x.BrandId.HasValue && brandIs.Contains(x.BrandId.Value));
             }
 
@@ -146,18 +150,21 @@ namespace SimplCommerce.Module.Search.Controllers
 
         private static void AppendFilterOptionsToModel(SearchResult model, IQueryable<Product> query)
         {
+            model.FilterOption.Price.MaxPrice = query.Max(x => x.Price);
+            model.FilterOption.Price.MinPrice = query.Min(x => x.Price);
+
             model.FilterOption.Categories = query
                 .SelectMany(x => x.Categories).Where(x => x.Category.Parent == null)
                 .GroupBy(x => new {
                     x.Category.Id,
                     x.Category.Name,
-                    x.Category.SeoTitle
+                    x.Category.Slug
                 })
                 .Select(g => new FilterCategory
                 {
                     Id = (int)g.Key.Id,
                     Name = g.Key.Name,
-                    SeoTitle = g.Key.SeoTitle,
+                    Slug = g.Key.Slug,
                     Count = g.Count()
                 }).ToList();
 
@@ -168,7 +175,7 @@ namespace SimplCommerce.Module.Search.Controllers
                {
                    Id = (int)g.Key.Id,
                    Name = g.Key.Name,
-                   SeoTitle = g.Key.SeoTitle,
+                   Slug = g.Key.Slug,
                    Count = g.Count()
                }).ToList();
         }

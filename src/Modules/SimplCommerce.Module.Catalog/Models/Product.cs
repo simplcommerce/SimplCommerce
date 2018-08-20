@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Tax.Models;
 
@@ -33,12 +34,17 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public bool IsAllowToOrder { get; set; }
 
+        public bool StockTrackingIsEnabled { get; set; }
+
         public int StockQuantity { get; set; }
 
+        [StringLength(450)]
         public string Sku { get; set; }
 
+        [StringLength(450)]
         public string Gtin { get; set; }
 
+        [StringLength(450)]
         public string NormalizedName { get; set; }
 
         public int DisplayOrder { get; set; }
@@ -58,6 +64,8 @@ namespace SimplCommerce.Module.Catalog.Models
         public IList<ProductOptionValue> OptionValues { get; protected set; } = new List<ProductOptionValue>();
 
         public IList<ProductCategory> Categories { get; protected set; } = new List<ProductCategory>();
+
+        public IList<ProductPriceHistory> PriceHistories { get; protected set; } = new List<ProductPriceHistory>();
 
         public int ReviewsCount { get; set; }
 
@@ -101,7 +109,7 @@ namespace SimplCommerce.Module.Catalog.Models
             ProductLinks.Add(productLink);
         }
 
-        public virtual IList<ProductOptionCombination> OptionCombinations { get; protected set; } = new List<ProductOptionCombination>();
+        public IList<ProductOptionCombination> OptionCombinations { get; protected set; } = new List<ProductOptionCombination>();
 
         public void AddOptionCombination(ProductOptionCombination combination)
         {
@@ -129,6 +137,7 @@ namespace SimplCommerce.Module.Catalog.Models
             product.BrandId = BrandId;
             product.VendorId = VendorId;
             product.TaxClassId = TaxClassId;
+            product.StockTrackingIsEnabled = StockTrackingIsEnabled;
 
             foreach (var attribute in AttributeValues)
             {

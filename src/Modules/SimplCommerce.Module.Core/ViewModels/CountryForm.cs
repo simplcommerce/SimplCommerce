@@ -1,12 +1,13 @@
-﻿namespace SimplCommerce.Module.Core.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SimplCommerce.Module.Core.ViewModels
 {
     public class CountryForm
     {
-        public long Id { get; set; }
+        [Required]
+        public string Id { get; set; }
 
         public string Name { get; set; }
-
-        public string Code2 { get; set; }
 
         public string Code3 { get; set; }
 

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Events;
 using SimplCommerce.Module.Reviews.Data;
 using SimplCommerce.Module.Reviews.Models;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.Reviews.Controllers
 {
@@ -143,7 +143,7 @@ namespace SimplCommerce.Module.Reviews.Controllers
                 }
                 else
                 {
-                    var grouped = rattings.GroupBy(x => x.Rating).Select(x => new { Rating = x.Key, Count = x.Count() });
+                    var grouped = rattings.GroupBy(x => x.Rating).Select(x => new { Rating = x.Key, Count = x.Count() }).ToList();
                     reviewSummary.RatingAverage = grouped.Select(x => x.Rating * x.Count).Sum() / (double)reviewSummary.ReviewsCount;
                 }
 

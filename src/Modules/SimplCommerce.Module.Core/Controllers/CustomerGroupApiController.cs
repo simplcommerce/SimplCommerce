@@ -138,6 +138,7 @@ namespace SimplCommerce.Module.Core.Controllers
                 await  _customerGroupRepository.SaveChangesAsync();
                 return Accepted();
             }
+
             return BadRequest(ModelState);
         }
 

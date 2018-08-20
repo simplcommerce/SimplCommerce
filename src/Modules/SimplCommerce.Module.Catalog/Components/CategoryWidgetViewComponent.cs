@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Services;
@@ -37,13 +38,13 @@ namespace SimplCommerce.Module.Catalog.Components
                     Id = category.Id,
                     Description = category.Description,
                     Name = category.Name,
-                    SeoTitle = category.SeoTitle,
+                    Slug = category.Slug,
                     ThumbnailImage = category.ThumbnailImage,
                     ThumbnailUrl = _mediaService.GetThumbnailUrl(category.ThumbnailImage)
                 };
             }
 
-            return View("/Modules/SimplCommerce.Module.Catalog/Views/Components/CategoryWidget.cshtml", model);
+            return View(this.GetViewPath(), model);
         }
     }
 }

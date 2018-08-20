@@ -8,7 +8,7 @@ namespace SimplCommerce.Module.Vendors.Services
 {
     public class VendorService : IVendorService
     {
-        private const long VendorEntityTypeId = 2;
+        private const string VendorEntityTypeId = "Vendor";
 
         private readonly IRepository<Vendor> _vendorRepository;
         private readonly IEntityService _entityService;
@@ -23,11 +23,11 @@ namespace SimplCommerce.Module.Vendors.Services
         {
             using (var transaction = _vendorRepository.BeginTransaction())
             {
-                vendor.SeoTitle = _entityService.ToSafeSlug(vendor.SeoTitle, vendor.Id, VendorEntityTypeId);
+                vendor.Slug = _entityService.ToSafeSlug(vendor.Slug, vendor.Id, VendorEntityTypeId);
                 _vendorRepository.Add(vendor);
                 await _vendorRepository.SaveChangesAsync();
 
-                _entityService.Add(vendor.Name, vendor.SeoTitle, vendor.Id, VendorEntityTypeId);
+                _entityService.Add(vendor.Name, vendor.Slug, vendor.Id, VendorEntityTypeId);
                 await _vendorRepository.SaveChangesAsync();
 
                 transaction.Commit();
@@ -36,8 +36,8 @@ namespace SimplCommerce.Module.Vendors.Services
 
         public async Task Update(Vendor vendor)
         {
-            vendor.SeoTitle = _entityService.ToSafeSlug(vendor.SeoTitle, vendor.Id, VendorEntityTypeId);
-            _entityService.Update(vendor.Name, vendor.SeoTitle, vendor.Id, VendorEntityTypeId);
+            vendor.Slug = _entityService.ToSafeSlug(vendor.Slug, vendor.Id, VendorEntityTypeId);
+            _entityService.Update(vendor.Name, vendor.Slug, vendor.Id, VendorEntityTypeId);
             await _vendorRepository.SaveChangesAsync();
         }
 

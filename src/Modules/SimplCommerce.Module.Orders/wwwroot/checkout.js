@@ -20,6 +20,8 @@
             newShippingAddress: {
                 countryId: $('#NewAddressForm_CountryId').val() || 0,
                 stateOrProvinceId: $('#NewAddressForm_StateOrProvinceId').val() || 0,
+                districtId: $('#NewAddressForm_DistrictId').val(),
+                zipCode: $('#NewAddressForm_ZipCode').val()
             }
         };
 
@@ -63,7 +65,7 @@
         toggleCreateShippingAddress();
     });
 
-    $(document).on('change', 'input[name=shippingAddressId], #NewAddressForm_StateOrProvinceId, #shippingMethods input:radio', function () {
+    $(document).on('change', 'input[name=shippingAddressId], #NewAddressForm_StateOrProvinceId, #NewAddressForm_DistrictId, #NewAddressForm_ZipCode, #shippingMethods input:radio', function () {
         updateShippingInfo();
     });
 
@@ -76,6 +78,7 @@
 
     $('#NewAddressForm_CountryId').on('change', function () {
         var countryId = this.value;
+        $('#NewAddressForm_ZipCode').val('');
 
         $.getJSON('/api/country-states-provinces/' + countryId, function (data) {
             var $stateOrProvinceSelect = $("#NewAddressForm_StateOrProvinceId");

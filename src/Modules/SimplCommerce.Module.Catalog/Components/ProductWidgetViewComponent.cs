@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Catalog.ViewModels;
@@ -36,6 +37,11 @@ namespace SimplCommerce.Module.Catalog.Components
             var query = _productRepository.Query()
               .Where(x => x.IsPublished && x.IsVisibleIndividually);
 
+            if (model.Setting.CategoryId.HasValue && model.Setting.CategoryId.Value > 0)
+            {
+                query = query.Where(x => x.Categories.Any(c => c.CategoryId == model.Setting.CategoryId.Value));
+            }
+
             if (model.Setting.FeaturedOnly)
             {
                 query = query.Where(x => x.IsFeatured);
@@ -53,7 +59,7 @@ namespace SimplCommerce.Module.Catalog.Components
                 product.CalculatedProductPrice = _productPricingService.CalculateProductPrice(product);
             }
 
-            return View("/Modules/SimplCommerce.Module.Catalog/Views/Components/ProductWidget.cshtml", model);
+            return View(this.GetViewPath(), model);
         }
     }
 }

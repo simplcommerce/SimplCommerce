@@ -6,17 +6,18 @@
 
     /* @ngInject */
     function CountryListCtrl(countryService, translateService, $state) {
-        var vm = this,
-            tableStateRef;
+        var vm = this;
+        vm.tableStateRef = {};
         vm.countries = [];
         vm.translate = translateService;
 
         vm.getCountries = function getCountries(tableState) {
-            tableStateRef = tableState;
+            vm.tableStateRef = tableState;
             vm.isLoading = true;
             countryService.getCountries(tableState).then(function (result) {
                 vm.countries = result.data.items;
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
+                tableState.pagination.totalItemCount = result.data.totalRecord;
                 vm.isLoading = false;
             });
         };
@@ -36,7 +37,7 @@
                 if (result) {
                     countryService.deleteCountry(country)
                         .then(function (result) {
-                            vm.getCountries(tableStateRef);
+                            vm.getCountries(vm.tableStateRef);
                             toastr.success(country.name + ' has been deleted');
                         })
                         .catch(function (response) {

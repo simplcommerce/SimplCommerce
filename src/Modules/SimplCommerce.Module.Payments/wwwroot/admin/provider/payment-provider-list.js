@@ -37,7 +37,7 @@
                     paymentProviderService.disableProvider(provider)
                         .then(function (result) {
                             provider.isEnabled = false;
-                            toastr.success(provider.name + 'Have been disabled');
+                            toastr.success(provider.name + ' has been disabled');
                         })
                         .catch(function (response) {
                             toastr.error(response.data.error);

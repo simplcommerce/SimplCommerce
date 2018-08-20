@@ -12,6 +12,11 @@
                         templateUrl: 'modules/reviews/admin/review/review-list.html',
                         controller: 'ReviewListCtrl as vm'
                     })
+                    .state('review-replies', {
+                        url: '/review-replies',
+                        templateUrl: 'modules/reviews/admin/review/review-reply-list.html',
+                        controller: 'ReviewReplyListCtrl as vm'
+                    })
                 ;
             }
         ]);

@@ -1,5 +1,6 @@
 {
   "name": "catalog",
   "fullName": "SimplCommerce.Module.Catalog",
+  "isBundledWithHost": true,
   "version": "1.0.0"
 }

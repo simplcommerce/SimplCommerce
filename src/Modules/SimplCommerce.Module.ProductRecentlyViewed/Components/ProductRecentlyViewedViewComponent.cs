@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Services;
@@ -26,7 +27,7 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Components
         }
 
         // TODO Number of items to config
-        public IViewComponentResult Invoke(long? productId)
+        public IViewComponentResult Invoke(long? productId, int itemCount = 5)
         {
             var user = _workContext.GetCurrentUser().Result;
             IQueryable<Product> query = _productRepository.GetRecentlyViewedProduct(user.Id)
@@ -36,7 +37,7 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Components
                 query = query.Where(x => x.Id != productId.Value);
             }
             
-            var model = query.Take(5)
+            var model = query.Take(itemCount)
                 .Select(x => ProductThumbnail.FromProduct(x)).ToList();
 
             foreach (var product in model)
@@ -45,7 +46,7 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Components
                 product.CalculatedProductPrice = _productPricingService.CalculateProductPrice(product);
             }
 
-            return View("/Modules/SimplCommerce.Module.ProductRecentlyViewed/Views/Components/ProductRecentlyViewed.cshtml", model);
+            return View(this.GetViewPath(), model);
         }
     }
 }

@@ -15,7 +15,7 @@
                         <input type="radio" name="shippingAddressId" value="@address.UserAddressId" checked="@(Model.ShippingAddressId == address.UserAddressId ? "checked" : null)">
                         <strong>@address.ContactName </strong><br />
                         @address.AddressLine1 <br />
-                        @if (address.DisplayDistrict)
+                        @if (address.IsDistrictEnabled)
                         {
                             <text>@address.DistrictName,</text>
                         }

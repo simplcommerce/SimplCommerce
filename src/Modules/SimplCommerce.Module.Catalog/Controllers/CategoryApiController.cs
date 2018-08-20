@@ -48,7 +48,10 @@ namespace SimplCommerce.Module.Catalog.Controllers
             {
                 Id = category.Id,
                 Name = category.Name,
-                Slug = category.SeoTitle,
+                Slug = category.Slug,
+                MetaTitle = category.MetaTitle,
+                MetaKeywords = category.MetaKeywords,
+                MetaDescription = category.MetaDescription,
                 DisplayOrder = category.DisplayOrder,
                 Description = category.Description,
                 ParentId = category.ParentId,
@@ -69,7 +72,10 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 var category = new Category
                 {
                     Name = model.Name,
-                    SeoTitle = model.Slug,
+                    Slug = model.Slug,
+                    MetaTitle = model.MetaTitle,
+                    MetaKeywords = model.MetaKeywords,
+                    MetaDescription = model.MetaDescription,
                     DisplayOrder = model.DisplayOrder,
                     Description = model.Description,
                     ParentId = model.ParentId,
@@ -81,6 +87,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 await _categoryService.Create(category);
                 return CreatedAtAction(nameof(Get), new { id = category.Id }, null);
             }
+
             return BadRequest(ModelState);
         }
 
@@ -97,7 +104,10 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 }
 
                 category.Name = model.Name;
-                category.SeoTitle = model.Slug;
+                category.Slug = model.Slug;
+                category.MetaTitle = model.MetaTitle;
+                category.MetaKeywords = model.MetaKeywords;
+                category.MetaDescription = model.MetaDescription;
                 category.Description = model.Description;
                 category.DisplayOrder = model.DisplayOrder;
                 category.ParentId = model.ParentId;

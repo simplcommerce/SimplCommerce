@@ -1,5 +1,6 @@
 {
   "name": "news",
   "fullName": "SimplCommerce.Module.News",
+  "isBundledWithHost": true,
   "version": "1.0.0"
 }

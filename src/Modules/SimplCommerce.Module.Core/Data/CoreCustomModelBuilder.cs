@@ -9,6 +9,8 @@ namespace SimplCommerce.Module.Core.Data
     {
         public void Build(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<AppSetting>().ToTable("Core_AppSetting");
+
             modelBuilder.Entity<User>()
                 .ToTable("Core_User");
 
@@ -88,6 +90,16 @@ namespace SimplCommerce.Module.Core.Data
             modelBuilder.Entity<CustomerGroup>()
                 .HasIndex(d => d.Name)
                 .IsUnique();
+
+            modelBuilder.Entity<CustomerGroupUser>(b =>
+            {
+                b.HasKey(ur => new { ur.UserId, ur.CustomerGroupId });
+                b.HasOne(ur => ur.User).WithMany(r => r.CustomerGroups).HasForeignKey(r => r.UserId).OnDelete(DeleteBehavior.Cascade);
+                b.HasOne(ur => ur.CustomerGroup).WithMany(u => u.Users).HasForeignKey(u => u.CustomerGroupId).OnDelete(DeleteBehavior.Cascade);
+                b.ToTable("Core_CustomerGroupUser");
+            });
+
+            CoreSeedData.SeedData(modelBuilder);
         }
     }
 }

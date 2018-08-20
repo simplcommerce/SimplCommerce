@@ -20,7 +20,7 @@ namespace SimplCommerce.Module.Reviews.Models
 
         public DateTimeOffset CreatedOn { get; set; }
 
-        public long EntityTypeId { get; set; }
+        public string EntityTypeId { get; set; }
 
         public long EntityId { get; set; }
 

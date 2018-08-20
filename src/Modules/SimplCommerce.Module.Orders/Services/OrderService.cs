@@ -160,24 +160,26 @@ namespace SimplCommerce.Module.Orders.Services
 
             foreach (var cartItem in cart.Items)
             {
-                if(cartItem.Product.StockQuantity < cartItem.Quantity)
+                if (cartItem.Product.StockTrackingIsEnabled && cartItem.Product.StockQuantity < cartItem.Quantity)
                 {
                     return Result.Fail<Order>($"There are only {cartItem.Product.StockQuantity} items available for {cartItem.Product.Name}");
                 }
 
                 var taxPercent = await _taxService.GetTaxPercent(cartItem.Product.TaxClassId, shippingAddress.CountryId, shippingAddress.StateOrProvinceId, shippingAddress.ZipCode);
+                var productPrice = cartItem.Product.Price;
+                if (cart.IsProductPriceIncludeTax)
+                {
+                    productPrice = productPrice / (1 + (taxPercent / 100));
+                }
+
                 var orderItem = new OrderItem
                 {
                     Product = cartItem.Product,
-                    ProductPrice = cartItem.Product.Price,
+                    ProductPrice = productPrice,
                     Quantity = cartItem.Quantity,
                     TaxPercent = taxPercent,
-                    TaxAmount = cartItem.Quantity * (cartItem.Product.Price * taxPercent / 100)
+                    TaxAmount = cartItem.Quantity * (productPrice * taxPercent / 100)
                 };
-                if (cart.IsProductPriceIncludeTax)
-                {
-                    orderItem.ProductPrice = orderItem.ProductPrice - orderItem.TaxAmount;
-                }
 
                 var discountedItem = checkingDiscountResult.DiscountedProducts.FirstOrDefault(x => x.Id == cartItem.ProductId);
                 if(discountedItem != null)
@@ -186,7 +188,10 @@ namespace SimplCommerce.Module.Orders.Services
                 }
 
                 order.AddOrderItem(orderItem);
-                cartItem.Product.StockQuantity = cartItem.Product.StockQuantity - cartItem.Quantity;
+                if (cartItem.Product.StockTrackingIsEnabled)
+                {
+                    cartItem.Product.StockQuantity = cartItem.Product.StockQuantity - cartItem.Quantity;
+                }
             }
 
             order.OrderStatus = orderStatus;
@@ -204,6 +209,11 @@ namespace SimplCommerce.Module.Orders.Services
             cart.IsActive = false;
 
             var vendorIds = cart.Items.Where(x => x.Product.VendorId.HasValue).Select(x => x.Product.VendorId.Value).Distinct();
+            if (vendorIds.Any())
+            {
+                order.IsMasterOrder = true;
+            }
+
             foreach (var vendorId in vendorIds)
             {
                 var subOrder = new Order
@@ -219,13 +229,19 @@ namespace SimplCommerce.Module.Orders.Services
                 foreach (var cartItem in cart.Items.Where(x => x.Product.VendorId == vendorId))
                 {
                     var taxPercent = await _taxService.GetTaxPercent(cartItem.Product.TaxClassId, shippingAddress.CountryId, shippingAddress.StateOrProvinceId, shippingAddress.ZipCode);
+                    var productPrice = cartItem.Product.Price;
+                    if (cart.IsProductPriceIncludeTax)
+                    {
+                        productPrice = productPrice / (1 + (taxPercent / 100));
+                    }
+
                     var orderItem = new OrderItem
                     {
                         Product = cartItem.Product,
-                        ProductPrice = cartItem.Product.Price,
+                        ProductPrice = productPrice,
                         Quantity = cartItem.Quantity,
                         TaxPercent = taxPercent,
-                        TaxAmount = cartItem.Quantity * (cartItem.Product.Price * taxPercent / 100)
+                        TaxAmount = cartItem.Quantity * (productPrice * taxPercent / 100)
                     };
 
                     if (cart.IsProductPriceIncludeTax)
@@ -262,11 +278,14 @@ namespace SimplCommerce.Module.Orders.Services
             var orderItems = _orderItemRepository.Query().Include(x => x.Product).Where(x => x.Order.Id == order.Id);
             foreach(var item in orderItems)
             {
-                item.Product.StockQuantity = item.Product.StockQuantity + item.Quantity;
+                if (item.Product.StockTrackingIsEnabled)
+                {
+                    item.Product.StockQuantity = item.Product.StockQuantity + item.Quantity;
+                }
             }
         }
 
-        public async Task<decimal> GetTax(long cartOwnerUserId, long countryId, long stateOrProvinceId, string zipCode)
+        public async Task<decimal> GetTax(long cartOwnerUserId, string countryId, long stateOrProvinceId, string zipCode)
         {
             decimal taxAmount = 0;
             var cart = await _cartRepository.Query().FirstOrDefaultAsync(x => x.UserId == cartOwnerUserId && x.IsActive);

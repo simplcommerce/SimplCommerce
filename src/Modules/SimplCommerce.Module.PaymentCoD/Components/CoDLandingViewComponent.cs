@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SimplCommerce.Infrastructure.Web;
 
 namespace SimplCommerce.Module.PaymentCoD.Components
 {
@@ -6,7 +7,7 @@ namespace SimplCommerce.Module.PaymentCoD.Components
     {
         public IViewComponentResult Invoke()
         {
-            return View("/Modules/SimplCommerce.Module.PaymentCoD/Views/Components/CoDLanding.cshtml");
+            return View(this.GetViewPath());
         }
     }
 }

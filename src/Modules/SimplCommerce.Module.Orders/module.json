@@ -1,5 +1,6 @@
 {
   "name": "orders",
   "fullName": "SimplCommerce.Module.Orders",
+  "isBundledWithHost": true,
   "version": "1.0.0"
 }

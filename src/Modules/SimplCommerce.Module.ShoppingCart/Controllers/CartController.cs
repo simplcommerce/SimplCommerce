@@ -83,7 +83,7 @@ namespace SimplCommerce.Module.ShoppingCart.Controllers
             var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == model.CartItemId);
             if (cartItem == null)
             {
-                return new NotFoundResult();
+                return NotFound();
             }
 
             cartItem.Quantity = model.Quantity;
@@ -112,7 +112,7 @@ namespace SimplCommerce.Module.ShoppingCart.Controllers
             var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == itemId);
             if (cartItem == null)
             {
-                return new NotFoundResult();
+                return NotFound();
             }
 
             _cartItemRepository.Remove(cartItem);

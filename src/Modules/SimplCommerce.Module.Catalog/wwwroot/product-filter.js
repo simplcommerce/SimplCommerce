@@ -24,8 +24,9 @@
             return newUrl;
         }
 
-        function intPriceSlider() {
-            if (!document.getElementById('priceSlider')) {
+        function initPriceSlider() {
+            var priceSlider = document.getElementById('priceSlider');
+            if (!priceSlider) {
                 return;
             }
             var priceValues = [
@@ -33,7 +34,7 @@
                 document.getElementById('maxPrice')
             ];
 
-            noUiSlider.create(document.getElementById('priceSlider'), {
+            noUiSlider.create(priceSlider, {
                 connect: true,
                 start: [priceSetting.currentMin, priceSetting.currentMax],
                 range: {
@@ -46,8 +47,26 @@
                 })
             });
 
-            document.getElementById('priceSlider').noUiSlider.on('update', function (values, handle) {
+            priceSlider.noUiSlider.on('update', function (values, handle) {
                 priceValues[handle].innerHTML = values[handle];
+            });
+
+            priceSlider.noUiSlider.on('change', function () {
+                var min, max, prices;
+                prices = priceSlider.noUiSlider.get();
+                min = parseInt(prices[0].replace(/\./g, ''), 10);
+                max = parseInt(prices[1].replace(/\./g, ''), 10);
+                if (min !== priceSetting.min) {
+                    currentSearchOption.minPrice = min;
+                } else {
+                    currentSearchOption.minPrice = null;
+                }
+                if (max !== priceSetting.max) {
+                    currentSearchOption.maxPrice = max;
+                } else {
+                    currentSearchOption.maxPrice = null;
+                }
+                window.location = createUrl();
             });
         }
 
@@ -83,35 +102,11 @@
             window.location = createUrl();
         });
 
-        $('#apply-price').on('click', function () {
-            var min, max, prices;
-            prices = document.getElementById('priceSlider').noUiSlider.get();
-            min = parseInt(prices[0].replace(/\./g, ''), 10);
-            max = parseInt(prices[1].replace(/\./g, ''), 10);
-            if (min !== priceSetting.min) {
-                currentSearchOption.minPrice = min;
-            } else {
-                currentSearchOption.minPrice = null;
-            }
-            if (max !== priceSetting.max) {
-                currentSearchOption.maxPrice = max;
-            } else {
-                currentSearchOption.maxPrice = null;
-            }
-            window.location = createUrl();
-        });
-
-        $('#reset-price').on('click', function () {
-            currentSearchOption.minPrice = null;
-            currentSearchOption.maxPrice = null;
-            window.location = createUrl();
-        });
-
         $('.sort-by select').on('change', function () {
             currentSearchOption.sort = $(this).val();
             window.location = createUrl();
         });
 
-        intPriceSlider();
+        initPriceSlider();
     });
 })(jQuery, productFilter.currentSearchOption, productFilter.priceSetting);

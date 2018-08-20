@@ -1,6 +1,7 @@
-﻿using System;
-using SimplCommerce.Infrastructure.Models;
+﻿using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Core.Models;
+using System;
+using System.Collections.Generic;
 
 namespace SimplCommerce.Module.Reviews.Models
 {
@@ -28,8 +29,11 @@ namespace SimplCommerce.Module.Reviews.Models
 
         public DateTimeOffset CreatedOn { get; set; }
 
-        public long EntityTypeId { get; set; }
+        public string EntityTypeId { get; set; }
 
         public long EntityId { get; set; }
+
+        public IList<Reply> Replies { get; protected set; } = new List<Reply>();
+
     }
 }

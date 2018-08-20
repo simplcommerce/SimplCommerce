@@ -8,6 +8,7 @@ using SimplCommerce.Module.ShoppingCart.Services;
 using SimplCommerce.Module.PaymentStripe.ViewModels;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Payments.Models;
 using SimplCommerce.Module.PaymentStripe.Models;
 
@@ -17,9 +18,9 @@ namespace SimplCommerce.Module.PaymentStripe.Components
     {
         private readonly ICartService _cartService;
         private readonly IWorkContext _workContext;
-        private readonly IRepository<PaymentProvider> _paymentProviderRepository;
+        private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
 
-        public StripeLandingViewComponent(ICartService cartService, IWorkContext workContext, IRepository<PaymentProvider> paymentProviderRepository)
+        public StripeLandingViewComponent(ICartService cartService, IWorkContext workContext, IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository)
         {
             _cartService = cartService;
             _workContext = workContext;
@@ -44,7 +45,7 @@ namespace SimplCommerce.Module.PaymentStripe.Components
             model.Amount = (int)zeroDecimalAmount;
             model.ISOCurrencyCode = regionInfo.ISOCurrencySymbol;
 
-            return View("/Modules/SimplCommerce.Module.PaymentStripe/Views/Components/StripeLanding.cshtml", model);
+            return View(this.GetViewPath(), model);
         }
     }
 }

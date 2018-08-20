@@ -14,7 +14,7 @@ namespace SimplCommerce.Module.Orders
             serviceCollection.AddSingleton<IHostedService, OrderCancellationBackgroundService>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
         {
         }
     }

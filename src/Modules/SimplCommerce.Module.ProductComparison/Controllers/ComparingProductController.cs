@@ -79,7 +79,7 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
 
             if (productComparison == null)
             {
-                return new NotFoundResult();
+                return NotFound();
             }
 
             _comparingProductRepository.Remove(productComparison);

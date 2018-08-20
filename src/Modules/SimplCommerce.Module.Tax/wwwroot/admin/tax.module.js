@@ -30,6 +30,11 @@
                     templateUrl: 'modules/tax/admin/tax-rate/tax-rate-form.html',
                     controller: 'TaxRateFormCtrl as vm'
                 })
+                .state('tax-rates-import', {
+                    url: '/tax-rates/import',
+                    templateUrl: 'modules/tax/admin/tax-rate/tax-rate-import.html',
+                    controller: 'TaxRateImportFormCtrl as vm'
+                })
                 .state('tax-rates-edit', {
                     url: '/tax-rates/edit/:id',
                     templateUrl: 'modules/tax/admin/tax-rate/tax-rate-form.html',

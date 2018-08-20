@@ -11,7 +11,7 @@ namespace SimplCommerce.Module.Catalog.Services
 {
     public class CategoryService : ICategoryService
     {
-        private const long CategoryEntityTypeId = 1;
+        private const string CategoryEntityTypeId = "Category";
 
         private readonly IRepository<Category> _categoryRepository;
         private readonly IEntityService _entityService;
@@ -55,11 +55,11 @@ namespace SimplCommerce.Module.Catalog.Services
         {
             using (var transaction = _categoryRepository.BeginTransaction())
             {
-                category.SeoTitle = _entityService.ToSafeSlug(category.SeoTitle, category.Id, CategoryEntityTypeId);
+                category.Slug = _entityService.ToSafeSlug(category.Slug, category.Id, CategoryEntityTypeId);
                 _categoryRepository.Add(category);
                 await _categoryRepository.SaveChangesAsync();
 
-                _entityService.Add(category.Name, category.SeoTitle, category.Id, CategoryEntityTypeId);
+                _entityService.Add(category.Name, category.Slug, category.Id, CategoryEntityTypeId);
                 await _categoryRepository.SaveChangesAsync();
 
                 transaction.Commit();
@@ -68,8 +68,8 @@ namespace SimplCommerce.Module.Catalog.Services
 
         public async Task Update(Category category)
         {
-            category.SeoTitle = _entityService.ToSafeSlug(category.SeoTitle, category.Id, CategoryEntityTypeId);
-            _entityService.Update(category.Name, category.SeoTitle, category.Id, CategoryEntityTypeId);
+            category.Slug = _entityService.ToSafeSlug(category.Slug, category.Id, CategoryEntityTypeId);
+            _entityService.Update(category.Name, category.Slug, category.Id, CategoryEntityTypeId);
             await _categoryRepository.SaveChangesAsync();
         }
 

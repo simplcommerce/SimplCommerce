@@ -53,14 +53,18 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 CalculatedProductPrice = _productPricingService.CalculateProductPrice(product),
                 IsCallForPricing = product.IsCallForPricing,
                 IsAllowToOrder = product.IsAllowToOrder,
+                StockTrackingIsEnabled = product.StockTrackingIsEnabled,
                 StockQuantity = product.StockQuantity,
                 ShortDescription = product.ShortDescription,
+                MetaTitle = product.MetaTitle,
+                MetaKeywords = product.MetaKeywords,
+                MetaDescription = product.MetaDescription,
                 Description = product.Description,
                 Specification = product.Specification,
                 ReviewsCount = product.ReviewsCount,
                 RatingAverage = product.RatingAverage,
                 Attributes = product.AttributeValues.Select(x => new ProductDetailAttribute { Name = x.Attribute.Name, Value = x.Value }).ToList(),
-                Categories = product.Categories.Select(x => new ProductDetailCategory { Id = x.CategoryId, Name = x.Category.Name, SeoTitle = x.Category.SeoTitle }).ToList()
+                Categories = product.Categories.Select(x => new ProductDetailCategory { Id = x.CategoryId, Name = x.Category.Name, Slug = x.Category.Slug }).ToList()
             };
 
             MapProductVariantToProductVm(product, model);
@@ -84,7 +88,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 ThumbnailUrl = _mediaService.GetThumbnailUrl(productMedia.Media)
             }).ToList();
 
-            await _mediator.Publish(new EntityViewed {EntityId = product.Id, EntityTypeId = 3});
+            await _mediator.Publish(new EntityViewed { EntityId = product.Id, EntityTypeId = "Product" });
             _productRepository.SaveChanges();
 
             return View(model);
@@ -108,6 +112,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     NormalizedName = variation.NormalizedName,
                     IsAllowToOrder = variation.IsAllowToOrder,
                     IsCallForPricing = variation.IsCallForPricing,
+                    StockTrackingIsEnabled = variation.StockTrackingIsEnabled,
                     StockQuantity = variation.StockQuantity,
                     CalculatedProductPrice = _productPricingService.CalculateProductPrice(variation)
                 };

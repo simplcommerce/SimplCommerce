@@ -7,7 +7,7 @@
             <form class="form-inline">
                 <div class="form-group">
                     <label>{{::vm.translate.get('Warehouse')}}</label>
-                    <select class="form-control" ng-model="vm.selectedWarehouseId"
+                    <select class="form-control" ng-change="vm.wareHouseSelectChange()" ng-model="vm.selectedWarehouseId"
                             ng-options="warehouse.id as warehouse.name for warehouse in vm.warehouses"></select>
                 </div>
                 <button class="btn btn-primary" ng-click="vm.addAllProducts()">Add All Products</button>
@@ -16,7 +16,7 @@
     </div>
 </div>
 
-<table class="table table-striped" st-pipe="vm.getStocks" st-table="vm.stocks">
+<table ng-if="vm.selectedWarehouseId" class="table table-striped" st-pipe="vm.getStocks" st-table="vm.stocks">
     <thead>
         <tr>
             <th>{{::vm.translate.get('Product Name')}}</th>
@@ -39,6 +39,9 @@
             <th></th>
             <th></th>
             <th></th>
+        </tr>
+        <tr>
+            <th ng-show="!vm.isLoading" colspan="5">{{vm.tableStateRef.pagination.totalItemCount | number:0}} records found</th>
         </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">

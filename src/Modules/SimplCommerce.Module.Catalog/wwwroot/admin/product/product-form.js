@@ -131,7 +131,8 @@
                             name: vm.product.name + ' ' + optionCombinations.map(getItemValue).join(' '),
                             normalizedName : optionCombinations.map(getItemValue).join('-'),
                             optionCombinations: optionCombinations,
-                            price : vm.product.price
+                            price: vm.product.price,
+                            oldPrice: vm.product.oldPrice
                         };
                         vm.product.variations.push(variation);
                     } else {
@@ -197,12 +198,15 @@
                     return item.value;
                 }).join('-'),
                 optionCombinations: optionCombinations,
-                price: vm.addingVariation.price || vm.product.price
+                price: vm.addingVariation.price || vm.product.price,
+                oldPrice: vm.addingVariation.oldPrice || vm.product.oldPrice,
+                sku: vm.addingVariation.sku,
+                gtin: vm.addingVariation.gtin
             };
 
             if (!vm.product.variations.find(function (item) { return item.name === variation.name; })) {
                 vm.product.variations.push(variation);
-                vm.addingVariation = { price: vm.product.price };
+                vm.addingVariation = { price: vm.product.price, oldPrice: vm.product.oldPrice };
             } else {
                 toastr.error('The ' + variation.name + ' has been existing');
             }
@@ -310,10 +314,19 @@
             vm.product.specialPriceEnd = vm.product.specialPriceEnd === null ? '' : vm.product.specialPriceEnd;
             vm.product.sku = vm.product.sku === null ? '' : vm.product.sku;
             vm.product.gtin = vm.product.gtin === null ? '' : vm.product.gtin;
+            vm.product.metaTitle = vm.product.metaTitle === null ? '' : vm.product.metaTitle;
+            vm.product.metaKeywords = vm.product.metaKeywords === null ? '' : vm.product.metaKeywords;
+            vm.product.metaDescription = vm.product.metaDescription === null ? '' : vm.product.metaDescription;
             vm.product.variations.forEach(function (item) {
                 item.oldPrice = item.oldPrice === null ? '' : item.oldPrice;
                 item.sku = item.sku === null ? '' : item.sku;
                 item.gtin = item.gtin === null ? '' : item.gtin;
+            });
+
+            vm.product.options.forEach(function (item) {
+                item.values.forEach(function (val) {
+                    val.display = val.display === null ? '' : val.display;
+                });
             });
 
             if (vm.isEditMode) {

@@ -18,7 +18,7 @@
         <tr>
             <th>
                 <div class="form-group">
-                    <input class="form-control" st-search="RuleName"/>
+                    <input class="form-control" st-search="RuleName" />
                 </div>
             </th>
             <th>
@@ -28,11 +28,14 @@
             </th>
             <th>
                 <div class="form-group">
-                    <input class="form-control" st-search="FullName"/>
+                    <input class="form-control" st-search="FullName" />
                 </div>
             </th>
             <th></th>
             <th><st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range></th>
+        </tr>
+        <tr>
+            <th ng-show="!vm.isLoading" colspan="5">{{vm.tableStateRef.pagination.totalItemCount | number:0}} records found</th>
         </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">

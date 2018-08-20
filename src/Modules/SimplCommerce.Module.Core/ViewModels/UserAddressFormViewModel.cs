@@ -27,7 +27,7 @@ namespace SimplCommerce.Module.Core.ViewModels
 
         public long? DistrictId { get; set; }
 
-        public long CountryId { get; set; }
+        public string CountryId { get; set; }
 
         public IList<SelectListItem> StateOrProvinces { get; set; }
 

@@ -8,33 +8,16 @@
     function ShippingTableRateFormCtrl($state, shippingTableRateService, translateService) {
         var vm = this;
         vm.translate = translateService;
-        vm.settings = [];
         vm.pricesAndDestinations = [];
         vm.countries = [];
         vm.statesOrProvinces = [];
+        vm.districts = [];
         vm.addingPriceAndDestination = { country : '*' };
-
-        vm.save = function save() {
-            shippingTableRateService.updateSetting(vm.settings)
-                .then(function (result) {
-                    $state.go('shipping-providers');
-                })
-                .catch(function (response) {
-                    var error = response.data;
-                    vm.validationErrors = [];
-                    if (error && angular.isObject(error)) {
-                        for (var key in error) {
-                            vm.validationErrors.push(error[key][0]);
-                        }
-                    } else {
-                        vm.validationErrors.push('Could not html widget.');
-                    }
-                });
-        };
 
         vm.startEditingPriceAndDestination = function startEditingPriceAndDestination(priceAndDestination) {
             priceAndDestination.isEditing = true;
             vm.onCountrySelected(priceAndDestination.countryId);
+            vm.onStateOrProvinceSelected(priceAndDestination.stateOrProvinceId);
         };
 
         vm.onCountrySelected = function onCountrySelected(countryId) {
@@ -42,6 +25,15 @@
             if (countryId) {
                 shippingTableRateService.getStatesOrProvinces(countryId).then(function (result) {
                     vm.statesOrProvinces = result.data;
+                });
+            }
+        };
+
+        vm.onStateOrProvinceSelected = function onStateOrProvinceSelected(stateOrProvinceId) {
+            vm.districts = [];
+            if (stateOrProvinceId) {
+                shippingTableRateService.getDistricts(stateOrProvinceId).then(function (result) {
+                    vm.districts = result.data;
                 });
             }
         };
@@ -57,6 +49,7 @@
             shippingTableRateService.updatePriceAndDestination(priceAndDestination).then(function (result) {
                 priceAndDestination.countryName = result.data.countryName;
                 priceAndDestination.stateOrProvinceName = result.data.stateOrProvinceName;
+                priceAndDestination.districtName = result.data.districtName;
                 priceAndDestination.isEditing = false;
             });
         };

@@ -22,7 +22,7 @@
         vm.translate = translateService;
         vm.products = [];
 
-        activityLogService.getMostViewedEntities(3).then(function (result) {
+        activityLogService.getMostViewedEntities("Product").then(function (result) {
             vm.products = result.data;
         });
     }

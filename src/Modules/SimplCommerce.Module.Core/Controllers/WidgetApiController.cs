@@ -12,9 +12,9 @@ namespace SimplCommerce.Module.Core.Controllers
     [Route("api/widgets")]
     public class WidgetApiController : Controller
     {
-        private readonly IRepository<Widget> _widgetRespository;
+        private readonly IRepositoryWithTypedId<Widget, string> _widgetRespository;
 
-        public WidgetApiController(IRepository<Widget> widgetRespository)
+        public WidgetApiController(IRepositoryWithTypedId<Widget, string> widgetRespository)
         {
             _widgetRespository = widgetRespository;
         }

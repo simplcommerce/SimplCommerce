@@ -36,6 +36,12 @@ namespace SimplCommerce.Module.Catalog.ViewModels
         [Required]
         public string Slug { get; set; }
 
+        public string MetaTitle { get; set; }
+
+        public string MetaKeywords { get; set; }
+
+        public string MetaDescription { get; set; }
+
         public string Sku { get; set; }
 
         public string Gtin { get; set; }
@@ -49,6 +55,8 @@ namespace SimplCommerce.Module.Catalog.ViewModels
         public bool IsPublished { get; set; }
 
         public bool IsFeatured { get; set; }
+
+        public bool StockTrackingIsEnabled { get; set; }
 
         public IList<long> CategoryIds { get; set; } = new List<long>();
 

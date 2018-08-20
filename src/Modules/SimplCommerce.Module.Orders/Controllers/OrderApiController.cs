@@ -149,12 +149,13 @@ namespace SimplCommerce.Module.Orders.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             if (!User.IsInRole("admin") && order.VendorId != currentUser.VendorId)
             {
-                return new BadRequestObjectResult(new { error = "You don't have permission to manage this order" });
+                return BadRequest(new { error = "You don't have permission to manage this order" });
             }
 
             var model = new OrderDetailVm
             {
                 Id = order.Id,
+                IsMasterOrder = order.IsMasterOrder,
                 CreatedOn = order.CreatedOn,
                 OrderStatus = (int) order.OrderStatus,
                 OrderStatusString = order.OrderStatus.ToString(),
@@ -192,6 +193,11 @@ namespace SimplCommerce.Module.Orders.Controllers
                     VariationOptions = OrderItemVm.GetVariationOption(x.Product)
                 }).ToList()
             };
+
+            if (order.IsMasterOrder)
+            {
+                model.SubOrderIds = _orderRepository.Query().Where(x => x.ParentId == order.Id).Select(x => x.Id).ToList();
+            }
 
             await _mediator.Publish(new OrderDetailGot { OrderDetailVm = model });
 

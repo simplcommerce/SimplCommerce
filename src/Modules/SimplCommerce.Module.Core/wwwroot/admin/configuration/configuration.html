@@ -4,19 +4,19 @@
     </div>
     <div class="panel-body">
         <form name="configurationForm" class="form-horizontal">
-            <div class="col-sm-offset-2 bg-danger" ng-show="vm.validationErrors">
+            <div class="col-sm-offset-4 bg-danger" ng-show="vm.validationErrors">
                 <ul>
                     <li ng-repeat="error in vm.validationErrors">{{error}}</li>
                 </ul>
             </div>
             <div class="form-group" ng-repeat="item in vm.settings">
-                <label class="col-sm-2 control-label">{{item.key}}</label>
-                <div class="col-sm-10">
+                <label class="col-sm-4 control-label">{{item.id}}</label>
+                <div class="col-sm-8">
                     <input name="name" ng-model="item.value" class="form-control"/>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
+                <div class="col-sm-offset-4 col-sm-8">
                     <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> Save</button>
                     <button ui-sref="dashboard" class="btn btn-default">Cancel</button>
                 </div>

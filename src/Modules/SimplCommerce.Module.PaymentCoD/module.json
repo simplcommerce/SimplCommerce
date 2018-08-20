@@ -1,5 +1,6 @@
 {
   "name": "paymentCoD",
   "fullName": "SimplCommerce.Module.PaymentCoD",
+  "isBundledWithHost": true,
   "version": "1.0.0"
 }

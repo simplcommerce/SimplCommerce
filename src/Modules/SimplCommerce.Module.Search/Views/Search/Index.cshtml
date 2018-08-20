@@ -31,7 +31,7 @@
                                 {
                                 <li>
                                     <label class="checkbox">
-                                        <input type="checkbox" value="@category.SeoTitle" name="category" checked="@Model.CurrentSearchOption.GetCategories().Contains(category.SeoTitle)">
+                                        <input type="checkbox" value="@category.Slug" name="category" checked="@Model.CurrentSearchOption.GetCategories().Contains(category.Slug)">
                                         @category.Name
                                         <small>(@category.Count)</small>
                                     </label>
@@ -59,7 +59,7 @@
                                 {
                                     <li>
                                         <label class="checkbox">
-                                            <input type="checkbox" value="@brand.SeoTitle" name="brand" checked="@Model.CurrentSearchOption.GetBrands().Contains(brand.SeoTitle)">
+                                            <input type="checkbox" value="@brand.Slug" name="brand" checked="@Model.CurrentSearchOption.GetBrands().Contains(brand.Slug)">
                                             @brand.Name
                                             <small>(@brand.Count)</small>
                                         </label>
@@ -90,10 +90,6 @@
                                 <span id="minPrice"></span>
                                 <span id="maxPrice"></span>
                             </div>
-                            <div class="price-actions mb-3">
-                                <button id="reset-price" type="button" class="btn btn-default">Reset</button>
-                                <button id="apply-price" type="button" class="btn btn-default">Apply</button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -109,10 +105,6 @@
             </div>
             <div class="col-md-5">
                 <ul class="list-inline clear-both product-list-display-options">
-                    <li class="show-option">
-                        <a href="#"><i class="fa fa-th-list"></i></a>
-                        <a href="#"><i class="fa fa-th"></i></a>
-                    </li>
                     <li class="sort-by">
                         <label>Sort By :</label>
                         <div class="btn-group">

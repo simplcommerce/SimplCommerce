@@ -1,0 +1,154 @@
+﻿@using cloudscribe.Web.Pagination
+@using SimplCommerce.Module.Reviews.ViewModels
+@model ReviewVm
+
+@{
+    ViewBag.Title = Localizer["Reviews for {0}", Model.EntityName];
+}
+
+@section additionalMeta {
+    <meta name="title" content="@ViewBag.Title" />
+}
+
+@section head
+    {
+    <link simpl-append-version="true" rel="stylesheet" href="~/modules/reviews/list.css" />
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">@Localizer["Home"]</a></li>
+        <li class="breadcrumb-item"><a href="/@Model.EntitySlug">@Model.EntityName</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Localizer["Customer Reviews"]</li>
+    </ol>
+</nav>
+
+<div>
+    <h1 class=""><a href="/@Model.EntitySlug">@Model.EntityName</a></h1>
+    <h3>@Localizer["Customer reviews"]</h3>
+    <div class="container">
+        <div class="row">
+            @if (Model.ReviewsCount > 0)
+            {
+                <div class="col-md-5 rating-summary">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h4>@Localizer["Rating average"]</h4>
+                            <p class="rating-average">@(Math.Round(Model.RatingAverage, 1))/5</p>
+                            <p>(@Model.ReviewsCount @Localizer["reviews"])</p>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="rating-item">
+                                <span>5 @Localizer["stars"]</span>
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating5Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating5Count)%">
+                                    </div>
+                                </div>
+                                <span>@Model.Rating5Count</span>
+                            </div>
+                            <div class="rating-item">
+                                <span>4 @Localizer["stars"]</span>
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating4Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating4Count)%">
+                                    </div>
+                                </div>
+                                <span>@Model.Rating4Count</span>
+                            </div>
+                            <div class="rating-item">
+                                <span>3 @Localizer["stars"]</span>
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating3Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating3Count)%">
+                                    </div>
+                                </div>
+                                <span>@Model.Rating3Count</span>
+                            </div>
+                            <div class="rating-item">
+                                <span>2 @Localizer["stars"]</span>
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating2Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating2Count)%">
+                                    </div>
+                                </div>
+                                <span>@Model.Rating2Count</span>
+                            </div>
+                            <div class="rating-item">
+                                <span>1 @Localizer["stars"]</span>
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating1Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating1Count)%">
+                                    </div>
+                                </div>
+                                <span>@Model.Rating1Count</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-md-7">
+                <div id="addreview">
+                    @Html.Partial("/Modules/SimplCommerce.Module.Reviews/Views/Review/_ReviewForm.cshtml", new ReviewForm { EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId })
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div id="reviews" class="review-item-list">
+            @if (Model.ReviewsCount > 0)
+            {
+                @foreach (var review in Model.Items.Data)
+                {
+                    <div>
+                        <ul class="list-inline product-ratings">
+                            <li><input type="hidden" value="@review.Rating" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
+                            <li class="review-title">
+                                @review.Title
+                            </li>
+                        </ul>
+                        <p>@review.Comment</p>
+                        <p>By: <strong>@review.ReviewerName</strong> on <span>@review.CreatedOn</span></p>
+                        @if (review.Replies.Count > 0)
+                        {
+                            <button class="btn-review-replies btn-view-review-replies btn btn-link">@Localizer["View Replies"]<i class="arrow-down"></i></button>
+                            <button class="btn-review-replies btn-hide-review-replies btn btn-link d-none">@Localizer["Hide Replies"]<i class="arrow-up"></i></button>
+                            <ul class="review-replies d-none">
+                                @foreach (var reply in review.Replies)
+                                {
+                                    <li class="review-reply">
+                                        <p>@reply.Comment</p>
+                                        <p>By: <strong>@reply.ReplierName</strong> on <span>@reply.CreatedOn</span></p>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        <div>
+                            <button class="btn-add-review-reply btn btn-link">@Localizer["Add Reply"]</button>
+                            <div class="add-review-reply d-none">
+                                @Html.Partial("/Modules/SimplCommerce.Module.Reviews/Views/Reply/_ReplyForm.cshtml", new ReplyForm { ReviewId = review.Id })
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div>
+            <cs-pager cs-paging-pagesize="@Model.Items.PageSize"
+                      cs-paging-pagenumber="@Model.Items.PageNumber"
+                      cs-paging-totalitems="@Model.Items.TotalItems"
+                      cs-pagenumber-param="pageNumber"
+                      asp-controller="Review"
+                      asp-action="List"
+                      asp-route-entityId="@Model.EntityId"
+                      asp-route-entityTypeId="@Model.EntityTypeId"
+                      asp-route-pageSize="@Model.Items.PageSize"
+                      cs-pager-li-current-class="page-item active"
+                      cs-pager-li-other-class="page-item"
+                      cs-pager-li-non-active-class="page-item disabled"
+                      cs-pager-link-current-class="page-link"
+                      cs-pager-link-other-class="page-link"></cs-pager>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+    {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script simpl-append-version="true" src="~/modules/reviews/list.js"></script>
+}

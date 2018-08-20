@@ -47,7 +47,10 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 CategoryId = category.Id,
                 ParentCategorId = category.ParentId,
                 CategoryName = category.Name,
-                CategorySeoTitle = category.SeoTitle,
+                CategorySlug = category.Slug,
+                CategoryMetaTitle = category.MetaTitle,
+                CategoryMetaKeywords = category.MetaKeywords,
+                CategoryMetaDescription = category.MetaDescription,
                 CurrentSearchOption = searchOption,
                 FilterOption = new FilterOption()
             };
@@ -56,8 +59,13 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 .Query()
                 .Where(x => x.Categories.Any(c => c.CategoryId == category.Id) && x.IsPublished && x.IsVisibleIndividually);
 
-            model.FilterOption.Price.MaxPrice = query.Select(x => x.Price).DefaultIfEmpty(0).Max();
-            model.FilterOption.Price.MinPrice = query.Select(x => x.Price).DefaultIfEmpty(0).Min();
+            if (query.Count() == 0)
+            {
+                model.TotalProduct = 0;
+                return View(model);
+            }
+
+            AppendFilterOptionsToModel(model, query);
 
             if (searchOption.MinPrice.HasValue)
             {
@@ -69,12 +77,10 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 query = query.Where(x => x.Price <= searchOption.MaxPrice.Value);
             }
 
-            AppendFilterOptionsToModel(model, query);
-
             var brands = searchOption.GetBrands();
             if (brands.Any())
             {
-                var brandIs = _brandRepository.Query().Where(x => brands.Contains(x.SeoTitle)).Select(x => x.Id).ToList();
+                var brandIs = _brandRepository.Query().Where(x => brands.Contains(x.Slug)).Select(x => x.Id).ToList();
                 query = query.Where(x => x.BrandId.HasValue && brandIs.Contains(x.BrandId.Value));
             }
 
@@ -130,6 +136,9 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
         private static void AppendFilterOptionsToModel(ProductsByCategory model, IQueryable<Product> query)
         {
+            model.FilterOption.Price.MaxPrice = query.Max(x => x.Price);
+            model.FilterOption.Price.MinPrice = query.Min(x => x.Price);
+
             model.FilterOption.Brands = query
                 .Where(x => x.BrandId != null)
                 .GroupBy(x => x.Brand)
@@ -137,7 +146,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 {
                     Id = (int)g.Key.Id,
                     Name = g.Key.Name,
-                    SeoTitle = g.Key.SeoTitle,
+                    Slug = g.Key.Slug,
                     Count = g.Count()
                 }).ToList();
         }

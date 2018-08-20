@@ -29,7 +29,7 @@
             <tr>
                 <th st-sort="Name" class="sortable">{{::vm.translate.get('Name')}}</th>
                 <th st-sort="Code" class="sortable">{{::vm.translate.get('Code')}}</th>
-                <th st-sort="CountryCode" class="sortable">{{::vm.translate.get('CountryCode')}}</th>
+                <th st-sort="CountryId" class="sortable">{{::vm.translate.get('CountryId')}}</th>
                 <th></th>
             </tr>
             <tr>
@@ -42,12 +42,15 @@
                 <th></th>
                 <th></th>
             </tr>
+            <tr>
+                <th ng-show="!vm.isLoading" colspan="4">{{vm.tableStateRef.pagination.totalItemCount | number:0}} records found</th>
+            </tr>
         </thead>
         <tbody>
             <tr ng-repeat="stateOrProvince in vm.stateOrProvinces">
                 <td>{{stateOrProvince.name}}</td>
                 <td>{{stateOrProvince.code}}</td>
-                <td>{{stateOrProvince.countryCode}}</td>
+                <td>{{stateOrProvince.countryId}}</td>
                 <td>
                     <a ui-sref="state-province-edit({id: stateOrProvince.id, countryId: vm.countryId})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
                     <button ng-click="vm.deleteStateOrProvince(stateOrProvince)" title="Delete" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>

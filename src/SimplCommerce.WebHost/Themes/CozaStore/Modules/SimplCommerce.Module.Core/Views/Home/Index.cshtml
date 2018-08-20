@@ -1,0 +1,13 @@
+@model SimplCommerce.Module.Core.ViewModels.HomeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section featured {
+    @await Html.PartialAsync("_WidgetInstances", Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeFeatured))
+}
+
+@await Html.PartialAsync("_WidgetInstances", Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeMainContent))
+
+@await Html.PartialAsync("_WidgetInstances", Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeAfterMainContent))

@@ -6,6 +6,13 @@ namespace SimplCommerce.Module.Core.Models
 {
     public class Address : EntityBase
     {
+        public Address() { }
+
+        public Address(long id)
+        {
+            Id = id;
+        }
+
         public string ContactName { get; set; }
 
         public string Phone { get; set; }
@@ -28,7 +35,7 @@ namespace SimplCommerce.Module.Core.Models
         public StateOrProvince StateOrProvince { get; set; }
 
         [Required]
-        public long CountryId { get; set; }
+        public string CountryId { get; set; }
 
         public Country Country { get; set; }
 

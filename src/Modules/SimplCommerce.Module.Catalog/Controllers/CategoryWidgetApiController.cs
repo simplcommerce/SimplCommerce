@@ -13,12 +13,10 @@ namespace SimplCommerce.Module.Catalog.Controllers
     public class CategoryWidgetApiController : Controller
     {
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
-        private readonly IRepository<Widget> _widgetRespository;
 
-        public CategoryWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository, IRepository<Widget> widgetRespository)
+        public CategoryWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository)
         {
             _widgetInstanceRepository = widgetInstanceRepository;
-            _widgetRespository = widgetRespository;
         }
 
         [HttpGet("{id}")]
@@ -47,7 +45,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 var widgetInstance = new WidgetInstance
                 {
                     Name = model.Name,
-                    WidgetId = 4,
+                    WidgetId = "CategoryWidget",
                     WidgetZoneId = model.WidgetZoneId,
                     PublishStart = model.PublishStart,
                     PublishEnd = model.PublishEnd,
@@ -59,7 +57,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 _widgetInstanceRepository.SaveChanges();
                 return Ok();
             }
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
 
         [HttpPut("{id}")]
@@ -78,7 +76,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 return Ok();
             }
 
-            return new BadRequestObjectResult(ModelState);
+            return BadRequest(ModelState);
         }
     }
 }

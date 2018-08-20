@@ -12,6 +12,6 @@ namespace SimplCommerce.Module.News.ViewModels
 
         public DateTimeOffset PublishedOn { get; set; }
 
-        public string SeoTitle { get; set; }
+        public string Slug { get; set; }
     }
 }

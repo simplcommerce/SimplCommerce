@@ -1,5 +1,6 @@
 {
   "name": "contacts",
   "fullName": "SimplCommerce.Module.Contacts",
+  "isBundledWithHost": true,
   "version": "1.0.0"
 }

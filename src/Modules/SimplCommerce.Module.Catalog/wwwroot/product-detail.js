@@ -15,7 +15,7 @@ $(document).ready(function () {
             selectedproductOptions.push($(this).find('input[type=radio]:checked').val());
         });
         variationName = selectedproductOptions.join('-');
-        $variationDiv = $('div[data-variation-name="' + variationName +'"]');
+        $variationDiv = $('div[data-variation-name="' + variationName + '"]');
         $('.product-variation').hide();
         if ($variationDiv.length > 0) {
             $variationDiv.show();
@@ -27,8 +27,7 @@ $(document).ready(function () {
 
     $('.quantity-button').on('click', function () {
         var quantityInput = $(this).closest("form").find('.quantity-field');
-        if ($(this).val() === '+')
-        {
+        if ($(this).val() === '+') {
             quantityInput.val(parseInt(quantityInput.val(), 10) + 1);
         }
         else if (quantityInput.val() > 1) {
@@ -50,5 +49,36 @@ $(document).ready(function () {
                     });
                 });
         }
+    });
+
+    $('#reviews').on('click', '.btn-submit-review-reply', function (e) {
+        e.preventDefault();
+        var $form = $(this).closest('.form-add-review-reply');
+        var that = this;
+        if (!$form.valid || $form.valid()) {
+            $.post($form.attr('action'), $form.serializeArray())
+                .done(function (result) {
+                    $(that).closest('.add-review-reply').html(result);
+                });
+        }
+    });
+
+    $('#reviews').on('click', '.btn-view-review-replies', function (e) {
+        var $parent = $(this).parent();
+        $(this).addClass('d-none');
+        $parent.find('.review-replies').removeClass('d-none');
+        $parent.find('.btn-hide-review-replies').removeClass('d-none');
+    });
+
+    $('#reviews').on('click', '.btn-hide-review-replies', function (e) {
+        var $parent = $(this).parent();
+        $(this).addClass('d-none');
+        $parent.find('.review-replies').addClass('d-none');
+        $parent.find('.btn-view-review-replies').removeClass('d-none');
+    });
+
+    $('#reviews').on('click', '.btn-add-review-reply', function (e) {
+        $('.add-review-reply').addClass('d-none');
+        $(this).parent().find('.add-review-reply').removeClass('d-none');
     });
 });

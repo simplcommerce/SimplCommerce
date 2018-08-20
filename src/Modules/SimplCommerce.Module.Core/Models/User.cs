@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 using SimplCommerce.Infrastructure.Models;
 
@@ -15,6 +16,8 @@ namespace SimplCommerce.Module.Core.Models
 
         public Guid UserGuid { get; set; }
 
+        [Required]
+        [StringLength(450)]
         public string FullName { get; set; }
 
         public long? VendorId { get; set; }
@@ -35,8 +38,10 @@ namespace SimplCommerce.Module.Core.Models
 
         public long? DefaultBillingAddressId { get; set; }
 
+        public string RefreshTokenHash { get; set; }
+
         public IList<UserRole> Roles { get; set; } =  new List<UserRole>();
 
-        public IList<UserCustomerGroup> CustomerGroups { get; set; } = new List<UserCustomerGroup>();
+        public IList<CustomerGroupUser> CustomerGroups { get; set; } = new List<CustomerGroupUser>();
     }
 }

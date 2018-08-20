@@ -14,6 +14,6 @@
 
         public string HtmlData { get; set; }
 
-        public long WidgetId { get; set; }
+        public string WidgetId { get; set; }
     }
 }

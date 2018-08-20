@@ -54,5 +54,9 @@ namespace SimplCommerce.Module.Orders.ViewModels
         public ShippingAddressVm ShippingAddress { get; set; }
 
         public IList<OrderItemVm> OrderItems { get; set; } = new List<OrderItemVm>();
+
+        public IList<long> SubOrderIds { get; set; }
+
+        public bool IsMasterOrder { get; set; }
     }
 }

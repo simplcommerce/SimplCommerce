@@ -6,11 +6,20 @@ namespace SimplCommerce.Module.News.Models
 {
     public class NewsCategory : EntityBase
     {
+        [Required]
+        [StringLength(450)]
         public string Name { get; set; }
 
-        public string SeoTitle { get; set; }
+        [Required]
+        [StringLength(450)]
+        public string Slug { get; set; }
 
-        [StringLength(5000)]
+        public string MetaTitle { get; set; }
+
+        public string MetaKeywords { get; set; }
+
+        public string MetaDescription { get; set; }
+
         public string Description { get; set; }
 
         public int DisplayOrder { get; set; }
