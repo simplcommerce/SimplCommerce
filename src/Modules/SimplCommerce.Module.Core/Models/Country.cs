@@ -12,7 +12,7 @@ namespace SimplCommerce.Module.Core.Models
         }
 
         [Required]
-        [StringLength(250)]
+        [StringLength(450)]
         public string Name { get; set; }
 
         public string Code3 { get; set; }

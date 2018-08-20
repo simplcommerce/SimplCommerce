@@ -8,11 +8,11 @@ namespace SimplCommerce.Module.Catalog.Models
     public class Category : EntityBase
     {
         [Required]
-        [StringLength(250)]
+        [StringLength(450)]
         public string Name { get; set; }
 
         [Required]
-        [StringLength(250)]
+        [StringLength(450)]
         public string Slug { get; set; }
 
         public string MetaTitle { get; set; }

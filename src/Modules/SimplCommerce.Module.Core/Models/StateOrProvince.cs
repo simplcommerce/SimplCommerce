@@ -22,7 +22,7 @@ namespace SimplCommerce.Module.Core.Models
         public string Code { get; set; }
 
         [Required]
-        [StringLength(250)]
+        [StringLength(450)]
         public string Name { get; set; }
 
         public string Type { get; set; }

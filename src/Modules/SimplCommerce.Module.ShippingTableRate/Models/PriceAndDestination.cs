@@ -18,7 +18,7 @@ namespace SimplCommerce.Module.ShippingTableRate.Models
 
         public long? DistrictId { get; set; }
 
-        [StringLength(250)]
+        [StringLength(450)]
         public string ZipCode { get; set; }
 
         public string Note { get; set; }

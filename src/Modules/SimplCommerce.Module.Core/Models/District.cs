@@ -17,7 +17,7 @@ namespace SimplCommerce.Module.Core.Models
         public StateOrProvince StateOrProvince { get; set; }
 
         [Required]
-        [StringLength(250)]
+        [StringLength(450)]
         public string Name { get; set; }
 
         public string Type { get; set; }

@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.Tax.Models
         }
 
         [Required]
-        [StringLength(250)]
+        [StringLength(450)]
         public string Name { get; set; }
     }
 }

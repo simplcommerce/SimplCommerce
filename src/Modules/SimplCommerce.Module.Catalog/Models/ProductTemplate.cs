@@ -7,7 +7,7 @@ namespace SimplCommerce.Module.Catalog.Models
     public class ProductTemplate : EntityBase
     {
         [Required]
-        [StringLength(250)]
+        [StringLength(450)]
         public string Name { get; set; }
 
         public IList<ProductTemplateProductAttribute> ProductAttributes { get; protected set; } = new List<ProductTemplateProductAttribute>();

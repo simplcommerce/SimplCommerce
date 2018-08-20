@@ -17,7 +17,7 @@ namespace SimplCommerce.Module.ActivityLog.Models
         public long EntityId { get; set; }
 
         [Required]
-        [StringLength(250)]
+        [StringLength(450)]
         public string EntityTypeId { get; set; }
     }
 }

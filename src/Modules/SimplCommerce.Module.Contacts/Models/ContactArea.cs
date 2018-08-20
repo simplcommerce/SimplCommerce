@@ -6,7 +6,7 @@ namespace SimplCommerce.Module.Contacts.Models
     public class ContactArea : EntityBase
     {
         [Required]
-        [StringLength(250)]
+        [StringLength(450)]
         public string Name { get; set; }
 
         public bool IsDeleted { get; set; }

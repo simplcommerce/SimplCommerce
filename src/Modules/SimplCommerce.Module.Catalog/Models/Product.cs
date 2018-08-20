@@ -38,13 +38,13 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public int StockQuantity { get; set; }
 
-        [StringLength(250)]
+        [StringLength(450)]
         public string Sku { get; set; }
 
-        [StringLength(250)]
+        [StringLength(450)]
         public string Gtin { get; set; }
 
-        [StringLength(250)]
+        [StringLength(450)]
         public string NormalizedName { get; set; }
 
         public int DisplayOrder { get; set; }

@@ -6,7 +6,7 @@ namespace SimplCommerce.Module.Localization.Models
     public class Resource : EntityBase
     {
         [Required]
-        [StringLength(250)]
+        [StringLength(450)]
         public string Key { get; set; }
 
         public string Value { get; set; }

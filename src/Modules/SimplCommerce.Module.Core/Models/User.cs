@@ -17,7 +17,7 @@ namespace SimplCommerce.Module.Core.Models
         public Guid UserGuid { get; set; }
 
         [Required]
-        [StringLength(250)]
+        [StringLength(450)]
         public string FullName { get; set; }
 
         public long? VendorId { get; set; }

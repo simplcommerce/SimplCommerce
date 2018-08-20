@@ -16,7 +16,7 @@ namespace SimplCommerce.Module.Core.Models
         }
 
         [Required]
-        [StringLength(250)]
+        [StringLength(450)]
         public string Name { get { return Id; } }
 
         public bool IsMenuable { get; set; }

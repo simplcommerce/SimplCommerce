@@ -103,7 +103,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("EntityTypeId")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<long>("UserId");
 
@@ -122,7 +122,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.HasKey("Id");
 
@@ -147,11 +147,11 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<string>("Slug")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.HasKey("Id");
 
@@ -182,13 +182,13 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<long?>("ParentId");
 
                     b.Property<string>("Slug")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<long?>("ThumbnailImageId");
 
@@ -218,7 +218,7 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<int>("DisplayOrder");
 
                     b.Property<string>("Gtin")
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<bool>("HasOptions");
 
@@ -242,10 +242,10 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<string>("NormalizedName")
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<decimal?>("OldPrice");
 
@@ -260,11 +260,11 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<string>("ShortDescription");
 
                     b.Property<string>("Sku")
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<string>("Slug")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<decimal?>("SpecialPrice");
 
@@ -313,7 +313,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.HasKey("Id");
 
@@ -330,7 +330,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.HasKey("Id");
 
@@ -431,7 +431,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.HasKey("Id");
 
@@ -530,7 +530,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.HasKey("Id");
 
@@ -562,7 +562,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.HasKey("Id");
 
@@ -627,13 +627,13 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<DateTimeOffset?>("PublishedOn");
 
                     b.Property<string>("Slug")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<long?>("UpdatedById");
 
@@ -687,7 +687,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.HasKey("Id");
 
@@ -783,7 +783,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.HasKey("Id");
 
@@ -811,7 +811,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<DateTimeOffset>("UpdatedOn");
 
@@ -846,7 +846,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<long>("StateOrProvinceId");
 
@@ -876,11 +876,11 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<string>("Slug")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.HasKey("Id");
 
@@ -978,7 +978,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<string>("Type");
 
@@ -1018,7 +1018,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<bool>("IsDeleted");
 
@@ -1135,11 +1135,11 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<string>("Slug")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<DateTimeOffset>("UpdatedOn");
 
@@ -1163,7 +1163,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<string>("ViewComponentName");
 
@@ -1227,7 +1227,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.HasKey("Id");
 
@@ -1298,7 +1298,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<long?>("VendorId");
 
@@ -1326,7 +1326,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.HasKey("Id");
 
@@ -1348,7 +1348,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Key")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<string>("Value");
 
@@ -1381,11 +1381,11 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<string>("Slug")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.HasKey("Id");
 
@@ -1416,7 +1416,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<DateTimeOffset?>("PublishedOn");
 
@@ -1424,7 +1424,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Slug")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<long?>("ThumbnailImageId");
 
@@ -1654,7 +1654,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.HasKey("Id");
 
@@ -1689,7 +1689,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<string>("RuleToApply");
 
@@ -1788,7 +1788,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<string>("RuleToApply");
 
@@ -1822,7 +1822,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<DateTimeOffset>("CreatedOn");
 
@@ -1961,7 +1961,7 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<long>("OrderId");
 
                     b.Property<string>("TrackingNumber")
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<DateTimeOffset>("UpdatedOn");
 
@@ -2016,7 +2016,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.Property<string>("OnlyCountryIdsString");
 
@@ -2057,7 +2057,7 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<long?>("StateOrProvinceId");
 
                     b.Property<string>("ZipCode")
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.HasKey("Id");
 
@@ -2136,7 +2136,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(250);
+                        .HasMaxLength(450);
 
                     b.HasKey("Id");
 

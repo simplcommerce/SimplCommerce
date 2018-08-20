@@ -8,7 +8,7 @@ namespace SimplCommerce.Module.Pricing.Models
     public class CatalogRule : EntityBase
     {
         [Required]
-        [StringLength(250)]
+        [StringLength(450)]
         public string Name { get; set; }
 
         public string Description { get; set; }

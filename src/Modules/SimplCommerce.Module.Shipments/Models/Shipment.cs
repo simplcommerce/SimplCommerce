@@ -20,7 +20,7 @@ namespace SimplCommerce.Module.Shipments.Models
 
         public Order Order { get; set; }
 
-        [StringLength(250)]
+        [StringLength(450)]
         public string TrackingNumber { get; set; }
 
         public long WarehouseId { get; set; }

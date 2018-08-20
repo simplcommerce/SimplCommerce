@@ -13,11 +13,11 @@ namespace SimplCommerce.Module.Core.Models
         }
 
         [Required]
-        [StringLength(250)]
+        [StringLength(450)]
         public string Name { get; set; }
 
         [Required]
-        [StringLength(250)]
+        [StringLength(450)]
         public string Slug { get; set; }
 
         public string Description { get; set; }

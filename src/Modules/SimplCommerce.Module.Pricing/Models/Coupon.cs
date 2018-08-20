@@ -16,7 +16,7 @@ namespace SimplCommerce.Module.Pricing.Models
         public CartRule CartRule { get; set; }
 
         [Required]
-        [StringLength(250)]
+        [StringLength(450)]
         public string Code { get; set; }
 
         public DateTimeOffset CreatedOn { get; set; }

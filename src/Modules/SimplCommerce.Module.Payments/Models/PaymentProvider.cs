@@ -11,7 +11,7 @@ namespace SimplCommerce.Module.Payments.Models
         }
 
         [Required]
-        [StringLength(250)]
+        [StringLength(450)]
         public string Name { get; set; }
 
         public bool IsEnabled { get; set; }

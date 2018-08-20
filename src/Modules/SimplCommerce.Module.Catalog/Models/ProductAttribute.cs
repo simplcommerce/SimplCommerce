@@ -7,7 +7,7 @@ namespace SimplCommerce.Module.Catalog.Models
     public class ProductAttribute : EntityBase
     {
         [Required]
-        [StringLength(250)]
+        [StringLength(450)]
         public string Name { get; set; }
 
         public long GroupId { get; set; }
