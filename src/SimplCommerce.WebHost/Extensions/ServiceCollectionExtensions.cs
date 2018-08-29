@@ -47,7 +47,7 @@ namespace SimplCommerce.WebHost.Extensions
             {
                 Assembly moduleMainAssembly = null;
                 var binFolder = new DirectoryInfo(Path.Combine(moduleFolder.FullName, "bin"));
-                if (binFolder.Exists)
+                if (binFolder.Exists) // The module is not bundled with the host, so we have to load it
                 {
                     moduleMainAssembly = LoadModule(moduleFolder, binFolder);
                 }
@@ -91,7 +91,7 @@ namespace SimplCommerce.WebHost.Extensions
                 }
                 catch (FileLoadException)
                 {
-                    // Get loaded assembly
+                    // Get loaded assembly. This assembly might be loaded
                     assembly = Assembly.Load(new AssemblyName(Path.GetFileNameWithoutExtension(file.Name)));
 
                     if (assembly == null)
@@ -99,11 +99,8 @@ namespace SimplCommerce.WebHost.Extensions
                         throw;
                     }
 
-                    var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-                    string loadedAssemblyVersion = fvi.FileVersion;
-
-                    fvi = FileVersionInfo.GetVersionInfo(file.FullName);
-                    string tryToLoadAssemblyVersion = fvi.FileVersion;
+                    string loadedAssemblyVersion = FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion;
+                    string tryToLoadAssemblyVersion = FileVersionInfo.GetVersionInfo(file.FullName).FileVersion;
 
                     // Or log the exception somewhere and don't add the module to list so that it will not be initialized
                     if (tryToLoadAssemblyVersion != loadedAssemblyVersion)
