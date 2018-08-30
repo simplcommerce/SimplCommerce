@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace SimplCommerce.Infrastructure
@@ -18,5 +19,9 @@ namespace SimplCommerce.Infrastructure
         }
 
         public string Path { get; set; }
+
+        public IList<string> Dependencies { get; set; } = new List<string>();
+
+        public ModuleUI UI { get; set; } = new ModuleUI();
     }
 }
