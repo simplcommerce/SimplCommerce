@@ -323,6 +323,12 @@
                 item.gtin = item.gtin === null ? '' : item.gtin;
             });
 
+            vm.product.options.forEach(function (item) {
+                item.values.forEach(function (val) {
+                    val.display = val.display === null ? '' : val.display;
+                });
+            });
+
             if (vm.isEditMode) {
                 promise = productService.editProduct(vm.product, vm.thumbnailImage, vm.productImages, vm.productDocuments);
             } else {

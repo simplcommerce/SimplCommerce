@@ -7,11 +7,11 @@ namespace SimplCommerce.Module.Catalog.Models
     {
         public long ProductId { get; set; }
 
-        public virtual Product Product { get; set; }
+        public Product Product { get; set; }
 
         public long MediaId { get; set; }
 
-        public virtual Media Media { get; set; }
+        public Media Media { get; set; }
 
         public int DisplayOrder { get; set; }
     }

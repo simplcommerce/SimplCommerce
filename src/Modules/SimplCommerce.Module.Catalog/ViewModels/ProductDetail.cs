@@ -29,7 +29,9 @@ namespace SimplCommerce.Module.Catalog.ViewModels
 
         public bool IsAllowToOrder { get; set; }
 
-        public int? StockQuantity { get; set; }
+        public bool StockTrackingIsEnabled { get; set; }
+
+        public int StockQuantity { get; set; }
 
         public int ReviewsCount { get; set; }
 

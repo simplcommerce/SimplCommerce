@@ -160,7 +160,7 @@ namespace SimplCommerce.Module.Orders.Services
 
             foreach (var cartItem in cart.Items)
             {
-                if(cartItem.Product.StockQuantity < cartItem.Quantity)
+                if (cartItem.Product.StockTrackingIsEnabled && cartItem.Product.StockQuantity < cartItem.Quantity)
                 {
                     return Result.Fail<Order>($"There are only {cartItem.Product.StockQuantity} items available for {cartItem.Product.Name}");
                 }
@@ -188,7 +188,10 @@ namespace SimplCommerce.Module.Orders.Services
                 }
 
                 order.AddOrderItem(orderItem);
-                cartItem.Product.StockQuantity = cartItem.Product.StockQuantity - cartItem.Quantity;
+                if (cartItem.Product.StockTrackingIsEnabled)
+                {
+                    cartItem.Product.StockQuantity = cartItem.Product.StockQuantity - cartItem.Quantity;
+                }
             }
 
             order.OrderStatus = orderStatus;
@@ -275,7 +278,10 @@ namespace SimplCommerce.Module.Orders.Services
             var orderItems = _orderItemRepository.Query().Include(x => x.Product).Where(x => x.Order.Id == order.Id);
             foreach(var item in orderItems)
             {
-                item.Product.StockQuantity = item.Product.StockQuantity + item.Quantity;
+                if (item.Product.StockTrackingIsEnabled)
+                {
+                    item.Product.StockQuantity = item.Product.StockQuantity + item.Quantity;
+                }
             }
         }
 

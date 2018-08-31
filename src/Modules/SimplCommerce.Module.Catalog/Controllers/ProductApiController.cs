@@ -72,7 +72,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             if (!User.IsInRole("admin") && product.VendorId != currentUser.VendorId)
             {
-                return new BadRequestObjectResult(new { error = "You don't have permission to manage this product" });
+                return BadRequest(new { error = "You don't have permission to manage this product" });
             }
 
             var productVm = new ProductVm
@@ -100,7 +100,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 CategoryIds = product.Categories.Select(x => x.CategoryId).ToList(),
                 ThumbnailImageUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage),
                 BrandId = product.BrandId,
-                TaxClassId = product.TaxClassId
+                TaxClassId = product.TaxClassId,
+                StockTrackingIsEnabled = product.StockTrackingIsEnabled
             };
 
             foreach (var productMedia in product.Medias.Where(x => x.Media.MediaType == MediaType.Image))
@@ -290,6 +291,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 IsAllowToOrder = model.Product.IsAllowToOrder,
                 BrandId = model.Product.BrandId,
                 TaxClassId = model.Product.TaxClassId,
+                StockTrackingIsEnabled = model.Product.StockTrackingIsEnabled,
                 HasOptions = model.Product.Variations.Any() ? true : false,
                 IsVisibleIndividually = true,
                 CreatedBy = currentUser
@@ -406,6 +408,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             product.IsPublished = model.Product.IsPublished;
             product.IsCallForPricing = model.Product.IsCallForPricing;
             product.IsAllowToOrder = model.Product.IsAllowToOrder;
+            product.StockTrackingIsEnabled = model.Product.StockTrackingIsEnabled;
             product.UpdatedBy = currentUser;
 
             if (isPriceChanged)
@@ -467,7 +470,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             if (!User.IsInRole("admin") && product.VendorId != currentUser.VendorId)
             {
-                return new BadRequestObjectResult(new { error = "You don't have permission to manage this product" });
+                return BadRequest(new { error = "You don't have permission to manage this product" });
             }
 
             await _productService.Delete(product);
@@ -673,6 +676,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                     productLink.LinkedProduct.Price = productVariationVm.Price;
                     productLink.LinkedProduct.OldPrice = productVariationVm.OldPrice;
                     productLink.LinkedProduct.IsDeleted = false;
+                    productLink.LinkedProduct.StockTrackingIsEnabled = product.StockTrackingIsEnabled;
 
                     if (isPriceChanged)
                     {

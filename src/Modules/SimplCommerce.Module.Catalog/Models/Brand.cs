@@ -5,11 +5,14 @@ namespace SimplCommerce.Module.Catalog.Models
 {
     public class Brand : EntityBase
     {
+        [Required]
+        [StringLength(450)]
         public string Name { get; set; }
 
+        [Required]
+        [StringLength(450)]
         public string Slug { get; set; }
 
-        [StringLength(5000)]
         public string Description { get; set; }
 
         public bool IsPublished { get; set; }

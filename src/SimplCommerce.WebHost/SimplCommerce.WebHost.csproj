@@ -22,7 +22,6 @@
     </ProjectReference>
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Contacts\SimplCommerce.Module.Contacts.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.DinkToPdf\SimplCommerce.Module.DinkToPdf.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.EmailSenderSmtp\SimplCommerce.Module.EmailSenderSmtp.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Inventory\SimplCommerce.Module.Inventory.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.News\SimplCommerce.Module.News.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Orders\SimplCommerce.Module.Orders.csproj" />
@@ -44,9 +43,13 @@
     <ProjectReference Include="..\Modules\SimplCommerce.Module.ShoppingCart\SimplCommerce.Module.ShoppingCart.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Tax\SimplCommerce.Module.Tax.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Vendors\SimplCommerce.Module.Vendors.csproj" />
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.WishList\SimplCommerce.Module.WishList.csproj" />
     <ProjectReference Include="..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Localization\SimplCommerce.Module.Localization.csproj" />
+
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.EmailSenderSmtp\SimplCommerce.Module.EmailSenderSmtp.csproj" />
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.StorageLocal\SimplCommerce.Module.StorageLocal.csproj" />
   </ItemGroup>
 
   <ItemGroup>

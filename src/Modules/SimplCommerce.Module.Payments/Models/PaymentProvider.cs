@@ -1,4 +1,5 @@
-﻿using SimplCommerce.Infrastructure.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Payments.Models
 {
@@ -9,6 +10,8 @@ namespace SimplCommerce.Module.Payments.Models
             Id = id;
         }
 
+        [Required]
+        [StringLength(450)]
         public string Name { get; set; }
 
         public bool IsEnabled { get; set; }

@@ -8,6 +8,8 @@ namespace SimplCommerce.Module.ActivityLog.Data
     {
         public void Build(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Activity>().HasIndex(x => x.ActivityTypeId);
+
             modelBuilder.Entity<ActivityType>().HasData(new ActivityType(1) { Name = "EntityView" });
         }
     }

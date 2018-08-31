@@ -22,8 +22,8 @@ RUN rm src/SimplCommerce.WebHost/Migrations/* && cp -f src/SimplCommerce.WebHost
 RUN dotnet restore && dotnet build \
     && cd src/SimplCommerce.WebHost \
     && npm run gulp-copy-modules -- --configurationName Debug \
-	&& dotnet ef migrations script -o dbscript.sql \
-	&& dotnet ef migrations add initialSchema
+	&& dotnet ef migrations add initialSchema \
+    && dotnet ef migrations script -o dbscript.sql
 
 RUN dotnet build -c Release \
 	&& cd src/SimplCommerce.WebHost \

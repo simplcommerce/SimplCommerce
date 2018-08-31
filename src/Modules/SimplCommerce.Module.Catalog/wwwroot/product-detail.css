@@ -136,24 +136,19 @@
     font-size: 18px;
 }
 
-.product-detail .add-to-wishlist {
+.product-detail .add-to-lists {
     padding-bottom: 10px;
     border-bottom: 1px solid #dedede;
     margin-top: 40px;
 }
 
-.product-detail .add-to-wishlist li {
+.product-detail .add-to-lists li {
     padding-left: 20px;
     margin-right: 10px;
     border-left: 1px solid #dedede;
 }
 
-.product-detail .add-to-wishlist li:first-child {
-    padding-left: 0;
-    border-left: none;
-}
-
-.add-to-wishlist i {
+.add-to-lists i {
     color: #8bdccd;
     font-size: 16px;
     margin-right: 7px;

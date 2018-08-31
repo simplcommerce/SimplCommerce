@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Module.SampleData.Data;
 using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.SampleData.ViewModels;
 
 namespace SimplCommerce.Module.SampleData.Services
 {
@@ -18,14 +19,15 @@ namespace SimplCommerce.Module.SampleData.Services
             _mediaService = mediaService;
         }
 
-        public async Task ResetToSampleData()
+        public async Task ResetToSampleData(SampleDataOption model)
         {
             var usePostgres = _sqlRepository.GetDbConnectionType() == "Npgsql.NpgsqlConnection";
-            var sampleContentFolder = Path.Combine(GlobalConfiguration.ContentRootPath, "Modules", "SimplCommerce.Module.SampleData", "SampleContent");
+            var useSQLite = _sqlRepository.GetDbConnectionType() == "Microsoft.Data.Sqlite.SqliteConnection";
+            var sampleContentFolder = Path.Combine(GlobalConfiguration.ContentRootPath, "Modules", "SimplCommerce.Module.SampleData", "SampleContent", model.Industry);
 
-            var filePath = usePostgres ? Path.Combine(sampleContentFolder, "ResetToSampleData_Postgres.sql") : Path.Combine(sampleContentFolder, "ResetToSampleData.sql");
+            var filePath = usePostgres ? Path.Combine(sampleContentFolder, "ResetToSampleData_Postgres.sql") : useSQLite ? Path.Combine(sampleContentFolder, "ResetToSampleData_SQLite.sql") : Path.Combine(sampleContentFolder, "ResetToSampleData.sql");
             var lines = File.ReadLines(filePath);
-            var commands = usePostgres ? _sqlRepository.PostgresCommands(lines) : _sqlRepository.ParseCommand(lines);
+            var commands = usePostgres || useSQLite ? _sqlRepository.PostgresCommands(lines) : _sqlRepository.ParseCommand(lines);
             _sqlRepository.RunCommands(commands);
 
            await CopyImages(sampleContentFolder);
