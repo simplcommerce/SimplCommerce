@@ -80,8 +80,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
             var brands = searchOption.GetBrands();
             if (brands.Any())
             {
-                var brandIs = _brandRepository.Query().Where(x => brands.Contains(x.Slug)).Select(x => x.Id).ToList();
-                query = query.Where(x => x.BrandId.HasValue && brandIs.Contains(x.BrandId.Value));
+                var brandIds = _brandRepository.Query().Where(x => brands.Contains(x.Slug)).Select(x => x.Id).ToList();
+                query = query.Where(x => x.BrandId.HasValue && brandIds.Contains(x.BrandId.Value));
             }
 
             model.TotalProduct = query.Count();
