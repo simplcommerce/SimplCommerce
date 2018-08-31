@@ -1,4 +1,4 @@
-@model SimplCommerce.Module.Comments.ViewModels.ReplyForm
+@model SimplCommerce.Module.Comments.ViewModels.CommentForm
 @using SimplCommerce.Module.Core.Models
 @using SimplCommerce.Module.Core.Extensions
 
@@ -8,21 +8,24 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <form class="form-add-review-reply" asp-controller="CommentReply" asp-action="AddReply" method="post" role="form">
-        <input asp-for="CommentId" type="hidden" />
+    <form class="form-add-review-reply" asp-controller="Comment" asp-action="AddReply" method="post" role="form">
+        <input asp-for="ParentId" type="hidden" />
+        <input asp-for="EntityId" type="hidden" />
+        <input asp-for="EntityTypeId" type="hidden" />
         <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group row">
-            <label asp-for="Comment" class="col-md-4 col-form-label">@Localizer["Reply comment"]</label>
+            <label asp-for="CommentText" class="col-md-4 col-form-label">@Localizer["Reply comment"]</label>
             <div class="col-md-8">
-                <textarea asp-for="Comment" class="form-control"></textarea>
-                <span asp-validation-for="Comment" class="text-danger"></span>
+                <textarea asp-for="CommentText" class="form-control"></textarea>
+                <span asp-validation-for="CommentText" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group row">
-            <label asp-for="ReplierName" class="col-md-4 col-form-label">@Localizer["Posted by"]</label>
+            <label asp-for="CommenterName" class="col-md-4 col-form-label">@Localizer["Posted by"]</label>
             <div class="col-md-8">
-                <input asp-for="ReplierName" class="form-control" />
-                <span asp-validation-for="ReplierName" class="text-danger"></span>
+                <input asp-for="CommenterName" class="form-control" />
+                <span asp-validation-for="CommenterName" class="text-danger"></span>
+
             </div>
         </div>
         <div class="form-group row">

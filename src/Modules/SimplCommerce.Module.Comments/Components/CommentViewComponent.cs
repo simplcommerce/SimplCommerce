@@ -39,12 +39,12 @@ namespace SimplCommerce.Module.Comments.Components
                     CommenterName = x.CommenterName,
                     CreatedOn = x.CreatedOn,
                     Replies = x.Replies
-                        .Where(r => r.Status == ReplyStatus.Approved)
+                        .Where(r => r.Status == CommentStatus.Approved)
                         .OrderByDescending(r => r.CreatedOn)
-                        .Select(r => new ViewModels.Reply
+                        .Select(r => new CommentItem()
                         {
-                            Comment = r.CommentText,
-                            ReplierName = r.ReplierName,
+                            CommentText = r.CommentText,
+                            CommenterName = r.CommenterName,
                             CreatedOn = r.CreatedOn
                         })
                         .ToList()

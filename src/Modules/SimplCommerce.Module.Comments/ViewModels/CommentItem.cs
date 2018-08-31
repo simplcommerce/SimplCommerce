@@ -13,6 +13,6 @@ namespace SimplCommerce.Module.Comments.ViewModels
 
         public DateTimeOffset CreatedOn { get; set; }
 
-        public IList<Reply> Replies { get; set; } = new List<Reply>();
+        public IList<CommentItem> Replies { get; set; } = new List<CommentItem>();
     }
 }

@@ -10,8 +10,8 @@ using SimplCommerce.Module.Core.Data;
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    [Migration("20180808203011_Add_Comment_Reply")]
-    partial class Add_Comment_Reply
+    [Migration("20180814013832_Add_Comments_Module")]
+    partial class Add_Comments_Module
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -634,42 +634,19 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("EntityTypeId");
 
+                    b.Property<long?>("ParentId");
+
                     b.Property<int>("Status");
 
                     b.Property<long>("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Comments_Comment");
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.Comments.Models.Reply", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("CommentId");
-
-                    b.Property<string>("CommentText");
-
-                    b.Property<DateTimeOffset>("CreatedOn");
-
-                    b.Property<string>("ReplierName");
-
-                    b.Property<int>("Status");
-
-                    b.Property<long>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CommentId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Comments_Reply");
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Contacts.Models.Contact", b =>
@@ -774,6 +751,7 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasData(
                         new { Id = "Catalog.ProductPageSize", IsVisibleInCommonSettingPage = true, Module = "Catalog", Value = "10" },
                         new { Id = "Catalog.IsProductPriceIncludeTax", IsVisibleInCommonSettingPage = true, Module = "Catalog", Value = "true" },
+                        new { Id = "Catalog.IsCommentsRequireApproval", IsVisibleInCommonSettingPage = true, Module = "Catalog", Value = "true" },
                         new { Id = "GoogleAppKey", IsVisibleInCommonSettingPage = false, Module = "Contact", Value = "" },
                         new { Id = "Global.AssetVersion", IsVisibleInCommonSettingPage = true, Module = "Core", Value = "1.0" },
                         new { Id = "Theme", IsVisibleInCommonSettingPage = false, Module = "Core", Value = "Generic" },
@@ -2371,17 +2349,9 @@ namespace SimplCommerce.WebHost.Migrations
 
             modelBuilder.Entity("SimplCommerce.Module.Comments.Models.Comment", b =>
                 {
-                    b.HasOne("SimplCommerce.Module.Core.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.Comments.Models.Reply", b =>
-                {
-                    b.HasOne("SimplCommerce.Module.Comments.Models.Comment", "Comment")
+                    b.HasOne("SimplCommerce.Module.Comments.Models.Comment", "Parent")
                         .WithMany("Replies")
-                        .HasForeignKey("CommentId")
+                        .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("SimplCommerce.Module.Core.Models.User", "User")

@@ -29,7 +29,11 @@ namespace SimplCommerce.Module.Comments.Models
 
         public long EntityId { get; set; }
 
-        public IList<Reply> Replies { get; protected set; } = new List<Reply>();
+        public long? ParentId { get; set; }
+
+        public Comment Parent { get; set; }
+
+        public IList<Comment> Replies { get; protected set; } = new List<Comment>();
 
     }
 }

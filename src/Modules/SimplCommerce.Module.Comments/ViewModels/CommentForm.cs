@@ -9,6 +9,8 @@ namespace SimplCommerce.Module.Comments.ViewModels
 
         public string CommenterName { get; set; }
 
+        public long? ParentId { get; set; }
+
         public long EntityId { get; set; }
 
         public string EntityTypeId { get; set; }

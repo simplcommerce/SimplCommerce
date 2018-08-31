@@ -6,6 +6,7 @@ using SimplCommerce.Module.Comments.Models;
 using SimplCommerce.Module.Comments.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 
 namespace SimplCommerce.Module.Comments.Controllers
@@ -80,13 +81,13 @@ namespace SimplCommerce.Module.Comments.Controllers
                     CommenterName = x.CommenterName,
                     CreatedOn = x.CreatedOn,
                     Replies = x.Replies
-                        .Where(r => r.Status == ReplyStatus.Approved)
+                        .Where(r => r.Status == CommentStatus.Approved)
                         .OrderByDescending(r => r.CreatedOn)
-                        .Select(r => new ViewModels.Reply
+                        .Select(r => new CommentItem()
                         {
-                        Comment = r.CommentText,
-                        ReplierName = r.ReplierName,
-                        CreatedOn = r.CreatedOn
+                            CommentText = r.CommentText,
+                            CommenterName = r.CommenterName,
+                            CreatedOn = r.CreatedOn
                         })
                         .ToList()
                 });
@@ -109,5 +110,35 @@ namespace SimplCommerce.Module.Comments.Controllers
 
             return View(model);
         }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddReply(CommentForm model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _workContext.GetCurrentUser();
+
+                var reply = new Comment()
+                {
+                    ParentId = model.ParentId,
+                    UserId = user.Id,
+                    CommentText = model.CommentText,
+                    CommenterName = model.CommenterName,
+                    Status = _isCommentsRequireApproval ? CommentStatus.Pending : CommentStatus.Approved,
+                    EntityId = model.EntityId,
+                    EntityTypeId = model.EntityTypeId,
+                };
+
+                _commentRepository.Add(reply);
+                _commentRepository.SaveChanges();
+
+                return PartialView("_CommentFormSuccess", model);
+            }
+
+            return PartialView("_CommentForm", model);
+        }
+
+
     }
 }
