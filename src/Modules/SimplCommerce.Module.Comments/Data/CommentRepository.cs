@@ -24,6 +24,7 @@ namespace SimplCommerce.Module.Comments.Data
                     CommentText = r.CommentText,
                     Status = r.Status,
                     CreatedOn = r.CreatedOn,
+                    ParentId = r.ParentId,
                     EntityName = u.Name,
                     EntitySlug = u.Slug
                 });

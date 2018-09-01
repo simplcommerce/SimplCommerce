@@ -45,6 +45,7 @@ namespace SimplCommerce.Module.Comments.Controllers
                     x.EntityName,
                     x.EntitySlug,
                     x.CommentText,
+                    x.ParentId,
                     Status = x.Status.ToString(),
                     x.CreatedOn
                 });
@@ -103,6 +104,8 @@ namespace SimplCommerce.Module.Comments.Controllers
                     x.CommentText,
                     x.EntityName,
                     x.EntitySlug,
+                    x.ParentId,
+                    Type = x.ParentId == null ? "Comment" : "Reply",
                     Status = x.Status.ToString(),
                     x.CreatedOn
                 });

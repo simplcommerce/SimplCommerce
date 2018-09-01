@@ -22,6 +22,8 @@ namespace SimplCommerce.Module.Comments.Models
 
         public string EntityName { get; set; }
 
+        public long? ParentId { get; set; }
+
         public string EntitySlug { get; set; }
     }
 }

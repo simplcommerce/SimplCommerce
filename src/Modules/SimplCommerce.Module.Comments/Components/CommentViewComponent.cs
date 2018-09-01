@@ -31,6 +31,7 @@ namespace SimplCommerce.Module.Comments.Components
             model.Items.Data = await _commentRepository
                 .Query()
                 .Where(x => (x.EntityId == entityId) && (x.EntityTypeId == entityTypeId) && (x.Status == CommentStatus.Approved))
+                .Where(x => x.ParentId == null)
                 .OrderByDescending(x => x.CreatedOn)
                 .Select(x => new CommentItem
                 {
