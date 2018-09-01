@@ -80,8 +80,8 @@ namespace SimplCommerce.Module.Catalog.Controllers
             var brands = searchOption.GetBrands();
             if (brands.Any())
             {
-                var brandIs = _brandRepository.Query().Where(x => brands.Contains(x.Slug)).Select(x => x.Id).ToList();
-                query = query.Where(x => x.BrandId.HasValue && brandIs.Contains(x.BrandId.Value));
+                var brandIds = _brandRepository.Query().Where(x => brands.Contains(x.Slug)).Select(x => x.Id).ToList();
+                query = query.Where(x => x.BrandId.HasValue && brandIds.Contains(x.BrandId.Value));
             }
 
             model.TotalProduct = query.Count();
@@ -97,7 +97,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 .Include(x => x.Brand)
                 .Include(x => x.ThumbnailImage);
 
-            query = AppySort(searchOption, query);
+            query = ApplySort(searchOption, query);
 
             var products = query
                 .Select(x => ProductThumbnail.FromProduct(x))
@@ -118,7 +118,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             return View(model);
         }
 
-        private static IQueryable<Product> AppySort(SearchOption searchOption, IQueryable<Product> query)
+        private static IQueryable<Product> ApplySort(SearchOption searchOption, IQueryable<Product> query)
         {
             var sortBy = searchOption.Sort ?? string.Empty;
             switch (sortBy.ToLower())
