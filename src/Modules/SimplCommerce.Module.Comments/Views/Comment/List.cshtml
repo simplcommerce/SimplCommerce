@@ -1,0 +1,106 @@
+﻿@using cloudscribe.Web.Pagination
+@using SimplCommerce.Module.Comments.ViewModels
+@model CommentVm
+
+@{
+    ViewBag.Title = Localizer["Comments for {0}", Model.EntityName];
+}
+
+@section additionalMeta {
+    <meta name="title" content="@ViewBag.Title" />
+}
+
+@section head{
+    <link simpl-append-version="true" rel="stylesheet" href="~/modules/comments/list.css" />
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">@Localizer["Home"]</a></li>
+        <li class="breadcrumb-item"><a href="/@Model.EntitySlug">@Model.EntityName</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Localizer["Customer Comments"]</li>
+    </ol>
+</nav>
+
+<div>
+    <h1 class=""><a href="/@Model.EntitySlug">@Model.EntityName</a></h1>
+    <h3>@Localizer["Customer comments"]</h3>
+
+    <div class="container">
+        <div class="row">
+            @if (Model.CommentsCount > 0)
+            {
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <p>(@Model.CommentsCount @Localizer["comments"])</p>
+                        </div>
+                        <div class="col-md-7">
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-md-7">
+                <div id="addcomment">
+                    @Html.Partial("/Modules/SimplCommerce.Module.Comments/Views/Comment/_CommentForm.cshtml", new CommentForm {EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId})
+                </div>
+            </div>
+        </div>
+        <div id="comments" class="comment-item-list">
+            @if (Model.CommentsCount > 0)
+            {
+                foreach (var comment in Model.Items.Data)
+                {
+                    <div>
+                        <div>
+                            <p>@comment.CommentText</p>
+                            <p>By: <strong>@comment.CommenterName</strong> on <span>@comment.CreatedOn</span></p>
+                        </div>
+                        @if (comment.Replies.Count > 0)
+                         {
+                             <button class="btn-review-replies btn-view-review-replies btn btn-link">@Localizer["View Replies"]<i class="arrow-down"></i></button>
+                             <button class="btn-review-replies btn-hide-review-replies btn btn-link d-none">@Localizer["Hide Replies"]<i class="arrow-up"></i></button>
+                             <ul class="review-replies d-none">
+                                 @foreach (var reply in comment.Replies)
+                                 {
+                                     <li class="review-reply">
+                                         <p>@reply.CommentText</p>
+                                         <p>By: <strong>@reply.CommenterName</strong> on <span>@reply.CreatedOn</span></p>
+                                     </li>
+                                 }
+                             </ul>
+                         }
+                        <div>
+                            <button class="btn-add-review-reply btn btn-link">@Localizer["Add Reply"]</button>
+                            <div class="add-review-reply d-none">
+                                @Html.Partial("/Modules/SimplCommerce.Module.Comments/Views/Comment/_ReplyForm.cshtml", new CommentForm { ParentId = comment.Id, EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId })
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div>
+            <cs-pager cs-paging-pagesize="@Model.Items.PageSize"
+                      cs-paging-pagenumber="@Model.Items.PageNumber"
+                      cs-paging-totalitems="@Model.Items.TotalItems"
+                      cs-pagenumber-param="pageNumber"
+                      asp-controller="Comment"
+                      asp-action="List"
+                      asp-route-entityId="@Model.EntityId"
+                      asp-route-entityTypeId="@Model.EntityTypeId"
+                      asp-route-pageSize="@Model.Items.PageSize"
+                      cs-pager-li-current-class="page-item active"
+                      cs-pager-li-other-class="page-item"
+                      cs-pager-li-non-active-class="page-item disabled"
+                      cs-pager-link-current-class="page-link"
+                      cs-pager-link-other-class="page-link"></cs-pager>
+        </div>
+    </div>
+</div>
+
+@section scripts
+    {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script simpl-append-version="true" src="~/modules/comments/list.js"></script>
+}

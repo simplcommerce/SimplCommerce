@@ -1,0 +1,41 @@
+@model SimplCommerce.Module.Comments.ViewModels.CommentForm
+@using SimplCommerce.Module.Core.Models
+@using SimplCommerce.Module.Core.Extensions
+
+@inject IWorkContext WorkContext
+@inject SignInManager<User> SignInManager
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <form class="form-add-review-reply" asp-controller="Comment" asp-action="AddReply" method="post" role="form">
+        <input asp-for="ParentId" type="hidden" />
+        <input asp-for="EntityId" type="hidden" />
+        <input asp-for="EntityTypeId" type="hidden" />
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group row">
+            <label asp-for="CommentText" class="col-md-4 col-form-label">@Localizer["Reply comment"]</label>
+            <div class="col-md-8">
+                <textarea asp-for="CommentText" class="form-control"></textarea>
+                <span asp-validation-for="CommentText" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="CommenterName" class="col-md-4 col-form-label">@Localizer["Posted by"]</label>
+            <div class="col-md-8">
+                <input asp-for="CommenterName" class="form-control" />
+                <span asp-validation-for="CommenterName" class="text-danger"></span>
+
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="offset-md-4 col-md-8">
+                <button class="btn btn-secondary btn-submit-review-reply" type="submit">@Localizer["Submit reply"]</button>
+            </div>
+        </div>
+    </form>
+}
+else
+{
+    <a class="nav-link" asp-controller="Account" asp-action="Login" asp-route-returnurl="@($"{Context.Request.Path}{Context.Request.QueryString}")">@Localizer["Log in"]</a>
+}

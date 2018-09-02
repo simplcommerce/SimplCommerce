@@ -1,0 +1,67 @@
+﻿@using SimplCommerce.Module.Comments.ViewModels
+@model CommentVm
+
+<div class="container">
+    <div class="row">
+        @if (Model.CommentsCount > 0)
+        {
+            <div class="col-md-5">
+                <div class="row">
+                    <div class="col-md-5">
+                        <p>(@Model.CommentsCount @Localizer["comments"])</p>
+                    </div>
+                    <div class="col-md-7">
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-md-7">
+            <div id="addcomment">
+                @Html.Partial("/Modules/SimplCommerce.Module.Comments/Views/Comment/_CommentForm.cshtml", new CommentForm { EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId })
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div id="comments" class="comment-item-list">
+        @if (Model.CommentsCount > 0)
+        {
+            @foreach (var comment in Model.Items.Data)
+            {
+                <div>
+                    <div>
+                        <p>@comment.CommentText</p>
+                        <p>By: <strong>@comment.CommenterName</strong> on <span>@comment.CreatedOn</span></p>
+                    </div>
+
+                    @if (comment.Replies.Count > 0)
+                    {
+                        <button class="btn-review-replies btn-view-review-replies btn btn-link">@Localizer["View Replies"]<i class="arrow-down"></i></button>
+                        <button class="btn-review-replies btn-hide-review-replies btn btn-link d-none">@Localizer["Hide Replies"]<i class="arrow-up"></i></button>
+                        <ul class="review-replies d-none">
+                            @foreach (var reply in comment.Replies)
+                            {
+                                <li class="review-reply">
+                                    <p>@reply.CommentText</p>
+                                    <p>By: <strong>@reply.CommenterName</strong> on <span>@reply.CreatedOn</span></p>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    <div>
+                        <button class="btn-add-review-reply btn btn-link">@Localizer["Add Reply"]</button>
+                        <div class="add-review-reply d-none">
+                            @Html.Partial("/Modules/SimplCommerce.Module.Comments/Views/Comment/_ReplyForm.cshtml", new CommentForm { ParentId = comment.Id, EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId })
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <a asp-controller="Comment"
+               asp-action="List"
+               asp-route-entityId="@Model.EntityId"
+               asp-route-entityTypeId="@Model.EntityTypeId"
+               asp-route-pageNumber="1"
+               asp-route-pageSize="25">View all @Model.CommentsCount comments</a>
+        }
+    </div>    
+</div>

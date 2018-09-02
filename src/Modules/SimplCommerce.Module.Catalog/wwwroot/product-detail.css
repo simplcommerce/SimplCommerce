@@ -240,3 +240,21 @@
     -webkit-transform: rotate(45deg);
     margin-bottom: 1px;
 }
+
+#addcomment {
+    border-left: solid 1px #e2e2e2;
+    padding-left: 15px;
+}
+
+#addcomment input, #addcomment textarea {
+    max-width: 100%;
+}
+
+.comment-item-list > div {
+    margin-bottom: 13px;
+    border-bottom: solid 1px #e2e2e2;
+}
+
+.comment-item-list > div:last-child {
+    border-bottom: none;
+}

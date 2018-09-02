@@ -272,7 +272,11 @@
     <h3>@Localizer["Customer reviews"]</h3>
     @await Component.InvokeAsync("Review", new { entityId = Model.Id, entityTypeId = "Product" })
 </div>
-
+<br />
+<div>
+    <h3>@Localizer["Customer comments"]</h3>
+    @await Component.InvokeAsync("Comment", new { entityId = Model.Id, entityTypeId = "Product" })
+</div>
 
 @section scripts
 {
