@@ -11,6 +11,7 @@
             getCommentsForGrid: getCommentsForGrid,
             changeCommentStatus: changeCommentStatus
         };
+
         return service;
 
         function getComments(status, numRecords) {

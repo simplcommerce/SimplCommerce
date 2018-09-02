@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Comments.Data;
 using SimplCommerce.Module.Comments.Models;
 using SimplCommerce.Module.Comments.ViewModels;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Configuration;
 
 namespace SimplCommerce.Module.Comments.Controllers
 {
@@ -47,6 +47,7 @@ namespace SimplCommerce.Module.Comments.Controllers
 
                 return PartialView("_CommentFormSuccess", model);
             }
+
             return PartialView("_CommentForm", model);
         }
 
@@ -139,7 +140,5 @@ namespace SimplCommerce.Module.Comments.Controllers
 
             return PartialView("_CommentForm", model);
         }
-
-
     }
 }

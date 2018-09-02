@@ -1,7 +1,7 @@
-﻿using SimplCommerce.Infrastructure.Models;
-using SimplCommerce.Module.Core.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using SimplCommerce.Infrastructure.Models;
+using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Comments.Models
 {

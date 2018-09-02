@@ -1,7 +1,7 @@
-﻿using SimplCommerce.Module.Core.Data;
+﻿using System.Linq;
+using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Comments.Models;
-using System.Linq;
 
 namespace SimplCommerce.Module.Comments.Data
 {

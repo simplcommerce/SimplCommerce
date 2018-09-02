@@ -1,13 +1,12 @@
-﻿using MediatR;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Web.SmartTable;
-using SimplCommerce.Module.Core.Events;
 using SimplCommerce.Module.Comments.Data;
 using SimplCommerce.Module.Comments.Models;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.Comments.Controllers
 {
@@ -130,6 +129,7 @@ namespace SimplCommerce.Module.Comments.Controllers
                 await _commentRepository.SaveChangesAsync();
                 return Accepted();
             }
+
             return BadRequest(new {Error = "unsupported order status"});
         }
     }
