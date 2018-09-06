@@ -4,6 +4,7 @@ namespace SimplCommerce.Module.Core.ViewModels.Manage
 {
     public class UserInfoVm
     {
+        [Required]
         public string FullName { get; set; }
 
         [Required]
