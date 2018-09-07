@@ -35,10 +35,12 @@ namespace SimplCommerce.Module.Orders.Services
 
         private async Task CancelFailedPaymentOrders(CancellationToken stoppingToken)
         {
-            var shouldCancelFailedPaymentOrders = _orderRepository.Query().Where(x =>
-            (x.OrderStatus == OrderStatus.PendingPayment || x.OrderStatus == OrderStatus.PaymentFailed) 
-            && x.UpdatedOn < DateTimeOffset.Now.AddMinutes(-5));
-            foreach(var order in shouldCancelFailedPaymentOrders)
+            var durationToCancel = DateTimeOffset.Now.AddMinutes(-5);
+            var failedPaymentOrders = _orderRepository.Query().Where(x =>
+                (x.OrderStatus == OrderStatus.PendingPayment || x.OrderStatus == OrderStatus.PaymentFailed) 
+                && x.UpdatedOn < durationToCancel);
+
+            foreach(var order in failedPaymentOrders)
             {
                 _orderService.CancelOrder(order);
                 var orderStatusChanged = new OrderChanged
