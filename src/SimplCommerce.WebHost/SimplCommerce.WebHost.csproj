@@ -14,16 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\lib\angular-animate\angular-animate.js" />
-    <Content Remove="wwwroot\lib\angular-animate\angular-animate.min.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="wwwroot\lib\angular-animate\angular-animate.js" />
-    <None Remove="wwwroot\lib\angular-animate\angular-animate.min.js" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Modules\SimplCommerce.Module.ActivityLog\SimplCommerce.Module.ActivityLog.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Catalog\SimplCommerce.Module.Catalog.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Cms\SimplCommerce.Module.Cms.csproj" />
