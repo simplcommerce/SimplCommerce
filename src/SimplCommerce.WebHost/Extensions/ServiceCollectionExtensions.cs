@@ -32,6 +32,7 @@ using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Infrastructure.Web.ModelBinders;
 using SimplCommerce.Infrastructure.Web;
+using Microsoft.Extensions.Logging;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -120,21 +121,27 @@ namespace SimplCommerce.WebHost.Extensions
 
         public static IServiceCollection AddCustomizedMvc(this IServiceCollection services, IList<ModuleInfo> modules)
         {
-            var mvcBuilder = services
-                .AddMvc(o =>
-                {
-                    o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider());
-                })
-                .AddRazorOptions(o =>
-                {
-                    foreach (var module in modules)
-                    {
-                        o.AdditionalCompilationReferences.Add(MetadataReference.CreateFromFile(module.Assembly.Location));
-                    }
-                })
-                .AddViewLocalization()
-                .AddDataAnnotationsLocalization()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1); ;
+			ILoggerFactory factory;
+			using (var serviceScope = services.BuildServiceProvider().CreateScope())
+			{
+				factory = serviceScope.ServiceProvider.GetRequiredService<ILoggerFactory>();
+			}
+
+				var mvcBuilder = services
+				    .AddMvc(o =>
+				    {
+					    o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider(factory));
+				    })
+				    .AddRazorOptions(o =>
+				    {
+					    foreach (var module in modules)
+					    {
+						    o.AdditionalCompilationReferences.Add(MetadataReference.CreateFromFile(module.Assembly.Location));
+					    }
+				    })
+				    .AddViewLocalization()
+				    .AddDataAnnotationsLocalization()
+				    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1); ;
 
             foreach (var module in modules)
             {

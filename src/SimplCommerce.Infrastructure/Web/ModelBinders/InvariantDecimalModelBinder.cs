@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using Microsoft.Extensions.Logging;
 
 namespace SimplCommerce.Infrastructure.Web.ModelBinders
 {
@@ -10,12 +11,10 @@ namespace SimplCommerce.Infrastructure.Web.ModelBinders
     {
         private readonly SimpleTypeModelBinder _baseBinder;
 
-        public InvariantDecimalModelBinder(Type modelType)
-        {
-            _baseBinder = new SimpleTypeModelBinder(modelType);
-        }
+		public InvariantDecimalModelBinder(Type modelType, ILoggerFactory factory) 
+			=> _baseBinder = new SimpleTypeModelBinder(modelType, factory);
 
-        public Task BindModelAsync(ModelBindingContext bindingContext)
+		public Task BindModelAsync(ModelBindingContext bindingContext)
         {
             if (bindingContext == null)
             {
