@@ -83,9 +83,9 @@ gulp.task('clean-module', function () {
 gulp.task('copy-static', function () {
     modules.forEach(function (module) {
         console.log('copying static contents ' + paths.dev.modules + module.fullName);
-        gulp.src([paths.dev.modules + module.fullName + '/Views/**/*.*',
-        paths.dev.modules + module.fullName + '/module.json'], { base: module.fullName })
-            .pipe(gulp.dest(paths.host.modules + module.fullName));
+        //gulp.src([paths.dev.modules + module.fullName + '/Views/**/*.*',
+        //paths.dev.modules + module.fullName + '/module.json'], { base: module.fullName })
+        //    .pipe(gulp.dest(paths.host.modules + module.fullName));
         gulp.src(paths.dev.modules + module.fullName + '/wwwroot/**/*.*')
             .pipe(gulp.dest(paths.host.wwwrootModules + module.name));
     });
