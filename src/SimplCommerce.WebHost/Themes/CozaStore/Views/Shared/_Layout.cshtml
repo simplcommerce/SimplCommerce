@@ -35,12 +35,12 @@
                         Free shipping for standard order over $100
                     </div>
 
-                    <div class="right-top-bar flex-w h-full">
-                        <a href="~/help-center" class="flex-c-m trans-04 p-lr-25">
-                            Help & FAQs
-                        </a>
-                        @await Html.PartialAsync("_LoginPartial")
-                    </div>
+				<div class="right-top-bar flex-w h-full">
+					<a href="~/help-center" class="flex-c-m trans-04 p-lr-25">
+						Help & FAQs
+					</a>
+					 <partial name="_LoginPartial" />
+				</div>
                 </div>
             </div>
 
@@ -107,8 +107,8 @@
                         <a href="#" class="flex-c-m p-lr-10 trans-04">
                             Help & FAQs
                         </a>
-
-                        @await Html.PartialAsync("_LoginPartial")
+					
+					<partial name="_LoginPartial" />
                     </div>
                 </li>
             </ul>
@@ -259,7 +259,7 @@
     <script simpl-append-version="true" src="~/modules/shopping-cart/add-to-cart.js"></script>
     <script simpl-append-version="true" src="~/modules/product-comparison/product-comparison.js"></script>
     @RenderSection("scripts", required: false)
-
-    @await Html.PartialAsync("_AnalyticsScript")
+	
+	<partial name="_AnalyticsScript" />
 </body>
 </html>
