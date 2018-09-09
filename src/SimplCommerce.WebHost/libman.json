@@ -28,13 +28,14 @@
 		{
 			"destination": "wwwroot/lib/angular-bootstrap",
 			"files": [
-				"dist/ui-bootstrap-csp.css",
-				"ui-bootstrap-tpls.js",
-				"ui-bootstrap-tpls.min.js",
 				"ui-bootstrap.js",
-				"ui-bootstrap.min.js"
+				"ui-bootstrap.min.js",
+				"ui-bootstrap-tpls.js",
+				"ui-bootstrap-tpls.min.js"
+
 			],
-			"library": "angular-ui-bootstrap@1.3.3"
+			"library": "angular-ui-bootstrap@1.3.3",
+			"provider": "cdnjs"
 		},
 		{
 			"destination": "wwwroot/lib/angular-bootstrap-colorpicker",
@@ -93,9 +94,10 @@
 			"library": "angular-smart-table@2.1.11"
 		},
 		{
-			"library": "angular-summernote@0.8.1",
 			"destination": "wwwroot/lib/angular-summernote",
-			"files": [ "angular-summernote.js", "angular-summernote.min.js" ]
+			"files": [ "angular-summernote.js", "angular-summernote.min.js" ],
+			"library": "angular-summernote@0.8.1",
+			"provider": "cdnjs"
 		},
 		{
 			"destination": "wwwroot/lib/angular-ui-router",
@@ -231,7 +233,7 @@
 			"files": [
 				"summernote.css",
 				"summernote.js",
-				"summernote.min.js"
+				"summernote.min.js",
 				"font/summernote.eot",
 				"font/summernote.ttf",
 				"font/summernote.woff",
@@ -329,8 +331,7 @@
 		{
 			"destination": "wwwroot/lib/toastr",
 			"files": [ "toastr.js", "package/toastr.css" ],
-			"library": "toastr@2.1.2",
-			"provider": "cdnjs"
+			"library": "toastr@2.1.2"
 		},
 		{
 			"destination": "wwwroot/lib/wnumb",
