@@ -17,7 +17,6 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "bower": "^1.8.2",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.4.0",
     "gulp-concat": "^2.6.1",
