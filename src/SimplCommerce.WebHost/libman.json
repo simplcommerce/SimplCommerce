@@ -1,343 +1,380 @@
 {
-	"version": "1.0",
-	"defaultProvider": "unpkg",
-	"libraries": [
-		{
-			"destination": "wwwroot/lib/angular",
-			"files": [ "angular.js", "angular.min.js" ],
-			"library": "angular@1.6.3"
-		},
-		{
-			"destination": "wwwroot/lib/angular-animate",
-			"files": [
-				"angular-animate.js",
-				"angular-animate.min.js",
-				"angular-animate.min.js.map"
-			],
-			"library": "angular-animate@1.6.3"
-		},
-		{
-			"destination": "wwwroot/lib/angular-aria",
-			"files": [
-				"angular-aria.js",
-				"angular-aria.min.js",
-				"angular-aria.min.js.map"
-			],
-			"library": "angular-aria@1.6.3"
-		},
-		{
-			"destination": "wwwroot/lib/angular-bootstrap",
-			"files": [
-				"ui-bootstrap.js",
-				"ui-bootstrap.min.js",
-				"ui-bootstrap-tpls.js",
-				"ui-bootstrap-tpls.min.js"
-
-			],
-			"library": "angular-ui-bootstrap@1.3.3",
-			"provider": "cdnjs"
-		},
-		{
-			"destination": "wwwroot/lib/angular-bootstrap-colorpicker",
-			"files": [
-				"css/colorpicker.css",
-				"css/colorpicker.min.css",
-				"js/bootstrap-colorpicker-module.js",
-				"js/bootstrap-colorpicker-module.min.js",
-				"img/alpha.png",
-				"img/hue.png",
-				"img/saturation.png"
-			],
-			"library": "angular-bootstrap-colorpicker@3.0.32"
-		},
-		{
-			"destination": "wwwroot/lib/i18n",
-			"files": [
-				"angular-locale_ar-tn.js",
-				"angular-locale_en-us.js",
-				"angular-locale_fr-fr.js",
-				"angular-locale_ko-kr.js",
-				"angular-locale_pt-br.js",
-				"angular-locale_ru-ru.js",
-				"angular-locale_uk-ua.js",
-				"angular-locale_vi-vn.js"
-			],
-			"library": "angular-i18n@1.6.3"
-		},
-		{
-			"destination": "wwwroot/lib/angular-material",
-			"files": [
-				"angular-material.css",
-				"angular-material.min.css",
-				"angular-material.js",
-				"angular-material.min.js",
-				"angular-material-mocks.js"
-			],
-			"library": "angular-material@1.1.3"
-		},
-		{
-			"destination": "wwwroot/lib/angular-messages",
-			"library": "angular-messages@1.6.3",
-			"files": [
-				"angular-messages.js",
-				"angular-messages.min.js",
-				"angular-messages.min.js.map"
-			]
-		},
-		{
-			"destination": "wwwroot/lib/angular-smart-table/",
-			"files": [
-				"dist/smart-table.js",
-				"dist/smart-table.min.js",
-				"dist/smart-table.min.js.map"
-			],
-			"library": "angular-smart-table@2.1.11"
-		},
-		{
-			"destination": "wwwroot/lib/angular-summernote",
-			"files": [ "angular-summernote.js", "angular-summernote.min.js" ],
-			"library": "angular-summernote@0.8.1",
-			"provider": "cdnjs"
-		},
-		{
-			"destination": "wwwroot/lib/angular-ui-router",
-			"files": [ "angular-ui-router.js", "angular-ui-router.min.js" ],
-			"library": "angular-ui-router@0.4.2",
-			"provider": "cdnjs"
-		},
-		{
-			"destination": "wwwroot/lib/angular-ui-tree",
-			"library": "angular-ui-tree@2.22.5",
-			"files": [
-				"angular-ui-tree.css",
-				"angular-ui-tree.min.css",
-				"angular-ui-tree.js",
-				"angular-ui-tree.min.js"
-			],
-			"provider": "cdnjs"
-		},
-		{
-			"destination": "wwwroot/lib/bootbox",
-			"files": [ "bootbox.js", "bootbox.min.js" ],
-			"library": "bootbox@4.4.0"
-		},
-		{
-			"destination": "wwwroot/lib/bootstrap",
-			"files": [
-				"dist/css/bootstrap-theme.css",
-				"dist/css/bootstrap-theme.css.map",
-				"dist/css/bootstrap-theme.min.css",
-				"dist/css/bootstrap-theme.min.css.map",
-				"dist/css/bootstrap.css",
-				"dist/css/bootstrap.css.map",
-				"dist/css/bootstrap.min.css",
-				"dist/css/bootstrap.min.css.map",
-				"fonts/glyphicons-halflings-regular.eot",
-				"fonts/glyphicons-halflings-regular.ttf",
-				"fonts/glyphicons-halflings-regular.svg",
-				"fonts/glyphicons-halflings-regular.woff",
-				"fonts/glyphicons-halflings-regular.woff2",
-				"dist/js/bootstrap.js",
-				"dist/js/bootstrap.min.js"
-			],
-			"library": "bootstrap@3.3.6"
-		},
-		{
-			"destination": "wwwroot/lib/bootstrap-star-rating",
-			"files": [
-				"css/star-rating.css",
-				"css/star-rating.min.css",
-				"img/loading.gif",
-				"js/star-rating.js",
-				"js/star-rating.min.js"
-			],
-			"library": "bootstrap-star-rating@4.0.2",
-			"provider": "cdnjs"
-		},
-		{
-			"destination": "wwwroot/lib/bootstrap-ui-datetime-picker",
-			"files": [ "datetime-picker.js", "datetime-picker.min.js", "datetime-picker.tpls.js" ],
-			"library": "bootstrap-ui-datetime-picker@2.4.3",
-			"provider": "cdnjs"
-		},
-		{
-			"library": "wwwroot/lib/bootstrap4",
-			"provider": "filesystem",
-			"destination": "wwwroot/lib/bootstrap4"
-		},
-		{
-			"destination": "wwwroot/lib/font-awesome",
-			"files": [
-				"css/font-awesome.css",
-				"css/font-awesome.min.css",
-				"fonts/fontawesome-webfont.eot",
-				"fonts/fontawesome-webfont.svg",
-				"fonts/fontawesome-webfont.ttf",
-				"fonts/fontawesome-webfont.woff",
-				"fonts/fontawesome-webfont.woff2",
-				"fonts/FontAwesome.otf"
-			],
-			"library": "components-font-awesome@4.5.0"
-		},
-		{
-			"destination": "wwwroot/lib/jquery",
-			"files": [ "jquery.js", "jquery.min.js", "jquery.min.map" ],
-			"library": "jquery@2.2.3",
-			"provider": "cdnjs"
-		},
-		{
-			"destination": "wwwroot/lib/jquery-validation",
-			"files": [
-				"additional-methods.js",
-				"additional-methods.min.js",
-				"jquery.validate.js",
-				"jquery.validate.min.js"
-			],
-			"library": "jquery-validate@1.15.0",
-			"provider": "cdnjs"
-		},
-		{
-			"destination": "wwwroot/lib/jquery-validation-unobtrusive",
-			"files": [ "jquery.validate.unobtrusive.js", "jquery.validate.unobtrusive.min.js" ],
-			"library": "jquery-validation-unobtrusive@3.2.4",
-			"provider": "cdnjs"
-		},
-		{
-			"destination": "wwwroot/lib/matchheight",
-			"files": [ "jquery.matchHeight.js", "jquery.matchHeight-min.js" ],
-			"library": "jquery.matchHeight@0.7.2",
-			"provider": "cdnjs"
-		},
-		{
-			"destination": "wwwroot/lib/multi-dropdown-menu",
-			"library": "wwwroot/lib/multi-dropdown-menu",
-			"provider": "filesystem"
-		},
-		{
-			"destination": "wwwroot/lib/ng-file-upload",
-			"files": [ "dist/ng-file-upload.js", "dist/ng-file-upload.min.js" ],
-			"library": "ng-file-upload@12.2.13"
-		},
-		{
-			"destination": "wwwroot/lib/nouislider",
-			"files": [ "distribute/nouislider.min.css", "distribute/nouislider.js", "distribute/nouislider.min.js" ],
-			"library": "nouislider@8.5.1"
-		},
-		{
-			"destination": "wwwroot/lib/smoothproducts/",
-			"library": "wwwroot/lib/smoothproducts",
-			"provider": "filesystem"
-		},
-		{
-			"destination": "wwwroot/lib/summernote",
-			"files": [
-				"summernote.css",
-				"summernote.js",
-				"summernote.min.js",
-				"font/summernote.eot",
-				"font/summernote.ttf",
-				"font/summernote.woff",
-				"lang/summernote-ar-AR.js",
-				"lang/summernote-ar-AR.min.js",
-				"lang/summernote-bg-BG.js",
-				"lang/summernote-bg-BG.min.js",
-				"lang/summernote-ca-ES.js",
-				"lang/summernote-ca-ES.min.js",
-				"lang/summernote-cs-CZ.js",
-				"lang/summernote-cs-CZ.min.js",
-				"lang/summernote-da-DK.js",
-				"lang/summernote-da-DK.min.js",
-				"lang/summernote-de-DE.js",
-				"lang/summernote-de-DE.min.js",
-				"lang/summernote-es-ES.js",
-				"lang/summernote-es-ES.min.js",
-				"lang/summernote-es-EU.js",
-				"lang/summernote-es-EU.min.js",
-				"lang/summernote-fa-IR.js",
-				"lang/summernote-fa-IR.min.js",
-				"lang/summernote-fi-FI.js",
-				"lang/summernote-fi-FI.min.js",
-				"lang/summernote-fr-FR.js",
-				"lang/summernote-fr-FR.min.js",
-				"lang/summernote-gl-ES.js",
-				"lang/summernote-gl-ES.min.js",
-				"lang/summernote-he-IL.js",
-				"lang/summernote-he-IL.min.js",
-				"lang/summernote-hr-HR.js",
-				"lang/summernote-hr-HR.min.js",
-				"lang/summernote-hu-HU.js",
-				"lang/summernote-hu-HU.min.js",
-				"lang/summernote-id-ID.js",
-				"lang/summernote-id-ID.min.js",
-				"lang/summernote-it-IT.js",
-				"lang/summernote-it-IT.min.js",
-				"lang/summernote-ja-JP.js",
-				"lang/summernote-ja-JP.min.js",
-				"lang/summernote-ko-KR.js",
-				"lang/summernote-ko-KR.min.js",
-				"lang/summernote-lt-LT.js",
-				"lang/summernote-lt-LT.min.js",
-				"lang/summernote-lt-LV.js",
-				"lang/summernote-lt-LV.min.js",
-				"lang/summernote-nb-NO.js",
-				"lang/summernote-nb-NO.min.js",
-				"lang/summernote-nl-NL.js",
-				"lang/summernote-nl-NL.min.js",
-				"lang/summernote-pl-PL.js",
-				"lang/summernote-pl-PL.min.js",
-				"lang/summernote-pt-BR.js",
-				"lang/summernote-pt-BR.min.js",
-				"lang/summernote-pt-PT.js",
-				"lang/summernote-pt-PT.min.js",
-				"lang/summernote-ro-RO.js",
-				"lang/summernote-ro-RO.min.js",
-				"lang/summernote-ru-RU.js",
-				"lang/summernote-ru-RU.min.js",
-				"lang/summernote-sk-SK.js",
-				"lang/summernote-sk-SK.min.js",
-				"lang/summernote-sl-SI.js",
-				"lang/summernote-sl-SI.min.js",
-				"lang/summernote-sr-RS.js",
-				"lang/summernote-sr-RS.min.js",
-				"lang/summernote-sr-RS-Latin.js",
-				"lang/summernote-sr-RS-Latin.min.js",
-				"lang/summernote-sv-SE.js",
-				"lang/summernote-sv-SE.min.js",
-				"lang/summernote-th-TH.js",
-				"lang/summernote-th-TH.min.js",
-				"lang/summernote-tr-TR.js",
-				"lang/summernote-tr-TR.min.js",
-				"lang/summernote-uk-UA.js",
-				"lang/summernote-uk-UA.min.js",
-				"lang/summernote-vi-VN.js",
-				"lang/summernote-vi-VN.min.js",
-				"lang/summernote-zh-CN.js",
-				"lang/summernote-zh-CN.min.js",
-				"lang/summernote-zh-TW.js",
-				"lang/summernote-zh-TW.min.js",
-				"plugin/databasic/summernote-ext-databasic.css",
-				"plugin/databasic/summernote-ext-databasic.min.css",
-				"plugin/databasic/summernote-ext-databasic.js",
-				"plugin/databasic/summernote-ext-databasic.min.js",
-				"plugin/hello/summernote-ext-hello.js",
-				"plugin/hello/summernote-ext-hello.min.js",
-				"plugin/specialchars/summernote-ext-specialchars.js",
-				"plugin/specialchars/summernote-ext-specialchars.min.js"
-
-			],
-			"library": "summernote@0.8.2",
-			"provider": "cdnjs"
-		},
-		{
-			"destination": "wwwroot/lib/toastr",
-			"files": [ "toastr.js", "package/toastr.css" ],
-			"library": "toastr@2.1.2"
-		},
-		{
-			"destination": "wwwroot/lib/wnumb",
-			"files": [ "wNumb.js" ],
-			"library": "wnumb@1.0.2"
-		}
-
-	]
+  "version": "1.0",
+  "defaultProvider": "unpkg",
+  "libraries": [
+    {
+      "library": "angular@1.6.3",
+      "destination": "wwwroot/lib/angular",
+      "files": [
+        "angular.js",
+        "angular.min.js"
+      ]
+    },
+    {
+      "library": "angular-animate@1.6.3",
+      "destination": "wwwroot/lib/angular-animate",
+      "files": [
+        "angular-animate.js",
+        "angular-animate.min.js",
+        "angular-animate.min.js.map"
+      ]
+    },
+    {
+      "library": "angular-aria@1.6.3",
+      "destination": "wwwroot/lib/angular-aria",
+      "files": [
+        "angular-aria.js",
+        "angular-aria.min.js",
+        "angular-aria.min.js.map"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "angular-ui-bootstrap@1.3.3",
+      "destination": "wwwroot/lib/angular-bootstrap",
+      "files": [
+        "ui-bootstrap.js",
+        "ui-bootstrap.min.js",
+        "ui-bootstrap-tpls.js",
+        "ui-bootstrap-tpls.min.js"
+      ]
+    },
+    {
+      "library": "angular-bootstrap-colorpicker@3.0.32",
+      "destination": "wwwroot/lib/angular-bootstrap-colorpicker",
+      "files": [
+        "css/colorpicker.css",
+        "css/colorpicker.min.css",
+        "js/bootstrap-colorpicker-module.js",
+        "js/bootstrap-colorpicker-module.min.js",
+        "img/alpha.png",
+        "img/hue.png",
+        "img/saturation.png"
+      ]
+    },
+    {
+      "library": "angular-i18n@1.6.3",
+      "destination": "wwwroot/lib/i18n",
+      "files": [
+        "angular-locale_ar-tn.js",
+        "angular-locale_en-us.js",
+        "angular-locale_fr-fr.js",
+        "angular-locale_ko-kr.js",
+        "angular-locale_pt-br.js",
+        "angular-locale_ru-ru.js",
+        "angular-locale_uk-ua.js",
+        "angular-locale_vi-vn.js"
+      ]
+    },
+    {
+      "library": "angular-material@1.1.3",
+      "destination": "wwwroot/lib/angular-material",
+      "files": [
+        "angular-material.css",
+        "angular-material.min.css",
+        "angular-material.js",
+        "angular-material.min.js",
+        "angular-material-mocks.js"
+      ]
+    },
+    {
+      "library": "angular-messages@1.6.3",
+      "destination": "wwwroot/lib/angular-messages",
+      "files": [
+        "angular-messages.js",
+        "angular-messages.min.js",
+        "angular-messages.min.js.map"
+      ]
+    },
+    {
+      "library": "angular-smart-table@2.1.11",
+      "destination": "wwwroot/lib/angular-smart-table/",
+      "files": [
+        "dist/smart-table.js",
+        "dist/smart-table.min.js",
+        "dist/smart-table.min.js.map"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "angular-summernote@0.8.1",
+      "destination": "wwwroot/lib/angular-summernote",
+      "files": [
+        "angular-summernote.js",
+        "angular-summernote.min.js"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "angular-ui-router@0.4.2",
+      "destination": "wwwroot/lib/angular-ui-router",
+      "files": [
+        "angular-ui-router.js",
+        "angular-ui-router.min.js"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "angular-ui-tree@2.22.5",
+      "destination": "wwwroot/lib/angular-ui-tree",
+      "files": [
+        "angular-ui-tree.css",
+        "angular-ui-tree.min.css",
+        "angular-ui-tree.js",
+        "angular-ui-tree.min.js"
+      ]
+    },
+    {
+      "library": "bootbox@4.4.0",
+      "destination": "wwwroot/lib/bootbox",
+      "files": [
+        "bootbox.js",
+        "bootbox.min.js"
+      ]
+    },
+    {
+      "library": "bootstrap@3.3.6",
+      "destination": "wwwroot/lib/bootstrap",
+      "files": [
+        "dist/css/bootstrap-theme.css",
+        "dist/css/bootstrap-theme.css.map",
+        "dist/css/bootstrap-theme.min.css",
+        "dist/css/bootstrap-theme.min.css.map",
+        "dist/css/bootstrap.css",
+        "dist/css/bootstrap.css.map",
+        "dist/css/bootstrap.min.css",
+        "dist/css/bootstrap.min.css.map",
+        "dist/fonts/glyphicons-halflings-regular.eot",
+        "dist/fonts/glyphicons-halflings-regular.svg",
+        "dist/fonts/glyphicons-halflings-regular.ttf",
+        "dist/fonts/glyphicons-halflings-regular.woff",
+        "dist/fonts/glyphicons-halflings-regular.woff2",
+        "dist/js/bootstrap.js",
+        "dist/js/bootstrap.min.js"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "bootstrap-star-rating@4.0.2",
+      "destination": "wwwroot/lib/bootstrap-star-rating",
+      "files": [
+        "css/star-rating.css",
+        "css/star-rating.min.css",
+        "img/loading.gif",
+        "js/star-rating.js",
+        "js/star-rating.min.js"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "bootstrap-ui-datetime-picker@2.4.3",
+      "destination": "wwwroot/lib/bootstrap-ui-datetime-picker",
+      "files": [
+        "datetime-picker.js",
+        "datetime-picker.min.js",
+        "datetime-picker.tpls.js"
+      ]
+    },
+    {
+      "provider": "filesystem",
+      "library": "wwwroot/lib/bootstrap4",
+      "destination": "wwwroot/lib/bootstrap4"
+    },
+    {
+      "library": "components-font-awesome@4.5.0",
+      "destination": "wwwroot/lib/font-awesome",
+      "files": [
+        "css/font-awesome.css",
+        "css/font-awesome.min.css",
+        "fonts/fontawesome-webfont.eot",
+        "fonts/fontawesome-webfont.svg",
+        "fonts/fontawesome-webfont.ttf",
+        "fonts/fontawesome-webfont.woff",
+        "fonts/fontawesome-webfont.woff2",
+        "fonts/FontAwesome.otf"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "jquery@2.2.3",
+      "destination": "wwwroot/lib/jquery",
+      "files": [
+        "jquery.js",
+        "jquery.min.js",
+        "jquery.min.map"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "jquery-validate@1.15.0",
+      "destination": "wwwroot/lib/jquery-validation",
+      "files": [
+        "additional-methods.js",
+        "additional-methods.min.js",
+        "jquery.validate.js",
+        "jquery.validate.min.js"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "jquery-validation-unobtrusive@3.2.4",
+      "destination": "wwwroot/lib/jquery-validation-unobtrusive",
+      "files": [
+        "jquery.validate.unobtrusive.js",
+        "jquery.validate.unobtrusive.min.js"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "jquery.matchHeight@0.7.2",
+      "destination": "wwwroot/lib/matchheight",
+      "files": [
+        "jquery.matchHeight.js",
+        "jquery.matchHeight-min.js"
+      ]
+    },
+    {
+      "provider": "filesystem",
+      "library": "wwwroot/lib/multi-dropdown-menu",
+      "destination": "wwwroot/lib/multi-dropdown-menu"
+    },
+    {
+      "library": "ng-file-upload@12.2.13",
+      "destination": "wwwroot/lib/ng-file-upload",
+      "files": [
+        "dist/ng-file-upload.js",
+        "dist/ng-file-upload.min.js"
+      ]
+    },
+    {
+      "library": "nouislider@8.5.1",
+      "destination": "wwwroot/lib/nouislider",
+      "files": [
+        "distribute/nouislider.min.css",
+        "distribute/nouislider.js",
+        "distribute/nouislider.min.js"
+      ]
+    },
+    {
+      "provider": "filesystem",
+      "library": "wwwroot/lib/smoothproducts",
+      "destination": "wwwroot/lib/smoothproducts/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "summernote@0.8.2",
+      "destination": "wwwroot/lib/summernote",
+      "files": [
+        "summernote.css",
+        "summernote.js",
+        "summernote.min.js",
+        "font/summernote.eot",
+        "font/summernote.ttf",
+        "font/summernote.woff",
+        "lang/summernote-ar-AR.js",
+        "lang/summernote-ar-AR.min.js",
+        "lang/summernote-bg-BG.js",
+        "lang/summernote-bg-BG.min.js",
+        "lang/summernote-ca-ES.js",
+        "lang/summernote-ca-ES.min.js",
+        "lang/summernote-cs-CZ.js",
+        "lang/summernote-cs-CZ.min.js",
+        "lang/summernote-da-DK.js",
+        "lang/summernote-da-DK.min.js",
+        "lang/summernote-de-DE.js",
+        "lang/summernote-de-DE.min.js",
+        "lang/summernote-es-ES.js",
+        "lang/summernote-es-ES.min.js",
+        "lang/summernote-es-EU.js",
+        "lang/summernote-es-EU.min.js",
+        "lang/summernote-fa-IR.js",
+        "lang/summernote-fa-IR.min.js",
+        "lang/summernote-fi-FI.js",
+        "lang/summernote-fi-FI.min.js",
+        "lang/summernote-fr-FR.js",
+        "lang/summernote-fr-FR.min.js",
+        "lang/summernote-gl-ES.js",
+        "lang/summernote-gl-ES.min.js",
+        "lang/summernote-he-IL.js",
+        "lang/summernote-he-IL.min.js",
+        "lang/summernote-hr-HR.js",
+        "lang/summernote-hr-HR.min.js",
+        "lang/summernote-hu-HU.js",
+        "lang/summernote-hu-HU.min.js",
+        "lang/summernote-id-ID.js",
+        "lang/summernote-id-ID.min.js",
+        "lang/summernote-it-IT.js",
+        "lang/summernote-it-IT.min.js",
+        "lang/summernote-ja-JP.js",
+        "lang/summernote-ja-JP.min.js",
+        "lang/summernote-ko-KR.js",
+        "lang/summernote-ko-KR.min.js",
+        "lang/summernote-lt-LT.js",
+        "lang/summernote-lt-LT.min.js",
+        "lang/summernote-lt-LV.js",
+        "lang/summernote-lt-LV.min.js",
+        "lang/summernote-nb-NO.js",
+        "lang/summernote-nb-NO.min.js",
+        "lang/summernote-nl-NL.js",
+        "lang/summernote-nl-NL.min.js",
+        "lang/summernote-pl-PL.js",
+        "lang/summernote-pl-PL.min.js",
+        "lang/summernote-pt-BR.js",
+        "lang/summernote-pt-BR.min.js",
+        "lang/summernote-pt-PT.js",
+        "lang/summernote-pt-PT.min.js",
+        "lang/summernote-ro-RO.js",
+        "lang/summernote-ro-RO.min.js",
+        "lang/summernote-ru-RU.js",
+        "lang/summernote-ru-RU.min.js",
+        "lang/summernote-sk-SK.js",
+        "lang/summernote-sk-SK.min.js",
+        "lang/summernote-sl-SI.js",
+        "lang/summernote-sl-SI.min.js",
+        "lang/summernote-sr-RS.js",
+        "lang/summernote-sr-RS.min.js",
+        "lang/summernote-sr-RS-Latin.js",
+        "lang/summernote-sr-RS-Latin.min.js",
+        "lang/summernote-sv-SE.js",
+        "lang/summernote-sv-SE.min.js",
+        "lang/summernote-th-TH.js",
+        "lang/summernote-th-TH.min.js",
+        "lang/summernote-tr-TR.js",
+        "lang/summernote-tr-TR.min.js",
+        "lang/summernote-uk-UA.js",
+        "lang/summernote-uk-UA.min.js",
+        "lang/summernote-vi-VN.js",
+        "lang/summernote-vi-VN.min.js",
+        "lang/summernote-zh-CN.js",
+        "lang/summernote-zh-CN.min.js",
+        "lang/summernote-zh-TW.js",
+        "lang/summernote-zh-TW.min.js",
+        "plugin/databasic/summernote-ext-databasic.css",
+        "plugin/databasic/summernote-ext-databasic.min.css",
+        "plugin/databasic/summernote-ext-databasic.js",
+        "plugin/databasic/summernote-ext-databasic.min.js",
+        "plugin/hello/summernote-ext-hello.js",
+        "plugin/hello/summernote-ext-hello.min.js",
+        "plugin/specialchars/summernote-ext-specialchars.js",
+        "plugin/specialchars/summernote-ext-specialchars.min.js"
+      ]
+    },
+    {
+      "library": "wnumb@1.0.2",
+      "destination": "wwwroot/lib/wnumb",
+      "files": [
+        "wNumb.js"
+      ]
+    },
+    {
+      "library": "toastr@2.1.2",
+      "destination": "wwwroot/lib/toastr/",
+      "files": [
+        "build/toastr.css",
+        "build/toastr.js.map",
+        "build/toastr.min.css",
+        "build/toastr.min.js"
+      ]
+    }
+  ]
 }
