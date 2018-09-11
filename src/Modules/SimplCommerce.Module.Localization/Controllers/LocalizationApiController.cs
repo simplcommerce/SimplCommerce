@@ -8,6 +8,7 @@ using SimplCommerce.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using SimplCommerce.Infrastructure.Localization;
 using SimplCommerce.Module.Localization.ViewModel;
+using SimplCommerce.Infrastructure;
 
 namespace SimplCommerce.Module.Localization.Controllers
 {
@@ -36,7 +37,7 @@ namespace SimplCommerce.Module.Localization.Controllers
         [HttpGet("get-cultures")]
         public async Task<IActionResult> GetCultures()
         {
-            var cultures = await _cultureRepository.Query().Where(x => x.Id != "en-US").ToListAsync();
+            var cultures = await _cultureRepository.Query().Where(x => x.Id != GlobalConfiguration.DefaultCulture).ToListAsync();
             return Ok(cultures);
         }
 

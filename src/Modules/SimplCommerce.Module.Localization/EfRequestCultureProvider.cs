@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
-using SimplCommerce.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
+using SimplCommerce.Module.Core.Extensions;
 
 namespace SimplCommerce.Module.Localization
 {
@@ -10,7 +10,8 @@ namespace SimplCommerce.Module.Localization
     {
         public override Task<ProviderCultureResult> DetermineProviderCultureResult(HttpContext httpContext)
         {
-            var culture = GlobalConfiguration.Cultures.Where(c => c.IsDefault).Select(c => c.Id).FirstOrDefault();
+            var workContext = httpContext.RequestServices.GetRequiredService<IWorkContext>();
+            var culture = workContext.GetCurrentUser().Result.Culture;
 
             if (culture == null)
             {

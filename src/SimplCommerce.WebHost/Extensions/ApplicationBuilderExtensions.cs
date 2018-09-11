@@ -101,13 +101,12 @@ namespace SimplCommerce.WebHost.Extensions
         {
             var cultureRepository = app.ApplicationServices.GetRequiredService<IRepositoryWithTypedId<Culture, string>>();
             GlobalConfiguration.Cultures = cultureRepository.Query().ToList();
-            var supportedCultures = GlobalConfiguration.Cultures
-                .OrderBy(c => c.IsDefault).Select(c => c.Id).ToArray();
+            var supportedCultures = GlobalConfiguration.Cultures.Select(c => c.Id).ToArray();
             app.UseRequestLocalization(options =>
             options
                 .AddSupportedCultures(supportedCultures)
                 .AddSupportedUICultures(supportedCultures)
-                .SetDefaultCulture(supportedCultures[0])
+                .SetDefaultCulture(GlobalConfiguration.DefaultCulture)
                 .RequestCultureProviders.Insert(0, new EfRequestCultureProvider())
             );
 

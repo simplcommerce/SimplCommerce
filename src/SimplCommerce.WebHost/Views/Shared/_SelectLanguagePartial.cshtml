@@ -1,17 +1,20 @@
 ﻿@using Microsoft.AspNetCore.Localization
 @using SimplCommerce.Infrastructure
+@using SimplCommerce.Module.Core.Extensions
 
 @inject IViewLocalizer Localizer
+@inject IWorkContext WorkContext
 
 @{
-    var requestCulture = Context.Features.Get<IRequestCultureFeature>().RequestCulture;
+    var uiCulture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture.Name;
+    var selectedCulture = WorkContext.GetCurrentUser().Result.Culture;
 }
 
 @if (GlobalConfiguration.Cultures.Count() > 1)
 {
 <li class="nav-item dropdown">
     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-        Language (@requestCulture.UICulture.Name)
+        Language (@uiCulture)
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu lang-selector">
@@ -19,7 +22,7 @@
         {
             <li class="dropdown-item">
                 <a href="#" data-value="@culture.Id">@culture.Name
-                @if (culture.IsDefault)
+                @if (culture.Id == selectedCulture)
                 {
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                 }
@@ -28,7 +31,7 @@
         }
     </ul>
     <form asp-controller="Localization" asp-action="SetLanguage" asp-route-returnUrl="@Context.Request.Path" method="post" id="lang-form" role="form">
-        <input type="hidden" name="culture" value="@requestCulture.UICulture.Name" />
+        <input type="hidden" name="culture" value="@uiCulture" />
     </form>
 </li>
 }

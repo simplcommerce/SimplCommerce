@@ -1,24 +1,29 @@
 ﻿using System.Linq;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Infrastructure.Localization;
+using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Localization.Controllers
 {
     public class LocalizationController : Controller
     {
+        private readonly IRepositoryWithTypedId<User, long> _userRepository;
+        private readonly IWorkContext _workContext;
+
+        public LocalizationController(IRepositoryWithTypedId<User, long> userRepository, IWorkContext workContext)
+        {
+            _userRepository = userRepository;
+            _workContext = workContext;
+        }
+
         [HttpPost]
         public IActionResult SetLanguage(string culture, string returnUrl)
         {
-            var cultureRepository = HttpContext.RequestServices.GetRequiredService<IRepositoryWithTypedId<Culture, string>>();
-            var cultures = cultureRepository.Query().ToList();
-            // Reset all the culture and set the default to the selected one
-            cultures.ForEach(c => c.IsDefault = (c.Id == culture));
-            cultureRepository.SaveChanges();
-            GlobalConfiguration.Cultures = cultures;
+            var currentUser = _userRepository.Query()
+                .Single(u => u.Email == _workContext.GetCurrentUser().Result.Email);
+            currentUser.Culture = culture;
+            _userRepository.SaveChanges();
 
             return LocalRedirect(returnUrl);
         }
