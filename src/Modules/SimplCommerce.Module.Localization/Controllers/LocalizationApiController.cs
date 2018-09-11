@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Localization.Models;
 using Microsoft.AspNetCore.Authorization;
+using SimplCommerce.Infrastructure.Localization;
 using SimplCommerce.Module.Localization.ViewModel;
 
 namespace SimplCommerce.Module.Localization.Controllers

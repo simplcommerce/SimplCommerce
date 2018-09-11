@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Localization;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Localization.Models;
+using SimplCommerce.Infrastructure.Localization;
 
 namespace SimplCommerce.Module.Localization
 {
     public class EfStringLocalizerFactory : IStringLocalizerFactory
     {
         private readonly IRepository<Resource> _resourceRepository;
-        private IList<ResourceString> _resourceStrings;
+        private IList<Resource> _resources;
 
         public EfStringLocalizerFactory(IRepository<Resource> resourceRepository)
         {
@@ -20,21 +20,21 @@ namespace SimplCommerce.Module.Localization
 
         public IStringLocalizer Create(Type resourceSource)
         {
-            return new EfStringLocalizer(_resourceStrings);
+            return new EfStringLocalizer(_resources);
         }
 
         public IStringLocalizer Create(string baseName, string location)
         {
-            return new EfStringLocalizer(_resourceStrings);
+            return new EfStringLocalizer(_resources);
         }
 
         private void LoadResources()
         {
-            _resourceStrings = _resourceRepository.Query().Select(x => new ResourceString
+            _resources = _resourceRepository.Query().Select(r => new Resource
             {
-                Culture = x.CultureId,
-                Key = x.Key,
-                Value = x.Value
+                Culture = r.Culture,
+                Key = r.Key,
+                Value = r.Value
             }).ToList();
         }
     }

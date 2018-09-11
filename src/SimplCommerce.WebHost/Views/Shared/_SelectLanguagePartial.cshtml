@@ -5,7 +5,7 @@
 
 @{
     var requestCulture = Context.Features.Get<IRequestCultureFeature>();
-    var availableCultures = GlobalConfiguration.SimpleCultures;
+    var availableCultures = GlobalConfiguration.Cultures;
 }
 
 @if (availableCultures.Count() > 1)
@@ -16,15 +16,15 @@
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu lang-selector">
-        @foreach (var lang in availableCultures)
+        @foreach (var culture in GlobalConfiguration.Cultures)
         {
-            if (lang.Id == requestCulture.RequestCulture.UICulture.Name)
+            if (culture.Name == requestCulture.RequestCulture.UICulture.Name)
             {
-                <li class="dropdown-item"><a href="#" data-value="@lang.Id">@lang.Name <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></li>
+                <li class="dropdown-item"><a href="#" data-value="@culture.Id">@culture.Name <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></li>
             }
             else
             {
-                <li class="dropdown-item"><a href="#" data-value="@lang.Id">@lang.Name</a></li>
+                <li class="dropdown-item"><a href="#" data-value="@culture.Id">@culture.Name</a></li>
             }
         }
     </ul>
