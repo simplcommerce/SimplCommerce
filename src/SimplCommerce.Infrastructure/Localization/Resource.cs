@@ -1,8 +1,10 @@
-﻿using SimplCommerce.Infrastructure.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using SimplCommerce.Infrastructure.Models;
 
-namespace SimplCommerce.Module.Localization.Models
+namespace SimplCommerce.Infrastructure.Localization
 {
+    [Table("Localization_Resource")]
     public class Resource : EntityBase
     {
         [Required]
