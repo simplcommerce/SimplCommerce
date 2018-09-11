@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Localization.Models;
+using SimplCommerce.Infrastructure.Localization;
 
 namespace SimplCommerce.Module.Localization.Data
 {
@@ -11,7 +11,9 @@ namespace SimplCommerce.Module.Localization.Data
             modelBuilder.Entity<Culture>().HasData(
                new Culture("en-US") { Name = "English (US)", IsDefault = true }
             );
-            modelBuilder.Entity<Culture>().Property(x => x.IsDefault).HasDefaultValue(false);
+            modelBuilder.Entity<Culture>().Property(c => c.IsDefault).HasDefaultValue(false);
+            modelBuilder.Entity<Culture>().ToTable("Localization_Culture");
+            modelBuilder.Entity<Resource>().ToTable("Localization_Resource");
         }
     }
 }
