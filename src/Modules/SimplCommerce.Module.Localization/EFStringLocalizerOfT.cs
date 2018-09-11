@@ -2,16 +2,17 @@
 using System.Globalization;
 using System.Linq;
 using Microsoft.Extensions.Localization;
+using SimplCommerce.Infrastructure.Localization;
 
 namespace SimplCommerce.Module.Localization
 {
     public class EfStringLocalizer<T> : IStringLocalizer<T>
     {
-        private readonly IList<ResourceString> _resourceStrings;
+        private readonly IList<Resource> _resources;
 
-        public EfStringLocalizer(IList<ResourceString> resourceStrings)
+        public EfStringLocalizer(IList<Resource> resources)
         {
-            _resourceStrings = resourceStrings;
+            _resources = resources;
         }
 
         public LocalizedString this[string name]
@@ -35,21 +36,21 @@ namespace SimplCommerce.Module.Localization
 
         public IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures)
         {
-            return _resourceStrings
-                .Where(r => r.Culture == CultureInfo.CurrentCulture.Name)
+            return _resources
+                .Where(r => r.Culture.Name == CultureInfo.CurrentCulture.Name)
                 .Select(r => new LocalizedString(r.Key, r.Value, true));
         }
 
         public IStringLocalizer WithCulture(CultureInfo culture)
         {
             CultureInfo.DefaultThreadCurrentCulture = culture;
-            return new EfStringLocalizer(_resourceStrings);
+            return new EfStringLocalizer(_resources);
         }
 
         private string GetString(string name)
         {
-            return _resourceStrings
-                .Where(r => r.Culture == CultureInfo.CurrentCulture.Name)
+            return _resources
+                .Where(r => r.Culture.Id == CultureInfo.CurrentCulture.Name)
                 .FirstOrDefault(r => r.Key == name)?.Value;
         }
     }
