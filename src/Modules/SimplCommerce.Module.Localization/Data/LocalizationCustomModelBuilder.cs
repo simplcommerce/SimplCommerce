@@ -12,6 +12,8 @@ namespace SimplCommerce.Module.Localization.Data
                new Culture("en-US") { Name = "English (US)", IsDefault = true }
             );
             modelBuilder.Entity<Culture>().Property(c => c.IsDefault).HasDefaultValue(false);
+            modelBuilder.Entity<Culture>().ToTable("Localization_Culture");
+            modelBuilder.Entity<Resource>().ToTable("Localization_Resource");
         }
     }
 }
