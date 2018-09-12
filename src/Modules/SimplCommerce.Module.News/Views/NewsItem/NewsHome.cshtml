@@ -17,12 +17,12 @@
     </div>
     @if (Model.NewsItem.Any())
     {
-        <div class="news-category-detail row">
-            @foreach (var item in Model.NewsItem)
-            {
-                @await Html.PartialAsync("_NewsThumbnail", item)
-            }
-        </div>
+    <div class="news-category-detail row">
+    	@foreach (var item in Model.NewsItem)
+	{
+	    <partial name="_NewsThumbnail" model="item" />
+	}
+    </div>
     }
 </div>
 

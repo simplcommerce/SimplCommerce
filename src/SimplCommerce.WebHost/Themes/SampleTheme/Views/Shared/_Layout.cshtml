@@ -20,10 +20,10 @@
 <body>
     <div class="top-bar">
         <div class="container">
-            <ul class="nav justify-content-end">
-                @await Html.PartialAsync("_SelectLanguagePartial")
-                @await Html.PartialAsync("_LoginPartial")
-            </ul>
+		   <ul class="nav justify-content-end">
+			   <partial name="_SelectLanguagePartial" />
+			   <partial name="_LoginPartial" />
+		   </ul>
         </div>
     </div>
     <div class="main-header">
@@ -105,7 +105,7 @@
     <script simpl-append-version="true" src="~/modules/shopping-cart/add-to-cart.js"></script>
     <script simpl-append-version="true" src="~/modules/product-comparison/product-comparison.js"></script>
     @RenderSection("scripts", required: false)
-
-    @await Html.PartialAsync("_AnalyticsScript")
+	
+    <partial name="_AnalyticsScript" />
 </body>
 </html>
