@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1-sdk AS build-env
+FROM microsoft/dotnet:2.1.401-sdk AS build-env
 
 #setup node
 ENV NODE_VERSION 8.9.4
@@ -34,7 +34,7 @@ RUN dotnet build -c Release \
 RUN sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/SimplCommerce.WebHost/dbscript.sql \
 	&& sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/Database/StaticData_PostgreSQL.sql
 
-FROM microsoft/dotnet:2.1.1-aspnetcore-runtime
+FROM microsoft/dotnet:2.1.3-aspnetcore-runtime
 
 # hack to make postgresql-client install work on slim
 RUN mkdir -p /usr/share/man/man1 \
