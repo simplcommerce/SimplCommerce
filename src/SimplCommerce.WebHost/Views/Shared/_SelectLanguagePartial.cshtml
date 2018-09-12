@@ -1,36 +1,37 @@
 ﻿@using Microsoft.AspNetCore.Localization
 @using SimplCommerce.Infrastructure
+@using SimplCommerce.Module.Core.Extensions
 
 @inject IViewLocalizer Localizer
+@inject IWorkContext WorkContext
 
 @{
-    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
-    var availableCultures = GlobalConfiguration.Cultures;
+    var uiCulture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture.Name;
+    var selectedCulture = WorkContext.GetCurrentUser().Result.Culture;
 }
 
-@if (availableCultures.Count() > 1)
+@if (GlobalConfiguration.Cultures.Count() > 1)
 {
 <li class="nav-item dropdown">
     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-        Language (@requestCulture.RequestCulture.UICulture.Name)
+        Language (@uiCulture)
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu lang-selector">
         @foreach (var culture in GlobalConfiguration.Cultures)
         {
-            if (culture.Name == requestCulture.RequestCulture.UICulture.Name)
-            {
-                <li class="dropdown-item"><a href="#" data-value="@culture.Id">@culture.Name <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></li>
-            }
-            else
-            {
-                <li class="dropdown-item"><a href="#" data-value="@culture.Id">@culture.Name</a></li>
-            }
+            <li class="dropdown-item">
+                <a href="#" data-value="@culture.Id">@culture.Name
+                @if (culture.Id == selectedCulture)
+                {
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                }
+                </a>
+            </li>
         }
     </ul>
-    <form asp-controller="Localization" asp-action="SetLanguage" asp-route-returnUrl="@Context.Request.Path"
-                method="post" id="lang-form" role="form">
-        <input type="hidden" name="culture" value="@requestCulture.RequestCulture.UICulture.Name" />
+    <form asp-controller="Localization" asp-action="SetLanguage" asp-route-returnUrl="@Context.Request.Path" method="post" id="lang-form" role="form">
+        <input type="hidden" name="culture" value="@uiCulture" />
     </form>
 </li>
 }
