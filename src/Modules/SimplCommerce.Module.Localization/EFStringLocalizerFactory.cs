@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Localization;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Localization;
@@ -10,32 +9,22 @@ namespace SimplCommerce.Module.Localization
     public class EfStringLocalizerFactory : IStringLocalizerFactory
     {
         private readonly IRepository<Resource> _resourceRepository;
-        private IList<Resource> _resources;
+        private IMemoryCache _resourcesCache;
 
-        public EfStringLocalizerFactory(IRepository<Resource> resourceRepository)
+        public EfStringLocalizerFactory(IRepository<Resource> resourceRepository, IMemoryCache resourcesCache)
         {
             _resourceRepository = resourceRepository;
-            LoadResources();
+            _resourcesCache = resourcesCache;
         }
 
         public IStringLocalizer Create(Type resourceSource)
         {
-            return new EfStringLocalizer(_resources);
+            return new EfStringLocalizer(_resourceRepository, _resourcesCache);
         }
 
         public IStringLocalizer Create(string baseName, string location)
         {
-            return new EfStringLocalizer(_resources);
-        }
-
-        private void LoadResources()
-        {
-            _resources = _resourceRepository.Query().Select(r => new Resource
-            {
-                Culture = r.Culture,
-                Key = r.Key,
-                Value = r.Value
-            }).ToList();
+            return new EfStringLocalizer(_resourceRepository, _resourcesCache);
         }
     }
 }
