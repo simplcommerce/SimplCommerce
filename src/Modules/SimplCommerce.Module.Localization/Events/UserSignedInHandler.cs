@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Events;
 using SimplCommerce.Module.Core.Extensions;
@@ -23,8 +23,9 @@ namespace SimplCommerce.Module.ShoppingCart.Events
         public async Task Handle(UserSignedIn user, CancellationToken cancellationToken)
         {
             var guestUser = await _workContext.GetCurrentUser();
-            var currentUser = _userRepository.Query().Single(u => u.Id == user.UserId);
-            _userRepository.Query().Single(u => u.Id == guestUser.Id).Culture = currentUser.Culture;
+            var signedInUser = await _userRepository.Query().SingleAsync(u => u.Id == user.UserId);
+            signedInUser.Culture = guestUser.Culture;
+            await _userRepository.SaveChangesAsync();
         }
     }
 }

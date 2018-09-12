@@ -78,10 +78,10 @@ namespace SimplCommerce.WebHost
                 a => a.UseStatusCodePagesWithReExecute("/Home/ErrorWithCode/{0}")
             );
 
-            app.UseCustomizedRequestLocalization();
             app.UseCustomizedStaticFiles(env);
             app.UseCookiePolicy();
             app.UseCustomizedIdentity();
+            app.UseCustomizedRequestLocalization();
             app.UseCustomizedMvc();
 
             var moduleInitializers = app.ApplicationServices.GetServices<IModuleInitializer>();

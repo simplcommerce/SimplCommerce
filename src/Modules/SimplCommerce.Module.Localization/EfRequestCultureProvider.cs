@@ -8,19 +8,20 @@ namespace SimplCommerce.Module.Localization
 {
     public class EfRequestCultureProvider : RequestCultureProvider
     {
-        public override Task<ProviderCultureResult> DetermineProviderCultureResult(HttpContext httpContext)
+        public override async Task<ProviderCultureResult> DetermineProviderCultureResult(HttpContext httpContext)
         {
             var workContext = httpContext.RequestServices.GetRequiredService<IWorkContext>();
-            var culture = workContext.GetCurrentUser().Result.Culture;
+            var user = await workContext.GetCurrentUser();
+            var culture = user.Culture;
 
             if (culture == null)
             {
-                return Task.FromResult((ProviderCultureResult)null);
+                return await Task.FromResult((ProviderCultureResult)null);
             }
 
             var providerResultCulture = new ProviderCultureResult(culture);
 
-            return Task.FromResult(providerResultCulture);
+            return await Task.FromResult(providerResultCulture);
         }
     }
 }
