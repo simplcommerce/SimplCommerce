@@ -1,6 +1,7 @@
 ﻿/*global $ */
 $(function () {
     $('body').on('click', '.add-to-wishlist', function (e) {
+        $('#productOverview').modal('hide');
         var $form = $(this).closest("form");
         var productId = $form.find('input[name=productId]').val();
         var quantity = $form.find('input[name=qty]').val();
