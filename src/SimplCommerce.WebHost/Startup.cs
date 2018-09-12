@@ -5,10 +5,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Localization;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Web;
-using SimplCommerce.Module.Localization;
+using SimplCommerce.Module.Localization.Extensions;
 using SimplCommerce.WebHost.Extensions;
 
 namespace SimplCommerce.WebHost
@@ -41,7 +40,7 @@ namespace SimplCommerce.WebHost
             services.AddCustomizedIdentity(_configuration);
             services.AddHttpClient();
 
-            services.AddSingleton<IStringLocalizerFactory, EfStringLocalizerFactory>();
+            services.AddCustomizedLocalization();
             services.AddCloudscribePagination();
 
             services.Configure<RazorViewEngineOptions>(
