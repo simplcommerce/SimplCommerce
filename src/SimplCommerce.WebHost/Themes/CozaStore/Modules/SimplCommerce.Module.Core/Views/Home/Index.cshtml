@@ -5,9 +5,9 @@
 }
 
 @section featured {
-    <partial name="_WidgetInstances" for="WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeFeatured)"/>
+    <partial name="~/Modules/SomplCommerce.Module.Core/Views/Shared/_WidgetInstances.cshtml" model="Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeFeatured)"/>
 }
 
-<partial name="_WidgetInstances" for="WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeMainContent)"/>
+<partial name="~/Modules/SomplCommerce.Module.Core/Views/Shared/_WidgetInstances.cshtml" model="Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeMainContent)"/>
 
-<partial name="_WidgetInstances" for="WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeAfterMainContent)"/>
+<partial name="~/Modules/SomplCommerce.Module.Core/Views/Shared/_WidgetInstances.cshtml" model="Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeAfterMainContent)"/>

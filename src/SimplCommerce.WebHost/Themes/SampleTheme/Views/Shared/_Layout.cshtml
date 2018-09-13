@@ -21,8 +21,8 @@
     <div class="top-bar">
         <div class="container">
             <ul class="nav justify-content-end">
-			 <partial name="_SelectLanguagePartial" />
-			 <partial name="_LoginPartial" />
+			 <partial name="~/Views/Shared/_SelectLanguagePartial.cshtml" />
+			 <partial name="~/Views/Shared/_LoginPartial.cshtml" />
             </ul>
         </div>
     </div>
@@ -106,6 +106,6 @@
     <script simpl-append-version="true" src="~/modules/product-comparison/product-comparison.js"></script>
     @RenderSection("scripts", required: false)
 	
-    <partial name="_AnalyticsScript" />
+    <partial name="~/Views/Shared/_AnalyticsScript.cshtml" />
 </body>
 </html>

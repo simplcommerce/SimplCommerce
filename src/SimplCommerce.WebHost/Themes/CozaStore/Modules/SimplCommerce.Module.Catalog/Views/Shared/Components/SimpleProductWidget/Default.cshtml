@@ -5,7 +5,7 @@
     @foreach (var product in Model.Products)
     {
         <div class="col-xs-6 col-md-3">
-		  <partial name="_ProductThumbnail" model="product"/>
+		  <partial name="~/Modules/SimplCommerce.Module.Catalog/Views/Shared/_ProductThumbnail.cshtml" model="product"/>
         </div>
     }
 </div>

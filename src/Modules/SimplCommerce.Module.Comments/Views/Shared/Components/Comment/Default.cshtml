@@ -21,7 +21,7 @@
         }
         <div class="col-md-7">
             <div id="addcomment">
-			<partial name="_CommentForm" model="commentForm" />
+			<partial name="~/Modules/SimplCommerce.Module.Comments/Views/Comment/_CommentForm.cshtml" model="commentForm" />
             </div>
         </div>
     </div>
@@ -57,7 +57,7 @@
                            @{ 
 						commentForm.ParentId = comment.Id;
                            }
-					  <partial name="_ReplyForm" model="commentForm" />
+					  <partial name="~/Modules/SimplCommerce.Module.Comments/Views/Comment/_ReplyForm.cshtml" model="commentForm" />
                         </div>
                     </div>
                 </div>
