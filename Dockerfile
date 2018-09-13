@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1-sdk AS build-env
+FROM microsoft/dotnet:2.1.402-sdk AS build-env
 
 #setup node
 ENV NODE_VERSION 8.9.4
@@ -9,7 +9,7 @@ RUN curl -SL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-lin
     && tar -xzf "nodejs.tar.gz" -C /usr/local --strip-components=1 \
     && rm nodejs.tar.gz \
     && ln -s /usr/local/bin/node /usr/local/bin/nodejs
-  
+
 WORKDIR /app
 COPY . ./
 
@@ -30,11 +30,11 @@ RUN dotnet build -c Release \
 	&& npm run gulp-copy-modules -- --configurationName Release \
 	&& dotnet publish -c Release -o out
 
-# remove BOM for psql	
+# remove BOM for psql
 RUN sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/SimplCommerce.WebHost/dbscript.sql \
 	&& sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/Database/StaticData_PostgreSQL.sql
 
-FROM microsoft/dotnet:2.1.1-aspnetcore-runtime
+FROM microsoft/dotnet:2.1.4-aspnetcore-runtime
 
 # hack to make postgresql-client install work on slim
 RUN mkdir -p /usr/share/man/man1 \
@@ -45,7 +45,7 @@ RUN apt-get update \
 	&& apt-get install libgdiplus -y \
 	&& rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app	
+WORKDIR /app
 COPY --from=build-env /app/src/SimplCommerce.WebHost/out ./
 COPY --from=build-env /app/src/SimplCommerce.WebHost/dbscript.sql ./
 
