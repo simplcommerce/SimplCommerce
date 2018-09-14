@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Localization.Extensions;
+using SimplCommerce.Module.Localization.TagHelpers;
 using SimplCommerce.WebHost.Extensions;
 
 namespace SimplCommerce.WebHost
@@ -47,6 +49,8 @@ namespace SimplCommerce.WebHost
                 options => { options.ViewLocationExpanders.Add(new ModuleViewLocationExpander()); });
 
             services.AddCustomizedMvc(GlobalConfiguration.Modules);
+
+            services.AddSingleton<ITagHelperComponent, LanguageDirectionTagHelperComponent>();
 
             var sp = services.BuildServiceProvider();
             var moduleInitializers = sp.GetServices<IModuleInitializer>();

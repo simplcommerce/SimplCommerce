@@ -1,12 +1,8 @@
 @using System.Globalization
-@using SimplCommerce.Module.Localization.Extensions
+@*@using Microsoft.Extensions.Options
 
-@{
-    var languageDirection = Context.Features.Get<IRequestCultureFeature>()
-        .RequestCulture.UICulture.GetLanguageDirection()
-        .ToString().ToLower();
 <!doctype html>
-<html dir="@languageDirection">
+<html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
