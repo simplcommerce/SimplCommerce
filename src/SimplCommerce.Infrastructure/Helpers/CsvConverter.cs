@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace SimplCommerce.Infrastructure
+namespace SimplCommerce.Infrastructure.Helpers
 {
     public static class CsvConverter
     {

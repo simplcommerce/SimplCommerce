@@ -7,12 +7,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using NCrontab;
 
-namespace SimplCommerce.Infrastructure.ScheduledTasks
+namespace SimplCommerce.Infrastructure.Tasks.Scheduling
 {
     public class SchedulerBackgroundService : BackgroundService
     {
-        public event EventHandler<UnobservedTaskExceptionEventArgs> UnobservedTaskException;
         private readonly List<SchedulerTaskWrapper> _scheduledTasks = new List<SchedulerTaskWrapper>();
+
+        public event EventHandler<UnobservedTaskExceptionEventArgs> UnobservedTaskException;
 
         public SchedulerBackgroundService(IEnumerable<IScheduledTask> scheduledTasks)
         {
