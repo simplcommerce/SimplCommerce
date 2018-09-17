@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
-using SimplCommerce.Infrastructure;
+using SimplCommerce.Infrastructure.Modules;
 using Microsoft.AspNetCore.Identity;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
 
-namespace SimplCommerce.Module.Core
+namespace SimplCommerce.Module.Core.Modules
 {
     public class ModuleInitializer : IModuleInitializer
     {

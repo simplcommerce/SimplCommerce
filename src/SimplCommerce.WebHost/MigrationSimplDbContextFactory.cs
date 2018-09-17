@@ -27,7 +27,7 @@ namespace SimplCommerce.WebHost
             //setup DI
             IServiceCollection services = new ServiceCollection();
 
-            services.LoadInstalledModules(contentRootPath);
+            services.AddModules(contentRootPath);
             services.AddCustomizedDataStore(_configuration);
             var _serviceProvider = services.BuildServiceProvider();
 
