@@ -1,6 +1,6 @@
 {
-  "name": "product-comparison",
-  "fullName": "SimplCommerce.Module.ProductComparison",
+  "id": "SimplCommerce.Module.ProductComparison",
+  "name": "Products Comparison",
   "isBundledWithHost": true,
   "version": "1.0.0"
 }

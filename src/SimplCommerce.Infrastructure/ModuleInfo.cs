@@ -1,22 +1,18 @@
-﻿using System.Linq;
+﻿using System;
 using System.Reflection;
 
 namespace SimplCommerce.Infrastructure
 {
     public class ModuleInfo
     {
+        public string Id { get; set; }
+
         public string Name { get; set; }
 
+        public bool IsBundledWithHost { get; set; }
+
+        public Version Version { get; set; }
+
         public Assembly Assembly { get; set; }
-
-        public string ShortName
-        {
-            get
-            {
-                return Name.Split('.').Last();
-            }
-        }
-
-        public string Path { get; set; }
     }
 }
