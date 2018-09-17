@@ -49,7 +49,7 @@ namespace SimplCommerce.WebHost.Extensions
                 var moduleManifestPath = Path.Combine(moduleFolder.FullName, moduleManifestName);
                 if (!File.Exists(moduleManifestPath))
                 {
-                    throw new FileNotFoundException($"The manifest for the module '{moduleFolder.Name}' is not found.", moduleManifestPath);
+                    throw new MissingModuleManifestException($"The manifest for the module '{moduleFolder.Name}' is not found.", moduleFolder.Name);
                 }
 
                 using (var reader = new StreamReader(moduleManifestPath))
