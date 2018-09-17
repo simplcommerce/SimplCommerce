@@ -28,24 +28,25 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Modules;
+using SimplCommerce.Infrastructure.Web.ModelBinders;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
-using SimplCommerce.Infrastructure.Web.ModelBinders;
-using SimplCommerce.Infrastructure.Web;
 
 namespace SimplCommerce.WebHost.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection LoadInstalledModules(this IServiceCollection services, string contentRootPath)
+        public static IServiceCollection AddModules(this IServiceCollection services, string contentRootPath)
         {
             const string moduleManifestName = "module.json";
-            var modulesFolder = new DirectoryInfo(Path.Combine(contentRootPath, "Modules"));
-            ModuleInfo module = null;
-
-            foreach (var moduleFolder in modulesFolder.GetDirectories())
+            var modulesFolder = Path.Combine(contentRootPath, "Modules");
+            var modulesConfig = new ModuleConfigurationManager();
+            foreach (var module in modulesConfig.GetModules())
             {
+                var moduleFolder = new DirectoryInfo(Path.Combine(modulesFolder, module.Id));
                 var moduleManifestPath = Path.Combine(moduleFolder.FullName, moduleManifestName);
                 if (!File.Exists(moduleManifestPath))
                 {
@@ -56,12 +57,13 @@ namespace SimplCommerce.WebHost.Extensions
                 {
                     string content = reader.ReadToEnd();
                     dynamic moduleMetadata = JsonConvert.DeserializeObject(content);
-                    module = new ModuleInfo
-                    {
-                        Id = moduleMetadata.id,
-                        Name = moduleMetadata.name,
-                        Version = Version.Parse(moduleMetadata.version.ToString())
-                    };
+                    module.Name = moduleMetadata.name;
+                    //module = new ModuleInfo
+                    //{
+                    //    Id = moduleMetadata.id,
+                    //    Name = moduleMetadata.name,
+                    //    Version = Version.Parse(moduleMetadata.version.ToString())
+                    //};
                 }
 
                 TryLoadModuleAssembly(moduleFolder.FullName, out Assembly moduleAssembly);

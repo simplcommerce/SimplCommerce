@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimplCommerce.Infrastructure;
+using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Localization.Extensions;
 using SimplCommerce.Module.Localization.TagHelpers;
@@ -29,7 +30,7 @@ namespace SimplCommerce.WebHost
         {
             GlobalConfiguration.WebRootPath = _hostingEnvironment.WebRootPath;
             GlobalConfiguration.ContentRootPath = _hostingEnvironment.ContentRootPath;
-            services.LoadInstalledModules(_hostingEnvironment.ContentRootPath);
+            services.AddModules(_hostingEnvironment.ContentRootPath);
 
             services.Configure<CookiePolicyOptions>(options =>
             {

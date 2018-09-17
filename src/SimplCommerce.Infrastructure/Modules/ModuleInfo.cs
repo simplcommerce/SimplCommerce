@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace SimplCommerce.Infrastructure
+namespace SimplCommerce.Infrastructure.Modules
 {
     public class ModuleInfo
     {

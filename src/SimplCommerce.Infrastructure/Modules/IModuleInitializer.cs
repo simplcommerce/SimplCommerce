@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 
-namespace SimplCommerce.Infrastructure
+namespace SimplCommerce.Infrastructure.Modules
 {
     public interface IModuleInitializer
     {
