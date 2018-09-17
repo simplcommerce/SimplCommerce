@@ -3,7 +3,7 @@
 using System;
 using NCrontab;
 
-namespace SimplCommerce.Infrastructure.ScheduledTasks
+namespace SimplCommerce.Infrastructure.Tasks.Scheduling
 {
     public class SchedulerTaskWrapper
     {

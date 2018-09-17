@@ -3,20 +3,20 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace SimplCommerce.Infrastructure
+namespace SimplCommerce.Infrastructure.Extensions
 {
-    public static class OrderByExtension
+    public static class QueryableExtensions
     {
         public static IQueryable<T> OrderByName<T>(this IQueryable<T> source, string propertyName, bool isDescending)
         {
             if (source == null)
             {
-                throw new ArgumentException("source");
+                throw new ArgumentException(nameof(source));
             }
 
             if (string.IsNullOrWhiteSpace(propertyName))
             {
-                throw new ArgumentException("propertyName");
+                throw new ArgumentException(nameof(propertyName));
             }
 
             Type type = typeof(T);

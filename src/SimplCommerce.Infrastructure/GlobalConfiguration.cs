@@ -5,11 +5,6 @@ namespace SimplCommerce.Infrastructure
 {
     public static class GlobalConfiguration
     {
-        static GlobalConfiguration()
-        {
-            Modules = new List<ModuleInfo>();
-        }
-
         public static IList<ModuleInfo> Modules { get; set; } = new List<ModuleInfo>();
 
         public static IList<Culture> Cultures { get; set; } = new List<Culture>();

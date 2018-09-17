@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Text;
 
-namespace SimplCommerce.Infrastructure
+namespace SimplCommerce.Infrastructure.Helpers
 {
     public static class StringHelper
     {
@@ -21,7 +21,7 @@ namespace SimplCommerce.Infrastructure
             name = name.Strip(c =>
                 c != '-'
                 && c != '_'
-                && !c.IsLetter()
+                && !Char.IsLetter(c)
                 && !Char.IsDigit(c)
                 );
 
@@ -54,16 +54,6 @@ namespace SimplCommerce.Infrastructure
             }
 
             return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
-        }
-
-        public static bool IsLetter(this char c)
-        {
-            return ('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z');
-        }
-
-        public static bool IsSpace(this char c)
-        {
-            return (c == '\r' || c == '\n' || c == '\t' || c == '\f' || c == ' ');
         }
 
         public static string Strip(this string subject, params char[] stripped)
