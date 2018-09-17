@@ -1,6 +1,6 @@
 {
-  "name": "news",
-  "fullName": "SimplCommerce.Module.News",
+  "id": "SimplCommerce.Module.News",
+  "name": "News",
   "isBundledWithHost": true,
   "version": "1.0.0"
 }

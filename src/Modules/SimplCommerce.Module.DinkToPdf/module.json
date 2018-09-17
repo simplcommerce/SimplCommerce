@@ -1,6 +1,6 @@
 {
-  "name": "dinktopdf",
-  "fullName": "SimplCommerce.Module.DinkToPdf",
+  "id": "SimplCommerce.Module.DinkToPdf",
+  "name": "Dink to PDF",
   "isBundledWithHost": true,
   "version": "1.0.0"
 }
