@@ -1,6 +1,6 @@
 {
-  "name": "paymentCoD",
-  "fullName": "SimplCommerce.Module.PaymentCoD",
+  "id": "SimplCommerce.Module.PaymentCoD",
+  "name": "CoD Payment",
   "isBundledWithHost": true,
   "version": "1.0.0"
 }

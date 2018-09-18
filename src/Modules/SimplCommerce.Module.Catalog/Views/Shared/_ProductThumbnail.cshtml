@@ -1,6 +1,7 @@
 ﻿@model SimplCommerce.Module.Catalog.ViewModels.ProductThumbnail
 
 <div class="card mb-4">
+    <input type="hidden" id="productId" value="@Model.Id" />
     <a href="~/@Model.Slug">
         <img alt="@Model.Name" class="card-img-top" src="@Model.ThumbnailUrl">
         <div class="card-body">
@@ -16,13 +17,13 @@
                     if (Model.CalculatedProductPrice.PercentOfSaving > 0)
                     {
                         <span class="product-price-saving">-@(Model.CalculatedProductPrice.PercentOfSaving)%</span>
-                        <br />
+                        <br/>
                         <span class="product-price-regular">@Model.CalculatedProductPrice.OldPrice.Value.ToString("C")</span>
                     }
                 }
             </p>
             <ul class="list-inline product-ratings">
-                <li><input type="hidden" value="@Model.RatingAverage" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
+                <li><input type="hidden" value="@Model.RatingAverage" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false"/></li>
                 @if (Model.ReviewsCount > 0)
                 {
                     <li class="product-review-list">
@@ -30,6 +31,10 @@
                     </li>
                 }
             </ul>
+
         </div>
     </a>
+    <div class="quick-view">
+        <a href="#productOverview">Quick View</a>
+    </div>
 </div>

@@ -1,6 +1,6 @@
 {
-  "name": "core",
-  "fullName": "SimplCommerce.Module.Core",
+  "id": "SimplCommerce.Module.Core",
+  "name": "Core",
   "isBundledWithHost": true,
   "version": "1.0.0"
 }
