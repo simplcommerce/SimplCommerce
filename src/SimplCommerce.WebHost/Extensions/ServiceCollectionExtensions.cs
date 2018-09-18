@@ -24,6 +24,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure;
@@ -33,7 +34,6 @@ using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Infrastructure.Web.ModelBinders;
 using SimplCommerce.Infrastructure.Web;
-using Microsoft.Extensions.Logging;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -85,10 +85,10 @@ namespace SimplCommerce.WebHost.Extensions
             var mvcBuilder = services
                 .AddMvc(o =>
                 {
-				using (var loggerFactory = services.BuildServiceProvider().GetRequiredService<ILoggerFactory>())
-				{ 
-					o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider(loggerFactory));
-				}
+                    using (var loggerFactory = services.BuildServiceProvider().GetRequiredService<ILoggerFactory>())
+                    { 
+                        o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider(loggerFactory));
+                    }
                 })
                 .AddRazorOptions(o =>
                 {
