@@ -15,8 +15,8 @@ namespace SimplCommerce.Infrastructure.Modules
             using (var reader = new StreamReader(installedModulesPath))
             {
                 string content = reader.ReadToEnd();
-                dynamic data = JsonConvert.DeserializeObject(content);
-                foreach (dynamic module in data.modules)
+                dynamic modulesData = JsonConvert.DeserializeObject(content);
+                foreach (dynamic module in modulesData.modules)
                 {
                     yield return new ModuleInfo
                     {

@@ -39,12 +39,13 @@ namespace SimplCommerce.WebHost.Extensions
 {
     public static class ServiceCollectionExtensions
     {
+        private static readonly IModuleConfigurationManager _modulesConfig = new ModuleConfigurationManager();
+
         public static IServiceCollection AddModules(this IServiceCollection services, string contentRootPath)
         {
             const string moduleManifestName = "module.json";
             var modulesFolder = Path.Combine(contentRootPath, "Modules");
-            var modulesConfig = new ModuleConfigurationManager();
-            foreach (var module in modulesConfig.GetModules())
+            foreach (var module in _modulesConfig.GetModules())
             {
                 var moduleFolder = new DirectoryInfo(Path.Combine(modulesFolder, module.Id));
                 var moduleManifestPath = Path.Combine(moduleFolder.FullName, moduleManifestName);
@@ -58,12 +59,6 @@ namespace SimplCommerce.WebHost.Extensions
                     string content = reader.ReadToEnd();
                     dynamic moduleMetadata = JsonConvert.DeserializeObject(content);
                     module.Name = moduleMetadata.name;
-                    //module = new ModuleInfo
-                    //{
-                    //    Id = moduleMetadata.id,
-                    //    Name = moduleMetadata.name,
-                    //    Version = Version.Parse(moduleMetadata.version.ToString())
-                    //};
                 }
 
                 TryLoadModuleAssembly(moduleFolder.FullName, out Assembly moduleAssembly);
