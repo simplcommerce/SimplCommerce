@@ -1,6 +1,7 @@
 ﻿/*global $ */
 $(function () {
     $('body').on('click', '.add-to-comparison', function (e) {
+        $('#productOverview').modal('hide');
         var productId = $(this).closest("form").find('input[name=productId]').val();
         e.preventDefault();
 

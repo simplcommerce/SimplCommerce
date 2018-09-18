@@ -456,3 +456,21 @@ li.nav-item-group, li.nav-item-group a {
     margin-bottom: 25px;
     text-align: center;
 }
+
+.quick-view {
+    height: 25px;
+    border: 1px solid #e7e7e7;
+    border-radius: 2px;
+    text-align: center;
+}
+
+.modal-lg {
+    min-width: 850px;
+    max-width: 1200px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.modal-padding {
+    padding: 10px 10px 10px 10px;
+}

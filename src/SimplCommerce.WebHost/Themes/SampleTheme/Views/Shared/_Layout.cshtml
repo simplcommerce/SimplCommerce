@@ -80,7 +80,7 @@
         </div>
     </div>
     <div id="shopModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
             </div>
         </div>
@@ -102,8 +102,9 @@
         <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/vi-vn.js"></script>
     }
     <script simpl-append-version="true" src="~/modules/core/main.js"></script>
-    <script simpl-append-version="true" src="~/modules/shoppingcart/add-to-cart.js"></script>
-    <script simpl-append-version="true" src="~/modules/productcomparison/product-comparison.js"></script>
+    <script simpl-append-version="true" src="~/modules/shopping-cart/add-to-cart.js"></script>
+    <script simpl-append-version="true" src="~/modules/product-comparison/product-comparison.js"></script>
+    <script simpl-append-version="true" src="~/modules/catalog/product-overview.js"></script>
     @RenderSection("scripts", required: false)
 
     @await Html.PartialAsync("_AnalyticsScript")

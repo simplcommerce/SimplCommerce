@@ -233,6 +233,12 @@
             </div>
         </div>
     </div>
+    <div id="productOverview" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
     <script>
         window.simplGlobalSetting = {};
         window.simplGlobalSetting.lang = '@CultureInfo.CurrentCulture.Name';
@@ -254,10 +260,10 @@
     <script simpl-append-version="true" src="~/themes/CozaStore/vendor/slick/slick.min.js"></script>
     <script simpl-append-version="true" src="~/themes/CozaStore/js/slick-custom.js"></script>
     <script simpl-append-version="true" src="~/themes/CozaStore/js/cozastore.js"></script>
-
     <script simpl-append-version="true" src="~/modules/core/main.js"></script>
-    <script simpl-append-version="true" src="~/modules/shoppingcart/add-to-cart.js"></script>
-    <script simpl-append-version="true" src="~/modules/productcomparison/product-comparison.js"></script>
+    <script simpl-append-version="true" src="~/modules/shopping-cart/add-to-cart.js"></script>
+    <script simpl-append-version="true" src="~/modules/product-comparison/product-comparison.js"></script>
+    <script simpl-append-version="true" src="~/modules/catalog/product-overview.js"></script>
     @RenderSection("scripts", required: false)
 
     @await Html.PartialAsync("_AnalyticsScript")

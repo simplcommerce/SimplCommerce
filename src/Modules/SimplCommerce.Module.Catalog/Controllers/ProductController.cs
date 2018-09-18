@@ -33,19 +33,52 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
         public async Task<IActionResult> ProductDetail(long id)
         {
-            var product = _productRepository.Query()
-                .Include(x => x.OptionValues)
-                .Include(x => x.Categories).ThenInclude(c => c.Category)
-                .Include(x => x.AttributeValues).ThenInclude(a => a.Attribute)
-                .Include(x => x.ProductLinks).ThenInclude(p => p.LinkedProduct).ThenInclude(m => m.ThumbnailImage)
-                .Include(x => x.ThumbnailImage)
-                .Include(x => x.Medias).ThenInclude(m => m.Media)
-                .FirstOrDefault(x => x.Id == id && x.IsPublished);
+            var product = GetProduct(id);
             if (product == null)
             {
                 return Redirect("~/Error/FindNotFound");
             }
 
+            var model = MapProductToProductDetail(product);
+
+            await _mediator.Publish(new EntityViewed { EntityId = product.Id, EntityTypeId = "Product" });
+            _productRepository.SaveChanges();
+
+            return View(model);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> ProductOverview(long id)
+        {
+            var product = GetProduct(id);
+            if (product == null)
+            {
+                return Redirect("~/Error/FindNotFound");
+            }
+
+            var model = MapProductToProductDetail(product);
+
+            await _mediator.Publish(new EntityViewed { EntityId = product.Id, EntityTypeId = "Product" });
+            _productRepository.SaveChanges();
+
+            return PartialView(model);
+        }
+
+        private Product GetProduct(long id)
+        {
+            return _productRepository.Query()
+                    .Include(x => x.OptionValues)
+                    .Include(x => x.Categories).ThenInclude(c => c.Category)
+                    .Include(x => x.AttributeValues).ThenInclude(a => a.Attribute)
+                    .Include(x => x.ProductLinks).ThenInclude(p => p.LinkedProduct).ThenInclude(m => m.ThumbnailImage)
+                    .Include(x => x.ThumbnailImage)
+                    .Include(x => x.Medias).ThenInclude(m => m.Media)
+                    .FirstOrDefault(x => x.Id == id && x.IsPublished);
+        }
+
+        private ProductDetail MapProductToProductDetail(Product product)
+        {
             var model = new ProductDetail
             {
                 Id = product.Id,
@@ -70,14 +103,14 @@ namespace SimplCommerce.Module.Catalog.Controllers
             MapProductVariantToProductVm(product, model);
             MapRelatedProductToProductVm(product, model);
 
-            foreach(var item in product.OptionValues)
+            foreach (var item in product.OptionValues)
             {
                 var optionValues = JsonConvert.DeserializeObject<IList<ProductOptionValueVm>>(item.Value);
-                foreach(var value in optionValues)
+                foreach (var value in optionValues)
                 {
                     if (!model.OptionDisplayValues.ContainsKey(value.Key))
                     {
-                        model.OptionDisplayValues.Add(value.Key, new ProductOptionDisplay { DisplayType = item.DisplayType, Value = value.Display});
+                        model.OptionDisplayValues.Add(value.Key, new ProductOptionDisplay { DisplayType = item.DisplayType, Value = value.Display });
                     }
                 }
             }
@@ -88,10 +121,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 ThumbnailUrl = _mediaService.GetThumbnailUrl(productMedia.Media)
             }).ToList();
 
-            await _mediator.Publish(new EntityViewed { EntityId = product.Id, EntityTypeId = "Product" });
-            _productRepository.SaveChanges();
-
-            return View(model);
+            return model;
         }
 
         private void MapProductVariantToProductVm(Product product, ProductDetail model)
