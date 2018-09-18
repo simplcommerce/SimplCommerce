@@ -22,7 +22,7 @@
 #### Prerequisites
 
 - SQL Server
-- [Visual Studio 2017 version >= 15.8 with .NET Core SDK 2.1.402](https://www.microsoft.com/net/download/all)
+- [Visual Studio 2017 version >= 15.8 with .NET Core SDK 2.1.402 & .NET Core Runtime 2.1.4 OR 18.8.4 (SDK included)](https://www.microsoft.com/net/download/dotnet-core/2.1)
 - Node.js (LTS)
 
 #### Steps to run
@@ -49,10 +49,10 @@
 - Open browser, open http://localhost:5000. The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
 ## Technologies and frameworks used:
-- ASP.NET MVC Core 2.1
-- Entity Framework Core 2.1
-- ASP.NET Identity Core 2.1
-- Autofac 4.3
+- ASP.NET MVC Core 2.1.2
+- Entity Framework Core 2.1.3
+- ASP.NET Identity Core 2.1.3
+- Autofac 4.2.2
 - Angular 1.6.3
 - MediatR 5.0.1 for domain event
 
@@ -70,7 +70,7 @@ https://github.com/simplcommerce/SimplCommerce/wiki/Roadmap
 - Report bugs or suggest features by create new issues or add comments to issues
 - Submit pull requests
 - Spread the word by blogging about SimplCommerce or sharing it on social networks
-- Donate us 
+- Donate us
 
      [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JWYGHJQSYLVVQ)
 
