@@ -8,18 +8,6 @@
     ViewBag.Title = Model.MetaTitle ?? Model.Name;
 }
 
-@*@section additionalMeta {
-    <meta name="title" content="@ViewBag.Title" />
-    <meta name="keywords" content="@Model.MetaKeywords" />
-    <meta name="description" content="@Model.MetaDescription" />
-}*@
-
-@*@section head
-{
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/smoothproducts/css/smoothproducts.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/modules/catalog/product-detail.css" />
-}*@
-
 <div class="product-detail">
     <div class="row">
         <div class="col-md-6">
@@ -39,7 +27,7 @@
             <ul class="list-inline product-ratings">
                 <li><input type="hidden" value="@Model.RatingAverage" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
                 <li class="product-review-list">
-                    <span>(@Model.ReviewsCount) <a href="#reviews">@Localizer["reviews"]</a> | <a href="#addreview"> @Localizer["Add Review"]</a></span>
+                    <span>(@Model.ReviewsCount) @Localizer["reviews"]</span>
                 </li>
             </ul>
             <div class="product-short-desc">@Html.Raw(Model.ShortDescription)</div>
@@ -197,36 +185,6 @@
             }
         </div>
     </div>
-    @if (!string.IsNullOrWhiteSpace(Model.Description))
-    {
-        <div>
-            <h3>@Localizer["Product detail"]</h3>
-            @Html.Raw(Model.Description)
-        </div>
-    }
-
-    @if (!string.IsNullOrWhiteSpace(Model.Specification))
-    {
-        <div>
-            <h3>@Localizer["Product specification"]</h3>
-            @Html.Raw(Model.Specification)
-        </div>
-    }
-    @if (Model.Attributes.Any())
-    {
-        <div>
-            <h3>@Localizer["Product specification"]</h3>
-            <table class="table table-striped">
-                @foreach (var attribute in Model.Attributes)
-                {
-                    <tr>
-                        <td>@attribute.Name</td>
-                        <td>@attribute.Value</td>
-                    </tr>
-                }
-            </table>
-        </div>
-    }
 </div>
 
 <script simpl-append-version="true" src="~/lib/smoothproducts/js/smoothproducts.js"></script>

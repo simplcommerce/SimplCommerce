@@ -117,9 +117,7 @@
     <script simpl-append-version="true" src="~/modules/product-comparison/product-comparison.js"></script>
     <script simpl-append-version="true" src="~/modules/wish-list/wishlist.js"></script>
     <script simpl-append-version="true" src="~/modules/catalog/product-overview.js"></script>
-
-
-@RenderSection("scripts", required: false)
+    @RenderSection("scripts", required: false)
 
     @await Html.PartialAsync("_AnalyticsScript")
 </body>
