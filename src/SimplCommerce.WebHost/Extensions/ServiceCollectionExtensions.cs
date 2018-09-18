@@ -33,6 +33,7 @@ using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Infrastructure.Web.ModelBinders;
 using SimplCommerce.Infrastructure.Web;
+using ILoggerFactory = Microsoft.Extensions.Logging.ILoggerFactory;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -84,7 +85,10 @@ namespace SimplCommerce.WebHost.Extensions
             var mvcBuilder = services
                 .AddMvc(o =>
                 {
-                    o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider());
+				 using (var scope = services.BuildServiceProvider().CreateScope())
+				 {
+					 o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider(scope.ServiceProvider.GetRequiredService<ILoggerFactory>()));
+				 }
                 })
                 .AddRazorOptions(o =>
                 {
