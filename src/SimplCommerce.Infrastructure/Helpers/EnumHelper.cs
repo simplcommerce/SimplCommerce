@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Reflection;
 
-namespace SimplCommerce.Infrastructure
+namespace SimplCommerce.Infrastructure.Helpers
 {
     public static class EnumHelper
     {

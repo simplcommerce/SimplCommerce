@@ -1,6 +1,6 @@
 {
-  "name": "activity-log",
-  "fullName": "SimplCommerce.Module.ActivityLog",
+  "id": "SimplCommerce.Module.ActivityLog",
+  "name": "Activity Log",
   "isBundledWithHost": true,
   "version": "1.0.0"
 }

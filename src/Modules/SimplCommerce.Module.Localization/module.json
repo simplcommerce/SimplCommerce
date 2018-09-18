@@ -1,6 +1,6 @@
 {
-  "name": "localization",
-  "fullName": "SimplCommerce.Module.Localization",
+  "id": "SimplCommerce.Module.Localization",
+  "name": "Localization",
   "isBundledWithHost": true,
   "version": "1.0.0"
 }
