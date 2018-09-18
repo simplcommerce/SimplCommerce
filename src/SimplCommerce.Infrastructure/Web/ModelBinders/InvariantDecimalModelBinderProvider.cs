@@ -6,7 +6,12 @@ namespace SimplCommerce.Infrastructure.Web.ModelBinders
 {
     public class InvariantDecimalModelBinderProvider : IModelBinderProvider
     {
-	   private readonly ILoggerFactory _loggerFactory;
+        private readonly ILoggerFactory _loggerFactory;
+	
+        public InvariantDecimalModelBinderProvider(ILoggerFactory loggerFactory)
+        {
+            _loggerFactory = loggerFactory;
+        }
 
         public IModelBinder GetBinder(ModelBinderProviderContext context)
         {
@@ -19,10 +24,5 @@ namespace SimplCommerce.Infrastructure.Web.ModelBinders
 
             return null;
         }
-
-	   public InvariantDecimalModelBinderProvider(ILoggerFactory loggerFactory)
-	   {
-		  _loggerFactory = loggerFactory;
-	   }
     }
 }
