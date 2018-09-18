@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using System;
 using System.Globalization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
-using Microsoft.Extensions.Logging;
+using ILoggerFactory = Microsoft.Extensions.Logging.ILoggerFactory;
 
 namespace SimplCommerce.Infrastructure.Web.ModelBinders
 {
-    public class InvariantDecimalModelBinder : IModelBinder
+	public class InvariantDecimalModelBinder : IModelBinder
     {
         private readonly SimpleTypeModelBinder _baseBinder;
 
