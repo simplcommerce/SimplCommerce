@@ -22,7 +22,7 @@
 #### Prerequisites
 
 - SQL Server
-- [Visual Studio 2017 version >= 15.7 with .NET Core SDK 2.1.401](https://www.microsoft.com/net/download/all)
+- [Visual Studio 2017 version >= 15.8 with .NET Core SDK 2.1.402](https://www.microsoft.com/net/download/all)
 - Node.js (LTS)
 
 #### Steps to run
@@ -38,7 +38,7 @@
 #### Prerequisite
 
 - PostgreSQL
-- [.NET Core SDK 2.1.401](https://www.microsoft.com/net/download/all)
+- [.NET Core SDK 2.1.402](https://www.microsoft.com/net/download/all)
 - Node.js (LTS)
 
 #### Steps to run
@@ -49,7 +49,7 @@
 - Open browser, open http://localhost:5000. The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
 ## Technologies and frameworks used:
-- ASP.NET MVC Core 2.1.3
+- ASP.NET MVC Core 2.1.2
 - Entity Framework Core 2.1.3
 - ASP.NET Identity Core 2.1.3
 - Autofac 4.2.2
@@ -70,7 +70,7 @@ https://github.com/simplcommerce/SimplCommerce/wiki/Roadmap
 - Report bugs or suggest features by create new issues or add comments to issues
 - Submit pull requests
 - Spread the word by blogging about SimplCommerce or sharing it on social networks
-- Donate us 
+- Donate us
 
      [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JWYGHJQSYLVVQ)
 

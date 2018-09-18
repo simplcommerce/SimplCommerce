@@ -3,8 +3,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Tasks;
 using SimplCommerce.Module.Orders.Events;
 using SimplCommerce.Module.Orders.Models;
 

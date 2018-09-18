@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SimplCommerce.Infrastructure;
+using SimplCommerce.Infrastructure.Extensions;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Models;
