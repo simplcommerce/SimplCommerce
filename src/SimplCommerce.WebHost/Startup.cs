@@ -50,7 +50,7 @@ namespace SimplCommerce.WebHost
 
             services.AddCustomizedMvc(GlobalConfiguration.Modules);
 
-           // services.AddSingleton<ITagHelperComponent, LanguageDirectionTagHelperComponent>();
+           services.AddScoped<ITagHelperComponent, LanguageDirectionTagHelperComponent>();
 
             var sp = services.BuildServiceProvider();
             var moduleInitializers = sp.GetServices<IModuleInitializer>();
