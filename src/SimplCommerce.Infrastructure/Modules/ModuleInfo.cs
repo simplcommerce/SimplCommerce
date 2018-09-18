@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace SimplCommerce.Infrastructure.Modules
@@ -12,6 +13,8 @@ namespace SimplCommerce.Infrastructure.Modules
         public bool IsBundledWithHost { get; set; }
 
         public Version Version { get; set; }
+
+        public string[] Dependencies { get; set; }
 
         public Assembly Assembly { get; set; }
     }

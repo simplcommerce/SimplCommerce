@@ -2,5 +2,6 @@
   "id": "SimplCommerce.Module.Core",
   "name": "Core",
   "isBundledWithHost": true,
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "dependencies": [ ]
 }
