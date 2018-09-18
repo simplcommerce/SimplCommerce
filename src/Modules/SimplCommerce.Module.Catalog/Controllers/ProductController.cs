@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +30,42 @@ namespace SimplCommerce.Module.Catalog.Controllers
             _productPricingService = productPricingService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ProductOverview(long id)
+        {
+            var product = await _productRepository.Query()
+                .Include(x => x.OptionValues)
+                .Include(x => x.ProductLinks).ThenInclude(p => p.LinkedProduct)
+                .Include(x => x.ThumbnailImage)
+                .Include(x => x.Medias).ThenInclude(m => m.Media)
+                .FirstOrDefaultAsync(x => x.Id == id && x.IsPublished);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            var model = new ProductDetail
+            {
+                Id = product.Id,
+                Name = product.Name,
+                CalculatedProductPrice = _productPricingService.CalculateProductPrice(product),
+                IsCallForPricing = product.IsCallForPricing,
+                IsAllowToOrder = product.IsAllowToOrder,
+                StockTrackingIsEnabled = product.StockTrackingIsEnabled,
+                StockQuantity = product.StockQuantity,
+                ShortDescription = product.ShortDescription,
+                ReviewsCount = product.ReviewsCount,
+                RatingAverage = product.RatingAverage,
+            };
+
+            MapProductVariantToProductVm(product, model);
+            MapProductOptionToProductVm(product, model);
+            MapProductImagesToProductVm(product, model);
+
+            return PartialView(model);
+        }
+
         public async Task<IActionResult> ProductDetail(long id)
         {
             var product = _productRepository.Query()
@@ -43,7 +78,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 .FirstOrDefault(x => x.Id == id && x.IsPublished);
             if (product == null)
             {
-                return Redirect("~/Error/FindNotFound");
+                return NotFound();
             }
 
             var model = new ProductDetail
@@ -69,29 +104,37 @@ namespace SimplCommerce.Module.Catalog.Controllers
 
             MapProductVariantToProductVm(product, model);
             MapRelatedProductToProductVm(product, model);
-
-            foreach(var item in product.OptionValues)
-            {
-                var optionValues = JsonConvert.DeserializeObject<IList<ProductOptionValueVm>>(item.Value);
-                foreach(var value in optionValues)
-                {
-                    if (!model.OptionDisplayValues.ContainsKey(value.Key))
-                    {
-                        model.OptionDisplayValues.Add(value.Key, new ProductOptionDisplay { DisplayType = item.DisplayType, Value = value.Display});
-                    }
-                }
-            }
-
-            model.Images = product.Medias.Where(x => x.Media.MediaType == Core.Models.MediaType.Image).Select(productMedia => new MediaViewModel
-            {
-                Url = _mediaService.GetMediaUrl(productMedia.Media),
-                ThumbnailUrl = _mediaService.GetThumbnailUrl(productMedia.Media)
-            }).ToList();
+            MapProductOptionToProductVm(product, model);
+            MapProductImagesToProductVm(product, model);
 
             await _mediator.Publish(new EntityViewed { EntityId = product.Id, EntityTypeId = "Product" });
             _productRepository.SaveChanges();
 
             return View(model);
+        }
+
+        private void MapProductImagesToProductVm(Product product, ProductDetail model)
+        {
+            model.Images = product.Medias.Where(x => x.Media.MediaType == Core.Models.MediaType.Image).Select(productMedia => new MediaViewModel
+            {
+                Url = _mediaService.GetMediaUrl(productMedia.Media),
+                ThumbnailUrl = _mediaService.GetThumbnailUrl(productMedia.Media)
+            }).ToList();
+        }
+
+        private void MapProductOptionToProductVm(Product product, ProductDetail model)
+        {
+            foreach (var item in product.OptionValues)
+            {
+                var optionValues = JsonConvert.DeserializeObject<IList<ProductOptionValueVm>>(item.Value);
+                foreach (var value in optionValues)
+                {
+                    if (!model.OptionDisplayValues.ContainsKey(value.Key))
+                    {
+                        model.OptionDisplayValues.Add(value.Key, new ProductOptionDisplay { DisplayType = item.DisplayType, Value = value.Display });
+                    }
+                }
+            }
         }
 
         private void MapProductVariantToProductVm(Product product, ProductDetail model)
@@ -135,7 +178,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
         private void MapRelatedProductToProductVm(Product product, ProductDetail model)
         {
             var publishedProductLinks = product.ProductLinks.Where(x => x.LinkedProduct.IsPublished && (x.LinkType == ProductLinkType.Related || x.LinkType == ProductLinkType.CrossSell));
-            foreach(var productLink in publishedProductLinks)
+            foreach (var productLink in publishedProductLinks)
             {
                 var linkedProduct = productLink.LinkedProduct;
                 var productThumbnail = ProductThumbnail.FromProduct(linkedProduct);
@@ -143,12 +186,12 @@ namespace SimplCommerce.Module.Catalog.Controllers
                 productThumbnail.ThumbnailUrl = _mediaService.GetThumbnailUrl(linkedProduct.ThumbnailImage);
                 productThumbnail.CalculatedProductPrice = _productPricingService.CalculateProductPrice(linkedProduct);
 
-                if(productLink.LinkType == ProductLinkType.Related)
+                if (productLink.LinkType == ProductLinkType.Related)
                 {
                     model.RelatedProducts.Add(productThumbnail);
                 }
 
-                if(productLink.LinkType == ProductLinkType.CrossSell)
+                if (productLink.LinkType == ProductLinkType.CrossSell)
                 {
                     model.CrossSellProducts.Add(productThumbnail);
                 }

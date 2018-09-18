@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ILoggerFactory = Microsoft.Extensions.Logging.ILoggerFactory;
 
 namespace SimplCommerce.Infrastructure.Web.ModelBinders
