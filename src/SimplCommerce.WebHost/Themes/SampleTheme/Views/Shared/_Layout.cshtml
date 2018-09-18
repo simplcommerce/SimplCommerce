@@ -14,6 +14,8 @@
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/multi-dropdown-menu/css/bootstrap-4-navbar.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/modules/core/site.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/themes/SampleTheme/site.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/smoothproducts/css/smoothproducts.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/modules/catalog/product-detail.css" />
 
     @RenderSection("head", required: false)
 </head>
@@ -85,6 +87,12 @@
             </div>
         </div>
     </div>
+    <div id="productOverview" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content modal-padding">
+            </div>
+        </div>
+    </div>
     <script>
             window.simplGlobalSetting = {};
             window.simplGlobalSetting.lang = '@CultureInfo.CurrentCulture.Name';
@@ -102,8 +110,8 @@
         <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/vi-vn.js"></script>
     }
     <script simpl-append-version="true" src="~/modules/core/main.js"></script>
-    <script simpl-append-version="true" src="~/modules/shopping-cart/add-to-cart.js"></script>
-    <script simpl-append-version="true" src="~/modules/product-comparison/product-comparison.js"></script>
+    <script simpl-append-version="true" src="~/modules/shoppingcart/add-to-cart.js"></script>
+    <script simpl-append-version="true" src="~/modules/productcomparison/product-comparison.js"></script>
     <script simpl-append-version="true" src="~/modules/catalog/product-overview.js"></script>
     @RenderSection("scripts", required: false)
 

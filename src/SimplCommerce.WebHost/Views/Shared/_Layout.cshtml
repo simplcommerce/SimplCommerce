@@ -14,11 +14,6 @@
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/multi-dropdown-menu/css/bootstrap-4-navbar.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/modules/core/site.css" />
 
-    @{
-        <link simpl-append-version="true" rel="stylesheet" href="~/lib/smoothproducts/css/smoothproducts.css" />
-        <link simpl-append-version="true" rel="stylesheet" href="~/modules/catalog/product-detail.css" />
-    }
-
     @RenderSection("head", required: false)
 </head>
 <body>
@@ -113,10 +108,9 @@
         <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/vi-vn.js"></script>
     }
     <script simpl-append-version="true" src="~/modules/core/main.js"></script>
-    <script simpl-append-version="true" src="~/modules/shopping-cart/add-to-cart.js"></script>
-    <script simpl-append-version="true" src="~/modules/product-comparison/product-comparison.js"></script>
-    <script simpl-append-version="true" src="~/modules/wish-list/wishlist.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/product-overview.js"></script>
+    <script simpl-append-version="true" src="~/modules/shoppingcart/add-to-cart.js"></script>
+    <script simpl-append-version="true" src="~/modules/productcomparison/product-comparison.js"></script>
+    <script simpl-append-version="true" src="~/modules/wishlist/wishlist.js"></script>
     @RenderSection("scripts", required: false)
 
     @await Html.PartialAsync("_AnalyticsScript")
