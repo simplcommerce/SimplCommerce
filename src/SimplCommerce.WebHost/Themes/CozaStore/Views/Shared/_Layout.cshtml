@@ -39,7 +39,7 @@
                         <a href="~/help-center" class="flex-c-m trans-04 p-lr-25">
                             Help & FAQs
                         </a>
-                        @await Html.PartialAsync("_LoginPartial")
+				    <partial name="~/Views/Shared/_LoginPartial.cshtml" />
                     </div>
                 </div>
             </div>
@@ -107,8 +107,8 @@
                         <a href="#" class="flex-c-m p-lr-10 trans-04">
                             Help & FAQs
                         </a>
-
-                        @await Html.PartialAsync("_LoginPartial")
+					
+				    <partial name="~/Views/Shared/_LoginPartial.cshtml" />
                     </div>
                 </li>
             </ul>
@@ -259,7 +259,7 @@
     <script simpl-append-version="true" src="~/modules/shoppingcart/add-to-cart.js"></script>
     <script simpl-append-version="true" src="~/modules/productcomparison/product-comparison.js"></script>
     @RenderSection("scripts", required: false)
-
-    @await Html.PartialAsync("_AnalyticsScript")
+	
+    <partial name="~/Views/Shared/_AnalyticsScript.cshtml" />
 </body>
 </html>

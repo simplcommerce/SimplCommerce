@@ -20,7 +20,7 @@
         <div class="news-category-detail row">
             @foreach (var item in Model.NewsItem)
             {
-                @await Html.PartialAsync("_NewsThumbnail", item)
+ 			 <partial name="~/Modules/SimplCommerce.Module.News/Views/Shared/_NewsThumbnail.cshtml" model="item" />
             }
         </div>
     }

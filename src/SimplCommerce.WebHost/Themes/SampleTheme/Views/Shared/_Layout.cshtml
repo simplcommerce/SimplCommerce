@@ -21,8 +21,8 @@
     <div class="top-bar">
         <div class="container">
             <ul class="nav justify-content-end">
-                @await Html.PartialAsync("_SelectLanguagePartial")
-                @await Html.PartialAsync("_LoginPartial")
+			 <partial name="~/Views/Shared/_SelectLanguagePartial.cshtml" />
+			 <partial name="~/Views/Shared/_LoginPartial.cshtml" />
             </ul>
         </div>
     </div>
@@ -105,7 +105,7 @@
     <script simpl-append-version="true" src="~/modules/shoppingcart/add-to-cart.js"></script>
     <script simpl-append-version="true" src="~/modules/productcomparison/product-comparison.js"></script>
     @RenderSection("scripts", required: false)
-
-    @await Html.PartialAsync("_AnalyticsScript")
+	
+    <partial name="~/Views/Shared/_AnalyticsScript.cshtml" />
 </body>
 </html>

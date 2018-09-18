@@ -247,7 +247,7 @@
         @foreach (var product in Model.RelatedProducts)
         {
             <div class="col-xs-6 col-md-3">
-                @await Html.PartialAsync("_ProductThumbnail", product)
+			 <partial name="~/Modules/SimplCOmmerce.Module.Catalog/Views/Shared/_ProductThumbnail.cshtml" model="product" />
             </div>
         }
     </div>
@@ -260,7 +260,7 @@
         @foreach (var product in Model.CrossSellProducts)
         {
             <div class="col-xs-6 col-md-3">
-                @await Html.PartialAsync("_ProductThumbnail", product)
+			 <partial name="~/Modules/SimplCOmmerce.Module.Catalog/Views/Shared/_ProductThumbnail.cshtml" model="product" />
             </div>
         }
     </div>
@@ -278,9 +278,8 @@
     @await Component.InvokeAsync("Comment", new { entityId = Model.Id, entityTypeId = "Product" })
 </div>
 
-@section scripts
-{
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+@section scripts {
+    <partial name="~/Views/Shared/_ValidationScriptsPartial.cshtml" />
     <script simpl-append-version="true" src="~/lib/smoothproducts/js/smoothproducts.js"></script>
     <script simpl-append-version="true" src="~/modules/catalog/product-detail.js"></script>
 }
