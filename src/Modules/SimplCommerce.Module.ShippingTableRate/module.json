@@ -1,6 +1,6 @@
 {
-  "name": "shipping-tablerate",
-  "fullName": "SimplCommerce.Module.ShippingTableRate",
+  "id": "SimplCommerce.Module.ShippingTableRate",
+  "name": "Shipping Table Rate",
   "isBundledWithHost": true,
   "version": "1.0.0"
 }

@@ -16,11 +16,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin - SimplCommerce</title>
 
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/angular-material/angular-material.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/angular-bootstrap/ui-bootstrap-csp.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/toastr/toastr.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/toastr/build/toastr.min.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/summernote/summernote.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/angular-ui-tree/angular-ui-tree.min.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/angular-bootstrap-colorpicker/css/colorpicker.min.css" />
@@ -29,7 +29,7 @@
         window.Global_AssetVersion = "@Config["Global.AssetVersion"]";
     </script>
     <script simpl-append-version="true" src="~/lib/jquery/jquery.js"></script>
-    <script simpl-append-version="true" src="~/lib/bootstrap/js/bootstrap.js"></script>
+    <script simpl-append-version="true" src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script simpl-append-version="true" src="~/lib/summernote/summernote.js"></script>
     <script simpl-append-version="true" src="~/lib/angular/angular.js"></script>
     <script simpl-append-version="true" src="~/lib/angular-ui-router/angular-ui-router.js"></script>
@@ -37,8 +37,8 @@
     <script simpl-append-version="true" src="~/lib/angular-aria/angular-aria.js"></script>
     <script simpl-append-version="true" src="~/lib/angular-messages/angular-messages.js"></script>
     <script simpl-append-version="true" src="~/lib/angular-material/angular-material.js"></script>
-    <script simpl-append-version="true" src="~/lib/angular-smart-table/smart-table.js"></script>
-    <script simpl-append-version="true" src="~/lib/ng-file-upload/ng-file-upload.js"></script>
+    <script simpl-append-version="true" src="~/lib/angular-smart-table/dist/smart-table.js"></script>
+    <script simpl-append-version="true" src="~/lib/ng-file-upload/dist/ng-file-upload.js"></script>
     <script simpl-append-version="true" src="~/lib/angular-bootstrap/ui-bootstrap.js"></script>
     <script simpl-append-version="true" src="~/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script simpl-append-version="true" src="~/lib/bootstrap-ui-datetime-picker/datetime-picker.js"></script>
@@ -46,7 +46,7 @@
     <script simpl-append-version="true" src="~/lib/angular-summernote/angular-summernote.js"></script>
     <script simpl-append-version="true" src="~/lib/angular-ui-tree/angular-ui-tree.js"></script>
     <script simpl-append-version="true" src="~/lib/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
-    <script simpl-append-version="true" src="~/lib/toastr/toastr.js"></script>
+    <script simpl-append-version="true" src="~/lib/toastr/build/toastr.min.js"></script>
     <script simpl-append-version="true" src="~/lib/bootbox/bootbox.js"></script>
     <script simpl-append-version="true" src="~/lib/i18n/angular-locale_@(CultureInfo.CurrentCulture.Name.ToLower()).js"></script>
 
@@ -151,9 +151,9 @@
     <script simpl-append-version="true" src="~/modules/comments/admin/comment/comment-service.js"></script>
     <script simpl-append-version="true" src="~/modules/comments/admin/comment/comment-list.js"></script>
 
-    <script simpl-append-version="true" src="~/modules/activity-log/admin/activitylog.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/activity-log/admin/activitylog-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/activity-log/admin/most-viewed-products.directive.js"></script>
+    <script simpl-append-version="true" src="~/modules/activitylog/admin/activitylog.module.js"></script>
+    <script simpl-append-version="true" src="~/modules/activitylog/admin/activitylog-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/activitylog/admin/most-viewed-products.directive.js"></script>
 
     <script simpl-append-version="true" src="~/modules/vendors/admin/vendors.module.js"></script>
     <script simpl-append-version="true" src="~/modules/vendors/admin/vendors/vendor-service.js"></script>
@@ -200,9 +200,9 @@
     <script simpl-append-version="true" src="~/modules/shipping/admin/provider/shipping-provider-service.js"></script>
     <script simpl-append-version="true" src="~/modules/shipping/admin/provider/shipping-provider-list.js"></script>
 
-    <script simpl-append-version="true" src="~/modules/shipping-tablerate/admin/shipping-tablerate.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/shipping-tablerate/admin/tablerate/shipping-tablerate-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/shipping-tablerate/admin/tablerate/shipping-tablerate-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/shippingtablerate/admin/shipping-tablerate.module.js"></script>
+    <script simpl-append-version="true" src="~/modules/shippingtablerate/admin/tablerate/shipping-tablerate-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/shippingtablerate/admin/tablerate/shipping-tablerate-form.js"></script>
 
     <script simpl-append-version="true" src="~/modules/payments/admin/payments.module.js"></script>
     <script simpl-append-version="true" src="~/modules/payments/admin/provider/payment-provider-service.js"></script>
@@ -210,21 +210,21 @@
     <script simpl-append-version="true" src="~/modules/payments/admin/payment/payment-service.js"></script>
     <script simpl-append-version="true" src="~/modules/payments/admin/payment/payment-list-by-order.directive.js"></script>
 
-    <script simpl-append-version="true" src="~/modules/paymentStripe/admin/paymentStripe.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentStripe/admin/stripe/stripe-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentStripe/admin/stripe/stripe-config-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/paymentstripe/admin/paymentStripe.module.js"></script>
+    <script simpl-append-version="true" src="~/modules/paymentstripe/admin/stripe/stripe-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/paymentstripe/admin/stripe/stripe-config-form.js"></script>
 
-    <script simpl-append-version="true" src="~/modules/paymentPaypalExpress/admin/paypalExpress.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentPaypalExpress/admin/config/paypalExpress-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentPaypalExpress/admin/config/config-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/paymentpaypalexpress/admin/paypalExpress.module.js"></script>
+    <script simpl-append-version="true" src="~/modules/paymentpaypalexpress/admin/config/paypalExpress-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/paymentpaypalexpress/admin/config/config-form.js"></script>
 
-    <script simpl-append-version="true" src="~/modules/paymentCoD/admin/paymentCoD.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentCoD/admin/config/cod-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentCoD/admin/config/config-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/paymentcod/admin/paymentCoD.module.js"></script>
+    <script simpl-append-version="true" src="~/modules/paymentcod/admin/config/cod-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/paymentcod/admin/config/config-form.js"></script>
 
-    <script simpl-append-version="true" src="~/modules/product-recently-viewed/admin/product-recently-viewed.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/product-recently-viewed/admin/recently-viewed-widget/recently-viewed-widget-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/product-recently-viewed/admin/recently-viewed-widget/recently-viewed-widget-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/productrecentlyviewed/admin/product-recently-viewed.module.js"></script>
+    <script simpl-append-version="true" src="~/modules/productrecentlyviewed/admin/recently-viewed-widget/recently-viewed-widget-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/productrecentlyviewed/admin/recently-viewed-widget/recently-viewed-widget-form.js"></script>
     
     <script simpl-append-version="true" src="~/modules/inventory/admin/inventory.module.js"></script>
     <script simpl-append-version="true" src="~/modules/inventory/admin/stock/stock-service.js"></script>

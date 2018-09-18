@@ -15,7 +15,7 @@ namespace SimplCommerce.WebHost.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.1.2-rtm-30932")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -87,6 +87,46 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("Core_UserToken");
+                });
+
+            modelBuilder.Entity("SimplCommerce.Infrastructure.Localization.Culture", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(450);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Localization_Culture");
+
+                    b.HasData(
+                        new { Id = "en-US", Name = "English (US)" }
+                    );
+                });
+
+            modelBuilder.Entity("SimplCommerce.Infrastructure.Localization.Resource", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CultureId")
+                        .IsRequired();
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasMaxLength(450);
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CultureId");
+
+                    b.ToTable("Localization_Resource");
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.ActivityLog.Models.Activity", b =>
@@ -1039,6 +1079,8 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<DateTimeOffset>("CreatedOn");
 
+                    b.Property<string>("Culture");
+
                     b.Property<long?>("DefaultBillingAddressId");
 
                     b.Property<long?>("DefaultShippingAddressId");
@@ -1345,50 +1387,6 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasData(
                         new { Id = 1L, AddressId = 1L, Name = "Default warehouse" }
                     );
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.Localization.Models.Culture", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("IsDefault")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(false);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(450);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Localization_Culture");
-
-                    b.HasData(
-                        new { Id = "en-US", IsDefault = true, Name = "English (US)" }
-                    );
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.Localization.Models.Resource", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CultureId")
-                        .IsRequired();
-
-                    b.Property<string>("Key")
-                        .IsRequired()
-                        .HasMaxLength(450);
-
-                    b.Property<string>("Value");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CultureId");
-
-                    b.ToTable("Localization_Resource");
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.News.Models.NewsCategory", b =>
@@ -2286,6 +2284,14 @@ namespace SimplCommerce.WebHost.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("SimplCommerce.Infrastructure.Localization.Resource", b =>
+                {
+                    b.HasOne("SimplCommerce.Infrastructure.Localization.Culture", "Culture")
+                        .WithMany("Resources")
+                        .HasForeignKey("CultureId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("SimplCommerce.Module.ActivityLog.Models.Activity", b =>
                 {
                     b.HasOne("SimplCommerce.Module.ActivityLog.Models.ActivityType", "ActivityType")
@@ -2645,14 +2651,6 @@ namespace SimplCommerce.WebHost.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("SimplCommerce.Module.Localization.Models.Resource", b =>
-                {
-                    b.HasOne("SimplCommerce.Module.Localization.Models.Culture", "Culture")
-                        .WithMany("Resources")
-                        .HasForeignKey("CultureId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
             modelBuilder.Entity("SimplCommerce.Module.News.Models.NewsItem", b =>
                 {
                     b.HasOne("SimplCommerce.Module.Core.Models.User", "CreatedBy")
@@ -2972,12 +2970,12 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasOne("SimplCommerce.Module.Catalog.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("SimplCommerce.Module.WishList.Models.WishList", "WishList")
                         .WithMany("Items")
                         .HasForeignKey("WishListId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

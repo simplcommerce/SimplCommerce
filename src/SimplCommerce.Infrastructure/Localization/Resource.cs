@@ -1,7 +1,7 @@
 ﻿using SimplCommerce.Infrastructure.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace SimplCommerce.Module.Localization.Models
+namespace SimplCommerce.Infrastructure.Localization
 {
     public class Resource : EntityBase
     {

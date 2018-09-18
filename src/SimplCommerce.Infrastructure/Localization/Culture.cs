@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using SimplCommerce.Infrastructure.Models;
 
-namespace SimplCommerce.Module.Localization.Models
+namespace SimplCommerce.Infrastructure.Localization
 {
     public class Culture : EntityBaseWithTypedId<string>
     {
@@ -14,8 +14,6 @@ namespace SimplCommerce.Module.Localization.Models
         [Required]
         [StringLength(450)]
         public string Name { get; set; }
-
-        public bool IsDefault { get; set; }
 
         public IList<Resource> Resources { get; set; }
     }

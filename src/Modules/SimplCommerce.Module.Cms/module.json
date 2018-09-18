@@ -1,6 +1,6 @@
 {
-  "name": "cms",
-  "fullName": "SimplCommerce.Module.Cms",
+  "id": "SimplCommerce.Module.Cms",
+  "name": "Content Management System (CMS)",
   "isBundledWithHost": true,
   "version": "1.0.0"
 }

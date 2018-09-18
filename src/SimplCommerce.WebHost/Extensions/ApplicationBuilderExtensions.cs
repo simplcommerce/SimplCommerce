@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
@@ -7,13 +6,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Localization.Models;
 using SimplCommerce.Infrastructure;
+using SimplCommerce.Infrastructure.Localization;
+using SimplCommerce.Module.Localization;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -101,22 +100,16 @@ namespace SimplCommerce.WebHost.Extensions
         public static IApplicationBuilder UseCustomizedRequestLocalization(this IApplicationBuilder app)
         {
             var cultureRepository = app.ApplicationServices.GetRequiredService<IRepositoryWithTypedId<Culture, string>>();
-            var cultures = cultureRepository.Query().ToList();
+            GlobalConfiguration.Cultures = cultureRepository.Query().ToList();
+            var supportedCultures = GlobalConfiguration.Cultures.Select(c => c.Id).ToArray();
+            app.UseRequestLocalization(options =>
+            options
+                .AddSupportedCultures(supportedCultures)
+                .AddSupportedUICultures(supportedCultures)
+                .SetDefaultCulture(GlobalConfiguration.DefaultCulture)
+                .RequestCultureProviders.Insert(0, new EfRequestCultureProvider())
+            );
 
-            GlobalConfiguration.SimpleCultures = cultures.Select(x => new SimpleCulture { Id = x.Id, Name = x.Name }).ToList();
-            var supportedCultures = cultures.Select(x => new CultureInfo(x.Id)).ToList();
-            var defaultCulture = cultures.Where(x => x.IsDefault).Select(x => new CultureInfo(x.Id)).FirstOrDefault();
-            if(defaultCulture == null)
-            {
-                defaultCulture = new CultureInfo("en-US");
-            }
-
-            app.UseRequestLocalization(new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new RequestCulture(defaultCulture, defaultCulture),
-                SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures
-            });
             return app;
         }
     }
