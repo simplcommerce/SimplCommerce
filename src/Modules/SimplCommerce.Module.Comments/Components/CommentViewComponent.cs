@@ -1,11 +1,10 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Comments.Models;
 using SimplCommerce.Module.Comments.ViewModels;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.Comments.Components
 {
@@ -13,10 +12,8 @@ namespace SimplCommerce.Module.Comments.Components
     {
         private readonly IRepository<Comment> _commentRepository;
 
-        public CommentViewComponent(IRepository<Comment> commentRepository)
-        {
-            _commentRepository = commentRepository;
-        }
+        public CommentViewComponent(IRepository<Comment> commentRepository) 
+            => _commentRepository = commentRepository;
 
         public async Task<IViewComponentResult> InvokeAsync(long entityId, string entityTypeId)
         {
@@ -51,7 +48,7 @@ namespace SimplCommerce.Module.Comments.Components
 
             model.CommentsCount = model.Items.Data.Count;
 
-            return View(this.GetViewPath(), model);
+            return View(model);
         }
     }
 }
