@@ -90,13 +90,6 @@ namespace SimplCommerce.WebHost.Extensions
                         o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider(loggerFactory));
                     }
                 })
-                //.AddRazorOptions(o =>
-                //{
-                //    foreach (var module in modules)
-                //    {
-                //        o.AdditionalCompilationReferences.Add(MetadataReference.CreateFromFile(module.Assembly.Location));
-                //    }
-                //})
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1); ;
