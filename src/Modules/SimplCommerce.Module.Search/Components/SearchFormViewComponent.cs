@@ -1,10 +1,9 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Search.ViewModels;
+using System.Linq;
 
 namespace SimplCommerce.Module.Search.Components
 {
@@ -12,10 +11,8 @@ namespace SimplCommerce.Module.Search.Components
     {
         private IRepository<Category> _categoryRepository;
 
-        public SearchFormViewComponent(IRepository<Category> categoryRepository)
-        {
-            _categoryRepository = categoryRepository;
-        }
+        public SearchFormViewComponent(IRepository<Category> categoryRepository) 
+            => _categoryRepository = categoryRepository;
 
         public IViewComponentResult Invoke()
         {
@@ -32,7 +29,7 @@ namespace SimplCommerce.Module.Search.Components
             model.Query = Request.Query["query"];
             model.Category = Request.Query["category"];
 
-            return View(this.GetViewPath(), model);
+            return View(model);
         }
     }
 }
