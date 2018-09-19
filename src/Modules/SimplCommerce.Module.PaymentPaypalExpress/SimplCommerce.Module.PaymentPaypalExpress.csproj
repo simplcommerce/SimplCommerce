@@ -15,5 +15,11 @@
     <ProjectReference Include="..\SimplCommerce.Module.Orders\SimplCommerce.Module.Orders.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.Payments\SimplCommerce.Module.Payments.csproj" />
   </ItemGroup>
+	
+  <ItemGroup>
+    <Content Update="Views\Shared\Components\PaypalExpressLanding\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup> 
 
 </Project>

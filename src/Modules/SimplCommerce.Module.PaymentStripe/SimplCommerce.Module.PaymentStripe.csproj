@@ -16,5 +16,11 @@
     <ProjectReference Include="..\SimplCommerce.Module.Payments\SimplCommerce.Module.Payments.csproj" />
     <PackageReference Include="Stripe.net" Version="16.10.0" />
   </ItemGroup>
+	
+  <ItemGroup>
+    <Content Update="Views\Shared\Components\StripeLanding\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
 
 </Project>
