@@ -2,6 +2,8 @@
 @using SimplCommerce.Module.Core.Models
 
 @model SimplCommerce.Module.Orders.Models.Order
+
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
 @inject IRepository<StateOrProvince> StateOrProvinceRepository
 @inject IRepository<District> DistrictRepository
 

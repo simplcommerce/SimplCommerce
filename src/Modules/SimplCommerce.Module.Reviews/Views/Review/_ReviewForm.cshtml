@@ -1,4 +1,6 @@
-﻿@model SimplCommerce.Module.Reviews.ViewModels.ReviewForm
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+@model SimplCommerce.Module.Reviews.ViewModels.ReviewForm
 <form id="form-addreview" asp-controller="Review" asp-action="AddReview" method="post" role="form">
     <input asp-for="EntityId" type="hidden" />
     <input asp-for="EntityTypeId" type="hidden" />

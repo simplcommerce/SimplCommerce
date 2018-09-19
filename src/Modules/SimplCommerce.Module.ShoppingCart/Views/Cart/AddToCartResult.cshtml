@@ -1,4 +1,6 @@
-﻿@model SimplCommerce.Module.ShoppingCart.ViewModels.AddToCartResult
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+@model SimplCommerce.Module.ShoppingCart.ViewModels.AddToCartResult
 
 <div class="modal-header">
     <h5 class="modal-title" id="myModalLabel">@Localizer["The product has been added to your cart"]</h5>

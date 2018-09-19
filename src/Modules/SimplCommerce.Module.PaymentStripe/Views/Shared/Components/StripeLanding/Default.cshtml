@@ -1,4 +1,6 @@
-﻿@model SimplCommerce.Module.PaymentStripe.ViewModels.StripeCheckoutForm
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model SimplCommerce.Module.PaymentStripe.ViewModels.StripeCheckoutForm
 
 <label>Stripe</label>
 <form asp-controller="Stripe" asp-action="Charge" method="POST">
