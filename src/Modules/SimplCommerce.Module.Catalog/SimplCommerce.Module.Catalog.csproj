@@ -31,9 +31,6 @@
     <Content Update="Views\Shared\_ProductThumbnail.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Shared\Components\CategoryBreadcrumb\Default.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="Views\Shared\Shared\CategoryMenu\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
