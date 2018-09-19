@@ -31,6 +31,9 @@
     <Content Update="Views\Order\OrderHistoryList.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Shared\Components\OrderSummaer\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Shared\InvoiceToPdf.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
