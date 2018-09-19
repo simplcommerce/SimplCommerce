@@ -1,9 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <PreserveCompilationContext>false</PreserveCompilationContext>
-    <EnableDefaultContentItems>false</EnableDefaultContentItems>
+    <TargetFramework>netcoreapp2.1</TargetFramework>    
     <OutputType>Library</OutputType>
   </PropertyGroup>
 
@@ -18,6 +16,27 @@
     <ProjectReference Include="..\SimplCommerce.Module.Pricing\SimplCommerce.Module.Pricing.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.ShippingPrices\SimplCommerce.Module.ShippingPrices.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.ShoppingCart\SimplCommerce.Module.ShoppingCart.csproj" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <Content Update="Views\Checkout\OrderConfirmation.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Checkout\Shipping.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\EmailTemplates\OrderEmailToCustomer.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Order\OrderHistoryList.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\InvoiceToPdf.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\OrderSummary\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
   </ItemGroup>
 
 </Project>

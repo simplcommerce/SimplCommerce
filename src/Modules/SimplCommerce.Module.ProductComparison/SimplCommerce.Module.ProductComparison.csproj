@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <PreserveCompilationContext>false</PreserveCompilationContext>
-    <EnableDefaultContentItems>false</EnableDefaultContentItems>
     <OutputType>Library</OutputType>
   </PropertyGroup>
 
@@ -15,6 +13,15 @@
     <ProjectReference Include="..\..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.Catalog\SimplCommerce.Module.Catalog.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <Content Update="Views\ComparingProducts\AddToComparisonResult.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\ComparingProducts\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
   </ItemGroup>
 
 </Project>
