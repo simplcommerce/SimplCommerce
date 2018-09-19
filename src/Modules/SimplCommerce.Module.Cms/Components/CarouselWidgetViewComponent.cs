@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Cms.ViewModels;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Core.ViewModels;
+using System.Collections.Generic;
 
 namespace SimplCommerce.Module.Cms.Components
 {
@@ -12,10 +11,8 @@ namespace SimplCommerce.Module.Cms.Components
     {
         private IMediaService _mediaService;
 
-        public CarouselWidgetViewComponent(IMediaService mediaService)
-        {
-            _mediaService = mediaService;
-        }
+        public CarouselWidgetViewComponent(IMediaService mediaService) 
+            => _mediaService = mediaService;
 
         public IViewComponentResult Invoke(WidgetInstanceViewModel widgetInstance)
         {
@@ -30,7 +27,7 @@ namespace SimplCommerce.Module.Cms.Components
                 item.Image = _mediaService.GetMediaUrl(item.Image);
             }
 
-            return View(this.GetViewPath(), model);
+            return View(model);
         }
     }
 }

@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Cms.Models;
+using SimplCommerce.Module.Cms.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Infrastructure.Web;
-using SimplCommerce.Module.Cms.Models;
-using SimplCommerce.Module.Cms.ViewModels;
 
 namespace SimplCommerce.Module.Cms.Components
 {
@@ -15,10 +14,8 @@ namespace SimplCommerce.Module.Cms.Components
     {
         private readonly IRepository<Menu> _menuRepository;
 
-        public MenuViewComponent(IRepository<Menu> menuRepository)
-        {
-            _menuRepository = menuRepository;
-        }
+        public MenuViewComponent(IRepository<Menu> menuRepository) 
+            => _menuRepository = menuRepository;
 
         public async Task<IViewComponentResult> InvokeAsync(long menuId)
         {
@@ -36,7 +33,7 @@ namespace SimplCommerce.Module.Cms.Components
                 menuItemVms.Add(menuItemVm);
             }
 
-            return View(this.GetViewPath(), menuItemVms);
+            return View(model: menuItemVms);
         }
 
         private MenuItemVm Map(MenuItem menuItem)
