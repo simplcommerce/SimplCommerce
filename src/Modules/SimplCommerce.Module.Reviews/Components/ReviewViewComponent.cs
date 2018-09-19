@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Reviews.Models;
 using SimplCommerce.Module.Reviews.ViewModels;
 using System.Linq;
@@ -13,10 +12,8 @@ namespace SimplCommerce.Module.Reviews.Components
     {
         private readonly IRepository<Review> _reviewRepository;
 
-        public ReviewViewComponent(IRepository<Review> reviewRepository)
-        {
-            _reviewRepository = reviewRepository;
-        }
+        public ReviewViewComponent(IRepository<Review> reviewRepository) 
+            => _reviewRepository = reviewRepository;
 
         public async Task<IViewComponentResult> InvokeAsync(long entityId, string entityTypeId)
         {
@@ -57,7 +54,7 @@ namespace SimplCommerce.Module.Reviews.Components
             model.Rating4Count = model.Items.Data.Count(x => x.Rating == 4);
             model.Rating5Count = model.Items.Data.Count(x => x.Rating == 5);
 
-            return View(this.GetViewPath(), model);
+            return View(model);
         }
     }
 }
