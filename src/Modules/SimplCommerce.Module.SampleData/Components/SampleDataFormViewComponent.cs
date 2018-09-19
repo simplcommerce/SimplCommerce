@@ -1,9 +1,8 @@
-﻿using System.IO;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure;
-using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.SampleData.ViewModels;
+using System.IO;
+using System.Linq;
 
 namespace SimplCommerce.Module.SampleData.Components
 {
@@ -15,7 +14,7 @@ namespace SimplCommerce.Module.SampleData.Components
             var directoryInfo = new DirectoryInfo(sampleContentFolder);
             var industries = directoryInfo.GetDirectories().Select(x => x.Name).ToList();
             var model = new SampleDataOption { AvailableIndustries = industries };
-            return View(this.GetViewPath(), model);
+            return View(model);
         }
     }
 }
