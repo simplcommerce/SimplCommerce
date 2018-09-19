@@ -74,10 +74,10 @@
                         <div>
                             <button class="btn-add-review-reply btn btn-link">@Localizer["Add Reply"]</button>
                             <div class="add-review-reply d-none">
-						  @{ 
-							 commentForm.ParentId = comment.Id;
-						  }
-						  <partial name="_ReplyForm" model="commentForm" />
+				@{ 
+				    commentForm.ParentId = comment.Id;
+				}
+			        <partial name="_ReplyForm" model="commentForm" />
                             </div>
                         </div>
                     </div>
