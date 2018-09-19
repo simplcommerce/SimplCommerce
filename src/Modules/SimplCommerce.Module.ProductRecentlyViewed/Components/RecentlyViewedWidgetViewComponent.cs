@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using SimplCommerce.Infrastructure.Web;
-using SimplCommerce.Module.ProductRecentlyViewed.ViewModels;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Core.ViewModels;
+using SimplCommerce.Module.ProductRecentlyViewed.ViewModels;
 
 namespace SimplCommerce.Module.ProductRecentlyViewed.Components
 {
@@ -24,7 +23,7 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Components
                 ItemCount = JsonConvert.DeserializeObject<int>(widgetInstance.Data)
             };
 
-            return View(this.GetViewPath(), model);
+            return View(model);
         }
 
     }
