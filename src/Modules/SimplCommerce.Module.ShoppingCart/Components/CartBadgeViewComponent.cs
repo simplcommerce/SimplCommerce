@@ -1,8 +1,7 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using SimplCommerce.Infrastructure.Web;
+﻿using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.ShoppingCart.Services;
+using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.ShoppingCart.Components
 {
@@ -22,7 +21,7 @@ namespace SimplCommerce.Module.ShoppingCart.Components
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetCart(currentUser.Id);
             
-            return View(this.GetViewPath(), cart.Items.Count);
+            return View(cart.Items.Count);
         }
     }
 }
