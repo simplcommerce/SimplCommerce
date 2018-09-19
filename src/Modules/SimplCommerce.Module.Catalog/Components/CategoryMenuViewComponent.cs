@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SimplCommerce.Module.Catalog.Components
 {
@@ -12,10 +11,8 @@ namespace SimplCommerce.Module.Catalog.Components
     {
         private readonly IRepository<Category> _categoryRepository;
 
-        public CategoryMenuViewComponent(IRepository<Category> categoryRepository)
-        {
-            _categoryRepository = categoryRepository;
-        }
+        public CategoryMenuViewComponent(IRepository<Category> categoryRepository) 
+            => _categoryRepository = categoryRepository;
 
         public IViewComponentResult Invoke()
         {
@@ -29,7 +26,7 @@ namespace SimplCommerce.Module.Catalog.Components
                 categoryMenuItems.Add(categoryMenuItem);
             }
 
-            return View(this.GetViewPath(), categoryMenuItems);
+            return View(categoryMenuItems);
         }
 
         private CategoryMenuItem Map(Category category)

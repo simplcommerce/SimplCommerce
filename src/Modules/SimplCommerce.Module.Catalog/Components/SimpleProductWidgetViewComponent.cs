@@ -1,13 +1,12 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Core.ViewModels;
+using System.Linq;
 
 namespace SimplCommerce.Module.Catalog.Components
 {
@@ -46,7 +45,7 @@ namespace SimplCommerce.Module.Catalog.Components
                 }
             }
 
-            return View(this.GetViewPath(), model);
+            return View(model);
         }
     }
 }

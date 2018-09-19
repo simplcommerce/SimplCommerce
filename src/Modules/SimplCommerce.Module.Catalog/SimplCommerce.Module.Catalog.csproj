@@ -31,16 +31,22 @@
     <Content Update="Views\Shared\_ProductThumbnail.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Shared\Shared\CategoryMenu\Default.cshtml">
+    <Content Update="Views\Shared\Shared\Components\_ViewImports.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Shared\Shared\CategoryWidget\Default.cshtml">
+    <Content Update="Views\Shared\Shared\Components\CategoryBreadcrumb\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Shared\Shared\ProductWidget\Default.cshtml">
+    <Content Update="Views\Shared\Shared\Components\CategoryMenu\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Shared\Shared\SimpleProductWidget\Default.cshtml">
+    <Content Update="Views\Shared\Shared\Components\CategoryWidget\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Shared\Components\ProductWidget\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Shared\Components\SimpleProductWidget\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>
