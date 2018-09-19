@@ -45,7 +45,7 @@ namespace SimplCommerce.Module.Core.Components
                     .FirstOrDefaultAsync();
             }
 
-            return View(this.GetViewPath(), model);
+            return View(model);
         }
     }
 }
