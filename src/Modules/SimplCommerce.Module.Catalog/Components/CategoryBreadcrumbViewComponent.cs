@@ -5,6 +5,7 @@ using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
+using static SimplCommerce.Infrastructure.Web.ViewComponentExtensions;
 
 namespace SimplCommerce.Module.Catalog.Components
 {
@@ -12,8 +13,10 @@ namespace SimplCommerce.Module.Catalog.Components
     {
         private readonly IRepository<Category> _categoryRepository;
 
-        public CategoryBreadcrumbViewComponent(IRepository<Category> categoryRepository) 
-            => _categoryRepository = categoryRepository;
+        public CategoryBreadcrumbViewComponent(IRepository<Category> categoryRepository)
+        {
+            _categoryRepository = categoryRepository;
+        }
 
         public IViewComponentResult Invoke(long? categoryId, IEnumerable<long> categoryIds)
         {
@@ -28,7 +31,7 @@ namespace SimplCommerce.Module.Catalog.Components
                 breadcrumbs = breadcrumbList.OrderByDescending(x => x.Count).First();
             }
 
-            return View(breadcrumbs);
+            return View(this.GetViewPath(), breadcrumbs);
         }
 
         private IList<BreadcrumbViewModel> Create(long categoryId)

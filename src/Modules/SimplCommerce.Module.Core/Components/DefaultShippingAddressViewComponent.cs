@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.ViewModels;
 using SimplCommerce.Module.Core.ViewModels.Manage;
+using static SimplCommerce.Infrastructure.Web.ViewComponentExtensions;
 
 namespace SimplCommerce.Module.Core.Components
 {
@@ -45,7 +45,7 @@ namespace SimplCommerce.Module.Core.Components
                     .FirstOrDefaultAsync();
             }
 
-            return View(model);
+            return View(this.GetViewPath(), model);
         }
     }
 }

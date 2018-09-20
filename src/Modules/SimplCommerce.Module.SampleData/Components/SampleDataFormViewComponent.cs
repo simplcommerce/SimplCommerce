@@ -3,6 +3,7 @@ using SimplCommerce.Infrastructure;
 using SimplCommerce.Module.SampleData.ViewModels;
 using System.IO;
 using System.Linq;
+using static SimplCommerce.Infrastructure.Web.ViewComponentExtensions;
 
 namespace SimplCommerce.Module.SampleData.Components
 {
@@ -14,7 +15,7 @@ namespace SimplCommerce.Module.SampleData.Components
             var directoryInfo = new DirectoryInfo(sampleContentFolder);
             var industries = directoryInfo.GetDirectories().Select(x => x.Name).ToList();
             var model = new SampleDataOption { AvailableIndustries = industries };
-            return View(model);
+            return View(this.GetViewPath(), model);
         }
     }
 }

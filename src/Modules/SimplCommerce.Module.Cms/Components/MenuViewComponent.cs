@@ -7,15 +7,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static SimplCommerce.Infrastructure.Web.ViewComponentExtensions;
 
 namespace SimplCommerce.Module.Cms.Components
 {
+
     public class MenuViewComponent : ViewComponent
     {
         private readonly IRepository<Menu> _menuRepository;
 
-        public MenuViewComponent(IRepository<Menu> menuRepository) 
-            => _menuRepository = menuRepository;
+        public MenuViewComponent(IRepository<Menu> menuRepository)
+        {
+            _menuRepository = menuRepository;
+        }
 
         public async Task<IViewComponentResult> InvokeAsync(long menuId)
         {
@@ -33,7 +37,7 @@ namespace SimplCommerce.Module.Cms.Components
                 menuItemVms.Add(menuItemVm);
             }
 
-            return View(model: menuItemVms);
+            return View(this.GetViewPath(), menuItemVms);
         }
 
         private MenuItemVm Map(MenuItem menuItem)

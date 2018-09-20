@@ -7,6 +7,7 @@ using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.ProductRecentlyViewed.Data;
 using System.Linq;
+using static SimplCommerce.Infrastructure.Web.ViewComponentExtensions;
 
 namespace SimplCommerce.Module.ProductRecentlyViewed.Components
 {
@@ -45,7 +46,7 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Components
                 product.CalculatedProductPrice = _productPricingService.CalculateProductPrice(product);
             }
 
-            return View(model);
+            return View(this.GetViewPath(), model);
         }
     }
 }

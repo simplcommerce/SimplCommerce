@@ -4,6 +4,7 @@ using SimplCommerce.Module.Cms.ViewModels;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Core.ViewModels;
 using System.Collections.Generic;
+using static SimplCommerce.Infrastructure.Web.ViewComponentExtensions;
 
 namespace SimplCommerce.Module.Cms.Components
 {
@@ -11,8 +12,10 @@ namespace SimplCommerce.Module.Cms.Components
     {
         private IMediaService _mediaService;
 
-        public SpaceBarWidgetViewComponent(IMediaService mediaService) 
-            => _mediaService = mediaService;
+        public SpaceBarWidgetViewComponent(IMediaService mediaService)
+        {
+            _mediaService = mediaService;
+        }
 
         public IViewComponentResult Invoke(WidgetInstanceViewModel widgetInstance)
         {
@@ -33,7 +36,7 @@ namespace SimplCommerce.Module.Cms.Components
                 item.ImageUrl = _mediaService.GetMediaUrl(item.Image);
             }
 
-            return View(model);
+            return View(this.GetViewPath(), model);
         }
     }
 }

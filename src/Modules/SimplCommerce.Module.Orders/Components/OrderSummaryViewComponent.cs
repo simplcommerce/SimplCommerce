@@ -2,6 +2,7 @@
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.ShoppingCart.Services;
 using System.Threading.Tasks;
+using static SimplCommerce.Infrastructure.Web.ViewComponentExtensions;
 
 namespace SimplCommerce.Module.Orders.Components
 {
@@ -21,7 +22,7 @@ namespace SimplCommerce.Module.Orders.Components
             var curentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetCart(curentUser.Id);
 
-            return View(cart);
+            return View(this.GetViewPath(), cart);
         }
     }
 }

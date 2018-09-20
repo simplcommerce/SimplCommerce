@@ -6,6 +6,7 @@ using SimplCommerce.Module.PaymentPaypalExpress.Models;
 using SimplCommerce.Module.PaymentPaypalExpress.ViewModels;
 using SimplCommerce.Module.Payments.Models;
 using System.Threading.Tasks;
+using static SimplCommerce.Infrastructure.Web.ViewComponentExtensions;
 
 namespace SimplCommerce.Module.PaymentPaypalExpress.Components
 {
@@ -13,8 +14,10 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Components
     {
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
 
-        public PaypalExpressLandingViewComponent(IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository) 
-            => _paymentProviderRepository = paymentProviderRepository;
+        public PaypalExpressLandingViewComponent(IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository)
+        {
+            _paymentProviderRepository = paymentProviderRepository;
+        }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
@@ -25,7 +28,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Components
             model.Environment = paypalExpressSetting.Environment;
             model.PaymentFee = paypalExpressSetting.PaymentFee;
 
-            return View(model);
+            return View(this.GetViewPath(), model);
         }
     }
 }

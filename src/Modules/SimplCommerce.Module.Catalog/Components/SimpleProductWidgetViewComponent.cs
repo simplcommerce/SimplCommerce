@@ -7,9 +7,11 @@ using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Core.ViewModels;
 using System.Linq;
+using static SimplCommerce.Infrastructure.Web.ViewComponentExtensions;
 
 namespace SimplCommerce.Module.Catalog.Components
 {
+
     public class SimpleProductWidgetViewComponent : ViewComponent
     {
         private readonly IRepository<Product> _productRepository;
@@ -45,7 +47,7 @@ namespace SimplCommerce.Module.Catalog.Components
                 }
             }
 
-            return View(model);
+            return View(this.GetViewPath(), model);
         }
     }
 }

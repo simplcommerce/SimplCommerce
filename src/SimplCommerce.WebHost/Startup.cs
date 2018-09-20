@@ -45,6 +45,9 @@ namespace SimplCommerce.WebHost
             services.AddCustomizedLocalization();
             services.AddCloudscribePagination();
 
+            services.Configure<RazorViewEngineOptions>(
+                options => { options.ViewLocationExpanders.Add(new ModuleViewLocationExpander()); });
+
             services.AddCustomizedMvc(GlobalConfiguration.Modules);
 
            services.AddScoped<ITagHelperComponent, LanguageDirectionTagHelperComponent>();

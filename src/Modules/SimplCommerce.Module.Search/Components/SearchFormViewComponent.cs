@@ -4,6 +4,7 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Search.ViewModels;
 using System.Linq;
+using static SimplCommerce.Infrastructure.Web.ViewComponentExtensions;
 
 namespace SimplCommerce.Module.Search.Components
 {
@@ -29,7 +30,7 @@ namespace SimplCommerce.Module.Search.Components
             model.Query = Request.Query["query"];
             model.Category = Request.Query["category"];
 
-            return View(model);
+            return View(this.GetViewPath(), model);
         }
     }
 }
