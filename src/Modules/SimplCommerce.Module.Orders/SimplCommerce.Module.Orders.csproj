@@ -17,26 +17,5 @@
     <ProjectReference Include="..\SimplCommerce.Module.ShippingPrices\SimplCommerce.Module.ShippingPrices.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.ShoppingCart\SimplCommerce.Module.ShoppingCart.csproj" />
   </ItemGroup>
-	
-  <ItemGroup>
-    <Content Update="Views\Checkout\OrderConfirmation.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Checkout\Shipping.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\EmailTemplates\OrderEmailToCustomer.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Order\OrderHistoryList.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Shared\Components\OrderSummaer\Default.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Shared\InvoiceToPdf.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-  </ItemGroup>
 
 </Project>

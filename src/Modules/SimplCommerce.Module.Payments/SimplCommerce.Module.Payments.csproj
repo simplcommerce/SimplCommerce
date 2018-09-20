@@ -14,11 +14,5 @@
     <ProjectReference Include="..\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.Orders\SimplCommerce.Module.Orders.csproj" />
   </ItemGroup>
-	
-  <ItemGroup>
-    <Content Update="Views\Checkout\Payment.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-  </ItemGroup>
 
 </Project>

@@ -12,14 +12,5 @@
   <ItemGroup>
     <ProjectReference Include="..\SimplCommerce.Module.Catalog\SimplCommerce.Module.Catalog.csproj" />
   </ItemGroup>
-	
-  <ItemGroup>
-    <Content Update="Views\Shared\Components\ProductRecentlyViewed\Default.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Shared\Components\RecentlyViewedWidget\Default.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-  </ItemGroup>
 
 </Project>
