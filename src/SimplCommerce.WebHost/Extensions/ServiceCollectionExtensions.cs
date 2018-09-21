@@ -85,10 +85,7 @@ namespace SimplCommerce.WebHost.Extensions
             var mvcBuilder = services
                 .AddMvc(o =>
                 {
-                    using (var loggerFactory = services.BuildServiceProvider().GetRequiredService<ILoggerFactory>())
-                    { 
-                        o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider(loggerFactory));
-                    }
+                    o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider());
                 })
                 .AddRazorOptions(o =>
                 {
