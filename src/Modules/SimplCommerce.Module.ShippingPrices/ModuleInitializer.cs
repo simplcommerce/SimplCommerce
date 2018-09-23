@@ -10,7 +10,7 @@ namespace SimplCommerce.Module.ShippingPrices
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IShippingPriceService, ShippingPriceService>();
+            services.AddTransient<IShippingPriceService, ShippingPriceService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

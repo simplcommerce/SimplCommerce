@@ -11,7 +11,7 @@ namespace SimplCommerce.Module.ShippingTableRate
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IShippingPriceServiceProvider, TableRateShippingServiceProvider>();
+            services.AddTransient<IShippingPriceServiceProvider, TableRateShippingServiceProvider>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

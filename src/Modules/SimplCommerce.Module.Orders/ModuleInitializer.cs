@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MediatR;
@@ -13,7 +13,8 @@ namespace SimplCommerce.Module.Orders
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IHostedService, OrderCancellationBackgroundService>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IOrderEmailService, OrderEmailService>();
             services.AddTransient<INotificationHandler<OrderChanged>, OrderChangedHandler>();
         }
 
