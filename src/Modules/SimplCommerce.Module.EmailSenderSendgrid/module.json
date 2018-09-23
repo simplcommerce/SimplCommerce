@@ -1,0 +1,6 @@
+{
+  "id": "SimplCommerce.Module.EmailSenderSendgrid",
+  "name": "SendGrid Mailer",
+  "isBundledWithHost": true,
+  "version": "1.0.0"
+}
