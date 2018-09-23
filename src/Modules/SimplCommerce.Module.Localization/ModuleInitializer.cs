@@ -12,7 +12,7 @@ namespace SimplCommerce.Module.Localization
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<INotificationHandler<UserSignedIn>, UserSignedInHandler>();
+            services.AddTransient<INotificationHandler<UserSignedIn>, UserSignedInHandler>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -14,7 +14,7 @@ namespace SimplCommerce.Module.ProductRecentlyViewed
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IRecentlyViewedProductRepository, RecentlyViewedProductRepository>();
-            services.AddSingleton<INotificationHandler<EntityViewed>, EntityViewedHandler>();
+            services.AddTransient<INotificationHandler<EntityViewed>, EntityViewedHandler>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

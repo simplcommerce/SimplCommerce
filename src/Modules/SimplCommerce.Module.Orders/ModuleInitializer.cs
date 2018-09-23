@@ -14,7 +14,7 @@ namespace SimplCommerce.Module.Orders
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IHostedService, OrderCancellationBackgroundService>();
-            services.AddSingleton<INotificationHandler<OrderChanged>, OrderChangedHandler>();
+            services.AddTransient<INotificationHandler<OrderChanged>, OrderChangedHandler>();
         }
 
         public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)

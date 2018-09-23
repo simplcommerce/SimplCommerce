@@ -14,7 +14,7 @@ namespace SimplCommerce.Module.ActivityLog
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IActivityTypeRepository, ActivityRepository>();
-            services.AddSingleton<INotificationHandler<EntityViewed>, EntityViewedHandler>();
+            services.AddTransient<INotificationHandler<EntityViewed>, EntityViewedHandler>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
