@@ -60,6 +60,7 @@ namespace SimplCommerce.WebHost
             }
 
             services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
+            services.AddMediatR();
             services.AddScoped<IMediator, SequentialMediator>();
             services.AddScoped<ServiceFactory>();
         }
