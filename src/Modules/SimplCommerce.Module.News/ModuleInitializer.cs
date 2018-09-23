@@ -10,8 +10,8 @@ namespace SimplCommerce.Module.News
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<INewsItemService, NewsItemService>();
-            services.AddSingleton<INewsCategoryService, NewsCategoryService>();
+            services.AddTransient<INewsItemService, NewsItemService>();
+            services.AddTransient<INewsCategoryService, NewsCategoryService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.Orders
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IHostedService, OrderCancellationBackgroundService>();
+            services.AddTransient<IHostedService, OrderCancellationBackgroundService>();
             services.AddTransient<INotificationHandler<OrderChanged>, OrderChangedHandler>();
         }
 

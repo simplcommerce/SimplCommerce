@@ -10,7 +10,7 @@ namespace SimplCommerce.Module.Tax
     {
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton<ITaxService, TaxService>();
+            serviceCollection.AddTransient<ITaxService, TaxService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
