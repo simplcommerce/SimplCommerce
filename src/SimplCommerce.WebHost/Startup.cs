@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimplCommerce.Infrastructure;
+using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web;
+using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Localization.Extensions;
 using SimplCommerce.Module.Localization.TagHelpers;
 using SimplCommerce.WebHost.Extensions;
@@ -42,6 +44,13 @@ namespace SimplCommerce.WebHost
             services.AddCustomizedIdentity(_configuration);
             services.AddHttpClient();
 
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient(typeof(IRepositoryWithTypedId<,>), typeof(RepositoryWithTypedId<,>));
+            services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
+            services.AddScoped<ITagHelperComponent, LanguageDirectionTagHelperComponent>();
+            services.AddMediatR();
+            services.AddScoped<IMediator, SequentialMediator>();
+
             services.AddCustomizedLocalization();
             services.AddCloudscribePagination();
 
@@ -50,18 +59,12 @@ namespace SimplCommerce.WebHost
 
             services.AddCustomizedMvc(GlobalConfiguration.Modules);
 
-            services.AddScoped<ITagHelperComponent, LanguageDirectionTagHelperComponent>();
-
             var sp = services.BuildServiceProvider();
             var moduleInitializers = sp.GetServices<IModuleInitializer>();
             foreach (var moduleInitializer in moduleInitializers)
             {
                 moduleInitializer.ConfigureServices(services);
             }
-
-            services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
-            services.AddScoped<IMediator, SequentialMediator>();
-            services.AddScoped<ServiceFactory>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

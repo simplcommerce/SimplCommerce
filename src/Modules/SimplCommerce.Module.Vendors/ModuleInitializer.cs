@@ -10,7 +10,7 @@ namespace SimplCommerce.Module.Vendors
     {
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton<IVendorService, VendorService>();
+            serviceCollection.AddTransient<IVendorService, VendorService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

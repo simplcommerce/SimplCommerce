@@ -10,7 +10,7 @@ namespace SimplCommerce.Module.Pricing
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<ICouponService, CouponService>();
+            services.AddTransient<ICouponService, CouponService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

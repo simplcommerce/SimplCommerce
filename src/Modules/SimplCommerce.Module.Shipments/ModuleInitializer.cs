@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.Shipments
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<INotificationHandler<OrderDetailGot>, OrderDetailGotHandler>();
+            services.AddTransient<INotificationHandler<OrderDetailGot>, OrderDetailGotHandler>();
             services.AddTransient<IShipmentService, ShipmentService>();
         }
 

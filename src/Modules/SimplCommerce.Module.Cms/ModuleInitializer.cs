@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.Cms
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<INotificationHandler<EntityDeleting>, EntityDeletingHandler>();
+            services.AddTransient<INotificationHandler<EntityDeleting>, EntityDeletingHandler>();
             services.AddTransient<IPageService, PageService>();
         }
 

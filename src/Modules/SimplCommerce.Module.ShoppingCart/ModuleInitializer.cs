@@ -10,7 +10,7 @@ namespace SimplCommerce.Module.ShoppingCart
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<ICartService, CartService>();
+            services.AddTransient<ICartService, CartService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -15,7 +15,7 @@ namespace SimplCommerce.Module.Catalog
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IProductTemplateProductAttributeRepository, ProductTemplateProductAttributeRepository>();
-            services.AddSingleton<INotificationHandler<ReviewSummaryChanged>, ReviewSummaryChangedHandler>();
+            services.AddTransient<INotificationHandler<ReviewSummaryChanged>, ReviewSummaryChangedHandler>();
             services.AddTransient<IBrandService, BrandService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IProductPricingService, ProductPricingService>();

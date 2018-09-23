@@ -11,7 +11,7 @@ namespace SimplCommerce.Module.ShippingFree
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IShippingPriceServiceProvider, FreeShippingServiceProvider>();
+            services.AddTransient<IShippingPriceServiceProvider, FreeShippingServiceProvider>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

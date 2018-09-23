@@ -10,7 +10,7 @@ namespace SimplCommerce.Module.WishList
     {
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton<IWishListService, WishListService>();
+            serviceCollection.AddTransient<IWishListService, WishListService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
