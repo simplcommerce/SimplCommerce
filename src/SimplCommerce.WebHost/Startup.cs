@@ -1,4 +1,4 @@
-﻿using System;
+﻿using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -25,7 +25,7 @@ namespace SimplCommerce.WebHost
             _hostingEnvironment = hostingEnvironment;
         }
 
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             GlobalConfiguration.WebRootPath = _hostingEnvironment.WebRootPath;
             GlobalConfiguration.ContentRootPath = _hostingEnvironment.ContentRootPath;
@@ -50,7 +50,7 @@ namespace SimplCommerce.WebHost
 
             services.AddCustomizedMvc(GlobalConfiguration.Modules);
 
-           services.AddScoped<ITagHelperComponent, LanguageDirectionTagHelperComponent>();
+            services.AddScoped<ITagHelperComponent, LanguageDirectionTagHelperComponent>();
 
             var sp = services.BuildServiceProvider();
             var moduleInitializers = sp.GetServices<IModuleInitializer>();
@@ -59,7 +59,9 @@ namespace SimplCommerce.WebHost
                 moduleInitializer.ConfigureServices(services);
             }
 
-            return services.Build(_configuration, _hostingEnvironment);
+            services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
+            services.AddScoped<IMediator, SequentialMediator>();
+            services.AddScoped<ServiceFactory>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

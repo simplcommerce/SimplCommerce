@@ -8,32 +8,24 @@ using System.Reflection;
 using System.Runtime.Loader;
 using System.Text;
 using System.Threading.Tasks;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using Autofac.Features.Variance;
-using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure;
-using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Infrastructure.Web.ModelBinders;
-using SimplCommerce.Infrastructure.Web;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -190,39 +182,6 @@ namespace SimplCommerce.WebHost.Extensions
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly("SimplCommerce.WebHost")));
             return services;
-        }
-
-        public static IServiceProvider Build(this IServiceCollection services,
-            IConfiguration configuration, IHostingEnvironment hostingEnvironment)
-        {
-            var builder = new ContainerBuilder();
-            builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>));
-            builder.RegisterGeneric(typeof(RepositoryWithTypedId<,>)).As(typeof(IRepositoryWithTypedId<,>));
-            builder.RegisterType<RazorViewRenderer>().As<IRazorViewRenderer>();
-
-            builder.RegisterSource(new ContravariantRegistrationSource());
-            builder.RegisterType<SequentialMediator>().As<IMediator>().InstancePerLifetimeScope();
-            builder
-              .Register<ServiceFactory>(ctx =>
-              {
-                  var c = ctx.Resolve<IComponentContext>();
-                  return t => { object o; return c.TryResolve(t, out o) ? o : null; };
-              })
-              .InstancePerLifetimeScope();
-
-            foreach (var module in GlobalConfiguration.Modules)
-            {
-                builder.RegisterAssemblyTypes(module.Assembly).Where(t => t.Name.EndsWith("Repository")).AsImplementedInterfaces();
-                builder.RegisterAssemblyTypes(module.Assembly).Where(t => t.Name.EndsWith("Service")).AsImplementedInterfaces();
-                builder.RegisterAssemblyTypes(module.Assembly).Where(t => t.Name.EndsWith("ServiceProvider")).AsImplementedInterfaces();
-                builder.RegisterAssemblyTypes(module.Assembly).Where(t => t.Name.EndsWith("Handler")).AsImplementedInterfaces();
-            }
-
-            builder.RegisterInstance(configuration);
-            builder.RegisterInstance(hostingEnvironment);
-            builder.Populate(services);
-            var container = builder.Build();
-            return container.Resolve<IServiceProvider>();
         }
 
         private static void TryLoadModuleAssembly(string moduleFolderPath, out Assembly moduleMainAssembly)
