@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Hosting;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Module.Core.Services;
 
-namespace SimplCommerce.Module.StorageAzureBlob
+namespace SimplCommerce.Module.StorageLocal
 {
     public class ModuleInitializer : IModuleInitializer
     {
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton<IStorageService, AzureBlobStorageService>();
+            serviceCollection.AddSingleton<IStorageService, LocalStorageService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
