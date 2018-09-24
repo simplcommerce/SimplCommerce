@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Localization;
@@ -10,12 +12,12 @@ namespace SimplCommerce.Module.Localization
 {
     public class EfStringLocalizer : IStringLocalizer
     {
-        private readonly IRepository<Resource> _resourceRepository;
         private IMemoryCache _resourcesCache;
+        private readonly IServiceProvider _serviceProvider;
 
-        public EfStringLocalizer(IRepository<Resource> resourceRepository, IMemoryCache resourcesCache)
+        public EfStringLocalizer(IServiceProvider serviceProvider, IMemoryCache resourcesCache)
         {
-            _resourceRepository = resourceRepository;
+            _serviceProvider = serviceProvider;
             _resourcesCache = resourcesCache;
         }
 
@@ -49,7 +51,7 @@ namespace SimplCommerce.Module.Localization
         public IStringLocalizer WithCulture(CultureInfo culture)
         {
             CultureInfo.DefaultThreadCurrentCulture = culture;
-            return new EfStringLocalizer(_resourceRepository, _resourcesCache);
+            return new EfStringLocalizer(_serviceProvider, _resourcesCache);
         }
 
         private string GetString(string name)
@@ -65,7 +67,12 @@ namespace SimplCommerce.Module.Localization
         {
             if (!_resourcesCache.TryGetValue(culture, out IList<Resource> resources))
             {
-                resources = _resourceRepository.Query().Where(r => r.Culture.Id == culture).ToList();
+                using (var scope = _serviceProvider.CreateScope())
+                {
+                    var resourceRepository = scope.ServiceProvider.GetRequiredService<IRepository<Resource>>();
+                    resources = resourceRepository.Query().Where(r => r.Culture.Id == culture).ToList();
+                }
+                
                 _resourcesCache.Set(culture, resources);
             }
 

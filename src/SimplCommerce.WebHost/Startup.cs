@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimplCommerce.Infrastructure;
+using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web;
+using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Localization.Extensions;
 using SimplCommerce.Module.Localization.TagHelpers;
 using SimplCommerce.WebHost.Extensions;
@@ -41,16 +43,19 @@ namespace SimplCommerce.WebHost
             services.AddCustomizedDataStore(_configuration);
             services.AddCustomizedIdentity(_configuration);
             services.AddHttpClient();
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient(typeof(IRepositoryWithTypedId<,>), typeof(RepositoryWithTypedId<,>));
+            services.AddMediatR();
+            services.AddScoped<IMediator, SequentialMediator>();
 
             services.AddCustomizedLocalization();
-            services.AddCloudscribePagination();
-
-            services.Configure<RazorViewEngineOptions>(
-                options => { options.ViewLocationExpanders.Add(new ModuleViewLocationExpander()); });
 
             services.AddCustomizedMvc(GlobalConfiguration.Modules);
-
+            services.Configure<RazorViewEngineOptions>(
+                options => { options.ViewLocationExpanders.Add(new ModuleViewLocationExpander()); });
             services.AddScoped<ITagHelperComponent, LanguageDirectionTagHelperComponent>();
+            services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
+            services.AddCloudscribePagination();
 
             var sp = services.BuildServiceProvider();
             var moduleInitializers = sp.GetServices<IModuleInitializer>();
@@ -58,11 +63,6 @@ namespace SimplCommerce.WebHost
             {
                 moduleInitializer.ConfigureServices(services);
             }
-
-            services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
-            services.AddMediatR();
-            services.AddScoped<IMediator, SequentialMediator>();
-            services.AddScoped<ServiceFactory>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
