@@ -2,20 +2,21 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using SimplCommerce.Infrastructure;
-using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.News.Services;
 
-namespace SimplCommerce.Module.StorageAzureBlob
+namespace SimplCommerce.Module.News
 {
     public class ModuleInitializer : IModuleInitializer
     {
-        public void ConfigureServices(IServiceCollection serviceCollection)
+        public void ConfigureServices(IServiceCollection services)
         {
-            serviceCollection.AddSingleton<IStorageService, AzureBlobStorageService>();
+            services.AddTransient<INewsItemService, NewsItemService>();
+            services.AddTransient<INewsCategoryService, NewsCategoryService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            
+
         }
     }
 }

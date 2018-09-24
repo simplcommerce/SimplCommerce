@@ -1,21 +1,23 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using MediatR;
 using SimplCommerce.Infrastructure;
-using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.ShoppingCart.Events;
+using SimplCommerce.Module.Core.Events;
 
-namespace SimplCommerce.Module.StorageAzureBlob
+namespace SimplCommerce.Module.Localization
 {
     public class ModuleInitializer : IModuleInitializer
     {
-        public void ConfigureServices(IServiceCollection serviceCollection)
+        public void ConfigureServices(IServiceCollection services)
         {
-            serviceCollection.AddSingleton<IStorageService, AzureBlobStorageService>();
+            services.AddTransient<INotificationHandler<UserSignedIn>, UserSignedInHandler>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            
+
         }
     }
 }
