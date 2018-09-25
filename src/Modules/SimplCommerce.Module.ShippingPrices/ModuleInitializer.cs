@@ -2,20 +2,20 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using SimplCommerce.Infrastructure;
-using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.ShippingPrices.Services;
 
-namespace SimplCommerce.Module.StorageAzureBlob
+namespace SimplCommerce.Module.ShippingPrices
 {
     public class ModuleInitializer : IModuleInitializer
     {
-        public void ConfigureServices(IServiceCollection serviceCollection)
+        public void ConfigureServices(IServiceCollection services)
         {
-            serviceCollection.AddSingleton<IStorageService, AzureBlobStorageService>();
+            services.AddTransient<IShippingPriceService, ShippingPriceService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            
+
         }
     }
 }

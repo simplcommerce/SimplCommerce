@@ -8,14 +8,14 @@ namespace SimplCommerce.Module.StorageAmazonS3
 {
     public class ModuleInitializer : IModuleInitializer
     {
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            
-        }
-
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
             serviceCollection.AddSingleton<IStorageService, S3StorageService>();
+        }
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            
         }
     }
 }

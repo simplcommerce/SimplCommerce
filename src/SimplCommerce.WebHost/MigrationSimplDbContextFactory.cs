@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimplCommerce.Module.Core.Data;
@@ -27,13 +25,11 @@ namespace SimplCommerce.WebHost
             var _configuration = builder.Build();
 
             //setup DI
-            var containerBuilder = new ContainerBuilder();
             IServiceCollection services = new ServiceCollection();
 
             services.LoadInstalledModules(contentRootPath);
             services.AddCustomizedDataStore(_configuration);
-            containerBuilder.Populate(services);
-            var _serviceProvider = containerBuilder.Build().Resolve<IServiceProvider>();
+            var _serviceProvider = services.BuildServiceProvider();
 
             return _serviceProvider.GetRequiredService<SimplDbContext>();
         }

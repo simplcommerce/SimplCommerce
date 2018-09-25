@@ -2,15 +2,15 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using SimplCommerce.Infrastructure;
-using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.WishList.Services;
 
-namespace SimplCommerce.Module.StorageAzureBlob
+namespace SimplCommerce.Module.WishList
 {
     public class ModuleInitializer : IModuleInitializer
     {
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton<IStorageService, AzureBlobStorageService>();
+            serviceCollection.AddTransient<IWishListService, WishListService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
