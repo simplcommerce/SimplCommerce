@@ -1,0 +1,6 @@
+{
+  "id": "SimplCommerce.Module.StorageAmazonS3",
+  "name": "Amazon S3",
+  "isBundledWithHost": true,
+  "version": "1.0.0"
+}
