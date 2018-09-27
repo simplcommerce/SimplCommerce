@@ -101,6 +101,7 @@ namespace SimplCommerce.MSBuildTasks
 
             CopyAll(new DirectoryInfo(sourcePath), new DirectoryInfo(targetPath));
         }
+
         private void CopyAll(DirectoryInfo source, DirectoryInfo target)
         {
             Directory.CreateDirectory(target.FullName);
