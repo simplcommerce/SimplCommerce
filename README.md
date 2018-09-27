@@ -27,7 +27,21 @@
 
 #### Steps to run
 
-- Update the connection string in appsettings.json in SimplCommerce.WebHost
+- Update the connection string either using:
+    - User Secrets Command Line Tool
+    Run the following command
+    ```
+    dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Your ConnectionString"
+    ```
+    - User Secrets Tool for Visual Studio
+        1. Right click the SimplCommerce.WebHost 
+        2. Choose "Manage User Secrets"
+        3. Write Your secrets in `secrets.json` as the following:
+        ```
+        {
+            "ConnectionStrings:DefaultConnection": "Your ConnectionString"
+        }
+        ```
 - Build whole solution.
 - Open Package Manager Console Window and type "Update-Database" then press "Enter". This action will create database schema.
 - In Visual Studio, press "Control + F5".
