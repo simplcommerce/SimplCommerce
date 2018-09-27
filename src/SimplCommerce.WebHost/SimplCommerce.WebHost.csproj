@@ -1,5 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
+  <UsingTask AssemblyFile="..\..\build\netstandard2.0\SimplCommerce.MSBuildTasks.dll" TaskName="CopyModuleTask" />
+  
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>aspnet-Modular.WebHost-dca604fa-ee10-4a6c-8e7d-8cc79dca8c8f</UserSecretsId>
@@ -61,13 +63,7 @@
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.4.1" />
   </ItemGroup>
 
-  <Target Name="RestoreNpmPackage" AfterTargets="CollectPackageReferences" Condition="!Exists('node_modules') ">
-    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
-    <Exec WorkingDirectory="." Command="npm install" />
+  <Target Name="CopyModule" AfterTargets="Build">
+    <CopyModuleTask ProjectDir="$(ProjectDir)" BuildConfiguration="$(ConfigurationName)" />
   </Target>
-
-  <Target Name="CopyModules" AfterTargets="Build">
-    <Exec WorkingDirectory="." Command="npm run gulp-copy-modules -- --configurationName $(ConfigurationName)" />
-  </Target>
-
 </Project>
