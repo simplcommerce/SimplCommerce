@@ -51,8 +51,8 @@ namespace SimplCommerce.MSBuildTasks
                 var destination = Path.Combine(ProjectDir, "Modules", module.Id);
                 var destinationWwwroot = Path.Combine(ProjectDir, "wwwroot", "modules", module.Id.Split('.').Last().ToLower());
 
-                CleanDirectory(destination);
-                CleanDirectory(destinationWwwroot);
+                CreateOrCleanDirectory(destinationWwwroot);
+                CreateOrCleanDirectory(destination);
 
                 File.Copy(Path.Combine(sourceRoot, "module.json"), Path.Combine(destination, "module.json"), true);
                 CopyDirectory(Path.Combine(sourceRoot, "Views"), Path.Combine(destination, "Views"));
@@ -62,7 +62,7 @@ namespace SimplCommerce.MSBuildTasks
                     CopyDirectory(Path.Combine(sourceRoot, "bin", BuildConfiguration, "netcoreapp2.1"), Path.Combine(destination, "bin"));
                 }
 
-                if(module.Id == "SimplCommerce.Module.SampleData")
+                if (module.Id == "SimplCommerce.Module.SampleData")
                 {
                     CopyDirectory(Path.Combine(sourceRoot, "SampleContent"), Path.Combine(destination, "SampleContent"));
                 }
@@ -73,16 +73,25 @@ namespace SimplCommerce.MSBuildTasks
             return true;
         }
 
-        private void CleanDirectory(string path)
+        private void CreateOrCleanDirectory(string path)
         {
             if (Directory.Exists(path))
             {
-                Directory.Delete(path, true);
+                var di = new DirectoryInfo(path);
+                foreach (var file in di.GetFiles())
+                {
+                    file.Delete();
+                }
+                foreach (var dir in di.GetDirectories())
+                {
+                    dir.Delete(true);
+                }
             }
-
-            Directory.CreateDirectory(path);
+            else
+            {
+                Directory.CreateDirectory(path);
+            }
         }
-
         private void CopyDirectory(string sourcePath, string targetPath)
         {
             if (!Directory.Exists(sourcePath))
@@ -92,7 +101,6 @@ namespace SimplCommerce.MSBuildTasks
 
             CopyAll(new DirectoryInfo(sourcePath), new DirectoryInfo(targetPath));
         }
-
         private void CopyAll(DirectoryInfo source, DirectoryInfo target)
         {
             Directory.CreateDirectory(target.FullName);
