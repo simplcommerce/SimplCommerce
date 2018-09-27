@@ -1,16 +1,16 @@
-﻿using System.Globalization;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using SimplCommerce.Module.Core.Extensions;
-using SimplCommerce.Module.ShoppingCart.Services;
-using SimplCommerce.Module.PaymentStripe.ViewModels;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Helpers;
-using SimplCommerce.Infrastructure.Web;
+using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Payments.Models;
 using SimplCommerce.Module.PaymentStripe.Models;
+using SimplCommerce.Module.PaymentStripe.ViewModels;
+using SimplCommerce.Module.ShoppingCart.Services;
+using System.Globalization;
+using System.Threading.Tasks;
+using static SimplCommerce.Infrastructure.Web.ViewComponentExtensions;
 
 namespace SimplCommerce.Module.PaymentStripe.Components
 {

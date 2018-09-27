@@ -1,9 +1,9 @@
-﻿using System.IO;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure;
-using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.SampleData.ViewModels;
+using System.IO;
+using System.Linq;
+using static SimplCommerce.Infrastructure.Web.ViewComponentExtensions;
 
 namespace SimplCommerce.Module.SampleData.Components
 {

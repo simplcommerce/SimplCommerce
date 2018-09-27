@@ -1,4 +1,7 @@
-﻿@model SimplCommerce.Module.News.ViewModels.NewsVm
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper "*, cloudscribe.Web.Pagination"
+
+@model SimplCommerce.Module.News.ViewModels.NewsVm
 
 @{
     ViewData["Title"] = "News";
@@ -20,7 +23,7 @@
         <div class="news-category-detail row">
             @foreach (var item in Model.NewsItem)
             {
-                @await Html.PartialAsync("_NewsThumbnail", item)
+		      <partial name="_NewsThumbnail" model="item" />
             }
         </div>
     }

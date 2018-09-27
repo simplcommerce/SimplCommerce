@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using SimplCommerce.Infrastructure.Web;
-using SimplCommerce.Module.ProductRecentlyViewed.ViewModels;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Core.ViewModels;
+using SimplCommerce.Module.ProductRecentlyViewed.ViewModels;
+using static SimplCommerce.Infrastructure.Web.ViewComponentExtensions;
 
 namespace SimplCommerce.Module.ProductRecentlyViewed.Components
 {

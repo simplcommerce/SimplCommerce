@@ -1,13 +1,13 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Core.ViewModels;
+using System.Linq;
+using static SimplCommerce.Infrastructure.Web.ViewComponentExtensions;
 
 namespace SimplCommerce.Module.Catalog.Components
 {
@@ -24,7 +24,8 @@ namespace SimplCommerce.Module.Catalog.Components
 
         public IViewComponentResult Invoke(WidgetInstanceViewModel widgetInstance)
         {
-            var model = new CategoryWidgetComponentVm() {
+            var model = new CategoryWidgetComponentVm()
+            {
                 Id = widgetInstance.Id,
                 WidgetName = widgetInstance.Name,
             };
@@ -34,7 +35,8 @@ namespace SimplCommerce.Module.Catalog.Components
                 var category = _categoriesRepository.Query()
                     .Include(c => c.ThumbnailImage)
                     .FirstOrDefault(c => c.Id == settings.CategoryId);
-                model.Category = new CategoryThumbnail() {
+                model.Category = new CategoryThumbnail()
+                {
                     Id = category.Id,
                     Description = category.Description,
                     Name = category.Name,

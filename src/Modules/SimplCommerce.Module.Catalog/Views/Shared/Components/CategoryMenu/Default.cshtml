@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<SimplCommerce.Module.Catalog.ViewModels.CategoryMenuItem>
 
-@inject IViewLocalizer Localizer
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
 
 <ul class="navbar-nav">
     @foreach (var item in Model)

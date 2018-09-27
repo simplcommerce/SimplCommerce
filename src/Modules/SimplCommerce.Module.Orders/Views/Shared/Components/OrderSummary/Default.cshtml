@@ -1,4 +1,9 @@
-﻿@model SimplCommerce.Module.ShoppingCart.ViewModels.CartVm
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+@addTagHelper "*, SimplCommerce.Module.Core"
+
+@model SimplCommerce.Module.ShoppingCart.ViewModels.CartVm
+
 
 <h3>@Localizer["Order summary"] (@Model.Items.Count() @Localizer["products"]) </h3>
 <table class="table">

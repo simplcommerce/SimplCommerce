@@ -1,16 +1,17 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Cms.Models;
+using SimplCommerce.Module.Cms.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Infrastructure.Web;
-using SimplCommerce.Module.Cms.Models;
-using SimplCommerce.Module.Cms.ViewModels;
+using static SimplCommerce.Infrastructure.Web.ViewComponentExtensions;
 
 namespace SimplCommerce.Module.Cms.Components
 {
+
     public class MenuViewComponent : ViewComponent
     {
         private readonly IRepository<Menu> _menuRepository;

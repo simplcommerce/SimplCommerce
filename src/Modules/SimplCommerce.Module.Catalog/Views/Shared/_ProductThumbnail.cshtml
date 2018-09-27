@@ -1,4 +1,6 @@
-﻿@model SimplCommerce.Module.Catalog.ViewModels.ProductThumbnail
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+@model SimplCommerce.Module.Catalog.ViewModels.ProductThumbnail
 
 <div class="card mb-4">
     <input type="hidden" id="productId" value="@Model.Id" />

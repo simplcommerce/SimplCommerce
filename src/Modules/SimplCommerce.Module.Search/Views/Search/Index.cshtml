@@ -1,6 +1,8 @@
 ﻿@using System.Threading.Tasks
 @using SimplCommerce.Module.Search.ViewModels
 
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
 @model SearchResult
 @{
     ViewBag.Title = "Search";
@@ -131,7 +133,7 @@
             @foreach (var product in Model.Products)
             {
                 <div class="col-xs-6 col-md-4">
-                    @await Html.PartialAsync("~/Modules/SimplCommerce.Module.Catalog/Views/Shared/_ProductThumbnail.cshtml", product)
+				<partial name="_ProductThumbnail" model="product" />
                 </div>
             }
         </div>

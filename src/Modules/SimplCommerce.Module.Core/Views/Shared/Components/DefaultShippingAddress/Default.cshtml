@@ -1,4 +1,6 @@
-﻿@model DefaultAddressViewComponentVm
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer  Localizer
+
+@model SimplCommerce.Module.Core.ViewModels.Manage.DefaultAddressViewComponentVm
 
 <div>
     @if (Model.Address != null)

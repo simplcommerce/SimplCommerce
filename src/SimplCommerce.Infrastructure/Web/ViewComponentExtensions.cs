@@ -21,10 +21,11 @@ namespace SimplCommerce.Infrastructure.Web
                 theme = config["Theme"];
             }
 
-            var viewPath = $"/Modules/{viewComponent.GetType().Assembly.GetName().Name}/Views/Shared/Components/{viewComponent.ViewComponentContext.ViewComponentDescriptor.ShortName}/{viewName}.cshtml";
+            var viewPath = $"/Views/Shared/Components/{viewComponent.ViewComponentContext.ViewComponentDescriptor.ShortName}/{viewName}.cshtml";
             if (!string.IsNullOrWhiteSpace(theme) && !string.Equals(theme, "Generic", System.StringComparison.InvariantCultureIgnoreCase))
             {
-                var themeViewPath = $"/Themes/{theme}{viewPath}";
+                var themeViewPath = $"/Themes/{theme}/Modules/{viewComponent.GetType().Assembly.GetName().Name}{viewPath}";
+
                 var viewEngine = viewComponent.ViewContext.HttpContext.RequestServices.GetRequiredService<ICompositeViewEngine>();
                 var result = viewEngine.GetView("", themeViewPath, isMainPage: false);
                 if (result.Success)

@@ -24,8 +24,6 @@ namespace SimplCommerce.Infrastructure.Web
                     {
                         $"/Themes/{theme}/Modules/{module}/Views/{{1}}/{{0}}.cshtml",
                         $"/Themes/{theme}/Modules/{module}/Views/Shared/{{0}}.cshtml",
-                        $"/Modules/{module}/Views/{{1}}/{{0}}.cshtml",
-                        $"/Modules/{module}/Views/Shared/{{0}}.cshtml",
                         $"/Themes/{theme}/Views/Shared/{{0}}.cshtml"
                     };
 
@@ -38,8 +36,8 @@ namespace SimplCommerce.Infrastructure.Web
                 {
                     var moduleViewLocations = new string[]
                     {
-                        $"/Modules/{module}/Views/{{1}}/{{0}}.cshtml",
-                        $"/Modules/{module}/Views/Shared/{{0}}.cshtml"
+                        $"/Views/{{1}}/{{0}}.cshtml",
+                        $"/Views/Shared/{{0}}.cshtml"
                     };
 
                     viewLocations = moduleViewLocations.Concat(viewLocations);
@@ -52,7 +50,7 @@ namespace SimplCommerce.Infrastructure.Web
         public void PopulateValues(ViewLocationExpanderContext context)
         {
             var controllerName = context.ActionContext.ActionDescriptor.DisplayName;
-            if(controllerName == null) // in case of render view to string
+            if (controllerName == null) // in case of render view to string
             {
                 return;
             }

@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using SimplCommerce.Infrastructure.Web;
-using SimplCommerce.Module.Cms.ViewModels;
-using SimplCommerce.Module.Core.Services;
-using SimplCommerce.Module.Core.ViewModels;
+using System.Collections.Generic;
+    using SimplCommerce.Module.Cms.ViewModels;
+    using SimplCommerce.Module.Core.Services;
+    using SimplCommerce.Module.Core.ViewModels;
+    using static SimplCommerce.Infrastructure.Web.ViewComponentExtensions;
 
 namespace SimplCommerce.Module.Cms.Components
 {
+
     public class CarouselWidgetViewComponent : ViewComponent
     {
         private IMediaService _mediaService;
