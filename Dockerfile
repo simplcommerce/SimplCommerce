@@ -1,4 +1,6 @@
-FROM microsoft/dotnet:2.1-sdk AS build-env
+FROM microsoft/dotnet:2.1.402-sdk AS build-env
+
+RUN dotnet --info
 
 #setup node
 ENV NODE_VERSION 8.9.4
@@ -13,22 +15,17 @@ RUN curl -SL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-lin
 WORKDIR /app
 COPY . ./
 
-RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.3" />#<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.2" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
-RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Program.cs
-RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Extensions/ServiceCollectionExtensions.cs
+RUN cp -f src/SimplCommerce.WebHost/appsettings.docker.json src/SimplCommerce.WebHost/appsettings.json
 
-RUN rm src/SimplCommerce.WebHost/Migrations/* && cp -f src/SimplCommerce.WebHost/appsettings.docker.json src/SimplCommerce.WebHost/appsettings.json
-
-RUN dotnet restore && dotnet build \
+RUN dotnet restore && dotnet build -c NonWindowsDebug \
     && cd src/SimplCommerce.WebHost \
-    && npm run gulp-copy-modules -- --configurationName Debug \
-	&& dotnet ef migrations add initialSchema \
-    && dotnet ef migrations script -o dbscript.sql
+    && npm run gulp-copy-modules -- --configurationName NonWindowsDebug \
+    && dotnet ef migrations script --configuration NonWindowsDebug -o dbscript.sql
 
-RUN dotnet build -c Release \
+RUN dotnet build -c NonWindowsRelease \
 	&& cd src/SimplCommerce.WebHost \
-	&& npm run gulp-copy-modules -- --configurationName Release \
-	&& dotnet publish -c Release -o out
+	&& npm run gulp-copy-modules -- --configurationName NonWindowsRelease \
+	&& dotnet publish -c NonWindowsRelease -o out
 
 # remove BOM for psql	
 RUN sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/SimplCommerce.WebHost/dbscript.sql \
