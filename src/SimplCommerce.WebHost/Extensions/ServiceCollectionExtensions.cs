@@ -22,15 +22,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure;
-using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Infrastructure.Web.ModelBinders;
-using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
-using SimplCommerce.Infrastructure.Web.ModelBinders;
-using SimplCommerce.Infrastructure.Web;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -93,10 +90,29 @@ namespace SimplCommerce.WebHost.Extensions
 
             foreach (var module in modules)
             {
-                mvcBuilder.AddApplicationPart(module.Assembly);
+                AddApplicationPart(mvcBuilder, module.Assembly);
             }
 
             return services;
+        }
+
+        private static void AddApplicationPart(IMvcBuilder mvcBuilder, Assembly assembly)
+        {
+            var partFactory = ApplicationPartFactory.GetApplicationPartFactory(assembly);
+            foreach (var part in partFactory.GetApplicationParts(assembly))
+            {
+                mvcBuilder.PartManager.ApplicationParts.Add(part);
+            }
+
+            var relatedAssemblies = RelatedAssemblyAttribute.GetRelatedAssemblies(assembly, throwOnError: false);
+            foreach (var relatedAssembly in relatedAssemblies)
+            {
+                partFactory = ApplicationPartFactory.GetApplicationPartFactory(relatedAssembly);
+                foreach (var part in partFactory.GetApplicationParts(relatedAssembly))
+                {
+                    mvcBuilder.PartManager.ApplicationParts.Add(part);
+                }
+            }
         }
 
         public static IServiceCollection AddCustomizedIdentity(this IServiceCollection services, IConfiguration configuration)

@@ -45,6 +45,7 @@ namespace SimplCommerce.Module.Core.Extensions
             newRouteData.Values["controller"] = urlSlug.EntityType.RoutingController;
             newRouteData.Values["action"] = urlSlug.EntityType.RoutingAction;
             newRouteData.Values["id"] = urlSlug.EntityId;
+            newRouteData.Values["area"] = "Catalog";
 
             context.RouteData = newRouteData;
             await _target.RouteAsync(context);

@@ -54,6 +54,10 @@ namespace SimplCommerce.WebHost.Extensions
                 routes.Routes.Add(new UrlSlugRoute(routes.DefaultHandler));
 
                 routes.MapRoute(
+                    name: "areaRoute",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute(
                     "default",
                     "{controller=Home}/{action=Index}/{id?}");
             });
