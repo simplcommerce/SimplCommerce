@@ -5,6 +5,7 @@ using MediatR;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Module.Orders.Data;
 using SimplCommerce.Module.Orders.Events;
+using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Module.Orders.Services;
 
 namespace SimplCommerce.Module.Orders

@@ -22,39 +22,40 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure;
+using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Modules;
+using SimplCommerce.Infrastructure.Web.ModelBinders;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Infrastructure.Web.ModelBinders;
+using SimplCommerce.Infrastructure.Web;
 
 namespace SimplCommerce.WebHost.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection LoadInstalledModules(this IServiceCollection services, string contentRootPath)
+        private static readonly IModuleConfigurationManager _modulesConfig = new ModuleConfigurationManager();
+
+        public static IServiceCollection AddModules(this IServiceCollection services, string contentRootPath)
         {
             const string moduleManifestName = "module.json";
-            var modulesFolder = new DirectoryInfo(Path.Combine(contentRootPath, "Modules"));
-            ModuleInfo module = null;
-
-            foreach (var moduleFolder in modulesFolder.GetDirectories())
+            var modulesFolder = Path.Combine(contentRootPath, "Modules");
+            foreach (var module in _modulesConfig.GetModules())
             {
+                var moduleFolder = new DirectoryInfo(Path.Combine(modulesFolder, module.Id));
                 var moduleManifestPath = Path.Combine(moduleFolder.FullName, moduleManifestName);
                 if (!File.Exists(moduleManifestPath))
                 {
-                    throw new FileNotFoundException($"The manifest for the module '{moduleFolder.Name}' is not found.", moduleManifestPath);
+                    throw new MissingModuleManifestException($"The manifest for the module '{moduleFolder.Name}' is not found.", moduleFolder.Name);
                 }
 
                 using (var reader = new StreamReader(moduleManifestPath))
                 {
                     string content = reader.ReadToEnd();
                     dynamic moduleMetadata = JsonConvert.DeserializeObject(content);
-                    module = new ModuleInfo
-                    {
-                        Id = moduleMetadata.id,
-                        Name = moduleMetadata.name,
-                        Version = Version.Parse(moduleMetadata.version.ToString())
-                    };
+                    module.Name = moduleMetadata.name;
                 }
 
                 TryLoadModuleAssembly(moduleFolder.FullName, out Assembly moduleAssembly);

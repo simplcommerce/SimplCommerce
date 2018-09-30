@@ -1,4 +1,4 @@
-﻿using SimplCommerce.Infrastructure;
+﻿using SimplCommerce.Infrastructure.Modules;
 using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;

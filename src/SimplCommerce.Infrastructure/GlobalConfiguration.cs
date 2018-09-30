@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SimplCommerce.Infrastructure.Localization;
+using SimplCommerce.Infrastructure.Modules;
 
 namespace SimplCommerce.Infrastructure
 {
