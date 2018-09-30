@@ -1,0 +1,94 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: simplcommerce
+spec:
+  selector:
+    app: simplcommerce
+  ports:
+    - port: 80
+      targetPort: 80
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: simplcommerce-appsettings
+data:
+  appsettings.json: |
+    {
+      "ConnectionStrings": {
+        "DefaultConnection": "User ID=postgres;Password=postgres;Host=simpldb;Port=5432;Database=simplcommerce;Pooling=true;"
+      },
+      "Authentication": {
+        "Facebook": {
+          "AppId": "1716532045292977",
+          "AppSecret": "dfece01ae919b7b8af23f962a1f87f95"
+        },
+        "Google": {
+          "ClientId": "583825788849-8g42lum4trd5g3319go0iqt6pn30gqlq.apps.googleusercontent.com",
+          "ClientSecret": "X8xIiuNEUjEYfiEfiNrWOfI4"
+        },
+        "Jwt": {
+          "Key": "veryVerySecretKey",
+          "Issuer": "SimplCommerce",
+          "AccessTokenDurationInMinutes": 30
+        }
+      },
+      "Logging": {
+        "IncludeScopes": false,
+        "LogLevel": {
+          "Default": "Debug",
+          "System": "Information",
+          "Microsoft": "Information"
+        }
+      },
+      "Serilog": {
+        "MinimumLevel": {
+          "Default": "Warning"
+        },
+        "WriteTo": [
+          {
+            "Name": "RollingFile",
+            "Args": {
+              "pathFormat": "logs\\log-{Date}.txt",
+              "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] [{SourceContext}] [{EventId}] {Message}{NewLine}{Exception}"
+            }
+          }
+        ],
+        "Enrich": [ "FromLogContext", "WithMachineName", "WithThreadId" ]
+      }
+    }
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simplcommerce
+spec:
+  selector:
+    matchLabels:
+      app: simplcommerce
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: simplcommerce
+    spec:
+      volumes:
+      - name: appsettings
+        configMap:
+          name: simplcommerce-appsettings
+      containers:
+      - name: simplcommerce
+        image: simplcommerce/nightly-build
+        imagePullPolicy: Always
+        ports:
+        - name: www
+          containerPort: 80
+        volumeMounts:
+        - name: appsettings
+          mountPath: /app/appsettings.json
+          subPath: appsettings.json
+---
