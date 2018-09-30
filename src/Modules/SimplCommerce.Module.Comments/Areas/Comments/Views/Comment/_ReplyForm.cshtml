@@ -1,4 +1,4 @@
-@model SimplCommerce.Module.Comments.ViewModels.CommentForm
+﻿@model SimplCommerce.Module.Comments.ViewModels.CommentForm
 @using SimplCommerce.Module.Core.Models
 @using SimplCommerce.Module.Core.Extensions
 
@@ -8,7 +8,7 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <form class="form-add-review-reply" asp-controller="Comment" asp-action="AddReply" method="post" role="form">
+    <form class="form-add-review-reply" asp-area="Comments" asp-controller="Comment" asp-action="AddReply" method="post" role="form">
         <input asp-for="ParentId" type="hidden" />
         <input asp-for="EntityId" type="hidden" />
         <input asp-for="EntityTypeId" type="hidden" />
@@ -37,5 +37,5 @@
 }
 else
 {
-    <a class="nav-link" asp-controller="Account" asp-action="Login" asp-route-returnurl="@($"{Context.Request.Path}{Context.Request.QueryString}")">@Localizer["Log in"]</a>
+    <a class="nav-link" asp-area="Core" asp-controller="Account" asp-action="Login" asp-route-returnurl="@($"{Context.Request.Path}{Context.Request.QueryString}")">@Localizer["Log in"]</a>
 }

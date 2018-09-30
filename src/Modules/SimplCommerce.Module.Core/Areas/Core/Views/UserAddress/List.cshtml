@@ -28,13 +28,13 @@
                 }
                 else
                 {
-                    <form method="post" style="display: inline" asp-controller="UserAddress" asp-action="SetAsDefault" asp-route-id="@address.UserAddressId">
+                    <form method="post" style="display: inline" asp-area="Core" asp-controller="UserAddress" asp-action="SetAsDefault" asp-route-id="@address.UserAddressId">
                         <button type="submit" class="btn btn-link" style="padding: 0">@Localizer["Set as default shipping address"]</button>
                     </form>
                     <span> | </span>
                 }
                 <a href="~/user/address/edit/@address.UserAddressId">@Localizer["Edit"]</a><span> | </span>
-                <form method="post" style="display: inline" asp-controller="UserAddress" asp-action="Delete" asp-route-id="@address.UserAddressId">
+                <form method="post" style="display: inline" asp-area="Core" asp-controller="UserAddress" asp-action="Delete" asp-route-id="@address.UserAddressId">
                     <button type="submit" class="btn btn-link" style="padding: 0">@Localizer["Delete"]</button>
                 </form>
             </div>

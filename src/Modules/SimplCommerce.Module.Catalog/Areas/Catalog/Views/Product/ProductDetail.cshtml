@@ -1,4 +1,4 @@
-@model SimplCommerce.Module.Catalog.ViewModels.ProductDetail
+﻿@model SimplCommerce.Module.Catalog.ViewModels.ProductDetail
 @using SimplCommerce.Module.Core.Models
 
 
@@ -135,7 +135,7 @@
                                             }
                                             else
                                             {
-                                                <a asp-controller="Account" asp-action="Login" asp-route-returnurl="@($"{Context.Request.Path}{Context.Request.QueryString}")">@Localizer["Add to Wishlist"]</a>
+                                                <a asp-area="Catalog" asp-controller="Account" asp-action="Login" asp-route-returnurl="@($"{Context.Request.Path}{Context.Request.QueryString}")">@Localizer["Add to Wishlist"]</a>
                                             }
                                         </li>
                                         <li class="compare-in">
@@ -194,7 +194,7 @@
                                     }
                                     else
                                     {
-                                        <a asp-controller="Account" asp-action="Login" asp-route-returnurl="@($"{Context.Request.Path}{Context.Request.QueryString}")">@Localizer["Add to Wishlist"]</a>
+                                        <a asp-area="Catalog" asp-controller="Account" asp-action="Login" asp-route-returnurl="@($"{Context.Request.Path}{Context.Request.QueryString}")">@Localizer["Add to Wishlist"]</a>
                                     }
                                 </li>
                                 <li class="compare-in">

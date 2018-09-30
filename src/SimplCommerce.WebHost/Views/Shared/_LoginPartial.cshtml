@@ -7,20 +7,20 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a class="nav-link" asp-controller="Manage" asp-action="Index" title="@Localizer["Manage"]">@Localizer["Hello {0}!", (await WorkContext.GetCurrentUser()).FullName]</a>
+        <a class="nav-link" asp-area="Core" asp-controller="Manage" asp-action="Index" title="@Localizer["Manage"]">@Localizer["Hello {0}!", (await WorkContext.GetCurrentUser()).FullName]</a>
     </li>
     @if (User.IsInRole("admin") || User.IsInRole("vendor"))
     {
-        <li class="nav-item"><a class="nav-link" asp-controller="HomeAdmin" asp-action="Index">@Localizer["Dashboard"]</a></li>
+        <li class="nav-item"><a class="nav-link" asp-area="Core" asp-controller="HomeAdmin" asp-action="Index">@Localizer["Dashboard"]</a></li>
     }
     <li class="nav-item">
-        <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="">
+        <form asp-area="Core" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="">
             <button type="submit" class="btn btn-link">@Localizer["Log off"]</button>
         </form>
     </li>
 }
 else
 {
-    <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Login">@Localizer["Log in"]</a></li>
-    <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Register">@Localizer["Register"]</a></li>
+    <li class="nav-item"><a class="nav-link" asp-area="Core" asp-controller="Account" asp-action="Login">@Localizer["Log in"]</a></li>
+    <li class="nav-item"><a class="nav-link" asp-area="Core" asp-controller="Account" asp-action="Register">@Localizer["Register"]</a></li>
 }

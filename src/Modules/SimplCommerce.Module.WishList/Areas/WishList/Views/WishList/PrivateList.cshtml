@@ -49,7 +49,7 @@
                 </div>
             }
             <div class="text-right">
-                <a class="btn btn-primary" asp-controller="WishList" asp-action="Share">@Localizer["Share Wish List"]</a>
+                <a class="btn btn-primary" asp-area="WishList" asp-controller="WishList" asp-action="Share">@Localizer["Share Wish List"]</a>
             </div>
             <div>
                 <cs-pager cs-paging-pagesize="@Model.Items.PageSize"

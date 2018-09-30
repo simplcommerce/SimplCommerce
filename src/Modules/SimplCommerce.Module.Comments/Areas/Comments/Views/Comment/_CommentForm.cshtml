@@ -1,6 +1,6 @@
 ﻿@model SimplCommerce.Module.Comments.ViewModels.CommentForm
 
-<form id="form-addcomment" asp-controller="Comment" asp-action="AddComment" method="post" role="form">
+<form id="form-addcomment" asp-area="Comments" asp-controller="Comment" asp-action="AddComment" method="post" role="form">
     <input asp-for="EntityId" type="hidden" />
     <input asp-for="EntityTypeId" type="hidden" />
     <div asp-validation-summary="All" class="text-danger"></div>

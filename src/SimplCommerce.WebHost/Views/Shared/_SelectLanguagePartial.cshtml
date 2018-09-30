@@ -30,7 +30,7 @@
             </li>
         }
     </ul>
-    <form asp-controller="Localization" asp-action="SetLanguage" asp-route-returnUrl="@Context.Request.Path" method="post" id="lang-form" role="form">
+    <form asp-area="Localization" asp-controller="Localization" asp-action="SetLanguage" asp-route-returnUrl="@Context.Request.Path" method="post" id="lang-form" role="form">
         <input type="hidden" name="culture" value="@uiCulture" />
     </form>
 </li>

@@ -10,7 +10,7 @@
     <div class="col-md-9">
         <h2>@Localizer["Edit Address"]</h2>
         <hr />
-        <form asp-controller="UserAddress" asp-action="Edit" method="POST">
+        <form asp-area="Core" asp-controller="UserAddress" asp-action="Edit" method="POST">
             @Html.Partial("_AddressForm", Model)
         </form>
     </div>
