@@ -59,6 +59,10 @@ namespace SimplCommerce.WebHost.Extensions
                 if(!module.IsBundledWithHost)
                 {
                     TryLoadModuleAssembly(moduleFolder.FullName, module);
+                    if (module.Assembly == null)
+                    {
+                        throw new Exception($"Cannot find main assembly for module {module.Id}");
+                    }
                 }
                 else
                 {
@@ -242,11 +246,6 @@ namespace SimplCommerce.WebHost.Extensions
                     {
                         module.Assembly = assembly;
                     }
-                }
-
-                if(module.Assembly == null)
-                {
-                    throw new Exception($"Cannot find main assembly for module {moduleFolderPath}");
                 }
             }
         }
