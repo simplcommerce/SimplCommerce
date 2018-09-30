@@ -17,34 +17,19 @@ COPY . ./
 
 RUN cp -f src/SimplCommerce.WebHost/appsettings.docker.json src/SimplCommerce.WebHost/appsettings.json
 
-RUN dotnet restore && dotnet build -c NonWindowsDebug \
-    && cd src/SimplCommerce.WebHost \
-    && npm run gulp-copy-modules -- --configurationName NonWindowsDebug \
-    && dotnet ef migrations script --configuration NonWindowsDebug -o dbscript.sql
-
-RUN dotnet build -c NonWindowsRelease \
+RUN dotnet restore \
+    && dotnet build -c NonWindowsRelease \
 	&& cd src/SimplCommerce.WebHost \
 	&& npm run gulp-copy-modules -- --configurationName NonWindowsRelease \
 	&& dotnet publish -c NonWindowsRelease -o out
 
 # remove BOM for psql	
-RUN sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/SimplCommerce.WebHost/dbscript.sql \
-	&& sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/Database/StaticData_PostgreSQL.sql
+RUN sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/Database/StaticData_PostgreSQL.sql
 
 FROM microsoft/dotnet:2.1.4-aspnetcore-runtime
 
-# hack to make postgresql-client install work on slim
-RUN mkdir -p /usr/share/man/man1 \
-    && mkdir -p /usr/share/man/man7
-
-RUN apt-get update \
-	&& apt-get install -y --no-install-recommends postgresql-client \
-	&& apt-get install libgdiplus -y \
-	&& rm -rf /var/lib/apt/lists/*
-
 WORKDIR /app	
 COPY --from=build-env /app/src/SimplCommerce.WebHost/out ./
-COPY --from=build-env /app/src/SimplCommerce.WebHost/dbscript.sql ./
 
 RUN curl -SL "https://github.com/rdvojmoc/DinkToPdf/raw/v1.0.8/v0.12.4/64%20bit/libwkhtmltox.so" --output ./libwkhtmltox.so
 
