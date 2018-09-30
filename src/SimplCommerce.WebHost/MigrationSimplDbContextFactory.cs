@@ -2,9 +2,10 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore.Design;
 using SimplCommerce.Module.Core.Data;
 using SimplCommerce.WebHost.Extensions;
-using Microsoft.EntityFrameworkCore.Design;
+using SimplCommerce.Infrastructure;
 
 namespace SimplCommerce.WebHost
 {
@@ -26,7 +27,7 @@ namespace SimplCommerce.WebHost
 
             //setup DI
             IServiceCollection services = new ServiceCollection();
-
+            GlobalConfiguration.ContentRootPath = contentRootPath;
             services.AddModules(contentRootPath);
             services.AddCustomizedDataStore(_configuration);
             var _serviceProvider = services.BuildServiceProvider();

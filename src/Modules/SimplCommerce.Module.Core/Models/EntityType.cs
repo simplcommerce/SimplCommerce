@@ -21,8 +21,13 @@ namespace SimplCommerce.Module.Core.Models
 
         public bool IsMenuable { get; set; }
 
+        [StringLength(450)]
+        public string AreaName { get; set; }
+
+        [StringLength(450)]
         public string RoutingController { get; set; }
 
+        [StringLength(450)]
         public string RoutingAction { get; set; }
     }
 }
