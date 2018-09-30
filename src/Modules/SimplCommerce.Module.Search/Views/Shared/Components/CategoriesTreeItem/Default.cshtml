@@ -1,0 +1,37 @@
+﻿@using SimplCommerce.Module.Catalog.ViewModels
+@model List<CategoriesTree>
+
+@{
+    SearchOption searchOption = new SearchOption();
+    try
+    {
+        if (TempData["CurrentSearchOption"] != null)
+        {
+            searchOption = TempData["CurrentSearchOption"] as SearchOption;
+        }
+    }
+    catch (Exception)
+    {
+        searchOption = new SearchOption();
+    }
+}
+
+
+<ul class="list-unstyled checkbox-list">
+
+    @foreach (var category in Model)
+    {
+        <li>
+            <label class="checkbox">
+                <input type="checkbox" value="@category.Slug" name="category" checked="@searchOption.GetCategories().Contains(category.Slug)">
+                @category.Name
+                <small>(@category.Count)</small>
+            </label>
+            @if (category.ChildCategories.Count > 0)
+            {
+                <vc:categories-tree-item categories="category.ChildCategories" current-search-option="searchOption"></vc:categories-tree-item>
+            }
+        </li>
+    }
+
+</ul>
