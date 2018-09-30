@@ -1,7 +1,6 @@
 <Project>
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <PreserveCompilationContext>false</PreserveCompilationContext>
   </PropertyGroup>
   
   <ItemGroup>

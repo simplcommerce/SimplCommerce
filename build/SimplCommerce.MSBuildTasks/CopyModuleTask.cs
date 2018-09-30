@@ -19,6 +19,7 @@ namespace SimplCommerce.MSBuildTasks
         public override bool Execute()
         {
             var modulesFileName = "modules.json";
+            var moduleFileName = "module.json";
             var modulesFilePath = Path.Combine(ProjectDir, modulesFileName);
             if (!File.Exists(modulesFilePath))
             {
@@ -36,10 +37,10 @@ namespace SimplCommerce.MSBuildTasks
             foreach (var module in modules)
             {
                 var sourceRoot = Path.Combine(new DirectoryInfo(ProjectDir).Parent.FullName, "Modules", module.Id);
-                var moduleManifestFile = Path.Combine(sourceRoot, modulesFileName);
+                var moduleManifestFile = Path.Combine(sourceRoot, moduleFileName);
                 if (!File.Exists(moduleManifestFile))
                 {
-                    Log.LogError($"{modulesFileName} is not fould for {module.Id}");
+                    Log.LogError($"{moduleFileName} is not fould for {module.Id}");
                     return false;
                 }
 
@@ -56,9 +57,8 @@ namespace SimplCommerce.MSBuildTasks
                 CreateOrCleanDirectory(destinationWwwroot);
                 CreateOrCleanDirectory(destination);
 
-                File.Copy(Path.Combine(sourceRoot, modulesFileName),
-                    Path.Combine(destination, modulesFileName), true);
-                CopyDirectory(Path.Combine(sourceRoot, "Views"), Path.Combine(destination, "Views"));
+                File.Copy(Path.Combine(sourceRoot, moduleFileName),
+                    Path.Combine(destination, moduleFileName), true);
                 CopyDirectory(Path.Combine(sourceRoot, "wwwroot"), destinationWwwroot);
                 if (!moduleManifest.IsBundledWithHost)
                 {
@@ -95,6 +95,7 @@ namespace SimplCommerce.MSBuildTasks
                 Directory.CreateDirectory(path);
             }
         }
+
         private void CopyDirectory(string sourcePath, string targetPath)
         {
             if (!Directory.Exists(sourcePath))

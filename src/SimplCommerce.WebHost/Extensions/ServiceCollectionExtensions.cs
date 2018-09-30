@@ -53,16 +53,18 @@ namespace SimplCommerce.WebHost.Extensions
                     string content = reader.ReadToEnd();
                     dynamic moduleMetadata = JsonConvert.DeserializeObject(content);
                     module.Name = moduleMetadata.name;
+                    module.IsBundledWithHost = moduleMetadata.isBundledWithHost;
                 }
 
-                TryLoadModuleAssembly(moduleFolder.FullName, out Assembly moduleAssembly);
-
-                if (moduleAssembly == null)
+                if(!module.IsBundledWithHost)
                 {
-                    moduleAssembly = Assembly.Load(new AssemblyName(moduleFolder.Name));
+                    TryLoadModuleAssembly(moduleFolder.FullName, module);
+                }
+                else
+                {
+                    module.Assembly = Assembly.Load(new AssemblyName(moduleFolder.Name));
                 }
 
-                module.Assembly = moduleAssembly;
                 GlobalConfiguration.Modules.Add(module);
                 RegisterModuleInitializerServices(module, ref services);
             }
@@ -79,7 +81,7 @@ namespace SimplCommerce.WebHost.Extensions
                 })
                 .AddRazorOptions(o =>
                 {
-                    foreach (var module in modules)
+                    foreach (var module in modules.Where(x => !x.IsBundledWithHost))
                     {
                         o.AdditionalCompilationReferences.Add(MetadataReference.CreateFromFile(module.Assembly.Location));
                     }
@@ -88,7 +90,7 @@ namespace SimplCommerce.WebHost.Extensions
                 .AddDataAnnotationsLocalization()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1); ;
 
-            foreach (var module in modules)
+            foreach (var module in modules.Where(x => !x.IsBundledWithHost))
             {
                 AddApplicationPart(mvcBuilder, module.Assembly);
             }
@@ -201,13 +203,12 @@ namespace SimplCommerce.WebHost.Extensions
             return services;
         }
 
-        private static void TryLoadModuleAssembly(string moduleFolderPath, out Assembly moduleMainAssembly)
+        private static void TryLoadModuleAssembly(string moduleFolderPath, ModuleInfo module)
         {
             const string binariesFolderName = "bin";
             var binariesFolderPath = Path.Combine(moduleFolderPath, binariesFolderName);
             var binariesFolder = new DirectoryInfo(binariesFolderPath);
 
-            moduleMainAssembly = null;
             if (Directory.Exists(binariesFolderPath))
             {
                 foreach (var file in binariesFolder.GetFileSystemInfos("*.dll", SearchOption.AllDirectories))
@@ -237,10 +238,15 @@ namespace SimplCommerce.WebHost.Extensions
                         }
                     }
 
-                    if (assembly.FullName.Contains(Path.GetFileNameWithoutExtension(moduleFolderPath)))
+                    if (Path.GetFileNameWithoutExtension(assembly.ManifestModule.Name) == module.Id)
                     {
-                        moduleMainAssembly = assembly;
+                        module.Assembly = assembly;
                     }
+                }
+
+                if(module.Assembly == null)
+                {
+                    throw new Exception($"Cannot find main assembly for module {moduleFolderPath}");
                 }
             }
         }
