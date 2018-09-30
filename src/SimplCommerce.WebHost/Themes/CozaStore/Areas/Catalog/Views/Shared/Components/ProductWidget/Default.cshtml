@@ -1,11 +1,11 @@
-@model SimplCommerce.Module.Catalog.ViewModels.ProductWidgetComponentVm
+﻿@model SimplCommerce.Module.Catalog.ViewModels.ProductWidgetComponentVm
 
 <h2 class="ltext-103 cl5 m-t-75 m-b-25">@Model.WidgetName</h2>
 <div class="product-list row isotope-grid">
     @foreach (var product in Model.Products)
     {
         <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item">
-            @await Html.PartialAsync("/Themes/CozaStore/Modules/SimplCommerce.Module.Catalog/Views/Shared/_ProductThumbnail.cshtml", product)
+            @await Html.PartialAsync("/Themes/CozaStore/Areas/Catalog/Views/Shared/_ProductThumbnail.cshtml", product)
         </div>
     }
 </div>

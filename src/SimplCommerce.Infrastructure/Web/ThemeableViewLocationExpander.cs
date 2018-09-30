@@ -18,10 +18,10 @@ namespace SimplCommerce.Infrastructure.Web
             {
                 var moduleViewLocations = new string[]
                 {
-                    $"/Themes/{theme}/Areas/{2}/Views/{1}/{0}.cshtml",
-                    $"/Themes/{theme}/Areas/{2}/Views/Shared/{0}.cshtml",
-                    $"/Themes/{theme}/Views/{1}/{0}.cshtml",
-                    $"/Themes/{theme}/Views/Shared/{0}.cshtml"
+                    $"/Themes/{theme}/Areas/{{2}}/Views/{{1}}/{{0}}.cshtml",
+                    $"/Themes/{theme}/Areas/{{2}}/Views/Shared/{{0}}.cshtml",
+                    $"/Themes/{theme}/Views/{{1}}/{{0}}.cshtml",
+                    $"/Themes/{theme}/Views/Shared/{{0}}.cshtml"
                 };
 
                 viewLocations = moduleViewLocations.Concat(viewLocations);
