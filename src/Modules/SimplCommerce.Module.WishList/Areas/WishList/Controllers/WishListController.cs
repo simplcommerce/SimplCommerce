@@ -173,7 +173,7 @@ namespace SimplCommerce.Module.WishList.Controllers
         }
 
         [Authorize]
-        [HttpPost]
+        [HttpPost("wishlist/add-item")]
         public async Task<IActionResult> AddItem([FromBody] AddToWishList model)
         {
             if (ModelState.IsValid)
@@ -255,7 +255,7 @@ namespace SimplCommerce.Module.WishList.Controllers
         }
 
         [Authorize]
-        [HttpDelete]
+        [HttpDelete("wishlist/remove-item")]
         public async Task<IActionResult> RemoveItem(long id)
         {
             var user = await _workContext.GetCurrentUser();
@@ -288,7 +288,7 @@ namespace SimplCommerce.Module.WishList.Controllers
         }
 
         [Authorize]
-        [HttpPatch]
+        [HttpPatch("wishlist/update-item")]
         public async Task<IActionResult> UpdateItem([FromBody] UpdateWishListItem model)
         {
             if (ModelState.IsValid)

@@ -33,7 +33,7 @@ namespace SimplCommerce.Module.ShoppingCart.Controllers
             _workContext = workContext;
         }
 
-        [HttpPost]
+        [HttpPost("cart/addtocart")]
         public async Task<IActionResult> AddToCart([FromBody] AddToCartModel model)
         {
             var currentUser = await _workContext.GetCurrentUser();
@@ -63,13 +63,13 @@ namespace SimplCommerce.Module.ShoppingCart.Controllers
             return PartialView(model);
         }
 
-        [HttpGet]
+        [HttpGet("cart")]
         public IActionResult Index()
         {
             return View();
         }
 
-        [HttpGet]
+        [HttpGet("cart/list")]
         public async Task<IActionResult> List()
         {
             var currentUser = await _workContext.GetCurrentUser();
@@ -78,7 +78,7 @@ namespace SimplCommerce.Module.ShoppingCart.Controllers
             return Json(cart);
         }
 
-        [HttpPost]
+        [HttpPost("cart/update-quantity")]
         public async Task<IActionResult> UpdateQuantity([FromBody] CartQuantityUpdate model)
         {
             var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == model.CartItemId);
@@ -93,7 +93,7 @@ namespace SimplCommerce.Module.ShoppingCart.Controllers
             return await List();
         }
 
-        [HttpPost]
+        [HttpPost("cart/apply-coupon")]
         public async Task<ActionResult> ApplyCoupon([FromBody] ApplyCouponForm model)
         {
             var currentUser = await _workContext.GetCurrentUser();
@@ -107,7 +107,7 @@ namespace SimplCommerce.Module.ShoppingCart.Controllers
             return Json(validationResult);
         }
 
-        [HttpPost]
+        [HttpPost("cart/remove")]
         public async Task<IActionResult> Remove([FromBody] long itemId)
         {
             var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == itemId);

@@ -1,4 +1,4 @@
-@model SimplCommerce.Module.Reviews.ViewModels.ReplyForm
+﻿@model SimplCommerce.Module.Reviews.ViewModels.ReplyForm
 @using SimplCommerce.Module.Core.Models
 @using SimplCommerce.Module.Core.Extensions
 
@@ -8,7 +8,7 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <form class="form-add-review-reply" asp-controller="Reply" asp-action="AddReply" method="post" role="form">
+    <form class="form-add-review-reply" asp-area="Reviews" asp-controller="Reply" asp-action="AddReply" method="post" role="form">
         <input asp-for="ReviewId" type="hidden" />
         <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group row">
@@ -34,5 +34,5 @@
 }
 else
 {
-    <a class="nav-link" asp-controller="Account" asp-action="Login" asp-route-returnurl="@($"{Context.Request.Path}{Context.Request.QueryString}")">@Localizer["Log in"]</a>
+    <a class="nav-link" asp-area="Core" asp-controller="Account" asp-action="Login" asp-route-returnurl="@($"{Context.Request.Path}{Context.Request.QueryString}")">@Localizer["Log in"]</a>
 }

@@ -1,5 +1,5 @@
 ﻿@model SimplCommerce.Module.Reviews.ViewModels.ReviewForm
-<form id="form-addreview" asp-controller="Review" asp-action="AddReview" method="post" role="form">
+<form id="form-addreview" asp-area="Reviews" asp-controller="Review" asp-action="AddReview" method="post" role="form">
     <input asp-for="EntityId" type="hidden" />
     <input asp-for="EntityTypeId" type="hidden" />
     <div asp-validation-summary="All" class="text-danger"></div>

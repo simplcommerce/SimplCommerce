@@ -56,7 +56,8 @@
                 </div>
             }
 
-            <a asp-controller="Comment"
+            <a asp-area="Comments"
+               asp-controller="Comment"
                asp-action="List"
                asp-route-entityId="@Model.EntityId"
                asp-route-entityTypeId="@Model.EntityTypeId"

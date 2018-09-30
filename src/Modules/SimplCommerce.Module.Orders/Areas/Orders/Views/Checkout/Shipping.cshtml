@@ -1,4 +1,4 @@
-@model SimplCommerce.Module.Orders.ViewModels.DeliveryInformationVm
+﻿@model SimplCommerce.Module.Orders.ViewModels.DeliveryInformationVm
 
 @{
     ViewBag.Title = "Shipping Information";
@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-md-8">
-        <form asp-controller="Checkout" asp-action="Shipping" method="POST" id="checkout-delivery-address">
+        <form asp-area="Orders" asp-controller="Checkout" asp-action="Shipping" method="POST" id="checkout-delivery-address">
             <h3>@Localizer["Shipping address"]</h3>
             @foreach (var address in Model.ExistingShippingAddresses)
             {

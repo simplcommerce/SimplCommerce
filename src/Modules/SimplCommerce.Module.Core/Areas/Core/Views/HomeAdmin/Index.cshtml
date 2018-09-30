@@ -334,10 +334,10 @@
                     </li>
                     }
                 </ul>
-                <form asp-area="" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
+                <form asp-area="Core" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">@Localizer["Hello {0}!", (await WorkContext.GetCurrentUser()).FullName]</a>
+                            <a asp-area="Core" asp-controller="Manage" asp-action="Index" title="Manage">@Localizer["Hello {0}!", (await WorkContext.GetCurrentUser()).FullName]</a>
                         </li>
                         <li>
                             <button type="submit" class="btn btn-link navbar-btn navbar-link">@Localizer["Log off"]</button>

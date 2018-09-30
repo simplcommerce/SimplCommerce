@@ -40,7 +40,7 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
             _workContext = workContext;
         }
 
-        [HttpPost]
+        [HttpPost("comparing-product/addto-comparison")]
         public async Task<IActionResult> AddToComparison([FromBody] AddToComparisonModel model)
         {
             var currentUser = await _workContext.GetCurrentUser();
@@ -72,7 +72,7 @@ namespace SimplCommerce.Module.ProductComparison.Controllers
             return PartialView("AddToComparisonResult", returnModel);
         }
 
-        [HttpDelete]
+        [HttpDelete("comparing-product/remove")]
         public async Task<IActionResult> Remove(long id)
         {
             var currentUser = await _workContext.GetCurrentUser();

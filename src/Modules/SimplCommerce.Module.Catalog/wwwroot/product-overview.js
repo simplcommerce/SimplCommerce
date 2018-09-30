@@ -4,7 +4,7 @@ $(function () {
         var productId = $(this).parent().find('#productId').val();
         $.ajax({
             type: 'GET',
-            url: '/product/productoverview?id=' + productId,
+            url: '/product/product-overview?id=' + productId,
             contentType: "application/json"
         }).done(function (data) {
             $('#productOverview').find('.modal-content').html(data);

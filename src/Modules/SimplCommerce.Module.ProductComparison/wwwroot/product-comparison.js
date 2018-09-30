@@ -7,7 +7,7 @@ $(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/comparingproduct/addtocomparison',
+            url: '/comparing-product/addto-comparison',
             data: JSON.stringify({ productId: productId }),
             contentType: "application/json"  
         }).done(function (data) {
@@ -35,7 +35,7 @@ $(function () {
 
         $.ajax({
             type: 'DELETE',
-            url: '/comparingproduct/remove?id=' + productId,
+            url: '/comparing-product/remove?id=' + productId,
             contentType: 'application/json; charset=utf-8'
         }).done(function () {
             if (reload) {

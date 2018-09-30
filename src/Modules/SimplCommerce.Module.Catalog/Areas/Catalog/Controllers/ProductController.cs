@@ -31,7 +31,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             _productPricingService = productPricingService;
         }
 
-        [HttpGet]
+        [HttpGet("product/product-overview")]
         public async Task<IActionResult> ProductOverview(long id)
         {
             var product = await _productRepository.Query()
