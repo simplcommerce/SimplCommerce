@@ -59,7 +59,7 @@
         }
         <div class="col-md-7">
             <div id="addreview">
-                @Html.Partial("/Modules/SimplCommerce.Module.Reviews/Views/Review/_ReviewForm.cshtml", new ReviewForm { EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId })
+                @Html.Partial("/Areas/Reviews/Views/Review/_ReviewForm.cshtml", new ReviewForm { EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId })
             </div>
         </div>
     </div>
@@ -95,7 +95,7 @@
             <div>
                 <button class="btn-add-review-reply btn btn-link">@Localizer["Add Reply"]</button>
                 <div class="add-review-reply d-none">
-                    @Html.Partial("/Modules/SimplCommerce.Module.Reviews/Views/Reply/_ReplyForm.cshtml", new ReplyForm { ReviewId = review.Id })
+                    @Html.Partial("/Areas/Reviews/Views/Reply/_ReplyForm.cshtml", new ReplyForm { ReviewId = review.Id })
                 </div>
             </div>
         </div>

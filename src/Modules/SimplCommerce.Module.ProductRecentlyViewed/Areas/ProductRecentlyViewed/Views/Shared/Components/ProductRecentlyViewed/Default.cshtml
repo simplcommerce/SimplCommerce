@@ -7,7 +7,7 @@
     @foreach (var product in Model)
     {
         <div class="col-xs-6 col-md-3">
-            @await Html.PartialAsync("/Modules/SimplCommerce.Module.Catalog/Views/Shared/_ProductThumbnail.cshtml", product)
+            @await Html.PartialAsync("/Areas/Catalog/Views/Shared/_ProductThumbnail.cshtml", product)
         </div>
     }
 </div>

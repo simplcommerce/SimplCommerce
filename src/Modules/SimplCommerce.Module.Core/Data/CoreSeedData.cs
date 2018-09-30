@@ -14,7 +14,7 @@ namespace SimplCommerce.Module.Core.Data
             );
 
             builder.Entity<EntityType>().HasData(
-                new EntityType("Vendor") { RoutingController = "Vendor", RoutingAction = "VendorDetail", IsMenuable = false }
+                new EntityType("Vendor") { AreaName = "Core", RoutingController = "Vendor", RoutingAction = "VendorDetail", IsMenuable = false }
             );
 
             builder.Entity<Role>().HasData(

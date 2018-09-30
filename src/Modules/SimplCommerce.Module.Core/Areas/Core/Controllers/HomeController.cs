@@ -25,6 +25,7 @@ namespace SimplCommerce.Module.Core.Controllers
             throw new Exception("Test behavior in case of error");
         }
 
+        [HttpGet("/")]
         public IActionResult Index()
         {
             var model = new HomeViewModel();
