@@ -1,0 +1,20 @@
+{
+  "js": {
+    "inputs": [
+      "admin/cms.module.js",
+      "admin/page/page-service.js",
+      "admin/page/page-list.js",
+      "admin/page/page-form.js",
+      "admin/menu/menu-service.js",
+      "admin/menu/menu-list.js",
+      "admin/menu/menu-form.js",
+      "admin/menu/menu-form-create.js",
+      "admin/carousel-widget/carousel-widget-service.js",
+      "admin/carousel-widget/carousel-widget-form.js",
+      "admin/html-widget/html-widget-service.js",
+      "admin/html-widget/html-widget-form.js",
+      "admin/spacebar-widget/spacebar-widget-service.js",
+      "admin/spacebar-widget/spacebar-widget-form.js"
+    ]
+  }
+}
