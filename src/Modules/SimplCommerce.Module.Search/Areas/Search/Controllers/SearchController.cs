@@ -1,15 +1,16 @@
-﻿using System;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
+using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Catalog.ViewModels;
-using SimplCommerce.Module.Search.ViewModels;
-using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Search.Models;
-using Microsoft.Extensions.Configuration;
-using SimplCommerce.Module.Catalog.Services;
+using SimplCommerce.Module.Search.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SimplCommerce.Module.Search.Controllers
 {
@@ -50,7 +51,7 @@ namespace SimplCommerce.Module.Search.Controllers
             }
 
             var brand = _brandRepository.Query().FirstOrDefault(x => x.Name == searchOption.Query && x.IsPublished);
-            if(brand != null)
+            if (brand != null)
             {
                 return Redirect(string.Format("~/{0}", brand.Slug));
             }
@@ -156,7 +157,8 @@ namespace SimplCommerce.Module.Search.Controllers
 
             model.FilterOption.Categories = query
                 .SelectMany(x => x.Categories).Where(x => x.Category.Parent == null)
-                .GroupBy(x => new {
+                .GroupBy(x => new
+                {
                     x.Category.Id,
                     x.Category.Name,
                     x.Category.Slug
@@ -168,6 +170,12 @@ namespace SimplCommerce.Module.Search.Controllers
                     Slug = g.Key.Slug,
                     Count = g.Count()
                 }).ToList();
+
+            // Select product category for Category Tree
+            var productCategories = query.SelectMany(x => x.Categories)
+                               .Include(x => x.Category)
+                               .ToList();
+            model.FilterOption.CategoriesTree = GetCategoriesTree(productCategories, null);
 
             model.FilterOption.Brands = query
                .Where(x => x.BrandId != null)
@@ -192,6 +200,20 @@ namespace SimplCommerce.Module.Search.Controllers
 
             _queryRepository.Add(query);
             _queryRepository.SaveChanges();
+        }
+
+        private static List<CategoriesTree> GetCategoriesTree(List<ProductCategory> productCategories, long? parentId = null)
+        {
+            return productCategories.Where(x => x.Category.ParentId == parentId)
+                   .GroupBy(x => new { x.Category.Id, x.Category.Name, x.Category.Slug })
+                   .Select(x => new CategoriesTree
+                   {
+                       Name = x.Key.Name,
+                       Id = (int)x.Key.Id,
+                       Slug = x.Key.Slug,
+                       ChildCategories = GetCategoriesTree(productCategories, x.Key.Id),
+                       Count = x.Count()
+                   }).OrderBy(x => x.Name).ToList();
         }
     }
 }
