@@ -1,4 +1,5 @@
 image: Visual Studio 2017 Preview
+skip_branch_with_pr: true
 init:
   - git config --global core.autocrlf true
 install:

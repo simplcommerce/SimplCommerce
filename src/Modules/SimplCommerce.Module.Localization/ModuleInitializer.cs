@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using MediatR;
-using SimplCommerce.Infrastructure;
+using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Module.ShoppingCart.Events;
 using SimplCommerce.Module.Core.Events;
 

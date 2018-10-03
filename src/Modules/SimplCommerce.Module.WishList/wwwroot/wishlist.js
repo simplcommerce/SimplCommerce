@@ -9,7 +9,7 @@ $(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/wishlist/additem',
+            url: '/wishlist/add-item',
             data: JSON.stringify({ productId: productId, quantity: quantity }),
             contentType: "application/json"  
         }).done(function (data) {
@@ -38,7 +38,7 @@ $(function () {
 
         $.ajax({
             type: 'PATCH',
-            url: '/wishlist/updateitem',
+            url: '/wishlist/update-item',
             data: JSON.stringify({ itemId: itemId, description: description, quantity: quantity }),
             contentType: "application/json"
         }).done(function (data) {
@@ -66,7 +66,7 @@ $(function () {
 
         $.ajax({
             type: 'DELETE',
-            url: '/wishlist/removeitem?id=' + itemId,
+            url: '/wishlist/remove-item?id=' + itemId,
             contentType: 'application/json; charset=utf-8'
         }).done(function () {
             $item.remove();

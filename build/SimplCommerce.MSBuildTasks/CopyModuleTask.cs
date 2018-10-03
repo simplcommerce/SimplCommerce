@@ -4,10 +4,11 @@ using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using Microsoft.Build.Framework;
+using Microsoft.Build.Utilities;
 
 namespace SimplCommerce.MSBuildTasks
 {
-    public class CopyModuleTask : Microsoft.Build.Utilities.Task
+    public class CopyModuleTask : Task
     {
         [Required]
         public string ProjectDir { get; set; }
@@ -17,15 +18,17 @@ namespace SimplCommerce.MSBuildTasks
 
         public override bool Execute()
         {
-            var modulesFile = Path.Combine(ProjectDir, "modules.json");
-            if (!File.Exists(modulesFile))
+            var modulesFileName = "modules.json";
+            var moduleFileName = "module.json";
+            var modulesFilePath = Path.Combine(ProjectDir, modulesFileName);
+            if (!File.Exists(modulesFilePath))
             {
-                Log.LogError("modules.json is not fould");
+                Log.LogError($"{modulesFileName} is not fould");
                 return false;
             }
 
             var modules = new List<Module>();
-            using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(File.ReadAllText(modulesFile))))
+            using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(File.ReadAllText(modulesFileName))))
             {
                 var ser = new DataContractJsonSerializer(modules.GetType());
                 modules = ser.ReadObject(ms) as List<Module>;
@@ -34,10 +37,10 @@ namespace SimplCommerce.MSBuildTasks
             foreach (var module in modules)
             {
                 var sourceRoot = Path.Combine(new DirectoryInfo(ProjectDir).Parent.FullName, "Modules", module.Id);
-                var moduleManifestFile = Path.Combine(sourceRoot, "module.json");
+                var moduleManifestFile = Path.Combine(sourceRoot, moduleFileName);
                 if (!File.Exists(moduleManifestFile))
                 {
-                    Log.LogError($"module.json is not fould for {module.Id}");
+                    Log.LogError($"{moduleFileName} is not fould for {module.Id}");
                     return false;
                 }
 
@@ -54,8 +57,8 @@ namespace SimplCommerce.MSBuildTasks
                 CreateOrCleanDirectory(destinationWwwroot);
                 CreateOrCleanDirectory(destination);
 
-                File.Copy(Path.Combine(sourceRoot, "module.json"), Path.Combine(destination, "module.json"), true);
-                CopyDirectory(Path.Combine(sourceRoot, "Views"), Path.Combine(destination, "Views"));
+                File.Copy(Path.Combine(sourceRoot, moduleFileName),
+                    Path.Combine(destination, moduleFileName), true);
                 CopyDirectory(Path.Combine(sourceRoot, "wwwroot"), destinationWwwroot);
                 if (!moduleManifest.IsBundledWithHost)
                 {
@@ -92,6 +95,7 @@ namespace SimplCommerce.MSBuildTasks
                 Directory.CreateDirectory(path);
             }
         }
+
         private void CopyDirectory(string sourcePath, string targetPath)
         {
             if (!Directory.Exists(sourcePath))

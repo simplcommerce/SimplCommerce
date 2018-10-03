@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using SimplCommerce.Infrastructure;
+using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Module.ActivityLog.Data;
 using SimplCommerce.Module.ActivityLog.Events;
 using SimplCommerce.Module.Core.Events;

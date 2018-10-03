@@ -16,7 +16,7 @@ namespace SimplCommerce.Module.Cms.Data
             );
 
             modelBuilder.Entity<EntityType>().HasData(
-                new EntityType("Page") { RoutingController = "Page", RoutingAction = "PageDetail", IsMenuable = true }
+                new EntityType("Page") { AreaName = "Cms", RoutingController = "Page", RoutingAction = "PageDetail", IsMenuable = true }
             );
 
             modelBuilder.Entity<Widget>().HasData(

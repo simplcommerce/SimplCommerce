@@ -42,6 +42,7 @@ namespace SimplCommerce.Module.Core.Extensions
                 return;
             }
 
+            newRouteData.Values["area"] = urlSlug.EntityType.AreaName;
             newRouteData.Values["controller"] = urlSlug.EntityType.RoutingController;
             newRouteData.Values["action"] = urlSlug.EntityType.RoutingAction;
             newRouteData.Values["id"] = urlSlug.EntityId;

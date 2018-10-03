@@ -15,7 +15,7 @@ namespace SimplCommerce.WebHost.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.2-rtm-30932")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -966,24 +966,29 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("AreaName")
+                        .HasMaxLength(450);
+
                     b.Property<bool>("IsMenuable");
 
-                    b.Property<string>("RoutingAction");
+                    b.Property<string>("RoutingAction")
+                        .HasMaxLength(450);
 
-                    b.Property<string>("RoutingController");
+                    b.Property<string>("RoutingController")
+                        .HasMaxLength(450);
 
                     b.HasKey("Id");
 
                     b.ToTable("Core_EntityType");
 
                     b.HasData(
-                        new { Id = "Category", IsMenuable = true, RoutingAction = "CategoryDetail", RoutingController = "Category" },
-                        new { Id = "Brand", IsMenuable = true, RoutingAction = "BrandDetail", RoutingController = "Brand" },
-                        new { Id = "Product", IsMenuable = false, RoutingAction = "ProductDetail", RoutingController = "Product" },
-                        new { Id = "Page", IsMenuable = true, RoutingAction = "PageDetail", RoutingController = "Page" },
-                        new { Id = "Vendor", IsMenuable = false, RoutingAction = "VendorDetail", RoutingController = "Vendor" },
-                        new { Id = "NewsCategory", IsMenuable = true, RoutingAction = "NewsCategoryDetail", RoutingController = "NewsCategory" },
-                        new { Id = "NewsItem", IsMenuable = false, RoutingAction = "NewsItemDetail", RoutingController = "NewsItem" }
+                        new { Id = "Category", AreaName = "Catalog", IsMenuable = true, RoutingAction = "CategoryDetail", RoutingController = "Category" },
+                        new { Id = "Brand", AreaName = "Catalog", IsMenuable = true, RoutingAction = "BrandDetail", RoutingController = "Brand" },
+                        new { Id = "Product", AreaName = "Catalog", IsMenuable = false, RoutingAction = "ProductDetail", RoutingController = "Product" },
+                        new { Id = "Page", AreaName = "Cms", IsMenuable = true, RoutingAction = "PageDetail", RoutingController = "Page" },
+                        new { Id = "Vendor", AreaName = "Core", IsMenuable = false, RoutingAction = "VendorDetail", RoutingController = "Vendor" },
+                        new { Id = "NewsCategory", AreaName = "News", IsMenuable = true, RoutingAction = "NewsCategoryDetail", RoutingController = "NewsCategory" },
+                        new { Id = "NewsItem", AreaName = "News", IsMenuable = false, RoutingAction = "NewsItemDetail", RoutingController = "NewsItem" }
                     );
                 });
 

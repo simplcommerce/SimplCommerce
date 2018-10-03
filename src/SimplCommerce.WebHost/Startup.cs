@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Localization.Extensions;
@@ -31,7 +32,7 @@ namespace SimplCommerce.WebHost
         {
             GlobalConfiguration.WebRootPath = _hostingEnvironment.WebRootPath;
             GlobalConfiguration.ContentRootPath = _hostingEnvironment.ContentRootPath;
-            services.LoadInstalledModules(_hostingEnvironment.ContentRootPath);
+            services.AddModules(_hostingEnvironment.ContentRootPath);
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -52,7 +53,7 @@ namespace SimplCommerce.WebHost
 
             services.AddCustomizedMvc(GlobalConfiguration.Modules);
             services.Configure<RazorViewEngineOptions>(
-                options => { options.ViewLocationExpanders.Add(new ModuleViewLocationExpander()); });
+                options => { options.ViewLocationExpanders.Add(new ThemeableViewLocationExpander()); });
             services.AddScoped<ITagHelperComponent, LanguageDirectionTagHelperComponent>();
             services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
             services.AddCloudscribePagination();

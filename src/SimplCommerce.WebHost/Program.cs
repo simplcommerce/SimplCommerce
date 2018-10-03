@@ -25,11 +25,6 @@ namespace SimplCommerce.WebHost
         private static void SetupConfiguration(WebHostBuilderContext hostingContext, IConfigurationBuilder configBuilder)
         {
             var env = hostingContext.HostingEnvironment;
-            configBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
-
-            configBuilder.AddEnvironmentVariables();
-
             var configuration = configBuilder.Build();
             configBuilder.AddEntityFrameworkConfig(options =>
                     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
