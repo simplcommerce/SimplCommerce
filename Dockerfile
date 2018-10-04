@@ -17,6 +17,7 @@ RUN dotnet restore && dotnet build \
 
 RUN dotnet build -c Release \
 	&& cd src/SimplCommerce.WebHost \
+        && dotnet build -c Release \
 	&& dotnet publish -c Release -o out
 
 # remove BOM for psql	
