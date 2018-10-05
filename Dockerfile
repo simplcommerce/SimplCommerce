@@ -17,12 +17,11 @@ RUN dotnet restore && dotnet build \
 
 RUN dotnet build -c Release \
 	&& cd src/SimplCommerce.WebHost \
-        && dotnet build -c Release \
+    && dotnet build -c Release \
 	&& dotnet publish -c Release -o out
 
 # remove BOM for psql	
-RUN sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/SimplCommerce.WebHost/dbscript.sql \
-	&& sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/Database/StaticData_PostgreSQL.sql
+RUN sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/SimplCommerce.WebHost/dbscript.sql
 
 FROM microsoft/dotnet:2.1.4-aspnetcore-runtime
 

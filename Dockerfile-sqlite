@@ -18,6 +18,7 @@ RUN dotnet restore && dotnet build \
 
 RUN dotnet build -c Release \
 	&& cd src/SimplCommerce.WebHost \
+	&& dotnet build -c Release \
 	&& dotnet publish -c Release -o out
 
 FROM microsoft/dotnet:2.1.4-aspnetcore-runtime
