@@ -37,7 +37,7 @@
                 vm.applyCoupon = function applyCoupon() {
                     vm.couponErrorMessage = '';
                     shoppingCartService.applyCoupon(vm.couponCode).then(function (result) {
-                        if (!result.data.succeeded) {
+                        if (result.data.succeeded === false) {
                             vm.cart.couponValidationErrorMessage = result.data.errorMessage;
                         } else {
                             cartDataCallback(result);
