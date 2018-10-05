@@ -43,7 +43,7 @@
 
         vm.downloadTheme = function downloadTheme(theme) {
             window.open('api/themes/' + theme.name + '/download', '_blank', '');
-        }
+        };
 
         vm.deleteTheme = function deleteTheme(theme) {
             bootbox.confirm('Are you sure you want to delete this ' + theme.name, function (result) {
@@ -58,12 +58,12 @@
                         });
                 }
             });
-        }
+        };
 
         function getCookie(name) {
             var value = "; " + document.cookie;
             var parts = value.split("; " + name + "=");
-            if (parts.length == 2) return parts.pop().split(";").shift();
+            if (parts.length === 2) return parts.pop().split(";").shift();
         }
 
         vm.previewingTheme = getCookie('theme');

@@ -14,13 +14,13 @@
 */
 ; (function (name, root, factory) {
     if (typeof exports === 'object') {
-        module.exports = factory()
+        module.exports = factory();
     }
     else if (typeof define === 'function' && define.amd) {
-        define(factory)
+        define(factory);
     }
     else {
-        root[name] = factory()
+        root[name] = factory();
     }
 }('slugify', this, function () {
     var defaultDiacriticsRemovalMap = [
@@ -121,6 +121,7 @@
     }
 
     function removeDiacritics(str) {
+        // eslint-disable-next-line
         return str.replace(/[^\u0000-\u007E]/g, function (a) {
             return diacriticsMap[a] || a;
         });
@@ -135,5 +136,5 @@
             .replace(/[-\s]+/g, '-');
     }
 
-    return replace
+    return replace;
 }))

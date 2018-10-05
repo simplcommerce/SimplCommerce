@@ -1,4 +1,4 @@
-
+﻿
 
 (function ($) {
     // USE STRICT
@@ -16,10 +16,11 @@
             var actionSlick1 = [];
             
 
-            $(slick1).on('init', function(){
+            $(slick1).on('init', function () {
+                var i;
                 var layerCurrentItem = $(itemSlick1[0]).find('.layer-slick1');
 
-                for(var i=0; i<actionSlick1.length; i++) {
+                for(i=0; i<actionSlick1.length; i++) {
                     clearTimeout(actionSlick1[i]);
                 }
 
@@ -27,7 +28,7 @@
                     $(this).removeClass($(this).data('appear') + ' visible-true');
                 });
 
-                for(var i=0; i<layerCurrentItem.length; i++) {
+                for(i=0; i<layerCurrentItem.length; i++) {
                     actionSlick1[i] = setTimeout(function(index) {
                         $(layerCurrentItem[index]).addClass($(layerCurrentItem[index]).data('appear') + ' visible-true');
                     },$(layerCurrentItem[i]).data('delay'),i); 
@@ -66,10 +67,10 @@
             });
 
             $(slick1).on('afterChange', function(event, slick, currentSlide){ 
-
+                var i;
                 var layerCurrentItem = $(itemSlick1[currentSlide]).find('.layer-slick1');
 
-                for(var i=0; i<actionSlick1.length; i++) {
+                for(i=0; i<actionSlick1.length; i++) {
                     clearTimeout(actionSlick1[i]);
                 }
 
@@ -77,7 +78,7 @@
                     $(this).removeClass($(this).data('appear') + ' visible-true');
                 });
 
-                for(var i=0; i<layerCurrentItem.length; i++) {
+                for(i=0; i<layerCurrentItem.length; i++) {
                     actionSlick1[i] = setTimeout(function(index) {
                         $(layerCurrentItem[index]).addClass($(layerCurrentItem[index]).data('appear') + ' visible-true');
                     },$(layerCurrentItem[i]).data('delay'),i); 

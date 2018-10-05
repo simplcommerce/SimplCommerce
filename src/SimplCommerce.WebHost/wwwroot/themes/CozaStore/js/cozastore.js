@@ -1,4 +1,4 @@
-
+﻿
 (function ($) {
     "use strict";
 
@@ -45,12 +45,12 @@
     [ Fixed Header ]*/
     var headerDesktop = $('.container-menu-desktop');
     var wrapMenu = $('.wrap-menu-desktop');
-
+    var posWrapHeader;
     if ($('.top-bar').length > 0) {
-        var posWrapHeader = $('.top-bar').height();
+        posWrapHeader = $('.top-bar').height();
     }
     else {
-        var posWrapHeader = 0;
+        posWrapHeader = 0;
     }
 
 
@@ -88,18 +88,18 @@
         $(arrowMainMenu[i]).on('click', function () {
             $(this).parent().find('.sub-menu-m').slideToggle();
             $(this).toggleClass('turn-arrow-main-menu-m');
-        })
+        });
     }
 
     $(window).resize(function () {
         if ($(window).width() >= 992) {
-            if ($('.menu-mobile').css('display') == 'block') {
+            if ($('.menu-mobile').css('display') === 'block') {
                 $('.menu-mobile').css('display', 'none');
                 $('.btn-show-menu-mobile').toggleClass('is-active');
             }
 
             $('.sub-menu-m').each(function () {
-                if ($(this).css('display') == 'block') {
+                if ($(this).css('display') === 'block') {
                     $(this).css('display', 'none');
                     $(arrowMainMenu).removeClass('turn-arrow-main-menu-m');
                 }
