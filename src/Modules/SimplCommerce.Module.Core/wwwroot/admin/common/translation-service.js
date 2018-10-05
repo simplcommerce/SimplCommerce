@@ -13,7 +13,7 @@
         $http.get('api/localization/get-translation').then(function (result) {
             data = result.data;
             isDataLoaded = true;
-        })
+        });
 
         service.get = function (key) {
             if (isDataLoaded) {

@@ -76,7 +76,7 @@
                     vm.newsItem = result.data;
                 });
             }
-            getNewsCategories()
+            getNewsCategories();
         }
 
         init();

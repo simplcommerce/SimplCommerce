@@ -26,7 +26,7 @@
                 .catch(function (response) {
                     toastr.error(response.data);
                 });
-        }
+        };
 
         vm.getThemeDetails();
     }

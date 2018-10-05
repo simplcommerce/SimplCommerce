@@ -22,7 +22,6 @@
             var promise;
 
             if (vm.isEditMode) {
-                console.log(vm.widgetInstance)
                 promise = simpleProductWidgetService.editSimpleProductWidget(vm.widgetInstance);
             } else {
                 promise = simpleProductWidgetService.createSimpleProductWidget(vm.widgetInstance);

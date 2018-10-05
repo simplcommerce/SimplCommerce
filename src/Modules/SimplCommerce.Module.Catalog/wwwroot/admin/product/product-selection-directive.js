@@ -45,15 +45,15 @@
         vm.checkSelected = function checkSelected(product) {
             var selected = vm.selectedProducts.find(function (item) { return item.id === product.id; });
             if (selected) {
-                return true
+                return true;
             }
 
             return false;
-        }
+        };
 
         vm.toggleSelectedProducts = function toggleSelectedProducts(product) {
             var selectedProductIds, index;
-            selectedProductIds = vm.selectedProducts.map(function (item) { return item.id });
+            selectedProductIds = vm.selectedProducts.map(function (item) { return item.id; });
             index = selectedProductIds.indexOf(product.id);
             if (index > -1) {
                 vm.selectedProducts.splice(index, 1);
