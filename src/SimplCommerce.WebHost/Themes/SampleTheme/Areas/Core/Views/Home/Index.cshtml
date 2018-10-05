@@ -1,10 +1,9 @@
-@model SimplCommerce.Module.Core.ViewModels.HomeViewModel
+﻿@model SimplCommerce.Module.Core.ViewModels.HomeViewModel
 
 @{
     ViewData["Title"] = "Home Page";
 }
-
-@await Html.PartialAsync("_WidgetInstances", Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeFeatured))
+<partial name="_WidgetInstances" model="Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeFeatured)" />
 
 <div>
     <h2 class="page-header">Sample Theme</h2>
@@ -12,6 +11,6 @@
     <p>Check out <a href="http://docs.simplcommerce.com/en/latest/theme-development/" target="_blank"> the doc here</a> for more details</p>
 </div>
 
-@await Html.PartialAsync("_WidgetInstances", Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeMainContent))
+<partial name="_WidgetInstances" model="Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeMainContent)" />
 
-@await Html.PartialAsync("_WidgetInstances", Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeAfterMainContent))
+<partial name="_WidgetInstances" model="Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeAfterMainContent)" />
