@@ -40,7 +40,7 @@
                         <input type="radio" name="shippingMethod" data-price ="'+ value.priceText + '" value="' + value.name + '"> \
                             <strong> ' + value.name + ' (' + value.priceText + ')</strong> \
                         </label> \
-                       </div>')
+                       </div>');
                     });
                     $('.btn-order').prop('disabled', false);
                 } else {

@@ -20,7 +20,7 @@
             themeService.useTheme(theme)
                 .then(function (result) {
                     vm.getThemes();
-                    window.document.cookie = "theme=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+                    window.document.cookie = "theme=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                     vm.previewingTheme = null;
                     toastr.success('The ' + theme.displayName + ' has been applied');
                 })
@@ -30,13 +30,13 @@
         };
 
         vm.previewTheme = function previewTheme(theme) {
-            window.document.cookie = "theme=" + theme.name + ";"
+            window.document.cookie = "theme=" + theme.name + ";";
             vm.previewingTheme = theme.name;
             toastr.success('The ' + theme.displayName + ' has been set in preview mode');
         };
 
         vm.cancelPreviewTheme = function cancelPreviewTheme(theme) {
-            window.document.cookie = "theme=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+            window.document.cookie = "theme=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             vm.previewingTheme = null;
             toastr.success('The previewing of ' + theme.displayName + ' has been cancelled.');
         };

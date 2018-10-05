@@ -18,7 +18,7 @@
         vm.addingCustomLink = {};
 
         vm.toggleEntity = function toggleEntity(entity) {
-            var entityIds = vm.selectedEntities.map(function (item) { return item.id });
+            var entityIds = vm.selectedEntities.map(function (item) { return item.id; });
             var index = entityIds.indexOf(entity.id);
             if (index > -1) {
                 vm.selectedEntities.splice(index, 1);
@@ -52,7 +52,7 @@
                     vm.addingCustomLink = {};
                 });
             });
-        }
+        };
 
         vm.remove = function (scope) {
            scope.remove();
