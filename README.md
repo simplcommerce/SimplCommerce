@@ -13,9 +13,8 @@
 - Administration: http://demo.simplcommerce.com/admin Email: admin@simplcommerce.com Password: 1qazZAQ!
 
 ## Docker
-- First run the database: `docker run --name simpldb -d postgres`
-- Then run the app: `docker run --name simplsite -d -p 5000:80 --link simpldb:simpldb simplcommerce/nightly-build`
 
+For testing purpose `docker run -p 5000:80 simplcommerce/nightly-build`
 
 ## Visual Studio 2017 and SQL Server
 
@@ -23,7 +22,6 @@
 
 - SQL Server
 - [Visual Studio 2017 version >= 15.8 with .NET Core SDK 2.1.402](https://www.microsoft.com/net/download/all)
-- Node.js (LTS)
 
 #### Steps to run
 
@@ -39,7 +37,6 @@
 
 - PostgreSQL
 - [.NET Core SDK 2.1.402](https://www.microsoft.com/net/download/all)
-- Node.js (LTS)
 
 #### Steps to run
 
@@ -52,7 +49,6 @@
 - ASP.NET MVC Core 2.1
 - Entity Framework Core 2.1
 - ASP.NET Identity Core 2.1
-- Autofac 4.3
 - Angular 1.6.3
 - MediatR 5.0.1 for domain event
 
