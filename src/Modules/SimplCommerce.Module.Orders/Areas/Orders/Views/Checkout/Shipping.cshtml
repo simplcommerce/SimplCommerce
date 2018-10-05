@@ -107,6 +107,6 @@
 </div>
 
 @section scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <partial name="_ValidationScriptsPartial" />
     <script simpl-append-version="true" src="~/modules/orders/checkout.js"></script>
 }

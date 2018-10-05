@@ -84,7 +84,7 @@
             }
             <div class="col-md-7">
                 <div id="addreview">
-                    @Html.Partial("/Modules/SimplCommerce.Module.Reviews/Views/Review/_ReviewForm.cshtml", new ReviewForm { EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId })
+                    <partial name="/Areas/Reviews/Views/Review/_ReviewForm.cshtml" model="new ReviewForm { EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId }" />
                 </div>
             </div>
         </div>
@@ -120,7 +120,7 @@
                         <div>
                             <button class="btn-add-review-reply btn btn-link">@Localizer["Add Reply"]</button>
                             <div class="add-review-reply d-none">
-                                @Html.Partial("/Modules/SimplCommerce.Module.Reviews/Views/Reply/_ReplyForm.cshtml", new ReplyForm { ReviewId = review.Id })
+                                <partial name="/Areas/Reviews/Views/Reply/_ReplyForm.cshtml" model="new ReplyForm { ReviewId = review.Id }" />
                             </div>
                         </div>
                     </div>
@@ -147,8 +147,7 @@
 </div>
 
 
-@section scripts
-    {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
     <script simpl-append-version="true" src="~/modules/reviews/list.js"></script>
 }

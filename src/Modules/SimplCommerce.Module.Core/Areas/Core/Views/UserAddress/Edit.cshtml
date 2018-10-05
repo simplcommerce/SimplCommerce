@@ -5,18 +5,18 @@
 
 <div class="row">
     <div class="col-md-3">
-        @Html.Partial("_AccountMenu")
+        <partial name="_AccountMenu" />
     </div>
     <div class="col-md-9">
         <h2>@Localizer["Edit Address"]</h2>
         <hr />
         <form asp-area="Core" asp-controller="UserAddress" asp-action="Edit" method="POST">
-            @Html.Partial("_AddressForm", Model)
+            <partial name="_AddressForm" model="Model" />
         </form>
     </div>
 </div>
 
 @section scripts {
-@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-<script src="~/modules/core/user-address.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/modules/core/user-address.js"></script>
 }

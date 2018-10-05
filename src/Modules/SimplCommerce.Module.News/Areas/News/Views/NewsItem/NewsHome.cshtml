@@ -20,7 +20,7 @@
         <div class="news-category-detail row">
             @foreach (var item in Model.NewsItem)
             {
-                @await Html.PartialAsync("_NewsThumbnail", item)
+                <partial name="_NewsThumbnail" model="item" />
             }
         </div>
     }

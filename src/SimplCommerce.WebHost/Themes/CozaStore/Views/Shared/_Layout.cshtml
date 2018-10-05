@@ -39,7 +39,7 @@
                         <a href="~/help-center" class="flex-c-m trans-04 p-lr-25">
                             Help & FAQs
                         </a>
-                        @await Html.PartialAsync("_LoginPartial")
+                        <partial name="_LoginPartial" />
                     </div>
                 </div>
             </div>
@@ -108,7 +108,7 @@
                             Help & FAQs
                         </a>
 
-                        @await Html.PartialAsync("_LoginPartial")
+                        <partial name="_LoginPartial" />
                     </div>
                 </li>
             </ul>
@@ -265,6 +265,6 @@
     <script simpl-append-version="true" src="~/modules/productcomparison/product-comparison.js"></script>
     @RenderSection("scripts", required: false)
 
-    @await Html.PartialAsync("_AnalyticsScript")
+    <partial name="_AnalyticsScript" />
 </body>
 </html>

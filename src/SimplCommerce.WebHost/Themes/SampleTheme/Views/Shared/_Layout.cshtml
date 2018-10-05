@@ -23,8 +23,8 @@
     <div class="top-bar">
         <div class="container">
             <ul class="nav justify-content-end">
-                @await Html.PartialAsync("_SelectLanguagePartial")
-                @await Html.PartialAsync("_LoginPartial")
+                <partial name="_SelectLanguagePartial" />
+                <partial name="_LoginPartial" />
             </ul>
         </div>
     </div>
@@ -115,6 +115,6 @@
     <script simpl-append-version="true" src="~/modules/catalog/product-overview.js"></script>
     @RenderSection("scripts", required: false)
 
-    @await Html.PartialAsync("_AnalyticsScript")
+    <partial name="_AnalyticsScript" />
 </body>
 </html>

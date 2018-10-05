@@ -131,7 +131,7 @@
             @foreach (var product in Model.Products)
             {
                 <div class="col-xs-6 col-md-4">
-                    @await Html.PartialAsync("/Areas/Catalog/Views/Shared/_ProductThumbnail.cshtml", product)
+                    <partial name="/Areas/Catalog/Views/Shared/_ProductThumbnail.cshtml" model="product" />
                 </div>
             }
         </div>
