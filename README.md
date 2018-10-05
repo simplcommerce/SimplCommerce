@@ -14,7 +14,9 @@
 
 ## Docker
 
-For testing purpose `docker run -p 5000:80 simplcommerce/nightly-build`
+For testing purpose only `docker run -p 5000:80 simplcommerce/ci-build`
+
+Continuous deployment: https://ci.simplcommerce.com
 
 ## Visual Studio 2017 and SQL Server
 

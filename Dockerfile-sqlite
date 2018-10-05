@@ -23,6 +23,10 @@ RUN dotnet build -c Release \
 
 FROM microsoft/dotnet:2.1.4-aspnetcore-runtime
 
+RUN apt-get update \
+	&& apt-get install libgdiplus -y \
+	&& rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app	
 COPY --from=build-env /app/src/SimplCommerce.WebHost/out ./
 COPY --from=build-env /app/src/SimplCommerce.WebHost/simplcommerce.db ./
