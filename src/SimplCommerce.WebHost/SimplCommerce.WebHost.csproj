@@ -1,6 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <UsingTask AssemblyFile="..\..\build\netstandard2.0\SimplCommerce.MSBuildTasks.dll" TaskName="CopyModuleTask" />
+  <PropertyGroup>
+    <TaskFolder Condition=" '$(MSBuildRuntimeType)' == 'Core' ">netcoreapp2.0</TaskFolder>
+    <TaskFolder Condition=" '$(MSBuildRuntimeType)' != 'Core' ">net46</TaskFolder>
+  </PropertyGroup>
+  <UsingTask AssemblyFile="..\..\build\$(TaskFolder)\SimplCommerce.MSBuildTasks.dll" TaskName="CopyModuleTask" />
   
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
