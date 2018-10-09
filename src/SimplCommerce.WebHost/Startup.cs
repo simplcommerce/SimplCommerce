@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -56,6 +57,8 @@ namespace SimplCommerce.WebHost
                 options => { options.ViewLocationExpanders.Add(new ThemeableViewLocationExpander()); });
             services.AddScoped<ITagHelperComponent, LanguageDirectionTagHelperComponent>();
             services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
+            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-Token");
+            services.AddSingleton<AutoValidateAntiforgeryTokenAuthorizationFilter, CookieOnlyAutoValidateAntiforgeryTokenAuthorizationFilter>();
             services.AddCloudscribePagination();
 
             var sp = services.BuildServiceProvider();
