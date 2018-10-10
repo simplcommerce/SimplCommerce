@@ -1,5 +1,9 @@
 skip_branch_with_pr: true
 
+branches:
+  only:
+    - master
+
 image: Visual Studio 2017 Preview
 
 init:
