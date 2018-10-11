@@ -29,14 +29,32 @@
                             <ul class="list-unstyled checkbox-list">
                                 @foreach (var category in Model.FilterOption.Categories)
                                 {
-                                <li>
-                                    <label class="checkbox">
-                                        <input type="checkbox" value="@category.Slug" name="category" checked="@Model.CurrentSearchOption.GetCategories().Contains(category.Slug)">
-                                        @category.Name
-                                        <small>(@category.Count)</small>
-                                    </label>
-                                </li>
-                                 }
+                                    <li>
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="@category.Slug" name="category" checked="@Model.CurrentSearchOption.GetCategories().Contains(category.Slug)">
+                                            @category.Name
+                                            <small>(@category.Count)</small>
+                                        </label>
+                                        @{
+                                            var children = Model.FilterOption.Categories.Where(x => x.ParentId == category.Id);
+                                        }
+                                        @if (children.Any())
+                                        {
+                                            <ul class="list-unstyled checkbox-list">
+                                                @foreach (var child in children)
+                                                {
+                                                    <li>
+                                                        <label class="checkbox">
+                                                            <input type="checkbox" value="@child.Slug" name="category" checked="@Model.CurrentSearchOption.GetCategories().Contains(child.Slug)">
+                                                            @child.Name
+                                                            <small>(@child.Count)</small>
+                                                        </label>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        }
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -70,30 +88,31 @@
                     </div>
                 </div>
             </div>
-            @if (Model.FilterOption.Price.MaxPrice != Model.FilterOption.Price.MinPrice) {
-            <div id="accordion-price" class="mt-4">
-                <div class="card">
-                    <div class="card-header" id="cardHeaderPrice">
-                        <h5 class="mb-0">
-                            <a data-toggle="collapse" href="#collapse-price" aria-expanded="true" aria-controls="collapse-price">
-                                @Localizer["Price"]
-                                <i class="fa fa-angle-down"></i>
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapse-price" class="collapse show" aria-labelledby="cardHeaderPrice" data-parent="#accordion-price">
-                        <div class="card-body">
-                            <div id="priceSlider"></div>
-                            <div>
-                                <input type="hidden" id="originMinPrice" value="@Model.FilterOption.Price.MinPrice.ToString("F0")" />
-                                <input type="hidden" id="originMaxPrice" value="@Model.FilterOption.Price.MaxPrice.ToString("F0")" />
-                                <span id="minPrice"></span>
-                                <span id="maxPrice"></span>
+            @if (Model.FilterOption.Price.MaxPrice != Model.FilterOption.Price.MinPrice)
+            {
+                <div id="accordion-price" class="mt-4">
+                    <div class="card">
+                        <div class="card-header" id="cardHeaderPrice">
+                            <h5 class="mb-0">
+                                <a data-toggle="collapse" href="#collapse-price" aria-expanded="true" aria-controls="collapse-price">
+                                    @Localizer["Price"]
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                            </h5>
+                        </div>
+                        <div id="collapse-price" class="collapse show" aria-labelledby="cardHeaderPrice" data-parent="#accordion-price">
+                            <div class="card-body">
+                                <div id="priceSlider"></div>
+                                <div>
+                                    <input type="hidden" id="originMinPrice" value="@Model.FilterOption.Price.MinPrice.ToString("F0")" />
+                                    <input type="hidden" id="originMaxPrice" value="@Model.FilterOption.Price.MaxPrice.ToString("F0")" />
+                                    <span id="minPrice"></span>
+                                    <span id="maxPrice"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             }
         </form>
     </div>
@@ -112,18 +131,18 @@
                         </div>
                     </li>
                     @*<li class="pagination-option">
-                        <label>Show :</label>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                20 <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">All</a></li>
-                                <li><a href="#">50</a></li>
-                                <li><a href="#">30</a></li>
-                            </ul>
-                        </div>
-                    </li>*@
+                            <label>Show :</label>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    20 <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">All</a></li>
+                                    <li><a href="#">50</a></li>
+                                    <li><a href="#">30</a></li>
+                                </ul>
+                            </div>
+                        </li>*@
                 </ul>
             </div>
         </div>
