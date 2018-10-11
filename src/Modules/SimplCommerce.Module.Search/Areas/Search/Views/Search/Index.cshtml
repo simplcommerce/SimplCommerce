@@ -27,20 +27,34 @@
                     <div id="collapse-category" class="collapse show" aria-labelledby="cardHeaderCategory" data-parent="#accordion-category">
                         <div class="card-body">
                             <ul class="list-unstyled checkbox-list">
-                                @*
-                                    @foreach (var category in Model.FilterOption.Categories)
-                                    {
-                                        <li>
-                                            <label class="checkbox">
-                                                <input type="checkbox" value="@category.Slug" name="category" checked="@Model.CurrentSearchOption.GetCategories().Contains(category.Slug)">
-                                                @category.Name
-                                                <small>(@category.Count)</small>
-                                            </label>
-                                        </li>
-                                    }
-                                *@
-
-                                <vc:categories-tree search-result="Model"></vc:categories-tree>
+                                @foreach (var category in Model.FilterOption.Categories)
+                                {
+                                    <li>
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="@category.Slug" name="category" checked="@Model.CurrentSearchOption.GetCategories().Contains(category.Slug)">
+                                            @category.Name
+                                            <small>(@category.Count)</small>
+                                        </label>
+                                        @{
+                                            var children = Model.FilterOption.Categories.Where(x => x.ParentId == category.Id);
+                                        }
+                                        @if (children.Any())
+                                        {
+                                            <ul class="list-unstyled checkbox-list">
+                                                @foreach (var child in children)
+                                                {
+                                                    <li>
+                                                        <label class="checkbox">
+                                                            <input type="checkbox" value="@child.Slug" name="category" checked="@Model.CurrentSearchOption.GetCategories().Contains(child.Slug)">
+                                                            @child.Name
+                                                            <small>(@child.Count)</small>
+                                                        </label>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        }
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>

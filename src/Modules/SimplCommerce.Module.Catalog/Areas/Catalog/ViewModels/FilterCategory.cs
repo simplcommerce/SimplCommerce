@@ -9,5 +9,7 @@
         public string Slug { get; set; }
 
         public int Count { get; set; }
+
+        public long? ParentId { get; set; }
     }
 }

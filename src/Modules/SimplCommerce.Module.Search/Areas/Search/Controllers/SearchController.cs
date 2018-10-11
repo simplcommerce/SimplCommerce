@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SimplCommerce.Infrastructure.Data;
@@ -8,9 +11,6 @@ using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Search.Models;
 using SimplCommerce.Module.Search.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SimplCommerce.Module.Search.Controllers
 {
@@ -156,26 +156,22 @@ namespace SimplCommerce.Module.Search.Controllers
             model.FilterOption.Price.MinPrice = query.Min(x => x.Price);
 
             model.FilterOption.Categories = query
-                .SelectMany(x => x.Categories).Where(x => x.Category.Parent == null)
+                .SelectMany(x => x.Categories)
                 .GroupBy(x => new
                 {
                     x.Category.Id,
                     x.Category.Name,
-                    x.Category.Slug
+                    x.Category.Slug,
+                    x.Category.ParentId
                 })
                 .Select(g => new FilterCategory
                 {
                     Id = (int)g.Key.Id,
                     Name = g.Key.Name,
                     Slug = g.Key.Slug,
+                    ParentId = g.Key.ParentId,
                     Count = g.Count()
                 }).ToList();
-
-            // Select product category for Category Tree
-            var productCategories = query.SelectMany(x => x.Categories)
-                               .Include(x => x.Category)
-                               .ToList();
-            model.FilterOption.CategoriesTree = GetCategoriesTree(productCategories, null);
 
             model.FilterOption.Brands = query
                .Where(x => x.BrandId != null)
@@ -200,20 +196,6 @@ namespace SimplCommerce.Module.Search.Controllers
 
             _queryRepository.Add(query);
             _queryRepository.SaveChanges();
-        }
-
-        private static List<CategoriesTree> GetCategoriesTree(List<ProductCategory> productCategories, long? parentId = null)
-        {
-            return productCategories.Where(x => x.Category.ParentId == parentId)
-                   .GroupBy(x => new { x.Category.Id, x.Category.Name, x.Category.Slug })
-                   .Select(x => new CategoriesTree
-                   {
-                       Name = x.Key.Name,
-                       Id = (int)x.Key.Id,
-                       Slug = x.Key.Slug,
-                       ChildCategories = GetCategoriesTree(productCategories, x.Key.Id),
-                       Count = x.Count()
-                   }).OrderBy(x => x.Name).ToList();
         }
     }
 }
