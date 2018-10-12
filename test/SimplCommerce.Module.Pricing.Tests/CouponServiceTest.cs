@@ -163,7 +163,6 @@ namespace SimplCommerce.Module.Pricing.Tests
             string couponToApply = "test";
 
             Assert.ThrowsAsync<InvalidOperationException>(async () => await couponService.Validate(couponToApply, cartInfo));
-
         }
 
         [Fact(DisplayName = "WithDiscountAndFixedCartRule_ShouldReturns_SameDiscountAmount")]

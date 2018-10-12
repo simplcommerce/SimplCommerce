@@ -12,6 +12,9 @@ using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Orders.ViewModels;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Events;
+using System.Text;
+using SimplCommerce.Module.Orders.Areas.Orders.ViewModels;
+using System.Collections.Generic;
 
 namespace SimplCommerce.Module.Orders.Controllers
 {
@@ -128,6 +131,8 @@ namespace SimplCommerce.Module.Orders.Controllers
 
             return Json(orders);
         }
+
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(long id)
@@ -248,6 +253,267 @@ namespace SimplCommerce.Module.Orders.Controllers
         {
             var model = EnumHelper.ToDictionary(typeof(OrderStatus)).Select(x => new {Id = x.Key, Name = x.Value});
             return Json(model);
+        }
+
+        [HttpPost("export")]
+        public async Task<IActionResult> Export([FromBody] SmartTableParam param)
+        {
+            var query = _orderRepository.Query();
+
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin"))
+            {
+                query = query.Where(x => x.VendorId == currentUser.VendorId);
+            }
+
+            if (param.Search.PredicateObject != null)
+            {
+                dynamic search = param.Search.PredicateObject;
+                if (search.Id != null)
+                {
+                    long id = search.Id;
+                    query = query.Where(x => x.Id == id);
+                }
+
+                if (search.Status != null)
+                {
+                    var status = (OrderStatus)search.Status;
+                    query = query.Where(x => x.OrderStatus == status);
+                }
+
+                if (search.CustomerName != null)
+                {
+                    string customerName = search.CustomerName;
+                    query = query.Where(x => x.CreatedBy.FullName.Contains(customerName));
+                }
+
+                if (search.CreatedOn != null)
+                {
+                    if (search.CreatedOn.before != null)
+                    {
+                        DateTimeOffset before = search.CreatedOn.before;
+                        query = query.Where(x => x.CreatedOn <= before);
+                    }
+
+                    if (search.CreatedOn.after != null)
+                    {
+                        DateTimeOffset after = search.CreatedOn.after;
+                        query = query.Where(x => x.CreatedOn >= after);
+                    }
+                }
+            }
+
+            var orders = await query
+                .Select(x => new OrderExportVm
+                {
+                    Id = x.Id,
+                    OrderStatus = (int)x.OrderStatus,
+                    IsMasterOrder = x.IsMasterOrder,
+                    DiscountAmount = x.DiscountAmount,
+                    CreatedOn = x.CreatedOn,
+                    OrderStatusString = x.OrderStatus.GetDisplayName(),
+                    PaymentFeeAmount = x.PaymentFeeAmount,
+                    OrderTotal = x.OrderTotal,
+                    Subtotal = x.SubTotal,
+                    SubTotalWithDiscount = x.SubTotalWithDiscount,
+                    PaymentMethod = x.PaymentMethod,
+                    ShippingAmount = x.ShippingFeeAmount,
+                    ShippingMethod = x.ShippingMethod,
+                    TaxAmount = x.TaxAmount,
+                    CustomerId = x.CreatedById,
+                    CustomerName = x.CreatedBy.FullName,
+                    CustomerEmail = x.CreatedBy.Email,
+                    UpdatedOn = x.UpdatedOn,
+                    Coupon = x.CouponCode,
+                    Items = x.OrderItems.Count(),
+                    BillingAddressId = x.BillingAddressId,
+                    BillingAddressAddressLine1 = x.BillingAddress.AddressLine1,
+                    BillingAddressAddressLine2 = x.BillingAddress.AddressLine2,
+                    BillingAddressContactName = x.BillingAddress.ContactName,
+                    BillingAddressCountryName = x.BillingAddress.Country.Name,
+                    BillingAddressDistrictName = x.BillingAddress.District.Name,
+                    BillingAddressZipCode = x.BillingAddress.ZipCode,
+                    BillingAddressPhone = x.BillingAddress.Phone,
+                    BillingAddressStateOrProvinceName = x.BillingAddress.StateOrProvince.Name,
+                    ShippingAddressAddressLine1  = x.ShippingAddress.AddressLine1,
+                    ShippingAddressAddressLine2 = x.ShippingAddress.AddressLine2,
+                    ShippingAddressId = x.ShippingAddressId,
+                    ShippingAddressContactName = x.ShippingAddress.ContactName,
+                    ShippingAddressCountryName = x.ShippingAddress.Country.Name,
+                    ShippingAddressDistrictName = x.ShippingAddress.District.Name,
+                    ShippingAddressPhone = x.ShippingAddress.Phone,
+                    ShippingAddressStateOrProvinceName = x.ShippingAddress.StateOrProvince.Name,
+                    ShippingAddressZipCode = x.ShippingAddress.ZipCode                    
+                })
+                .ToListAsync();
+
+            var csvString = CsvConverter.ExportCsv(orders);
+            var csvBytes = Encoding.UTF8.GetBytes(csvString);
+            // MS Excel need the BOM to display UTF8 Correctly
+            var csvBytesWithUTF8BOM = Encoding.UTF8.GetPreamble().Concat(csvBytes).ToArray();
+            return File(csvBytesWithUTF8BOM, "text/csv", "orders-export.csv");
+        }
+
+        [HttpPost("lines-export")]
+        public async Task<IActionResult> OrderLinesExport([FromBody] SmartTableParam param)
+        {
+            var query = _orderRepository.Query();
+
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin"))
+            {
+                query = query.Where(x => x.VendorId == currentUser.VendorId);
+            }
+
+            if (param.Search.PredicateObject != null)
+            {
+                dynamic search = param.Search.PredicateObject;
+                if (search.Id != null)
+                {
+                    long id = search.Id;
+                    query = query.Where(x => x.Id == id);
+                }
+
+                if (search.Status != null)
+                {
+                    var status = (OrderStatus)search.Status;
+                    query = query.Where(x => x.OrderStatus == status);
+                }
+
+                if (search.CustomerName != null)
+                {
+                    string customerName = search.CustomerName;
+                    query = query.Where(x => x.CreatedBy.FullName.Contains(customerName));
+                }
+
+                if (search.CreatedOn != null)
+                {
+                    if (search.CreatedOn.before != null)
+                    {
+                        DateTimeOffset before = search.CreatedOn.before;
+                        query = query.Where(x => x.CreatedOn <= before);
+                    }
+
+                    if (search.CreatedOn.after != null)
+                    {
+                        DateTimeOffset after = search.CreatedOn.after;
+                        query = query.Where(x => x.CreatedOn >= after);
+                    }
+                }
+            }
+            var orders = await query
+                            .Select(x => new OrderExportVm
+                            {
+                                Id = x.Id,
+                                OrderStatus = (int)x.OrderStatus,
+                                IsMasterOrder = x.IsMasterOrder,
+                                DiscountAmount = x.DiscountAmount,
+                                CreatedOn = x.CreatedOn,
+                                OrderStatusString = x.OrderStatus.GetDisplayName(),
+                                PaymentFeeAmount = x.PaymentFeeAmount,
+                                OrderTotal = x.OrderTotal,
+                                Subtotal = x.SubTotal,
+                                SubTotalWithDiscount = x.SubTotalWithDiscount,
+                                PaymentMethod = x.PaymentMethod,
+                                ShippingAmount = x.ShippingFeeAmount,
+                                ShippingMethod = x.ShippingMethod,
+                                TaxAmount = x.TaxAmount,
+                                CustomerId = x.CreatedById,
+                                CustomerName = x.CreatedBy.FullName,
+                                CustomerEmail = x.CreatedBy.Email,
+                                UpdatedOn = x.UpdatedOn,
+                                Coupon = x.CouponCode,
+                                Items = x.OrderItems.Count(),
+                                BillingAddressId = x.BillingAddressId,
+                                BillingAddressAddressLine1 = x.BillingAddress.AddressLine1,
+                                BillingAddressAddressLine2 = x.BillingAddress.AddressLine2,
+                                BillingAddressContactName = x.BillingAddress.ContactName,
+                                BillingAddressCountryName = x.BillingAddress.Country.Name,
+                                BillingAddressDistrictName = x.BillingAddress.District.Name,
+                                BillingAddressZipCode = x.BillingAddress.ZipCode,
+                                BillingAddressPhone = x.BillingAddress.Phone,
+                                BillingAddressStateOrProvinceName = x.BillingAddress.StateOrProvince.Name,
+                                ShippingAddressAddressLine1 = x.ShippingAddress.AddressLine1,
+                                ShippingAddressAddressLine2 = x.ShippingAddress.AddressLine2,
+                                ShippingAddressId = x.ShippingAddressId,
+                                ShippingAddressContactName = x.ShippingAddress.ContactName,
+                                ShippingAddressCountryName = x.ShippingAddress.Country.Name,
+                                ShippingAddressDistrictName = x.ShippingAddress.District.Name,
+                                ShippingAddressPhone = x.ShippingAddress.Phone,
+                                ShippingAddressStateOrProvinceName = x.ShippingAddress.StateOrProvince.Name,
+                                ShippingAddressZipCode = x.ShippingAddress.ZipCode
+                            })
+                            .ToListAsync();
+
+            var ordersExport = new List<OrderLineExportVm>();
+
+            foreach (var order in orders)
+            {
+                var orderItems = await _orderRepository
+                .Query()
+                .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.ThumbnailImage)
+                .FirstOrDefaultAsync(x => x.Id == order.Id);
+
+                foreach (var line in orderItems.OrderItems)
+                {
+                    ordersExport.Add(new OrderLineExportVm
+                    {
+                        Id = order.Id,
+                        OrderStatus = order.OrderStatus,
+                        IsMasterOrder = order.IsMasterOrder,
+                        DiscountAmount = order.DiscountAmount,
+                        CreatedOn = order.CreatedOn,
+                        OrderStatusString = order.OrderStatusString,
+                        PaymentFeeAmount = order.PaymentFeeAmount,
+                        OrderTotal = order.OrderTotal,
+                        Subtotal = order.Subtotal,
+                        SubTotalWithDiscount = order.SubTotalWithDiscount,
+                        PaymentMethod = order.PaymentMethod,
+                        ShippingAmount = order.ShippingAmount,
+                        ShippingMethod = order.ShippingMethod,
+                        TaxAmount = order.TaxAmount,
+                        CustomerId = order.CustomerId,
+                        CustomerName = order.CustomerName,
+                        CustomerEmail = order.CustomerEmail,
+                        UpdatedOn = order.UpdatedOn,
+                        Coupon = order.Coupon,
+                        BillingAddressId = order.BillingAddressId,
+                        BillingAddressAddressLine1 = order.BillingAddressAddressLine1,
+                        BillingAddressAddressLine2 = order.BillingAddressAddressLine2,
+                        BillingAddressContactName = order.BillingAddressContactName,
+                        BillingAddressCountryName = order.BillingAddressCountryName,
+                        BillingAddressDistrictName = order.BillingAddressDistrictName,
+                        BillingAddressZipCode = order.BillingAddressZipCode,
+                        BillingAddressPhone = order.BillingAddressPhone,
+                        BillingAddressStateOrProvinceName = order.BillingAddressStateOrProvinceName,
+                        ShippingAddressAddressLine1 = order.ShippingAddressAddressLine1,
+                        ShippingAddressAddressLine2 = order.ShippingAddressAddressLine2,
+                        ShippingAddressId = order.ShippingAddressId,
+                        ShippingAddressContactName = order.ShippingAddressContactName,
+                        ShippingAddressCountryName = order.ShippingAddressCountryName,
+                        ShippingAddressDistrictName = order.ShippingAddressDistrictName,
+                        ShippingAddressPhone = order.ShippingAddressPhone,
+                        ShippingAddressStateOrProvinceName = order.ShippingAddressStateOrProvinceName,
+                        ShippingAddressZipCode = order.ShippingAddressZipCode,
+                        //OrderItems
+                        OrderLineDiscountAmount = line.DiscountAmount,
+                        OrderLineQuantity = line.Quantity,
+                        OrderLineTaxAmount = line.TaxAmount,
+                        OrderLineTaxPercent = line.TaxPercent,
+                        OrderLineId = line.Id,
+                        ProductId = line.ProductId,
+                        ProductName = line.Product.Name,
+                        ProductPrice = line.ProductPrice
+
+                    });
+                }
+            }
+
+            var csvString = CsvConverter.ExportCsv(ordersExport);
+            var csvBytes = Encoding.UTF8.GetBytes(csvString);
+            // MS Excel need the BOM to display UTF8 Correctly
+            var csvBytesWithUTF8BOM = Encoding.UTF8.GetPreamble().Concat(csvBytes).ToArray();
+            return File(csvBytesWithUTF8BOM, "text/csv", "order-lines-export.csv");
         }
     }
 }
