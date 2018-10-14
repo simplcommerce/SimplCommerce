@@ -1,4 +1,4 @@
-﻿namespace SimplCommerce.Module.Pricing.ViewModels
+﻿namespace SimplCommerce.Module.Pricing.Areas.Pricing.ViewModels
 {
     public class CartRuleProductVm
     {

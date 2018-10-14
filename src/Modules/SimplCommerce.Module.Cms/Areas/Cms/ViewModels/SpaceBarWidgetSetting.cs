@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace SimplCommerce.Module.Cms.ViewModels
+namespace SimplCommerce.Module.Cms.Areas.Cms.ViewModels
 {
     public class SpaceBarWidgetSetting
     {

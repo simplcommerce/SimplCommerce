@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
-namespace SimplCommerce.Module.Catalog.ViewModels
+namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
 {
     public class ProductForm
     {

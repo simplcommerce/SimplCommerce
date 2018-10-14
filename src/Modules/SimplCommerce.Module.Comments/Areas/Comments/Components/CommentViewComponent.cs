@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web;
+using SimplCommerce.Module.Comments.Areas.Comments.ViewModels;
 using SimplCommerce.Module.Comments.Models;
-using SimplCommerce.Module.Comments.ViewModels;
 
-namespace SimplCommerce.Module.Comments.Components
+namespace SimplCommerce.Module.Comments.Areas.Comments.Components
 {
     public class CommentViewComponent : ViewComponent
     {

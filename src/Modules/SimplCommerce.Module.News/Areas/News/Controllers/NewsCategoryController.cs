@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.News.Areas.News.ViewModels;
 using SimplCommerce.Module.News.Models;
-using SimplCommerce.Module.News.ViewModels;
 
-namespace SimplCommerce.Module.News.Controllers
+namespace SimplCommerce.Module.News.Areas.News.Controllers
 {
     [Area("News")]
     public class NewsCategoryController : Controller

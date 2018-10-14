@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Web.SmartTable;
+using SimplCommerce.Module.Contacts.Areas.Contacts.ViewModels;
 using SimplCommerce.Module.Contacts.Models;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Services;
-using SimplCommerce.Module.Contacts.ViewModels;
-using SimplCommerce.Infrastructure.Web.SmartTable;
 
-namespace SimplCommerce.Module.Contacts.Controllers
+namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
 {
     [Area("Contacts")]
     [Authorize(Roles = "admin")]

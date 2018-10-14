@@ -1,4 +1,4 @@
-﻿@model SimplCommerce.Module.Catalog.ViewModels.ProductDetail
+﻿@model SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels.ProductDetail
 
 @{
     ViewBag.Title = Model.MetaTitle ?? Model.Name;
@@ -258,7 +258,6 @@
     <h3 class="p-t-25 p-b-25">@Localizer["Customer reviews"]</h3>
     @await Component.InvokeAsync("Review", new { entityId = Model.Id, entityTypeId = "Product" })
 </div>
-
 
 @section scripts {
     <partial name="_ValidationScriptsPartial" />

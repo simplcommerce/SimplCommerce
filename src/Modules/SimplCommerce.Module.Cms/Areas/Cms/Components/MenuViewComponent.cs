@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web;
+using SimplCommerce.Module.Cms.Areas.Cms.ViewModels;
 using SimplCommerce.Module.Cms.Models;
-using SimplCommerce.Module.Cms.ViewModels;
 
-namespace SimplCommerce.Module.Cms.Components
+namespace SimplCommerce.Module.Cms.Areas.Cms.Components
 {
     public class MenuViewComponent : ViewComponent
     {

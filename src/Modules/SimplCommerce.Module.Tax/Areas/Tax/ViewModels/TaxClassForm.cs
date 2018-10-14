@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SimplCommerce.Module.Tax.ViewModels
+namespace SimplCommerce.Module.Tax.Areas.Tax.ViewModels
 {
     public class TaxClassForm
     {

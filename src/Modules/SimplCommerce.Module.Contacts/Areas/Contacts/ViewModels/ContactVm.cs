@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace SimplCommerce.Module.Contacts.ViewModels
+namespace SimplCommerce.Module.Contacts.Areas.Contacts.ViewModels
 {
     public class ContactVm
     {

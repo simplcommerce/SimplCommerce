@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Inventory.Areas.Inventory.ViewModels;
 using SimplCommerce.Module.Inventory.Models;
 using SimplCommerce.Module.Inventory.Services;
-using SimplCommerce.Module.Inventory.ViewModels;
 
-namespace SimplCommerce.Module.Inventory.Controllers
+namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
 {
     [Area("Inventory")]
     [Authorize(Roles = "admin, vendor")]

@@ -1,8 +1,7 @@
 ﻿@using System.Threading.Tasks
-@using SimplCommerce.Module.Catalog.ViewModels
 @addTagHelper *, SimplCommerce.Infrastructure
 
-@model ProductsByCategory
+@model SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels.ProductsByCategory
 @{
     ViewBag.Title = Model.CategoryMetaTitle ?? Model.CategoryName;
 }

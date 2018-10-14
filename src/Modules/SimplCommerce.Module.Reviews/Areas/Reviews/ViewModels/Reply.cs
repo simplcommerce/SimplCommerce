@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SimplCommerce.Module.Reviews.ViewModels
+namespace SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels
 {
     public class Reply
     {

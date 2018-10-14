@@ -7,7 +7,7 @@ using SimplCommerce.Module.Core.Events;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 
-namespace SimplCommerce.Module.ShoppingCart.Events
+namespace SimplCommerce.Module.Localization.Events
 {
     public class UserSignedInHandler : INotificationHandler<UserSignedIn>
     {

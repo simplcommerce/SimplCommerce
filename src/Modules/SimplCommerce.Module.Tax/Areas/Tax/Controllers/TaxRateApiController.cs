@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Helpers;
 using SimplCommerce.Module.Core.Models;
+using SimplCommerce.Module.Tax.Areas.Tax.ViewModels;
 using SimplCommerce.Module.Tax.Models;
-using SimplCommerce.Module.Tax.ViewModels;
 
-namespace SimplCommerce.Module.Tax.Controllers
+namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
 {
     [Area("Tax")]
     [Authorize(Roles = "admin")]

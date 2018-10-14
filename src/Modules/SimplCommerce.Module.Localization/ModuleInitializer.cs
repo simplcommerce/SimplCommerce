@@ -3,8 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using MediatR;
 using SimplCommerce.Infrastructure.Modules;
-using SimplCommerce.Module.ShoppingCart.Events;
 using SimplCommerce.Module.Core.Events;
+using SimplCommerce.Module.Localization.Events;
 
 namespace SimplCommerce.Module.Localization
 {

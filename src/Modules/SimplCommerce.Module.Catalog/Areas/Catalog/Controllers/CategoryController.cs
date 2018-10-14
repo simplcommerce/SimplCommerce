@@ -1,14 +1,14 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.Services;
-using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Services;
-using Microsoft.Extensions.Configuration;
 
-namespace SimplCommerce.Module.Catalog.Controllers
+namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 {
     [Area("Catalog")]
     public class CategoryController : Controller

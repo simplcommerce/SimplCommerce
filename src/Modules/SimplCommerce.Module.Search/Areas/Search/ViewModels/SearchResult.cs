@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using SimplCommerce.Module.Catalog.ViewModels;
+using SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels;
 
-namespace SimplCommerce.Module.Search.ViewModels
+namespace SimplCommerce.Module.Search.Areas.Search.ViewModels
 {
     public class SearchResult
     {

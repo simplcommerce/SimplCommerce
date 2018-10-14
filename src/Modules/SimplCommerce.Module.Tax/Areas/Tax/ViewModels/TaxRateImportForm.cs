@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
-namespace SimplCommerce.Module.Tax.ViewModels
+namespace SimplCommerce.Module.Tax.Areas.Tax.ViewModels
 {
     public class TaxRateImportForm
     {

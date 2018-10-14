@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Module.ActivityLog.Data;
 using SimplCommerce.Module.ActivityLog.Models;
 
-namespace SimplCommerce.Module.ActivityLog.Controllers
+namespace SimplCommerce.Module.ActivityLog.Areas.ActivityLog.Controllers
 {
     [Area("ActivityLog")]
     [Authorize(Roles = "admin")]

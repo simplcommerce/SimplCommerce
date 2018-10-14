@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace SimplCommerce.Module.Core.ViewModels
+namespace SimplCommerce.Module.Core.Areas.Core.ViewModels
 {
     public class UserForm
     {

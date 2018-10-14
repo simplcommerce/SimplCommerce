@@ -1,6 +1,6 @@
-﻿@model SimplCommerce.Module.Catalog.ViewModels.ProductDetail
-@using SimplCommerce.Module.Core.Models
+﻿@using SimplCommerce.Module.Core.Models
 
+@model SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels.ProductDetail
 
 @inject SignInManager<User> SignInManager
 
@@ -14,8 +14,7 @@
     <meta name="description" content="@Model.MetaDescription" />
 }
 
-@section head
-{
+@section head {
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/smoothproducts/css/smoothproducts.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/modules/catalog/product-detail.css" />
 }
@@ -278,8 +277,7 @@
     @await Component.InvokeAsync("Comment", new { entityId = Model.Id, entityTypeId = "Product" })
 </div>
 
-@section scripts
-{
+@section scripts {
     <partial name="_ValidationScriptsPartial" />
     <script simpl-append-version="true" src="~/lib/smoothproducts/js/smoothproducts.js"></script>
     <script simpl-append-version="true" src="~/modules/catalog/product-detail.js"></script>

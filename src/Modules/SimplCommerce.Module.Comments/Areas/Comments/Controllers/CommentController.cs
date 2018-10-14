@@ -1,15 +1,15 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SimplCommerce.Module.Core.Extensions;
+using Microsoft.Extensions.Configuration;
+using SimplCommerce.Module.Comments.Areas.Comments.ViewModels;
 using SimplCommerce.Module.Comments.Data;
 using SimplCommerce.Module.Comments.Models;
-using SimplCommerce.Module.Comments.ViewModels;
+using SimplCommerce.Module.Core.Extensions;
 
-namespace SimplCommerce.Module.Comments.Controllers
+namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
 {
     [Area("Comments")]
     public class CommentController : Controller

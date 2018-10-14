@@ -4,7 +4,7 @@ using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.ShoppingCart.Services;
 
-namespace SimplCommerce.Module.Orders.Components
+namespace SimplCommerce.Module.Orders.Areas.Orders.Components
 {
     public class OrderSummaryViewComponent : ViewComponent
     {

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Shipping.Models;
 
-namespace SimplCommerce.Module.Shipping.Controllers
+namespace SimplCommerce.Module.Shipping.Areas.Shipping.Controllers
 {
     [Area("Shipping")]
     [Authorize(Roles = "admin")]

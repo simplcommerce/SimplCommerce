@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SimplCommerce.Module.Contacts.ViewModels
+namespace SimplCommerce.Module.Contacts.Areas.Contacts.ViewModels
 {
     public class ContactForm
     {

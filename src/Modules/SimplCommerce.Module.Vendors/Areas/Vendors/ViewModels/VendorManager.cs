@@ -1,4 +1,4 @@
-﻿namespace SimplCommerce.Module.Vendors.ViewModels
+﻿namespace SimplCommerce.Module.Vendors.Areas.Vendors.ViewModels
 {
     public class VendorManager
     {

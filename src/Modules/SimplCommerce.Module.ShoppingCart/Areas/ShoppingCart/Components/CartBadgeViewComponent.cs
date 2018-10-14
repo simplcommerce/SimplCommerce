@@ -4,7 +4,7 @@ using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.ShoppingCart.Services;
 
-namespace SimplCommerce.Module.ShoppingCart.Components
+namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Components
 {
     public class CartBadgeViewComponent : ViewComponent
     {

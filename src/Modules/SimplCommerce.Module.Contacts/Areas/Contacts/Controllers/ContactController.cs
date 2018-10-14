@@ -1,13 +1,13 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Contacts.Areas.Contacts.ViewModels;
 using SimplCommerce.Module.Contacts.Models;
-using SimplCommerce.Module.Contacts.ViewModels;
+using SimplCommerce.Module.Core.Extensions;
 
-namespace SimplCommerce.Module.Contacts.Controllers
+namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
 {
     [Area("Contacts")]
     public class ContactController : Controller

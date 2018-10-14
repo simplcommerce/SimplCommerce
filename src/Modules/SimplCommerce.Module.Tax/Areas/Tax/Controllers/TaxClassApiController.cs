@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Tax.Areas.Tax.ViewModels;
 using SimplCommerce.Module.Tax.Models;
-using SimplCommerce.Module.Tax.ViewModels;
 
-namespace SimplCommerce.Module.Tax.Controllers
+namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
 {
     [Area("Tax")]
     [Authorize(Roles = "admin")]

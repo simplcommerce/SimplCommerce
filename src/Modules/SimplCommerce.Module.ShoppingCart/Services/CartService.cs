@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.ShoppingCart.Models;
-using SimplCommerce.Module.ShoppingCart.ViewModels;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Pricing.Services;
+using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
 
 namespace SimplCommerce.Module.ShoppingCart.Services
 {

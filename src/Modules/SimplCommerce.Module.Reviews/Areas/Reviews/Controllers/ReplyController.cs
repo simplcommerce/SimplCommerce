@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
-using SimplCommerce.Module.Reviews.ViewModels;
-using System.Threading.Tasks;
+using SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels;
 
-namespace SimplCommerce.Module.Reviews.Controllers
+namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
 {
     [Area("Reviews")]
     public class ReplyController : Controller

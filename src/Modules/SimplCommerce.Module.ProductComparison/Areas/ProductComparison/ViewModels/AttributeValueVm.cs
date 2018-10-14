@@ -1,4 +1,4 @@
-﻿namespace SimplCommerce.Module.ProductComparison.ViewModels
+﻿namespace SimplCommerce.Module.ProductComparison.Areas.ProductComparison.ViewModels
 {
     public class AttributeValueVm
     {

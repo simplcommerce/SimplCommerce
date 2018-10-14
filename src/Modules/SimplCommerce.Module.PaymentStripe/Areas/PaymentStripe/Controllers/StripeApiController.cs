@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Payments.Models;
+using SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.ViewModels;
 using SimplCommerce.Module.PaymentStripe.Models;
-using SimplCommerce.Module.PaymentStripe.ViewModels;
 
-namespace SimplCommerce.Module.PaymentStripe.Controllers
+namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
 {
     [Area("PaymentStripe")]
     [Authorize(Roles = "admin")]

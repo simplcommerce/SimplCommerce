@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SimplCommerce.Module.PaymentStripe.ViewModels
+namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.ViewModels
 {
     public class StripeConfigForm
     {
