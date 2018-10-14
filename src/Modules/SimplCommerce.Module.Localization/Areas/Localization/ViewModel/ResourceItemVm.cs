@@ -1,4 +1,4 @@
-﻿namespace SimplCommerce.Module.Localization.ViewModel
+﻿namespace SimplCommerce.Module.Localization.Areas.Localization.ViewModel
 {
     public class ResourceItemVm
     {

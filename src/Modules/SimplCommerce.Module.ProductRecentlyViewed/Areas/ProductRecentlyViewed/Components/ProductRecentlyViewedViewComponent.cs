@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Web;
-using SimplCommerce.Module.Catalog.Services;
-using SimplCommerce.Module.Catalog.ViewModels;
-using SimplCommerce.Module.Core.Services;
-using SimplCommerce.Module.Core.Extensions;
-using SimplCommerce.Module.ProductRecentlyViewed.Data;
+using SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels;
 using SimplCommerce.Module.Catalog.Models;
+using SimplCommerce.Module.Catalog.Services;
+using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.ProductRecentlyViewed.Data;
 
-namespace SimplCommerce.Module.ProductRecentlyViewed.Components
+namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed.Components
 {
     public class ProductRecentlyViewedViewComponent : ViewComponent
     {

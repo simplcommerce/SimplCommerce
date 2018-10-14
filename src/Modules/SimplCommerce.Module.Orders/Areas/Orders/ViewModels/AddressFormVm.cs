@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace SimplCommerce.Module.Orders.ViewModels
+namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 {
     public class AddressFormVm
     {

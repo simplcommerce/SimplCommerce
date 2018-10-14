@@ -8,7 +8,7 @@ using SimplCommerce.Module.PaymentPaypalExpress.Models;
 using SimplCommerce.Module.PaymentPaypalExpress.ViewModels;
 using SimplCommerce.Module.Payments.Models;
 
-namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
+namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.Controllers
 {
     [Area("PaymentPaypalExpress")]
     [Authorize(Roles = "admin")]

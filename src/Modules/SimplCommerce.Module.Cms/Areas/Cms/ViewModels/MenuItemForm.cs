@@ -1,4 +1,4 @@
-﻿namespace SimplCommerce.Module.Cms.ViewModels
+﻿namespace SimplCommerce.Module.Cms.Areas.Cms.ViewModels
 {
     public class MenuItemForm
     {

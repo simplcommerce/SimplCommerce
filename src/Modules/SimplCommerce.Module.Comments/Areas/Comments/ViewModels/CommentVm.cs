@@ -1,6 +1,6 @@
 ﻿using cloudscribe.Pagination.Models;
 
-namespace SimplCommerce.Module.Comments.ViewModels
+namespace SimplCommerce.Module.Comments.Areas.Comments.ViewModels
 {
     public class CommentVm
     {

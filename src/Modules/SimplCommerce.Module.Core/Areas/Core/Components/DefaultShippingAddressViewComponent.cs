@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web;
+using SimplCommerce.Module.Core.Areas.Core.ViewModels;
+using SimplCommerce.Module.Core.Areas.Core.ViewModels.Manage;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
-using SimplCommerce.Module.Core.ViewModels;
-using SimplCommerce.Module.Core.ViewModels.Manage;
 
-namespace SimplCommerce.Module.Core.Components
+namespace SimplCommerce.Module.Core.Areas.Core.Components
 {
     public class DefaultShippingAddressViewComponent : ViewComponent
     {

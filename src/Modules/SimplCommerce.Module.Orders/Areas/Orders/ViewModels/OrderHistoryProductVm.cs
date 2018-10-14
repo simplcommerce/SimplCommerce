@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SimplCommerce.Module.Orders.ViewModels
+namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 {
     public class OrderHistoryProductVm
     {

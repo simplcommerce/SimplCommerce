@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
+using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.ProductComparison.Areas.ProductComparison.ViewModels;
 using SimplCommerce.Module.ProductComparison.Models;
 using SimplCommerce.Module.ProductComparison.Services;
-using SimplCommerce.Module.ProductComparison.ViewModels;
-using SimplCommerce.Module.Catalog.Services;
 
-namespace SimplCommerce.Module.ProductComparison.Controllers
+namespace SimplCommerce.Module.ProductComparison.Areas.ProductComparison.Controllers
 {
     [Area("ProductComparison")]
     public class ComparingProductController : Controller

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SimplCommerce.Module.Comments.ViewModels
+namespace SimplCommerce.Module.Comments.Areas.Comments.ViewModels
 {
     public class CommentItem
     {

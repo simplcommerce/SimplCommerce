@@ -12,11 +12,11 @@ using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.News.Areas.News.ViewModels;
 using SimplCommerce.Module.News.Models;
 using SimplCommerce.Module.News.Services;
-using SimplCommerce.Module.News.ViewModels;
 
-namespace SimplCommerce.Module.News.Controllers
+namespace SimplCommerce.Module.News.Areas.News.Controllers
 {
     [Area("News")]
     [Authorize(Roles = "admin")]

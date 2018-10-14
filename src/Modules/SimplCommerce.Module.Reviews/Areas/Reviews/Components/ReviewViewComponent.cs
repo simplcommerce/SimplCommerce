@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web;
+using SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels;
 using SimplCommerce.Module.Reviews.Models;
-using SimplCommerce.Module.Reviews.ViewModels;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace SimplCommerce.Module.Reviews.Components
+namespace SimplCommerce.Module.Reviews.Areas.Reviews.Components
 {
     public class ReviewViewComponent : ViewComponent
     {

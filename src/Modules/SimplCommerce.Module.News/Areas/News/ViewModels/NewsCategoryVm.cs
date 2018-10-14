@@ -1,4 +1,4 @@
-﻿namespace SimplCommerce.Module.News.ViewModels
+﻿namespace SimplCommerce.Module.News.Areas.News.ViewModels
 {
     public class NewsCategoryVm
     {

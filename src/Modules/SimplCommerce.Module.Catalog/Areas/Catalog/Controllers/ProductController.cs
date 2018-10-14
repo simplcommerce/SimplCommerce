@@ -1,19 +1,19 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.Services;
-using SimplCommerce.Module.Core.Services;
-using SimplCommerce.Module.Catalog.ViewModels;
+using SimplCommerce.Module.Core.Areas.Core.ViewModels;
 using SimplCommerce.Module.Core.Events;
-using SimplCommerce.Module.Core.ViewModels;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+using SimplCommerce.Module.Core.Services;
 
-namespace SimplCommerce.Module.Catalog.Controllers
+namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 {
     [Area("Catalog")]
     public class ProductController : Controller

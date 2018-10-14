@@ -3,10 +3,10 @@ using System.Linq;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SimplCommerce.Module.Core.Areas.Core.ViewModels;
 using SimplCommerce.Module.Core.Services;
-using SimplCommerce.Module.Core.ViewModels;
 
-namespace SimplCommerce.Module.Core.Controllers
+namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 {
     [Area("Core")]
     public class HomeController : Controller

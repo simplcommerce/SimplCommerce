@@ -1,15 +1,15 @@
-﻿using MediatR;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Events;
 using SimplCommerce.Module.Reviews.Data;
 using SimplCommerce.Module.Reviews.Models;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace SimplCommerce.Module.Reviews.Controllers
+namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
 {
     [Area("Reviews")]
     [Authorize(Roles = "admin")]

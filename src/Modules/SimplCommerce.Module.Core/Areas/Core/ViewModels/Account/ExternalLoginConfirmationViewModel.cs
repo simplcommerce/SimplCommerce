@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SimplCommerce.Module.Core.ViewModels.Account
+namespace SimplCommerce.Module.Core.Areas.Core.ViewModels.Account
 {
     public class ExternalLoginConfirmationViewModel
     {

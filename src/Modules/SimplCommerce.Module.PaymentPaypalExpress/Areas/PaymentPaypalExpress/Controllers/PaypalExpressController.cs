@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SimplCommerce.Infrastructure.Extensions;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Extensions;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Orders.Services;
@@ -17,7 +17,7 @@ using SimplCommerce.Module.PaymentPaypalExpress.ViewModels;
 using SimplCommerce.Module.Payments.Models;
 using SimplCommerce.Module.ShoppingCart.Services;
 
-namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
+namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.Controllers
 {
     [Area("PaymentPaypalExpress")]
     public class PaypalExpressController : Controller

@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
-using SimplCommerce.Infrastructure.Data;
-using Microsoft.AspNetCore.Authorization;
-using SimplCommerce.Infrastructure.Localization;
-using SimplCommerce.Module.Localization.ViewModel;
 using SimplCommerce.Infrastructure;
+using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Localization;
+using SimplCommerce.Module.Localization.Areas.Localization.ViewModel;
 
-namespace SimplCommerce.Module.Localization.Controllers
+namespace SimplCommerce.Module.Localization.Areas.Localization.Controllers
 {
     [Area("Localization")]
     [Route("api/localization")]

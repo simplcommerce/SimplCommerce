@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SimplCommerce.Module.ShoppingCart.ViewModels
+namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels
 {
     public class CartVm
     {

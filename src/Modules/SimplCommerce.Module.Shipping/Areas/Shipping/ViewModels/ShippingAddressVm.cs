@@ -1,4 +1,4 @@
-﻿namespace SimplCommerce.Module.Shipping.ViewModels
+﻿namespace SimplCommerce.Module.Shipping.Areas.Shipping.ViewModels
 {
     public class ShippingAddressVm
     {

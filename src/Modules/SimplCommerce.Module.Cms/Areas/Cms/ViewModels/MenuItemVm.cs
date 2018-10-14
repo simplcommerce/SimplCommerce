@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SimplCommerce.Module.Cms.ViewModels
+namespace SimplCommerce.Module.Cms.Areas.Cms.ViewModels
 {
     public class MenuItemVm
     {

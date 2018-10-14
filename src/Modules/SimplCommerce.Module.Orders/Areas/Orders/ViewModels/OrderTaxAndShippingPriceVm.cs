@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using SimplCommerce.Module.ShippingPrices.Services;
-using SimplCommerce.Module.ShoppingCart.ViewModels;
+using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
 
-namespace SimplCommerce.Module.Orders.ViewModels
+namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 {
     public class OrderTaxAndShippingPriceVm
     {

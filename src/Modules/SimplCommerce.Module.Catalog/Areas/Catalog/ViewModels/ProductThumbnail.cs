@@ -2,7 +2,7 @@
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Models;
 
-namespace SimplCommerce.Module.Catalog.ViewModels
+namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
 {
     public class ProductThumbnail
     {

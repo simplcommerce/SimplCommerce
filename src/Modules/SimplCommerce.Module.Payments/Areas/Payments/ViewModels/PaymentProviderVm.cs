@@ -1,4 +1,4 @@
-﻿namespace SimplCommerce.Module.Payments.ViewModels
+﻿namespace SimplCommerce.Module.Payments.Areas.Payments.ViewModels
 {
     public class PaymentProviderVm
     {

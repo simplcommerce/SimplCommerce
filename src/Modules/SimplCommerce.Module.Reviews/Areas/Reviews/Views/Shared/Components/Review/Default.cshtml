@@ -1,5 +1,6 @@
-﻿@using SimplCommerce.Module.Reviews.ViewModels
-@model ReviewVm
+﻿@using SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels
+
+@model SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels.ReviewVm
 
 <div class="container">
     <div class="row">
@@ -69,36 +70,36 @@
         {
             @foreach (var review in Model.Items.Data)
             {
-        <div>
-            <ul class="list-inline product-ratings">
-                <li><input type="hidden" value="@review.Rating" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
-                <li class="review-title">
-                    @review.Title
-                </li>
-            </ul>
-            <p>@review.Comment</p>
-            <p>By: <strong>@review.ReviewerName</strong> on <span>@review.CreatedOn</span></p>
-            @if (review.Replies.Count > 0)
-            {
-                <button class="btn-review-replies btn-view-review-replies btn btn-link">@Localizer["View Replies"]<i class="arrow-down"></i></button>
-                <button class="btn-review-replies btn-hide-review-replies btn btn-link d-none">@Localizer["Hide Replies"]<i class="arrow-up"></i></button>
-                <ul class="review-replies d-none">
-                    @foreach (var reply in review.Replies)
-                    {
-                        <li class="review-reply">
-                            <p>@reply.Comment</p>
-                            <p>By: <strong>@reply.ReplierName</strong> on <span>@reply.CreatedOn</span></p>
+                <div>
+                    <ul class="list-inline product-ratings">
+                        <li><input type="hidden" value="@review.Rating" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
+                        <li class="review-title">
+                            @review.Title
                         </li>
+                    </ul>
+                    <p>@review.Comment</p>
+                    <p>By: <strong>@review.ReviewerName</strong> on <span>@review.CreatedOn</span></p>
+                    @if (review.Replies.Count > 0)
+                    {
+                        <button class="btn-review-replies btn-view-review-replies btn btn-link">@Localizer["View Replies"]<i class="arrow-down"></i></button>
+                        <button class="btn-review-replies btn-hide-review-replies btn btn-link d-none">@Localizer["Hide Replies"]<i class="arrow-up"></i></button>
+                        <ul class="review-replies d-none">
+                            @foreach (var reply in review.Replies)
+                            {
+                                <li class="review-reply">
+                                    <p>@reply.Comment</p>
+                                    <p>By: <strong>@reply.ReplierName</strong> on <span>@reply.CreatedOn</span></p>
+                                </li>
+                            }
+                        </ul>
                     }
-                </ul>
-            }
-            <div>
-                <button class="btn-add-review-reply btn btn-link">@Localizer["Add Reply"]</button>
-                <div class="add-review-reply d-none">
-                    <partial name="/Areas/Reviews/Views/Reply/_ReplyForm.cshtml" model="new ReplyForm { ReviewId = review.Id }" />
+                    <div>
+                        <button class="btn-add-review-reply btn btn-link">@Localizer["Add Reply"]</button>
+                        <div class="add-review-reply d-none">
+                            <partial name="/Areas/Reviews/Views/Reply/_ReplyForm.cshtml" model="new ReplyForm { ReviewId = review.Id }" />
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
             }
 
             <a asp-controller="Review"

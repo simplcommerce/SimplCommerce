@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SimplCommerce.Module.Core.ViewModels.Manage
+namespace SimplCommerce.Module.Core.Areas.Core.ViewModels.Manage
 {
     public class ChangePasswordViewModel
     {
