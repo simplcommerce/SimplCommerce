@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Cms.Controllers;
+using SimplCommerce.Module.Cms.Areas.Cms.Controllers;
 using SimplCommerce.Module.Cms.Models;
 using Xunit;
 

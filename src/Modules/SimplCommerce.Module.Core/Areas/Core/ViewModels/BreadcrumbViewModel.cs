@@ -1,4 +1,4 @@
-﻿namespace SimplCommerce.Module.Core.ViewModels
+﻿namespace SimplCommerce.Module.Core.Areas.Core.ViewModels
 {
     public class BreadcrumbViewModel
     {

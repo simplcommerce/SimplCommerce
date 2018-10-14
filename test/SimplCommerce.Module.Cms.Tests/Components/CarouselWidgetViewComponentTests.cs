@@ -5,10 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Moq;
 using Newtonsoft.Json;
-using SimplCommerce.Module.Cms.Components;
-using SimplCommerce.Module.Cms.ViewModels;
 using SimplCommerce.Module.Core.Services;
-using SimplCommerce.Module.Core.ViewModels;
 using Xunit;
 
 namespace SimplCommerce.Module.Cms.Tests.Components

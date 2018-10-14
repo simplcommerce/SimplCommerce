@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace SimplCommerce.Module.Cms.ViewModels
+namespace SimplCommerce.Module.Cms.Areas.Cms.ViewModels
 {
     public class MenuForm
     {

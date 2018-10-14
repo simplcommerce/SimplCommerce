@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Catalog.Models;
-using SimplCommerce.Module.Search.ViewModels;
+using SimplCommerce.Module.Search.Areas.Search.ViewModels;
 
-namespace SimplCommerce.Module.Search.Components
+namespace SimplCommerce.Module.Search.Areas.Search.Components
 {
     public class SearchFormViewComponent : ViewComponent
     {

@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.ShippingTableRate.Areas.ShippingTableRate.ViewModels;
 using SimplCommerce.Module.ShippingTableRate.Models;
-using SimplCommerce.Module.ShippingTableRate.ViewModels;
 
-namespace SimplCommerce.Module.ShippingTableRate.Controllers
+namespace SimplCommerce.Module.ShippingTableRate.Areas.ShippingTableRate.Controllers
 {
     [Area("ShippingTableRate")]
     [Authorize(Roles = "admin")]

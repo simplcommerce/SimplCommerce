@@ -3,16 +3,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using SimplCommerce.Module.Core.Extensions;
-using SimplCommerce.Module.ShoppingCart.Services;
-using SimplCommerce.Module.PaymentStripe.ViewModels;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Helpers;
 using SimplCommerce.Infrastructure.Web;
+using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Payments.Models;
+using SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.ViewModels;
 using SimplCommerce.Module.PaymentStripe.Models;
+using SimplCommerce.Module.ShoppingCart.Services;
 
-namespace SimplCommerce.Module.PaymentStripe.Components
+namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Components
 {
     public class StripeLandingViewComponent : ViewComponent
     {

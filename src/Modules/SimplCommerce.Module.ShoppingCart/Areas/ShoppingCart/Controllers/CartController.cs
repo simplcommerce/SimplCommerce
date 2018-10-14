@@ -6,11 +6,11 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
 using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.ShoppingCart.Services;
-using SimplCommerce.Module.ShoppingCart.ViewModels;
 
-namespace SimplCommerce.Module.ShoppingCart.Controllers
+namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
 {
     [Area("ShoppingCart")]
     public class CartController : Controller

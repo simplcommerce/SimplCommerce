@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Web;
 
-namespace SimplCommerce.Module.PaymentCoD.Components
+namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Components
 {
     public class CoDLandingViewComponent : ViewComponent
     {

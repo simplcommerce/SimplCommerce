@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace SimplCommerce.Module.Catalog.ViewModels
+namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
 {
     public class ProductsByCategory
     {

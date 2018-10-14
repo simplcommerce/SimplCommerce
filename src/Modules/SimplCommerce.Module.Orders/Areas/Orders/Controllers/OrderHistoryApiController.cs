@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Orders.Models;
 
-namespace SimplCommerce.Module.Orders.Controllers
+namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
 {
     [Area("Orders")]
     [Authorize(Roles = "admin, vendor")]

@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using SimplCommerce.Module.Catalog.Models;
-using SimplCommerce.Module.ShoppingCart.ViewModels;
+using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
 
-namespace SimplCommerce.Module.Orders.ViewModels
+namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 {
     public class OrderItemVm
     {

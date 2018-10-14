@@ -8,11 +8,11 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.WishList.Areas.WishList.ViewModels;
 using SimplCommerce.Module.WishList.Models;
 using SimplCommerce.Module.WishList.Services;
-using SimplCommerce.Module.WishList.ViewModels;
 
-namespace SimplCommerce.Module.WishList.Controllers
+namespace SimplCommerce.Module.WishList.Areas.WishList.Controllers
 {
     [Area("WishList")]
     public class WishListController : Controller

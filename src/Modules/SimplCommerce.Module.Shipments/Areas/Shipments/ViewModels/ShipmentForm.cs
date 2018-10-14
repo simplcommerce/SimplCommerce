@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using SimplCommerce.Module.Shipments.Services;
 
-namespace SimplCommerce.Module.Shipments.ViewModels
+namespace SimplCommerce.Module.Shipments.Areas.Shipments.ViewModels
 {
     public class ShipmentForm
     {

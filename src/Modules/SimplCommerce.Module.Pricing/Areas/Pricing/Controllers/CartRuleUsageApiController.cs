@@ -6,7 +6,7 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Pricing.Models;
 
-namespace SimplCommerce.Module.Pricing.Controllers
+namespace SimplCommerce.Module.Pricing.Areas.Pricing.Controllers
 {
     [Area("Pricing")]
     [Authorize(Roles = "admin")]

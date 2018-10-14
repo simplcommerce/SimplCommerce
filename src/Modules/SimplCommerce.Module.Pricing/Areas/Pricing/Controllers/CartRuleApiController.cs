@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
+using SimplCommerce.Module.Pricing.Areas.Pricing.ViewModels;
 using SimplCommerce.Module.Pricing.Models;
-using SimplCommerce.Module.Pricing.ViewModels;
 
-namespace SimplCommerce.Module.Pricing.Controllers
+namespace SimplCommerce.Module.Pricing.Areas.Pricing.Controllers
 {
     [Area("Pricing")]
     [Authorize(Roles = "admin")]

@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using Newtonsoft.Json;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Services;
-using SimplCommerce.Module.ShoppingCart.Services;
-using SimplCommerce.Module.Payments.Models;
 using SimplCommerce.Module.PaymentCoD.Models;
+using SimplCommerce.Module.Payments.Models;
+using SimplCommerce.Module.ShoppingCart.Services;
 
-namespace SimplCommerce.Module.PaymentCoD.Controllers
+namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
 {
     [Authorize]
     public class CoDController : Controller

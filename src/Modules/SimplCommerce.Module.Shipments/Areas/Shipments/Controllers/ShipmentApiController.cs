@@ -8,11 +8,11 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Models;
+using SimplCommerce.Module.Shipments.Areas.Shipments.ViewModels;
 using SimplCommerce.Module.Shipments.Models;
 using SimplCommerce.Module.Shipments.Services;
-using SimplCommerce.Module.Shipments.ViewModels;
 
-namespace SimplCommerce.Module.Shipments.Controllers
+namespace SimplCommerce.Module.Shipments.Areas.Shipments.Controllers
 {
     [Area("Shipments")]
     [Authorize(Roles = "admin, vendor")]

@@ -4,18 +4,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using Stripe;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Helpers;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Orders.Services;
-using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.Payments.Models;
-using SimplCommerce.Module.PaymentStripe.ViewModels;
+using SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.ViewModels;
 using SimplCommerce.Module.PaymentStripe.Models;
+using SimplCommerce.Module.ShoppingCart.Models;
+using Stripe;
 
-namespace SimplCommerce.Module.PaymentStripe.Controllers
+namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
 {
     [Area("PaymentStripe")]
     public class StripeController : Controller

@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Services;
+using SimplCommerce.Module.Payments.Areas.Payments.ViewModels;
 using SimplCommerce.Module.Payments.Models;
-using SimplCommerce.Module.Payments.ViewModels;
 using SimplCommerce.Module.ShoppingCart.Models;
 
-namespace SimplCommerce.Module.Payments.Controllers
+namespace SimplCommerce.Module.Payments.Areas.Payments.Controllers
 {
     [Area("Payments")]
     [Route("checkout")]

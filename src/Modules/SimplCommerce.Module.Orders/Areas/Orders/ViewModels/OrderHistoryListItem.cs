@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using SimplCommerce.Module.Orders.Models;
 
-namespace SimplCommerce.Module.Orders.ViewModels
+namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 {
     public class OrderHistoryListItem
     {

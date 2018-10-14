@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SimplCommerce.Module.SampleData.ViewModels
+namespace SimplCommerce.Module.SampleData.Areas.SampleData.ViewModels
 {
     public class SampleDataOption
     {

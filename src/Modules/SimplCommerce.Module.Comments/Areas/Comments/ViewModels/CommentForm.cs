@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SimplCommerce.Module.Comments.ViewModels
+namespace SimplCommerce.Module.Comments.Areas.Comments.ViewModels
 {
     public class CommentForm
     {

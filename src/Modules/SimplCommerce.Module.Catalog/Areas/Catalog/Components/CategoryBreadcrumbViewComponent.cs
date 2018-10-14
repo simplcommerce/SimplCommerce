@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Catalog.Models;
-using SimplCommerce.Module.Core.ViewModels;
+using SimplCommerce.Module.Core.Areas.Core.ViewModels;
 
-namespace SimplCommerce.Module.Catalog.Components
+namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
 {
     public class CategoryBreadcrumbViewComponent : ViewComponent
     {

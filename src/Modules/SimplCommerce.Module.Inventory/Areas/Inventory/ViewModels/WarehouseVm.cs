@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SimplCommerce.Module.Inventory.ViewModels
+namespace SimplCommerce.Module.Inventory.Areas.Inventory.ViewModels
 {
     public class WarehouseVm
     {

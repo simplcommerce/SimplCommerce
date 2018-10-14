@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace SimplCommerce.Module.Vendors.ViewModels
+namespace SimplCommerce.Module.Vendors.Areas.Vendors.ViewModels
 {
     public class VendorForm
     {

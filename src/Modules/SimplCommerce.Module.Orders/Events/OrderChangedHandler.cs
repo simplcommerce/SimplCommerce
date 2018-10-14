@@ -4,10 +4,9 @@ using System.Threading.Tasks;
 using MediatR;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Orders.Events;
 using SimplCommerce.Module.Orders.Models;
 
-namespace SimplCommerce.Module.Orders.Data
+namespace SimplCommerce.Module.Orders.Events
 {
     public class OrderChangedHandler : INotificationHandler<OrderChanged>
     {

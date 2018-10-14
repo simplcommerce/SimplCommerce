@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Core.Areas.Core.ViewModels;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
-using SimplCommerce.Module.Core.ViewModels;
 
-namespace SimplCommerce.Module.Core.Controllers
+namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 {
     [Area("Core")]
     [Authorize]

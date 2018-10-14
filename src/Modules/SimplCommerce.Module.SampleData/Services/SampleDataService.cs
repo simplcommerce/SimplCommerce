@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Module.SampleData.Data;
 using SimplCommerce.Module.Core.Services;
-using SimplCommerce.Module.SampleData.ViewModels;
+using SimplCommerce.Module.SampleData.Areas.SampleData.ViewModels;
 
 namespace SimplCommerce.Module.SampleData.Services
 {

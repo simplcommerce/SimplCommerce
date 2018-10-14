@@ -3,8 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels;
 using SimplCommerce.Module.Catalog.Models;
-using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.Catalog.Services
