@@ -16,7 +16,7 @@ namespace SimplCommerce.Module.Orders
         {
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IOrderEmailService, OrderEmailService>();
-           // services.AddSingleton<IHostedService, OrderCancellationBackgroundService>();
+            services.AddHostedService<OrderCancellationBackgroundService>();
             services.AddTransient<INotificationHandler<OrderChanged>, OrderChangedHandler>();
         }
 
