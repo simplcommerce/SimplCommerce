@@ -38,7 +38,7 @@ namespace SimplCommerce.Module.Orders.Services
                     await CancelFailedPaymentOrders(orderRepository, orderService, mediator, stoppingToken);
                 }
 
-                await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
+                await Task.Delay(TimeSpan.FromSeconds(60), stoppingToken);
             }
 
             _logger.LogInformation("OrderCancellationBackgroundService is stopping.");
