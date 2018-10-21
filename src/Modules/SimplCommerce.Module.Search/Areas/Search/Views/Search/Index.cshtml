@@ -35,7 +35,7 @@
                                             <small>(@category.Count)</small>
                                         </label>
                                         @{
-                                            var children = Model.FilterOption.Categories.Where(x => x.ParentId == category.Id).ToList();
+                                            var children = Model.FilterOption.Categories.Where(x => x.ParentId == category.Id);
                                         }
                                         @if (children.Any())
                                         {
