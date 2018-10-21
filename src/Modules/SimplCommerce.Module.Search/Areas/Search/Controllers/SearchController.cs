@@ -63,7 +63,7 @@ namespace SimplCommerce.Module.Search.Areas.Search.Controllers
 
             var query = _productRepository.Query().Where(x => x.Name.Contains(searchOption.Query) && x.IsPublished && x.IsVisibleIndividually);
 
-            if (query.Count() == 0)
+            if (!query.Any())
             {
                 model.TotalProduct = 0;
                 return View(model);
