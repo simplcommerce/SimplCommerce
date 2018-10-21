@@ -26,7 +26,7 @@
                     <div id="collapse-category" class="collapse show" aria-labelledby="cardHeaderCategory" data-parent="#accordion-category">
                         <div class="card-body">
                             <ul class="list-unstyled checkbox-list">
-                                @foreach (var category in Model.FilterOption.Categories)
+                                @foreach (var category in Model.FilterOption.Categories.Where(x => x.ParentId == null))
                                 {
                                     <li>
                                         <label class="checkbox">
