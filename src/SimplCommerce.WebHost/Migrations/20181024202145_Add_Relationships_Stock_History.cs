@@ -12,9 +12,9 @@ namespace SimplCommerce.WebHost.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Inventory_StockHistory_WareHouseId",
+                name: "IX_Inventory_StockHistory_WarehouseId",
                 table: "Inventory_StockHistory",
-                column: "WareHouseId");
+                column: "WarehouseId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Inventory_StockHistory_Catalog_Product_ProductId",
@@ -25,9 +25,9 @@ namespace SimplCommerce.WebHost.Migrations
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Inventory_StockHistory_Inventory_Warehouse_WareHouseId",
+                name: "FK_Inventory_StockHistory_Inventory_Warehouse_WarehouseId",
                 table: "Inventory_StockHistory",
-                column: "WareHouseId",
+                column: "WarehouseId",
                 principalTable: "Inventory_Warehouse",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
@@ -40,7 +40,7 @@ namespace SimplCommerce.WebHost.Migrations
                 table: "Inventory_StockHistory");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Inventory_StockHistory_Inventory_Warehouse_WareHouseId",
+                name: "FK_Inventory_StockHistory_Inventory_Warehouse_WarehouseId",
                 table: "Inventory_StockHistory");
 
             migrationBuilder.DropIndex(
@@ -48,7 +48,7 @@ namespace SimplCommerce.WebHost.Migrations
                 table: "Inventory_StockHistory");
 
             migrationBuilder.DropIndex(
-                name: "IX_Inventory_StockHistory_WareHouseId",
+                name: "IX_Inventory_StockHistory_WarehouseId",
                 table: "Inventory_StockHistory");
         }
     }

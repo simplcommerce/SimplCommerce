@@ -400,17 +400,17 @@ SET IDENTITY_INSERT [dbo].[Inventory_Stock] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[Inventory_StockHistory] ON 
-INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WareHouseId]) VALUES (1, 10, 10, CAST(N'2018-01-23T09:49:39.4372243+07:00' AS DateTimeOffset), NULL, 14, 1)
-INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WareHouseId]) VALUES (2, 10, 10, CAST(N'2018-01-23T09:49:39.6950025+07:00' AS DateTimeOffset), NULL, 13, 1)
-INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WareHouseId]) VALUES (3, 10, 10, CAST(N'2018-01-23T09:49:39.7177315+07:00' AS DateTimeOffset), NULL, 12, 1)
-INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WareHouseId]) VALUES (4, 10, 10, CAST(N'2018-01-23T09:49:39.7356927+07:00' AS DateTimeOffset), NULL, 11, 1)
-INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WareHouseId]) VALUES (5, 10, 10, CAST(N'2018-01-23T09:49:39.7424939+07:00' AS DateTimeOffset), NULL, 10, 1)
-INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WareHouseId]) VALUES (6, 10, 10, CAST(N'2018-01-23T09:49:39.7496600+07:00' AS DateTimeOffset), NULL, 8, 1)
-INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WareHouseId]) VALUES (7, 10, 10, CAST(N'2018-01-23T09:49:39.7559222+07:00' AS DateTimeOffset), NULL, 7, 1)
-INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WareHouseId]) VALUES (8, 10, 10, CAST(N'2018-01-23T09:49:39.7618612+07:00' AS DateTimeOffset), NULL, 6, 1)
-INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WareHouseId]) VALUES (9, 10, 10, CAST(N'2018-01-23T09:49:39.7677309+07:00' AS DateTimeOffset), NULL, 4, 1)
-INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WareHouseId]) VALUES (10, 10, 10, CAST(N'2018-01-23T09:49:39.7739607+07:00' AS DateTimeOffset), NULL, 3, 1)
-INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WareHouseId]) VALUES (11, 10, 10, CAST(N'2018-01-23T09:49:39.7802334+07:00' AS DateTimeOffset), NULL, 2, 1)
+INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WarehouseId]) VALUES (1, 10, 10, CAST(N'2018-01-23T09:49:39.4372243+07:00' AS DateTimeOffset), NULL, 14, 1)
+INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WarehouseId]) VALUES (2, 10, 10, CAST(N'2018-01-23T09:49:39.6950025+07:00' AS DateTimeOffset), NULL, 13, 1)
+INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WarehouseId]) VALUES (3, 10, 10, CAST(N'2018-01-23T09:49:39.7177315+07:00' AS DateTimeOffset), NULL, 12, 1)
+INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WarehouseId]) VALUES (4, 10, 10, CAST(N'2018-01-23T09:49:39.7356927+07:00' AS DateTimeOffset), NULL, 11, 1)
+INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WarehouseId]) VALUES (5, 10, 10, CAST(N'2018-01-23T09:49:39.7424939+07:00' AS DateTimeOffset), NULL, 10, 1)
+INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WarehouseId]) VALUES (6, 10, 10, CAST(N'2018-01-23T09:49:39.7496600+07:00' AS DateTimeOffset), NULL, 8, 1)
+INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WarehouseId]) VALUES (7, 10, 10, CAST(N'2018-01-23T09:49:39.7559222+07:00' AS DateTimeOffset), NULL, 7, 1)
+INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WarehouseId]) VALUES (8, 10, 10, CAST(N'2018-01-23T09:49:39.7618612+07:00' AS DateTimeOffset), NULL, 6, 1)
+INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WarehouseId]) VALUES (9, 10, 10, CAST(N'2018-01-23T09:49:39.7677309+07:00' AS DateTimeOffset), NULL, 4, 1)
+INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WarehouseId]) VALUES (10, 10, 10, CAST(N'2018-01-23T09:49:39.7739607+07:00' AS DateTimeOffset), NULL, 3, 1)
+INSERT [dbo].[Inventory_StockHistory] ([Id], [AdjustedQuantity], [CreatedById], [CreatedOn], [Note], [ProductId], [WarehouseId]) VALUES (11, 10, 10, CAST(N'2018-01-23T09:49:39.7802334+07:00' AS DateTimeOffset), NULL, 2, 1)
 SET IDENTITY_INSERT [dbo].[Inventory_StockHistory] OFF 
 GO
 
