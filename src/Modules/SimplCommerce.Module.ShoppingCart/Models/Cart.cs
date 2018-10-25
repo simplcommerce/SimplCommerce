@@ -41,5 +41,7 @@ namespace SimplCommerce.Module.ShoppingCart.Models
         /// Json serialized of shipping form
         /// </summary>
         public string ShippingData { get; set; }
+
+        public string OrderNote { get; set; }
     }
 }

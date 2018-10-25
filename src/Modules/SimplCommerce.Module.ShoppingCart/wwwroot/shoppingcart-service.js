@@ -23,11 +23,16 @@
                     return $http.post('cart/apply-coupon', { couponCode: couponCode });
                 }
 
+                function saveOrderNote(orderNote) {
+                    return $http.post('cart/save-ordernote', { orderNote: orderNote });
+                }
+
                 return {
                     getShoppingCartItems: getShoppingCartItems,
                     removeShoppingCartItem: removeShoppingCartItem,
                     updateQuantity: updateQuantity,
-                    applyCoupon: applyCoupon
+                    applyCoupon: applyCoupon,
+                    saveOrderNote: saveOrderNote
                 };
             }
         ]);

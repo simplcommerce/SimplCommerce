@@ -45,6 +45,10 @@
                     });
                 };
 
+                vm.saveOrderNote = function saveOrderNote() {
+                    shoppingCartService.saveOrderNote(vm.orderNote).then(cartDataCallback);
+                };
+
                  getShoppingCartItems();
             }
         ]);

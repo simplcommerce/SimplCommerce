@@ -136,6 +136,17 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             return couponValidationResult;
         }
 
+        public async Task SaveOrderNote(long userId, string orderNote)
+        {
+            var cart = _cartRepository.Query().FirstOrDefault(x => x.UserId == userId && x.IsActive);
+            if (cart == null)
+            {
+                throw new ApplicationException($"No active cart of user {userId}");
+            }
+            cart.OrderNote = orderNote;
+            await _cartRepository.SaveChangesAsync();
+        }
+
         public async Task MigrateCart(long fromUserId, long toUserId)
         {
             var cartFrom = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.UserId == fromUserId && x.IsActive);

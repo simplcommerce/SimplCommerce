@@ -107,6 +107,15 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             return Json(validationResult);
         }
 
+        [HttpPost("cart/save-ordernote")]
+        public async Task<IActionResult> SaveOrderNote([FromBody] SaveOrderNote model)
+        {
+            var currentUser = await _workContext.GetCurrentUser();
+            await _cartService.SaveOrderNote(currentUser.Id, model.OrderNote);
+            var cart = await _cartService.GetCart(currentUser.Id);
+            return Json(cart);
+        }
+
         [HttpPost("cart/remove")]
         public async Task<IActionResult> Remove([FromBody] long itemId)
         {

@@ -362,6 +362,20 @@ li.nav-item-group, li.nav-item-group a {
     text-transform: uppercase;
 }
 
+.cart-list .order-summary .btn-ordernote {
+    padding: 8px 20px;
+    font-size: 14px;
+    border: 0;
+    border-radius: 0;
+    text-transform: uppercase;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.cart-list .order-summary .order-note-form {
+    padding-bottom: 20px;
+}
+
 .coupon-form {
     margin-top: 20px;
 }
