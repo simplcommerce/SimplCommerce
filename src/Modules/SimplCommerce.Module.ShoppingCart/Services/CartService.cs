@@ -139,10 +139,11 @@ namespace SimplCommerce.Module.ShoppingCart.Services
         public async Task SaveOrderNote(long userId, string orderNote)
         {
             var cart = _cartRepository.Query().FirstOrDefault(x => x.UserId == userId && x.IsActive);
-            if (cart != null)
+            if (cart == null)
             {
-                cart.OrderNote = orderNote;
+                throw new ApplicationException($"No active cart of user {userId}");
             }
+            cart.OrderNote = orderNote;
             await _cartRepository.SaveChangesAsync();
         }
 

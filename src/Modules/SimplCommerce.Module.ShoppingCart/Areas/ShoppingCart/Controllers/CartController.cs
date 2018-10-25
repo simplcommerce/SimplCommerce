@@ -111,11 +111,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         public async Task<IActionResult> SaveOrderNote([FromBody] SaveOrderNote model)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            
-            if (model.OrderNote != "")
-            {
-                await _cartService.SaveOrderNote(currentUser.Id, model.OrderNote);
-            }
+            await _cartService.SaveOrderNote(currentUser.Id, model.OrderNote);
             var cart = await _cartService.GetCart(currentUser.Id);
             return Json(cart);
         }
