@@ -1,5 +1,6 @@
 ﻿using System;
 using SimplCommerce.Infrastructure.Models;
+using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Inventory.Models
@@ -8,7 +9,11 @@ namespace SimplCommerce.Module.Inventory.Models
     {
         public long ProductId { get; set; }
 
+        public Product Product { get; set; }
+
         public long WareHouseId { get; set; }
+
+        public Warehouse Warehouse { get; set; }
 
         public DateTimeOffset CreatedOn { get; set; }
 
