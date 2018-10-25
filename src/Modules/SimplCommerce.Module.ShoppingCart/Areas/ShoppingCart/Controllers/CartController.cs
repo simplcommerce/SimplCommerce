@@ -112,7 +112,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         {
             var currentUser = await _workContext.GetCurrentUser();
             await _cartService.SaveOrderNote(currentUser.Id, model.OrderNote);
-            return Ok();
+            return Accepted();
         }
 
         [HttpPost("cart/remove")]
