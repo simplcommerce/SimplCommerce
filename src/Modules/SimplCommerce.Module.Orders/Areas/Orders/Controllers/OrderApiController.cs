@@ -172,6 +172,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 TaxAmount = order.TaxAmount,
                 ShippingAmount = order.ShippingFeeAmount,
                 OrderTotal = order.OrderTotal,
+                OrderNote = order.OrderNote,
                 ShippingAddress = new ShippingAddressVm
                 {
                     AddressLine1 = order.ShippingAddress.AddressLine1,

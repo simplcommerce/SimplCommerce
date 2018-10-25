@@ -22,6 +22,8 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels
 
         public decimal? TaxAmount { get; set; }
 
+        public string OrderNote { get; set; }
+
         public string TaxAmountString
         {
             get

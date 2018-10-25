@@ -39,6 +39,17 @@
                 </tr>
             </tbody>
         </table>
+        <div class="order-note-form">
+            <h4>@Localizer["Order note"]</h4>
+            <form>
+                <div class="form-group">
+                    <textarea rows="3" class="form-control" name="orderNote" ng-model="vm.cart.orderNote" placeholder="Enter order note"></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default pull-right" ng-click="vm.saveOrderNote()">Save order note</button>
+                </div>
+            </form>
+        </div>
     </div>
     <div class="col-md-4">
         <div class="order-summary" ng-if="vm.cart.items.length">
@@ -57,21 +68,7 @@
                     <td><strong>{{vm.cart.orderTotalString}}</strong></td>
                 </tr>
             </table>
-            <div class="order-note-form">
-                <h6>@Localizer["Order Note"]</h6>
-                <form class="form-inline">
-                    <div class="form-group">
-                        <label>{{vm.cart.noteValidationErrorMessage}}</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="orderNote" ng-model="vm.orderNote" placeholder="Enter Order Note">
-                        <button type="submit" class="btn-default btn-ordernote" ng-click="vm.saveOrderNote()">Save</button>
-                    </div>
-                </form>
-            </div>
-
             <p class="text-right"><a href="~/checkout/shipping" class="btn btn-primary">@Localizer["Process to Checkout"]</a></p>
-
         </div>
         <div class="coupon-form" ng-if="vm.cart.items.length">
             <h4>@Localizer["Coupon code"]</h4>
