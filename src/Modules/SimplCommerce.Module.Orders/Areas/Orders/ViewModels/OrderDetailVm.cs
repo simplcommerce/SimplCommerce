@@ -58,5 +58,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
         public IList<long> SubOrderIds { get; set; }
 
         public bool IsMasterOrder { get; set; }
+
+        public string OrderNote { get; set; }
     }
 }

@@ -46,7 +46,9 @@
                 };
 
                 vm.saveOrderNote = function saveOrderNote() {
-                    shoppingCartService.saveOrderNote(vm.orderNote).then(cartDataCallback);
+                    shoppingCartService.saveOrderNote(vm.cart.orderNote).then(function () {
+                        toastr.success('Order note has been saved');
+                    });
                 };
 
                  getShoppingCartItems();

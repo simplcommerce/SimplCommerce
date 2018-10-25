@@ -195,6 +195,7 @@ namespace SimplCommerce.Module.Orders.Services
             }
 
             order.OrderStatus = orderStatus;
+            order.OrderNote = cart.OrderNote;
             order.CouponCode = checkingDiscountResult.CouponCode;
             order.CouponRuleName = cart.CouponRuleName;
             order.DiscountAmount = checkingDiscountResult.DiscountAmount;
