@@ -1606,7 +1606,7 @@ namespace SimplCommerce.WebHost.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ProductId = table.Column<long>(nullable: false),
-                    WareHouseId = table.Column<long>(nullable: false),
+                    WarehouseId = table.Column<long>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CreatedById = table.Column<long>(nullable: false),
                     AdjustedQuantity = table.Column<long>(nullable: false),

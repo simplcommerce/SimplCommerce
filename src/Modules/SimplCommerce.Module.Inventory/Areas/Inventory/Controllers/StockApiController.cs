@@ -146,7 +146,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
         public async Task<IActionResult> GetStockHistory(int warehouseId, int productId)
         {
             var query = _stockHistoryRepository.Query();
-            query = query.Where(x => x.WareHouseId == warehouseId && x.ProductId == productId);
+            query = query.Where(x => x.WarehouseId == warehouseId && x.ProductId == productId);
             var stockHistory = await query.Select(x => new
             {
                 x.Id,

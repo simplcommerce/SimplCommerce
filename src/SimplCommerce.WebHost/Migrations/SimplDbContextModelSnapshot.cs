@@ -1358,7 +1358,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<long>("ProductId");
 
-                    b.Property<long>("WareHouseId");
+                    b.Property<long>("WarehouseId");
 
                     b.HasKey("Id");
 
@@ -1366,7 +1366,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("WareHouseId");
+                    b.HasIndex("WarehouseId");
 
                     b.ToTable("Inventory_StockHistory");
                 });
@@ -2655,7 +2655,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.HasOne("SimplCommerce.Module.Inventory.Models.Warehouse", "Warehouse")
                         .WithMany()
-                        .HasForeignKey("WareHouseId")
+                        .HasForeignKey("WarehouseId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
