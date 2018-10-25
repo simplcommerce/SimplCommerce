@@ -24,6 +24,12 @@
                     url: '/warehouses/edit/:id',
                     templateUrl: 'modules/inventory/admin/warehouse/warehouse-form.html',
                     controller: 'WarehouseFormCtrl as vm'
+                })
+                .state('stock-history',
+                {
+                    url: '/stock/history?warehouseId&productId',
+                    templateUrl: 'modules/inventory/admin/stock/stock-history.html',
+                    controller: 'StockHistoryCtrl as vm'
                 });
         }]);
 })();

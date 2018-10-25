@@ -10,7 +10,8 @@
             getWarehouses: getWarehouses,
             addAllProducts: addAllProducts,
             getStocks: getStocks,
-            updateStocks: updateStocks
+            updateStocks: updateStocks,
+            getStockHistory: getStockHistory
         };
         return service;
 
@@ -28,6 +29,10 @@
 
         function updateStocks(warehouseId, stocks) {
             return $http.put('api/stocks?warehouseId=' + warehouseId, stocks);
+        }
+
+        function getStockHistory(warehouseId, productId) {
+            return $http.get('api/stocks/history?warehouseId=' + warehouseId + '&productId=' + productId);
         }
     }
 })();

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Extensions;
@@ -21,13 +22,15 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
         private readonly IStockService _stockService;
         private readonly IWorkContext _workContext;
         private readonly IRepository<Warehouse> _warehouseRepository;
+        private readonly IRepository<StockHistory> _stockHistoryRepository;
 
-        public StockApiController(IRepository<Stock> stockRepository, IStockService stockService, IWorkContext workContext, IRepository<Warehouse> warehouseRepository)
+        public StockApiController(IRepository<Stock> stockRepository, IStockService stockService, IWorkContext workContext, IRepository<Warehouse> warehouseRepository, IRepository<StockHistory> stockHistoryRepository)
         {
             _stockRepository = stockRepository;
             _stockService = stockService;
             _workContext = workContext;
             _warehouseRepository = warehouseRepository;
+            _stockHistoryRepository = stockHistoryRepository;
         }
 
         [HttpPost("add-products")]
@@ -137,6 +140,24 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
             }
 
             return Accepted();
+        }
+
+        [HttpGet("history")]
+        public async Task<IActionResult> GetStockHistory(int warehouseId, int productId)
+        {
+            var query = _stockHistoryRepository.Query();
+            query = query.Where(x => x.WareHouseId == warehouseId && x.ProductId == productId);
+            var stockHistory = await query.Select(x => new
+            {
+                x.Id,
+                x.Product.Name,
+                x.CreatedOn,
+                x.CreatedBy.FullName,
+                x.AdjustedQuantity,
+                x.Note
+            }).ToListAsync();
+  
+            return Ok(stockHistory);
         }
     }
 }
