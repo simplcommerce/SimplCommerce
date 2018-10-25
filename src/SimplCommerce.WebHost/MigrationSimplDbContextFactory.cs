@@ -22,6 +22,7 @@ namespace SimplCommerce.WebHost
                             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                             .AddJsonFile($"appsettings.{environmentName}.json", true);
 
+            builder.AddUserSecrets(typeof(MigrationSimplDbContextFactory).Assembly, optional: true);
             builder.AddEnvironmentVariables();
             var _configuration = builder.Build();
 
