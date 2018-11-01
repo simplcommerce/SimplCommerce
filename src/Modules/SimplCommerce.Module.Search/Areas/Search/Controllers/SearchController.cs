@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Catalog.Models;
-using SimplCommerce.Module.Catalog.ViewModels;
-using SimplCommerce.Module.Search.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using SimplCommerce.Module.Core.Services;
-using SimplCommerce.Module.Search.Models;
 using Microsoft.Extensions.Configuration;
+using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels;
+using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.Services;
+using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.Search.Areas.Search.ViewModels;
+using SimplCommerce.Module.Search.Models;
 
-namespace SimplCommerce.Module.Search.Controllers
+namespace SimplCommerce.Module.Search.Areas.Search.Controllers
 {
     [Area("Search")]
     public class SearchController : Controller
@@ -50,7 +50,7 @@ namespace SimplCommerce.Module.Search.Controllers
             }
 
             var brand = _brandRepository.Query().FirstOrDefault(x => x.Name == searchOption.Query && x.IsPublished);
-            if(brand != null)
+            if (brand != null)
             {
                 return Redirect(string.Format("~/{0}", brand.Slug));
             }
@@ -63,7 +63,7 @@ namespace SimplCommerce.Module.Search.Controllers
 
             var query = _productRepository.Query().Where(x => x.Name.Contains(searchOption.Query) && x.IsPublished && x.IsVisibleIndividually);
 
-            if (query.Count() == 0)
+            if (!query.Any())
             {
                 model.TotalProduct = 0;
                 return View(model);
@@ -155,17 +155,20 @@ namespace SimplCommerce.Module.Search.Controllers
             model.FilterOption.Price.MinPrice = query.Min(x => x.Price);
 
             model.FilterOption.Categories = query
-                .SelectMany(x => x.Categories).Where(x => x.Category.Parent == null)
-                .GroupBy(x => new {
+                .SelectMany(x => x.Categories)
+                .GroupBy(x => new
+                {
                     x.Category.Id,
                     x.Category.Name,
-                    x.Category.Slug
+                    x.Category.Slug,
+                    x.Category.ParentId
                 })
                 .Select(g => new FilterCategory
                 {
                     Id = (int)g.Key.Id,
                     Name = g.Key.Name,
                     Slug = g.Key.Slug,
+                    ParentId = g.Key.ParentId,
                     Count = g.Count()
                 }).ToList();
 

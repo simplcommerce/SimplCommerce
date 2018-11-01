@@ -1,4 +1,4 @@
-﻿namespace SimplCommerce.Module.WishList.ViewModels
+﻿namespace SimplCommerce.Module.WishList.Areas.WishList.ViewModels
 {
     public class AddToWishList
     {

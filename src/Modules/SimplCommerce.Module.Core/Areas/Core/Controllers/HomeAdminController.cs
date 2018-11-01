@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace SimplCommerce.Module.Core.Controllers
+namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 {
     [Area("Core")]
     [Authorize(Roles = "admin, vendor")]

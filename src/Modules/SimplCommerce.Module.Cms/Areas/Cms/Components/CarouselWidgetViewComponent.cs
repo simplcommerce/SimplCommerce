@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Web;
-using SimplCommerce.Module.Cms.ViewModels;
+using SimplCommerce.Module.Cms.Areas.Cms.ViewModels;
+using SimplCommerce.Module.Core.Areas.Core.ViewModels;
 using SimplCommerce.Module.Core.Services;
-using SimplCommerce.Module.Core.ViewModels;
 
-namespace SimplCommerce.Module.Cms.Components
+namespace SimplCommerce.Module.Cms.Areas.Cms.Components
 {
     public class CarouselWidgetViewComponent : ViewComponent
     {

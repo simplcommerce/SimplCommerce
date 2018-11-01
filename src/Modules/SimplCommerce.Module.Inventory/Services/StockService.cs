@@ -54,7 +54,7 @@ namespace SimplCommerce.Module.Inventory.Services
             var stockHistory = new StockHistory
             {
                 ProductId = stockUpdateRequest.ProductId,
-                WareHouseId = stockUpdateRequest.WarehouseId,
+                WarehouseId = stockUpdateRequest.WarehouseId,
                 AdjustedQuantity = stockUpdateRequest.AdjustedQuantity,
                 Note = stockUpdateRequest.Note,
                 CreatedById = stockUpdateRequest.UserId,

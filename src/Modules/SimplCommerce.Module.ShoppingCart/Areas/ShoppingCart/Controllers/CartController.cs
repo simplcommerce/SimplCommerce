@@ -6,11 +6,11 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
 using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.ShoppingCart.Services;
-using SimplCommerce.Module.ShoppingCart.ViewModels;
 
-namespace SimplCommerce.Module.ShoppingCart.Controllers
+namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
 {
     [Area("ShoppingCart")]
     public class CartController : Controller
@@ -105,6 +105,14 @@ namespace SimplCommerce.Module.ShoppingCart.Controllers
             }
 
             return Json(validationResult);
+        }
+
+        [HttpPost("cart/save-ordernote")]
+        public async Task<IActionResult> SaveOrderNote([FromBody] SaveOrderNote model)
+        {
+            var currentUser = await _workContext.GetCurrentUser();
+            await _cartService.SaveOrderNote(currentUser.Id, model.OrderNote);
+            return Accepted();
         }
 
         [HttpPost("cart/remove")]

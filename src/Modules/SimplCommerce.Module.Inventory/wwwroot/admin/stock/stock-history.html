@@ -1,0 +1,35 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{::vm.translate.get('Stock History')}}</h2>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table class="table table-striped order-item-list">
+            <thead>
+                <tr>
+                    <th>{{::vm.translate.get('Product Name')}}</th>
+                    <th>{{::vm.translate.get('Created On')}}</th>
+                    <th>{{::vm.translate.get('Created By')}}</th>
+                    <th>{{::vm.translate.get('Adjusted Quantity')}}</th>
+                    <th>{{::vm.translate.get('Note')}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.history">
+                    <td >{{item.name}}</td>
+                    <td >{{item.createdOn | date:'medium'}}</td>
+                    <td >{{item.fullName}}</td>
+                    <td >{{item.adjustedQuantity}}</td>
+                    <td >{{item.note}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div>
+    <button ui-sref="stocks" class="btn btn-default">{{::vm.translate.get('Back')}}</button>
+</div>

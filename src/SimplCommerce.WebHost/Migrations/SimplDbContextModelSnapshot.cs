@@ -1358,11 +1358,15 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<long>("ProductId");
 
-                    b.Property<long>("WareHouseId");
+                    b.Property<long>("WarehouseId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("WarehouseId");
 
                     b.ToTable("Inventory_StockHistory");
                 });
@@ -1510,6 +1514,8 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<decimal>("DiscountAmount");
 
                     b.Property<bool>("IsMasterOrder");
+
+                    b.Property<string>("OrderNote");
 
                     b.Property<int>("OrderStatus");
 
@@ -2121,6 +2127,8 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<bool>("IsProductPriceIncludeTax");
 
+                    b.Property<string>("OrderNote");
+
                     b.Property<decimal?>("ShippingAmount");
 
                     b.Property<string>("ShippingData");
@@ -2640,6 +2648,16 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasOne("SimplCommerce.Module.Core.Models.User", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SimplCommerce.Module.Catalog.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SimplCommerce.Module.Inventory.Models.Warehouse", "Warehouse")
+                        .WithMany()
+                        .HasForeignKey("WarehouseId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

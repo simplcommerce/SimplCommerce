@@ -1360,7 +1360,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<long>("ProductId");
 
-                    b.Property<long>("WareHouseId");
+                    b.Property<long>("WarehouseId");
 
                     b.HasKey("Id");
 

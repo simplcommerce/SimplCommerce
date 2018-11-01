@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Cms.Areas.Cms.ViewModels;
 using SimplCommerce.Module.Cms.Models;
 using SimplCommerce.Module.Cms.Services;
-using SimplCommerce.Module.Cms.ViewModels;
 using SimplCommerce.Module.Core.Extensions;
 
-namespace SimplCommerce.Module.Cms.Controllers
+namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
 {
     [Area("Cms")]
     [Authorize(Roles = "admin")]

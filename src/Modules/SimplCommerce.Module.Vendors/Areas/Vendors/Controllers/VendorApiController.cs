@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Models;
+using SimplCommerce.Module.Vendors.Areas.Vendors.ViewModels;
 using SimplCommerce.Module.Vendors.Services;
-using SimplCommerce.Module.Vendors.ViewModels;
 
-namespace SimplCommerce.Module.Vendors.Controllers
+namespace SimplCommerce.Module.Vendors.Areas.Vendors.Controllers
 {
     [Area("Vendors")]
     [Authorize(Roles = "admin")]

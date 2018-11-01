@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using SimplCommerce.Module.Pricing.Services;
-using SimplCommerce.Module.ShoppingCart.ViewModels;
+using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
 
 namespace SimplCommerce.Module.ShoppingCart.Services
 {
@@ -11,6 +11,8 @@ namespace SimplCommerce.Module.ShoppingCart.Services
         Task<CartVm> GetCart(long userId);
 
         Task<CouponValidationResult> ApplyCoupon(long userId, string couponCode);
+
+        Task SaveOrderNote(long userId, string orderNote);
 
         Task MigrateCart(long fromUserId, long toUserId);
     }

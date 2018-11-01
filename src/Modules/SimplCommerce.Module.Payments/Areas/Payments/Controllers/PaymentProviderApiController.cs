@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Payments.Models;
 
-namespace SimplCommerce.Module.Payments.Controllers
+namespace SimplCommerce.Module.Payments.Areas.Payments.Controllers
 {
     [Area("Payments")]
     [Authorize(Roles = "admin")]

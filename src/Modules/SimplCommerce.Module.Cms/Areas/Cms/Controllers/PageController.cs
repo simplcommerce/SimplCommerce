@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Cms.Models;
 
-namespace SimplCommerce.Module.Cms.Controllers
+namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
 {
     [Area("Cms")]
     public class PageController : Controller

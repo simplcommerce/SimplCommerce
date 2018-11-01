@@ -1,12 +1,24 @@
-image: Visual Studio 2017 Preview
 skip_branch_with_pr: true
+
+branches:
+  only:
+    - master
+
+image: Visual Studio 2017 Preview
+
 init:
   - git config --global core.autocrlf true
-install:
-    - ps: Install-Product node 8.11.2 x64
+  - dotnet --version
+
 before_build:
   - appveyor-retry dotnet restore -v Minimal
+
+build:
+  project: SimplCommerce.sln
+
 test: on
+
 test_script:
   - ps: .\run-tests.ps1
+
 deploy: off

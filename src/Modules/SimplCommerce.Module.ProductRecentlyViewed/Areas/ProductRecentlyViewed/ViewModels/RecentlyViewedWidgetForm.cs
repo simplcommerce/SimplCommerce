@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using SimplCommerce.Module.Core.ViewModels;
+﻿using SimplCommerce.Module.Core.Areas.Core.ViewModels;
 
-namespace SimplCommerce.Module.ProductRecentlyViewed.ViewModels
+namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed.ViewModels
 {
     public class RecentlyViewedWidgetForm : WidgetFormBase
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace SimplCommerce.Module.Core.ViewModels.Account
+namespace SimplCommerce.Module.Core.Areas.Core.ViewModels.Account
 {
     public class SendCodeViewModel
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace SimplCommerce.Module.Pricing.ViewModels
+namespace SimplCommerce.Module.Pricing.Areas.Pricing.ViewModels
 {
     public class CartRuleForm
     {

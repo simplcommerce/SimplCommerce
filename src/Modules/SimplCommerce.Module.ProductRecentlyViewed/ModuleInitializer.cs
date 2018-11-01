@@ -3,9 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using MediatR;
 using SimplCommerce.Infrastructure.Modules;
-using SimplCommerce.Module.ActivityLog.Events;
 using SimplCommerce.Module.Core.Events;
 using SimplCommerce.Module.ProductRecentlyViewed.Data;
+using SimplCommerce.Module.ProductRecentlyViewed.Events;
 
 namespace SimplCommerce.Module.ProductRecentlyViewed
 {

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace SimplCommerce.Module.News.ViewModels
+namespace SimplCommerce.Module.News.Areas.News.ViewModels
 {
     public class NewsItemVm
     {

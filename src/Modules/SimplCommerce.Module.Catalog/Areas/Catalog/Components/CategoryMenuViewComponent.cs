@@ -3,10 +3,10 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web;
+using SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels;
 using SimplCommerce.Module.Catalog.Models;
-using SimplCommerce.Module.Catalog.ViewModels;
 
-namespace SimplCommerce.Module.Catalog.Components
+namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
 {
     public class CategoryMenuViewComponent : ViewComponent
     {

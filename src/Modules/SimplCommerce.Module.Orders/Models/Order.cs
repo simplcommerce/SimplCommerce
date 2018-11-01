@@ -49,6 +49,8 @@ namespace SimplCommerce.Module.Orders.Models
 
         public OrderStatus OrderStatus { get; set; }
 
+        public string OrderNote { get; set; }
+
         public long? ParentId { get; set; }
 
         public Order Parent { get; set; }

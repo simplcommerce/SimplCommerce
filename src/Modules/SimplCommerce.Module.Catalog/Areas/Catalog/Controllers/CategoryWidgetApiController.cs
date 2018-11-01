@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Catalog.ViewModels;
+using SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Models;
 
-namespace SimplCommerce.Module.Catalog.Controllers
+namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 {
     [Area("Catalog")]
     [Authorize(Roles = "admin")]

@@ -1,4 +1,4 @@
-﻿namespace SimplCommerce.Module.Catalog.ViewModels
+﻿namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
 {
     public class ProductAttributeVm
     {

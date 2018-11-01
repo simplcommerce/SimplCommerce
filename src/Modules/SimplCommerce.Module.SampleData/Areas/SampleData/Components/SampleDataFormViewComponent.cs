@@ -3,9 +3,9 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Web;
-using SimplCommerce.Module.SampleData.ViewModels;
+using SimplCommerce.Module.SampleData.Areas.SampleData.ViewModels;
 
-namespace SimplCommerce.Module.SampleData.Components
+namespace SimplCommerce.Module.SampleData.Areas.SampleData.Components
 {
     public class SampleDataFormViewComponent : ViewComponent
     {

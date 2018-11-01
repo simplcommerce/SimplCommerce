@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.ShoppingCart.Models;
-using SimplCommerce.Module.ShoppingCart.ViewModels;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Pricing.Services;
+using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
 
 namespace SimplCommerce.Module.ShoppingCart.Services
 {
@@ -77,7 +77,8 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 CouponCode = cart.CouponCode,
                 IsProductPriceIncludeTax = cart.IsProductPriceIncludeTax,
                 TaxAmount = cart.TaxAmount,
-                ShippingAmount = cart.ShippingAmount
+                ShippingAmount = cart.ShippingAmount,
+                OrderNote = cart.OrderNote
             };
 
             cartVm.Items = _cartItemRepository
@@ -134,6 +135,17 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             }
 
             return couponValidationResult;
+        }
+
+        public async Task SaveOrderNote(long userId, string orderNote)
+        {
+            var cart = _cartRepository.Query().FirstOrDefault(x => x.UserId == userId && x.IsActive);
+            if (cart == null)
+            {
+                throw new ApplicationException($"No active cart of user {userId}");
+            }
+            cart.OrderNote = orderNote;
+            await _cartRepository.SaveChangesAsync();
         }
 
         public async Task MigrateCart(long fromUserId, long toUserId)

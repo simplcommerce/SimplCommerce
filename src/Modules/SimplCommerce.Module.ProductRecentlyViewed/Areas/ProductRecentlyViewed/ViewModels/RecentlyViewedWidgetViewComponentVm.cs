@@ -1,4 +1,4 @@
-﻿namespace SimplCommerce.Module.ProductRecentlyViewed.ViewModels
+﻿namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed.ViewModels
 {
     public class RecentlyViewedWidgetViewComponentVm
     {

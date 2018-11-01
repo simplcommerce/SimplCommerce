@@ -362,6 +362,14 @@ li.nav-item-group, li.nav-item-group a {
     text-transform: uppercase;
 }
 
+.cart-list .order-note-form textarea {
+    max-width: 100%;
+}
+
+.cart-list .order-summary .order-note-form {
+    padding-bottom: 20px;
+}
+
 .coupon-form {
     margin-top: 20px;
 }

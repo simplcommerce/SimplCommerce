@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
+using SimplCommerce.Module.Orders.Areas.Orders.ViewModels;
 using SimplCommerce.Module.Orders.Models;
-using SimplCommerce.Module.Orders.ViewModels;
 using SimplCommerce.Module.Pricing.Services;
 using SimplCommerce.Module.ShippingPrices.Services;
 using SimplCommerce.Module.ShoppingCart.Models;
@@ -195,6 +195,7 @@ namespace SimplCommerce.Module.Orders.Services
             }
 
             order.OrderStatus = orderStatus;
+            order.OrderNote = cart.OrderNote;
             order.CouponCode = checkingDiscountResult.CouponCode;
             order.CouponRuleName = cart.CouponRuleName;
             order.DiscountAmount = checkingDiscountResult.DiscountAmount;

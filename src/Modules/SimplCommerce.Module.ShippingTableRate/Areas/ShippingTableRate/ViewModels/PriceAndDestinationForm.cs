@@ -1,4 +1,4 @@
-﻿namespace SimplCommerce.Module.ShippingTableRate.ViewModels
+﻿namespace SimplCommerce.Module.ShippingTableRate.Areas.ShippingTableRate.ViewModels
 {
     public class PriceAndDestinationForm
     {
