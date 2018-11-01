@@ -21,6 +21,11 @@ namespace SimplCommerce.Infrastructure.Web
                 throw new ArgumentNullException(nameof(context));
             }
 
+            if (!context.HttpContext.Request.Path.StartsWithSegments("/api"))
+            {
+                return false;
+            }
+
             if (context.HttpContext.User.Identity?.AuthenticationType != "Identity.Application")
             {
                 return false;
