@@ -82,6 +82,7 @@ namespace SimplCommerce.WebHost.Extensions
                 .AddMvc(o =>
                 {
                     o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider());
+                    o.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 })
                 .AddRazorOptions(o =>
                 {
