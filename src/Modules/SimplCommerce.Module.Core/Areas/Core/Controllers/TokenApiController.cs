@@ -25,6 +25,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         }
 
         [AllowAnonymous]
+        [IgnoreAntiforgeryToken]
         [HttpPost("/api/token/create")]
         public async Task<IActionResult> CreateToken([FromBody]TokenLoginModel login, bool includeRefreshToken)
         {
@@ -48,6 +49,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         }
 
         [AllowAnonymous]
+        [IgnoreAntiforgeryToken]
         [HttpPost("/api/token/refresh")]
         public async Task<IActionResult> RefeshToken(RefreshTokenModel model)
         {
