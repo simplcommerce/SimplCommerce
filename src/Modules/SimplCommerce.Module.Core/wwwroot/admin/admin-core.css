@@ -157,3 +157,27 @@ td>span.glyphicon-remove {
 .mt-3 {
     margin-top: 40px !important;
 }
+
+#search-results {
+    width: 197px;
+    max-height: 200px;
+    border: 1px solid #dedede;
+    border-radius: 3px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    position: absolute;
+}
+
+.search-result {
+    background: white;
+    padding: 10px;
+}
+
+    .search-result:nth-child(even) {
+        background: #fafafa;
+    }
+
+.search-user {
+    position: relative;
+    z-index: 10000;
+}

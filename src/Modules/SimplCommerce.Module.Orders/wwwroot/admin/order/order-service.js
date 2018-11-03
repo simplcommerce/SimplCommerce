@@ -12,7 +12,10 @@
             getOrder: getOrder,
             getOrderStatus: getOrderStatus,
             changeOrderStatus: changeOrderStatus,
-            getOrderHistory: getOrderHistory
+            getOrderHistory: getOrderHistory,
+            createOrder: createOrder,
+            editOrder: editOrder,
+
         };
         return service;
 
@@ -38,6 +41,14 @@
 
         function getOrderHistory(orderId) {
             return $http.get('api/orders/' + orderId + '/history');
+        }
+
+        function createOrder(order) {
+            return $http.post('api/orders', order);
+        }
+
+        function editOrder(order) {
+            return $http.put('api/orders/' + order.id, order);
         }
     }
 })();

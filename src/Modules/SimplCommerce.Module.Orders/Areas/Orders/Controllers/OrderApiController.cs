@@ -249,5 +249,49 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
             var model = EnumHelper.ToDictionary(typeof(OrderStatus)).Select(x => new {Id = x.Key, Name = x.Value});
             return Json(model);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] OrderForm model)
+        {
+            if (ModelState.IsValid)
+            {
+                var order = new Order
+                {
+                    CustomerId = model.CustomerID,
+                    PaymentMethod = model.PaymentMethod,
+                    PaymentFeeAmount = model.PaymentFeeAmount,
+                };
+
+                 _orderRepository.Add(order);
+                await _orderRepository.SaveChangesAsync();
+                return Accepted();
+            }
+
+            return BadRequest(ModelState);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(long id, [FromBody] OrderForm model)
+        {
+            if (ModelState.IsValid)
+            {
+                var order = await _orderRepository.Query()
+                    .FirstOrDefaultAsync(x => x.Id == id);
+
+                if (order == null)
+                {
+                    return NotFound();
+                }
+
+                order.CustomerId = model.CustomerID;
+                order.PaymentMethod = model.PaymentMethod;
+                order.PaymentFeeAmount = model.PaymentFeeAmount;
+
+                await _orderRepository.SaveChangesAsync();
+                Accepted();
+            }
+
+            return BadRequest(ModelState);
+        }
     }
 }
