@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MediatR;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Helpers;
 using SimplCommerce.Infrastructure.Web.SmartTable;
-using SimplCommerce.Module.Orders.Models;
-using SimplCommerce.Module.Orders.ViewModels;
 using SimplCommerce.Module.Core.Extensions;
-using SimplCommerce.Module.Orders.Events;
-using System.Text;
 using SimplCommerce.Module.Orders.Areas.Orders.ViewModels;
-using System.Collections.Generic;
+using SimplCommerce.Module.Orders.Events;
+using SimplCommerce.Module.Orders.Models;
 
-namespace SimplCommerce.Module.Orders.Controllers
+namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
 {
     [Area("Orders")]
     [Authorize(Roles = "admin, vendor")]
@@ -37,14 +35,14 @@ namespace SimplCommerce.Module.Orders.Controllers
         [HttpGet]
         public async Task<ActionResult> Get(int status, int numRecords)
         {
-            var orderStatus = (OrderStatus) status;
+            var orderStatus = (OrderStatus)status;
             if ((numRecords <= 0) || (numRecords > 100))
             {
                 numRecords = 5;
             }
 
             var query = _orderRepository.Query();
-            if(orderStatus != 0)
+            if (orderStatus != 0)
             {
                 query = query.Where(x => x.OrderStatus == orderStatus);
             }
@@ -63,7 +61,8 @@ namespace SimplCommerce.Module.Orders.Controllers
                     CustomerName = x.CreatedBy.FullName,
                     x.OrderTotal,
                     OrderTotalString = x.OrderTotal.ToString("C"),
-                    OrderStatus = x.OrderStatus.ToString(), x.CreatedOn
+                    OrderStatus = x.OrderStatus.ToString(),
+                    x.CreatedOn
                 });
 
             return Json(model);
@@ -92,7 +91,7 @@ namespace SimplCommerce.Module.Orders.Controllers
 
                 if (search.Status != null)
                 {
-                    var status = (OrderStatus) search.Status;
+                    var status = (OrderStatus)search.Status;
                     query = query.Where(x => x.OrderStatus == status);
                 }
 
@@ -132,8 +131,6 @@ namespace SimplCommerce.Module.Orders.Controllers
             return Json(orders);
         }
 
-
-
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(long id)
         {
@@ -163,7 +160,7 @@ namespace SimplCommerce.Module.Orders.Controllers
                 Id = order.Id,
                 IsMasterOrder = order.IsMasterOrder,
                 CreatedOn = order.CreatedOn,
-                OrderStatus = (int) order.OrderStatus,
+                OrderStatus = (int)order.OrderStatus,
                 OrderStatusString = order.OrderStatus.ToString(),
                 CustomerId = order.CreatedById,
                 CustomerName = order.CreatedBy.FullName,
@@ -177,6 +174,7 @@ namespace SimplCommerce.Module.Orders.Controllers
                 TaxAmount = order.TaxAmount,
                 ShippingAmount = order.ShippingFeeAmount,
                 OrderTotal = order.OrderTotal,
+                OrderNote = order.OrderNote,
                 ShippingAddress = new ShippingAddressVm
                 {
                     AddressLine1 = order.ShippingAddress.AddressLine1,
@@ -228,7 +226,7 @@ namespace SimplCommerce.Module.Orders.Controllers
             if (Enum.IsDefined(typeof(OrderStatus), model.StatusId))
             {
                 var oldStatus = order.OrderStatus;
-                order.OrderStatus = (OrderStatus) model.StatusId;
+                order.OrderStatus = (OrderStatus)model.StatusId;
                 await _orderRepository.SaveChangesAsync();
 
                 var orderStatusChanged = new OrderChanged
@@ -245,13 +243,13 @@ namespace SimplCommerce.Module.Orders.Controllers
                 return Accepted();
             }
 
-            return BadRequest(new {Error = "unsupported order status"});
+            return BadRequest(new { Error = "unsupported order status" });
         }
 
         [HttpGet("order-status")]
         public IActionResult GetOrderStatus()
         {
-            var model = EnumHelper.ToDictionary(typeof(OrderStatus)).Select(x => new {Id = x.Key, Name = x.Value});
+            var model = EnumHelper.ToDictionary(typeof(OrderStatus)).Select(x => new { Id = x.Key, Name = x.Value });
             return Json(model);
         }
 
@@ -335,7 +333,7 @@ namespace SimplCommerce.Module.Orders.Controllers
                     BillingAddressZipCode = x.BillingAddress.ZipCode,
                     BillingAddressPhone = x.BillingAddress.Phone,
                     BillingAddressStateOrProvinceName = x.BillingAddress.StateOrProvince.Name,
-                    ShippingAddressAddressLine1  = x.ShippingAddress.AddressLine1,
+                    ShippingAddressAddressLine1 = x.ShippingAddress.AddressLine1,
                     ShippingAddressAddressLine2 = x.ShippingAddress.AddressLine2,
                     ShippingAddressId = x.ShippingAddressId,
                     ShippingAddressContactName = x.ShippingAddress.ContactName,
@@ -343,7 +341,7 @@ namespace SimplCommerce.Module.Orders.Controllers
                     ShippingAddressDistrictName = x.ShippingAddress.District.Name,
                     ShippingAddressPhone = x.ShippingAddress.Phone,
                     ShippingAddressStateOrProvinceName = x.ShippingAddress.StateOrProvince.Name,
-                    ShippingAddressZipCode = x.ShippingAddress.ZipCode                    
+                    ShippingAddressZipCode = x.ShippingAddress.ZipCode
                 })
                 .ToListAsync();
 
@@ -355,14 +353,14 @@ namespace SimplCommerce.Module.Orders.Controllers
         }
 
         [HttpPost("lines-export")]
-        public async Task<IActionResult> OrderLinesExport([FromBody] SmartTableParam param)
+        public async Task<IActionResult> OrderLinesExport([FromBody] SmartTableParam param, [FromServices] IRepository<OrderItem> orderItemRepository)
         {
-            var query = _orderRepository.Query();
+            var query = orderItemRepository.Query();
 
             var currentUser = await _workContext.GetCurrentUser();
             if (!User.IsInRole("admin"))
             {
-                query = query.Where(x => x.VendorId == currentUser.VendorId);
+                query = query.Where(x => x.Order.VendorId == currentUser.VendorId);
             }
 
             if (param.Search.PredicateObject != null)
@@ -377,13 +375,13 @@ namespace SimplCommerce.Module.Orders.Controllers
                 if (search.Status != null)
                 {
                     var status = (OrderStatus)search.Status;
-                    query = query.Where(x => x.OrderStatus == status);
+                    query = query.Where(x => x.Order.OrderStatus == status);
                 }
 
                 if (search.CustomerName != null)
                 {
                     string customerName = search.CustomerName;
-                    query = query.Where(x => x.CreatedBy.FullName.Contains(customerName));
+                    query = query.Where(x => x.Order.CreatedBy.FullName.Contains(customerName));
                 }
 
                 if (search.CreatedOn != null)
@@ -391,125 +389,70 @@ namespace SimplCommerce.Module.Orders.Controllers
                     if (search.CreatedOn.before != null)
                     {
                         DateTimeOffset before = search.CreatedOn.before;
-                        query = query.Where(x => x.CreatedOn <= before);
+                        query = query.Where(x => x.Order.CreatedOn <= before);
                     }
 
                     if (search.CreatedOn.after != null)
                     {
                         DateTimeOffset after = search.CreatedOn.after;
-                        query = query.Where(x => x.CreatedOn >= after);
+                        query = query.Where(x => x.Order.CreatedOn >= after);
                     }
                 }
             }
-            var orders = await query
-                            .Select(x => new OrderExportVm
+
+            var orderItems = await query
+                            .Select(x => new OrderLineExportVm
                             {
                                 Id = x.Id,
-                                OrderStatus = (int)x.OrderStatus,
-                                IsMasterOrder = x.IsMasterOrder,
-                                DiscountAmount = x.DiscountAmount,
-                                CreatedOn = x.CreatedOn,
-                                OrderStatusString = x.OrderStatus.GetDisplayName(),
-                                PaymentFeeAmount = x.PaymentFeeAmount,
-                                OrderTotal = x.OrderTotal,
-                                Subtotal = x.SubTotal,
-                                SubTotalWithDiscount = x.SubTotalWithDiscount,
-                                PaymentMethod = x.PaymentMethod,
-                                ShippingAmount = x.ShippingFeeAmount,
-                                ShippingMethod = x.ShippingMethod,
-                                TaxAmount = x.TaxAmount,
-                                CustomerId = x.CreatedById,
-                                CustomerName = x.CreatedBy.FullName,
-                                CustomerEmail = x.CreatedBy.Email,
-                                UpdatedOn = x.UpdatedOn,
-                                Coupon = x.CouponCode,
-                                Items = x.OrderItems.Count(),
-                                BillingAddressId = x.BillingAddressId,
-                                BillingAddressAddressLine1 = x.BillingAddress.AddressLine1,
-                                BillingAddressAddressLine2 = x.BillingAddress.AddressLine2,
-                                BillingAddressContactName = x.BillingAddress.ContactName,
-                                BillingAddressCountryName = x.BillingAddress.Country.Name,
-                                BillingAddressDistrictName = x.BillingAddress.District.Name,
-                                BillingAddressZipCode = x.BillingAddress.ZipCode,
-                                BillingAddressPhone = x.BillingAddress.Phone,
-                                BillingAddressStateOrProvinceName = x.BillingAddress.StateOrProvince.Name,
-                                ShippingAddressAddressLine1 = x.ShippingAddress.AddressLine1,
-                                ShippingAddressAddressLine2 = x.ShippingAddress.AddressLine2,
-                                ShippingAddressId = x.ShippingAddressId,
-                                ShippingAddressContactName = x.ShippingAddress.ContactName,
-                                ShippingAddressCountryName = x.ShippingAddress.Country.Name,
-                                ShippingAddressDistrictName = x.ShippingAddress.District.Name,
-                                ShippingAddressPhone = x.ShippingAddress.Phone,
-                                ShippingAddressStateOrProvinceName = x.ShippingAddress.StateOrProvince.Name,
-                                ShippingAddressZipCode = x.ShippingAddress.ZipCode
+                                OrderStatus = (int)x.Order.OrderStatus,
+                                IsMasterOrder = x.Order.IsMasterOrder,
+                                DiscountAmount = x.Order.DiscountAmount,
+                                CreatedOn = x.Order.CreatedOn,
+                                OrderStatusString = x.Order.OrderStatus.ToString(),
+                                PaymentFeeAmount = x.Order.PaymentFeeAmount,
+                                OrderTotal = x.Order.OrderTotal,
+                                Subtotal = x.Order.SubTotal,
+                                SubTotalWithDiscount = x.Order.SubTotalWithDiscount,
+                                PaymentMethod = x.Order.PaymentMethod,
+                                ShippingAmount = x.Order.ShippingFeeAmount,
+                                ShippingMethod = x.Order.ShippingMethod,
+                                TaxAmount = x.Order.TaxAmount,
+                                CustomerId = x.Order.CreatedById,
+                                CustomerName = x.Order.CreatedBy.FullName,
+                                CustomerEmail = x.Order.CreatedBy.Email,
+                                UpdatedOn = x.Order.UpdatedOn,
+                                Coupon = x.Order.CouponCode,
+                                Items = x.Order.OrderItems.Count(),
+                                BillingAddressId = x.Order.BillingAddressId,
+                                BillingAddressAddressLine1 = x.Order.BillingAddress.AddressLine1,
+                                BillingAddressAddressLine2 = x.Order.BillingAddress.AddressLine2,
+                                BillingAddressContactName = x.Order.BillingAddress.ContactName,
+                                BillingAddressCountryName = x.Order.BillingAddress.Country.Name,
+                                BillingAddressDistrictName = x.Order.BillingAddress.District.Name,
+                                BillingAddressZipCode = x.Order.BillingAddress.ZipCode,
+                                BillingAddressPhone = x.Order.BillingAddress.Phone,
+                                BillingAddressStateOrProvinceName = x.Order.BillingAddress.StateOrProvince.Name,
+                                ShippingAddressAddressLine1 = x.Order.ShippingAddress.AddressLine1,
+                                ShippingAddressAddressLine2 = x.Order.ShippingAddress.AddressLine2,
+                                ShippingAddressId = x.Order.ShippingAddressId,
+                                ShippingAddressContactName = x.Order.ShippingAddress.ContactName,
+                                ShippingAddressCountryName = x.Order.ShippingAddress.Country.Name,
+                                ShippingAddressDistrictName = x.Order.ShippingAddress.District.Name,
+                                ShippingAddressPhone = x.Order.ShippingAddress.Phone,
+                                ShippingAddressStateOrProvinceName = x.Order.ShippingAddress.StateOrProvince.Name,
+                                ShippingAddressZipCode = x.Order.ShippingAddress.ZipCode,
+                                OrderLineDiscountAmount = x.DiscountAmount,
+                                OrderLineQuantity = x.Quantity,
+                                OrderLineTaxAmount = x.TaxAmount,
+                                OrderLineTaxPercent = x.TaxPercent,
+                                OrderLineId = x.Id,
+                                ProductId = x.ProductId,
+                                ProductName = x.Product.Name,
+                                ProductPrice = x.ProductPrice
                             })
                             .ToListAsync();
 
-            var ordersExport = new List<OrderLineExportVm>();
-
-            foreach (var order in orders)
-            {
-                var orderItems = await _orderRepository
-                .Query()
-                .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.ThumbnailImage)
-                .FirstOrDefaultAsync(x => x.Id == order.Id);
-
-                foreach (var line in orderItems.OrderItems)
-                {
-                    ordersExport.Add(new OrderLineExportVm
-                    {
-                        Id = order.Id,
-                        OrderStatus = order.OrderStatus,
-                        IsMasterOrder = order.IsMasterOrder,
-                        DiscountAmount = order.DiscountAmount,
-                        CreatedOn = order.CreatedOn,
-                        OrderStatusString = order.OrderStatusString,
-                        PaymentFeeAmount = order.PaymentFeeAmount,
-                        OrderTotal = order.OrderTotal,
-                        Subtotal = order.Subtotal,
-                        SubTotalWithDiscount = order.SubTotalWithDiscount,
-                        PaymentMethod = order.PaymentMethod,
-                        ShippingAmount = order.ShippingAmount,
-                        ShippingMethod = order.ShippingMethod,
-                        TaxAmount = order.TaxAmount,
-                        CustomerId = order.CustomerId,
-                        CustomerName = order.CustomerName,
-                        CustomerEmail = order.CustomerEmail,
-                        UpdatedOn = order.UpdatedOn,
-                        Coupon = order.Coupon,
-                        BillingAddressId = order.BillingAddressId,
-                        BillingAddressAddressLine1 = order.BillingAddressAddressLine1,
-                        BillingAddressAddressLine2 = order.BillingAddressAddressLine2,
-                        BillingAddressContactName = order.BillingAddressContactName,
-                        BillingAddressCountryName = order.BillingAddressCountryName,
-                        BillingAddressDistrictName = order.BillingAddressDistrictName,
-                        BillingAddressZipCode = order.BillingAddressZipCode,
-                        BillingAddressPhone = order.BillingAddressPhone,
-                        BillingAddressStateOrProvinceName = order.BillingAddressStateOrProvinceName,
-                        ShippingAddressAddressLine1 = order.ShippingAddressAddressLine1,
-                        ShippingAddressAddressLine2 = order.ShippingAddressAddressLine2,
-                        ShippingAddressId = order.ShippingAddressId,
-                        ShippingAddressContactName = order.ShippingAddressContactName,
-                        ShippingAddressCountryName = order.ShippingAddressCountryName,
-                        ShippingAddressDistrictName = order.ShippingAddressDistrictName,
-                        ShippingAddressPhone = order.ShippingAddressPhone,
-                        ShippingAddressStateOrProvinceName = order.ShippingAddressStateOrProvinceName,
-                        ShippingAddressZipCode = order.ShippingAddressZipCode,
-                        //OrderItems
-                        OrderLineDiscountAmount = line.DiscountAmount,
-                        OrderLineQuantity = line.Quantity,
-                        OrderLineTaxAmount = line.TaxAmount,
-                        OrderLineTaxPercent = line.TaxPercent,
-                        OrderLineId = line.Id,
-                        ProductId = line.ProductId,
-                        ProductName = line.Product.Name,
-                        ProductPrice = line.ProductPrice
-
-                    });
-                }
-            }
-
-            var csvString = CsvConverter.ExportCsv(ordersExport);
+            var csvString = CsvConverter.ExportCsv(orderItems);
             var csvBytes = Encoding.UTF8.GetBytes(csvString);
             // MS Excel need the BOM to display UTF8 Correctly
             var csvBytesWithUTF8BOM = Encoding.UTF8.GetPreamble().Concat(csvBytes).ToArray();

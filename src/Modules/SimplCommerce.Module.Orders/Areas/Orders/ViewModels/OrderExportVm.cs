@@ -1,7 +1,4 @@
-﻿using SimplCommerce.Module.Orders.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 {
@@ -22,7 +19,6 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
         public int Items { get; set; }
 
         public string Coupon { get; set; }
-
 
         public string OrderStatusString { get; set; }
 
@@ -60,12 +56,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 
         public string OrderTotalString { get { return OrderTotal.ToString("C"); } }
 
-        //public ShippingAddressVm ShippingAddress { get; set; }
-
         public bool IsMasterOrder { get; set; }
-
-
-        //Shipping Address
 
         public long ShippingAddressId { get; set; }
 
@@ -96,9 +87,6 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
         public bool ShippingAddressIsZipCodeEnabled { get; set; }
 
         public bool ShippingAddressIsCityEnabled { get; set; }
-
-
-        //Billing Address
 
         public long BillingAddressId { get; set; }
 
