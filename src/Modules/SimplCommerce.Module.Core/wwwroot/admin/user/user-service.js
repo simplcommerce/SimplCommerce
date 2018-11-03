@@ -9,6 +9,7 @@
         var service = {
             getUsers: getUsers,
             getUser: getUser,
+            getAllUsers: getAllUsers,
             createUser: createUser,
             editUser: editUser,
             deleteUser: deleteUser,
@@ -24,6 +25,10 @@
 
         function getUser(id) {
             return $http.get('api/users/' + id);
+        }
+
+        function getAllUsers() {
+            return $http.get('api/users');
         }
 
         function createUser(user) {

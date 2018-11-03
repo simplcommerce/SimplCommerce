@@ -122,6 +122,26 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             return Json(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var customers = await _userRepository.Query()
+                        .Include(x => x.Roles)
+                        .Where(x => !x.IsDeleted && x.Roles.FirstOrDefault().RoleId == 2).ToListAsync();
+
+            if (customers == null)
+            {
+                return NotFound();
+            }
+            var users = customers.Select(a => new UserForm
+            {
+                Id = a.Id,
+                FullName = a.FullName,
+                Email = a.Email
+            });
+            return Json(users);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] UserForm model)
         {
