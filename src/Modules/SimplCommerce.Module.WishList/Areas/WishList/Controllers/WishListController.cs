@@ -234,7 +234,7 @@ namespace SimplCommerce.Module.WishList.Areas.WishList.Controllers
 
                     _wishListItemRepository.Add(wishListItem);
 
-                    wishList.UpdatedOn = DateTimeOffset.Now;
+                    wishList.LatestUpdatedOn = DateTimeOffset.Now;
                     await _wishListRepository.SaveChangesAsync();
 
                     resultModel.Message = "The product has been added to your wish list";
@@ -281,7 +281,7 @@ namespace SimplCommerce.Module.WishList.Areas.WishList.Controllers
 
             _wishListItemRepository.Remove(wishListItem);
 
-            wishList.UpdatedOn = DateTimeOffset.Now;
+            wishList.LatestUpdatedOn = DateTimeOffset.Now;
             await _wishListRepository.SaveChangesAsync();
 
             return Ok();
@@ -316,9 +316,9 @@ namespace SimplCommerce.Module.WishList.Areas.WishList.Controllers
 
                 wishListItem.Description = String.IsNullOrWhiteSpace(model.Description) ? null : model.Description;
                 wishListItem.Quantity = model.Quantity;
-                wishListItem.UpdatedOn = DateTimeOffset.Now;
+                wishListItem.LatestUpdatedOn = DateTimeOffset.Now;
 
-                wishList.UpdatedOn = DateTimeOffset.Now;
+                wishList.LatestUpdatedOn = DateTimeOffset.Now;
                 await _wishListRepository.SaveChangesAsync();
 
                 return PartialView("UpdateItemResult");
