@@ -295,7 +295,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 StockTrackingIsEnabled = model.Product.StockTrackingIsEnabled,
                 HasOptions = model.Product.Variations.Any() ? true : false,
                 IsVisibleIndividually = true,
-                CreatedBy = currentUser
+                CreatedBy = currentUser,
+                LatestUpdatedBy = currentUser
             };
 
             if (!User.IsInRole("admin"))
@@ -490,6 +491,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     LinkedProduct = product.Clone()
                 };
 
+                productLink.LinkedProduct.CreatedById = loginUser.Id;
+                productLink.LinkedProduct.LatestUpdatedById = loginUser.Id;
                 productLink.LinkedProduct.Name = variationVm.Name;
                 productLink.LinkedProduct.Slug = variationVm.Name.ToUrlFriendly();
                 productLink.LinkedProduct.Sku = variationVm.Sku;
@@ -637,6 +640,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                         LinkedProduct = product.Clone()
                     };
 
+                    productLink.LinkedProduct.CreatedById = loginUser.Id;
+                    productLink.LinkedProduct.LatestUpdatedById = loginUser.Id;
                     productLink.LinkedProduct.Name = productVariationVm.Name;
                     productLink.LinkedProduct.Slug = StringHelper.ToUrlFriendly(productVariationVm.Name);
                     productLink.LinkedProduct.Sku = productVariationVm.Sku;
@@ -672,6 +677,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                         isPriceChanged = true;
                     }
 
+                    productLink.LinkedProduct.LatestUpdatedById = loginUser.Id;
+                    productLink.LinkedProduct.LatestUpdatedOn = DateTimeOffset.Now;
                     productLink.LinkedProduct.Sku = productVariationVm.Sku;
                     productLink.LinkedProduct.Gtin = productVariationVm.Gtin;
                     productLink.LinkedProduct.Price = productVariationVm.Price;

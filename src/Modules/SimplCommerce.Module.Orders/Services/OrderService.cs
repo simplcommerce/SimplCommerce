@@ -153,9 +153,11 @@ namespace SimplCommerce.Module.Orders.Services
 
             var order = new Order
             {
+                CustomerId = user.Id,
                 CreatedOn = DateTimeOffset.Now,
                 CreatedById = user.Id,
-                CustomerId = user.Id,
+                LatestUpdatedOn = DateTimeOffset.Now,
+                LatestUpdatedById = user.Id,
                 BillingAddress = orderBillingAddress,
                 ShippingAddress = orderShippingAddress,
                 PaymentMethod = paymentMethod,
@@ -224,9 +226,11 @@ namespace SimplCommerce.Module.Orders.Services
             {
                 var subOrder = new Order
                 {
+                    CustomerId = user.Id,
                     CreatedOn = DateTimeOffset.Now,
                     CreatedById = user.Id,
-                    CustomerId = user.Id,
+                    LatestUpdatedOn = DateTimeOffset.Now,
+                    LatestUpdatedById = user.Id,
                     BillingAddress = orderBillingAddress,
                     ShippingAddress = orderShippingAddress,
                     VendorId = vendorId,
