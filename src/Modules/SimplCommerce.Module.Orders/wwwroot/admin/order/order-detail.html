@@ -178,8 +178,8 @@
                             <td>{{item.createdOn | date:'medium'}}</td>
                             <td><span ng-if="item.oldStatus">{{item.oldStatus}} &rarr; </span>{{item.newStatus}}</td>
                             <td>
-                                <a ng-if="item.userId >= 10" ui-sref="user-edit({id: item.userId})">{{item.userFullName}}</a>
-                                <span ng-if="item.userId < 10">{{item.userFullName}}</span>
+                                <a ng-if="item.createdById >= 10" ui-sref="user-edit({id: item.createdById})">{{item.createdByFullName}}</a>
+                                <span ng-if="item.createdById < 10">{{item.createdByFullName}}</span>
                             </td>
                             <td>{{item.note}}</td>
                         </tr>

@@ -58,7 +58,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 .Select(x => new
                 {
                     x.Id,
-                    CustomerName = x.CreatedBy.FullName,
+                    CustomerName = x.Customer.FullName,
                     x.OrderTotal,
                     OrderTotalString = x.OrderTotal.ToString("C"),
                     OrderStatus = x.OrderStatus.ToString(),
@@ -71,7 +71,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         [HttpPost("grid")]
         public async Task<ActionResult> List([FromBody] SmartTableParam param)
         {
-            IQueryable<Order> query = _orderRepository
+            var query = _orderRepository
                 .Query();
 
             var currentUser = await _workContext.GetCurrentUser();
@@ -98,7 +98,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 if (search.CustomerName != null)
                 {
                     string customerName = search.CustomerName;
-                    query = query.Where(x => x.CreatedBy.FullName.Contains(customerName));
+                    query = query.Where(x => x.Customer.FullName.Contains(customerName));
                 }
 
                 if (search.CreatedOn != null)
@@ -122,7 +122,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 order => new
                 {
                     order.Id,
-                    CustomerName = order.CreatedBy.FullName,
+                    CustomerName = order.Customer.FullName,
                     order.OrderTotal,
                     OrderStatus = order.OrderStatus.ToString(),
                     order.CreatedOn
@@ -162,9 +162,9 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 CreatedOn = order.CreatedOn,
                 OrderStatus = (int)order.OrderStatus,
                 OrderStatusString = order.OrderStatus.ToString(),
-                CustomerId = order.CreatedById,
-                CustomerName = order.CreatedBy.FullName,
-                CustomerEmail = order.CreatedBy.Email,
+                CustomerId = order.CustomerId,
+                CustomerName = order.Customer.FullName,
+                CustomerEmail = order.Customer.Email,
                 ShippingMethod = order.ShippingMethod,
                 PaymentMethod = order.PaymentMethod,
                 PaymentFeeAmount = order.PaymentFeeAmount,
@@ -282,7 +282,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 if (search.CustomerName != null)
                 {
                     string customerName = search.CustomerName;
-                    query = query.Where(x => x.CreatedBy.FullName.Contains(customerName));
+                    query = query.Where(x => x.Customer.FullName.Contains(customerName));
                 }
 
                 if (search.CreatedOn != null)
@@ -318,9 +318,9 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                     ShippingAmount = x.ShippingFeeAmount,
                     ShippingMethod = x.ShippingMethod,
                     TaxAmount = x.TaxAmount,
-                    CustomerId = x.CreatedById,
-                    CustomerName = x.CreatedBy.FullName,
-                    CustomerEmail = x.CreatedBy.Email,
+                    CustomerId = x.CustomerId,
+                    CustomerName = x.Customer.FullName,
+                    CustomerEmail = x.Customer.Email,
                     LatestUpdatedOn = x.LatestUpdatedOn,
                     Coupon = x.CouponCode,
                     Items = x.OrderItems.Count(),
@@ -381,7 +381,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 if (search.CustomerName != null)
                 {
                     string customerName = search.CustomerName;
-                    query = query.Where(x => x.Order.CreatedBy.FullName.Contains(customerName));
+                    query = query.Where(x => x.Order.Customer.FullName.Contains(customerName));
                 }
 
                 if (search.CreatedOn != null)
@@ -417,9 +417,9 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                                 ShippingAmount = x.Order.ShippingFeeAmount,
                                 ShippingMethod = x.Order.ShippingMethod,
                                 TaxAmount = x.Order.TaxAmount,
-                                CustomerId = x.Order.CreatedById,
-                                CustomerName = x.Order.CreatedBy.FullName,
-                                CustomerEmail = x.Order.CreatedBy.Email,
+                                CustomerId = x.Order.CustomerId,
+                                CustomerName = x.Order.Customer.FullName,
+                                CustomerEmail = x.Order.Customer.Email,
                                 LatestUpdatedOn = x.Order.LatestUpdatedOn,
                                 Coupon = x.Order.CouponCode,
                                 Items = x.Order.OrderItems.Count(),

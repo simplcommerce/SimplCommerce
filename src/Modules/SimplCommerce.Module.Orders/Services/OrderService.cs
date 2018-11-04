@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
@@ -12,6 +14,7 @@ using SimplCommerce.Module.Pricing.Services;
 using SimplCommerce.Module.ShippingPrices.Services;
 using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.Tax.Services;
+using SimplCommerce.Module.Orders.Events;
 
 namespace SimplCommerce.Module.Orders.Services
 {
@@ -25,7 +28,7 @@ namespace SimplCommerce.Module.Orders.Services
         private readonly ITaxService _taxService;
         private readonly IShippingPriceService _shippingPriceService;
         private readonly IRepository<UserAddress> _userAddressRepository;
-        private readonly IOrderEmailService _orderEmailService;
+        private readonly IMediator _mediator;
 
         public OrderService(IRepository<Order> orderRepository,
             IRepository<Cart> cartRepository,
@@ -35,7 +38,7 @@ namespace SimplCommerce.Module.Orders.Services
             ITaxService taxService,
             IShippingPriceService shippingPriceService,
             IRepository<UserAddress> userAddressRepository,
-            IOrderEmailService orderEmailService)
+            IMediator mediator)
         {
             _orderRepository = orderRepository;
             _cartRepository = cartRepository;
@@ -45,7 +48,7 @@ namespace SimplCommerce.Module.Orders.Services
             _taxService = taxService;
             _shippingPriceService = shippingPriceService;
             _userAddressRepository = userAddressRepository;
-            _orderEmailService = orderEmailService;
+            _mediator = mediator;
         }
 
         public async Task<Result<Order>> CreateOrder(User user, string paymentMethod, decimal paymentFeeAmount, OrderStatus orderStatus = OrderStatus.New)
@@ -152,6 +155,7 @@ namespace SimplCommerce.Module.Orders.Services
             {
                 CreatedOn = DateTimeOffset.Now,
                 CreatedById = user.Id,
+                CustomerId = user.Id,
                 BillingAddress = orderBillingAddress,
                 ShippingAddress = orderShippingAddress,
                 PaymentMethod = paymentMethod,
@@ -215,12 +219,14 @@ namespace SimplCommerce.Module.Orders.Services
                 order.IsMasterOrder = true;
             }
 
+            IList<Order> subOrders = new List<Order>();
             foreach (var vendorId in vendorIds)
             {
                 var subOrder = new Order
                 {
                     CreatedOn = DateTimeOffset.Now,
                     CreatedById = user.Id,
+                    CustomerId = user.Id,
                     BillingAddress = orderBillingAddress,
                     ShippingAddress = orderShippingAddress,
                     VendorId = vendorId,
@@ -257,18 +263,37 @@ namespace SimplCommerce.Module.Orders.Services
                 subOrder.TaxAmount = subOrder.OrderItems.Sum(x => x.TaxAmount);
                 subOrder.OrderTotal = subOrder.SubTotal + subOrder.TaxAmount + subOrder.ShippingFeeAmount - subOrder.DiscountAmount;
                 _orderRepository.Add(subOrder);
+                subOrders.Add(subOrder);
             }
 
             using (var transaction = _orderRepository.BeginTransaction())
             {
                 _orderRepository.SaveChanges();
+                await PublishOrderCreatedEvent(order);
+                foreach(var subOrder in subOrders)
+                {
+                    await PublishOrderCreatedEvent(subOrder);
+                }
+
                 _couponService.AddCouponUsage(user.Id, order.Id, checkingDiscountResult);
                 _orderRepository.SaveChanges();
                 transaction.Commit();
             }
 
-            // await _orderEmailService.SendEmailToUser(user, order);
             return Result.Ok(order);
+        }
+
+        private async Task PublishOrderCreatedEvent(Order order)
+        {
+            var orderCreated = new OrderCreated
+            {
+                OrderId = order.Id,
+                Order = order,
+                UserId = order.CreatedById,
+                Note = order.OrderNote
+            };
+
+            await _mediator.Publish(orderCreated);
         }
 
         public void CancelOrder(Order order)

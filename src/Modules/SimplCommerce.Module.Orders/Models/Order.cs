@@ -20,6 +20,11 @@ namespace SimplCommerce.Module.Orders.Models
 
         public DateTimeOffset LatestUpdatedOn { get; set; }
 
+        public long CustomerId { get; set; }
+
+        [JsonIgnore] // To simplify the json stored in order history
+        public User Customer { get; set; }
+
         public long CreatedById { get; set; }
 
         [JsonIgnore]
@@ -53,6 +58,7 @@ namespace SimplCommerce.Module.Orders.Models
 
         public long? ParentId { get; set; }
 
+        [JsonIgnore]
         public Order Parent { get; set; }
 
         public bool IsMasterOrder { get; set; }
