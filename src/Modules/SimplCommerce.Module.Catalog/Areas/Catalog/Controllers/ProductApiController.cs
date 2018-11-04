@@ -410,7 +410,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             product.IsCallForPricing = model.Product.IsCallForPricing;
             product.IsAllowToOrder = model.Product.IsAllowToOrder;
             product.StockTrackingIsEnabled = model.Product.StockTrackingIsEnabled;
-            product.UpdatedBy = currentUser;
+            product.LatestUpdatedBy = currentUser;
 
             if (isPriceChanged)
             {

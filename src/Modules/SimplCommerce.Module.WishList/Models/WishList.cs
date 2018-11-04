@@ -10,7 +10,7 @@ namespace SimplCommerce.Module.WishList.Models
         public WishList()
         {
             CreatedOn = DateTimeOffset.Now;
-            UpdatedOn = DateTimeOffset.Now;
+            LatestUpdatedOn = DateTimeOffset.Now;
         }
 
         public long UserId { get; set; }
@@ -23,6 +23,6 @@ namespace SimplCommerce.Module.WishList.Models
 
         public DateTimeOffset CreatedOn { get; set; }
 
-        public DateTimeOffset UpdatedOn { get; set; }
+        public DateTimeOffset LatestUpdatedOn { get; set; }
     }
 }

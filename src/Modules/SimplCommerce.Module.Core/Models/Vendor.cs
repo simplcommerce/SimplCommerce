@@ -26,7 +26,7 @@ namespace SimplCommerce.Module.Core.Models
 
         public DateTimeOffset CreatedOn { get; set; }
 
-        public DateTimeOffset UpdatedOn { get; set; }
+        public DateTimeOffset LatestUpdatedOn { get; set; }
 
         public bool IsActive { get; set; }
 
