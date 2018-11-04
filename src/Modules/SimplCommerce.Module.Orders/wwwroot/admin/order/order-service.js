@@ -63,15 +63,21 @@
         }
 
         function getBlob(blob, filename) {
-            var objectUrl = URL.createObjectURL(blob);
-            var a = document.createElement("a");
-            a.href = objectUrl;
-            a.style = "display: none";
-            a.download = filename; // gives it a name via an a tag
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(objectUrl);
-            document.body.removeChild(a);
+            //IE11 & Edge
+            if (navigator.msSaveBlob) {
+                navigator.msSaveBlob(blob, filename);
+            }
+            else {
+                var objectUrl = URL.createObjectURL(blob);
+                var a = document.createElement("a");
+                a.href = objectUrl;
+                a.style = "display: none";
+                a.download = filename; // gives it a name via an a tag
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(objectUrl);
+                document.body.removeChild(a);
+            }
         }
     }
 })();
