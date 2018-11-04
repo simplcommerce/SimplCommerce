@@ -80,7 +80,8 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                     MetaDescription = model.MetaDescription,
                     Body = model.Body,
                     IsPublished = model.IsPublished,
-                    CreatedBy = currentUser
+                    CreatedBy = currentUser,
+                    LatestUpdatedBy = currentUser
                 };
 
                 await _pageService.Create(page);
