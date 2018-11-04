@@ -6,13 +6,19 @@ namespace SimplCommerce.Module.Payments.Models
 {
     public class Payment : EntityBase
     {
+        public Payment()
+        {
+            CreatedOn = DateTimeOffset.Now;
+            LatestUpdatedOn = DateTimeOffset.Now;
+        }
+
         public long OrderId { get; set; }
 
         public Order Order { get; set; }
 
         public DateTimeOffset CreatedOn { get; set; }
 
-        public DateTimeOffset? UpdatedOn { get; set; }
+        public DateTimeOffset LatestUpdatedOn { get; set; }
 
         public decimal Amount { get; set; }
 

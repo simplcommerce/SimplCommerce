@@ -49,7 +49,7 @@ namespace SimplCommerce.Module.Orders.Services
             var durationToCancel = DateTimeOffset.Now.AddMinutes(-5);
             var failedPaymentOrders = orderRepository.Query().Where(x =>
                 (x.OrderStatus == OrderStatus.PendingPayment || x.OrderStatus == OrderStatus.PaymentFailed)
-                && x.UpdatedOn < durationToCancel);
+                && x.LatestUpdatedOn < durationToCancel);
 
             foreach (var order in failedPaymentOrders)
             {

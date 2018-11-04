@@ -14,7 +14,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 
         public DateTimeOffset CreatedOn { get; set; }
 
-        public DateTimeOffset UpdatedOn { get; set; }
+        public DateTimeOffset LatestUpdatedOn { get; set; }
 
         public int Items { get; set; }
 

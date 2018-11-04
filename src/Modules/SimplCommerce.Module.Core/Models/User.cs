@@ -11,7 +11,7 @@ namespace SimplCommerce.Module.Core.Models
         public User()
         {
             CreatedOn = DateTimeOffset.Now;
-            UpdatedOn = DateTimeOffset.Now;
+            LatestUpdatedOn = DateTimeOffset.Now;
         }
 
         public Guid UserGuid { get; set; }
@@ -26,7 +26,7 @@ namespace SimplCommerce.Module.Core.Models
 
         public DateTimeOffset CreatedOn { get; set; }
 
-        public DateTimeOffset UpdatedOn { get; set; }
+        public DateTimeOffset LatestUpdatedOn { get; set; }
 
         public IList<UserAddress> UserAddresses { get; set; } = new List<UserAddress>();
 

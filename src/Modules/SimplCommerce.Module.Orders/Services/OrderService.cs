@@ -274,7 +274,7 @@ namespace SimplCommerce.Module.Orders.Services
         public void CancelOrder(Order order)
         {
             order.OrderStatus = OrderStatus.Canceled;
-            order.UpdatedOn = DateTimeOffset.Now;
+            order.LatestUpdatedOn = DateTimeOffset.Now;
 
             var orderItems = _orderItemRepository.Query().Include(x => x.Product).Where(x => x.Order.Id == order.Id);
             foreach(var item in orderItems)
