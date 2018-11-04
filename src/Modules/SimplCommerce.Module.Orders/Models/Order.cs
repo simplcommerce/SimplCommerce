@@ -16,14 +16,19 @@ namespace SimplCommerce.Module.Orders.Models
             IsMasterOrder = false;
         }
 
-        public DateTimeOffset CreatedOn { get; set; }
-
-        public DateTimeOffset LatestUpdatedOn { get; set; }
-
         public long CustomerId { get; set; }
 
         [JsonIgnore] // To simplify the json stored in order history
         public User Customer { get; set; }
+
+        public DateTimeOffset LatestUpdatedOn { get; set; }
+
+        public long LatestUpdatedById { get; set; }
+
+        [JsonIgnore]
+        public User LatestUpdatedBy { get; set; }
+
+        public DateTimeOffset CreatedOn { get; set; }
 
         public long CreatedById { get; set; }
 

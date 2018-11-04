@@ -49,11 +49,15 @@ namespace SimplCommerce.Module.Core.Models
             }
         }
 
+        public long CreatedById { get; set; }
+
         public User CreatedBy { get; set; }
 
         public DateTimeOffset CreatedOn { get; set; }
 
         public DateTimeOffset LatestUpdatedOn { get; set; }
+
+        public long LatestUpdatedById { get; set; }
 
         public User LatestUpdatedBy { get; set; }
     }

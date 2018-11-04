@@ -130,7 +130,8 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
                 ShortContent = model.ShortContent,
                 FullContent = model.FullContent,
                 IsPublished = model.IsPublished,
-                CreatedBy = currentUser
+                CreatedBy = currentUser,
+                LatestUpdatedBy = currentUser
             };
 
             foreach (var categoryId in model.NewsCategoryIds)
