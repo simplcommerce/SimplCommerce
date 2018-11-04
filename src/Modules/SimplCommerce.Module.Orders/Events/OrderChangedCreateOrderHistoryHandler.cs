@@ -8,11 +8,11 @@ using SimplCommerce.Module.Orders.Models;
 
 namespace SimplCommerce.Module.Orders.Events
 {
-    public class OrderChangedHandler : INotificationHandler<OrderChanged>
+    public class OrderChangedCreateOrderHistoryHandler : INotificationHandler<OrderChanged>
     {
         private readonly IRepository<OrderHistory> _orderHistoryRepository;
 
-        public OrderChangedHandler(IRepository<OrderHistory> orderHistoryRepository)
+        public OrderChangedCreateOrderHistoryHandler(IRepository<OrderHistory> orderHistoryRepository)
         {
             _orderHistoryRepository = orderHistoryRepository;
         }
