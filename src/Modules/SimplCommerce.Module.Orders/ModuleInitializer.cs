@@ -14,8 +14,8 @@ namespace SimplCommerce.Module.Orders
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IOrderEmailService, OrderEmailService>();
             services.AddHostedService<OrderCancellationBackgroundService>();
-            // services.AddTransient<INotificationHandler<OrderChanged>, OrderChangedCreateOrderHistoryHandler>();
-            // services.AddTransient<INotificationHandler<OrderCreated>, OrderCreatedCreateOrderHistoryHandler>();
+            services.AddTransient<INotificationHandler<OrderChanged>, OrderChangedCreateOrderHistoryHandler>();
+            services.AddTransient<INotificationHandler<OrderCreated>, OrderCreatedCreateOrderHistoryHandler>();
         }
 
         public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)

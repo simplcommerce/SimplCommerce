@@ -47,8 +47,6 @@ namespace SimplCommerce.WebHost
             services.AddHttpClient();
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient(typeof(IRepositoryWithTypedId<,>), typeof(RepositoryWithTypedId<,>));
-            services.AddMediatR();
-            services.AddScoped<IMediator, SequentialMediator>();
 
             services.AddCustomizedLocalization();
 
@@ -67,6 +65,9 @@ namespace SimplCommerce.WebHost
             {
                 moduleInitializer.ConfigureServices(services);
             }
+
+            services.AddScoped<ServiceFactory>(p => p.GetService);
+            services.AddScoped<IMediator, SequentialMediator>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
