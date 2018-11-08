@@ -84,7 +84,7 @@ namespace SimplCommerce.Module.Orders.Services
                 {
                     Address = address,
                     AddressType = AddressType.Shipping,
-                    UserId = cart.Id
+                    UserId = cart.CustomerId
                 };
 
                 _userAddressRepository.Add(userAddress);

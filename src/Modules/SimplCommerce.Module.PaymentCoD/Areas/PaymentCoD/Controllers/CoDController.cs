@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
@@ -45,7 +46,7 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
             }
             var currentUser = await _workContext.GetCurrentUser();
             var calculatedFee = await CalculateFee();
-            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
+            var cart = await _cartService.GetActiveCart(currentUser.Id).FirstOrDefaultAsync();
             var orderCreateResult = await _orderService.CreateOrder(cart.Id, "CashOnDelivery", calculatedFee);
 
             if (!orderCreateResult.Success)
