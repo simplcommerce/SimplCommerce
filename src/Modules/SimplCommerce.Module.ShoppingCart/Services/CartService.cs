@@ -28,14 +28,32 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             _isProductPriceIncludeTax = config.GetValue<bool>("Catalog.IsProductPriceIncludeTax");
         }
 
-        public async Task AddToCart(long userId, long productId, int quantity)
+        public IQueryable<Cart> GetActiveCart(long customerId)
         {
-            var cart = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.UserId == userId && x.IsActive);
+            return GetActiveCart(customerId, customerId);
+        }
+
+        public IQueryable<Cart> GetActiveCart(long customerId, long createdById)
+        {
+            return _cartRepository.Query()
+                .Include(x => x.Items)
+                .Where(x => x.CustomerId == customerId && x.CreatedById == createdById && x.IsActive);
+        }
+
+        public async Task AddToCart(long customerId, long productId, int quantity)
+        {
+            await AddToCart(customerId, customerId, productId, quantity);
+        }
+
+        public async Task AddToCart(long customerId, long createdById, long productId, int quantity)
+        {
+            var cart = await GetActiveCart(customerId, createdById).Include(x => x.Items).FirstOrDefaultAsync();
             if (cart == null)
             {
                 cart = new Cart
                 {
-                    UserId = userId,
+                    CustomerId = customerId,
+                    CreatedById = createdById,
                     IsProductPriceIncludeTax = _isProductPriceIncludeTax
                 };
 
@@ -62,10 +80,15 @@ namespace SimplCommerce.Module.ShoppingCart.Services
            await  _cartRepository.SaveChangesAsync();
         }
 
-        // TODO separate getting product thumbnail, varation options from here
-        public async Task<CartVm> GetCart(long userId)
+        public async Task<CartVm> GetActiveCartDetails(long customerId)
         {
-            var cart = _cartRepository.Query().FirstOrDefault(x => x.UserId == userId && x.IsActive);
+            return await GetActiveCartDetails(customerId, customerId);
+        }
+
+        // TODO separate getting product thumbnail, varation options from here
+        public async Task<CartVm> GetActiveCartDetails(long customerId, long createdById)
+        {
+            var cart = GetActiveCart(customerId, createdById).FirstOrDefault();
             if (cart == null)
             {
                 return new CartVm();
@@ -104,7 +127,7 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 {
                     Items = cartVm.Items.Select(x => new CartItemForCoupon { ProductId = x.ProductId, Quantity = x.Quantity }).ToList()
                 };
-                var couponValidationResult = await _couponService.Validate(cartVm.CouponCode, cartInfoForCoupon);
+                var couponValidationResult = await _couponService.Validate(customerId, cartVm.CouponCode, cartInfoForCoupon);
                 if (couponValidationResult.Succeeded)
                 {
                     cartVm.Discount = couponValidationResult.DiscountAmount;
@@ -118,15 +141,15 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             return cartVm;
         }
 
-        public async Task<CouponValidationResult> ApplyCoupon(long userId, string couponCode)
+        public async Task<CouponValidationResult> ApplyCoupon(long cartId, string couponCode)
         {
-            var cart = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.UserId == userId && x.IsActive);
+            var cart = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.Id == cartId);
 
             var cartInfoForCoupon = new CartInfoForCoupon
             {
                 Items = cart.Items.Select(x => new CartItemForCoupon { ProductId = x.ProductId, Quantity = x.Quantity }).ToList()
             };
-            var couponValidationResult = await _couponService.Validate(couponCode, cartInfoForCoupon);
+            var couponValidationResult = await _couponService.Validate(cart.CustomerId, couponCode, cartInfoForCoupon);
             if (couponValidationResult.Succeeded)
             {
                 cart.CouponCode = couponCode;
@@ -137,28 +160,17 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             return couponValidationResult;
         }
 
-        public async Task SaveOrderNote(long userId, string orderNote)
-        {
-            var cart = _cartRepository.Query().FirstOrDefault(x => x.UserId == userId && x.IsActive);
-            if (cart == null)
-            {
-                throw new ApplicationException($"No active cart of user {userId}");
-            }
-            cart.OrderNote = orderNote;
-            await _cartRepository.SaveChangesAsync();
-        }
-
         public async Task MigrateCart(long fromUserId, long toUserId)
         {
-            var cartFrom = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.UserId == fromUserId && x.IsActive);
+            var cartFrom = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.CustomerId == fromUserId && x.IsActive);
             if (cartFrom != null && cartFrom.Items.Any())
             {
-                var cartTo = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.UserId == toUserId && x.IsActive);
+                var cartTo = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.CustomerId == toUserId && x.IsActive);
                 if (cartTo == null)
                 {
                     cartTo = new Cart
                     {
-                        UserId = toUserId
+                        CustomerId = toUserId
                     };
 
                     _cartRepository.Add(cartTo);

@@ -9,6 +9,7 @@ using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.Payments.Areas.Payments.ViewModels;
 using SimplCommerce.Module.Payments.Models;
 using SimplCommerce.Module.ShoppingCart.Models;
+using SimplCommerce.Module.ShoppingCart.Services;
 
 namespace SimplCommerce.Module.Payments.Areas.Payments.Controllers
 {
@@ -18,17 +19,17 @@ namespace SimplCommerce.Module.Payments.Areas.Payments.Controllers
     public class CheckoutController : Controller
     {
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
-        private readonly IRepository<Cart> _cartRepository;
+        private readonly ICartService _cartService;
         private readonly IOrderService _orderService;
         private readonly IWorkContext _workContext;
 
         public CheckoutController(IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
-            IRepository<Cart> cartRepository,
+            ICartService cartService,
             IOrderService orderService,
             IWorkContext workContext)
         {
             _paymentProviderRepository = paymentProviderRepository;
-            _cartRepository = cartRepository;
+            _cartService = cartService;
             _orderService = orderService;
             _workContext = workContext;
         }
@@ -37,7 +38,7 @@ namespace SimplCommerce.Module.Payments.Areas.Payments.Controllers
         public async Task<IActionResult> Payment()
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = _cartRepository.Query().FirstOrDefault(x => x.UserId == currentUser.Id && x.IsActive);
+            var cart = await _cartService.GetActiveCart(currentUser.Id).FirstOrDefaultAsync();
             if(cart == null)
             {
                 return Redirect("~/");

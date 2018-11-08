@@ -32,7 +32,7 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Components
             var stripeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.StripeProviderId);
             var stripeSetting = JsonConvert.DeserializeObject<StripeConfigForm>(stripeProvider.AdditionalSettings);
             var curentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetCart(curentUser.Id);
+            var cart = await _cartService.GetActiveCartDetails(curentUser.Id);
             var zeroDecimalAmount = cart.OrderTotal;
             if(!CurrencyHelper.IsZeroDecimalCurrencies())
             {

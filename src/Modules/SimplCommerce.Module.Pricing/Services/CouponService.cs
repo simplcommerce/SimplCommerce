@@ -15,22 +15,20 @@ namespace SimplCommerce.Module.Pricing.Services
         private readonly IRepository<Coupon> _couponRepository;
         private readonly IRepository<CartRuleUsage> _cartRuleUsageRepository;
         private readonly IRepository<Product> _productRepository;
-        private readonly IWorkContext _workContext;
 
         public CouponService(IRepository<Coupon> couponRepository, IRepository<CartRuleUsage> cartRuleUsageRepository, IRepository<Product> productRespository, IWorkContext workContext)
         {
             _couponRepository = couponRepository;
             _cartRuleUsageRepository = cartRuleUsageRepository;
             _productRepository = productRespository;
-            _workContext = workContext;
         }
 
-        public async Task<CouponValidationResult> Validate(string couponCode, CartInfoForCoupon cart)
+        public async Task<CouponValidationResult> Validate(long customerId, string couponCode, CartInfoForCoupon cart)
         {
-            var coupon = _couponRepository.Query()
+            var coupon = await _couponRepository.Query()
                 .Include(x => x.CartRule).ThenInclude(c => c.Products)
                 .Include(x => x.CartRule).ThenInclude(c => c.Categories)
-                .FirstOrDefault(x => x.Code == couponCode);
+                .FirstOrDefaultAsync(x => x.Code == couponCode);
             var validationResult = new CouponValidationResult { Succeeded = false };
 
             if(coupon == null || !coupon.CartRule.IsActive)
@@ -58,8 +56,7 @@ namespace SimplCommerce.Module.Pricing.Services
                 return validationResult;
             }
 
-            var currentCustomer = await _workContext.GetCurrentUser();
-            var couponUsageByCustomerCount = _cartRuleUsageRepository.Query().Count(x => x.CouponId == coupon.Id && x.UserId == currentCustomer.Id);
+            var couponUsageByCustomerCount = _cartRuleUsageRepository.Query().Count(x => x.CouponId == coupon.Id && x.UserId == customerId);
             if (coupon.CartRule.UsageLimitPerCustomer.HasValue && couponUsageByCustomerCount >= coupon.CartRule.UsageLimitPerCustomer)
             {
                 validationResult.ErrorMessage = $"You can use the coupon {couponCode} only {coupon.CartRule.UsageLimitPerCustomer} times";
@@ -165,7 +162,7 @@ namespace SimplCommerce.Module.Pricing.Services
             return discountedProducts;
         }
 
-        public void AddCouponUsage(long userId, long orderId, CouponValidationResult couponValidationResult)
+        public void AddCouponUsage(long customerId, long orderId, CouponValidationResult couponValidationResult)
         {
             if (!couponValidationResult.Succeeded || couponValidationResult.CartRule == null)
             {
@@ -178,7 +175,7 @@ namespace SimplCommerce.Module.Pricing.Services
                 case "cart_fixed":
                     couponUsage = new CartRuleUsage
                     {
-                        UserId = userId,
+                        UserId = customerId,
                         OrderId = orderId,
                         CouponId = couponValidationResult.CouponId,
                         CartRuleId = couponValidationResult.CartRule.Id
@@ -194,7 +191,7 @@ namespace SimplCommerce.Module.Pricing.Services
                         {
                             couponUsage = new CartRuleUsage
                             {
-                                UserId = userId,
+                                UserId = customerId,
                                 OrderId = orderId,
                                 CouponId = couponValidationResult.CouponId,
                                 CartRuleId = couponValidationResult.CartRule.Id
