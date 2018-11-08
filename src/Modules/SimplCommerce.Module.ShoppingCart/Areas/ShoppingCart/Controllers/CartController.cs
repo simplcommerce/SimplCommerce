@@ -46,7 +46,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         public async Task<IActionResult> AddToCartResult(long productId)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetCart(currentUser.Id);
+            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
 
             var model = new AddToCartResult
             {
@@ -73,7 +73,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         public async Task<IActionResult> List()
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetCart(currentUser.Id);
+            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
 
             return Json(cart);
         }
@@ -97,11 +97,17 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         public async Task<ActionResult> ApplyCoupon([FromBody] ApplyCouponForm model)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var validationResult =  await _cartService.ApplyCoupon(currentUser.Id, model.CouponCode);
+            var cart = _cartService.GetActiveCart(currentUser.Id).FirstOrDefault();
+            if(cart == null)
+            {
+                return NotFound();
+            }
+
+            var validationResult =  await _cartService.ApplyCoupon(cart.Id, model.CouponCode);
             if (validationResult.Succeeded)
             {
-                var cart = await _cartService.GetCart(currentUser.Id);
-                return Json(cart);
+                var cartVm = await _cartService.GetActiveCartDetails(currentUser.Id);
+                return Json(cartVm);
             }
 
             return Json(validationResult);
@@ -111,7 +117,14 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         public async Task<IActionResult> SaveOrderNote([FromBody] SaveOrderNote model)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            await _cartService.SaveOrderNote(currentUser.Id, model.OrderNote);
+            var cart = _cartService.GetActiveCart(currentUser.Id).FirstOrDefault();
+            if(cart == null)
+            {
+                return NotFound();
+            }
+
+            cart.OrderNote = model.OrderNote;
+            await _cartItemRepository.SaveChangesAsync();
             return Accepted();
         }
 

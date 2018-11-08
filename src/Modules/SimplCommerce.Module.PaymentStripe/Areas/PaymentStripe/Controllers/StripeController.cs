@@ -12,7 +12,7 @@ using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.Payments.Models;
 using SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.ViewModels;
 using SimplCommerce.Module.PaymentStripe.Models;
-using SimplCommerce.Module.ShoppingCart.Models;
+using SimplCommerce.Module.ShoppingCart.Services;
 using Stripe;
 
 namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
@@ -20,20 +20,20 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
     [Area("PaymentStripe")]
     public class StripeController : Controller
     {
-        private readonly IRepository<Cart> _cartRepository;
+        private readonly ICartService _cartService;
         private readonly IOrderService _orderService;
         private readonly IWorkContext _workContext;
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private readonly IRepository<Payment> _paymentRepository;
 
         public StripeController(
-            IRepository<Cart> cartRepository,
+            ICartService cartService,
             IOrderService orderService,
             IWorkContext workContext,
             IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
             IRepository<Payment> paymentRepository)
         {
-            _cartRepository = cartRepository;
+            _cartService = cartService;
             _orderService = orderService;
             _workContext = workContext;
             _paymentProviderRepository = paymentProviderRepository;
@@ -44,10 +44,11 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
         {
             var stripeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.StripeProviderId);
             var stripeSetting = JsonConvert.DeserializeObject<StripeConfigForm>(stripeProvider.AdditionalSettings);
-
             var stripeChargeService = new StripeChargeService(stripeSetting.PrivateKey);
             var currentUser = await _workContext.GetCurrentUser();
-            var orderCreationResult = await _orderService.CreateOrder(currentUser, "Stripe", 0, OrderStatus.PendingPayment);
+            var cart = await _cartService.GetActiveCart(currentUser.Id).FirstOrDefaultAsync();
+
+            var orderCreationResult = await _orderService.CreateOrder(cart.Id, "Stripe", 0, OrderStatus.PendingPayment);
             if(!orderCreationResult.Success)
             {
                 TempData["Error"] = orderCreationResult.Error;

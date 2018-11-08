@@ -51,15 +51,15 @@ namespace SimplCommerce.Module.Orders.Services
             _mediator = mediator;
         }
 
-        public async Task<Result<Order>> CreateOrder(User user, string paymentMethod, decimal paymentFeeAmount, OrderStatus orderStatus = OrderStatus.New)
+        public async Task<Result<Order>> CreateOrder(long cartId, string paymentMethod, decimal paymentFeeAmount, OrderStatus orderStatus = OrderStatus.New)
         {
             var cart = await _cartRepository
                .Query()
-               .Where(x => x.UserId == user.Id && x.IsActive).FirstOrDefaultAsync();
+               .Where(x => x.Id == cartId).FirstOrDefaultAsync();
 
             if (cart == null)
             {
-                return Result.Fail<Order>($"Cart of user {user.Id} cannot be found");
+                return Result.Fail<Order>($"Cart id {cartId} cannot be found");
             }
 
             var shippingData = JsonConvert.DeserializeObject<DeliveryInformationVm>(cart.ShippingData);
@@ -84,7 +84,7 @@ namespace SimplCommerce.Module.Orders.Services
                 {
                     Address = address,
                     AddressType = AddressType.Shipping,
-                    UserId = user.Id
+                    UserId = cart.CustomerId
                 };
 
                 _userAddressRepository.Add(userAddress);
@@ -96,22 +96,22 @@ namespace SimplCommerce.Module.Orders.Services
                 billingAddress = shippingAddress = _userAddressRepository.Query().Where(x => x.Id == shippingData.ShippingAddressId).Select(x => x.Address).First();
             }
 
-            return await CreateOrder(user, paymentMethod, paymentFeeAmount, shippingData.ShippingMethod, billingAddress, shippingAddress, orderStatus);
+            return await CreateOrder(cartId, paymentMethod, paymentFeeAmount, shippingData.ShippingMethod, billingAddress, shippingAddress, orderStatus);
         }
 
-        public async Task<Result<Order>> CreateOrder(User user, string paymentMethod, decimal paymentFeeAmount, string shippingMethodName, Address billingAddress, Address shippingAddress, OrderStatus orderStatus = OrderStatus.New)
+        public async Task<Result<Order>> CreateOrder(long cartId, string paymentMethod, decimal paymentFeeAmount, string shippingMethodName, Address billingAddress, Address shippingAddress, OrderStatus orderStatus = OrderStatus.New)
         {
             var cart = _cartRepository
                 .Query()
                 .Include(c => c.Items).ThenInclude(x => x.Product)
-                .Where(x => x.UserId == user.Id && x.IsActive).FirstOrDefault();
+                .Where(x => x.Id == cartId).FirstOrDefault();
 
             if (cart == null)
             {
-                return Result.Fail<Order>($"Cart of user {user.Id} cannot be found");
+                return Result.Fail<Order>($"Cart id {cartId} cannot be found");
             }
 
-            var checkingDiscountResult = await CheckForDiscountIfAny(user, cart);
+            var checkingDiscountResult = await CheckForDiscountIfAny(cart);
             if (!checkingDiscountResult.Succeeded)
             {
                 return Result.Fail<Order>(checkingDiscountResult.ErrorMessage);
@@ -153,11 +153,11 @@ namespace SimplCommerce.Module.Orders.Services
 
             var order = new Order
             {
-                CustomerId = user.Id,
+                CustomerId = cart.CustomerId,
                 CreatedOn = DateTimeOffset.Now,
-                CreatedById = user.Id,
+                CreatedById = cart.CreatedById,
                 LatestUpdatedOn = DateTimeOffset.Now,
-                LatestUpdatedById = user.Id,
+                LatestUpdatedById = cart.CreatedById,
                 BillingAddress = orderBillingAddress,
                 ShippingAddress = orderShippingAddress,
                 PaymentMethod = paymentMethod,
@@ -226,11 +226,11 @@ namespace SimplCommerce.Module.Orders.Services
             {
                 var subOrder = new Order
                 {
-                    CustomerId = user.Id,
+                    CustomerId = cart.CustomerId,
                     CreatedOn = DateTimeOffset.Now,
-                    CreatedById = user.Id,
+                    CreatedById = cart.CreatedById,
                     LatestUpdatedOn = DateTimeOffset.Now,
-                    LatestUpdatedById = user.Id,
+                    LatestUpdatedById = cart.CreatedById,
                     BillingAddress = orderBillingAddress,
                     ShippingAddress = orderShippingAddress,
                     VendorId = vendorId,
@@ -279,7 +279,7 @@ namespace SimplCommerce.Module.Orders.Services
                     await PublishOrderCreatedEvent(subOrder);
                 }
 
-                _couponService.AddCouponUsage(user.Id, order.Id, checkingDiscountResult);
+                _couponService.AddCouponUsage(cart.CustomerId, order.Id, checkingDiscountResult);
                 _orderRepository.SaveChanges();
                 transaction.Commit();
             }
@@ -315,17 +315,12 @@ namespace SimplCommerce.Module.Orders.Services
             }
         }
 
-        public async Task<decimal> GetTax(long cartOwnerUserId, string countryId, long stateOrProvinceId, string zipCode)
+        public async Task<decimal> GetTax(long cartId, string countryId, long stateOrProvinceId, string zipCode)
         {
             decimal taxAmount = 0;
-            var cart = await _cartRepository.Query().FirstOrDefaultAsync(x => x.UserId == cartOwnerUserId && x.IsActive);
-            if (cart == null)
-            {
-                throw new ApplicationException($"No active cart of user {cartOwnerUserId}");
-            }
 
             var cartItems = _cartItemRepository.Query()
-                .Where(x => x.CartId == cart.Id)
+                .Where(x => x.CartId == cartId)
                 .Select(x => new CartItemVm
                 {
                     Quantity = x.Quantity,
@@ -345,7 +340,7 @@ namespace SimplCommerce.Module.Orders.Services
             return taxAmount;
         }
 
-        private async Task<CouponValidationResult> CheckForDiscountIfAny(User user, Cart cart)
+        private async Task<CouponValidationResult> CheckForDiscountIfAny(Cart cart)
         {
             if (string.IsNullOrWhiteSpace(cart.CouponCode))
             {
@@ -357,7 +352,7 @@ namespace SimplCommerce.Module.Orders.Services
                 Items = cart.Items.Select(x => new CartItemForCoupon { ProductId = x.ProductId, Quantity = x.Quantity }).ToList()
             };
 
-            var couponValidationResult = await _couponService.Validate(cart.CouponCode, cartInfoForCoupon);
+            var couponValidationResult = await _couponService.Validate(cart.CustomerId, cart.CouponCode, cartInfoForCoupon);
             return couponValidationResult;
         }
 
