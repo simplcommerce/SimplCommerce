@@ -1,18 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Xunit;
+using Microsoft.EntityFrameworkCore;
 using Moq;
-using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Pricing.Models;
 using SimplCommerce.Module.Pricing.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace SimplCommerce.Module.Pricing.Tests
 {
@@ -33,7 +31,7 @@ namespace SimplCommerce.Module.Pricing.Tests
 
             string couponToApply = null;
 
-            var result = await couponService.Validate(couponToApply, cartInfo);
+            var result = await couponService.Validate(user.Id, couponToApply, cartInfo);
 
             Assert.Equal($"The coupon {couponToApply} is not exist.", result.ErrorMessage);
         }
@@ -53,7 +51,7 @@ namespace SimplCommerce.Module.Pricing.Tests
 
             string couponToApply = "test";
 
-            var result = await couponService.Validate(couponToApply, cartInfo);
+            var result = await couponService.Validate(user.Id, couponToApply, cartInfo);
 
             Assert.Equal($"The coupon {couponToApply} is not exist.", result.ErrorMessage);
         }
@@ -74,7 +72,7 @@ namespace SimplCommerce.Module.Pricing.Tests
 
             string couponToApply = "test";
 
-            var result = await couponService.Validate(couponToApply, cartInfo);
+            var result = await couponService.Validate(user.Id, couponToApply, cartInfo);
 
             Assert.Equal($"The coupon {couponToApply} should be used after {coupon.CartRule.StartOn}.", result.ErrorMessage);
         }
@@ -96,7 +94,7 @@ namespace SimplCommerce.Module.Pricing.Tests
 
             string couponToApply = "test";
 
-            var result = await couponService.Validate(couponToApply, cartInfo);
+            var result = await couponService.Validate(user.Id, couponToApply, cartInfo);
 
             Assert.Equal($"The coupon {couponToApply} is expired.", result.ErrorMessage);
         }
@@ -118,7 +116,7 @@ namespace SimplCommerce.Module.Pricing.Tests
 
             string couponToApply = "test";
 
-            var result = await couponService.Validate(couponToApply, cartInfo);
+            var result = await couponService.Validate(user.Id, couponToApply, cartInfo);
 
             Assert.Equal($"The coupon {couponToApply} is all used.", result.ErrorMessage);
         }
@@ -140,7 +138,7 @@ namespace SimplCommerce.Module.Pricing.Tests
 
             string couponToApply = "test";
 
-            var result = await couponService.Validate(couponToApply, cartInfo);
+            var result = await couponService.Validate(user.Id, couponToApply, cartInfo);
 
             Assert.Equal($"You can use the coupon {couponToApply} only {coupon.CartRule.UsageLimitPerCustomer} times", result.ErrorMessage);
         }
@@ -162,7 +160,7 @@ namespace SimplCommerce.Module.Pricing.Tests
 
             string couponToApply = "test";
 
-            Assert.ThrowsAsync<InvalidOperationException>(async () => await couponService.Validate(couponToApply, cartInfo));
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await couponService.Validate(user.Id, couponToApply, cartInfo));
         }
 
         [Fact(DisplayName = "WithDiscountAndFixedCartRule_ShouldReturns_SameDiscountAmount")]
@@ -184,7 +182,7 @@ namespace SimplCommerce.Module.Pricing.Tests
 
             string couponToApply = "test";
 
-            var result = await couponService.Validate(couponToApply, cartInfo);
+            var result = await couponService.Validate(user.Id, couponToApply, cartInfo);
 
             Assert.True(result.Succeeded);
             Assert.Equal(coupon.CartRule.DiscountAmount, result.DiscountAmount);
@@ -211,7 +209,7 @@ namespace SimplCommerce.Module.Pricing.Tests
 
             string couponToApply = "test";
 
-            var result = await couponService.Validate(couponToApply, cartInfo);
+            var result = await couponService.Validate(user.Id, couponToApply, cartInfo);
 
             Assert.True(result.Succeeded);
             Assert.Equal(1M, result.DiscountAmount);

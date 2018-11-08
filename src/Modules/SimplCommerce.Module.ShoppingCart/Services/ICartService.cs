@@ -1,18 +1,26 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using SimplCommerce.Module.Pricing.Services;
 using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
+using SimplCommerce.Module.ShoppingCart.Models;
 
 namespace SimplCommerce.Module.ShoppingCart.Services
 {
     public interface ICartService
     {
-        Task AddToCart(long userId, long productId, int quantity);
+        Task AddToCart(long customerId, long productId, int quantity);
 
-        Task<CartVm> GetCart(long userId);
+        Task AddToCart(long customerId, long createdById, long productId, int quantity);
 
-        Task<CouponValidationResult> ApplyCoupon(long userId, string couponCode);
+        IQueryable<Cart> GetActiveCart(long customerId);
 
-        Task SaveOrderNote(long userId, string orderNote);
+        IQueryable<Cart> GetActiveCart(long customerId, long createdById);
+
+        Task<CartVm> GetActiveCartDetails(long customerId);
+
+        Task<CartVm> GetActiveCartDetails(long customerId, long createdById);
+
+        Task<CouponValidationResult> ApplyCoupon(long cartId, string couponCode);
 
         Task MigrateCart(long fromUserId, long toUserId);
     }

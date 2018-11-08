@@ -53,7 +53,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
             var hostingDomain = Request.Host.Value;
             var accessToken = await GetAccessToken();
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetCart(currentUser.Id);
+            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
             var regionInfo = new RegionInfo(CultureInfo.CurrentCulture.LCID);
             var experienceProfileId = await CreateExperienceProfile(accessToken);
 
@@ -109,8 +109,8 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
         {
             var accessToken = await GetAccessToken();
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetCart(currentUser.Id);
-            var orderCreateResult = await _orderService.CreateOrder(currentUser, "PaypalExpress", CalculatePaymentFee(cart.OrderTotal), OrderStatus.PendingPayment);
+            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
+            var orderCreateResult = await _orderService.CreateOrder(cart.Id, "PaypalExpress", CalculatePaymentFee(cart.OrderTotal), OrderStatus.PendingPayment);
             if (!orderCreateResult.Success)
             {
                 return BadRequest(orderCreateResult.Error);

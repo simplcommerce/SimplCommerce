@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
@@ -45,7 +46,8 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
             }
             var currentUser = await _workContext.GetCurrentUser();
             var calculatedFee = await CalculateFee();
-            var orderCreateResult = await _orderService.CreateOrder(currentUser, "CashOnDelivery", calculatedFee);
+            var cart = await _cartService.GetActiveCart(currentUser.Id).FirstOrDefaultAsync();
+            var orderCreateResult = await _orderService.CreateOrder(cart.Id, "CashOnDelivery", calculatedFee);
 
             if (!orderCreateResult.Success)
             {
@@ -71,7 +73,7 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
         private async Task<bool> ValidateCoD()
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetCart(currentUser.Id);
+            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
             if (_setting.Value.MinOrderValue.HasValue && _setting.Value.MinOrderValue.Value > cart.OrderTotal)
             {
                 return false;
@@ -88,7 +90,7 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
         private async Task<decimal> CalculateFee()
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetCart(currentUser.Id);
+            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
             var percent = _setting.Value.PaymentFee;
 
             return (cart.OrderTotal / 100) * percent;
