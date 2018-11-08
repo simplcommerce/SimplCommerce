@@ -39,6 +39,17 @@
                 </tr>
             </tbody>
         </table>
+        <div class="order-note-form">
+            <h4>@Localizer["Order note"]</h4>
+            <form>
+                <div class="form-group">
+                    <textarea rows="3" class="form-control" name="orderNote" ng-model="vm.cart.orderNote" placeholder="Enter order note"></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default pull-right" ng-click="vm.saveOrderNote()">Save order note</button>
+                </div>
+            </form>
+        </div>
     </div>
     <div class="col-md-4">
         <div class="order-summary" ng-if="vm.cart.items.length">

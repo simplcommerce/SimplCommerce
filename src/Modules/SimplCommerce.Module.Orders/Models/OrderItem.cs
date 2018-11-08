@@ -1,14 +1,17 @@
-﻿using SimplCommerce.Infrastructure.Models;
+﻿using Newtonsoft.Json;
+using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Catalog.Models;
 
 namespace SimplCommerce.Module.Orders.Models
 {
     public class OrderItem : EntityBase
     {
+        [JsonIgnore]
         public Order Order { get; set; }
 
         public long ProductId { get; set; }
 
+        [JsonIgnore]
         public Product Product { get; set; }
 
         public decimal ProductPrice { get; set; }

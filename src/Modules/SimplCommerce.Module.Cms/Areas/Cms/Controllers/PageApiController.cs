@@ -80,7 +80,8 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                     MetaDescription = model.MetaDescription,
                     Body = model.Body,
                     IsPublished = model.IsPublished,
-                    CreatedBy = currentUser
+                    CreatedBy = currentUser,
+                    LatestUpdatedBy = currentUser
                 };
 
                 await _pageService.Create(page);
@@ -109,8 +110,8 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                 page.MetaDescription = model.MetaDescription;
                 page.Body = model.Body;
                 page.IsPublished = model.IsPublished;
-                page.UpdatedOn = DateTimeOffset.Now;
-                page.UpdatedBy = currentUser;
+                page.LatestUpdatedOn = DateTimeOffset.Now;
+                page.LatestUpdatedBy = currentUser;
 
                 await _pageService.Update(page);
                 return Accepted();

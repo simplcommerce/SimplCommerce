@@ -139,7 +139,7 @@ namespace SimplCommerce.Module.Vendors.Areas.Vendors.Controllers
                 vendor.Email = model.Email;
                 vendor.Description = model.Description;
                 vendor.IsActive = model.IsActive;
-                vendor.UpdatedOn = DateTimeOffset.Now;
+                vendor.LatestUpdatedOn = DateTimeOffset.Now;
 
                 await _vendorService.Update(vendor);
                 return Accepted();

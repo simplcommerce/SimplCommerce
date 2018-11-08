@@ -10,6 +10,7 @@ namespace SimplCommerce.Module.ShoppingCart.Models
         public Cart()
         {
             CreatedOn = DateTimeOffset.Now;
+            LatestUpdatedOn = DateTimeOffset.Now;
             IsActive = true;
         }
 
@@ -19,7 +20,7 @@ namespace SimplCommerce.Module.ShoppingCart.Models
 
         public DateTimeOffset CreatedOn { get; set; }
 
-        public DateTimeOffset? UpdatedOn { get; set; }
+        public DateTimeOffset LatestUpdatedOn { get; set; }
 
         public bool IsActive { get; set; }
 

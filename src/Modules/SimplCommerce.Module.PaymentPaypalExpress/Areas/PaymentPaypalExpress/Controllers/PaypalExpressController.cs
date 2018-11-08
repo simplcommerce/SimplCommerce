@@ -47,6 +47,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
             _httpClientFactory = httpClientFactory;
         }
 
+        [HttpPost("PaypalExpress/CreatePayment")]
         public async Task<ActionResult> CreatePayment()
         {
             var hostingDomain = Request.Host.Value;
@@ -103,6 +104,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
             return BadRequest(responseBody);
         }
 
+        [HttpPost("PaypalExpress/ExecutePayment")]
         public async Task<ActionResult> ExecutePayment(PaymentExecuteVm model)
         {
             var accessToken = await GetAccessToken();

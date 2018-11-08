@@ -77,7 +77,8 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 CouponCode = cart.CouponCode,
                 IsProductPriceIncludeTax = cart.IsProductPriceIncludeTax,
                 TaxAmount = cart.TaxAmount,
-                ShippingAmount = cart.ShippingAmount
+                ShippingAmount = cart.ShippingAmount,
+                OrderNote = cart.OrderNote
             };
 
             cartVm.Items = _cartItemRepository

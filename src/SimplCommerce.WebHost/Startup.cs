@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,8 +47,6 @@ namespace SimplCommerce.WebHost
             services.AddHttpClient();
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient(typeof(IRepositoryWithTypedId<,>), typeof(RepositoryWithTypedId<,>));
-            services.AddMediatR();
-            services.AddScoped<IMediator, SequentialMediator>();
 
             services.AddCustomizedLocalization();
 
@@ -56,6 +55,8 @@ namespace SimplCommerce.WebHost
                 options => { options.ViewLocationExpanders.Add(new ThemeableViewLocationExpander()); });
             services.AddScoped<ITagHelperComponent, LanguageDirectionTagHelperComponent>();
             services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
+            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-Token");
+            services.AddSingleton<AutoValidateAntiforgeryTokenAuthorizationFilter, CookieOnlyAutoValidateAntiforgeryTokenAuthorizationFilter>();
             services.AddCloudscribePagination();
 
             var sp = services.BuildServiceProvider();
@@ -64,6 +65,9 @@ namespace SimplCommerce.WebHost
             {
                 moduleInitializer.ConfigureServices(services);
             }
+
+            services.AddScoped<ServiceFactory>(p => p.GetService);
+            services.AddScoped<IMediator, SequentialMediator>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
