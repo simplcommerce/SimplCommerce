@@ -995,4 +995,5 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-V
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Date', N'Ngày')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Customer Groups', N'Nhóm khách hàng')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Add to Compare', N'Thêm vào để so sánh')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Not available', N'Không có sẵn')
 GO

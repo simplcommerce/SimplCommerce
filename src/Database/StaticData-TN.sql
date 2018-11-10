@@ -213,4 +213,5 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-T
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'Your account', N'الحساب الخاص بك')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'Date', N'تاريخ')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'Add to Compare', N'أضف للمقارنة')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'Not available', N'غير متوفر')
 GO

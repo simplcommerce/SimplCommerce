@@ -213,4 +213,5 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-E
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'Your account', N'Tu cuenta')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'Date', N'Fecha')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'Add to Compare', N'Añadir a comparar')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'Not available', N'No disponible')
 GO

@@ -213,4 +213,5 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-K
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Your account', N'귀하의 계정')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Date', N'날짜')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Add to Compare', N'비교 목록에 추가')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Not available', N'사용 불가')
 GO
