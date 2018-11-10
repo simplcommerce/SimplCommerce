@@ -68,4 +68,5 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-R
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'You save', N'Вы сэкономили')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'Submit', N'Отправить')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'All Categories', N'все категории')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'Search here...', N'Поищи здесь...')
 GO

@@ -68,4 +68,5 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-U
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-UA', N'You save', N'Ви економите')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-UA', N'Submit', N'Відправити')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-UA', N'All Categories', N'всі категорії')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-UA', N'Search here...', N'Шукати тут ...')
 GO
