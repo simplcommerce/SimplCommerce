@@ -214,4 +214,5 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-T
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Date', N'Tarih')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Add to Compare', N'Karşılaştırmak için ekle')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Not available', N'Müsait değil')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'You save', N'Kazanıyorsun')
 GO
