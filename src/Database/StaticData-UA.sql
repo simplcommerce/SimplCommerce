@@ -63,4 +63,5 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-U
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-UA', N'Brand', N'Бренд')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-UA', N'Sort by:', N'Сортувати за:')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-UA', N'results', N'результати')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-UA', N'Add to Compare', N'Додати до Порівняльний')
 GO

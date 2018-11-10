@@ -212,4 +212,5 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-C
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Create Address', N'创建地址')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Your account', N'您的帐号')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Date', N'日期')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Add to Compare', N'加入对比')
 GO

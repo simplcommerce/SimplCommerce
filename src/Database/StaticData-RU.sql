@@ -63,4 +63,5 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-R
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'Brand', N'Бренд')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'Sort by:', N'Сортировать по:')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'results', N'результаты')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'Add to Compare', N'Добавить к сравнению')
 GO
