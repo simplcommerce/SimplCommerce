@@ -216,4 +216,5 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-T
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Not available', N'Müsait değil')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'You save', N'Kazanıyorsun')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Submit', N'Gönder')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'All Categories', N'Tüm Kategoriler')
 GO

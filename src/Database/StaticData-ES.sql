@@ -216,4 +216,5 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-E
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'Not available', N'No disponible')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'You save', N'Ahorras')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'Submit', N'Enviar')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'All Categories', N'Ttodas las categorias')
 GO

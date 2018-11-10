@@ -6,7 +6,7 @@
     </div>
     <div class="form-group search-category d-none d-lg-block">
         <select name="category" asp-for="Category" asp-items="Model.AvailableCategories" class="form-control">
-            <option value="all">All Categories</option>
+            <option value="all">@Localizer["All Categories"]</option>
         </select>
     </div>
     <button type="submit" class="search-btn"><i class="fa fa-search" aria-hidden="true"></i></button>

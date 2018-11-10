@@ -216,4 +216,5 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-K
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Not available', N'사용 불가')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'You save', N'너는 구한다.')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Submit', N'제출')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'All Categories', N'모든 카테고리')
 GO
