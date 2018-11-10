@@ -58,6 +58,26 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             _workContext = workContext;
         }
 
+        [HttpGet("quick-search")]
+        public async Task<IActionResult> QuickSearch(string name)
+        {
+            var query = _productRepository.Query()
+                .Where(x => !x.IsDeleted && !x.HasOptions && x.IsAllowToOrder);
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                query = query.Where(x => x.Name.Contains(name));
+            }
+
+            var products = await query.Take(5).Select(x => new
+            {
+                x.Id,
+                x.Name
+            }).ToListAsync();
+
+            return Ok(products);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(long id)
         {

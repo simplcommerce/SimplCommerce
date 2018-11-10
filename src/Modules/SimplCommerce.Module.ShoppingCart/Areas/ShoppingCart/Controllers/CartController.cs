@@ -21,7 +21,6 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         private readonly IWorkContext _workContext;
 
         public CartController(
-            UserManager<User> userManager,
             IRepository<CartItem> cartItemRepository,
             ICartService cartService,
             IMediaService mediaService,

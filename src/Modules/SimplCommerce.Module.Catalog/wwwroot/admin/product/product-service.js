@@ -7,6 +7,7 @@
     /* @ngInject */
     function productService($http, Upload) {
         var service = {
+            quickSearchProducts: quickSearchProducts,
             getProducts: getProducts,
             createProduct: createProduct,
             editProduct: editProduct,
@@ -21,6 +22,10 @@
             getDefaultTaxClass: getDefaultTaxClass
         };
         return service;
+
+        function quickSearchProducts(name) {
+            return $http.get('api/products/quick-search?name=' + name);
+        }
 
         function getProduct(id) {
             return $http.get('api/products/' + id);

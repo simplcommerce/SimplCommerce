@@ -14,7 +14,9 @@
             changeOrderStatus: changeOrderStatus,
             getOrderHistory: getOrderHistory,
             getOrdersExport: getOrdersExport,
-            getOrderLinesExport: getOrderLinesExport
+            getOrderLinesExport: getOrderLinesExport,
+            getCart: getCart,
+            addCartItem: addCartItem
         };
         return service;
 
@@ -78,6 +80,14 @@
                 window.URL.revokeObjectURL(objectUrl);
                 document.body.removeChild(a);
             }
+        }
+
+        function getCart(customerId) {
+            return $http.get('api/customer/' + customerId + '/cart');
+        }
+
+        function addCartItem(customerId, cartItem) {
+            return $http.post('api/customer/' + customerId + '/add-cart-item', cartItem);
         }
     }
 })();
