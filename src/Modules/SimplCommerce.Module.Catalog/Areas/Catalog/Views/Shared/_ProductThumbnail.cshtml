@@ -27,7 +27,7 @@
                 @if (Model.ReviewsCount > 0)
                 {
                     <li class="product-review-list">
-                        <span>(@Model.ReviewsCount reviews)</span>
+                        <span>(@Model.ReviewsCount @Localizer["reviews"])</span>
                     </li>
                 }
             </ul>

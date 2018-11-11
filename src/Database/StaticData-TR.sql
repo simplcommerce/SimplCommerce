@@ -212,4 +212,10 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-T
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Create Address', N'Adres Oluştur')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Your account', N'Hesabınız')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Date', N'Tarih')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Add to Compare', N'Karşılaştırmak için ekle')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Not available', N'Müsait değil')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'You save', N'Kazanıyorsun')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Submit', N'Gönder')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'All Categories', N'Tüm Kategoriler')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Search here...', N'Burada ara...')
 GO

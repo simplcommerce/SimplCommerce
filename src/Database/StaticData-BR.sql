@@ -63,4 +63,10 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-B
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Brand', N'Marca')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Sort by:', N'Ordenar por:')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'results', N'resultados')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Add to Compare', N'Adicionar para comparar')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Not available', N'Não disponível')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'You save', N'Você salva')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Submit', N'Enviar')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'All Categories', N'Todas as categorias')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Search here...', N'Procure aqui...')
 GO

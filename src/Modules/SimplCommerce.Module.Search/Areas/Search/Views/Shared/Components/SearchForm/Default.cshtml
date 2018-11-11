@@ -2,11 +2,11 @@
 
 <form class="form-inline" method="get" action="~/search">
     <div class="form-group search-input">
-        <input type="text" name="query" asp-for="Query" class="form-control" placeholder="Search here...">
+        <input type="text" name="query" asp-for="Query" class="form-control" placeholder="@Localizer["Search here..."]">
     </div>
     <div class="form-group search-category d-none d-lg-block">
         <select name="category" asp-for="Category" asp-items="Model.AvailableCategories" class="form-control">
-            <option value="all">All Categories</option>
+            <option value="all">@Localizer["All Categories"]</option>
         </select>
     </div>
     <button type="submit" class="search-btn"><i class="fa fa-search" aria-hidden="true"></i></button>
