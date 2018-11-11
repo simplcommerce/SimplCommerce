@@ -83,7 +83,7 @@
                                 if (variant.CalculatedProductPrice.PercentOfSaving > 0)
                                 {
                                     <p class="product-price-regular">@variant.CalculatedProductPrice.OldPrice.Value.ToString("C")</p>
-                                    <p class="product-price-saving">You save (@(variant.CalculatedProductPrice.PercentOfSaving)%)</p>
+                                    <p class="product-price-saving">@Localizer["You save"] (@(variant.CalculatedProductPrice.PercentOfSaving)%)</p>
                                 }
                             }
                         </div>
@@ -117,7 +117,7 @@
                                         </li>
                                         <li class="compare-in">
                                             <i class="fa fa-exchange"></i>
-                                            <a href="#" class="add-to-comparison">Add to Compare</a>
+                                            <a href="#" class="add-to-comparison">@Localizer["Add to Compare"]</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -126,7 +126,7 @@
                     </div>
                 }
                 <div class="product-variation-notavailable collapse">
-                    <span class="label label-danger">Not available</span>
+                    <span class="label label-danger">@Localizer["Not available"]</span>
                 </div>
             }
             else
@@ -142,7 +142,7 @@
                         if (Model.CalculatedProductPrice.PercentOfSaving > 0)
                         {
                             <p class="product-price-regular">@Model.CalculatedProductPrice.OldPrice.Value.ToString("C")</p>
-                            <p class="product-price-saving">You save (@(Model.CalculatedProductPrice.PercentOfSaving)%)</p>
+                            <p class="product-price-saving">@Localizer["You save"] (@(Model.CalculatedProductPrice.PercentOfSaving)%)</p>
                         }
                     }
                 </div>
@@ -176,7 +176,7 @@
                                 </li>
                                 <li class="compare-in">
                                     <i class="fa fa-exchange"></i>
-                                    <a href="#" class="add-to-comparison">Add to Compare</a>
+                                    <a href="#" class="add-to-comparison">@Localizer["Add to Compare"]</a>
                                 </li>
                             </ul>
                         </div>
