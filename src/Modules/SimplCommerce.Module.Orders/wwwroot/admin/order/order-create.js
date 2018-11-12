@@ -15,6 +15,11 @@
         vm.searchedProducts = [];
         vm.isSearchingCustomers = false;
         vm.isSearchingProducts = false;
+        vm.shippingAddress = {};
+
+        vm.countries = [];
+        vm.statesOrProvinces = [];
+        vm.districts = [];
 
         vm.searchCustomers = function () {
             if (vm.customer.fullName.length > 1) {
@@ -73,7 +78,47 @@
             });
         };
 
+        getCountries = function () {
+            orderService.getCountries().then(function (result) {
+                vm.countries = result.data;
+            });
+        };
+
+        getStatesOrProvinces = function (countryId) {
+            orderService.getStatesOrProvinces(countryId).then(function (result) {
+                vm.statesOrProvinces = result.data;
+            });
+        };
+
+        getDistricts = function (stateOrProvinceId) {
+            orderService.getDistricts(stateOrProvinceId).then(function (result) {
+                vm.districts = result.data;
+            });
+        };
+
+        vm.onStateOrProvinceSelected = function (stateOrProvinceId) {
+            getDistricts(stateOrProvinceId);
+            updateTaxAndShippingPrice();
+        };
+
+        vm.onCountrySelected = function (countryId) {
+            vm.statesOrProvinces = [];
+            vm.districts = [];
+            getStatesOrProvinces(countryId);
+        };
+
+        function updateTaxAndShippingPrice() {
+            orderService.updateTaxAndShippingPrice(
+                {
+                    newShippingAddress: vm.shippingAddress
+                }
+            ).then(function (result) {
+
+            });
+        }
+
         function init() {
+            getCountries();
         }
 
         init();

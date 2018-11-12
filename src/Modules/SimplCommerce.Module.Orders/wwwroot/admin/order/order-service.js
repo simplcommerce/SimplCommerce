@@ -16,7 +16,11 @@
             getOrdersExport: getOrdersExport,
             getOrderLinesExport: getOrderLinesExport,
             getCart: getCart,
-            addCartItem: addCartItem
+            addCartItem: addCartItem,
+            getCountries: getCountries,
+            getStatesOrProvinces: getStatesOrProvinces,
+            getDistricts: getDistricts,
+            updateTaxAndShippingPrice: updateTaxAndShippingPrice
         };
         return service;
 
@@ -88,6 +92,22 @@
 
         function addCartItem(customerId, cartItem) {
             return $http.post('api/customer/' + customerId + '/add-cart-item', cartItem);
+        }
+
+        function getCountries() {
+            return $http.get('api/countries');
+        }
+
+        function getStatesOrProvinces(countryId) {
+            return $http.get('api/countries/' + countryId + '/states-provinces');
+        }
+
+        function getDistricts(stateOrProvinceId) {
+            return $http.get('api/states-provinces/' + stateOrProvinceId + '/districts');
+        }
+
+        function updateTaxAndShippingPrice(taxAndShippingPriceRequestVm) {
+            return $http.post('checkout/update-tax-and-shipping-prices', taxAndShippingPriceRequestVm);
         }
     }
 })();

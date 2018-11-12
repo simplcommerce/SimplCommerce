@@ -15,6 +15,7 @@ using SimplCommerce.Module.ShippingPrices.Services;
 using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.Tax.Services;
 using SimplCommerce.Module.Orders.Events;
+using SimplCommerce.Module.ShoppingCart.Services;
 
 namespace SimplCommerce.Module.Orders.Services
 {
@@ -26,6 +27,7 @@ namespace SimplCommerce.Module.Orders.Services
         private readonly IRepository<CartItem> _cartItemRepository;
         private readonly IRepository<OrderItem> _orderItemRepository;
         private readonly ITaxService _taxService;
+        private readonly ICartService _cartService;
         private readonly IShippingPriceService _shippingPriceService;
         private readonly IRepository<UserAddress> _userAddressRepository;
         private readonly IMediator _mediator;
@@ -33,9 +35,11 @@ namespace SimplCommerce.Module.Orders.Services
         public OrderService(IRepository<Order> orderRepository,
             IRepository<Cart> cartRepository,
             ICouponService couponService,
+
             IRepository<CartItem> cartItemRepository,
             IRepository<OrderItem> orderItemRepository,
             ITaxService taxService,
+            ICartService cartService,
             IShippingPriceService shippingPriceService,
             IRepository<UserAddress> userAddressRepository,
             IMediator mediator)
@@ -46,6 +50,7 @@ namespace SimplCommerce.Module.Orders.Services
             _cartItemRepository = cartItemRepository;
             _orderItemRepository = orderItemRepository;
             _taxService = taxService;
+            _cartService = cartService;
             _shippingPriceService = shippingPriceService;
             _userAddressRepository = userAddressRepository;
             _mediator = mediator;
@@ -338,6 +343,62 @@ namespace SimplCommerce.Module.Orders.Services
             }
 
             return taxAmount;
+        }
+
+        public async Task<OrderTaxAndShippingPriceVm> UpdateTaxAndShippingPrices(long cartId, TaxAndShippingPriceRequestVm model)
+        {
+            var cart = await _cartRepository.Query().FirstOrDefaultAsync(x => x.Id == cartId);
+            if (cart == null)
+            {
+                throw new ApplicationException($"Cart id {cartId} not found");
+            }
+
+            Address address;
+            if (model.ExistingShippingAddressId != 0)
+            {
+                address = await _userAddressRepository.Query().Where(x => x.Id == model.ExistingShippingAddressId).Select(x => x.Address).FirstOrDefaultAsync();
+                if (address == null)
+                {
+                    throw new ApplicationException($"Address id {model.ExistingShippingAddressId} not found");
+                }
+            }
+            else
+            {
+                address = new Address
+                {
+                    CountryId = model.NewShippingAddress.CountryId,
+                    StateOrProvinceId = model.NewShippingAddress.StateOrProvinceId,
+                    DistrictId = model.NewShippingAddress.DistrictId,
+                    ZipCode = model.NewShippingAddress.ZipCode,
+                    AddressLine1 = model.NewShippingAddress.AddressLine1,
+                };
+            }
+
+            var orderTaxAndShippingPrice = new OrderTaxAndShippingPriceVm
+            {
+                Cart = await _cartService.GetActiveCartDetails(cart.CustomerId, cart.CreatedById)
+            };
+
+            cart.TaxAmount = orderTaxAndShippingPrice.Cart.TaxAmount = await GetTax(cartId, address.CountryId, address.StateOrProvinceId, address.ZipCode);
+
+            var request = new GetShippingPriceRequest
+            {
+                OrderAmount = orderTaxAndShippingPrice.Cart.OrderTotal,
+                ShippingAddress = address
+            };
+
+            orderTaxAndShippingPrice.ShippingPrices = await _shippingPriceService.GetApplicableShippingPrices(request);
+            var selectedShippingMethod = string.IsNullOrWhiteSpace(model.SelectedShippingMethodName)
+                ? orderTaxAndShippingPrice.ShippingPrices.FirstOrDefault()
+                : orderTaxAndShippingPrice.ShippingPrices.FirstOrDefault(x => x.Name == model.SelectedShippingMethodName);
+            if (selectedShippingMethod != null)
+            {
+                cart.ShippingAmount = orderTaxAndShippingPrice.Cart.ShippingAmount = selectedShippingMethod.Price;
+                cart.ShippingMethod = orderTaxAndShippingPrice.SelectedShippingMethodName = selectedShippingMethod.Name;
+            }
+
+            await _cartRepository.SaveChangesAsync();
+            return orderTaxAndShippingPrice;
         }
 
         private async Task<CouponValidationResult> CheckForDiscountIfAny(Cart cart)
