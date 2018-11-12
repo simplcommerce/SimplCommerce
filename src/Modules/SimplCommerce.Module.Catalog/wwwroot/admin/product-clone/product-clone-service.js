@@ -8,7 +8,7 @@
     function productCloneService($http) {
         var service = {
             getProductName: getProductName,
-            cloneProdcut: cloneProduct
+            cloneProduct: cloneProduct
     };
         return service;
 
@@ -16,7 +16,7 @@
             return $http.get('api/product-clone/' + productId);
         }
         function cloneProduct(productClone) {
-            return $http.post('api/product-clone/' + productId, productClone);
+            return $http.post('api/product-clone', productClone);
         }
 
     }

@@ -16,7 +16,7 @@
 
             promise
                 .then(function (result) {
-                    $state.go('product-clone');
+                    $state.go('product');
                 })
                 .catch(function (response) {
                     var error = response.data;
