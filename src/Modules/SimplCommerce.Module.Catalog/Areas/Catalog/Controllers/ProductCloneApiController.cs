@@ -1,9 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels;
 using SimplCommerce.Module.Catalog.Models;
+using SimplCommerce.Module.Core.Extensions;
 
 namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 {
@@ -13,10 +16,12 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     public class ProductCloneApiController : Controller
     {
         private readonly IRepository<Product> _productRepository;
+        private readonly IWorkContext _workContext;
 
-        public ProductCloneApiController(IRepository<Product> productRepository)
+        public ProductCloneApiController(IRepository<Product> productRepository, IWorkContext workContext)
         {
             _productRepository = productRepository;
+            _workContext = workContext;
         }
 
         [HttpGet("{id}")]
@@ -34,14 +39,25 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public IActionResult Post([FromBody] ProductCloneFormVm model)
+        public async Task<IActionResult> Post([FromBody] ProductCloneFormVm model)
         {
             if (ModelState.IsValid)
             {
+                var currentUser = await _workContext.GetCurrentUser();
                 var producctId = model.Id;
                 var productNmae = model.Name;
-
-                //Save into database
+                var product = _productRepository.Query().FirstOrDefault(x => x.Id == producctId);
+                if (product != null)
+                {
+                    var newProduct = product.Clone();
+                    newProduct.Name = productNmae;
+                    newProduct.CreatedById = currentUser.Id;
+                    newProduct.LatestUpdatedById = currentUser.Id;
+                    newProduct.CreatedOn = DateTimeOffset.Now;
+                    newProduct.LatestUpdatedOn = DateTimeOffset.Now;
+                    _productRepository.Add(newProduct);
+                    _productRepository.SaveChanges();
+                }
 
                 return Ok();
             }
