@@ -100,7 +100,7 @@
         }
 
         function getStatesOrProvinces(countryId) {
-            return $http.get('api/countries/' + countryId + '/states-provinces');
+            return $http.get('/api/country-states-provinces/' + countryId);
         }
 
         function getDistricts(stateOrProvinceId) {

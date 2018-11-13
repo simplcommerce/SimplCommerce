@@ -18,9 +18,9 @@
         vm.shippingAddress = {};
 
         vm.countries = [];
-        vm.statesOrProvinces = [];
+        vm.countryStatesOrProvinces = { statesOrProvinces : [] };
         vm.districts = [];
-        vm.shippingOptions = []
+        vm.shippingOptions = [];
 
         vm.searchCustomers = function () {
             if (vm.customer.fullName.length > 1) {
@@ -87,7 +87,7 @@
 
         getStatesOrProvinces = function (countryId) {
             orderService.getStatesOrProvinces(countryId).then(function (result) {
-                vm.statesOrProvinces = result.data;
+                vm.countryStatesOrProvinces = result.data;
             });
         };
 
@@ -103,8 +103,9 @@
         };
 
         vm.onCountrySelected = function (countryId) {
-            vm.statesOrProvinces = [];
+            vm.countryStatesOrProvinces = { statesOrProvinces : [] };
             vm.districts = [];
+            vm.shippingOptions = [];
             getStatesOrProvinces(countryId);
         };
 
