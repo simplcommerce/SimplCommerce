@@ -249,7 +249,7 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<long?>("BrandId");
 
-                    b.Property<long?>("CreatedById");
+                    b.Property<long>("CreatedById");
 
                     b.Property<DateTimeOffset>("CreatedOn");
 
@@ -273,6 +273,10 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<bool>("IsPublished");
 
                     b.Property<bool>("IsVisibleIndividually");
+
+                    b.Property<long>("LatestUpdatedById");
+
+                    b.Property<DateTimeOffset>("LatestUpdatedOn");
 
                     b.Property<string>("MetaDescription");
 
@@ -322,10 +326,6 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<long?>("ThumbnailImageId");
 
-                    b.Property<long?>("UpdatedById");
-
-                    b.Property<DateTimeOffset>("UpdatedOn");
-
                     b.Property<long?>("VendorId");
 
                     b.HasKey("Id");
@@ -334,11 +334,11 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.HasIndex("CreatedById");
 
+                    b.HasIndex("LatestUpdatedById");
+
                     b.HasIndex("TaxClassId");
 
                     b.HasIndex("ThumbnailImageId");
-
-                    b.HasIndex("UpdatedById");
 
                     b.ToTable("Catalog_Product");
                 });
@@ -537,7 +537,7 @@ namespace SimplCommerce.WebHost.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("CreatedById");
+                    b.Property<long>("CreatedById");
 
                     b.Property<DateTimeOffset>("CreatedOn");
 
@@ -651,13 +651,17 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Body");
 
-                    b.Property<long?>("CreatedById");
+                    b.Property<long>("CreatedById");
 
                     b.Property<DateTimeOffset>("CreatedOn");
 
                     b.Property<bool>("IsDeleted");
 
                     b.Property<bool>("IsPublished");
+
+                    b.Property<long>("LatestUpdatedById");
+
+                    b.Property<DateTimeOffset>("LatestUpdatedOn");
 
                     b.Property<string>("MetaDescription");
 
@@ -675,15 +679,11 @@ namespace SimplCommerce.WebHost.Migrations
                         .IsRequired()
                         .HasMaxLength(450);
 
-                    b.Property<long?>("UpdatedById");
-
-                    b.Property<DateTimeOffset>("UpdatedOn");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
 
-                    b.HasIndex("UpdatedById");
+                    b.HasIndex("LatestUpdatedById");
 
                     b.ToTable("Cms_Page");
                 });
@@ -881,11 +881,11 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<bool>("IsDeleted");
 
+                    b.Property<DateTimeOffset>("LatestUpdatedOn");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(450);
-
-                    b.Property<DateTimeOffset>("UpdatedOn");
 
                     b.HasKey("Id");
 
@@ -1101,6 +1101,8 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<bool>("IsDeleted");
 
+                    b.Property<DateTimeOffset>("LatestUpdatedOn");
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
@@ -1122,8 +1124,6 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<DateTimeOffset>("UpdatedOn");
 
                     b.Property<Guid>("UserGuid");
 
@@ -1151,8 +1151,8 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("Core_User");
 
                     b.HasData(
-                        new { Id = 2L, AccessFailedCount = 0, ConcurrencyStamp = "101cd6ae-a8ef-4a37-97fd-04ac2dd630e4", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 189, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), Email = "system@simplcommerce.com", EmailConfirmed = false, FullName = "System User", IsDeleted = true, LockoutEnabled = false, NormalizedEmail = "SYSTEM@SIMPLCOMMERCE.COM", NormalizedUserName = "SYSTEM@SIMPLCOMMERCE.COM", PasswordHash = "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", PhoneNumberConfirmed = false, SecurityStamp = "a9565acb-cee6-425f-9833-419a793f5fba", TwoFactorEnabled = false, UpdatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 189, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), UserGuid = new Guid("5f72f83b-7436-4221-869c-1b69b2e23aae"), UserName = "system@simplcommerce.com" },
-                        new { Id = 10L, AccessFailedCount = 0, ConcurrencyStamp = "c83afcbc-312c-4589-bad7-8686bd4754c0", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 190, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), Email = "admin@simplcommerce.com", EmailConfirmed = false, FullName = "Shop Admin", IsDeleted = false, LockoutEnabled = false, NormalizedEmail = "ADMIN@SIMPLCOMMERCE.COM", NormalizedUserName = "ADMIN@SIMPLCOMMERCE.COM", PasswordHash = "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", PhoneNumberConfirmed = false, SecurityStamp = "d6847450-47f0-4c7a-9fed-0c66234bf61f", TwoFactorEnabled = false, UpdatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 190, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), UserGuid = new Guid("ed8210c3-24b0-4823-a744-80078cf12eb4"), UserName = "admin@simplcommerce.com" }
+                        new { Id = 2L, AccessFailedCount = 0, ConcurrencyStamp = "101cd6ae-a8ef-4a37-97fd-04ac2dd630e4", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 189, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), Email = "system@simplcommerce.com", EmailConfirmed = false, FullName = "System User", IsDeleted = true, LatestUpdatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 189, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), LockoutEnabled = false, NormalizedEmail = "SYSTEM@SIMPLCOMMERCE.COM", NormalizedUserName = "SYSTEM@SIMPLCOMMERCE.COM", PasswordHash = "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", PhoneNumberConfirmed = false, SecurityStamp = "a9565acb-cee6-425f-9833-419a793f5fba", TwoFactorEnabled = false, UserGuid = new Guid("5f72f83b-7436-4221-869c-1b69b2e23aae"), UserName = "system@simplcommerce.com" },
+                        new { Id = 10L, AccessFailedCount = 0, ConcurrencyStamp = "c83afcbc-312c-4589-bad7-8686bd4754c0", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 190, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), Email = "admin@simplcommerce.com", EmailConfirmed = false, FullName = "Shop Admin", IsDeleted = false, LatestUpdatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 190, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), LockoutEnabled = false, NormalizedEmail = "ADMIN@SIMPLCOMMERCE.COM", NormalizedUserName = "ADMIN@SIMPLCOMMERCE.COM", PasswordHash = "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", PhoneNumberConfirmed = false, SecurityStamp = "d6847450-47f0-4c7a-9fed-0c66234bf61f", TwoFactorEnabled = false, UserGuid = new Guid("ed8210c3-24b0-4823-a744-80078cf12eb4"), UserName = "admin@simplcommerce.com" }
                     );
                 });
 
@@ -1212,6 +1212,8 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<bool>("IsDeleted");
 
+                    b.Property<DateTimeOffset>("LatestUpdatedOn");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(450);
@@ -1219,8 +1221,6 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<string>("Slug")
                         .IsRequired()
                         .HasMaxLength(450);
-
-                    b.Property<DateTimeOffset>("UpdatedOn");
 
                     b.HasKey("Id");
 
@@ -1275,13 +1275,13 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("HtmlData");
 
+                    b.Property<DateTimeOffset>("LatestUpdatedOn");
+
                     b.Property<string>("Name");
 
                     b.Property<DateTimeOffset?>("PublishEnd");
 
                     b.Property<DateTimeOffset?>("PublishStart");
-
-                    b.Property<DateTimeOffset>("UpdatedOn");
 
                     b.Property<string>("WidgetId");
 
@@ -1358,11 +1358,15 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<long>("ProductId");
 
-                    b.Property<long>("WareHouseId");
+                    b.Property<long>("WarehouseId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("WarehouseId");
 
                     b.ToTable("Inventory_StockHistory");
                 });
@@ -1433,7 +1437,7 @@ namespace SimplCommerce.WebHost.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("CreatedById");
+                    b.Property<long>("CreatedById");
 
                     b.Property<DateTimeOffset>("CreatedOn");
 
@@ -1442,6 +1446,10 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<bool>("IsDeleted");
 
                     b.Property<bool>("IsPublished");
+
+                    b.Property<long>("LatestUpdatedById");
+
+                    b.Property<DateTimeOffset>("LatestUpdatedOn");
 
                     b.Property<string>("MetaDescription");
 
@@ -1463,17 +1471,13 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<long?>("ThumbnailImageId");
 
-                    b.Property<long?>("UpdatedById");
-
-                    b.Property<DateTimeOffset>("UpdatedOn");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
 
-                    b.HasIndex("ThumbnailImageId");
+                    b.HasIndex("LatestUpdatedById");
 
-                    b.HasIndex("UpdatedById");
+                    b.HasIndex("ThumbnailImageId");
 
                     b.ToTable("News_NewsItem");
                 });
@@ -1507,9 +1511,17 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<DateTimeOffset>("CreatedOn");
 
+                    b.Property<long>("CustomerId");
+
                     b.Property<decimal>("DiscountAmount");
 
                     b.Property<bool>("IsMasterOrder");
+
+                    b.Property<long>("LatestUpdatedById");
+
+                    b.Property<DateTimeOffset>("LatestUpdatedOn");
+
+                    b.Property<string>("OrderNote");
 
                     b.Property<int>("OrderStatus");
 
@@ -1533,8 +1545,6 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<decimal>("TaxAmount");
 
-                    b.Property<DateTimeOffset>("UpdatedOn");
-
                     b.Property<long?>("VendorId");
 
                     b.HasKey("Id");
@@ -1542,6 +1552,10 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasIndex("BillingAddressId");
 
                     b.HasIndex("CreatedById");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("LatestUpdatedById");
 
                     b.HasIndex("ParentId");
 
@@ -1657,6 +1671,8 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("GatewayTransactionId");
 
+                    b.Property<DateTimeOffset>("LatestUpdatedOn");
+
                     b.Property<long>("OrderId");
 
                     b.Property<decimal>("PaymentFee");
@@ -1664,8 +1680,6 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<string>("PaymentMethod");
 
                     b.Property<int>("Status");
-
-                    b.Property<DateTimeOffset?>("UpdatedOn");
 
                     b.HasKey("Id");
 
@@ -1993,12 +2007,12 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<DateTimeOffset>("CreatedOn");
 
+                    b.Property<DateTimeOffset>("LatestUpdatedOn");
+
                     b.Property<long>("OrderId");
 
                     b.Property<string>("TrackingNumber")
                         .HasMaxLength(450);
-
-                    b.Property<DateTimeOffset>("UpdatedOn");
 
                     b.Property<long?>("VendorId");
 
@@ -2115,11 +2129,19 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("CouponRuleName");
 
+                    b.Property<long>("CreatedById");
+
                     b.Property<DateTimeOffset>("CreatedOn");
+
+                    b.Property<long>("CustomerId");
 
                     b.Property<bool>("IsActive");
 
                     b.Property<bool>("IsProductPriceIncludeTax");
+
+                    b.Property<DateTimeOffset>("LatestUpdatedOn");
+
+                    b.Property<string>("OrderNote");
 
                     b.Property<decimal?>("ShippingAmount");
 
@@ -2129,13 +2151,11 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<decimal?>("TaxAmount");
 
-                    b.Property<DateTimeOffset?>("UpdatedOn");
-
-                    b.Property<long>("UserId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("ShoppingCart_Cart");
                 });
@@ -2217,9 +2237,9 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<DateTimeOffset>("CreatedOn");
 
-                    b.Property<string>("SharingCode");
+                    b.Property<DateTimeOffset>("LatestUpdatedOn");
 
-                    b.Property<DateTimeOffset>("UpdatedOn");
+                    b.Property<string>("SharingCode");
 
                     b.Property<long>("UserId");
 
@@ -2240,11 +2260,11 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<DateTimeOffset>("LatestUpdatedOn");
+
                     b.Property<long>("ProductId");
 
                     b.Property<int>("Quantity");
-
-                    b.Property<DateTimeOffset>("UpdatedOn");
 
                     b.Property<long>("WishListId");
 
@@ -2330,6 +2350,11 @@ namespace SimplCommerce.WebHost.Migrations
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("SimplCommerce.Module.Core.Models.User", "LatestUpdatedBy")
+                        .WithMany()
+                        .HasForeignKey("LatestUpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("SimplCommerce.Module.Tax.Models.TaxClass", "TaxClass")
                         .WithMany()
                         .HasForeignKey("TaxClassId")
@@ -2338,11 +2363,6 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasOne("SimplCommerce.Module.Core.Models.Media", "ThumbnailImage")
                         .WithMany()
                         .HasForeignKey("ThumbnailImageId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("SimplCommerce.Module.Core.Models.User", "UpdatedBy")
-                        .WithMany()
-                        .HasForeignKey("UpdatedById")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -2483,9 +2503,9 @@ namespace SimplCommerce.WebHost.Migrations
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("SimplCommerce.Module.Core.Models.User", "UpdatedBy")
+                    b.HasOne("SimplCommerce.Module.Core.Models.User", "LatestUpdatedBy")
                         .WithMany()
-                        .HasForeignKey("UpdatedById")
+                        .HasForeignKey("LatestUpdatedById")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -2641,6 +2661,16 @@ namespace SimplCommerce.WebHost.Migrations
                         .WithMany()
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SimplCommerce.Module.Catalog.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SimplCommerce.Module.Inventory.Models.Warehouse", "Warehouse")
+                        .WithMany()
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Inventory.Models.Warehouse", b =>
@@ -2663,14 +2693,14 @@ namespace SimplCommerce.WebHost.Migrations
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("SimplCommerce.Module.Core.Models.User", "LatestUpdatedBy")
+                        .WithMany()
+                        .HasForeignKey("LatestUpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("SimplCommerce.Module.Core.Models.Media", "ThumbnailImage")
                         .WithMany()
                         .HasForeignKey("ThumbnailImageId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("SimplCommerce.Module.Core.Models.User", "UpdatedBy")
-                        .WithMany()
-                        .HasForeignKey("UpdatedById")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -2697,6 +2727,16 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasOne("SimplCommerce.Module.Core.Models.User", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SimplCommerce.Module.Core.Models.User", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SimplCommerce.Module.Core.Models.User", "LatestUpdatedBy")
+                        .WithMany()
+                        .HasForeignKey("LatestUpdatedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("SimplCommerce.Module.Orders.Models.Order", "Parent")
@@ -2925,9 +2965,14 @@ namespace SimplCommerce.WebHost.Migrations
 
             modelBuilder.Entity("SimplCommerce.Module.ShoppingCart.Models.Cart", b =>
                 {
-                    b.HasOne("SimplCommerce.Module.Core.Models.User", "User")
+                    b.HasOne("SimplCommerce.Module.Core.Models.User", "CreatedBy")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SimplCommerce.Module.Core.Models.User", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

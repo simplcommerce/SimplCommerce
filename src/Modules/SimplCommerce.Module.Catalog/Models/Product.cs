@@ -128,7 +128,6 @@ namespace SimplCommerce.Module.Catalog.Models
             product.Description = Description;
             product.Specification = Specification;
             product.IsPublished = true;
-            product.PublishedOn = DateTimeOffset.Now;
             product.Price = Price;
             product.OldPrice = OldPrice;
             product.IsAllowToOrder = IsAllowToOrder;

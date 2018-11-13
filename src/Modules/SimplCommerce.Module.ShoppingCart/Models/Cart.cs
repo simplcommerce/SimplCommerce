@@ -10,16 +10,21 @@ namespace SimplCommerce.Module.ShoppingCart.Models
         public Cart()
         {
             CreatedOn = DateTimeOffset.Now;
+            LatestUpdatedOn = DateTimeOffset.Now;
             IsActive = true;
         }
 
-        public long UserId { get; set; }
+        public long CustomerId { get; set; }
 
-        public User User { get; set; }
+        public User Customer { get; set; }
+
+        public long CreatedById { get; set; }
+
+        public User CreatedBy { get; set; }
 
         public DateTimeOffset CreatedOn { get; set; }
 
-        public DateTimeOffset? UpdatedOn { get; set; }
+        public DateTimeOffset LatestUpdatedOn { get; set; }
 
         public bool IsActive { get; set; }
 
@@ -41,5 +46,7 @@ namespace SimplCommerce.Module.ShoppingCart.Models
         /// Json serialized of shipping form
         /// </summary>
         public string ShippingData { get; set; }
+
+        public string OrderNote { get; set; }
     }
 }

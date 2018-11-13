@@ -20,7 +20,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Components
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var curentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetCart(curentUser.Id);
+            var cart = await _cartService.GetActiveCartDetails(curentUser.Id);
 
             return View(this.GetViewPath(), cart);
         }

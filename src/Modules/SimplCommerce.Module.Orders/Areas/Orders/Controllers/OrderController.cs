@@ -32,7 +32,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
             var user = await _workContext.GetCurrentUser();
             var model = await _orderRepository
                 .Query()
-                .Where(x => x.CreatedById == user.Id && x.ParentId == null)
+                .Where(x => x.CustomerId == user.Id && x.ParentId == null)
                 .Select(x => new OrderHistoryListItem
                 {
                     Id = x.Id,

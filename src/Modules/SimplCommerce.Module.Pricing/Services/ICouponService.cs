@@ -4,8 +4,8 @@ namespace SimplCommerce.Module.Pricing.Services
 {
     public interface ICouponService
     {
-        Task<CouponValidationResult> Validate(string couponCode, CartInfoForCoupon cart);
+        Task<CouponValidationResult> Validate(long customerId, string couponCode, CartInfoForCoupon cart);
 
-        void AddCouponUsage(long userId, long orderId, CouponValidationResult couponValidationResult);
+        void AddCouponUsage(long customerId, long orderId, CouponValidationResult couponValidationResult);
     }
 }

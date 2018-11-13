@@ -73,9 +73,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 return View(model);
             }
 
-            var cart = await _cartRepository
-               .Query()
-               .Where(x => x.UserId == currentUser.Id && x.IsActive).FirstOrDefaultAsync();
+            var cart = await _cartService.GetActiveCart(currentUser.Id).FirstOrDefaultAsync();
 
             if (cart == null)
             {
@@ -114,7 +112,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
 
             var orderTaxAndShippingPrice = new OrderTaxAndShippingPriceVm
             {
-                Cart = await _cartService.GetCart(currentUser.Id)
+                Cart = await _cartService.GetActiveCartDetails(currentUser.Id)
             };
 
             var cart = await _cartRepository.Query().Where(x => x.Id == orderTaxAndShippingPrice.Cart.Id).FirstOrDefaultAsync();

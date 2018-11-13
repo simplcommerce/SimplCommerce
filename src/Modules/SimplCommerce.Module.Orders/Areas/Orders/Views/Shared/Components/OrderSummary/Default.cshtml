@@ -1,6 +1,6 @@
 ﻿@model SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels.CartVm
 
-<h3>@Localizer["Order summary"] (@Model.Items.Count() @Localizer["products"]) </h3>
+<h3>@Localizer["Order summary"] </h3>
 <table class="table">
     <tr>
         <th>@Localizer["Product"]</th>
@@ -27,6 +27,10 @@
         </tr>
     }
     <tr>
+        <td>@Localizer["Order note"]</td>
+        <td colspan="2" class="text-right">@Model.OrderNote</td>
+    </tr>
+    <tr>
         <td>@Localizer["Subtotal"]</td>
         <td colspan="2" class="text-right">@Model.SubTotal.ToString("C")<input type="hidden" id="orderSubtotal" value="@Model.SubTotal" /></td>
     </tr>
@@ -36,17 +40,23 @@
     </tr>
     @if (!Model.IsProductPriceIncludeTax)
     {
-    <tr>
-        <td>Tax</td>
-        <td colspan="2" id="orderSummaryTax" class="text-right">@Model.TaxAmountString</td>
-    </tr>
+        <tr>
+            <td>Tax</td>
+            <td colspan="2" id="orderSummaryTax" class="text-right">@Model.TaxAmountString</td>
+        </tr>
     }
     <tr>
         <td>@Localizer["Discount"]</td>
         <td colspan="2" class="text-right">@Model.Discount.ToString("C")</td>
     </tr>
     <tr>
-        <td><strong>@Localizer["Order Total"]</strong>@if (Model.IsProductPriceIncludeTax) { <span> (@Localizer["VAT included"])</span>}</td>
+        <td>
+            <strong>@Localizer["Order Total"]</strong>
+            @if (Model.IsProductPriceIncludeTax)
+            {
+                <span> (@Localizer["VAT included"])</span>
+            }
+        </td>
         <td colspan="2" class="text-right"><strong id="orderTotal">@Model.OrderTotal.ToString("C")</strong></td>
     </tr>
 </table>
