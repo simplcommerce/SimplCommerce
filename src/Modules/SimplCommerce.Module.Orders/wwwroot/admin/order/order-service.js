@@ -20,7 +20,8 @@
             getCountries: getCountries,
             getStatesOrProvinces: getStatesOrProvinces,
             getDistricts: getDistricts,
-            updateTaxAndShippingPrice: updateTaxAndShippingPrice
+            updateTaxAndShippingPrice: updateTaxAndShippingPrice,
+            createOrder: createOrder
         };
         return service;
 
@@ -106,8 +107,12 @@
             return $http.get('api/states-provinces/' + stateOrProvinceId + '/districts');
         }
 
-        function updateTaxAndShippingPrice(taxAndShippingPriceRequestVm) {
-            return $http.post('checkout/update-tax-and-shipping-prices', taxAndShippingPriceRequestVm);
+        function updateTaxAndShippingPrice(cartId, taxAndShippingPriceRequestVm) {
+            return $http.post('api/cart/' + cartId + '/update-tax-and-shipping-prices', taxAndShippingPriceRequestVm);
+        }
+
+        function createOrder(cartId, orderInfo) {
+            return $http.post('api/cart/' + cartId + '/order', orderInfo);
         }
     }
 })();

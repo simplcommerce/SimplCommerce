@@ -132,9 +132,16 @@
                 </div>
             </div>
             <h4>Shipping options</h4>
+            <div>
+                <div class="radio" ng-repeat="option in vm.shippingOptions">
+                    <label>
+                        <input type="radio" ng-model="vm.selectedShippingOption" value="{{option.name}}" /> <strong> {{option.name}} ({{option.priceText}})</strong>
+                    </label>
+                </div>
+            </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> {{::vm.translate.get('Create Order')}}</button>
+                    <button class="btn btn-primary" ng-disabled="!vm.selectedShippingOption" ng-click="vm.createOrder()"><span class="glyphicon glyphicon-ok"></span> {{::vm.translate.get('Create Order')}}</button>
                     <button ui-sref="orders" class="btn btn-default"> {{::vm.translate.get('Cancel')}}</button>
                 </div>
             </div>

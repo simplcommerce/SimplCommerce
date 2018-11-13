@@ -20,6 +20,7 @@
         vm.countries = [];
         vm.statesOrProvinces = [];
         vm.districts = [];
+        vm.shippingOptions = []
 
         vm.searchCustomers = function () {
             if (vm.customer.fullName.length > 1) {
@@ -109,13 +110,34 @@
 
         function updateTaxAndShippingPrice() {
             orderService.updateTaxAndShippingPrice(
+                vm.cart.id,
                 {
                     newShippingAddress: vm.shippingAddress
                 }
             ).then(function (result) {
-
+                vm.shippingOptions = result.data.shippingPrices;
+                if (vm.shippingOptions.length === 0) {
+                    toastr.error("Sorry, this items can't be shipped to your selected address");
+                } else {
+                    vm.selectedShippingOption = vm.shippingOptions[0].name;
+                }
             });
         }
+
+        vm.createOrder = function createOrder() {
+            orderService.createOrder(
+                vm.cart.id,
+                {
+                    shippingMethod: vm.selectedShippingOption,
+                    newAddressForm : vm.shippingAddress
+                }
+            ).then(function (result) {
+                toastr.success("Order created");
+                $state.go('order-detail', { id: result.data.id });
+            }).catch(function (response) {
+                toastr.error(response.data);
+            });
+        };
 
         function init() {
             getCountries();
