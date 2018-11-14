@@ -72,8 +72,7 @@
                                 <input type="radio" ng-change="vm.updateTaxAndShippingPrice()" name="shippingAddressId" value="{{address.userAddressId}}" ng-model="vm.selectedShippingAddressId">
                                 <strong>{{address.contactName}} </strong><br />
                                 {{address.addressLine1}} <br />
-                                <!--{{if (address.isDistrictEnabled) { address.districtName } }}-->
-                                {{address.stateOrProvinceName}} <br />
+                                {{address.addressLine2}} <br />
                                 Phone: {{address.phone}}
                             </label>
                         </div>
