@@ -16,6 +16,7 @@
         vm.isSearchingCustomers = false;
         vm.isSearchingProducts = false;
         vm.shippingAddress = {};
+        vm.customerAddress = { addresses: [] };
 
         vm.countries = [];
         vm.countryStatesOrProvinces = { statesOrProvinces : [] };
@@ -44,6 +45,7 @@
             vm.customer = customer;
             vm.isSearchingCustomers = false;
             vm.getCart();
+            getCustomerAddresses(customer.id);
         };
 
         vm.selectProduct = function (product) {
@@ -79,19 +81,25 @@
             });
         };
 
-        getCountries = function () {
+        function getCustomerAddresses(customerId) {
+            orderService.getCustomerAddresses(customerId).then(function (result) {
+                vm.customerAddress = result.data;
+            });
+        }
+
+        function getCountries () {
             orderService.getCountries().then(function (result) {
                 vm.countries = result.data;
             });
-        };
+        }
 
-        getStatesOrProvinces = function (countryId) {
+        function getStatesOrProvinces (countryId) {
             orderService.getStatesOrProvinces(countryId).then(function (result) {
                 vm.countryStatesOrProvinces = result.data;
             });
-        };
+        }
 
-        getDistricts = function (stateOrProvinceId) {
+        function getDistricts (stateOrProvinceId) {
             orderService.getDistricts(stateOrProvinceId).then(function (result) {
                 vm.districts = result.data;
             });

@@ -21,7 +21,8 @@
             getStatesOrProvinces: getStatesOrProvinces,
             getDistricts: getDistricts,
             updateTaxAndShippingPrice: updateTaxAndShippingPrice,
-            createOrder: createOrder
+            createOrder: createOrder,
+            getCustomerAddresses: getCustomerAddresses
         };
         return service;
 
@@ -113,6 +114,10 @@
 
         function createOrder(cartId, orderInfo) {
             return $http.post('api/cart/' + cartId + '/order', orderInfo);
+        }
+
+        function getCustomerAddresses(customerId) {
+            return $http.get('api/users/' + customerId +'/addresses');
         }
     }
 })();
