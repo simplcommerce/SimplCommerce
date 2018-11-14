@@ -16,6 +16,7 @@
         vm.isSearchingCustomers = false;
         vm.isSearchingProducts = false;
         vm.shippingAddress = {};
+        vm.selectedShippingAddressId = 0;
         vm.customerAddress = { addresses: [] };
 
         vm.countries = [];
@@ -45,7 +46,6 @@
             vm.customer = customer;
             vm.isSearchingCustomers = false;
             vm.getCart();
-            getCustomerAddresses(customer.id);
         };
 
         vm.selectProduct = function (product) {
@@ -78,12 +78,17 @@
         vm.getCart = function () {
             orderService.getCart(vm.customer.id).then(function (result) {
                 vm.cart = result.data;
+                getCustomerAddresses(vm.customer.id);
             });
         };
 
         function getCustomerAddresses(customerId) {
             orderService.getCustomerAddresses(customerId).then(function (result) {
                 vm.customerAddress = result.data;
+                if (vm.customerAddress.defaultShippingAddressId) {
+                    vm.selectedShippingAddressId = vm.customerAddress.defaultShippingAddressId.toString()
+                    vm.updateTaxAndShippingPrice();
+                }
             });
         }
 
@@ -103,11 +108,11 @@
             orderService.getDistricts(stateOrProvinceId).then(function (result) {
                 vm.districts = result.data;
             });
-        };
+        }
 
         vm.onStateOrProvinceSelected = function (stateOrProvinceId) {
             getDistricts(stateOrProvinceId);
-            updateTaxAndShippingPrice();
+            vm.updateTaxAndShippingPrice();
         };
 
         vm.onCountrySelected = function (countryId) {
@@ -117,21 +122,31 @@
             getStatesOrProvinces(countryId);
         };
 
-        function updateTaxAndShippingPrice() {
+        vm.updateTaxAndShippingPrice = function updateTaxAndShippingPrice() {
+            if (vm.selectedShippingAddressId === '0' && !vm.shippingAddress.stateOrProvinceId) {
+                vm.shippingOptions = [];
+                return;
+            }
+            if (!vm.cart.id) {
+                return;
+            }
             orderService.updateTaxAndShippingPrice(
                 vm.cart.id,
                 {
-                    newShippingAddress: vm.shippingAddress
+                    existingShippingAddressId: vm.selectedShippingAddressId,
+                    newShippingAddress: vm.shippingAddress,
+                    selectedShippingMethodName: vm.selectedShippingOption
                 }
             ).then(function (result) {
                 vm.shippingOptions = result.data.shippingPrices;
+                vm.cart = result.data.cart;
                 if (vm.shippingOptions.length === 0) {
                     toastr.error("Sorry, this items can't be shipped to your selected address");
                 } else {
-                    vm.selectedShippingOption = vm.shippingOptions[0].name;
+                    vm.selectedShippingOption = result.data.selectedShippingMethodName;
                 }
             });
-        }
+        };
 
         vm.createOrder = function createOrder() {
             orderService.createOrder(
