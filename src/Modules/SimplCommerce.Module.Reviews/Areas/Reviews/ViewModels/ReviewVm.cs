@@ -12,10 +12,6 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels
 
         public string EntitySlug { get; set; }
 
-        public bool CanReview { get; set; }
-
-        public string LoggedUserName { get; set; }
-
         public int ReviewsCount { get; set; }
 
         public double RatingAverage
