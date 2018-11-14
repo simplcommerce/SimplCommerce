@@ -14,7 +14,15 @@
             changeOrderStatus: changeOrderStatus,
             getOrderHistory: getOrderHistory,
             getOrdersExport: getOrdersExport,
-            getOrderLinesExport: getOrderLinesExport
+            getOrderLinesExport: getOrderLinesExport,
+            getCart: getCart,
+            addCartItem: addCartItem,
+            getCountries: getCountries,
+            getStatesOrProvinces: getStatesOrProvinces,
+            getDistricts: getDistricts,
+            updateTaxAndShippingPrice: updateTaxAndShippingPrice,
+            createOrder: createOrder,
+            getCustomerAddresses: getCustomerAddresses
         };
         return service;
 
@@ -78,6 +86,38 @@
                 window.URL.revokeObjectURL(objectUrl);
                 document.body.removeChild(a);
             }
+        }
+
+        function getCart(customerId) {
+            return $http.get('api/customer/' + customerId + '/cart');
+        }
+
+        function addCartItem(customerId, cartItem) {
+            return $http.post('api/customer/' + customerId + '/add-cart-item', cartItem);
+        }
+
+        function getCountries() {
+            return $http.get('api/countries');
+        }
+
+        function getStatesOrProvinces(countryId) {
+            return $http.get('/api/country-states-provinces/' + countryId);
+        }
+
+        function getDistricts(stateOrProvinceId) {
+            return $http.get('api/states-provinces/' + stateOrProvinceId + '/districts');
+        }
+
+        function updateTaxAndShippingPrice(cartId, taxAndShippingPriceRequestVm) {
+            return $http.post('api/cart/' + cartId + '/update-tax-and-shipping-prices', taxAndShippingPriceRequestVm);
+        }
+
+        function createOrder(cartId, orderInfo) {
+            return $http.post('api/cart/' + cartId + '/order', orderInfo);
+        }
+
+        function getCustomerAddresses(customerId) {
+            return $http.get('api/users/' + customerId +'/addresses');
         }
     }
 })();
