@@ -22,19 +22,12 @@ namespace SimplCommerce.Module.ShippingTableRate.Services
             var response = new GetShippingPriceResponse { IsSuccess = true };
             var priceAndDestinations = await _priceAndDestinationRepository.Query().ToListAsync();
 
-            var query = priceAndDestinations.Where(x => (x.CountryId == null || x.CountryId == request.ShippingAddress.CountryId)
+            var query = priceAndDestinations.Where(x =>
+                (x.CountryId == null || x.CountryId == request.ShippingAddress.CountryId)
                 && (x.StateOrProvinceId == null || x.StateOrProvinceId == request.ShippingAddress.StateOrProvinceId)
+                && (x.DistrictId == null || x.DistrictId == request.ShippingAddress.DistrictId)
+                && (x.ZipCode == null || x.ZipCode == request.ShippingAddress.ZipCode)
                 && request.OrderAmount >= x.MinOrderSubtotal);
-
-            if (request.ShippingAddress.DistrictId.HasValue)
-            {
-                query = query.Where(x => x.DistrictId == null || x.DistrictId == request.ShippingAddress.DistrictId.Value);
-            }
-
-            if(!string.IsNullOrWhiteSpace(request.ShippingAddress.ZipCode))
-            {
-                query = query.Where(x => x.ZipCode == null || x.ZipCode == request.ShippingAddress.ZipCode);
-            }
 
             var cheapestApplicable = query.OrderBy(x => x.ShippingPrice).FirstOrDefault();
 

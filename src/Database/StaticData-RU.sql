@@ -63,4 +63,10 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-R
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'Brand', N'Бренд')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'Sort by:', N'Сортировать по:')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'results', N'результаты')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'Add to Compare', N'Добавить к сравнению')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'Not available', N'Недоступен')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'You save', N'Вы сэкономили')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'Submit', N'Отправить')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'All Categories', N'все категории')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'Search here...', N'Поищи здесь...')
 GO

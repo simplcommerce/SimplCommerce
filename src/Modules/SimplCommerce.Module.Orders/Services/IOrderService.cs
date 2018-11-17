@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Module.Core.Models;
+using SimplCommerce.Module.Orders.Areas.Orders.ViewModels;
 using SimplCommerce.Module.Orders.Models;
 
 namespace SimplCommerce.Module.Orders.Services
@@ -13,6 +14,8 @@ namespace SimplCommerce.Module.Orders.Services
 
         void CancelOrder(Order order);
 
-        Task<decimal> GetTax(long cartOwnerUserId, string countryId, long stateOrProvinceId, string zipCode);
+        Task<decimal> GetTax(long cartId, string countryId, long stateOrProvinceId, string zipCode);
+
+        Task<OrderTaxAndShippingPriceVm> UpdateTaxAndShippingPrices(long cartId, TaxAndShippingPriceRequestVm model);
     }
 }

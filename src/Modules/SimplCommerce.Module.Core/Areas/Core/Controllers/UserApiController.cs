@@ -26,6 +26,31 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             _userManager = userManager;
         }
 
+        [HttpGet("quick-search")]
+        public async Task<IActionResult> QuickSearch(UserSearchOption searchOption)
+        {
+            var query = _userRepository.Query().Where(x => !x.IsDeleted);
+            if (!string.IsNullOrWhiteSpace(searchOption.Name))
+            {
+                query = query.Where(x => x.FullName.Contains(searchOption.Name));
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchOption.Email))
+            {
+                query = query.Where(x => x.Email.Contains(searchOption.Email));
+            }
+
+           var users = await query.Take(5).Select(x => new
+            {
+                x.Id,
+                x.FullName,
+                x.Email,
+                x.PhoneNumber
+            }).ToListAsync();
+
+            return Ok(users);
+        }
+
         [HttpPost("grid")]
         public IActionResult List([FromBody] SmartTableParam param)
         {

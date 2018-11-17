@@ -157,3 +157,47 @@ td>span.glyphicon-remove {
 .mt-3 {
     margin-top: 40px !important;
 }
+.search-user {
+    position: relative;
+}
+
+#search-users-results {
+    width: 700px;
+    max-height: 200px;
+    border: 1px solid #dedede;
+    border-radius: 3px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    position: absolute;
+    z-index: 10000;
+}
+
+    #search-users-results .users {
+        background: white;
+        padding: 10px;
+    }
+
+        #search-users-results .users:nth-child(even) {
+            background: #fafafa;
+        }
+
+#search-products-results {
+    width: 700px;
+    max-height: 200px;
+    border: 1px solid #dedede;
+    border-radius: 3px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    position: absolute;
+    z-index: 10000;
+}
+
+    #search-products-results .products {
+        background: white;
+        padding: 10px;
+    }
+
+        #search-products-results .products:nth-child(even) {
+            background: #fafafa;
+        }
+ 
