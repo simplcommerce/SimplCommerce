@@ -10,6 +10,28 @@
         }
     }
 
+    function toggleChangeBillingAddress() {
+        var shippingAddressId = $('input[name=billingAddresCB]').is(":checked");
+        $changeBillingAddress = $('.change-billing-address');
+
+        if (shippingAddressId) {
+            $changeBillingAddress.hide();
+        } else {
+            $changeBillingAddress.show();
+        }
+    }
+
+    function toggleCreateBillingAddress() {
+        var billingAddressId = $('input[name=billingAddressId]:checked').val(),
+            $createBillingAddress = $('.create-billing-address');
+
+        if (billingAddressId === "0") {
+            $createBillingAddress.show();
+        } else {
+            $createBillingAddress.hide();
+        }
+    }
+
     function updateShippingInfo() {
         if ($('input[name=shippingAddressId]:checked').val() === "0" && !$('#NewAddressForm_StateOrProvinceId').val()) {
             return;
@@ -65,10 +87,18 @@
         toggleCreateShippingAddress();
     });
 
+    $('input[name=billingAddresCB]').on('change', function () {
+        toggleChangeBillingAddress();
+        toggleCreateBillingAddress();
+    });
+
+    $('input[name=billingAddressId]').on('change', function () {
+        toggleCreateBillingAddress();
+    });
+
     $(document).on('change', 'input[name=shippingAddressId], #NewAddressForm_StateOrProvinceId, #NewAddressForm_DistrictId, #NewAddressForm_ZipCode, #shippingMethods input:radio', function () {
         updateShippingInfo();
     });
-
 
     function resetSelect($select) {
         var $defaultOption = $select.find("option:first-child");
