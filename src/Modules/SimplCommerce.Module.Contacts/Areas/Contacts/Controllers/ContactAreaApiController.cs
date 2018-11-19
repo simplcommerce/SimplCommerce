@@ -19,6 +19,7 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
             _contactRepository = categoryRepository;
         }
 
+        [HttpGet]
         public IActionResult Get()
         {
             var categoryList = _contactRepository.Query().Where(x => !x.IsDeleted).ToList();

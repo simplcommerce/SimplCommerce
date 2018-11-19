@@ -19,6 +19,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             _productAttrGroupRepository = productAttrGroupRepository;
         }
 
+        [HttpGet]
         public IActionResult Get()
         {
             var attributeGroups = _productAttrGroupRepository

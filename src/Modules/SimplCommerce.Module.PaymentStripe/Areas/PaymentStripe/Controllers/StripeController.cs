@@ -18,6 +18,7 @@ using Stripe;
 namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
 {
     [Area("PaymentStripe")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class StripeController : Controller
     {
         private readonly ICartService _cartService;

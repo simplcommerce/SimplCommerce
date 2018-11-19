@@ -14,6 +14,7 @@ using SimplCommerce.Module.Search.Models;
 namespace SimplCommerce.Module.Search.Areas.Search.Controllers
 {
     [Area("Search")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class SearchController : Controller
     {
         private int _pageSize;

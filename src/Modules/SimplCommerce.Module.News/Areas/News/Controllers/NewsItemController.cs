@@ -10,6 +10,7 @@ using SimplCommerce.Module.News.Models;
 namespace SimplCommerce.Module.News.Areas.News.Controllers
 {
     [Area("News")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class NewsItemController : Controller
     {
         private readonly IRepository<NewsItem> _newsItemRepository;

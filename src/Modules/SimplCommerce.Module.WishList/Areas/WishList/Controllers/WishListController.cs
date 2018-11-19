@@ -15,6 +15,7 @@ using SimplCommerce.Module.WishList.Services;
 namespace SimplCommerce.Module.WishList.Areas.WishList.Controllers
 {
     [Area("WishList")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class WishListController : Controller
     {
         private const int DefaultPageSize = 25;

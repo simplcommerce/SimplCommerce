@@ -10,6 +10,7 @@ using SimplCommerce.Module.Reviews.Models;
 namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
 {
     [Area("Reviews")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ReviewController : Controller
     {
         private const int DefaultPageSize = 25;
