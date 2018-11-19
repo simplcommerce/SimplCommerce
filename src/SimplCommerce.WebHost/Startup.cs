@@ -89,6 +89,7 @@ namespace SimplCommerce.WebHost
                     context => !context.Request.Path.StartsWithSegments("/api"),
                     a => a.UseExceptionHandler("/Home/Error")
                 );
+                app.UseHsts();
             }
 
             app.UseWhen(
@@ -96,6 +97,7 @@ namespace SimplCommerce.WebHost
                 a => a.UseStatusCodePagesWithReExecute("/Home/ErrorWithCode/{0}")
             );
 
+            app.UseHttpsRedirection();
             app.UseCustomizedStaticFiles(env);
             app.UseSwagger();
             app.UseSwaggerUI(c =>

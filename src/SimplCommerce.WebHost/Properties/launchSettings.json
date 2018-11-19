@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:49209/",
-      "sslPort": 0
+      "applicationUrl": "http://localhost:49209",
+      "sslPort": 44388
     }
   },
   "profiles": {
@@ -18,10 +18,10 @@
     "SimplCommerce.WebHost": {
       "commandName": "Project",
       "launchBrowser": true,
+      "applicationUrl": "https://localhost:49206;http://localhost:49208",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "http://localhost:49208/"
+      }
     }
   }
 }
