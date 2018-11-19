@@ -106,6 +106,27 @@
         $select.append($defaultOption);
     }
 
+    $('#NewBillingAddressForm_CountryId').on('change', function () {
+        var countryId = this.value;
+        $('#NewBillingAddressForm_ZipCode').val('');
+
+        $.getJSON('/api/country-states-provinces/' + countryId, function (data) {
+            var $stateOrProvinceSelect = $("#NewBillingAddressForm_StateOrProvinceId");
+            resetSelect($stateOrProvinceSelect);
+
+            var $districtSelect = $("#NewBillingAddressForm_DistrictId");
+            resetSelect($districtSelect);
+
+            $.each(data.statesOrProvinces, function (index, option) {
+                $stateOrProvinceSelect.append($("<option></option>").attr("value", option.id).text(option.name));
+            });
+
+            $("#form-group-district").toggleClass("d-none", !data.isDistrictEnabled);
+            $("#form-group-city").toggleClass("d-none", !data.isCityEnabled);
+            $("#form-group-postalcode").toggleClass("d-none", !data.isZipCodeEnabled);
+        });
+    });
+
     $('#NewAddressForm_CountryId').on('change', function () {
         var countryId = this.value;
         $('#NewAddressForm_ZipCode').val('');
@@ -124,6 +145,19 @@
             $("#form-group-district").toggleClass("d-none", !data.isDistrictEnabled);
             $("#form-group-city").toggleClass("d-none", !data.isCityEnabled);
             $("#form-group-postalcode").toggleClass("d-none", !data.isZipCodeEnabled);
+        });
+    });
+
+    $('#NewBillingAddressForm_StateOrProvinceId').on('change', function () {
+        var selectedStateOrProvinceId = this.value;
+
+        $.getJSON("/api/states-provinces/" + selectedStateOrProvinceId + "/districts", function (data) {
+            var $districtSelect = $("#NewBillingAddressForm_DistrictId");
+            resetSelect($districtSelect);
+
+            $.each(data, function (index, option) {
+                $districtSelect.append($("<option></option>").attr("value", option.id).text(option.name));
+            });
         });
     });
 
