@@ -73,6 +73,7 @@ namespace SimplCommerce.Module.Vendors.Areas.Vendors.Controllers
             return Json(vendors);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var vendors = await _vendorRepository.Query().Select(x => new

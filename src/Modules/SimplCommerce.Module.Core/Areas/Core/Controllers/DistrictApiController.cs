@@ -18,7 +18,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             _districtRepository = districtRepository;
         }
 
-        [Route("/api/states-provinces/{stateOrProvinceId}/districts")]
+        [HttpGet("/api/states-provinces/{stateOrProvinceId}/districts")]
         public async Task<IActionResult> GetDistricts(long stateOrProvinceId)
         {
             var districts = await _districtRepository

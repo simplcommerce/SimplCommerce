@@ -17,6 +17,7 @@ using SimplCommerce.Module.ProductComparison.Services;
 namespace SimplCommerce.Module.ProductComparison.Areas.ProductComparison.Controllers
 {
     [Area("ProductComparison")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ComparingProductController : Controller
     {
         private readonly IRepository<ComparingProduct> _comparingProductRepository;

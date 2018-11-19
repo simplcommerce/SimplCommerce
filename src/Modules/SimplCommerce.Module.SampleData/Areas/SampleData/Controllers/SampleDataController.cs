@@ -6,6 +6,7 @@ using SimplCommerce.Module.SampleData.Services;
 namespace SimplCommerce.Module.SampleData.Areas.SampleData.Controllers
 {
     [Area("SampleData")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class SampleDataController : Controller
     {
         private readonly ISampleDataService _sampleDataService;

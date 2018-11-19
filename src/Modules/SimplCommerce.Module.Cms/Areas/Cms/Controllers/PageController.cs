@@ -6,6 +6,7 @@ using SimplCommerce.Module.Cms.Models;
 namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
 {
     [Area("Cms")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class PageController : Controller
     {
         private readonly IRepository<Page> _pageRepository;

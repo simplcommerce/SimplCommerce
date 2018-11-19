@@ -16,6 +16,7 @@ using SimplCommerce.Module.Core.Services;
 namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 {
     [Area("Catalog")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ProductController : Controller
     {
         private readonly IMediaService _mediaService;
