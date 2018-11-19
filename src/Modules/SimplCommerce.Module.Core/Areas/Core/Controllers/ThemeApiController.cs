@@ -24,6 +24,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var themes = await _themeService.GetInstalledThemes();

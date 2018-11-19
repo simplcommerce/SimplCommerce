@@ -24,6 +24,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             _configurationRoot = (IConfigurationRoot)configuration;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var settings = await _appSettingRepository.Query().Where(x => x.IsVisibleInCommonSettingPage).ToListAsync();

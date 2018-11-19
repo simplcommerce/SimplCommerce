@@ -7,6 +7,7 @@ using SimplCommerce.Module.Core.Models;
 namespace SimplCommerce.Module.Localization.Areas.Localization.Controllers
 {
     [Area("Localization")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class LocalizationController : Controller
     {
         private readonly IRepositoryWithTypedId<User, long> _userRepository;

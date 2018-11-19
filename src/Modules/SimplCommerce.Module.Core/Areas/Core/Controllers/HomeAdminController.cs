@@ -7,6 +7,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 {
     [Area("Core")]
     [Authorize(Roles = "admin, vendor")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class HomeAdminController : Controller
     {
         private readonly IAntiforgery _antiforgery;

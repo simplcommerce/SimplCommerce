@@ -28,6 +28,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
             _workContext = workContext;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var query = _warehouseRepository.Query();

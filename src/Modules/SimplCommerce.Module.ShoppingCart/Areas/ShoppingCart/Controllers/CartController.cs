@@ -1,10 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
-using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
 using SimplCommerce.Module.ShoppingCart.Models;
@@ -13,6 +11,7 @@ using SimplCommerce.Module.ShoppingCart.Services;
 namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
 {
     [Area("ShoppingCart")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class CartController : Controller
     {
         private readonly IRepository<CartItem> _cartItemRepository;

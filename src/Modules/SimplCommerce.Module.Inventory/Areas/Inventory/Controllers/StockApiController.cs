@@ -106,6 +106,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
             return Ok(products);
         }
 
+        [HttpPut]
         public async Task<IActionResult> Put(long warehouseId, [FromBody] IList<StockVm> stockVms)
         {
             var currentUser = await _workContext.GetCurrentUser();

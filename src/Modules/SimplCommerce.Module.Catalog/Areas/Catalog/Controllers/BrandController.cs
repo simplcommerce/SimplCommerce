@@ -11,6 +11,7 @@ using SimplCommerce.Module.Core.Services;
 namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 {
     [Area("Catalog")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class BrandController : Controller
     {
         private int _pageSize;

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Modules;
@@ -68,6 +69,11 @@ namespace SimplCommerce.WebHost
 
             services.AddScoped<ServiceFactory>(p => p.GetService);
             services.AddScoped<IMediator, SequentialMediator>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "SimplCommerce API", Version = "v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -91,6 +97,12 @@ namespace SimplCommerce.WebHost
             );
 
             app.UseCustomizedStaticFiles(env);
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SimplCommerce API V1");
+            });
+
             app.UseCookiePolicy();
             app.UseCustomizedIdentity();
             app.UseCustomizedRequestLocalization();

@@ -18,8 +18,9 @@ using SimplCommerce.Module.ShoppingCart.Services;
 namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
 {
     [Area("Orders")]
-    [Authorize]
     [Route("checkout")]
+    [Authorize]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class CheckoutController : Controller
     {
         private readonly IOrderService _orderService;
