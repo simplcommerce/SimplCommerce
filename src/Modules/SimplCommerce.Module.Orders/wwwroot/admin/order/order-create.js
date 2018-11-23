@@ -5,7 +5,7 @@
         .controller('OrderCreateCtrl', OrderCreateCtrl);
 
     /* @ngInject */
-    function OrderCreateCtrl($state, orderService, translateService, userService, productService) {
+    function OrderCreateCtrl($state, $q, orderService, translateService, userService, productService) {
         var vm = this;
         vm.translate = translateService;
         vm.customer = { fullName: '' };
@@ -45,7 +45,19 @@
         vm.selectCustomer = function (customer) {
             vm.customer = customer;
             vm.isSearchingCustomers = false;
-            vm.getCart();
+            $q.all([
+                orderService.getCart(customer.id),
+                orderService.getCustomerAddresses(customer.id)
+            ]).then(function (result) {
+                vm.cart = result[0].data;
+
+                vm.customerAddress = result[1].data;
+                if (vm.customerAddress.defaultShippingAddressId) {
+                    vm.selectedShippingAddressId = vm.customerAddress.defaultShippingAddressId.toString();
+                }
+
+                vm.updateTaxAndShippingPrice();
+            });
         };
 
         vm.selectProduct = function (product) {
@@ -75,22 +87,24 @@
             });
         };
 
-        vm.getCart = function () {
-            orderService.getCart(vm.customer.id).then(function (result) {
-                vm.cart = result.data;
-                getCustomerAddresses(vm.customer.id);
+        vm.updateCartItemQuantity = function (item) {
+            orderService.updateCartItem(item).then(function (result) {
+                vm.getCart();
             });
         };
 
-        function getCustomerAddresses(customerId) {
-            orderService.getCustomerAddresses(customerId).then(function (result) {
-                vm.customerAddress = result.data;
-                if (vm.customerAddress.defaultShippingAddressId) {
-                    vm.selectedShippingAddressId = vm.customerAddress.defaultShippingAddressId.toString()
-                    vm.updateTaxAndShippingPrice();
-                }
+        vm.removeCartItem = function (item) {
+            orderService.removeCartItem(item.id).then(function (result) {
+                vm.getCart();
             });
-        }
+        };
+
+        vm.getCart = function () {
+            orderService.getCart(vm.customer.id).then(function (result) {
+                vm.cart = result.data;
+                vm.updateTaxAndShippingPrice();
+            });
+        };
 
         function getCountries () {
             orderService.getCountries().then(function (result) {
@@ -153,7 +167,9 @@
                 vm.cart.id,
                 {
                     shippingMethod: vm.selectedShippingOption,
-                    newAddressForm : vm.shippingAddress
+                    shippingAddressId: vm.selectedShippingAddressId,
+                    newAddressForm: vm.shippingAddress,
+                    orderNote: vm.cart.orderNote
                 }
             ).then(function (result) {
                 toastr.success("Order created");
