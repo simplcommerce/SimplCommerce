@@ -11,7 +11,7 @@ $(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/cart/addtocart',
+            url: '/cart/add-item',
             data: JSON.stringify({ productId: productId, quantity: quantity }),
             contentType: "application/json"
         }).done(function (data) {

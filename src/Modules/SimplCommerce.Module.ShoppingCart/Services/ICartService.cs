@@ -12,6 +12,8 @@ namespace SimplCommerce.Module.ShoppingCart.Services
 
         Task AddToCart(long customerId, long createdById, long productId, int quantity);
 
+        IQueryable<Cart> Query();
+
         IQueryable<Cart> GetActiveCart(long customerId);
 
         IQueryable<Cart> GetActiveCart(long customerId, long createdById);
