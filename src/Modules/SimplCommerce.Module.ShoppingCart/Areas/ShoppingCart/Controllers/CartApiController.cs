@@ -33,7 +33,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         public async Task<IActionResult> List(long customerId)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
+            var cart = await _cartService.GetActiveCartDetails(customerId, currentUser.Id);
 
             return Json(cart);
         }
