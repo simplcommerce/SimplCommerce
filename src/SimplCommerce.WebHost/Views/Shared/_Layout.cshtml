@@ -1,4 +1,5 @@
 ﻿@using System.Globalization
+@using Microsoft.AspNetCore.Localization
 
 <!doctype html>
 <html>
@@ -21,7 +22,7 @@
     <div class="top-bar">
         <div class="container">
             <ul class="nav justify-content-end">
-                <partial name="_SelectLanguagePartial" />
+                <language-switcher></language-switcher>
                 <partial name="_LoginPartial" />
             </ul>
         </div>
@@ -116,5 +117,11 @@
     @RenderSection("scripts", required: false)
 
     <partial name="_AnalyticsScript" />
+    <script>
+        function appendLanguageSwitcherCookie(code) {
+            document.cookie = '@CookieRequestCultureProvider.DefaultCookieName' + '=c=' + code + '|uic=' + code;
+            window.location.reload();
+        }
+    </script>
 </body>
 </html>
