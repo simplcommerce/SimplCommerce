@@ -176,25 +176,6 @@ namespace SimplCommerce.Module.Catalog.Models
                 });
             }
 
-            foreach (var option in OptionValues)
-            {
-                product.AddOptionValue(new ProductOptionValue
-                {
-                    OptionId = option.OptionId,
-                    Value = option.Value,
-                    DisplayType = option.DisplayType,
-                });
-            }
-
-            foreach (var link in ProductLinks)
-            {
-                product.AddProductLinks(new ProductLink
-                {
-                    LinkedProductId = link.LinkedProductId,
-                    LinkType =  link.LinkType
-                });
-            }
-
             return product;
         }
     }

@@ -57,9 +57,9 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     newProduct.LatestUpdatedOn = DateTimeOffset.Now;
                     _productRepository.Add(newProduct);
                     _productRepository.SaveChanges();
-                }
 
-                return Ok();
+                    return CreatedAtAction(nameof(Get), new { id = newProduct.Id }, null);
+                }
             }
             return BadRequest(ModelState);
         }
