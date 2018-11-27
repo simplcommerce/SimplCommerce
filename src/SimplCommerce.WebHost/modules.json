@@ -1,0 +1,130 @@
+[
+  {
+    "id": "SimplCommerce.Module.ActivityLog",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.Catalog",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.Cms",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.Comments",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.Contacts",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.Core",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.DinkToPdf",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.EmailSenderSmtp",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.Inventory",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.Localization",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.News",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.Orders",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.PaymentCoD",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.PaymentPaypalExpress",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.Payments",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.PaymentStripe",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.Pricing",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.ProductComparison",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.ProductRecentlyViewed",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.Reviews",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.SampleData",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.Search",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.Shipments",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.Shipping",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.ShippingFree",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.ShippingPrices",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.ShippingTableRate",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.ShoppingCart",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.StorageLocal",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.Tax",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.Vendors",
+    "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.WishList",
+    "version": "1.0.0"
+  }
+]

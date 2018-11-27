@@ -1,6 +1,7 @@
 ﻿/*global $ */
 $(function () {
     $('body').on('click', '.btn-add-cart', function () {
+        $('#productOverview').modal('hide');
         var quantity,
             $form = $(this).closest("form"),
             productId = $(this).closest("form").find('input[name=productId]').val(),
@@ -10,19 +11,20 @@ $(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/cart/addtocart',
+            url: '/cart/add-item',
             data: JSON.stringify({ productId: productId, quantity: quantity }),
             contentType: "application/json"
         }).done(function (data) {
             $('#shopModal').find('.modal-content').html(data);
             $('#shopModal').modal('show');
             $('.cart-badge .badge').text($('#shopModal').find('.cart-item-count').text());
-        }).fail(function () {
+            }).fail(function () {
+
             /*jshint multistr: true */
             $('#shopModal').find('.modal-content').html(' \
                 <div class="modal-header"> \
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> \
-                    <h4 class="modal-title" id="myModalLabel">Opps</h4> \
+                    <h4 class="modal-title" id="myModalLabel">Oops</h4> \
                 </div> \
                 <div class="modal-body"> \
                     Something went wrong. \

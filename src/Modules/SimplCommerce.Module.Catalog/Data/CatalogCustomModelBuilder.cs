@@ -41,9 +41,9 @@ namespace SimplCommerce.Module.Catalog.Data
             );
 
             modelBuilder.Entity<EntityType>().HasData(
-                new EntityType("Category") { RoutingController = "Category", RoutingAction = "CategoryDetail", IsMenuable = true },
-                new EntityType("Brand") { RoutingController = "Brand", RoutingAction = "BrandDetail", IsMenuable = true },
-                new EntityType("Product") { RoutingController = "Product", RoutingAction = "ProductDetail", IsMenuable = false }
+                new EntityType("Category") { AreaName = "Catalog", RoutingController = "Category", RoutingAction = "CategoryDetail", IsMenuable = true },
+                new EntityType("Brand") { AreaName = "Catalog", RoutingController = "Brand", RoutingAction = "BrandDetail", IsMenuable = true },
+                new EntityType("Product") { AreaName = "Catalog", RoutingController = "Product", RoutingAction = "ProductDetail", IsMenuable = false }
             );
 
             modelBuilder.Entity<ProductOption>().HasData(

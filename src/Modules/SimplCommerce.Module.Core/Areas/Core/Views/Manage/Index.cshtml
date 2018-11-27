@@ -1,0 +1,66 @@
+﻿@model IndexViewModel
+@{
+    ViewData["Title"] = "Manage your account";
+}
+@if (ViewData["StatusMessage"] != null)
+{
+    <p class="text-success">@ViewData["StatusMessage"]</p>
+}
+<div class="row">
+    <div class="col-md-3">
+        <partial name="_AccountMenu" />
+    </div>
+    <div class="col-md-9">
+        <h2>@Localizer["Account Dashboard"]</h2>
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">@Localizer["Account Information"]</div>
+                    <div class="card-body">
+                        @Model.FullName <br/>
+                        @Model.Email
+                        <p class="text-right">
+                            <a href="~/user/info">@Localizer["Edit"]</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">@Localizer["Security"]</div>
+                    <div class="card-body">
+                        <dl class="row">
+                            <dt class="col-md-5">@Localizer["Password"]:</dt>
+                            <dd class="col-md-7">
+                                @if (Model.HasPassword)
+                                {
+                                    <a asp-area="Core" asp-controller="Manage" asp-action="ChangePassword" class="btn-bracketed">@Localizer["Change"]</a>
+                                }
+                                else
+                                {
+                                    <a asp-area="Core" asp-controller="Manage" asp-action="SetPassword" class="btn-bracketed">@Localizer["Create"]</a>
+                                }
+                            </dd>
+                            <dt class="col-md-5">@Localizer["External Logins"]:</dt>
+                            <dd class="col-md-7">
+                                @Model.Logins.Count <a asp-area="Core" asp-controller="Manage" asp-action="ManageLogins" class="btn-bracketed">@Localizer["Manage"]</a>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">@Localizer["Default shipping address"]</div>
+                    <div class="card-body">
+                        <vc:default-shipping-address></vc:default-shipping-address>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

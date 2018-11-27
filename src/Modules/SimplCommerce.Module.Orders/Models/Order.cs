@@ -11,14 +11,24 @@ namespace SimplCommerce.Module.Orders.Models
         public Order()
         {
             CreatedOn = DateTimeOffset.Now;
-            UpdatedOn = DateTimeOffset.Now;
+            LatestUpdatedOn = DateTimeOffset.Now;
             OrderStatus = OrderStatus.New;
             IsMasterOrder = false;
         }
 
-        public DateTimeOffset CreatedOn { get; set; }
+        public long CustomerId { get; set; }
 
-        public DateTimeOffset UpdatedOn { get; set; }
+        [JsonIgnore] // To simplify the json stored in order history
+        public User Customer { get; set; }
+
+        public DateTimeOffset LatestUpdatedOn { get; set; }
+
+        public long LatestUpdatedById { get; set; }
+
+        [JsonIgnore]
+        public User LatestUpdatedBy { get; set; }
+
+        public DateTimeOffset CreatedOn { get; set; }
 
         public long CreatedById { get; set; }
 
@@ -49,8 +59,11 @@ namespace SimplCommerce.Module.Orders.Models
 
         public OrderStatus OrderStatus { get; set; }
 
+        public string OrderNote { get; set; }
+
         public long? ParentId { get; set; }
 
+        [JsonIgnore]
         public Order Parent { get; set; }
 
         public bool IsMasterOrder { get; set; }

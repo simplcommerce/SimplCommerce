@@ -1,6 +1,6 @@
 {
-  "name": "product-recently-viewed",
-  "fullName": "SimplCommerce.Module.ProductRecentlyViewed",
+  "id": "SimplCommerce.Module.ProductRecentlyViewed",
+  "name": "Recently Viewed Products",
   "isBundledWithHost": true,
   "version": "1.0.0"
 }

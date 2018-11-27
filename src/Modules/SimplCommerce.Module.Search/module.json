@@ -1,6 +1,6 @@
 {
-  "name": "search",
-  "fullName": "SimplCommerce.Module.Search",
+  "id": "SimplCommerce.Module.Search",
+  "name": "Search",
   "isBundledWithHost": true,
   "version": "1.0.0"
 }

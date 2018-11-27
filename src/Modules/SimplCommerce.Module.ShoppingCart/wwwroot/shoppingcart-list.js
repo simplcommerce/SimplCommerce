@@ -15,7 +15,7 @@
 
                 function getShoppingCartItems() {
                     shoppingCartService.getShoppingCartItems().then(cartDataCallback);
-                };
+                }
 
                 vm.removeShoppingCartItem = function removeShoppingCartItem(item) {
                     shoppingCartService.removeShoppingCartItem(item.id).then(cartDataCallback);
@@ -37,11 +37,17 @@
                 vm.applyCoupon = function applyCoupon() {
                     vm.couponErrorMessage = '';
                     shoppingCartService.applyCoupon(vm.couponCode).then(function (result) {
-                        if (result.data.succeeded == false) {
+                        if (result.data.succeeded === false) {
                             vm.cart.couponValidationErrorMessage = result.data.errorMessage;
                         } else {
                             cartDataCallback(result);
                         }
+                    });
+                };
+
+                vm.saveOrderNote = function saveOrderNote() {
+                    shoppingCartService.saveOrderNote(vm.cart.orderNote).then(function () {
+                        toastr.success('Order note has been saved');
                     });
                 };
 

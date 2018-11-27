@@ -1,0 +1,38 @@
+﻿@model SimplCommerce.Module.News.Areas.News.ViewModels.NewsVm
+
+@{
+    ViewData["Title"] = "News";
+}
+
+<div class="news row">
+    <div class="categories row">
+        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            @foreach (var item in Model.NewsCategory)
+            {
+                <div class="btn-group" role="group">
+                    <a type="button" class="btn btn-default" href="~/@item.Slug"> @item.Name</a>
+                </div>
+            }
+        </div>
+    </div>
+    @if (Model.NewsItem.Any())
+    {
+        <div class="news-category-detail row">
+            @foreach (var item in Model.NewsItem)
+            {
+                <partial name="_NewsThumbnail" model="item" />
+            }
+        </div>
+    }
+</div>
+
+<div class="row">
+    <div class="col-md-12 text-right">
+        <cs-pager cs-paging-pagesize="@Model.PageSize"
+                  cs-paging-pagenumber="@Model.Page"
+                  cs-paging-totalitems="@Model.TotalItem"
+                  asp-basehref="~/@Model.CurrentNewsCategory.Slug"
+                  cs-pagenumber-param="page"></cs-pager>
+    </div>
+</div>
+

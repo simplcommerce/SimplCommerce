@@ -1,0 +1,14 @@
+﻿@model IList<SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels.ProductThumbnail>
+
+@if (Model.Any())
+{
+<h2 class="page-header">@Localizer["Recently viewed products"]</h2>
+<div class="row product-list">
+    @foreach (var product in Model)
+    {
+        <div class="col-xs-6 col-md-3">
+            <partial name="/Areas/Catalog/Views/Shared/_ProductThumbnail.cshtml" model="product" />
+        </div>
+    }
+</div>
+}

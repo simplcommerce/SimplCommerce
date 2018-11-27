@@ -1,0 +1,22 @@
+﻿@model SimplCommerce.Module.Core.Areas.Core.ViewModels.Manage.DefaultAddressViewComponentVm
+
+<div>
+    @if (Model.Address != null)
+    {
+        <p>
+            <strong>@Model.Address.ContactName </strong><br/>
+            @Model.Address.AddressLine1 <br/>
+            @Model.Address.DistrictName, @Model.Address.StateOrProvinceName <br/>
+            @Model.Address.Phone
+        </p>
+    }
+    else
+    {
+        <p>
+            @Localizer["You don't have any default address"]
+        </p>
+    }
+    <p class="text-right">
+        <a href="~/user/address">@Localizer["Manage address"]</a>
+    </p>
+</div>

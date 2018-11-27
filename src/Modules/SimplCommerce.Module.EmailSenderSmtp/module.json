@@ -1,6 +1,6 @@
 {
-  "name": "email-sender-smtp",
-  "fullName": "SimplCommerce.Module.EmailSenderSmtp",
-  "isBundledWithHost": false,
+  "id": "SimplCommerce.Module.EmailSenderSmtp",
+  "name": "SMTP Mailer",
+  "isBundledWithHost": true,
   "version": "1.0.0"
 }

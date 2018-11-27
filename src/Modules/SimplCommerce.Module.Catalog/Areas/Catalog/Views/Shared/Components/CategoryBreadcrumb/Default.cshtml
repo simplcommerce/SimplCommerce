@@ -1,0 +1,6 @@
+﻿@model IEnumerable<SimplCommerce.Module.Core.Areas.Core.ViewModels.BreadcrumbViewModel>
+
+@foreach (var item in Model)
+{
+    <li class="breadcrumb-item"><a href="~/@item.Url">@item.Text</a></li>
+}

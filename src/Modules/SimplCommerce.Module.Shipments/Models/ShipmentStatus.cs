@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SimplCommerce.Module.Shipping.Models
+﻿namespace SimplCommerce.Module.Shipments.Models
 {
     public enum ShipmentStatus
     {

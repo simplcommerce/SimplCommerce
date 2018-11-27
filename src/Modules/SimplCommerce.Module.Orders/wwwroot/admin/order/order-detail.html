@@ -75,9 +75,9 @@
             <div class="col-md-6">
                 <h5>Shipping Address</h5>
                 <p>
-                    {{vm.order.shippingAddress.contactName}} <br />
+                    <strong>{{vm.order.shippingAddress.contactName}}</strong> <br />
                     {{vm.order.shippingAddress.addressLine1}} <br />
-                    {{vm.order.shippingAddress.districtName}}, {{vm.order.shippingAddress.stateOrProvinceName}} <br />
+                    {{vm.order.shippingAddress.addressLine2}} <br />
                     Phone: {{vm.order.shippingAddress.phone}}
                 </p>
             </div>
@@ -130,6 +130,15 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
+        <h3 class="panel-title">{{::vm.translate.get('Order Note')}}</h3>
+    </div>
+    <div class="panel-body">
+        {{vm.order.orderNote}}
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
         <h3 class="panel-title">{{::vm.translate.get('Payment & Shipping Method')}}</h3>
     </div>
     <div class="panel-body">
@@ -169,8 +178,8 @@
                             <td>{{item.createdOn | date:'medium'}}</td>
                             <td><span ng-if="item.oldStatus">{{item.oldStatus}} &rarr; </span>{{item.newStatus}}</td>
                             <td>
-                                <a ng-if="item.userId >= 10" ui-sref="user-edit({id: item.userId})">{{item.userFullName}}</a>
-                                <span ng-if="item.userId < 10">{{item.userFullName}}</span>
+                                <a ng-if="item.createdById >= 10" ui-sref="user-edit({id: item.createdById})">{{item.createdByFullName}}</a>
+                                <span ng-if="item.createdById < 10">{{item.createdByFullName}}</span>
                             </td>
                             <td>{{item.note}}</td>
                         </tr>

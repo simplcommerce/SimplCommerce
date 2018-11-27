@@ -8,16 +8,11 @@ using System.Reflection;
 using System.Runtime.Loader;
 using System.Text;
 using System.Threading.Tasks;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using Autofac.Features.Variance;
-using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
@@ -25,100 +20,60 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using SimplCommerce.Infrastructure;
-using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Modules;
+using SimplCommerce.Infrastructure.Web.ModelBinders;
 using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
-using SimplCommerce.Infrastructure.Web.ModelBinders;
-using SimplCommerce.Infrastructure.Web;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 
 namespace SimplCommerce.WebHost.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection LoadInstalledModules(this IServiceCollection services, string contentRootPath)
+        private static readonly IModuleConfigurationManager _modulesConfig = new ModuleConfigurationManager();
+
+        public static IServiceCollection AddModules(this IServiceCollection services, string contentRootPath)
         {
-            var modules = new List<ModuleInfo>();
-            var moduleRootFolder = new DirectoryInfo(Path.Combine(contentRootPath, "Modules"));
-            var moduleFolders = moduleRootFolder.GetDirectories();
-
-            foreach (var moduleFolder in moduleFolders)
+            const string moduleManifestName = "module.json";
+            var modulesFolder = Path.Combine(contentRootPath, "Modules");
+            foreach (var module in _modulesConfig.GetModules())
             {
-                Assembly moduleMainAssembly = null;
-                var binFolder = new DirectoryInfo(Path.Combine(moduleFolder.FullName, "bin"));
-                if (binFolder.Exists)
+                var moduleFolder = new DirectoryInfo(Path.Combine(modulesFolder, module.Id));
+                var moduleManifestPath = Path.Combine(moduleFolder.FullName, moduleManifestName);
+                if (!File.Exists(moduleManifestPath))
                 {
-                    moduleMainAssembly = LoadModule(moduleFolder, binFolder);
+                    throw new MissingModuleManifestException($"The manifest for the module '{moduleFolder.Name}' is not found.", moduleFolder.Name);
                 }
 
-                if (moduleMainAssembly == null)
+                using (var reader = new StreamReader(moduleManifestPath))
                 {
-                    moduleMainAssembly = Assembly.Load(new AssemblyName(moduleFolder.Name));
+                    string content = reader.ReadToEnd();
+                    dynamic moduleMetadata = JsonConvert.DeserializeObject(content);
+                    module.Name = moduleMetadata.name;
+                    module.IsBundledWithHost = moduleMetadata.isBundledWithHost;
                 }
 
-                modules.Add(new ModuleInfo
+                if(!module.IsBundledWithHost)
                 {
-                    Name = moduleFolder.Name,
-                    Assembly = moduleMainAssembly,
-                    Path = moduleFolder.FullName
-                });
+                    TryLoadModuleAssembly(moduleFolder.FullName, module);
+                    if (module.Assembly == null)
+                    {
+                        throw new Exception($"Cannot find main assembly for module {module.Id}");
+                    }
+                }
+                else
+                {
+                    module.Assembly = Assembly.Load(new AssemblyName(moduleFolder.Name));
+                }
+
+                GlobalConfiguration.Modules.Add(module);
+                RegisterModuleInitializerServices(module, ref services);
             }
 
-            foreach (var module in modules)
-            {
-                var moduleInitializerType = module.Assembly.GetTypes().FirstOrDefault(x => typeof(IModuleInitializer).IsAssignableFrom(x));
-                if ((moduleInitializerType != null) && (moduleInitializerType != typeof(IModuleInitializer)))
-                {
-                    services.AddSingleton(typeof(IModuleInitializer), moduleInitializerType);
-                }
-            }
-
-            GlobalConfiguration.Modules = modules;
             return services;
-        }
-
-        private static Assembly LoadModule(DirectoryInfo moduleFolder, DirectoryInfo binFolder)
-        {
-            Assembly moduleMainAssembly = null;
-
-            foreach (var file in binFolder.GetFileSystemInfos("*.dll", SearchOption.AllDirectories))
-            {
-                Assembly assembly;
-                try
-                {
-                    assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(file.FullName);
-                }
-                catch (FileLoadException)
-                {
-                    // Get loaded assembly
-                    assembly = Assembly.Load(new AssemblyName(Path.GetFileNameWithoutExtension(file.Name)));
-
-                    if (assembly == null)
-                    {
-                        throw;
-                    }
-
-                    var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-                    string loadedAssemblyVersion = fvi.FileVersion;
-
-                    fvi = FileVersionInfo.GetVersionInfo(file.FullName);
-                    string tryToLoadAssemblyVersion = fvi.FileVersion;
-
-                    // Or log the exception somewhere and don't add the module to list so that it will not be initialized
-                    if (tryToLoadAssemblyVersion != loadedAssemblyVersion)
-                    {
-                        throw new Exception($"Cannot load {file.FullName} {tryToLoadAssemblyVersion} because {assembly.Location} {loadedAssemblyVersion} has been loaded");
-                    }
-                }
-
-                if (assembly.FullName.Contains(moduleFolder.Name))
-                {
-                    moduleMainAssembly = assembly;
-                }
-            }
-
-            return moduleMainAssembly;
         }
 
         public static IServiceCollection AddCustomizedMvc(this IServiceCollection services, IList<ModuleInfo> modules)
@@ -127,10 +82,11 @@ namespace SimplCommerce.WebHost.Extensions
                 .AddMvc(o =>
                 {
                     o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider());
+                    o.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 })
                 .AddRazorOptions(o =>
                 {
-                    foreach (var module in modules)
+                    foreach (var module in modules.Where(x => !x.IsBundledWithHost))
                     {
                         o.AdditionalCompilationReferences.Add(MetadataReference.CreateFromFile(module.Assembly.Location));
                     }
@@ -139,12 +95,31 @@ namespace SimplCommerce.WebHost.Extensions
                 .AddDataAnnotationsLocalization()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1); ;
 
-            foreach (var module in modules)
+            foreach (var module in modules.Where(x => !x.IsBundledWithHost))
             {
-                mvcBuilder.AddApplicationPart(module.Assembly);
+                AddApplicationPart(mvcBuilder, module.Assembly);
             }
 
             return services;
+        }
+
+        private static void AddApplicationPart(IMvcBuilder mvcBuilder, Assembly assembly)
+        {
+            var partFactory = ApplicationPartFactory.GetApplicationPartFactory(assembly);
+            foreach (var part in partFactory.GetApplicationParts(assembly))
+            {
+                mvcBuilder.PartManager.ApplicationParts.Add(part);
+            }
+
+            var relatedAssemblies = RelatedAssemblyAttribute.GetRelatedAssemblies(assembly, throwOnError: false);
+            foreach (var relatedAssembly in relatedAssemblies)
+            {
+                partFactory = ApplicationPartFactory.GetApplicationPartFactory(relatedAssembly);
+                foreach (var part in partFactory.GetApplicationParts(relatedAssembly))
+                {
+                    mvcBuilder.PartManager.ApplicationParts.Add(part);
+                }
+            }
         }
 
         public static IServiceCollection AddCustomizedIdentity(this IServiceCollection services, IConfiguration configuration)
@@ -167,8 +142,8 @@ namespace SimplCommerce.WebHost.Extensions
                 .AddCookie()
                 .AddFacebook(x =>
                 {
-                    x.AppId = "1716532045292977";
-                    x.AppSecret = "dfece01ae919b7b8af23f962a1f87f95";
+                    x.AppId = configuration["Authentication:Facebook:AppId"];
+                    x.AppSecret = configuration["Authentication:Facebook:AppSecret"];
 
                     x.Events = new OAuthEvents
                     {
@@ -177,8 +152,8 @@ namespace SimplCommerce.WebHost.Extensions
                 })
                 .AddGoogle(x =>
                 {
-                    x.ClientId = "583825788849-8g42lum4trd5g3319go0iqt6pn30gqlq.apps.googleusercontent.com";
-                    x.ClientSecret = "X8xIiuNEUjEYfiEfiNrWOfI4";
+                    x.ClientId = configuration["Authentication:Google:ClientId"];
+                    x.ClientSecret = configuration["Authentication:Google:ClientSecret"];
                     x.Events = new OAuthEvents
                     {
                         OnRemoteFailure = ctx => HandleRemoteLoginFailure(ctx)
@@ -192,8 +167,8 @@ namespace SimplCommerce.WebHost.Extensions
                         ValidateAudience = false,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        ValidIssuer = configuration["Jwt:Issuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
+                        ValidIssuer = configuration["Authentication:Jwt:Issuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Authentication:Jwt:Key"]))
                     };
                 });
             services.ConfigureApplicationCookie(x =>
@@ -233,37 +208,57 @@ namespace SimplCommerce.WebHost.Extensions
             return services;
         }
 
-        public static IServiceProvider Build(this IServiceCollection services,
-            IConfiguration configuration, IHostingEnvironment hostingEnvironment)
+        private static void TryLoadModuleAssembly(string moduleFolderPath, ModuleInfo module)
         {
-            var builder = new ContainerBuilder();
-            builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>));
-            builder.RegisterGeneric(typeof(RepositoryWithTypedId<,>)).As(typeof(IRepositoryWithTypedId<,>));
-            builder.RegisterType<RazorViewRenderer>().As<IRazorViewRenderer>();
+            const string binariesFolderName = "bin";
+            var binariesFolderPath = Path.Combine(moduleFolderPath, binariesFolderName);
+            var binariesFolder = new DirectoryInfo(binariesFolderPath);
 
-            builder.RegisterSource(new ContravariantRegistrationSource());
-            builder.RegisterType<SequentialMediator>().As<IMediator>().InstancePerLifetimeScope();
-            builder
-              .Register<ServiceFactory>(ctx =>
-              {
-                  var c = ctx.Resolve<IComponentContext>();
-                  return t => { object o; return c.TryResolve(t, out o) ? o : null; };
-              })
-              .InstancePerLifetimeScope();            
-
-            foreach (var module in GlobalConfiguration.Modules)
+            if (Directory.Exists(binariesFolderPath))
             {
-                builder.RegisterAssemblyTypes(module.Assembly).Where(t => t.Name.EndsWith("Repository")).AsImplementedInterfaces();
-                builder.RegisterAssemblyTypes(module.Assembly).Where(t => t.Name.EndsWith("Service")).AsImplementedInterfaces();
-                builder.RegisterAssemblyTypes(module.Assembly).Where(t => t.Name.EndsWith("ServiceProvider")).AsImplementedInterfaces();
-                builder.RegisterAssemblyTypes(module.Assembly).Where(t => t.Name.EndsWith("Handler")).AsImplementedInterfaces();
-            }
+                foreach (var file in binariesFolder.GetFileSystemInfos("*.dll", SearchOption.AllDirectories))
+                {
+                    Assembly assembly;
+                    try
+                    {
+                        assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(file.FullName);
+                    }
+                    catch (FileLoadException)
+                    {
+                        // Get loaded assembly. This assembly might be loaded
+                        assembly = Assembly.Load(new AssemblyName(Path.GetFileNameWithoutExtension(file.Name)));
 
-            builder.RegisterInstance(configuration);
-            builder.RegisterInstance(hostingEnvironment);
-            builder.Populate(services);
-            var container = builder.Build();
-            return container.Resolve<IServiceProvider>();
+                        if (assembly == null)
+                        {
+                            throw;
+                        }
+
+                        string loadedAssemblyVersion = FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion;
+                        string tryToLoadAssemblyVersion = FileVersionInfo.GetVersionInfo(file.FullName).FileVersion;
+
+                        // Or log the exception somewhere and don't add the module to list so that it will not be initialized
+                        if (tryToLoadAssemblyVersion != loadedAssemblyVersion)
+                        {
+                            throw new Exception($"Cannot load {file.FullName} {tryToLoadAssemblyVersion} because {assembly.Location} {loadedAssemblyVersion} has been loaded");
+                        }
+                    }
+
+                    if (Path.GetFileNameWithoutExtension(assembly.ManifestModule.Name) == module.Id)
+                    {
+                        module.Assembly = assembly;
+                    }
+                }
+            }
+        }
+
+        private static void RegisterModuleInitializerServices(ModuleInfo module, ref IServiceCollection services)
+        {
+            var moduleInitializerType = module.Assembly.GetTypes()
+                    .FirstOrDefault(t => typeof(IModuleInitializer).IsAssignableFrom(t));
+            if ((moduleInitializerType != null) && (moduleInitializerType != typeof(IModuleInitializer)))
+            {
+                services.AddSingleton(typeof(IModuleInitializer), moduleInitializerType);
+            }
         }
 
         private static Task HandleRemoteLoginFailure(RemoteFailureContext ctx)

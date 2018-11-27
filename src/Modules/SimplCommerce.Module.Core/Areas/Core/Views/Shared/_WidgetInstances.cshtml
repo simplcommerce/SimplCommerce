@@ -1,0 +1,13 @@
+﻿@model IEnumerable<SimplCommerce.Module.Core.Areas.Core.ViewModels.WidgetInstanceViewModel>
+
+@foreach (var widgetInstance in Model)
+{
+    if (widgetInstance.WidgetId == "HtmlWidget")
+    {
+        @Html.Raw(widgetInstance.HtmlData)
+    }
+    else
+    {
+        @await Component.InvokeAsync(widgetInstance.ViewComponentName, new { widgetInstance = widgetInstance })
+    }
+}

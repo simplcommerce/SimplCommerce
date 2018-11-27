@@ -22,8 +22,8 @@ namespace SimplCommerce.Module.News.Data
             );
 
             modelBuilder.Entity<EntityType>().HasData(
-                new EntityType("NewsCategory") { RoutingController = "NewsCategory", RoutingAction = "NewsCategoryDetail", IsMenuable = true },
-                new EntityType("NewsItem") { RoutingController = "NewsItem", RoutingAction = "NewsItemDetail", IsMenuable = false }
+                new EntityType("NewsCategory") { AreaName = "News", RoutingController = "NewsCategory", RoutingAction = "NewsCategoryDetail", IsMenuable = true },
+                new EntityType("NewsItem") { AreaName = "News", RoutingController = "NewsItem", RoutingAction = "NewsItemDetail", IsMenuable = false }
             );
         }
     }

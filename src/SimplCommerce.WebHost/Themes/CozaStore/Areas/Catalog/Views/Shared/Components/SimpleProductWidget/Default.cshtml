@@ -1,0 +1,11 @@
+﻿@model SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels.SimpleProductWidgetComponentVm
+
+<h2>@Model.WidgetName</h2>
+<div class="row product-list">
+    @foreach (var product in Model.Products)
+    {
+        <div class="col-xs-6 col-md-3">
+            <partial name="/Themes/CozaStore/Areas/Catalog/Views/Shared/_ProductThumbnail.cshtml" model="product" />
+        </div>
+    }
+</div>

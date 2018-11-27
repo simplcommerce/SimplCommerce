@@ -1,40 +1,29 @@
 FROM microsoft/dotnet:2.1-sdk AS build-env
-
-#setup node
-ENV NODE_VERSION 8.9.4
-ENV NODE_DOWNLOAD_SHA 21fb4690e349f82d708ae766def01d7fec1b085ce1f5ab30d9bda8ee126ca8fc
-
-RUN curl -SL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz" --output nodejs.tar.gz \
-    && echo "$NODE_DOWNLOAD_SHA nodejs.tar.gz" | sha256sum -c - \
-    && tar -xzf "nodejs.tar.gz" -C /usr/local --strip-components=1 \
-    && rm nodejs.tar.gz \
-    && ln -s /usr/local/bin/node /usr/local/bin/nodejs
   
 WORKDIR /app
 COPY . ./
 
-RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />#<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.1" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
+RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.3" />#<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.2" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
 RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Program.cs
 RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Extensions/ServiceCollectionExtensions.cs
 
 RUN rm src/SimplCommerce.WebHost/Migrations/* && cp -f src/SimplCommerce.WebHost/appsettings.docker.json src/SimplCommerce.WebHost/appsettings.json
 
+# ef core migrations run in debug, so we have to build in Debug for copying module correctly 
 RUN dotnet restore && dotnet build \
     && cd src/SimplCommerce.WebHost \
-    && npm run gulp-copy-modules -- --configurationName Debug \
 	&& dotnet ef migrations add initialSchema \
     && dotnet ef migrations script -o dbscript.sql
 
 RUN dotnet build -c Release \
 	&& cd src/SimplCommerce.WebHost \
-	&& npm run gulp-copy-modules -- --configurationName Release \
+    && dotnet build -c Release \
 	&& dotnet publish -c Release -o out
 
 # remove BOM for psql	
-RUN sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/SimplCommerce.WebHost/dbscript.sql \
-	&& sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/Database/StaticData_PostgreSQL.sql
+RUN sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/SimplCommerce.WebHost/dbscript.sql
 
-FROM microsoft/dotnet:2.1.1-aspnetcore-runtime
+FROM microsoft/dotnet:2.1.4-aspnetcore-runtime
 
 # hack to make postgresql-client install work on slim
 RUN mkdir -p /usr/share/man/man1 \

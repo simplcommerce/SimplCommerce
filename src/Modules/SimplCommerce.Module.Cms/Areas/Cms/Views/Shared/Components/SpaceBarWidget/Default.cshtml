@@ -1,0 +1,23 @@
+﻿@model SimplCommerce.Module.Cms.Areas.Cms.ViewModels.SpaceBarWidgetComponentVm
+
+<div align="center" class="row">
+    @foreach (var item in Model.Items)
+    {
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            @if (!string.IsNullOrEmpty(item.ImageUrl))
+            {
+                <img src="@item.ImageUrl" alt="@item.Title" class="img-fluid" />
+            }
+            else if(!(string.IsNullOrEmpty(item.IconHtml)))
+            {
+                <i class='@item.IconHtml space-bar-widget-icon' aria-hidden='true'></i>
+            }
+            <div class="portfolio-overlay">
+                <h4>@item.Title</h4>
+                <p>
+                    @item.Description
+                </p>
+            </div>
+        </div>
+    }
+</div>

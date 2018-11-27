@@ -1,4 +1,4 @@
-
+﻿
 (function ($) {
     "use strict";
 
@@ -45,12 +45,12 @@
     [ Fixed Header ]*/
     var headerDesktop = $('.container-menu-desktop');
     var wrapMenu = $('.wrap-menu-desktop');
-
+    var posWrapHeader;
     if ($('.top-bar').length > 0) {
-        var posWrapHeader = $('.top-bar').height();
+        posWrapHeader = $('.top-bar').height();
     }
     else {
-        var posWrapHeader = 0;
+        posWrapHeader = 0;
     }
 
 
@@ -88,19 +88,18 @@
         $(arrowMainMenu[i]).on('click', function () {
             $(this).parent().find('.sub-menu-m').slideToggle();
             $(this).toggleClass('turn-arrow-main-menu-m');
-        })
+        });
     }
 
     $(window).resize(function () {
         if ($(window).width() >= 992) {
-            if ($('.menu-mobile').css('display') == 'block') {
+            if ($('.menu-mobile').css('display') === 'block') {
                 $('.menu-mobile').css('display', 'none');
                 $('.btn-show-menu-mobile').toggleClass('is-active');
             }
 
             $('.sub-menu-m').each(function () {
-                if ($(this).css('display') == 'block') {
-                    console.log('hello');
+                if ($(this).css('display') === 'block') {
                     $(this).css('display', 'none');
                     $(arrowMainMenu).removeClass('turn-arrow-main-menu-m');
                 }
@@ -125,73 +124,6 @@
     $('.container-search-header').on('click', function (e) {
         e.stopPropagation();
     });
-
-
-    /*==================================================================
-    [ Isotope ]*/
-    var $topeContainer = $('.isotope-grid');
-    var $filter = $('.filter-tope-group');
-
-    // filter items on button click
-    $filter.each(function () {
-        $filter.on('click', 'button', function () {
-            var filterValue = $(this).attr('data-filter');
-            $topeContainer.isotope({ filter: filterValue });
-        });
-
-    });
-
-    // init Isotope
-    $(window).on('load', function () {
-        var $grid = $topeContainer.each(function () {
-            $(this).isotope({
-                itemSelector: '.isotope-item',
-                layoutMode: 'fitRows',
-                percentPosition: true,
-                animationEngine: 'best-available',
-                masonry: {
-                    columnWidth: '.isotope-item'
-                }
-            });
-        });
-    });
-
-    var isotopeButton = $('.filter-tope-group button');
-
-    $(isotopeButton).each(function () {
-        $(this).on('click', function () {
-            for (var i = 0; i < isotopeButton.length; i++) {
-                $(isotopeButton[i]).removeClass('how-active1');
-            }
-
-            $(this).addClass('how-active1');
-        });
-    });
-
-    /*==================================================================
-    [ Filter / Search product ]*/
-    $('.js-show-filter').on('click', function () {
-        $(this).toggleClass('show-filter');
-        $('.panel-filter').slideToggle(400);
-
-        if ($('.js-show-search').hasClass('show-search')) {
-            $('.js-show-search').removeClass('show-search');
-            $('.panel-search').slideUp(400);
-        }
-    });
-
-    $('.js-show-search').on('click', function () {
-        $(this).toggleClass('show-search');
-        $('.panel-search').slideToggle(400);
-
-        if ($('.js-show-filter').hasClass('show-filter')) {
-            $('.js-show-filter').removeClass('show-filter');
-            $('.panel-filter').slideUp(400);
-        }
-    });
-
-
-
 
     /*==================================================================
     [ Cart ]*/
@@ -277,7 +209,5 @@
     $('.js-hide-modal1').on('click', function () {
         $('.js-modal1').removeClass('show-modal1');
     });
-
-
 
 })(jQuery);

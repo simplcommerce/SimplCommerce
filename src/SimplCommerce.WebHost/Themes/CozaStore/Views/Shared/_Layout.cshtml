@@ -9,6 +9,7 @@
     @RenderSection("additionalMeta", false)
 
     <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/lib/bootstrap4/css/bootstrap.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/toastr/build/toastr.min.css" />
     <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
     <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/fonts/iconic/css/material-design-iconic-font.min.css" />
     <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/fonts/linearicons-v1.0.0/icon-font.min.css" />
@@ -39,7 +40,7 @@
                         <a href="~/help-center" class="flex-c-m trans-04 p-lr-25">
                             Help & FAQs
                         </a>
-                        @await Html.PartialAsync("_LoginPartial")
+                        <partial name="_LoginPartial" />
                     </div>
                 </div>
             </div>
@@ -108,7 +109,7 @@
                             Help & FAQs
                         </a>
 
-                        @await Html.PartialAsync("_LoginPartial")
+                        <partial name="_LoginPartial" />
                     </div>
                 </li>
             </ul>
@@ -214,14 +215,12 @@
                 <p class="stext-107 cl6 txt-center">
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;
-                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    <script>document.write(new Date().getFullYear());</script>  SimplCommerce | This theme is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> | Powered by <a href="https://www.simplcommerce.com">SimplCommerce</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-
                 </p>
             </div>
         </div>
     </footer>
-
 
     <!-- Back to top -->
     <div class="btn-back-to-top" id="myBtn">
@@ -231,6 +230,12 @@
     </div>
     <div id="shopModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+    <div id="productOverview" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
             </div>
         </div>
@@ -246,22 +251,22 @@
     <script simpl-append-version="true" src="~/lib/bootstrap4/js/bootstrap.js"></script>
     <script simpl-append-version="true" src="~/lib/multi-dropdown-menu/js/bootstrap-4-navbar.js"></script>
     <script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
+    <script simpl-append-version="true" src="~/lib/toastr/build/toastr.min.js"></script>
     <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
     @if (CultureInfo.CurrentCulture.Name == "vi-VN")
     {
         <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/vi-vn.js"></script>
     }
 
-    <script src="~/themes/CozaStore/vendor/animsition/js/animsition.min.js"></script>
-    <script src="~/themes/CozaStore/vendor/slick/slick.min.js"></script>
-    <script src="~/themes/CozaStore/js/slick-custom.js"></script>
-    <script src="~/themes/CozaStore/js/cozastore.js"></script>
-
+    <script simpl-append-version="true" src="~/themes/CozaStore/vendor/animsition/js/animsition.min.js"></script>
+    <script simpl-append-version="true" src="~/themes/CozaStore/vendor/slick/slick.min.js"></script>
+    <script simpl-append-version="true" src="~/themes/CozaStore/js/slick-custom.js"></script>
+    <script simpl-append-version="true" src="~/themes/CozaStore/js/cozastore.js"></script>
     <script simpl-append-version="true" src="~/modules/core/main.js"></script>
-    <script simpl-append-version="true" src="~/modules/shopping-cart/add-to-cart.js"></script>
-    <script simpl-append-version="true" src="~/modules/product-comparison/product-comparison.js"></script>
+    <script simpl-append-version="true" src="~/modules/shoppingcart/add-to-cart.js"></script>
+    <script simpl-append-version="true" src="~/modules/productcomparison/product-comparison.js"></script>
     @RenderSection("scripts", required: false)
 
-    @await Html.PartialAsync("_AnalyticsScript")
+    <partial name="_AnalyticsScript" />
 </body>
 </html>

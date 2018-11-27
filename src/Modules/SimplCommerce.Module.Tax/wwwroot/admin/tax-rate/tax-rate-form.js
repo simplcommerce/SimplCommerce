@@ -44,7 +44,7 @@
             taxRateService.getStatesOrProvinces(vm.taxRate.countryId).then(function (result) {
                 vm.statesOrProvinces = result.data;
             });
-        }
+        };
 
         function getCountries() {
             taxRateService.getCountries().then(function (result) {

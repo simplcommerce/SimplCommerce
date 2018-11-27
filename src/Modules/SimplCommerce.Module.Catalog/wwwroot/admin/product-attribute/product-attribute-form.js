@@ -47,7 +47,7 @@
         function getProductAttributeGroups() {
             productAttributeGroupService.getProductAttributeGroups().then(function (result) {
                 vm.productAttributeGroups = result.data;
-            })
+            });
         }
 
         function init() {

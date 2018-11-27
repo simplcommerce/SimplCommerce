@@ -362,6 +362,14 @@ li.nav-item-group, li.nav-item-group a {
     text-transform: uppercase;
 }
 
+.cart-list .order-note-form textarea {
+    max-width: 100%;
+}
+
+.cart-list .order-summary .order-note-form {
+    padding-bottom: 20px;
+}
+
 .coupon-form {
     margin-top: 20px;
 }
@@ -455,4 +463,22 @@ li.nav-item-group, li.nav-item-group a {
     padding: 17px 5px 5px;
     margin-bottom: 25px;
     text-align: center;
+}
+
+.quick-view {
+    height: 25px;
+    border: 1px solid #e7e7e7;
+    border-radius: 2px;
+    text-align: center;
+}
+
+.modal-lg {
+    min-width: 850px;
+    max-width: 1200px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.modal-padding {
+    padding: 10px 10px 10px 10px;
 }

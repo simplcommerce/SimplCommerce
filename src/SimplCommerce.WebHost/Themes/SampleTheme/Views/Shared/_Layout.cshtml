@@ -12,8 +12,11 @@
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap-star-rating/css/star-rating.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/multi-dropdown-menu/css/bootstrap-4-navbar.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/toastr/build/toastr.min.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/modules/core/site.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/themes/SampleTheme/site.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/smoothproducts/css/smoothproducts.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/modules/catalog/product-detail.css" />
 
     @RenderSection("head", required: false)
 </head>
@@ -21,8 +24,8 @@
     <div class="top-bar">
         <div class="container">
             <ul class="nav justify-content-end">
-                @await Html.PartialAsync("_SelectLanguagePartial")
-                @await Html.PartialAsync("_LoginPartial")
+                <partial name="_SelectLanguagePartial" />
+                <partial name="_LoginPartial" />
             </ul>
         </div>
     </div>
@@ -30,7 +33,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4 logo">
-                    <a asp-controller="Home" asp-action="Index">
+                    <a asp-area="Core" asp-controller="Home" asp-action="Index">
                         <img alt="SimplCommerce" src="~/modules/core/Logo_SimplCommerce.png" />
                     </a>
                 </div>
@@ -80,8 +83,14 @@
         </div>
     </div>
     <div id="shopModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
+            </div>
+        </div>
+    </div>
+    <div id="productOverview" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content modal-padding">
             </div>
         </div>
     </div>
@@ -96,16 +105,18 @@
     <script simpl-append-version="true" src="~/lib/bootstrap4/js/bootstrap.js"></script>
     <script simpl-append-version="true" src="~/lib/multi-dropdown-menu/js/bootstrap-4-navbar.js"></script>
     <script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
+    <script simpl-append-version="true" src="~/lib/toastr/build/toastr.min.js"></script>
     <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
     @if (CultureInfo.CurrentCulture.Name == "vi-VN")
     {
         <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/vi-vn.js"></script>
     }
     <script simpl-append-version="true" src="~/modules/core/main.js"></script>
-    <script simpl-append-version="true" src="~/modules/shopping-cart/add-to-cart.js"></script>
-    <script simpl-append-version="true" src="~/modules/product-comparison/product-comparison.js"></script>
+    <script simpl-append-version="true" src="~/modules/shoppingcart/add-to-cart.js"></script>
+    <script simpl-append-version="true" src="~/modules/productcomparison/product-comparison.js"></script>
+    <script simpl-append-version="true" src="~/modules/catalog/product-overview.js"></script>
     @RenderSection("scripts", required: false)
 
-    @await Html.PartialAsync("_AnalyticsScript")
+    <partial name="_AnalyticsScript" />
 </body>
 </html>

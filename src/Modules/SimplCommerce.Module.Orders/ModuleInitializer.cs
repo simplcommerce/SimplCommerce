@@ -1,17 +1,21 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+﻿using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using SimplCommerce.Infrastructure;
+using SimplCommerce.Module.Orders.Events;
+using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Module.Orders.Services;
 
 namespace SimplCommerce.Module.Orders
 {
     public class ModuleInitializer : IModuleInitializer
     {
-        public void ConfigureServices(IServiceCollection serviceCollection)
+        public void ConfigureServices(IServiceCollection services)
         {
-            serviceCollection.AddSingleton<IHostedService, OrderCancellationBackgroundService>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IOrderEmailService, OrderEmailService>();
+            services.AddHostedService<OrderCancellationBackgroundService>();
+            services.AddTransient<INotificationHandler<OrderChanged>, OrderChangedCreateOrderHistoryHandler>();
+            services.AddTransient<INotificationHandler<OrderCreated>, OrderCreatedCreateOrderHistoryHandler>();
         }
 
         public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)

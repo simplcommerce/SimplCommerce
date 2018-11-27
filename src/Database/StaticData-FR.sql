@@ -212,4 +212,10 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-F
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-FR', N'Create Address', N'Créer une adresse')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-FR', N'Your account', N'Votre Compte')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-FR', N'Date', N'Date')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-FR', N'Add to Compare', N'Ajouter pour comparer')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-FR', N'Not available', N'Indisponible')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-FR', N'You save', N'Vous sauvegardez')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-FR', N'Submit', N'Soumettre')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-FR', N'All Categories', N'Toutes catégories')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-FR', N'Search here...', N'Cherche ici...')
 GO

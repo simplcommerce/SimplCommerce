@@ -1,0 +1,92 @@
+﻿@model LoginViewModel
+@inject SignInManager<User> SignInManager
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.OpenIdConnect
+
+@{
+    ViewData["Title"] = Localizer["Log in"];
+}
+
+<h2>@ViewData["Title"].</h2>
+<div class="row">
+    <div class="col-md-8">
+        <section>
+            <form asp-area="Core" asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                <h4>@Localizer["Use a local account to log in."]</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group row">
+                    <label asp-for="Email" class="col-md-4 col-form-label">@Localizer["Email"]</label>
+                    <div class="col-md-8">
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Password" class="col-md-4 col-form-label">@Localizer["Password"]</label>
+                    <div class="col-md-8">
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-md-4 col-md-8">
+                        <div class="checkbox">
+                            <label asp-for="RememberMe">
+                                <input asp-for="RememberMe" />
+                                @Localizer["Remember me?"]
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-md-4 col-md-8">
+                        <button type="submit" class="btn btn-primary">@Localizer["Log in"]</button>
+                    </div>
+                </div>
+                <p>
+                    <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">@Localizer["Register as a new user?"]</a>
+                </p>
+                <p>
+                    <a asp-action="ForgotPassword">@Localizer["Forgot your password?"]</a>
+                </p>
+            </form>
+        </section>
+    </div>
+    <div class="col-md-4">
+        <section>
+            <h4>@Localizer["Use another service to log in."]</h4>
+            <hr />
+            @{
+                var schemes = await SignInManager.GetExternalAuthenticationSchemesAsync();
+                var loginProviders = schemes.Where(scheme => scheme.DisplayName != OpenIdConnectDefaults.AuthenticationScheme).ToList();
+                if (loginProviders.Count == 0)
+                {
+                    <div>
+                        <p>
+                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                            for details on setting up this ASP.NET application to support logging in via external services.
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form asp-area="Core" asp-controller="Account" asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var provider in loginProviders)
+                                {
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.Name</button>
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            }
+        </section>
+    </div>
+</div>
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

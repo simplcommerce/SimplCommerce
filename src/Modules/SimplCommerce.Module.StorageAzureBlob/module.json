@@ -1,0 +1,6 @@
+{
+  "id": "SimplCommerce.Module.StorageAzureBlob",
+  "name": "Azure BLOB Storage",
+  "version": "1.0.0",
+  "isBundledWithHost": true
+}

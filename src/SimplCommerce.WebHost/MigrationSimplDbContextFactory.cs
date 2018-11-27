@@ -1,12 +1,11 @@
 ﻿using System;
 using System.IO;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore.Design;
 using SimplCommerce.Module.Core.Data;
 using SimplCommerce.WebHost.Extensions;
-using Microsoft.EntityFrameworkCore.Design;
+using SimplCommerce.Infrastructure;
 
 namespace SimplCommerce.WebHost
 {
@@ -23,17 +22,16 @@ namespace SimplCommerce.WebHost
                             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                             .AddJsonFile($"appsettings.{environmentName}.json", true);
 
+            builder.AddUserSecrets(typeof(MigrationSimplDbContextFactory).Assembly, optional: true);
             builder.AddEnvironmentVariables();
             var _configuration = builder.Build();
 
             //setup DI
-            var containerBuilder = new ContainerBuilder();
             IServiceCollection services = new ServiceCollection();
-
-            services.LoadInstalledModules(contentRootPath);
+            GlobalConfiguration.ContentRootPath = contentRootPath;
+            services.AddModules(contentRootPath);
             services.AddCustomizedDataStore(_configuration);
-            containerBuilder.Populate(services);
-            var _serviceProvider = containerBuilder.Build().Resolve<IServiceProvider>();
+            var _serviceProvider = services.BuildServiceProvider();
 
             return _serviceProvider.GetRequiredService<SimplDbContext>();
         }

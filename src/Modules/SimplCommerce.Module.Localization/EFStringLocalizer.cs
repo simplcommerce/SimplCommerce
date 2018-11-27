@@ -1,17 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Localization;
 
 namespace SimplCommerce.Module.Localization
 {
     public class EfStringLocalizer : IStringLocalizer
     {
-        private readonly IList<ResourceString> _resourceStrings;
+        private IMemoryCache _resourcesCache;
+        private readonly IServiceProvider _serviceProvider;
 
-        public EfStringLocalizer(IList<ResourceString> resourceStrings)
+        public EfStringLocalizer(IServiceProvider serviceProvider, IMemoryCache resourcesCache)
         {
-            _resourceStrings = resourceStrings;
+            _serviceProvider = serviceProvider;
+            _resourcesCache = resourcesCache;
         }
 
         public LocalizedString this[string name]
@@ -35,22 +42,41 @@ namespace SimplCommerce.Module.Localization
 
         public IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures)
         {
-            return _resourceStrings
-                .Where(r => r.Culture == CultureInfo.CurrentCulture.Name)
-                .Select(r => new LocalizedString(r.Key, r.Value, true));
+            var culture = CultureInfo.CurrentUICulture.Name;
+            var resources = LoadResources(culture);
+
+            return resources.Select(r => new LocalizedString(r.Key, r.Value, true));
         }
 
         public IStringLocalizer WithCulture(CultureInfo culture)
         {
             CultureInfo.DefaultThreadCurrentCulture = culture;
-            return new EfStringLocalizer(_resourceStrings);
+            return new EfStringLocalizer(_serviceProvider, _resourcesCache);
         }
 
         private string GetString(string name)
         {
-            return _resourceStrings
-                .Where(r => r.Culture == CultureInfo.CurrentCulture.Name)
-                .FirstOrDefault(r => r.Key == name)?.Value;
+            var culture = CultureInfo.CurrentUICulture.Name;
+            var resources = LoadResources(culture);
+            var value = resources.SingleOrDefault(r => r.Key == name)?.Value;
+
+            return value;
+        }
+
+        private IList<Resource> LoadResources(string culture)
+        {
+            if (!_resourcesCache.TryGetValue(culture, out IList<Resource> resources))
+            {
+                using (var scope = _serviceProvider.CreateScope())
+                {
+                    var resourceRepository = scope.ServiceProvider.GetRequiredService<IRepository<Resource>>();
+                    resources = resourceRepository.Query().Where(r => r.Culture.Id == culture).ToList();
+                }
+                
+                _resourcesCache.Set(culture, resources);
+            }
+
+            return resources;
         }
     }
 }

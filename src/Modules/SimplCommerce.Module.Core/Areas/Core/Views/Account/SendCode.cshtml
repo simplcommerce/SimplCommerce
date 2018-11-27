@@ -1,0 +1,21 @@
+﻿@model SendCodeViewModel
+@{
+    ViewData["Title"] = "Send Verification Code";
+}
+
+<h2>@ViewData["Title"].</h2>
+
+<form asp-area="Core" asp-controller="Account" asp-action="SendCode" asp-route-returnurl="@Model.ReturnUrl" method="post">
+    <input asp-for="RememberMe" type="hidden" />
+    <div class="form group row">
+        <div class="col-md-8">
+            Select Two-Factor Authentication Provider:
+            <select asp-for="SelectedProvider" asp-items="Model.Providers"></select>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

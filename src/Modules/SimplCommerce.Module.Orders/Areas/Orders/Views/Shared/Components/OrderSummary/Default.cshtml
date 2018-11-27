@@ -1,0 +1,62 @@
+﻿@model SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels.CartVm
+
+<h3>@Localizer["Order summary"] </h3>
+<table class="table">
+    <tr>
+        <th>@Localizer["Product"]</th>
+        <th class="text-center">@Localizer["Quantity"]</th>
+        <th class="text-right">@Localizer["Price"]</th>
+    </tr>
+    @foreach (var item in Model.Items)
+    {
+        <tr>
+            <td>
+                @item.ProductName
+                @if (item.VariationOptions.Any())
+                {
+                    <ul class="list-unstyled">
+                        @foreach (var attr in item.VariationOptions)
+                        {
+                            <li><span>@attr.OptionName:</span> @attr.Value</li>
+                        }
+                    </ul>
+                }
+            </td>
+            <td class="text-center">@item.Quantity</td>
+            <td class="text-right">@item.ProductPriceString</td>
+        </tr>
+    }
+    <tr>
+        <td>@Localizer["Order note"]</td>
+        <td colspan="2" class="text-right">@Model.OrderNote</td>
+    </tr>
+    <tr>
+        <td>@Localizer["Subtotal"]</td>
+        <td colspan="2" class="text-right">@Model.SubTotal.ToString("C")<input type="hidden" id="orderSubtotal" value="@Model.SubTotal" /></td>
+    </tr>
+    <tr>
+        <td>@Localizer["Shipping"]</td>
+        <td colspan="2" id="orderSummaryShipping" class="text-right">@Model.ShippingAmountString</td>
+    </tr>
+    @if (!Model.IsProductPriceIncludeTax)
+    {
+        <tr>
+            <td>Tax</td>
+            <td colspan="2" id="orderSummaryTax" class="text-right">@Model.TaxAmountString</td>
+        </tr>
+    }
+    <tr>
+        <td>@Localizer["Discount"]</td>
+        <td colspan="2" class="text-right">@Model.Discount.ToString("C")</td>
+    </tr>
+    <tr>
+        <td>
+            <strong>@Localizer["Order Total"]</strong>
+            @if (Model.IsProductPriceIncludeTax)
+            {
+                <span> (@Localizer["VAT included"])</span>
+            }
+        </td>
+        <td colspan="2" class="text-right"><strong id="orderTotal">@Model.OrderTotal.ToString("C")</strong></td>
+    </tr>
+</table>

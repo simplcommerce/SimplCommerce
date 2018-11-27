@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<div class="row cart-list" ng-app="simpl.shoppingCart" ng-controller="shoppingCartListCtrl as vm" ng-cloak>
+    <div class="col-md-8">
+        <table class="table table-striped cart-items">
+            <thead>
+                <tr>
+                    <th colspan="2">@Localizer["Product"]</th>
+                    <th class="text-right">@Localizer["Price"]</th>
+                    <th class="text-center">@Localizer["Quantity"]</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-if="vm.cart.items.length" ng-repeat="cartItem in vm.cart.items">
+                    <td class="product-image"><img ng-src="{{cartItem.productImage}}" /></td>
+                    <td>
+                        <h4>{{cartItem.productName}}</h4>
+                        <ul class="list-unstyled">
+                            <li ng-repeat="opt in cartItem.variationOptions">
+                                <span>{{opt.optionName}}:</span> {{opt.value}}
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="text-right">{{cartItem.productPriceString}}</td>
+                    <td class="text-center">
+                        <button type="button" class="quantity-button" ng-click="vm.decreaseQuantity(cartItem)" name="subtract" value="-">-</button>
+                        <input type="text" class="quantity-field" ng-model="cartItem.quantity" readonly="readonly" />
+                        <button type="button" class="quantity-button" ng-click="vm.increaseQuantity(cartItem)" name="subtract" value="+">+</button>
+                    </td>
+                    <td class="text-right"><button class="btn btn-link" ng-click="vm.removeShoppingCartItem(cartItem)"><span class="fa fa-remove" aria-hidden="true"></span></button></td>
+                </tr>
+                <tr ng-if="!vm.cart.items.length">
+                    <td colspan="5" class="text-center">
+                        @Localizer["There are no items in this cart."] <a href="~/">@Localizer["Go to shopping"]</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="order-note-form">
+            <h4>@Localizer["Order note"]</h4>
+            <form>
+                <div class="form-group">
+                    <textarea rows="3" class="form-control" name="orderNote" ng-model="vm.cart.orderNote" placeholder="Enter order note"></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default pull-right" ng-click="vm.saveOrderNote()">Save order note</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="order-summary" ng-if="vm.cart.items.length">
+            <h4>@Localizer["Order summary"]</h4>
+            <table class="table">
+                <tr>
+                    <td>@Localizer["Subtotal"]</td>
+                    <td>{{vm.cart.subTotalString}}</td>
+                </tr>
+                <tr>
+                    <td>@Localizer["Discount"] {{vm.cart.couponCode}}</td>
+                    <td>{{vm.cart.discountString}}</td>
+                </tr>
+                <tr>
+                    <td>@Localizer["Order Total"]</td>
+                    <td><strong>{{vm.cart.orderTotalString}}</strong></td>
+                </tr>
+            </table>
+            <p class="text-right"><a href="~/checkout/shipping" class="btn btn-primary">@Localizer["Process to Checkout"]</a></p>
+        </div>
+        <div class="coupon-form" ng-if="vm.cart.items.length">
+            <h4>@Localizer["Coupon code"]</h4>
+            <form class="form-inline">
+                <div class="form-group">
+                    <label>{{vm.cart.couponValidationErrorMessage}}</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="couponCode" ng-model="vm.couponCode" placeholder="Enter coupon">
+                    <button type="submit" class="btn btn-default" ng-click="vm.applyCoupon()">@Localizer["Apply"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section head{
+    <script simpl-append-version="true" src="~/lib/angular/angular.js"></script>
+    <script simpl-append-version="true" src="~/modules/shoppingcart/shoppingcart-list.js"></script>
+    <script simpl-append-version="true" src="~/modules/shoppingcart/shoppingcart-service.js"></script>
+}

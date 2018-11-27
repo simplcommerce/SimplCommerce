@@ -1,0 +1,67 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{::vm.translate.get('Comments')}}</h2>
+        </div>
+        <div class="col-md-4 text-right">
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped" st-pipe="vm.getComments" st-table="vm.comments">
+    <thead>
+        <tr>
+            <th>{{::vm.translate.get('Customer')}}</th>
+            <th>{{::vm.translate.get('Entity Name')}}</th>
+            <th>{{::vm.translate.get('Comment')}}</th>
+            <th st-sort="CreatedOn" class="sortable">{{::vm.translate.get('Created On')}}</th>
+            <th>{{::vm.translate.get('Comment')}}</th>
+            <th>{{::vm.translate.get('Status')}}</th>
+            <th>{{::vm.translate.get('Actions')}}</th>
+        </tr>
+        <tr>
+            <th></th>
+            <th><input class="form-control" st-search="EntityName" /></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th><st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range></th>
+            <th></th>
+            <th>
+                <div class="form-group">
+                    <select class="form-control" st-search="Status">
+                        <option value="">{{::vm.translate.get('All')}}</option>
+                        <option value="1">{{::vm.translate.get('Pending')}}</option>
+                        <option value="5">{{::vm.translate.get('Approved')}}</option>
+                        <option value="8">{{::vm.translate.get('Not Approved')}}</option>
+                    </select>
+                </div>
+            </th>
+            <th></th>
+        </tr>
+        <tr>
+            <th ng-show="!vm.isLoading" colspan="8">{{vm.tableStateRef.pagination.totalItemCount | number:0}} records found</th>
+        </tr>
+    </thead>
+    <tbody ng-show="!vm.isLoading">
+        <tr ng-repeat="comment in vm.comments">
+            <td>{{comment.commenterName}}</td>
+            <td><a href="/{{comment.entitySlug}}">{{comment.entityName}}</a></td>
+            <td>{{comment.commentText}}</td>
+            <td>{{comment.createdOn | date:'medium'}}</td>
+            <td>{{comment.type}}</td>
+            <td>{{comment.status }}</td>
+            <td><button ng-if="comment.status ==='Pending'" title="Approve" ng-click="vm.approve(comment)" class="btn btn-primary btn-xs">{{::vm.translate.get('Approve')}}</button></td>
+        </tr>
+    </tbody>
+    <tbody ng-show="vm.isLoading">
+        <tr>
+            <td colspan="8" class="text-center">Loading ... </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="8"></td>
+        </tr>
+    </tfoot>
+</table>	

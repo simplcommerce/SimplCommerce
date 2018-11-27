@@ -11,13 +11,12 @@
         vm.cultures = [];
         vm.selectedCultureId = 'vi-VN';
 
-        vm.changeCulture = function changeCulture()
-        {
+        vm.changeCulture = function changeCulture() {
             vm.validationErrors = [];
             localizationService.getResources(vm.selectedCultureId).then(function (result) {
                 vm.resources = result.data;
             });
-        }
+        };
 
         vm.save = function save() {
             vm.validationErrors = [];

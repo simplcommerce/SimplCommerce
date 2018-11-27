@@ -1,0 +1,17 @@
+﻿@model SimplCommerce.Module.News.Areas.News.ViewModels.NewsItemThumbnail
+
+<div class="news-item">
+    <div class="col-md-4 thumbnail">
+        <a href="~/@Model.Slug">
+            <div class="thumbnail">
+                <img src="@Model.ImageUrl" alt="" />
+            </div>
+            <div class="news-item-published-on">
+                <h1>@Model.PublishedOn.ToString("dd/MM/yyyy")</h1>
+            </div>
+            <div class="news-item-short-description">
+                @Html.Raw(Model.ShortContent)
+            </div>
+        </a>
+    </div>
+</div>

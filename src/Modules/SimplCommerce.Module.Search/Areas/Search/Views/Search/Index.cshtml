@@ -1,0 +1,184 @@
+﻿@using System.Threading.Tasks
+
+@model SimplCommerce.Module.Search.Areas.Search.ViewModels.SearchResult
+@{
+    ViewBag.Title = "Search";
+}
+
+@section head {
+    <link simpl-append-version="true" href="~/lib/nouislider/distribute/nouislider.min.css" rel="stylesheet" />
+}
+
+<div class="row">
+    <div class="col-md-3 product-list-filters">
+        <h3>Filter by</h3>
+        <form id="productFilter" name="productFilter" method="GET" action="~/search">
+            <div id="accordion-category">
+                <div class="card">
+                    <div class="card-header" id="cardHeaderCategory">
+                        <h5 class="mb-0">
+                            <a data-toggle="collapse" href="#collapse-category" aria-expanded="true" aria-controls="collapse-category">
+                                @Localizer["Category"]
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapse-category" class="collapse show" aria-labelledby="cardHeaderCategory" data-parent="#accordion-category">
+                        <div class="card-body">
+                            <ul class="list-unstyled checkbox-list">
+                                @foreach (var category in Model.FilterOption.Categories.Where(x => x.ParentId == null))
+                                {
+                                    <li>
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="@category.Slug" name="category" checked="@Model.CurrentSearchOption.GetCategories().Contains(category.Slug)">
+                                            @category.Name
+                                            <small>(@category.Count)</small>
+                                        </label>
+                                        @{
+                                            var children = Model.FilterOption.Categories.Where(x => x.ParentId == category.Id);
+                                        }
+                                        @if (children.Any())
+                                        {
+                                            <ul class="list-unstyled checkbox-list">
+                                                @foreach (var child in children)
+                                                {
+                                                    <li>
+                                                        <label class="checkbox">
+                                                            <input type="checkbox" value="@child.Slug" name="category" checked="@Model.CurrentSearchOption.GetCategories().Contains(child.Slug)">
+                                                            @child.Name
+                                                            <small>(@child.Count)</small>
+                                                        </label>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        }
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="accordion-brand" class="mt-4">
+                <div class="card">
+                    <div class="card-header" id="cardBrandHeader">
+                        <h5 class="mb-0">
+                            <a data-toggle="collapse" href="#collapse-brand" aria-expanded="true" aria-controls="collapse-brand">
+                                @Localizer["Brand"]
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapse-brand" class="collapse show" aria-labelledby="cardBrandHeader" data-parent="#accordion-brand">
+                        <div class="card-body">
+                            <ul class="list-unstyled checkbox-list">
+                                @foreach (var brand in Model.FilterOption.Brands)
+                                {
+                                    <li>
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="@brand.Slug" name="brand" checked="@Model.CurrentSearchOption.GetBrands().Contains(brand.Slug)">
+                                            @brand.Name
+                                            <small>(@brand.Count)</small>
+                                        </label>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if (Model.FilterOption.Price.MaxPrice != Model.FilterOption.Price.MinPrice)
+            {
+                <div id="accordion-price" class="mt-4">
+                    <div class="card">
+                        <div class="card-header" id="cardHeaderPrice">
+                            <h5 class="mb-0">
+                                <a data-toggle="collapse" href="#collapse-price" aria-expanded="true" aria-controls="collapse-price">
+                                    @Localizer["Price"]
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                            </h5>
+                        </div>
+                        <div id="collapse-price" class="collapse show" aria-labelledby="cardHeaderPrice" data-parent="#accordion-price">
+                            <div class="card-body">
+                                <div id="priceSlider"></div>
+                                <div>
+                                    <input type="hidden" id="originMinPrice" value="@Model.FilterOption.Price.MinPrice.ToString("F0")" />
+                                    <input type="hidden" id="originMaxPrice" value="@Model.FilterOption.Price.MaxPrice.ToString("F0")" />
+                                    <span id="minPrice"></span>
+                                    <span id="maxPrice"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </form>
+    </div>
+    <div class="col-md-9">
+        <div class="row mb-3">
+            <div class="col-md-7 category-result">
+                <h2>Search result for @Model.CurrentSearchOption.Query</h2>
+                <small class="badge-results">@Model.TotalProduct Results</small>
+            </div>
+            <div class="col-md-5">
+                <ul class="list-inline clear-both product-list-display-options">
+                    <li class="sort-by">
+                        <label>Sort By :</label>
+                        <div class="btn-group">
+                            <select asp-for="CurrentSearchOption.Sort" asp-items="Model.AvailableSortOptions" class="form-control"></select>
+                        </div>
+                    </li>
+                    @*<li class="pagination-option">
+                            <label>Show :</label>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    20 <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">All</a></li>
+                                    <li><a href="#">50</a></li>
+                                    <li><a href="#">30</a></li>
+                                </ul>
+                            </div>
+                        </li>*@
+                </ul>
+            </div>
+        </div>
+        <div class="row product-list">
+            @foreach (var product in Model.Products)
+            {
+                <div class="col-xs-6 col-md-4">
+                    <partial name="/Areas/Catalog/Views/Shared/_ProductThumbnail.cshtml" model="product" />
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <cs-pager cs-paging-pagesize="@Model.CurrentSearchOption.PageSize"
+                          cs-paging-pagenumber="@Model.CurrentSearchOption.Page"
+                          cs-paging-totalitems="@Model.TotalProduct"
+                          cs-pagenumber-param="page"
+                          asp-basehref="~/search"
+                          asp-all-route-data="@Model.CurrentSearchOption.ToDictionary()"></cs-pager>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script simpl-append-version="true" src="~/lib/wnumb/wNumb.js"></script>
+    <script simpl-append-version="true" src="~/lib/nouislider/distribute/nouislider.min.js"></script>
+
+    <script>
+        var productFilter = {};
+        productFilter.currentSearchOption = @Html.Raw(Model.CurrentSearchOption.ToJson());
+        productFilter.priceSetting = {
+            min: @Model.FilterOption.Price.MinPrice.ToString("F0"),
+            max: @Model.FilterOption.Price.MaxPrice.ToString("F0"),
+            currentMin: @((Model.CurrentSearchOption.MinPrice ?? Model.FilterOption.Price.MinPrice).ToString("F0")),
+            currentMax: @((Model.CurrentSearchOption.MaxPrice ?? Model.FilterOption.Price.MaxPrice).ToString("F0"))
+        };
+    </script>
+    <script simpl-append-version="true" src="~/modules/catalog/product-filter.js"></script>
+}
