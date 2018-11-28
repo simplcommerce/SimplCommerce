@@ -12,6 +12,7 @@ using SimplCommerce.Module.Core.Extensions;
 namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
 {
     [Area("Comments")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class CommentController : Controller
     {
         private const int DefaultPageSize = 25;

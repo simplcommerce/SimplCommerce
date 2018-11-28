@@ -69,6 +69,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             return Json(customerGroups);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var customerGroups = await _customerGroupRepository.Query().Select(x => new

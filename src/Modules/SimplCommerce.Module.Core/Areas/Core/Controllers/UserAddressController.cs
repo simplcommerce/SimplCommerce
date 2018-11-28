@@ -13,6 +13,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 {
     [Area("Core")]
     [Authorize]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class UserAddressController : Controller
     {
         private readonly IRepository<UserAddress> _userAddressRepository;

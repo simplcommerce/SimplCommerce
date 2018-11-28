@@ -24,6 +24,7 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
             _defaultTaxClassId =config.GetValue<int>("Tax.DefaultTaxClassId");
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var taxClasses = await _taxClassRepository

@@ -17,6 +17,8 @@
             getOrderLinesExport: getOrderLinesExport,
             getCart: getCart,
             addCartItem: addCartItem,
+            updateCartItem: updateCartItem,
+            removeCartItem: removeCartItem,
             getCountries: getCountries,
             getStatesOrProvinces: getStatesOrProvinces,
             getDistricts: getDistricts,
@@ -89,11 +91,19 @@
         }
 
         function getCart(customerId) {
-            return $http.get('api/customer/' + customerId + '/cart');
+            return $http.get('api/customers/' + customerId + '/cart');
         }
 
         function addCartItem(customerId, cartItem) {
-            return $http.post('api/customer/' + customerId + '/add-cart-item', cartItem);
+            return $http.post('api/customers/' + customerId + '/add-cart-item', cartItem);
+        }
+
+        function updateCartItem(cartItem) {
+            return $http.put('api/carts/items/' + cartItem.id, cartItem);
+        }
+
+        function removeCartItem(cartItemId) {
+            return $http.delete('api/carts/items/' + cartItemId);
         }
 
         function getCountries() {

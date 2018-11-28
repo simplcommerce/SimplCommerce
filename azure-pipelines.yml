@@ -3,12 +3,52 @@
 # Add steps that run tests, create a NuGet package, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
-pool:
-  vmImage: 'Ubuntu 16.04'
+trigger:
+- master
 
-variables:
-  buildConfiguration: 'Release'
+jobs:
+- job: Linux
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  steps:
+  - script: |
+      dotnet restore
+      dotnet build ./SimplCommerce.sln
+    displayName: 'dotnet build'
+  - script: ./run-tests.sh
+    displayName: 'run tests'
 
-steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+- job: macOS
+  pool:
+    vmImage: 'macOS-10.13'
+  steps:
+  - script: |
+      dotnet restore
+      dotnet build ./SimplCommerce.sln
+    displayName: 'dotnet build'
+  - script: ./run-tests.sh
+    displayName: 'run tests'
+
+- job: Windows
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - script: |
+      dotnet restore
+      dotnet build ./SimplCommerce.sln
+    displayName: 'dotnet build'
+  - task: PowerShell@2
+    inputs:
+      filePath: .\run-tests.ps1
+    displayName: 'run tests'
+
+- job: LinuxRelease
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  variables:
+    buildConfiguration: 'Release'
+  steps:
+  - script: dotnet build --configuration $(buildConfiguration)
+    displayName: 'dotnet build $(buildConfiguration)'
+  - script: ./run-tests.sh
+    displayName: 'run tests'    

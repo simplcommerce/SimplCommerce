@@ -14,6 +14,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 {
     [Area("Core")]
     [Authorize]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;

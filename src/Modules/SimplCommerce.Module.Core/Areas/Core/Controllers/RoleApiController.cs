@@ -20,6 +20,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             _roleRepository = roleRepository;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var roles = await _roleRepository.Query().Select(x => new

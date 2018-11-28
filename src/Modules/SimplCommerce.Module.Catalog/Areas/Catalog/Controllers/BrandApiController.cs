@@ -24,6 +24,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             _brandService = brandService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var brandList = await _brandRepository.Query().Where(x => !x.IsDeleted).ToListAsync();

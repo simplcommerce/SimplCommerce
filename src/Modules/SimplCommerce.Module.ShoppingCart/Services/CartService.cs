@@ -28,6 +28,11 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             _isProductPriceIncludeTax = config.GetValue<bool>("Catalog.IsProductPriceIncludeTax");
         }
 
+        public IQueryable<Cart> Query()
+        {
+            return _cartRepository.Query();
+        }
+
         public IQueryable<Cart> GetActiveCart(long customerId)
         {
             return GetActiveCart(customerId, customerId);
@@ -162,15 +167,16 @@ namespace SimplCommerce.Module.ShoppingCart.Services
 
         public async Task MigrateCart(long fromUserId, long toUserId)
         {
-            var cartFrom = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.CustomerId == fromUserId && x.IsActive);
+            var cartFrom = GetActiveCart(fromUserId).FirstOrDefault();
             if (cartFrom != null && cartFrom.Items.Any())
             {
-                var cartTo = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.CustomerId == toUserId && x.IsActive);
+                var cartTo = GetActiveCart(toUserId).FirstOrDefault();
                 if (cartTo == null)
                 {
                     cartTo = new Cart
                     {
-                        CustomerId = toUserId
+                        CustomerId = toUserId,
+                        CreatedById = toUserId
                     };
 
                     _cartRepository.Add(cartTo);

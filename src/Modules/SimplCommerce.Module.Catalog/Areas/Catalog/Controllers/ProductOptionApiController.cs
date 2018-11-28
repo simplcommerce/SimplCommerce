@@ -19,6 +19,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             _productOptionRepository = productOptionRepository;
         }
 
+        [HttpGet]
         public IActionResult Get()
         {
             var options = _productOptionRepository.Query();

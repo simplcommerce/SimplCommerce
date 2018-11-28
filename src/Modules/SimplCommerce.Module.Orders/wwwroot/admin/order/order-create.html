@@ -43,18 +43,20 @@
                     <th>{{::vm.translate.get('Product Name')}}</th>
                     <th class="text-right">{{::vm.translate.get('Price')}}</th>
                     <th>{{::vm.translate.get('Quantity')}}</th>
+                    <th>Actions</th>
                 </tr>
                 <tr ng-repeat="item in vm.cart.items">
                     <td>{{item.productId}}</td>
                     <td>{{item.productName}}</td>
                     <td class="text-right">{{item.productPrice}}</td>
-                    <td><input class="form-control" ng-model="item.quantity" /></td>
+                    <td><input class="form-control" ng-change="vm.updateCartItemQuantity(item)" ng-model="item.quantity" /></td>
+                    <td><button ng-click="vm.removeCartItem(item)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button></td>
                 </tr>
                 <tr>
                     <td>
                         <input class="form-control" ng-model="vm.addingProduct.id" />
                     </td>
-                    <td colspan="3" class="form-inline">
+                    <td colspan="4" class="form-inline">
                         <input class="form-control" placeholder="search by product name" ng-model="vm.addingProduct.name" ng-change="vm.searchProducts()" />
                         <div id="search-products-results" ng-show="vm.isSearchingProducts">
                             <div class="products" ng-repeat="product in vm.searchedProducts" ng-click="vm.selectProduct(product)">{{product.id}} - {{product.name}}</div>
@@ -155,7 +157,7 @@
                     </div>
                 </div>
                 <h4>Order note</h4>
-                <textarea class="form-control" rows="3"></textarea>
+                <textarea class="form-control" ng-model="vm.cart.orderNote" rows="3"></textarea>
                 <h4>Order summary</h4>
                 <table class="table table-striped">
                     <tr>

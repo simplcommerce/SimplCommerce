@@ -9,6 +9,7 @@ using SimplCommerce.Module.Core.Services;
 namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 {
     [Area("Core")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class HomeController : Controller
     {
         private readonly ILogger _logger;

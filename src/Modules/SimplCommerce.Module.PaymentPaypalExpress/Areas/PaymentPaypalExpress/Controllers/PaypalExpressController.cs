@@ -20,6 +20,7 @@ using SimplCommerce.Module.ShoppingCart.Services;
 namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.Controllers
 {
     [Area("PaymentPaypalExpress")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class PaypalExpressController : Controller
     {
         private readonly ICartService _cartService;
