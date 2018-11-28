@@ -8,6 +8,6 @@ for test in ./test/*/
 do
     echo "Testing $test"
     pushd "$test"
-    dotnet test
+    dotnet test --logger:trx
     popd
 done
