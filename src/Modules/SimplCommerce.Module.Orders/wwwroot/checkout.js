@@ -1,6 +1,6 @@
 ﻿$(function () {
     function toggleCreateShippingAddress() {
-        var shippingAddressId = $('input[name=shippingAddressId]:checked').val(),
+        var shippingAddressId = $('input[name=ShippingAddressId]:checked').val(),
             $createShippingAddress = $('.create-shipping-address');
 
         if (shippingAddressId === "0") {
@@ -11,7 +11,7 @@
     }
 
     function toggleChangeBillingAddress() {
-        var shippingAddressId = $('input[name=billingAddresCB]').is(":checked");
+        var shippingAddressId = $('input[name=UseShippingAddressAsBillingAddress]').is(":checked");
         $changeBillingAddress = $('.change-billing-address');
 
         if (shippingAddressId) {
@@ -22,7 +22,7 @@
     }
 
     function toggleCreateBillingAddress() {
-        var billingAddressId = $('input[name=billingAddressId]:checked').val(),
+        var billingAddressId = $('input[name=BillingAddressId]:checked').val(),
             $createBillingAddress = $('.create-billing-address');
 
         if (billingAddressId === "0") {
@@ -33,12 +33,12 @@
     }
 
     function updateShippingInfo() {
-        if ($('input[name=shippingAddressId]:checked').val() === "0" && !$('#NewAddressForm_StateOrProvinceId').val()) {
+        if ($('input[name=ShippingAddressId]:checked').val() === "0" && !$('#NewAddressForm_StateOrProvinceId').val()) {
             return;
         }
         var postData = {
-            existingShippingAddressId: $('input[name=shippingAddressId]:checked').val(),
-            selectedShippingMethodName: $('input[name=shippingMethod]:checked').val(),
+            existingShippingAddressId: $('input[name=ShippingAddressId]:checked').val(),
+            selectedShippingMethodName: $('input[name=ShippingMethod]:checked').val(),
             newShippingAddress: {
                 countryId: $('#NewAddressForm_CountryId').val() || 0,
                 stateOrProvinceId: $('#NewAddressForm_StateOrProvinceId').val() || 0,
@@ -59,7 +59,7 @@
                     $.each(data.shippingPrices, function (index, value) {
                         $shippingMethods.append('<div class="radio"> \
                         <label> \
-                        <input type="radio" name="shippingMethod" data-price ="'+ value.priceText + '" value="' + value.name + '"> \
+                        <input type="radio" name="ShippingMethod" data-price ="'+ value.priceText + '" value="' + value.name + '"> \
                             <strong> ' + value.name + ' (' + value.priceText + ')</strong> \
                         </label> \
                        </div>');
@@ -83,20 +83,20 @@
         });
     }
 
-    $('input[name=shippingAddressId]').on('change', function () {
+    $('input[name=ShippingAddressId]').on('change', function () {
         toggleCreateShippingAddress();
     });
 
-    $('input[name=billingAddresCB]').on('change', function () {
+    $('input[name=UseShippingAddressAsBillingAddress]').on('change', function () {
         toggleChangeBillingAddress();
         toggleCreateBillingAddress();
     });
 
-    $('input[name=billingAddressId]').on('change', function () {
+    $('input[name=BillingAddressId]').on('change', function () {
         toggleCreateBillingAddress();
     });
 
-    $(document).on('change', 'input[name=shippingAddressId], #NewAddressForm_StateOrProvinceId, #NewAddressForm_DistrictId, #NewAddressForm_ZipCode, #shippingMethods input:radio', function () {
+    $(document).on('change', 'input[name=ShippingAddressId], #NewAddressForm_StateOrProvinceId, #NewAddressForm_DistrictId, #NewAddressForm_ZipCode, #shippingMethods input:radio', function () {
         updateShippingInfo();
     });
 

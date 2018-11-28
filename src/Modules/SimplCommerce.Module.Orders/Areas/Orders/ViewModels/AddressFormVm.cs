@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 {
-    public class AddressFormVm
+    public class AddressFormVm : ValidatableObject
     {
         [Required]
         public string ContactName { get; set; }
