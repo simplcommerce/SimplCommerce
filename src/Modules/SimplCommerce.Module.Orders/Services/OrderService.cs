@@ -94,11 +94,46 @@ namespace SimplCommerce.Module.Orders.Services
 
                 _userAddressRepository.Add(userAddress);
 
-                billingAddress = shippingAddress = address;
+                shippingAddress = address;
             }
             else
             {
-                billingAddress = shippingAddress = _userAddressRepository.Query().Where(x => x.Id == shippingData.ShippingAddressId).Select(x => x.Address).First();
+                shippingAddress = _userAddressRepository.Query().Where(x => x.Id == shippingData.ShippingAddressId).Select(x => x.Address).First();
+            }
+
+            if (shippingData.UseShippingAddressAsBillingAddress)
+            {
+                billingAddress = shippingAddress;
+            }
+            else if (shippingData.BillingAddressId == 0)
+            {
+                var address = new Address
+                {
+                    AddressLine1 = shippingData.NewBillingAddressForm.AddressLine1,
+                    AddressLine2 = shippingData.NewBillingAddressForm.AddressLine2,
+                    ContactName = shippingData.NewBillingAddressForm.ContactName,
+                    CountryId = shippingData.NewBillingAddressForm.CountryId,
+                    StateOrProvinceId = shippingData.NewBillingAddressForm.StateOrProvinceId,
+                    DistrictId = shippingData.NewBillingAddressForm.DistrictId,
+                    City = shippingData.NewBillingAddressForm.City,
+                    ZipCode = shippingData.NewBillingAddressForm.ZipCode,
+                    Phone = shippingData.NewBillingAddressForm.Phone
+                };
+
+                var userAddress = new UserAddress
+                {
+                    Address = address,
+                    AddressType = AddressType.Billing,
+                    UserId = cart.CustomerId
+                };
+
+                _userAddressRepository.Add(userAddress);
+
+                billingAddress = address;
+            }
+            else
+            {
+                billingAddress = _userAddressRepository.Query().Where(x => x.Id == shippingData.BillingAddressId).Select(x => x.Address).First();
             }
 
             return await CreateOrder(cartId, paymentMethod, paymentFeeAmount, shippingData.ShippingMethod, billingAddress, shippingAddress, orderStatus);
@@ -193,7 +228,7 @@ namespace SimplCommerce.Module.Orders.Services
                 };
 
                 var discountedItem = checkingDiscountResult.DiscountedProducts.FirstOrDefault(x => x.Id == cartItem.ProductId);
-                if(discountedItem != null)
+                if (discountedItem != null)
                 {
                     orderItem.DiscountAmount = discountedItem.DiscountAmount;
                 }
@@ -279,7 +314,7 @@ namespace SimplCommerce.Module.Orders.Services
             {
                 _orderRepository.SaveChanges();
                 await PublishOrderCreatedEvent(order);
-                foreach(var subOrder in subOrders)
+                foreach (var subOrder in subOrders)
                 {
                     await PublishOrderCreatedEvent(subOrder);
                 }
@@ -311,7 +346,7 @@ namespace SimplCommerce.Module.Orders.Services
             order.LatestUpdatedOn = DateTimeOffset.Now;
 
             var orderItems = _orderItemRepository.Query().Include(x => x.Product).Where(x => x.Order.Id == order.Id);
-            foreach(var item in orderItems)
+            foreach (var item in orderItems)
             {
                 if (item.Product.StockTrackingIsEnabled)
                 {

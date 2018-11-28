@@ -125,6 +125,8 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
 
             model.ShippingAddressId = currentUser.DefaultShippingAddressId ?? 0;
 
+            model.UseShippingAddressAsBillingAddress = true;
+
             model.NewAddressForm.ShipableContries = _countryRepository.Query()
                 .Where(x => x.IsShippingEnabled)
                 .OrderBy(x => x.Name)
