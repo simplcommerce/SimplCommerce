@@ -28,6 +28,11 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             _isProductPriceIncludeTax = config.GetValue<bool>("Catalog.IsProductPriceIncludeTax");
         }
 
+        public IQueryable<Cart> Query()
+        {
+            return _cartRepository.Query();
+        }
+
         public IQueryable<Cart> GetActiveCart(long customerId)
         {
             return GetActiveCart(customerId, customerId);

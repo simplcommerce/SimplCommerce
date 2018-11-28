@@ -23,7 +23,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             _countryRepository = countryRepository;
         }
 
-        [Route("/api/countries/{countryId}/states-provinces")]
+        [HttpGet("/api/countries/{countryId}/states-provinces")]
         public async Task<IActionResult> GetStatesOrProvinces(string countryId)
         {
             var statesOrProvinces = await _stateOrProvinceRepository.Query()
@@ -39,6 +39,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             return Ok(statesOrProvinces);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var statesOrProvinces = await _stateOrProvinceRepository.Query()

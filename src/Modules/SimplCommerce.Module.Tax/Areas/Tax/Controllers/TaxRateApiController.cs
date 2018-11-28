@@ -26,6 +26,7 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
             _stateOrProvinceRepository = stateOrProvinceRepository;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var taxRates = await _taxRateRepository

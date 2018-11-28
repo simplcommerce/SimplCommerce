@@ -70,6 +70,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             return Ok(products);
         }
 
+        [HttpPut]
         public async Task<IActionResult> Put([FromBody] IList<ProductPriceItemForm> productPriceItemForms)
         {
             var currentUser = await _workContext.GetCurrentUser();

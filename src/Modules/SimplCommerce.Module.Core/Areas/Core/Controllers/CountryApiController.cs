@@ -21,6 +21,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             _countryRepository = countryRepository;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get([FromQuery]bool? shippingEnabled)
         {
             var query = _countryRepository.Query();

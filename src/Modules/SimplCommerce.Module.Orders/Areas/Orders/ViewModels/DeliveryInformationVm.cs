@@ -20,8 +20,12 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 
         public AddressFormVm NewAddressForm { get; set; }
 
+
         public bool UseShippingAddressAsBillingAddress { get; set; }
 
         public AddressFormVm NewBillingAddressForm { get; set; }
+
+        public string OrderNote { get; set; }
+
     }
 }

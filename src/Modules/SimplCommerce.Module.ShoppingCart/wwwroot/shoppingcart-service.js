@@ -9,11 +9,11 @@
                 }
                 
                 function removeShoppingCartItem(itemId) {
-                    return $http.post('cart/remove', itemId);
+                    return $http.post('cart/remove-item', itemId);
                 }
 
                 function updateQuantity(itemId, quantity) {
-                    return $http.post('cart/update-quantity', {
+                    return $http.post('cart/update-item-quantity', {
                         cartItemId: itemId,
                         quantity: quantity
                     });

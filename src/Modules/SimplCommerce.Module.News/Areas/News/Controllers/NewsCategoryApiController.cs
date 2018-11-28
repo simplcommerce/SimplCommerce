@@ -24,6 +24,7 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
             _categoryService = categoryService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var categoryList = await _categoryRepository.Query().Where(x => !x.IsDeleted).ToListAsync();

@@ -141,7 +141,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 .Include(x => x.ShippingAddress).ThenInclude(x => x.Country)
                 .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.ThumbnailImage)
                 .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.OptionCombinations).ThenInclude(x => x.Option)
-                .Include(x => x.CreatedBy)
+                .Include(x => x.Customer)
                 .FirstOrDefault(x => x.Id == id);
 
             if (order == null)
@@ -178,7 +178,8 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 ShippingAddress = new ShippingAddressVm
                 {
                     AddressLine1 = order.ShippingAddress.AddressLine1,
-                    AddressLine2 = order.ShippingAddress.AddressLine2,
+                    CityName = order.ShippingAddress.City,
+                    ZipCode = order.ShippingAddress.ZipCode,
                     ContactName = order.ShippingAddress.ContactName,
                     DistrictName = order.ShippingAddress.District?.Name,
                     StateOrProvinceName = order.ShippingAddress.StateOrProvince.Name,

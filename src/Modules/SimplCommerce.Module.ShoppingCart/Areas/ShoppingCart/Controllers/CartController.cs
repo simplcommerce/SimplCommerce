@@ -1,10 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
-using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
 using SimplCommerce.Module.ShoppingCart.Models;
@@ -13,6 +11,7 @@ using SimplCommerce.Module.ShoppingCart.Services;
 namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
 {
     [Area("ShoppingCart")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class CartController : Controller
     {
         private readonly IRepository<CartItem> _cartItemRepository;
@@ -21,7 +20,6 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         private readonly IWorkContext _workContext;
 
         public CartController(
-            UserManager<User> userManager,
             IRepository<CartItem> cartItemRepository,
             ICartService cartService,
             IMediaService mediaService,
@@ -33,7 +31,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             _workContext = workContext;
         }
 
-        [HttpPost("cart/addtocart")]
+        [HttpPost("cart/add-item")]
         public async Task<IActionResult> AddToCart([FromBody] AddToCartModel model)
         {
             var currentUser = await _workContext.GetCurrentUser();
@@ -78,10 +76,11 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             return Json(cart);
         }
 
-        [HttpPost("cart/update-quantity")]
+        [HttpPost("cart/update-item-quantity")]
         public async Task<IActionResult> UpdateQuantity([FromBody] CartQuantityUpdate model)
         {
-            var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == model.CartItemId);
+            var currentUser = await _workContext.GetCurrentUser();
+            var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == model.CartItemId && x.Cart.CreatedById == currentUser.Id);
             if (cartItem == null)
             {
                 return NotFound();
@@ -128,10 +127,11 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             return Accepted();
         }
 
-        [HttpPost("cart/remove")]
+        [HttpPost("cart/remove-item")]
         public async Task<IActionResult> Remove([FromBody] long itemId)
         {
-            var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == itemId);
+            var currentUser = await _workContext.GetCurrentUser();
+            var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == itemId && x.Cart.CreatedById == currentUser.Id);
             if (cartItem == null)
             {
                 return NotFound();

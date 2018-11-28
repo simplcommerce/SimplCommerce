@@ -23,6 +23,7 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed
             _widgetInstanceRepository = widgetInstanceRepository;
             _mediaService = mediaService;
         }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(long id)
         {
@@ -38,7 +39,6 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed
                 ItemCount = JsonConvert.DeserializeObject<int>(widgetInstance.Data)
             };
 
-            
             return Json(model);
         }
 
@@ -61,7 +61,6 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed
                 _widgetInstanceRepository.Add(widgetInstance);
                 await _widgetInstanceRepository.SaveChangesAsync();
                 return CreatedAtAction(nameof(Get), new {id = widgetInstance.Id}, null);
-
             }
         }
 
@@ -84,7 +83,6 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed
 
             await _widgetInstanceRepository.SaveChangesAsync();
             return Accepted();
-
         }
     }
 }

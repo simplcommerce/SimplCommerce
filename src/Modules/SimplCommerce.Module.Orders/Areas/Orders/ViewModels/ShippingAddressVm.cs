@@ -1,4 +1,6 @@
-﻿namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
+﻿using System.Linq;
+
+namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 {
     public class ShippingAddressVm
     {
@@ -10,7 +12,14 @@
 
         public string AddressLine1 { get; set; }
 
-        public string AddressLine2 { get; set; }
+        public string AddressLine2
+        {
+            get
+            {
+                var parts = new[] { DistrictName, CityName, StateOrProvinceName, ZipCode, CountryName };
+                return string.Join(", ", parts.Where(x => !string.IsNullOrEmpty(x)));
+            }
+        }
 
         public long? DistrictId { get; set; }
 
@@ -21,6 +30,8 @@
         public long StateOrProvinceId { get; set; }
 
         public string StateOrProvinceName { get; set; }
+
+        public string CityName { get; set; }
 
         public string CountryId { get; set; }
 
