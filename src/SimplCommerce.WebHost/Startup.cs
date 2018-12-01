@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using System.Text.Encodings.Web;
+using System.Text.Unicode;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.WebEncoders;
 using Swashbuckle.AspNetCore.Swagger;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
@@ -54,6 +57,10 @@ namespace SimplCommerce.WebHost
             services.AddCustomizedMvc(GlobalConfiguration.Modules);
             services.Configure<RazorViewEngineOptions>(
                 options => { options.ViewLocationExpanders.Add(new ThemeableViewLocationExpander()); });
+            services.Configure<WebEncoderOptions>(options =>
+            {
+                options.TextEncoderSettings = new TextEncoderSettings(UnicodeRanges.All);
+            });
             services.AddScoped<ITagHelperComponent, LanguageDirectionTagHelperComponent>();
             services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
             services.AddAntiforgery(options => options.HeaderName = "X-XSRF-Token");

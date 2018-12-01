@@ -68,7 +68,8 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         {
             var currentUser = await _workContext.GetCurrentUser();
             // TODO Handle error messages
-            if (!ModelState.IsValid && (model.ShippingAddressId == 0))
+            if ((!model.NewAddressForm.IsValid() && model.ShippingAddressId == 0) ||
+                (!model.NewBillingAddressForm.IsValid() && !model.UseShippingAddressAsBillingAddress && model.BillingAddressId == 0))
             {
                 PopulateShippingForm(model, currentUser);
                 return View(model);
@@ -124,6 +125,8 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 }).ToList();
 
             model.ShippingAddressId = currentUser.DefaultShippingAddressId ?? 0;
+
+            model.UseShippingAddressAsBillingAddress = true;
 
             model.NewAddressForm.ShipableContries = _countryRepository.Query()
                 .Where(x => x.IsShippingEnabled)
