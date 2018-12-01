@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{0A
 		src\Database\StaticData-CN.sql = src\Database\StaticData-CN.sql
 		src\Database\StaticData-ES.sql = src\Database\StaticData-ES.sql
 		src\Database\StaticData-FR.sql = src\Database\StaticData-FR.sql
+		src\Database\StaticData-IR.sql = src\Database\StaticData-IR.sql
 		src\Database\StaticData-KR.sql = src\Database\StaticData-KR.sql
 		src\Database\StaticData-RU.sql = src\Database\StaticData-RU.sql
 		src\Database\StaticData-TN.sql = src\Database\StaticData-TN.sql
