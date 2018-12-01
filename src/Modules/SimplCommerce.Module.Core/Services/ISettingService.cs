@@ -55,6 +55,12 @@ namespace SimplCommerce.Module.Core.Services
         /// <returns></returns>
         Task UpdateSettingAsync(string name, string value);
 
+        /// <summary>
+        /// Sets a custom setting for a user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         void SetCustomSettingValueForUser(User user, string name, string value);
     }
 }
