@@ -147,7 +147,6 @@ namespace SimplCommerce.Module.Catalog.Models
             product.Gtin = Gtin;
             product.NormalizedName = NormalizedName;
             product.DisplayOrder = DisplayOrder;
-            product.ThumbnailImage = ThumbnailImage;
             product.TaxClassId = TaxClassId;
             product.Slug = Slug;
 
@@ -165,14 +164,6 @@ namespace SimplCommerce.Module.Catalog.Models
                 product.AddCategory(new ProductCategory
                 {
                     CategoryId = category.CategoryId
-                });
-            }
-
-            foreach (var media in Medias)
-            {
-                product.AddMedia(new ProductMedia
-                {
-                    MediaId = media.MediaId
                 });
             }
 

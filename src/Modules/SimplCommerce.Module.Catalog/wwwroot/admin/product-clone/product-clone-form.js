@@ -16,7 +16,7 @@
 
             promise
                 .then(function (result) {
-                    $state.go('product');
+                    $state.go('product-edit', { id: result.data.id });
                 })
                 .catch(function (response) {
                     var error = response.data;
@@ -31,10 +31,15 @@
                 });
         };
 
+        vm.updateSlug = function () {
+            vm.productClone.slug = slugify(vm.productClone.name);
+        };
+
         function getProductName() {
             productCloneService.getProductName(vm.productId).then(function (result) {
                 vm.productClone = result.data;
                 vm.productClone.name += " - Clone";
+                vm.updateSlug();
             });
         }
 

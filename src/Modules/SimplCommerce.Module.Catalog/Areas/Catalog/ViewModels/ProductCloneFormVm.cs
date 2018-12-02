@@ -8,5 +8,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
 
         [Required]
         public string Name { get; set; }
+
+        [Required]
+        public string Slug { get; set; }
     }
 }
