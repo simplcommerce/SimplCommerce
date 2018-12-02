@@ -1,4 +1,4 @@
-﻿INSERT [dbo].[Localization_Culture] ([Id], [Name], IsDefault) VALUES ('tr-TR', N'Turkish', 0)
+﻿INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES ('tr-TR', N'Turkish')
 GO
 
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Register', N'Kayıt olmak')

@@ -1,4 +1,4 @@
-﻿INSERT [dbo].[Localization_Culture] ([Id], [Name], IsDefault) VALUES ('ru-RU', N'Russian', 0)
+﻿INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES ('ru-RU', N'Russian')
 GO
 
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'Register', N'Зарегистрироваться')

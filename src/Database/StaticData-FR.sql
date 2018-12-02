@@ -1,4 +1,4 @@
-﻿INSERT [dbo].[Localization_Culture] ([Id], [Name], IsDefault) VALUES ('fr-FR', N'French', 0)
+﻿INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES ('fr-FR', N'French')
 GO
 
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-FR', N'Register', N'S''inscrire')
