@@ -779,7 +779,7 @@ INSERT [dbo].[ShippingTableRate_PriceAndDestination] ([Id], [CountryId], [MinOrd
 SET IDENTITY_INSERT [dbo].[ShippingTableRate_PriceAndDestination] OFF
 GO
 
-INSERT [dbo].[Localization_Culture] ([Id], [Name], IsDefault) VALUES ('vi-VN', N'Tiếng Việt', 0)
+INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES ('vi-VN', N'Tiếng Việt')
 GO
 
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Register', N'Đăng ký')
