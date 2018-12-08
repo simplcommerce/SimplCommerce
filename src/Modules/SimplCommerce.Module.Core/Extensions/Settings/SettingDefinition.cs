@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
 
 namespace SimplCommerce.Module.Core
@@ -34,9 +35,9 @@ namespace SimplCommerce.Module.Core
         public bool IsVisibleToClients { get; set; }
 
         /// <summary>
-        /// Can be used to store a custom object related to this setting.
+        /// Can be used to store some custom objects related to this setting.
         /// </summary>
-        public object CustomData { get; set; }
+        public Dictionary<string, object> ExtraProperties { get; set; }
 
         /// <summary>
         /// Creates a new <see cref="SettingDefinition"/> object.
@@ -46,14 +47,12 @@ namespace SimplCommerce.Module.Core
         /// <param name="displayName">Display name of the permission</param>
         /// <param name="description">A brief description for this setting</param>
         /// <param name="isVisibleToClients">Can clients see this setting and it's value. Default: false</param>
-        /// <param name="customData">Can be used to store a custom object related to this setting</param>
         public SettingDefinition(
             string name,
             string defaultValue,
             LocalizableString displayName = null,
             LocalizableString description = null,
-            bool isVisibleToClients = false,
-            object customData = null)
+            bool isVisibleToClients = false)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -65,7 +64,19 @@ namespace SimplCommerce.Module.Core
             DisplayName = displayName;
             Description = description;
             IsVisibleToClients = isVisibleToClients;
-            CustomData = customData;
+            ExtraProperties = new Dictionary<string, object>();
+        }
+
+        /// <summary>
+        /// Can be used to store some custom objects related to this setting.
+        /// </summary>
+        /// <param name="extraProperties"></param>
+        public virtual void SetExtraProperties(Dictionary<string, object> extraProperties)
+        {
+            if (extraProperties != null)
+            {
+                ExtraProperties = extraProperties;
+            }
         }
     }
 }

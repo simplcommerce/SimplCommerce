@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using SimplCommerce.Infrastructure.Extensions;
-using SimplCommerce.Infrastructure.Helpers;
 using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
@@ -13,7 +12,7 @@ namespace SimplCommerce.Module.Core.Services
     {
         private readonly UserManager<User> _userManager;
         private readonly SettingDefinitionProvider _settingDefinitionProvider;
-        private readonly User _currentUser;
+        private readonly IWorkContext _workContext;
 
         public SettingService(
             UserManager<User> userManager,
@@ -22,37 +21,37 @@ namespace SimplCommerce.Module.Core.Services
         {
             _userManager = userManager;
             _settingDefinitionProvider = settingDefinitionProvider;
-            _currentUser = AsyncHelper.RunSync(workContext.GetCurrentUser);
+            _workContext = workContext;
         }
 
         /// <inheritdoc />
-        public Task<string> GetSettingValueAsync(string name)
+        public async Task<string> GetSettingValueAsync(string name)
         {
-            return GetSettingValueForUserAsync(_currentUser.Id, name);
+            var user = await _workContext.GetCurrentUser();
+            return await GetSettingValueForUserAsync(user.Id, name);
         }
 
         /// <inheritdoc />
         public async Task<string> GetSettingValueForUserAsync(long userId, string name)
         {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
-            var value = GetCustomSettingValue(user, name) ?? _settingDefinitionProvider.GetOrNull(name)?.DefaultValue;
+            var value = await GetCustomSettingValue(userId, name) ?? _settingDefinitionProvider.GetOrNull(name)?.DefaultValue;
             return value;
         }
 
         /// <inheritdoc />
-        public Task<Dictionary<string, string>> GetAllSettingsAsync()
+        public async Task<Dictionary<string, string>> GetAllSettingsAsync()
         {
-            return GetAllSettingsForUserAsync(_currentUser.Id);
+            var user = await _workContext.GetCurrentUser();
+            return await GetAllSettingsForUserAsync(user.Id);
         }
 
         /// <inheritdoc />
         public async Task<Dictionary<string, string>> GetAllSettingsForUserAsync(long userId)
         {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
             var result = new Dictionary<string, string>();
 
             var defaultSettings = _settingDefinitionProvider.SettingDefinitions;
-            var customSettings = GetAllCustomSettings(user) ?? new Dictionary<string, string>();
+            var customSettings = await GetAllCustomSettings(userId) ?? new Dictionary<string, string>();
             foreach (var item in defaultSettings.Values)
             {
                 result[item.Name] = item.DefaultValue;
@@ -67,23 +66,23 @@ namespace SimplCommerce.Module.Core.Services
         }
 
         /// <inheritdoc />
-        public async Task UpdateSettingForUserAsync(long userId, string name, string value)
+        public async Task UpdateSettingForUserAsync(User user, string name, string value)
         {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
             SetCustomSettingValueForUser(user, name, value);
             await _userManager.UpdateAsync(user);
         }
 
         /// <inheritdoc />
-        public Task UpdateSettingAsync(string name, string value)
+        public async Task UpdateSettingAsync(string name, string value)
         {
-            return UpdateSettingForUserAsync(_currentUser.Id, name, value);
+            var user = await _workContext.GetCurrentUser();
+            await UpdateSettingForUserAsync(user, name, value);
         }
 
         /// <inheritdoc />
         public void SetCustomSettingValueForUser(User user, string name, string value)
         {
-            var settings = GetAllCustomSettings(user);
+            var settings = user.GetData<IDictionary<string, string>>(User.SettingsDataKey) ?? new Dictionary<string, string>();
             var defaultSettings = _settingDefinitionProvider.SettingDefinitions;
             if (!string.IsNullOrWhiteSpace(value))
             {
@@ -99,14 +98,15 @@ namespace SimplCommerce.Module.Core.Services
             user.SetData(User.SettingsDataKey, settings);
         }
 
-        private string GetCustomSettingValue(User user, string name)
+        private async Task<string> GetCustomSettingValue(long userId, string name)
         {
-            var settings = GetAllCustomSettings(user);
+            var settings = await GetAllCustomSettings(userId);
             return settings.GetOrDefault(name);
         }
 
-        private IDictionary<string, string> GetAllCustomSettings(User user)
+        private async Task<IDictionary<string, string>> GetAllCustomSettings(long userId)
         {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
             return user.GetData<IDictionary<string, string>>(User.SettingsDataKey) ?? new Dictionary<string, string>();
         }
     }

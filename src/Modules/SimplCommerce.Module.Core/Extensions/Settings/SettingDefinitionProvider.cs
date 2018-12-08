@@ -27,7 +27,6 @@ namespace SimplCommerce.Module.Core
         {
             if (definitions != null && definitions.Length > 0)
             {
-
                 foreach (var definition in definitions)
                 {
                     SettingDefinitions[definition.Name] = definition;

@@ -1,6 +1,6 @@
 ﻿@model UserSettingViewModel
 @{
-    ViewData["Title"] = Localizer["User Settings"];
+    ViewData["Title"] = Localizer["My Settings"];
 }
 
 <div class="row">
@@ -15,23 +15,23 @@
                 <form asp-area="Core" asp-controller="Manage" asp-action="UserSettings" method="post" role="form">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     @{
-                        var anyItem = false;
+                        var hasSettings = false;
                         foreach(var item in Model.SettingDefinitions.Values)
                         {
                             if(item.IsVisibleToClients)
                             {
-                                anyItem = true;
+                                hasSettings = true;
 
                                 <div class="form-group row">
                                     <label asp-for="UserSettings[item.Name]" class="col-md-4 col-form-label">@(item.DisplayName ?? Localizer[item.Name].Value)</label>
                                     <div class="col-md-8">
-                                        <input asp-for="UserSettings[item.Name]" class="form-control" placeholder="Defaule: @item.DefaultValue"/>
+                                        <input asp-for="UserSettings[item.Name]" class="form-control" placeholder="@Localizer["Default Value"]: @item.DefaultValue"/>
                                         <span asp-validation-for="UserSettings[item.Name]" class="text-danger"></span>
                                     </div>
                                 </div>
                             }
                         }
-                        if(anyItem)
+                        if(hasSettings)
                         {
                             <div class="form-group row">
                                 <div class="offset-md-4 col-md-8">

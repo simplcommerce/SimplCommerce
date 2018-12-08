@@ -42,10 +42,10 @@ namespace SimplCommerce.Module.Core.Services
         /// <summary>
         /// Changes setting for a user.
         /// </summary>
-        /// <param name="userId">UserId</param>
+        /// <param name="user">User</param>
         /// <param name="name">Unique name of the setting</param>
         /// <param name="value">Value of the setting</param>
-        Task UpdateSettingForUserAsync(long userId, string name, string value);
+        Task UpdateSettingForUserAsync(User user, string name, string value);
 
         /// <summary>
         /// Changes setting for current user.
@@ -59,8 +59,9 @@ namespace SimplCommerce.Module.Core.Services
         /// Sets a custom setting for a user
         /// </summary>
         /// <param name="user"></param>
-        /// <param name="name"></param>
-        /// <param name="value"></param>
+        /// <param name="user">User</param>
+        /// <param name="name">Unique name of the setting</param>
+        /// <param name="value">Value of the setting</param>
         void SetCustomSettingValueForUser(User user, string name, string value);
     }
 }

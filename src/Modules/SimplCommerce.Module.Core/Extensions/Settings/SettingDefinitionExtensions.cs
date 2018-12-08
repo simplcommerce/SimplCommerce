@@ -5,10 +5,10 @@ namespace SimplCommerce.Module.Core
 {
     public static class SettingDefinitionExtensions
     {
-        public static void AddSettingDefinitionItems(this IServiceProvider serviceProvider, params SettingDefinition[] definitions)
+        public static void AddSettingDefinitionItems(this IServiceProvider serviceProvider, params SettingDefinition[] defaultSettings)
         {
             var settingDefinitionProvider = serviceProvider.GetService<SettingDefinitionProvider>();
-            settingDefinitionProvider.AddOrUpdate(definitions);
+            settingDefinitionProvider.AddOrUpdate(defaultSettings);
         }
     }
 }
