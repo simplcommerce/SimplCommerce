@@ -10,6 +10,6 @@ namespace SimplCommerce.Module.Localization.Areas.Localization.ViewModel
 
         public string CurrentUICulture { get; set; }
 
-        public string SelectedCulture { get; set; }
+        public string UserSelectedCulture { get; set; }
     }
 }

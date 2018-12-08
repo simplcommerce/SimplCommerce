@@ -18,7 +18,7 @@ namespace SimplCommerce.Module.Localization.Areas.Localization.Views.Shared.Comp
         {
             return View("Default", new LanguageSwitcherModel {
                 CurrentUICulture = ViewContext.HttpContext.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture.Name,
-                SelectedCulture = _workContext.GetCurrentUser().Result.Culture
+                UserSelectedCulture = _workContext.GetCurrentUser().Result.Culture
             });
         }
     }

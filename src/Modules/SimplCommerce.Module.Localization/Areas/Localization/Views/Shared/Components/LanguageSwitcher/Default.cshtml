@@ -13,7 +13,7 @@
             <li class='dropdown-item'>
                 <a href="#" data-value="@culture.Id" onclick="appendLanguageSwitcherCookie('@culture.Id')">
                     @culture.Name
-                    @if (culture.Id == Model.SelectedCulture)
+                    @if (culture.Id == Model.UserSelectedCulture)
                     {
                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     }
