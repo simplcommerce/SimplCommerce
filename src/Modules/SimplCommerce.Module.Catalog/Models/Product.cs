@@ -127,9 +127,15 @@ namespace SimplCommerce.Module.Catalog.Models
             product.ShortDescription = ShortDescription;
             product.Description = Description;
             product.Specification = Specification;
-            product.IsPublished = true;
+            product.IsPublished = IsPublished;
             product.Price = Price;
             product.OldPrice = OldPrice;
+            product.SpecialPrice = SpecialPrice;
+            product.SpecialPriceStart = SpecialPriceStart;
+            product.SpecialPriceEnd = SpecialPriceEnd;
+            product.HasOptions = HasOptions;
+            product.IsVisibleIndividually = IsVisibleIndividually;
+            product.IsFeatured = IsFeatured;
             product.IsAllowToOrder = IsAllowToOrder;
             product.IsCallForPricing = IsCallForPricing;
             product.StockQuantity = StockQuantity;
@@ -137,6 +143,12 @@ namespace SimplCommerce.Module.Catalog.Models
             product.VendorId = VendorId;
             product.TaxClassId = TaxClassId;
             product.StockTrackingIsEnabled = StockTrackingIsEnabled;
+            product.Sku = Sku;
+            product.Gtin = Gtin;
+            product.NormalizedName = NormalizedName;
+            product.DisplayOrder = DisplayOrder;
+            product.TaxClassId = TaxClassId;
+            product.Slug = Slug;
 
             foreach (var attribute in AttributeValues)
             {

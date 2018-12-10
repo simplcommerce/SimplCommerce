@@ -1,4 +1,4 @@
-﻿INSERT [dbo].[Localization_Culture] ([Id], [Name], IsDefault) VALUES ('ko-KR', N'Korean', 0)
+﻿INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES ('ko-KR', N'Korean')
 GO
 
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Register', N'레지스터')

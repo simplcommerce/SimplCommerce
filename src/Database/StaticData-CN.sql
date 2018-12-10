@@ -1,4 +1,4 @@
-﻿INSERT [dbo].[Localization_Culture] ([Id], [Name], IsDefault) VALUES ('zh-CN', N'Chinese', 0)
+﻿INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES ('zh-CN', N'Chinese')
 GO
 
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Register', N'注册,')

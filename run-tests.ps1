@@ -1,5 +1,5 @@
 Get-ChildItem "test" | ?{ $_.PsIsContainer } | %{
     pushd "test\$_"
-    & dotnet test
+    & dotnet test --logger:trx
     popd
 }

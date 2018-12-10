@@ -1,7 +1,14 @@
-﻿<div class="panel panel-default">
-    <div class="panel-heading">
-        <h2 ng-if="!vm.isEditMode">{{::vm.translate.get('Create Product')}}</h2>
-        <h2 ng-if="vm.isEditMode">{{::vm.translate.get('Edit Product')}} {{vm.product.name}}</h2>
+﻿<div>
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-8">
+                <h2 ng-if="!vm.isEditMode">{{::vm.translate.get('Create Product')}}</h2>
+                <h2 ng-if="vm.isEditMode">{{::vm.translate.get('Edit Product')}} {{vm.product.name}}</h2>
+            </div>
+            <div class="col-md-4 text-right">
+                <a ui-sref="product-clone({id: vm.product.id})" class="btn btn-primary"><span class="glyphicon glyphicon-copy"></span> {{::vm.translate.get('Clone Product')}}</a>
+            </div>
+        </div>
     </div>
     <div class="panel-body">
         <form name="productForm" class="form-horizontal">
