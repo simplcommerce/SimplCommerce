@@ -1,0 +1,6 @@
+{
+  "id": "SimplCommerce.Module.HangfireJobs",
+  "name": "Hangfire Jobs",
+  "isBundledWithHost": true,
+  "version": "1.0.0"
+}

@@ -5,7 +5,7 @@
     <TaskFolder Condition=" '$(MSBuildRuntimeType)' != 'Core' ">net46</TaskFolder>
   </PropertyGroup>
   <UsingTask AssemblyFile="..\..\build\$(TaskFolder)\SimplCommerce.MSBuildTasks.dll" TaskName="CopyModuleTask" />
-  
+
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>aspnet-Modular.WebHost-dca604fa-ee10-4a6c-8e7d-8cc79dca8c8f</UserSecretsId>
@@ -26,8 +26,10 @@
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Comments\SimplCommerce.Module.Comments.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Contacts\SimplCommerce.Module.Contacts.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.DinkToPdf\SimplCommerce.Module.DinkToPdf.csproj" />
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.HangfireJobs\SimplCommerce.Module.HangfireJobs.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Inventory\SimplCommerce.Module.Inventory.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.News\SimplCommerce.Module.News.csproj" />
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Notifications\SimplCommerce.Module.Notifications.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Orders\SimplCommerce.Module.Orders.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentCoD\SimplCommerce.Module.PaymentCoD.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentPaypalExpress\SimplCommerce.Module.PaymentPaypalExpress.csproj" />
