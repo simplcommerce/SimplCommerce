@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <ItemGroup>
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.6.20" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.6.20" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>
