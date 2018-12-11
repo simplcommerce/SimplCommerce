@@ -27,20 +27,6 @@ namespace SimplCommerce.Module.Core
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.ApplicationServices.AddSettingDefinitionItems(Demo_UserSettingItemsInThisModule());
-        }
-
-        private SettingDefinition[] Demo_UserSettingItemsInThisModule()
-        {
-            var settings = new[]
-            {
-                new SettingDefinition("ReceiveNotifications", "true", isVisibleToClients: true),
-                new SettingDefinition("Setting1", "Setting1_value", isVisibleToClients: true),
-                new SettingDefinition("Setting2", "Setting2_value", isVisibleToClients: true),
-                new SettingDefinition("Setting3", "Setting3_value")
-            };
-
-            return settings;
         }
     }
 }
