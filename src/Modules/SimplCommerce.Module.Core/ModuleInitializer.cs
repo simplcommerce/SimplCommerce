@@ -28,7 +28,6 @@ namespace SimplCommerce.Module.Core
 
             serviceCollection.AddSignalR();
             serviceCollection.AddSingleton<IOnlineClientManager, OnlineClientManager>();
-            serviceCollection.AddTransient<OnlineClientHubBase>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

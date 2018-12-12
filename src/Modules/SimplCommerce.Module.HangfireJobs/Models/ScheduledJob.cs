@@ -15,7 +15,7 @@ namespace SimplCommerce.Module.HangfireJobs.Models
         /// <summary>
         /// Gets the <see cref="ILogger"/> instance for this job.
         /// </summary>
-        public ILogger Logger { get; set; }
+        public ILogger<ScheduledJob> Logger { get; set; }
 
         /// <summary>
         /// Gets the schedule for automatically scheduled jobs.
