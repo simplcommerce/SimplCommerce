@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using SimplCommerce.Module.Core.Extensions;
-using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.Core.RealTime.SignalRHubs
 {
@@ -10,13 +9,12 @@ namespace SimplCommerce.Module.Core.RealTime.SignalRHubs
     {
         public ILogger<HubBase> Logger { get; set; }
 
-        public IWorkContext WorkContent { get; set; }
+        protected IWorkContext WorkContent { get; }
 
-        public ISettingService SettingService { get; set; }
-
-        protected HubBase()
+        protected HubBase(IWorkContext workContent)
         {
             Logger = NullLogger<HubBase>.Instance;
+            WorkContent = workContent;
         }
     }
 }

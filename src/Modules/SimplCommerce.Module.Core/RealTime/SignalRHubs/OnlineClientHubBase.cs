@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using SimplCommerce.Module.Core.Extensions;
 
 namespace SimplCommerce.Module.Core.RealTime.SignalRHubs
 {
@@ -12,7 +13,7 @@ namespace SimplCommerce.Module.Core.RealTime.SignalRHubs
         /// <summary>
         /// Initializes a new instance of the <see cref="CommonHub"/> class.
         /// </summary>
-        protected OnlineClientHubBase(IOnlineClientManager onlineClientManager)
+        protected OnlineClientHubBase(IWorkContext workContext, IOnlineClientManager onlineClientManager) : base(workContext)
         {
             OnlineClientManager = onlineClientManager;
             Logger = NullLogger<OnlineClientHubBase>.Instance;
