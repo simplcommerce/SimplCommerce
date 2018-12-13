@@ -12,7 +12,7 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels
 
         public string EntitySlug { get; set; }
 
-        public bool CanReview { get; set; }
+        public bool HasBoughtProduct { get; set; }
 
         public string LoggedUserName { get; set; }
 

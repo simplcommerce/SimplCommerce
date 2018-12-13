@@ -39,8 +39,9 @@
 
 
     <div class="form-group row">
-        <div class="offset-md-4 col-md-8">
-            <button id="btn-addreview" @(!Model.CanReview ? "disabled: disabled": "" ) type="submit" class="btn btn-primary">@Localizer["Submit review"]</button>
+        <div class="offset-md-4 col-md-8" >
+            <button id="btn-addreview" @(!Model.HasBoughtProduct ? "disabled: disabled" : "title : ''") 
+          data-toggle="tooltip" title ="Only logged users and user that bought the product can review it!"   type="submit" class="btn btn-primary">@Localizer["Submit review"]</button>
         </div>
     </div>
 

@@ -16,6 +16,7 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Components
         private readonly IRepository<Review> _reviewRepository;
         private readonly IWorkContext _workContext;
         private readonly IRepository<Order> _orderRepository;
+       
 
         public ReviewViewComponent(IRepository<Review> reviewRepository, IWorkContext workContext, IRepository<Order> orderRepository )
         {
@@ -74,21 +75,15 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Components
                 var userOrderedProduct = currentUserOrder
                     .Where(x => x.OrderItems.Where(y =>y.ProductId == entityId).Count() > 0);
 
-            
-   
-                 model.CanReview = userOrderedProduct.Any() ? true : false;
+                 model.HasBoughtProduct = userOrderedProduct.Any() ? true : false;
 
-                }
-
-
-            
-
+             }
             else
             {
                 model.LoggedUserName = string.Empty;
-                model.CanReview = false;
+                model.HasBoughtProduct = false;
+               
             }
-
 
             return View(this.GetViewPath(), model);
         }
