@@ -5,9 +5,6 @@
     <input asp-for="EntityId" type="hidden" />
     <input asp-for="EntityTypeId" type="hidden" />
     <div asp-validation-summary="All" class="text-danger"></div>
-
-
-
     <div class="form-group row">
         <label asp-for="Rating" class="col-md-4 col-form-label">@Localizer["Rate this product"]</label>
         <div class="col-md-8">
@@ -36,15 +33,12 @@
             <span asp-validation-for="ReviewerName" class="text-danger"></span>
         </div>
     </div>
-
-
     <div class="form-group row">
         <div class="offset-md-4 col-md-8" >
             <button id="btn-addreview" @(!Model.HasBoughtProduct ? "disabled: disabled" : "title : ''") 
           data-toggle="tooltip" title ="Only logged users and user that bought the product can review it!"   type="submit" class="btn btn-primary">@Localizer["Submit review"]</button>
         </div>
     </div>
-
 </form>
 } 
 
