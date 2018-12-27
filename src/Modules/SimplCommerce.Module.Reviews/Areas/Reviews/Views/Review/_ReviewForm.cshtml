@@ -1,6 +1,7 @@
 ﻿@model SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels.ReviewForm
- @if (User.IsInRole("customer") && User.Identity.IsAuthenticated == true)
-    { 
+
+@if (User.Identity.IsAuthenticated == true)
+{
 <form id="form-addreview" asp-area="Reviews" asp-controller="Review" asp-action="AddReview" method="post" role="form">
     <input asp-for="EntityId" type="hidden" />
     <input asp-for="EntityTypeId" type="hidden" />
@@ -34,15 +35,14 @@
         </div>
     </div>
     <div class="form-group row">
-        <div class="offset-md-4 col-md-8" >
+        <div class="offset-md-4 col-md-8">
             <button id="btn-addreview" @(!Model.HasBoughtProduct ? "disabled: disabled" : "title : ''") 
           data-toggle="tooltip" title ="Only logged users and user that bought the product can review it!"   type="submit" class="btn btn-primary">@Localizer["Submit review"]</button>
         </div>
     </div>
 </form>
-} 
-
- else
-      {
+}
+else
+{
     <p>You can't add a review, Log in to add a review </p>
-    } 
+} 
