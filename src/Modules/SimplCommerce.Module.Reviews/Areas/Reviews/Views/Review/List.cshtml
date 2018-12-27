@@ -85,7 +85,7 @@
             }
             <div class="col-md-7">
                 <div id="addreview">
-                    <partial name="/Areas/Reviews/Views/Review/_ReviewForm.cshtml" model="new ReviewForm { EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId }" />
+                    <partial name="/Areas/Reviews/Views/Review/_ReviewForm.cshtml" model="new ReviewForm { EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId, HasBoughtProduct = Model.HasBoughtProduct,  LoggedUserName = Model.LoggedUserName  }   " />
                 </div>
             </div>
         </div>
