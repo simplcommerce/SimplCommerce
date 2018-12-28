@@ -228,14 +228,14 @@
     "Microsoft.Build.Framework/15.8.166": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Bw7ebVvOQQC5zgM0AsyZFB23aJvEISa1vABkWCgjGueopq+fG6JDhwHeAXloLcwtQldvDobivLDFw6/8QDN9cg==",
+      "sha512": "sha512-UxQvO36HtZTHJCRCbglZNU5D2M+x2Fs27O0ZvIOrZZo6m83S6ZynCzLW5BjQ9RxAlH/pH2iHiEU+w03OOmAw6Q==",
       "path": "microsoft.build.framework/15.8.166",
       "hashPath": "microsoft.build.framework.15.8.166.nupkg.sha512"
     },
     "Microsoft.Build.Utilities.Core/15.8.166": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-AZ7pSCGDeRlBm3TIOrnSOCWB2+Wea4rL7sMsinyChF3NJUAb//lF0fUyZfjbukE5eCqba17gw0FnbMjnNgtecw==",
+      "sha512": "sha512-xtTrXMOlrH5GXObxN5G3ZVNhC1F9Cagje4ks9qC3btMokNoe/ryl5ncJaS5WshBtB76UPho5MZ8wN1meij2BKA==",
       "path": "microsoft.build.utilities.core/15.8.166",
       "hashPath": "microsoft.build.utilities.core.15.8.166.nupkg.sha512"
     },
@@ -368,7 +368,7 @@
     "System.Text.Encoding.CodePages/4.4.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-6JX7ZdaceBiLKLkYt8zJcp4xTJd1uYyXXEkPw6mnlUIjh1gZPIVKPtRXPmY5kLf6DwZmf5YLwR3QUrRonl7l0A==",
+      "sha512": "sha512-FpAgMC+BX6OOCiRebYqHP3r3aYU7o0lopPOo4zKyGc5LWXFEYRUaKtoXXvAJ3sP+IDOK/KBxZaiVAdi+QdZ0TA==",
       "path": "system.text.encoding.codepages/4.4.0",
       "hashPath": "system.text.encoding.codepages.4.4.0.nupkg.sha512"
     },
