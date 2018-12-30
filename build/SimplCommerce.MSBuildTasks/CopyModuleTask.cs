@@ -16,9 +16,6 @@ namespace SimplCommerce.MSBuildTasks
         [Required]
         public string BuildConfiguration { get; set; }
 
-        [Required]
-        public string TargetFramework { get; set; }
-
         public override bool Execute()
         {
             var modulesFileName = "modules.json";
@@ -65,7 +62,7 @@ namespace SimplCommerce.MSBuildTasks
                 CopyDirectory(Path.Combine(sourceRoot, "wwwroot"), destinationWwwroot);
                 if (!moduleManifest.IsBundledWithHost)
                 {
-                    CopyDirectory(Path.Combine(sourceRoot, "bin", BuildConfiguration, TargetFramework), Path.Combine(destination, "bin"));
+                    CopyDirectory(Path.Combine(sourceRoot, "bin", BuildConfiguration, "netcoreapp2.2"), Path.Combine(destination, "bin"));
                 }
 
                 if (module.Id == "SimplCommerce.Module.SampleData")
