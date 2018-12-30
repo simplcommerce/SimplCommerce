@@ -39,7 +39,7 @@ Continuous deployment: https://ci.simplcommerce.com
 #### Prerequisite
 
 - PostgreSQL
-- [.NET Core SDK 2.1.402](https://www.microsoft.com/net/download/all)
+- [.NET Core SDK 2.2.101](https://www.microsoft.com/net/download/all)
 
 #### Steps to run
 
@@ -50,11 +50,11 @@ Continuous deployment: https://ci.simplcommerce.com
 
 ## Technologies and frameworks used:
 
-- ASP.NET MVC Core 2.1
-- Entity Framework Core 2.1
-- ASP.NET Identity Core 2.1
+- ASP.NET MVC Core 2.2
+- Entity Framework Core 2.2
+- ASP.NET Identity Core 2.2
 - Angular 1.6.3
-- MediatR 5.0.1 for domain event
+- MediatR 6.0.0 for domain event
 
 ## Docs
 
