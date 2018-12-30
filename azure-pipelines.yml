@@ -14,9 +14,7 @@ jobs:
   - task: DotNetCoreInstaller@0
     inputs:
       version: '2.2.101'
-  - script: |
-      dotnet restore
-      dotnet build ./SimplCommerce.sln
+  - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - script: ./run-tests.sh
     displayName: 'run tests'
@@ -34,9 +32,7 @@ jobs:
   - task: DotNetCoreInstaller@0
     inputs:
       version: '2.2.101'
-  - script: |
-      dotnet restore
-      dotnet build ./SimplCommerce.sln
+  - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - script: ./run-tests.sh
     displayName: 'run tests'
@@ -54,9 +50,7 @@ jobs:
   - task: DotNetCoreInstaller@0
     inputs:
       version: '2.2.101'
-  - script: |
-      dotnet restore
-      dotnet build ./SimplCommerce.sln
+  - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - task: PowerShell@2
     inputs:
