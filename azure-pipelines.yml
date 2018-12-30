@@ -11,6 +11,9 @@ jobs:
   pool:
     vmImage: 'Ubuntu 16.04'
   steps:
+  - task: DotNetCoreInstaller@0
+    inputs:
+      version: "2.2.101"
   - script: |
       dotnet restore
       dotnet build ./SimplCommerce.sln
@@ -28,6 +31,9 @@ jobs:
   pool:
     vmImage: 'macOS-10.13'
   steps:
+  - task: DotNetCoreInstaller@0
+    inputs:
+      version: "2.2.101"
   - script: |
       dotnet restore
       dotnet build ./SimplCommerce.sln
@@ -45,6 +51,9 @@ jobs:
   pool:
     vmImage: 'vs2017-win2016'
   steps:
+  - task: DotNetCoreInstaller@0
+    inputs:
+      version: "2.2.101"
   - script: |
       dotnet restore
       dotnet build ./SimplCommerce.sln
@@ -66,6 +75,9 @@ jobs:
   variables:
     buildConfiguration: 'Release'
   steps:
+  - task: DotNetCoreInstaller@0
+    inputs:
+      version: "2.2.101"
   - script: dotnet build --configuration $(buildConfiguration)
     displayName: 'dotnet build $(buildConfiguration)'
   - script: ./run-tests.sh

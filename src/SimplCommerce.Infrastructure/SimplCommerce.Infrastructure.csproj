@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="MediatR" Version="6.0.0" />
     <PackageReference Include="cloudscribe.Web.Pagination" Version="2.1.7" />
     <PackageReference Include="ncrontab" Version="3.3.0" />
