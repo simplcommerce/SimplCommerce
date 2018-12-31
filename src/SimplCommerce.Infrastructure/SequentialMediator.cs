@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,11 +11,11 @@ namespace SimplCommerce.Infrastructure
         {
         }
 
-        protected async override Task PublishCore(IEnumerable<Task> allHandlers)
+        protected async override Task PublishCore(IEnumerable<Func<Task>> allHandlers)
         {
-            foreach(var handler in allHandlers)
+            foreach (var allHandler in allHandlers)
             {
-                await handler;
+                await allHandler().ConfigureAwait(continueOnCapturedContext: false);
             }
         }
     }

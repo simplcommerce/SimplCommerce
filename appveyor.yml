@@ -4,7 +4,7 @@ branches:
   only:
     - master
 
-image: Visual Studio 2017 Preview
+image: Visual Studio 2017
 
 init:
   - git config --global core.autocrlf true

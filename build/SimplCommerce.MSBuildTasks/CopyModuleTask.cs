@@ -62,7 +62,7 @@ namespace SimplCommerce.MSBuildTasks
                 CopyDirectory(Path.Combine(sourceRoot, "wwwroot"), destinationWwwroot);
                 if (!moduleManifest.IsBundledWithHost)
                 {
-                    CopyDirectory(Path.Combine(sourceRoot, "bin", BuildConfiguration, "netcoreapp2.1"), Path.Combine(destination, "bin"));
+                    CopyDirectory(Path.Combine(sourceRoot, "bin", BuildConfiguration, "netcoreapp2.2"), Path.Combine(destination, "bin"));
                 }
 
                 if (module.Id == "SimplCommerce.Module.SampleData")
