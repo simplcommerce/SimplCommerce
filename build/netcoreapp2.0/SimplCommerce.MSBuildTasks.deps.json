@@ -1,20 +1,20 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "eeaabcb3534cab1a75e5da5198bc930918451c54"
+    "signature": "75afa6992c31698d67c72600261aa7ca451b103a"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.0": {
       "SimplCommerce.MSBuildTasks/1.0.0": {
         "dependencies": {
-          "Microsoft.Build.Utilities.Core": "15.8.166"
+          "Microsoft.Build.Utilities.Core": "15.9.20"
         },
         "runtime": {
           "SimplCommerce.MSBuildTasks.dll": {}
         }
       },
-      "Microsoft.Build.Framework/15.8.166": {
+      "Microsoft.Build.Framework/15.9.20": {
         "dependencies": {
           "System.Runtime.Serialization.Primitives": "4.1.1",
           "System.Threading.Thread": "4.0.0"
@@ -22,13 +22,13 @@
         "runtime": {
           "lib/netstandard2.0/Microsoft.Build.Framework.dll": {
             "assemblyVersion": "15.1.0.0",
-            "fileVersion": "15.8.166.59604"
+            "fileVersion": "15.9.20.62856"
           }
         }
       },
-      "Microsoft.Build.Utilities.Core/15.8.166": {
+      "Microsoft.Build.Utilities.Core/15.9.20": {
         "dependencies": {
-          "Microsoft.Build.Framework": "15.8.166",
+          "Microsoft.Build.Framework": "15.9.20",
           "Microsoft.Win32.Registry": "4.3.0",
           "System.Collections.Immutable": "1.5.0",
           "System.Runtime.InteropServices.RuntimeInformation": "4.3.0",
@@ -37,7 +37,7 @@
         "runtime": {
           "lib/netstandard2.0/Microsoft.Build.Utilities.Core.dll": {
             "assemblyVersion": "15.1.0.0",
-            "fileVersion": "15.8.166.59604"
+            "fileVersion": "15.9.20.62856"
           }
         }
       },
@@ -225,19 +225,19 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.Build.Framework/15.8.166": {
+    "Microsoft.Build.Framework/15.9.20": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Bw7ebVvOQQC5zgM0AsyZFB23aJvEISa1vABkWCgjGueopq+fG6JDhwHeAXloLcwtQldvDobivLDFw6/8QDN9cg==",
-      "path": "microsoft.build.framework/15.8.166",
-      "hashPath": "microsoft.build.framework.15.8.166.nupkg.sha512"
+      "sha512": "sha512-C7Z32whwtZkhIDm8ruQ9TOyR4iEYJIvibH8s4unsQh7NiaL1qnlrxzACbXfw1mYZUj5SLytlgD0ZP9UQB7Ku+A==",
+      "path": "microsoft.build.framework/15.9.20",
+      "hashPath": "microsoft.build.framework.15.9.20.nupkg.sha512"
     },
-    "Microsoft.Build.Utilities.Core/15.8.166": {
+    "Microsoft.Build.Utilities.Core/15.9.20": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-AZ7pSCGDeRlBm3TIOrnSOCWB2+Wea4rL7sMsinyChF3NJUAb//lF0fUyZfjbukE5eCqba17gw0FnbMjnNgtecw==",
-      "path": "microsoft.build.utilities.core/15.8.166",
-      "hashPath": "microsoft.build.utilities.core.15.8.166.nupkg.sha512"
+      "sha512": "sha512-5Bg4sOFgGA52ex3UGa0VmbO7xwBCQkACKMQckvLqjN1W6NzIce270DJU7H+MX843FcXPi+0uJqDakGlbmIkx1Q==",
+      "path": "microsoft.build.utilities.core/15.9.20",
+      "hashPath": "microsoft.build.utilities.core.15.9.20.nupkg.sha512"
     },
     "Microsoft.NETCore.Targets/1.1.0": {
       "type": "package",
@@ -368,7 +368,7 @@
     "System.Text.Encoding.CodePages/4.4.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-6JX7ZdaceBiLKLkYt8zJcp4xTJd1uYyXXEkPw6mnlUIjh1gZPIVKPtRXPmY5kLf6DwZmf5YLwR3QUrRonl7l0A==",
+      "sha512": "sha512-FpAgMC+BX6OOCiRebYqHP3r3aYU7o0lopPOo4zKyGc5LWXFEYRUaKtoXXvAJ3sP+IDOK/KBxZaiVAdi+QdZ0TA==",
       "path": "system.text.encoding.codepages/4.4.0",
       "hashPath": "system.text.encoding.codepages.4.4.0.nupkg.sha512"
     },

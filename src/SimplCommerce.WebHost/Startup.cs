@@ -75,7 +75,7 @@ namespace SimplCommerce.WebHost
             }
 
             services.AddScoped<ServiceFactory>(p => p.GetService);
-            services.AddScoped<IMediator, SequentialMediator>();
+            services.AddScoped<IMediator, Mediator>();
 
             services.AddSwaggerGen(c =>
             {

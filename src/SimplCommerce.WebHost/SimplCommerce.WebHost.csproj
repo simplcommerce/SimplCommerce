@@ -70,6 +70,6 @@
   </ItemGroup>
 
   <Target Name="CopyModule" AfterTargets="Build">
-    <CopyModuleTask ProjectDir="$(ProjectDir)" BuildConfiguration="$(ConfigurationName)" />
+    <CopyModuleTask ProjectDir="$(ProjectDir)" TargetFramework="netcoreapp2.2" BuildConfiguration="$(ConfigurationName)" />
   </Target>
 </Project>
