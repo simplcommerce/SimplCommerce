@@ -13,6 +13,7 @@ jobs:
   steps:
   - task: DotNetCoreInstaller@0
     inputs:
+      packageType: 'sdk'
       version: '2.2.101'
   - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
@@ -31,6 +32,7 @@ jobs:
   steps:
   - task: DotNetCoreInstaller@0
     inputs:
+      packageType: 'sdk'
       version: '2.2.101'
   - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
@@ -49,6 +51,7 @@ jobs:
   steps:
   - task: DotNetCoreInstaller@0
     inputs:
+      packageType: 'sdk'
       version: '2.2.101'
   - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
@@ -71,6 +74,7 @@ jobs:
   steps:
   - task: DotNetCoreInstaller@0
     inputs:
+      packageType: 'sdk'
       version: '2.2.101'
   - script: dotnet build --configuration $(buildConfiguration)
     displayName: 'dotnet build $(buildConfiguration)'
