@@ -42,7 +42,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 Name = product.Name
             };
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]
