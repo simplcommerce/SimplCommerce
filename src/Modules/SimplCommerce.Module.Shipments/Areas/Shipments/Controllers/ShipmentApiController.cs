@@ -17,7 +17,7 @@ namespace SimplCommerce.Module.Shipments.Areas.Shipments.Controllers
     [Area("Shipments")]
     [Authorize(Roles = "admin, vendor")]
     [Route("api/shipments")]
-    public class ShipmentApiController : Controller
+    public class ShipmentApiController : ControllerBase
     {
         private readonly IRepository<Shipment> _shipmentRepository;
         private readonly IShipmentService _shipmentService;
@@ -149,7 +149,7 @@ namespace SimplCommerce.Module.Shipments.Areas.Shipments.Controllers
                     x.CreatedOn
                 });
 
-            return Json(shipments);
+            return new JsonResult(shipments);
         }
 
         [HttpGet("{id}")]

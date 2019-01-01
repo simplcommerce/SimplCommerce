@@ -15,7 +15,7 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
     [Area("Contacts")]
     [Authorize(Roles = "admin")]
     [Route("api/contacts")]
-    public class ContactApiController : Controller
+    public class ContactApiController : ControllerBase
     {
         private readonly IRepository<Contact> _contactRepository;
         private readonly IMediaService _mediaService;
@@ -76,7 +76,7 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
                     CreatedOn = x.CreatedOn,
                     Content = x.Content
                 });
-            return Json(contacts);
+            return new JsonResult(contacts);
         }
 
         [HttpGet("{id}")]
@@ -97,7 +97,7 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
                 ContactArea = contact.ContactArea.Name
             };
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpDelete("{id}")]

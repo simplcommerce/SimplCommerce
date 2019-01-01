@@ -12,7 +12,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     [Area("Catalog")]
     [Authorize(Roles = "admin, vendor")]
     [Route("api/product-templates")]
-    public class ProductTemplateApiController : Controller
+    public class ProductTemplateApiController : ControllerBase
     {
         private readonly IRepository<ProductTemplate> _productTemplateRepository;
         private readonly IRepository<ProductAttribute> _productAttributeRepository;
@@ -36,7 +36,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     x.Name
                 });
 
-            return Json(productTemplates);
+            return new JsonResult(productTemplates);
         }
 
         [HttpGet("{id}")]
@@ -59,7 +59,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     }).ToList()
             };
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]
@@ -138,7 +138,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
             _productTemplateRepository.Remove(productTemplate);
             _productAttributeRepository.SaveChanges();
-            return Json(true);
+            return new JsonResult(true);
         }
     }
 }

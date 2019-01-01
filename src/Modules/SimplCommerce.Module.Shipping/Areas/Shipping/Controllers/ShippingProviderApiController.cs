@@ -11,7 +11,7 @@ namespace SimplCommerce.Module.Shipping.Areas.Shipping.Controllers
     [Area("Shipping")]
     [Authorize(Roles = "admin")]
     [Route("api/shipping-providers")]
-    public class ShippingProviderApiController : Controller
+    public class ShippingProviderApiController : ControllerBase
     {
         private readonly IRepositoryWithTypedId<ShippingProvider, string> _shippingProviderRepositor;
 
@@ -32,7 +32,7 @@ namespace SimplCommerce.Module.Shipping.Areas.Shipping.Controllers
                     x.ConfigureUrl
                 }).ToListAsync();
 
-            return Json(providers);
+            return new JsonResult(providers);
         }
 
         [HttpPost("{id}/enable")]

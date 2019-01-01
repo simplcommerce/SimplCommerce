@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     [Area("Catalog")]
     [Authorize(Roles = "admin")]
     [Route("api/simple-product-widgets")]
-    public class SimpleProductWidgetApiController : Controller
+    public class SimpleProductWidgetApiController : ControllerBase
     {
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
 
@@ -42,7 +42,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 model.Setting = new SimpleProductWidgetSetting();
             }
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]

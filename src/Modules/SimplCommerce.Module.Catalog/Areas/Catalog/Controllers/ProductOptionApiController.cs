@@ -10,7 +10,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     [Area("Catalog")]
     [Authorize(Roles = "admin, vendor")]
     [Route("api/product-options")]
-    public class ProductOptionApiController : Controller
+    public class ProductOptionApiController : ControllerBase
     {
         private readonly IRepository<ProductOption> _productOptionRepository;
 
@@ -23,7 +23,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         public IActionResult Get()
         {
             var options = _productOptionRepository.Query();
-            return Json(options);
+            return new JsonResult(options);
         }
 
         [HttpGet("{id}")]
@@ -36,7 +36,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 Name = productOption.Name
             };
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]
@@ -86,7 +86,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             }
 
             _productOptionRepository.Remove(productOption);
-            return Json(true);
+            return new JsonResult(true);
         }
     }
 }

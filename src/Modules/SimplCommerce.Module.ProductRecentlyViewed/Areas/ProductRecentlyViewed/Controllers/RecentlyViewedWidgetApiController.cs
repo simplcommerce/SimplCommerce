@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed
     [Area("ProductRecentlyViewed")]
     [Authorize(Roles = "admin")]
     [Route("api/recently-viewed-widgets")]
-    public class RecentlyViewedWidgetApiController : Controller
+    public class RecentlyViewedWidgetApiController : ControllerBase
     {
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
         private readonly IMediaService _mediaService;
@@ -39,7 +39,7 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed
                 ItemCount = JsonConvert.DeserializeObject<int>(widgetInstance.Data)
             };
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]

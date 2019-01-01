@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
     [Area("PaymentPaypalExpress")]
     [Authorize(Roles = "admin")]
     [Route("api/paypal-express")]
-    public class PaypalExpressApiController : Controller
+    public class PaypalExpressApiController : ControllerBase
     {
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
 

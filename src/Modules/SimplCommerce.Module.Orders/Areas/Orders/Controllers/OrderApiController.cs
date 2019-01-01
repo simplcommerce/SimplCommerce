@@ -19,7 +19,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
     [Area("Orders")]
     [Authorize(Roles = "admin, vendor")]
     [Route("api/orders")]
-    public class OrderApiController : Controller
+    public class OrderApiController : ControllerBase
     {
         private readonly IRepository<Order> _orderRepository;
         private readonly IWorkContext _workContext;
@@ -65,7 +65,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                     x.CreatedOn
                 });
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost("grid")]
@@ -128,7 +128,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                     order.CreatedOn
                 });
 
-            return Json(orders);
+            return new JsonResult(orders);
         }
 
         [HttpGet("{id}")]
@@ -206,7 +206,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
 
             await _mediator.Publish(new OrderDetailGot { OrderDetailVm = model });
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost("change-order-status/{id}")]
@@ -251,7 +251,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         public IActionResult GetOrderStatus()
         {
             var model = EnumHelper.ToDictionary(typeof(OrderStatus)).Select(x => new { Id = x.Key, Name = x.Value });
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost("export")]

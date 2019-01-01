@@ -18,7 +18,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
     [Area("Cms")]
     [Authorize(Roles = "admin")]
     [Route("api/spacebar-widgets")]
-    public class SpaceBarWidgetApiContorller : Controller
+    public class SpaceBarWidgetApiContorller : ControllerBase
     {
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
         private readonly IMediaService _mediaService;
@@ -54,7 +54,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                 item.ImageUrl = _mediaService.GetMediaUrl(item.Image);
             }
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]

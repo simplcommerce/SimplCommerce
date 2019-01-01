@@ -14,7 +14,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     [Area("Catalog")]
     [Authorize(Roles = "admin, vendor")]
     [Route("api/product-prices")]
-    public class ProductPriceApiController : Controller
+    public class ProductPriceApiController : ControllerBase
     {
         private readonly IRepository<Product> _productRepository;
         private readonly IWorkContext _workContext;

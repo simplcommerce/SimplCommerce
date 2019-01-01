@@ -11,7 +11,7 @@ namespace SimplCommerce.Module.Payments.Areas.Payments.Controllers
     [Area("Payments")]
     [Authorize(Roles = "admin")]
     [Route("api/payments-providers")]
-    public class PaymentProviderApiController : Controller
+    public class PaymentProviderApiController : ControllerBase
     {
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
 
@@ -32,7 +32,7 @@ namespace SimplCommerce.Module.Payments.Areas.Payments.Controllers
                     x.ConfigureUrl
                 }).ToListAsync();
 
-            return Json(providers);
+            return new JsonResult(providers);
         }
 
         [HttpPost("{id}/enable")]

@@ -15,7 +15,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
     [Area("Inventory")]
     [Authorize(Roles = "admin, vendor")]
     [Route("api/warehouses")]
-    public class WarehouseApiController : Controller
+    public class WarehouseApiController : ControllerBase
     {
         private readonly IRepository<Warehouse> _warehouseRepository;
         private readonly IRepository<Address> _addressRepository;
@@ -77,7 +77,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
                      VendorName = sp.Vendor.Name
                  });
 
-            return Json(warehouses);
+            return new JsonResult(warehouses);
         }
 
         [HttpGet("{id}")]
@@ -112,7 +112,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
                 ZipCode = address.ZipCode
             };
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]

@@ -10,7 +10,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
 {
     [Area("Orders")]
     [Authorize(Roles = "admin, vendor")]
-    public class OrderHistoryApiController : Controller
+    public class OrderHistoryApiController : ControllerBase
     {
         private readonly IRepository<OrderHistory> _orderHistoryRepository;
 

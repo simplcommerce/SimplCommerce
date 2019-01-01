@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
     [Area("Cms")]
     [Authorize(Roles = "admin")]
     [Route("api/menus")]
-    public class MenuApiController : Controller
+    public class MenuApiController : ControllerBase
     {
         private readonly IRepository<Menu> _menuRepository;
         private readonly IRepository<MenuItem> _menuItemRepository;
@@ -36,7 +36,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                     x.IsSystem
                 })
                 .ToListAsync();
-            return Json(menuList);
+            return new JsonResult(menuList);
         }
 
         [HttpGet("{id}")]
@@ -67,7 +67,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                 }).OrderBy(x => x.DisplayOrder).ToList()
             };
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost("{id}/add-items")]
@@ -139,7 +139,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                 _menuRepository.Add(menu);
                 await _menuRepository.SaveChangesAsync();
 
-                return Json(menu);
+                return new JsonResult(menu);
             }
             return BadRequest(ModelState);
         }

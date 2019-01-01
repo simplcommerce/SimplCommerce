@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.Pricing.Areas.Pricing.Controllers
     [Area("Pricing")]
     [Authorize(Roles = "admin")]
     [Route("api/cart-rules")]
-    public class CartRuleApiController : Controller
+    public class CartRuleApiController : ControllerBase
     {
         private readonly IRepository<CartRule> _cartRuleRepository;
 
@@ -39,7 +39,7 @@ namespace SimplCommerce.Module.Pricing.Areas.Pricing.Controllers
                     cartRule.IsActive
                 });
 
-            return Json(cartRules);
+            return new JsonResult(cartRules);
         }
 
         [HttpGet("{id}")]
@@ -76,7 +76,7 @@ namespace SimplCommerce.Module.Pricing.Areas.Pricing.Controllers
                 }
             }
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]

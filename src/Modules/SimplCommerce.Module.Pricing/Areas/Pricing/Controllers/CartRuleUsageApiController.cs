@@ -11,7 +11,7 @@ namespace SimplCommerce.Module.Pricing.Areas.Pricing.Controllers
     [Area("Pricing")]
     [Authorize(Roles = "admin")]
     [Route("api/cart-rule-usages")]
-    public class CartRuleUsageApiController : Controller
+    public class CartRuleUsageApiController : ControllerBase
     {
         private readonly IRepository<CartRuleUsage> _cartRuleUsageRepository;
 
@@ -77,7 +77,7 @@ namespace SimplCommerce.Module.Pricing.Areas.Pricing.Controllers
                     x.CreatedOn
                 });
 
-            return Json(cartRuleUsages);
+            return new JsonResult(cartRuleUsages);
         }
     }
 }

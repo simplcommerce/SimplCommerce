@@ -10,7 +10,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     [Area("Catalog")]
     [Authorize(Roles = "admin, vendor")]
     [Route("api/product-attribute-groups")]
-    public class ProductAttributeGroupApiController : Controller
+    public class ProductAttributeGroupApiController : ControllerBase
     {
         private IRepository<ProductAttributeGroup> _productAttrGroupRepository;
 
@@ -30,7 +30,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     Name = x.Name
                 });
 
-            return Json(attributeGroups);
+            return new JsonResult(attributeGroups);
         }
 
         [HttpGet("{id}")]
@@ -43,7 +43,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 Name = productAttributeGroup.Name
             };
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]
@@ -93,7 +93,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             }
 
             _productAttrGroupRepository.Remove(productAttributeGroup);
-            return Json(true);
+            return new JsonResult(true);
         }
     }
 }

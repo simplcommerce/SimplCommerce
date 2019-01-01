@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     [Area("Catalog")]
     [Authorize(Roles = "admin, vendor")]
     [Route("api/brands")]
-    public class BrandApiController : Controller
+    public class BrandApiController : ControllerBase
     {
         private readonly IRepository<Brand> _brandRepository;
         private readonly IBrandService _brandService;
@@ -29,7 +29,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         {
             var brandList = await _brandRepository.Query().Where(x => !x.IsDeleted).ToListAsync();
 
-            return Json(brandList);
+            return new JsonResult(brandList);
         }
 
         [HttpGet("{id}")]
@@ -44,7 +44,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 IsPublished = brand.IsPublished
             };
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]

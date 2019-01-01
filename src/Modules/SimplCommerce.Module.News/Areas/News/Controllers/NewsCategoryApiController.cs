@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
     [Area("News")]
     [Authorize(Roles = "admin")]
     [Route("api/news-categories")]
-    public class NewsCategoryApiController : Controller
+    public class NewsCategoryApiController : ControllerBase
     {
         private readonly IRepository<NewsCategory> _categoryRepository;
         private readonly INewsCategoryService _categoryService;
@@ -29,7 +29,7 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
         {
             var categoryList = await _categoryRepository.Query().Where(x => !x.IsDeleted).ToListAsync();
 
-            return Json(categoryList);
+            return new JsonResult(categoryList);
         }
 
         [HttpGet("{id}")]
@@ -52,7 +52,7 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
                 IsPublished = category.IsPublished
             };
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]

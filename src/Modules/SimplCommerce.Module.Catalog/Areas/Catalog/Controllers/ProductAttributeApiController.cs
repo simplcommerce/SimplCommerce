@@ -10,7 +10,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     [Area("Catalog")]
     [Authorize(Roles = "admin, vendor")]
     [Route("api/product-attributes")]
-    public class ProductAttributeApiController : Controller
+    public class ProductAttributeApiController : ControllerBase
     {
         private readonly IRepository<ProductAttribute> _productAttrRepository;
 
@@ -31,7 +31,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     GroupName = x.Group.Name
                 });
 
-            return Json(attributes);
+            return new JsonResult(attributes);
         }
 
         [HttpGet("{id}")]
@@ -45,7 +45,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 GroupId = productAttribute.GroupId
             };
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]
@@ -96,7 +96,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             }
 
             _productAttrRepository.Remove(productAttribute);
-            return Json(true);
+            return new JsonResult(true);
         }
     }
 }

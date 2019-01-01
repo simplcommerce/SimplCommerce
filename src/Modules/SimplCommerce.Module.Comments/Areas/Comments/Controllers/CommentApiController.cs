@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
     [Area("Comments")]
     [Authorize(Roles = "admin")]
     [Route("api/comments")]
-    public class CommentApiController : Controller
+    public class CommentApiController : ControllerBase
     {
         private readonly ICommentRepository _commentRepository;
         private readonly IMediator _mediator;
@@ -50,7 +50,7 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
                     x.CreatedOn
                 });
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost("grid")]
@@ -110,7 +110,7 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
                     x.CreatedOn
                 });
 
-            return Json(comments);
+            return new JsonResult(comments);
         }
 
         [HttpPost("change-status/{id}")]

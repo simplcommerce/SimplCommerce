@@ -16,7 +16,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
     [Area("Inventory")]
     [Authorize(Roles = "admin, vendor")]
     [Route("api/stocks")]
-    public class StockApiController : Controller
+    public class StockApiController : ControllerBase
     {
         private readonly IRepository<Stock> _stockRepository;
         private readonly IStockService _stockService;

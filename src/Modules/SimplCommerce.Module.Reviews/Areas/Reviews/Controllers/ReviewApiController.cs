@@ -14,7 +14,7 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
     [Area("Reviews")]
     [Authorize(Roles = "admin")]
     [Route("api/reviews")]
-    public class ReviewApiController : Controller
+    public class ReviewApiController : ControllerBase
     {
         private readonly IReviewRepository _reviewRepository;
         private readonly IMediator _mediator;
@@ -52,7 +52,7 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
                     x.CreatedOn
                 });
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost("grid")]
@@ -112,7 +112,7 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
                     x.CreatedOn
                 });
 
-            return Json(reviews);
+            return new JsonResult(reviews);
         }
 
         [HttpPost("change-status/{id}")]

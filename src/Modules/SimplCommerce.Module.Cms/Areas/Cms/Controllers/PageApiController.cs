@@ -15,7 +15,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
     [Area("Cms")]
     [Authorize(Roles = "admin")]
     [Route("api/pages")]
-    public class PageApiController : Controller
+    public class PageApiController : ControllerBase
     {
         private readonly IRepository<Page> _pageRepository;
         private readonly IPageService _pageService;
@@ -43,7 +43,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                 })
                 .ToListAsync();
 
-            return Json(pageList);
+            return new JsonResult(pageList);
         }
 
         [HttpGet("{id}")]
@@ -62,7 +62,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                 IsPublished = page.IsPublished
             };
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]

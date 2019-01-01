@@ -24,7 +24,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     [Area("Catalog")]
     [Authorize(Roles = "admin, vendor")]
     [Route("api/products")]
-    public class ProductApiController : Controller
+    public class ProductApiController : ControllerBase
     {
         private readonly IMediaService _mediaService;
         private readonly IRepository<ProductAttributeValue> _productAttributeValueRepository;
@@ -204,7 +204,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 Value = x.Value
             }).ToList();
 
-            return Json(productVm);
+            return new JsonResult(productVm);
         }
 
         [HttpPost("grid")]
@@ -276,7 +276,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     IsPublished = x.IsPublished
                 });
 
-            return Json(gridData);
+            return new JsonResult(gridData);
         }
 
         [HttpPost]

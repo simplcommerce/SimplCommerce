@@ -15,7 +15,7 @@ namespace SimplCommerce.Module.Vendors.Areas.Vendors.Controllers
     [Area("Vendors")]
     [Authorize(Roles = "admin")]
     [Route("api/vendors")]
-    public class VendorApiController : Controller
+    public class VendorApiController : ControllerBase
     {
         private readonly IRepository<Vendor> _vendorRepository;
         private readonly IVendorService _vendorService;
@@ -70,7 +70,7 @@ namespace SimplCommerce.Module.Vendors.Areas.Vendors.Controllers
                     CreatedOn = x.CreatedOn
                 });
 
-            return Json(vendors);
+            return new JsonResult(vendors);
         }
 
         [HttpGet]
@@ -83,7 +83,7 @@ namespace SimplCommerce.Module.Vendors.Areas.Vendors.Controllers
                 Slug = x.Slug
             }).ToListAsync();
 
-            return Json(vendors);
+            return new JsonResult(vendors);
         }
 
         [HttpGet("{id}")]
@@ -106,7 +106,7 @@ namespace SimplCommerce.Module.Vendors.Areas.Vendors.Controllers
                 Managers = vendor.Users.Select(x => new VendorManager { UserId = x.Id, Email = x.Email }).ToList()
             };
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]

@@ -17,7 +17,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     [Area("Catalog")]
     [Authorize(Roles = "admin, vendor")]
     [Route("api/product-clone")]
-    public class ProductCloneApiController : Controller
+    public class ProductCloneApiController : ControllerBase
     {
         private readonly IRepository<Product> _productRepository;
         private readonly IProductService _productService;

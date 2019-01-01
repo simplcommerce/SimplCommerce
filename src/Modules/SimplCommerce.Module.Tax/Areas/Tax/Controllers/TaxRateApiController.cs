@@ -15,7 +15,7 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
     [Area("Tax")]
     [Authorize(Roles = "admin")]
     [Route("api/tax-rates")]
-    public class TaxRateApiController : Controller
+    public class TaxRateApiController : ControllerBase
     {
         private readonly IRepository<TaxRate> _taxRateRepository;
         private readonly IRepository<StateOrProvince> _stateOrProvinceRepository;
@@ -41,7 +41,7 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
                     x.Rate
                 })
                 .ToListAsync();
-            return Json(taxRates);
+            return new JsonResult(taxRates);
         }
 
         [HttpGet("export")]
@@ -85,7 +85,7 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
                 Rate = taxRate.Rate
             };
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]

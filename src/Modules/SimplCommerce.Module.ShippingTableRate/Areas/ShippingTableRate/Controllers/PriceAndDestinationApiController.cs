@@ -12,7 +12,7 @@ namespace SimplCommerce.Module.ShippingTableRate.Areas.ShippingTableRate.Control
     [Area("ShippingTableRate")]
     [Authorize(Roles = "admin")]
     [Route("api/shippings/table-rate/price-destinations")]
-    public class PriceAndDestinationApiController : Controller
+    public class PriceAndDestinationApiController : ControllerBase
     {
         private readonly IRepository<PriceAndDestination> _priceAndDestinationRepository;
 

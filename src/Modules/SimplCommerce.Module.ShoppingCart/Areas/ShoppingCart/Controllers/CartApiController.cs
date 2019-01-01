@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
 {
     [Area("ShoppingCart")]
     [Authorize(Roles = "admin")]
-    public class CartApiController : Controller
+    public class CartApiController : ControllerBase
     {
         private readonly IRepository<CartItem> _cartItemRepository;
         private readonly ICartService _cartService;
@@ -35,7 +35,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(customerId, currentUser.Id);
 
-            return Json(cart);
+            return new JsonResult(cart);
         }
 
         [HttpPost("api/customers/{customerId}/add-cart-item")]
@@ -77,10 +77,10 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             if (validationResult.Succeeded)
             {
                 var cartVm = await _cartService.GetActiveCartDetails(currentUser.Id);
-                return Json(cartVm);
+                return new JsonResult(cartVm);
             }
 
-            return Json(validationResult);
+            return new JsonResult(validationResult);
         }
 
         [HttpPost("api/carts/{cartId}/save-ordernote")]

@@ -21,7 +21,7 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
     [Area("News")]
     [Authorize(Roles = "admin")]
     [Route("api/news-items")]
-    public class NewsItemApiController : Controller
+    public class NewsItemApiController : ControllerBase
     {
         private readonly IRepository<NewsItem> _newsItemRepository;
         private readonly INewsItemService _newsItemService;
@@ -77,7 +77,7 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
                     IsPublished = x.IsPublished,
                     CreatedOn = x.CreatedOn
                 });
-            return Json(newsItems);
+            return new JsonResult(newsItems);
         }
 
         [HttpGet("{id}")]
@@ -108,7 +108,7 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
                 NewsCategoryIds = newsItem.Categories.Select( x => x.CategoryId).ToList()
             };
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]

@@ -9,7 +9,7 @@ namespace SimplCommerce.Module.Search.Areas.Search.Controllers
     [Area("Search")]
     [Authorize(Roles = "admin")]
     [Route("api/search")]
-    public class SearchApiController : Controller
+    public class SearchApiController : ControllerBase
     {
         private readonly IRepository<Query> _queryRepository;
 
@@ -27,7 +27,7 @@ namespace SimplCommerce.Module.Search.Areas.Search.Controllers
                 .Select(g => new {Keyword = g.Key, Count = g.Count()})
                 .Take(5);
 
-            return Json(model);
+            return new JsonResult(model);
         }
     }
 }

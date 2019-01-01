@@ -10,7 +10,7 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
     [Area("Contacts")]
     [Authorize(Roles = "admin")]
     [Route("api/contact-area")]
-    public class ContactAreaApiController : Controller
+    public class ContactAreaApiController : ControllerBase
     {
         private readonly IRepository<ContactArea> _contactRepository;
 
@@ -23,7 +23,7 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
         public IActionResult Get()
         {
             var categoryList = _contactRepository.Query().Where(x => !x.IsDeleted).ToList();
-            return Json(categoryList);
+            return new JsonResult(categoryList);
         }
 
         [HttpGet("{id}")]
@@ -36,7 +36,7 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
                 Name = category.Name
             };
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]
@@ -85,7 +85,7 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
             category.IsDeleted = true;
             _contactRepository.SaveChanges();
 
-            return Json(true);
+            return new JsonResult(true);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
 {
     [Area("ShoppingCart")]
     [Authorize(Roles = "admin")]
-    public class CheckoutApiController : Controller
+    public class CheckoutApiController : ControllerBase
     {
         private readonly IOrderService _orderService;
         private readonly ICartService _cartService;

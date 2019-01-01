@@ -11,7 +11,7 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
 {
     [Authorize(Roles = "admin")]
     [Route("api/cod")]
-    public class CoDApiController : Controller
+    public class CoDApiController : ControllerBase
     {
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
 

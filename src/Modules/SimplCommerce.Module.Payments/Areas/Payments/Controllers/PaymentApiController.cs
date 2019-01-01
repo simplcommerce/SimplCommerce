@@ -11,7 +11,7 @@ namespace SimplCommerce.Module.Payments.Areas.Payments.Controllers
     [Area("Payments")]
     [Authorize(Roles = "admin")]
     [Route("api/payments")]
-    public class PaymentApiController : Controller
+    public class PaymentApiController : ControllerBase
     {
         private readonly IRepository<Payment> _paymentRepository;
 

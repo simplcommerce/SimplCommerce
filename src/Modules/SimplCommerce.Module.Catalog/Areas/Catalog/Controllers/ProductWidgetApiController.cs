@@ -12,7 +12,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     [Area("Catalog")]
     [Authorize(Roles = "admin")]
     [Route("api/product-widgets")]
-    public class ProductWidgetApiController : Controller
+    public class ProductWidgetApiController : ControllerBase
     {
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
 
@@ -37,7 +37,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             };
 
             var enumMetaData = MetadataProvider.GetMetadataForType(typeof(ProductWidgetOrderBy));
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]
@@ -88,7 +88,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         public IActionResult GetAvailableOrderBy()
         {
             var model = EnumHelper.ToDictionary(typeof(ProductWidgetOrderBy)).Select(x => new { Id = x.Key.ToString(), Name = x.Value });
-            return Json(model);
+            return new JsonResult(model);
         }
     }
 }

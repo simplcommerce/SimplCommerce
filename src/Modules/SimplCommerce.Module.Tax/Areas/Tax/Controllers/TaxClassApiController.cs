@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
     [Area("Tax")]
     [Authorize(Roles = "admin")]
     [Route("api/tax-classes")]
-    public class TaxClassApiController : Controller
+    public class TaxClassApiController : ControllerBase
     {
         private readonly IRepository<TaxClass> _taxClassRepository;
         private readonly int _defaultTaxClassId;
@@ -31,7 +31,7 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
                 .Query()
                 .Select(x => new { Id = x.Id, Name = x.Name })
                 .ToListAsync();
-            return Json(taxClasses);
+            return new JsonResult(taxClasses);
         }
 
         [HttpGet("{id}")]
@@ -49,7 +49,7 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
                 Name = taxClass.Name,
             };
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpGet("default")]

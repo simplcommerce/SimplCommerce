@@ -11,7 +11,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
     [Area("Cms")]
     [Authorize(Roles = "admin")]
     [Route("api/html-widgets")]
-    public class HtmlWidgetApiController : Controller
+    public class HtmlWidgetApiController : ControllerBase
     {
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
 
@@ -35,7 +35,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                 DisplayOrder = widget.DisplayOrder,
             };
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]

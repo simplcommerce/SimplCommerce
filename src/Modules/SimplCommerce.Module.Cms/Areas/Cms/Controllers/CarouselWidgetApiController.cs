@@ -19,7 +19,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
     [Area("Cms")]
     [Authorize(Roles = "admin")]
     [Route("api/carousel-widgets")]
-    public class CarouselWidgetApiController : Controller
+    public class CarouselWidgetApiController : ControllerBase
     {
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
         private readonly IMediaService _mediaService;
@@ -51,7 +51,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                 item.ImageUrl = _mediaService.GetMediaUrl(item.Image);
             }
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]

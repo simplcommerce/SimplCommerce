@@ -20,7 +20,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     [Area("Catalog")]
     [Authorize(Roles = "admin, vendor")]
     [Route("api/categories")]
-    public class CategoryApiController : Controller
+    public class CategoryApiController : ControllerBase
     {
         private readonly IRepository<Category> _categoryRepository;
         private readonly IRepository<ProductCategory> _productCategoryRepository;
@@ -39,7 +39,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         public async Task<IActionResult> Get()
         {
             var gridData = await _categoryService.GetAll();
-            return Json(gridData);
+            return new JsonResult(gridData);
         }
 
         [HttpGet("{id}")]
@@ -62,7 +62,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 ThumbnailImageUrl = _mediaService.GetThumbnailUrl(category.ThumbnailImage),
             };
 
-            return Json(model);
+            return new JsonResult(model);
         }
 
         [HttpPost]
@@ -183,7 +183,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     IsProductPublished = x.Product.IsPublished
                 });
 
-            return Json(gridData);
+            return new JsonResult(gridData);
         }
 
         [HttpPut("update-product/{id}")]

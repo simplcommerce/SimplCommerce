@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
     [Area("PaymentStripe")]
     [Authorize(Roles = "admin")]
     [Route("api/stripe")]
-    public class StripeApiController : Controller
+    public class StripeApiController : ControllerBase
     {
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
 
