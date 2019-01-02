@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,11 +26,10 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<ActionResult<IEnumerable<Brand>>> Get()
         {
             var brandList = await _brandRepository.Query().Where(x => !x.IsDeleted).ToListAsync();
-
-            return new JsonResult(brandList);
+            return brandList;
         }
 
         [HttpGet("{id}")]
