@@ -1,0 +1,63 @@
+﻿@model SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.ViewModels.BraintreeCheckoutForm
+
+<label>Braintree</label>
+
+<div class="form-group">
+    <div class="col-md-12">
+        <button type="button" class="btn btn-order" data-toggle="modal" data-target="#braintreeModal">Pay with Braintree</button>
+    </div>
+</div>
+
+<!-- Trigger the modal with a button -->
+<!-- Modal -->
+<div id="braintreeModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="alert alert-success alert-dismissible" style='display:none;'>
+                    <span id="alertBraintree"></span>
+                    <button data-dismiss="alert" type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="dropin-container"></div>
+                <button id="braintree-submit-button" class="btn btn-order">Pay</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://js.braintreegateway.com/web/dropin/1.14.1/js/dropin.min.js"></script>
+<script>
+    var button = document.querySelector('#braintree-submit-button');
+    var client_token = "@Model.ClientToken";
+        braintree.dropin.create({
+            authorization: client_token,
+            container: '#dropin-container'
+        }, function (createErr, instance) {
+        button.addEventListener('click', function () {
+            instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
+                    var request = $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("Charge", "Braintree", new { Area = "PaymentBraintree" })',
+                        data: { nonce: payload.nonce }
+                    })
+                    .done(function (data) {
+                        window.location = "/checkout/congratulation";
+
+                    })
+                        .fail(function (errors) {
+                            $('#alertBraintree').html(errors.responseText);
+                            $('.alert').toggle()
+                            console.log(errors.responseText);
+                    })
+                .always(function () { });
+            });
+        });
+    });
+</script>
