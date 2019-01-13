@@ -11,10 +11,18 @@ jobs:
   pool:
     vmImage: 'Ubuntu 16.04'
   steps:
+  - powershell: |
+      $PathToGlobalJson = Join-Path -Path $Env:BUILD_SOURCESDIRECTORY -ChildPath "global.json"
+      $GlobalJson = Get-Content -Raw -Path  $PathToGlobalJson | ConvertFrom-Json
+      $Version= $GlobalJson.sdk.version
+      
+      Write-Host ("##vso[task.setvariable variable=SdkVersion;]$Version")
+    displayName: 'Parse global.json'
+
   - task: DotNetCoreInstaller@0
+    displayName: 'Use .NET Core sdk $(SdkVersion)'
     inputs:
-      packageType: 'sdk'
-      version: '2.2.101'
+      version: '$(SdkVersion)'
   - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - script: ./run-tests.sh
@@ -30,10 +38,18 @@ jobs:
   pool:
     vmImage: 'macOS-10.13'
   steps:
+  - powershell: |
+    $PathToGlobalJson = Join-Path -Path $Env:BUILD_SOURCESDIRECTORY -ChildPath "global.json"
+    $GlobalJson = Get-Content -Raw -Path  $PathToGlobalJson | ConvertFrom-Json
+    $Version= $GlobalJson.sdk.version
+    
+    Write-Host ("##vso[task.setvariable variable=SdkVersion;]$Version")
+  displayName: 'Parse global.json'
+
   - task: DotNetCoreInstaller@0
+    displayName: 'Use .NET Core sdk $(SdkVersion)'
     inputs:
-      packageType: 'sdk'
-      version: '2.2.101'
+      version: '$(SdkVersion)'
   - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - script: ./run-tests.sh
@@ -49,10 +65,18 @@ jobs:
   pool:
     vmImage: 'vs2017-win2016'
   steps:
+  - powershell: |
+    $PathToGlobalJson = Join-Path -Path $Env:BUILD_SOURCESDIRECTORY -ChildPath "global.json"
+    $GlobalJson = Get-Content -Raw -Path  $PathToGlobalJson | ConvertFrom-Json
+    $Version= $GlobalJson.sdk.version
+    
+    Write-Host ("##vso[task.setvariable variable=SdkVersion;]$Version")
+  displayName: 'Parse global.json'
+
   - task: DotNetCoreInstaller@0
+    displayName: 'Use .NET Core sdk $(SdkVersion)'
     inputs:
-      packageType: 'sdk'
-      version: '2.2.101'
+      version: '$(SdkVersion)'
   - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - task: PowerShell@2
@@ -72,10 +96,18 @@ jobs:
   variables:
     buildConfiguration: 'Release'
   steps:
+  - powershell: |
+      $PathToGlobalJson = Join-Path -Path $Env:BUILD_SOURCESDIRECTORY -ChildPath "global.json"
+      $GlobalJson = Get-Content -Raw -Path  $PathToGlobalJson | ConvertFrom-Json
+      $Version= $GlobalJson.sdk.version
+      
+      Write-Host ("##vso[task.setvariable variable=SdkVersion;]$Version")
+    displayName: 'Parse global.json'
+
   - task: DotNetCoreInstaller@0
+    displayName: 'Use .NET Core sdk $(SdkVersion)'
     inputs:
-      packageType: 'sdk'
-      version: '2.2.101'
+      version: '$(SdkVersion)'
   - script: dotnet build --configuration $(buildConfiguration)
     displayName: 'dotnet build $(buildConfiguration)'
   - script: ./run-tests.sh
