@@ -11,9 +11,11 @@ jobs:
   pool:
     vmImage: 'Ubuntu 16.04'
   steps:
-  - script: |
-      dotnet restore
-      dotnet build ./SimplCommerce.sln
+  - task: DotNetCoreInstaller@0
+    inputs:
+      packageType: 'sdk'
+      version: '2.2.101'
+  - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - script: ./run-tests.sh
     displayName: 'run tests'
@@ -28,9 +30,11 @@ jobs:
   pool:
     vmImage: 'macOS-10.13'
   steps:
-  - script: |
-      dotnet restore
-      dotnet build ./SimplCommerce.sln
+  - task: DotNetCoreInstaller@0
+    inputs:
+      packageType: 'sdk'
+      version: '2.2.101'
+  - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - script: ./run-tests.sh
     displayName: 'run tests'
@@ -45,9 +49,11 @@ jobs:
   pool:
     vmImage: 'vs2017-win2016'
   steps:
-  - script: |
-      dotnet restore
-      dotnet build ./SimplCommerce.sln
+  - task: DotNetCoreInstaller@0
+    inputs:
+      packageType: 'sdk'
+      version: '2.2.101'
+  - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - task: PowerShell@2
     inputs:
@@ -66,6 +72,10 @@ jobs:
   variables:
     buildConfiguration: 'Release'
   steps:
+  - task: DotNetCoreInstaller@0
+    inputs:
+      packageType: 'sdk'
+      version: '2.2.101'
   - script: dotnet build --configuration $(buildConfiguration)
     displayName: 'dotnet build $(buildConfiguration)'
   - script: ./run-tests.sh

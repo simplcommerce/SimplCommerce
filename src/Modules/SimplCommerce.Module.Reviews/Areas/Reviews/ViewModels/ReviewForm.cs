@@ -17,5 +17,9 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels
         public long EntityId { get; set; }
 
         public string EntityTypeId { get; set; }
+
+        public bool HasBoughtProduct { get; set; }
+
+        public string LoggedUserName { get; set; }
     }
 }
