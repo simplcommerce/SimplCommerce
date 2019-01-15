@@ -81,6 +81,7 @@ namespace SimplCommerce.WebHost.Extensions
             var mvcBuilder = services
                 .AddMvc(o =>
                 {
+                    o.EnableEndpointRouting = false;
                     o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider());
                     o.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 })
@@ -93,7 +94,7 @@ namespace SimplCommerce.WebHost.Extensions
                 })
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1); ;
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             foreach (var module in modules.Where(x => !x.IsBundledWithHost))
             {
