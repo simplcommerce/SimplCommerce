@@ -7,14 +7,14 @@ namespace SimplCommerce.Module.Vendors.Areas.Vendors.ViewModels
     {
         public long Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Slug { get; set; }
 
         [EmailAddress]
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Email { get; set; }
 
         public string Description { get; set; }

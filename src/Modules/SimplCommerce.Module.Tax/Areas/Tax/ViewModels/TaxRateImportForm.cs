@@ -7,10 +7,10 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.ViewModels
     {
         public bool IncludeHeader { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string CsvDelimiter { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public IFormFile CsvFile { get; set; }
     }
 }

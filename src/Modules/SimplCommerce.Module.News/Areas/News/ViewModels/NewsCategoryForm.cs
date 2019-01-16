@@ -11,10 +11,10 @@ namespace SimplCommerce.Module.News.Areas.News.ViewModels
 
         public long Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Slug { get; set; }
 
         public string MetaTitle { get; set; }

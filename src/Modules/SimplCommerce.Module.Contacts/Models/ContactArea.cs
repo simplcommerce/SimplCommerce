@@ -5,7 +5,7 @@ namespace SimplCommerce.Module.Contacts.Models
 {
     public class ContactArea : EntityBase
     {
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [StringLength(450)]
         public string Name { get; set; }
 

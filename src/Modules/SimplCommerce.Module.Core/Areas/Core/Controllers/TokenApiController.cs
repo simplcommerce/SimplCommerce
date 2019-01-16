@@ -90,19 +90,19 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 
         public class TokenLoginModel
         {
-            [Required]
+            [Required(ErrorMessage = "The {0} field is required.")]
             public string Username { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "The {0} field is required.")]
             public string Password { get; set; }
         }
 
         public class RefreshTokenModel
         {
-            [Required]
+            [Required(ErrorMessage = "The {0} field is required.")]
             public string Token { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "The {0} field is required.")]
             public string RefreshToken { get; set; }
         }
     }

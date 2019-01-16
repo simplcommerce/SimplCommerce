@@ -6,11 +6,11 @@ namespace SimplCommerce.Module.News.Models
 {
     public class NewsCategory : EntityBase
     {
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [StringLength(450)]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [StringLength(450)]
         public string Slug { get; set; }
 

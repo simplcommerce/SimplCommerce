@@ -8,13 +8,13 @@ namespace SimplCommerce.Module.Core.Areas.Core.ViewModels
     {
         public long Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string ContactName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Phone { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string AddressLine1 { get; set; }
 
         public string AddressLine2 { get; set; }

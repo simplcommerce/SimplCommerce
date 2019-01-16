@@ -9,7 +9,7 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels
 
         public string Title { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Comment { get; set; }
 
         public string ReviewerName { get; set; }
