@@ -27,8 +27,13 @@ namespace SimplCommerce.Module.HangfireJobs.Services
         }
 
         /// <inheritdoc />
-        public Task<string> EnqueueAsync<TArgs>(TArgs args, TimeSpan? delay = null)
+        public Task<string> EnqueueAsync<TArgs>(TArgs args, TimeSpan? delay = null, DateTimeOffset? enqueueAt = null)
         {
+            if (delay.HasValue && enqueueAt.HasValue)
+            {
+                throw new ArgumentException($"{nameof(delay)} and {nameof(enqueueAt)} can't have both values.");
+            }
+
             using (var scope = ServiceScopeFactory.CreateScope())
             {
                 string jobId;
@@ -44,6 +49,10 @@ namespace SimplCommerce.Module.HangfireJobs.Services
                     if (delay.HasValue)
                     {
                         jobId = BackgroundJob.Schedule(() => job.Execute(args), delay.Value);
+                    }
+                    else if (enqueueAt.HasValue)
+                    {
+                        jobId = BackgroundJob.Schedule(() => job.Execute(args), enqueueAt.Value);
                     }
                     else
                     {
