@@ -48,6 +48,10 @@
     "version": "1.0.0"
   },
   {
+    "id": "SimplCommerce.Module.PaymentBraintree",
+    "version": "1.0.0"
+  },
+  {
     "id": "SimplCommerce.Module.PaymentCoD",
     "version": "1.0.0"
   },
