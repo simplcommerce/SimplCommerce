@@ -5,17 +5,17 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.ViewModels
 {
     public class ContactVm
     {
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string FullName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string PhoneNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string EmailAddress { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Address { get; set; }
 
         public string Content { get; set; }

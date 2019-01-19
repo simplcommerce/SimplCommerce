@@ -4,7 +4,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.ViewModels
 {
     public class CountryForm
     {
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Id { get; set; }
 
         public string Name { get; set; }

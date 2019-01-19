@@ -29,12 +29,12 @@ namespace SimplCommerce.Module.Core.Models
 
         public District District { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public long StateOrProvinceId { get; set; }
 
         public StateOrProvince StateOrProvince { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string CountryId { get; set; }
 
         public Country Country { get; set; }

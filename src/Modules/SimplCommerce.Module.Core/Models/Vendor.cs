@@ -12,11 +12,11 @@ namespace SimplCommerce.Module.Core.Models
             CreatedOn = DateTimeOffset.Now;
         }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [StringLength(450)]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [StringLength(450)]
         public string Slug { get; set; }
 

@@ -11,10 +11,10 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.ViewModels
 
         public long Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Slug { get; set; }
 
         public string MetaTitle { get; set; }
@@ -23,7 +23,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.ViewModels
 
         public string MetaDescription { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Body { get; set; }
 
         public bool IsPublished { get; set; }

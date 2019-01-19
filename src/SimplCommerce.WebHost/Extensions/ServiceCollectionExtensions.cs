@@ -23,11 +23,14 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Modules;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Infrastructure.Web.ModelBinders;
 using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.EntityFrameworkCore.Extensions;
+using Microsoft.Extensions.Localization;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -81,6 +84,7 @@ namespace SimplCommerce.WebHost.Extensions
             var mvcBuilder = services
                 .AddMvc(o =>
                 {
+                    o.EnableEndpointRouting = false;
                     o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider());
                     o.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 })
@@ -92,8 +96,13 @@ namespace SimplCommerce.WebHost.Extensions
                     }
                 })
                 .AddViewLocalization()
-                .AddDataAnnotationsLocalization()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1); ;
+                .AddModelBindingMessagesLocalizer(services)
+                .AddDataAnnotationsLocalization(o => {
+                    var factory = services.BuildServiceProvider().GetService<IStringLocalizerFactory>();
+                    var L = factory.Create(null);
+                    o.DataAnnotationLocalizerProvider = (t,f) => L;
+                })                
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             foreach (var module in modules.Where(x => !x.IsBundledWithHost))
             {
@@ -101,6 +110,35 @@ namespace SimplCommerce.WebHost.Extensions
             }
 
             return services;
+        }
+
+        /// <summary>
+        /// localize ModelBinding messages, e.g. when user enters string value instead of number...
+        /// these messages can't be localized like data attributes
+        /// </summary>
+        /// <param name="mvc"></param>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IMvcBuilder AddModelBindingMessagesLocalizer
+            (this IMvcBuilder mvc, IServiceCollection services)
+        {
+            return mvc.AddMvcOptions(o =>
+            {                
+                var factory = services.BuildServiceProvider().GetService<IStringLocalizerFactory>();
+                var L = factory.Create(null);
+
+                o.ModelBindingMessageProvider.SetValueIsInvalidAccessor((x) => L["The value '{0}' is invalid."]);
+                o.ModelBindingMessageProvider.SetValueMustBeANumberAccessor((x) => L["The field {0} must be a number."]);
+                o.ModelBindingMessageProvider.SetMissingBindRequiredValueAccessor((x) => L["A value for the '{0}' property was not provided.", x]);
+                o.ModelBindingMessageProvider.SetAttemptedValueIsInvalidAccessor((x, y) => L["The value '{0}' is not valid for {1}.", x, y]);
+                o.ModelBindingMessageProvider.SetMissingKeyOrValueAccessor(() => L["A value is required."]);
+                o.ModelBindingMessageProvider.SetMissingRequestBodyRequiredValueAccessor(() => "A non-empty request body is required.");
+                o.ModelBindingMessageProvider.SetNonPropertyAttemptedValueIsInvalidAccessor((x) => "The value '{0}' is not valid.");
+                o.ModelBindingMessageProvider.SetNonPropertyUnknownValueIsInvalidAccessor(() => "The value provided is invalid.");
+                o.ModelBindingMessageProvider.SetNonPropertyValueMustBeANumberAccessor(() => "The field must be a number.");
+                o.ModelBindingMessageProvider.SetUnknownValueIsInvalidAccessor((x) => L["The supplied value is invalid for {0}.", x]);
+                o.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor((x) => L["Null value is invalid.", x]);               
+            });
         }
 
         private static void AddApplicationPart(IMvcBuilder mvcBuilder, Assembly assembly)
