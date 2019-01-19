@@ -1,4 +1,8 @@
-﻿using Braintree;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Threading.Tasks;
+using Braintree;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Helpers;
@@ -9,10 +13,6 @@ using SimplCommerce.Module.PaymentBraintree.Models;
 using SimplCommerce.Module.PaymentBraintree.Services;
 using SimplCommerce.Module.Payments.Models;
 using SimplCommerce.Module.ShoppingCart.Services;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Controllers
 {

@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.ViewModels
 {

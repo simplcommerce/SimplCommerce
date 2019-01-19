@@ -1,11 +1,11 @@
-﻿using Braintree;
+﻿using System.Threading.Tasks;
+using Braintree;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.ViewModels;
 using SimplCommerce.Module.PaymentBraintree.Models;
 using SimplCommerce.Module.Payments.Models;
-using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.PaymentBraintree.Services
 {
@@ -38,13 +38,13 @@ namespace SimplCommerce.Module.PaymentBraintree.Services
 
         private async Task<IBraintreeGateway> CreateGateway()
         {
-            var stripeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.BraintreeProviderId);
-            var stripeSetting = JsonConvert.DeserializeObject<BraintreeConfigForm>(stripeProvider.AdditionalSettings);
+            var braintreeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.BraintreeProviderId);
+            var braintreeSetting = JsonConvert.DeserializeObject<BraintreeConfigForm>(braintreeProvider.AdditionalSettings);
 
-            Environment = stripeSetting.Environment;
-            MerchantId = stripeSetting.MerchantId;
-            PublicKey = stripeSetting.PublicKey;
-            PrivateKey = stripeSetting.PrivateKey;
+            Environment = braintreeSetting.Environment;
+            MerchantId = braintreeSetting.MerchantId;
+            PublicKey = braintreeSetting.PublicKey;
+            PrivateKey = braintreeSetting.PrivateKey;
 
             return new BraintreeGateway(Environment, MerchantId, PublicKey, PrivateKey);
         }

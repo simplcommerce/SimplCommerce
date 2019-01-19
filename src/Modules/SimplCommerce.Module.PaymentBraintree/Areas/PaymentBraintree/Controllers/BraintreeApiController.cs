@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -6,7 +7,6 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.ViewModels;
 using SimplCommerce.Module.PaymentBraintree.Models;
 using SimplCommerce.Module.Payments.Models;
-using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Controllers
 {

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Globalization;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
@@ -10,8 +12,6 @@ using SimplCommerce.Module.PaymentBraintree.Models;
 using SimplCommerce.Module.PaymentBraintree.Services;
 using SimplCommerce.Module.Payments.Models;
 using SimplCommerce.Module.ShoppingCart.Services;
-using System.Globalization;
-using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Components
 {
@@ -21,6 +21,7 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Component
         private readonly IWorkContext _workContext;
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private readonly IBraintreeConfiguration _braintreeConfiguration;
+
         public BraintreeLandingViewComponent(ICartService cartService, 
             IWorkContext workContext, 
             IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,

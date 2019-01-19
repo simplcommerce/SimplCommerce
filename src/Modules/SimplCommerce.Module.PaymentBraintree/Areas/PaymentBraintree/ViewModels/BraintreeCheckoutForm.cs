@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.ViewModels
+﻿namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.ViewModels
 {
     public class BraintreeCheckoutForm
     {

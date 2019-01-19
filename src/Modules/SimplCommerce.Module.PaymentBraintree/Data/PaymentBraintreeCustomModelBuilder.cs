@@ -2,9 +2,6 @@
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.PaymentBraintree.Models;
 using SimplCommerce.Module.Payments.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SimplCommerce.Module.PaymentBraintree.Data
 {
@@ -26,7 +23,7 @@ namespace SimplCommerce.Module.PaymentBraintree.Data
                         "\"IsProduction\" : \"false\"" +
                     "}"
                 }
-                );
+            );
         }
     }
 }
