@@ -23,10 +23,12 @@ namespace SimplCommerce.Module.Shipping.Models
 
         public bool IsEnabled { get; set; }
 
+        [StringLength(450)]
         public string ConfigureUrl { get; set; }
 
         public bool ToAllShippingEnabledCountries { get; set; }
 
+        [StringLength(1000)]
         public string OnlyCountryIdsString { get; set; }
 
         public IList<string> OnlyCountryIds
@@ -42,8 +44,9 @@ namespace SimplCommerce.Module.Shipping.Models
             }
         }
 
-        public bool ToAllShippingEnabledStatesOrProvinces { get; set; } 
+        public bool ToAllShippingEnabledStatesOrProvinces { get; set; }
 
+        [StringLength(1000)]
         public string OnlyStateOrProvinceIdsString { get; set; }
 
         public IList<long> OnlyStateOrProvinceIds
@@ -64,9 +67,7 @@ namespace SimplCommerce.Module.Shipping.Models
         /// </summary>
         public string AdditionalSettings { get; set; }
 
-        /// <summary>
-        /// The type that 
-        /// </summary>
+        [StringLength(450)]
         public string ShippingPriceServiceTypeName { get; set; }
     }
 }

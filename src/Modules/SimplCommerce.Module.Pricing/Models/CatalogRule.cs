@@ -19,6 +19,7 @@ namespace SimplCommerce.Module.Pricing.Models
 
         public DateTimeOffset? EndOn { get; set; }
 
+        [StringLength(450)]
         public string RuleToApply { get; set; }
 
         public decimal DiscountAmount { get; set; }

@@ -24,10 +24,13 @@ namespace SimplCommerce.Module.Core.Models
         [StringLength(450)]
         public string Name { get; set; }
 
+        [StringLength(450)]
         public string ViewComponentName { get; set; }
 
+        [StringLength(450)]
         public string CreateUrl { get; set; }
 
+        [StringLength(450)]
         public string EditUrl { get; set; }
 
         public DateTimeOffset CreatedOn { get; set; }

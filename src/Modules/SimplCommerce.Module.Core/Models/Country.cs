@@ -15,6 +15,7 @@ namespace SimplCommerce.Module.Core.Models
         [StringLength(450)]
         public string Name { get; set; }
 
+        [StringLength(450)]
         public string Code3 { get; set; }
 
         public bool IsBillingEnabled { get; set; }

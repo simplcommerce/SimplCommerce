@@ -16,8 +16,10 @@ namespace SimplCommerce.Module.Payments.Models
 
         public bool IsEnabled { get; set; }
 
+        [StringLength(450)]
         public string ConfigureUrl { get; set; }
 
+        [StringLength(450)]
         public string LandingViewComponentName { get; set; }
 
         /// <summary>
