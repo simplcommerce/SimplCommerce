@@ -70,12 +70,12 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-B
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'All Categories', N'Todas as categorias')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Search here...', N'Procure aqui...')
 
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The {0} field is required.', N'O campo ''{0}'' é obrigatório')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The value ''{0}'' is not valid for {1}.', N'O valor ''{0}'' não é válido para {1}.')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The value ''{0}'' is invalid.', N'O valor ''{0}'' é inválido.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The {0} field is required.', N'O campo {0} é obrigatório')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The value {0} is not valid for {1}.', N'O valor {0} não é válido para {1}.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The value {0} is invalid.', N'O valor {0} é inválido.')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The supplied value is invalid for {0}.', N'O valor fornecido é inválido para {0}.')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Null value is invalid.', N'Valor nulo é inválido.')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'A value is required.', N'Um valor é obrigatório.')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'A value for the ''{0}'' property was not provided.', N'Um valor para a propriedade ''{0}'' não foi fornecido.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'A value for the {0} property was not provided.', N'Um valor para a propriedade {0}' não foi fornecido.')
 
 GO

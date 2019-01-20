@@ -1000,4 +1000,11 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-V
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Submit', N'Gửi đi')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'All Categories', N'Tất cả danh mục')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Search here...', N'Tìm kiếm ở đây...')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'The {0} field is required.', N'Trường {0} là bắt buộc.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'The value {0} is not valid for {1}.', N'Giá trị {0} thì không hợp lệ cho {1}.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'The value {0} is invalid.', N'Giá trị {0} thì không hợp lệ.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'The supplied value is invalid for {0}.', N'Giá trị đã cung cấp không hợp lệ cho {0}.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Null value is invalid.', N'Giá trị trống thì không hợp lệ')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'A value is required.', N'Một giá trị là bắt buộc')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'A value for the {0} property was not provided.', N'Giá trị cho {0} đã không được cung cấp.')
 GO
