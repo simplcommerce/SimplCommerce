@@ -10,14 +10,16 @@ namespace SimplCommerce.Module.Payments.Models
             Id = id;
         }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [StringLength(450)]
         public string Name { get; set; }
 
         public bool IsEnabled { get; set; }
 
+        [StringLength(450)]
         public string ConfigureUrl { get; set; }
 
+        [StringLength(450)]
         public string LandingViewComponentName { get; set; }
 
         /// <summary>

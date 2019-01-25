@@ -16,10 +16,11 @@ namespace SimplCommerce.Module.Core.Models
 
         public StateOrProvince StateOrProvince { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [StringLength(450)]
         public string Name { get; set; }
 
+        [StringLength(450)]
         public string Type { get; set; }
 
         public string Location { get; set; }

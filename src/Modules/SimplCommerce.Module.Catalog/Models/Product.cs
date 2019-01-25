@@ -8,6 +8,7 @@ namespace SimplCommerce.Module.Catalog.Models
 {
     public class Product : Content
     {
+        [StringLength(450)]
         public string ShortDescription { get; set; }
 
         public string Description { get; set; }

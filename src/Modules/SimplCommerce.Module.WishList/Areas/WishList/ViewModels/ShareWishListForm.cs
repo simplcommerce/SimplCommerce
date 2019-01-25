@@ -4,11 +4,11 @@ namespace SimplCommerce.Module.WishList.Areas.WishList.ViewModels
 {
     public class ShareWishListForm
     {
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [EmailAddress]
         public string EmailAddress { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Message { get; set; }
     }
 }

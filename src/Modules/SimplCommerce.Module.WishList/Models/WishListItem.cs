@@ -1,6 +1,6 @@
-﻿using SimplCommerce.Infrastructure.Models;
+﻿using System;
+using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Catalog.Models;
-using System;
 
 namespace SimplCommerce.Module.WishList.Models
 {

@@ -6,7 +6,7 @@ namespace SimplCommerce.Module.Catalog.Models
 {
     public class ProductTemplate : EntityBase
     {
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [StringLength(450)]
         public string Name { get; set; }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Models;
@@ -23,6 +24,7 @@ namespace SimplCommerce.Module.Inventory.Models
 
         public long AdjustedQuantity { get; set; }
 
+        [StringLength(1000)]
         public string Note { get; set; }
     }
 }

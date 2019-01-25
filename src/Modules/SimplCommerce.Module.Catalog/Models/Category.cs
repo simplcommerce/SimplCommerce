@@ -7,16 +7,18 @@ namespace SimplCommerce.Module.Catalog.Models
 {
     public class Category : EntityBase
     {
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [StringLength(450)]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [StringLength(450)]
         public string Slug { get; set; }
 
+        [StringLength(450)]
         public string MetaTitle { get; set; }
 
+        [StringLength(450)]
         public string MetaKeywords { get; set; }
 
         public string MetaDescription { get; set; }
