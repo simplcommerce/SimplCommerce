@@ -6,7 +6,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.ViewModels
     {
         public long Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Name { get; set; }
 
         public long AddressId { get; set; }
@@ -28,7 +28,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.ViewModels
         [Range(1, long.MaxValue, ErrorMessage = "State or Province is required")]
         public long StateOrProvinceId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string CountryId { get; set; }
     }
 }

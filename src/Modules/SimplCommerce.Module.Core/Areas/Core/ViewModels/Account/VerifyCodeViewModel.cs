@@ -4,10 +4,10 @@ namespace SimplCommerce.Module.Core.Areas.Core.ViewModels.Account
 {
     public class VerifyCodeViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Provider { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Code { get; set; }
 
         public string ReturnUrl { get; set; }

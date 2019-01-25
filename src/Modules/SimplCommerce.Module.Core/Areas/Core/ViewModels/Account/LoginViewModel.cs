@@ -9,7 +9,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.ViewModels.Account
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

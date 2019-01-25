@@ -1,4 +1,5 @@
-﻿using SimplCommerce.Infrastructure.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Catalog.Models
 {
@@ -12,6 +13,7 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public ProductOption Option { get; set; }
 
+        [StringLength(450)]
         public string Value { get; set; }
 
         public int SortIndex { get; set; }

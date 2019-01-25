@@ -8,7 +8,7 @@ namespace SimplCommerce.Module.Pricing.Areas.Pricing.ViewModels
     {
         public long Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -23,10 +23,10 @@ namespace SimplCommerce.Module.Pricing.Areas.Pricing.ViewModels
 
         public string CouponCode { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string RuleToApply { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public decimal DiscountAmount { get; set; }
 
         public decimal? MaxDiscountAmount { get; set; }

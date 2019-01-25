@@ -8,6 +8,7 @@ namespace SimplCommerce.Module.ShippingTableRate.Models
     {
         public Country Country { get; set; }
 
+        [StringLength(450)]
         public string CountryId { get; set; }
 
         public StateOrProvince StateOrProvince { get; set; }

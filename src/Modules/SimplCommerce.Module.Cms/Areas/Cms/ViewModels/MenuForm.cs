@@ -7,7 +7,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.ViewModels
     {
         public long Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Name { get; set; }
 
         public bool IsPublished { get; set; }

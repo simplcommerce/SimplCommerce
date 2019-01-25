@@ -15,7 +15,7 @@ namespace SimplCommerce.Module.Catalog.Models
             Id = id;
         }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [StringLength(450)]
         public string Name { get; set; }
     }
