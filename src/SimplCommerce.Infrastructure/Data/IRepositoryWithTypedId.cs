@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Storage;
 using SimplCommerce.Infrastructure.Models;
@@ -10,6 +11,9 @@ namespace SimplCommerce.Infrastructure.Data
         IQueryable<T> Query();
 
         void Add(T entity);
+
+        Task AddRangeAsync(IEnumerable<T> entity);
+
 
         IDbContextTransaction BeginTransaction();
 
