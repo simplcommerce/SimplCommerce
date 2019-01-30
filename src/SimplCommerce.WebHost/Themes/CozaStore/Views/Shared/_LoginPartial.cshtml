@@ -7,7 +7,7 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <a class="flex-c-m trans-04 p-lr-25" asp-area="Core" asp-controller="Manage" asp-action="Index" title="@Localizer["Manage"]">@Localizer["Hello {0}!", (await WorkContext.GetCurrentUser()).FullName]</a>
-    @if (User.IsInRole("admin") || User.IsInRole("vendor"))
+    if (User.IsInRole("admin") || User.IsInRole("vendor"))
     {
        <a class="flex-c-m trans-04 p-lr-25" asp-area="Core" asp-controller="HomeAdmin" asp-action="Index">@Localizer["Dashboard"]</a>
     }
