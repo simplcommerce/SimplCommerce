@@ -25,9 +25,9 @@ namespace SimplCommerce.Module.Core.Data
             DbSet.Add(entity);
         }
 
-        public Task AddRangeAsync(IEnumerable<T> entity)
+        public void AddRange(IEnumerable<T> entity)
         {
-            return DbSet.AddRangeAsync(entity);
+            DbSet.AddRange(entity);
         }
 
         public IDbContextTransaction BeginTransaction()

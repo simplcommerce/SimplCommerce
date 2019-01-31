@@ -12,8 +12,7 @@ namespace SimplCommerce.Infrastructure.Data
 
         void Add(T entity);
 
-        Task AddRangeAsync(IEnumerable<T> entity);
-
+        void AddRange(IEnumerable<T> entity);
 
         IDbContextTransaction BeginTransaction();
 

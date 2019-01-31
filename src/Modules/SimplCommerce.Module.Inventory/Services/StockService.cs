@@ -34,7 +34,7 @@ namespace SimplCommerce.Module.Inventory.Services
                     WarehouseId = warehouse.Id,
                     Quantity = 0
                 }).ToArrayAsync();
-            await _stockRepository.AddRangeAsync(stocks);
+            _stockRepository.AddRange(stocks);
             await _stockRepository.SaveChangesAsync();
         }
 
