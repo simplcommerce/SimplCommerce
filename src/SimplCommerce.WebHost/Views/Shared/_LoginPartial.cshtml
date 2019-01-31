@@ -9,7 +9,7 @@
     <li class="nav-item">
         <a class="nav-link" asp-area="Core" asp-controller="Manage" asp-action="Index" title="@Localizer["Manage"]">@Localizer["Hello {0}!", (await WorkContext.GetCurrentUser()).FullName]</a>
     </li>
-    @if (User.IsInRole("admin") || User.IsInRole("vendor"))
+    if (User.IsInRole("admin") || User.IsInRole("vendor"))
     {
         <li class="nav-item"><a class="nav-link" asp-area="Core" asp-controller="HomeAdmin" asp-action="Index">@Localizer["Dashboard"]</a></li>
     }
