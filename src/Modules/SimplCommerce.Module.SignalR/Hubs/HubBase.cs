@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using SimplCommerce.Module.Core.Extensions;
 
-namespace SimplCommerce.Module.Core.RealTime.SignalRHubs
+namespace SimplCommerce.Module.SignalR.Hubs
 {
     public abstract class HubBase : Hub
     {

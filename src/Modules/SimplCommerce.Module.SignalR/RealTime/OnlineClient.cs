@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using SimplCommerce.Infrastructure.Extensions;
 
-namespace SimplCommerce.Module.Core.RealTime
+namespace SimplCommerce.Module.SignalR.RealTime
 {
     /// <summary>
     /// Implements <see cref="IOnlineClient"/>.

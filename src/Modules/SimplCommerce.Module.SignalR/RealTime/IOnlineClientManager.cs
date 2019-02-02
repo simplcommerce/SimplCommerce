@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SimplCommerce.Module.Core.RealTime
+namespace SimplCommerce.Module.SignalR.RealTime
 {
     /// <summary>
     /// Used to manage online clients those are connected to the application.

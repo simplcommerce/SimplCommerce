@@ -3,6 +3,7 @@
     <ProjectReference Include="..\..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.HangfireJobs\SimplCommerce.Module.HangfireJobs.csproj" />
+    <ProjectReference Include="..\SimplCommerce.Module.SignalR\SimplCommerce.Module.SignalR.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Areas\Notifications\Views\Notifications\Index.cshtml">

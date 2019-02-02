@@ -1,4 +1,4 @@
-﻿namespace SimplCommerce.Module.Core.RealTime
+﻿namespace SimplCommerce.Module.SignalR.RealTime
 {
     public class OnlineUserEventArgs : OnlineClientEventArgs
     {

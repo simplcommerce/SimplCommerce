@@ -5,7 +5,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using SimplCommerce.Infrastructure.Extensions;
 
-namespace SimplCommerce.Module.Core.RealTime
+namespace SimplCommerce.Module.SignalR.RealTime
 {
     public class OnlineClientManager<T> : OnlineClientManager, IOnlineClientManager<T>
     {

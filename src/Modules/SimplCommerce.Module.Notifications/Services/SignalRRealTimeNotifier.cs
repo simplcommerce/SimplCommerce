@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using SimplCommerce.Module.Core.RealTime;
-using SimplCommerce.Module.Core.RealTime.SignalRHubs;
 using SimplCommerce.Module.Notifications.Models;
+using SimplCommerce.Module.SignalR.Hubs;
+using SimplCommerce.Module.SignalR.RealTime;
 
 namespace SimplCommerce.Module.Notifications.Services
 {

@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.SignalR.RealTime;
 
-namespace SimplCommerce.Module.Core.RealTime.SignalRHubs
+namespace SimplCommerce.Module.SignalR.Hubs
 {
     public class CommonHub : OnlineClientHubBase
     {

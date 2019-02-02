@@ -5,12 +5,12 @@ using Microsoft.Extensions.DependencyInjection;
 using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Module.Core;
 using SimplCommerce.Module.Core.Events;
-using SimplCommerce.Module.Core.RealTime;
 using SimplCommerce.Module.Notifications.Data;
 using SimplCommerce.Module.Notifications.Events;
 using SimplCommerce.Module.Notifications.Jobs;
 using SimplCommerce.Module.Notifications.Notifiers;
 using SimplCommerce.Module.Notifications.Services;
+using SimplCommerce.Module.SignalR.RealTime;
 
 namespace SimplCommerce.Module.Notifications
 {

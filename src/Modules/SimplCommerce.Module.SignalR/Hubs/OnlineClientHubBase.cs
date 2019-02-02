@@ -3,8 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.SignalR.RealTime;
 
-namespace SimplCommerce.Module.Core.RealTime.SignalRHubs
+namespace SimplCommerce.Module.SignalR.Hubs
 {
     public abstract class OnlineClientHubBase : HubBase
     {
