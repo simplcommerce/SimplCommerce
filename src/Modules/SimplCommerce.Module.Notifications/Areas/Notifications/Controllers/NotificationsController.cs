@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Extensions;
-using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Notifications.Areas.Notifications.ViewModels;
 using SimplCommerce.Module.Notifications.Models;
 using SimplCommerce.Module.Notifications.Notifiers;
 
@@ -13,14 +13,10 @@ namespace SimplCommerce.Module.Notifications.Areas.Notifications.Controllers
     public class NotificationsController : Controller
     {
         private readonly ITestNotifier _testNotifier;
-        private readonly IWorkContext _workContext;
 
-        public NotificationsController(
-            ITestNotifier testNotifier,
-            IWorkContext workContext)
+        public NotificationsController(ITestNotifier testNotifier)
         {
             _testNotifier = testNotifier;
-            _workContext = workContext;
         }
 
         [HttpGet("notifications")]
@@ -30,21 +26,21 @@ namespace SimplCommerce.Module.Notifications.Areas.Notifications.Controllers
         }
 
         #region Etc
-        [HttpGet("test-notification")]
-        public async Task<ActionResult> TestNotification(string message = "", string severity = "info")
+        [HttpPost]
+        public async Task<ActionResult> TestNotification(TestNotificationVm inputDto)
         {
-            if (message.IsNullOrEmpty())
+            if (inputDto.Message.IsNullOrEmpty())
             {
-                message = "This is a test notification, created at " + DateTime.Now;
+                inputDto.Message = "This is a test notification, created at " + DateTime.Now;
             }
 
             await _testNotifier.SendMessageAsync(
-                _workContext.GetCurrentUser().Result.Id,
-                message,
-                severity.ToPascalCase().ToEnum<NotificationSeverity>()
+                inputDto.UserId,
+                inputDto.Message,
+                inputDto.Severity.ToPascalCase().ToEnum<NotificationSeverity>()
                 );
 
-            return Content("Sent notification: " + message);
+            return RedirectToAction("Index");
         }
 
         #endregion
