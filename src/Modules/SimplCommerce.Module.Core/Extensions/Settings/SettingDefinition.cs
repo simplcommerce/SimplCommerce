@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis;
 
 namespace SimplCommerce.Module.Core
 {
@@ -15,12 +14,12 @@ namespace SimplCommerce.Module.Core
         /// Display name of the setting.
         /// This can be used to show setting to the user.
         /// </summary>
-        public LocalizableString DisplayName { get; set; }
+        public string DisplayName { get; set; }
 
         /// <summary>
         /// A brief description for this setting.
         /// </summary>
-        public LocalizableString Description { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// Default value of the setting.
@@ -50,8 +49,8 @@ namespace SimplCommerce.Module.Core
         public SettingDefinition(
             string name,
             string defaultValue,
-            LocalizableString displayName = null,
-            LocalizableString description = null,
+            string displayName = null,
+            string description = null,
             bool isVisibleToClients = false)
         {
             if (string.IsNullOrEmpty(name))

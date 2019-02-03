@@ -5,7 +5,7 @@
     <TaskFolder Condition=" '$(MSBuildRuntimeType)' != 'Core' ">net46</TaskFolder>
   </PropertyGroup>
   <UsingTask AssemblyFile="..\..\build\$(TaskFolder)\SimplCommerce.MSBuildTasks.dll" TaskName="CopyModuleTask" />
-  
+
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <UserSecretsId>aspnet-Modular.WebHost-dca604fa-ee10-4a6c-8e7d-8cc79dca8c8f</UserSecretsId>
@@ -27,8 +27,10 @@
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Comments\SimplCommerce.Module.Comments.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Contacts\SimplCommerce.Module.Contacts.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.DinkToPdf\SimplCommerce.Module.DinkToPdf.csproj" />
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.HangfireJobs\SimplCommerce.Module.HangfireJobs.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Inventory\SimplCommerce.Module.Inventory.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.News\SimplCommerce.Module.News.csproj" />
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Notifications\SimplCommerce.Module.Notifications.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Orders\SimplCommerce.Module.Orders.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentBraintree\SimplCommerce.Module.PaymentBraintree.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentCoD\SimplCommerce.Module.PaymentCoD.csproj" />
@@ -47,6 +49,7 @@
     <ProjectReference Include="..\Modules\SimplCommerce.Module.ShippingTableRate\SimplCommerce.Module.ShippingTableRate.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Shipping\SimplCommerce.Module.Shipping.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.ShoppingCart\SimplCommerce.Module.ShoppingCart.csproj" />
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.SignalR\SimplCommerce.Module.SignalR.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Tax\SimplCommerce.Module.Tax.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Vendors\SimplCommerce.Module.Vendors.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.WishList\SimplCommerce.Module.WishList.csproj" />
@@ -65,7 +68,7 @@
     <PackageReference Include="MediatR" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.5.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
   </ItemGroup>
