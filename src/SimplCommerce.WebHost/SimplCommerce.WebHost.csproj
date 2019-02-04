@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\**\*;web.config;modules.json;appsettings.json;Modules\**\*;Themes\**\*;Views\**\*">
+    <Content Include="wwwroot\**\*;modules.json;appsettings.json;Modules\**\*;Themes\**\*;Views\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
