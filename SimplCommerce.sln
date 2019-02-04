@@ -125,7 +125,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Paymen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Inventory.Tests", "test\SimplCommerce.Module.Inventory.Tests\SimplCommerce.Module.Inventory.Tests.csproj", "{19AF369C-71BB-44B3-9D02-8EF3A3E912E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.SignalR", "src\Modules\SimplCommerce.Module.SignalR\SimplCommerce.Module.SignalR.csproj", "{6A59FF75-297F-4119-8E15-6B82C12188D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.SignalR", "src\Modules\SimplCommerce.Module.SignalR\SimplCommerce.Module.SignalR.csproj", "{6A59FF75-297F-4119-8E15-6B82C12188D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
