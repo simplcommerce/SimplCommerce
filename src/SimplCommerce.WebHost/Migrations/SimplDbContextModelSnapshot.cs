@@ -15,7 +15,7 @@ namespace SimplCommerce.WebHost.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -1875,133 +1875,6 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasIndex("NewsItemId");
 
                     b.ToTable("News_NewsItemCategory");
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.Notifications.Models.NotificationDetail", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTimeOffset>("CreatedOn");
-
-                    b.Property<string>("Data")
-                        .HasMaxLength(1048576);
-
-                    b.Property<string>("DataTypeName")
-                        .HasMaxLength(512);
-
-                    b.Property<string>("EntityId")
-                        .HasMaxLength(96);
-
-                    b.Property<string>("EntityTypeAssemblyQualifiedName")
-                        .HasMaxLength(512);
-
-                    b.Property<string>("EntityTypeName")
-                        .HasMaxLength(250);
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("NotificationName")
-                        .IsRequired()
-                        .HasMaxLength(96);
-
-                    b.Property<byte>("Severity");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Notifications_NotificationDetail");
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.Notifications.Models.NotificationScheme", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTimeOffset>("CreatedOn");
-
-                    b.Property<string>("Data")
-                        .HasMaxLength(1048576);
-
-                    b.Property<string>("DataTypeName")
-                        .HasMaxLength(512);
-
-                    b.Property<string>("EntityId")
-                        .HasMaxLength(96);
-
-                    b.Property<string>("EntityTypeAssemblyQualifiedName")
-                        .HasMaxLength(512);
-
-                    b.Property<string>("EntityTypeName")
-                        .HasMaxLength(250);
-
-                    b.Property<string>("ExcludedUserIds")
-                        .HasMaxLength(131072);
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("NotificationName")
-                        .IsRequired()
-                        .HasMaxLength(96);
-
-                    b.Property<byte>("Severity");
-
-                    b.Property<string>("UserIds")
-                        .HasMaxLength(131072);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Notifications_NotificationScheme");
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.Notifications.Models.NotificationSubscription", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTimeOffset>("CreatedOn");
-
-                    b.Property<string>("EntityId")
-                        .HasMaxLength(96);
-
-                    b.Property<string>("EntityTypeAssemblyQualifiedName")
-                        .HasMaxLength(512);
-
-                    b.Property<string>("EntityTypeName")
-                        .HasMaxLength(250);
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<string>("NotificationName")
-                        .HasMaxLength(96);
-
-                    b.Property<long>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Notifications_NotificationSubscription");
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.Notifications.Models.UserNotification", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTimeOffset>("CreatedOn");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<long>("NotificationDetailId");
-
-                    b.Property<int>("State");
-
-                    b.Property<long>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Notifications_UserNotification");
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Orders.Models.Order", b =>
