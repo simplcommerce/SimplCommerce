@@ -1,9 +1,14 @@
 ﻿using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Localization.Areas.Localization.ViewModel;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SimplCommerce.Module.Localization.Areas.Localization.Views.Shared.Components.LanguageSwitcher
+namespace SimplCommerce.Module.Localization.Areas.Localization.Components
 {
     public class LanguageSwitcherViewComponent : ViewComponent
     {
@@ -14,11 +19,13 @@ namespace SimplCommerce.Module.Localization.Areas.Localization.Views.Shared.Comp
             _workContext = workContext;
         }
 
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View("Default", new LanguageSwitcherModel {
+
+            return View(this.GetViewPath(), new LanguageSwitcherModel
+            {
                 CurrentUICulture = ViewContext.HttpContext.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture.Name,
-                UserSelectedCulture = _workContext.GetCurrentUser().Result.Culture
+                UserSelectedCulture = (await _workContext.GetCurrentUser()).Culture
             });
         }
     }

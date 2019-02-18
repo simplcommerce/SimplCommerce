@@ -2,23 +2,30 @@
 
 @model LanguageSwitcherModel
 
-<li class='nav-item dropdown'>
-    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-        Language (@Model.CurrentUICulture)
-        <span class='caret'></span>
-    </a>
-    <ul class="dropdown-menu lang-selector">
-        @foreach (var culture in Model.Cultures)
-        {
-            <li class='dropdown-item'>
-                <a href="#" data-value="@culture.Id" onclick="appendLanguageSwitcherCookie('@culture.Id')">
-                    @culture.Name
-                    @if (culture.Id == Model.UserSelectedCulture)
-                    {
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                    }
-                </a>
-            </li>
-        }
-    </ul>
-</li>
+@if (Model.Cultures.Count() > 1)
+{
+
+    <li class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+            Language (@Model.CurrentUICulture)
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu lang-selector">
+            @foreach (var culture in Model.Cultures)
+            {
+                <li class="dropdown-item">
+                    <a href="#" data-value="@culture.Id">
+                        @culture.Name
+                        @if (culture.Id == Model.UserSelectedCulture)
+                        {
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        }
+                    </a>
+                </li>
+            }
+        </ul>
+        <form asp-area="Localization" asp-controller="Localization" asp-action="SetLanguage" asp-route-returnUrl="@Context.Request.Path" method="post" id="lang-form" role="form">
+            <input type="hidden" name="culture" value="@Model.CurrentUICulture" />
+        </form>
+    </li>
+}

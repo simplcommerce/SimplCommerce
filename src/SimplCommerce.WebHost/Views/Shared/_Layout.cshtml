@@ -117,11 +117,5 @@
     @RenderSection("scripts", required: false)
 
     <partial name="_AnalyticsScript" />
-    <script>
-        function appendLanguageSwitcherCookie(code) {
-            document.cookie = '@CookieRequestCultureProvider.DefaultCookieName' + '=c=' + code + '|uic=' + code;
-            window.location.reload();
-        }
-    </script>
 </body>
 </html>
