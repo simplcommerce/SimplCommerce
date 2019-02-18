@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Localization;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Localization.Areas.Localization.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.Localization.Areas.Localization.Components
 {

@@ -24,7 +24,7 @@
     <div class="top-bar">
         <div class="container">
             <ul class="nav justify-content-end">
-                <partial name="_SelectLanguagePartial" />
+                @await Component.InvokeAsync("LanguageSwitcher")
                 <partial name="_LoginPartial" />
             </ul>
         </div>
