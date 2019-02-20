@@ -7,7 +7,7 @@
 
 @{
     var uiCulture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture.Name;
-    var selectedCulture = WorkContext.GetCurrentUser().Result.Culture;
+    var selectedCulture = (await WorkContext.GetCurrentUser()).Culture;
 }
 
 @if (GlobalConfiguration.Cultures.Count() > 1)
