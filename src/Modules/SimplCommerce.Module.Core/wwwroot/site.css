@@ -69,7 +69,7 @@ textarea {
     color: #fff;
     width: 38px;
     height: 38px;
-    position: absolute;
+    position: sticky;
     top: 0;
     right:22px;
 }
