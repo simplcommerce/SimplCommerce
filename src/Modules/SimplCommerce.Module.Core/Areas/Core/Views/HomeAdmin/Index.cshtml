@@ -240,6 +240,7 @@
     <script simpl-append-version="true" src="~/modules/inventory/admin/warehouse/warehouse-service.js"></script>
     <script simpl-append-version="true" src="~/modules/inventory/admin/warehouse/warehouse-list.js"></script>
     <script simpl-append-version="true" src="~/modules/inventory/admin/warehouse/warehouse-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/inventory/admin/warehouse/manage-products-form.js"></script>
 
     <script simpl-append-version="true" src="~/modules/shipments/admin/shipment.module.js"></script>
     <script simpl-append-version="true" src="~/modules/shipments/admin/shipment/shipment-service.js"></script>
@@ -304,6 +305,7 @@
                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Inventory"] <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a ui-sref="stocks">@Localizer["Stocks"]</a></li>
+                            <li><a ui-sref="warehouse-manage-products">@Localizer["Manage warehouses product"]</a></li>
                             <li><a ui-sref="warehouses">@Localizer["Warehouses"]</a></li>
                         </ul>
                     </li>

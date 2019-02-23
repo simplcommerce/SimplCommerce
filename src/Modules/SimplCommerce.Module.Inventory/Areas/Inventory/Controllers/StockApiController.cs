@@ -39,6 +39,8 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
             return Accepted();
         }
 
+
+
         [HttpPost("add-all-product")]
         public async Task<IActionResult> AddAllProducts(long warehouseId)
         {

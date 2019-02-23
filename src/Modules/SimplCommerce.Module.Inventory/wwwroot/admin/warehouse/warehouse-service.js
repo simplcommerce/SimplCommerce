@@ -14,7 +14,8 @@
             getDistricts: getDistricts,
             editWarehouse: editWarehouse,
             createWarehouse: createWarehouse,
-            deleteWarehouse: deleteWarehouse
+            deleteWarehouse: deleteWarehouse,
+            getProducts: getProducts
         };
         return service;
 
@@ -48,6 +49,10 @@
 
         function deleteWarehouse(warehouse) {
             return $http.delete('api/warehouses/' + warehouse.id);
+        }
+
+        function getProducts(warehouseId, params) {
+            return $http.post('api/warehouses/' + warehouseId + '/products', params);
         }
     }
 })();

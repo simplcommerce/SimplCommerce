@@ -2,21 +2,21 @@
 (function () {
     angular
         .module('simplAdmin.inventory')
-        .controller('StockFormCtrl', StockFormCtrl);
+        .controller('ManageProductsFormCtrl', ManageProductsFormCtrl);
 
     /* @ngInject */
-    function StockFormCtrl(stockService, translateService) {
+    function ManageProductsFormCtrl(warehouseService, stockService, translateService) {
         var vm = this;
         vm.tableStateRef = {};
         vm.translate = translateService;
-        vm.stocks = [];
+        vm.products = [];
         vm.warehouses = [];
 
-        vm.getStocks = function getStocks(tableState) {
+        vm.getProducts = function getStocks(tableState) {
             vm.tableStateRef = tableState;
             vm.isLoading = true;
-            stockService.getStocks(vm.selectedWarehouseId, tableState).then(function (result) {
-                vm.stocks = result.data.items;
+            warehouseService.getProducts(vm.selectedWarehouseId, tableState).then(function (result) {
+                vm.products = result.data.items;
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
                 tableState.pagination.totalItemCount = result.data.totalRecord;
                 vm.isLoading = false;
@@ -24,13 +24,13 @@
         };
 
         vm.wareHouseSelectChange = function wareHouseSelectChange() {
-            vm.getStocks(vm.tableStateRef);
+            vm.getProducts(vm.tableStateRef);
         };
 
         vm.addAllProducts = function addAllProducts() {
             stockService.addAllProducts(vm.selectedWarehouseId)
                 .then(function (result) {
-                    vm.getStocks(vm.tableStateRef);
+                    vm.getProducts(vm.tableStateRef);
                     toastr.success('All products have been added');
                 })
                 .catch(function (response) {
