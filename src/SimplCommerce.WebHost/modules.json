@@ -4,10 +4,6 @@
         "version": "1.0.0"
     },
     {
-        "id": "SimplCommerce.Module.HangfireJobs",
-        "version": "1.0.0"
-    },
-    {
         "id": "SimplCommerce.Module.Catalog",
         "version": "1.0.0"
     },
@@ -45,10 +41,6 @@
     },
     {
         "id": "SimplCommerce.Module.News",
-        "version": "1.0.0"
-    },
-    {
-        "id": "SimplCommerce.Module.Notifications",
         "version": "1.0.0"
     },
     {
@@ -137,10 +129,6 @@
     },
     {
         "id": "SimplCommerce.Module.WishList",
-        "version": "1.0.0"
-    },
-    {
-        "id": "SimplCommerce.Module.SignalR",
         "version": "1.0.0"
     }
 ]

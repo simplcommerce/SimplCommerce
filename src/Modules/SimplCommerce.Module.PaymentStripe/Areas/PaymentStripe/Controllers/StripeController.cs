@@ -47,7 +47,11 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
             var stripeSetting = JsonConvert.DeserializeObject<StripeConfigForm>(stripeProvider.AdditionalSettings);
             var stripeChargeService = new ChargeService(stripeSetting.PrivateKey);
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCart(currentUser.Id).FirstOrDefaultAsync();
+            var cart = await _cartService.GetActiveCart(currentUser.Id);
+            if(cart == null)
+            {
+                return NotFound();
+            }
 
             var orderCreationResult = await _orderService.CreateOrder(cart.Id, "Stripe", 0, OrderStatus.PendingPayment);
             if(!orderCreationResult.Success)

@@ -2,20 +2,21 @@
 
 namespace SimplCommerce.WebHost.Migrations
 {
-    public partial class AddedOrderNote : Migration
+    public partial class AddedCartLockOnCheckout : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "OrderNote",
+            migrationBuilder.AddColumn<bool>(
+                name: "LockedOnCheckout",
                 table: "ShoppingCart_Cart",
-                nullable: true);
+                nullable: false,
+                defaultValue: false);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "OrderNote",
+                name: "LockedOnCheckout",
                 table: "ShoppingCart_Cart");
         }
     }

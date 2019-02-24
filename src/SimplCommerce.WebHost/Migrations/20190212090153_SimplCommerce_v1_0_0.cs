@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SimplCommerce.WebHost.Migrations
 {
-    public partial class SimplCommerce_1_0_0_RC : Migration
+    public partial class SimplCommerce_v1_0_0 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,7 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,9 +27,9 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Slug = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(maxLength: 5000, nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
+                    Slug = table.Column<string>(maxLength: 450, nullable: false),
+                    Description = table.Column<string>(nullable: true),
                     IsPublished = table.Column<bool>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
@@ -44,7 +44,7 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,7 +57,7 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,7 +70,7 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: false)
+                    Name = table.Column<string>(maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,7 +83,7 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
                     IsPublished = table.Column<bool>(nullable: false),
                     IsSystem = table.Column<bool>(nullable: false)
                 },
@@ -98,7 +98,7 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -111,8 +111,8 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Value = table.Column<string>(nullable: true),
-                    Module = table.Column<string>(nullable: true),
+                    Value = table.Column<string>(maxLength: 450, nullable: true),
+                    Module = table.Column<string>(maxLength: 450, nullable: true),
                     IsVisibleInCommonSettingPage = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -125,8 +125,8 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Code3 = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
+                    Code3 = table.Column<string>(maxLength: 450, nullable: true),
                     IsBillingEnabled = table.Column<bool>(nullable: false),
                     IsShippingEnabled = table.Column<bool>(nullable: false),
                     IsCityEnabled = table.Column<bool>(nullable: false),
@@ -144,12 +144,12 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
                     Description = table.Column<string>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    UpdatedOn = table.Column<DateTimeOffset>(nullable: false)
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -162,8 +162,9 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     IsMenuable = table.Column<bool>(nullable: false),
-                    RoutingController = table.Column<string>(nullable: true),
-                    RoutingAction = table.Column<string>(nullable: true)
+                    AreaName = table.Column<string>(maxLength: 450, nullable: true),
+                    RoutingController = table.Column<string>(maxLength: 450, nullable: true),
+                    RoutingAction = table.Column<string>(maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -176,9 +177,9 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Caption = table.Column<string>(nullable: true),
+                    Caption = table.Column<string>(maxLength: 450, nullable: true),
                     FileSize = table.Column<int>(nullable: false),
-                    FileName = table.Column<string>(nullable: true),
+                    FileName = table.Column<string>(maxLength: 450, nullable: true),
                     MediaType = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -207,12 +208,12 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Slug = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
+                    Slug = table.Column<string>(maxLength: 450, nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    UpdatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
@@ -226,10 +227,10 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    ViewComponentName = table.Column<string>(nullable: true),
-                    CreateUrl = table.Column<string>(nullable: true),
-                    EditUrl = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
+                    ViewComponentName = table.Column<string>(maxLength: 450, nullable: true),
+                    CreateUrl = table.Column<string>(maxLength: 450, nullable: true),
+                    EditUrl = table.Column<string>(maxLength: 450, nullable: true),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
                     IsPublished = table.Column<bool>(nullable: false)
                 },
@@ -244,7 +245,7 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
                     Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -257,8 +258,7 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    IsDefault = table.Column<bool>(nullable: false)
+                    Name = table.Column<string>(maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -271,12 +271,12 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Slug = table.Column<string>(nullable: true),
-                    MetaTitle = table.Column<string>(nullable: true),
-                    MetaKeywords = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
+                    Slug = table.Column<string>(maxLength: 450, nullable: false),
+                    MetaTitle = table.Column<string>(maxLength: 450, nullable: true),
+                    MetaKeywords = table.Column<string>(maxLength: 450, nullable: true),
                     MetaDescription = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(maxLength: 5000, nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     DisplayOrder = table.Column<int>(nullable: false),
                     IsPublished = table.Column<bool>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false)
@@ -291,10 +291,10 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
                     IsEnabled = table.Column<bool>(nullable: false),
-                    ConfigureUrl = table.Column<string>(nullable: true),
-                    LandingViewComponentName = table.Column<string>(nullable: true),
+                    ConfigureUrl = table.Column<string>(maxLength: 450, nullable: true),
+                    LandingViewComponentName = table.Column<string>(maxLength: 450, nullable: true),
                     AdditionalSettings = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -308,13 +308,13 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
                     Description = table.Column<string>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
                     StartOn = table.Column<DateTimeOffset>(nullable: true),
                     EndOn = table.Column<DateTimeOffset>(nullable: true),
                     IsCouponRequired = table.Column<bool>(nullable: false),
-                    RuleToApply = table.Column<string>(nullable: true),
+                    RuleToApply = table.Column<string>(maxLength: 450, nullable: true),
                     DiscountAmount = table.Column<decimal>(nullable: false),
                     MaxDiscountAmount = table.Column<decimal>(nullable: true),
                     DiscountStep = table.Column<int>(nullable: true),
@@ -332,12 +332,12 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
                     Description = table.Column<string>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
                     StartOn = table.Column<DateTimeOffset>(nullable: true),
                     EndOn = table.Column<DateTimeOffset>(nullable: true),
-                    RuleToApply = table.Column<string>(nullable: true),
+                    RuleToApply = table.Column<string>(maxLength: 450, nullable: true),
                     DiscountAmount = table.Column<decimal>(nullable: false),
                     MaxDiscountAmount = table.Column<decimal>(nullable: true)
                 },
@@ -367,7 +367,7 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    QueryText = table.Column<string>(nullable: true),
+                    QueryText = table.Column<string>(maxLength: 500, nullable: false),
                     ResultsCount = table.Column<int>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false)
                 },
@@ -381,15 +381,15 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
                     IsEnabled = table.Column<bool>(nullable: false),
-                    ConfigureUrl = table.Column<string>(nullable: true),
+                    ConfigureUrl = table.Column<string>(maxLength: 450, nullable: true),
                     ToAllShippingEnabledCountries = table.Column<bool>(nullable: false),
-                    OnlyCountryIdsString = table.Column<string>(nullable: true),
+                    OnlyCountryIdsString = table.Column<string>(maxLength: 1000, nullable: true),
                     ToAllShippingEnabledStatesOrProvinces = table.Column<bool>(nullable: false),
-                    OnlyStateOrProvinceIdsString = table.Column<string>(nullable: true),
+                    OnlyStateOrProvinceIdsString = table.Column<string>(maxLength: 1000, nullable: true),
                     AdditionalSettings = table.Column<string>(nullable: true),
-                    ShippingPriceServiceTypeName = table.Column<string>(nullable: true)
+                    ShippingPriceServiceTypeName = table.Column<string>(maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -402,7 +402,7 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -419,7 +419,7 @@ namespace SimplCommerce.WebHost.Migrations
                     UserId = table.Column<long>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
                     EntityId = table.Column<long>(nullable: false),
-                    EntityTypeId = table.Column<string>(nullable: true)
+                    EntityTypeId = table.Column<string>(maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -438,7 +438,7 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
                     GroupId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
@@ -458,10 +458,10 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FullName = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    EmailAddress = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
+                    FullName = table.Column<string>(maxLength: 450, nullable: true),
+                    PhoneNumber = table.Column<string>(maxLength: 450, nullable: true),
+                    EmailAddress = table.Column<string>(maxLength: 450, nullable: true),
+                    Address = table.Column<string>(maxLength: 450, nullable: true),
                     Content = table.Column<string>(nullable: true),
                     ContactAreaId = table.Column<long>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
@@ -484,10 +484,10 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CountryId = table.Column<string>(nullable: true),
-                    Code = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Type = table.Column<string>(nullable: true)
+                    CountryId = table.Column<string>(maxLength: 450, nullable: true),
+                    Code = table.Column<string>(maxLength: 450, nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
+                    Type = table.Column<string>(maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -506,10 +506,10 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Slug = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
+                    Slug = table.Column<string>(maxLength: 450, nullable: false),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
                     EntityId = table.Column<long>(nullable: false),
-                    EntityTypeId = table.Column<string>(nullable: true)
+                    EntityTypeId = table.Column<string>(maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -528,12 +528,12 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Slug = table.Column<string>(nullable: true),
-                    MetaTitle = table.Column<string>(nullable: true),
-                    MetaKeywords = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
+                    Slug = table.Column<string>(maxLength: 450, nullable: false),
+                    MetaTitle = table.Column<string>(maxLength: 450, nullable: true),
+                    MetaKeywords = table.Column<string>(maxLength: 450, nullable: true),
                     MetaDescription = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(maxLength: 5000, nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     DisplayOrder = table.Column<int>(nullable: false),
                     IsPublished = table.Column<bool>(nullable: false),
                     IncludeInMenu = table.Column<bool>(nullable: false),
@@ -585,12 +585,12 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: true),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    UpdatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PublishStart = table.Column<DateTimeOffset>(nullable: true),
                     PublishEnd = table.Column<DateTimeOffset>(nullable: true),
-                    WidgetId = table.Column<string>(nullable: true),
+                    WidgetId = table.Column<string>(maxLength: 450, nullable: true),
                     WidgetZoneId = table.Column<long>(nullable: false),
                     DisplayOrder = table.Column<int>(nullable: false),
                     Data = table.Column<string>(nullable: true),
@@ -619,9 +619,9 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Key = table.Column<string>(nullable: true),
+                    Key = table.Column<string>(maxLength: 450, nullable: false),
                     Value = table.Column<string>(nullable: true),
-                    CultureId = table.Column<string>(nullable: true)
+                    CultureId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -631,7 +631,7 @@ namespace SimplCommerce.WebHost.Migrations
                         column: x => x.CultureId,
                         principalTable: "Localization_Culture",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -665,7 +665,7 @@ namespace SimplCommerce.WebHost.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CartRuleId = table.Column<long>(nullable: false),
-                    Code = table.Column<string>(nullable: true),
+                    Code = table.Column<string>(maxLength: 450, nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false)
                 },
                 constraints: table =>
@@ -734,8 +734,8 @@ namespace SimplCommerce.WebHost.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     StateOrProvinceId = table.Column<long>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Type = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
+                    Type = table.Column<string>(maxLength: 450, nullable: true),
                     Location = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -756,10 +756,10 @@ namespace SimplCommerce.WebHost.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     TaxClassId = table.Column<long>(nullable: false),
-                    CountryId = table.Column<string>(nullable: true),
+                    CountryId = table.Column<string>(maxLength: 450, nullable: true),
                     StateOrProvinceId = table.Column<long>(nullable: true),
                     Rate = table.Column<decimal>(nullable: false),
-                    ZipCode = table.Column<string>(nullable: true)
+                    ZipCode = table.Column<string>(maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -793,8 +793,8 @@ namespace SimplCommerce.WebHost.Migrations
                     ParentId = table.Column<long>(nullable: true),
                     MenuId = table.Column<long>(nullable: false),
                     EntityId = table.Column<long>(nullable: true),
-                    CustomLink = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
+                    CustomLink = table.Column<string>(maxLength: 450, nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: true),
                     DisplayOrder = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -850,15 +850,15 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ContactName = table.Column<string>(nullable: true),
-                    Phone = table.Column<string>(nullable: true),
-                    AddressLine1 = table.Column<string>(nullable: true),
-                    AddressLine2 = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
-                    ZipCode = table.Column<string>(nullable: true),
+                    ContactName = table.Column<string>(maxLength: 450, nullable: true),
+                    Phone = table.Column<string>(maxLength: 450, nullable: true),
+                    AddressLine1 = table.Column<string>(maxLength: 450, nullable: true),
+                    AddressLine2 = table.Column<string>(maxLength: 450, nullable: true),
+                    City = table.Column<string>(maxLength: 450, nullable: true),
+                    ZipCode = table.Column<string>(maxLength: 450, nullable: true),
                     DistrictId = table.Column<long>(nullable: true),
                     StateOrProvinceId = table.Column<long>(nullable: false),
-                    CountryId = table.Column<string>(nullable: false)
+                    CountryId = table.Column<string>(maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -889,15 +889,15 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ContactName = table.Column<string>(nullable: true),
-                    Phone = table.Column<string>(nullable: true),
-                    AddressLine1 = table.Column<string>(nullable: true),
-                    AddressLine2 = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
-                    ZipCode = table.Column<string>(nullable: true),
+                    ContactName = table.Column<string>(maxLength: 450, nullable: true),
+                    Phone = table.Column<string>(maxLength: 450, nullable: true),
+                    AddressLine1 = table.Column<string>(maxLength: 450, nullable: true),
+                    AddressLine2 = table.Column<string>(maxLength: 450, nullable: true),
+                    City = table.Column<string>(maxLength: 450, nullable: true),
+                    ZipCode = table.Column<string>(maxLength: 450, nullable: true),
                     DistrictId = table.Column<long>(nullable: true),
                     StateOrProvinceId = table.Column<long>(nullable: false),
-                    CountryId = table.Column<string>(nullable: true)
+                    CountryId = table.Column<string>(maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -928,10 +928,10 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CountryId = table.Column<string>(nullable: true),
+                    CountryId = table.Column<string>(maxLength: 450, nullable: true),
                     StateOrProvinceId = table.Column<long>(nullable: true),
                     DistrictId = table.Column<long>(nullable: true),
-                    ZipCode = table.Column<string>(nullable: true),
+                    ZipCode = table.Column<string>(maxLength: 450, nullable: true),
                     Note = table.Column<string>(nullable: true),
                     MinOrderSubtotal = table.Column<decimal>(nullable: false),
                     ShippingPrice = table.Column<decimal>(nullable: false)
@@ -965,8 +965,9 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: false),
-                    AddressId = table.Column<long>(nullable: false)
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
+                    AddressId = table.Column<long>(nullable: false),
+                    VendorId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -977,6 +978,12 @@ namespace SimplCommerce.WebHost.Migrations
                         principalTable: "Core_Address",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Inventory_Warehouse_Core_Vendor_VendorId",
+                        column: x => x.VendorId,
+                        principalTable: "Core_Vendor",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -985,19 +992,19 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Slug = table.Column<string>(nullable: true),
-                    MetaTitle = table.Column<string>(nullable: true),
-                    MetaKeywords = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
+                    Slug = table.Column<string>(maxLength: 450, nullable: false),
+                    MetaTitle = table.Column<string>(maxLength: 450, nullable: true),
+                    MetaKeywords = table.Column<string>(maxLength: 450, nullable: true),
                     MetaDescription = table.Column<string>(nullable: true),
                     IsPublished = table.Column<bool>(nullable: false),
                     PublishedOn = table.Column<DateTimeOffset>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    CreatedById = table.Column<long>(nullable: true),
+                    CreatedById = table.Column<long>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    UpdatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    UpdatedById = table.Column<long>(nullable: true),
-                    ShortDescription = table.Column<string>(nullable: true),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    LatestUpdatedById = table.Column<long>(nullable: false),
+                    ShortDescription = table.Column<string>(maxLength: 450, nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Specification = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
@@ -1010,10 +1017,11 @@ namespace SimplCommerce.WebHost.Migrations
                     IsFeatured = table.Column<bool>(nullable: false),
                     IsCallForPricing = table.Column<bool>(nullable: false),
                     IsAllowToOrder = table.Column<bool>(nullable: false),
+                    StockTrackingIsEnabled = table.Column<bool>(nullable: false),
                     StockQuantity = table.Column<int>(nullable: false),
-                    Sku = table.Column<string>(nullable: true),
-                    Gtin = table.Column<string>(nullable: true),
-                    NormalizedName = table.Column<string>(nullable: true),
+                    Sku = table.Column<string>(maxLength: 450, nullable: true),
+                    Gtin = table.Column<string>(maxLength: 450, nullable: true),
+                    NormalizedName = table.Column<string>(maxLength: 450, nullable: true),
                     DisplayOrder = table.Column<int>(nullable: false),
                     VendorId = table.Column<long>(nullable: true),
                     ThumbnailImageId = table.Column<long>(nullable: true),
@@ -1162,7 +1170,7 @@ namespace SimplCommerce.WebHost.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ProductId = table.Column<long>(nullable: false),
                     OptionId = table.Column<long>(nullable: false),
-                    Value = table.Column<string>(nullable: true),
+                    Value = table.Column<string>(maxLength: 450, nullable: true),
                     SortIndex = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -1190,8 +1198,8 @@ namespace SimplCommerce.WebHost.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     OptionId = table.Column<long>(nullable: false),
                     ProductId = table.Column<long>(nullable: false),
-                    Value = table.Column<string>(nullable: true),
-                    DisplayType = table.Column<string>(nullable: true),
+                    Value = table.Column<string>(maxLength: 450, nullable: true),
+                    DisplayType = table.Column<string>(maxLength: 450, nullable: true),
                     SortIndex = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -1270,7 +1278,7 @@ namespace SimplCommerce.WebHost.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ProductId = table.Column<long>(nullable: true),
-                    CreatedById = table.Column<long>(nullable: true),
+                    CreatedById = table.Column<long>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
                     Price = table.Column<decimal>(nullable: true),
                     OldPrice = table.Column<decimal>(nullable: true),
@@ -1285,6 +1293,36 @@ namespace SimplCommerce.WebHost.Migrations
                         name: "FK_Catalog_ProductPriceHistory_Catalog_Product_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Catalog_Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Inventory_StockHistory",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ProductId = table.Column<long>(nullable: false),
+                    WarehouseId = table.Column<long>(nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    CreatedById = table.Column<long>(nullable: false),
+                    AdjustedQuantity = table.Column<long>(nullable: false),
+                    Note = table.Column<string>(maxLength: 1000, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Inventory_StockHistory", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Inventory_StockHistory_Catalog_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Catalog_Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Inventory_StockHistory_Inventory_Warehouse_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "Inventory_Warehouse",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -1380,6 +1418,30 @@ namespace SimplCommerce.WebHost.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "WishList_WishListItem",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    WishListId = table.Column<long>(nullable: false),
+                    ProductId = table.Column<long>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    Quantity = table.Column<int>(nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WishList_WishListItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WishList_WishListItem_Catalog_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Catalog_Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Core_UserAddress",
                 columns: table => new
                 {
@@ -1405,30 +1467,33 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Core_User",
                 columns: table => new
                 {
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
                     UserName = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
                     PasswordHash = table.Column<string>(nullable: true),
                     SecurityStamp = table.Column<string>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
                     UserGuid = table.Column<Guid>(nullable: false),
-                    FullName = table.Column<string>(nullable: true),
+                    FullName = table.Column<string>(maxLength: 450, nullable: false),
                     VendorId = table.Column<long>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    UpdatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     DefaultShippingAddressId = table.Column<long>(nullable: true),
-                    DefaultBillingAddressId = table.Column<long>(nullable: true)
+                    DefaultBillingAddressId = table.Column<long>(nullable: true),
+                    RefreshTokenHash = table.Column<string>(maxLength: 450, nullable: true),
+                    Culture = table.Column<string>(maxLength: 450, nullable: true),
+                    ExtensionData = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1459,18 +1524,18 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Slug = table.Column<string>(nullable: true),
-                    MetaTitle = table.Column<string>(nullable: true),
-                    MetaKeywords = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
+                    Slug = table.Column<string>(maxLength: 450, nullable: false),
+                    MetaTitle = table.Column<string>(maxLength: 450, nullable: true),
+                    MetaKeywords = table.Column<string>(maxLength: 450, nullable: true),
                     MetaDescription = table.Column<string>(nullable: true),
                     IsPublished = table.Column<bool>(nullable: false),
                     PublishedOn = table.Column<DateTimeOffset>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    CreatedById = table.Column<long>(nullable: true),
+                    CreatedById = table.Column<long>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    UpdatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    UpdatedById = table.Column<long>(nullable: true),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    LatestUpdatedById = table.Column<long>(nullable: false),
                     Body = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -1483,8 +1548,40 @@ namespace SimplCommerce.WebHost.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Cms_Page_Core_User_UpdatedById",
-                        column: x => x.UpdatedById,
+                        name: "FK_Cms_Page_Core_User_LatestUpdatedById",
+                        column: x => x.LatestUpdatedById,
+                        principalTable: "Core_User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Comments_Comment",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<long>(nullable: false),
+                    CommentText = table.Column<string>(nullable: true),
+                    CommenterName = table.Column<string>(maxLength: 450, nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    EntityTypeId = table.Column<string>(maxLength: 450, nullable: true),
+                    EntityId = table.Column<long>(nullable: false),
+                    ParentId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments_Comment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comments_Comment_Comments_Comment_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Comments_Comment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Comments_Comment_Core_User_UserId",
+                        column: x => x.UserId,
                         principalTable: "Core_User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -1600,48 +1697,24 @@ namespace SimplCommerce.WebHost.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Inventory_StockHistory",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ProductId = table.Column<long>(nullable: false),
-                    WarehouseId = table.Column<long>(nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    CreatedById = table.Column<long>(nullable: false),
-                    AdjustedQuantity = table.Column<long>(nullable: false),
-                    Note = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Inventory_StockHistory", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Inventory_StockHistory_Core_User_CreatedById",
-                        column: x => x.CreatedById,
-                        principalTable: "Core_User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "News_NewsItem",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Slug = table.Column<string>(nullable: true),
-                    MetaTitle = table.Column<string>(nullable: true),
-                    MetaKeywords = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 450, nullable: false),
+                    Slug = table.Column<string>(maxLength: 450, nullable: false),
+                    MetaTitle = table.Column<string>(maxLength: 450, nullable: true),
+                    MetaKeywords = table.Column<string>(maxLength: 450, nullable: true),
                     MetaDescription = table.Column<string>(nullable: true),
                     IsPublished = table.Column<bool>(nullable: false),
                     PublishedOn = table.Column<DateTimeOffset>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    CreatedById = table.Column<long>(nullable: true),
+                    CreatedById = table.Column<long>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    UpdatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    UpdatedById = table.Column<long>(nullable: true),
-                    ShortContent = table.Column<string>(nullable: true),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    LatestUpdatedById = table.Column<long>(nullable: false),
+                    ShortContent = table.Column<string>(maxLength: 450, nullable: true),
                     FullContent = table.Column<string>(nullable: true),
                     ThumbnailImageId = table.Column<long>(nullable: true)
                 },
@@ -1655,15 +1728,15 @@ namespace SimplCommerce.WebHost.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_News_NewsItem_Core_Media_ThumbnailImageId",
-                        column: x => x.ThumbnailImageId,
-                        principalTable: "Core_Media",
+                        name: "FK_News_NewsItem_Core_User_LatestUpdatedById",
+                        column: x => x.LatestUpdatedById,
+                        principalTable: "Core_User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_News_NewsItem_Core_User_UpdatedById",
-                        column: x => x.UpdatedById,
-                        principalTable: "Core_User",
+                        name: "FK_News_NewsItem_Core_Media_ThumbnailImageId",
+                        column: x => x.ThumbnailImageId,
+                        principalTable: "Core_Media",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -1674,24 +1747,28 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CustomerId = table.Column<long>(nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    LatestUpdatedById = table.Column<long>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    UpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CreatedById = table.Column<long>(nullable: false),
                     VendorId = table.Column<long>(nullable: true),
-                    CouponCode = table.Column<string>(nullable: true),
-                    CouponRuleName = table.Column<string>(nullable: true),
+                    CouponCode = table.Column<string>(maxLength: 450, nullable: true),
+                    CouponRuleName = table.Column<string>(maxLength: 450, nullable: true),
                     DiscountAmount = table.Column<decimal>(nullable: false),
                     SubTotal = table.Column<decimal>(nullable: false),
                     SubTotalWithDiscount = table.Column<decimal>(nullable: false),
                     ShippingAddressId = table.Column<long>(nullable: false),
                     BillingAddressId = table.Column<long>(nullable: false),
                     OrderStatus = table.Column<int>(nullable: false),
+                    OrderNote = table.Column<string>(maxLength: 1000, nullable: true),
                     ParentId = table.Column<long>(nullable: true),
-                    ShippingMethod = table.Column<string>(nullable: true),
+                    IsMasterOrder = table.Column<bool>(nullable: false),
+                    ShippingMethod = table.Column<string>(maxLength: 450, nullable: true),
                     ShippingFeeAmount = table.Column<decimal>(nullable: false),
                     TaxAmount = table.Column<decimal>(nullable: false),
                     OrderTotal = table.Column<decimal>(nullable: false),
-                    PaymentMethod = table.Column<string>(nullable: true),
+                    PaymentMethod = table.Column<string>(maxLength: 450, nullable: true),
                     PaymentFeeAmount = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
@@ -1706,6 +1783,18 @@ namespace SimplCommerce.WebHost.Migrations
                     table.ForeignKey(
                         name: "FK_Orders_Order_Core_User_CreatedById",
                         column: x => x.CreatedById,
+                        principalTable: "Core_User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Order_Core_User_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Core_User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Order_Core_User_LatestUpdatedById",
+                        column: x => x.LatestUpdatedById,
                         principalTable: "Core_User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -1765,13 +1854,13 @@ namespace SimplCommerce.WebHost.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<long>(nullable: false),
-                    Title = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(maxLength: 450, nullable: true),
                     Comment = table.Column<string>(nullable: true),
                     Rating = table.Column<int>(nullable: false),
-                    ReviewerName = table.Column<string>(nullable: true),
+                    ReviewerName = table.Column<string>(maxLength: 450, nullable: true),
                     Status = table.Column<int>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    EntityTypeId = table.Column<string>(nullable: true),
+                    EntityTypeId = table.Column<string>(maxLength: 450, nullable: true),
                     EntityId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
@@ -1791,23 +1880,53 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<long>(nullable: false),
+                    CustomerId = table.Column<long>(nullable: false),
+                    CreatedById = table.Column<long>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    UpdatedOn = table.Column<DateTimeOffset>(nullable: true),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
-                    CouponCode = table.Column<string>(nullable: true),
-                    CouponRuleName = table.Column<string>(nullable: true),
-                    ShippingMethod = table.Column<string>(nullable: true),
+                    CouponCode = table.Column<string>(maxLength: 450, nullable: true),
+                    CouponRuleName = table.Column<string>(maxLength: 450, nullable: true),
+                    ShippingMethod = table.Column<string>(maxLength: 450, nullable: true),
                     IsProductPriceIncludeTax = table.Column<bool>(nullable: false),
                     ShippingAmount = table.Column<decimal>(nullable: true),
                     TaxAmount = table.Column<decimal>(nullable: true),
-                    ShippingData = table.Column<string>(nullable: true)
+                    ShippingData = table.Column<string>(nullable: true),
+                    OrderNote = table.Column<string>(maxLength: 1000, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ShoppingCart_Cart", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ShoppingCart_Cart_Core_User_UserId",
+                        name: "FK_ShoppingCart_Cart_Core_User_CreatedById",
+                        column: x => x.CreatedById,
+                        principalTable: "Core_User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ShoppingCart_Cart_Core_User_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Core_User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WishList_WishList",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<long>(nullable: false),
+                    SharingCode = table.Column<string>(maxLength: 450, nullable: true),
+                    CreatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WishList_WishList", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WishList_WishList_Core_User_UserId",
                         column: x => x.UserId,
                         principalTable: "Core_User",
                         principalColumn: "Id",
@@ -1848,7 +1967,7 @@ namespace SimplCommerce.WebHost.Migrations
                     OldStatus = table.Column<int>(nullable: true),
                     NewStatus = table.Column<int>(nullable: false),
                     OrderSnapshot = table.Column<string>(nullable: true),
-                    Note = table.Column<string>(nullable: true),
+                    Note = table.Column<string>(maxLength: 1000, nullable: true),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CreatedById = table.Column<long>(nullable: false)
                 },
@@ -1877,11 +1996,11 @@ namespace SimplCommerce.WebHost.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     OrderId = table.Column<long>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    UpdatedOn = table.Column<DateTimeOffset>(nullable: true),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     Amount = table.Column<decimal>(nullable: false),
                     PaymentFee = table.Column<decimal>(nullable: false),
-                    PaymentMethod = table.Column<string>(nullable: true),
-                    GatewayTransactionId = table.Column<string>(nullable: true),
+                    PaymentMethod = table.Column<string>(maxLength: 450, nullable: true),
+                    GatewayTransactionId = table.Column<string>(maxLength: 450, nullable: true),
                     Status = table.Column<int>(nullable: false),
                     FailureMessage = table.Column<string>(nullable: true)
                 },
@@ -1903,11 +2022,12 @@ namespace SimplCommerce.WebHost.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     OrderId = table.Column<long>(nullable: false),
-                    TrackingNumber = table.Column<string>(nullable: true),
+                    TrackingNumber = table.Column<string>(maxLength: 450, nullable: true),
                     WarehouseId = table.Column<long>(nullable: false),
+                    VendorId = table.Column<long>(nullable: true),
                     CreatedById = table.Column<long>(nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    UpdatedOn = table.Column<DateTimeOffset>(nullable: false)
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1928,6 +2048,36 @@ namespace SimplCommerce.WebHost.Migrations
                         name: "FK_Shipments_Shipment_Inventory_Warehouse_WarehouseId",
                         column: x => x.WarehouseId,
                         principalTable: "Inventory_Warehouse",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reviews_Reply",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ReviewId = table.Column<long>(nullable: false),
+                    UserId = table.Column<long>(nullable: false),
+                    Comment = table.Column<string>(nullable: true),
+                    ReplierName = table.Column<string>(maxLength: 450, nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reviews_Reply", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Reply_Reviews_Review_ReviewId",
+                        column: x => x.ReviewId,
+                        principalTable: "Reviews_Review",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Reply_Core_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Core_User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -1960,15 +2110,16 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: new[] { "Id", "IsVisibleInCommonSettingPage", "Module", "Value" },
                 values: new object[,]
                 {
+                    { "Theme", false, "Core", "Generic" },
                     { "Tax.DefaultTaxClassId", true, "Tax", "1" },
                     { "News.PageSize", true, "News", "10" },
                     { "SmtpPassword", false, "EmailSenderSmpt", "" },
                     { "SmtpUsername", false, "EmailSenderSmpt", "" },
                     { "SmtpPort", false, "EmailSenderSmpt", "587" },
                     { "SmtpServer", false, "EmailSenderSmpt", "smtp.gmail.com" },
-                    { "Theme", false, "Core", "Generic" },
-                    { "Global.AssetVersion", true, "Core", "1.0" },
                     { "GoogleAppKey", false, "Contact", "" },
+                    { "Global.AssetVersion", true, "Core", "1.0" },
+                    { "Catalog.IsCommentsRequireApproval", true, "Catalog", "true" },
                     { "Catalog.IsProductPriceIncludeTax", true, "Catalog", "true" },
                     { "Catalog.ProductPageSize", true, "Catalog", "10" }
                 });
@@ -1984,16 +2135,16 @@ namespace SimplCommerce.WebHost.Migrations
 
             migrationBuilder.InsertData(
                 table: "Core_EntityType",
-                columns: new[] { "Id", "IsMenuable", "RoutingAction", "RoutingController" },
+                columns: new[] { "Id", "AreaName", "IsMenuable", "RoutingAction", "RoutingController" },
                 values: new object[,]
                 {
-                    { "NewsItem", false, "NewsItemDetail", "NewsItem" },
-                    { "Vendor", false, "VendorDetail", "Vendor" },
-                    { "Page", true, "PageDetail", "Page" },
-                    { "NewsCategory", true, "NewsCategoryDetail", "NewsCategory" },
-                    { "Brand", true, "BrandDetail", "Brand" },
-                    { "Category", true, "CategoryDetail", "Category" },
-                    { "Product", false, "ProductDetail", "Product" }
+                    { "NewsItem", "News", false, "NewsItemDetail", "NewsItem" },
+                    { "Vendor", "Core", false, "VendorDetail", "Vendor" },
+                    { "NewsCategory", "News", true, "NewsCategoryDetail", "NewsCategory" },
+                    { "Page", "Cms", true, "PageDetail", "Page" },
+                    { "Category", "Catalog", true, "CategoryDetail", "Category" },
+                    { "Brand", "Catalog", true, "BrandDetail", "Brand" },
+                    { "Product", "Catalog", false, "ProductDetail", "Product" }
                 });
 
             migrationBuilder.InsertData(
@@ -2009,11 +2160,11 @@ namespace SimplCommerce.WebHost.Migrations
 
             migrationBuilder.InsertData(
                 table: "Core_User",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedOn", "DefaultBillingAddressId", "DefaultShippingAddressId", "Email", "EmailConfirmed", "FullName", "IsDeleted", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedOn", "UserGuid", "UserName", "VendorId" },
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedOn", "Culture", "DefaultBillingAddressId", "DefaultShippingAddressId", "Email", "EmailConfirmed", "ExtensionData", "FullName", "IsDeleted", "LatestUpdatedOn", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RefreshTokenHash", "SecurityStamp", "TwoFactorEnabled", "UserGuid", "UserName", "VendorId" },
                 values: new object[,]
                 {
-                    { 2L, 0, "101cd6ae-a8ef-4a37-97fd-04ac2dd630e4", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 189, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null, null, "system@simplcommerce.com", false, "System User", true, false, null, "SYSTEM@SIMPLCOMMERCE.COM", "SYSTEM@SIMPLCOMMERCE.COM", "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", null, false, "a9565acb-cee6-425f-9833-419a793f5fba", false, new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 189, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new Guid("5f72f83b-7436-4221-869c-1b69b2e23aae"), "system@simplcommerce.com", null },
-                    { 10L, 0, "c83afcbc-312c-4589-bad7-8686bd4754c0", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 190, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null, null, "admin@simplcommerce.com", false, "Shop Admin", false, false, null, "ADMIN@SIMPLCOMMERCE.COM", "ADMIN@SIMPLCOMMERCE.COM", "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", null, false, "d6847450-47f0-4c7a-9fed-0c66234bf61f", false, new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 190, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new Guid("ed8210c3-24b0-4823-a744-80078cf12eb4"), "admin@simplcommerce.com", null }
+                    { 10L, 0, "c83afcbc-312c-4589-bad7-8686bd4754c0", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 190, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null, null, null, "admin@simplcommerce.com", false, null, "Shop Admin", false, new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 190, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), false, null, "ADMIN@SIMPLCOMMERCE.COM", "ADMIN@SIMPLCOMMERCE.COM", "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", null, false, null, "d6847450-47f0-4c7a-9fed-0c66234bf61f", false, new Guid("ed8210c3-24b0-4823-a744-80078cf12eb4"), "admin@simplcommerce.com", null },
+                    { 2L, 0, "101cd6ae-a8ef-4a37-97fd-04ac2dd630e4", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 189, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), null, null, null, "system@simplcommerce.com", false, null, "System User", true, new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 189, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), false, null, "SYSTEM@SIMPLCOMMERCE.COM", "SYSTEM@SIMPLCOMMERCE.COM", "AQAAAAEAACcQAAAAEAEqSCV8Bpg69irmeg8N86U503jGEAYf75fBuzvL00/mr/FGEsiUqfR0rWBbBUwqtw==", null, false, null, "a9565acb-cee6-425f-9833-419a793f5fba", false, new Guid("5f72f83b-7436-4221-869c-1b69b2e23aae"), "system@simplcommerce.com", null }
                 });
 
             migrationBuilder.InsertData(
@@ -2021,12 +2172,13 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: new[] { "Id", "CreateUrl", "CreatedOn", "EditUrl", "IsPublished", "Name", "ViewComponentName" },
                 values: new object[,]
                 {
-                    { "SpaceBarWidget", "widget-spacebar-create", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-spacebar-edit", false, "SpaceBar Widget", "SpaceBarWidget" },
-                    { "CarouselWidget", "widget-carousel-create", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-carousel-edit", false, "Carousel Widget", "CarouselWidget" },
-                    { "HtmlWidget", "widget-html-create", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-html-edit", false, "Html Widget", "HtmlWidget" },
-                    { "ProductWidget", "widget-product-create", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 163, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-product-edit", false, "Product Widget", "ProductWidget" },
+                    { "RecentlyViewedWidget", "widget-recently-viewed-create", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-recently-viewed-edit", false, "Recently Viewed Widget", "RecentlyViewedWidget" },
                     { "CategoryWidget", "widget-category-create", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 160, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-category-edit", false, "Category Widget", "CategoryWidget" },
-                    { "SimpleProductWidget", "widget-simple-product-create", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 163, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-simple-product-edit", false, "Simple Product Widget", "SimpleProductWidget" }
+                    { "ProductWidget", "widget-product-create", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 163, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-product-edit", false, "Product Widget", "ProductWidget" },
+                    { "SimpleProductWidget", "widget-simple-product-create", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 163, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-simple-product-edit", false, "Simple Product Widget", "SimpleProductWidget" },
+                    { "HtmlWidget", "widget-html-create", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-html-edit", false, "Html Widget", "HtmlWidget" },
+                    { "CarouselWidget", "widget-carousel-create", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-carousel-edit", false, "Carousel Widget", "CarouselWidget" },
+                    { "SpaceBarWidget", "widget-spacebar-create", new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "widget-spacebar-edit", false, "SpaceBar Widget", "SpaceBarWidget" }
                 });
 
             migrationBuilder.InsertData(
@@ -2034,21 +2186,22 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: new[] { "Id", "Description", "Name" },
                 values: new object[,]
                 {
+                    { 3L, null, "Home After Main Content" },
                     { 1L, null, "Home Featured" },
-                    { 2L, null, "Home Main Content" },
-                    { 3L, null, "Home After Main Content" }
+                    { 2L, null, "Home Main Content" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Localization_Culture",
-                columns: new[] { "Id", "IsDefault", "Name" },
-                values: new object[] { "en-US", true, "English (US)" });
+                columns: new[] { "Id", "Name" },
+                values: new object[] { "en-US", "English (US)" });
 
             migrationBuilder.InsertData(
                 table: "Payments_PaymentProvider",
                 columns: new[] { "Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "LandingViewComponentName", "Name" },
                 values: new object[,]
                 {
+                    { "Braintree", "{\"PublicKey\": \"6j4d7qspt5n48kx4\", \"PrivateKey\" : \"bd1c26e53a6d811243fcc3eb268113e1\", \"MerchantId\" : \"ncsh7wwqvzs3cx9q\", \"IsProduction\" : \"false\"}", "payments-braintree-config", true, "BraintreeLanding", "Braintree" },
                     { "CoD", null, "payments-cod-config", true, "CoDLanding", "Cash On Delivery" },
                     { "PaypalExpress", "{ \"IsSandbox\":true, \"ClientId\":\"\", \"ClientSecret\":\"\" }", "payments-paypalExpress-config", true, "PaypalExpressLanding", "Paypal Express" },
                     { "Stripe", "{\"PublicKey\": \"pk_test_6pRNASCoBOKtIshFeQd4XMUh\", \"PrivateKey\" : \"sk_test_BQokikJOvBiI2HlWgH4olfQ2\"}", "payments-stripe-config", true, "StripeLanding", "Stripe" }
@@ -2059,8 +2212,8 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: new[] { "Id", "AdditionalSettings", "ConfigureUrl", "IsEnabled", "Name", "OnlyCountryIdsString", "OnlyStateOrProvinceIdsString", "ShippingPriceServiceTypeName", "ToAllShippingEnabledCountries", "ToAllShippingEnabledStatesOrProvinces" },
                 values: new object[,]
                 {
-                    { "TableRate", null, "shipping-table-rate-config", true, "Table Rate", null, null, "SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingServiceProvider,SimplCommerce.Module.ShippingTableRate", true, true },
-                    { "FreeShip", "{MinimumOrderAmount : 100}", "", true, "Free Ship", null, null, "SimplCommerce.Module.ShippingFree.Services.FreeShippingServiceProvider,SimplCommerce.Module.ShippingFree", true, true }
+                    { "FreeShip", "{MinimumOrderAmount : 1}", "", true, "Free Ship", null, null, "SimplCommerce.Module.ShippingFree.Services.FreeShippingServiceProvider,SimplCommerce.Module.ShippingFree", true, true },
+                    { "TableRate", null, "shipping-table-rate-config", true, "Table Rate", null, null, "SimplCommerce.Module.ShippingTableRate.Services.TableRateShippingServiceProvider,SimplCommerce.Module.ShippingTableRate", true, true }
                 });
 
             migrationBuilder.InsertData(
@@ -2100,8 +2253,8 @@ namespace SimplCommerce.WebHost.Migrations
 
             migrationBuilder.InsertData(
                 table: "Inventory_Warehouse",
-                columns: new[] { "Id", "AddressId", "Name" },
-                values: new object[] { 1L, 1L, "Default warehouse" });
+                columns: new[] { "Id", "AddressId", "Name", "VendorId" },
+                values: new object[] { 1L, 1L, "Default warehouse", null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ActivityLog_Activity_ActivityTypeId",
@@ -2129,6 +2282,11 @@ namespace SimplCommerce.WebHost.Migrations
                 column: "CreatedById");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Catalog_Product_LatestUpdatedById",
+                table: "Catalog_Product",
+                column: "LatestUpdatedById");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Catalog_Product_TaxClassId",
                 table: "Catalog_Product",
                 column: "TaxClassId");
@@ -2137,11 +2295,6 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "IX_Catalog_Product_ThumbnailImageId",
                 table: "Catalog_Product",
                 column: "ThumbnailImageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Catalog_Product_UpdatedById",
-                table: "Catalog_Product",
-                column: "UpdatedById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Catalog_ProductAttribute_GroupId",
@@ -2244,9 +2397,19 @@ namespace SimplCommerce.WebHost.Migrations
                 column: "CreatedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cms_Page_UpdatedById",
+                name: "IX_Cms_Page_LatestUpdatedById",
                 table: "Cms_Page",
-                column: "UpdatedById");
+                column: "LatestUpdatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_Comment_ParentId",
+                table: "Comments_Comment",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_Comment_UserId",
+                table: "Comments_Comment",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Contacts_Contact_ContactAreaId",
@@ -2272,8 +2435,7 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "IX_Core_CustomerGroup_Name",
                 table: "Core_CustomerGroup",
                 column: "Name",
-                unique: true,
-                filter: "[Name] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Core_CustomerGroupUser_CustomerGroupId",
@@ -2385,9 +2547,24 @@ namespace SimplCommerce.WebHost.Migrations
                 column: "CreatedById");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Inventory_StockHistory_ProductId",
+                table: "Inventory_StockHistory",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Inventory_StockHistory_WarehouseId",
+                table: "Inventory_StockHistory",
+                column: "WarehouseId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Inventory_Warehouse_AddressId",
                 table: "Inventory_Warehouse",
                 column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Inventory_Warehouse_VendorId",
+                table: "Inventory_Warehouse",
+                column: "VendorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Localization_Resource_CultureId",
@@ -2400,14 +2577,14 @@ namespace SimplCommerce.WebHost.Migrations
                 column: "CreatedById");
 
             migrationBuilder.CreateIndex(
+                name: "IX_News_NewsItem_LatestUpdatedById",
+                table: "News_NewsItem",
+                column: "LatestUpdatedById");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_News_NewsItem_ThumbnailImageId",
                 table: "News_NewsItem",
                 column: "ThumbnailImageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_News_NewsItem_UpdatedById",
-                table: "News_NewsItem",
-                column: "UpdatedById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_News_NewsItemCategory_NewsItemId",
@@ -2423,6 +2600,16 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "IX_Orders_Order_CreatedById",
                 table: "Orders_Order",
                 column: "CreatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_Order_CustomerId",
+                table: "Orders_Order",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_Order_LatestUpdatedById",
+                table: "Orders_Order",
+                column: "LatestUpdatedById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_Order_ParentId",
@@ -2525,6 +2712,16 @@ namespace SimplCommerce.WebHost.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Reviews_Reply_ReviewId",
+                table: "Reviews_Reply",
+                column: "ReviewId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_Reply_UserId",
+                table: "Reviews_Reply",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reviews_Review_UserId",
                 table: "Reviews_Review",
                 column: "UserId");
@@ -2570,9 +2767,14 @@ namespace SimplCommerce.WebHost.Migrations
                 column: "StateOrProvinceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShoppingCart_Cart_UserId",
+                name: "IX_ShoppingCart_Cart_CreatedById",
                 table: "ShoppingCart_Cart",
-                column: "UserId");
+                column: "CreatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCart_Cart_CustomerId",
+                table: "ShoppingCart_Cart",
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShoppingCart_CartItem_CartId",
@@ -2599,6 +2801,21 @@ namespace SimplCommerce.WebHost.Migrations
                 table: "Tax_TaxRate",
                 column: "TaxClassId");
 
+            migrationBuilder.CreateIndex(
+                name: "IX_WishList_WishList_UserId",
+                table: "WishList_WishList",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WishList_WishListItem_ProductId",
+                table: "WishList_WishListItem",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WishList_WishListItem_WishListId",
+                table: "WishList_WishListItem",
+                column: "WishListId");
+
             migrationBuilder.AddForeignKey(
                 name: "FK_Catalog_Product_Core_User_CreatedById",
                 table: "Catalog_Product",
@@ -2608,9 +2825,9 @@ namespace SimplCommerce.WebHost.Migrations
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Catalog_Product_Core_User_UpdatedById",
+                name: "FK_Catalog_Product_Core_User_LatestUpdatedById",
                 table: "Catalog_Product",
-                column: "UpdatedById",
+                column: "LatestUpdatedById",
                 principalTable: "Core_User",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
@@ -2618,6 +2835,14 @@ namespace SimplCommerce.WebHost.Migrations
             migrationBuilder.AddForeignKey(
                 name: "FK_Catalog_ProductPriceHistory_Core_User_CreatedById",
                 table: "Catalog_ProductPriceHistory",
+                column: "CreatedById",
+                principalTable: "Core_User",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Inventory_StockHistory_Core_User_CreatedById",
+                table: "Inventory_StockHistory",
                 column: "CreatedById",
                 principalTable: "Core_User",
                 principalColumn: "Id",
@@ -2652,6 +2877,14 @@ namespace SimplCommerce.WebHost.Migrations
                 table: "ShoppingCart_CartItem",
                 column: "CartId",
                 principalTable: "ShoppingCart_Cart",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_WishList_WishListItem_WishList_WishList_WishListId",
+                table: "WishList_WishListItem",
+                column: "WishListId",
+                principalTable: "WishList_WishList",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 
@@ -2702,6 +2935,9 @@ namespace SimplCommerce.WebHost.Migrations
 
             migrationBuilder.DropTable(
                 name: "Cms_Page");
+
+            migrationBuilder.DropTable(
+                name: "Comments_Comment");
 
             migrationBuilder.DropTable(
                 name: "Contacts_Contact");
@@ -2776,7 +3012,7 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "ProductRecentlyViewed_RecentlyViewedProduct");
 
             migrationBuilder.DropTable(
-                name: "Reviews_Review");
+                name: "Reviews_Reply");
 
             migrationBuilder.DropTable(
                 name: "Search_Query");
@@ -2795,6 +3031,9 @@ namespace SimplCommerce.WebHost.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tax_TaxRate");
+
+            migrationBuilder.DropTable(
+                name: "WishList_WishListItem");
 
             migrationBuilder.DropTable(
                 name: "ActivityLog_ActivityType");
@@ -2848,6 +3087,9 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Core_CustomerGroup");
 
             migrationBuilder.DropTable(
+                name: "Reviews_Review");
+
+            migrationBuilder.DropTable(
                 name: "Shipments_Shipment");
 
             migrationBuilder.DropTable(
@@ -2855,6 +3097,9 @@ namespace SimplCommerce.WebHost.Migrations
 
             migrationBuilder.DropTable(
                 name: "Catalog_Product");
+
+            migrationBuilder.DropTable(
+                name: "WishList_WishList");
 
             migrationBuilder.DropTable(
                 name: "Catalog_ProductAttributeGroup");

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using SimplCommerce.Infrastructure;
 using SimplCommerce.Module.Pricing.Services;
 using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
 using SimplCommerce.Module.ShoppingCart.Models;
@@ -8,15 +9,15 @@ namespace SimplCommerce.Module.ShoppingCart.Services
 {
     public interface ICartService
     {
-        Task AddToCart(long customerId, long productId, int quantity);
+        Task<Result> AddToCart(long customerId, long productId, int quantity);
 
-        Task AddToCart(long customerId, long createdById, long productId, int quantity);
+        Task<Result> AddToCart(long customerId, long createdById, long productId, int quantity);
 
         IQueryable<Cart> Query();
 
-        IQueryable<Cart> GetActiveCart(long customerId);
+        Task<Cart> GetActiveCart(long customerId);
 
-        IQueryable<Cart> GetActiveCart(long customerId, long createdById);
+        Task<Cart> GetActiveCart(long customerId, long createdById);
 
         Task<CartVm> GetActiveCartDetails(long customerId);
 

@@ -169,7 +169,8 @@
                     shippingMethod: vm.selectedShippingOption,
                     shippingAddressId: vm.selectedShippingAddressId,
                     newAddressForm: vm.shippingAddress,
-                    orderNote: vm.cart.orderNote
+                    orderNote: vm.cart.orderNote,
+                    useShippingAddressAsBillingAddress : true
                 }
             ).then(function (result) {
                 toastr.success("Order created");

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
@@ -55,9 +54,15 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         [HttpGet("shipping")]
         public async Task<IActionResult> Shipping()
         {
+            var currentUser = await _workContext.GetCurrentUser();
+            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
+            if(cart == null || !cart.Items.Any())
+            {
+                return Redirect("~/");
+            }
+
             var model = new DeliveryInformationVm();
 
-            var currentUser = await _workContext.GetCurrentUser();
             PopulateShippingForm(model, currentUser);
 
             return View(model);
@@ -75,7 +80,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 return View(model);
             }
 
-            var cart = await _cartService.GetActiveCart(currentUser.Id).FirstOrDefaultAsync();
+            var cart = await _cartService.GetActiveCart(currentUser.Id);
 
             if (cart == null)
             {
@@ -91,7 +96,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         public async Task<IActionResult> UpdateTaxAndShippingPrices([FromBody] TaxAndShippingPriceRequestVm model)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCart(currentUser.Id).FirstOrDefaultAsync();
+            var cart = await _cartService.GetActiveCart(currentUser.Id);
             var orderTaxAndShippingPrice = await _orderService.UpdateTaxAndShippingPrices(cart.Id, model);
 
             return Ok(orderTaxAndShippingPrice);
@@ -101,6 +106,20 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         public IActionResult OrderConfirmation()
         {
             return View();
+        }
+
+        [HttpPost("cancel")]
+        public async Task<IActionResult> Cancel()
+        {
+            var currentUser = await _workContext.GetCurrentUser();
+            var cart = await _cartService.GetActiveCart(currentUser.Id);
+            if(cart != null && cart.LockedOnCheckout)
+            {
+                cart.LockedOnCheckout = false;
+                await _cartRepository.SaveChangesAsync();
+            }
+
+            return Redirect("~/");
         }
 
         private void PopulateShippingForm(DeliveryInformationVm model, User currentUser)

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.Core.Services;
@@ -33,26 +34,26 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             return _cartRepository.Query();
         }
 
-        public IQueryable<Cart> GetActiveCart(long customerId)
+        public Task<Cart> GetActiveCart(long customerId)
         {
             return GetActiveCart(customerId, customerId);
         }
 
-        public IQueryable<Cart> GetActiveCart(long customerId, long createdById)
+        public async Task<Cart> GetActiveCart(long customerId, long createdById)
         {
-            return _cartRepository.Query()
+            return await _cartRepository.Query()
                 .Include(x => x.Items)
-                .Where(x => x.CustomerId == customerId && x.CreatedById == createdById && x.IsActive);
+                .Where(x => x.CustomerId == customerId && x.CreatedById == createdById && x.IsActive).FirstOrDefaultAsync();
         }
 
-        public async Task AddToCart(long customerId, long productId, int quantity)
+        public async Task<Result> AddToCart(long customerId, long productId, int quantity)
         {
-            await AddToCart(customerId, customerId, productId, quantity);
+            return await AddToCart(customerId, customerId, productId, quantity);
         }
 
-        public async Task AddToCart(long customerId, long createdById, long productId, int quantity)
+        public async Task<Result> AddToCart(long customerId, long createdById, long productId, int quantity)
         {
-            var cart = await GetActiveCart(customerId, createdById).Include(x => x.Items).FirstOrDefaultAsync();
+            var cart = await GetActiveCart(customerId, createdById);
             if (cart == null)
             {
                 cart = new Cart
@@ -64,6 +65,16 @@ namespace SimplCommerce.Module.ShoppingCart.Services
 
                 _cartRepository.Add(cart);
             }
+            else
+            {
+                if (cart.LockedOnCheckout)
+                {
+                    return Result.Fail("Cart is being locked for checkout. Please complete the checkout first");
+                }
+
+                cart = await _cartRepository.Query().Include(x => x.Items).FirstOrDefaultAsync(x => x.Id == cart.Id);
+            }
+
             var cartItem = cart.Items.FirstOrDefault(x => x.ProductId == productId);
             if (cartItem == null)
             {
@@ -82,7 +93,9 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 cartItem.Quantity = quantity;
             }
 
-           await  _cartRepository.SaveChangesAsync();
+            await  _cartRepository.SaveChangesAsync();
+
+            return Result.Ok();
         }
 
         public async Task<CartVm> GetActiveCartDetails(long customerId)
@@ -93,10 +106,10 @@ namespace SimplCommerce.Module.ShoppingCart.Services
         // TODO separate getting product thumbnail, varation options from here
         public async Task<CartVm> GetActiveCartDetails(long customerId, long createdById)
         {
-            var cart = GetActiveCart(customerId, createdById).FirstOrDefault();
+            var cart = await GetActiveCart(customerId, createdById);
             if (cart == null)
             {
-                return new CartVm();
+                return null;
             }
 
             var cartVm = new CartVm()
@@ -167,10 +180,10 @@ namespace SimplCommerce.Module.ShoppingCart.Services
 
         public async Task MigrateCart(long fromUserId, long toUserId)
         {
-            var cartFrom = GetActiveCart(fromUserId).FirstOrDefault();
+            var cartFrom = await GetActiveCart(fromUserId);
             if (cartFrom != null && cartFrom.Items.Any())
             {
-                var cartTo = GetActiveCart(toUserId).FirstOrDefault();
+                var cartTo = await GetActiveCart(toUserId);
                 if (cartTo == null)
                 {
                     cartTo = new Cart
@@ -185,7 +198,7 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 foreach (var fromItem in cartFrom.Items)
                 {
                     var toItem = cartTo.Items.FirstOrDefault(x => x.ProductId == fromItem.ProductId);
-                    if(toItem == null)
+                    if (toItem == null)
                     {
                         toItem = new CartItem
                         {

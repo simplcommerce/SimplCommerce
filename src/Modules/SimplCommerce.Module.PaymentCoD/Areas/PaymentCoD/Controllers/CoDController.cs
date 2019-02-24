@@ -3,13 +3,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.PaymentCoD.Models;
 using SimplCommerce.Module.Payments.Models;
+using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
 using SimplCommerce.Module.ShoppingCart.Services;
 
 namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
@@ -40,14 +40,20 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
         [HttpPost]
         public async Task<IActionResult> CoDCheckout()
         {
-            if (!await ValidateCoD())
+            var currentUser = await _workContext.GetCurrentUser();
+            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
+            if(cart == null)
+            {
+                return NotFound();
+            }
+
+            if (!ValidateCoD(cart))
             {
                 TempData["Error"] = "Payment Method is not eligible for this order.";
                 return Redirect("~/checkout/payment");
             }
-            var currentUser = await _workContext.GetCurrentUser();
-            var calculatedFee = await CalculateFee();
-            var cart = await _cartService.GetActiveCart(currentUser.Id).FirstOrDefaultAsync();
+
+            var calculatedFee = CalculateFee(cart);           
             var orderCreateResult = await _orderService.CreateOrder(cart.Id, "CashOnDelivery", calculatedFee);
 
             if (!orderCreateResult.Success)
@@ -71,10 +77,8 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
             return coDSetting;
         }
 
-        private async Task<bool> ValidateCoD()
+        private bool ValidateCoD(CartVm cart)
         {
-            var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
             if (_setting.Value.MinOrderValue.HasValue && _setting.Value.MinOrderValue.Value > cart.OrderTotal)
             {
                 return false;
@@ -88,12 +92,9 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
             return true;
         }
 
-        private async Task<decimal> CalculateFee()
+        private decimal CalculateFee(CartVm cart)
         {
-            var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
             var percent = _setting.Value.PaymentFee;
-
             return (cart.OrderTotal / 100) * percent;
         }
     }
