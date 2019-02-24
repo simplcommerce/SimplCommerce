@@ -54,7 +54,7 @@ namespace SimplCommerce.Module.ShoppingCart.Services
         public async Task<Result> AddToCart(long customerId, long createdById, long productId, int quantity)
         {
             var cart = await GetActiveCart(customerId, createdById);
-            if(cart == null)
+            if (cart == null)
             {
                 cart = new Cart
                 {
@@ -198,7 +198,7 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 foreach (var fromItem in cartFrom.Items)
                 {
                     var toItem = cartTo.Items.FirstOrDefault(x => x.ProductId == fromItem.ProductId);
-                    if(toItem == null)
+                    if (toItem == null)
                     {
                         toItem = new CartItem
                         {
