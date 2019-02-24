@@ -1,5 +1,24 @@
 ﻿/*global $ */
 $(function () {
+    /*jshint multistr: true */
+    var generalError = ' \
+        <div class="modal-header"> \
+            <h4 class="modal-title" id="myModalLabel">Oops</h4> \
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> \
+        </div> \
+        <div class="modal-body">There are something wrong. Please try again</div>';
+
+    var cartLockedError = ' \
+        <div class="modal-header"> \
+            <h4 class="modal-title" id="myModalLabel">Oops</h4> \
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> \
+        </div> \
+        <div class="modal-body"> \
+            <p>Cart is being locked for checkout.Please complete or cancel the checkout first </p> \
+            <p><a href="/checkout/shipping" class="btn btn btn-primary">Checkout</a></p> \
+        </div > ';
+   
+
     $('body').on('click', '.btn-add-cart', function () {
         $('#productOverview').modal('hide');
         var quantity,
@@ -15,20 +34,15 @@ $(function () {
             data: JSON.stringify({ productId: productId, quantity: quantity }),
             contentType: "application/json"
         }).done(function (data) {
-            $('#shopModal').find('.modal-content').html(data);
+            if (data.error) {
+                $('#shopModal').find('.modal-content').html(cartLockedError);
+            } else {
+                $('#shopModal').find('.modal-content').html(data);
+                $('.cart-badge .badge').text($('#shopModal').find('.cart-item-count').text());
+            }
             $('#shopModal').modal('show');
-            $('.cart-badge .badge').text($('#shopModal').find('.cart-item-count').text());
-            }).fail(function () {
-
-            /*jshint multistr: true */
-            $('#shopModal').find('.modal-content').html(' \
-                <div class="modal-header"> \
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> \
-                    <h4 class="modal-title" id="myModalLabel">Oops</h4> \
-                </div> \
-                <div class="modal-body"> \
-                    Something went wrong. \
-                </div>');
+        }).fail(function () {
+            $('#shopModal').find('.modal-content').html(generalError);
             $('#shopModal').modal('show');
         });
     });

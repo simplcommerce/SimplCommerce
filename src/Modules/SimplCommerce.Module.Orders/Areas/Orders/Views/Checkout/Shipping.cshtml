@@ -179,11 +179,16 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-md-12 text-right">
-                    <button type="submit" class="btn btn-order" disabled>@Localizer["Continue"]</button>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-order" disabled>@Localizer["Payment"]</button>
                 </div>
             </div>
         </form>
+        <div class="text-right">
+            <form asp-area="Order" asp-controller="Checkout" asp-action="Cancel" method="post" id="logoutForm" class="">
+                <button type="submit" class="btn btn-secondary active ">@Localizer["Cancel Order"]</button>
+            </form>
+        </div>
     </div>
     <div class="col-md-4">
         @await Component.InvokeAsync("OrderSummary")

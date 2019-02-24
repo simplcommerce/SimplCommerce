@@ -39,11 +39,14 @@ namespace SimplCommerce.Module.Payments.Areas.Payments.Controllers
         public async Task<IActionResult> Payment()
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCart(currentUser.Id).FirstOrDefaultAsync();
+            var cart = await _cartService.GetActiveCart(currentUser.Id);
             if(cart == null)
             {
                 return Redirect("~/");
             }
+
+            cart.LockedOnCheckout = true;
+            await _paymentProviderRepository.SaveChangesAsync();
 
             var checkoutPaymentForm = new CheckoutPaymentForm();
             checkoutPaymentForm.PaymentProviders = await _paymentProviderRepository.Query()

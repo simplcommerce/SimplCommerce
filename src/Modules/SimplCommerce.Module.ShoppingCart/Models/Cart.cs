@@ -29,6 +29,8 @@ namespace SimplCommerce.Module.ShoppingCart.Models
 
         public bool IsActive { get; set; }
 
+        public bool LockedOnCheckout { get; set; }
+
         [StringLength(450)]
         public string CouponCode { get; set; }
 

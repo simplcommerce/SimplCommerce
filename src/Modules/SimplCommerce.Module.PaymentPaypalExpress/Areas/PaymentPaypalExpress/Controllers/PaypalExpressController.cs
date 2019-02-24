@@ -55,6 +55,11 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
             var accessToken = await GetAccessToken();
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
+            if(cart == null)
+            {
+                return NotFound();
+            }
+
             var regionInfo = new RegionInfo(CultureInfo.CurrentCulture.LCID);
             var experienceProfileId = await CreateExperienceProfile(accessToken);
 
