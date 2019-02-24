@@ -86,6 +86,18 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         public async Task<IActionResult> UpdateQuantity([FromBody] CartQuantityUpdate model)
         {
             var currentUser = await _workContext.GetCurrentUser();
+            var cart = await _cartService.GetActiveCart(currentUser.Id);
+
+            if (cart == null)
+            {
+                return NotFound();
+            }
+
+            if (cart.LockedOnCheckout)
+            {
+                return CreateCartLockedResult();
+            }
+
             var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == model.CartItemId && x.Cart.CreatedById == currentUser.Id);
             if (cartItem == null)
             {
@@ -99,13 +111,18 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         }
 
         [HttpPost("cart/apply-coupon")]
-        public async Task<ActionResult> ApplyCoupon([FromBody] ApplyCouponForm model)
+        public async Task<IActionResult> ApplyCoupon([FromBody] ApplyCouponForm model)
         {
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCart(currentUser.Id);
             if(cart == null)
             {
                 return NotFound();
+            }
+
+            if (cart.LockedOnCheckout)
+            {
+                return CreateCartLockedResult();
             }
 
             var validationResult =  await _cartService.ApplyCoupon(cart.Id, model.CouponCode);
@@ -137,6 +154,17 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         public async Task<IActionResult> Remove([FromBody] long itemId)
         {
             var currentUser = await _workContext.GetCurrentUser();
+            var cart = await _cartService.GetActiveCart(currentUser.Id);
+            if (cart == null)
+            {
+                return NotFound();
+            }
+
+            if (cart.LockedOnCheckout)
+            {
+                return CreateCartLockedResult();
+            }
+
             var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == itemId && x.Cart.CreatedById == currentUser.Id);
             if (cartItem == null)
             {
@@ -147,6 +175,11 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             _cartItemRepository.SaveChanges();
 
             return await List();
+        }
+
+        private IActionResult CreateCartLockedResult()
+        {
+            return Ok(new { Error = true, Message = "Cart is locked for checkout. Please complete or cancel the checkout first" });
         }
     }
 }
