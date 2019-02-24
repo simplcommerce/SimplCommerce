@@ -35,9 +35,15 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         public async Task<IActionResult> AddToCart([FromBody] AddToCartModel model)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            await _cartService.AddToCart(currentUser.Id, model.ProductId, model.Quantity);
-
-            return RedirectToAction("AddToCartResult", new { productId = model.ProductId });
+            var result = await _cartService.AddToCart(currentUser.Id, model.ProductId, model.Quantity);
+            if (result.Success)
+            {
+                return RedirectToAction("AddToCartResult", new { productId = model.ProductId });
+            }
+            else
+            {
+                return Ok(new { Error = true, Message = result.Error });
+            }
         }
 
         [HttpGet]
@@ -96,7 +102,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         public async Task<ActionResult> ApplyCoupon([FromBody] ApplyCouponForm model)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = _cartService.GetActiveCart(currentUser.Id).FirstOrDefault();
+            var cart = await _cartService.GetActiveCart(currentUser.Id);
             if(cart == null)
             {
                 return NotFound();
@@ -116,7 +122,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         public async Task<IActionResult> SaveOrderNote([FromBody] SaveOrderNote model)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = _cartService.GetActiveCart(currentUser.Id).FirstOrDefault();
+            var cart = await _cartService.GetActiveCart(currentUser.Id);
             if(cart == null)
             {
                 return NotFound();

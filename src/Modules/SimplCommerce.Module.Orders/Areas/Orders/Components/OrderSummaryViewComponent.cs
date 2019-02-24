@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
 using SimplCommerce.Module.ShoppingCart.Services;
 
 namespace SimplCommerce.Module.Orders.Areas.Orders.Components
@@ -21,7 +22,10 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Components
         {
             var curentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(curentUser.Id);
-
+            if (cart == null)
+            {
+                cart = new CartVm();
+            }
             return View(this.GetViewPath(), cart);
         }
     }
