@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using SimplCommerce.Infrastructure.Extensions;
@@ -24,6 +23,7 @@ namespace SimplCommerce.Infrastructure.Web.SmartTable
         public static SmartTableResult<TResult> ToSmartTableResult<TModel, TResult>(this IQueryable<TModel> query, SmartTableParam param, Expression<Func<TModel, TResult>> selector)
         {
             var totalRecord = query.Count();
+            query = query.AppendSortAndPagingation(param);
             var items = query.Select(selector).ToList();
 
             return new SmartTableResult<TResult>
