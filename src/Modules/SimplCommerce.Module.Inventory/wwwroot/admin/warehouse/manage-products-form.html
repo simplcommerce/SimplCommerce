@@ -1,0 +1,75 @@
+﻿<div class="page-header">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{::vm.translate.get('Management products for warehouse')}} <strong>{{ vm.selectedWarehouse.name }}</strong></h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label>{{::vm.translate.get('Warehouse')}}</label>
+                    <select class="form-control" ng-change="vm.wareHouseSelectChange()" ng-model="vm.selectedWarehouse"
+                            ng-options="warehouse as warehouse.name for warehouse in vm.warehouses"></select>
+                </div>
+                <button class="btn btn-primary" ng-click="vm.addAllProducts()">Add All Products</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<table ng-if="vm.selectedWarehouse" class="table table-striped" st-pipe="vm.getProducts" st-table="vm.products">
+    <thead>
+        <tr>
+            <th st-sort="Name" class="sortable">{{::vm.translate.get('Product Name')}}</th>
+            <th st-sort="Sku" class="sortable">{{::vm.translate.get('Product Sku')}}</th>
+            <th>{{::vm.translate.get('Exist')}}</th>
+            <th>{{::vm.translate.get('Select to add')}}</th>
+        </tr>
+        <tr>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="ProductName" />
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <input class="form-control" st-search="ProductSku" />
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <select class="form-control" st-search="IsExistInWarehouse">
+                        <option value="">{{::vm.translate.get('All')}}</option>
+                        <option value="true">{{::vm.translate.get('Yes')}}</option>
+                        <option value="false">{{::vm.translate.get('No')}}</option>
+                    </select>
+                </div>
+            </th>
+            <th></th>
+        </tr>
+        <tr>
+            <th ng-show="!vm.isLoading" colspan="4">{{vm.tableStateRef.pagination.totalItemCount | number:0}} records found</th>
+        </tr>
+    </thead>
+    <tbody ng-show="!vm.isLoading">
+        <tr ng-repeat="item in vm.products">
+            <td>{{item.name}}</td>
+            <td>{{item.sku}}</td>
+            <td>{{item.isExistInWarehouse}}</td>
+            <td><input type="checkbox" ng-disabled="item.isExistInWarehouse" class="productid-select" name="selectedProductIds" value="{{item.id}}"></td>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
+            <td><button class="btn btn-primary" ng-click="vm.addSelectedProducts()"><span class="glyphicon glyphicon-ok"></span> {{::vm.translate.get('Add selected products')}}</button></td>
+        </tr>
+    </tbody>
+    <tbody ng-show="vm.isLoading">
+        <tr>
+            <td colspan="4" class="text-center">Loading ... </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="4"></td>
+        </tr>
+    </tfoot>
+</table>

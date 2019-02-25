@@ -33,31 +33,6 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
             _stockHistoryRepository = stockHistoryRepository;
         }
 
-        [HttpPost("add-products")]
-        public IActionResult AddProducts(long warehouseId, [FromBody] IList<long> productIds)
-        {
-            return Accepted();
-        }
-
-        [HttpPost("add-all-product")]
-        public async Task<IActionResult> AddAllProducts(long warehouseId)
-        {
-            var currentUser = await _workContext.GetCurrentUser();
-            var warehouse = _warehouseRepository.Query().FirstOrDefault(x => x.Id == warehouseId);
-            if (warehouse == null)
-            {
-                return NotFound();
-            }
-
-            if (!User.IsInRole("admin") && warehouse.VendorId != currentUser.VendorId)
-            {
-                return BadRequest(new { error = "You don't have permission to manage this warehouse" });
-            }
-
-            await _stockService.AddAllProduct(warehouse);
-            return Accepted();
-        }
-
         [HttpPost("grid")]
         public async Task<IActionResult> List(long warehouseId, [FromBody] SmartTableParam param)
         {

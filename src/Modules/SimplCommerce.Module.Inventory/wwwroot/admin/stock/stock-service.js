@@ -8,7 +8,6 @@
     function stockService($http) {
         var service = {
             getWarehouses: getWarehouses,
-            addAllProducts: addAllProducts,
             getStocks: getStocks,
             updateStocks: updateStocks,
             getStockHistory: getStockHistory
@@ -17,10 +16,6 @@
 
         function getWarehouses() {
             return $http.get('api/warehouses/');
-        }
-
-        function addAllProducts(warehouseId) {
-            return $http.post('api/stocks/add-all-product?warehouseId=' + warehouseId);
         }
 
         function getStocks(warehouseId, params) {

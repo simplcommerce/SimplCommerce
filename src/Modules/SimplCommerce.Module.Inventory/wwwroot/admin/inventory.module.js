@@ -25,6 +25,11 @@
                     templateUrl: 'modules/inventory/admin/warehouse/warehouse-form.html',
                     controller: 'WarehouseFormCtrl as vm'
                 })
+                .state('warehouse-manage-products', {
+                    url: '/warehouses/:warehouseId/products',
+                    templateUrl: 'modules/inventory/admin/warehouse/manage-products-form.html',
+                    controller: 'ManageProductsFormCtrl as vm'
+                })
                 .state('stock-history',
                 {
                     url: '/stock/history?warehouseId&productId',
