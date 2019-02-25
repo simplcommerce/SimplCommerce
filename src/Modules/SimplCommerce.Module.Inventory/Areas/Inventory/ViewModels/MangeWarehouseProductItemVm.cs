@@ -8,6 +8,14 @@
 
         public string Sku { get; set; }
 
-        public bool IsExistInWarehouse { get; set; }
+        public int? Quantity { get; set; }
+
+        public bool IsExistInWarehouse
+        {
+            get
+            {
+                return Quantity.HasValue;
+            }
+        }
     }
 }

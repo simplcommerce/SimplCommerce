@@ -15,7 +15,9 @@
             editWarehouse: editWarehouse,
             createWarehouse: createWarehouse,
             deleteWarehouse: deleteWarehouse,
-            getProducts: getProducts
+            getProducts: getProducts,
+            addAllProducts: addAllProducts,
+            addSelectedProducts: addSelectedProducts
         };
         return service;
 
@@ -53,6 +55,14 @@
 
         function getProducts(warehouseId, params) {
             return $http.post('api/warehouses/' + warehouseId + '/products', params);
+        }
+
+        function addAllProducts(warehouseId) {
+            return $http.post('api/warehouses/ ' + warehouseId + '/add-all-products');
+        }
+
+        function addSelectedProducts(warehouseId, productIds) {
+            return $http.post('api/warehouses/' + warehouseId + '/add-products', productIds);
         }
     }
 })();

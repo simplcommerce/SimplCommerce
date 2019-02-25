@@ -3,12 +3,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Inventory.Areas.Inventory.ViewModels;
 using SimplCommerce.Module.Inventory.Models;
+using SimplCommerce.Module.Inventory.Services;
 
 namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
 {
@@ -21,16 +23,18 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
         private readonly IWorkContext _workContext;
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<Stock> _stockRepository;
+        private readonly IStockService _stockService;
 
-        public WarehouseProductApiController(IRepository<Warehouse> warehouseRepository, IWorkContext workContext, IRepository<Product> productRepository, IRepository<Stock> stockRepository)
+        public WarehouseProductApiController(IRepository<Warehouse> warehouseRepository, IWorkContext workContext, IRepository<Product> productRepository, IRepository<Stock> stockRepository, IStockService stockService)
         {
             _warehouseRepository = warehouseRepository;
             _workContext = workContext;
             _productRepository = productRepository;
             _stockRepository = stockRepository;
+            _stockService = stockService;
         }
 
-        [HttpPost("/api/warehouses/{warehouseId}/products")]
+        [HttpPost("{warehouseId}/products")]
         public async Task<ActionResult<SmartTableResult<MangeWarehouseProductItemVm>>> GetProducts(long warehouseId, [FromBody] SmartTableParam param)
         {
             var currentUser = await _workContext.GetCurrentUser();
@@ -53,14 +57,14 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
                 (
                     _stockRepository.Query().Where(x => x.WarehouseId == warehouseId),
                     product => product.Id, stock => stock.ProductId,
-                    (product, stock) => new {Product = product, IsExistInWarehouse = stock.Any() }
+                    (product, stock) => new { product, stock }
                 )
-                .Select(x => new MangeWarehouseProductItemVm
+                .SelectMany(x => x.stock.DefaultIfEmpty(), (x, stock) => new MangeWarehouseProductItemVm
                 {
-                    Id = x.Product.Id,
-                    Name = x.Product.Name,
-                    Sku = x.Product.Sku,
-                    IsExistInWarehouse = x.IsExistInWarehouse
+                    Id = x.product.Id,
+                    Name = x.product.Name,
+                    Sku = x.product.Sku,
+                    Quantity = stock.Quantity
                 });
 
             if (param.Search.PredicateObject != null)
@@ -82,7 +86,14 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
                 if (search.IsExistInWarehouse != null)
                 {
                     bool isExistInWarehouse = search.IsExistInWarehouse;
-                    joinedQuery = joinedQuery.Where(x => x.IsExistInWarehouse == isExistInWarehouse);
+                    if (isExistInWarehouse)
+                    {
+                        joinedQuery = joinedQuery.Where(x => x.Quantity != null);
+                    }
+                    else
+                    {
+                        joinedQuery = joinedQuery.Where(x => x.Quantity == null);
+                    }                   
                 }
             }
 
@@ -90,13 +101,40 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
             return Ok(products);
         }
 
-        [HttpPost("add-products")]
-        public IActionResult AddProducts(long warehouseId, [FromBody] IList<long> productIds)
+        [HttpPost("{warehouseId}/add-products")]
+        public async Task<IActionResult> AddProducts(long warehouseId, [FromBody] IList<long> productIds)
         {
+            var currentUser = await _workContext.GetCurrentUser();
+            var warehouse = _warehouseRepository.Query().FirstOrDefault(x => x.Id == warehouseId);
+            if (warehouse == null)
+            {
+                return NotFound();
+            }
+
+            if (!User.IsInRole("admin") && warehouse.VendorId != currentUser.VendorId)
+            {
+                return BadRequest(new { error = "You don't have permission to manage this warehouse" });
+            }
+
+            var existedProducIds = await _stockRepository.Query().Where(x => x.WarehouseId == warehouseId && productIds.Contains(x.ProductId)).Select(x => x.ProductId).ToListAsync();
+            foreach(var id in existedProducIds)
+            {
+                productIds.Remove(id);
+            }
+
+            var stocks = productIds.Select(x => new Stock
+            {
+                ProductId = x,
+                WarehouseId = warehouseId,
+                Quantity = 0
+            });
+
+            _stockRepository.AddRange(stocks);
+            await _stockRepository.SaveChangesAsync();
             return Accepted();
         }
 
-        [HttpPost("add-all-product")]
+        [HttpPost("{warehouseId}/add-all-products")]
         public async Task<IActionResult> AddAllProducts(long warehouseId)
         {
             var currentUser = await _workContext.GetCurrentUser();
@@ -111,7 +149,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
                 return BadRequest(new { error = "You don't have permission to manage this warehouse" });
             }
 
-           // await _stockService.AddAllProduct(warehouse);
+            await _stockService.AddAllProduct(warehouse);
             return Accepted();
         }
     }

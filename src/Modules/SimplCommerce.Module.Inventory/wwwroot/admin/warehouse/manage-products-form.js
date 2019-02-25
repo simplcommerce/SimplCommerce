@@ -1,21 +1,22 @@
 ﻿/*global angular*/
-(function () {
+(function ($) {
     angular
         .module('simplAdmin.inventory')
         .controller('ManageProductsFormCtrl', ManageProductsFormCtrl);
 
     /* @ngInject */
-    function ManageProductsFormCtrl(warehouseService, stockService, translateService) {
+    function ManageProductsFormCtrl($stateParams, warehouseService, stockService, translateService) {
         var vm = this;
         vm.tableStateRef = {};
+        vm.initialWarehouseId = parseInt($stateParams.warehouseId, 10);
         vm.translate = translateService;
         vm.products = [];
         vm.warehouses = [];
 
-        vm.getProducts = function getStocks(tableState) {
+        vm.getProducts = function getProducts(tableState) {
             vm.tableStateRef = tableState;
             vm.isLoading = true;
-            warehouseService.getProducts(vm.selectedWarehouseId, tableState).then(function (result) {
+            warehouseService.getProducts(vm.selectedWarehouse.id, tableState).then(function (result) {
                 vm.products = result.data.items;
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
                 tableState.pagination.totalItemCount = result.data.totalRecord;
@@ -28,7 +29,7 @@
         };
 
         vm.addAllProducts = function addAllProducts() {
-            stockService.addAllProducts(vm.selectedWarehouseId)
+            warehouseService.addAllProducts(vm.selectedWarehouse.id)
                 .then(function (result) {
                     vm.getProducts(vm.tableStateRef);
                     toastr.success('All products have been added');
@@ -38,11 +39,16 @@
                 });
         };
 
-        vm.save = function save() {
-            stockService.updateStocks(vm.selectedWarehouseId, vm.stocks).then(function (result) {
-                vm.getStocks(vm.tableStateRef);
-                toastr.success('Stocks have been updated');
-            })
+        vm.addSelectedProducts = function addSelectedProducts() {
+            var selectedProductIds = $('.productid-select:checked').map(function () {
+                return this.value;
+            }).get();
+
+            warehouseService.addSelectedProducts(vm.selectedWarehouse.id, selectedProductIds)
+                .then(function (result) {
+                    vm.getProducts(vm.tableStateRef);
+                    toastr.success('Selected products have been updated');
+                })
                 .catch(function (response) {
                     toastr.error(response.data.error);
                 });
@@ -51,8 +57,8 @@
         stockService.getWarehouses().then(function (result) {
             vm.warehouses = result.data;
             if (vm.warehouses.length >= 1) {
-                vm.selectedWarehouseId = vm.warehouses[0].id;
+                vm.selectedWarehouse = vm.warehouses.find(function (x) { return x.id === vm.initialWarehouseId; });
             }
         });
     }
-})();
+})(jQuery);
