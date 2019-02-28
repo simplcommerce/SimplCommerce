@@ -1,3 +1,17 @@
 .comments textarea{
     max-width: 100%;
 }
+
+.commenter-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.comment-reply {
+    background-color: #f8f8f8;
+    margin-left: 35px;
+}
+
+.r-time {
+    color: #999;
+}

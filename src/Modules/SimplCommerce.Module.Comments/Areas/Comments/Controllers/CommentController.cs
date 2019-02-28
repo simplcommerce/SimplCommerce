@@ -17,7 +17,7 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
     [Authorize]
     public class CommentController : Controller
     {
-        private const int DefaultPageSize = 25;
+        private const int DefaultPageSize = 10;
 
         private readonly ICommentRepository _commentRepository;
         private readonly IWorkContext _workContext;
@@ -32,7 +32,7 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
 
         public async Task<IActionResult> Get(long entityId, string entityTypeId, int page)
         {
-            var itemsPerPage = 2;
+            var itemsPerPage = DefaultPageSize;
             var offset = (itemsPerPage * page) - itemsPerPage;
             var query = _commentRepository.Query().Where(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId && x.Parent == null);
             var totalItems = await query.CountAsync();

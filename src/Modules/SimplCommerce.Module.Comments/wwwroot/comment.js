@@ -6,7 +6,6 @@
             function (commentService) {
                 var vm = this;
                 vm.comment = { entityId: window.simplCommentEntity.entityId, entityTypeId: window.simplCommentEntity.entityTypeId };
-                vm.reply = { entityId: vm.comment.entityId, entityTypeId: vm.comment.entityTypeId };
                 vm.comments = [];
                 vm.commentCount = 0;
                 vm.pagination = {
@@ -21,11 +20,15 @@
                 };
 
                 vm.saveReply = function saveReply(comment) {
-                    vm.reply.parentId = comment.id;
-                    commentService.addComment(vm.reply).then(function (result) {
+                    comment.newReply.parentId = comment.id;
+                    commentService.addComment(comment.newReply).then(function (result) {
                         comment.replies.push(result.data);
-                        vm.reply.commentText = '';
+                        comment.newReply.commentText = '';
                     });
+                };
+
+                vm.addReply = function addReply(comment) {
+                    comment.newReply = { entityId: vm.comment.entityId, entityTypeId: vm.comment.entityTypeId };
                 };
 
                 vm.pageChanged = function pageChanged(newPage) {

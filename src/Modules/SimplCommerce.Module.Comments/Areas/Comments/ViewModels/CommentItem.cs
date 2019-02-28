@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Humanizer;
 
 namespace SimplCommerce.Module.Comments.Areas.Comments.ViewModels
 {
@@ -12,6 +13,14 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.ViewModels
         public string CommenterName { get; set; }
 
         public DateTimeOffset CreatedOn { get; set; }
+
+        public string CreatedOnRelative
+        {
+            get
+            {
+                return CreatedOn.Humanize();
+            }
+        }
 
         public IEnumerable<CommentItem> Replies { get; set; } = new List<CommentItem>();
     }
