@@ -2,67 +2,79 @@
 
 @model SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels.ReviewVm
 
-<div class="container">
-    <div class="row">
+<div class="reviews-module">
+    <div class="rating-summary">
         @if (Model.ReviewsCount > 0)
         {
-            <div class="col-md-5 rating-summary">
-                <div class="row">
-                    <div class="col-md-5">
-                        <h4>@Localizer["Rating average"]</h4>
-                        <p class="rating-average">@(Math.Round(Model.RatingAverage, 1))/5</p>
-                        <p>(@Model.ReviewsCount @Localizer["reviews"])</p>
+            <div class="row">
+                <div class="col-md-5">
+                    <h5>@Localizer["Rating average"]</h5>
+                    <p class="rating-average">@(Math.Round(Model.RatingAverage, 1))/5</p>
+                    <p>(@Model.ReviewsCount @Localizer["reviews"])</p>
+                </div>
+                <div class="col-md-7">
+                    <div class="rating-item">
+                        <span>5 @Localizer["stars"]</span>
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating5Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating5Count)%">
+                            </div>
+                        </div>
+                        <span>@Model.Rating5Count</span>
                     </div>
-                    <div class="col-md-7">
-                        <div class="rating-item">
-                            <span>5 @Localizer["stars"]</span>
-                            <div class="progress">
-                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating5Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating5Count)%">
-                                </div>
+                    <div class="rating-item">
+                        <span>4 @Localizer["stars"]</span>
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating4Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating4Count)%">
                             </div>
-                            <span>@Model.Rating5Count</span>
                         </div>
-                        <div class="rating-item">
-                            <span>4 @Localizer["stars"]</span>
-                            <div class="progress">
-                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating4Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating4Count)%">
-                                </div>
+                        <span>@Model.Rating4Count</span>
+                    </div>
+                    <div class="rating-item">
+                        <span>3 @Localizer["stars"]</span>
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating3Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating3Count)%">
                             </div>
-                            <span>@Model.Rating4Count</span>
                         </div>
-                        <div class="rating-item">
-                            <span>3 @Localizer["stars"]</span>
-                            <div class="progress">
-                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating3Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating3Count)%">
-                                </div>
+                        <span>@Model.Rating3Count</span>
+                    </div>
+                    <div class="rating-item">
+                        <span>2 @Localizer["stars"]</span>
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating2Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating2Count)%">
                             </div>
-                            <span>@Model.Rating3Count</span>
                         </div>
-                        <div class="rating-item">
-                            <span>2 @Localizer["stars"]</span>
-                            <div class="progress">
-                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating2Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating2Count)%">
-                                </div>
+                        <span>@Model.Rating2Count</span>
+                    </div>
+                    <div class="rating-item">
+                        <span>1 @Localizer["stars"]</span>
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating1Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating1Count)%">
                             </div>
-                            <span>@Model.Rating2Count</span>
                         </div>
-                        <div class="rating-item">
-                            <span>1 @Localizer["stars"]</span>
-                            <div class="progress">
-                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="@Model.GetRatingPercent(Model.Rating1Count)" aria-valuemin="0" aria-valuemax="100" style="width: @Model.GetRatingPercent(Model.Rating1Count)%">
-                                </div>
-                            </div>
-                            <span>@Model.Rating1Count</span>
-                        </div>
+                        <span>@Model.Rating1Count</span>
                     </div>
                 </div>
             </div>
         }
-        <div class="col-md-7">
-            <div id="addreview">
-                <partial name="/Areas/Reviews/Views/Review/_ReviewForm.cshtml" model="new ReviewForm { EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId, HasBoughtProduct = Model.HasBoughtProduct, LoggedUserName = Model.LoggedUserName }" />
-            </div>
-        </div>
+    </div>
+    <div id="addreview">
+        @if (Model.HasBoughtProduct)
+        {
+            <partial name="/Areas/Reviews/Views/Review/_ReviewForm.cshtml" model="new ReviewForm { EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId }" />
+        }
+        else
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                <p>Submiting review is only enable for users who have bought this product</p>
+            }
+            else
+            {
+                <p>Please <a href="~/login?ReturnUrl=@Context.Request.Path">login</a> or <a href="~/register?ReturnUrl=@Context.Request.Path">register</a> to submit your review.
+                Please also note that submiting review is only enable for users who have bought this product</p>
+            }
+        }
+
     </div>
     <hr />
     <div id="reviews" class="review-item-list">
@@ -103,12 +115,12 @@
             }
 
             <a asp-controller="Review"
-                asp-action="List"
-                asp-area="Reviews"
-                asp-route-entityId="@Model.EntityId"
-                asp-route-entityTypeId="@Model.EntityTypeId"
-                asp-route-pageNumber="1"
-                asp-route-pageSize="25">View all @Model.ReviewsCount reviews</a>
+               asp-action="List"
+               asp-area="Reviews"
+               asp-route-entityId="@Model.EntityId"
+               asp-route-entityTypeId="@Model.EntityTypeId"
+               asp-route-pageNumber="1"
+               asp-route-pageSize="25">View all @Model.ReviewsCount reviews</a>
         }
     </div>
 </div>

@@ -188,11 +188,6 @@
         height: 100%;
     }
 
-    #addreview {
-        border-left: solid 1px #e2e2e2;
-        padding-left: 15px;
-    }
-
 #addreview input, #addreview textarea {
     max-width: 100%;
 }
