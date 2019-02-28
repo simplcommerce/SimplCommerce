@@ -1,4 +1,4 @@
-/*global jQuery, window*/
+﻿/*global jQuery, window*/
 $(document).ready(function () {
     $('#addcomment').on('click', '#btn-addcomment', function (e) {
         e.preventDefault();

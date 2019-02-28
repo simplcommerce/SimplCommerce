@@ -13,6 +13,7 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
 {
     [Area("Comments")]
     [ApiExplorerSettings(IgnoreApi = true)]
+    [Route("comments")]
     public class CommentController : Controller
     {
         private const int DefaultPageSize = 25;
@@ -29,7 +30,7 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddComment(CommentForm model)
+        public async Task<IActionResult> Post([FromBody]CommentForm model)
         {
             if (ModelState.IsValid)
             {
@@ -37,7 +38,7 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
                 var comment = new Comment
                 {
                     CommentText = model.CommentText,
-                    CommenterName = model.CommenterName,
+                    CommenterName = user.FullName,
                     Status = _isCommentsRequireApproval ? CommentStatus.Pending : CommentStatus.Approved,
                     EntityId = model.EntityId,
                     EntityTypeId = model.EntityTypeId,
@@ -45,12 +46,12 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
                 };
 
                 _commentRepository.Add(comment);
-                _commentRepository.SaveChanges();
+                await _commentRepository.SaveChangesAsync();
 
-                return PartialView("_CommentFormSuccess", model);
+                return Ok(comment);
             }
 
-            return PartialView("_CommentForm", model);
+            return BadRequest(ModelState);
         }
 
         public async Task<IActionResult> List(long entityId, string entityTypeId, int? pageNumber, int? pageSize)
@@ -116,7 +117,7 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
         }
 
         [Authorize]
-        [HttpPost]
+        [HttpPost("reply")]
         public async Task<IActionResult> AddReply(CommentForm model)
         {
             if (ModelState.IsValid)

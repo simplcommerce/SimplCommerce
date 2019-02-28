@@ -1,69 +1,52 @@
-﻿@using SimplCommerce.Module.Comments.Areas.Comments.ViewModels
+﻿@model SimplCommerce.Module.Comments.Areas.Comments.ViewModels.CommentVm
 
-@model SimplCommerce.Module.Comments.Areas.Comments.ViewModels.CommentVm
+<link simpl-append-version="true" rel="stylesheet" href="~/modules/comments/comment.css" />
+<script simpl-append-version="true" src="~/modules/comments/comment.js"></script>
+<script simpl-append-version="true" src="~/modules/comments/comment-service.js"></script>
 
-<div class="container">
-    <div class="row">
-        @if (Model.CommentsCount > 0)
-        {
-            <div class="col-md-5">
-                <div class="row">
-                    <div class="col-md-5">
-                        <p>(@Model.CommentsCount @Localizer["comments"])</p>
-                    </div>
-                    <div class="col-md-7">
-                    </div>
+<div class="comments" ng-app="simpl.comment" ng-controller="CommentCtrl as vm" ng-cloak>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <form>
+            <div class="form-group">
+                <textarea rows="3" class="form-control" name="content" ng-model="vm.comment.commentText" placeholder="Your comment"></textarea>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <p>Your comment should not have personal information. 10 - 300 characters</p>
+                </div>
+                <div class="form-group col-md-3">
+                    <button type="submit" class="btn btn-default pull-right" ng-click="vm.addComment()">Submit</button>
                 </div>
             </div>
-        }
-        <div class="col-md-7">
-            <div id="addcomment">
-                <partial name="/Areas/Comments/Views/Comment/_CommentForm.cshtml" model="new CommentForm { EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId }" />
-            </div>
+        </form>
+    }
+    else
+    {
+        <p>Please <a href="~/login?ReturnUrl=@Context.Request.Path">login</a> or <a href="~/register?ReturnUrl=@Context.Request.Path">register</a> to submit your questions</p>
+    }
+    <div class="row">
+        <div class="col-md-6">{{vm.commentCount}} Comments</div>
+        <div class="col-md-6">
+            <input class="form-control pull-right" placeholder="find by commenter" />
         </div>
     </div>
     <hr />
-    <div id="comments" class="comment-item-list">
-        @if (Model.CommentsCount > 0)
-        {
-            foreach (var comment in Model.Items.Data)
-            {
-                <div>
-                    <div>
-                        <p>@comment.CommentText</p>
-                        <p>By: <strong>@comment.CommenterName</strong> on <span>@comment.CreatedOn</span></p>
-                    </div>
+    <div id="comments-list" class="comment-item-list">
+        <div ng-repeat="item in vm.comments">
+            <div class="">{{item.commentText}}</div>
+            <div ng-repeat="item.replies">
 
-                    @if (comment.Replies.Count > 0)
-                    {
-                        <button class="btn-review-replies btn-view-review-replies btn btn-link">@Localizer["View Replies"]<i class="arrow-down"></i></button>
-                        <button class="btn-review-replies btn-hide-review-replies btn btn-link d-none">@Localizer["Hide Replies"]<i class="arrow-up"></i></button>
-                        <ul class="review-replies d-none">
-                            @foreach (var reply in comment.Replies)
-                            {
-                                <li class="review-reply">
-                                    <p>@reply.CommentText</p>
-                                    <p>By: <strong>@reply.CommenterName</strong> on <span>@reply.CreatedOn</span></p>
-                                </li>
-                            }
-                        </ul>
-                    }
-                    <div>
-                        <button class="btn-add-review-reply btn btn-link">@Localizer["Add Reply"]</button>
-                        <div class="add-review-reply d-none">
-                            <partial name="/Areas/Comments/Views/Comment/_ReplyForm.cshtml" model="new CommentForm { ParentId = comment.Id, EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId }" />
-                        </div>
-                    </div>
-                </div>
-            }
+            </div>
+        </div>
+        <pagination ng-model="currentPage"
+                    total-items="1000"
+                    max-size="5"
+                    boundary-links="true">
+        </pagination>
 
-            <a asp-area="Comments"
-               asp-controller="Comment"
-               asp-action="List"
-               asp-route-entityId="@Model.EntityId"
-               asp-route-entityTypeId="@Model.EntityTypeId"
-               asp-route-pageNumber="1"
-               asp-route-pageSize="25">View all @Model.CommentsCount comments</a>
-        }
+        <div data-pagination="" data-num-pages="100"
+             data-current-page="vm.currentPage" data-max-size="5"
+             data-boundary-links="true"></div>
     </div>
 </div>
