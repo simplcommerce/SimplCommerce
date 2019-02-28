@@ -22,6 +22,8 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.ViewModels
             }
         }
 
+        public string Status { get; set; }
+
         public IEnumerable<CommentItem> Replies { get; set; } = new List<CommentItem>();
     }
 }

@@ -21,20 +21,30 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
 
         private readonly ICommentRepository _commentRepository;
         private readonly IWorkContext _workContext;
-        private readonly bool _isCommentsRequireApproval;
+        private readonly IConfiguration _config;
 
         public CommentController(ICommentRepository commentRepository, IWorkContext workContext, IConfiguration config)
         {
             _commentRepository = commentRepository;
             _workContext = workContext;
-            _isCommentsRequireApproval = config.GetValue<bool>("Product.IsCommentsRequireApproval");
+            _config = config;
         }
 
-        public async Task<IActionResult> Get(long entityId, string entityTypeId, int page)
+        public async Task<IActionResult> Get(long entityId, string entityTypeId, string search, int page)
         {
+            var currentUser = await _workContext.GetCurrentUser();
             var itemsPerPage = DefaultPageSize;
             var offset = (itemsPerPage * page) - itemsPerPage;
             var query = _commentRepository.Query().Where(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId && x.Parent == null);
+            if(!User.IsInRole("admin"))
+            {
+                query = query.Where(x => x.UserId == currentUser.Id || x.Status == CommentStatus.Approved);
+            }
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                query = query.Where(x => x.CommenterName.Contains(search));
+            }
             var totalItems = await query.CountAsync();
             var items = await query.OrderByDescending(x => x.CreatedOn).Select(x => new CommentItem
             {
@@ -42,6 +52,7 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
                 CommentText = x.CommentText,
                 CommenterName = x.CommenterName,
                 CreatedOn = x.CreatedOn,
+                Status = x.Status.ToString(),
                 Replies = x.Replies
                             .Where(r => r.Status == CommentStatus.Approved)
                             .OrderByDescending(r => r.CreatedOn)
@@ -50,7 +61,8 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
                                 Id = r.Id,
                                 CommentText = r.CommentText,
                                 CommenterName = r.CommenterName,
-                                CreatedOn = r.CreatedOn
+                                CreatedOn = r.CreatedOn,
+                                Status = x.Status.ToString()
                             })
             })
                 .Skip(offset)
@@ -71,11 +83,17 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
                     ParentId = model.ParentId,
                     CommentText = model.CommentText,
                     CommenterName = user.FullName,
-                    Status = _isCommentsRequireApproval ? CommentStatus.Pending : CommentStatus.Approved,
+                    Status = CommentStatus.Approved,
                     EntityId = model.EntityId,
                     EntityTypeId = model.EntityTypeId,
                     UserId = user.Id
                 };
+
+                if (!User.IsInRole("admin"))
+                {
+                    var isCommentsRequireApproval = _config.GetValue<bool>("Catalog.IsCommentsRequireApproval");
+                    comment.Status = isCommentsRequireApproval ? CommentStatus.Pending : CommentStatus.Approved;
+                }
 
                 _commentRepository.Add(comment);
                 await _commentRepository.SaveChangesAsync();
@@ -85,6 +103,7 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
                     CommentText = comment.CommentText,
                     CommenterName = comment.CommenterName,
                     CreatedOn = comment.CreatedOn,
+                    Status = comment.Status.ToString()
                 };
 
                 return Ok(commentItem);

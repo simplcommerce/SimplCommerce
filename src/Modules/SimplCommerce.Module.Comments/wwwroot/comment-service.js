@@ -8,8 +8,8 @@
                     return $http.post('comments', comment);
                 }
 
-                function getComments(entityId, entityTypeId, page) {
-                    return $http.get('comments?entityId=' + entityId + '&entityTypeId=' + entityTypeId + '&page=' + page);
+                function getComments(entityId, entityTypeId, search, page) {
+                    return $http.get('comments?entityId=' + entityId + '&entityTypeId=' + entityTypeId + '&search=' + search + '&page=' + page);
                 }
 
                 return {
