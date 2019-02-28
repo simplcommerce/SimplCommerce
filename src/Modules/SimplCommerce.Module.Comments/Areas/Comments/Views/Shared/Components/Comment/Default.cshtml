@@ -1,10 +1,14 @@
 ﻿@model SimplCommerce.Module.Comments.Areas.Comments.ViewModels.CommentVm
 
 <link simpl-append-version="true" rel="stylesheet" href="~/modules/comments/comment.css" />
+<script simpl-append-version="true" src="~/lib/pagination/dirPagination.js"></script>
 <script simpl-append-version="true" src="~/modules/comments/comment.js"></script>
 <script simpl-append-version="true" src="~/modules/comments/comment-service.js"></script>
+<script>
+    simplCommentEntity = { entityId: @Model.EntityId, entityTypeId: '@Model.EntityTypeId' };
+</script>
 
-<div class="comments" ng-app="simpl.comment" ng-controller="CommentCtrl as vm" ng-cloak>
+<div class="comments" ng-app="simpl.comment" ng-controller="CommentCtrl as vm" ng-cloak">
     @if (User.Identity.IsAuthenticated)
     {
         <form>
@@ -16,7 +20,7 @@
                     <p>Your comment should not have personal information. 10 - 300 characters</p>
                 </div>
                 <div class="form-group col-md-3">
-                    <button type="submit" class="btn btn-default pull-right" ng-click="vm.addComment()">Submit</button>
+                    <button type="submit" class="btn btn-default pull-right" ng-click="vm.saveComment()">Add Comment</button>
                 </div>
             </div>
         </form>
@@ -33,20 +37,33 @@
     </div>
     <hr />
     <div id="comments-list" class="comment-item-list">
-        <div ng-repeat="item in vm.comments">
+        <div dir-paginate="item in vm.comments | itemsPerPage: 2" total-items="vm.commentCount" current-page="vm.pagination.current">
             <div class="">{{item.commentText}}</div>
-            <div ng-repeat="item.replies">
-
+            <div>
+                <a data-toggle="collapse" href="#reply{{item.id}}" role="button" aria-expanded="false" aria-controls="reply{{item.id}}">Reply</a>
+            </div>
+            <div ng-repeat="childItem in item.replies">
+                <div class="">{{childItem.commentText}}</div>
+                <div>
+                    <a data-toggle="collapse" href="#reply{{item.id}}" role="button" aria-expanded="false" aria-controls="reply{{item.id}}">Reply</a>
+                </div>
+            </div>
+            <div class="collapse" id="reply{{item.id}}">
+                <form>
+                    <div class="form-group">
+                        <textarea rows="3" class="form-control" name="content" ng-model="vm.reply.commentText" placeholder="Your comment"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <p>Your comment should not have personal information. 10 - 300 characters</p>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <button type="submit" class="btn btn-default pull-right" ng-click="vm.saveReply(item)">Add Reply</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-        <pagination ng-model="currentPage"
-                    total-items="1000"
-                    max-size="5"
-                    boundary-links="true">
-        </pagination>
-
-        <div data-pagination="" data-num-pages="100"
-             data-current-page="vm.currentPage" data-max-size="5"
-             data-boundary-links="true"></div>
+        <dir-pagination-controls on-page-change="vm.pageChanged(newPageNumber)" template-url="@Url.Content("~/lib/pagination/dirPagination.tpl.html")"></dir-pagination-controls>
     </div>
 </div>

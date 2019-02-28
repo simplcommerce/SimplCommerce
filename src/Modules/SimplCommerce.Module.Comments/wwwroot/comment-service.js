@@ -4,16 +4,17 @@
         .factory('commentService', [
             '$http',
             function ($http) {
-                function getShoppingCartItems() {
-                    return $http.get('cart/list');
-                }
-                
                 function addComment(comment) {
                     return $http.post('comments', comment);
                 }
 
+                function getComments(entityId, entityTypeId, page) {
+                    return $http.get('comments?entityId=' + entityId + '&entityTypeId=' + entityTypeId + '&page=' + page);
+                }
+
                 return {
-                    addComment: addComment
+                    addComment: addComment,
+                    getComments: getComments
                 };
             }
         ]);
