@@ -13,134 +13,104 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
 {
     [Area("Comments")]
     [ApiExplorerSettings(IgnoreApi = true)]
+    [Route("comments")]
+    [Authorize]
     public class CommentController : Controller
     {
-        private const int DefaultPageSize = 25;
+        private const int DefaultPageSize = 10;
 
         private readonly ICommentRepository _commentRepository;
         private readonly IWorkContext _workContext;
-        private readonly bool _isCommentsRequireApproval;
+        private readonly IConfiguration _config;
 
         public CommentController(ICommentRepository commentRepository, IWorkContext workContext, IConfiguration config)
         {
             _commentRepository = commentRepository;
             _workContext = workContext;
-            _isCommentsRequireApproval = config.GetValue<bool>("Product.IsCommentsRequireApproval");
+            _config = config;
+        }
+
+        public async Task<IActionResult> Get(long entityId, string entityTypeId, string search, int page)
+        {
+            var currentUser = await _workContext.GetCurrentUser();
+            var itemsPerPage = DefaultPageSize;
+            var offset = (itemsPerPage * page) - itemsPerPage;
+            var query = _commentRepository.Query().Where(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId && x.Parent == null);
+            if(!User.IsInRole("admin"))
+            {
+                query = query.Where(x => x.UserId == currentUser.Id || x.Status == CommentStatus.Approved);
+            }
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                query = query.Where(x => x.CommenterName.Contains(search));
+            }
+            var totalItems = await query.CountAsync();
+            var items = await query.OrderByDescending(x => x.CreatedOn).Select(x => new CommentItem
+            {
+                Id = x.Id,
+                CommentText = x.CommentText,
+                CommenterName = x.CommenterName,
+                CreatedOn = x.CreatedOn,
+                Status = x.Status.ToString(),
+                Replies = x.Replies
+                            .Where(r => r.Status == CommentStatus.Approved)
+                            .OrderByDescending(r => r.CreatedOn)
+                            .Select(r => new CommentItem()
+                            {
+                                Id = r.Id,
+                                CommentText = r.CommentText,
+                                CommenterName = r.CommenterName,
+                                CreatedOn = r.CreatedOn,
+                                Status = x.Status.ToString()
+                            })
+            })
+                .Skip(offset)
+                .Take(itemsPerPage)
+                .ToListAsync();
+
+            return Ok(new { TotalItems = totalItems, Items = items });
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddComment(CommentForm model)
+        public async Task<IActionResult> Post([FromBody]CommentForm model)
         {
             if (ModelState.IsValid)
             {
                 var user = await _workContext.GetCurrentUser();
                 var comment = new Comment
                 {
+                    ParentId = model.ParentId,
                     CommentText = model.CommentText,
-                    CommenterName = model.CommenterName,
-                    Status = _isCommentsRequireApproval ? CommentStatus.Pending : CommentStatus.Approved,
+                    CommenterName = user.FullName,
+                    Status = CommentStatus.Approved,
                     EntityId = model.EntityId,
                     EntityTypeId = model.EntityTypeId,
                     UserId = user.Id
                 };
 
+                if (!User.IsInRole("admin"))
+                {
+                    var isCommentsRequireApproval = _config.GetValue<bool>("Catalog.IsCommentsRequireApproval");
+                    comment.Status = isCommentsRequireApproval ? CommentStatus.Pending : CommentStatus.Approved;
+                }
+
                 _commentRepository.Add(comment);
-                _commentRepository.SaveChanges();
-
-                return PartialView("_CommentFormSuccess", model);
-            }
-
-            return PartialView("_CommentForm", model);
-        }
-
-        public async Task<IActionResult> List(long entityId, string entityTypeId, int? pageNumber, int? pageSize)
-        {
-            var entity = _commentRepository
-                .List()
-                .FirstOrDefault();
-
-            if (entity == null)
-            {
-                return Redirect("~/Error/FindNotFound");
-            }
-
-            var itemsPerPage = pageSize.HasValue ? pageSize.Value : DefaultPageSize;
-            var currentPageNum = pageNumber.HasValue ? pageNumber.Value : 1;
-            var offset = (itemsPerPage * currentPageNum) - itemsPerPage;
-
-            var model = new CommentVm();
-
-            model.EntityName = entity.EntityName;
-            model.EntitySlug = entity.EntitySlug;
-
-            var query = _commentRepository
-                .Query()
-                .Where(x => (x.EntityId == entityId) && (x.EntityTypeId == entityTypeId) && (x.Status == CommentStatus.Approved))
-                .Where(x => x.ParentId == null)
-                .OrderByDescending(x => x.CreatedOn)
-                .Select(x => new CommentItem
+                await _commentRepository.SaveChangesAsync();
+                var commentItem = new CommentItem
                 {
-                    Id = x.Id,
-                    CommentText = x.CommentText,
-                    CommenterName = x.CommenterName,
-                    CreatedOn = x.CreatedOn,
-                    Replies = x.Replies
-                        .Where(r => r.Status == CommentStatus.Approved)
-                        .OrderByDescending(r => r.CreatedOn)
-                        .Select(r => new CommentItem()
-                        {
-                            CommentText = r.CommentText,
-                            CommenterName = r.CommenterName,
-                            CreatedOn = r.CreatedOn
-                        })
-                        .ToList()
-                });
-
-            model.Items.Data = await query
-                .Skip(offset)
-                .Take(itemsPerPage)
-                .ToListAsync();
-
-            model.Items.PageNumber = currentPageNum;
-            model.Items.PageSize = itemsPerPage;
-            model.Items.TotalItems = await query.CountAsync();
-
-            var allItems = await query.ToListAsync();
-
-            model.CommentsCount = allItems.Count;
-
-            model.EntityId = entityId;
-            model.EntityTypeId = entityTypeId;
-
-            return View(model);
-        }
-
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> AddReply(CommentForm model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await _workContext.GetCurrentUser();
-
-                var reply = new Comment()
-                {
-                    ParentId = model.ParentId,
-                    UserId = user.Id,
-                    CommentText = model.CommentText,
-                    CommenterName = model.CommenterName,
-                    Status = _isCommentsRequireApproval ? CommentStatus.Pending : CommentStatus.Approved,
-                    EntityId = model.EntityId,
-                    EntityTypeId = model.EntityTypeId,
+                    Id = comment.Id,
+                    CommentText = comment.CommentText,
+                    CommenterName = comment.CommenterName,
+                    CreatedOn = comment.CreatedOn,
+                    Status = comment.Status.ToString()
                 };
 
-                _commentRepository.Add(reply);
-                _commentRepository.SaveChanges();
-
-                return PartialView("_CommentFormSuccess", model);
+                return Ok(commentItem);
             }
 
-            return PartialView("_CommentForm", model);
+            return BadRequest(ModelState);
         }
+
     }
 }
