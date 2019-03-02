@@ -94,7 +94,7 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
             }
 
             TempData["Error"] = result.LocalMessage;
-            return Redirect("~/checkout/payment");
+            return Redirect("~/checkout/error");
         }
 
         [HttpGet("momo/result")]
@@ -103,7 +103,7 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
             if (!result.Validate(_setting.Value.SecretKey))
             {
                 TempData["Error"] = result.LocalMessage;
-                return Redirect("~/checkout/payment");
+                return Redirect("~/checkout/error");
             }
 
             var orderId = long.Parse(result.OrderId);
@@ -112,12 +112,12 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
             var status = await UpdatePaymentStatus(order, result);
             if (status)
             {
-                return Redirect("~/checkout/congratulation");
+                return Redirect("~/checkout/success");
             }
             else
             {
                 TempData["Error"] = result.LocalMessage;
-                return Redirect("~/checkout/payment");
+                return Redirect("~/checkout/error");
             }
         }
 

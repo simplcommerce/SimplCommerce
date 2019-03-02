@@ -35,7 +35,7 @@
                 payerID: data.payerID
             })
             .then(function (res) {
-                window.location = "/checkout/congratulation";
+                window.location = "/checkout/success";
             })
             .catch(function (error) {
                 var errorDiv = document.getElementById("paymentError");

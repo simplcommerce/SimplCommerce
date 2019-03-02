@@ -62,7 +62,7 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
                 return Redirect("~/checkout/payment");
             }
 
-            return Redirect("~/checkout/congratulation");
+            return Redirect("~/checkout/success");
         }
 
         private CoDSetting GetSetting()
