@@ -9,7 +9,7 @@ namespace SimplCommerce.Module.PaymentMomo.Data
         public void Build(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<PaymentProvider>().HasData(
-                new PaymentProvider("MomoPayment") { Name = "Momo Payment", LandingViewComponentName = "MomoLanding", ConfigureUrl = "payments-momo-config", IsEnabled = true, AdditionalSettings = null }
+                new PaymentProvider("MomoPayment") { Name = "Momo Payment", LandingViewComponentName = "MomoLanding", ConfigureUrl = "payments-momo-config", IsEnabled = true, AdditionalSettings = "{\"IsSandbox\":true,\"PartnerCode\":\"MOMOIQA420180417\",\"AccessKey\":\"SvDmj2cOTYZmQQ3H\",\"SecretKey\":\"PPuDXq1KowPT1ftR8DvlQTHhC03aul17\",\"PaymentFee\":0.0}" }
             );
         }
     }

@@ -15,6 +15,7 @@ using SimplCommerce.Module.ShoppingCart.Services;
 namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
 {
     [Authorize]
+    [Area("PaymentCoD")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public class CoDController : Controller
     {

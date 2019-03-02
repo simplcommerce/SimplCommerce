@@ -22,6 +22,7 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
 {
     [Authorize]
     [ApiExplorerSettings(IgnoreApi = true)]
+    [Area("PaymentMomo")]
     public class MomoPaymentController : Controller
     {
         private readonly IOrderService _orderService;
@@ -84,8 +85,8 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
                 );
 
             var httpClient = _httpClientFactory.CreateClient();
-            
-            var response = await httpClient.PostAsync("https://test-payment.momo.vn/gw_payment/transactionProcessor", paymentRequest, CreateCamelCaseFormater());
+            var momoUrl = _setting.Value.IsSandbox ? "https://test-payment.momo.vn/gw_payment/transactionProcessor" : "https://payment.momo.vn/gw_payment/transactionProcessor";
+            var response = await httpClient.PostAsync(momoUrl, paymentRequest, CreateCamelCaseFormater());
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadAsAsync<PaymentSubmitResponse>();
             if (result.Validate(_setting.Value.SecretKey))
@@ -186,7 +187,8 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
                 );
 
             var httpClient = _httpClientFactory.CreateClient();
-            var response = await httpClient.PostAsync("https://test-payment.momo.vn/gw_payment/transactionProcessor", request, CreateCamelCaseFormater());
+            var momoUrl = _setting.Value.IsSandbox ? "https://test-payment.momo.vn/gw_payment/transactionProcessor" : "https://payment.momo.vn/gw_payment/transactionProcessor";
+            var response = await httpClient.PostAsync(momoUrl, request, CreateCamelCaseFormater());
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadAsAsync<StatusResponse>();
             return result;
