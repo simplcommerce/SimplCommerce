@@ -1,9 +1,15 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Orders.Services;
@@ -11,11 +17,6 @@ using SimplCommerce.Module.PaymentMomo.Models;
 using SimplCommerce.Module.PaymentMomo.ViewModels;
 using SimplCommerce.Module.Payments.Models;
 using SimplCommerce.Module.ShoppingCart.Services;
-using System;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Formatting;
-using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
 {
@@ -50,6 +51,7 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
             _httpClientFactory = httpClientFactory;
             _setting = new Lazy<MomoPaymentConfigForm>(GetSetting());
         }
+
         public async Task<IActionResult> MomoCheckout()
         {
             var currentUser = await _workContext.GetCurrentUser();
@@ -67,6 +69,8 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
                 return Redirect("~/checkout/payment");
             }
 
+            var rootUrl = Request.GetFullHostingUrlRoot();
+
             var paymentRequest = new PaymentSubmitRequest(
                  secretKey: _setting.Value.SecretKey,
                  partnerCode: _setting.Value.PartnerCode,
@@ -74,22 +78,14 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
                  amount: orderCreateResult.Value.OrderTotal,
                  orderId: orderCreateResult.Value.Id,
                  orderInfo: "test",
-                 returnUrl: "https://localhost:44388/momo/result",
-                 notifyUrl: "http://demo.simplcommerce.com",
+                 returnUrl: $"{rootUrl}/momo/result",
+                 notifyUrl: $"{rootUrl}/momo/notify",
                  extraData: ""
                 );
 
             var httpClient = _httpClientFactory.CreateClient();
-            var formatter = new JsonMediaTypeFormatter
-            {
-                SerializerSettings = new JsonSerializerSettings
-                {
-                    Formatting = Formatting.Indented,
-                    ContractResolver = new CamelCasePropertyNamesContractResolver()
-                }
-            };
-
-            var response = await httpClient.PostAsync("https://test-payment.momo.vn/gw_payment/transactionProcessor", paymentRequest, formatter);
+            
+            var response = await httpClient.PostAsync("https://test-payment.momo.vn/gw_payment/transactionProcessor", paymentRequest, CreateCamelCaseFormater());
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadAsAsync<PaymentSubmitResponse>();
             if (result.Validate(_setting.Value.SecretKey))
@@ -113,6 +109,41 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
             var orderId = long.Parse(result.OrderId);
             var order = await _orderRepository.Query().FirstOrDefaultAsync(x => x.Id == orderId);
 
+            var status = await UpdatePaymentStatus(order, result);
+            if (status)
+            {
+                return Redirect("~/checkout/congratulation");
+            }
+            else
+            {
+                TempData["Error"] = result.LocalMessage;
+                return Redirect("~/checkout/payment");
+            }
+        }
+
+        [HttpPost("momo/notify")]
+        public async Task<IActionResult> Notify([FromBody]PaymentSubmitResult result)
+        {
+            if (!result.Validate(_setting.Value.SecretKey))
+            {
+                throw new ApplicationException("Momo validation fail");
+            }
+
+            var orderId = long.Parse(result.OrderId);
+            var order = await _orderRepository.Query().FirstOrDefaultAsync(x => x.Id == orderId);
+
+            // Update status in case the redirect fail
+            if(order != null && order.OrderStatus == OrderStatus.PendingPayment)
+            {
+                await UpdatePaymentStatus(order, result);
+            }
+
+            return Accepted();
+        }
+
+        public async Task<bool> UpdatePaymentStatus(Order order, PaymentSubmitResult paymentSubmitResult)
+        {
+            bool status = false;
             var payment = new Payment()
             {
                 OrderId = order.Id,
@@ -122,28 +153,43 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
                 CreatedOn = DateTimeOffset.UtcNow,
             };
 
-            if (result.ErrorCode == "0")
+            if (paymentSubmitResult.ErrorCode == 0)
             {
                 order.OrderStatus = OrderStatus.PaymentReceived;
                 payment.Status = PaymentStatus.Succeeded;
-                payment.GatewayTransactionId = result.TransId;
-
-                _paymentRepository.Add(payment);
-                await _paymentRepository.SaveChangesAsync();
-                return Redirect("~/checkout/congratulation");
+                payment.GatewayTransactionId = paymentSubmitResult.TransId;
+                status = true;
             }
             else
             {
                 order.OrderStatus = OrderStatus.PaymentFailed;
                 payment.Status = PaymentStatus.Failed;
-                payment.GatewayTransactionId = result.TransId;
-                payment.FailureMessage = $"{result.Message} - {result.LocalMessage}";
-
-                _paymentRepository.Add(payment);
-                await _paymentRepository.SaveChangesAsync();
-                TempData["Error"] = result.LocalMessage;
-                return Redirect("~/checkout/payment");
+                payment.GatewayTransactionId = paymentSubmitResult.TransId;
+                payment.FailureMessage = $"{paymentSubmitResult.Message} - {paymentSubmitResult.LocalMessage}";
+                status = false;
             }
+
+            _paymentRepository.Add(payment);
+            await _paymentRepository.SaveChangesAsync();
+
+            return status;
+        }
+
+        private async Task<StatusResponse> GetMomoPaymentStatus(long orderId)
+        {
+            var request = new StatusRequest
+                (
+                    secretKey: _setting.Value.SecretKey,
+                    partnerCode: _setting.Value.PartnerCode,
+                    accessKey: _setting.Value.AccessKey,
+                    orderId: orderId
+                );
+
+            var httpClient = _httpClientFactory.CreateClient();
+            var response = await httpClient.PostAsync("https://test-payment.momo.vn/gw_payment/transactionProcessor", request, CreateCamelCaseFormater());
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content.ReadAsAsync<StatusResponse>();
+            return result;
         }
 
         private MomoPaymentConfigForm GetSetting()
@@ -151,6 +197,20 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
             var momoPaymentProvider = _paymentProviderRepository.Query().FirstOrDefault(x => x.Id == PaymentProviderHelper.MomoPaymentProviderId);
             var momoSetting = JsonConvert.DeserializeObject<MomoPaymentConfigForm>(momoPaymentProvider.AdditionalSettings);
             return momoSetting;
+        }
+
+        private JsonMediaTypeFormatter CreateCamelCaseFormater()
+        {
+            var formatter = new JsonMediaTypeFormatter
+            {
+                SerializerSettings = new JsonSerializerSettings
+                {
+                    Formatting = Formatting.Indented,
+                    ContractResolver = new CamelCasePropertyNamesContractResolver()
+                }
+            };
+
+            return formatter;
         }
     }
 }

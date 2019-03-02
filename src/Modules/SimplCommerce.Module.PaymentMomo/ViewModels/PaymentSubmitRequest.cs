@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace SimplCommerce.Module.PaymentMomo.ViewModels
 {
@@ -50,7 +51,17 @@ namespace SimplCommerce.Module.PaymentMomo.ViewModels
         {
             get
             {
-                var message = $"partnerCode={PartnerCode}&accessKey={AccessKey}&requestId={RequestId}&amount={Amount}&orderId={OrderId}&orderInfo={OrderInfo}&returnUrl={ReturnUrl}&notifyUrl={NotifyUrl}&extraData={ExtraData}";
+                var sb = new StringBuilder();
+                sb.Append($"partnerCode={PartnerCode}");
+                sb.Append($"&accessKey={AccessKey}");
+                sb.Append($"&requestId={RequestId}");
+                sb.Append($"&amount={Amount}");
+                sb.Append($"&orderId={OrderId}");
+                sb.Append($"&orderInfo={OrderInfo}");
+                sb.Append($"&returnUrl={ReturnUrl}");
+                sb.Append($"&notifyUrl={NotifyUrl}");
+                sb.Append($"&extraData={ExtraData}");
+                var message = sb.ToString();
                 return MomoSecurityHelper.HashSHA256(message, _secretKey);
             }
         }

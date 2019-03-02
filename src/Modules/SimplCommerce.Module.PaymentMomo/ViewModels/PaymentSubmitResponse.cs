@@ -1,4 +1,6 @@
-﻿namespace SimplCommerce.Module.PaymentMomo.ViewModels
+﻿using System.Text;
+
+namespace SimplCommerce.Module.PaymentMomo.ViewModels
 {
     public class PaymentSubmitResponse
     {
@@ -20,7 +22,15 @@
 
         public bool Validate(string secretKey)
         {
-            var message = $"requestId={RequestId}&orderId={OrderId}&message={Message}&localMessage={LocalMessage}&payUrl={PayUrl}&errorCode={ErrorCode}&requestType={RequestType}";
+            var sb = new StringBuilder();
+            sb.Append($"requestId={RequestId}");
+            sb.Append($"&orderId={OrderId}");
+            sb.Append($"&message={Message}");
+            sb.Append($"&localMessage={LocalMessage}");
+            sb.Append($"&payUrl={PayUrl}");
+            sb.Append($"&errorCode={ErrorCode}");
+            sb.Append($"&requestType={RequestType}");
+            var message = sb.ToString();
             var hashMessage = MomoSecurityHelper.HashSHA256(message, secretKey);
             return string.Equals(hashMessage, Signature);
         }

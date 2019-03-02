@@ -26,7 +26,7 @@ namespace SimplCommerce.Module.PaymentMomo.ViewModels
 
         public string ResponseTime { get; set; }
 
-        public string ErrorCode { get; set; }
+        public int ErrorCode { get; set; }
 
         public string PayType { get; set; }
 
