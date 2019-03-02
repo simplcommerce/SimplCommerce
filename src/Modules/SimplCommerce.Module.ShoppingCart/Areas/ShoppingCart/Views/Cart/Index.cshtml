@@ -23,6 +23,8 @@
                                 <span>{{opt.optionName}}:</span> {{opt.value}}
                             </li>
                         </ul>
+                        <span ng-if="!cartItem.isProductAvailabeToOrder" class="badge badge-pill badge-danger">Not availabe any more</span>
+                        <span ng-if="cartItem.productStockTrackingIsEnabled && cartItem.productStockQuantity < cartItem.quantity" class="badge badge-pill badge-danger">Not enough stock. Available {{cartItem.productStockQuantity}}</span>
                     </td>
                     <td class="text-right">{{cartItem.productPriceString}}</td>
                     <td class="text-center">
@@ -68,7 +70,7 @@
                     <td><strong>{{vm.cart.orderTotalString}}</strong></td>
                 </tr>
             </table>
-            <p class="text-right"><a href="~/checkout/shipping" class="btn btn-primary">@Localizer["Process to Checkout"]</a></p>
+            <p class="text-right"><a href="~/checkout/shipping" ng-class="{disabled: !vm.cart.isValid}" class="btn btn-primary">@Localizer["Process to Checkout"]</a></p>
         </div>
         <div class="coupon-form" ng-if="vm.cart.items.length">
             <h4>@Localizer["Coupon code"]</h4>

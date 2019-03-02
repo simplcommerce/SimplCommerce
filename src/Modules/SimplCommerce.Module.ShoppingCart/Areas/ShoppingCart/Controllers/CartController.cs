@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
@@ -98,10 +100,18 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
                 return CreateCartLockedResult();
             }
 
-            var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == model.CartItemId && x.Cart.CreatedById == currentUser.Id);
+            var cartItem = _cartItemRepository.Query().Include(x => x.Product).FirstOrDefault(x => x.Id == model.CartItemId && x.Cart.CreatedById == currentUser.Id);
             if (cartItem == null)
             {
                 return NotFound();
+            }
+
+            if(model.Quantity > cartItem.Quantity) // always allow user to descrease the quality
+            {
+                if (cartItem.Product.StockTrackingIsEnabled && cartItem.Product.StockQuantity < model.Quantity)
+                {
+                    return Ok(new { Error = true, Message = $"There are only {cartItem.Product.StockQuantity} items available for {cartItem.Product.Name}" });
+                }
             }
 
             cartItem.Quantity = model.Quantity;
