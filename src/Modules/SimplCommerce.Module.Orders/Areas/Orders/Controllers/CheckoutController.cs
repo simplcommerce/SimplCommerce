@@ -102,8 +102,14 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
             return Ok(orderTaxAndShippingPrice);
         }
 
-        [HttpGet("congratulation")]
-        public IActionResult OrderConfirmation()
+        [HttpGet("success")]
+        public IActionResult Success()
+        {
+            return View();
+        }
+
+        [HttpGet("error")]
+        public IActionResult Error()
         {
             return View();
         }

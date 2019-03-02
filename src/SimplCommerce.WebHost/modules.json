@@ -64,7 +64,11 @@
         "version": "1.0.0"
     },
     {
-        "id": "SimplCommerce.Module.PaymentStripe",
+      "id": "SimplCommerce.Module.PaymentStripe",
+      "version": "1.0.0"
+    },
+      {
+        "id": "SimplCommerce.Module.PaymentMomo",
         "version": "1.0.0"
     },
     {

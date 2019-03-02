@@ -90,7 +90,7 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
                 order.OrderStatus = OrderStatus.PaymentReceived;
                 _paymentRepository.Add(payment);
                 await _paymentRepository.SaveChangesAsync();
-                return Redirect("~/checkout/congratulation");
+                return Redirect("~/checkout/success");
             }
             catch(StripeException ex)
             {
@@ -101,7 +101,7 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
                 _paymentRepository.Add(payment);
                 await _paymentRepository.SaveChangesAsync();
                 TempData["Error"] = ex.StripeError.Message;
-                return Redirect("~/checkout/payment");
+                return Redirect("~/checkout/error");
             }
         }
     }

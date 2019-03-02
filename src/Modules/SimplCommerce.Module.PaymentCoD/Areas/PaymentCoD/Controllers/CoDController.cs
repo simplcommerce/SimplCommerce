@@ -15,6 +15,7 @@ using SimplCommerce.Module.ShoppingCart.Services;
 namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
 {
     [Authorize]
+    [Area("PaymentCoD")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public class CoDController : Controller
     {
@@ -62,7 +63,7 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
                 return Redirect("~/checkout/payment");
             }
 
-            return Redirect("~/checkout/congratulation");
+            return Redirect("~/checkout/success");
         }
 
         private CoDSetting GetSetting()
