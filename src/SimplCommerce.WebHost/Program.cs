@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using SimplCommerce.Infrastructure.Helpers;
 using SimplCommerce.Module.Core.Extensions;
 
 namespace SimplCommerce.WebHost
@@ -14,6 +15,9 @@ namespace SimplCommerce.WebHost
         {
             try
             {
+                //TODO: Remove this fix for 2.2 `SetCurrentDirectory` when/if move to dotnet 3.0
+                CurrentDirectoryHelper.SetCurrentDirectory();
+
                 BuildWebHost2(args).Run();
             }
             catch(Exception ex)
