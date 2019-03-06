@@ -42,7 +42,7 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Components
             var regionInfo = new RegionInfo(CultureInfo.CurrentCulture.LCID);
             var model = new StripeCheckoutForm();
             model.PublicKey = stripeSetting.PublicKey;
-            model.Amount = (int)zeroDecimalAmount;
+            model.Amount = (long)zeroDecimalAmount;
             model.ISOCurrencyCode = regionInfo.ISOCurrencySymbol;
 
             return View(this.GetViewPath(), model);
