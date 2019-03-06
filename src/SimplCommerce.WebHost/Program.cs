@@ -15,9 +15,6 @@ namespace SimplCommerce.WebHost
         {
             try
             {
-                //TODO: Remove this fix for 2.2 `SetCurrentDirectory` when/if move to dotnet 3.0
-                CurrentDirectoryHelper.SetCurrentDirectory();
-
                 BuildWebHost2(args).Run();
             }
             catch(Exception ex)
@@ -39,7 +36,7 @@ namespace SimplCommerce.WebHost
             var env = hostingContext.HostingEnvironment;
             var configuration = configBuilder.Build();
             configBuilder.AddEntityFrameworkConfig(options =>
-                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
+                    options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
             );
             Log.Logger = new LoggerConfiguration()
                        .ReadFrom.Configuration(configuration)
