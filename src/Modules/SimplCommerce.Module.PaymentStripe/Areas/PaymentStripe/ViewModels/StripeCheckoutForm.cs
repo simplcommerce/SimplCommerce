@@ -4,7 +4,7 @@
     {
         public string PublicKey { get; set; }
 
-        public decimal Amount { get; set; }
+        public long Amount { get; set; }
 
         public string ISOCurrencyCode { get; set; }
     }
