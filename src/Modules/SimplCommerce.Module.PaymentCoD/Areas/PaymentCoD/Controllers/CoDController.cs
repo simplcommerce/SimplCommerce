@@ -63,7 +63,7 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
                 return Redirect("~/checkout/payment");
             }
 
-            return Redirect("~/checkout/success");
+            return Redirect($"~/checkout/success?orderId={orderCreateResult.Value.Id}");
         }
 
         private CoDSetting GetSetting()

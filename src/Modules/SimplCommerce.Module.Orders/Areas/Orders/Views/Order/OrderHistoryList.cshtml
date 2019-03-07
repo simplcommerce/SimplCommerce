@@ -13,6 +13,7 @@
         <hr />
         <table class="table table-striped order-history">
             <tr>
+                <th>@Localizer["Order Id"]</th>
                 <th>@Localizer["Date"]</th>
                 <th>@Localizer["Products"]</th>
                 <th>@Localizer["SubTotal"]</th>
@@ -21,7 +22,8 @@
             @foreach (var order in Model)
             {
                 <tr>
-                    <td>@order.CreatedOn</td>
+                    <td><a href="~/user/orders/@order.Id">@order.Id</a></td>
+                    <td>@order.CreatedOn.DateTime.ToShortDateString()</td>
                     <td>
                         @foreach (var item in order.OrderItems)
                         {

@@ -103,15 +103,15 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         }
 
         [HttpGet("success")]
-        public IActionResult Success()
+        public IActionResult Success(long orderId)
         {
-            return View();
+            return View(orderId);
         }
 
         [HttpGet("error")]
-        public IActionResult Error()
+        public IActionResult Error(long orderId)
         {
-            return View();
+            return View(orderId);
         }
 
         [HttpPost("cancel")]

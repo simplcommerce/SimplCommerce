@@ -1,5 +1,9 @@
-﻿@{
+﻿@model long
+
+@{
     ViewBag.Title = "Result";
 }
 
-<h2>Your order has been received. Thank you</h2>
+<h2>Congratulation!</h2>
+<p><a href="~/user/orders/@Model">Your order</a> has been received. Thank you</p>
+

@@ -62,7 +62,7 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
                 return NotFound();
             }
 
-            var orderCreateResult = await _orderService.CreateOrder(cart.Id, "Momo", 0, OrderStatus.PendingPayment);
+            var orderCreateResult = await _orderService.CreateOrder(cart.Id, "MomoPayment", 0, OrderStatus.PendingPayment);
 
             if (!orderCreateResult.Success)
             {
@@ -78,7 +78,7 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
                  accessKey: _setting.Value.AccessKey,
                  amount: orderCreateResult.Value.OrderTotal,
                  orderId: orderCreateResult.Value.Id,
-                 orderInfo: "test",
+                 orderInfo: "",
                  returnUrl: $"{rootUrl}/momo/result",
                  notifyUrl: $"{rootUrl}/momo/notify",
                  extraData: ""
@@ -95,7 +95,7 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
             }
 
             TempData["Error"] = result.LocalMessage;
-            return Redirect("~/checkout/error");
+            return Redirect($"~/checkout/error?orderId={orderCreateResult.Value.Id}");
         }
 
         [HttpGet("momo/result")]
@@ -113,12 +113,12 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
             var status = await UpdatePaymentStatus(order, result);
             if (status)
             {
-                return Redirect("~/checkout/success");
+                return Redirect($"~/checkout/success?orderId={orderId}");
             }
             else
             {
                 TempData["Error"] = result.LocalMessage;
-                return Redirect("~/checkout/error");
+                return Redirect($"~/checkout/error?orderId={orderId}");
             }
         }
 

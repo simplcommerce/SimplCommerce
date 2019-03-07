@@ -48,7 +48,7 @@
                         data: { nonce: payload.nonce }
                     })
                     .done(function (data) {
-                        window.location = "/checkout/success";
+                        window.location = "/checkout/success?orderId="+ data.orderId;
 
                     })
                         .fail(function (errors) {

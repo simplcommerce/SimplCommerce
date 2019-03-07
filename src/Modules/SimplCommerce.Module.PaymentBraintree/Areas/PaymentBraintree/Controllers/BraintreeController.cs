@@ -123,7 +123,7 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Controlle
                 _paymentRepository.Add(payment);
                 await _paymentRepository.SaveChangesAsync();
 
-                return Ok(transaction.Id);
+                return Ok(new { Status = "success", OrderId = order.Id, TransactionId = transaction.Id });
             }
             else
             {

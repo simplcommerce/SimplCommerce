@@ -1,0 +1,98 @@
+﻿@model SimplCommerce.Module.Orders.Areas.Orders.ViewModels.OrderDetailVm
+
+@{
+    ViewData["Title"] = Localizer["Order detail"];
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <partial name="_AccountMenu" />
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-7">
+                <h5>@ViewData["Title"] @Model.Id - @Model.OrderStatusString</h5>
+            </div>
+            <div class="col-md-5 text-right">
+                @Localizer["Order date"] @Model.CreatedOn.DateTime
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">@Localizer["Shipping address"]</div>
+            <div class="col-md-4">@Localizer["Shipping method"]</div>
+            <div class="col-md-4">@Localizer["Payment method"]</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <strong>@Model.ShippingAddress.ContactName</strong> <br />
+                @Model.ShippingAddress.AddressLine1 <br />
+                @Model.ShippingAddress.AddressLine2 <br />
+                Phone: @Model.ShippingAddress.Phone
+            </div>
+            <div class="col-md-4">@Model.ShippingMethod</div>
+            <div class="col-md-4">@Model.PaymentMethod</div>
+        </div>
+
+        <table class="table table-striped mt-3">
+            <tr>
+                <th>@Localizer["Product"]</th>
+                <th>@Localizer["Price"]</th>
+                <th>@Localizer["Quantity"]</th>
+                <th>@Localizer["Discount"]</th>
+                <th>@Localizer["Row Total"]</th>
+            </tr>
+            @foreach (var item in Model.OrderItems)
+            {
+                <tr>
+                    <td>
+                        <div class="row">
+                            <div class="col-md-3">
+
+                            </div>
+                            <div class="col-md-9">
+                                <p>@item.ProductName</p>
+                                <p>Quantity @item.Quantity</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>@item.ProductPrice</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.DiscountAmountString</td>
+                    <td>@item.RowTotalString</td>
+                </tr>
+            }
+        </table>
+        <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <table class="table table-borderless">
+                    <tr>
+                        <td>@Localizer["Subtotal"]</td>
+                        <td class="text-right">@Model.SubtotalString</td>
+                    </tr>
+                    <tr>
+                        <td>@Localizer["Shipping"]</td>
+                        <td class="text-right">@Model.ShippingAmountString</td>
+                    </tr>
+                    <tr>
+                        <td>@Localizer["Tax"]</td>
+                        <td class="text-right">@Model.TaxAmountString</td>
+                    </tr>
+                    <tr>
+                        <td>@Localizer["Discount"]</td>
+                        <td class="text-right">@Model.DiscountAmountString</td>
+                    </tr>
+                    <tr>
+                        <td>@Localizer["Payment Fee"]</td>
+                        <td class="text-right">@Model.PaymentFeeAmountString</td>
+                    </tr>
+                    <tr>
+                        <td>@Localizer["Order Total"]</td>
+                        <td class="text-right"><strong>@Model.OrderTotalString</strong></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
