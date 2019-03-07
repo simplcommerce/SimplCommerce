@@ -9,11 +9,11 @@
                 }
                 
                 function removeShoppingCartItem(itemId) {
-                    return $http.post('cart/remove', itemId);
+                    return $http.post('cart/remove-item', itemId);
                 }
 
                 function updateQuantity(itemId, quantity) {
-                    return $http.post('cart/update-quantity', {
+                    return $http.post('cart/update-item-quantity', {
                         cartItemId: itemId,
                         quantity: quantity
                     });
@@ -23,11 +23,16 @@
                     return $http.post('cart/apply-coupon', { couponCode: couponCode });
                 }
 
+                function saveOrderNote(orderNote) {
+                    return $http.post('cart/save-ordernote', { orderNote: orderNote });
+                }
+
                 return {
                     getShoppingCartItems: getShoppingCartItems,
                     removeShoppingCartItem: removeShoppingCartItem,
                     updateQuantity: updateQuantity,
-                    applyCoupon: applyCoupon
+                    applyCoupon: applyCoupon,
+                    saveOrderNote: saveOrderNote
                 };
             }
         ]);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Core.Models;
@@ -11,14 +12,24 @@ namespace SimplCommerce.Module.Orders.Models
         public Order()
         {
             CreatedOn = DateTimeOffset.Now;
-            UpdatedOn = DateTimeOffset.Now;
+            LatestUpdatedOn = DateTimeOffset.Now;
             OrderStatus = OrderStatus.New;
             IsMasterOrder = false;
         }
 
-        public DateTimeOffset CreatedOn { get; set; }
+        public long CustomerId { get; set; }
 
-        public DateTimeOffset UpdatedOn { get; set; }
+        [JsonIgnore] // To simplify the json stored in order history
+        public User Customer { get; set; }
+
+        public DateTimeOffset LatestUpdatedOn { get; set; }
+
+        public long LatestUpdatedById { get; set; }
+
+        [JsonIgnore]
+        public User LatestUpdatedBy { get; set; }
+
+        public DateTimeOffset CreatedOn { get; set; }
 
         public long CreatedById { get; set; }
 
@@ -27,8 +38,10 @@ namespace SimplCommerce.Module.Orders.Models
 
         public long? VendorId { get; set; }
 
+        [StringLength(450)]
         public string CouponCode { get; set; }
 
+        [StringLength(450)]
         public string CouponRuleName { get; set; }
 
         public decimal DiscountAmount { get; set; }
@@ -49,12 +62,17 @@ namespace SimplCommerce.Module.Orders.Models
 
         public OrderStatus OrderStatus { get; set; }
 
+        [StringLength(1000)]
+        public string OrderNote { get; set; }
+
         public long? ParentId { get; set; }
 
+        [JsonIgnore]
         public Order Parent { get; set; }
 
         public bool IsMasterOrder { get; set; }
 
+        [StringLength(450)]
         public string ShippingMethod { get; set; }
 
         public decimal ShippingFeeAmount { get; set; }
@@ -63,6 +81,7 @@ namespace SimplCommerce.Module.Orders.Models
 
         public decimal OrderTotal { get; set; }
 
+        [StringLength(450)]
         public string PaymentMethod { get; set; }
 
         public decimal PaymentFeeAmount { get; set; }

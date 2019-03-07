@@ -1,4 +1,4 @@
-﻿namespace SimplCommerce.Module.Contacts.ViewModels
+﻿namespace SimplCommerce.Module.Contacts.Areas.Contacts.ViewModels
 {
     public class CompanyInformation
     {

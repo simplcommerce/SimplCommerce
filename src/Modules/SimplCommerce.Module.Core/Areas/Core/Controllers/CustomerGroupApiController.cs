@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
+using SimplCommerce.Module.Core.Areas.Core.ViewModels;
 using SimplCommerce.Module.Core.Models;
-using SimplCommerce.Module.Core.ViewModels;
 
-namespace SimplCommerce.Module.Core.Controllers
+namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 {
     [Area("Core")]
     [Authorize(Roles = "admin")]
@@ -69,6 +69,7 @@ namespace SimplCommerce.Module.Core.Controllers
             return Json(customerGroups);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var customerGroups = await _customerGroupRepository.Query().Select(x => new
@@ -134,7 +135,7 @@ namespace SimplCommerce.Module.Core.Controllers
                 customerGroup.Name = model.Name;
                 customerGroup.Description = model.Description;
                 customerGroup.IsActive = model.IsActive;
-                customerGroup.UpdatedOn = DateTimeOffset.Now;
+                customerGroup.LatestUpdatedOn = DateTimeOffset.Now;
 
                 await  _customerGroupRepository.SaveChangesAsync();
                 return Accepted();

@@ -1,6 +1,6 @@
 ﻿using cloudscribe.Pagination.Models;
 
-namespace SimplCommerce.Module.Reviews.ViewModels
+namespace SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels
 {
     public class ReviewVm
     {
@@ -11,6 +11,10 @@ namespace SimplCommerce.Module.Reviews.ViewModels
         public string EntityName { get; set; }
 
         public string EntitySlug { get; set; }
+
+        public bool HasBoughtProduct { get; set; }
+
+        public string LoggedUserName { get; set; }
 
         public int ReviewsCount { get; set; }
 

@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.Services;
-using SimplCommerce.Module.Catalog.ViewModels;
 
-namespace SimplCommerce.Module.Catalog.Controllers
+namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 {
     [Area("Catalog")]
     [Authorize(Roles = "admin, vendor")]
@@ -24,6 +24,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             _brandService = brandService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var brandList = await _brandRepository.Query().Where(x => !x.IsDeleted).ToListAsync();

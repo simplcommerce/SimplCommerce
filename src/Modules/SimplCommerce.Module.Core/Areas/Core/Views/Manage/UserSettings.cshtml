@@ -1,0 +1,51 @@
+﻿@model UserSettingViewModel
+@{
+    ViewData["Title"] = Localizer["My Settings"];
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <partial name="_AccountMenu" />
+    </div>
+    <div class="col-md-9">
+        <h2>@ViewData["Title"]</h2>
+        <hr />
+        <div class="row">
+            <div class="col-md-8">
+                <form asp-area="Core" asp-controller="Manage" asp-action="UserSettings" method="post" role="form">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    @{
+                        var hasSettings = false;
+                        foreach(var item in Model.SettingDefinitions.Values)
+                        {
+                            if(item.IsVisibleToClients)
+                            {
+                                hasSettings = true;
+
+                                <div class="form-group row">
+                                    <label asp-for="UserSettings[item.Name]" class="col-md-4 col-form-label">@(item.DisplayName ?? Localizer[item.Name].Value)</label>
+                                    <div class="col-md-8">
+                                        <input asp-for="UserSettings[item.Name]" class="form-control" placeholder="@Localizer["Default Value"]: @item.DefaultValue"/>
+                                        <span asp-validation-for="UserSettings[item.Name]" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        if(hasSettings)
+                        {
+                            <div class="form-group row">
+                                <div class="offset-md-4 col-md-8">
+                                    <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
+                                </div>
+                            </div>
+                        }
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

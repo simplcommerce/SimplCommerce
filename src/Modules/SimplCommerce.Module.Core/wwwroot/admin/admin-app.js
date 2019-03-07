@@ -35,7 +35,9 @@
         'simplAdmin.inventory',
         'simplAdmin.shipment',
         'simplAdmin.paymentCoD',
-        'simplAdmin.recentlyViewed'
+        'simplAdmin.recentlyViewed',
+        'simplAdmin.paymentBraintree',
+        'simplAdmin.paymentMomo'
     ]);
 
     toastr.options.closeButton = true;

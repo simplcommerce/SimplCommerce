@@ -4,36 +4,37 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using Stripe;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Helpers;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Orders.Services;
-using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.Payments.Models;
-using SimplCommerce.Module.PaymentStripe.ViewModels;
+using SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.ViewModels;
 using SimplCommerce.Module.PaymentStripe.Models;
+using SimplCommerce.Module.ShoppingCart.Services;
+using Stripe;
 
-namespace SimplCommerce.Module.PaymentStripe.Controllers
+namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
 {
     [Area("PaymentStripe")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class StripeController : Controller
     {
-        private readonly IRepository<Cart> _cartRepository;
+        private readonly ICartService _cartService;
         private readonly IOrderService _orderService;
         private readonly IWorkContext _workContext;
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private readonly IRepository<Payment> _paymentRepository;
 
         public StripeController(
-            IRepository<Cart> cartRepository,
+            ICartService cartService,
             IOrderService orderService,
             IWorkContext workContext,
             IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
             IRepository<Payment> paymentRepository)
         {
-            _cartRepository = cartRepository;
+            _cartService = cartService;
             _orderService = orderService;
             _workContext = workContext;
             _paymentProviderRepository = paymentProviderRepository;
@@ -44,10 +45,15 @@ namespace SimplCommerce.Module.PaymentStripe.Controllers
         {
             var stripeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.StripeProviderId);
             var stripeSetting = JsonConvert.DeserializeObject<StripeConfigForm>(stripeProvider.AdditionalSettings);
-
-            var stripeChargeService = new StripeChargeService(stripeSetting.PrivateKey);
+            var stripeChargeService = new ChargeService(stripeSetting.PrivateKey);
             var currentUser = await _workContext.GetCurrentUser();
-            var orderCreationResult = await _orderService.CreateOrder(currentUser, "Stripe", 0, OrderStatus.PendingPayment);
+            var cart = await _cartService.GetActiveCart(currentUser.Id);
+            if(cart == null)
+            {
+                return NotFound();
+            }
+
+            var orderCreationResult = await _orderService.CreateOrder(cart.Id, "Stripe", 0, OrderStatus.PendingPayment);
             if(!orderCreationResult.Success)
             {
                 TempData["Error"] = orderCreationResult.Error;
@@ -71,12 +77,12 @@ namespace SimplCommerce.Module.PaymentStripe.Controllers
             };
             try
             {
-                var charge = stripeChargeService.Create(new StripeChargeCreateOptions
+                var charge = stripeChargeService.Create(new ChargeCreateOptions
                 {
                     Amount = (int)zeroDecimalOrderAmount,
                     Description = "Sample Charge",
                     Currency = regionInfo.ISOCurrencySymbol,
-                    SourceTokenOrExistingSourceId = stripeToken
+                    SourceId = stripeToken
                 });
 
                 payment.GatewayTransactionId = charge.Id;
@@ -84,7 +90,7 @@ namespace SimplCommerce.Module.PaymentStripe.Controllers
                 order.OrderStatus = OrderStatus.PaymentReceived;
                 _paymentRepository.Add(payment);
                 await _paymentRepository.SaveChangesAsync();
-                return Redirect("~/checkout/congratulation");
+                return Redirect($"~/checkout/success?orderId={order.Id}");
             }
             catch(StripeException ex)
             {
@@ -95,7 +101,7 @@ namespace SimplCommerce.Module.PaymentStripe.Controllers
                 _paymentRepository.Add(payment);
                 await _paymentRepository.SaveChangesAsync();
                 TempData["Error"] = ex.StripeError.Message;
-                return Redirect("~/checkout/payment");
+                return Redirect($"~/checkout/error?orderId={order.Id}");
             }
         }
     }

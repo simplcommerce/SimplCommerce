@@ -1,5 +1,5 @@
 ﻿@using cloudscribe.Web.Pagination
-@model SimplCommerce.Module.WishList.ViewModels.WishListVm
+@model SimplCommerce.Module.WishList.Areas.WishList.ViewModels.WishListVm
 @{
     ViewData["Title"] = Localizer["Wish List"];
 }
@@ -11,14 +11,14 @@
 
 <div class="row">
     <div class="col-md-3">
-        @Html.Partial("_AccountMenu")
+        <partial name="_AccountMenu" />
     </div>
     <div class="wishlist col-md-9">
         <h2>@Localizer["Wish List"]</h2>
         <hr />
         @if (Model.Items.TotalItems > 0)
         {
-            @foreach (var item in Model.Items.Data)
+            foreach (var item in Model.Items.Data)
             {
                 <div class="row item">
                     <div class="col-md-3">

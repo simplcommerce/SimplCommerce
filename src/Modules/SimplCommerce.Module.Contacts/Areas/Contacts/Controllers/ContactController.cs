@@ -1,15 +1,16 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Contacts.Areas.Contacts.ViewModels;
 using SimplCommerce.Module.Contacts.Models;
-using SimplCommerce.Module.Contacts.ViewModels;
+using SimplCommerce.Module.Core.Extensions;
 
-namespace SimplCommerce.Module.Contacts.Controllers
+namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
 {
     [Area("Contacts")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ContactController : Controller
     {
         private readonly IRepository<Contact> _contactRepository;
@@ -23,7 +24,7 @@ namespace SimplCommerce.Module.Contacts.Controllers
             _workContext = workContext;
         }
 
-        [Route("contact")]
+        [HttpGet("contact")]
         public async Task<IActionResult> Index()
         {
             var model = new ContactVm()
@@ -43,8 +44,7 @@ namespace SimplCommerce.Module.Contacts.Controllers
             return View(model);
         }
 
-        [Route("contact")]
-        [HttpPost]
+        [HttpPost("contact")]
         public IActionResult SubmitContact(ContactVm model)
         {
             if (ModelState.IsValid)

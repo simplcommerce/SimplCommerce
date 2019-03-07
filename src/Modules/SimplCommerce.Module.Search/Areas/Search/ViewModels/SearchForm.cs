@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace SimplCommerce.Module.Search.ViewModels
+namespace SimplCommerce.Module.Search.Areas.Search.ViewModels
 {
     public class SearchForm
     {

@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Models;
+using SimplCommerce.Module.Vendors.Areas.Vendors.ViewModels;
 using SimplCommerce.Module.Vendors.Services;
-using SimplCommerce.Module.Vendors.ViewModels;
 
-namespace SimplCommerce.Module.Vendors.Controllers
+namespace SimplCommerce.Module.Vendors.Areas.Vendors.Controllers
 {
     [Area("Vendors")]
     [Authorize(Roles = "admin")]
@@ -73,6 +73,7 @@ namespace SimplCommerce.Module.Vendors.Controllers
             return Json(vendors);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var vendors = await _vendorRepository.Query().Select(x => new
@@ -139,7 +140,7 @@ namespace SimplCommerce.Module.Vendors.Controllers
                 vendor.Email = model.Email;
                 vendor.Description = model.Description;
                 vendor.IsActive = model.IsActive;
-                vendor.UpdatedOn = DateTimeOffset.Now;
+                vendor.LatestUpdatedOn = DateTimeOffset.Now;
 
                 await _vendorService.Update(vendor);
                 return Accepted();

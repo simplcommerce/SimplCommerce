@@ -3,16 +3,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using SimplCommerce.Module.Core.Extensions;
-using SimplCommerce.Module.ShoppingCart.Services;
-using SimplCommerce.Module.PaymentStripe.ViewModels;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Helpers;
 using SimplCommerce.Infrastructure.Web;
+using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Payments.Models;
+using SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.ViewModels;
 using SimplCommerce.Module.PaymentStripe.Models;
+using SimplCommerce.Module.ShoppingCart.Services;
 
-namespace SimplCommerce.Module.PaymentStripe.Components
+namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Components
 {
     public class StripeLandingViewComponent : ViewComponent
     {
@@ -32,7 +32,7 @@ namespace SimplCommerce.Module.PaymentStripe.Components
             var stripeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.StripeProviderId);
             var stripeSetting = JsonConvert.DeserializeObject<StripeConfigForm>(stripeProvider.AdditionalSettings);
             var curentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetCart(curentUser.Id);
+            var cart = await _cartService.GetActiveCartDetails(curentUser.Id);
             var zeroDecimalAmount = cart.OrderTotal;
             if(!CurrencyHelper.IsZeroDecimalCurrencies())
             {
@@ -42,7 +42,7 @@ namespace SimplCommerce.Module.PaymentStripe.Components
             var regionInfo = new RegionInfo(CultureInfo.CurrentCulture.LCID);
             var model = new StripeCheckoutForm();
             model.PublicKey = stripeSetting.PublicKey;
-            model.Amount = (int)zeroDecimalAmount;
+            model.Amount = (long)zeroDecimalAmount;
             model.ISOCurrencyCode = regionInfo.ISOCurrencySymbol;
 
             return View(this.GetViewPath(), model);

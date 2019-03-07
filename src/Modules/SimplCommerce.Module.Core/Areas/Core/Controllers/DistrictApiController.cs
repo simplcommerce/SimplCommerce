@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
 
-namespace SimplCommerce.Module.Core.Controllers
+namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 {
     [Area("Core")]
     [Route("api/districts")]
@@ -18,7 +18,7 @@ namespace SimplCommerce.Module.Core.Controllers
             _districtRepository = districtRepository;
         }
 
-        [Route("/api/states-provinces/{stateOrProvinceId}/districts")]
+        [HttpGet("/api/states-provinces/{stateOrProvinceId}/districts")]
         public async Task<IActionResult> GetDistricts(long stateOrProvinceId)
         {
             var districts = await _districtRepository

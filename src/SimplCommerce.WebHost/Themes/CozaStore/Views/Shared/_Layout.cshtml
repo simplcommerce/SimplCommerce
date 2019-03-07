@@ -9,6 +9,7 @@
     @RenderSection("additionalMeta", false)
 
     <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/lib/bootstrap4/css/bootstrap.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/toastr/build/toastr.min.css" />
     <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
     <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/fonts/iconic/css/material-design-iconic-font.min.css" />
     <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/fonts/linearicons-v1.0.0/icon-font.min.css" />
@@ -20,6 +21,7 @@
     <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/css/util.css" />
     <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/css/main.css" />
     <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/css/simpl.css" />
+    <script simpl-append-version="true" src="~/lib/angular/angular.js"></script>
 
     @RenderSection("head", required: false)
 </head>
@@ -39,7 +41,7 @@
                         <a href="~/help-center" class="flex-c-m trans-04 p-lr-25">
                             Help & FAQs
                         </a>
-                        @await Html.PartialAsync("_LoginPartial")
+                        <partial name="_LoginPartial" />
                     </div>
                 </div>
             </div>
@@ -108,7 +110,7 @@
                             Help & FAQs
                         </a>
 
-                        @await Html.PartialAsync("_LoginPartial")
+                        <partial name="_LoginPartial" />
                     </div>
                 </li>
             </ul>
@@ -250,6 +252,7 @@
     <script simpl-append-version="true" src="~/lib/bootstrap4/js/bootstrap.js"></script>
     <script simpl-append-version="true" src="~/lib/multi-dropdown-menu/js/bootstrap-4-navbar.js"></script>
     <script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
+    <script simpl-append-version="true" src="~/lib/toastr/build/toastr.min.js"></script>
     <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
     @if (CultureInfo.CurrentCulture.Name == "vi-VN")
     {
@@ -265,6 +268,6 @@
     <script simpl-append-version="true" src="~/modules/productcomparison/product-comparison.js"></script>
     @RenderSection("scripts", required: false)
 
-    @await Html.PartialAsync("_AnalyticsScript")
+    <partial name="_AnalyticsScript" />
 </body>
 </html>

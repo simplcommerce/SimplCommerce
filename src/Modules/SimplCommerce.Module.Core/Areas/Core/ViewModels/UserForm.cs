@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace SimplCommerce.Module.Core.ViewModels
+namespace SimplCommerce.Module.Core.Areas.Core.ViewModels
 {
     public class UserForm
     {
         public long Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string FullName { get; set; }
 
         public long? VendorId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [EmailAddress]
         public string Email { get; set; }
 

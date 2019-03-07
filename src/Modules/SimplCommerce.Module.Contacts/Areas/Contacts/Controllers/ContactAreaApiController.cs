@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Contacts.Areas.Contacts.ViewModels;
 using SimplCommerce.Module.Contacts.Models;
-using SimplCommerce.Module.Contacts.ViewModels;
 
-namespace SimplCommerce.Module.Contacts.Controllers
+namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
 {
     [Area("Contacts")]
     [Authorize(Roles = "admin")]
@@ -19,6 +19,7 @@ namespace SimplCommerce.Module.Contacts.Controllers
             _contactRepository = categoryRepository;
         }
 
+        [HttpGet]
         public IActionResult Get()
         {
             var categoryList = _contactRepository.Query().Where(x => !x.IsDeleted).ToList();

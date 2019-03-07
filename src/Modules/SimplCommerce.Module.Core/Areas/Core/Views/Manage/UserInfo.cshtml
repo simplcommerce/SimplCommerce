@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="col-md-3">
-        @await Html.PartialAsync("_AccountMenu")
+        <partial name="_AccountMenu" />
     </div>
     <div class="col-md-9">
         <h2>@ViewData["Title"]</h2>
@@ -39,6 +39,6 @@
     </div>
 </div>
 
-@section Scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
 }

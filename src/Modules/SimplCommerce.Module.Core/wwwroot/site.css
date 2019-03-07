@@ -69,7 +69,7 @@ textarea {
     color: #fff;
     width: 38px;
     height: 38px;
-    position: absolute;
+    position: sticky;
     top: 0;
     right:22px;
 }
@@ -360,6 +360,14 @@ li.nav-item-group, li.nav-item-group a {
     border: 0;
     border-radius: 0;
     text-transform: uppercase;
+}
+
+.cart-list .order-note-form textarea {
+    max-width: 100%;
+}
+
+.cart-list .order-summary .order-note-form {
+    padding-bottom: 20px;
 }
 
 .coupon-form {

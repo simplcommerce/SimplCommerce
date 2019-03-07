@@ -1,6 +1,6 @@
 ﻿@model ExternalLoginConfirmationViewModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = @Localizer["Register"];
 }
 
 <h2>@ViewData["Title"].</h2>
@@ -32,11 +32,11 @@
     </div>
     <div class="form-group row">
         <div class="offset-md-2">
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">@Localizer["Register"]</button>
         </div>
     </div>
 </form>
 
-@section Scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
 }

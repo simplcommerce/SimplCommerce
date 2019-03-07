@@ -4,11 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using SimplCommerce.Module.Core.Components;
 using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
-using SimplCommerce.Module.Core.ViewModels.Manage;
 using Xunit;
 
 namespace SimplCommerce.Module.Core.Tests.Components

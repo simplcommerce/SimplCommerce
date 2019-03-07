@@ -18,7 +18,7 @@ namespace SimplCommerce.Module.Orders.Services
 
         public async Task SendEmailToUser(User user, Order order)
         {
-            var emailBody = await _viewRender.RenderViewToStringAsync("/Modules/SimplCommerce.Module.Orders/Views/EmailTemplates/OrderEmailToCustomer.cshtml", order);
+            var emailBody = await _viewRender.RenderViewToStringAsync("/Areas/Orders/Views/EmailTemplates/OrderEmailToCustomer.cshtml", order);
             var emailSubject = $"Order information #{order.Id}";
             await _emailSender.SendEmailAsync(user.Email, emailSubject, emailBody, true);
         }

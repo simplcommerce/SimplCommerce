@@ -2,9 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
 using SimplCommerce.Module.ShoppingCart.Services;
 
-namespace SimplCommerce.Module.ShoppingCart.Components
+namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Components
 {
     public class CartBadgeViewComponent : ViewComponent
     {
@@ -20,7 +21,11 @@ namespace SimplCommerce.Module.ShoppingCart.Components
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetCart(currentUser.Id);
+            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
+            if(cart == null)
+            {
+                cart = new CartVm();
+            }
             
             return View(this.GetViewPath(), cart.Items.Count);
         }

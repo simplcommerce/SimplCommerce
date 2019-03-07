@@ -1,6 +1,6 @@
-﻿using SimplCommerce.Infrastructure.Models;
+﻿using System;
+using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Catalog.Models;
-using System;
 
 namespace SimplCommerce.Module.WishList.Models
 {
@@ -9,7 +9,7 @@ namespace SimplCommerce.Module.WishList.Models
         public WishListItem()
         {
             CreatedOn = DateTimeOffset.Now;
-            UpdatedOn = DateTimeOffset.Now;
+            LatestUpdatedOn = DateTimeOffset.Now;
         }
 
         public long WishListId { get; set; }
@@ -26,6 +26,6 @@ namespace SimplCommerce.Module.WishList.Models
 
         public DateTimeOffset CreatedOn { get; set; }
 
-        public DateTimeOffset UpdatedOn { get; set; }
+        public DateTimeOffset LatestUpdatedOn { get; set; }
     }
 }

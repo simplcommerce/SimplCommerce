@@ -8,18 +8,14 @@
     function stockService($http) {
         var service = {
             getWarehouses: getWarehouses,
-            addAllProducts: addAllProducts,
             getStocks: getStocks,
-            updateStocks: updateStocks
+            updateStocks: updateStocks,
+            getStockHistory: getStockHistory
         };
         return service;
 
         function getWarehouses() {
             return $http.get('api/warehouses/');
-        }
-
-        function addAllProducts(warehouseId) {
-            return $http.post('api/stocks/add-all-product?warehouseId=' + warehouseId);
         }
 
         function getStocks(warehouseId, params) {
@@ -28,6 +24,10 @@
 
         function updateStocks(warehouseId, stocks) {
             return $http.put('api/stocks?warehouseId=' + warehouseId, stocks);
+        }
+
+        function getStockHistory(warehouseId, productId) {
+            return $http.get('api/stocks/history?warehouseId=' + warehouseId + '&productId=' + productId);
         }
     }
 })();

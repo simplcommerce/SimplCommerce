@@ -8,7 +8,7 @@ using SimplCommerce.Module.Core.Events;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.ProductRecentlyViewed.Models;
 
-namespace SimplCommerce.Module.ActivityLog.Events
+namespace SimplCommerce.Module.ProductRecentlyViewed.Events
 {
     public class EntityViewedHandler : INotificationHandler<EntityViewed>
     {

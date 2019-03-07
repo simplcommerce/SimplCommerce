@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web;
+using SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.Services;
-using SimplCommerce.Module.Catalog.ViewModels;
+using SimplCommerce.Module.Core.Areas.Core.ViewModels;
 using SimplCommerce.Module.Core.Services;
-using SimplCommerce.Module.Core.ViewModels;
 
-namespace SimplCommerce.Module.Catalog.Components
+namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
 {
     public class SimpleProductWidgetViewComponent : ViewComponent
     {

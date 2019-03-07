@@ -1,4 +1,4 @@
-﻿namespace SimplCommerce.Module.ShoppingCart.ViewModels
+﻿namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels
 {
     public class ApplyCouponForm
     {

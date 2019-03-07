@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using SimplCommerce.Module.Core.ViewModels;
+using SimplCommerce.Module.Core.Areas.Core.ViewModels;
 
-namespace SimplCommerce.Module.Cms.ViewModels
+namespace SimplCommerce.Module.Cms.Areas.Cms.ViewModels
 {
     public class SpaceBarWidgetForm : WidgetFormBase
     {

@@ -37,7 +37,7 @@
         }
 
         function installTheme(name) {
-            return $http.put('/api/online-themes/'+name+'/install')
+            return $http.put('/api/online-themes/' + name + '/install');
         }
     }
 })();

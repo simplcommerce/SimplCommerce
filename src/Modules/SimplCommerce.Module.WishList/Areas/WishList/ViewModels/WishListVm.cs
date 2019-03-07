@@ -1,6 +1,6 @@
 ﻿using cloudscribe.Pagination.Models;
 
-namespace SimplCommerce.Module.WishList.ViewModels
+namespace SimplCommerce.Module.WishList.Areas.WishList.ViewModels
 {
     public class WishListVm
     {

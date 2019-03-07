@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Search.Models;
 
-namespace SimplCommerce.Module.Search.Controllers
+namespace SimplCommerce.Module.Search.Areas.Search.Controllers
 {
     [Area("Search")]
     [Authorize(Roles = "admin")]

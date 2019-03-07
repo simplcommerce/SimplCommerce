@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SimplCommerce.Module.ShoppingCart.ViewModels
+namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels
 {
     public class CartVm
     {
@@ -21,6 +21,8 @@ namespace SimplCommerce.Module.ShoppingCart.ViewModels
         public bool IsProductPriceIncludeTax { get; set; }
 
         public decimal? TaxAmount { get; set; }
+
+        public string OrderNote { get; set; }
 
         public string TaxAmountString
         {
@@ -74,5 +76,26 @@ namespace SimplCommerce.Module.ShoppingCart.ViewModels
         public string OrderTotalString { get { return OrderTotal.ToString("C"); } }
 
         public IList<CartItemVm> Items { get; set; } = new List<CartItemVm>();
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach(var item in Items)
+                {
+                    if (!item.IsProductAvailabeToOrder)
+                    {
+                        return false;
+                    }
+
+                    if(item.ProductStockTrackingIsEnabled && item.ProductStockQuantity < item.Quantity)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        }
     }
 }

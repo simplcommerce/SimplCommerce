@@ -10,10 +10,10 @@ namespace SimplCommerce.Module.Core.Models
         public CustomerGroup()
         {
             CreatedOn = DateTimeOffset.Now;
-            UpdatedOn = DateTimeOffset.Now;
+            LatestUpdatedOn = DateTimeOffset.Now;
         }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [StringLength(450)]
         public string Name { get; set; }
 
@@ -25,7 +25,7 @@ namespace SimplCommerce.Module.Core.Models
 
         public DateTimeOffset CreatedOn { get; set; }
 
-        public DateTimeOffset UpdatedOn { get; set; }
+        public DateTimeOffset LatestUpdatedOn { get; set; }
 
         public IList<CustomerGroupUser> Users { get; set; } = new List<CustomerGroupUser>();
     }

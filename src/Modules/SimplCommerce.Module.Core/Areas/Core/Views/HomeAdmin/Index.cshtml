@@ -113,10 +113,13 @@
     <script simpl-append-version="true" src="~/modules/catalog/admin/simple-product-widget/simple-product-widget-form.js"></script>
     <script simpl-append-version="true" src="~/modules/catalog/admin/product-price/product-price-service.js"></script>
     <script simpl-append-version="true" src="~/modules/catalog/admin/product-price/product-price-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/catalog/admin/product-clone/product-clone-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/catalog/admin/product-clone/product-clone-form.js"></script>
 
     <script simpl-append-version="true" src="~/modules/orders/admin/orders.module.js"></script>
     <script simpl-append-version="true" src="~/modules/orders/admin/order/order-service.js"></script>
     <script simpl-append-version="true" src="~/modules/orders/admin/order/order-list.js"></script>
+    <script simpl-append-version="true" src="~/modules/orders/admin/order/order-create.js"></script>
     <script simpl-append-version="true" src="~/modules/orders/admin/order/order-detail.js"></script>
     <script simpl-append-version="true" src="~/modules/orders/admin/order/order-widget.directive.js"></script>
 
@@ -210,6 +213,10 @@
     <script simpl-append-version="true" src="~/modules/payments/admin/payment/payment-service.js"></script>
     <script simpl-append-version="true" src="~/modules/payments/admin/payment/payment-list-by-order.directive.js"></script>
 
+    <script simpl-append-version="true" src="~/modules/paymentbraintree/admin/paymentBraintree.module.js"></script>
+    <script simpl-append-version="true" src="~/modules/paymentbraintree/admin/braintree/braintree-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/paymentbraintree/admin/braintree/braintree-config-form.js"></script>
+
     <script simpl-append-version="true" src="~/modules/paymentstripe/admin/paymentStripe.module.js"></script>
     <script simpl-append-version="true" src="~/modules/paymentstripe/admin/stripe/stripe-service.js"></script>
     <script simpl-append-version="true" src="~/modules/paymentstripe/admin/stripe/stripe-config-form.js"></script>
@@ -222,16 +229,22 @@
     <script simpl-append-version="true" src="~/modules/paymentcod/admin/config/cod-service.js"></script>
     <script simpl-append-version="true" src="~/modules/paymentcod/admin/config/config-form.js"></script>
 
+    <script simpl-append-version="true" src="~/modules/paymentmomo/admin/paymentMomo.module.js"></script>
+    <script simpl-append-version="true" src="~/modules/paymentmomo/admin/momo/momo-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/paymentmomo/admin/momo/momo-config-form.js"></script>
+
     <script simpl-append-version="true" src="~/modules/productrecentlyviewed/admin/product-recently-viewed.module.js"></script>
     <script simpl-append-version="true" src="~/modules/productrecentlyviewed/admin/recently-viewed-widget/recently-viewed-widget-service.js"></script>
     <script simpl-append-version="true" src="~/modules/productrecentlyviewed/admin/recently-viewed-widget/recently-viewed-widget-form.js"></script>
-    
+
     <script simpl-append-version="true" src="~/modules/inventory/admin/inventory.module.js"></script>
     <script simpl-append-version="true" src="~/modules/inventory/admin/stock/stock-service.js"></script>
     <script simpl-append-version="true" src="~/modules/inventory/admin/stock/stock-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/inventory/admin/stock/stock-history.js"></script>
     <script simpl-append-version="true" src="~/modules/inventory/admin/warehouse/warehouse-service.js"></script>
     <script simpl-append-version="true" src="~/modules/inventory/admin/warehouse/warehouse-list.js"></script>
     <script simpl-append-version="true" src="~/modules/inventory/admin/warehouse/warehouse-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/inventory/admin/warehouse/manage-products-form.js"></script>
 
     <script simpl-append-version="true" src="~/modules/shipments/admin/shipment.module.js"></script>
     <script simpl-append-version="true" src="~/modules/shipments/admin/shipment/shipment-service.js"></script>
@@ -297,6 +310,7 @@
                         <ul class="dropdown-menu">
                             <li><a ui-sref="stocks">@Localizer["Stocks"]</a></li>
                             <li><a ui-sref="warehouses">@Localizer["Warehouses"]</a></li>
+                            <li><a ui-sref="warehouse-manage-products">@Localizer["Manage warehouse products"]</a></li>
                         </ul>
                     </li>
                     @if (User.IsInRole("admin"))

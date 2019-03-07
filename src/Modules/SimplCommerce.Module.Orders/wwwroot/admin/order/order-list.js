@@ -25,5 +25,13 @@
                 vm.isLoading = false;
             });
         };
+
+        vm.getOrdersExport = function getOrdersExport() {
+            orderService.getOrdersExport(vm.tableStateRef);
+        };
+
+        vm.getOrderLinesExport = function getOrderLinesExport() {
+            orderService.getOrderLinesExport(vm.tableStateRef);
+        };
     }
 })();

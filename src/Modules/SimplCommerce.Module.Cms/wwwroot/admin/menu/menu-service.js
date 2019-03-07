@@ -40,7 +40,7 @@
         }
 
         function addMenuItem(menuId, menuItems) {
-            return $http.post('api/menus/' + menuId + '/add-items', menuItems)
+            return $http.post('api/menus/' + menuId + '/add-items', menuItems);
         }
 
         function deleteMenuItem(menuItemId) {

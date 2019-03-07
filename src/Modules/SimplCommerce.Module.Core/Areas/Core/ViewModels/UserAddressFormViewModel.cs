@@ -2,19 +2,19 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace SimplCommerce.Module.Core.ViewModels
+namespace SimplCommerce.Module.Core.Areas.Core.ViewModels
 {
     public class UserAddressFormViewModel
     {
         public long Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string ContactName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Phone { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string AddressLine1 { get; set; }
 
         public string AddressLine2 { get; set; }

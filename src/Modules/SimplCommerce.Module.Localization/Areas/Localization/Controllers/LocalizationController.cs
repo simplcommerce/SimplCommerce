@@ -1,12 +1,13 @@
-﻿using System.Linq;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 
-namespace SimplCommerce.Module.Localization.Controllers
+namespace SimplCommerce.Module.Localization.Areas.Localization.Controllers
 {
     [Area("Localization")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class LocalizationController : Controller
     {
         private readonly IRepositoryWithTypedId<User, long> _userRepository;
@@ -19,10 +20,10 @@ namespace SimplCommerce.Module.Localization.Controllers
         }
 
         [HttpPost]
-        public IActionResult SetLanguage(string culture, string returnUrl)
+        public async Task<IActionResult> SetLanguage(string culture, string returnUrl)
         {
-            var currentUser = _userRepository.Query()
-                .Single(u => u.Email == _workContext.GetCurrentUser().Result.Email);
+            var currentUser = await _workContext.GetCurrentUser();
+
             currentUser.Culture = culture;
             _userRepository.SaveChanges();
 

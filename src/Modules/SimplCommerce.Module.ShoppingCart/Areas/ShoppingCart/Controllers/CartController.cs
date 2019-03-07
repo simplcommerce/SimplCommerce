@@ -1,18 +1,19 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Extensions;
-using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
 using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.ShoppingCart.Services;
-using SimplCommerce.Module.ShoppingCart.ViewModels;
 
-namespace SimplCommerce.Module.ShoppingCart.Controllers
+namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
 {
     [Area("ShoppingCart")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class CartController : Controller
     {
         private readonly IRepository<CartItem> _cartItemRepository;
@@ -21,7 +22,6 @@ namespace SimplCommerce.Module.ShoppingCart.Controllers
         private readonly IWorkContext _workContext;
 
         public CartController(
-            UserManager<User> userManager,
             IRepository<CartItem> cartItemRepository,
             ICartService cartService,
             IMediaService mediaService,
@@ -33,20 +33,26 @@ namespace SimplCommerce.Module.ShoppingCart.Controllers
             _workContext = workContext;
         }
 
-        [HttpPost("cart/addtocart")]
+        [HttpPost("cart/add-item")]
         public async Task<IActionResult> AddToCart([FromBody] AddToCartModel model)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            await _cartService.AddToCart(currentUser.Id, model.ProductId, model.Quantity);
-
-            return RedirectToAction("AddToCartResult", new { productId = model.ProductId });
+            var result = await _cartService.AddToCart(currentUser.Id, model.ProductId, model.Quantity);
+            if (result.Success)
+            {
+                return RedirectToAction("AddToCartResult", new { productId = model.ProductId });
+            }
+            else
+            {
+                return Ok(new { Error = true, Message = result.Error });
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> AddToCartResult(long productId)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetCart(currentUser.Id);
+            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
 
             var model = new AddToCartResult
             {
@@ -73,18 +79,39 @@ namespace SimplCommerce.Module.ShoppingCart.Controllers
         public async Task<IActionResult> List()
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetCart(currentUser.Id);
+            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
 
             return Json(cart);
         }
 
-        [HttpPost("cart/update-quantity")]
+        [HttpPost("cart/update-item-quantity")]
         public async Task<IActionResult> UpdateQuantity([FromBody] CartQuantityUpdate model)
         {
-            var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == model.CartItemId);
+            var currentUser = await _workContext.GetCurrentUser();
+            var cart = await _cartService.GetActiveCart(currentUser.Id);
+
+            if (cart == null)
+            {
+                return NotFound();
+            }
+
+            if (cart.LockedOnCheckout)
+            {
+                return CreateCartLockedResult();
+            }
+
+            var cartItem = _cartItemRepository.Query().Include(x => x.Product).FirstOrDefault(x => x.Id == model.CartItemId && x.Cart.CreatedById == currentUser.Id);
             if (cartItem == null)
             {
                 return NotFound();
+            }
+
+            if(model.Quantity > cartItem.Quantity) // always allow user to descrease the quality
+            {
+                if (cartItem.Product.StockTrackingIsEnabled && cartItem.Product.StockQuantity < model.Quantity)
+                {
+                    return Ok(new { Error = true, Message = $"There are only {cartItem.Product.StockQuantity} items available for {cartItem.Product.Name}" });
+                }
             }
 
             cartItem.Quantity = model.Quantity;
@@ -94,23 +121,61 @@ namespace SimplCommerce.Module.ShoppingCart.Controllers
         }
 
         [HttpPost("cart/apply-coupon")]
-        public async Task<ActionResult> ApplyCoupon([FromBody] ApplyCouponForm model)
+        public async Task<IActionResult> ApplyCoupon([FromBody] ApplyCouponForm model)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var validationResult =  await _cartService.ApplyCoupon(currentUser.Id, model.CouponCode);
+            var cart = await _cartService.GetActiveCart(currentUser.Id);
+            if(cart == null)
+            {
+                return NotFound();
+            }
+
+            if (cart.LockedOnCheckout)
+            {
+                return CreateCartLockedResult();
+            }
+
+            var validationResult =  await _cartService.ApplyCoupon(cart.Id, model.CouponCode);
             if (validationResult.Succeeded)
             {
-                var cart = await _cartService.GetCart(currentUser.Id);
-                return Json(cart);
+                var cartVm = await _cartService.GetActiveCartDetails(currentUser.Id);
+                return Json(cartVm);
             }
 
             return Json(validationResult);
         }
 
-        [HttpPost("cart/remove")]
+        [HttpPost("cart/save-ordernote")]
+        public async Task<IActionResult> SaveOrderNote([FromBody] SaveOrderNote model)
+        {
+            var currentUser = await _workContext.GetCurrentUser();
+            var cart = await _cartService.GetActiveCart(currentUser.Id);
+            if(cart == null)
+            {
+                return NotFound();
+            }
+
+            cart.OrderNote = model.OrderNote;
+            await _cartItemRepository.SaveChangesAsync();
+            return Accepted();
+        }
+
+        [HttpPost("cart/remove-item")]
         public async Task<IActionResult> Remove([FromBody] long itemId)
         {
-            var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == itemId);
+            var currentUser = await _workContext.GetCurrentUser();
+            var cart = await _cartService.GetActiveCart(currentUser.Id);
+            if (cart == null)
+            {
+                return NotFound();
+            }
+
+            if (cart.LockedOnCheckout)
+            {
+                return CreateCartLockedResult();
+            }
+
+            var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == itemId && x.Cart.CreatedById == currentUser.Id);
             if (cartItem == null)
             {
                 return NotFound();
@@ -120,6 +185,11 @@ namespace SimplCommerce.Module.ShoppingCart.Controllers
             _cartItemRepository.SaveChanges();
 
             return await List();
+        }
+
+        private IActionResult CreateCartLockedResult()
+        {
+            return Ok(new { Error = true, Message = "Cart is locked for checkout. Please complete or cancel the checkout first" });
         }
     }
 }

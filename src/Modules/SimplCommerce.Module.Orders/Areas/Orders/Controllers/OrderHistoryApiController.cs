@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Orders.Models;
 
-namespace SimplCommerce.Module.Orders.Controllers
+namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
 {
     [Area("Orders")]
     [Authorize(Roles = "admin, vendor")]
@@ -28,8 +28,8 @@ namespace SimplCommerce.Module.Orders.Controllers
                 {
                     OldStatus = x.OldStatus.ToString(),
                     NewStatus = x.NewStatus.ToString(),
-                    UserId = x.CreatedById,
-                    UserFullName = x.CreatedBy.FullName,
+                    CreatedById = x.CreatedById,
+                    CreatedByFullName = x.CreatedBy.FullName,
                     x.Note,
                     x.CreatedOn
                 }).ToListAsync();

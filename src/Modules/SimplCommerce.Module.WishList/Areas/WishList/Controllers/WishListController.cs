@@ -8,13 +8,14 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.WishList.Areas.WishList.ViewModels;
 using SimplCommerce.Module.WishList.Models;
 using SimplCommerce.Module.WishList.Services;
-using SimplCommerce.Module.WishList.ViewModels;
 
-namespace SimplCommerce.Module.WishList.Controllers
+namespace SimplCommerce.Module.WishList.Areas.WishList.Controllers
 {
     [Area("WishList")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class WishListController : Controller
     {
         private const int DefaultPageSize = 25;
@@ -234,7 +235,7 @@ namespace SimplCommerce.Module.WishList.Controllers
 
                     _wishListItemRepository.Add(wishListItem);
 
-                    wishList.UpdatedOn = DateTimeOffset.Now;
+                    wishList.LatestUpdatedOn = DateTimeOffset.Now;
                     await _wishListRepository.SaveChangesAsync();
 
                     resultModel.Message = "The product has been added to your wish list";
@@ -281,7 +282,7 @@ namespace SimplCommerce.Module.WishList.Controllers
 
             _wishListItemRepository.Remove(wishListItem);
 
-            wishList.UpdatedOn = DateTimeOffset.Now;
+            wishList.LatestUpdatedOn = DateTimeOffset.Now;
             await _wishListRepository.SaveChangesAsync();
 
             return Ok();
@@ -316,9 +317,9 @@ namespace SimplCommerce.Module.WishList.Controllers
 
                 wishListItem.Description = String.IsNullOrWhiteSpace(model.Description) ? null : model.Description;
                 wishListItem.Quantity = model.Quantity;
-                wishListItem.UpdatedOn = DateTimeOffset.Now;
+                wishListItem.LatestUpdatedOn = DateTimeOffset.Now;
 
-                wishList.UpdatedOn = DateTimeOffset.Now;
+                wishList.LatestUpdatedOn = DateTimeOffset.Now;
                 await _wishListRepository.SaveChangesAsync();
 
                 return PartialView("UpdateItemResult");

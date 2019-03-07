@@ -8,11 +8,11 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Models;
+using SimplCommerce.Module.Shipments.Areas.Shipments.ViewModels;
 using SimplCommerce.Module.Shipments.Models;
 using SimplCommerce.Module.Shipments.Services;
-using SimplCommerce.Module.Shipments.ViewModels;
 
-namespace SimplCommerce.Module.Shipments.Controllers
+namespace SimplCommerce.Module.Shipments.Areas.Shipments.Controllers
 {
     [Area("Shipments")]
     [Authorize(Roles = "admin, vendor")]
@@ -161,6 +161,7 @@ namespace SimplCommerce.Module.Shipments.Controllers
                     x.OrderId,
                     x.VendorId,
                     WarehouseName = x.Warehouse.Name,
+                    x.TrackingNumber,
                     x.CreatedOn,
                     ShippingAddress = new
                     {
@@ -209,7 +210,7 @@ namespace SimplCommerce.Module.Shipments.Controllers
                     CreatedById = currentUser.Id,
                     TrackingNumber = model.TrackingNumber,
                     CreatedOn = DateTimeOffset.Now,
-                    UpdatedOn = DateTimeOffset.Now
+                    LatestUpdatedOn = DateTimeOffset.Now
                 };
 
                 if (!User.IsInRole("admin"))

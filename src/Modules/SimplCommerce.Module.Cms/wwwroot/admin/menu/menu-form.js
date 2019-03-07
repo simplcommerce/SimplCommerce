@@ -18,7 +18,7 @@
         vm.addingCustomLink = {};
 
         vm.toggleEntity = function toggleEntity(entity) {
-            var entityIds = vm.selectedEntities.map(function (item) { return item.id });
+            var entityIds = vm.selectedEntities.map(function (item) { return item.id; });
             var index = entityIds.indexOf(entity.id);
             if (index > -1) {
                 vm.selectedEntities.splice(index, 1);
@@ -30,7 +30,7 @@
 
         vm.addMenuItems = function () {
             var menuItems = vm.selectedEntities.map(function (item) {
-                return { entityId : item.id, name : item.name }
+                return { entityId: item.id, name: item.name };
             });
             menuService.addMenuItem(vm.menuId, menuItems).then(function (result) {
                 result.data.forEach(function (item) {
@@ -52,7 +52,7 @@
                     vm.addingCustomLink = {};
                 });
             });
-        }
+        };
 
         vm.remove = function (scope) {
            scope.remove();
@@ -90,13 +90,14 @@
         };
 
         function arrayToTree(arr) {
-            var map = {}, node, roots = [];
+            var i, node,
+                map = {}, roots = [];
             // use map to look-up the parents
-            for (var i = 0; i < arr.length; i += 1) {
+            for (i = 0; i < arr.length; i += 1) {
                 map[arr[i].id] = i;
             }
 
-            for (var i = 0; i < arr.length; i += 1) {
+            for (i = 0; i < arr.length; i += 1) {
                 node = arr[i];
                 if (node.parentId) {
                     arr[map[node.parentId]].children.push(node);
@@ -117,7 +118,7 @@
                     var item = { id: node.id, name: node.name, entityId: node.entityId, customLink: node.customLink, parentId: parentId, displayOrder: displayOrder };
                     items.push(item);
                     if (node.children.length > 0) {
-                        readNodes(node.children, node)
+                        readNodes(node.children, node);
                     }
                 });
             }
@@ -144,7 +145,7 @@
             if (vm.isEditMode) {
                 menuService.getMenu(vm.menuId).then(function (result) {
                     vm.menu = result.data;
-                    vm.menu.items.forEach(function (item) { item.children = [] });
+                    vm.menu.items.forEach(function (item) { item.children = []; });
                     vm.menuItemTree = arrayToTree(vm.menu.items);
                 });
             }

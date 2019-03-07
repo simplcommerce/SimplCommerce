@@ -4,14 +4,15 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SimplCommerce.Module.Core.ViewModels.Manage;
+using SimplCommerce.Module.Core.Areas.Core.ViewModels.Manage;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
 
-namespace SimplCommerce.Module.Core.Controllers
+namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 {
     [Area("Core")]
     [Authorize]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ManageController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -19,19 +20,25 @@ namespace SimplCommerce.Module.Core.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
+        private readonly SettingDefinitionProvider _settingDefinitionProvider;
+        private readonly ISettingService _settingService;
 
         public ManageController(
         UserManager<User> userManager,
         SignInManager<User> signInManager,
         IEmailSender emailSender,
         ISmsSender smsSender,
-        ILoggerFactory loggerFactory)
+        ILoggerFactory loggerFactory,
+        SettingDefinitionProvider settingDefinitionProvider,
+        ISettingService settingService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<ManageController>();
+            _settingDefinitionProvider = settingDefinitionProvider;
+            _settingService = settingService;
         }
 
         [HttpGet("user")]
@@ -80,6 +87,38 @@ namespace SimplCommerce.Module.Core.Controllers
             user.FullName = model.FullName;
             await _userManager.UpdateAsync(user);
             return RedirectToAction("UserInfo");
+        }
+
+
+        [HttpGet("user/settings")]
+        public async Task<IActionResult> UserSettings()
+        {
+            var model = new UserSettingViewModel
+            {
+                SettingDefinitions = _settingDefinitionProvider.SettingDefinitions,
+                UserSettings = await _settingService.GetAllSettingsAsync()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost("user/settings")]
+        public async Task<IActionResult> UserSettings(UserSettingViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await GetCurrentUserAsync();
+            foreach (var item in model.UserSettings)
+            {
+                _settingService.SetCustomSettingValueForUser(user, item.Key, item.Value);
+            }
+
+            await _userManager.UpdateAsync(user);
+
+            return RedirectToAction("UserSettings");
         }
 
         [HttpPost]

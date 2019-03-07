@@ -2,7 +2,7 @@
 using System.Linq;
 using SimplCommerce.Module.Catalog.Models;
 
-namespace SimplCommerce.Module.ShoppingCart.ViewModels
+namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels
 {
     public class CartItemVm
     {
@@ -17,6 +17,12 @@ namespace SimplCommerce.Module.ShoppingCart.ViewModels
         public decimal ProductPrice { get; set; }
 
         public string ProductPriceString => ProductPrice.ToString("C");
+
+        public int ProductStockQuantity { get; set; }
+
+        public bool ProductStockTrackingIsEnabled { get; set; }
+
+        public bool IsProductAvailabeToOrder { get; set; }
 
         public int Quantity { get; set; }
 

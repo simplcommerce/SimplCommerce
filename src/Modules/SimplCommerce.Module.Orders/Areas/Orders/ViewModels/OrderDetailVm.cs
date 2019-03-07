@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SimplCommerce.Module.Orders.ViewModels
+namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 {
     public class OrderDetailVm
     {
@@ -58,5 +58,7 @@ namespace SimplCommerce.Module.Orders.ViewModels
         public IList<long> SubOrderIds { get; set; }
 
         public bool IsMasterOrder { get; set; }
+
+        public string OrderNote { get; set; }
     }
 }

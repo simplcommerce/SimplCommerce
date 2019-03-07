@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SimplCommerce.Infrastructure.Extensions;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Extensions;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Orders.Services;
@@ -17,9 +17,10 @@ using SimplCommerce.Module.PaymentPaypalExpress.ViewModels;
 using SimplCommerce.Module.Payments.Models;
 using SimplCommerce.Module.ShoppingCart.Services;
 
-namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
+namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.Controllers
 {
     [Area("PaymentPaypalExpress")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class PaypalExpressController : Controller
     {
         private readonly ICartService _cartService;
@@ -47,12 +48,18 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
+        [HttpPost("PaypalExpress/CreatePayment")]
         public async Task<ActionResult> CreatePayment()
         {
             var hostingDomain = Request.Host.Value;
             var accessToken = await GetAccessToken();
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetCart(currentUser.Id);
+            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
+            if(cart == null)
+            {
+                return NotFound();
+            }
+
             var regionInfo = new RegionInfo(CultureInfo.CurrentCulture.LCID);
             var experienceProfileId = await CreateExperienceProfile(accessToken);
 
@@ -103,12 +110,13 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
             return BadRequest(responseBody);
         }
 
+        [HttpPost("PaypalExpress/ExecutePayment")]
         public async Task<ActionResult> ExecutePayment(PaymentExecuteVm model)
         {
             var accessToken = await GetAccessToken();
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetCart(currentUser.Id);
-            var orderCreateResult = await _orderService.CreateOrder(currentUser, "PaypalExpress", CalculatePaymentFee(cart.OrderTotal), OrderStatus.PendingPayment);
+            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
+            var orderCreateResult = await _orderService.CreateOrder(cart.Id, "PaypalExpress", CalculatePaymentFee(cart.OrderTotal), OrderStatus.PendingPayment);
             if (!orderCreateResult.Success)
             {
                 return BadRequest(orderCreateResult.Error);
@@ -143,7 +151,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Controllers
                 _paymentRepository.Add(payment);
                 order.OrderStatus = OrderStatus.PaymentReceived;
                 await _paymentRepository.SaveChangesAsync();
-                return Ok(new { status = "success" });
+                return Ok(new { Status = "success", OrderId = order.Id });
             }
 
             payment.Status = PaymentStatus.Failed;

@@ -1,14 +1,14 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Infrastructure.Web.SmartTable;
-using SimplCommerce.Module.Core.ViewModels;
-using Microsoft.AspNetCore.Authorization;
+using SimplCommerce.Module.Core.Areas.Core.ViewModels;
+using SimplCommerce.Module.Core.Models;
 
-namespace SimplCommerce.Module.Core.Controllers
+namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 {
     [Area("Core")]
     [Route("api/countries")]
@@ -21,6 +21,7 @@ namespace SimplCommerce.Module.Core.Controllers
             _countryRepository = countryRepository;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get([FromQuery]bool? shippingEnabled)
         {
             var query = _countryRepository.Query();

@@ -144,6 +144,11 @@
                     url: '/product-prices',
                     templateUrl: 'modules/catalog/admin/product-price/product-price-form.html',
                     controller: 'ProductPriceFormCtrl as vm'
+                })
+                .state('product-clone', {
+                    url: '/product-clone/:id',
+                    templateUrl: 'modules/catalog/admin/product-clone/product-clone-form.html',
+                    controller: 'ProductCloneFormCtrl as vm'
                 });
         }]);
 })();

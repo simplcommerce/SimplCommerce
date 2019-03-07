@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace SimplCommerce.Module.News.ViewModels
+namespace SimplCommerce.Module.News.Areas.News.ViewModels
 {
     public class NewsItemVm
     {
@@ -14,16 +12,16 @@ namespace SimplCommerce.Module.News.ViewModels
 
         public long Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string Slug { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string ShortContent { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         public string FullContent { get; set; }
 
         public bool IsPublished { get; set; }

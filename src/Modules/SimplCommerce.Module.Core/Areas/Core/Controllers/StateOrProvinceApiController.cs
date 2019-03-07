@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
+using SimplCommerce.Module.Core.Areas.Core.ViewModels;
 using SimplCommerce.Module.Core.Models;
-using SimplCommerce.Module.Core.ViewModels;
 
-namespace SimplCommerce.Module.Core.Controllers
+namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 {
     [Area("Core")]
     [Route("api/states-provinces")]
@@ -23,7 +23,7 @@ namespace SimplCommerce.Module.Core.Controllers
             _countryRepository = countryRepository;
         }
 
-        [Route("/api/countries/{countryId}/states-provinces")]
+        [HttpGet("/api/countries/{countryId}/states-provinces")]
         public async Task<IActionResult> GetStatesOrProvinces(string countryId)
         {
             var statesOrProvinces = await _stateOrProvinceRepository.Query()
@@ -39,6 +39,7 @@ namespace SimplCommerce.Module.Core.Controllers
             return Ok(statesOrProvinces);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var statesOrProvinces = await _stateOrProvinceRepository.Query()

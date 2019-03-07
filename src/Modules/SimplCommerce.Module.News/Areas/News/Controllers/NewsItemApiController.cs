@@ -12,11 +12,11 @@ using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.News.Areas.News.ViewModels;
 using SimplCommerce.Module.News.Models;
 using SimplCommerce.Module.News.Services;
-using SimplCommerce.Module.News.ViewModels;
 
-namespace SimplCommerce.Module.News.Controllers
+namespace SimplCommerce.Module.News.Areas.News.Controllers
 {
     [Area("News")]
     [Authorize(Roles = "admin")]
@@ -130,7 +130,8 @@ namespace SimplCommerce.Module.News.Controllers
                 ShortContent = model.ShortContent,
                 FullContent = model.FullContent,
                 IsPublished = model.IsPublished,
-                CreatedBy = currentUser
+                CreatedBy = currentUser,
+                LatestUpdatedBy = currentUser
             };
 
             foreach (var categoryId in model.NewsCategoryIds)
@@ -174,8 +175,8 @@ namespace SimplCommerce.Module.News.Controllers
             newsItem.ShortContent = model.ShortContent;
             newsItem.FullContent = model.FullContent;
             newsItem.IsPublished = model.IsPublished;
-            newsItem.UpdatedOn = DateTimeOffset.Now;
-            newsItem.UpdatedBy = currentUser;
+            newsItem.LatestUpdatedOn = DateTimeOffset.Now;
+            newsItem.LatestUpdatedBy = currentUser;
 
             AddOrDeleteCategories(model, newsItem);
 

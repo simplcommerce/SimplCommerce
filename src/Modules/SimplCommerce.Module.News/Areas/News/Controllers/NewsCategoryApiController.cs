@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.News.Areas.News.ViewModels;
 using SimplCommerce.Module.News.Models;
 using SimplCommerce.Module.News.Services;
-using SimplCommerce.Module.News.ViewModels;
 
-namespace SimplCommerce.Module.News.Controllers
+namespace SimplCommerce.Module.News.Areas.News.Controllers
 {
     [Area("News")]
     [Authorize(Roles = "admin")]
@@ -24,6 +24,7 @@ namespace SimplCommerce.Module.News.Controllers
             _categoryService = categoryService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var categoryList = await _categoryRepository.Query().Where(x => !x.IsDeleted).ToListAsync();

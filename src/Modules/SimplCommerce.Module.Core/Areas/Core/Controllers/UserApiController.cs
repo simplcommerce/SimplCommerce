@@ -2,15 +2,15 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Infrastructure.Web.SmartTable;
-using SimplCommerce.Module.Core.ViewModels;
+using SimplCommerce.Module.Core.Areas.Core.ViewModels;
+using SimplCommerce.Module.Core.Models;
 
-namespace SimplCommerce.Module.Core.Controllers
+namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 {
     [Area("Core")]
     [Authorize(Roles = "admin")]
@@ -24,6 +24,31 @@ namespace SimplCommerce.Module.Core.Controllers
         {
             _userRepository = userRepository;
             _userManager = userManager;
+        }
+
+        [HttpGet("quick-search")]
+        public async Task<IActionResult> QuickSearch(UserSearchOption searchOption)
+        {
+            var query = _userRepository.Query().Where(x => !x.IsDeleted);
+            if (!string.IsNullOrWhiteSpace(searchOption.Name))
+            {
+                query = query.Where(x => x.FullName.Contains(searchOption.Name));
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchOption.Email))
+            {
+                query = query.Where(x => x.Email.Contains(searchOption.Email));
+            }
+
+           var users = await query.Take(5).Select(x => new
+            {
+                x.Id,
+                x.FullName,
+                x.Email,
+                x.PhoneNumber
+            }).ToListAsync();
+
+            return Ok(users);
         }
 
         [HttpPost("grid")]

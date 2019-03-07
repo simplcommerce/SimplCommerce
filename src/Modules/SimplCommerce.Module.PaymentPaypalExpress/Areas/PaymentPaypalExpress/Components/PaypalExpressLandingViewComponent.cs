@@ -8,7 +8,7 @@ using SimplCommerce.Module.PaymentPaypalExpress.Models;
 using SimplCommerce.Module.PaymentPaypalExpress.ViewModels;
 using SimplCommerce.Module.Payments.Models;
 
-namespace SimplCommerce.Module.PaymentPaypalExpress.Components
+namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.Components
 {
     public class PaypalExpressLandingViewComponent : ViewComponent
     {

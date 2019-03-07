@@ -8,7 +8,7 @@ using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Comments.Data;
 using SimplCommerce.Module.Comments.Models;
 
-namespace SimplCommerce.Module.Comments.Controllers
+namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
 {
     [Area("Comments")]
     [Authorize(Roles = "admin")]

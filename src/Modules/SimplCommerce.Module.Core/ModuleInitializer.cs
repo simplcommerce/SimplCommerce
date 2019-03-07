@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
-using SimplCommerce.Infrastructure.Modules;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
 
-namespace SimplCommerce.Module.Core.Modules
+namespace SimplCommerce.Module.Core
 {
     public class ModuleInitializer : IModuleInitializer
     {
@@ -21,6 +21,8 @@ namespace SimplCommerce.Module.Core.Modules
             serviceCollection.AddScoped<SignInManager<User>, SimplSignInManager<User>>();
             serviceCollection.AddScoped<IWorkContext, WorkContext>();
             serviceCollection.AddScoped<ISmsSender, SmsSender>();
+            serviceCollection.AddSingleton<SettingDefinitionProvider>();
+            serviceCollection.AddScoped<ISettingService, SettingService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

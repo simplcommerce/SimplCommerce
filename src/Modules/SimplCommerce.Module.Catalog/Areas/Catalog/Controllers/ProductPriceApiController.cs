@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
+using SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels;
 using SimplCommerce.Module.Catalog.Models;
-using SimplCommerce.Module.Catalog.ViewModels;
 using SimplCommerce.Module.Core.Extensions;
 
-namespace SimplCommerce.Module.Catalog.Controllers
+namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 {
     [Area("Catalog")]
     [Authorize(Roles = "admin, vendor")]
@@ -70,6 +70,7 @@ namespace SimplCommerce.Module.Catalog.Controllers
             return Ok(products);
         }
 
+        [HttpPut]
         public async Task<IActionResult> Put([FromBody] IList<ProductPriceItemForm> productPriceItemForms)
         {
             var currentUser = await _workContext.GetCurrentUser();

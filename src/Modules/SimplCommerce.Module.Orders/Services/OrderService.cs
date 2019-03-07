@@ -1,17 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
+using SimplCommerce.Module.Orders.Areas.Orders.ViewModels;
 using SimplCommerce.Module.Orders.Models;
-using SimplCommerce.Module.Orders.ViewModels;
 using SimplCommerce.Module.Pricing.Services;
 using SimplCommerce.Module.ShippingPrices.Services;
 using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.Tax.Services;
+using SimplCommerce.Module.Orders.Events;
+using SimplCommerce.Module.ShoppingCart.Services;
 
 namespace SimplCommerce.Module.Orders.Services
 {
@@ -23,19 +27,22 @@ namespace SimplCommerce.Module.Orders.Services
         private readonly IRepository<CartItem> _cartItemRepository;
         private readonly IRepository<OrderItem> _orderItemRepository;
         private readonly ITaxService _taxService;
+        private readonly ICartService _cartService;
         private readonly IShippingPriceService _shippingPriceService;
         private readonly IRepository<UserAddress> _userAddressRepository;
-        private readonly IOrderEmailService _orderEmailService;
+        private readonly IMediator _mediator;
 
         public OrderService(IRepository<Order> orderRepository,
             IRepository<Cart> cartRepository,
             ICouponService couponService,
+
             IRepository<CartItem> cartItemRepository,
             IRepository<OrderItem> orderItemRepository,
             ITaxService taxService,
+            ICartService cartService,
             IShippingPriceService shippingPriceService,
             IRepository<UserAddress> userAddressRepository,
-            IOrderEmailService orderEmailService)
+            IMediator mediator)
         {
             _orderRepository = orderRepository;
             _cartRepository = cartRepository;
@@ -43,20 +50,21 @@ namespace SimplCommerce.Module.Orders.Services
             _cartItemRepository = cartItemRepository;
             _orderItemRepository = orderItemRepository;
             _taxService = taxService;
+            _cartService = cartService;
             _shippingPriceService = shippingPriceService;
             _userAddressRepository = userAddressRepository;
-            _orderEmailService = orderEmailService;
+            _mediator = mediator;
         }
 
-        public async Task<Result<Order>> CreateOrder(User user, string paymentMethod, decimal paymentFeeAmount, OrderStatus orderStatus = OrderStatus.New)
+        public async Task<Result<Order>> CreateOrder(long cartId, string paymentMethod, decimal paymentFeeAmount, OrderStatus orderStatus = OrderStatus.New)
         {
             var cart = await _cartRepository
                .Query()
-               .Where(x => x.UserId == user.Id && x.IsActive).FirstOrDefaultAsync();
+               .Where(x => x.Id == cartId).FirstOrDefaultAsync();
 
             if (cart == null)
             {
-                return Result.Fail<Order>($"Cart of user {user.Id} cannot be found");
+                return Result.Fail<Order>($"Cart id {cartId} cannot be found");
             }
 
             var shippingData = JsonConvert.DeserializeObject<DeliveryInformationVm>(cart.ShippingData);
@@ -81,34 +89,69 @@ namespace SimplCommerce.Module.Orders.Services
                 {
                     Address = address,
                     AddressType = AddressType.Shipping,
-                    UserId = user.Id
+                    UserId = cart.CustomerId
                 };
 
                 _userAddressRepository.Add(userAddress);
 
-                billingAddress = shippingAddress = address;
+                shippingAddress = address;
             }
             else
             {
-                billingAddress = shippingAddress = _userAddressRepository.Query().Where(x => x.Id == shippingData.ShippingAddressId).Select(x => x.Address).First();
+                shippingAddress = _userAddressRepository.Query().Where(x => x.Id == shippingData.ShippingAddressId).Select(x => x.Address).First();
             }
 
-            return await CreateOrder(user, paymentMethod, paymentFeeAmount, shippingData.ShippingMethod, billingAddress, shippingAddress, orderStatus);
+            if (shippingData.UseShippingAddressAsBillingAddress)
+            {
+                billingAddress = shippingAddress;
+            }
+            else if (shippingData.BillingAddressId == 0)
+            {
+                var address = new Address
+                {
+                    AddressLine1 = shippingData.NewBillingAddressForm.AddressLine1,
+                    AddressLine2 = shippingData.NewBillingAddressForm.AddressLine2,
+                    ContactName = shippingData.NewBillingAddressForm.ContactName,
+                    CountryId = shippingData.NewBillingAddressForm.CountryId,
+                    StateOrProvinceId = shippingData.NewBillingAddressForm.StateOrProvinceId,
+                    DistrictId = shippingData.NewBillingAddressForm.DistrictId,
+                    City = shippingData.NewBillingAddressForm.City,
+                    ZipCode = shippingData.NewBillingAddressForm.ZipCode,
+                    Phone = shippingData.NewBillingAddressForm.Phone
+                };
+
+                var userAddress = new UserAddress
+                {
+                    Address = address,
+                    AddressType = AddressType.Billing,
+                    UserId = cart.CustomerId
+                };
+
+                _userAddressRepository.Add(userAddress);
+
+                billingAddress = address;
+            }
+            else
+            {
+                billingAddress = _userAddressRepository.Query().Where(x => x.Id == shippingData.BillingAddressId).Select(x => x.Address).First();
+            }
+
+            return await CreateOrder(cartId, paymentMethod, paymentFeeAmount, shippingData.ShippingMethod, billingAddress, shippingAddress, orderStatus);
         }
 
-        public async Task<Result<Order>> CreateOrder(User user, string paymentMethod, decimal paymentFeeAmount, string shippingMethodName, Address billingAddress, Address shippingAddress, OrderStatus orderStatus = OrderStatus.New)
+        public async Task<Result<Order>> CreateOrder(long cartId, string paymentMethod, decimal paymentFeeAmount, string shippingMethodName, Address billingAddress, Address shippingAddress, OrderStatus orderStatus = OrderStatus.New)
         {
             var cart = _cartRepository
                 .Query()
                 .Include(c => c.Items).ThenInclude(x => x.Product)
-                .Where(x => x.UserId == user.Id && x.IsActive).FirstOrDefault();
+                .Where(x => x.Id == cartId).FirstOrDefault();
 
             if (cart == null)
             {
-                return Result.Fail<Order>($"Cart of user {user.Id} cannot be found");
+                return Result.Fail<Order>($"Cart id {cartId} cannot be found");
             }
 
-            var checkingDiscountResult = await CheckForDiscountIfAny(user, cart);
+            var checkingDiscountResult = await CheckForDiscountIfAny(cart);
             if (!checkingDiscountResult.Succeeded)
             {
                 return Result.Fail<Order>(checkingDiscountResult.ErrorMessage);
@@ -150,8 +193,11 @@ namespace SimplCommerce.Module.Orders.Services
 
             var order = new Order
             {
+                CustomerId = cart.CustomerId,
                 CreatedOn = DateTimeOffset.Now,
-                CreatedById = user.Id,
+                CreatedById = cart.CreatedById,
+                LatestUpdatedOn = DateTimeOffset.Now,
+                LatestUpdatedById = cart.CreatedById,
                 BillingAddress = orderBillingAddress,
                 ShippingAddress = orderShippingAddress,
                 PaymentMethod = paymentMethod,
@@ -160,6 +206,11 @@ namespace SimplCommerce.Module.Orders.Services
 
             foreach (var cartItem in cart.Items)
             {
+                if (!cartItem.Product.IsAllowToOrder || !cartItem.Product.IsPublished || cartItem.Product.IsDeleted)
+                {
+                    return Result.Fail<Order>($"The product {cartItem.Product.Name} is not available any more");
+                }
+
                 if (cartItem.Product.StockTrackingIsEnabled && cartItem.Product.StockQuantity < cartItem.Quantity)
                 {
                     return Result.Fail<Order>($"There are only {cartItem.Product.StockQuantity} items available for {cartItem.Product.Name}");
@@ -182,7 +233,7 @@ namespace SimplCommerce.Module.Orders.Services
                 };
 
                 var discountedItem = checkingDiscountResult.DiscountedProducts.FirstOrDefault(x => x.Id == cartItem.ProductId);
-                if(discountedItem != null)
+                if (discountedItem != null)
                 {
                     orderItem.DiscountAmount = discountedItem.DiscountAmount;
                 }
@@ -195,6 +246,7 @@ namespace SimplCommerce.Module.Orders.Services
             }
 
             order.OrderStatus = orderStatus;
+            order.OrderNote = cart.OrderNote;
             order.CouponCode = checkingDiscountResult.CouponCode;
             order.CouponRuleName = cart.CouponRuleName;
             order.DiscountAmount = checkingDiscountResult.DiscountAmount;
@@ -214,12 +266,16 @@ namespace SimplCommerce.Module.Orders.Services
                 order.IsMasterOrder = true;
             }
 
+            IList<Order> subOrders = new List<Order>();
             foreach (var vendorId in vendorIds)
             {
                 var subOrder = new Order
                 {
+                    CustomerId = cart.CustomerId,
                     CreatedOn = DateTimeOffset.Now,
-                    CreatedById = user.Id,
+                    CreatedById = cart.CreatedById,
+                    LatestUpdatedOn = DateTimeOffset.Now,
+                    LatestUpdatedById = cart.CreatedById,
                     BillingAddress = orderBillingAddress,
                     ShippingAddress = orderShippingAddress,
                     VendorId = vendorId,
@@ -256,27 +312,46 @@ namespace SimplCommerce.Module.Orders.Services
                 subOrder.TaxAmount = subOrder.OrderItems.Sum(x => x.TaxAmount);
                 subOrder.OrderTotal = subOrder.SubTotal + subOrder.TaxAmount + subOrder.ShippingFeeAmount - subOrder.DiscountAmount;
                 _orderRepository.Add(subOrder);
+                subOrders.Add(subOrder);
             }
 
             using (var transaction = _orderRepository.BeginTransaction())
             {
                 _orderRepository.SaveChanges();
-                _couponService.AddCouponUsage(user.Id, order.Id, checkingDiscountResult);
+                await PublishOrderCreatedEvent(order);
+                foreach (var subOrder in subOrders)
+                {
+                    await PublishOrderCreatedEvent(subOrder);
+                }
+
+                _couponService.AddCouponUsage(cart.CustomerId, order.Id, checkingDiscountResult);
                 _orderRepository.SaveChanges();
                 transaction.Commit();
             }
 
-            // await _orderEmailService.SendEmailToUser(user, order);
             return Result.Ok(order);
+        }
+
+        private async Task PublishOrderCreatedEvent(Order order)
+        {
+            var orderCreated = new OrderCreated
+            {
+                OrderId = order.Id,
+                Order = order,
+                UserId = order.CreatedById,
+                Note = order.OrderNote
+            };
+
+            await _mediator.Publish(orderCreated);
         }
 
         public void CancelOrder(Order order)
         {
             order.OrderStatus = OrderStatus.Canceled;
-            order.UpdatedOn = DateTimeOffset.Now;
+            order.LatestUpdatedOn = DateTimeOffset.Now;
 
             var orderItems = _orderItemRepository.Query().Include(x => x.Product).Where(x => x.Order.Id == order.Id);
-            foreach(var item in orderItems)
+            foreach (var item in orderItems)
             {
                 if (item.Product.StockTrackingIsEnabled)
                 {
@@ -285,17 +360,12 @@ namespace SimplCommerce.Module.Orders.Services
             }
         }
 
-        public async Task<decimal> GetTax(long cartOwnerUserId, string countryId, long stateOrProvinceId, string zipCode)
+        public async Task<decimal> GetTax(long cartId, string countryId, long stateOrProvinceId, string zipCode)
         {
             decimal taxAmount = 0;
-            var cart = await _cartRepository.Query().FirstOrDefaultAsync(x => x.UserId == cartOwnerUserId && x.IsActive);
-            if (cart == null)
-            {
-                throw new ApplicationException($"No active cart of user {cartOwnerUserId}");
-            }
 
             var cartItems = _cartItemRepository.Query()
-                .Where(x => x.CartId == cart.Id)
+                .Where(x => x.CartId == cartId)
                 .Select(x => new CartItemVm
                 {
                     Quantity = x.Quantity,
@@ -315,7 +385,63 @@ namespace SimplCommerce.Module.Orders.Services
             return taxAmount;
         }
 
-        private async Task<CouponValidationResult> CheckForDiscountIfAny(User user, Cart cart)
+        public async Task<OrderTaxAndShippingPriceVm> UpdateTaxAndShippingPrices(long cartId, TaxAndShippingPriceRequestVm model)
+        {
+            var cart = await _cartRepository.Query().FirstOrDefaultAsync(x => x.Id == cartId);
+            if (cart == null)
+            {
+                throw new ApplicationException($"Cart id {cartId} not found");
+            }
+
+            Address address;
+            if (model.ExistingShippingAddressId != 0)
+            {
+                address = await _userAddressRepository.Query().Where(x => x.Id == model.ExistingShippingAddressId).Select(x => x.Address).FirstOrDefaultAsync();
+                if (address == null)
+                {
+                    throw new ApplicationException($"Address id {model.ExistingShippingAddressId} not found");
+                }
+            }
+            else
+            {
+                address = new Address
+                {
+                    CountryId = model.NewShippingAddress.CountryId,
+                    StateOrProvinceId = model.NewShippingAddress.StateOrProvinceId,
+                    DistrictId = model.NewShippingAddress.DistrictId,
+                    ZipCode = model.NewShippingAddress.ZipCode,
+                    AddressLine1 = model.NewShippingAddress.AddressLine1,
+                };
+            }
+
+            var orderTaxAndShippingPrice = new OrderTaxAndShippingPriceVm
+            {
+                Cart = await _cartService.GetActiveCartDetails(cart.CustomerId, cart.CreatedById)
+            };
+
+            cart.TaxAmount = orderTaxAndShippingPrice.Cart.TaxAmount = await GetTax(cartId, address.CountryId, address.StateOrProvinceId, address.ZipCode);
+
+            var request = new GetShippingPriceRequest
+            {
+                OrderAmount = orderTaxAndShippingPrice.Cart.OrderTotal,
+                ShippingAddress = address
+            };
+
+            orderTaxAndShippingPrice.ShippingPrices = await _shippingPriceService.GetApplicableShippingPrices(request);
+            var selectedShippingMethod = string.IsNullOrWhiteSpace(model.SelectedShippingMethodName)
+                ? orderTaxAndShippingPrice.ShippingPrices.FirstOrDefault()
+                : orderTaxAndShippingPrice.ShippingPrices.FirstOrDefault(x => x.Name == model.SelectedShippingMethodName);
+            if (selectedShippingMethod != null)
+            {
+                cart.ShippingAmount = orderTaxAndShippingPrice.Cart.ShippingAmount = selectedShippingMethod.Price;
+                cart.ShippingMethod = orderTaxAndShippingPrice.SelectedShippingMethodName = selectedShippingMethod.Name;
+            }
+
+            await _cartRepository.SaveChangesAsync();
+            return orderTaxAndShippingPrice;
+        }
+
+        private async Task<CouponValidationResult> CheckForDiscountIfAny(Cart cart)
         {
             if (string.IsNullOrWhiteSpace(cart.CouponCode))
             {
@@ -327,7 +453,7 @@ namespace SimplCommerce.Module.Orders.Services
                 Items = cart.Items.Select(x => new CartItemForCoupon { ProductId = x.ProductId, Quantity = x.Quantity }).ToList()
             };
 
-            var couponValidationResult = await _couponService.Validate(cart.CouponCode, cartInfoForCoupon);
+            var couponValidationResult = await _couponService.Validate(cart.CustomerId, cart.CouponCode, cartInfoForCoupon);
             return couponValidationResult;
         }
 

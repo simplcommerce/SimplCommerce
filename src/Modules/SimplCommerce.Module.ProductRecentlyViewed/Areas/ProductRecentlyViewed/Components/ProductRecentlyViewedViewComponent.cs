@@ -1,15 +1,16 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Web;
-using SimplCommerce.Module.Catalog.Services;
-using SimplCommerce.Module.Catalog.ViewModels;
-using SimplCommerce.Module.Core.Services;
-using SimplCommerce.Module.Core.Extensions;
-using SimplCommerce.Module.ProductRecentlyViewed.Data;
+using SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels;
 using SimplCommerce.Module.Catalog.Models;
+using SimplCommerce.Module.Catalog.Services;
+using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.ProductRecentlyViewed.Data;
 
-namespace SimplCommerce.Module.ProductRecentlyViewed.Components
+namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed.Components
 {
     public class ProductRecentlyViewedViewComponent : ViewComponent
     {
@@ -27,9 +28,9 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Components
         }
 
         // TODO Number of items to config
-        public IViewComponentResult Invoke(long? productId, int itemCount = 5)
+        public async Task<IViewComponentResult> InvokeAsync(long? productId, int itemCount = 4)
         {
-            var user = _workContext.GetCurrentUser().Result;
+            var user = await _workContext.GetCurrentUser();
             IQueryable<Product> query = _productRepository.GetRecentlyViewedProduct(user.Id)
                 .Include(x => x.ThumbnailImage);
             if (productId.HasValue)

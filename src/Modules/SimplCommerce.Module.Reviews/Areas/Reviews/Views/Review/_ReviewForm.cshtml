@@ -1,4 +1,5 @@
-﻿@model SimplCommerce.Module.Reviews.ViewModels.ReviewForm
+﻿@model SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels.ReviewForm
+
 <form id="form-addreview" asp-area="Reviews" asp-controller="Review" asp-action="AddReview" method="post" role="form">
     <input asp-for="EntityId" type="hidden" />
     <input asp-for="EntityTypeId" type="hidden" />
@@ -25,15 +26,9 @@
         </div>
     </div>
     <div class="form-group row">
-        <label asp-for="ReviewerName" class="col-md-4 col-form-label">@Localizer["Posted by"]</label>
-        <div class="col-md-8">
-            <input asp-for="ReviewerName" class="form-control" />
-            <span asp-validation-for="ReviewerName" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group row">
         <div class="offset-md-4 col-md-8">
             <button id="btn-addreview" type="submit" class="btn btn-primary">@Localizer["Submit review"]</button>
         </div>
     </div>
 </form>
+

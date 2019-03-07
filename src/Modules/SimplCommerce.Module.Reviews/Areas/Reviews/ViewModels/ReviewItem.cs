@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SimplCommerce.Module.Reviews.ViewModels
+namespace SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels
 {
     public class ReviewItem
     {

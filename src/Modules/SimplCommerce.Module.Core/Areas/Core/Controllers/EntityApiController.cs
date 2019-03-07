@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
 
-namespace SimplCommerce.Module.Core.Controllers
+namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 {
     [Area("Core")]
     [Authorize(Roles = "admin")]
@@ -18,6 +18,7 @@ namespace SimplCommerce.Module.Core.Controllers
             _entityRepository = entityRepository;
         }
 
+        [HttpGet]
         public IActionResult Get(string entityTypeId, string name)
         {
             var query = _entityRepository.Query().Where(x => x.EntityType.IsMenuable);

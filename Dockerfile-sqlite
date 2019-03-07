@@ -1,0 +1,36 @@
+FROM microsoft/dotnet:2.2-sdk AS build-env
+  
+WORKDIR /app
+COPY . ./
+
+RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.1" />#<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.1" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
+RUN sed -i 's/UseSqlServer/UseSqlite/' src/SimplCommerce.WebHost/Program.cs
+RUN sed -i 's/UseSqlServer/UseSqlite/' src/SimplCommerce.WebHost/Extensions/ServiceCollectionExtensions.cs
+RUN sed -i 's/"DefaultConnection": ".*"/"DefaultConnection": "Data Source=simplcommerce.db"/' src/SimplCommerce.WebHost/appsettings.json
+
+RUN rm src/SimplCommerce.WebHost/Migrations/*
+
+# ef core migrations run in debug, so we have to build in Debug for copying module correctly 
+RUN dotnet restore && dotnet build \
+    && cd src/SimplCommerce.WebHost \
+	&& dotnet ef migrations add initialSchema \
+    && dotnet ef database update
+
+RUN dotnet build -c Release \
+	&& cd src/SimplCommerce.WebHost \
+	&& dotnet build -c Release \
+	&& dotnet publish -c Release -o out
+
+FROM microsoft/dotnet:2.2.0-aspnetcore-runtime
+
+RUN apt-get update \
+	&& apt-get install libgdiplus -y \
+	&& rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app	
+COPY --from=build-env /app/src/SimplCommerce.WebHost/out ./
+COPY --from=build-env /app/src/SimplCommerce.WebHost/simplcommerce.db ./
+
+RUN curl -SL "https://github.com/rdvojmoc/DinkToPdf/raw/v1.0.8/v0.12.4/64%20bit/libwkhtmltox.so" --output ./libwkhtmltox.so
+
+ENTRYPOINT ["dotnet", "SimplCommerce.WebHost.dll"]

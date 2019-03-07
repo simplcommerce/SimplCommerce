@@ -10,11 +10,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Cms.ViewModels;
+using SimplCommerce.Module.Cms.Areas.Cms.ViewModels;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
 
-namespace SimplCommerce.Module.Cms.Controllers
+namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
 {
     [Area("Cms")]
     [Authorize(Roles = "admin")]

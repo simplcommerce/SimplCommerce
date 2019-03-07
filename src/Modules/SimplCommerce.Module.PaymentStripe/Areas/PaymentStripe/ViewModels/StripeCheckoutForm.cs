@@ -1,10 +1,10 @@
-﻿namespace SimplCommerce.Module.PaymentStripe.ViewModels
+﻿namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.ViewModels
 {
     public class StripeCheckoutForm
     {
         public string PublicKey { get; set; }
 
-        public int Amount { get; set; }
+        public long Amount { get; set; }
 
         public string ISOCurrencyCode { get; set; }
     }

@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SimplCommerce.Module.SampleData.Areas.SampleData.ViewModels;
 using SimplCommerce.Module.SampleData.Services;
-using SimplCommerce.Module.SampleData.ViewModels;
 
-namespace SimplCommerce.Module.SampleData.Controllers
+namespace SimplCommerce.Module.SampleData.Areas.SampleData.Controllers
 {
     [Area("SampleData")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class SampleDataController : Controller
     {
         private readonly ISampleDataService _sampleDataService;

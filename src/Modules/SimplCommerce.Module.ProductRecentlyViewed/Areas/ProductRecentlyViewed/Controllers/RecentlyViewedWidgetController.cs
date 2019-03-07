@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.ProductRecentlyViewed.ViewModels;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed.ViewModels;
 
-namespace SimplCommerce.Module.ProductRecentlyViewed.Controllers
+namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed.Controllers
 {
     [Area("ProductRecentlyViewed")]
     [Authorize(Roles = "admin")]
@@ -23,6 +23,7 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Controllers
             _widgetInstanceRepository = widgetInstanceRepository;
             _mediaService = mediaService;
         }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(long id)
         {
@@ -38,7 +39,6 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Controllers
                 ItemCount = JsonConvert.DeserializeObject<int>(widgetInstance.Data)
             };
 
-            
             return Json(model);
         }
 
@@ -61,7 +61,6 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Controllers
                 _widgetInstanceRepository.Add(widgetInstance);
                 await _widgetInstanceRepository.SaveChangesAsync();
                 return CreatedAtAction(nameof(Get), new {id = widgetInstance.Id}, null);
-
             }
         }
 
@@ -84,7 +83,6 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Controllers
 
             await _widgetInstanceRepository.SaveChangesAsync();
             return Accepted();
-
         }
     }
 }

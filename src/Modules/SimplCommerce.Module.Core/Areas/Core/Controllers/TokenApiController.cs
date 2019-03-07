@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
 
-namespace SimplCommerce.Module.Core.Controllers
+namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 {
     [Area("Core")]
     [ApiController]
@@ -25,6 +25,7 @@ namespace SimplCommerce.Module.Core.Controllers
         }
 
         [AllowAnonymous]
+        [IgnoreAntiforgeryToken]
         [HttpPost("/api/token/create")]
         public async Task<IActionResult> CreateToken([FromBody]TokenLoginModel login, bool includeRefreshToken)
         {
@@ -48,6 +49,7 @@ namespace SimplCommerce.Module.Core.Controllers
         }
 
         [AllowAnonymous]
+        [IgnoreAntiforgeryToken]
         [HttpPost("/api/token/refresh")]
         public async Task<IActionResult> RefeshToken(RefreshTokenModel model)
         {
@@ -88,19 +90,19 @@ namespace SimplCommerce.Module.Core.Controllers
 
         public class TokenLoginModel
         {
-            [Required]
+            [Required(ErrorMessage = "The {0} field is required.")]
             public string Username { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "The {0} field is required.")]
             public string Password { get; set; }
         }
 
         public class RefreshTokenModel
         {
-            [Required]
+            [Required(ErrorMessage = "The {0} field is required.")]
             public string Token { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "The {0} field is required.")]
             public string RefreshToken { get; set; }
         }
     }

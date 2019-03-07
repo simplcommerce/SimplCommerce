@@ -2,9 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
 using SimplCommerce.Module.ShoppingCart.Services;
 
-namespace SimplCommerce.Module.Orders.Components
+namespace SimplCommerce.Module.Orders.Areas.Orders.Components
 {
     public class OrderSummaryViewComponent : ViewComponent
     {
@@ -20,8 +21,11 @@ namespace SimplCommerce.Module.Orders.Components
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var curentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetCart(curentUser.Id);
-
+            var cart = await _cartService.GetActiveCartDetails(curentUser.Id);
+            if (cart == null)
+            {
+                cart = new CartVm();
+            }
             return View(this.GetViewPath(), cart);
         }
     }

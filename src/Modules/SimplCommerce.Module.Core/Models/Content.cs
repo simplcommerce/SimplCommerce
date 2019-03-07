@@ -11,19 +11,21 @@ namespace SimplCommerce.Module.Core.Models
         protected Content()
         {
             CreatedOn = DateTimeOffset.Now;
-            UpdatedOn = DateTimeOffset.Now;
+            LatestUpdatedOn = DateTimeOffset.Now;
         }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [StringLength(450)]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [StringLength(450)]
         public string Slug { get; set; }
 
+        [StringLength(450)]
         public string MetaTitle { get; set; }
 
+        [StringLength(450)]
         public string MetaKeywords { get; set; }
 
         public string MetaDescription { get; set; }
@@ -49,12 +51,16 @@ namespace SimplCommerce.Module.Core.Models
             }
         }
 
+        public long CreatedById { get; set; }
+
         public User CreatedBy { get; set; }
 
         public DateTimeOffset CreatedOn { get; set; }
 
-        public DateTimeOffset UpdatedOn { get; set; }
+        public DateTimeOffset LatestUpdatedOn { get; set; }
 
-        public User UpdatedBy { get; set; }
+        public long LatestUpdatedById { get; set; }
+
+        public User LatestUpdatedBy { get; set; }
     }
 }

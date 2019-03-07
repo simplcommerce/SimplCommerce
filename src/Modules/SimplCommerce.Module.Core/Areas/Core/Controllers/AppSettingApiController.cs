@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Models;
 
-namespace SimplCommerce.Module.Core.Controllers
+namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 {
     [Area("Core")]
     [Authorize(Roles = "admin")]
@@ -24,6 +24,7 @@ namespace SimplCommerce.Module.Core.Controllers
             _configurationRoot = (IConfigurationRoot)configuration;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var settings = await _appSettingRepository.Query().Where(x => x.IsVisibleInCommonSettingPage).ToListAsync();

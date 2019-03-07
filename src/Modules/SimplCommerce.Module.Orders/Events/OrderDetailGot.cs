@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using SimplCommerce.Module.Orders.ViewModels;
+using SimplCommerce.Module.Orders.Areas.Orders.ViewModels;
 
 namespace SimplCommerce.Module.Orders.Events
 {
