@@ -15,13 +15,13 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Components
     {
         private readonly IRepository<Review> _reviewRepository;
         private readonly IWorkContext _workContext;
-        private readonly IRepository<Order> _orderRepository;
+        private readonly IRepository<OrderItem> _orderItemRepository;
 
-        public ReviewViewComponent(IRepository<Review> reviewRepository, IWorkContext workContext, IRepository<Order> orderRepository )
+        public ReviewViewComponent(IRepository<Review> reviewRepository, IWorkContext workContext, IRepository<OrderItem> orderItemRepository )
         {
             _reviewRepository = reviewRepository;
             _workContext = workContext;
-            _orderRepository = orderRepository;
+            _orderItemRepository = orderItemRepository;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(long entityId, string entityTypeId)
@@ -67,13 +67,16 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Components
             {
                 var user = await _workContext.GetCurrentUser();
                 model.LoggedUserName = user.FullName;
-                var currentUserOrder = _orderRepository
-                    .Query()
-                    .Where(x => x.CreatedById == user.Id);
 
-                var userOrderedProduct = currentUserOrder
-                    .Where(x => x.OrderItems.Where(y =>y.ProductId == entityId).Count() > 0);
-                 model.HasBoughtProduct = userOrderedProduct.Any() ? true : false;
+                var query = _orderItemRepository.Query().Where(x => x.Order.CustomerId == user.Id && (x.Product.Id == entityId || x.Product.LinkedProductLinks.Any(i => i.Product.Id == entityId)));
+                if(query.Count() > 0)
+                {
+                    model.HasBoughtProduct = true;
+                }
+                else
+                {
+                    model.HasBoughtProduct = false;
+                }
             }
             else
             {
