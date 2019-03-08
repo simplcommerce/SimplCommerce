@@ -382,13 +382,13 @@ li.nav-item-group, li.nav-item-group a {
 .btn-order {
     background: #18ba9b;
     padding: 8px 43px;
-    font-size: 14px;
+    font-size: 13px;
     color: #fff;
     width: 100%;
     border: 0;
     border-radius: 0;
     text-transform: uppercase;
-    width: 200px;
+    width: 240px;
 }
 
     .btn-order:hover {
