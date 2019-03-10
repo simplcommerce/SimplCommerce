@@ -54,7 +54,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-C
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'reviews', N'评论')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Add Review', N'添加评论')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Customer reviews', N'顾客评论')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Your review will be showed within the next 24h.', N'您的评论将在24小时内显示.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Your review will be shown within the next 24h.', N'您的评论将在24小时内显示.')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Thank you {0} for your review', N'谢谢您的评论.')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Rating average', N'平均评分')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'stars', N'开始')

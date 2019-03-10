@@ -835,7 +835,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-V
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'reviews', N'nhận xét')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Add Review', N'Viết nhận xét')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Customer reviews', N'Nhận xét của khách hàng')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Your review will be showed within the next 24h.', N'Nhận xét của bạn sẽ được hiển thị trong vòng 24 tiếng')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Your review will be shown within the next 24h.', N'Nhận xét của bạn sẽ được hiển thị trong vòng 24 tiếng')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Thank you {0} for your review', N'Cảm ơn {0} đã gửi nhận xét')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Rating average', N'Đánh giá trung bình')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'stars', N'sao')

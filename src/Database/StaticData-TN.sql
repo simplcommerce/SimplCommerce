@@ -54,7 +54,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-T
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'reviews', N'رأي')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'Add Review', N'إضافة تعليق')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'Customer reviews', N'التعليقات')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'Your review will be showed within the next 24h.', N'سيتم عرض تعليقك في ال 24 ساعة القادمة.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'Your review will be shown within the next 24h.', N'سيتم عرض تعليقك في ال 24 ساعة القادمة.')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'Thank you {0} for your review', N'شكرا لك {0} لتعليقك')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'Rating average', N'متوسط تصنيف العملاء')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'stars', N'النجوم')

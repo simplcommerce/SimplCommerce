@@ -54,7 +54,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-E
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'reviews', N'Comentarios')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'Add Review', N'Añadir Comentario')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'Customer reviews', N'Reseñas de Clientes')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'Your review will be showed within the next 24h.', N'Su opinión será mostrada dentro de las próximas 24h.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'Your review will be shown within the next 24h.', N'Su opinión será mostrada dentro de las próximas 24h.')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'Thank you {0} for your review', N'Gracias por su comentario.')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'Rating average', N'Calificación promedio')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'stars', N'Estrella')

@@ -54,7 +54,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-K
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'reviews', N'리뷰')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Add Review', N'검토 추가')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Customer reviews', N'고객 리뷰')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Your review will be showed within the next 24h.', N'귀하의 리뷰는 다음 24 시간 이내에 보여 질 것입니다.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Your review will be shown within the next 24h.', N'귀하의 리뷰는 다음 24 시간 이내에 보여 질 것입니다.')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Thank you {0} for your review', N'귀하의 검토를 위해 {0} 주셔서 감사합니다.')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Rating average', N'평점 평균')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'stars', N'별')
