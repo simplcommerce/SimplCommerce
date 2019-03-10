@@ -867,7 +867,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-V
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Dashboard', N'Dashboard')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Incomplete orders', N'Đơn hàng chưa xong')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Pending reviews', N'Đánh giá đang chờ duyệt')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Most search keywords', N'Từ khóa được tìm kiếm nhiều nhất')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Most searched keywords', N'Từ khóa được tìm kiếm nhiều nhất')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Most viewed products', N'Sản phẩm được xem nhiều nhất')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'OrderId', N'Số đơn hàng')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Order Status', N'Trạng thái đơn hàng')

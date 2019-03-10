@@ -86,7 +86,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-C
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Dashboard', N'仪表板')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Incomplete orders', N'订单未完成')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Pending reviews', N'待审查')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Most search keywords', N'大多数搜索关键字')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Most searched keywords', N'大多数搜索关键字')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Most viewed products', N'最受欢迎的产品')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'OrderId', N'排序')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Order Status', N'订单状态')

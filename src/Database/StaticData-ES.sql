@@ -86,7 +86,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-E
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'Dashboard', N'Tablero')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'Incomplete orders', N'Pedidos incompletos')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'Pending reviews', N'Revisiones pendientes')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'Most search keywords', N'La mayoría de  búsqueda de las palabras clave')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'Most searched keywords', N'La mayoría de  búsqueda de las palabras clave')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'Most viewed products', N'Productos más vistos')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'OrderId', N'Orden')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('es-ES', N'Order Status', N'Estado del pedido')

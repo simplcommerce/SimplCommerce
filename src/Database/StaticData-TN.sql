@@ -86,7 +86,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-T
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'Dashboard', N'لوحة القيادة')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'Incomplete orders', N'أوامر غير مكتملة')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'Pending reviews', N'في انتظار المراجعة')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'Most search keywords', N'معظم كلمات البحث')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'Most searched keywords', N'معظم كلمات البحث')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'Most viewed products', N'معظم المنتجات المعروضة')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'OrderId', N'رقم التعريف الخاص بالطلب')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ar-TN', N'Order Status', N'حالة الطلب')

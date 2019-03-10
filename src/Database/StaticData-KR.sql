@@ -86,7 +86,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-K
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Dashboard', N'계기반')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Incomplete orders', N'불완전 주문')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Pending reviews', N'검토 대기 중')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Most search keywords', N'대부분의 검색 키워드')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Most searched keywords', N'대부분의 검색 키워드')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Most viewed products', N'가장 많이 본 제품')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'OrderId', N'주문 아이디')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ko-KR', N'Order Status', N'주문 상태')
