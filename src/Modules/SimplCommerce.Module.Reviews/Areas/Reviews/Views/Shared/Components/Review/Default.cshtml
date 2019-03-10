@@ -1,4 +1,5 @@
-﻿@using SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels
+﻿@using Humanizer;
+@using SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels
 
 @model SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels.ReviewVm
 
@@ -83,32 +84,28 @@
             foreach (var review in Model.Items.Data)
             {
                 <div>
-                    <ul class="list-inline product-ratings">
-                        <li><input type="hidden" value="@review.Rating" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
-                        <li class="review-title">
-                            @review.Title
-                        </li>
-                    </ul>
-                    <p>@review.Comment</p>
-                    <p>By: <strong>@review.ReviewerName</strong> on <span>@review.CreatedOn</span></p>
-                    @if (review.Replies.Count > 0)
-                    {
-                        <button class="btn-review-replies btn-view-review-replies btn btn-link">@Localizer["View Replies"]<i class="arrow-down"></i></button>
-                        <button class="btn-review-replies btn-hide-review-replies btn btn-link d-none">@Localizer["Hide Replies"]<i class="arrow-up"></i></button>
-                        <ul class="review-replies d-none">
-                            @foreach (var reply in review.Replies)
-                            {
-                                <li class="review-reply">
-                                    <p>@reply.Comment</p>
-                                    <p>By: <strong>@reply.ReplierName</strong> on <span>@reply.CreatedOn</span></p>
-                                </li>
-                            }
-                        </ul>
-                    }
                     <div>
-                        <button class="btn-add-review-reply btn btn-link">@Localizer["Add Reply"]</button>
-                        <div class="add-review-reply d-none">
-                            <partial name="/Areas/Reviews/Views/Reply/_ReplyForm.cshtml" model="new ReplyForm { ReviewId = review.Id }" />
+                        <div class="review-star badge">
+                            <input type="hidden" value="@review.Rating" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" />
+                        </div>
+                        <span class="review-title">@review.Title</span>
+                    </div>
+                    <div>@review.Comment</div>
+                    <div>By <strong>@review.ReviewerName</strong> on <span>@review.CreatedOn.Humanize()</span>  - 
+                        <button class="btn-add-review-reply btn btn-link" data-toggle="collapse" data-target="#reviewReply@(review.Id)" aria-expanded="false" aria-controls="reviewReply@(review.Id)">@Localizer["Add Reply"]</button>
+                    </div>
+                    <div class="review-replies">
+                        @foreach (var reply in review.Replies)
+                        {
+                            <div class="review-reply">
+                                <div>@reply.Comment</div>
+                                <div>By: <strong>@reply.ReplierName</strong> on <span>@reply.CreatedOn.Humanize()</span></div>
+                            </div>
+                        }
+                        <div>
+                            <div class="add-review-reply mt-3 collapse" id="reviewReply@(review.Id)">
+                                <partial name="/Areas/Reviews/Views/Reply/_ReplyForm.cshtml" model="new ReplyForm { ReviewId = review.Id }" />
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -14,7 +14,6 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
     [Area("Comments")]
     [ApiExplorerSettings(IgnoreApi = true)]
     [Route("comments")]
-    [Authorize]
     public class CommentController : Controller
     {
         private const int DefaultPageSize = 10;
@@ -73,6 +72,7 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Post([FromBody]CommentForm model)
         {
             if (ModelState.IsValid)

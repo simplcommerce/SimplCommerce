@@ -20,17 +20,20 @@
                     <p class="comment-guide">Your comment should not have personal information. 10 - 300 characters: {{vm.comment.commentText.length}}</p>
                 </div>
                 <div class="form-group col-md-3">
-                    <button type="submit" ng-disabled="commentForm.$invalid || vm.comment.commentText.length < 10" class="btn btn-default pull-right" ng-click="vm.saveComment()">Add Comment</button>
+                    <button type="submit" ng-disabled="commentForm.$invalid || vm.comment.commentText.length < 10" class="btn btn-secondary pull-right" ng-click="vm.saveComment()">Add Comment</button>
                 </div>
             </div>
         </form>
     }
     else
     {
-        <p>Please <a href="~/login?ReturnUrl=@Context.Request.Path">login</a> or <a href="~/register?ReturnUrl=@Context.Request.Path">register</a> to submit your questions</p>
+        <p>Please <a href="~/login?ReturnUrl=@Context.Request.Path#comments">login</a> or <a href="~/register?ReturnUrl=@Context.Request.Path#comments">register</a> to submit your questions</p>
     }
     <div class="row">
-        <div class="col-md-6">{{vm.commentCount}} Comments</div>
+        <div class="col-md-6">
+            {{vm.commentCount}} Comments
+            <a class="anchorjs-link " href="#comments" aria-label="Anchor" data-anchorjs-icon="#"></a>
+        </div>
         <div class="col-md-6">
             <div class="form-group has-search pull-right">
                 <span class="fa fa-search form-control-feedback"></span>
@@ -47,8 +50,8 @@
             </div>
             <div class="">{{item.commentText}}</div>
             <div>
-                <a data-toggle="collapse" href="#reply{{item.id}}" ng-click="vm.addReply(item)" role="button" aria-expanded="false" aria-controls="reply{{item.id}}">Reply</a>
-                <span class="r-time"> - {{item.createdOnRelative}}</span>
+                <span class="r-time">{{item.createdOnRelative}}</span>
+                - <a data-toggle="collapse" href="#reply{{item.id}}" ng-click="vm.addReply(item)" role="button" aria-expanded="false" aria-controls="reply{{item.id}}">Reply</a>
             </div>
             <div class="comment-reply">
                 <div ng-repeat="childItem in item.replies">
@@ -58,24 +61,31 @@
                     </div>
                     <div class="">{{childItem.commentText}}</div>
                     <div>
-                        <a data-toggle="collapse" href="#reply{{item.id}}" ng-click="vm.addReply(item)" role="button" aria-expanded="false" aria-controls="reply{{item.id}}">Reply</a>
-                        <span class="r-time"> - {{childItem.createdOnRelative}}</span>
+                        <span class="r-time">{{childItem.createdOnRelative}}</span>
+                        - <a data-toggle="collapse" href="#reply{{item.id}}" ng-click="vm.addReply(item)" role="button" aria-expanded="false" aria-controls="reply{{item.id}}">Reply</a>
                     </div>
                 </div>
                 <div class="collapse" id="reply{{item.id}}">
-                    <form novalidate name="replyForm">
-                        <div class="form-group">
-                            <textarea required ng-maxlength="300" rows="3" class="form-control" name="content" ng-model="item.newReply.commentText" placeholder="Your comment"></textarea>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-9">
-                                <p class="comment-guide">Your comment should not have personal information. 10 - 300 characters: {{item.newReply.commentText.length}}</p>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form novalidate name="replyForm">
+                            <div class="form-group">
+                                <textarea required ng-maxlength="300" rows="3" class="form-control" name="content" ng-model="item.newReply.commentText" placeholder="Your comment"></textarea>
                             </div>
-                            <div class="form-group reply-btn col-md-3">
-                                <button type="submit" ng-disabled="replyForm.$invalid || item.newReply.commentText.length < 10" class="btn btn-default pull-right" ng-click="vm.saveReply(item)">Add Reply</button>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <p class="comment-guide">Your comment should not have personal information. 10 - 300 characters: {{item.newReply.commentText.length}}</p>
+                                </div>
+                                <div class="form-group reply-btn col-md-3">
+                                    <button type="submit" ng-disabled="replyForm.$invalid || item.newReply.commentText.length < 10" class="btn btn-secondary pull-right" ng-click="vm.saveReply(item)">Add Reply</button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    }
+                    else
+                    {
+                        <p>Please <a href="~/login?ReturnUrl=@Context.Request.Path#comments">login</a> or <a href="~/register?ReturnUrl=@Context.Request.Path#comments">register</a> to reply</p>
+                    }
                 </div>
             </div>
         </div>
