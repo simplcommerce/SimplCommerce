@@ -54,7 +54,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-R
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'reviews', N'отзывы')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'Add Review', N'Добавить отзыв')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'Customer reviews', N'Отзывы покупателей')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'Your review will be showed within the next 24h.', N'Ваш отзыв будет опубликован в течении следующих 24 часов.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'Your review will be shown within the next 24h.', N'Ваш отзыв будет опубликован в течении следующих 24 часов.')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'Thank you {0} for your review', N'Спасибо {0} за ваш отзыв')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'Rating average', N'Средняя оценка')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('ru-RU', N'stars', N'звездочек')
