@@ -59,6 +59,11 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
+                var user = _userManager.Users.FirstOrDefault(x => x.Email == model.Email);
+                if (user.IsDeleted)
+                {
+                    return View("Lockout");
+                }                    
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
