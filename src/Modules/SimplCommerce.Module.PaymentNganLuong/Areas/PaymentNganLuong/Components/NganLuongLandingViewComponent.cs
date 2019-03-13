@@ -24,9 +24,7 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Component
             var nganLuongProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.NganLuongPaymentProviderId);
             var nganLuongSetting = JsonConvert.DeserializeObject<NganLuongConfigForm>(nganLuongProvider.AdditionalSettings);
 
-            var model = new NganLuongCheckoutForm();
-
-            return View(this.GetViewPath(), model);
+            return View(this.GetViewPath());
         }
     }
 }
