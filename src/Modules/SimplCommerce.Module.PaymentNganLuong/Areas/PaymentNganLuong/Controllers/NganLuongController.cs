@@ -133,8 +133,19 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
         {
             var orderId = long.Parse(model.OrderCode);
             var order = await _orderRepository.Query().FirstOrDefaultAsync(x => x.Id == orderId);
+            var user = await _workContext.GetCurrentUser();
+            if (order.CustomerId != user.Id)
+            {
+                return Forbid();
+            }
 
-            if(model.ErrorCode == "00")
+            if (order.OrderStatus != OrderStatus.PendingPayment)
+            {
+                return BadRequest("Invalid order state");
+            }
+
+            var paymentStatus = await GetPaymentStatus(model.Token);
+            if(paymentStatus.ErrorCode == "00")
             {
                 await UpdatePaymentStatusSuccess(order, model.Token);
                 return Redirect($"~/checkout/success?orderId={orderId}");
@@ -153,10 +164,36 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
         {
             var orderId = orderCode;
             var order = await _orderRepository.Query().FirstOrDefaultAsync(x => x.Id == orderId);
+            var user = await _workContext.GetCurrentUser();
+            if(order.CustomerId != user.Id)
+            {
+                return Forbid();
+            }
+
+            if(order.OrderStatus != OrderStatus.PendingPayment)
+            {
+                return BadRequest("Invalid order state");
+            }
 
             await UpdatePaymentStatusError(order, "Customer canceled", null);
             TempData["Error"] = "Thanh toán đã bị hủy.";
             return Redirect($"~/checkout/error?orderId={orderCode}");
+        }
+
+        private async Task<PaymentStatusResponse> GetPaymentStatus(string token)
+        {
+            var paymentStatusRequest = new PaymentStatusRequest(_setting.Value.MerchantId, _setting.Value.MerchantPassword, token);
+            var httpClient = _httpClientFactory.CreateClient();
+            var nganLuongUrl = _setting.Value.IsSandbox ? "https://sandbox.nganluong.vn:8088/nl35/service/order/check" : "https://www.nganluong.vn/service/order/check";
+            var requestMesage = new HttpRequestMessage(HttpMethod.Post, nganLuongUrl)
+            {
+                Content = paymentStatusRequest.MakePostContent()
+            };
+            var response = await httpClient.SendAsync(requestMesage);
+            response.EnsureSuccessStatusCode();
+            var contentString = await response.Content.ReadAsStringAsync();
+            var paymentStatusResponse = JsonConvert.DeserializeObject<PaymentStatusResponse>(contentString);
+            return paymentStatusResponse;
         }
 
         private async Task UpdatePaymentStatusSuccess(Order order, string token)
