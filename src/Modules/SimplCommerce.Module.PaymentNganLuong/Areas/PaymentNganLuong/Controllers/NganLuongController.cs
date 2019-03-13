@@ -121,7 +121,7 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
             }
             else
             {
-                string errorMessage = $"Error code: {paymentSubmitResponse.ErrorCode}, Error message: {ErrorMessages.GetMessage(paymentSubmitResponse.ErrorCode)}, Description: {paymentSubmitResponse.Description}";
+                string errorMessage = $"Error code: {paymentSubmitResponse.ErrorCode}, Description: {paymentSubmitResponse.Description}";
                 await UpdatePaymentStatusError(order, errorMessage, paymentSubmitResponse.Token);
                 TempData["Error"] = errorMessage;
                 return Redirect($"~/checkout/error?orderId={order.Id}");
