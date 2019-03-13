@@ -1,5 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web;
@@ -10,13 +16,6 @@ using SimplCommerce.Module.PaymentNganLuong.Models;
 using SimplCommerce.Module.PaymentNganLuong.ViewModels;
 using SimplCommerce.Module.Payments.Models;
 using SimplCommerce.Module.ShoppingCart.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controllers
 {
@@ -60,7 +59,7 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
         }
 
         [HttpPost]
-        public async Task<IActionResult> Payment(string paymentOption, string bankCode)
+        public async Task<IActionResult> SubmitPayment(string paymentOption, string bankCode)
         {
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
@@ -77,44 +76,126 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
                 return Redirect("~/checkout/payment");
             }
 
+            var order = orderCreateResult.Value;
+
             var rootUrl = Request.GetFullHostingUrlRoot();
-            var request = new PaymentSubmitRequest
+            var paymentSubmitRequest = new PaymentSubmitRequest
             {
                 MerchantId = _setting.Value.MerchantId,
                 MerchantPassword = _setting.Value.MerchantPassword,
-                ReceiverEmail = "nlqthien@gmail.com",
-                OrderCode = orderCreateResult.Value.Id.ToString(),
-                TotalAmount = (int)orderCreateResult.Value.OrderTotal,
+                ReceiverEmail =  _setting.Value.ReceiverEmail,
+                OrderCode = order.Id.ToString(),
+                TotalAmount = (int)order.OrderTotal,
                 PaymentMethod = paymentOption,
                 BankCode = bankCode,
-                ReturnUrl = $"{rootUrl}/ngan-luong/success",
-                CancelUrl = $"{rootUrl}/ngan-luong/cancel",
+                ReturnUrl = $"{rootUrl}/ngan-luong/result",
+                CancelUrl = $"{rootUrl}/ngan-luong/cancel?orderCode={order.Id}",
                 BuyerFullname = currentUser.FullName,
                 BuyerEmail = currentUser.Email,
-                BuyerMobile = "0984141633"
+                BuyerMobile = currentUser.PhoneNumber
             };
 
             var httpClient = _httpClientFactory.CreateClient();
             var nganLuongUrl = _setting.Value.IsSandbox ? "https://sandbox.nganluong.vn:8088/nl35/checkout.api.nganluong.post.php" : "https://www.nganluong.vn/checkout.api.nganluong.post.php";
-            var requestMesage = new HttpRequestMessage(HttpMethod.Post, nganLuongUrl);
-            requestMesage.Content = request.MakePostContent();
+            var requestMesage = new HttpRequestMessage(HttpMethod.Post, nganLuongUrl)
+            {
+                Content = paymentSubmitRequest.MakePostContent()
+            };
             var response = await httpClient.SendAsync(requestMesage);
             response.EnsureSuccessStatusCode();
-            var result = response.Content.ReadAsStringAsync();
-            return Ok(result);
+            var contentString = await response.Content.ReadAsStringAsync();
+            contentString = contentString.Replace("&", "&amp;");
+            var xdoc = XDocument.Parse(contentString);
+            var paymentSubmitResponse = xdoc.Descendants("result").Select(x => new PaymentSubmitResponse
+            {
+                ErrorCode = x.Element("error_code").Value,
+                Token = x.Element("token").Value,
+                Description = x.Element("description").Value,
+                TimeLimit = x.Element("time_limit").Value,
+                CheckoutUrl = x.Element("checkout_url").Value
+            }).First();
+
+            if(paymentSubmitResponse.ErrorCode == "00")
+            {
+                return Redirect(paymentSubmitResponse.CheckoutUrl);
+            }
+            else
+            {
+                string errorMessage = $"Error code: {paymentSubmitResponse.ErrorCode}, Error message: {ErrorMessages.GetMessage(paymentSubmitResponse.ErrorCode)}, Description: {paymentSubmitResponse.Description}";
+                await UpdatePaymentStatusError(order, errorMessage, paymentSubmitResponse.Token);
+                TempData["Error"] = errorMessage;
+                return Redirect($"~/checkout/error?orderId={order.Id}");
+            }
         }
 
-        [Route("ngan-luong/success")]
-        public IActionResult Success(PaymentSuccessReturn model)
+        [Route("ngan-luong/result")]
+        public async Task<IActionResult>SubmitPaymentResult(PaymentSubmitReturn model)
         {
-            return Redirect($"~/checkout/success?orderId={model.OrderCode}");
+            var orderId = long.Parse(model.OrderCode);
+            var order = await _orderRepository.Query().FirstOrDefaultAsync(x => x.Id == orderId);
+
+            if(model.ErrorCode == "00")
+            {
+                await UpdatePaymentStatusSuccess(order, model.Token);
+                return Redirect($"~/checkout/success?orderId={orderId}");
+            }
+            else
+            {
+                var errorMessage = ErrorMessages.GetMessage(model.ErrorCode);
+                await UpdatePaymentStatusError(order, errorMessage, model.Token);
+                TempData["Error"] = errorMessage;
+                return Redirect($"~/checkout/error?orderId={orderId}");
+            }
         }
 
         [Route("ngan-luong/cancel")]
-        public IActionResult Cancel()
+        public async Task<IActionResult> Cancel(long orderCode)
         {
-            var orderId = 0;
-            return Redirect($"~/checkout/error?orderId={orderId}");
+            var orderId = orderCode;
+            var order = await _orderRepository.Query().FirstOrDefaultAsync(x => x.Id == orderId);
+
+            await UpdatePaymentStatusError(order, "Customer canceled", null);
+            TempData["Error"] = "Thanh toán đã bị hủy.";
+            return Redirect($"~/checkout/error?orderId={orderCode}");
+        }
+
+        private async Task UpdatePaymentStatusSuccess(Order order, string token)
+        {
+            var payment = new Payment()
+            {
+                OrderId = order.Id,
+                PaymentFee = order.PaymentFeeAmount,
+                Amount = order.OrderTotal,
+                PaymentMethod = "NganLuong",
+                CreatedOn = DateTimeOffset.UtcNow,
+            };
+
+            order.OrderStatus = OrderStatus.PaymentReceived;
+            payment.Status = PaymentStatus.Succeeded;
+            payment.GatewayTransactionId = token;
+
+            _paymentRepository.Add(payment);
+            await _paymentRepository.SaveChangesAsync();
+        }
+
+        private async Task UpdatePaymentStatusError(Order order, string errorMessage, string token)
+        {
+            var payment = new Payment()
+            {
+                OrderId = order.Id,
+                PaymentFee = order.PaymentFeeAmount,
+                Amount = order.OrderTotal,
+                PaymentMethod = "NganLuong",
+                CreatedOn = DateTimeOffset.UtcNow,
+            };
+
+            order.OrderStatus = OrderStatus.PaymentFailed;
+            payment.Status = PaymentStatus.Failed;
+            payment.GatewayTransactionId = token;
+            payment.FailureMessage = errorMessage;
+
+            _paymentRepository.Add(payment);
+            await _paymentRepository.SaveChangesAsync();
         }
 
         private NganLuongConfigForm GetSetting()

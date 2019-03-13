@@ -6,6 +6,8 @@
 
         public string MerchantPassword { get; set; }
 
+        public string ReceiverEmail { get; set; }
+
         public bool IsSandbox { get; set; }
     }
 }

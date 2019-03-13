@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SimplCommerce.Module.PaymentNganLuong.ViewModels
 {
-    public class PaymentSuccessReturn
+    public class PaymentSubmitReturn
     {
         [FromQuery(Name = "error_code")]
         public string ErrorCode { get; set; }
