@@ -135,6 +135,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MySql", "MySql", "{1A8B6FA0
 		src\Database\MySql\StaticData-GB.sql = src\Database\MySql\StaticData-GB.sql
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.PaymentNganLuong", "src\Modules\SimplCommerce.Module.PaymentNganLuong\SimplCommerce.Module.PaymentNganLuong.csproj", "{14586564-62CC-4117-AC1B-858ED53C2D6C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -709,6 +711,18 @@ Global
 		{18D536F1-AE38-47FA-95ED-1656882907FC}.Release|x64.Build.0 = Release|Any CPU
 		{18D536F1-AE38-47FA-95ED-1656882907FC}.Release|x86.ActiveCfg = Release|Any CPU
 		{18D536F1-AE38-47FA-95ED-1656882907FC}.Release|x86.Build.0 = Release|Any CPU
+		{14586564-62CC-4117-AC1B-858ED53C2D6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14586564-62CC-4117-AC1B-858ED53C2D6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14586564-62CC-4117-AC1B-858ED53C2D6C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{14586564-62CC-4117-AC1B-858ED53C2D6C}.Debug|x64.Build.0 = Debug|Any CPU
+		{14586564-62CC-4117-AC1B-858ED53C2D6C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{14586564-62CC-4117-AC1B-858ED53C2D6C}.Debug|x86.Build.0 = Debug|Any CPU
+		{14586564-62CC-4117-AC1B-858ED53C2D6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14586564-62CC-4117-AC1B-858ED53C2D6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14586564-62CC-4117-AC1B-858ED53C2D6C}.Release|x64.ActiveCfg = Release|Any CPU
+		{14586564-62CC-4117-AC1B-858ED53C2D6C}.Release|x64.Build.0 = Release|Any CPU
+		{14586564-62CC-4117-AC1B-858ED53C2D6C}.Release|x86.ActiveCfg = Release|Any CPU
+		{14586564-62CC-4117-AC1B-858ED53C2D6C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -764,6 +778,7 @@ Global
 		{6A59FF75-297F-4119-8E15-6B82C12188D9} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{18D536F1-AE38-47FA-95ED-1656882907FC} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{1A8B6FA0-8341-4D27-9B71-57F70AB37571} = {0A27C140-4CCB-40DD-BE48-F5DE16D1177B}
+		{14586564-62CC-4117-AC1B-858ED53C2D6C} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B9D0D8F0-1AB9-44DD-839F-ED8CEE7DDB10}
