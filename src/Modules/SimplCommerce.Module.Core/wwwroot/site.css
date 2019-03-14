@@ -472,13 +472,6 @@ li.nav-item-group, li.nav-item-group a {
     text-align: center;
 }
 
-.modal-lg {
-    min-width: 850px;
-    max-width: 1200px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
 .modal-padding {
     padding: 10px 10px 10px 10px;
 }
