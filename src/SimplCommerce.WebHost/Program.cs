@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using SimplCommerce.Module.Core.Extensions;
@@ -23,14 +24,17 @@ namespace SimplCommerce.WebHost
         }
 
         // Changed to BuildWebHost2 to make EF don't pickup during design time
-        private static IWebHost BuildWebHost2(string[] args) =>
-            Microsoft.AspNetCore.WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
+        private static IHost BuildWebHost2(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                })
                 .ConfigureAppConfiguration(SetupConfiguration)
                 .ConfigureLogging(SetupLogging)
                 .Build();
 
-        private static void SetupConfiguration(WebHostBuilderContext hostingContext, IConfigurationBuilder configBuilder)
+        private static void SetupConfiguration(HostBuilderContext hostingContext, IConfigurationBuilder configBuilder)
         {
             var env = hostingContext.HostingEnvironment;
             var configuration = configBuilder.Build();
@@ -41,7 +45,7 @@ namespace SimplCommerce.WebHost
                        .ReadFrom.Configuration(configuration)
                        .CreateLogger();
         }
-        private static void SetupLogging(WebHostBuilderContext hostingContext, ILoggingBuilder loggingBuilder)
+        private static void SetupLogging(HostBuilderContext hostingContext, ILoggingBuilder loggingBuilder)
         {
             loggingBuilder.AddSerilog();
         }

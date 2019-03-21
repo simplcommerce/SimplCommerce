@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.Pricing
             services.AddTransient<ICouponService, CouponService>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
         }

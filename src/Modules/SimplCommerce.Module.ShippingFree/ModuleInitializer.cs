@@ -14,7 +14,7 @@ namespace SimplCommerce.Module.ShippingFree
             services.AddTransient<IShippingPriceServiceProvider, FreeShippingServiceProvider>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
         }

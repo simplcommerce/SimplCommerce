@@ -25,7 +25,7 @@ namespace SimplCommerce.Module.Core
             serviceCollection.AddScoped<ISettingService, SettingService>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
         }
     }

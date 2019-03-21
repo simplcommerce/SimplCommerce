@@ -22,7 +22,7 @@ namespace SimplCommerce.Module.Catalog
             services.AddTransient<IProductService, ProductService>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
         }

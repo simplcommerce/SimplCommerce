@@ -31,6 +31,7 @@ using SimplCommerce.Module.Core.Models;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.EntityFrameworkCore.Extensions;
 using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -88,13 +89,14 @@ namespace SimplCommerce.WebHost.Extensions
                     o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider());
                     o.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 })
-                .AddRazorOptions(o =>
-                {
-                    foreach (var module in modules.Where(x => !x.IsBundledWithHost))
-                    {
-                        o.AdditionalCompilationReferences.Add(MetadataReference.CreateFromFile(module.Assembly.Location));
-                    }
-                })
+                //.AddRazorOptions(o =>
+                //{
+                //    foreach (var module in modules.Where(x => !x.IsBundledWithHost))
+                //    {
+                //        o.AdditionalCompilationReferences.Add(MetadataReference.CreateFromFile(module.Assembly.Location));
+                //    }
+                //})
+                .AddRazorRuntimeCompilation()
                 .AddViewLocalization()
                 .AddModelBindingMessagesLocalizer(services)
                 .AddDataAnnotationsLocalization(o => {

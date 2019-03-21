@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimplCommerce.Module.Orders.Events;
 using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Module.Orders.Services;
+using Microsoft.AspNetCore.Hosting;
 
 namespace SimplCommerce.Module.Orders
 {
@@ -18,7 +19,7 @@ namespace SimplCommerce.Module.Orders
             services.AddTransient<INotificationHandler<OrderCreated>, OrderCreatedCreateOrderHistoryHandler>();
         }
 
-        public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
         }
     }

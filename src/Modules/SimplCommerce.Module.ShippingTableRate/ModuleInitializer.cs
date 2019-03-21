@@ -14,7 +14,7 @@ namespace SimplCommerce.Module.ShippingTableRate
             services.AddTransient<IShippingPriceServiceProvider, TableRateShippingServiceProvider>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
         }

@@ -17,7 +17,7 @@ namespace SimplCommerce.Module.ProductRecentlyViewed
             services.AddTransient<INotificationHandler<EntityViewed>, EntityViewedHandler>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
         }

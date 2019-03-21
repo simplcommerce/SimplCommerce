@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.Vendors
             serviceCollection.AddTransient<IVendorService, VendorService>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             
         }

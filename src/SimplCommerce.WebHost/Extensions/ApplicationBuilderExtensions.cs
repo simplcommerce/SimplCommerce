@@ -13,6 +13,7 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Localization;
 using SimplCommerce.Module.Localization;
+using Microsoft.Extensions.Hosting;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -64,7 +65,7 @@ namespace SimplCommerce.WebHost.Extensions
             return app;
         }
 
-        public static IApplicationBuilder UseCustomizedStaticFiles(this IApplicationBuilder app, IHostingEnvironment env)
+        public static IApplicationBuilder UseCustomizedStaticFiles(this IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

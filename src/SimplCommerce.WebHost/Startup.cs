@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,15 +18,16 @@ using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Localization.Extensions;
 using SimplCommerce.Module.Localization.TagHelpers;
 using SimplCommerce.WebHost.Extensions;
+using Microsoft.Extensions.Hosting;
 
 namespace SimplCommerce.WebHost
 {
     public class Startup
     {
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly IConfiguration _configuration;
 
-        public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment)
+        public Startup(IConfiguration configuration, IWebHostEnvironment hostingEnvironment)
         {
             _configuration = configuration;
             _hostingEnvironment = hostingEnvironment;
@@ -64,7 +64,7 @@ namespace SimplCommerce.WebHost
             services.AddScoped<ITagHelperComponent, LanguageDirectionTagHelperComponent>();
             services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
             services.AddAntiforgery(options => options.HeaderName = "X-XSRF-Token");
-            services.AddSingleton<AutoValidateAntiforgeryTokenAuthorizationFilter, CookieOnlyAutoValidateAntiforgeryTokenAuthorizationFilter>();
+            //services.AddSingleton<AutoValidateAntiforgeryTokenAuthorizationFilter, CookieOnlyAutoValidateAntiforgeryTokenAuthorizationFilter>();
             services.AddCloudscribePagination();
 
             var sp = services.BuildServiceProvider();
@@ -83,7 +83,7 @@ namespace SimplCommerce.WebHost
             });
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -106,11 +106,11 @@ namespace SimplCommerce.WebHost
 
             app.UseHttpsRedirection();
             app.UseCustomizedStaticFiles(env);
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SimplCommerce API V1");
-            });
+            //app.UseSwagger();
+            //app.UseSwaggerUI(c =>
+            //{
+            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "SimplCommerce API V1");
+            //});
 
             app.UseCookiePolicy();
             app.UseCustomizedIdentity();

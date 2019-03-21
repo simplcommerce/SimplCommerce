@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.Inventory
             serviceCollection.AddTransient<IStockService, StockService>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
         }
     }

@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.Comments
             services.AddTransient<ICommentRepository, CommentRepository>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
         }
