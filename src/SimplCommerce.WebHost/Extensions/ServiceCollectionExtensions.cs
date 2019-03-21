@@ -87,7 +87,7 @@ namespace SimplCommerce.WebHost.Extensions
                 {
                     o.EnableEndpointRouting = false;
                     o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider());
-                    o.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                  //  o.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 })
                 //.AddRazorOptions(o =>
                 //{
@@ -97,6 +97,7 @@ namespace SimplCommerce.WebHost.Extensions
                 //    }
                 //})
                 .AddRazorRuntimeCompilation()
+                .AddNewtonsoftJson()
                 .AddViewLocalization()
                 .AddModelBindingMessagesLocalizer(services)
                 .AddDataAnnotationsLocalization(o => {
