@@ -161,4 +161,5 @@ $RECYCLE.BIN/
 src/Modules/**/launchSettings.json
 PublishProfiles/
 logs/
+\.idea/\.idea\.SimplCommerce/\.idea/
 src/Modules/**/wwwroot/admin/*.min.js

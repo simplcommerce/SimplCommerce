@@ -1,4 +1,5 @@
 ﻿using Hangfire;
+using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,7 +19,7 @@ namespace SimplCommerce.Module.HangfireJobs
 
             services.AddHangfireService(config =>
             {
-                config.UseSqlServerStorage(configuration.GetConnectionString("DefaultConnection"));
+                config.UsePostgreSqlStorage(configuration.GetConnectionString("DefaultConnection"));
             });
 
             //overwrite HangfireBaseOptions
