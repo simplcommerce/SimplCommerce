@@ -1,0 +1,39 @@
+﻿@model SimplCommerce.Module.PaymentBtcPayServer.Areas.PaymentBtcPayServer.ViewModels.BTCPayCheckoutForm
+
+<label>BtcPay</label>
+
+<div class="form-group">
+    <div class="col-md-12">
+        <button type="button" class="btn btn-order" id="btcpay-submit-button">Pay with BTCPay</button>
+    </div>
+</div>
+
+<script src="@(new Uri(Model.Server, "modal/btcpay.js"))"></script>
+<script>
+    var button = document.querySelector('#btcpay-submit-button');
+
+    button.addEventListener('click',
+        function() {
+            instance.requestPaymentMethod(function(requestPaymentMethodErr, payload) {
+                $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("Charge", "BtcPayServer", new {Area = "PaymentBtcPayServer"})',
+                        data: { nonce: payload.nonce }
+                    })
+                    .done(function(data) {
+                        window.btcpay.showInvoice(data.transactionId);
+                        window.btcpay.onModalWillEnterMethod = function() {
+
+                            window.location = "/checkout/success?orderId=" + data.orderId;
+                        }
+
+                    })
+                    .fail(function(errors) {
+                        alert(errors.responseText);
+                        console.log(errors.responseText);
+                    })
+                    .always(function() {});
+            });
+        });
+
+</script>

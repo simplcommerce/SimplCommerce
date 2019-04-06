@@ -1,0 +1,6 @@
+{
+  "id": "SimplCommerce.Module.PaymentBtcPayServer",
+  "name": "BTCPayServer Payment",
+  "isBundledWithHost": true,
+  "version": "1.0.0"
+}

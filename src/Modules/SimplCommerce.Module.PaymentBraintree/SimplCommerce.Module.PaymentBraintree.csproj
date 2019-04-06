@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <ItemGroup>
+<ItemGroup>
     <PackageReference Include="Braintree" Version="4.9.0" />
-  </ItemGroup>
-  <ItemGroup>
+</ItemGroup>
+<ItemGroup>
     <ProjectReference Include="..\..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.Payments\SimplCommerce.Module.Payments.csproj" />
-  </ItemGroup>
+</ItemGroup>
 </Project>
