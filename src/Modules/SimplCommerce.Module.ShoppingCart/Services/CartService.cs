@@ -90,7 +90,7 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             }
             else
             {
-                cartItem.Quantity = quantity;
+                cartItem.Quantity = cartItem.Quantity + quantity;
             }
 
             await  _cartRepository.SaveChangesAsync();

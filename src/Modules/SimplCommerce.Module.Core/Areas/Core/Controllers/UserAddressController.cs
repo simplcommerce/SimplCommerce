@@ -48,7 +48,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
                     ContactName = x.Address.ContactName,
                     Phone = x.Address.Phone,
                     AddressLine1 = x.Address.AddressLine1,
-                    AddressLine2 = x.Address.AddressLine1,
+                    AddressLine2 = x.Address.AddressLine2,
                     DistrictName = x.Address.District.Name,
                     StateOrProvinceName = x.Address.StateOrProvince.Name,
                     CountryName = x.Address.Country.Name,

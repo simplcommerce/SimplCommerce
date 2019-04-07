@@ -11,29 +11,16 @@
 {
     <form class="form-add-review-reply" asp-area="Reviews" asp-controller="Reply" asp-action="AddReply" method="post" role="form">
         <input asp-for="ReviewId" type="hidden" />
-        <div asp-validation-summary="All" class="text-danger"></div>
-        <div class="form-group row">
-            <label asp-for="Comment" class="col-md-4 col-form-label">@Localizer["Reply comment"]</label>
-            <div class="col-md-8">
-                <textarea asp-for="Comment" class="form-control"></textarea>
-                <span asp-validation-for="Comment" class="text-danger"></span>
-            </div>
+        <div class="form-group">
+            <textarea asp-for="Comment" rows="3" placeholder="@Localizer["Your reply"]" maxlength="300" class="form-control"></textarea>
+            <span asp-validation-for="Comment" class="text-danger"></span>
         </div>
-        <div class="form-group row">
-            <label asp-for="ReplierName" class="col-md-4 col-form-label">@Localizer["Posted by"]</label>
-            <div class="col-md-8">
-                <input asp-for="ReplierName" class="form-control" />
-                <span asp-validation-for="ReplierName" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="offset-md-4 col-md-8">
-                <button class="btn btn-secondary btn-submit-review-reply" type="submit">@Localizer["Submit reply"]</button>
-            </div>
+        <div class="form-group text-right">
+             <button class="btn btn-secondary btn-submit-review-reply" type="submit">@Localizer["Submit reply"]</button>
         </div>
     </form>
 }
 else
 {
-    <a class="nav-link" asp-area="Core" asp-controller="Account" asp-action="Login" asp-route-returnurl="@($"{Context.Request.Path}{Context.Request.QueryString}")">@Localizer["Log in"]</a>
+    <p>Please <a href="~/login?ReturnUrl=@Context.Request.Path">login</a> or <a href="~/register?ReturnUrl=@Context.Request.Path">register</a> to submit your reply.</p>
 }

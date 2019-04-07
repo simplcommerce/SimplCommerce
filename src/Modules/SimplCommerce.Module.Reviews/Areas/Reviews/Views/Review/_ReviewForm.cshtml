@@ -5,28 +5,28 @@
     <input asp-for="EntityTypeId" type="hidden" />
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group row">
-        <label asp-for="Rating" class="col-md-4 col-form-label">@Localizer["Rate this product"]</label>
-        <div class="col-md-8">
+        <label asp-for="Rating" class="col-md-3 col-form-label">@Localizer["Rate this product"]</label>
+        <div class="col-md-9">
             <input asp-for="Rating" type="hidden" class="rating-loading" step="1" data-size="xs" data-show-clear="false" />
             <span asp-validation-for="Rating" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row">
-        <label asp-for="Comment" class="col-md-4 col-form-label">@Localizer["Review comment"]</label>
-        <div class="col-md-8">
+        <label asp-for="Comment" class="col-md-3 col-form-label">@Localizer["Review comment"]</label>
+        <div class="col-md-9">
             <textarea asp-for="Comment" class="form-control"></textarea>
             <span asp-validation-for="Comment" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row">
-        <label asp-for="Title" class="col-md-4 col-form-label">@Localizer["Review title"]</label>
-        <div class="col-md-8">
+        <label asp-for="Title" class="col-md-3 col-form-label">@Localizer["Review title"]</label>
+        <div class="col-md-9">
             <input asp-for="Title" class="form-control" />
             <span asp-validation-for="Title" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row">
-        <div class="offset-md-4 col-md-8">
+        <div class="offset-md-3 col-md-9">
             <button id="btn-addreview" type="submit" class="btn btn-primary">@Localizer["Submit review"]</button>
         </div>
     </div>

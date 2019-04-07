@@ -111,7 +111,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-B
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Manage Related Products', N'Gerenciar produtos relacionados')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Manager of Vendor', N'Gerenciar fornecedor')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Managers', N'Gerentes')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Most search keywords', N'Palavras-chaves mais pesquisadas')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Most searched keywords', N'Palavras-chaves mais pesquisadas')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Most viewed products', N'Produtos mais vistos')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Name', N'Nome')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'No', N'Não')
@@ -219,6 +219,6 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-B
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'You have', N'Você tem')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'You save', N'Você salvou')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Your account', N'Sua conta')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Your review will be showed within the next 24h.', N'Sua avaliação será publicada dentro de 24h.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Your review will be shown within the next 24h.', N'Sua avaliação será publicada dentro de 24h.')
 
 GO
