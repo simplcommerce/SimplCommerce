@@ -1,0 +1,44 @@
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+.comments textarea{
+    max-width: 100%;
+}
+
+.commenter-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.comment-reply {
+    background-color: #f8f8f8;
+    margin-left: 35px;
+    padding: 0 5px;
+}
+
+.r-time {
+    color: #999;
+}
+
+.reply-btn {
+    margin-bottom: 5px;
+}
+
+.comment-guide {
+    font-weight: lighter;
+    color: #242424;
+    font-size: small;
+}

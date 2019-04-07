@@ -2143,6 +2143,15 @@ namespace SimplCommerce.WebHost.Migrations
                             IsEnabled = true,
                             LandingViewComponentName = "StripeLanding",
                             Name = "Stripe"
+                        },
+                        new
+                        {
+                            Id = "MomoPayment",
+                            AdditionalSettings = "{\"IsSandbox\":true,\"PartnerCode\":\"MOMOIQA420180417\",\"AccessKey\":\"SvDmj2cOTYZmQQ3H\",\"SecretKey\":\"PPuDXq1KowPT1ftR8DvlQTHhC03aul17\",\"PaymentFee\":0.0}",
+                            ConfigureUrl = "payments-momo-config",
+                            IsEnabled = true,
+                            LandingViewComponentName = "MomoLanding",
+                            Name = "Momo Payment"
                         });
                 });
 

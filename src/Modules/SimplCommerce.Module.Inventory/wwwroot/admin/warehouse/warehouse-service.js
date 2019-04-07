@@ -14,7 +14,10 @@
             getDistricts: getDistricts,
             editWarehouse: editWarehouse,
             createWarehouse: createWarehouse,
-            deleteWarehouse: deleteWarehouse
+            deleteWarehouse: deleteWarehouse,
+            getProducts: getProducts,
+            addAllProducts: addAllProducts,
+            addSelectedProducts: addSelectedProducts
         };
         return service;
 
@@ -48,6 +51,18 @@
 
         function deleteWarehouse(warehouse) {
             return $http.delete('api/warehouses/' + warehouse.id);
+        }
+
+        function getProducts(warehouseId, params) {
+            return $http.post('api/warehouses/' + warehouseId + '/products', params);
+        }
+
+        function addAllProducts(warehouseId) {
+            return $http.post('api/warehouses/ ' + warehouseId + '/add-all-products');
+        }
+
+        function addSelectedProducts(warehouseId, productIds) {
+            return $http.post('api/warehouses/' + warehouseId + '/add-products', productIds);
         }
     }
 })();

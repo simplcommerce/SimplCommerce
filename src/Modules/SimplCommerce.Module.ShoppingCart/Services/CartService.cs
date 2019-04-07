@@ -133,6 +133,9 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                     ProductId = x.ProductId,
                     ProductName = x.Product.Name,
                     ProductPrice = x.Product.Price,
+                    ProductStockQuantity = x.Product.StockQuantity,
+                    ProductStockTrackingIsEnabled = x.Product.StockTrackingIsEnabled,
+                    IsProductAvailabeToOrder = x.Product.IsAllowToOrder && x.Product.IsPublished && !x.Product.IsDeleted,
                     ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
                     Quantity = x.Quantity,
                     VariationOptions = CartItemVm.GetVariationOption(x.Product)

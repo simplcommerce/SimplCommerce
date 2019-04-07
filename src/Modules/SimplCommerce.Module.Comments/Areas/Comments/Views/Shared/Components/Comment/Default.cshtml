@@ -1,69 +1,84 @@
-﻿@using SimplCommerce.Module.Comments.Areas.Comments.ViewModels
+﻿@model SimplCommerce.Module.Comments.Areas.Comments.ViewModels.CommentVm
 
-@model SimplCommerce.Module.Comments.Areas.Comments.ViewModels.CommentVm
+<link simpl-append-version="true" rel="stylesheet" href="~/modules/comments/comment.css" />
+<script simpl-append-version="true" src="~/lib/pagination/dirPagination.js"></script>
+<script simpl-append-version="true" src="~/modules/comments/comment.js"></script>
+<script simpl-append-version="true" src="~/modules/comments/comment-service.js"></script>
+<script>
+    simplCommentEntity = { entityId: @Model.EntityId, entityTypeId: '@Model.EntityTypeId' };
+</script>
 
-<div class="container">
-    <div class="row">
-        @if (Model.CommentsCount > 0)
-        {
-            <div class="col-md-5">
-                <div class="row">
-                    <div class="col-md-5">
-                        <p>(@Model.CommentsCount @Localizer["comments"])</p>
-                    </div>
-                    <div class="col-md-7">
-                    </div>
+<div class="comments" ng-app="simpl.comment" ng-controller="CommentCtrl as vm" ng-cloak">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <form name="commentForm" novalidate>
+            <div class="form-group">
+                <textarea rows="3" required ng-maxlength="300" class="form-control" name="content" ng-model="vm.comment.commentText" placeholder="Your comment"></textarea>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <p class="comment-guide">Your comment should not have personal information. 10 - 300 characters: {{vm.comment.commentText.length}}</p>
+                </div>
+                <div class="form-group col-md-3">
+                    <button type="submit" ng-disabled="commentForm.$invalid || vm.comment.commentText.length < 10" class="btn btn-default pull-right" ng-click="vm.saveComment()">Add Comment</button>
                 </div>
             </div>
-        }
-        <div class="col-md-7">
-            <div id="addcomment">
-                <partial name="/Areas/Comments/Views/Comment/_CommentForm.cshtml" model="new CommentForm { EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId }" />
-            </div>
+        </form>
+    }
+    else
+    {
+        <p>Please <a href="~/login?ReturnUrl=@Context.Request.Path">login</a> or <a href="~/register?ReturnUrl=@Context.Request.Path">register</a> to submit your questions</p>
+    }
+    <div class="row">
+        <div class="col-md-6">{{vm.commentCount}} Comments</div>
+        <div class="col-md-6">
+            <div class="form-group has-search pull-right">
+                <span class="fa fa-search form-control-feedback"></span>
+                <input class="form-control" ng-model="vm.search" placeholder="find by commenter" />
+            </div>         
         </div>
     </div>
     <hr />
-    <div id="comments" class="comment-item-list">
-        @if (Model.CommentsCount > 0)
-        {
-            foreach (var comment in Model.Items.Data)
-            {
-                <div>
-                    <div>
-                        <p>@comment.CommentText</p>
-                        <p>By: <strong>@comment.CommenterName</strong> on <span>@comment.CreatedOn</span></p>
+    <div id="comments-list" class="comment-item-list">
+        <div dir-paginate="item in vm.comments | itemsPerPage: 10" total-items="vm.commentCount" current-page="vm.pagination.current">
+            <div class="commenter-name">
+                <span class="badge badge-info" ng-if="item.status != 'Approved'">{{item.status}}</span>
+                {{item.commenterName}}
+            </div>
+            <div class="">{{item.commentText}}</div>
+            <div>
+                <a data-toggle="collapse" href="#reply{{item.id}}" ng-click="vm.addReply(item)" role="button" aria-expanded="false" aria-controls="reply{{item.id}}">Reply</a>
+                <span class="r-time"> - {{item.createdOnRelative}}</span>
+            </div>
+            <div class="comment-reply">
+                <div ng-repeat="childItem in item.replies">
+                    <div class="commenter-name">
+                        <span class="badge badge-info" ng-if="childItem.status != 'Approved'">{{childItem.status}}</span>
+                        {{childItem.commenterName}}
                     </div>
-
-                    @if (comment.Replies.Count > 0)
-                    {
-                        <button class="btn-review-replies btn-view-review-replies btn btn-link">@Localizer["View Replies"]<i class="arrow-down"></i></button>
-                        <button class="btn-review-replies btn-hide-review-replies btn btn-link d-none">@Localizer["Hide Replies"]<i class="arrow-up"></i></button>
-                        <ul class="review-replies d-none">
-                            @foreach (var reply in comment.Replies)
-                            {
-                                <li class="review-reply">
-                                    <p>@reply.CommentText</p>
-                                    <p>By: <strong>@reply.CommenterName</strong> on <span>@reply.CreatedOn</span></p>
-                                </li>
-                            }
-                        </ul>
-                    }
+                    <div class="">{{childItem.commentText}}</div>
                     <div>
-                        <button class="btn-add-review-reply btn btn-link">@Localizer["Add Reply"]</button>
-                        <div class="add-review-reply d-none">
-                            <partial name="/Areas/Comments/Views/Comment/_ReplyForm.cshtml" model="new CommentForm { ParentId = comment.Id, EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId }" />
-                        </div>
+                        <a data-toggle="collapse" href="#reply{{item.id}}" ng-click="vm.addReply(item)" role="button" aria-expanded="false" aria-controls="reply{{item.id}}">Reply</a>
+                        <span class="r-time"> - {{childItem.createdOnRelative}}</span>
                     </div>
                 </div>
-            }
-
-            <a asp-area="Comments"
-               asp-controller="Comment"
-               asp-action="List"
-               asp-route-entityId="@Model.EntityId"
-               asp-route-entityTypeId="@Model.EntityTypeId"
-               asp-route-pageNumber="1"
-               asp-route-pageSize="25">View all @Model.CommentsCount comments</a>
-        }
+                <div class="collapse" id="reply{{item.id}}">
+                    <form novalidate name="replyForm">
+                        <div class="form-group">
+                            <textarea required ng-maxlength="300" rows="3" class="form-control" name="content" ng-model="item.newReply.commentText" placeholder="Your comment"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <p class="comment-guide">Your comment should not have personal information. 10 - 300 characters: {{item.newReply.commentText.length}}</p>
+                            </div>
+                            <div class="form-group reply-btn col-md-3">
+                                <button type="submit" ng-disabled="replyForm.$invalid || item.newReply.commentText.length < 10" class="btn btn-default pull-right" ng-click="vm.saveReply(item)">Add Reply</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <dir-pagination-controls on-page-change="vm.pageChanged(newPageNumber)" template-url="@Url.Content("~/lib/pagination/dirPagination.tpl.html")"></dir-pagination-controls>
     </div>
 </div>

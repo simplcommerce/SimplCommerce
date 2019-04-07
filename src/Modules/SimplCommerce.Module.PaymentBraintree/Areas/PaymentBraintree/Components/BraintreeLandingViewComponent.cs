@@ -49,7 +49,7 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Component
             var model = new BraintreeCheckoutForm
             {
                 ClientToken = await _braintreeConfiguration.GetClientToken(),
-                Amount = (int)zeroDecimalAmount,
+                Amount = zeroDecimalAmount,
                 ISOCurrencyCode = regionInfo.ISOCurrencySymbol
             };
 

@@ -206,6 +206,11 @@ namespace SimplCommerce.Module.Orders.Services
 
             foreach (var cartItem in cart.Items)
             {
+                if (!cartItem.Product.IsAllowToOrder || !cartItem.Product.IsPublished || cartItem.Product.IsDeleted)
+                {
+                    return Result.Fail<Order>($"The product {cartItem.Product.Name} is not available any more");
+                }
+
                 if (cartItem.Product.StockTrackingIsEnabled && cartItem.Product.StockQuantity < cartItem.Quantity)
                 {
                     return Result.Fail<Order>($"There are only {cartItem.Product.StockQuantity} items available for {cartItem.Product.Name}");

@@ -1,6 +1,8 @@
-# A simple, cross platform, modularized ecommerce system built on .NET Core
+# A simple, cross platform, modularized ecommerce system built on .NET Core [![Join the chat at https://gitter.im/simplcommerce/SimplCommerce](https://badges.gitter.im/simplcommerce/SimplCommerce.svg)](https://gitter.im/simplcommerce/SimplCommerce?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[![Join the chat at https://gitter.im/simplcommerce/SimplCommerce](https://badges.gitter.im/simplcommerce/SimplCommerce.svg)](https://gitter.im/simplcommerce/SimplCommerce?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+## High level architecture
+
+![SimpleCommerce - Modular architecture](modular-architecture.png)
 
 ## Build Status
 | Build server    | Platform       | Status      |
@@ -24,7 +26,7 @@ Continuous deployment: https://ci.simplcommerce.com
 #### Prerequisites
 
 - SQL Server
-- [Visual Studio 2017 version >= 15.8 with .NET Core SDK 2.1.402](https://www.microsoft.com/net/download/all)
+- [Visual Studio 2017 version >= 15.8 with .NET Core SDK 2.2.101](https://www.microsoft.com/net/download/all)
 
 #### Steps to run
 
