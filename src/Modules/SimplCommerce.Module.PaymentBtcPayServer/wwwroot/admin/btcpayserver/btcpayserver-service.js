@@ -8,7 +8,8 @@
     function paymentBtcPayServerService($http) {
         var service = {
             getSettings: getSettings,
-            updateSetting: updateSetting
+            updateSetting: updateSetting,
+            unpair: unpair
         };
         return service;
 
@@ -18,6 +19,9 @@
 
         function updateSetting(settings) {
             return $http.put('api/btcpayserver/config', settings);
+        }
+        function unpair() {
+            return $http.get('api/btcpayserver/unpair');
         }
         
         

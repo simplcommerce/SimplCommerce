@@ -35,6 +35,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{0A
 		src\Database\StaticData-VN.sql = src\Database\StaticData-VN.sql
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D9FD9ABA-AE5E-4427-AA6B-6285BE2E212D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MySql", "MySql", "{1A8B6FA0-8341-4D27-9B71-57F70AB37571}"
+	ProjectSection(SolutionItems) = preProject
+		src\Database\MySql\StaticData-GB.sql = src\Database\MySql\StaticData-GB.sql
+	EndProjectSection
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.WebHost", "src\SimplCommerce.WebHost\SimplCommerce.WebHost.csproj", "{13367B7A-E91C-47EE-BA5E-C50664D65767}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Infrastructure", "src\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj", "{9C156841-9389-4840-82CB-D5A4ED9A6A00}"
@@ -58,8 +65,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.ActivityLog", "src\Modules\SimplCommerce.Module.ActivityLog\SimplCommerce.Module.ActivityLog.csproj", "{1A22C68D-BE49-4E94-A0AD-6FD31F54B805}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Vendors", "src\Modules\SimplCommerce.Module.Vendors\SimplCommerce.Module.Vendors.csproj", "{74FBF118-A11C-4E73-909B-7C1A1ED99149}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D9FD9ABA-AE5E-4427-AA6B-6285BE2E212D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Infrastructure.Tests", "test\SimplCommerce.Infrastructure.Tests\SimplCommerce.Infrastructure.Tests.csproj", "{338A04B7-CB1A-4C98-84A7-02F48A41D860}"
 EndProject
@@ -130,11 +135,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.SignalR", "src\Modules\SimplCommerce.Module.SignalR\SimplCommerce.Module.SignalR.csproj", "{6A59FF75-297F-4119-8E15-6B82C12188D9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.PaymentMomo", "src\Modules\SimplCommerce.Module.PaymentMomo\SimplCommerce.Module.PaymentMomo.csproj", "{18D536F1-AE38-47FA-95ED-1656882907FC}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MySql", "MySql", "{1A8B6FA0-8341-4D27-9B71-57F70AB37571}"
-	ProjectSection(SolutionItems) = preProject
-		src\Database\MySql\StaticData-GB.sql = src\Database\MySql\StaticData-GB.sql
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.PaymentNganLuong", "src\Modules\SimplCommerce.Module.PaymentNganLuong\SimplCommerce.Module.PaymentNganLuong.csproj", "{14586564-62CC-4117-AC1B-858ED53C2D6C}"
 EndProject
@@ -758,6 +758,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{7EFA2FA7-32DD-4047-B021-50E77A83D714} = {C9BFDDC4-5671-47A3-B57D-197C2A51FA8A}
 		{0A27C140-4CCB-40DD-BE48-F5DE16D1177B} = {C9BFDDC4-5671-47A3-B57D-197C2A51FA8A}
+		{1A8B6FA0-8341-4D27-9B71-57F70AB37571} = {0A27C140-4CCB-40DD-BE48-F5DE16D1177B}
 		{13367B7A-E91C-47EE-BA5E-C50664D65767} = {C9BFDDC4-5671-47A3-B57D-197C2A51FA8A}
 		{9C156841-9389-4840-82CB-D5A4ED9A6A00} = {C9BFDDC4-5671-47A3-B57D-197C2A51FA8A}
 		{91A9DD1C-08F3-4F85-8728-BB30F55FDACB} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
@@ -805,7 +806,6 @@ Global
 		{19AF369C-71BB-44B3-9D02-8EF3A3E912E5} = {D9FD9ABA-AE5E-4427-AA6B-6285BE2E212D}
 		{6A59FF75-297F-4119-8E15-6B82C12188D9} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{18D536F1-AE38-47FA-95ED-1656882907FC} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
-		{1A8B6FA0-8341-4D27-9B71-57F70AB37571} = {0A27C140-4CCB-40DD-BE48-F5DE16D1177B}
 		{14586564-62CC-4117-AC1B-858ED53C2D6C} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{E30CF10F-FABF-4917-8BEB-CB81E4CE2C92} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{8E4BEB83-CC65-4D25-A72A-B58203BDA2C0} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}

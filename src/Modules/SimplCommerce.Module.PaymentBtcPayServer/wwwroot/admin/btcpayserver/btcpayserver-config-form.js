@@ -14,6 +14,7 @@
             vm.validationErrors = [];
             paymentBtcPayServerService.updateSetting(vm.btcPayServerConfig)
                 .then(function (result) {
+                    vm.btcPayServerConfig = result.data;
                     toastr.success('Application settings have been saved');
                 })
                 .catch(function (response) {
@@ -27,6 +28,12 @@
                         vm.validationErrors.push('Could not save btcpayserver settings.');
                     }
                 });
+        };
+        
+        vm.unpair = function unpair(){
+            paymentBtcPayServerService.unpair().then(function (result) {
+                vm.btcPayServerConfig = result.data;
+            });
         };
 
         function init() {

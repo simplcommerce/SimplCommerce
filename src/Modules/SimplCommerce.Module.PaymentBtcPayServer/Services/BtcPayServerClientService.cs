@@ -19,21 +19,25 @@ namespace SimplCommerce.Module.PaymentBtcPayServer.Services
             _paymentProviderRepository = paymentProviderRepository;
         }
 
+
         public async Task<Bitpay> ConstructClient()
+        {
+            
+            var paymentProvider = await _paymentProviderRepository.Query()
+                .FirstOrDefaultAsync(x => x.Id == PaymentProviderConstants.BtcPayServerProviderId);
+            if (paymentProvider == null)
+            {
+                return null;
+            }
+
+            var config = JObject.Parse(paymentProvider.AdditionalSettings).ToObject<BtcPayServerConfig>();
+            return await ConstructClient(config);
+        }
+
+        public static async Task<Bitpay> ConstructClient(BtcPayServerConfig config)
         {
             try
             {
-                var paymentProvider = await _paymentProviderRepository.Query()
-                    .FirstOrDefaultAsync(x => x.Id == PaymentProviderConstants.BtcPayServerProviderId);
-
-                if (paymentProvider == null)
-                {
-                    return null;
-                }
-
-                var config = JObject.Parse(paymentProvider.AdditionalSettings).ToObject<BtcPayServerConfig>();
-
-
                 var seed = new Mnemonic(config.Seed);
 
                 return new Bitpay(seed.DeriveExtKey().PrivateKey, config.Server);
@@ -47,17 +51,23 @@ namespace SimplCommerce.Module.PaymentBtcPayServer.Services
         public async Task<bool> CheckAccess()
         {
             var client = await ConstructClient();
-            return client != null && await client.TestAccessAsync(Facade.Merchant);
+            return await CheckAccess(client);
         }
 
-        public async Task<string> GetPairingUrl(string label)
+        
+        public static async Task<bool> CheckAccess(Bitpay client)
+        {
+            return client != null && await client.TestAccessAsync(Facade.Merchant);
+        }
+        
+        public static async Task<string> GetPairingUrl(BtcPayServerConfig config, string label)
         {
             Bitpay client = null;
             try
             {
-                client = await ConstructClient();
+                client = await ConstructClient(config);
 
-                if (client == null || await CheckAccess())
+                if (client == null || await CheckAccess(client))
                 {
                     return null;
                 }

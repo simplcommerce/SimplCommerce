@@ -44,7 +44,7 @@ namespace SimplCommerce.Module.PaymentBtcPayServer.Areas.PaymentBtcPayServer.Con
         }
 
         [HttpPost]
-        public async Task<IActionResult> Charge(string nonce)
+        public async Task<IActionResult> Charge()
         {
             var client = await _btcPayServerClientService.ConstructClient();
             if (!client.TestAccess(Facade.Merchant))
@@ -78,13 +78,13 @@ namespace SimplCommerce.Module.PaymentBtcPayServer.Areas.PaymentBtcPayServer.Con
                 FullNotifications = true,
                 NotificationURL = Url.Action("OnInvoiceCallback", "BtcPayServer", new { }, Request.Scheme,
                     Request.Host.ToString()),
-                RedirectURL = Url.Action("OrderDetails", "Order", new { orderId = order.Id}, Request.Scheme,
+                RedirectURL = Url.Action("Success", "Checkout", new { orderId = order.Id}, Request.Scheme,
                     Request.Host.ToString()),
                 BuyerEmail = order.Customer?.Email,
             });
 
             
-            return Ok(new {Status = "success", OrderId = order.Id, TransactionId = result.Id});
+            return Ok(new {Status = "success", OrderId = order.Id, InvoiceId = result.Id, InvoiceUrl = result.Url});
         }
 
         [HttpPost("InvoiceCallback")]

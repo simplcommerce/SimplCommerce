@@ -10,21 +10,43 @@
                 </ul>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label"></label>
+                <label class="col-sm-2 control-label">{{::vm.translate.get('BtcPay Server Url')}}</label>
                 <div class="col-sm-10">
                     <input name="name" ng-model="vm.btcPayServerConfig.server" class="form-control" />
                 </div>
             </div>
-            <div class="form-group" ng-if="vm.btcPayServerConfig.pairingUrl">
-                <label class="col-sm-2 control-label">Pairing Url</label>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{::vm.translate.get('BtcPay Payment Button Label')}}</label>
                 <div class="col-sm-10">
-                    {{vm.btcPayServerConfig.pairingUrl}}
+                    <input name="paymentButtonLabel" ng-model="vm.btcPayServerConfig.paymentButtonLabel" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            <input name="useModal" type="checkbox" ng-model="vm.btcPayServerConfig.useModal">{{::vm.translate.get('Use Modal')}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-if="!vm.btcPayServerConfig.paired">
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Pairing Code')}}</label>
+                <div class="col-sm-10">
+                    <input name="pairingCode" ng-model="vm.btcPayServerConfig.pairingCode" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group" ng-if="vm.btcPayServerConfig.pairingUrl">
+                <label class="col-sm-2 control-label">{{::vm.translate.get('Pairing Url')}}</label>
+                <div class="col-sm-10">
+                    <a ng-href="{{vm.btcPayServerConfig.pairingUrl}}" target="_blank">{{vm.btcPayServerConfig.pairingUrl}}</a>
                 </div>
             </div>
             <input name="seed" type="hidden" ng-model="vm.btcPayServerConfig.seed"  />
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-danger" ng-if="vm.btcPayServerConfig.paired" ng-click="vm.unpair()"><span class="glyphicon glyphicon-erase"></span> Unpair</button>
                     <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> Save</button>
                     <button ui-sref="payment-providers" class="btn btn-default">Cancel</button>
                 </div>

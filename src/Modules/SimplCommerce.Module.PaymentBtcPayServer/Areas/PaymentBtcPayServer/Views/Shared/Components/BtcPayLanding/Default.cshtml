@@ -4,36 +4,49 @@
 
 <div class="form-group">
     <div class="col-md-12">
-        <button type="button" class="btn btn-order" id="btcpay-submit-button">Pay with BTCPay</button>
+        <button type="button" class="btn btn-order" id="btcpay-submit-button">@Model.PaymentButtonLabel</button>
     </div>
 </div>
-
-<script src="@(new Uri(Model.Server, "modal/btcpay.js"))"></script>
+@if (Model.UseModal)
+{   
+    <script src="@(new Uri(Model.Server, "modal/btcpay.js"))"></script>  
+}
 <script>
-    var button = document.querySelector('#btcpay-submit-button');
-
-    button.addEventListener('click',
+    
+    debugger;
+    document.querySelector('#btcpay-submit-button').addEventListener('click',
         function() {
-            instance.requestPaymentMethod(function(requestPaymentMethodErr, payload) {
-                $.ajax({
-                        type: 'POST',
-                        url: '@Url.Action("Charge", "BtcPayServer", new {Area = "PaymentBtcPayServer"})',
-                        data: { nonce: payload.nonce }
-                    })
-                    .done(function(data) {
-                        window.btcpay.showInvoice(data.transactionId);
-                        window.btcpay.onModalWillEnterMethod = function() {
+            $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Charge", "BtcPayServer", new {Area = "PaymentBtcPayServer"})',
+                    data: {}
+                })
+                .done(function(data) {
+                    @if (Model.UseModal)
+                    {
+                        <text>
+                            window.btcpay.showInvoice(data.invoiceId);
+                            window.btcpay.onModalWillLeaveMethod = function() {
 
-                            window.location = "/checkout/success?orderId=" + data.orderId;
-                        }
+                                window.location = "/checkout/success?orderId=" + data.orderId;
+                            }
+                        </text>
+                    }
+                    else
+                    {
+                        
+                        <text>
+                            window.location = data.invoiceUrl
+                        </text>
+                    }
+                  
 
-                    })
-                    .fail(function(errors) {
-                        alert(errors.responseText);
-                        console.log(errors.responseText);
-                    })
-                    .always(function() {});
-            });
+                })
+                .fail(function(errors) {
+                    alert(errors.responseText);
+                    console.log(errors.responseText);
+                })
+                .always(function() {});
         });
 
 </script>

@@ -8,6 +8,5 @@ namespace SimplCommerce.Module.PaymentBtcPayServer.Services
    
         Task<Bitpay> ConstructClient();
         Task<bool> CheckAccess();
-        Task<string> GetPairingUrl(string label);
     }
 }
