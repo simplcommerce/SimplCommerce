@@ -19,6 +19,7 @@
         vm.categories = [];
         vm.thumbnailImage = null;
         vm.productImages = [];
+        vm.variationImages = [];
         vm.productDocuments = [];
         vm.options = [];
         vm.productTemplates = [];
@@ -329,10 +330,20 @@
                 });
             });
 
+            vm.product.variations.forEach(function (item){
+                if (item.newImage) {
+                    vm.variationImages.push({
+                        key: item.normalizedName,
+                        image: item.newImage
+                    });
+                    item.newImage = null;
+                }
+            });
+
             if (vm.isEditMode) {
-                promise = productService.editProduct(vm.product, vm.thumbnailImage, vm.productImages, vm.productDocuments);
+                promise = productService.editProduct(vm.product, vm.thumbnailImage, vm.productImages, vm.productDocuments, vm.variationImages);
             } else {
-                promise = productService.createProduct(vm.product, vm.thumbnailImage, vm.productImages, vm.productDocuments);
+                promise = productService.createProduct(vm.product, vm.thumbnailImage, vm.productImages, vm.productDocuments, vm.variationImages);
             }
 
             promise.then(function (result) {

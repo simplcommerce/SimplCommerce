@@ -165,6 +165,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     Price = variation.Price,
                     OldPrice = variation.OldPrice,
                     NormalizedName = variation.NormalizedName,
+                    ImageUrl = _mediaService.GetThumbnailUrl(variation.Medias.FirstOrDefault()?.Media),
                     OptionCombinations = variation.OptionCombinations.Select(x => new ProductOptionCombinationVm
                     {
                         OptionId = x.OptionId,
@@ -289,6 +290,15 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
             var currentUser = await _workContext.GetCurrentUser();
 
+            foreach(var variationImage in model.VariationImages)
+            {
+                var variation = model.Product.Variations.FirstOrDefault(x => x.NormalizedName == variationImage.Key);
+                if(variation != null)
+                {
+                    variation.NewImage = variationImage.Image;
+                }
+            }
+
             var product = new Product
             {
                 Name = model.Product.Name,
@@ -360,7 +370,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
             await SaveProductMedias(model, product);
 
-            MapProductVariationVmToProduct(currentUser, model, product);
+            await MapProductVariationVmToProduct(currentUser, model, product);
             MapProductLinkVmToProduct(model, product);
 
             var productPriceHistory = CreatePriceHistory(currentUser, product);
@@ -451,7 +461,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             AddOrDeleteProductOption(model, product);
             AddOrDeleteProductAttribute(model, product);
             AddOrDeleteCategories(model, product);
-            AddOrDeleteProductVariation(currentUser, model, product);
+            await AddOrDeleteProductVariation(currentUser, model, product);
             AddOrDeleteProductLinks(model, product);
 
             _productService.Update(product);
@@ -500,7 +510,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             return NoContent();
         }
 
-        private static void MapProductVariationVmToProduct(User loginUser, ProductForm model, Product product)
+        private async Task MapProductVariationVmToProduct(User loginUser, ProductForm model, Product product)
         {
             foreach (var variationVm in model.Product.Variations)
             {
@@ -522,6 +532,18 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 productLink.LinkedProduct.NormalizedName = variationVm.NormalizedName;
                 productLink.LinkedProduct.HasOptions = false;
                 productLink.LinkedProduct.IsVisibleIndividually = false;
+
+                if(variationVm.NewImage != null)
+                {
+                    var fileName = await SaveFile(variationVm.NewImage);
+                    var productMedia = new ProductMedia
+                    {
+                        Product = productLink.LinkedProduct,
+                        Media = new Media { FileName = fileName, MediaType = MediaType.Image }
+                    };
+
+                    productLink.LinkedProduct.AddMedia(productMedia);
+                }
 
                 foreach (var combinationVm in variationVm.OptionCombinations)
                 {
@@ -646,7 +668,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             }
         }
 
-        private void AddOrDeleteProductVariation(User loginUser,  ProductForm model, Product product)
+        private async Task AddOrDeleteProductVariation(User loginUser,  ProductForm model, Product product)
         {
             foreach (var productVariationVm in model.Product.Variations)
             {
@@ -672,6 +694,18 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     productLink.LinkedProduct.HasOptions = false;
                     productLink.LinkedProduct.IsVisibleIndividually = false;
                     productLink.LinkedProduct.ThumbnailImage = product.ThumbnailImage;
+
+                    if (productVariationVm.NewImage != null)
+                    {
+                        var fileName = await SaveFile(productVariationVm.NewImage);
+                        var productMedia = new ProductMedia
+                        {
+                            Product = productLink.LinkedProduct,
+                            Media = new Media { FileName = fileName, MediaType = MediaType.Image }
+                        };
+
+                        productLink.LinkedProduct.AddMedia(productMedia);
+                    }
 
                     foreach (var combinationVm in productVariationVm.OptionCombinations)
                     {
@@ -705,6 +739,18 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     productLink.LinkedProduct.OldPrice = productVariationVm.OldPrice;
                     productLink.LinkedProduct.IsDeleted = false;
                     productLink.LinkedProduct.StockTrackingIsEnabled = product.StockTrackingIsEnabled;
+
+                    if (productVariationVm.NewImage != null)
+                    {
+                        var fileName = await SaveFile(productVariationVm.NewImage);
+                        var productMedia = new ProductMedia
+                        {
+                            Product = productLink.LinkedProduct,
+                            Media = new Media { FileName = fileName, MediaType = MediaType.Image }
+                        };
+
+                        productLink.LinkedProduct.AddMedia(productMedia);
+                    }
 
                     if (isPriceChanged)
                     {

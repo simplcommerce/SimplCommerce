@@ -51,19 +51,20 @@
             return $http.post('api/products/grid', params);
         }
 
-        function createProduct(product, thumbnailImage, productImages, productDocuments) {
+        function createProduct(product, thumbnailImage, productImages, productDocuments, variationImages) {
             return Upload.upload({
                 url: 'api/products',
                 data: {
                     product: product,
                     thumbnailImage: thumbnailImage,
                     productImages: productImages,
-                    productDocuments: productDocuments
+                    productDocuments: productDocuments,
+                    variationImages: variationImages
                 }
             });
         }
 
-        function editProduct(product, thumbnailImage, productImages, productDocuments) {
+        function editProduct(product, thumbnailImage, productImages, productDocuments, variationImages) {
             return Upload.upload({
                 url: 'api/products/' + product.id,
                 method: 'PUT',
@@ -71,7 +72,8 @@
                     product: product,
                     thumbnailImage: thumbnailImage,
                     productImages: productImages,
-                    productDocuments: productDocuments
+                    productDocuments: productDocuments,
+                    variationImages: variationImages
                 }
             });
         }

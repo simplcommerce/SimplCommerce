@@ -287,7 +287,11 @@
                                             <label for="{{variation.normalizedName}}OldPrice" class="form-control">{{variation.oldPrice | number}}</label>
                                         </div>
                                     </td>
-                                    <td></td>
+                                    <td>
+                                        <input class="form-control" type="file" ngf-select ng-model="variation.newImage" name="variationImage" ngf-accept="'image/*'">
+                                        <img ngf-src="variation.newImage" ngf-resize="{width: 100, height: 100, quality: 0.9}">
+                                        <img ng-show="!variation.newImage && variation.imageUrl" ng-src="{{variation.imageUrl}}" style="width: 100px; height: 100px" />
+                                    </td>
                                     <td>
                                         <button ng-click="vm.deleteVariation(variation)" type="button" class="btn">
                                             <span class="glyphicon glyphicon-remove"></span>
