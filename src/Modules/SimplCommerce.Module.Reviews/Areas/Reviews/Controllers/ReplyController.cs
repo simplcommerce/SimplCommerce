@@ -33,7 +33,7 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
                     ReviewId = model.ReviewId,
                     UserId = user.Id,
                     Comment = model.Comment,
-                    ReplierName = model.ReplierName,
+                    ReplierName = user.FullName
                 };
 
                 _replyRepository.Add(reply);

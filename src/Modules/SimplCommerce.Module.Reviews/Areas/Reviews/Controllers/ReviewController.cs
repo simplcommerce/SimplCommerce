@@ -35,7 +35,7 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
                     Rating = model.Rating,
                     Title = model.Title,
                     Comment = model.Comment,
-                    ReviewerName = model.ReviewerName,
+                    ReviewerName = user.FullName,
                     EntityId = model.EntityId,
                     EntityTypeId = model.EntityTypeId,
                     UserId = user.Id,

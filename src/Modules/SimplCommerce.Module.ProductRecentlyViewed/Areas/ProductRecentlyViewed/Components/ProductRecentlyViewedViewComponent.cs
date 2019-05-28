@@ -28,7 +28,7 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed
         }
 
         // TODO Number of items to config
-        public async Task<IViewComponentResult> InvokeAsync(long? productId, int itemCount = 5)
+        public async Task<IViewComponentResult> InvokeAsync(long? productId, int itemCount = 4)
         {
             var user = await _workContext.GetCurrentUser();
             IQueryable<Product> query = _productRepository.GetRecentlyViewedProduct(user.Id)

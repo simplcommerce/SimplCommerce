@@ -229,6 +229,14 @@
     <script simpl-append-version="true" src="~/modules/paymentcod/admin/config/cod-service.js"></script>
     <script simpl-append-version="true" src="~/modules/paymentcod/admin/config/config-form.js"></script>
 
+    <script simpl-append-version="true" src="~/modules/paymentmomo/admin/paymentMomo.module.js"></script>
+    <script simpl-append-version="true" src="~/modules/paymentmomo/admin/momo/momo-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/paymentmomo/admin/momo/momo-config-form.js"></script>
+
+    <script simpl-append-version="true" src="~/modules/paymentnganluong/admin/paymentNganLuong.module.js"></script>
+    <script simpl-append-version="true" src="~/modules/paymentnganluong/admin/ngan-luong/ngan-luong-service.js"></script>
+    <script simpl-append-version="true" src="~/modules/paymentnganluong/admin/ngan-luong/ngan-luong-config-form.js"></script>
+
     <script simpl-append-version="true" src="~/modules/productrecentlyviewed/admin/product-recently-viewed.module.js"></script>
     <script simpl-append-version="true" src="~/modules/productrecentlyviewed/admin/recently-viewed-widget/recently-viewed-widget-service.js"></script>
     <script simpl-append-version="true" src="~/modules/productrecentlyviewed/admin/recently-viewed-widget/recently-viewed-widget-form.js"></script>
@@ -240,6 +248,7 @@
     <script simpl-append-version="true" src="~/modules/inventory/admin/warehouse/warehouse-service.js"></script>
     <script simpl-append-version="true" src="~/modules/inventory/admin/warehouse/warehouse-list.js"></script>
     <script simpl-append-version="true" src="~/modules/inventory/admin/warehouse/warehouse-form.js"></script>
+    <script simpl-append-version="true" src="~/modules/inventory/admin/warehouse/manage-products-form.js"></script>
 
     <script simpl-append-version="true" src="~/modules/shipments/admin/shipment.module.js"></script>
     <script simpl-append-version="true" src="~/modules/shipments/admin/shipment/shipment-service.js"></script>
@@ -305,6 +314,7 @@
                         <ul class="dropdown-menu">
                             <li><a ui-sref="stocks">@Localizer["Stocks"]</a></li>
                             <li><a ui-sref="warehouses">@Localizer["Warehouses"]</a></li>
+                            <li><a ui-sref="warehouse-manage-products">@Localizer["Manage warehouse products"]</a></li>
                         </ul>
                     </li>
                     @if (User.IsInRole("admin"))

@@ -18,6 +18,12 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels
 
         public string ProductPriceString => ProductPrice.ToString("C");
 
+        public int ProductStockQuantity { get; set; }
+
+        public bool ProductStockTrackingIsEnabled { get; set; }
+
+        public bool IsProductAvailabeToOrder { get; set; }
+
         public int Quantity { get; set; }
 
         public decimal Total => Quantity * ProductPrice;

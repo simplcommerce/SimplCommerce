@@ -1,5 +1,7 @@
 ﻿DELETE FROM Cms_MenuItem;
 DELETE FROM Core_Entity;
+DELETE FROM Wishlist_Wishlistitem;
+DELETE FROM Wishlist_Wishlist;
 DELETE FROM ShoppingCart_CartItem;
 DELETE FROM ShoppingCart_Cart;
 DELETE FROM Payments_Payment;
@@ -302,9 +304,9 @@ INSERT INTO Catalog_ProductOptionCombination (Id, OptionId, ProductId, Value, So
 INSERT INTO Catalog_ProductOptionCombination (Id, OptionId, ProductId, Value, SortIndex) VALUES (9, 1, 12, 'Gold', 0);
 INSERT INTO Catalog_ProductOptionCombination (Id, OptionId, ProductId, Value, SortIndex) VALUES (10, 1, 13, 'Silver', 0);
 
-INSERT INTO Catalog_ProductOptionValue (Id, DisplayType, OptionId, ProductId, Value, SortIndex) VALUES (1, 'color', 1, 1, '[{{Key:Silver,Display:#E5E4EA}},{{Key:Gold,Display:#daa520}},{{Key:Gray,Display:#a9a9a9}}]', 0);
-INSERT INTO Catalog_ProductOptionValue (Id, DisplayType, OptionId, ProductId, Value, SortIndex) VALUES (2, 'color', 1, 5, '[{{Key:Gold,Display:#daa520}},{{Key:Black,Display:#000000}},{{Key:Pink,Display:#FFC0CB}}]', 0);
-INSERT INTO Catalog_ProductOptionValue (Id, DisplayType, OptionId, ProductId, Value, SortIndex) VALUES (3, 'color', 1, 9, '[{{Key:Gray,Display:#a9a9a9}},{{Key:Pink,Display:#FFC0CB}},{{Key:Gold,Display:#daa520}},{{Key:Silver,Display:#E5E4EA}}]', 0);
+INSERT INTO Catalog_ProductOptionValue (Id, DisplayType, OptionId, ProductId, Value, SortIndex) VALUES (1, 'color', 1, 1, '[{{Key:"Silver",Display:"#E5E4EA"}},{{Key:"Gold",Display:"#daa520"}},{{Key:"Gray",Display:"#a9a9a9"}}]', 0);
+INSERT INTO Catalog_ProductOptionValue (Id, DisplayType, OptionId, ProductId, Value, SortIndex) VALUES (2, 'color', 1, 5, '[{{Key:"Gold",Display:"#daa520"}},{{Key:"Black,Display:"#000000"}},{{Key:"Pink",Display:"#FFC0CB"}}]', 0);
+INSERT INTO Catalog_ProductOptionValue (Id, DisplayType, OptionId, ProductId, Value, SortIndex) VALUES (3, 'color', 1, 9, '[{{Key:"Gray",Display:"#a9a9a9"}},{{Key:"Pink",Display:"#FFC0CB"}},{{Key:"Gold",Display:"#daa520"}},{{Key:"Silver",Display:"#E5E4EA"}}]', 0);
 
 INSERT INTO Inventory_Stock (Id, ProductId, Quantity, WarehouseId, ReservedQuantity) VALUES (2, 2, 10, 1, 0);
 INSERT INTO Inventory_Stock (Id, ProductId, Quantity, WarehouseId, ReservedQuantity) VALUES (3, 3, 10, 1, 0);

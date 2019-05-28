@@ -54,7 +54,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fa-I
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fa-IR', N'reviews', N'نظرات')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fa-IR', N'Add Review', N'اضافه کردن نظر')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fa-IR', N'Customer reviews', N'نظرات کاربران')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fa-IR', N'Your review will be showed within the next 24h.', N'نظر شما بعد از بررسی نمایش داده خواهد شد.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fa-IR', N'Your review will be shown within the next 24h.', N'نظر شما بعد از بررسی نمایش داده خواهد شد.')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fa-IR', N'Thank you {0} for your review', N'{0} ممنون از نظر ')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fa-IR', N'Rating average', N'میانگین امتیاز‌ها')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fa-IR', N'stars', N'امتیازها')

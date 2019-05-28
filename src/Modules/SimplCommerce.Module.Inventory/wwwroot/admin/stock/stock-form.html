@@ -1,22 +1,22 @@
 ﻿<div class="page-header">
     <div class="row">
         <div class="col-md-8">
-            <h2>{{::vm.translate.get('Stock management')}}</h2>
+            <h2>{{::vm.translate.get('Stock management for warehouse')}} <strong>{{ vm.selectedWarehouse.name }}</strong></h2>
         </div>
         <div class="col-md-4 text-right">
             <form class="form-inline">
                 <div class="form-group">
                     <label>{{::vm.translate.get('Warehouse')}}</label>
-                    <select class="form-control" ng-change="vm.wareHouseSelectChange()" ng-model="vm.selectedWarehouseId"
-                            ng-options="warehouse.id as warehouse.name for warehouse in vm.warehouses"></select>
+                    <select class="form-control" ng-change="vm.wareHouseSelectChange()" ng-model="vm.selectedWarehouse"
+                            ng-options="warehouse as warehouse.name for warehouse in vm.warehouses"></select>
                 </div>
-                <button class="btn btn-primary" ng-click="vm.addAllProducts()">Add All Products</button>
+                <a ui-sref="warehouse-manage-products({warehouseId: vm.selectedWarehouse.id})">Manage products in warehouse</a>
             </form>
         </div>
     </div>
 </div>
 
-<table ng-if="vm.selectedWarehouseId" class="table table-striped" st-pipe="vm.getStocks" st-table="vm.stocks">
+<table ng-if="vm.selectedWarehouse" class="table table-striped" st-pipe="vm.getStocks" st-table="vm.stocks">
     <thead>
         <tr>
             <th>{{::vm.translate.get('Product Name')}}</th>
@@ -43,7 +43,7 @@
             <th></th>
         </tr>
         <tr>
-            <th ng-show="!vm.isLoading" colspan="5">{{vm.tableStateRef.pagination.totalItemCount | number:0}} records found</th>
+            <th ng-show="!vm.isLoading" colspan="6">{{vm.tableStateRef.pagination.totalItemCount | number:0}} records found</th>
         </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">
@@ -58,18 +58,18 @@
                 <input class="form-control" ng-model="item.note" />
             </td>
             <td>
-                <a ui-sref="stock-history({warehouseId: vm.selectedWarehouseId, productId : item.productId})">{{::vm.translate.get('View History')}}</a>
+                <a ui-sref="stock-history({warehouseId: vm.selectedWarehouse.id, productId : item.productId})">{{::vm.translate.get('View History')}}</a>
             </td>
         </tr>
     </tbody>
     <tbody ng-show="vm.isLoading">
         <tr>
-            <td colspan="5" class="text-center">Loading ... </td>
+            <td colspan="6" class="text-center">Loading ... </td>
         </tr>
     </tbody>
     <tfoot>
         <tr>
-            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="5"></td>
+            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="6"></td>
         </tr>
     </tfoot>
 </table>

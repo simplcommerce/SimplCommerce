@@ -151,7 +151,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
                 _paymentRepository.Add(payment);
                 order.OrderStatus = OrderStatus.PaymentReceived;
                 await _paymentRepository.SaveChangesAsync();
-                return Ok(new { status = "success" });
+                return Ok(new { Status = "success", OrderId = order.Id });
             }
 
             payment.Status = PaymentStatus.Failed;

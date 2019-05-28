@@ -76,12 +76,12 @@
                                                 }
                                                 else
                                                 {
-                                                    <label>@Model.OptionDisplayValues[value].Value</label>
+                                                    <label class="badge">@Model.OptionDisplayValues[value].Value</label>
                                                 }
                                             }
                                             else
                                             {
-                                                <label>@value</label>
+                                                <label class="badge">@value</label>
                                             }
                                         </li>
                                     }
@@ -257,6 +257,11 @@
 <div>
     <h3 class="p-t-25 p-b-25">@Localizer["Customer reviews"]</h3>
     @await Component.InvokeAsync("Review", new { entityId = Model.Id, entityTypeId = "Product" })
+</div>
+
+<div>
+    <h3>@Localizer["Customer comments"]</h3>
+    @await Component.InvokeAsync("Comment", new { entityId = Model.Id, entityTypeId = "Product" })
 </div>
 
 @section scripts {

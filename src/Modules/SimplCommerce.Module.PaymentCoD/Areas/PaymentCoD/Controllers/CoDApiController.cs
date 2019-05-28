@@ -10,6 +10,7 @@ using SimplCommerce.Module.Payments.Models;
 namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
 {
     [Authorize(Roles = "admin")]
+    [Area("PaymentCoD")]
     [Route("api/cod")]
     public class CoDApiController : Controller
     {

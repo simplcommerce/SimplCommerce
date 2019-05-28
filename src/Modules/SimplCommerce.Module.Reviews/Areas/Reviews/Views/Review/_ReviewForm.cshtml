@@ -1,48 +1,34 @@
 ﻿@model SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels.ReviewForm
 
-@if (User.Identity.IsAuthenticated == true)
-{
 <form id="form-addreview" asp-area="Reviews" asp-controller="Review" asp-action="AddReview" method="post" role="form">
     <input asp-for="EntityId" type="hidden" />
     <input asp-for="EntityTypeId" type="hidden" />
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group row">
-        <label asp-for="Rating" class="col-md-4 col-form-label">@Localizer["Rate this product"]</label>
-        <div class="col-md-8">
+        <label asp-for="Rating" class="col-md-3 col-form-label">@Localizer["Rate this product"]</label>
+        <div class="col-md-9">
             <input asp-for="Rating" type="hidden" class="rating-loading" step="1" data-size="xs" data-show-clear="false" />
             <span asp-validation-for="Rating" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row">
-        <label asp-for="Comment" class="col-md-4 col-form-label">@Localizer["Review comment"]</label>
-        <div class="col-md-8">
+        <label asp-for="Comment" class="col-md-3 col-form-label">@Localizer["Review comment"]</label>
+        <div class="col-md-9">
             <textarea asp-for="Comment" class="form-control"></textarea>
             <span asp-validation-for="Comment" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row">
-        <label asp-for="Title" class="col-md-4 col-form-label">@Localizer["Review title"]</label>
-        <div class="col-md-8">
+        <label asp-for="Title" class="col-md-3 col-form-label">@Localizer["Review title"]</label>
+        <div class="col-md-9">
             <input asp-for="Title" class="form-control" />
             <span asp-validation-for="Title" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row">
-        <label asp-for="ReviewerName" class="col-md-4 col-form-label">@Localizer["Posted by"]</label>
-        <div class="col-md-8">
-            <input asp-for="ReviewerName" readonly class="form-control" value="@Model.LoggedUserName" />
-            <span asp-validation-for="ReviewerName" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="offset-md-4 col-md-8">
-            <button id="btn-addreview" @(!Model.HasBoughtProduct ? "disabled: disabled" : "title : ''") 
-          data-toggle="tooltip" title ="Only logged users and user that bought the product can review it!"   type="submit" class="btn btn-primary">@Localizer["Submit review"]</button>
+        <div class="offset-md-3 col-md-9">
+            <button id="btn-addreview" type="submit" class="btn btn-primary">@Localizer["Submit review"]</button>
         </div>
     </div>
 </form>
-}
-else
-{
-    <p>You can't add a review, Log in to add a review </p>
-} 
+

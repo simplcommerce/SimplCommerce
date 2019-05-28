@@ -238,6 +238,8 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             }
 
             user.IsDeleted = true;
+            user.LockoutEnabled = true;
+            user.LockoutEnd = DateTime.Now.AddYears(200);
             await _userRepository.SaveChangesAsync();
             return NoContent();
         }
