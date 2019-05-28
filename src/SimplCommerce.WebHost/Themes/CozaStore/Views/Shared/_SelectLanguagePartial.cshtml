@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Localization
+@using SimplCommerce.Infrastructure
+@using SimplCommerce.Module.Core.Extensions
+
+@inject IViewLocalizer Localizer
+@inject IWorkContext WorkContext
+
+@{
+    var uiCulture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture.Name;
+    var selectedCulture = WorkContext.GetCurrentUser().Result.Culture;
+}
+
+@if (GlobalConfiguration.Cultures.Count() > 1)
+{
+
+    @foreach (var culture in GlobalConfiguration.Cultures)
+    {
+        var regionInfo = new System.Globalization.RegionInfo(culture.Id);
+        var country = regionInfo.TwoLetterISORegionName.ToLower();
+
+        <a href="#" data-value="@culture.Id" class="flex-c-m trans-04 p-lr-25 lang-selector">
+            <img src="~/themes/CozaStore/images/icons/blank.gif" class="flag flag-@country" alt="@culture.Name" title="@culture.Name" />            
+        </a>
+    }
+
+    <form asp-area="Localization" asp-controller="Localization" asp-action="SetLanguage" asp-route-returnUrl="@Context.Request.Path" method="post" id="lang-form" role="form">
+        <input type="hidden" name="culture" value="@uiCulture" />
+    </form>
+
+}

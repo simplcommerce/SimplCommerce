@@ -1,7 +1,8 @@
-﻿@using System.Globalization
+﻿@using Microsoft.AspNetCore.Localization
+@using System.Globalization
 
 <!doctype html>
-<html>
+<html lang="@(Context.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture.Name.ToLowerInvariant())">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -37,6 +38,7 @@
                     </div>
 
                     <div class="right-top-bar flex-w h-full">
+                        <partial name="_SelectLanguagePartial" />
                         <a href="~/help-center" class="flex-c-m trans-04 p-lr-25">
                             Help & FAQs
                         </a>
@@ -124,7 +126,7 @@
 
     @RenderSection("featured", false)
 
-    <div class="container body-content">
+    <div class="container body-content clearfix">
         @RenderBody()
     </div>
     <!-- Footer -->
@@ -253,9 +255,9 @@
     <script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
     <script simpl-append-version="true" src="~/lib/toastr/build/toastr.min.js"></script>
     <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
-    @if (CultureInfo.CurrentCulture.Name == "vi-VN")
+    @if(CultureInfo.CurrentCulture.Name != "en-US")
     {
-        <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/vi-vn.js"></script>
+    <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/@(CultureInfo.CurrentCulture.Name).js"></script>    
     }
 
     <script simpl-append-version="true" src="~/themes/CozaStore/vendor/animsition/js/animsition.min.js"></script>

@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Localization;
 
@@ -60,7 +61,34 @@ namespace SimplCommerce.Module.Localization
             var resources = LoadResources(culture);
             var value = resources.SingleOrDefault(r => r.Key == name)?.Value;
 
+            if (value == null)
+            {
+                AutoRegisterNewString(name, culture);
+            }
+
             return value;
+        }
+
+        private void AutoRegisterNewString(string name, string culture)
+        {
+            if (culture == "en-US") //GlobalConfiguration.DefaultCulture
+            {
+                using (var scope = _serviceProvider.CreateScope())
+                {
+                    var resourceRepository = scope.ServiceProvider.GetRequiredService<IRepository<Resource>>();
+
+                    var res = new Resource()
+                    {
+                        CultureId = culture,
+                        Key = name,
+                        Value = name
+                    };
+
+                    resourceRepository.Add(res);
+                    resourceRepository.SaveChanges();
+                    _resourcesCache.Remove(culture);
+                }
+            }
         }
 
         private IList<Resource> LoadResources(string culture)

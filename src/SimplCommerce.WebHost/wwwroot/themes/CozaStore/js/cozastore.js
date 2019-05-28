@@ -210,4 +210,21 @@
         $('.js-modal1').removeClass('show-modal1');
     });
 
+    $('a.lang-selector').on('click', function (e) {
+        var lang = $(this).attr('data-value'),
+            $langForm = $('#lang-form'),
+            $cultureInput = $langForm.find('input[name=culture]');
+
+        if ($cultureInput.val() === lang) {
+            e.preventDefault();
+            return;
+        }
+        else {
+            $cultureInput.val(lang);
+            $langForm.submit();
+        }
+    });
+
+
+
 })(jQuery);

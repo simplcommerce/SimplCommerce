@@ -5,11 +5,12 @@
         .controller('LocalizationFormCtrl', LocalizationFormCtrl);
 
     /* @ngInject */
-    function LocalizationFormCtrl($state, localizationService) {
+    function LocalizationFormCtrl($state, localizationService, translateService) {
         var vm = this;
+        vm.translate = translateService;
         vm.resources = [];
         vm.cultures = [];
-        vm.selectedCultureId = 'vi-VN';
+        vm.selectedCultureId = 'en-US';
 
         vm.changeCulture = function changeCulture() {
             vm.validationErrors = [];
