@@ -1,8 +1,7 @@
-﻿@using Microsoft.AspNetCore.Localization
-@using System.Globalization
+﻿@using System.Globalization
 
 <!doctype html>
-<html lang="@(Context.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture.Name.ToLowerInvariant())">
+<html lang="@CultureInfo.CurrentUICulture.Name.ToLowerInvariant()">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,6 +21,7 @@
     <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/css/util.css" />
     <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/css/main.css" />
     <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/css/simpl.css" />
+    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/css/flags.css" />
     <script simpl-append-version="true" src="~/lib/angular/angular.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="

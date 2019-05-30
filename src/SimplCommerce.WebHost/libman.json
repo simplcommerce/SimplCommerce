@@ -56,14 +56,22 @@
             "library": "angular-i18n@1.6.3",
             "destination": "wwwroot/lib/i18n",
             "files": [
-                "angular-locale_ar-tn.js",
-                "angular-locale_en-us.js",
-                "angular-locale_fr-fr.js",
-                "angular-locale_ko-kr.js",
-                "angular-locale_pt-br.js",
-                "angular-locale_ru-ru.js",
-                "angular-locale_uk-ua.js",
-                "angular-locale_vi-vn.js"
+               "angular-locale_ar-tn.js",
+               "angular-locale_ar.js",
+               "angular-locale_en-us.js",
+               "angular-locale_en.js",
+               "angular-locale_fr-fr.js",
+               "angular-locale_fr.js",
+               "angular-locale_ko-kr.js",
+               "angular-locale_ko.js",
+               "angular-locale_pt-br.js",
+               "angular-locale_pt.js",
+               "angular-locale_ru-ru.js",
+               "angular-locale_ru.js",
+               "angular-locale_uk-ua.js",
+               "angular-locale_uk.js",
+               "angular-locale_vi-vn.js"
+               "angular-locale_vi.js"
             ]
         },
         {

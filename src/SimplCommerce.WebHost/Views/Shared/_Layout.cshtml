@@ -1,8 +1,7 @@
-@using Microsoft.AspNetCore.Localization
-@using System.Globalization
+﻿@using System.Globalization
 
 <!doctype html>
-<html lang="@(Context.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture.Name.ToLowerInvariant())">
+<html lang="@CultureInfo.CurrentUICulture.Name.ToLowerInvariant()">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
