@@ -9,18 +9,18 @@
 </script>
 
 <div class="comments" ng-app="simpl.comment" ng-controller="CommentCtrl as vm" ng-cloak">
-    @if (User.Identity.IsAuthenticated)
+    @if(User.Identity.IsAuthenticated)
     {
         <form name="commentForm" novalidate>
             <div class="form-group">
-                <textarea rows="3" required ng-maxlength="300" class="form-control" name="content" ng-model="vm.comment.commentText" placeholder="Your comment"></textarea>
+                <textarea rows="3" required ng-maxlength="300" class="form-control" name="content" ng-model="vm.comment.commentText" placeholder="@Localizer["Your comment"]"></textarea>
             </div>
             <div class="row">
                 <div class="col-md-9">
-                    <p class="comment-guide">Your comment should not have personal information. 10 - 300 characters: {{vm.comment.commentText.length}}</p>
+                    <p class="comment-guide">@Localizer["Your comment should not have personal information. 10 - 300 characters:"] {{vm.comment.commentText.length}}</p>
                 </div>
                 <div class="form-group col-md-3">
-                    <button type="submit" ng-disabled="commentForm.$invalid || vm.comment.commentText.length < 10" class="btn btn-secondary pull-right" ng-click="vm.saveComment()">Add Comment</button>
+                    <button type="submit" ng-disabled="commentForm.$invalid || vm.comment.commentText.length < 10" class="btn btn-secondary pull-right" ng-click="vm.saveComment()">@Localizer["Add Comment"]</button>
                 </div>
             </div>
         </form>
@@ -31,14 +31,14 @@
     }
     <div class="row">
         <div class="col-md-6">
-            {{vm.commentCount}} Comments
+            {{vm.commentCount}} @Localizer["Comments"]
             <a class="anchorjs-link " href="#comments" aria-label="Anchor" data-anchorjs-icon="#"></a>
         </div>
         <div class="col-md-6">
             <div class="form-group has-search pull-right">
                 <span class="fa fa-search form-control-feedback"></span>
-                <input class="form-control" ng-model="vm.search" placeholder="find by commenter" />
-            </div>         
+                <input class="form-control" ng-model="vm.search" placeholder="@Localizer["find by commenter"]" />
+            </div>
         </div>
     </div>
     <hr />
@@ -51,7 +51,7 @@
             <div class="">{{item.commentText}}</div>
             <div>
                 <span class="r-time">{{item.createdOnRelative}}</span>
-                - <a data-toggle="collapse" href="#reply{{item.id}}" ng-click="vm.addReply(item)" role="button" aria-expanded="false" aria-controls="reply{{item.id}}">Reply</a>
+                - <a data-toggle="collapse" href="#reply{{item.id}}" ng-click="vm.addReply(item)" role="button" aria-expanded="false" aria-controls="reply{{item.id}}">@Localizer["Reply"]</a>
             </div>
             <div class="comment-reply">
                 <div ng-repeat="childItem in item.replies">
@@ -62,22 +62,22 @@
                     <div class="">{{childItem.commentText}}</div>
                     <div>
                         <span class="r-time">{{childItem.createdOnRelative}}</span>
-                        - <a data-toggle="collapse" href="#reply{{item.id}}" ng-click="vm.addReply(item)" role="button" aria-expanded="false" aria-controls="reply{{item.id}}">Reply</a>
+                        - <a data-toggle="collapse" href="#reply{{item.id}}" ng-click="vm.addReply(item)" role="button" aria-expanded="false" aria-controls="reply{{item.id}}">@Localizer["Reply"]</a>
                     </div>
                 </div>
                 <div class="collapse" id="reply{{item.id}}">
-                    @if (User.Identity.IsAuthenticated)
+                    @if(User.Identity.IsAuthenticated)
                     {
                         <form novalidate name="replyForm">
                             <div class="form-group">
-                                <textarea required ng-maxlength="300" rows="3" class="form-control" name="content" ng-model="item.newReply.commentText" placeholder="Your comment"></textarea>
+                                <textarea required ng-maxlength="300" rows="3" class="form-control" name="content" ng-model="item.newReply.commentText" placeholder="@Localizer["Your comment"]"></textarea>
                             </div>
                             <div class="row">
                                 <div class="col-md-9">
-                                    <p class="comment-guide">Your comment should not have personal information. 10 - 300 characters: {{item.newReply.commentText.length}}</p>
+                                    <p class="comment-guide">@Localizer["Your comment should not have personal information. 10 - 300 characters:"] {{item.newReply.commentText.length}}</p>
                                 </div>
                                 <div class="form-group reply-btn col-md-3">
-                                    <button type="submit" ng-disabled="replyForm.$invalid || item.newReply.commentText.length < 10" class="btn btn-secondary pull-right" ng-click="vm.saveReply(item)">Add Reply</button>
+                                    <button type="submit" ng-disabled="replyForm.$invalid || item.newReply.commentText.length < 10" class="btn btn-secondary pull-right" ng-click="vm.saveReply(item)">@Localizer["Add Reply"]</button>
                                 </div>
                             </div>
                         </form>

@@ -16,7 +16,6 @@ namespace SimplCommerce.Module.Localization.Areas.Localization.Controllers
     [Route("api/localization")]
     public class LocalizationApiController : Controller
     {
-        private const string STANDARD_CULTURE_ID = "en-US";
         private readonly IStringLocalizer _localizer;
         private readonly IRepository<Resource> _resourceRepository;
         private readonly IRepositoryWithTypedId<Culture, string> _cultureRepository;
@@ -56,10 +55,10 @@ namespace SimplCommerce.Module.Localization.Areas.Localization.Controllers
                 })
                 .ToListAsync();
 
-            if (cultureId != STANDARD_CULTURE_ID)
+            if (cultureId != GlobalConfiguration.DefaultCulture)
             {
                 var standardResources = await _resourceRepository.Query()
-                .Where(x => x.CultureId == STANDARD_CULTURE_ID)
+                .Where(x => x.CultureId == GlobalConfiguration.DefaultCulture)
                 .ToListAsync();
 
                 foreach (var item in standardResources)
@@ -71,7 +70,7 @@ namespace SimplCommerce.Module.Localization.Areas.Localization.Controllers
                 }
             }
 
-            return Json(resources.OrderBy(x => x.Key));
+            return Json(resources.OrderBy(x => x.IsTranslated).ThenBy(x => x.Key));
         }
 
         [HttpPost("update-resources")]

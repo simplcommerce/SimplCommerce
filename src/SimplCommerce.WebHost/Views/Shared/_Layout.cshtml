@@ -69,7 +69,7 @@
                     <vc:menu menu-id="1"></vc:menu>
                 </div>
                 <div class="col-md-3">
-                    <h4>Information</h4>
+                    <h4>@Localizer["Information"]</h4>
                     <vc:menu menu-id="2"></vc:menu>
                 </div>
                 <div class="col-md-6">
@@ -106,10 +106,10 @@
     <script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
     <script simpl-append-version="true" src="~/lib/toastr/build/toastr.min.js"></script>
     <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
-    <script simpl-append-version="true" src="~/lib/signalr/dist/browser/signalr.js"></script>    
-    @if(CultureInfo.CurrentCulture.Name != "en-US")
+    <script simpl-append-version="true" src="~/lib/signalr/dist/browser/signalr.js"></script>
+    @if(CultureInfo.CurrentCulture.Name != SimplCommerce.Infrastructure.GlobalConfiguration.DefaultCulture)
     {
-    <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/@(CultureInfo.CurrentCulture.Name).js"></script>    
+        <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/@(CultureInfo.CurrentCulture.Name).js"></script>
     }
     <script simpl-append-version="true" src="~/modules/core/main.js"></script>
     <script simpl-append-version="true" src="~/modules/shoppingcart/add-to-cart.js"></script>

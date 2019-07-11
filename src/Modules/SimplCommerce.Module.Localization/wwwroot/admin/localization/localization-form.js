@@ -41,11 +41,13 @@
         function init() {
             localizationService.getCultures().then(function (result) {
                 vm.cultures = result.data;
+                vm.selectedCultureId = vm.cultures[0].id;
+                vm.changeCulture();
             });
 
-            localizationService.getResources(vm.selectedCultureId).then(function (result) {
+            /*localizationService.getResources(vm.selectedCultureId).then(function (result) {
                 vm.resources = result.data;
-            });
+            });*/
         }
 
         init();
