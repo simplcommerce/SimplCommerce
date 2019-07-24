@@ -67,7 +67,7 @@
         {
             if (User.Identity.IsAuthenticated)
             {
-                <p>Submiting review is only enable for users who have bought this product</p>
+                <p>@Localizer["Submiting review is only enable for users who have bought this product"]</p>
             }
             else
             {
@@ -91,7 +91,7 @@
                         <span class="review-title">@review.Title</span>
                     </div>
                     <div>@review.Comment</div>
-                    <div>By <strong>@review.ReviewerName</strong> on <span>@review.CreatedOn.Humanize()</span>  - 
+                    <div>By <strong>@review.ReviewerName</strong> on <span>@review.CreatedOn.Humanize()</span>  -
                         <button class="btn-add-review-reply btn btn-link" data-toggle="collapse" data-target="#reviewReply@(review.Id)" aria-expanded="false" aria-controls="reviewReply@(review.Id)">@Localizer["Add Reply"]</button>
                     </div>
                     <div class="review-replies">

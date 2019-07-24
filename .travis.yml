@@ -2,12 +2,12 @@ language: csharp
 solution: SimplCommerce.sln
 sudo: required
 dist: xenial
-dotnet: 2.2
+dotnet: 2.2.108
 mono: none
 os:
   - linux
 
-branches:  
+branches:
   only:
     - master
 

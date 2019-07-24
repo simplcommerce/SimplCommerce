@@ -20,6 +20,10 @@
                 if (data[key]) {
                     return data[key];
                 }
+                else
+                {
+                    console.info('Not translated: ' + key);
+                }
 
                 return key;
             }

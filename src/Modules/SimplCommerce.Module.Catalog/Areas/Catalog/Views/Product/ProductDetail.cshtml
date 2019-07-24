@@ -241,7 +241,8 @@
 
 @if (Model.RelatedProducts.Any())
 {
-    <h2 class="page-header">Related Products</h2>
+    <!-- Related Products -->
+    <h2 class="page-header">@Localizer["Enjoy and see also"]</h2>
     <div class="row product-list">
         @foreach (var product in Model.RelatedProducts)
         {
@@ -254,7 +255,8 @@
 
 @if (Model.CrossSellProducts.Any())
 {
-    <h2 class="page-header">Cross-sell Products</h2>
+    <!-- Cross-sell Products -->
+    <h2 class="page-header">@Localizer["Enjoy and take also"]</h2>
     <div class="row product-list">
         @foreach (var product in Model.CrossSellProducts)
         {

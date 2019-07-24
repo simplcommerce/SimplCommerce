@@ -1,7 +1,7 @@
 ﻿@using System.Globalization
 
 <!doctype html>
-<html>
+<html lang="@CultureInfo.CurrentUICulture.Name.ToLowerInvariant()">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,6 +21,7 @@
     <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/css/util.css" />
     <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/css/main.css" />
     <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/css/simpl.css" />
+    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/css/flags.css" />
     <script simpl-append-version="true" src="~/lib/angular/angular.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -41,6 +42,7 @@
                     </div>
 
                     <div class="right-top-bar flex-w h-full">
+                        <partial name="_SelectLanguagePartial" />
                         <a href="~/help-center" class="flex-c-m trans-04 p-lr-25">
                             Help & FAQs
                         </a>
@@ -128,7 +130,7 @@
 
     @RenderSection("featured", false)
 
-    <div class="container body-content">
+    <div class="container body-content clearfix">
         @RenderBody()
     </div>
     <!-- Footer -->
@@ -175,7 +177,7 @@
 
                 <div class="col-sm-6 col-lg-3 p-b-50">
                     <h4 class="stext-301 cl0 p-b-30">
-                        Newsletter
+                        @Localizer["Newsletter"]
                     </h4>
 
                     <form>
@@ -254,9 +256,9 @@
     <script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
     <script simpl-append-version="true" src="~/lib/toastr/build/toastr.min.js"></script>
     <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
-    @if (CultureInfo.CurrentCulture.Name == "vi-VN")
+    @if(CultureInfo.CurrentCulture.Name != SimplCommerce.Infrastructure.GlobalConfiguration.DefaultCulture)
     {
-        <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/vi-vn.js"></script>
+        <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/@(CultureInfo.CurrentCulture.Name).js"></script>
     }
 
     <script simpl-append-version="true" src="~/themes/CozaStore/vendor/animsition/js/animsition.min.js"></script>

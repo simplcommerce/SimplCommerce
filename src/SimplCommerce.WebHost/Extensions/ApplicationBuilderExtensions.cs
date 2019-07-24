@@ -13,6 +13,7 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Localization;
 using SimplCommerce.Module.Localization;
+using Microsoft.Extensions.Configuration;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -103,10 +104,14 @@ namespace SimplCommerce.WebHost.Extensions
 
         public static IApplicationBuilder UseCustomizedRequestLocalization(this IApplicationBuilder app)
         {
+            string defaultCultureUI = GlobalConfiguration.DefaultCulture;
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 var cultureRepository = scope.ServiceProvider.GetRequiredService<IRepositoryWithTypedId<Culture, string>>();
                 GlobalConfiguration.Cultures = cultureRepository.Query().ToList();
+
+                var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+                defaultCultureUI = config.GetValue<string>("Global.DefaultCultureUI");
             }
 
             var supportedCultures = GlobalConfiguration.Cultures.Select(c => c.Id).ToArray();
@@ -114,7 +119,7 @@ namespace SimplCommerce.WebHost.Extensions
             options
                 .AddSupportedCultures(supportedCultures)
                 .AddSupportedUICultures(supportedCultures)
-                .SetDefaultCulture(GlobalConfiguration.DefaultCulture)
+                .SetDefaultCulture(defaultCultureUI ?? GlobalConfiguration.DefaultCulture)
                 .RequestCultureProviders.Insert(0, new EfRequestCultureProvider())
             );
 

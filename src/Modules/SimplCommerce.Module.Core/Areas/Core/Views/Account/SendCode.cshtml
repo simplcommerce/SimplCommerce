@@ -9,9 +9,9 @@
     <input asp-for="RememberMe" type="hidden" />
     <div class="form group row">
         <div class="col-md-8">
-            Select Two-Factor Authentication Provider:
+            @Localizer["Select Two-Factor Authentication Provider:"]
             <select asp-for="SelectedProvider" asp-items="Model.Providers"></select>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">@Localizer["Submit"]</button>
         </div>
     </div>
 </form>
