@@ -61,10 +61,10 @@ namespace SimplCommerce.Module.Localization
             var resources = LoadResources(culture);
             var value = resources.SingleOrDefault(r => r.Key == name)?.Value;
 
-            if (value == null)
-            {
-                AutoRegisterNewString(name, culture);
-            }
+            //if (value == null)
+            //{
+            //    AutoRegisterNewString(name, culture);
+            //}
 
             return value;
         }
