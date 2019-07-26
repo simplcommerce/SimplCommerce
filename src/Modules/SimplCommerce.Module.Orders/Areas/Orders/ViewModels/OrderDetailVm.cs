@@ -1,10 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 {
     public class OrderDetailVm
     {
+        private readonly ICurrencyService _currencyService;
+
+        public OrderDetailVm(ICurrencyService currencyService)
+        {
+            _currencyService = currencyService;
+        }
+
         public long Id { get; set; }
 
         public long CustomerId { get; set; }
@@ -37,19 +45,19 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 
         public decimal PaymentFeeAmount { get; set; }
 
-        public string SubtotalString { get { return Subtotal.ToString("C"); } }
+        public string SubtotalString { get { return _currencyService.FormatCurrency(Subtotal); } }
 
-        public string DiscountAmountString { get { return DiscountAmount.ToString("C"); } }
+        public string DiscountAmountString { get { return _currencyService.FormatCurrency(DiscountAmount); } }
 
-        public string SubtotalWithDiscountString { get { return SubTotalWithDiscount.ToString("C"); } }
+        public string SubtotalWithDiscountString { get { return _currencyService.FormatCurrency(SubTotalWithDiscount); } }
 
-        public string TaxAmountString { get { return TaxAmount.ToString("C"); } }
+        public string TaxAmountString { get { return _currencyService.FormatCurrency(TaxAmount); } }
 
-        public string ShippingAmountString { get { return ShippingAmount.ToString("C"); } }
+        public string ShippingAmountString { get { return _currencyService.FormatCurrency(ShippingAmount); } }
 
-        public string PaymentFeeAmountString { get { return PaymentFeeAmount.ToString("C"); } }
+        public string PaymentFeeAmountString { get { return _currencyService.FormatCurrency(PaymentFeeAmount); } }
 
-        public string OrderTotalString { get { return OrderTotal.ToString("C"); } }
+        public string OrderTotalString { get { return _currencyService.FormatCurrency(OrderTotal); } }
 
         public ShippingAddressVm ShippingAddress { get; set; }
 

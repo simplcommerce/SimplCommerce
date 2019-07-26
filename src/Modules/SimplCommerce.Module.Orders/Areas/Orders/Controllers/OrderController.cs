@@ -18,12 +18,14 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         private readonly IMediaService _mediaService;
         private readonly IRepository<Order> _orderRepository;
         private readonly IWorkContext _workContext;
+        private readonly ICurrencyService _currencyService;
 
-        public OrderController(IRepository<Order> orderRepository, IWorkContext workContext, IMediaService mediaService)
+        public OrderController(IRepository<Order> orderRepository, IWorkContext workContext, IMediaService mediaService, ICurrencyService currencyService)
         {
             _orderRepository = orderRepository;
             _workContext = workContext;
             _mediaService = mediaService;
+            _currencyService = currencyService;
         }
 
         [HttpGet("user/orders")]
@@ -33,7 +35,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
             var model = await _orderRepository
                 .Query()
                 .Where(x => x.CustomerId == user.Id && x.ParentId == null)
-                .Select(x => new OrderHistoryListItem
+                .Select(x => new OrderHistoryListItem(_currencyService)
                 {
                     Id = x.Id,
                     CreatedOn = x.CreatedOn,
@@ -86,7 +88,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 return BadRequest(new { error = "You don't have permission to view this order" });
             }
 
-            var model = new OrderDetailVm
+            var model = new OrderDetailVm(_currencyService)
             {
                 Id = order.Id,
                 IsMasterOrder = order.IsMasterOrder,
@@ -116,7 +118,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                     StateOrProvinceName = order.ShippingAddress.StateOrProvince.Name,
                     Phone = order.ShippingAddress.Phone
                 },
-                OrderItems = order.OrderItems.Select(x => new OrderItemVm
+                OrderItems = order.OrderItems.Select(x => new OrderItemVm(_currencyService)
                 {
                     Id = x.Id,
                     ProductId = x.Product.Id,

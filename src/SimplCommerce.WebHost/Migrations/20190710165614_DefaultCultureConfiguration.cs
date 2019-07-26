@@ -9,7 +9,7 @@ namespace SimplCommerce.WebHost.Migrations
             migrationBuilder.InsertData(
                 table: "Core_AppSetting",
                 columns: new[] { "Id", "IsVisibleInCommonSettingPage", "Module", "Value" },
-                values: new object[] { "Global.DefaultCultureUI", true, "Global", "en-US" });
+                values: new object[] { "Global.DefaultCultureUI", true, "Core", "en-US" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

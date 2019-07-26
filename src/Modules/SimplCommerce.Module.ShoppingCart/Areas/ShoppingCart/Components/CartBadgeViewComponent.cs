@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
 using SimplCommerce.Module.ShoppingCart.Services;
 
@@ -11,11 +12,13 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Components
     {
         private ICartService _cartService;
         private IWorkContext _workContext;
+        private ICurrencyService _currencyService;
 
-        public CartBadgeViewComponent(ICartService cartService, IWorkContext workContext)
+        public CartBadgeViewComponent(ICartService cartService, IWorkContext workContext, ICurrencyService currencyService)
         {
             _cartService = cartService;
             _workContext = workContext;
+            _currencyService = currencyService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
@@ -24,7 +27,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Components
             var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
             if(cart == null)
             {
-                cart = new CartVm();
+                cart = new CartVm(_currencyService);
             }
             
             return View(this.GetViewPath(), cart.Items.Count);
