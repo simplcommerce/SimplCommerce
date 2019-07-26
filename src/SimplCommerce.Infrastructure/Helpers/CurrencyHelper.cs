@@ -7,9 +7,9 @@ namespace SimplCommerce.Infrastructure.Helpers
     {
         private static readonly List<string> _zeroDecimalCurrencies = new List<string> { "BIF", "DJF", "JPY", "KRW", "PYG", "VND", "XAF", "XPF", "CLP", "GNF", "KMF", "MGA", "RWF", "VUV", "XOF" };
 
-        public static bool IsZeroDecimalCurrencies()
+        public static bool IsZeroDecimalCurrencies(CultureInfo cultureInfo)
         {
-            var regionInfo = new RegionInfo(CultureInfo.CurrentCulture.LCID);
+            var regionInfo = new RegionInfo(cultureInfo.LCID);
             return _zeroDecimalCurrencies.Contains(regionInfo.ISOCurrencySymbol);
         }
     }

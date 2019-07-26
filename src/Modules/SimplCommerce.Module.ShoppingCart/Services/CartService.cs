@@ -19,13 +19,16 @@ namespace SimplCommerce.Module.ShoppingCart.Services
         private readonly IMediaService _mediaService;
         private readonly ICouponService _couponService;
         private readonly bool _isProductPriceIncludeTax;
+        private readonly ICurrencyService _currencyService;
 
-        public CartService(IRepository<Cart> cartRepository, IRepository<CartItem> cartItemRepository, ICouponService couponService, IMediaService mediaService, IConfiguration config)
+        public CartService(IRepository<Cart> cartRepository, IRepository<CartItem> cartItemRepository, ICouponService couponService,
+            IMediaService mediaService, IConfiguration config, ICurrencyService currencyService)
         {
             _cartRepository = cartRepository;
             _cartItemRepository = cartItemRepository;
             _couponService = couponService;
             _mediaService = mediaService;
+            _currencyService = currencyService;
             _isProductPriceIncludeTax = config.GetValue<bool>("Catalog.IsProductPriceIncludeTax");
         }
 
@@ -112,7 +115,7 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 return null;
             }
 
-            var cartVm = new CartVm()
+            var cartVm = new CartVm(_currencyService)
             {
                 Id = cart.Id,
                 CouponCode = cart.CouponCode,
@@ -127,7 +130,7 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 .Include(x => x.Product).ThenInclude(p => p.ThumbnailImage)
                 .Include(x => x.Product).ThenInclude(p => p.OptionCombinations).ThenInclude(o => o.Option)
                 .Where(x => x.CartId == cart.Id)
-                .Select(x => new CartItemVm
+                .Select(x => new CartItemVm(_currencyService)
                 {
                     Id = x.Id,
                     ProductId = x.ProductId,

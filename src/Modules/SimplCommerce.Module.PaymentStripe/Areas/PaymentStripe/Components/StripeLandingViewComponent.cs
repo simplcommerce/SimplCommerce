@@ -7,6 +7,7 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Helpers;
 using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Payments.Models;
 using SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.ViewModels;
 using SimplCommerce.Module.PaymentStripe.Models;
@@ -19,12 +20,15 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Components
         private readonly ICartService _cartService;
         private readonly IWorkContext _workContext;
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
+        private readonly ICurrencyService _currencyService;
 
-        public StripeLandingViewComponent(ICartService cartService, IWorkContext workContext, IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository)
+        public StripeLandingViewComponent(ICartService cartService, IWorkContext workContext, IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository, ICurrencyService currencyService)
+
         {
             _cartService = cartService;
             _workContext = workContext;
             _paymentProviderRepository = paymentProviderRepository;
+            _currencyService = currencyService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
@@ -34,12 +38,12 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Components
             var curentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(curentUser.Id);
             var zeroDecimalAmount = cart.OrderTotal;
-            if(!CurrencyHelper.IsZeroDecimalCurrencies())
+            if(!CurrencyHelper.IsZeroDecimalCurrencies(_currencyService.CurrencyCulture))
             {
                 zeroDecimalAmount = zeroDecimalAmount * 100;
             }
 
-            var regionInfo = new RegionInfo(CultureInfo.CurrentCulture.LCID);
+            var regionInfo = new RegionInfo(_currencyService.CurrencyCulture.LCID);
             var model = new StripeCheckoutForm();
             model.PublicKey = stripeSetting.PublicKey;
             model.Amount = (long)zeroDecimalAmount;

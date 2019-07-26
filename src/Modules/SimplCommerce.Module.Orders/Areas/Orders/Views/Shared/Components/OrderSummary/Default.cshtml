@@ -32,7 +32,7 @@
     </tr>
     <tr>
         <td>@Localizer["Subtotal"]</td>
-        <td colspan="2" class="text-right">@Model.SubTotal.ToString("C")<input type="hidden" id="orderSubtotal" value="@Model.SubTotal" /></td>
+        <td colspan="2" class="text-right">@Model.SubTotalString<input type="hidden" id="orderSubtotal" value="@Model.SubTotal" /></td>
     </tr>
     <tr>
         <td>@Localizer["Shipping"]</td>
@@ -47,7 +47,7 @@
     }
     <tr>
         <td>@Localizer["Discount"]</td>
-        <td colspan="2" class="text-right">@Model.Discount.ToString("C")</td>
+        <td colspan="2" class="text-right">@Model.DiscountString</td>
     </tr>
     <tr>
         <td>
@@ -57,6 +57,6 @@
                 <span> (@Localizer["VAT included"])</span>
             }
         </td>
-        <td colspan="2" class="text-right"><strong id="orderTotal">@Model.OrderTotal.ToString("C")</strong></td>
+        <td colspan="2" class="text-right"><strong id="orderTotal">@Model.OrderTotalString</strong></td>
     </tr>
 </table>

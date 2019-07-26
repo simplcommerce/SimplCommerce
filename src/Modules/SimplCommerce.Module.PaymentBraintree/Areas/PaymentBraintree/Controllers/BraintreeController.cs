@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Helpers;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.PaymentBraintree.Models;
@@ -26,6 +27,7 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Controlle
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private readonly IRepository<Payment> _paymentRepository;
         private readonly IBraintreeConfiguration _braintreeConfiguration;
+        private readonly ICurrencyService _currencyService;
 
         public BraintreeController(
             ICartService cartService,
@@ -33,7 +35,8 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Controlle
             IWorkContext workContext,
             IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
             IRepository<Payment> paymentRepository,
-            IBraintreeConfiguration braintreeConfiguration)
+            IBraintreeConfiguration braintreeConfiguration,
+            ICurrencyService currencyService)
         {
             _cartService = cartService;
             _orderService = orderService;
@@ -41,6 +44,7 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Controlle
             _paymentProviderRepository = paymentProviderRepository;
             _paymentRepository = paymentRepository;
             _braintreeConfiguration = braintreeConfiguration;
+            _currencyService = currencyService;
         }
 
         [HttpPost]
@@ -64,12 +68,12 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Controlle
 
             var order = orderCreateResult.Value;
             var zeroDecimalOrderAmount = order.OrderTotal;
-            if (!CurrencyHelper.IsZeroDecimalCurrencies())
+            if (!CurrencyHelper.IsZeroDecimalCurrencies(_currencyService.CurrencyCulture))
             {
                 zeroDecimalOrderAmount = zeroDecimalOrderAmount * 100;
             }
 
-            var regionInfo = new RegionInfo(CultureInfo.CurrentCulture.LCID);
+            var regionInfo = new RegionInfo(_currencyService.CurrencyCulture.LCID);
             var payment = new Payment()
             {
                 OrderId = order.Id,
