@@ -7,8 +7,8 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>-->
   <ItemGroup>
-    <PackageReference Include="Hangfire.AspNetCore" Version="1.6.22" />
-    <PackageReference Include="Hangfire.SqlServer" Version="1.6.22" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.5" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
