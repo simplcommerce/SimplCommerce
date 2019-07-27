@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <ItemGroup>
     <ProjectReference Include="..\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
-    <PackageReference Include="MailKit" Version="2.1.2" />
+    <PackageReference Include="MailKit" Version="2.2.0" />
   </ItemGroup>
 
 </Project>

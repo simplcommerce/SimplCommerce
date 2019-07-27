@@ -1,9 +1,9 @@
-FROM microsoft/dotnet:2.2-sdk AS build-env
+FROM microsoft/dotnet:2.2.401-sdk AS build-env
   
 WORKDIR /app
 COPY . ./
 
-RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.1" />#<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.1" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
+RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />#<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.6" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
 RUN sed -i 's/UseSqlServer/UseSqlite/' src/SimplCommerce.WebHost/Program.cs
 RUN sed -i 's/UseSqlServer/UseSqlite/' src/SimplCommerce.WebHost/Extensions/ServiceCollectionExtensions.cs
 RUN sed -i 's/"DefaultConnection": ".*"/"DefaultConnection": "Data Source=simplcommerce.db"/' src/SimplCommerce.WebHost/appsettings.json
@@ -21,7 +21,7 @@ RUN dotnet build -c Release \
 	&& dotnet build -c Release \
 	&& dotnet publish -c Release -o out
 
-FROM microsoft/dotnet:2.2.0-aspnetcore-runtime
+FROM microsoft/dotnet:2.2.6-aspnetcore-runtime
 
 RUN apt-get update \
 	&& apt-get install libgdiplus -y \

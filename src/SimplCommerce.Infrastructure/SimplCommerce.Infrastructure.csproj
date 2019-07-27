@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Humanizer" Version="2.5.16" />
+    <PackageReference Include="Humanizer" Version="2.6.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="MediatR" Version="6.0.0" />
-    <PackageReference Include="cloudscribe.Web.Pagination" Version="2.1.7" />
-    <PackageReference Include="ncrontab" Version="3.3.0" />
+    <PackageReference Include="MediatR" Version="7.0.0" />
+    <PackageReference Include="cloudscribe.Web.Pagination" Version="2.1.11" />
+    <PackageReference Include="ncrontab" Version="3.3.1" />
   </ItemGroup>
 
 </Project>
