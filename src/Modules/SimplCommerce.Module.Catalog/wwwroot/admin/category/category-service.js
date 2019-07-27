@@ -13,7 +13,9 @@
             deleteCategory: deleteCategory,
             getCategories: getCategories,
             getProducts: getProducts,
-            saveProduct: saveProduct
+            saveProduct: saveProduct,
+            getCategoryTranslation: getCategoryTranslation,
+            editCategoryTranslation: editCategoryTranslation
         };
         return service;
 
@@ -50,6 +52,14 @@
 
         function saveProduct(product) {
             return $http.put('api/categories/update-product/' + product.id, product);
+        }
+
+        function getCategoryTranslation(id, culture) {
+            return $http.get('api/category-translations/' + id + '?culture=' + culture);
+        }
+
+        function editCategoryTranslation(id, culture, model) {
+            return $http.put('api/category-translations/' + id + '?culture=' + culture, model);
         }
     }
 })();

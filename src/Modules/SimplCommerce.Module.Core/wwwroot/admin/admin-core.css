@@ -200,4 +200,8 @@ td>span.glyphicon-remove {
         #search-products-results .products:nth-child(even) {
             background: #fafafa;
         }
+
+.btn-translate {
+    margin-right: 3px;
+}
  

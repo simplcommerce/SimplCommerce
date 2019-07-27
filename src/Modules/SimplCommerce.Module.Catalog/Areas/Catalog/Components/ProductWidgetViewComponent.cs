@@ -17,12 +17,17 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
         private readonly IRepository<Product> _productRepository;
         private readonly IMediaService _mediaService;
         private readonly IProductPricingService _productPricingService;
+        private readonly IContentLocalizationService _contentLocalizationService;
 
-        public ProductWidgetViewComponent(IRepository<Product> productRepository, IMediaService mediaService, IProductPricingService productPricingService)
+        public ProductWidgetViewComponent(IRepository<Product> productRepository,
+            IMediaService mediaService,
+            IProductPricingService productPricingService,
+            IContentLocalizationService contentLocalizationService)
         {
             _productRepository = productRepository;
             _mediaService = mediaService;
             _productPricingService = productPricingService;
+            _contentLocalizationService = contentLocalizationService;
         }
 
         public IViewComponentResult Invoke(WidgetInstanceViewModel widgetInstance)
@@ -55,6 +60,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
 
             foreach (var product in model.Products)
             {
+                product.Name = _contentLocalizationService.GetLocalizedProperty(nameof(Product), product.Id, nameof(product.Name), product.Name);
                 product.ThumbnailUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage);
                 product.CalculatedProductPrice = _productPricingService.CalculateProductPrice(product);
             }

@@ -20,19 +20,22 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<Brand> _brandRepository;
         private readonly IProductPricingService _productPricingService;
+        private readonly IContentLocalizationService _contentLocalizationService;
 
         public BrandController(IRepository<Product> productRepository,
             IMediaService mediaService,
             IRepository<Category> categoryRepository,
             IRepository<Brand> brandRepository,
             IProductPricingService productPricingService,
-            IConfiguration config)
+            IConfiguration config,
+            IContentLocalizationService contentLocalizationService)
         {
             _productRepository = productRepository;
             _mediaService = mediaService;
             _categoryRepository = categoryRepository;
             _brandRepository = brandRepository;
             _productPricingService = productPricingService;
+            _contentLocalizationService = contentLocalizationService;
             _pageSize = config.GetValue<int>("Catalog.ProductPageSize");
         }
 
@@ -98,6 +101,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
             foreach (var product in products)
             {
+                product.Name = _contentLocalizationService.GetLocalizedProperty(nameof(Product), product.Id, nameof(product.Name), product.Name);
                 product.ThumbnailUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage);
                 product.CalculatedProductPrice = _productPricingService.CalculateProductPrice(product);
             }
