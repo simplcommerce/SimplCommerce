@@ -19,7 +19,9 @@
             changeStatus: changeStatus,
             deleteProduct: deleteProduct,
             getTaxClasses: getTaxClasses,
-            getDefaultTaxClass: getDefaultTaxClass
+            getDefaultTaxClass: getDefaultTaxClass,
+            getProductTranslation: getProductTranslation,
+            editProductTranslation: editProductTranslation
         };
         return service;
 
@@ -90,6 +92,14 @@
 
         function getDefaultTaxClass() {
             return $http.get('api/tax-classes/default');
+        }
+
+        function getProductTranslation(id, culture) {
+            return $http.get('api/product-translations/' + id + '?culture=' + culture);
+        }
+
+        function editProductTranslation(id, culture, model) {
+            return $http.put('api/product-translations/' + id + '?culture=' + culture, model);
         }
     }
 })();

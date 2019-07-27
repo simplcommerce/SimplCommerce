@@ -5,16 +5,19 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels;
 using SimplCommerce.Module.Catalog.Models;
+using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
 {
     public class CategoryMenuViewComponent : ViewComponent
     {
         private readonly IRepository<Category> _categoryRepository;
+        private readonly IContentLocalizationService _contentLocalizationService;
 
-        public CategoryMenuViewComponent(IRepository<Category> categoryRepository)
+        public CategoryMenuViewComponent(IRepository<Category> categoryRepository, IContentLocalizationService contentLocalizationService)
         {
             _categoryRepository = categoryRepository;
+            _contentLocalizationService = contentLocalizationService;
         }
 
         public IViewComponentResult Invoke()
@@ -37,7 +40,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
             var categoryMenuItem = new CategoryMenuItem
             {
                 Id = category.Id,
-                Name = category.Name,
+                Name = _contentLocalizationService.GetLocalizedProperty(category, nameof(category.Name), category.Name),
                 Slug = category.Slug
             };
 

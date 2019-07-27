@@ -26,6 +26,9 @@
         <td>
             <a ui-sref="page-edit({id: page.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
             <button ng-click="vm.deletePage(page)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+            <a ui-sref="page-translation({id: page.id, culture: culture})" class="btn btn-default btn-xs btn-translate" ng-repeat="culture in vm.enableCultures"> 
+                <span class="flag flag-{{culture.substr(culture.length - 2).toLowerCase()}}" alt="{{culture}}" title="{{culture}}"></span>
+            </a>
         </td>
     </tr>
     </tbody>

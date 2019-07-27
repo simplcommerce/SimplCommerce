@@ -20,6 +20,11 @@
                     templateUrl: 'modules/cms/admin/page/page-form.html',
                     controller: 'PageFormCtrl as vm'
                 })
+                .state('page-translation', {
+                    url: '/page-translation/:id/:culture',
+                    templateUrl: 'modules/cms/admin/page/page-translation-form.html',
+                    controller: 'PageTranslationFormCtrl as vm'
+                })
                 .state('menus', {
                     url: '/menus/',
                     templateUrl: 'modules/cms/admin/menu/menu-list.html',
