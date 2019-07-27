@@ -25,7 +25,7 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add category.');
+                        vm.validationErrors.push('Could not add category translation.');
                     }
                 });
         };
