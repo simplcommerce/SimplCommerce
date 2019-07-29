@@ -5,10 +5,11 @@
         .controller('CategoryListCtrl', CategoryLitsCtrl);
 
     /* @ngInject */
-    function CategoryLitsCtrl(categoryService, translateService) {
+    function CategoryLitsCtrl(categoryService, translateService, $window) {
         var vm = this;
         vm.translate = translateService;
         vm.categories = [];
+        vm.enableCultures = $window.Global_EnableCultures;
 
         vm.getCategories = function getCategories() {
             categoryService.getCategories().then(function (result) {

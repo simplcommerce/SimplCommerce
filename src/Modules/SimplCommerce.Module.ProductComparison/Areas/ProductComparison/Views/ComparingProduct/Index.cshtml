@@ -1,4 +1,4 @@
-@model SimplCommerce.Module.ProductComparison.Areas.ProductComparison.ViewModels.ProductComparisonVm
+﻿@model SimplCommerce.Module.ProductComparison.Areas.ProductComparison.ViewModels.ProductComparisonVm
 
 @{
     ViewData["Title"] = "Compare products";
@@ -34,7 +34,7 @@
             <td><strong>Price</strong></td>
             @foreach (var product in Model.Products)
             {
-                <td>@product.CalculatedProductPrice.Price.ToString("C")</td>
+                <td>@product.CalculatedProductPrice.PriceString</td>
             }
         </tr>
         @foreach(var attribute in Model.Attributes)

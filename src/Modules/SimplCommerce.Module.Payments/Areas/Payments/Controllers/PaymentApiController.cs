@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Payments.Models;
 
 namespace SimplCommerce.Module.Payments.Areas.Payments.Controllers
@@ -14,10 +15,12 @@ namespace SimplCommerce.Module.Payments.Areas.Payments.Controllers
     public class PaymentApiController : Controller
     {
         private readonly IRepository<Payment> _paymentRepository;
+        private readonly ICurrencyService _currencyService;
 
-        public PaymentApiController(IRepository<Payment> paymentRepository)
+        public PaymentApiController(IRepository<Payment> paymentRepository, CurrencyService currencyService)
         {
             _paymentRepository = paymentRepository;
+            _currencyService = currencyService;
         }
 
         [HttpGet("/api/orders/{orderId}/payments")]
@@ -29,9 +32,9 @@ namespace SimplCommerce.Module.Payments.Areas.Payments.Controllers
                 {
                     x.Id,
                     x.Amount,
-                    AmountString = x.Amount.ToString("C"),
+                    AmountString = _currencyService.FormatCurrency(x.Amount),
                     x.PaymentFee,
-                    PaymentFeeString = x.PaymentFee.ToString("C"),
+                    PaymentFeeString = _currencyService.FormatCurrency(x.PaymentFee),
                     x.OrderId,
                     x.GatewayTransactionId,
                     Status = x.Status.ToString(),

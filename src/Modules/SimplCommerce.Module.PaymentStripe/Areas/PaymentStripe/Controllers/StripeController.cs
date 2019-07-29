@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Helpers;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.Payments.Models;
@@ -26,19 +27,22 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
         private readonly IWorkContext _workContext;
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private readonly IRepository<Payment> _paymentRepository;
+        private readonly ICurrencyService _currencyService;
 
         public StripeController(
             ICartService cartService,
             IOrderService orderService,
             IWorkContext workContext,
             IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
-            IRepository<Payment> paymentRepository)
+            IRepository<Payment> paymentRepository,
+            ICurrencyService currencyService)
         {
             _cartService = cartService;
             _orderService = orderService;
             _workContext = workContext;
             _paymentProviderRepository = paymentProviderRepository;
             _paymentRepository = paymentRepository;
+            _currencyService = currencyService;
         }
 
         public async Task<IActionResult> Charge(string stripeEmail, string stripeToken)
@@ -62,12 +66,12 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
 
             var order = orderCreationResult.Value;
             var zeroDecimalOrderAmount = order.OrderTotal;
-            if(!CurrencyHelper.IsZeroDecimalCurrencies())
+            if(!CurrencyHelper.IsZeroDecimalCurrencies(_currencyService.CurrencyCulture))
             {
                 zeroDecimalOrderAmount = zeroDecimalOrderAmount * 100;
             }
 
-            var regionInfo = new RegionInfo(CultureInfo.CurrentCulture.LCID);
+            var regionInfo = new RegionInfo(_currencyService.CurrencyCulture.LCID);
             var payment= new Payment()
             {
                 OrderId = order.Id,

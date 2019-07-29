@@ -10,6 +10,7 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Helpers;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Orders.Areas.Orders.ViewModels;
 using SimplCommerce.Module.Orders.Events;
 using SimplCommerce.Module.Orders.Models;
@@ -24,12 +25,14 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         private readonly IRepository<Order> _orderRepository;
         private readonly IWorkContext _workContext;
         private readonly IMediator _mediator;
+        private readonly ICurrencyService _currencyService;
 
-        public OrderApiController(IRepository<Order> orderRepository, IWorkContext workContext, IMediator mediator)
+        public OrderApiController(IRepository<Order> orderRepository, IWorkContext workContext, IMediator mediator, ICurrencyService currencyService)
         {
             _orderRepository = orderRepository;
             _workContext = workContext;
             _mediator = mediator;
+            _currencyService = currencyService;
         }
 
         [HttpGet]
@@ -60,7 +63,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                     x.Id,
                     CustomerName = x.Customer.FullName,
                     x.OrderTotal,
-                    OrderTotalString = x.OrderTotal.ToString("C"),
+                    OrderTotalString = _currencyService.FormatCurrency(x.OrderTotal),
                     OrderStatus = x.OrderStatus.ToString(),
                     x.CreatedOn
                 });
@@ -124,6 +127,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                     order.Id,
                     CustomerName = order.Customer.FullName,
                     order.OrderTotal,
+                    OrderTotalString = _currencyService.FormatCurrency(order.OrderTotal),
                     OrderStatus = order.OrderStatus.ToString(),
                     order.CreatedOn
                 });
@@ -155,7 +159,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 return BadRequest(new { error = "You don't have permission to manage this order" });
             }
 
-            var model = new OrderDetailVm
+            var model = new OrderDetailVm(_currencyService)
             {
                 Id = order.Id,
                 IsMasterOrder = order.IsMasterOrder,
@@ -185,7 +189,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                     StateOrProvinceName = order.ShippingAddress.StateOrProvince.Name,
                     Phone = order.ShippingAddress.Phone
                 },
-                OrderItems = order.OrderItems.Select(x => new OrderItemVm
+                OrderItems = order.OrderItems.Select(x => new OrderItemVm(_currencyService)
                 {
                     Id = x.Id,
                     ProductId = x.Product.Id,
@@ -303,7 +307,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
             }
 
             var orders = await query
-                .Select(x => new OrderExportVm
+                .Select(x => new OrderExportVm(_currencyService)
                 {
                     Id = x.Id,
                     OrderStatus = (int)x.OrderStatus,
@@ -402,7 +406,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
             }
 
             var orderItems = await query
-                            .Select(x => new OrderLineExportVm
+                            .Select(x => new OrderLineExportVm(_currencyService)
                             {
                                 Id = x.Id,
                                 OrderStatus = (int)x.Order.OrderStatus,

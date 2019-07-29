@@ -102,10 +102,10 @@
                             }
                             else
                             {
-                                <h3>@variant.CalculatedProductPrice.Price.ToString("C")</h3>
+                                <h3>@variant.CalculatedProductPrice.PriceString</h3>
                                 if (variant.CalculatedProductPrice.PercentOfSaving > 0)
                                 {
-                                    <p class="product-price-regular">@variant.CalculatedProductPrice.OldPrice.Value.ToString("C")</p>
+                                    <p class="product-price-regular">@variant.CalculatedProductPrice.OldPriceString</p>
                                     <p class="product-price-saving">@Localizer["You save"] (@(variant.CalculatedProductPrice.PercentOfSaving)%)</p>
                                 }
                             }
@@ -154,10 +154,10 @@
                     }
                     else
                     {
-                        <h3>@Model.CalculatedProductPrice.Price.ToString("C")</h3>
+                        <h3>@Model.CalculatedProductPrice.PriceString</h3>
                         if (Model.CalculatedProductPrice.PercentOfSaving > 0)
                         {
-                            <p class="product-price-regular">@Model.CalculatedProductPrice.OldPrice.Value.ToString("C")</p>
+                            <p class="product-price-regular">@Model.CalculatedProductPrice.OldPriceString)</p>
                             <p class="product-price-saving">@Localizer["You save"] (@(Model.CalculatedProductPrice.PercentOfSaving)%)</p>
                         }
                     }
@@ -228,7 +228,8 @@
 
 @if (Model.RelatedProducts.Any())
 {
-    <h3 class="p-t-25 p-b-25">Related Products</h3>
+    <!-- Related Products -->
+    <h3 class="p-t-25 p-b-25">@Localizer["Enjoy and see also"]</h3>
     <div class="row product-list">
         @foreach (var product in Model.RelatedProducts)
         {
@@ -241,7 +242,8 @@
 
 @if (Model.CrossSellProducts.Any())
 {
-    <h3 class="p-t-25 p-b-25">Cross-sell Products</h3>
+    <!-- Cross-sell Products -->
+    <h3 class="p-t-25 p-b-25">@Localizer["Enjoy and take also"]</h3>
     <div class="row product-list">
         @foreach (var product in Model.CrossSellProducts)
         {

@@ -37,7 +37,7 @@ namespace SimplCommerce.Infrastructure.Helpers
             return records;
         }
 
-        public static string ExportCsv<T>(IList<T> data, bool includeHeader = true, string csvDelimiter = ",") where T : new()
+        public static string ExportCsv<T>(IList<T> data, bool includeHeader = true, string csvDelimiter = ",")
         {
             var type = data.GetType();
             Type itemType;

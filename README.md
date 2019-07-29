@@ -7,7 +7,6 @@
 ## Build Status
 | Build server    | Platform       | Status      |
 |-----------------|----------------|-------------|
-| AppVeyor        | Windows        |[![Build status](https://ci.appveyor.com/api/projects/status/cq61prgs6ta8e9hi/branch/master?svg=true)](https://ci.appveyor.com/project/thiennn/simplcommerce/branch/master) |
 | Azure Pipelines | All            |[![Build Status](https://simplcommerce.visualstudio.com/simplcommerce/_apis/build/status/simplcommerce.SimplCommerce?branchName=master)](https://simplcommerce.visualstudio.com/simplcommerce/_build/latest?definitionId=1&branchName=master)
 |Travis           | Linux / MacOS  |[![Build Status](https://travis-ci.org/simplcommerce/SimplCommerce.svg?branch=master)](https://travis-ci.org/simplcommerce/SimplCommerce) |
 
@@ -21,12 +20,12 @@ For testing purpose only `docker run -p 5000:80 simplcommerce/ci-build`
 
 Continuous deployment: https://ci.simplcommerce.com
 
-## Visual Studio 2017 and SQL Server
+## Visual Studio 2019 and SQL Server
 
 #### Prerequisites
 
 - SQL Server
-- [Visual Studio 2017 version >= 15.8 with .NET Core SDK 2.2.101](https://www.microsoft.com/net/download/all)
+- [Visual Studio 2019 version >= 16.2 with .NET Core SDK 2.2.401](https://www.microsoft.com/net/download/all)
 
 #### Steps to run
 
@@ -42,7 +41,7 @@ Continuous deployment: https://ci.simplcommerce.com
 #### Prerequisite
 
 - PostgreSQL
-- [.NET Core SDK 2.2.101](https://www.microsoft.com/net/download/all)
+- [.NET Core SDK 2.2.401](https://www.microsoft.com/net/download/all)
 
 #### Steps to run
 
@@ -57,7 +56,7 @@ Continuous deployment: https://ci.simplcommerce.com
 - Entity Framework Core 2.2
 - ASP.NET Identity Core 2.2
 - Angular 1.6.3
-- MediatR 6.0.0 for domain event
+- MediatR 7.0.0 for domain event
 
 ## Docs
 

@@ -83,6 +83,9 @@
                 <button ng-if="!product.isPublished" title="Publish" ng-click="vm.changeStatus(product)" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-play"></span></button>
                 <a ui-sref="product-edit({id: product.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
                 <button ng-click="vm.deleteProduct(product)" title="Delete" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+                <a ui-sref="product-translation({id: product.id, culture: culture})" class="btn btn-default btn-xs btn-translate" ng-repeat="culture in vm.enableCultures"> 
+                    <span class="flag flag-{{culture.substr(culture.length - 2).toLowerCase()}}" alt="{{culture}}" title="{{culture}}"></span>
+                </a>
             </td>
         </tr>
     </tbody>

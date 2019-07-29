@@ -5,16 +5,19 @@ using SimplCommerce.Module.Shipping.Models;
 using SimplCommerce.Module.ShippingPrices.Services;
 using SimplCommerce.Module.ShippingTableRate.Models;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.ShippingTableRate.Services
 {
     public class TableRateShippingServiceProvider : IShippingPriceServiceProvider
     {
         public readonly IRepository<PriceAndDestination> _priceAndDestinationRepository;
+        private readonly ICurrencyService _currencyService;
 
-        public TableRateShippingServiceProvider(IRepository<PriceAndDestination> priceAndDestinationRepository)
+        public TableRateShippingServiceProvider(IRepository<PriceAndDestination> priceAndDestinationRepository, ICurrencyService currencyService)
         {
             _priceAndDestinationRepository = priceAndDestinationRepository;
+            _currencyService = currencyService;
         }
 
         public async Task<GetShippingPriceResponse> GetShippingPrices(GetShippingPriceRequest request, ShippingProvider provider)
@@ -33,7 +36,7 @@ namespace SimplCommerce.Module.ShippingTableRate.Services
 
             if(cheapestApplicable != null)
             {
-                response.ApplicablePrices.Add(new ShippingPrice
+                response.ApplicablePrices.Add(new ShippingPrice(_currencyService)
                 {
                     Name = "Standard",
                     Price = cheapestApplicable.ShippingPrice

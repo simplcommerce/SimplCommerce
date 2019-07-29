@@ -16,21 +16,20 @@
             <div class="caption">
                 <h4>{{theme.displayName}}</h4>
                 <p ng-hide="theme.isCurrent">
-                    <button class="btn btn-default" role="button" ng-click="vm.useTheme(theme)">Use</button>
-                    <button ng-hide="theme.name === vm.previewingTheme" class="btn btn-default" role="button" ng-click="vm.previewTheme(theme)">Preview</button>
-                    <button ng-show="theme.name === vm.previewingTheme" class="btn btn-primary" role="button" ng-click="vm.cancelPreviewTheme(theme)">Cancel Preview</button>
-                    <button ng-if="theme.name !== 'Generic'" class="btn btn-default" role="button" ng-click="vm.downloadTheme(theme)">Download</button>
-                    <button ng-if="theme.name !== 'Generic'" class="btn btn-default" role="button" ng-click="vm.deleteTheme(theme)">Delete</button>
+                    <button class="btn btn-default" role="button" ng-click="vm.useTheme(theme)">{{::vm.translate.get('Use')}}</button>
+                    <button ng-hide="theme.name === vm.previewingTheme" class="btn btn-default" role="button" ng-click="vm.previewTheme(theme)">{{::vm.translate.get('Preview')}}</button>
+                    <button ng-show="theme.name === vm.previewingTheme" class="btn btn-primary" role="button" ng-click="vm.cancelPreviewTheme(theme)">{{::vm.translate.get('Cancel Preview')}}</button>
+                    <button ng-if="theme.name !== 'Generic'" class="btn btn-default" role="button" ng-click="vm.downloadTheme(theme)">{{::vm.translate.get('Download')}}</button>
+                    <button ng-if="theme.name !== 'Generic'" class="btn btn-default" role="button" ng-click="vm.deleteTheme(theme)">{{::vm.translate.get('Delete')}}</button>
                 </p>
                 <p ng-show="theme.isCurrent">
                     <button type="button" disabled="disabled" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Current theme
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {{::vm.translate.get('Current theme')}}
                     </button>
-                    <button ng-if="theme.name !== 'Generic'" class="btn btn-default" role="button" ng-click="vm.downloadTheme(theme)">Download</button>
+                    <button ng-if="theme.name !== 'Generic'" class="btn btn-default" role="button" ng-click="vm.downloadTheme(theme)">{{::vm.translate.get('Download')}}</button>
                 </p>
 
             </div>
          </div>
     </div>
 </div>
-	

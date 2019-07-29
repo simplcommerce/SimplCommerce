@@ -2,21 +2,16 @@
 
 var gulp = require('gulp'),
     clean = require('gulp-clean'),
-    glob = require("glob"),
-    argv = require('yargs').argv;
-
-var buildConfigurationName = argv.configurationName || 'Debug';
+    glob = require("glob");
 
 var paths = {
     host: {
         wwwroot: "./wwwroot/",
         wwwrootModules: "./wwwroot/modules/",
-        modules: "./Modules/",
-        moduleBin: "/bin/"
+        modules: "./Modules/"
     },
     dev: {
-        modules: "../Modules/",
-        moduleBin: "/bin/" + buildConfigurationName +"/netcoreapp2.1/"
+        modules: "../Modules/"
     }
 };
 
@@ -35,12 +30,12 @@ function loadModules() {
     return modules;
 }
 
-gulp.task('clean-module', function () {
+gulp.task('clean-module', async function () {
     return gulp.src([paths.host.modules + '*', paths.host.wwwrootModules + '*'], { read: false })
         .pipe(clean());
 });
 
-gulp.task('copy-static', function () {
+gulp.task('copy-static', async function () {
     modules.forEach(function (module) {
         console.log('copying static contents ' + paths.dev.modules + module.id);
         gulp.src([paths.dev.modules + module.id + '/Views/**/*.*',
@@ -52,16 +47,4 @@ gulp.task('copy-static', function () {
 
     gulp.src(paths.dev.modules + 'SimplCommerce.Module.SampleData/SampleContent/**/*.*')
         .pipe(gulp.dest(paths.host.modules + 'SimplCommerce.Module.SampleData/SampleContent'));
-});
-
-gulp.task('copy-modules', ['clean-module'], function () {
-    gulp.start(['copy-static']);
-
-    modules.forEach(function (module) {
-        if (!module.isBundledWithHost) {
-            console.log('copying ' + paths.dev.modules + module.id + paths.dev.moduleBin);
-            gulp.src(paths.dev.modules + module.id + paths.dev.moduleBin + '**/*.*')
-                .pipe(gulp.dest(paths.host.modules + module.id + paths.host.moduleBin));
-        }
-    });
 });

@@ -65,7 +65,7 @@
                                 <td class="text-right">@item.ProductPriceString</td>
                                 <td class="text-right">@item.TotalString</td>
                                 <td class="text-right">@item.TaxPercent</td>
-                                <td class="text-right">@((item.Total + item.TaxAmount).ToString("C"))</td>
+                                <td class="text-right">@item.TaxIncludedAmountString</td>
                             </tr>
                         }
                     </tbody>

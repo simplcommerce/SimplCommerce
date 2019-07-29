@@ -1,7 +1,7 @@
 ﻿@using System.Globalization
 
 <!doctype html>
-<html>
+<html lang="@CultureInfo.CurrentUICulture.Name.ToLowerInvariant()">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -58,7 +58,7 @@
         </div>
     </div>
     <partial name="_CookieConsentPartial" />
-    <div class="container body-content">
+    <div class="container body-content clearfix">
         @RenderBody()
     </div>
     <div class="footer-content">
@@ -69,7 +69,7 @@
                     <vc:menu menu-id="1"></vc:menu>
                 </div>
                 <div class="col-md-3">
-                    <h4>Information</h4>
+                    <h4>@Localizer["Information"]</h4>
                     <vc:menu menu-id="2"></vc:menu>
                 </div>
                 <div class="col-md-6">
@@ -106,9 +106,10 @@
     <script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
     <script simpl-append-version="true" src="~/lib/toastr/build/toastr.min.js"></script>
     <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
-    @if (CultureInfo.CurrentCulture.Name == "vi-VN")
+    <script simpl-append-version="true" src="~/lib/signalr/dist/browser/signalr.js"></script>
+    @if(CultureInfo.CurrentCulture.Name != SimplCommerce.Infrastructure.GlobalConfiguration.DefaultCulture)
     {
-        <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/vi-vn.js"></script>
+        <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/@(CultureInfo.CurrentCulture.Name).js"></script>
     }
     <script simpl-append-version="true" src="~/modules/core/main.js"></script>
     <script simpl-append-version="true" src="~/modules/shoppingcart/add-to-cart.js"></script>
