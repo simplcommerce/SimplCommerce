@@ -38,7 +38,8 @@
         'simplAdmin.recentlyViewed',
         'simplAdmin.paymentBraintree',
         'simplAdmin.paymentMomo',
-        'simplAdmin.paymentNganLuong'
+        'simplAdmin.paymentNganLuong',
+        'simplAdmin.paymentCashfree'
     ]);
 
     toastr.options.closeButton = true;
