@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimplCommerce.Module.Core.Data;
 
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    partial class SimplDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190801065533_AddedCashfreePayment")]
+    partial class AddedCashfreePayment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -939,13 +941,6 @@ namespace SimplCommerce.WebHost.Migrations
                             IsVisibleInCommonSettingPage = true,
                             Module = "Core",
                             Value = "1.0"
-                        },
-                        new
-                        {
-                            Id = "Global.AssetBundling",
-                            IsVisibleInCommonSettingPage = true,
-                            Module = "Core",
-                            Value = "false"
                         },
                         new
                         {
