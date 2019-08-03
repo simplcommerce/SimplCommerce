@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.payments')
-        .controller('PaymentProviderListCtrl', PaymentProviderListCtrl);
+        .controller('PaymentProviderListCtrl', ['paymentProviderService', 'translateService', PaymentProviderListCtrl]);
 
-    /* @ngInject */
     function PaymentProviderListCtrl(paymentProviderService, translateService) {
         var vm = this;
         vm.translate = translateService;

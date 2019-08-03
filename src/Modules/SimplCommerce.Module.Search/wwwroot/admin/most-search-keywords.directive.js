@@ -8,7 +8,7 @@
             restrict: 'E',
             templateUrl: 'modules/search/admin/most-search-keywords.directive.html',
             scope: {},
-            controller: MostSearchKeywordCtrl,
+            controller: ['searchService', 'translateService', MostSearchKeywordCtrl],
             controllerAs: 'vm',
             bindToController: true
         };
@@ -16,7 +16,6 @@
         return directive;
     }
 
-    /* @ngInject */
     function MostSearchKeywordCtrl(searchService, translateService) {
         var vm = this;
         vm.translate = translateService;

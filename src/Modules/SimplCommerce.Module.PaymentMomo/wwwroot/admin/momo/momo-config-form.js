@@ -2,10 +2,9 @@
 (function ($) {
     angular
         .module('simplAdmin.paymentMomo')
-        .controller('MomoConfigFormCtrl', MomoConfigFormCtrl);
+        .controller('MomoConfigFormCtrl', ['paymentMomoService', 'translateService', MomoConfigFormCtrl]);
 
-    /* @ngInject */
-    function MomoConfigFormCtrl($state, paymentMomoService, translateService) {
+    function MomoConfigFormCtrl(paymentMomoService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.momoConfig = {};

@@ -2,10 +2,9 @@
 (function () {
     angular
         .module('simplAdmin.localization')
-        .controller('LocalizationFormCtrl', LocalizationFormCtrl);
+        .controller('LocalizationFormCtrl', ['localizationService', 'translateService', LocalizationFormCtrl]);
 
-    /* @ngInject */
-    function LocalizationFormCtrl($state, localizationService, translateService) {
+    function LocalizationFormCtrl(localizationService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.resources = [];

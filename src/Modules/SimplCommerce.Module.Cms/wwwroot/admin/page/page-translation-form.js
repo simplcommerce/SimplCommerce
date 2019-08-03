@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.cms')
-        .controller('PageTranslationFormCtrl', PageTranslationFormCtrl);
+        .controller('PageTranslationFormCtrl', ['$state', '$stateParams', 'summerNoteService', 'pageService', 'translateService', PageTranslationFormCtrl]);
 
-    /* @ngInject */
     function PageTranslationFormCtrl($state, $stateParams, summerNoteService, pageService, translateService) {
         var vm = this;
         vm.translate = translateService;

@@ -2,10 +2,9 @@
 (function () {
     angular
         .module('simplAdmin.core')
-        .controller('CountryListCtrl', CountryListCtrl);
+        .controller('CountryListCtrl', ['countryService', 'translateService', CountryListCtrl]);
 
-    /* @ngInject */
-    function CountryListCtrl(countryService, translateService, $state) {
+    function CountryListCtrl(countryService, translateService) {
         var vm = this;
         vm.tableStateRef = {};
         vm.countries = [];

@@ -1,16 +1,20 @@
 ﻿@using System.Globalization
-@using Microsoft.Extensions.Configuration;
-@using SimplCommerce.Module.Core.Extensions
+@using System.IO
+@using Microsoft.Extensions.Configuration
+@using Newtonsoft.Json
+@using SimplCommerce.Infrastructure
 @using SimplCommerce.Infrastructure.Data
 @using SimplCommerce.Infrastructure.Localization
+@using SimplCommerce.Module.Core.Extensions
 
 @inject IWorkContext WorkContext
 @inject IConfiguration Config
 @inject IRepositoryWithTypedId<Culture, string> CultureRepository
 
-@{ 
+@{
     Layout = null;
 
+    var assetBundling = Config.GetValue<bool>("Global.AssetBundling");
     var defaultCulture = Config.GetValue<string>("Global.DefaultCultureUI");
     var cultures = CultureRepository.Query().Where(x => x.Id != defaultCulture).Select(x => $"\"{x.Id}\"").ToArray();
 }
@@ -67,210 +71,39 @@
 
     <script simpl-append-version="true" src="~/modules/core/admin/dashboard/dashboard.module.js"></script>
 
-    <script simpl-append-version="true" src="~/modules/core/admin/core.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/user/user-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/user/user-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/user/user-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/widget/widget-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/widget/widget-instance-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/configuration/configuration-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/configuration/configuration.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/customergroups/customergroup-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/customergroups/customergroup-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/customergroups/customergroup-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/themes/theme-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/themes/theme-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/themes/online-theme-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/themes/theme-details.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/countries/country-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/countries/country-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/countries/country-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/stateprovince/state-province-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/stateprovince/state-province-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/stateprovince/state-province-form.js"></script>
 
-    <script simpl-append-version="true" src="~/modules/catalog/admin/catalog.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/brand/brand-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/brand/brand-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/brand/brand-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/category/category-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/category/category-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/category/category-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/category/category-translation-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product-option/product-option-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product-option/product-option-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product-option/product-option-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product-attribute-group/product-attribute-group-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product-attribute-group/product-attribute-group-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product-attribute-group/product-attribute-group-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product-attribute/product-attribute-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product-attribute/product-attribute-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product-attribute/product-attribute-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product-template/product-template-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product-template/product-template-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product-template/product-template-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product/product-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product/product-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product/product-option-display-directive.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product/product-selection-directive.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product/product-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product/product-translation-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product-widget/product-widget-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product-widget/product-widget-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/category-widget/category-widget-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/category-widget/category-widget-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/simple-product-widget/simple-product-widget-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/simple-product-widget/simple-product-widget-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product-price/product-price-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product-price/product-price-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product-clone/product-clone-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/admin/product-clone/product-clone-form.js"></script>
+    @foreach (var module in GlobalConfiguration.Modules)
+    {
+        var bundleConfigFile = System.IO.Path.Combine(GlobalConfiguration.ContentRootPath, "Modules", module.Id, "bundleconfig.json");
+        if (!System.IO.File.Exists(bundleConfigFile))
+        {
+            continue;
+        }
 
-    <script simpl-append-version="true" src="~/modules/orders/admin/orders.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/orders/admin/order/order-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/orders/admin/order/order-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/orders/admin/order/order-create.js"></script>
-    <script simpl-append-version="true" src="~/modules/orders/admin/order/order-detail.js"></script>
-    <script simpl-append-version="true" src="~/modules/orders/admin/order/order-widget.directive.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/cms/admin/cms.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/cms/admin/page/page-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/cms/admin/page/page-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/cms/admin/page/page-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/cms/admin/page/page-translation-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/cms/admin/menu/menu-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/cms/admin/menu/menu-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/cms/admin/menu/menu-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/cms/admin/menu/menu-form-create.js"></script>
-    <script simpl-append-version="true" src="~/modules/cms/admin/carousel-widget/carousel-widget-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/cms/admin/carousel-widget/carousel-widget-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/cms/admin/html-widget/html-widget-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/cms/admin/html-widget/html-widget-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/cms/admin/spacebar-widget/spacebar-widget-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/cms/admin/spacebar-widget/spacebar-widget-form.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/search/admin/search.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/search/admin/search-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/search/admin/most-search-keywords.directive.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/reviews/admin/reviews.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/reviews/admin/review/review-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/reviews/admin/review/review-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/reviews/admin/review/review-widget.directive.js"></script>
-    <script simpl-append-version="true" src="~/modules/reviews/admin/review/review-reply-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/reviews/admin/review/review-reply-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/reviews/admin/review/review-reply-widget.directive.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/comments/admin/comments.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/comments/admin/comment/comment-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/comments/admin/comment/comment-list.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/activitylog/admin/activitylog.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/activitylog/admin/activitylog-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/activitylog/admin/most-viewed-products.directive.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/vendors/admin/vendors.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/vendors/admin/vendors/vendor-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/vendors/admin/vendors/vendor-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/vendors/admin/vendors/vendor-form.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/localization/admin/localization.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/localization/admin/localization/localization-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/localization/admin/localization/localization-form.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/news/admin/news.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/news/admin/news-categories/news-category-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/news/admin/news-categories/news-category-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/news/admin/news-categories/news-category-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/news/admin/news-items/news-item-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/news/admin/news-items/news-item-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/news/admin/news-items/news-item-form.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/contacts/admin/contacts.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/contacts/admin/contact-area/contact-area-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/contacts/admin/contact-area/contact-area-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/contacts/admin/contact-area/contact-area-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/contacts/admin/contacts/contact-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/contacts/admin/contacts/contact-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/contacts/admin/contacts/contact.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/pricing/admin/pricing.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/pricing/admin/cart-rule/cart-rule-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/pricing/admin/cart-rule/cart-rule-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/pricing/admin/cart-rule/cart-rule-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/pricing/admin/cart-rule-usage/cart-rule-usage-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/pricing/admin/cart-rule-usage/cart-rule-usage-list.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/tax/admin/tax.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/tax/admin/tax-class/tax-class-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/tax/admin/tax-class/tax-class-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/tax/admin/tax-class/tax-class-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/tax/admin/tax-rate/tax-rate-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/tax/admin/tax-rate/tax-rate-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/tax/admin/tax-rate/tax-rate-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/tax/admin/tax-rate/tax-rate-import.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/shipping/admin/shipping.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/shipping/admin/provider/shipping-provider-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/shipping/admin/provider/shipping-provider-list.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/shippingtablerate/admin/shipping-tablerate.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/shippingtablerate/admin/tablerate/shipping-tablerate-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/shippingtablerate/admin/tablerate/shipping-tablerate-form.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/payments/admin/payments.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/payments/admin/provider/payment-provider-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/payments/admin/provider/payment-provider-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/payments/admin/payment/payment-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/payments/admin/payment/payment-list-by-order.directive.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/paymentbraintree/admin/paymentBraintree.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentbraintree/admin/braintree/braintree-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentbraintree/admin/braintree/braintree-config-form.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/paymentstripe/admin/paymentStripe.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentstripe/admin/stripe/stripe-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentstripe/admin/stripe/stripe-config-form.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/paymentpaypalexpress/admin/paypalExpress.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentpaypalexpress/admin/config/paypalExpress-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentpaypalexpress/admin/config/config-form.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/paymentcod/admin/paymentCoD.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentcod/admin/config/cod-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentcod/admin/config/config-form.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/paymentmomo/admin/paymentMomo.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentmomo/admin/momo/momo-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentmomo/admin/momo/momo-config-form.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/paymentnganluong/admin/paymentNganLuong.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentnganluong/admin/ngan-luong/ngan-luong-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentnganluong/admin/ngan-luong/ngan-luong-config-form.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/paymentcashfree/admin/paymentCashfree.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentcashfree/admin/cashfree/cashfree-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/paymentcashfree/admin/cashfree/cashfree-config-form.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/productrecentlyviewed/admin/product-recently-viewed.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/productrecentlyviewed/admin/recently-viewed-widget/recently-viewed-widget-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/productrecentlyviewed/admin/recently-viewed-widget/recently-viewed-widget-form.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/inventory/admin/inventory.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/inventory/admin/stock/stock-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/inventory/admin/stock/stock-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/inventory/admin/stock/stock-history.js"></script>
-    <script simpl-append-version="true" src="~/modules/inventory/admin/warehouse/warehouse-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/inventory/admin/warehouse/warehouse-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/inventory/admin/warehouse/warehouse-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/inventory/admin/warehouse/manage-products-form.js"></script>
-
-    <script simpl-append-version="true" src="~/modules/shipments/admin/shipment.module.js"></script>
-    <script simpl-append-version="true" src="~/modules/shipments/admin/shipment/shipment-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/shipments/admin/shipment/shipment-form.js"></script>
-    <script simpl-append-version="true" src="~/modules/shipments/admin/shipment/shipment-list.js"></script>
-    <script simpl-append-version="true" src="~/modules/shipments/admin/shipment/shipment-details.js"></script>
-    <script simpl-append-version="true" src="~/modules/shipments/admin/shipment/shipment-list-by-order.directive.js"></script>
+        using (var reader = new StreamReader(bundleConfigFile))
+        {
+            string content = reader.ReadToEnd();
+            dynamic bundleConfigs = JsonConvert.DeserializeObject(content);
+            foreach (var configItems in bundleConfigs)
+            {
+                string outputFileName = configItems.outputFileName;
+                if (outputFileName.Contains("admin") && outputFileName.EndsWith(".js"))
+                {
+                    if (assetBundling)
+                    {
+                        <script simpl-append-version="true" src="~/modules/@module.Id.Split('.').Last().ToLower()/admin/@outputFileName.Replace("wwwroot/admin/", "")"></script>
+                    }
+                    else
+                    {
+                        foreach (string inputFile in configItems.inputFiles)
+                        {
+                            <script simpl-append-version="true" src="~/modules/@module.Id.Split('.').Last().ToLower()/admin/@inputFile.Replace("wwwroot/admin/", "")"></script>
+                        }
+                    }
+                }
+            }
+        }
+    }
 </head>
 <body>
     <div class="navbar navbar-inverse">
@@ -287,19 +120,19 @@
                 <ul class="nav navbar-nav">
                     @if (User.IsInRole("admin"))
                     {
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Site"] <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a ui-sref="users">@Localizer["Users"]</a></li>
-                            <li><a ui-sref="vendors">@Localizer["Vendors"]</a></li>
-                            <li><a ui-sref="customergroups">@Localizer["Customer Groups"]</a></li>
-                            <li><a ui-sref="reviews">@Localizer["Reviews"]</a></li>
-                            <li><a ui-sref="review-replies">@Localizer["Review Replies"]</a></li>
-                            <li><a ui-sref="comments">@Localizer["Comments"]</a></li>
-                            <li><a ui-sref="contact-area">@Localizer["Manage Contact Area"]</a></li>
-                            <li><a ui-sref="contact">@Localizer["Manage Contact"]</a></li>
-                        </ul>
-                    </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Site"] <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a ui-sref="users">@Localizer["Users"]</a></li>
+                                <li><a ui-sref="vendors">@Localizer["Vendors"]</a></li>
+                                <li><a ui-sref="customergroups">@Localizer["Customer Groups"]</a></li>
+                                <li><a ui-sref="reviews">@Localizer["Reviews"]</a></li>
+                                <li><a ui-sref="review-replies">@Localizer["Review Replies"]</a></li>
+                                <li><a ui-sref="comments">@Localizer["Comments"]</a></li>
+                                <li><a ui-sref="contact-area">@Localizer["Manage Contact Area"]</a></li>
+                                <li><a ui-sref="contact">@Localizer["Manage Contact"]</a></li>
+                            </ul>
+                        </li>
                     }
                     <li class="dropdown">
                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Catalog"] <span class="caret"></span></a>
@@ -334,37 +167,37 @@
                     </li>
                     @if (User.IsInRole("admin"))
                     {
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Promotions"] <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a ui-sref="cart-rules">@Localizer["Cart Price Rules"]</a></li>
-                            <li><a ui-sref="cart-rule-usages">@Localizer["Cart Price Rule Usages"]</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Content"] <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a ui-sref="page">@Localizer["Pages"]</a></li>
-                            <li><a ui-sref="menus">@Localizer["Menus"]</a></li>
-                            <li><a ui-sref="widget">@Localizer["Widgets"]</a></li>
-                            <li><a ui-sref="news-categories">Manage News Categories</a></li>
-                            <li><a ui-sref="news-items">Manage News Items</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["System"] <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a ui-sref="themes">@Localizer["Themes"]</a></li>
-                            <li><a ui-sref="countries">@Localizer["Countries"]</a></li>
-                            <li><a ui-sref="states-provinces">@Localizer["States or Provinces"]</a></li>
-                            <li><a ui-sref="tax-classes">@Localizer["Tax Classes"]</a></li>
-                            <li><a ui-sref="tax-rates">@Localizer["Tax Rates"]</a></li>
-                            <li><a ui-sref="shipping-providers">@Localizer["Shipping Providers"]</a></li>
-                            <li><a ui-sref="payment-providers">@Localizer["Payment Providers"]</a></li>
-                            <li><a ui-sref="configuration">@Localizer["Settings"]</a></li>
-                            <li><a ui-sref="localization">@Localizer["Translations"]</a></li>
-                        </ul>
-                    </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Promotions"] <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a ui-sref="cart-rules">@Localizer["Cart Price Rules"]</a></li>
+                                <li><a ui-sref="cart-rule-usages">@Localizer["Cart Price Rule Usages"]</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Content"] <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a ui-sref="page">@Localizer["Pages"]</a></li>
+                                <li><a ui-sref="menus">@Localizer["Menus"]</a></li>
+                                <li><a ui-sref="widget">@Localizer["Widgets"]</a></li>
+                                <li><a ui-sref="news-categories">Manage News Categories</a></li>
+                                <li><a ui-sref="news-items">Manage News Items</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["System"] <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a ui-sref="themes">@Localizer["Themes"]</a></li>
+                                <li><a ui-sref="countries">@Localizer["Countries"]</a></li>
+                                <li><a ui-sref="states-provinces">@Localizer["States or Provinces"]</a></li>
+                                <li><a ui-sref="tax-classes">@Localizer["Tax Classes"]</a></li>
+                                <li><a ui-sref="tax-rates">@Localizer["Tax Rates"]</a></li>
+                                <li><a ui-sref="shipping-providers">@Localizer["Shipping Providers"]</a></li>
+                                <li><a ui-sref="payment-providers">@Localizer["Payment Providers"]</a></li>
+                                <li><a ui-sref="configuration">@Localizer["Settings"]</a></li>
+                                <li><a ui-sref="localization">@Localizer["Translations"]</a></li>
+                            </ul>
+                        </li>
                     }
                 </ul>
                 <form asp-area="Core" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">

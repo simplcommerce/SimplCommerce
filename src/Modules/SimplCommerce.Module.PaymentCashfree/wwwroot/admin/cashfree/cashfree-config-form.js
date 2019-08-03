@@ -2,10 +2,9 @@
 (function ($) {
     angular
         .module('simplAdmin.paymentCashfree')
-        .controller('CashfreeConfigFormCtrl', CashfreeConfigFormCtrl);
+        .controller('CashfreeConfigFormCtrl', ['paymentCashfreeService', 'translateService', CashfreeConfigFormCtrl]);
 
-    /* @ngInject */
-    function CashfreeConfigFormCtrl($state, paymentCashfreeService, translateService) {
+    function CashfreeConfigFormCtrl(paymentCashfreeService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.cashfreeConfig = {};

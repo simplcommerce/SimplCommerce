@@ -1,0 +1,27 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/cms.min.js",
+    "inputFiles": [
+      "wwwroot/admin/cms.module.js",
+      "wwwroot/admin/page/page-service.js",
+      "wwwroot/admin/page/page-list.js",
+      "wwwroot/admin/page/page-form.js",
+      "wwwroot/admin/page/page-translation-form.js",
+      "wwwroot/admin/menu/menu-service.js",
+      "wwwroot/admin/menu/menu-list.js",
+      "wwwroot/admin/menu/menu-form.js",
+      "wwwroot/admin/menu/menu-form-create.js",
+      "wwwroot/admin/carousel-widget/carousel-widget-service.js",
+      "wwwroot/admin/carousel-widget/carousel-widget-form.js",
+      "wwwroot/admin/html-widget/html-widget-service.js",
+      "wwwroot/admin/html-widget/html-widget-form.js",
+      "wwwroot/admin/spacebar-widget/spacebar-widget-service.js",
+      "wwwroot/admin/spacebar-widget/spacebar-widget-form.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

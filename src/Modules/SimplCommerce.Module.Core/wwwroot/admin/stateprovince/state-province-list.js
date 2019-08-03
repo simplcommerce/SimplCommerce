@@ -2,10 +2,9 @@
 (function () {
     angular
         .module('simplAdmin.core')
-        .controller('StateProvinceListCtrl', StateProvinceListCtrl);
+        .controller('StateProvinceListCtrl', ['countryService', 'stateProvinceService', 'translateService', '$stateParams', StateProvinceListCtrl]);
 
-    /* @ngInject */
-    function StateProvinceListCtrl(countryService, stateProvinceService, translateService, $state, $stateParams) {
+    function StateProvinceListCtrl(countryService, stateProvinceService, translateService, $stateParams) {
         var vm = this;
         vm.tableStateRef = {};
 
@@ -14,7 +13,7 @@
         vm.countryId = $stateParams.countryId;
         vm.translate = translateService;
 
-        vm.onCountrySelected = function (countryId) {
+        vm.onCountrySelected = function () {
             vm.getStateOrProvinces(vm.tableStateRef);
         };
 

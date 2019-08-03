@@ -1,0 +1,16 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/vendors.min.js",
+    "inputFiles": [
+      "wwwroot/admin/vendors.module.js",
+      "wwwroot/admin/vendors/vendor-service.js",
+      "wwwroot/admin/vendors/vendor-list.js",
+      "wwwroot/admin/vendors/vendor-form.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

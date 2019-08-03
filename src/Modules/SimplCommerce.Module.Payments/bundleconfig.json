@@ -1,0 +1,17 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/payments.min.js",
+    "inputFiles": [
+      "wwwroot/admin/payments.module.js",
+      "wwwroot/admin/provider/payment-provider-service.js",
+      "wwwroot/admin/provider/payment-provider-list.js",
+      "wwwroot/admin/payment/payment-service.js",
+      "wwwroot/admin/payment/payment-list-by-order.directive.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

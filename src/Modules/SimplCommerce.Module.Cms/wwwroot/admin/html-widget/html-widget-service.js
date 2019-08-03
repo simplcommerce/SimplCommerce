@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.cms')
-        .factory('htmlWidgetService', widgetService);
+        .factory('htmlWidgetService', ['$http', widgetService]);
 
-    /* @ngInject */
     function widgetService($http) {
         var service = {
             getWidgetZones: getWidgetZones,

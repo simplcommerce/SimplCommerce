@@ -2,9 +2,8 @@
 (function ($) {
     angular
         .module('simplAdmin.cms')
-        .controller('HtmlWidgetFormCtrl', HtmlWidgetFormCtrl);
+        .controller('HtmlWidgetFormCtrl', ['$state', '$stateParams', 'summerNoteService', 'htmlWidgetService', 'translateService', HtmlWidgetFormCtrl]);
 
-    /* @ngInject */
     function HtmlWidgetFormCtrl($state, $stateParams, summerNoteService, htmlWidgetService, translateService) {
         var vm = this;
         vm.translate = translateService;

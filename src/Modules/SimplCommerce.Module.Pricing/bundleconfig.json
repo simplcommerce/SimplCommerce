@@ -1,0 +1,18 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/pricing.min.js",
+    "inputFiles": [
+      "wwwroot/admin/pricing.module.js",
+      "wwwroot/admin/cart-rule/cart-rule-service.js",
+      "wwwroot/admin/cart-rule/cart-rule-list.js",
+      "wwwroot/admin/cart-rule/cart-rule-form.js",
+      "wwwroot/admin/cart-rule-usage/cart-rule-usage-service.js",
+      "wwwroot/admin/cart-rule-usage/cart-rule-usage-list.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

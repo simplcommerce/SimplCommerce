@@ -11,7 +11,7 @@
                 status: '=',
                 numRecords: '='
             },
-            controller: OrderWidgetCtrl,
+            controller: ['orderService', 'translateService', OrderWidgetCtrl],
             controllerAs: 'vm',
             bindToController: true
         };
@@ -19,7 +19,6 @@
         return directive;
     }
 
-    /* @ngInject */
     function OrderWidgetCtrl(orderService, translateService) {
         var vm = this;
         vm.translate = translateService;

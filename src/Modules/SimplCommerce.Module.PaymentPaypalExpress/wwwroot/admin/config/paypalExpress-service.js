@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.paymentPaypalExpress')
-        .factory('paypalExpressService', paypalExpressService);
+        .factory('paypalExpressService', ['$http', paypalExpressService]);
 
-    /* @ngInject */
     function paypalExpressService($http) {
         var service = {
             getSettings: getSettings,

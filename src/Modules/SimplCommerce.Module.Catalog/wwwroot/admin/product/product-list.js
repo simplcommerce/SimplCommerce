@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.catalog')
-        .controller('ProductListCtrl', ProductListCtrl);
+        .controller('ProductListCtrl', ['productService', 'translateService', '$window', ProductListCtrl]);
 
-    /* @ngInject */
     function ProductListCtrl(productService, translateService, $window) {
         var vm = this;
         vm.tableStateRef = {};

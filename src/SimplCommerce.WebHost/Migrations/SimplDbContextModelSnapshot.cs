@@ -942,6 +942,13 @@ namespace SimplCommerce.WebHost.Migrations
                         },
                         new
                         {
+                            Id = "Global.AssetBundling",
+                            IsVisibleInCommonSettingPage = true,
+                            Module = "Core",
+                            Value = "false"
+                        },
+                        new
+                        {
                             Id = "Theme",
                             IsVisibleInCommonSettingPage = false,
                             Module = "Core",

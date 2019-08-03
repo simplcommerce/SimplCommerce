@@ -1,0 +1,19 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/news.min.js",
+    "inputFiles": [
+      "wwwroot/admin/news.module.js",
+      "wwwroot/admin/news-categories/news-category-service.js",
+      "wwwroot/admin/news-categories/news-category-list.js",
+      "wwwroot/admin/news-categories/news-category-form.js",
+      "wwwroot/admin/news-items/news-item-service.js",
+      "wwwroot/admin/news-items/news-item-list.js",
+      "wwwroot/admin/news-items/news-item-form.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

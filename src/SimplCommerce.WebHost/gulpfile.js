@@ -39,7 +39,7 @@ gulp.task('copy-static', async function () {
     modules.forEach(function (module) {
         console.log('copying static contents ' + paths.dev.modules + module.id);
         gulp.src([paths.dev.modules + module.id + '/Views/**/*.*',
-        paths.dev.modules + module.id + '/module.json'], { base: module.id })
+        paths.dev.modules + module.id + '/*.json'], { base: module.id })
             .pipe(gulp.dest(paths.host.modules + module.id));
         gulp.src(paths.dev.modules + module.id + '/wwwroot/**/*.*')
             .pipe(gulp.dest(paths.host.wwwrootModules + module.id.split(".").pop().toLowerCase()));

@@ -1,0 +1,33 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/core.min.js",
+    "inputFiles": [
+      "wwwroot/admin/core.module.js",
+      "wwwroot/admin/user/user-service.js",
+      "wwwroot/admin/user/user-list.js",
+      "wwwroot/admin/user/user-form.js",
+      "wwwroot/admin/widget/widget-service.js",
+      "wwwroot/admin/widget/widget-instance-list.js",
+      "wwwroot/admin/configuration/configuration-service.js",
+      "wwwroot/admin/configuration/configuration.js",
+      "wwwroot/admin/customergroups/customergroup-service.js",
+      "wwwroot/admin/customergroups/customergroup-list.js",
+      "wwwroot/admin/customergroups/customergroup-form.js",
+      "wwwroot/admin/themes/theme-service.js",
+      "wwwroot/admin/themes/theme-list.js",
+      "wwwroot/admin/themes/online-theme-list.js",
+      "wwwroot/admin/themes/theme-details.js",
+      "wwwroot/admin/countries/country-service.js",
+      "wwwroot/admin/countries/country-list.js",
+      "wwwroot/admin/countries/country-form.js",
+      "wwwroot/admin/stateprovince/state-province-service.js",
+      "wwwroot/admin/stateprovince/state-province-list.js",
+      "wwwroot/admin/stateprovince/state-province-form.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

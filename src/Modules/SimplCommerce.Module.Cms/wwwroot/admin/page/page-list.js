@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.cms')
-        .controller('PageListCtrl', PageListCtrl);
+        .controller('PageListCtrl', ['pageService', 'translateService', '$window', PageListCtrl]);
 
-    /* @ngInject */
     function PageListCtrl(pageService, translateService, $window) {
         var vm = this;
         vm.translate = translateService;

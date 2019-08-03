@@ -2,10 +2,9 @@
 (function () {
     angular
         .module('simplAdmin.inventory')
-        .controller('StockHistoryCtrl', StockHistoryCtrl);
+        .controller('StockHistoryCtrl', ['$stateParams', 'stockService', 'translateService', StockHistoryCtrl]);
 
-    /* @ngInject */
-    function StockHistoryCtrl($state, $stateParams, stockService, translateService) {
+    function StockHistoryCtrl($stateParams, stockService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.warehouseId = $stateParams.warehouseId;

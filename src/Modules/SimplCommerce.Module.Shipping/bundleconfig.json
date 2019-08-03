@@ -1,0 +1,15 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/shipping.min.js",
+    "inputFiles": [
+      "wwwroot/admin/shipping.module.js",
+      "wwwroot/admin/provider/shipping-provider-service.js",
+      "wwwroot/admin/provider/shipping-provider-list.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

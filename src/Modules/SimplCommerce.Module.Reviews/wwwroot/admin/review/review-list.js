@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.reviews')
-        .controller('ReviewListCtrl', ReviewListCtrl);
+        .controller('ReviewListCtrl', ['reviewService', 'translateService', ReviewListCtrl]);
 
-    /* @ngInject */
     function ReviewListCtrl(reviewService, translateService) {
         var vm = this;
         vm.tableStateRef = {};

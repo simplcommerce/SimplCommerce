@@ -10,6 +10,10 @@ namespace SimplCommerce.MSBuildTasks
 {
     public class CopyModuleTask : Task
     {
+        private readonly string modulesFileName = "modules.json";
+        private readonly string moduleFileName = "module.json";
+        private readonly string bundleConfigFileName = "bundleconfig.json";
+
         [Required]
         public string ProjectDir { get; set; }
 
@@ -21,8 +25,6 @@ namespace SimplCommerce.MSBuildTasks
 
         public override bool Execute()
         {
-            var modulesFileName = "modules.json";
-            var moduleFileName = "module.json";
             var modulesFilePath = Path.Combine(ProjectDir, modulesFileName);
             if (!File.Exists(modulesFilePath))
             {
@@ -33,49 +35,67 @@ namespace SimplCommerce.MSBuildTasks
             var modules = new List<Module>();
             using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(File.ReadAllText(modulesFileName))))
             {
-                var ser = new DataContractJsonSerializer(modules.GetType());
-                modules = ser.ReadObject(ms) as List<Module>;
+                var dataContractJsonSerializer = new DataContractJsonSerializer(modules.GetType());
+                modules = dataContractJsonSerializer.ReadObject(ms) as List<Module>;
             }
 
             foreach (var module in modules)
             {
-                var sourceRoot = Path.Combine(new DirectoryInfo(ProjectDir).Parent.FullName, "Modules", module.Id);
-                var moduleManifestFile = Path.Combine(sourceRoot, moduleFileName);
-                if (!File.Exists(moduleManifestFile))
+                var isSuccess = CopyModule(module);
+                if (!isSuccess)
                 {
-                    Log.LogError($"{moduleFileName} is not fould for {module.Id}");
                     return false;
                 }
-
-                ModuleManifest moduleManifest = null;
-                using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(File.ReadAllText(moduleManifestFile))))
-                {
-                    var ser = new DataContractJsonSerializer(typeof(ModuleManifest));
-                    moduleManifest = ser.ReadObject(ms) as ModuleManifest;
-                }
-
-                var destination = Path.Combine(ProjectDir, "Modules", module.Id);
-                var destinationWwwroot = Path.Combine(ProjectDir, "wwwroot", "modules", module.Id.Split('.').Last().ToLower());
-
-                CreateOrCleanDirectory(destinationWwwroot);
-                CreateOrCleanDirectory(destination);
-
-                File.Copy(Path.Combine(sourceRoot, moduleFileName),
-                    Path.Combine(destination, moduleFileName), true);
-                CopyDirectory(Path.Combine(sourceRoot, "wwwroot"), destinationWwwroot);
-                if (!moduleManifest.IsBundledWithHost)
-                {
-                    CopyDirectory(Path.Combine(sourceRoot, "bin", BuildConfiguration, TargetFramework), Path.Combine(destination, "bin"));
-                }
-
-                if (module.Id == "SimplCommerce.Module.SampleData")
-                {
-                    CopyDirectory(Path.Combine(sourceRoot, "SampleContent"), Path.Combine(destination, "SampleContent"));
-                }
-
-                Log.LogMessage(MessageImportance.High, $"Copied module {module.Id}");
             }
 
+            return true;
+        }
+
+        private bool CopyModule(Module module)
+        {
+            var sourceRoot = Path.Combine(new DirectoryInfo(ProjectDir).Parent.FullName, "Modules", module.Id);
+            var moduleManifestFile = Path.Combine(sourceRoot, moduleFileName);
+            if (!File.Exists(moduleManifestFile))
+            {
+                Log.LogError($"{moduleFileName} is not fould for {module.Id}");
+                return false;
+            }
+
+            ModuleManifest moduleManifest = null;
+            using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(File.ReadAllText(moduleManifestFile))))
+            {
+                var ser = new DataContractJsonSerializer(typeof(ModuleManifest));
+                moduleManifest = ser.ReadObject(ms) as ModuleManifest;
+            }
+
+            var destination = Path.Combine(ProjectDir, "Modules", module.Id);
+            var destinationWwwroot = Path.Combine(ProjectDir, "wwwroot", "modules", module.Id.Split('.').Last().ToLower());
+
+            CreateOrCleanDirectory(destinationWwwroot);
+            CreateOrCleanDirectory(destination);
+
+            File.Copy(Path.Combine(sourceRoot, moduleFileName),
+                Path.Combine(destination, moduleFileName), true);
+
+            var bundleConfigFile = Path.Combine(sourceRoot, bundleConfigFileName);
+            if (File.Exists(bundleConfigFile))
+            {
+                File.Copy(Path.Combine(bundleConfigFile),
+                    Path.Combine(destination, bundleConfigFileName), true);
+            }
+
+            CopyDirectory(Path.Combine(sourceRoot, "wwwroot"), destinationWwwroot);
+            if (!moduleManifest.IsBundledWithHost)
+            {
+                CopyDirectory(Path.Combine(sourceRoot, "bin", BuildConfiguration, TargetFramework), Path.Combine(destination, "bin"));
+            }
+
+            if (module.Id == "SimplCommerce.Module.SampleData")
+            {
+                CopyDirectory(Path.Combine(sourceRoot, "SampleContent"), Path.Combine(destination, "SampleContent"));
+            }
+
+            Log.LogMessage(MessageImportance.High, $"Copied module {module.Id}");
             return true;
         }
 

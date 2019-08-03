@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.pricing')
-        .factory('cartRuleUsageService', cartRuleUsageService);
+        .factory('cartRuleUsageService', ['$http', cartRuleUsageService]);
 
-    /* @ngInject */
     function cartRuleUsageService($http) {
         var service = {
             getCartRuleUsages: getCartRuleUsages

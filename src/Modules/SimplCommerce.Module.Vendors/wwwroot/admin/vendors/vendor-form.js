@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.vendors')
-        .controller('VendorFormCtrl', VendorFormCtrl);
+        .controller('VendorFormCtrl', ['$state', '$stateParams', 'vendorService', 'translateService', VendorFormCtrl]);
 
-    /* @ngInject */
     function VendorFormCtrl($state, $stateParams, vendorService, translateService) {
         var vm = this;
         vm.translate = translateService;

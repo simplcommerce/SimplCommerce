@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.paymentCashfree')
-        .factory('paymentCashfreeService', paymentCashfreeService);
+        .factory('paymentCashfreeService', ['$http', paymentCashfreeService]);
 
-    /* @ngInject */
     function paymentCashfreeService($http) {
         var service = {
             getSettings: getSettings,
