@@ -8,7 +8,7 @@
             restrict: 'E',
             templateUrl: 'modules/activitylog/admin/most-viewed-products.directive.html',
             scope: {},
-            controller: MostMostViewedProductCtrl,
+            controller: ['activityLogService', 'translateService', MostMostViewedProductCtrl],
             controllerAs: 'vm',
             bindToController: true
         };
@@ -16,7 +16,6 @@
         return directive;
     }
 
-    /* @ngInject */
     function MostMostViewedProductCtrl(activityLogService, translateService) {
         var vm = this;
         vm.translate = translateService;

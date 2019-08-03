@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.search')
-        .factory('searchService', searchService);
+        .factory('searchService', ['$http', searchService]);
 
-    /* @ngInject */
     function searchService($http) {
         var service = {
             getMostSearchKeywords: getMostSearchKeywords

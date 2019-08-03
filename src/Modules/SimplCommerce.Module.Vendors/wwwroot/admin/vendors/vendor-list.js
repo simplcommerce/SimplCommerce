@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.vendors')
-        .controller('VendorListCtrl', VendorListCtrl);
+        .controller('VendorListCtrl', ['vendorService', 'translateService', VendorListCtrl]);
 
-    /* @ngInject */
     function VendorListCtrl(vendorService, translateService) {
         var vm = this;
         vm.tableStateRef = {};

@@ -2,10 +2,9 @@
 (function () {
     angular
         .module('simplAdmin.orders')
-        .controller('OrderDetailCtrl', OrderDetailCtrl);
+        .controller('OrderDetailCtrl', ['$stateParams', 'orderService', 'translateService', OrderDetailCtrl]);
 
-    /* @ngInject */
-    function OrderDetailCtrl($state, $stateParams, orderService, translateService) {
+    function OrderDetailCtrl($stateParams, orderService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.orderId = $stateParams.id;

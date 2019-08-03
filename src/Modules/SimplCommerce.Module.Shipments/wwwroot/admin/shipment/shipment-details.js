@@ -2,10 +2,9 @@
 (function () {
     angular
         .module('simplAdmin.shipment')
-        .controller('ShipmentDetailsCtrl', ShipmentDetailsCtrl);
+        .controller('ShipmentDetailsCtrl', ['$stateParams', 'shipmentService', 'translateService', ShipmentDetailsCtrl]);
 
-    /* @ngInject */
-    function ShipmentDetailsCtrl($state, $stateParams, shipmentService, translateService) {
+    function ShipmentDetailsCtrl($stateParams, shipmentService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.shipmentId = $stateParams.id;

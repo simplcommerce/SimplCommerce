@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.shipping-tablerate')
-        .factory('shippingTableRateService', shippingTableRateService);
+        .factory('shippingTableRateService', ['$http', shippingTableRateService]);
 
-    /* @ngInject */
     function shippingTableRateService($http) {
         var service = {
             getPricesAndDestinations: getPricesAndDestinations,

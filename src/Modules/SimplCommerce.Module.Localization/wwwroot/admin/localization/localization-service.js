@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.localization')
-        .factory('localizationService', localizationService);
+        .factory('localizationService', ['$http', localizationService]);
 
-    /* @ngInject */
     function localizationService($http) {
         var service = {
             getCultures: getCultures,

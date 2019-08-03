@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.core')
-        .controller('ThemeDetailsCtrl', ThemeDetailsCtrl);
+        .controller('ThemeDetailsCtrl', ['$state', '$stateParams', 'themeService', 'translateService', ThemeDetailsCtrl]);
 
-    /* @ngInject */
     function ThemeDetailsCtrl($state, $stateParams, themeService, translateService) {
         var vm = this;
         vm.themeName = $stateParams.name;

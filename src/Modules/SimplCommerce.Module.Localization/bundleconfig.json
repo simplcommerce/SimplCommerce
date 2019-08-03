@@ -1,0 +1,15 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/localization.min.js",
+    "inputFiles": [
+      "wwwroot/admin/localization.module.js",
+      "wwwroot/admin/localization/localization-service.js",
+      "wwwroot/admin/localization/localization-form.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

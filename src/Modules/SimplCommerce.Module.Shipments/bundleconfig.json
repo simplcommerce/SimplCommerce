@@ -1,0 +1,18 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/shipments.min.js",
+    "inputFiles": [
+      "wwwroot/admin/shipment.module.js",
+      "wwwroot/admin/shipment/shipment-service.js",
+      "wwwroot/admin/shipment/shipment-form.js",
+      "wwwroot/admin/shipment/shipment-list.js",
+      "wwwroot/admin/shipment/shipment-details.js",
+      "wwwroot/admin/shipment/shipment-list-by-order.directive.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

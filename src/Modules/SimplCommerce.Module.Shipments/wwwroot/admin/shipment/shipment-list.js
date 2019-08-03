@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.shipment')
-        .controller('ShipmentListCtrl', ShipmentListCtrl);
+        .controller('ShipmentListCtrl', ['shipmentService', 'translateService', ShipmentListCtrl]);
 
-    /* @ngInject */
     function ShipmentListCtrl(shipmentService, translateService) {
         var vm = this;
         vm.tableStateRef = {};

@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.reviews')
-        .factory('reviewService', reviewService);
+        .factory('reviewService', ['$http', reviewService]);
 
-    /* @ngInject */
     function reviewService($http) {
         var service = {
             getReviews: getReviews,

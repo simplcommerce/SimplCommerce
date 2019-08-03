@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.core')
-        .controller('UserListCtrl', UserListCtrl);
+        .controller('UserListCtrl', ['userService', 'translateService', UserListCtrl]);
 
-    /* @ngInject */
     function UserListCtrl(userService, translateService) {
         var vm = this;
         vm.tableStateRef = {};

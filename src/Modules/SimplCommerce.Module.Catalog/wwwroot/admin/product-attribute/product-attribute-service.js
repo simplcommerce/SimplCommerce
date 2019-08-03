@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.catalog')
-        .factory('productAttributeService', productAttributeService);
+        .factory('productAttributeService', ['$http', productAttributeService]);
 
-    /* @ngInject */
     function productAttributeService($http) {
         var service = {
             getProductAttribute: getProductAttribute,

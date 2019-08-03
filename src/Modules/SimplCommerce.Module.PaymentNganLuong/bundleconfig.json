@@ -1,0 +1,15 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/paymentnganluong.min.js",
+    "inputFiles": [
+      "wwwroot/admin/paymentNganLuong.module.js",
+      "wwwroot/admin/ngan-luong/ngan-luong-service.js",
+      "wwwroot/admin/ngan-luong/ngan-luong-config-form.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

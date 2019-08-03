@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.tax')
-        .factory('taxClassService', taxClassService);
+        .factory('taxClassService', ['$http', taxClassService]);
 
-    /* @ngInject */
     function taxClassService($http) {
         var service = {
             getTaxClass: getTaxClass,

@@ -2,9 +2,8 @@
 (function ($) {
     angular
         .module('simplAdmin.cms')
-        .controller('MenuFormCtrl', MenuFormCtrl);
+        .controller('MenuFormCtrl', ['$state', '$stateParams', 'menuService', 'translateService', MenuFormCtrl]);
 
-    /* @ngInject */
     function MenuFormCtrl($state, $stateParams, menuService, translateService) {
         var vm = this;
         vm.translate = translateService;

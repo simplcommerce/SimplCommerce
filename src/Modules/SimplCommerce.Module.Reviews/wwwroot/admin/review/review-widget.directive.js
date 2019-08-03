@@ -11,7 +11,7 @@
                 status: '=',
                 numRecords: '='
             },
-            controller: ReviewWidgetCtrl,
+            controller: ['reviewService', 'translateService', ReviewWidgetCtrl],
             controllerAs: 'vm',
             bindToController: true
         };
@@ -19,7 +19,6 @@
         return directive;
     }
 
-    /* @ngInject */
     function ReviewWidgetCtrl(reviewService, translateService) {
         var vm = this;
         vm.translate = translateService;

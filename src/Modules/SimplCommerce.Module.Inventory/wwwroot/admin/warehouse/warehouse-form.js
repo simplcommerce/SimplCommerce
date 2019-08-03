@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.inventory')
-        .controller('WarehouseFormCtrl', WarehouseFormCtrl);
+        .controller('WarehouseFormCtrl', ['warehouseService', 'translateService', '$state', '$stateParams', WarehouseFormCtrl]);
 
-    /* @ngInject */
     function WarehouseFormCtrl(warehouseService, translateService, $state, $stateParams) {
         var vm = this;
         vm.translate = translateService;

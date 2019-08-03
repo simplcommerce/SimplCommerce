@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.catalog')
-        .factory('categoryService', categoryService);
+        .factory('categoryService', ['$http', 'Upload', categoryService]);
 
-    /* @ngInject */
     function categoryService($http, Upload) {
         var service = {
             getCategory: getCategory,

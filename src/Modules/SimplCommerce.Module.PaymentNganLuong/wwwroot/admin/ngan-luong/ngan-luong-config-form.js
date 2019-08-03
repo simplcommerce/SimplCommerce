@@ -2,10 +2,9 @@
 (function ($) {
     angular
         .module('simplAdmin.paymentNganLuong')
-        .controller('NganLuongConfigFormCtrl', NganLuongConfigFormCtrl);
+        .controller('NganLuongConfigFormCtrl', ['paymentNganLuongService', 'translateService', NganLuongConfigFormCtrl]);
 
-    /* @ngInject */
-    function NganLuongConfigFormCtrl($state, paymentNganLuongService, translateService) {
+    function NganLuongConfigFormCtrl(paymentNganLuongService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.nganLuongConfig = {};

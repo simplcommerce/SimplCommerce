@@ -1,0 +1,15 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/paymentcod.min.js",
+    "inputFiles": [
+      "wwwroot/admin/paymentCoD.module.js",
+      "wwwroot/admin/config/cod-service.js",
+      "wwwroot/admin/config/config-form.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

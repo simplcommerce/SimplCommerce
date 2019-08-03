@@ -1,0 +1,15 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/shippingtablerate.min.js",
+    "inputFiles": [
+      "wwwroot/admin/shipping-tablerate.module.js",
+      "wwwroot/admin/tablerate/shipping-tablerate-service.js",
+      "wwwroot/admin/tablerate/shipping-tablerate-form.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

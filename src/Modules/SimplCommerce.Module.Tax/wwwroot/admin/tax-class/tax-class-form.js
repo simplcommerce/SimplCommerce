@@ -2,9 +2,8 @@
 (function ($) {
     angular
         .module('simplAdmin.tax')
-        .controller('TaxClassFormCtrl', TaxClassFormCtrl);
+        .controller('TaxClassFormCtrl', ['$state', '$stateParams', 'taxClassService', 'translateService', TaxClassFormCtrl]);
 
-    /* @ngInject */
     function TaxClassFormCtrl($state, $stateParams, taxClassService, translateService) {
         var vm = this;
         vm.translate = translateService;

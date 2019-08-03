@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.contacts')
-        .controller('ContactAreaFormCtrl', ContactAreaFormCtrl);
+        .controller('ContactAreaFormCtrl', ['$state', '$stateParams', 'contactAreaService', 'translateService', ContactAreaFormCtrl]);
 
-    /* @ngInject */
     function ContactAreaFormCtrl($state, $stateParams, contactAreaService, translateService) {
         var vm = this;
         vm.translate = translateService;

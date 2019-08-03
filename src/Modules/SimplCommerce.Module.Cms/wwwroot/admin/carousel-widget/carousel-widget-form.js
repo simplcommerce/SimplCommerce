@@ -2,9 +2,8 @@
 (function ($) {
     angular
         .module('simplAdmin.cms')
-        .controller('CarouselWidgetFormCtrl', CarouselWidgetFormCtrl);
+        .controller('CarouselWidgetFormCtrl', ['$state', '$stateParams', 'carouselWidgetService', 'translateService', CarouselWidgetFormCtrl]);
 
-    /* @ngInject */
     function CarouselWidgetFormCtrl($state, $stateParams, carouselWidgetService, translateService) {
         var vm = this;
         vm.translate = translateService;

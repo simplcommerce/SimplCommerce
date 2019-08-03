@@ -2,9 +2,8 @@
 (function ($) {
     angular
         .module('simplAdmin.cms')
-        .controller('SpaceBarWidgetFormCtrl', SpaceBarWidgetFormCtrl);
+        .controller('SpaceBarWidgetFormCtrl', ['$state', '$stateParams', 'spacebarWidgetService', 'translateService', SpaceBarWidgetFormCtrl]);
 
-    /* @ngInject */
     function SpaceBarWidgetFormCtrl($state, $stateParams, spacebarWidgetService, translateService) {
         var vm = this;
         vm.translate = translateService;

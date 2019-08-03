@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.core')
-        .controller('OnlineThemeListCtrl', OnlineThemeListCtrl);
+        .controller('OnlineThemeListCtrl', ['themeService', 'translateService', OnlineThemeListCtrl]);
 
-    /* @ngInject */
     function OnlineThemeListCtrl(themeService, translateService) {
         var vm = this;
         vm.themes = [];

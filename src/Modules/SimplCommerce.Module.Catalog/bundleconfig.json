@@ -1,0 +1,48 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/catalog.min.js",
+    "inputFiles": [
+      "wwwroot/admin/catalog.module.js",
+      "wwwroot/admin/brand/brand-service.js",
+      "wwwroot/admin/brand/brand-list.js",
+      "wwwroot/admin/brand/brand-form.js",
+      "wwwroot/admin/category/category-service.js",
+      "wwwroot/admin/category/category-list.js",
+      "wwwroot/admin/category/category-form.js",
+      "wwwroot/admin/category/category-translation-form.js",
+      "wwwroot/admin/product-option/product-option-service.js",
+      "wwwroot/admin/product-option/product-option-list.js",
+      "wwwroot/admin/product-option/product-option-form.js",
+      "wwwroot/admin/product-attribute-group/product-attribute-group-service.js",
+      "wwwroot/admin/product-attribute-group/product-attribute-group-list.js",
+      "wwwroot/admin/product-attribute-group/product-attribute-group-form.js",
+      "wwwroot/admin/product-attribute/product-attribute-service.js",
+      "wwwroot/admin/product-attribute/product-attribute-list.js",
+      "wwwroot/admin/product-attribute/product-attribute-form.js",
+      "wwwroot/admin/product-template/product-template-service.js",
+      "wwwroot/admin/product-template/product-template-list.js",
+      "wwwroot/admin/product-template/product-template-form.js",
+      "wwwroot/admin/product/product-service.js",
+      "wwwroot/admin/product/product-list.js",
+      "wwwroot/admin/product/product-option-display-directive.js",
+      "wwwroot/admin/product/product-selection-directive.js",
+      "wwwroot/admin/product/product-form.js",
+      "wwwroot/admin/product/product-translation-form.js",
+      "wwwroot/admin/product-widget/product-widget-service.js",
+      "wwwroot/admin/product-widget/product-widget-form.js",
+      "wwwroot/admin/category-widget/category-widget-service.js",
+      "wwwroot/admin/category-widget/category-widget-form.js",
+      "wwwroot/admin/simple-product-widget/simple-product-widget-service.js",
+      "wwwroot/admin/simple-product-widget/simple-product-widget-form.js",
+      "wwwroot/admin/product-price/product-price-service.js",
+      "wwwroot/admin/product-price/product-price-form.js",
+      "wwwroot/admin/product-clone/product-clone-service.js",
+      "wwwroot/admin/product-clone/product-clone-form.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

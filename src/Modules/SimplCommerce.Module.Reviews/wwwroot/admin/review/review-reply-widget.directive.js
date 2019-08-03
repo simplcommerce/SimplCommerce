@@ -1,4 +1,4 @@
-(function() {
+﻿(function() {
     angular
         .module('simplAdmin.reviews')
         .directive('reviewReplyWidget', reviewReplyWidget);
@@ -11,7 +11,7 @@
                 status: '=',
                 numRecords: '='
             },
-            controller: ReviewReplyWidgetCtrl,
+            controller: ['reviewReplyService', 'translateService', ReviewReplyWidgetCtrl],
             controllerAs: 'vm',
             bindToController: true
         };
@@ -19,7 +19,6 @@
         return directive;
     }
 
-    /* @ngInject */
     function ReviewReplyWidgetCtrl(reviewReplyService, translateService) {
         var vm = this;
         vm.translate = translateService;

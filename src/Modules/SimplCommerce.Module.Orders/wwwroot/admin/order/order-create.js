@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.core')
-        .controller('OrderCreateCtrl', OrderCreateCtrl);
+        .controller('OrderCreateCtrl', ['$state', '$q', 'orderService', 'translateService', 'userService', 'productService', OrderCreateCtrl]);
 
-    /* @ngInject */
     function OrderCreateCtrl($state, $q, orderService, translateService, userService, productService) {
         var vm = this;
         vm.translate = translateService;

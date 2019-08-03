@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.core')
-        .factory('customergroupService', customergroupService);
+        .factory('customergroupService', ['$http', customergroupService]);
 
-    /* @ngInject */
     function customergroupService($http) {
         var service = {
             getCustomerGroups: getCustomerGroups,

@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.shippings')
-        .controller('ShippingProviderListCtrl', ShippingProviderListCtrl);
+        .controller('ShippingProviderListCtrl', ['shippingProviderService', 'translateService', ShippingProviderListCtrl]);
 
-    /* @ngInject */
     function ShippingProviderListCtrl(shippingProviderService, translateService) {
         var vm = this;
         vm.translate = translateService;

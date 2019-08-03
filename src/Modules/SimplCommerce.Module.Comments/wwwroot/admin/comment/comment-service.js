@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.comments')
-        .factory('commentService', commentService);
+        .factory('commentService', ['$http', commentService]);
 
-    /* @ngInject */
     function commentService($http) {
         var service = {
             getComments: getComments,

@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.catalog')
-        .controller('ProductTemplateListCtrl', ProductTemplateListCtrl);
+        .controller('ProductTemplateListCtrl', ['productTemplateService', 'translateService', ProductTemplateListCtrl]);
 
-    /* @ngInject */
     function ProductTemplateListCtrl(productTemplateService, translateService) {
         var vm = this;
         vm.translate = translateService;
