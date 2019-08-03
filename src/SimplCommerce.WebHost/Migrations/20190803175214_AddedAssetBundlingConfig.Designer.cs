@@ -10,7 +10,7 @@ using SimplCommerce.Module.Core.Data;
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    [Migration("20190803171932_AddedAssetBundlingConfig")]
+    [Migration("20190803175214_AddedAssetBundlingConfig")]
     partial class AddedAssetBundlingConfig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -2225,6 +2225,15 @@ namespace SimplCommerce.WebHost.Migrations
                             IsEnabled = true,
                             LandingViewComponentName = "NganLuongLanding",
                             Name = "Ngan Luong Payment"
+                        },
+                        new
+                        {
+                            Id = "Cashfree",
+                            AdditionalSettings = "{ \"IsSandbox\":true, \"AppId\":\"358035b02486f36ca27904540853\", \"SecretKey\":\"26f48dcd6a27f89f59f28e65849e587916dd57b9\" }",
+                            ConfigureUrl = "payments-cashfree-config",
+                            IsEnabled = true,
+                            LandingViewComponentName = "CashfreeLanding",
+                            Name = "Cashfree Payment Gateway"
                         });
                 });
 
