@@ -63,7 +63,28 @@
     <script simpl-append-version="true" src="~/lib/i18n/angular-locale_@(CultureInfo.CurrentCulture.Name.ToLower()).js"></script>
 
     <script simpl-append-version="true" src="~/modules/core/admin/common/slugify.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/admin-app.js"></script>
+    <script>
+        angular.module('simplAdmin', [
+            'ui.router',
+            'ngMaterial',
+            'ngMessages',
+            'smart-table',
+            'ngFileUpload',
+            'ui.bootstrap',
+            'ui.bootstrap.datetimepicker',
+            'ui.tree',
+            'summernote',
+            'colorpicker.module',
+            'simplAdmin.common',
+
+            @foreach(var angularModule in GlobalConfiguration.AngularModules)
+            {
+                <text>'@angularModule',</text>
+            }
+            'simplAdmin.dashboard'
+        ]);
+    </script>
+    <script simpl-append-version="true" src="~/modules/core/admin/admin-app-config.js"></script>
     <script simpl-append-version="true" src="~/modules/core/admin/common/common.js"></script>
     <script simpl-append-version="true" src="~/modules/core/admin/common/summernote-service.js"></script>
     <script simpl-append-version="true" src="~/modules/core/admin/common/st-date-range.js"></script>

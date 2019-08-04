@@ -1,23 +1,21 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
-using SimplCommerce.Infrastructure.Modules;
-using SimplCommerce.Module.Tax.Services;
+using Microsoft.Extensions.DependencyInjection;
 using SimplCommerce.Infrastructure;
+using SimplCommerce.Infrastructure.Modules;
 
-namespace SimplCommerce.Module.Tax
+namespace SimplCommerce.Module.Search
 {
     public class ModuleInitializer : IModuleInitializer
     {
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<ITaxService, TaxService>();
-
-            GlobalConfiguration.RegisterAngularModule("simplAdmin.tax");
+            GlobalConfiguration.RegisterAngularModule("simplAdmin.search");
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
         }
     }
 }
