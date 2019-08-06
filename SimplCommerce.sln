@@ -139,6 +139,7 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.PaymentNganLuong", "src\Modules\SimplCommerce.Module.PaymentNganLuong\SimplCommerce.Module.PaymentNganLuong.csproj", "{14586564-62CC-4117-AC1B-858ED53C2D6C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.PaymentCashfree", "src\Modules\SimplCommerce.Module.PaymentCashfree\SimplCommerce.Module.PaymentCashfree.csproj", "{E30CF10F-FABF-4917-8BEB-CB81E4CE2C92}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.PaymentBtcPayServer", "src\Modules\SimplCommerce.Module.PaymentBtcPayServer\SimplCommerce.Module.PaymentBtcPayServer.csproj", "{8E4BEB83-CC65-4D25-A72A-B58203BDA2C0}"
 EndProject
 Global
