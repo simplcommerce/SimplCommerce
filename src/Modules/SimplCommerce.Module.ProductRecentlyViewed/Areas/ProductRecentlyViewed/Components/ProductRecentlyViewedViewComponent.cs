@@ -19,17 +19,20 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed
         private readonly IProductPricingService _productPricingService;
         private readonly IWorkContext _workContext;
         private readonly IContentLocalizationService _contentLocalizationService;
+        private readonly ICurrencyService _currencyService;
 
         public ProductRecentlyViewedViewComponent(IRecentlyViewedProductRepository productRepository,
             IMediaService mediaService,
             IProductPricingService productPricingService,
             IContentLocalizationService contentLocalizationService,
+            ICurrencyService currencyService,
             IWorkContext workContext)
         {
             _productRepository = productRepository;
             _mediaService = mediaService;
             _productPricingService = productPricingService;
             _contentLocalizationService = contentLocalizationService;
+            _currencyService = currencyService;
             _workContext = workContext;
         }
 
@@ -45,7 +48,7 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed
             }
             
             var model = query.Take(itemCount)
-                .Select(x => ProductThumbnail.FromProduct(x)).ToList();
+                .Select(x => ProductThumbnail.FromProduct(x, _currencyService)).ToList();
 
             foreach (var product in model)
             {

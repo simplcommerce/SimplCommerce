@@ -1,12 +1,18 @@
-﻿using System;
-using SimplCommerce.Module.Catalog.Models;
+﻿using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
+using System;
 
 namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
 {
     public class ProductThumbnail
     {
+        private readonly ICurrencyService _currencyService;
+
+        public ProductThumbnail(ICurrencyService currencySerivce)
+        {
+            _currencyService = currencySerivce;
+        }
         public long Id { get; set; }
 
         public string Name { get; set; }
@@ -15,9 +21,15 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
 
         public decimal Price { get; set; }
 
+        public string PriceString => _currencyService.FormatCurrency(Price);
+
         public decimal? OldPrice { get; set; }
 
+        public string OldPriceString => _currencyService.FormatCurrency(OldPrice);
+
         public decimal? SpecialPrice { get; set; }
+
+        public string SpecialPriceString => _currencyService.FormatCurrency(SpecialPrice);
 
         public bool IsCallForPricing { get; set; }
 
@@ -39,9 +51,9 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
 
         public CalculatedProductPrice CalculatedProductPrice { get; set; }
 
-        public static ProductThumbnail FromProduct(Product product)
+        public static ProductThumbnail FromProduct(Product product, ICurrencyService currencyService)
         {
-            var productThumbnail = new ProductThumbnail
+            var productThumbnail = new ProductThumbnail(currencyService)
             {
                 Id = product.Id,
                 Name = product.Name,

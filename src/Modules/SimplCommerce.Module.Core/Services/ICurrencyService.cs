@@ -6,6 +6,6 @@ namespace SimplCommerce.Module.Core.Services
     {
         CultureInfo CurrencyCulture { get; }
 
-        string FormatCurrency(decimal value);
+        string FormatCurrency(decimal? value);
     }
 }

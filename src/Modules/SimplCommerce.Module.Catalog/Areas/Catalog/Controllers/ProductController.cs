@@ -24,18 +24,20 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         private readonly IMediator _mediator;
         private readonly IProductPricingService _productPricingService;
         private readonly IContentLocalizationService _contentLocalizationService;
-
+        private readonly ICurrencyService _currencyService;
         public ProductController(IRepository<Product> productRepository,
             IMediaService mediaService,
             IMediator mediator,
             IProductPricingService productPricingService,
-            IContentLocalizationService contentLocalizationService)
+            IContentLocalizationService contentLocalizationService,
+            ICurrencyService currencyService)
         {
             _productRepository = productRepository;
             _mediaService = mediaService;
             _mediator = mediator;
             _productPricingService = productPricingService;
             _contentLocalizationService = contentLocalizationService;
+            _currencyService = currencyService;
         }
 
         [HttpGet("product/product-overview")]
@@ -191,7 +193,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             foreach (var productLink in publishedProductLinks)
             {
                 var linkedProduct = productLink.LinkedProduct;
-                var productThumbnail = ProductThumbnail.FromProduct(linkedProduct);
+                var productThumbnail = ProductThumbnail.FromProduct(linkedProduct, _currencyService);
                 productThumbnail.Name = _contentLocalizationService.GetLocalizedProperty(nameof(Product), productThumbnail.Id, nameof(product.Name), productThumbnail.Name);
                 productThumbnail.ThumbnailUrl = _mediaService.GetThumbnailUrl(linkedProduct.ThumbnailImage);
                 productThumbnail.CalculatedProductPrice = _productPricingService.CalculateProductPrice(linkedProduct);

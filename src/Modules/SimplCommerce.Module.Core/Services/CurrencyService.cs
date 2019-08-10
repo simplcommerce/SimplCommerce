@@ -16,10 +16,15 @@ namespace SimplCommerce.Module.Core.Services
 
         public CultureInfo CurrencyCulture { get; }
 
-        public string FormatCurrency(decimal value)
+        public string FormatCurrency(decimal? value)
         {
+            if (value.HasValue)
+            {
+                return string.Empty;
+            }
+
             var decimalPlace = _config.GetValue<int>("Global.CurrencyDecimalPlace");
-            return value.ToString($"C{decimalPlace}", CurrencyCulture);
+            return value.Value.ToString($"C{decimalPlace}", CurrencyCulture);
         }
     }
 }

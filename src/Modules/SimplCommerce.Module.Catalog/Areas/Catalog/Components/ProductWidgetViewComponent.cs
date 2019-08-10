@@ -18,16 +18,19 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
         private readonly IMediaService _mediaService;
         private readonly IProductPricingService _productPricingService;
         private readonly IContentLocalizationService _contentLocalizationService;
+        private readonly ICurrencyService _currencyService;
 
         public ProductWidgetViewComponent(IRepository<Product> productRepository,
             IMediaService mediaService,
             IProductPricingService productPricingService,
-            IContentLocalizationService contentLocalizationService)
+            IContentLocalizationService contentLocalizationService,
+            ICurrencyService currencyService)
         {
             _productRepository = productRepository;
             _mediaService = mediaService;
             _productPricingService = productPricingService;
             _contentLocalizationService = contentLocalizationService;
+            _currencyService = currencyService;
         }
 
         public IViewComponentResult Invoke(WidgetInstanceViewModel widgetInstance)
@@ -56,7 +59,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
               .Include(x => x.ThumbnailImage)
               .OrderByDescending(x => x.CreatedOn)
               .Take(model.Setting.NumberOfProducts)
-              .Select(x => ProductThumbnail.FromProduct(x)).ToList();
+              .Select(x => ProductThumbnail.FromProduct(x, _currencyService)).ToList();
 
             foreach (var product in model.Products)
             {

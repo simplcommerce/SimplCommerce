@@ -21,6 +21,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         private readonly IRepository<Brand> _brandRepository;
         private readonly IProductPricingService _productPricingService;
         private readonly IContentLocalizationService _contentLocalizationService;
+        private readonly ICurrencyService _currencyService;
 
         public BrandController(IRepository<Product> productRepository,
             IMediaService mediaService,
@@ -28,7 +29,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             IRepository<Brand> brandRepository,
             IProductPricingService productPricingService,
             IConfiguration config,
-            IContentLocalizationService contentLocalizationService)
+            IContentLocalizationService contentLocalizationService,
+            ICurrencyService currencyService)
         {
             _productRepository = productRepository;
             _mediaService = mediaService;
@@ -36,6 +38,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             _brandRepository = brandRepository;
             _productPricingService = productPricingService;
             _contentLocalizationService = contentLocalizationService;
+            _currencyService = currencyService;
             _pageSize = config.GetValue<int>("Catalog.ProductPageSize");
         }
 
@@ -94,7 +97,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             query = AppySort(searchOption, query);
 
             var products = query
-                .Select(x => ProductThumbnail.FromProduct(x))
+                .Select(x => ProductThumbnail.FromProduct(x, _currencyService))
                 .Skip(offset)
                 .Take(_pageSize)
                 .ToList();
