@@ -9,6 +9,7 @@ using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Pricing.Services;
 using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
+using SimplCommerce.Module.Catalog.Services;
 
 namespace SimplCommerce.Module.ShoppingCart.Services
 {
@@ -20,15 +21,21 @@ namespace SimplCommerce.Module.ShoppingCart.Services
         private readonly ICouponService _couponService;
         private readonly bool _isProductPriceIncludeTax;
         private readonly ICurrencyService _currencyService;
-
-        public CartService(IRepository<Cart> cartRepository, IRepository<CartItem> cartItemRepository, ICouponService couponService,
-            IMediaService mediaService, IConfiguration config, ICurrencyService currencyService)
+        private readonly IProductPricingService _productPricingService;
+        public CartService(IRepository<Cart> cartRepository, 
+            IRepository<CartItem> cartItemRepository, 
+            ICouponService couponService,
+            IMediaService mediaService, 
+            IConfiguration config, 
+            ICurrencyService currencyService,
+            IProductPricingService productPricingService)
         {
             _cartRepository = cartRepository;
             _cartItemRepository = cartItemRepository;
             _couponService = couponService;
             _mediaService = mediaService;
             _currencyService = currencyService;
+            _productPricingService = productPricingService;
             _isProductPriceIncludeTax = config.GetValue<bool>("Catalog.IsProductPriceIncludeTax");
         }
 
@@ -125,26 +132,37 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 OrderNote = cart.OrderNote
             };
 
-            cartVm.Items = _cartItemRepository
+            var query = _cartItemRepository
                 .Query()
                 .Include(x => x.Product).ThenInclude(p => p.ThumbnailImage)
                 .Include(x => x.Product).ThenInclude(p => p.OptionCombinations).ThenInclude(o => o.Option)
-                .Where(x => x.CartId == cart.Id)
-                .Select(x => new CartItemVm(_currencyService)
+                .Where(x => x.CartId == cart.Id);
+
+            cartVm.Items = query.ToList()
+                .Select(x => 
                 {
-                    Id = x.Id,
-                    ProductId = x.ProductId,
-                    ProductName = x.Product.Name,
-                    ProductPrice = x.Product.Price,
-                    ProductStockQuantity = x.Product.StockQuantity,
-                    ProductStockTrackingIsEnabled = x.Product.StockTrackingIsEnabled,
-                    IsProductAvailabeToOrder = x.Product.IsAllowToOrder && x.Product.IsPublished && !x.Product.IsDeleted,
-                    ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
-                    Quantity = x.Quantity,
-                    VariationOptions = CartItemVm.GetVariationOption(x.Product)
+                    var calculatedProductPrice = _productPricingService.CalculateProductPrice(x.Product);
+
+                    return new CartItemVm(_currencyService)
+                    {
+                        Id = x.Id,
+                        ProductId = x.ProductId,
+                        ProductName = x.Product.Name,
+                        ProductPrice = calculatedProductPrice.Price,
+                        ProductPriceExcludingTax = calculatedProductPrice.PriceExcludingTax,
+                        ProductStockQuantity = x.Product.StockQuantity,
+                        ProductStockTrackingIsEnabled = x.Product.StockTrackingIsEnabled,
+                        IsProductAvailabeToOrder = x.Product.IsAllowToOrder && x.Product.IsPublished && !x.Product.IsDeleted,
+                        ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
+                        Quantity = x.Quantity,
+                        VariationOptions = CartItemVm.GetVariationOption(x.Product),
+                        TaxAmount = calculatedProductPrice.TaxAmount
+                    };
                 }).ToList();
 
-            cartVm.SubTotal = cartVm.Items.Sum(x => x.Quantity * x.ProductPrice);
+            cartVm.SubTotal = cartVm.Items.Sum(x => x.Quantity * x.ProductPriceExcludingTax);
+            cartVm.TaxAmount = cartVm.Items.Sum(x => x.Quantity * x.TaxAmount);
+
             if (!string.IsNullOrWhiteSpace(cartVm.CouponCode))
             {
                 var cartInfoForCoupon = new CartInfoForCoupon

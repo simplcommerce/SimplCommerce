@@ -18,7 +18,7 @@ namespace SimplCommerce.Module.Core.Services
 
         public string FormatCurrency(decimal? value)
         {
-            if (value.HasValue)
+            if (!value.HasValue)
             {
                 return string.Empty;
             }

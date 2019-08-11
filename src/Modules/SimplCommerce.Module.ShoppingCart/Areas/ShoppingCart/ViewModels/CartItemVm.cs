@@ -26,6 +26,10 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels
 
         public string ProductPriceString => _currencyService.FormatCurrency(ProductPrice);
 
+        public decimal ProductPriceExcludingTax { get; set; }
+
+        public string ProductPriceExcludingTaxString => _currencyService.FormatCurrency(ProductPriceExcludingTax);
+
         public int ProductStockQuantity { get; set; }
 
         public bool ProductStockTrackingIsEnabled { get; set; }
@@ -38,6 +42,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels
 
         public string TotalString => _currencyService.FormatCurrency(Total);
 
+        public decimal TaxAmount { get; set; }
         public IEnumerable<ProductVariationOption> VariationOptions { get; set; } = new List<ProductVariationOption>();
 
         public static IEnumerable<ProductVariationOption> GetVariationOption(Product variation)

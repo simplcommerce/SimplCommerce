@@ -10,6 +10,6 @@ namespace SimplCommerce.Module.Catalog.Services
 
         CalculatedProductPrice CalculateProductPrice(Product product);
 
-        CalculatedProductPrice CalculateProductPrice(decimal price, decimal? oldPrice, decimal? specialPrice, DateTimeOffset? specialPriceStart, DateTimeOffset? specialPriceEnd);
+        CalculatedProductPrice CalculateProductPrice(decimal price, decimal? oldPrice, decimal? specialPrice, DateTimeOffset? specialPriceStart, DateTimeOffset? specialPriceEnd, long? taxClassId);
     }
 }

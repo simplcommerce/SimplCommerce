@@ -49,6 +49,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
 
         public double? RatingAverage { get; set; }
 
+        public long? TaxClassId { get; set; }
+
         public CalculatedProductPrice CalculatedProductPrice { get; set; }
 
         public static ProductThumbnail FromProduct(Product product, ICurrencyService currencyService)
@@ -68,7 +70,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
                 IsCallForPricing = product.IsCallForPricing,
                 ThumbnailImage = product.ThumbnailImage,
                 ReviewsCount = product.ReviewsCount,
-                RatingAverage = product.RatingAverage
+                RatingAverage = product.RatingAverage,
+                TaxClassId = product.TaxClassId
             };
 
             return productThumbnail;
