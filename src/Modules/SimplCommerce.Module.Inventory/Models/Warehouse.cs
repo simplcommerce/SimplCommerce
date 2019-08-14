@@ -4,7 +4,7 @@ using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Inventory.Models
 {
-    public class Warehouse : EntityBase
+    public class Warehouse : EntityBase, IExtendableObject
     {
         public Warehouse() { }
 
@@ -28,5 +28,7 @@ namespace SimplCommerce.Module.Inventory.Models
         public long? MediaId { get; set; }
 
         public Media Media { get; set; }
+
+        public string ExtensionData { get; set; }
     }
 }

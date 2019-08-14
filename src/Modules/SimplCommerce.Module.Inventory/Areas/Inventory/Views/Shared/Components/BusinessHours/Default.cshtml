@@ -1,0 +1,22 @@
+﻿@model SimplCommerce.Module.Inventory.Areas.Inventory.ViewModels.BusinessHoursViewComponentVm
+
+<header class="text-white">@Model.Name</header>
+<ul class="list-unstyled text-sm text-white scheduler">
+    @foreach (var businessHour in Model.BusinessHourItems)
+    {
+        if (string.IsNullOrEmpty(businessHour.Start) && string.IsNullOrEmpty(businessHour.End))
+        {
+            <li class="d-flex justify-content-between"><span class="opacity-50">@businessHour.Day</span><em class="text-danger">Closed</em></li>
+
+        }
+        else
+        {
+            <li class="d-flex justify-content-between"><span class="opacity-50">@businessHour.Day</span><em class="text-warning">@businessHour.Start - @businessHour.End</em></li>
+        }
+    }
+</ul>
+
+<p class="text-white">
+    <i class="fa fa-phone"></i> @Model.PhoneNumber<br />
+    <i class="fa fa-envelope"></i> <a class="navi-link-light" href="mailto:@Model.EmailAddress">@Model.EmailAddress</a>
+</p>

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SimplCommerce.Module.Inventory.Areas.Inventory.ViewModels
@@ -36,6 +38,8 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.ViewModels
 
         public IFormFile ThumbnailImage { get; set; }
 
-        public string ThumbnailImageUrl { get; internal set; }
+        public string ThumbnailImageUrl { get; set; }
+
+        public List<(string Day, DateTimeOffset Begin, DateTime End)> BusinessHours { get; set; }
     }
 }
