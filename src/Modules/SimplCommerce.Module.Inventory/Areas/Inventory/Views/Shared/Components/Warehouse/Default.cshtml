@@ -1,0 +1,13 @@
+﻿@model SimplCommerce.Module.Inventory.Areas.Inventory.ViewModels.WarehouseViewComponentVm
+
+<div class="card mb-30">
+    <img class="card-img-top" src="@Model.Image" alt="@Model.Name">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <ul class="list-icon">
+            <li> <i class="fa fa-map"></i>@Model.AddressLine1 - @Model.CountryCode-@Model.ZipCode @Model.City</li>
+            <li> <i class="fa fa-phone"></i>+32(0) 65 34 83 18</li>
+            <li> <i class="fa fa-envelope"></i><a class="navi-link" href="mailto:ghlin@laromana-fils.be">ghlin@laromana-fils.be</a></li>
+        </ul>
+    </div>
+</div>

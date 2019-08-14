@@ -24,5 +24,9 @@ namespace SimplCommerce.Module.Inventory.Models
         public Vendor Vendor { get; set; }
 
         public Address Address { get; set; }
+
+        public long? MediaId { get; set; }
+
+        public Media Media { get; set; }
     }
 }

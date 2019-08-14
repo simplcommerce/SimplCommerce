@@ -47,5 +47,7 @@ namespace SimplCommerce.Module.Core.Models
         public Country Country { get; set; }
 
         public IList<UserAddress> UserAddresses { get; set; } = new List<UserAddress>();
+
+        public string Email { get; set; }
     }
 }

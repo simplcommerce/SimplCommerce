@@ -1,14 +1,20 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
+using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Inventory.Areas.Inventory.ViewModels;
 using SimplCommerce.Module.Inventory.Models;
+using Microsoft.Extensions.Primitives;
 
 namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
 {
@@ -20,12 +26,17 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
         private readonly IRepository<Warehouse> _warehouseRepository;
         private readonly IRepository<Address> _addressRepository;
         private readonly IWorkContext _workContext;
+        private readonly IMediaService _mediaService;
 
-        public WarehouseApiController(IRepository<Warehouse> warehouseRepository, IWorkContext workContext, IRepository<Address> addressRepository)
+        public WarehouseApiController(IRepository<Warehouse> warehouseRepository,
+            IWorkContext workContext, 
+            IRepository<Address> addressRepository,
+            IMediaService mediaService)
         {
             _warehouseRepository = warehouseRepository;
             _addressRepository = addressRepository;
             _workContext = workContext;
+            _mediaService = mediaService;
         }
 
         [HttpGet]
@@ -83,7 +94,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(long id)
         {
-            var warehouse = await _warehouseRepository.Query().Include(w => w.Address).FirstOrDefaultAsync(w => w.Id == id);
+            var warehouse = await _warehouseRepository.Query().Include(w => w.Address).Include(w =>  w.Media).FirstOrDefaultAsync(w => w.Id == id);
             if (warehouse == null)
             {
                 return NotFound();
@@ -109,7 +120,9 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
                 CountryId = address.CountryId,
                 City = address.City,
                 DistrictId = address.DistrictId,
-                ZipCode = address.ZipCode
+                ZipCode = address.ZipCode,
+                EmailAddress = address.Email,
+                ThumbnailImageUrl = _mediaService.GetThumbnailUrl(warehouse.Media),
             };
 
             return Json(model);
@@ -130,7 +143,8 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
                     CountryId = model.CountryId,
                     City = model.City,
                     DistrictId = model.DistrictId,
-                    ZipCode = model.ZipCode
+                    ZipCode = model.ZipCode,
+                    Email = model.EmailAddress,
                 };
 
                 var warehouse = new Warehouse
@@ -151,6 +165,30 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
             }
 
             return BadRequest(ModelState);
+        }
+
+        private async Task SaveCategoryImage(Warehouse warehouse, WarehouseVm model)
+        {
+            if (model.ThumbnailImage != null)
+            {
+                var fileName = await SaveFile(model.ThumbnailImage);
+                if (warehouse.Media != null)
+                {
+                    warehouse.Media.FileName = fileName;
+                }
+                else
+                {
+                    warehouse.Media = new Media { FileName = fileName };
+                }
+            }
+        }
+
+        private async Task<string> SaveFile(IFormFile file)
+        {
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
+            await _mediaService.SaveMediaAsync(file.OpenReadStream(), fileName, file.ContentType);
+            return fileName;
         }
 
         [HttpPut("{id}")]
@@ -186,6 +224,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
             warehouse.Address.StateOrProvinceId = model.StateOrProvinceId;
             warehouse.Address.CountryId = model.CountryId;
             warehouse.Address.DistrictId = model.DistrictId;
+            warehouse.Address.Email = model.EmailAddress;
 
             await _warehouseRepository.SaveChangesAsync();
             return Accepted();

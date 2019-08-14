@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimplCommerce.Module.Core.Data;
 
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    partial class SimplDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190814022024_AddPropertiesToWarehouseTable")]
+    partial class AddPropertiesToWarehouseTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -857,8 +859,6 @@ namespace SimplCommerce.WebHost.Migrations
                         .HasMaxLength(450);
 
                     b.Property<long?>("DistrictId");
-
-                    b.Property<string>("Email");
 
                     b.Property<string>("Phone")
                         .HasMaxLength(450);
@@ -1816,11 +1816,15 @@ namespace SimplCommerce.WebHost.Migrations
 
                     b.Property<long>("AddressId");
 
+                    b.Property<string>("EmailAddress");
+
                     b.Property<long?>("MediaId");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(450);
+
+                    b.Property<string>("PhoneNumber");
 
                     b.Property<long?>("VendorId");
 

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace SimplCommerce.Module.Inventory.Areas.Inventory.ViewModels
 {
@@ -30,5 +31,11 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.ViewModels
 
         [Required(ErrorMessage = "The {0} field is required.")]
         public string CountryId { get; set; }
+
+        public string EmailAddress { get; set; }
+
+        public IFormFile ThumbnailImage { get; set; }
+
+        public string ThumbnailImageUrl { get; internal set; }
     }
 }
