@@ -28,7 +28,7 @@ namespace SimplCommerce.Module.Tax.Services
                            && x.TaxClassId == taxClassId.Value);
             if (!string.IsNullOrEmpty(zipCode))
             {
-                query = query.Where(x => x.ZipCode == zipCode);
+                query = query.Where(x => x.ZipCode == zipCode || string.IsNullOrWhiteSpace(x.ZipCode));
             }
 
             var taxRate = await query.FirstOrDefaultAsync();
