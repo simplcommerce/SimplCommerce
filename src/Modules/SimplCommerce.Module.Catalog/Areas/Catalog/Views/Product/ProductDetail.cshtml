@@ -45,6 +45,10 @@
         <div class="col-md-6">
             <div class="product-name">
                 <h1 class="">@Model.Name</h1>
+                @if (Model.Brand != null)
+                {
+                    <h2>@Model.Brand.Name</h2>
+                }
             </div>
             <ul class="list-inline product-ratings">
                 <li><input type="hidden" value="@Model.RatingAverage" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
