@@ -83,6 +83,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 .Include(x => x.ProductLinks).ThenInclude(p => p.LinkedProduct).ThenInclude(m => m.ThumbnailImage)
                 .Include(x => x.ThumbnailImage)
                 .Include(x => x.Medias).ThenInclude(m => m.Media)
+                .Include(x => x.Brand)
                 .FirstOrDefault(x => x.Id == id && x.IsPublished);
             if (product == null)
             {
@@ -93,6 +94,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             {
                 Id = product.Id,
                 Name = _contentLocalizationService.GetLocalizedProperty(product, nameof(product.Name), product.Name),
+                Brand = product.Brand,
                 CalculatedProductPrice = _productPricingService.CalculateProductPrice(product),
                 IsCallForPricing = product.IsCallForPricing,
                 IsAllowToOrder = product.IsAllowToOrder,
