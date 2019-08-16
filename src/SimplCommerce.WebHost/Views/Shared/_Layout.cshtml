@@ -1,5 +1,28 @@
 ﻿@using System.Globalization
+@using Microsoft.AspNetCore.Hosting
+@inject IHostingEnvironment HostingEnvironment
 
+@functions{
+    public string boostrapStarRatingLocale = null;
+
+    public bool BootstrapStarRatingScriptExists()
+    {
+        var currentCulture = CultureInfo.CurrentUICulture;
+
+        while (currentCulture != currentCulture.Parent)
+        {
+            var scriptPath = $"/lib/bootstrap-star-rating/js/locales/{currentCulture.Name}.js";
+            if (HostingEnvironment.WebRootFileProvider.GetFileInfo(scriptPath).Exists)
+            {
+                boostrapStarRatingLocale = currentCulture.Name;
+                return true;
+            }
+            currentCulture = currentCulture.Parent;
+        }
+
+        return false;
+    }
+}
 <!doctype html>
 <html lang="@CultureInfo.CurrentUICulture.Name.ToLowerInvariant()">
 <head>
@@ -107,9 +130,9 @@
     <script simpl-append-version="true" src="~/lib/toastr/build/toastr.min.js"></script>
     <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
     <script simpl-append-version="true" src="~/lib/signalr/dist/browser/signalr.js"></script>
-    @if(CultureInfo.CurrentCulture.Name != SimplCommerce.Infrastructure.GlobalConfiguration.DefaultCulture)
+    @if (BootstrapStarRatingScriptExists())
     {
-        <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/@(CultureInfo.CurrentCulture.Name).js"></script>
+    <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/@(boostrapStarRatingLocale).js"></script>
     }
     <script simpl-append-version="true" src="~/modules/core/main.js"></script>
     <script simpl-append-version="true" src="~/modules/shoppingcart/add-to-cart.js"></script>
