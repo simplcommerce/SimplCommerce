@@ -74,6 +74,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
         public IList<ProductThumbnail> RelatedProducts { get; set; } = new List<ProductThumbnail>();
 
         public IList<ProductThumbnail> CrossSellProducts { get; set; } = new List<ProductThumbnail>();
-        public Brand Brand { get; internal set; }
+
+        public Brand Brand { get; set; }
     }
 }
