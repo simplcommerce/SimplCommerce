@@ -52,11 +52,31 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
                 query = query.Where(x => x.IsFeatured);
             }
 
-            model.Products = query
+            if (model.Setting.OrderBy == ProductWidgetOrderBy.Newest)
+            {
+                query = query.OrderByDescending(p => p.CreatedOn);
+            }
+
+            if (model.Setting.OrderBy == ProductWidgetOrderBy.BestSelling)
+            {
+                //TODO: ProductWidgetOrderBy.BestSelling must be managed
+                // create a new  property in product incremented each time a product 
+                // is created or updated or calculated how many time the products already 
+                // ordered ?
+            }
+
+            var productThumbnail = query
               .Include(x => x.ThumbnailImage)
-              .OrderByDescending(x => x.CreatedOn)
-              .Take(model.Setting.NumberOfProducts)
-              .Select(x => ProductThumbnail.FromProduct(x)).ToList();
+              .Select(x => ProductThumbnail.FromProduct(x));
+
+            if (model.Setting.OrderBy == ProductWidgetOrderBy.Discount)
+            {
+                model.Products = model.Products.OrderByDescending(p => p.CalculatedProductPrice.PercentOfSaving).ToList();
+            }
+
+            
+
+            model.Products = productThumbnail.Take(model.Setting.NumberOfProducts).ToList();
 
             foreach (var product in model.Products)
             {
