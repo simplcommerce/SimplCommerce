@@ -6,6 +6,11 @@ dotnet: 2.2.401
 mono: none
 os:
   - linux
+addons:
+  sonarcloud:
+    organization: "simplcommerce"
+    token:
+      secure: "**************************" # encrypted value of your token
 
 branches:
   only:
@@ -22,3 +27,4 @@ before_script:
 script:
   - dotnet build ./SimplCommerce.sln
   - ./run-tests.sh
+  - sonar-scanner
