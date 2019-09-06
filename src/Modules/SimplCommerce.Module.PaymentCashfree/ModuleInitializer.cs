@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.PaymentCashfree
             GlobalConfiguration.RegisterAngularModule("simplAdmin.paymentCashfree");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
         }
     }

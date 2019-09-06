@@ -29,7 +29,7 @@ namespace SimplCommerce.Module.Core
             GlobalConfiguration.RegisterAngularModule("simplAdmin.core");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
         }
     }

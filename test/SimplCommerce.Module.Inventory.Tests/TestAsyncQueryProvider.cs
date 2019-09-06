@@ -45,5 +45,10 @@ namespace SimplCommerce.Module.Inventory.Tests
         {
             return Task.FromResult(Execute<TResult>(expression));
         }
+
+        TResult IAsyncQueryProvider.ExecuteAsync<TResult>(Expression expression, CancellationToken cancellationToken)
+        {
+            return Execute<TResult>(expression);
+        }
     }
 }

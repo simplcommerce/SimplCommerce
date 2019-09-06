@@ -8,6 +8,6 @@ namespace SimplCommerce.Infrastructure.Modules
     {
         void ConfigureServices(IServiceCollection serviceCollection);
 
-        void Configure(IApplicationBuilder app, IHostingEnvironment env);
+        void Configure(IApplicationBuilder app, IWebHostEnvironment env);
     }
 }

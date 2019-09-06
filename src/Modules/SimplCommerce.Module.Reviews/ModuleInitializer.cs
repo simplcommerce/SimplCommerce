@@ -17,7 +17,7 @@ namespace SimplCommerce.Module.Reviews
             GlobalConfiguration.RegisterAngularModule("simplAdmin.reviews");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
         }

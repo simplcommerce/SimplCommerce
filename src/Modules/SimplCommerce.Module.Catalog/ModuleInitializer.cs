@@ -25,7 +25,7 @@ namespace SimplCommerce.Module.Catalog
             GlobalConfiguration.RegisterAngularModule("simplAdmin.catalog");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
         }

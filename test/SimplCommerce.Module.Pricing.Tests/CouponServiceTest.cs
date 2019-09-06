@@ -325,9 +325,9 @@ namespace SimplCommerce.Module.Pricing.Tests
         private static Mock<DbSet<Coupon>> BuildMockSetForCoupon(IQueryable<Coupon> coupons)
         {
             var mockSet = new Mock<DbSet<Coupon>>();
-            mockSet.As<IAsyncEnumerable<Coupon>>()
-                .Setup(m => m.GetEnumerator())
-                .Returns(new TestAsyncEnumerator<Coupon>(coupons.GetEnumerator()));
+            //mockSet.As<IAsyncEnumerable<Coupon>>()
+            //    .Setup(m => m.GetEnumerator())
+            //    .Returns(new TestAsyncEnumerator<Coupon>(coupons.GetEnumerator()));
 
             mockSet.As<IQueryable<Coupon>>()
                 .Setup(m => m.Provider)
@@ -343,9 +343,9 @@ namespace SimplCommerce.Module.Pricing.Tests
         private static Mock<DbSet<CartRuleUsage>> BuildMockSetForCartRuleUsage(IQueryable<CartRuleUsage> cartRules)
         {
             var mockSet = new Mock<DbSet<CartRuleUsage>>();
-            mockSet.As<IAsyncEnumerable<CartRuleUsage>>()
-                .Setup(m => m.GetEnumerator())
-                .Returns(new TestAsyncEnumerator<CartRuleUsage>(cartRules.GetEnumerator()));
+            //mockSet.As<IAsyncEnumerable<CartRuleUsage>>()
+            //    .Setup(m => m.GetEnumerator())
+            //    .Returns(new TestAsyncEnumerator<CartRuleUsage>(cartRules.GetEnumerator()));
 
             mockSet.As<IQueryable<CartRuleUsage>>()
                 .Setup(m => m.Provider)
@@ -361,9 +361,9 @@ namespace SimplCommerce.Module.Pricing.Tests
         private static Mock<DbSet<Product>> BuildMockSetForProduct(IQueryable<Product> products)
         {
             var mockSet = new Mock<DbSet<Product>>();
-            mockSet.As<IAsyncEnumerable<Product>>()
-                .Setup(m => m.GetEnumerator())
-                .Returns(new TestAsyncEnumerator<Product>(products.GetEnumerator()));
+            //mockSet.As<IAsyncEnumerable<Product>>()
+            //    .Setup(m => m.GetEnumerator())
+            //    .Returns(new TestAsyncEnumerator<Product>(products.GetEnumerator()));
 
             mockSet.As<IQueryable<Product>>()
                 .Setup(m => m.Provider)

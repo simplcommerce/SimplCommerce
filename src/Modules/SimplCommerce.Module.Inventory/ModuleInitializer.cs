@@ -16,7 +16,7 @@ namespace SimplCommerce.Module.Inventory
             GlobalConfiguration.RegisterAngularModule("simplAdmin.inventory");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
         }
     }

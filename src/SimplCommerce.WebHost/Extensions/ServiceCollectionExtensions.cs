@@ -23,13 +23,11 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Modules;
-using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Infrastructure.Web.ModelBinders;
 using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.EntityFrameworkCore.Extensions;
 using Microsoft.Extensions.Localization;
 
 namespace SimplCommerce.WebHost.Extensions
@@ -88,13 +86,13 @@ namespace SimplCommerce.WebHost.Extensions
                     o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider());
                     o.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 })
-                .AddRazorOptions(o =>
-                {
-                    foreach (var module in modules.Where(x => !x.IsBundledWithHost))
-                    {
-                        o.AdditionalCompilationReferences.Add(MetadataReference.CreateFromFile(module.Assembly.Location));
-                    }
-                })
+                //.AddRazorOptions(o =>
+                //{
+                //    foreach (var module in modules.Where(x => !x.IsBundledWithHost))
+                //    {
+                //        o.AdditionalCompilationReferences.Add(MetadataReference.CreateFromFile(module.Assembly.Location));
+                //    }
+                //})
                 .AddViewLocalization()
                 .AddModelBindingMessagesLocalizer(services)
                 .AddDataAnnotationsLocalization(o => {

@@ -20,7 +20,7 @@ namespace SimplCommerce.Module.ProductRecentlyViewed
             GlobalConfiguration.RegisterAngularModule("simplAdmin.recentlyViewed");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
         }

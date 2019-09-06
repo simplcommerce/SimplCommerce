@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.Shipping
             GlobalConfiguration.RegisterAngularModule("simplAdmin.shippings");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
         }
     }

@@ -235,11 +235,11 @@
         <div>
             <h3>@Localizer["Product specification"]</h3>
             <table class="table table-striped">
-                @foreach (var attribute in Model.Attributes)
+                @foreach (var attr in Model.Attributes)
                 {
                     <tr>
-                        <td>@attribute.Name</td>
-                        <td>@attribute.Value</td>
+                        <td>@attr.Name</td>
+                        <td>@attr.Value</td>
                     </tr>
                 }
             </table>

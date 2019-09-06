@@ -16,7 +16,7 @@ namespace SimplCommerce.Module.PaymentBraintree
             GlobalConfiguration.RegisterAngularModule("simplAdmin.paymentBraintree");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
         }
