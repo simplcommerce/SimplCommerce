@@ -129,7 +129,7 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 .Query()
                 .Include(x => x.Product).ThenInclude(p => p.ThumbnailImage)
                 .Include(x => x.Product).ThenInclude(p => p.OptionCombinations).ThenInclude(o => o.Option)
-                .Where(x => x.CartId == cart.Id)
+                .Where(x => x.CartId == cart.Id).ToList()
                 .Select(x => new CartItemVm(_currencyService)
                 {
                     Id = x.Id,

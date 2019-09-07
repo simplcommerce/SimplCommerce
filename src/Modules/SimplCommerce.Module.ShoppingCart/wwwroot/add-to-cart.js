@@ -31,7 +31,7 @@ $(function () {
         $.ajax({
             type: 'POST',
             url: '/cart/add-item',
-            data: JSON.stringify({ productId: productId, quantity: quantity }),
+            data: JSON.stringify({ productId: Number(productId), quantity: Number(quantity) }),
             contentType: "application/json"
         }).done(function (data) {
             if (data.error) {
