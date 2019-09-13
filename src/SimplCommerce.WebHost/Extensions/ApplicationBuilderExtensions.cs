@@ -23,6 +23,7 @@ namespace SimplCommerce.WebHost.Extensions
         public static IApplicationBuilder UseCustomizedIdentity(this IApplicationBuilder app)
         {
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseWhen(
                 context => context.Request.Path.StartsWithSegments("/api"),
@@ -46,23 +47,6 @@ namespace SimplCommerce.WebHost.Extensions
                     await next();
                 }));
 
-            return app;
-        }
-
-        public static IApplicationBuilder UseCustomizedMvc(this IApplicationBuilder app)
-        {
-            app.UseMvc(routes =>
-            {
-                routes.Routes.Add(new UrlSlugRoute(routes.DefaultHandler));
-
-                routes.MapRoute(
-                    name: "areaRoute",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
-                routes.MapRoute(
-                    "default",
-                    "{controller=Home}/{action=Index}/{id?}");
-            });
             return app;
         }
 
