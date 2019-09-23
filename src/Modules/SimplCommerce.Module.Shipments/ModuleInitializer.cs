@@ -17,7 +17,7 @@ namespace SimplCommerce.Module.Shipments
             services.AddTransient<IShipmentService, ShipmentService>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
         }

@@ -17,7 +17,7 @@ namespace SimplCommerce.Module.ShippingTableRate
             GlobalConfiguration.RegisterAngularModule("simplAdmin.shipping-tablerate");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
         }

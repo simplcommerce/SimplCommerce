@@ -24,5 +24,15 @@ namespace SimplCommerce.Module.Inventory.Tests
         {
             return Task.FromResult(_inner.MoveNext());
         }
+
+        public ValueTask<bool> MoveNextAsync()
+        {
+            return new ValueTask<bool>(Task.FromResult(_inner.MoveNext()));
+        }
+
+        public ValueTask DisposeAsync()
+        {
+            return new ValueTask();
+        }
     }
 }

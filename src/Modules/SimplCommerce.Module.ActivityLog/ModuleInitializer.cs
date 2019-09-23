@@ -20,7 +20,7 @@ namespace SimplCommerce.Module.ActivityLog
             GlobalConfiguration.RegisterAngularModule("simplAdmin.activityLog");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
         }

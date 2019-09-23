@@ -6,6 +6,9 @@
 trigger:
 - master
 
+variables:
+  netCoreSdkVersion: '3.0.100'
+
 jobs:
 - job: Linux
   pool:
@@ -14,7 +17,7 @@ jobs:
   - task: DotNetCoreInstaller@0
     inputs:
       packageType: 'sdk'
-      version: '2.2.401'
+      version: $(netCoreSdkVersion)
   - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - script: ./run-tests.sh
@@ -33,7 +36,7 @@ jobs:
   - task: DotNetCoreInstaller@0
     inputs:
       packageType: 'sdk'
-      version: '2.2.401'
+      version: $(netCoreSdkVersion)
   - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - script: ./run-tests.sh
@@ -52,7 +55,7 @@ jobs:
   - task: DotNetCoreInstaller@0
     inputs:
       packageType: 'sdk'
-      version: '2.2.401'
+      version: $(netCoreSdkVersion)
   - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - task: PowerShell@2
@@ -75,7 +78,7 @@ jobs:
   - task: DotNetCoreInstaller@0
     inputs:
       packageType: 'sdk'
-      version: '2.2.401'
+      version: $(netCoreSdkVersion)
   - script: dotnet build --configuration $(buildConfiguration)
     displayName: 'dotnet build $(buildConfiguration)'
   - script: ./run-tests.sh

@@ -14,7 +14,7 @@ namespace SimplCommerce.Module.EmailSenderSmtp
             serviceCollection.AddScoped<IEmailSender, EmailSender>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
         }
     }

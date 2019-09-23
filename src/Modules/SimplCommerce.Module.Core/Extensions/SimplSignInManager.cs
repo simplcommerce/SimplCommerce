@@ -19,8 +19,9 @@ namespace SimplCommerce.Module.Core.Extensions
             IOptions<IdentityOptions> optionsAccessor,
             ILogger<SignInManager<TUser>> logger,
             IAuthenticationSchemeProvider schemes,
+            IUserConfirmation<TUser> confirmation,
             IMediator mediator)
-            : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes)
+            : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes, confirmation)
         {
             _mediator = mediator;
         }

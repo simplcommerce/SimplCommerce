@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress
             GlobalConfiguration.RegisterAngularModule("simplAdmin.paymentPaypalExpress");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
         }
     }

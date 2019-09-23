@@ -1,9 +1,9 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2.401 AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100 AS build-env
   
 WORKDIR /app
 COPY . ./
 
-RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />#<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.6" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
+RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />#<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.0.0" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
 RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Program.cs
 RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Extensions/ServiceCollectionExtensions.cs
 
@@ -23,7 +23,7 @@ RUN dotnet build -c Release \
 # remove BOM for psql	
 RUN sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/SimplCommerce.WebHost/dbscript.sql
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2.6
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0.0
 
 # hack to make postgresql-client install work on slim
 RUN mkdir -p /usr/share/man/man1 \

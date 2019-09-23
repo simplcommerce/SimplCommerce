@@ -16,7 +16,7 @@ namespace SimplCommerce.Module.Pricing
             GlobalConfiguration.RegisterAngularModule("simplAdmin.pricing");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
         }

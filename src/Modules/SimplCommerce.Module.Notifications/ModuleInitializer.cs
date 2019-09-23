@@ -34,7 +34,7 @@ namespace SimplCommerce.Module.Notifications
             services.AddTransient<NotificationDistributionJob>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.AddSettingDefinitionItems(SettingDefinitions.DefaultItems());
             app.AddNotificationDefinitionItems(NotificationDefinitions.DefaultItems());

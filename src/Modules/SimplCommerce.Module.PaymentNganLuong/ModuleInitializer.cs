@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.PaymentNganLuong
             GlobalConfiguration.RegisterAngularModule("simplAdmin.paymentNganLuong");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
         }
     }

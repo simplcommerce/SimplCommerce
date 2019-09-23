@@ -25,7 +25,7 @@ Continuous deployment: https://ci.simplcommerce.com
 #### Prerequisites
 
 - SQL Server
-- [Visual Studio 2019 version >= 16.2 with .NET Core SDK 2.2.401](https://www.microsoft.com/net/download/all)
+- [Visual Studio 2019 version >= 16.2 with .NET Core SDK 3.0.100](https://www.microsoft.com/net/download/all)
 
 #### Steps to run
 
@@ -41,7 +41,7 @@ Continuous deployment: https://ci.simplcommerce.com
 #### Prerequisite
 
 - PostgreSQL
-- [.NET Core SDK 2.2.401](https://www.microsoft.com/net/download/all)
+- [.NET Core SDK 3.0.100](https://www.microsoft.com/net/download/all)
 
 #### Steps to run
 
@@ -52,9 +52,9 @@ Continuous deployment: https://ci.simplcommerce.com
 
 ## Technologies and frameworks used:
 
-- ASP.NET MVC Core 2.2
-- Entity Framework Core 2.2
-- ASP.NET Identity Core 2.2
+- ASP.NET MVC Core 3.0
+- Entity Framework Core 3.0
+- ASP.NET Identity Core 3.0
 - Angular 1.6.3
 - MediatR 7.0.0 for domain event
 

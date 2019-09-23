@@ -37,15 +37,15 @@
                 <td>@product.CalculatedProductPrice.PriceString</td>
             }
         </tr>
-        @foreach(var attribute in Model.Attributes)
+        @foreach(var attr in Model.Attributes)
         {
             <tr>
-                <td><strong>@attribute.Name</strong></td>
+                <td><strong>@attr.Name</strong></td>
                 @foreach (var product in Model.Products)
                 {
                     <td>
                         @{ 
-                            var value = product.AttributeValues.FirstOrDefault(x => x.AttributeId == attribute.AttributeId)?.Value ?? "";
+                            var value = product.AttributeValues.FirstOrDefault(x => x.AttributeId == attr.AttributeId)?.Value ?? "";
                             }
                         @value
                     </td>

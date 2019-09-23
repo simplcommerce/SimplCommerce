@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.PaymentStripe
             GlobalConfiguration.RegisterAngularModule("simplAdmin.paymentStripe");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
         }
     }

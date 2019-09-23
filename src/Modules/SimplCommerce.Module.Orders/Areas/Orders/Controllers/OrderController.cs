@@ -35,7 +35,11 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
             var model = await _orderRepository
                 .Query()
                 .Where(x => x.CustomerId == user.Id && x.ParentId == null)
-                .Select(x => new OrderHistoryListItem(_currencyService)
+                .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.ThumbnailImage)
+                .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.OptionCombinations).ThenInclude(x => x.Option)
+                .OrderByDescending(x => x.CreatedOn).ToListAsync();
+
+             var model2 = model.Select(x => new OrderHistoryListItem(_currencyService)
                 {
                     Id = x.Id,
                     CreatedOn = x.CreatedOn,
@@ -49,10 +53,9 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                         ThumbnailImage = i.Product.ThumbnailImage.FileName,
                         ProductOptions = i.Product.OptionCombinations.Select(o => o.Value)
                     }).ToList()
-                })
-                .OrderByDescending(x => x.CreatedOn).ToListAsync();
+                });
 
-            foreach (var item in model)
+            foreach (var item in model2)
             {
                 foreach (var product in item.OrderItems)
                 {
@@ -60,7 +63,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 }
             }
 
-            return View(model);
+            return View(model2);
         }
 
         [HttpGet("user/orders/{orderId}")]

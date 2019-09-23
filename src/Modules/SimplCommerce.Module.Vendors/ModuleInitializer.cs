@@ -16,7 +16,7 @@ namespace SimplCommerce.Module.Vendors
             GlobalConfiguration.RegisterAngularModule("simplAdmin.vendors");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
         }
     }

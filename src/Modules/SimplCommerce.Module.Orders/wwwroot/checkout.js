@@ -37,12 +37,12 @@
             return;
         }
         var postData = {
-            existingShippingAddressId: $('input[name=ShippingAddressId]:checked').val(),
+            existingShippingAddressId: Number($('input[name=ShippingAddressId]:checked').val()),
             selectedShippingMethodName: $('input[name=ShippingMethod]:checked').val(),
             newShippingAddress: {
-                countryId: $('#NewAddressForm_CountryId').val() || 0,
-                stateOrProvinceId: $('#NewAddressForm_StateOrProvinceId').val() || 0,
-                districtId: $('#NewAddressForm_DistrictId').val(),
+                countryId: $('#NewAddressForm_CountryId').val(),
+                stateOrProvinceId: Number($('#NewAddressForm_StateOrProvinceId').val()) || 0,
+                districtId: Number($('#NewAddressForm_DistrictId').val()),
                 zipCode: $('#NewAddressForm_ZipCode').val()
             }
         };

@@ -38,7 +38,6 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
             _setting = new Lazy<CoDSetting>(GetSetting());
         }
 
-        [HttpPost]
         public async Task<IActionResult> CoDCheckout()
         {
             var currentUser = await _workContext.GetCurrentUser();

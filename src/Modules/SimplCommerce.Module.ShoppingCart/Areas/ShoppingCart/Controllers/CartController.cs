@@ -51,7 +51,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("cart/add-item-result")]
         public async Task<IActionResult> AddToCartResult(long productId)
         {
             var currentUser = await _workContext.GetCurrentUser();
