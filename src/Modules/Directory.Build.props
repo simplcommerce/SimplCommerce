@@ -3,7 +3,11 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
   </PropertyGroup>
-  
+
+  <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifier" Version="3.0.415" />
+  </ItemGroup>
+
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
