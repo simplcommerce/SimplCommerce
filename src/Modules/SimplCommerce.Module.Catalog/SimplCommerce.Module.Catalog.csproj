@@ -1,8 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
-  <ItemGroup>
-    <PackageReference Include="BuildBundlerMinifier" Version="3.0.415" />
-  </ItemGroup>
- 
+  
   <ItemGroup>
     <ProjectReference Include="..\..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
