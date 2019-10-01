@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.WebEncoders;
+using Microsoft.OpenApi.Models;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Modules;
@@ -85,10 +86,10 @@ namespace SimplCommerce.WebHost
             services.AddScoped<ServiceFactory>(p => p.GetService);
             services.AddScoped<IMediator, Mediator>();
 
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new Info { Title = "SimplCommerce API", Version = "v1" });
-            //});
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SimplCommerce API", Version = "v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -115,11 +116,11 @@ namespace SimplCommerce.WebHost
             app.UseHttpsRedirection();
             app.UseCustomizedStaticFiles(env);
             app.UseRouting();
-            //app.UseSwagger();
-            //app.UseSwaggerUI(c =>
-            //{
-            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "SimplCommerce API V1");
-            //});
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SimplCommerce API V1");
+            });
             app.UseCookiePolicy();
             app.UseCustomizedIdentity();
             app.UseCustomizedRequestLocalization();
