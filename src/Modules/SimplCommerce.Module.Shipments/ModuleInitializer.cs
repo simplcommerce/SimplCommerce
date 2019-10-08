@@ -6,6 +6,7 @@ using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Module.Orders.Events;
 using SimplCommerce.Module.Shipments.Events;
 using SimplCommerce.Module.Shipments.Services;
+using SimplCommerce.Infrastructure;
 
 namespace SimplCommerce.Module.Shipments
 {
@@ -15,6 +16,8 @@ namespace SimplCommerce.Module.Shipments
         {
             services.AddTransient<INotificationHandler<OrderDetailGot>, OrderDetailGotHandler>();
             services.AddTransient<IShipmentService, ShipmentService>();
+
+            GlobalConfiguration.RegisterAngularModule("simplAdmin.shipment");
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
