@@ -1,17 +1,9 @@
-﻿using SimplCommerce.Module.Core.Services;
-using System;
+﻿using System;
 
 namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 {
     public  class OrderExportVm
     {
-        private readonly ICurrencyService _currencyService;
-
-        public OrderExportVm(ICurrencyService currencyService)
-        {
-            _currencyService = currencyService;
-        }
-
         public long Id { get; set; }
 
         public long CustomerId { get; set; }
@@ -36,7 +28,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 
         public decimal DiscountAmount { get; set; }
 
-        public decimal SubTotalWithDiscount { get; set; }
+        public decimal SubtotalWithDiscount { get; set; }
 
         public decimal TaxAmount { get; set; }
 
@@ -50,19 +42,19 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 
         public decimal PaymentFeeAmount { get; set; }
 
-        public string SubtotalString { get { return _currencyService.FormatCurrency(Subtotal); } }
+        public string SubtotalString { get; set; }
 
-        public string DiscountAmountString { get { return _currencyService.FormatCurrency(DiscountAmount); } }
+        public string DiscountAmountString { get; set; }
 
-        public string SubtotalWithDiscountString { get { return _currencyService.FormatCurrency(SubTotalWithDiscount); } }
+        public string SubtotalWithDiscountString { get; set; }
 
-        public string TaxAmountString { get { return _currencyService.FormatCurrency(TaxAmount); } }
+        public string TaxAmountString { get; set; }
 
-        public string ShippingAmountString { get { return _currencyService.FormatCurrency(ShippingAmount); } }
+        public string ShippingAmountString { get; set; }
 
-        public string PaymentFeeAmountString { get { return _currencyService.FormatCurrency(PaymentFeeAmount); } }
+        public string PaymentFeeAmountString { get; set; }
 
-        public string OrderTotalString { get { return _currencyService.FormatCurrency(OrderTotal); } }
+        public string OrderTotalString { get; set; }
 
         public bool IsMasterOrder { get; set; }
 

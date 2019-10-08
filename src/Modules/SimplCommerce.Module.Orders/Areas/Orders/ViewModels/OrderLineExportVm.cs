@@ -1,16 +1,7 @@
-﻿using SimplCommerce.Module.Core.Services;
-
-namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
+﻿namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 {
     public  class OrderLineExportVm : OrderExportVm
     {
-        private readonly ICurrencyService _currencyService;
-
-        public OrderLineExportVm(ICurrencyService currencyService) : base (currencyService)
-        {
-            _currencyService = currencyService;
-        }
-
         public long OrderLineId { get; set; }
 
         public long ProductId { get; set; }
@@ -35,14 +26,14 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 
         public decimal OrderLineRowTotal => OrderLineTotal + OrderLineTaxAmount - OrderLineDiscountAmount;
 
-        public string OrderLineTaxAmountString => _currencyService.FormatCurrency(OrderLineTaxAmount);
+        public string OrderLineTaxAmountString { get; set; }
 
-        public string OrderLineProductPriceString => _currencyService.FormatCurrency(ProductPrice);
+        public string OrderLineProductPriceString { get; set; }
 
-        public string OrderLineDiscountAmountString => _currencyService.FormatCurrency(OrderLineDiscountAmount);
+        public string OrderLineDiscountAmountString { get; set; }
 
-        public string OrderLineTotalString => _currencyService.FormatCurrency(OrderLineTotal);
+        public string OrderLineTotalString { get; set; }
 
-        public string OrderLineRowTotalString => _currencyService.FormatCurrency(OrderLineRowTotal);
+        public string OrderLineRowTotalString { get; set; }
     }
 }
