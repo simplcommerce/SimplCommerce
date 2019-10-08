@@ -192,7 +192,7 @@
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button class="btn btn-primary" ng-disabled="!vm.selectedShippingOption || vm.cart.items.length === 0 || (vm.selectedShippingAddressId === '0' &&  orderForm.$invalid)" ng-click="vm.createOrder()"><span class="glyphicon glyphicon-ok"></span> {{::vm.translate.get('Create Order')}}</button>
-                    <button ui-sref="orders" class="btn btn-default"> {{::vm.translate.get('Cancel')}}</button>
+                    <button ui-sref="order" class="btn btn-default"> {{::vm.translate.get('Cancel')}}</button>
                 </div>
             </div>
         </form>

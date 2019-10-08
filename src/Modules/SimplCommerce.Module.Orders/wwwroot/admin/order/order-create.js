@@ -140,7 +140,7 @@
                 vm.shippingOptions = [];
                 return;
             }
-            if (!vm.cart.id) {
+            if (!vm.cart || !vm.cart.id) {
                 return;
             }
             orderService.updateTaxAndShippingPrice(
