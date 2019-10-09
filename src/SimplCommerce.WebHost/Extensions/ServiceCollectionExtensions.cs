@@ -81,15 +81,7 @@ namespace SimplCommerce.WebHost.Extensions
                 {
                     o.EnableEndpointRouting = false;
                     o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider());
-                    // o.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 })
-                //.AddRazorOptions(o =>
-                //{
-                //    foreach (var module in modules.Where(x => !x.IsBundledWithHost))
-                //    {
-                //        o.AdditionalCompilationReferences.Add(MetadataReference.CreateFromFile(module.Assembly.Location));
-                //    }
-                //})
                 .AddViewLocalization()
                 .AddModelBindingMessagesLocalizer(services)
                 .AddDataAnnotationsLocalization(o =>
@@ -109,7 +101,7 @@ namespace SimplCommerce.WebHost.Extensions
         }
 
         /// <summary>
-        /// localize ModelBinding messages, e.g. when user enters string value instead of number...
+        /// Localize ModelBinding messages, e.g. when user enters string value instead of number...
         /// these messages can't be localized like data attributes
         /// </summary>
         /// <param name="mvc"></param>
