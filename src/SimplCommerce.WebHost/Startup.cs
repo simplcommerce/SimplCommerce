@@ -68,7 +68,6 @@ namespace SimplCommerce.WebHost
             services.AddScoped<ITagHelperComponent, LanguageDirectionTagHelperComponent>();
             services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
             services.AddAntiforgery(options => options.HeaderName = "X-XSRF-Token");
-         //   services.AddSingleton<AutoValidateAntiforgeryTokenAuthorizationFilter, CookieOnlyAutoValidateAntiforgeryTokenAuthorizationFilter>();
             services.AddCloudscribePagination();
 
             foreach(var module in GlobalConfiguration.Modules)
