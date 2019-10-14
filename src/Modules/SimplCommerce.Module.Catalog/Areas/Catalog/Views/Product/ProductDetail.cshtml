@@ -171,7 +171,7 @@
                         <h3>@Model.CalculatedProductPrice.PriceString</h3>
                         if (Model.CalculatedProductPrice.PercentOfSaving > 0)
                         {
-                            <p class="product-price-regular">Model.CalculatedProductPrice.OldPriceString</p>
+                            <p class="product-price-regular">@Model.CalculatedProductPrice.OldPriceString</p>
                             <p class="product-price-saving">@Localizer["You save"] (@(Model.CalculatedProductPrice.PercentOfSaving)%)</p>
                         }
                     }
