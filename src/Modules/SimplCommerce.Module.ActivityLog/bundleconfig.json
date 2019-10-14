@@ -1,0 +1,15 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/activitylog.min.js",
+    "inputFiles": [
+      "wwwroot/admin/activitylog.module.js",
+      "wwwroot/admin/activitylog-service.js",
+      "wwwroot/admin/most-viewed-products.directive.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

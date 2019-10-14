@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.cms')
-        .factory('menuService', menuService);
+        .factory('menuService', ['$http', menuService]);
 
-    /* @ngInject */
     function menuService($http) {
         var service = {
             getMenu: getMenu,

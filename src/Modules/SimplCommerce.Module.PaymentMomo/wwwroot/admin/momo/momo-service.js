@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.paymentMomo')
-        .factory('paymentMomoService', paymentMomoService);
+        .factory('paymentMomoService', ['$http', paymentMomoService]);
 
-    /* @ngInject */
     function paymentMomoService($http) {
         var service = {
             getSettings: getSettings,

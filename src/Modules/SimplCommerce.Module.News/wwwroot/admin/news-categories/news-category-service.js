@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.news')
-        .factory('newsCategoryService', newsCategoryService);
+        .factory('newsCategoryService', ['$http', newsCategoryService]);
 
-    /* @ngInject */
     function newsCategoryService($http) {
         var service = {
             getNewsCategory: getNewsCategory,

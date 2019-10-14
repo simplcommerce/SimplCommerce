@@ -22,12 +22,12 @@
                     }
                     else
                     {
-                        @Model.CalculatedProductPrice.Price.ToString("C")
+                        @Model.CalculatedProductPrice.PriceString
                         if (Model.CalculatedProductPrice.PercentOfSaving > 0)
                         {
                             <span class="product-price-saving">-@(Model.CalculatedProductPrice.PercentOfSaving)%</span>
                             <br />
-                            <span class="product-price-regular">@Model.CalculatedProductPrice.OldPrice.Value.ToString("C")</span>
+                            <span class="product-price-regular">@Model.CalculatedProductPrice.OldPriceString</span>
                         }
                     }
                 </span>

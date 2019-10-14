@@ -14,7 +14,7 @@
                 title: '@title',
                 isVisibleIndividually: '@isVisibleIndividually'
             },
-            controller: ProductSelectionCtrl,
+            controller: ['productService', ProductSelectionCtrl],
             controllerAs: 'vm',
             bindToController: true
         };

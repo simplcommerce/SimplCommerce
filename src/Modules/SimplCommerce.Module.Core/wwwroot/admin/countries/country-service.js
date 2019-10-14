@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.core')
-        .factory('countryService', countryService);
+        .factory('countryService', ['$http', countryService]);
 
-    /* @ngInject */
     function countryService($http) {
         var service = {
             getCountries: getCountries,

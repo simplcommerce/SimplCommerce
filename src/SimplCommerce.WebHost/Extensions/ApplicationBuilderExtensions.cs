@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Infrastructure.Data;
@@ -21,6 +23,7 @@ namespace SimplCommerce.WebHost.Extensions
         public static IApplicationBuilder UseCustomizedIdentity(this IApplicationBuilder app)
         {
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseWhen(
                 context => context.Request.Path.StartsWithSegments("/api"),
@@ -47,24 +50,7 @@ namespace SimplCommerce.WebHost.Extensions
             return app;
         }
 
-        public static IApplicationBuilder UseCustomizedMvc(this IApplicationBuilder app)
-        {
-            app.UseMvc(routes =>
-            {
-                routes.Routes.Add(new UrlSlugRoute(routes.DefaultHandler));
-
-                routes.MapRoute(
-                    name: "areaRoute",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
-                routes.MapRoute(
-                    "default",
-                    "{controller=Home}/{action=Index}/{id?}");
-            });
-            return app;
-        }
-
-        public static IApplicationBuilder UseCustomizedStaticFiles(this IApplicationBuilder app, IHostingEnvironment env)
+        public static IApplicationBuilder UseCustomizedStaticFiles(this IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -103,10 +89,14 @@ namespace SimplCommerce.WebHost.Extensions
 
         public static IApplicationBuilder UseCustomizedRequestLocalization(this IApplicationBuilder app)
         {
+            string defaultCultureUI = GlobalConfiguration.DefaultCulture;
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 var cultureRepository = scope.ServiceProvider.GetRequiredService<IRepositoryWithTypedId<Culture, string>>();
                 GlobalConfiguration.Cultures = cultureRepository.Query().ToList();
+
+                var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+                defaultCultureUI = config.GetValue<string>("Global.DefaultCultureUI");
             }
 
             var supportedCultures = GlobalConfiguration.Cultures.Select(c => c.Id).ToArray();
@@ -114,7 +104,7 @@ namespace SimplCommerce.WebHost.Extensions
             options
                 .AddSupportedCultures(supportedCultures)
                 .AddSupportedUICultures(supportedCultures)
-                .SetDefaultCulture(GlobalConfiguration.DefaultCulture)
+                .SetDefaultCulture(defaultCultureUI ?? GlobalConfiguration.DefaultCulture)
                 .RequestCultureProviders.Insert(0, new EfRequestCultureProvider())
             );
 

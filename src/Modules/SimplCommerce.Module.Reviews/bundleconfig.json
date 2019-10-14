@@ -1,0 +1,19 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/reviews.min.js",
+    "inputFiles": [
+      "wwwroot/admin/reviews.module.js",
+      "wwwroot/admin/review/review-service.js",
+      "wwwroot/admin/review/review-list.js",
+      "wwwroot/admin/review/review-widget.directive.js",
+      "wwwroot/admin/review/review-reply-service.js",
+      "wwwroot/admin/review/review-reply-list.js",
+      "wwwroot/admin/review/review-reply-widget.directive.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

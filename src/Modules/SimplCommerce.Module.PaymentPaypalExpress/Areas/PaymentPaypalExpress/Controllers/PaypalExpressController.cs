@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Extensions;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.PaymentPaypalExpress.Models;
@@ -30,6 +31,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
         private readonly IRepository<Payment> _paymentRepository;
         private Lazy<PaypalExpressConfigForm> _setting;
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ICurrencyService _currencyService;
 
         public PaypalExpressController(
             ICartService cartService,
@@ -37,7 +39,8 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
             IWorkContext workContext,
             IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
             IRepository<Payment> paymentRepository,
-            IHttpClientFactory httpClientFactory)
+            IHttpClientFactory httpClientFactory,
+            ICurrencyService currencyService)
         {
             _cartService = cartService;
             _orderService = orderService;
@@ -46,6 +49,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
             _paymentRepository = paymentRepository;
             _setting = new Lazy<PaypalExpressConfigForm>(GetSetting());
             _httpClientFactory = httpClientFactory;
+            _currencyService = currencyService;
         }
 
         [HttpPost("PaypalExpress/CreatePayment")]
@@ -60,7 +64,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
                 return NotFound();
             }
 
-            var regionInfo = new RegionInfo(CultureInfo.CurrentCulture.LCID);
+            var regionInfo = new RegionInfo(_currencyService.CurrencyCulture.LCID);
             var experienceProfileId = await CreateExperienceProfile(accessToken);
 
             var httpClient = _httpClientFactory.CreateClient();

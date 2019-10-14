@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.paymentBraintree')
-        .factory('paymentBraintreeService', paymentBraintreeService);
+        .factory('paymentBraintreeService', ['$http', paymentBraintreeService]);
 
-    /* @ngInject */
     function paymentBraintreeService($http) {
         var service = {
             getSettings: getSettings,

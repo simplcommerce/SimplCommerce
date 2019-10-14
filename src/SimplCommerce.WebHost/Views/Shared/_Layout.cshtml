@@ -1,20 +1,16 @@
 ﻿@using System.Globalization
 
 <!doctype html>
-<html>
+<html lang="@CultureInfo.CurrentUICulture.Name.ToLowerInvariant()">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewData["Title"] - SimplCommerce</title>
     @RenderSection("additionalMeta", false)
 
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap4/css/bootstrap.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap-star-rating/css/star-rating.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/multi-dropdown-menu/css/bootstrap-4-navbar.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/toastr/build/toastr.min.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/libs.min.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/modules/core/site.css" />
-    <script simpl-append-version="true" src="~/lib/angular/angular.js"></script>
+    <script simpl-append-version="true" src="~/lib/angular/angular.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
@@ -58,7 +54,7 @@
         </div>
     </div>
     <partial name="_CookieConsentPartial" />
-    <div class="container body-content">
+    <div class="container body-content clearfix">
         @RenderBody()
     </div>
     <div class="footer-content">
@@ -69,7 +65,7 @@
                     <vc:menu menu-id="1"></vc:menu>
                 </div>
                 <div class="col-md-3">
-                    <h4>Information</h4>
+                    <h4>@Localizer["Information"]</h4>
                     <vc:menu menu-id="2"></vc:menu>
                 </div>
                 <div class="col-md-6">
@@ -106,9 +102,10 @@
     <script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
     <script simpl-append-version="true" src="~/lib/toastr/build/toastr.min.js"></script>
     <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
-    @if (CultureInfo.CurrentCulture.Name == "vi-VN")
+    <script simpl-append-version="true" src="~/lib/signalr/dist/browser/signalr.js"></script>
+    @if(CultureInfo.CurrentCulture.Name != SimplCommerce.Infrastructure.GlobalConfiguration.DefaultCulture)
     {
-        <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/vi-vn.js"></script>
+        <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/@(CultureInfo.CurrentCulture.Name).js"></script>
     }
     <script simpl-append-version="true" src="~/modules/core/main.js"></script>
     <script simpl-append-version="true" src="~/modules/shoppingcart/add-to-cart.js"></script>

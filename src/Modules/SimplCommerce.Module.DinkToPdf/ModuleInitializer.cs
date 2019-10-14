@@ -16,7 +16,7 @@ namespace SimplCommerce.Module.DinkToPdf
             serviceCollection.AddTransient<IPdfConverter, DinkToPdfConverter>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
         }
     }

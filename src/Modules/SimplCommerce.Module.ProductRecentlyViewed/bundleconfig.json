@@ -1,0 +1,15 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/productrecentlyviewed.min.js",
+    "inputFiles": [
+      "wwwroot/admin/productrecentlyviewed.module.js",
+      "wwwroot/admin/recently-viewed-widget/recently-viewed-widget-service.js",
+      "wwwroot/admin/recently-viewed-widget/recently-viewed-widget-form.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

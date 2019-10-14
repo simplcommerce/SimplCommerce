@@ -1,10 +1,9 @@
-/*global angular*/
+﻿/*global angular*/
 (function () {
     angular
         .module('simplAdmin.reviews')
-        .factory('reviewReplyService', reviewReplyService);
+        .factory('reviewReplyService', ['$http', reviewReplyService]);
 
-    /* @ngInject */
     function reviewReplyService($http) {
         var service = {
             getReplies: getReplies,

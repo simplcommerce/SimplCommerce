@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.core')
-        .factory('userService', userService);
+        .factory('userService', ['$http', userService]);
 
-    /* @ngInject */
     function userService($http) {
         var service = {
             getUsers: getUsers,

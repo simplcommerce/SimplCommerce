@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.pricing')
-        .controller('CartRuleUsageListCtrl', CartRuleUsageListCtrl);
+        .controller('CartRuleUsageListCtrl', ['cartRuleUsageService', 'translateService', CartRuleUsageListCtrl]);
 
-    /* @ngInject */
     function CartRuleUsageListCtrl(cartRuleUsageService, translateService) {
         var vm = this;
         vm.tableStateRef = {};

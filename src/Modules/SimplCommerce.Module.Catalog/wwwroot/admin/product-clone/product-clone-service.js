@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.catalog')
-        .factory('productCloneService', productCloneService);
+        .factory('productCloneService', ['$http', productCloneService]);
 
-    /* @ngInject */
     function productCloneService($http) {
         var service = {
             getProductName: getProductName,

@@ -76,6 +76,10 @@
     "version": "1.0.0"
   },
   {
+    "id": "SimplCommerce.Module.PaymentCashfree",
+    "version": "1.0.0"
+  },
+  {
     "id": "SimplCommerce.Module.Pricing",
     "version": "1.0.0"
   },

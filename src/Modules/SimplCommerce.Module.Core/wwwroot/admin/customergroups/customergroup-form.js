@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.core')
-        .controller('CustomerGroupFormCtrl', CustomerGroupFormCtrl);
+        .controller('CustomerGroupFormCtrl', ['$state', '$stateParams', 'customergroupService', 'translateService', CustomerGroupFormCtrl]);
 
-    /* @ngInject */
     function CustomerGroupFormCtrl($state, $stateParams, customergroupService, translateService) {
         var vm = this;
         vm.translate = translateService;

@@ -1,11 +1,19 @@
 ﻿using System;
 using SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels;
 using SimplCommerce.Module.Catalog.Models;
+using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.Catalog.Services
 {
     public class ProductPricingService : IProductPricingService
     {
+        private ICurrencyService _currencyService;
+
+        public ProductPricingService(ICurrencyService currencyService)
+        {
+            _currencyService = currencyService;
+        }
+
         public CalculatedProductPrice CalculateProductPrice(ProductThumbnail productThumbnail)
         {
             return CalculateProductPrice(productThumbnail.Price, productThumbnail.OldPrice, productThumbnail.SpecialPrice, productThumbnail.SpecialPriceStart, productThumbnail.SpecialPriceEnd);
@@ -36,7 +44,7 @@ namespace SimplCommerce.Module.Catalog.Services
                 percentOfSaving = (int)(100 - Math.Ceiling((calculatedPrice / oldPrice.Value) * 100));
             }
 
-            return new CalculatedProductPrice
+            return new CalculatedProductPrice(_currencyService)
             {
                 Price = calculatedPrice,
                 OldPrice = oldPrice,

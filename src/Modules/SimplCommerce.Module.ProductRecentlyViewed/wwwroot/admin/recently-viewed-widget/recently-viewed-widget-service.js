@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.recentlyViewed')
-        .factory('recentlyViewedWidgetService', recentlyViewedWidgetService);
+        .factory('recentlyViewedWidgetService', ['$http', recentlyViewedWidgetService]);
 
-    /* @ngInject */
     function recentlyViewedWidgetService($http) {
         var service = {
             getWidgetZones: getWidgetZones,

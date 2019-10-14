@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.core')
-        .factory('themeService', themeService);
+        .factory('themeService', ['$http', themeService]);
 
-    /* @ngInject */
     function themeService($http) {
         var service = {
             getThemes: getThemes,

@@ -35,6 +35,11 @@
                    templateUrl: 'modules/catalog/admin/category/category-form.html',
                    controller: 'CategoryFormCtrl as vm'
                })
+                .state('category-translation', {
+                    url: '/category-translation/:id/:culture',
+                    templateUrl: 'modules/catalog/admin/category/category-translation-form.html',
+                    controller: 'CategoryTranslationFormCtrl as vm'
+                })
                 .state('product-option', {
                     url: '/product-option',
                     templateUrl: 'modules/catalog/admin/product-option/product-option-list.html',
@@ -109,6 +114,11 @@
                     url: '/product/edit/:id',
                     templateUrl: 'modules/catalog/admin/product/product-form.html',
                     controller: 'ProductFormCtrl as vm'
+                })
+                .state('product-translation', {
+                    url: '/product-translation/:id/:culture',
+                    templateUrl: 'modules/catalog/admin/product/product-translation-form.html',
+                    controller: 'ProductTranslationFormCtrl as vm'
                 })
                 .state('widget-product-create', {
                     url: '/widget-product/create',

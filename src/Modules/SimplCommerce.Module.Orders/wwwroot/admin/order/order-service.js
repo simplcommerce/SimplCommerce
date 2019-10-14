@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.orders')
-        .factory('orderService', orderService);
+        .factory('orderService', ['$http', orderService]);
 
-    /* @ngInject */
     function orderService($http) {
         var service = {
             getOrders: getOrders,

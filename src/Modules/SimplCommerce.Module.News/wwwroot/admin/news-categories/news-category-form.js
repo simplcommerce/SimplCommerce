@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.news')
-        .controller('NewsCategoryFormCtrl', NewsCategoryFormCtrl);
+        .controller('NewsCategoryFormCtrl', ['$state', '$stateParams', 'translateService', 'newsCategoryService', NewsCategoryFormCtrl]);
 
-    /* @ngInject */
     function NewsCategoryFormCtrl($state, $stateParams, translateService, newsCategoryService) {
         var vm = this;
         vm.translate = translateService;

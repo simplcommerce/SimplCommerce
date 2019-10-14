@@ -1,224 +1,377 @@
-﻿INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES ('pt-BR', N'Portuguese')
+INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES ('pt-BR', N'Portuguese')
 GO
 
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'A value for the {0} property was not provided.', N'Um valor para a propriedade {0} não foi fornecido.')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'A value is required.', N'Um valor é obrigatório.')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Account Dashboard', N'Painel da Conta')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Account Information', N'Informações da Conta')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Actions', N'Ações')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Add Address', N'Adicionar Endereço')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Add another address', N'Adicionar outro endereço')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Add Attribute', N'Adicionar Atributo')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Add Option', N'Adicionar Opção')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Add Review', N'Adicionar avaliação')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Add to cart', N'Adicionar ao carrinho')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Add to Compare', N'Adicionar para comparar')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Added Attributes', N'Adicionar Atributos')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Address', N'Endereço')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Address Book', N'Endereços')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'All', N'Todos')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'All Categories', N'Todas as categorias')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Application Settings', N'Configurações do Aplicativo')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Apply', N'Aplicar')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Approve', N'Aprovar')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Approved', N'Aprovado')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Associate your {0} account.', N'Associe sua conta {0}.')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Attribute Name', N'Nome do Atributo')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Available Attributes', N'Atributos Disponíveis')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Available Options', N'Opções disponíveis')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Back', N'Voltar')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Body', N'Corpo')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Brand', N'Marca')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Brands', N'Marcas')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Cancel', N'Cancelar')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Cart subtotal', N'Subtotal')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Catalog', N'Catálogo')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Categories', N'Categorias')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Category', N'Categoria')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Category Mapping', N'Mapeamento de Categorias')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Change', N'Alterar')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Comment', N'Comente')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Configuration', N'Configuração')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Confirm password', N'Confirmar senha')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Contact name', N'Nome completo')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Content Management', N'Gerenciamento de conteúdo')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Continue shopping', N'Continuar comprando')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Count', N'Contagem')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create', N'Criar')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create a new account.', N'Criar uma conta.')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Address', N'Criar endereço')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Brand', N'Criar marca')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Category', N'Criar categoria')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Page', N'Criar página')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Product', N'Criar produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Product Attribute', N'Criar atributo de produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Product Attribute Group', N'Criar grupo de atributos do produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Product Display Widget', N'Criar Widget de Exibição do Produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Product Option', N'Criar opção de produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Product Template', N'Criar modelo de produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create User', N'Criar usuário')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Vendor', N'Criar fornecedor')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Created On', N'Criado em')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Customer', N'Cliente')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Customer Groups', N'Grupos de clientes')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Customer reviews', N'Avaliações de quem comprou')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Dashboard', N'Painel de controle')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Date', N'Data')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Default shipping address', N'Endereço de envio padrão')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Delete', N'Excluir')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Delete Option', N'Excluir opção')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Description', N'Descrição')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'District', N'Cidade')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit', N'Editar')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Address', N'Editar Endereço')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Brand', N'Editar marca')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Category', N'Editar categoria')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Page', N'Editar Página')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Product', N'Editar produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Product Attribute', N'Editar atributo do produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Product Attribute Group', N'Editar grupo de atributos do produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Product Display Widget', N'Editar widget de exibição do produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Product Option', N'Editar opção de produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Product Template', N'Editar modelo de produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit User', N'Editar usuário')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Vendor', N'Editar fornecedor')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Email', N'E-mail')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'External Logins', N'Logins Externos')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Filter by', N'Filtrar por')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Forgot your password?', N'Esqueceu a senha?')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Full name', N'Nome completo')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'FullName', N'Nome completo')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'General Information', N'Informação geral')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Generate Combinations', N'Gere combinações')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Go to shopping', N'Ir às compras')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Group', N'Groupo')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Has Options', N'Tem opções')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Hello {0}!', N'Olá {0}!')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Home', N'Início')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Images', N'Imagens')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Incomplete orders', N'Ordens incompletas')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Is Active', N'Está ativo')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Is Allowed To Order', N'É permitido encomendar')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Is Called For Pricing', N'É chamado para precificação')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Is Featured', N'É destaque')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Is Published', N'Está publicado')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Is Visible Individually', N'É visível individualmente')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Keyword', N'Palavra chave')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Log in', N'Entrar')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Log off', N'Sair')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Manage', N'Gerenciar')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Manage address', N'Gerenciar endereço')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Manage Related Products', N'Gerenciar produtos relacionados')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Manager of Vendor', N'Gerenciar fornecedor')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Managers', N'Gerentes')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Most searched keywords', N'Palavras-chaves mais pesquisadas')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Most viewed products', N'Produtos mais vistos')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Name', N'Nome')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'No', N'Não')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Not Approved', N'Reprovado')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Not available', N'Indisponível')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Null value is invalid.', N'Valor nulo é inválido.')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Number of Products', N'Número de produtos')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Old Price', N'Preço antigo')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Option Combinations', N'Combinações de opções')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Option Values', N'Valores de Opção')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Order', N'Pedido')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Order By', N'Ordenar por')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Order Detail', N'Detalhe do pedido')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Order History', N'Histórico de Pedidos')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Order Information', N'Informação do Pedido')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Order Status', N'Status do pedido')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Order summary', N'Resumo do pedido')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'OrderId', N'ID do pedido')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Orders', N'Pedidos')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Out Of Stock', N'Fora de estoque')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Pages', N'Páginas')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Parent Category', N'Categoria pai')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Password', N'Senha')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Pending', N'Pendente')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Pending reviews', N'Resenhas pendentes')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Phone', N'Telefone')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Phone Number', N'Número de telefone')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Posted by', N'postado por')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Price', N'Preço')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Process to Checkout', N'Próxima etapa')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product', N'Produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Attribute', N'Atributo do Produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Attribute Groups', N'Grupos de Atributos do Produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Attributes', N'Atributos do produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product detail', N'Detalhes do produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Documents', N'Documentos do produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Images', N'Imagens do produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Information', N'Informação do produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Name', N'Nome do Produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Options', N'Opções de produtos')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product specification', N'Especificações do produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Templates', N'Modelos de produtos')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Variations', N'Variações de Produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Products', N'Produtos')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'products', N'produtos')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'products in your cart', N'produtos no carrinho')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Publish End', N'Finalizar publicação')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Publish Start', N'Iniciar publicação')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Quantity', N'Quantidade')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Rate this product', N'Avalie este produto')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Rating', N'Avaliação')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Rating average', N'Média das avaliações')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Register', N'Cadastro')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Register as a new user?', N'Cadastrar-se como novo usuário? ')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Related Products', N'Produtos relacionados')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Remember me?', N'Lembrar?')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'results', N'resultados')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Review comment', N'Comentário')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Review title', N'Título da avaliação')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'reviews', N'avaliações')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Sales', N'Vendas')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Save', N'Salvar')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Search here...', N'Procure aqui...')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Security', N'Segurança')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Set as default shipping address', N'Defina como endereço de entrega padrão')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Shipping address', N'Endereço de entrega')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Shipping Information', N'Informação de envio')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Shopping Cart', N'Carrinho de compras')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Short Description', N'Breve descrição')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Sort by:', N'Ordenar por:')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Special Price', N'Preço especial')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Special Price End', N'Fim do preço especial')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Special Price Start', N'Início do preço especial')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Specification', N'Especificação')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'stars', N'estrelas')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'State or Province', N'Estado')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Stock Quantity', N'Quantidade em estoque')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Submit', N'Enviar')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Submit review', N'Enviar avaliação')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Subtotal', N'Subtotal')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'System', N'Sistema')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Thank you {0} for your review', N'Muito obrigado pela avaliação, {0}')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The {0} field is required.', N'O campo {0} é obrigatório')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The Email field is required.', N'O campo Email é obrigatório. ')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The product has been added to your cart', N'O produto foi adicionado ao carrinho')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The supplied value is invalid for {0}.', N'O valor fornecido é inválido para {0}.')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The value {0} is invalid.', N'O valor {0} é inválido.')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The value {0} is not valid for {1}.', N'O valor {0} não é válido para {1}.')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'There are no items in this cart.', N'O carrinho está vazio.')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Thumbnail', N'Miniatura')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Title', N'Título')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Translations', N'Traduções')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Use a local account to log in.', N'Entre com seu usuário e senha ')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Use another service to log in.', N'Logar utilizando outro serviço')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'User List', N'Lista de usuários')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Users', N'Usuários')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Value', N'Valor')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Vendors', N'Vendedores')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'View cart', N'Ver carrinho')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'View options', N'Ver opções')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Widget Name', N'Nome do widget')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Widget Zone', N'Zona Widget')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Yes', N'Sim')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'You don''t have any default address', N'Você não tem nenhum endereço padrão')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'You have', N'Você tem')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'You save', N'Você salvou')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Your account', N'Sua conta')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Your review will be shown within the next 24h.', N'Sua avaliação será publicada dentro de 24h.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'A value for the {0} property was not provided.', N'Um valor para a propriedade {0} não foi fornecido.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'A value is required.', N'Um valor é obrigatório.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Account Dashboard', N'Painel da Conta');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Account Information', N'Informações da Conta');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Actions', N'Ações');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Add Address', N'Adicionar Endereço');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Add another address', N'Adicionar outro endereço');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Add another service to log in.', N'Adicione outro serviço para efetuar login.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Add Attribute', N'Adicionar Atributo');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Add Comment', N'Adicionar Comentário');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Add Option', N'Adicionar Opção');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Add Reply', N'Adicionar Resposta');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Add Review', N'Adicionar Avaliação');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Add to cart', N'Adicionar ao carrinho');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Add to Compare', N'Adicionar para comparar');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Add to Wishlist', N'Adicionar a lista de desejos');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Added Attributes', N'Adicionar Atributos');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Address', N'Endereço');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Address Book', N'Endereços');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'All', N'Todos');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'All Categories', N'Todas as categorias');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Application Settings', N'Configurações do Aplicativo');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Apply', N'Aplicar');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Approve', N'Aprovar');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Approved', N'Aprovado');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Associate your {0} account.', N'Associe sua conta {0}.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Attribute Name', N'Nome do Atributo');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Available Attributes', N'Atributos Disponíveis');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Available Options', N'Opções disponíveis');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Back', N'Voltar');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Billing Address', N'Endereço de Cobrança');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Body', N'Corpo');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Brand', N'Marca');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Brands', N'Marcas');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Cancel', N'Cancelar');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Cancel Order', N'Cancelar Pedido');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Cart Price Rule', N'Regra de Preço do Carrinho');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Cart Price Rule Usages', N'Usos da regra de preço do carrinho');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Cart Price Rules', N'Regras de preço do carrinho');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Cart subtotal', N'Subtotal');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Catalog', N'Catálogo');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Catalog.IsCommentsRequireApproval', N'Comentários do catálogo exigem aprovação');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Catalog.IsProductPriceIncludeTax', N'Preço do produto inclui imposto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Catalog.ProductPageSize', N'Tamanho da página de produto do catálogo');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Categories', N'Categorias');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Category', N'Categoria');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Category Mapping', N'Mapeamento de Categorias');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Change', N'Alterar');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Change password', N'Mudar senha');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Change Password Form', N'Formulário de Alteração de Senha');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Choose one', N'Escolha um');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'City', N'Cidade');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Clone Product', N'Clonar Produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Code', N'Código');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Comment', N'Comente');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Comments', N'Comentários');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Configuration', N'Configuração');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Configure', N'Configurar');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Confirm new password', N'Confirme a nova senha');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Confirm password', N'Confirmar senha');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Contact Area', N'Área de contato');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Contact Areas', N'Áreas de contato');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Contact name', N'Nome completo');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Content', N'Conteúdo');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Content Management', N'Gerenciamento de conteúdo');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Continue shopping', N'Continuar comprando');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Count', N'Contagem');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Countries', N'Países');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Country', N'País');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'CountryId', N'ID do país');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Coupon Code', N'Código do Cupom');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Coupon code', N'Código do cupom');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create', N'Criar');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create a new account.', N'Criar uma conta.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Address', N'Criar endereço');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Brand', N'Criar marca');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Cart Price Rule', N'Criar regra de preço do carrinho');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Category', N'Criar categoria');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Contact Area', N'Área de Criação de Contato');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Country', N'Crie o país');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Customer Group', N'Criar grupo de clientes');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Menu', N'Criar menu');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Order', N'Criar pedido');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Page', N'Criar página');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Product', N'Criar produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Product Attribute', N'Criar atributo de produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Product Attribute Group', N'Criar grupo de atributos do produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Product Display Widget', N'Criar Widget de Exibição do Produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Product Option', N'Criar opção de produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Product Template', N'Criar modelo de produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create State or Providence', N'Criar Estado ou Providência');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Tax Class', N'Criar classe de imposto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Tax Rate', N'Criar taxa de imposto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create User', N'Criar usuário');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Vendor', N'Criar fornecedor');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Warehouse', N'Criar armazém');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Create Widget', N'Criar Widget');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Created On', N'Criado em');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'CreatedOn', N'Criado em');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Cross-sell Products', N'Produtos de Venda Cruzada');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Current password', N'Senha atual');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Current Price', N'Preço atual');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Current Quantity', N'Quantidade atual');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Current theme', N'Tema atual');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Customer', N'Cliente');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Customer comments', N'Comentários dos clientes');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Customer Groups', N'Grupos de clientes');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Customer reviews', N'Avaliações de quem comprou');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Customer Service', N'Serviço ao cliente');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Dashboard', N'Painel de controle');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Date', N'Data');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Default shipping address', N'Endereço de envio padrão');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Delete', N'Excluir');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Delete Option', N'Excluir opção');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Description', N'Descrição');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Discount', N'Desconto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Display City', N'Exibir Cidade');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Display District', N'Exibir Distrito');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Display Order', N'Exibir Ordem');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Display Postal Code', N'Exibir Código Postal');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'District', N'Cidade');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Download', N'Baixar');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit', N'Editar');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Address', N'Editar Endereço');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Brand', N'Editar marca');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Category', N'Editar categoria');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Page', N'Editar Página');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Product', N'Editar produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Product Attribute', N'Editar atributo do produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Product Attribute Group', N'Editar grupo de atributos do produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Product Display Widget', N'Editar widget de exibição do produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Product Option', N'Editar opção de produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Product Template', N'Editar modelo de produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit User', N'Editar usuário');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Edit Vendor', N'Editar fornecedor');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Email', N'E-mail');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Enable Stock Tracking', N'Ativar Rastreamento de Estoque');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'End', N'Fim');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Enjoy and see also', N'Aproveite e veja também');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Enjoy and take also', N'Aproveite e leve também');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Enter your email.', N'Insira seu email.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Entity Name', N'Nome da entidade');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Export', N'Exportar');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'External Logins', N'Logins Externos');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Filter by', N'Filtrar por');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Forgot your password?', N'Esqueceu a senha?');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Full name', N'Nome completo');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'FullName', N'Nome completo');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'General Information', N'Informação geral');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Generate Combinations', N'Gere combinações');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Global.AssetVersion', N'Versão do Ativo Global');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Go to shopping', N'Ir às compras');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Group', N'Groupo');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Has Options', N'Tem opções');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Hello {0}!', N'Olá {0}!');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Home', N'Início');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'hone Number', N'número de telefone');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Images', N'Imagens');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Import', N'Importar');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Include in menu', N'Incluir no menu');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Incomplete orders', N'Ordens incompletas');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Information', N'Informações');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Installed themes', N'Temas instalados');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Inventory', N'Inventário');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Is Active', N'Está ativo');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Is Allowed To Order', N'É permitido encomendar');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Is Billing Enabled', N'A cobrança está ativada?');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Is Called For Pricing', N'É chamado para precificação');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Is Featured', N'É destaque');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Is Published', N'Está publicado');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Is Shipping Enabled', N'O Envio Está Habilitado');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Is Visible Individually', N'É visível individualmente');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'IsEnabled', N'Está ativado');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Keyword', N'Palavra chave');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Latest orders', N'Últimos pedidos');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Log in', N'Entrar');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Log off', N'Sair');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Manage', N'Gerenciar');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Manage address', N'Gerenciar endereço');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Manage Contact', N'Gerenciar Contato');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Manage Contact Area', N'Área de Gerencia de Contato');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Manage Cross-sell Products', N'Gerenciar produtos de venda cruzada');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Manage Related Products', N'Gerenciar produtos relacionados');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Manage Translations', N'Gerenciar traduções');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Manage warehouse products', N'Gerenciar armazém de produtos');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Manager of Vendor', N'Gerenciar fornecedor');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Managers', N'Gerentes');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Maybe the page was moved or deleted, or perhaps you just mistyped the address.', N'Talvez a página tenha sido movida ou excluída, ou talvez você tenha digitado errado o endereço.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Meta Description', N'Meta Descrição');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Meta Keywords', N'Palavras-chave Meta');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Meta Title', N'Título Meta');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Most search keywords', N'Palavras-chaves mais pesquisadas');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Most searched keywords', N'Palavras-chave mais pesquisadas');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Most viewed products', N'Produtos mais vistos');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'My Settings', N'Minhas configurações');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Name', N'Nome');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'New Old Price', N'Novo preço antigo');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'New password', N'Nova senha');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'New Price', N'Novo preço');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'News.PageSize', N'Tamanho da página de notícias');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'No', N'Não');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Not Approved', N'Reprovado');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Not available', N'Indisponível');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Not Vendor', N'Não vendedor');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Note that the updated translations only be affected after the application is restarted', N'Observe que as traduções atualizadas só serão afetadas depois que o aplicativo for reiniciado');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Null value is invalid.', N'Valor nulo é inválido.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Number of Products', N'Número de produtos');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Old Price', N'Preço antigo');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Option Combinations', N'Combinações de opções');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Option Values', N'Valores de Opção');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Order', N'Pedido');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Order By', N'Ordenar por');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Order Detail', N'Detalhe do pedido');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Order History', N'Histórico de Pedidos');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Order Id', N'ID do pedido');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Order Information', N'Informação do Pedido');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Order note', N'Observações do Pedido');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Order Status', N'Status do pedido');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Order summary', N'Resumo do pedido');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Order Total', N'Total de Pedidos');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'OrderId', N'ID do pedido');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Orders', N'Pedidos');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Out Of Stock', N'Fora de estoque');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Pages', N'Páginas');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Parent Category', N'Categoria pai');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Password', N'Senha');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Payment', N'Forma de Pagamento');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Payment Providers', N'Provedores de Pagamento');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Pending', N'Pendente');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Pending review replies', N'Respostas de avaliações pendentes');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Pending reviews', N'Avaliações pendentes');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Phone', N'Telefone');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Phone Number', N'Número de telefone');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Postal Code', N'Código Postal');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Posted by', N'postado por');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Preview', N'Visualizar');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Price', N'Preço');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Process to Checkout', N'Próxima etapa');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product', N'Produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Attribute', N'Atributo do Produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Attribute Groups', N'Grupos de Atributos do Produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Attributes', N'Atributos do produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product detail', N'Detalhes do produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Documents', N'Documentos do produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Images', N'Imagens do produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Information', N'Informação do produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Name', N'Nome do Produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Options', N'Opções de produtos');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Price Management', N'Gerenciamento de Preço do Produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Prices', N'Preços do produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Sku', N'Sku do produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product specification', N'Especificações do produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Templates', N'Modelos de produtos');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Product Variations', N'Variações de Produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Products', N'Produtos');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'products', N'produtos');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'products in your cart', N'produtos no carrinho');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Promotions', N'Promoções');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Publish End', N'Finalizar publicação');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Publish Start', N'Iniciar publicação');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Quantity', N'Quantidade');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Rate', N'Taxa');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Rate this product', N'Avalie este produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Rating', N'Avaliação');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Rating average', N'Média das avaliações');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Recently viewed products', N'Produtos vistos recentemente');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Register', N'Cadastro');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Register as a new user?', N'Cadastrar-se como novo usuário? ');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Related Products', N'Produtos relacionados');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Remember me?', N'Lembrar?');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Reply', N'Resposta');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'results', N'resultados');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Review comment', N'Comentário da Avaliações');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Review Replies', N'Respostas de Avaliações');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Review title', N'Título da Avaliação');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'reviews', N'avaliações');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Reviews', N'Avaliações');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Roles', N'Papéis');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Rule Name', N'Nome da regra');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Sales', N'Vendas');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Save', N'Salvar');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Search here...', N'Procure aqui...');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Security', N'Segurança');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Select culture', N'Selecione a cultura');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Set as default shipping address', N'Defina como endereço de entrega padrão');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Settings', N'Configurações');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Shipment Id', N'ID de Envio');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Shipments', N'Embarques');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Shipping', N'Remessa');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Shipping address', N'Endereço de entrega');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Shipping Information', N'Informação de envio');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Shipping methods', N'Métodos de Envio');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Shipping Providers', N'Provedores de envio');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Shopping Cart', N'Carrinho de compras');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Short content', N'Conteúdo curto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Short Description', N'Breve descrição');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Sort by:', N'Ordenar por:');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Special Price', N'Preço especial');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Special Price End', N'Fim do preço especial');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Special Price Start', N'Início do preço especial');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Specification', N'Especificação');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'stars', N'estrelas');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Start', N'Início');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'State or Province', N'Estado');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'States or Provinces', N'Estados ou Províncias');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Stock History', N'Histórico de Estoque');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Stock management', N'Gestão de Estoque');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Stock Quantity', N'Quantidade em estoque');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Stocks', N'Estoques');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Submit', N'Enviar');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Submit comment', N'Enviar comentário');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Submit review', N'Enviar avaliação');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Submiting review is only enable for users who have bought this product', N'A análise de comentários só está ativada para usuários que compraram este produto');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Subtotal', N'Subtotal');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'System', N'Sistema');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Tax Class', N'Classe de Taxa');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Tax Classes', N'Classes Fiscais');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Tax Rates', N'Taxas de impostos');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Tax.DefaultTaxClassId', N'ID da Classe de Imposto Padrão');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Thank you {0} for your review', N'Muito obrigado pela avaliação, {0}');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The {0} field is not a valid e-mail address.', N'O campo {0} não é um endereço de e-mail válido.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The {0} field is required.', N'O campo {0} é obrigatório');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The {0} must be at least {2} and at max {1} characters long.', N'O {0} deve ter pelo menos {2} e no máximo {1} caracteres.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The Email field is not a valid e-mail address.', N'O campo E-mail não é um endereço de e-mail válido.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The Email field is required.', N'O campo Email é obrigatório. ');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The new password and confirmation password do not match.', N'A nova senha e a senha de confirmação não correspondem.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The page you have requested cannot be found', N'A página que você solicitou não pode ser encontrada');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The password and confirmation password do not match.', N'A senha e a senha de confirmação não correspondem.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The product has been added to your cart', N'O produto foi adicionado ao carrinho');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The supplied value is invalid for {0}.', N'O valor fornecido é inválido para {0}.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The value {0} is invalid.', N'O valor {0} é inválido.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'The value {0} is not valid for {1}.', N'O valor {0} não é válido para {1}.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Themes', N'Temas');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'There are currently no items in your wish list.', N'Atualmente não há itens em sua lista de desejos.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'There are no items in this cart.', N'O carrinho está vazio.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Thumbnail', N'Miniatura');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Title', N'Título');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Tracking Number', N'Numero de Rastreio');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Translations', N'Traduções');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Use', N'Usar');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Use a local account to log in.', N'Entre com seu usuário e senha ');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Use another service to log in.', N'Logar utilizando outro serviço');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Use Selected Shipping Address As Billing Address', N'Use o endereço de entrega selecionado como endereço de cobrança');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'User List', N'Lista de usuários');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Users', N'Usuários');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Value', N'Valor');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'VAT included', N'VAT Incluído');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Vendor Name', N'Nome do vendedor');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Vendors', N'Vendedores');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'View cart', N'Ver carrinho');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'View History', N'Ver histórico');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'View Online Themes', N'Ver temas on-line');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'View options', N'Ver opções');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Warehouse', N'Armazém');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Warehouses', N'Armazéns');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'We are sorry!', N'Nos desculpe!');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Why not try and find your way using the navigation bar above or click on the logo to return our home page.', N'Por que não tentar encontrar o caminho usando a barra de navegação acima ou clicar no logotipo para retornar a nossa página inicial.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Widget Instances', N'Instâncias de Widget');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Widget Name', N'Nome do widget');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Widget Type', N'Tipo de Widget');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Widget Zone', N'Widget da Zona');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Wish List', N'Lista de Desejos');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Yes', N'Sim');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'You don''t have any default address', N'Você não tem nenhum endereço padrão');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'You have', N'Você tem');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'You save', N'Você economiza');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Your account', N'Sua conta');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Your comment', N'Seu comentário');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Your comment should not have personal information. 10 - 300 characters:', N'Seu comentário não deve ter informações pessoais. 10 a 300 caracteres:');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Your review will be showed within the next 24h.', N'Sua avaliação será publicada dentro de 24h.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Your review will be shown within the next 24h.', N'Sua avaliação será publicada dentro de 24h.');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('pt-BR', N'Zip Code', N'Código Postal');
 
 GO

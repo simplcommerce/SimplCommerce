@@ -161,3 +161,4 @@ $RECYCLE.BIN/
 src/Modules/**/launchSettings.json
 PublishProfiles/
 logs/
+src/Modules/**/wwwroot/admin/*.min.js

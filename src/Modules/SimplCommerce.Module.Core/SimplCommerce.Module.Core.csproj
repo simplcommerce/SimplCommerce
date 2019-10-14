@@ -1,6 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <ProjectReference Include="..\..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
   </ItemGroup>
 

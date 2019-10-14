@@ -10,6 +10,7 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Helpers;
 using SimplCommerce.Infrastructure.Web.SmartTable;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Orders.Areas.Orders.ViewModels;
 using SimplCommerce.Module.Orders.Events;
 using SimplCommerce.Module.Orders.Models;
@@ -24,12 +25,14 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         private readonly IRepository<Order> _orderRepository;
         private readonly IWorkContext _workContext;
         private readonly IMediator _mediator;
+        private readonly ICurrencyService _currencyService;
 
-        public OrderApiController(IRepository<Order> orderRepository, IWorkContext workContext, IMediator mediator)
+        public OrderApiController(IRepository<Order> orderRepository, IWorkContext workContext, IMediator mediator, ICurrencyService currencyService)
         {
             _orderRepository = orderRepository;
             _workContext = workContext;
             _mediator = mediator;
+            _currencyService = currencyService;
         }
 
         [HttpGet]
@@ -60,7 +63,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                     x.Id,
                     CustomerName = x.Customer.FullName,
                     x.OrderTotal,
-                    OrderTotalString = x.OrderTotal.ToString("C"),
+                    OrderTotalString = _currencyService.FormatCurrency(x.OrderTotal),
                     OrderStatus = x.OrderStatus.ToString(),
                     x.CreatedOn
                 });
@@ -124,6 +127,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                     order.Id,
                     CustomerName = order.Customer.FullName,
                     order.OrderTotal,
+                    OrderTotalString = _currencyService.FormatCurrency(order.OrderTotal),
                     OrderStatus = order.OrderStatus.ToString(),
                     order.CreatedOn
                 });
@@ -155,7 +159,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 return BadRequest(new { error = "You don't have permission to manage this order" });
             }
 
-            var model = new OrderDetailVm
+            var model = new OrderDetailVm(_currencyService)
             {
                 Id = order.Id,
                 IsMasterOrder = order.IsMasterOrder,
@@ -185,7 +189,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                     StateOrProvinceName = order.ShippingAddress.StateOrProvince.Name,
                     Phone = order.ShippingAddress.Phone
                 },
-                OrderItems = order.OrderItems.Select(x => new OrderItemVm
+                OrderItems = order.OrderItems.Select(x => new OrderItemVm(_currencyService)
                 {
                     Id = x.Id,
                     ProductId = x.Product.Id,
@@ -255,7 +259,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         }
 
         [HttpPost("export")]
-        public async Task<IActionResult> Export([FromBody] SmartTableParam param)
+        public async Task<ActionResult<OrderExportVm>> Export([FromBody] SmartTableParam param)
         {
             var query = _orderRepository.Query();
 
@@ -314,7 +318,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                     PaymentFeeAmount = x.PaymentFeeAmount,
                     OrderTotal = x.OrderTotal,
                     Subtotal = x.SubTotal,
-                    SubTotalWithDiscount = x.SubTotalWithDiscount,
+                    SubtotalWithDiscount = x.SubTotalWithDiscount,
                     PaymentMethod = x.PaymentMethod,
                     ShippingAmount = x.ShippingFeeAmount,
                     ShippingMethod = x.ShippingMethod,
@@ -346,6 +350,17 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 })
                 .ToListAsync();
 
+            foreach(var order in orders)
+            {
+                order.SubtotalString = _currencyService.FormatCurrency(order.Subtotal);
+                order.DiscountAmountString = _currencyService.FormatCurrency(order.DiscountAmount);
+                order.SubtotalWithDiscountString = _currencyService.FormatCurrency(order.SubtotalWithDiscount);
+                order.TaxAmountString = _currencyService.FormatCurrency(order.TaxAmount);
+                order.ShippingAmountString = _currencyService.FormatCurrency(order.ShippingAmount);
+                order.PaymentFeeAmountString = _currencyService.FormatCurrency(order.PaymentFeeAmount);
+                order.OrderTotalString = _currencyService.FormatCurrency(order.OrderTotal);
+            }
+
             var csvString = CsvConverter.ExportCsv(orders);
             var csvBytes = Encoding.UTF8.GetBytes(csvString);
             // MS Excel need the BOM to display UTF8 Correctly
@@ -354,7 +369,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         }
 
         [HttpPost("lines-export")]
-        public async Task<IActionResult> OrderLinesExport([FromBody] SmartTableParam param, [FromServices] IRepository<OrderItem> orderItemRepository)
+        public async Task<ActionResult<OrderLineExportVm>> OrderLinesExport([FromBody] SmartTableParam param, [FromServices] IRepository<OrderItem> orderItemRepository)
         {
             var query = orderItemRepository.Query();
 
@@ -402,7 +417,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
             }
 
             var orderItems = await query
-                            .Select(x => new OrderLineExportVm
+                            .Select(x => new OrderLineExportVm()
                             {
                                 Id = x.Id,
                                 OrderStatus = (int)x.Order.OrderStatus,
@@ -413,7 +428,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                                 PaymentFeeAmount = x.Order.PaymentFeeAmount,
                                 OrderTotal = x.Order.OrderTotal,
                                 Subtotal = x.Order.SubTotal,
-                                SubTotalWithDiscount = x.Order.SubTotalWithDiscount,
+                                SubtotalWithDiscount = x.Order.SubTotalWithDiscount,
                                 PaymentMethod = x.Order.PaymentMethod,
                                 ShippingAmount = x.Order.ShippingFeeAmount,
                                 ShippingMethod = x.Order.ShippingMethod,
@@ -452,6 +467,23 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                                 ProductPrice = x.ProductPrice
                             })
                             .ToListAsync();
+
+            foreach (var item in orderItems)
+            {
+                item.SubtotalString = _currencyService.FormatCurrency(item.Subtotal);
+                item.DiscountAmountString = _currencyService.FormatCurrency(item.DiscountAmount);
+                item.SubtotalWithDiscountString = _currencyService.FormatCurrency(item.SubtotalWithDiscount);
+                item.TaxAmountString = _currencyService.FormatCurrency(item.TaxAmount);
+                item.ShippingAmountString = _currencyService.FormatCurrency(item.ShippingAmount);
+                item.PaymentFeeAmountString = _currencyService.FormatCurrency(item.PaymentFeeAmount);
+                item.OrderTotalString = _currencyService.FormatCurrency(item.OrderTotal);
+
+                item.OrderLineTaxAmountString = _currencyService.FormatCurrency(item.OrderLineTaxAmount);
+                item.OrderLineProductPriceString = _currencyService.FormatCurrency(item.ProductPrice);
+                item.OrderLineDiscountAmountString = _currencyService.FormatCurrency(item.OrderLineDiscountAmount);
+                item.OrderLineTotalString = _currencyService.FormatCurrency(item.OrderLineTotal);
+                item.OrderLineRowTotalString = _currencyService.FormatCurrency(item.OrderLineRowTotal);
+            }
 
             var csvString = CsvConverter.ExportCsv(orderItems);
             var csvBytes = Encoding.UTF8.GetBytes(csvString);

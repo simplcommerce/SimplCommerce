@@ -13,17 +13,17 @@
                 }
                 else
                 {
-                    @Model.CalculatedProductPrice.Price.ToString("C")
+                    @Model.CalculatedProductPrice.PriceString
                     if (Model.CalculatedProductPrice.PercentOfSaving > 0)
                     {
                         <span class="product-price-saving">-@(Model.CalculatedProductPrice.PercentOfSaving)%</span>
-                        <br/>
-                        <span class="product-price-regular">@Model.CalculatedProductPrice.OldPrice.Value.ToString("C")</span>
+                        <br />
+                        <span class="product-price-regular">@Model.CalculatedProductPrice.OldPriceString</span>
                     }
                 }
             </p>
             <ul class="list-inline product-ratings">
-                <li><input type="hidden" value="@Model.RatingAverage" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false"/></li>
+                <li><input type="hidden" value="@Model.RatingAverage" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
                 @if (Model.ReviewsCount > 0)
                 {
                     <li class="product-review-list">

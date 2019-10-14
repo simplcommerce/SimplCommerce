@@ -2,10 +2,9 @@
 (function ($) {
     angular
         .module('simplAdmin.paymentCoD')
-        .controller('CoDConfigFormCtrl', CoDConfigFormCtrl);
+        .controller('CoDConfigFormCtrl', ['paymentCoDService', 'translateService', CoDConfigFormCtrl]);
 
-    /* @ngInject */
-    function CoDConfigFormCtrl($state, paymentCoDService, translateService) {
+    function CoDConfigFormCtrl(paymentCoDService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.codConfig = {};

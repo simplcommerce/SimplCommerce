@@ -2,9 +2,8 @@
 (function ($) {
     angular
         .module('simplAdmin.inventory')
-        .controller('ManageProductsFormCtrl', ManageProductsFormCtrl);
+        .controller('ManageProductsFormCtrl', ['$stateParams', 'warehouseService', 'stockService', 'translateService', ManageProductsFormCtrl]);
 
-    /* @ngInject */
     function ManageProductsFormCtrl($stateParams, warehouseService, stockService, translateService) {
         var vm = this;
         vm.tableStateRef = {};

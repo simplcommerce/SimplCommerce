@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
@@ -23,9 +24,12 @@ namespace SimplCommerce.Module.Core
             serviceCollection.AddScoped<ISmsSender, SmsSender>();
             serviceCollection.AddSingleton<SettingDefinitionProvider>();
             serviceCollection.AddScoped<ISettingService, SettingService>();
+            serviceCollection.AddScoped<ICurrencyService, CurrencyService>();
+
+            GlobalConfiguration.RegisterAngularModule("simplAdmin.core");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
         }
     }

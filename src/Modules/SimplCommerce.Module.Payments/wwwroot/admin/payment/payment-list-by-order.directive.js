@@ -11,14 +11,13 @@
             bindToController: {
                 orderId: '='
             },
-            controller: PaymentListByOrderCtrl,
+            controller: ['paymentService', 'translateService', PaymentListByOrderCtrl],
             controllerAs: 'vm'
         };
 
         return directive;
     }
 
-    /* @ngInject */
     function PaymentListByOrderCtrl(paymentService, translateService) {
         var vm = this;
         vm.translate = translateService;

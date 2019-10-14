@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.contacts')
-        .factory('contactAreaService', contactAreaService);
+        .factory('contactAreaService', ['$http', contactAreaService]);
 
-    /* @ngInject */
     function contactAreaService($http) {
         var service = {
             getContactArea: getContactArea,

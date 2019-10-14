@@ -1,0 +1,15 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/paymentbraintree.min.js",
+    "inputFiles": [
+      "wwwroot/admin/paymentbraintree.module.js",
+      "wwwroot/admin/braintree/braintree-service.js",
+      "wwwroot/admin/braintree/braintree-config-form.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

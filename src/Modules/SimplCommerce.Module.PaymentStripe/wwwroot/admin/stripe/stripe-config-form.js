@@ -2,10 +2,9 @@
 (function ($) {
     angular
         .module('simplAdmin.paymentStripe')
-        .controller('StripeConfigFormCtrl', StripeConfigFormCtrl);
+        .controller('StripeConfigFormCtrl', ['paymentSripeService', 'translateService', StripeConfigFormCtrl]);
 
-    /* @ngInject */
-    function StripeConfigFormCtrl($state, paymentSripeService, translateService) {
+    function StripeConfigFormCtrl(paymentSripeService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.stripeConfig = {};

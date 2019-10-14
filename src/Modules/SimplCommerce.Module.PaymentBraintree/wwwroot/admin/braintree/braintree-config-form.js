@@ -2,10 +2,9 @@
 (function ($) {
     angular
         .module('simplAdmin.paymentBraintree')
-        .controller('BraintreeConfigFormCtrl', BraintreeConfigFormCtrl);
+        .controller('BraintreeConfigFormCtrl', ['paymentBraintreeService', 'translateService', BraintreeConfigFormCtrl]);
 
-    /* @ngInject */
-    function BraintreeConfigFormCtrl($state, paymentBraintreeService, translateService) {
+    function BraintreeConfigFormCtrl(paymentBraintreeService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.braintreeConfig = {};

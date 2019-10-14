@@ -20,17 +20,20 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         private readonly ICartService _cartService;
         private readonly IMediaService _mediaService;
         private readonly IWorkContext _workContext;
+        private readonly ICurrencyService _currencyService;
 
         public CartController(
             IRepository<CartItem> cartItemRepository,
             ICartService cartService,
             IMediaService mediaService,
-            IWorkContext workContext)
+            IWorkContext workContext,
+            ICurrencyService currencyService)
         {
             _cartItemRepository = cartItemRepository;
             _cartService = cartService;
             _mediaService = mediaService;
             _workContext = workContext;
+            _currencyService = currencyService;
         }
 
         [HttpPost("cart/add-item")]
@@ -48,13 +51,13 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("cart/add-item-result")]
         public async Task<IActionResult> AddToCartResult(long productId)
         {
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
 
-            var model = new AddToCartResult
+            var model = new AddToCartResult(_currencyService)
             {
                 CartItemCount = cart.Items.Count,
                 CartAmount = cart.SubTotal

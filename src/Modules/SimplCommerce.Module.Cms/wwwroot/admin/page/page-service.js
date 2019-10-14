@@ -2,16 +2,17 @@
 (function () {
     angular
         .module('simplAdmin.cms')
-        .factory('pageService', pageService);
+        .factory('pageService', ['$http', pageService]);
 
-    /* @ngInject */
     function pageService($http) {
         var service = {
             getPage: getPage,
             createPage: createPage,
             editPage: editPage,
             deletePage: deletePage,
-            getPages: getPages
+            getPages: getPages,
+            getPageTranslation: getPageTranslation,
+            editPageTranslation: editPageTranslation
         };
         return service;
 
@@ -33,6 +34,14 @@
 
         function deletePage(page) {
             return $http.delete('api/pages/' + page.id, null);
+        }
+
+        function getPageTranslation(id, culture) {
+            return $http.get('api/page-translations/' + id + '?culture=' + culture);
+        }
+
+        function editPageTranslation(id, culture, model) {
+            return $http.put('api/page-translations/' + id + '?culture=' + culture, model);
         }
     }
 })();

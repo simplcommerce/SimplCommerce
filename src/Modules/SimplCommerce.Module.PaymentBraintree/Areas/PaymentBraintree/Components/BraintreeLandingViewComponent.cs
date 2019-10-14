@@ -7,6 +7,7 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Helpers;
 using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.ViewModels;
 using SimplCommerce.Module.PaymentBraintree.Models;
 using SimplCommerce.Module.PaymentBraintree.Services;
@@ -21,16 +22,19 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Component
         private readonly IWorkContext _workContext;
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private readonly IBraintreeConfiguration _braintreeConfiguration;
+        private readonly ICurrencyService _currencyService;
 
         public BraintreeLandingViewComponent(ICartService cartService, 
             IWorkContext workContext, 
             IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
-            IBraintreeConfiguration braintreeConfiguration)
+            IBraintreeConfiguration braintreeConfiguration,
+            ICurrencyService currencyService)
         {
             _cartService = cartService;
             _workContext = workContext;
             _paymentProviderRepository = paymentProviderRepository;
             _braintreeConfiguration = braintreeConfiguration;
+            _currencyService = currencyService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
@@ -40,12 +44,12 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Component
             var curentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(curentUser.Id);
             var zeroDecimalAmount = cart.OrderTotal;
-            if (!CurrencyHelper.IsZeroDecimalCurrencies())
+            if (!CurrencyHelper.IsZeroDecimalCurrencies(_currencyService.CurrencyCulture))
             {
                 zeroDecimalAmount = zeroDecimalAmount * 100;
             }
 
-            var regionInfo = new RegionInfo(CultureInfo.CurrentCulture.LCID);
+            var regionInfo = new RegionInfo(_currencyService.CurrencyCulture.LCID);
             var model = new BraintreeCheckoutForm
             {
                 ClientToken = await _braintreeConfiguration.GetClientToken(),

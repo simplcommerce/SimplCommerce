@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.core')
-        .factory('stateProvinceService', stateProvinceService);
+        .factory('stateProvinceService', ['$http', stateProvinceService]);
 
-    /* @ngInject */
     function stateProvinceService($http) {
         var service = {
             editStateProvince: editStateProvince,

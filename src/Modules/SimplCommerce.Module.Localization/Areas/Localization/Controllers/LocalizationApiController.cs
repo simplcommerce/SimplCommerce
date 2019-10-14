@@ -16,7 +16,6 @@ namespace SimplCommerce.Module.Localization.Areas.Localization.Controllers
     [Route("api/localization")]
     public class LocalizationApiController : Controller
     {
-        private const string STANDARD_CULTURE_ID = "vi-VN";
         private readonly IStringLocalizer _localizer;
         private readonly IRepository<Resource> _resourceRepository;
         private readonly IRepositoryWithTypedId<Culture, string> _cultureRepository;
@@ -47,7 +46,8 @@ namespace SimplCommerce.Module.Localization.Areas.Localization.Controllers
         {
             var resources = await _resourceRepository.Query()
                 .Where(x => x.CultureId == cultureId)
-                .Select(x => new ResourceItemVm {
+                .Select(x => new ResourceItemVm
+                {
                     Key = x.Key,
                     Value = x.Value,
                     CultureId = x.CultureId,
@@ -55,22 +55,22 @@ namespace SimplCommerce.Module.Localization.Areas.Localization.Controllers
                 })
                 .ToListAsync();
 
-            if(cultureId != STANDARD_CULTURE_ID)
+            if (cultureId != GlobalConfiguration.DefaultCulture)
             {
                 var standardResources = await _resourceRepository.Query()
-                .Where(x => x.CultureId == STANDARD_CULTURE_ID)
+                .Where(x => x.CultureId == GlobalConfiguration.DefaultCulture)
                 .ToListAsync();
 
-                foreach(var item in standardResources)
+                foreach (var item in standardResources)
                 {
-                    if(resources.All(x => x.Key != item.Key))
+                    if (resources.All(x => x.Key != item.Key))
                     {
                         resources.Add(new ResourceItemVm { Key = item.Key, CultureId = cultureId, Value = item.Key, IsTranslated = false });
                     }
                 }
             }
 
-            return Json(resources.OrderBy(x => x.Key));
+            return Json(resources.OrderBy(x => x.IsTranslated).ThenBy(x => x.Key));
         }
 
         [HttpPost("update-resources")]
@@ -79,14 +79,14 @@ namespace SimplCommerce.Module.Localization.Areas.Localization.Controllers
         {
             var resources = await _resourceRepository.Query().Where(x => x.CultureId == cultureId).ToListAsync();
 
-            foreach(var resourceItemForm in model)
+            foreach (var resourceItemForm in model)
             {
                 var resource = resources.FirstOrDefault(x => x.Key == resourceItemForm.Key);
-                if(resource != null)
+                if (resource != null)
                 {
                     resource.Value = resourceItemForm.Value;
                 }
-                else if(resourceItemForm.Key != resourceItemForm.Value)
+                else if (resourceItemForm.Key != resourceItemForm.Value)
                 {
                     _resourceRepository.Add(new Resource
                     {

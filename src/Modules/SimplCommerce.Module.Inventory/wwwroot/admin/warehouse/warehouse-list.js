@@ -2,10 +2,9 @@
 (function () {
     angular
         .module('simplAdmin.inventory')
-        .controller('WarehouseListCtrl', WarehouseListCtrl);
+        .controller('WarehouseListCtrl', ['warehouseService', 'translateService', WarehouseListCtrl]);
 
-    /* @ngInject */
-    function WarehouseListCtrl(warehouseService, translateService, $state) {
+    function WarehouseListCtrl(warehouseService, translateService) {
         var vm = this;
         vm.tableStateRef = {};
         vm.warehouses = [];

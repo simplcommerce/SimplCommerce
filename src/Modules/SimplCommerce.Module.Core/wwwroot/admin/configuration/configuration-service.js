@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.core')
-        .factory('configurationService', configurationService);
+        .factory('configurationService', ['$http', configurationService]);
 
-    /* @ngInject */
     function configurationService($http) {
         var service = {
             getSettings: getSettings,

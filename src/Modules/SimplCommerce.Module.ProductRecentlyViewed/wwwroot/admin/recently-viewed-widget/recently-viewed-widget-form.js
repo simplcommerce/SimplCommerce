@@ -2,10 +2,9 @@
 (function ($) {
     angular
         .module('simplAdmin.recentlyViewed')
-        .controller('RecentlyViewedWidgetFormCtrl', RecentlyViewedWidgetFormCtrl);
+        .controller('RecentlyViewedWidgetFormCtrl', ['$state', '$stateParams', 'recentlyViewedWidgetService', 'translateService', RecentlyViewedWidgetFormCtrl]);
 
-    /* @ngInject */
-    function RecentlyViewedWidgetFormCtrl($state, $stateParams, summerNoteService, recentlyViewedWidgetService, translateService) {
+    function RecentlyViewedWidgetFormCtrl($state, $stateParams, recentlyViewedWidgetService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.widgetZones = [];

@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.comments')
-        .controller('CommentListCtrl', CommentListCtrl);
+        .controller('CommentListCtrl', ['commentService', 'translateService', CommentListCtrl]);
 
-    /* @ngInject */
     function CommentListCtrl(commentService, translateService) {
         var vm = this;
         vm.tableStateRef = {};

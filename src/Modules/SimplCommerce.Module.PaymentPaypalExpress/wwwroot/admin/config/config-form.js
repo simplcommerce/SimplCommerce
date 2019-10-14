@@ -2,10 +2,9 @@
 (function ($) {
     angular
         .module('simplAdmin.paymentPaypalExpress')
-        .controller('PaypalExpressConfigFormCtrl', PaypalExpressConfigFormCtrl);
+        .controller('PaypalExpressConfigFormCtrl', ['paypalExpressService', 'translateService', PaypalExpressConfigFormCtrl]);
 
-    /* @ngInject */
-    function PaypalExpressConfigFormCtrl($state, paypalExpressService, translateService) {
+    function PaypalExpressConfigFormCtrl(paypalExpressService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.payPalExpressConfig = {};

@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.StorageAzureBlob
             serviceCollection.AddSingleton<IStorageService, AzureBlobStorageService>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             
         }

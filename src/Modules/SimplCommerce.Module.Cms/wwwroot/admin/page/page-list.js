@@ -2,13 +2,13 @@
 (function () {
     angular
         .module('simplAdmin.cms')
-        .controller('PageListCtrl', PageListCtrl);
+        .controller('PageListCtrl', ['pageService', 'translateService', '$window', PageListCtrl]);
 
-    /* @ngInject */
-    function PageListCtrl(pageService, translateService) {
+    function PageListCtrl(pageService, translateService, $window) {
         var vm = this;
         vm.translate = translateService;
         vm.pages = [];
+        vm.enableCultures = $window.Global_EnableCultures;
 
         vm.getPages = function getpages() {
             pageService.getPages().then(function (result) {

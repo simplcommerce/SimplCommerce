@@ -1,0 +1,20 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/tax.min.js",
+    "inputFiles": [
+      "wwwroot/admin/tax.module.js",
+      "wwwroot/admin/tax-class/tax-class-service.js",
+      "wwwroot/admin/tax-class/tax-class-list.js",
+      "wwwroot/admin/tax-class/tax-class-form.js",
+      "wwwroot/admin/tax-rate/tax-rate-service.js",
+      "wwwroot/admin/tax-rate/tax-rate-list.js",
+      "wwwroot/admin/tax-rate/tax-rate-form.js",
+      "wwwroot/admin/tax-rate/tax-rate-import.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

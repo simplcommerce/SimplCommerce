@@ -1,0 +1,20 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/inventory.min.js",
+    "inputFiles": [
+      "wwwroot/admin/inventory.module.js",
+      "wwwroot/admin/stock/stock-service.js",
+      "wwwroot/admin/stock/stock-form.js",
+      "wwwroot/admin/stock/stock-history.js",
+      "wwwroot/admin/warehouse/warehouse-service.js",
+      "wwwroot/admin/warehouse/warehouse-list.js",
+      "wwwroot/admin/warehouse/warehouse-form.js",
+      "wwwroot/admin/warehouse/manage-products-form.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]
