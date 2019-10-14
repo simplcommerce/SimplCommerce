@@ -165,7 +165,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     Price = variation.Price,
                     OldPrice = variation.OldPrice,
                     NormalizedName = variation.NormalizedName,
-                    ImageUrl = _mediaService.GetThumbnailUrl(variation.Medias.FirstOrDefault()?.Media),
+                    ImageUrl = GetFirstProductImageUrl(variation.Id),
                     OptionCombinations = variation.OptionCombinations.Select(x => new ProductOptionCombinationVm
                     {
                         OptionId = x.OptionId,
@@ -283,6 +283,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(ProductForm model)
         {
+            MapUploadedFile(model);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -290,14 +292,14 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
             var currentUser = await _workContext.GetCurrentUser();
 
-            foreach(var variationImage in model.VariationImages)
-            {
-                var variation = model.Product.Variations.FirstOrDefault(x => x.NormalizedName == variationImage.Key);
-                if(variation != null)
-                {
-                    variation.NewImage = variationImage.Image;
-                }
-            }
+            //foreach(var variationImage in model.VariationImages)
+            //{
+            //    var variation = model.Product.Variations.FirstOrDefault(x => x.NormalizedName == variationImage.Key);
+            //    if(variation != null)
+            //    {
+            //        variation.NewImage = variationImage.Image;
+            //    }
+            //}
 
             var product = new Product
             {
@@ -383,6 +385,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(long id, ProductForm model)
         {
+            MapUploadedFile(model);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -508,6 +512,16 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             await _productService.Delete(product);
 
             return NoContent();
+        }
+
+        private string GetFirstProductImageUrl(long productId)
+        {
+            var media = _productMediaRepository.Query()
+                .Where(x => x.ProductId == productId)
+                .Select(x => x.Media)
+                .FirstOrDefault();
+
+            return _mediaService.GetMediaUrl(media);
         }
 
         private async Task MapProductVariationVmToProduct(User loginUser, ProductForm model, Product product)
@@ -855,6 +869,28 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             }
         }
 
+        private void MapUploadedFile(ProductForm model)
+        {
+            // Currently model binder cannot map the collection of file productImages[0], productImages[1]
+            foreach (var file in Request.Form.Files)
+            {
+                if (file.Name.Contains("productImages"))
+                {
+                    model.ProductImages.Add(file);
+                }
+                else if (file.Name.Contains("productDocuments"))
+                {
+                    model.ProductDocuments.Add(file);
+                }
+                else if (file.Name.Contains("product[variations]"))
+                {
+                    var key = file.Name.Replace("product", "");
+                    var i = int.Parse(key.Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries)[1]);
+                    model.Product.Variations[i].NewImage = file;
+                }
+            }
+        }
+
         private async Task SaveProductMedias(ProductForm model, Product product)
         {
             if (model.ThumbnailImage != null)
@@ -867,19 +903,6 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 else
                 {
                     product.ThumbnailImage = new Media {FileName = fileName};
-                }
-            }
-
-            // Currently model binder cannot map the collection of file productImages[0], productImages[1]
-            foreach (var file in Request.Form.Files)
-            {
-                if (file.ContentDisposition.Contains("productImages"))
-                {
-                    model.ProductImages.Add(file);
-                }
-                else if (file.ContentDisposition.Contains("productDocuments"))
-                {
-                    model.ProductDocuments.Add(file);
                 }
             }
 

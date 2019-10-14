@@ -13,13 +13,5 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
 
         public IList<IFormFile> ProductDocuments { get; set; } = new List<IFormFile>();
 
-        public IEnumerable<VariationImageForm> VariationImages { get; set; } = new List<VariationImageForm>();
-    }
-
-    public class VariationImageForm
-    {
-        public string Key { get; set; }
-
-        public IFormFile Image { get; set; }
     }
 }
