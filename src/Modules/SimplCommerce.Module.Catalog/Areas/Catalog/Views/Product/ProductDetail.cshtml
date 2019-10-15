@@ -33,14 +33,32 @@
 <div class="product-detail">
     <div class="row">
         <div class="col-md-6">
-            <div class="sp-wrap">
-                @foreach (var image in Model.Images)
-                {
-                    <a href="@image.Url">
-                        <img src="@image.ThumbnailUrl" alt="" />
-                    </a>
-                }
+            <div id="main-product-images" class="product-images">
+                <div class="sp-wrap">
+                    @foreach (var image in Model.Images)
+                    {
+                        <a href="@image.Url">
+                            <img src="@image.ThumbnailUrl" alt="" />
+                        </a>
+                    }
+                </div>
             </div>
+            @foreach(var variant in Model.Variations)
+            {
+                if (variant.Images.Any())
+                {
+                    <div class="product-images" data-images-variation-name="@variant.NormalizedName" style="display:none;">
+                        <div class="sp-wrap">
+                            @foreach (var image in variant.Images)
+                            {
+                                <a href="@image.Url">
+                                    <img src="@image.ThumbnailUrl" alt="" />
+                                </a>
+                            }
+                        </div>
+                    </div>
+                 }
+            }
         </div>
         <div class="col-md-6">
             <div class="product-name">
