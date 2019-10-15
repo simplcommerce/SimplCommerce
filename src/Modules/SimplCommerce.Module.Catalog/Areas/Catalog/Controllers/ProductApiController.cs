@@ -518,6 +518,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         {
             var media = _productMediaRepository.Query()
                 .Where(x => x.ProductId == productId)
+                .OrderByDescending(x => x.Id)
                 .Select(x => x.Media)
                 .FirstOrDefault();
 
