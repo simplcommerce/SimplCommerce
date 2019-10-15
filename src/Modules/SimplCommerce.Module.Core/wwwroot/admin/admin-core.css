@@ -1,4 +1,8 @@
-﻿.inline {
+﻿body {
+    height: auto;
+}
+
+.inline {
     display: inline;
 }
 

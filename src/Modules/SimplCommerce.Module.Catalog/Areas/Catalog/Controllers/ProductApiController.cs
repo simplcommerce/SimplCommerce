@@ -84,7 +84,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             var product = _productRepository.Query()
                 .Include(x => x.ThumbnailImage)
                 .Include(x => x.Medias).ThenInclude(m => m.Media)
-                .Include(x => x.ProductLinks).ThenInclude(p => p.LinkedProduct)
+                .Include(x => x.ProductLinks).ThenInclude(p => p.LinkedProduct).ThenInclude(m => m.ThumbnailImage)
                 .Include(x => x.OptionValues).ThenInclude(o => o.Option)
                 .Include(x => x.AttributeValues).ThenInclude(a => a.Attribute).ThenInclude(g => g.Group)
                 .Include(x => x.Categories)
@@ -165,6 +165,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     Price = variation.Price,
                     OldPrice = variation.OldPrice,
                     NormalizedName = variation.NormalizedName,
+                    ThumbnailImageUrl = _mediaService.GetMediaUrl(variation.ThumbnailImage),
+                    ImageUrls = GetProductImageUrls(variation.Id).ToList(),
                     OptionCombinations = variation.OptionCombinations.Select(x => new ProductOptionCombinationVm
                     {
                         OptionId = x.OptionId,
@@ -282,6 +284,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(ProductForm model)
         {
+            MapUploadedFile(model);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -360,7 +364,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
             await SaveProductMedias(model, product);
 
-            MapProductVariationVmToProduct(currentUser, model, product);
+            await MapProductVariationVmToProduct(currentUser, model, product);
             MapProductLinkVmToProduct(model, product);
 
             var productPriceHistory = CreatePriceHistory(currentUser, product);
@@ -373,6 +377,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(long id, ProductForm model)
         {
+            MapUploadedFile(model);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -381,7 +387,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             var product = _productRepository.Query()
                 .Include(x => x.ThumbnailImage)
                 .Include(x => x.Medias).ThenInclude(m => m.Media)
-                .Include(x => x.ProductLinks).ThenInclude(x => x.LinkedProduct)
+                .Include(x => x.ProductLinks).ThenInclude(x => x.LinkedProduct).ThenInclude(p => p.ThumbnailImage)
                 .Include(x => x.OptionValues).ThenInclude(o => o.Option)
                 .Include(x => x.AttributeValues).ThenInclude(a => a.Attribute).ThenInclude(g => g.Group)
                 .Include(x => x.Categories)
@@ -451,7 +457,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             AddOrDeleteProductOption(model, product);
             AddOrDeleteProductAttribute(model, product);
             AddOrDeleteCategories(model, product);
-            AddOrDeleteProductVariation(currentUser, model, product);
+            await AddOrDeleteProductVariation(currentUser, model, product);
             AddOrDeleteProductLinks(model, product);
 
             _productService.Update(product);
@@ -500,7 +506,19 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             return NoContent();
         }
 
-        private static void MapProductVariationVmToProduct(User loginUser, ProductForm model, Product product)
+        private IEnumerable<string> GetProductImageUrls(long productId)
+        {
+            var imageUrls = _productMediaRepository.Query()
+                .Where(x => x.ProductId == productId)
+                .OrderByDescending(x => x.Id)
+                .Select(x => x.Media)
+                .ToList()
+                .Select(x => _mediaService.GetMediaUrl(x));
+
+            return imageUrls;
+        }
+
+        private async Task MapProductVariationVmToProduct(User loginUser, ProductForm model, Product product)
         {
             foreach (var variationVm in model.Product.Variations)
             {
@@ -523,6 +541,13 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 productLink.LinkedProduct.HasOptions = false;
                 productLink.LinkedProduct.IsVisibleIndividually = false;
 
+                if(product.ThumbnailImage != null)
+                {
+                    productLink.LinkedProduct.ThumbnailImage = new Media { FileName = product.ThumbnailImage.FileName };
+                }
+
+                await MapProductVariantImageFromVm(variationVm, productLink.LinkedProduct);
+
                 foreach (var combinationVm in variationVm.OptionCombinations)
                 {
                     productLink.LinkedProduct.AddOptionCombination(new ProductOptionCombination
@@ -533,12 +558,38 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     });
                 }
 
-                productLink.LinkedProduct.ThumbnailImage = product.ThumbnailImage;
-
                 var productPriceHistory = CreatePriceHistory(loginUser, productLink.LinkedProduct);
                 product.PriceHistories.Add(productPriceHistory);
 
                 product.AddProductLinks(productLink);
+            }
+        }
+
+        private async Task MapProductVariantImageFromVm(ProductVariationVm variationVm, Product product)
+        {
+            if (variationVm.ThumbnailImage != null)
+            {
+                var thumbnailImageFileName = await SaveFile(variationVm.ThumbnailImage);
+                if (product.ThumbnailImage != null)
+                {
+                    product.ThumbnailImage.FileName = thumbnailImageFileName;
+                }
+                else
+                {
+                    product.ThumbnailImage = new Media { FileName = thumbnailImageFileName };
+                }
+            }
+
+            foreach (var image in variationVm.NewImages)
+            {
+                var fileName = await SaveFile(image);
+                var productMedia = new ProductMedia
+                {
+                    Product = product,
+                    Media = new Media { FileName = fileName, MediaType = MediaType.Image }
+                };
+
+                product.AddMedia(productMedia);
             }
         }
 
@@ -646,7 +697,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             }
         }
 
-        private void AddOrDeleteProductVariation(User loginUser,  ProductForm model, Product product)
+        private async Task AddOrDeleteProductVariation(User loginUser,  ProductForm model, Product product)
         {
             foreach (var productVariationVm in model.Product.Variations)
             {
@@ -671,7 +722,12 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     productLink.LinkedProduct.NormalizedName = productVariationVm.NormalizedName;
                     productLink.LinkedProduct.HasOptions = false;
                     productLink.LinkedProduct.IsVisibleIndividually = false;
-                    productLink.LinkedProduct.ThumbnailImage = product.ThumbnailImage;
+                    if(product.ThumbnailImage != null)
+                    {
+                        productLink.LinkedProduct.ThumbnailImage = new Media { FileName = product.ThumbnailImage.FileName };
+                    }
+
+                    await MapProductVariantImageFromVm(productVariationVm, productLink.LinkedProduct);
 
                     foreach (var combinationVm in productVariationVm.OptionCombinations)
                     {
@@ -705,6 +761,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     productLink.LinkedProduct.OldPrice = productVariationVm.OldPrice;
                     productLink.LinkedProduct.IsDeleted = false;
                     productLink.LinkedProduct.StockTrackingIsEnabled = product.StockTrackingIsEnabled;
+
+                    await MapProductVariantImageFromVm(productVariationVm, productLink.LinkedProduct);
 
                     if (isPriceChanged)
                     {
@@ -809,6 +867,37 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             }
         }
 
+        private void MapUploadedFile(ProductForm model)
+        {
+            // Currently model binder cannot map the collection of file productImages[0], productImages[1]
+            foreach (var file in Request.Form.Files)
+            {
+                if (file.Name.Contains("productImages"))
+                {
+                    model.ProductImages.Add(file);
+                }
+                else if (file.Name.Contains("productDocuments"))
+                {
+                    model.ProductDocuments.Add(file);
+                }
+                else if (file.Name.Contains("product[variations]"))
+                {
+                    var key = file.Name.Replace("product", "");
+                    var keyParts = key.Split(new char[] { '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
+                    var variantIndex = int.Parse(keyParts[1]);
+                    if (key.Contains("newImages"))
+                    {
+                        model.Product.Variations[variantIndex].NewImages.Add(file);
+                    }
+                    else
+                    {
+                        var i = int.Parse(keyParts[1]);
+                        model.Product.Variations[variantIndex].ThumbnailImage = file;
+                    }
+                }
+            }
+        }
+
         private async Task SaveProductMedias(ProductForm model, Product product)
         {
             if (model.ThumbnailImage != null)
@@ -821,19 +910,6 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 else
                 {
                     product.ThumbnailImage = new Media {FileName = fileName};
-                }
-            }
-
-            // Currently model binder cannot map the collection of file productImages[0], productImages[1]
-            foreach (var file in Request.Form.Files)
-            {
-                if (file.ContentDisposition.Contains("productImages"))
-                {
-                    model.ProductImages.Add(file);
-                }
-                else if (file.ContentDisposition.Contains("productDocuments"))
-                {
-                    model.ProductDocuments.Add(file);
                 }
             }
 

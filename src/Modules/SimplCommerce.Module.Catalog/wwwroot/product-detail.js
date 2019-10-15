@@ -16,12 +16,21 @@ $(document).ready(function () {
         });
         variationName = selectedproductOptions.join('-');
         $variationDiv = $('div[data-variation-name="' + variationName + '"]');
+        $imagesVariationDiv = $('div[data-images-variation-name="' + variationName + '"]');
         $('.product-variation').hide();
+        $('.product-images').hide();
+
         if ($variationDiv.length > 0) {
             $variationDiv.show();
             $('.product-variation-notavailable').hide();
         } else {
             $('.product-variation-notavailable').show();
+        }
+        if ($imagesVariationDiv.length > 0) {
+            $imagesVariationDiv.show();
+        }
+        else {
+            $('#main-product-images').show();
         }
     });
 

@@ -260,11 +260,12 @@
                             <table class="table table-striped">
                                 <tr>
                                     <th class="col-md-2">{{::vm.translate.get('Option Combinations')}}</th>
-                                    <th class="col-md-2">{{::vm.translate.get('SKU')}}</th>
-                                    <th class="col-md-2">{{::vm.translate.get('GTIN')}}</th>
-                                    <th class="col-md-2">{{::vm.translate.get('Price')}}</th>
-                                    <th class="col-md-2">{{::vm.translate.get('Old Price')}}</th>
-                                    <th class="col-md-1">{{::vm.translate.get('Images')}}</th>
+                                    <th class="col-md-1">{{::vm.translate.get('SKU')}}</th>
+                                    <th class="col-md-1">{{::vm.translate.get('GTIN')}}</th>
+                                    <th class="col-md-1">{{::vm.translate.get('Price')}}</th>
+                                    <th class="col-md-1">{{::vm.translate.get('Old Price')}}</th>
+                                    <th class="col-md-2">{{::vm.translate.get('Thumbnails')}}</th>
+                                    <th class="col-md-3">{{::vm.translate.get('Images')}}</th>
                                     <th class="col-md-1">{{::vm.translate.get('Actions')}}</th>
                                 </tr>
                                 <tr ng-repeat="variation in vm.product.variations">
@@ -287,7 +288,20 @@
                                             <label for="{{variation.normalizedName}}OldPrice" class="form-control">{{variation.oldPrice | number}}</label>
                                         </div>
                                     </td>
-                                    <td></td>
+                                    <td>
+                                        <input class="form-control" type="file" ngf-select ng-model="variation.newThumbnailImage" name="variationThumbnailImage" ngf-accept="'image/*'">
+                                        <img ngf-src="variation.newThumbnailImage" ngf-resize="{width:50, height: 50, quality: 0.9}">
+                                        <img ng-show="!variation.newThumbnailImage && variation.thumbnailImageUrl" ng-src="{{variation.thumbnailImageUrl}}" style="width: 50px; height: 50px" />
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="file" ngf-select ng-model="variation.newImages" ngf-multiple="true" name="variationImages" ngf-accept="'image/*'">
+                                        <span class="product-image-edit" ng-repeat="image in variation.imageUrls">
+                                            <img ng-src="{{image}}" style="width: 50px; height: 50px" />
+                                        </span>
+                                        <span ng-repeat="image in variation.newImages">
+                                            <img ngf-src="image" ngf-resize="{width: 50, height: 50, quality: 0.9}">
+                                        </span>
+                                    </td>
                                     <td>
                                         <button ng-click="vm.deleteVariation(variation)" type="button" class="btn">
                                             <span class="glyphicon glyphicon-remove"></span>
@@ -295,39 +309,38 @@
                                     </td>
                                 </tr>
                                 <tr ng-show="vm.product.options.length > 0">
-                                    <td class="variation-form" colspan="7">
+                                    <td class="variation-form" colspan="8">
                                         <ng-form name="addingVariationForm">
                                             <table class="table">
                                                 <tr>
                                                     <td class="col-md-2">
-                                                        <div class="form-group row">
-                                                            <div ng-repeat="option in vm.product.options">
-                                                                <div>
-                                                                    <select class="form-control" ng-model="vm.addingVariation[option.name]"
-                                                                            ng-options="value.key as value.key for value in option.values | filter: vm.filterAddedOptionValue"></select>
-                                                                </div>
+                                                        <div ng-repeat="option in vm.product.options">
+                                                            <div>
+                                                                <select class="form-control" ng-model="vm.addingVariation[option.name]"
+                                                                        ng-options="value.key as value.key for value in option.values | filter: vm.filterAddedOptionValue"></select>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="col-md-2">
+                                                    <td class="col-md-1">
                                                         <input id="addingVariationSku" type="text" maxlength="100" class="form-control" ng-model="vm.addingVariation.sku" />
                                                     </td>
-                                                    <td class="col-md-2">
+                                                    <td class="col-md-1">
                                                         <input id="addingVariationGtin" type="text" maxlength="100" class="form-control" ng-model="vm.addingVariation.gtin" />
                                                     </td>
-                                                    <td class="col-md-2">
+                                                    <td class="col-md-1">
                                                         <div class="input-number">
                                                             <input id="addingVariationPrice" type="text" decimal maxlength="10" class="form-control" ng-model="vm.addingVariation.price" />
                                                             <label for="addingVariationPrice" class="form-control">{{vm.addingVariation.price | number}}</label>
                                                         </div>
                                                     </td>
-                                                    <td class="col-md-2">
+                                                    <td class="col-md-1">
                                                         <div class="input-number">
                                                             <input id="addingVariationOldPrice" type="text" decimal maxlength="10" class="form-control" ng-model="vm.addingVariation.oldPrice" />
                                                             <label for="addingVariationOldPrice" class="form-control">{{vm.addingVariation.oldPrice | number}}</label>
                                                         </div>
                                                     </td>
-                                                    <td class="col-md-1"></td>
+                                                    <td class="col-md-2"></td>
+                                                    <td class="col-md-3"></td>
                                                     <td class="col-md-1"><button type="button" class="btn btn-primary" ng-disabled="!vm.isAddVariationFormValid()" ng-click="vm.addVariation()"><span class="glyphicon glyphicon-plus"></span></button></td>
                                                 </tr>
                                             </table>

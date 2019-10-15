@@ -149,9 +149,15 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
         private void MapProductVariantToProductVm(Product product, ProductDetail model)
         {
+            if(!product.ProductLinks.Any(x => x.LinkType == ProductLinkType.Super))
+            {
+                return;
+            }
+
             var variations = _productRepository
                 .Query()
                 .Include(x => x.OptionCombinations).ThenInclude(o => o.Option)
+                .Include(x => x.Medias).ThenInclude(m => m.Media)
                 .Where(x => x.LinkedProductLinks.Any(link => link.ProductId == product.Id && link.LinkType == ProductLinkType.Super))
                 .Where(x => x.IsPublished)
                 .ToList();
@@ -167,7 +173,12 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     IsCallForPricing = variation.IsCallForPricing,
                     StockTrackingIsEnabled = variation.StockTrackingIsEnabled,
                     StockQuantity = variation.StockQuantity,
-                    CalculatedProductPrice = _productPricingService.CalculateProductPrice(variation)
+                    CalculatedProductPrice = _productPricingService.CalculateProductPrice(variation),
+                    Images = variation.Medias.Where(x => x.Media.MediaType == Core.Models.MediaType.Image).Select(productMedia => new MediaViewModel
+                    {
+                        Url = _mediaService.GetMediaUrl(productMedia.Media),
+                        ThumbnailUrl = _mediaService.GetThumbnailUrl(productMedia.Media)
+                    }).ToList()
                 };
 
                 var optionCombinations = variation.OptionCombinations.OrderBy(x => x.SortIndex);
