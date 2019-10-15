@@ -24,9 +24,14 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
         // https://github.com/aspnet/Mvc/issues/4485
         // Workaround by moving file input to the top
         [BindNever]
-        public IFormFile NewImage { get; set; }
+        public IFormFile ThumbnailImage { get; set; }
 
-        public string ImageUrl { get; set; }
+        public string ThumbnailImageUrl { get; set; }
+
+        [BindNever]
+        public IList<IFormFile> NewImages { get; set; } = new List<IFormFile>();
+
+        public IList<string> ImageUrls { get; set; } = new List<string>();
 
         public IList<ProductOptionCombinationVm> OptionCombinations { get; set; } =
             new List<ProductOptionCombinationVm>();

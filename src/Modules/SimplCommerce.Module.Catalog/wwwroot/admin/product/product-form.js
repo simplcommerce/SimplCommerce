@@ -18,7 +18,6 @@
         vm.categories = [];
         vm.thumbnailImage = null;
         vm.productImages = [];
-        vm.variationImages = [];
         vm.productDocuments = [];
         vm.options = [];
         vm.productTemplates = [];
@@ -330,9 +329,9 @@
             });
 
             if (vm.isEditMode) {
-                promise = productService.editProduct(vm.product, vm.thumbnailImage, vm.productImages, vm.productDocuments, vm.variationImages);
+                promise = productService.editProduct(vm.product, vm.thumbnailImage, vm.productImages, vm.productDocuments);
             } else {
-                promise = productService.createProduct(vm.product, vm.thumbnailImage, vm.productImages, vm.productDocuments, vm.variationImages);
+                promise = productService.createProduct(vm.product, vm.thumbnailImage, vm.productImages, vm.productDocuments);
             }
 
             promise.then(function (result) {
