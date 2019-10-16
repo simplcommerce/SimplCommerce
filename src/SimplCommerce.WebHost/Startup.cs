@@ -48,7 +48,6 @@ namespace SimplCommerce.WebHost
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
             services.AddCustomizedDataStore(_configuration);
             services.AddCustomizedIdentity(_configuration);
             services.AddHttpClient();

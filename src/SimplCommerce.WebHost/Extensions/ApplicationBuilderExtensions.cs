@@ -10,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
-using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Localization;
@@ -22,31 +21,33 @@ namespace SimplCommerce.WebHost.Extensions
     {
         public static IApplicationBuilder UseCustomizedIdentity(this IApplicationBuilder app)
         {
-            app.UseAuthentication();
-            app.UseAuthorization();
-
+            app.UseIdentityServer();
             app.UseWhen(
                 context => context.Request.Path.StartsWithSegments("/api"),
                 a => a.Use(async (context, next) =>
                 {
-                    var principal = new ClaimsPrincipal();
+                    if (!context.User.Identity.IsAuthenticated) {
+                        var principal = new ClaimsPrincipal();
 
-                    var cookiesAuthResult = await context.AuthenticateAsync("Identity.Application");
-                    if (cookiesAuthResult?.Principal != null)
-                    {
-                        principal.AddIdentities(cookiesAuthResult.Principal.Identities);
+                        var cookiesAuthResult = await context.AuthenticateAsync("Identity.Application");
+                        if (cookiesAuthResult?.Principal != null)
+                        {
+                            principal.AddIdentities(cookiesAuthResult.Principal.Identities);
+                        }
+
+                        var bearerAuthResult = await context.AuthenticateAsync(JwtBearerDefaults.AuthenticationScheme);
+                        if (bearerAuthResult?.Principal != null)
+                        {
+                            principal.AddIdentities(bearerAuthResult.Principal.Identities);
+                        }
+
+                        context.User = principal;
                     }
 
-                    var bearerAuthResult = await context.AuthenticateAsync(JwtBearerDefaults.AuthenticationScheme);
-                    if (bearerAuthResult?.Principal != null)
-                    {
-                        principal.AddIdentities(bearerAuthResult.Principal.Identities);
-                    }
-
-                    context.User = principal;
                     await next();
                 }));
 
+            app.UseAuthorization();
             return app;
         }
 
