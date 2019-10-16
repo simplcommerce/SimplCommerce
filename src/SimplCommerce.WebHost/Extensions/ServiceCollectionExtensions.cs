@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Runtime.Loader;
-using System.Text;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -14,10 +14,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.Extensions.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Modules;
@@ -25,8 +26,7 @@ using SimplCommerce.Infrastructure.Web.ModelBinders;
 using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.Extensions.Localization;
+using SimplCommerce.WebHost.IdentityServer;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -164,6 +164,28 @@ namespace SimplCommerce.WebHost.Extensions
                 .AddUserStore<SimplUserStore>()
                 .AddDefaultTokenProviders();
 
+           services.AddIdentityServer(options =>
+                {
+                    options.Events.RaiseErrorEvents = true;
+                    options.Events.RaiseInformationEvents = true;
+                    options.Events.RaiseFailureEvents = true;
+                    options.Events.RaiseSuccessEvents = true;
+                })
+                .AddInMemoryIdentityResources(IdentityServerConfig.Ids)
+                .AddInMemoryApiResources(IdentityServerConfig.Apis)
+                .AddInMemoryClients(IdentityServerConfig.Clients)
+                .AddAspNetIdentity<User>()
+                .AddProfileService<SimplProfileService>()
+                .AddDeveloperSigningCredential(); // not recommended for production - you need to store your key material somewhere secure
+
+            // AddAspNetIdentity has change the option - switch back to default
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier;
+                options.ClaimsIdentity.UserNameClaimType = ClaimTypes.Name;
+                options.ClaimsIdentity.RoleClaimType = ClaimTypes.Role;
+            });
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie()
                 .AddFacebook(x =>
@@ -187,16 +209,11 @@ namespace SimplCommerce.WebHost.Extensions
                 })
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
                 {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = false,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = configuration["Authentication:Jwt:Issuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Authentication:Jwt:Key"]))
-                    };
+                    options.Authority = "https://localhost:44388";
+                    options.RequireHttpsMetadata = false;
+                    options.Audience = "api.simplcommerce";
                 });
+
             services.ConfigureApplicationCookie(x =>
             {
                 x.LoginPath = new PathString("/login");
