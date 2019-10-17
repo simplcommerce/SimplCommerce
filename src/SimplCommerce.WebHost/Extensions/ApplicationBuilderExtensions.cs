@@ -29,12 +29,6 @@ namespace SimplCommerce.WebHost.Extensions
                     if (!context.User.Identity.IsAuthenticated) {
                         var principal = new ClaimsPrincipal();
 
-                        var cookiesAuthResult = await context.AuthenticateAsync("Identity.Application");
-                        if (cookiesAuthResult?.Principal != null)
-                        {
-                            principal.AddIdentities(cookiesAuthResult.Principal.Identities);
-                        }
-
                         var bearerAuthResult = await context.AuthenticateAsync(JwtBearerDefaults.AuthenticationScheme);
                         if (bearerAuthResult?.Principal != null)
                         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using IdentityModel;
 using IdentityServer4.AspNetIdentity;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
@@ -51,14 +52,15 @@ namespace SimplCommerce.WebHost.IdentityServer
                 var claims = new List<Claim>
                 {
                     new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.Id.ToString()),
-                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                    new Claim(JwtClaimTypes.Name, user.Id.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(JwtClaimTypes.Email, user.Email),
                 };
 
                 var userRoles = await UserManager.GetRolesAsync(user);
                 foreach (var userRole in userRoles)
                 {
-                    claims.Add(new Claim(ClaimTypes.Role, userRole));
+                    claims.Add(new Claim(JwtClaimTypes.Role, userRole));
                 }
 
                 context.IssuedClaims.AddRange(claims);
