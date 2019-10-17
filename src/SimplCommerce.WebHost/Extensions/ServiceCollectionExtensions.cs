@@ -27,6 +27,7 @@ using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.WebHost.IdentityServer;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -159,32 +160,25 @@ namespace SimplCommerce.WebHost.Extensions
                     options.Password.RequireUppercase = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequiredUniqueChars = 0;
+                    options.ClaimsIdentity.UserNameClaimType = JwtRegisteredClaimNames.Sub;
                 })
                 .AddRoleStore<SimplRoleStore>()
                 .AddUserStore<SimplUserStore>()
                 .AddDefaultTokenProviders();
 
-           services.AddIdentityServer(options =>
-                {
-                    options.Events.RaiseErrorEvents = true;
-                    options.Events.RaiseInformationEvents = true;
-                    options.Events.RaiseFailureEvents = true;
-                    options.Events.RaiseSuccessEvents = true;
-                })
-                .AddInMemoryIdentityResources(IdentityServerConfig.Ids)
-                .AddInMemoryApiResources(IdentityServerConfig.Apis)
-                .AddInMemoryClients(IdentityServerConfig.Clients)
-                .AddAspNetIdentity<User>()
-                .AddProfileService<SimplProfileService>()
-                .AddDeveloperSigningCredential(); // not recommended for production - you need to store your key material somewhere secure
-
-            // AddAspNetIdentity has change the option - switch back to default
-            services.Configure<IdentityOptions>(options =>
-            {
-                options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier;
-                options.ClaimsIdentity.UserNameClaimType = ClaimTypes.Name;
-                options.ClaimsIdentity.RoleClaimType = ClaimTypes.Role;
-            });
+            services.AddIdentityServer(options =>
+                 {
+                     options.Events.RaiseErrorEvents = true;
+                     options.Events.RaiseInformationEvents = true;
+                     options.Events.RaiseFailureEvents = true;
+                     options.Events.RaiseSuccessEvents = true;
+                 })
+                 .AddInMemoryIdentityResources(IdentityServerConfig.Ids)
+                 .AddInMemoryApiResources(IdentityServerConfig.Apis)
+                 .AddInMemoryClients(IdentityServerConfig.Clients)
+                 .AddAspNetIdentity<User>()
+                 .AddProfileService<SimplProfileService>()
+                 .AddDeveloperSigningCredential(); // not recommended for production - you need to store your key material somewhere secure
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie()
@@ -207,11 +201,8 @@ namespace SimplCommerce.WebHost.Extensions
                         OnRemoteFailure = ctx => HandleRemoteLoginFailure(ctx)
                     };
                 })
-                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-                {
-                    options.Authority = "https://localhost:44388";
-                    options.RequireHttpsMetadata = false;
-                    options.Audience = "api.simplcommerce";
+                .AddLocalApi(JwtBearerDefaults.AuthenticationScheme, option => {
+                    option.ExpectedScope = "api.simplcommerce";
                 });
 
             services.ConfigureApplicationCookie(x =>
