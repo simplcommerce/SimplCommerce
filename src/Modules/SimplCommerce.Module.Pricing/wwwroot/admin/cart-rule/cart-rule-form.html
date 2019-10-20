@@ -77,8 +77,8 @@
                         <label class="col-sm-2 control-label">{{::vm.translate.get('Apply')}} *</label>
                         <div class="col-sm-10">
                             <select class="form-control" ng-model="vm.cartRule.ruleToApply">
-                                <option value="cart_fixed">Fixed amount discount for whole cart</option>
-                                <option value="by_percent">Percent of product price discount</option>
+                                <option value="cart_fixed">{{::vm.translate.get('Fixed amount discount for whole cart')}}</option>
+                                <option value="by_percent">{{::vm.translate.get('Percent of product price discount')}}</option>
                                 <!--<option value="buy_x_get_y">Buy X Get Y Free (discount amount is Y)</option>-->
                             </select>
                         </div>
@@ -105,15 +105,15 @@
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" ng-model="vm.cartRule.isActive">{{::vm.translate.get('Active')}}
+                                    <input type="checkbox" ng-model="vm.cartRule.isActive">{{::vm.translate.get('Is Active')}}
                                 </label>
                             </div>
                         </div>
                     </div>
                 </uib-tab>
                 <uib-tab index="1" heading="{{::vm.translate.get('Products Selection')}}">
-                    <p>Select products to apply or leave blank for all products</p>
-                    <product-selection-directive model-id="productsSelector" title="Add products" selected-products="vm.cartRule.products"></product-selection-directive>
+                    <p>{{::vm.translate.get('Select products to apply or leave blank for all products')}}</p>
+                    <product-selection-directive model-id="productsSelector" title="{{::vm.translate.get('Add products')}}" selected-products="vm.cartRule.products"></product-selection-directive>
                     <p><button type="button" class="btn btn-default" data-toggle="modal" data-target="#productsSelector">{{::vm.translate.get('Manage Products Selection')}}</button></p>
                     <table class="table table-striped">
                         <tr>
