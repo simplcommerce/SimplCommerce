@@ -10,7 +10,7 @@
                     <select class="form-control" ng-change="vm.wareHouseSelectChange()" ng-model="vm.selectedWarehouse"
                             ng-options="warehouse as warehouse.name for warehouse in vm.warehouses"></select>
                 </div>
-                <a ui-sref="warehouse-manage-products({warehouseId: vm.selectedWarehouse.id})">Manage products in warehouse</a>
+                <a ui-sref="warehouse-manage-products({warehouseId: vm.selectedWarehouse.id})">{{::vm.translate.get('Manage products in warehouse')}}</a>
             </form>
         </div>
     </div>
@@ -22,8 +22,8 @@
             <th>{{::vm.translate.get('Product Name')}}</th>
             <th>{{::vm.translate.get('Product Sku')}}</th>
             <th class="text-right">{{::vm.translate.get('Current Quantity')}}</th>
-            <th class="text-right">(+/-) Adjusted Quantity</th>
-            <th>Notes</th>
+            <th class="text-right">(+/-) {{::vm.translate.get('Adjusted Quantity')}}</th>
+            <th>{{::vm.translate.get('Note')}}</th>
             <th>{{::vm.translate.get('Stock History')}}</th>
         </tr>
         <tr>
@@ -43,7 +43,7 @@
             <th></th>
         </tr>
         <tr>
-            <th ng-show="!vm.isLoading" colspan="6">{{vm.tableStateRef.pagination.totalItemCount | number:0}} records found</th>
+            <th ng-show="!vm.isLoading" colspan="6">{{vm.tableStateRef.pagination.totalItemCount | number:0}} {{::vm.translate.get('records found')}}</th>
         </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">
