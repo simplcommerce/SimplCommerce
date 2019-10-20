@@ -89,7 +89,7 @@ namespace SimplCommerce.Module.Shipments.Services
                 var orderedItem = orderedItems.FirstOrDefault(x => x.OrderItemId == item.OrderItemId);
                 if(orderedItem == null)
                 {
-                    return Result.Fail($"Order item {orderedItem.OrderItemId} is not found");
+                    return Result.Fail($"Order item {item.OrderItemId} is not found");
                 }
 
                 if(item.Quantity > orderedItem.OrderedQuantity - orderedItem.ShippedQuantity)
