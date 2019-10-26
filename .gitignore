@@ -162,4 +162,3 @@ src/Modules/**/launchSettings.json
 PublishProfiles/
 logs/
 src/Modules/**/wwwroot/admin/*.min.js
-/src/SimplCommerce.WebHost/appsettings.json
