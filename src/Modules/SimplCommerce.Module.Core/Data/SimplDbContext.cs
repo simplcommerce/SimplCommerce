@@ -65,6 +65,15 @@ namespace SimplCommerce.Module.Core.Data
                             .Property(property.Name)
                             .HasConversion(new DateTimeOffsetToBinaryConverter());
                     }
+
+                    var decimalProperties = entityType.ClrType.GetProperties().Where(p => p.PropertyType == typeof(decimal) || p.PropertyType == typeof(decimal?));
+                    foreach (var property in decimalProperties)
+                    {
+                        modelBuilder
+                            .Entity(entityType.Name)
+                            .Property(property.Name)
+                            .HasConversion<double>();
+                    }
                 }
             }
         }
