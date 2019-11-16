@@ -23,21 +23,21 @@ namespace SimplCommerce.Module.Inventory.Tests
             _stockHistoryRepoMock = new Mock<IRepository<StockHistory>>();
         }
 
-        [Theory]
-        [InlineData(100,50)]
-        [InlineData(1000,560)]
-        [InlineData(13, 5)]
-        [InlineData(143, 0)]
-        public async Task AddAllProductsTest(int productsCount, int  stocksCount)
-        {
-            InitializeMocks(productsCount, stocksCount);
-            var service = new StockService(_stockRepoMock.Object, _productRepoMock.Object,
-                _stockHistoryRepoMock.Object);
-            await service.AddAllProduct(_testWarehouse);
+        //[Theory]
+        //[InlineData(100,50)]
+        //[InlineData(1000,560)]
+        //[InlineData(13, 5)]
+        //[InlineData(143, 0)]
+        //public async Task AddAllProductsTest(int productsCount, int  stocksCount)
+        //{
+        //    InitializeMocks(productsCount, stocksCount);
+        //    var service = new StockService(_stockRepoMock.Object, _productRepoMock.Object,
+        //        _stockHistoryRepoMock.Object);
+        //    await service.AddAllProduct(_testWarehouse);
 
-            _stockRepoMock.Verify(m =>
-                m.AddRange(It.Is<IEnumerable<Stock>>(arg => arg.Count() == productsCount - stocksCount)));
-        }
+        //    _stockRepoMock.Verify(m =>
+        //        m.AddRange(It.Is<IEnumerable<Stock>>(arg => arg.Count() == productsCount - stocksCount)));
+        //}
 
         private void InitializeMocks(int productsCount, int stocksCount)
         {
