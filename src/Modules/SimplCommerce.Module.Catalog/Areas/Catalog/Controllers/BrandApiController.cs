@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     [Area("Catalog")]
     [Authorize(Roles = "admin, vendor")]
     [Route("api/brands")]
-    public class BrandApiController : Controller
+    [ApiController]
+    public class BrandApiController : ControllerBase
     {
         private readonly IRepository<Brand> _brandRepository;
         private readonly IBrandService _brandService;
@@ -25,18 +27,31 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<ActionResult<IList<BrandVm>>> Get()
         {
-            var brandList = await _brandRepository.Query().Where(x => !x.IsDeleted).ToListAsync();
+            var brands = await _brandRepository.Query()
+            .Where(x => !x.IsDeleted)
+            .Select(x =>  new BrandVm
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Slug = x.Slug,
+                IsPublished = x.IsPublished
+            }).ToListAsync();
 
-            return Json(brandList);
+            return brands;
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(long id)
+        public async Task<ActionResult<BrandVm>> Get(long id)
         {
             var brand = await _brandRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-            var model = new BrandForm
+            if(brand == null)
+            {
+                return NotFound();
+            }
+
+            var model = new BrandVm
             {
                 Id = brand.Id,
                 Name = brand.Name,
@@ -44,49 +59,40 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 IsPublished = brand.IsPublished
             };
 
-            return Json(model);
+            return model;
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> Post([FromBody] BrandForm model)
         {
-            if (ModelState.IsValid)
+            var brand = new Brand
             {
-                var brand = new Brand
-                {
-                    Name = model.Name,
-                    Slug = model.Slug,
-                    IsPublished = model.IsPublished
-                };
+                Name = model.Name,
+                Slug = model.Slug,
+                IsPublished = model.IsPublished
+            };
 
-                await _brandService.Create(brand);
-                return CreatedAtAction(nameof(Get), new { id = brand.Id }, null);
-            }
-            return BadRequest(ModelState);
+            await _brandService.Create(brand);
+            return CreatedAtAction(nameof(Get), new { id = brand.Id }, null);
         }
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> Put(long id, [FromBody] BrandForm model)
         {
-            if (ModelState.IsValid)
+            var brand = _brandRepository.Query().FirstOrDefault(x => x.Id == id);
+            if(brand == null)
             {
-                var brand = _brandRepository.Query().FirstOrDefault(x => x.Id == id);
-                if(brand == null)
-                {
-                    return NotFound();
-                }
-
-                brand.Name = model.Name;
-                brand.Slug = model.Slug;
-                brand.IsPublished = model.IsPublished;
-
-                await _brandService.Update(brand);
-                return Accepted();
+                return NotFound();
             }
 
-            return BadRequest(ModelState);
+            brand.Name = model.Name;
+            brand.Slug = model.Slug;
+            brand.IsPublished = model.IsPublished;
+
+            await _brandService.Update(brand);
+            return Accepted();
         }
 
         [HttpDelete("{id}")]

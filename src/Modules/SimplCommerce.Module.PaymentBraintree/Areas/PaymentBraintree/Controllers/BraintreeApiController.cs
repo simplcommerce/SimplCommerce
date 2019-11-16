@@ -13,6 +13,7 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Controlle
     [Area("PaymentBraintree")]
     [Authorize(Roles = "admin")]
     [Route("api/braintree")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class BraintreeApiController : Controller
     {
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;

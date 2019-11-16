@@ -7,7 +7,7 @@
     function BrandFormCtrl($state, $stateParams, brandService, translateService) {
         var vm = this;
         vm.translate = translateService;
-        vm.brand = {};
+        vm.brand = { isPublished: true };
         vm.brandId = $stateParams.id;
         vm.isEditMode = vm.brandId > 0;
 

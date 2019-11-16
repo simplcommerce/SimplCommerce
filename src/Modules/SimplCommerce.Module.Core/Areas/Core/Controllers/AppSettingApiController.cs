@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Core.Areas.Core.ViewModels;
 using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Core.Areas.Core.Controllers
@@ -13,7 +14,8 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
     [Area("Core")]
     [Authorize(Roles = "admin")]
     [Route("api/appsettings")]
-    public class AppSettingApiController : Controller
+    [ApiController]
+    public class AppSettingApiController : ControllerBase
     {
         private readonly IRepositoryWithTypedId<AppSetting, string> _appSettingRepository;
         private readonly IConfigurationRoot _configurationRoot;
@@ -25,21 +27,24 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<ActionResult<IList<AppSettingVm>>> Get()
         {
-            var settings = await _appSettingRepository.Query().Where(x => x.IsVisibleInCommonSettingPage).ToListAsync();
-            return Json(settings);
+            var settings = await _appSettingRepository.Query()
+                .Where(x => x.IsVisibleInCommonSettingPage)
+                .Select(x => new AppSettingVm { Key = x.Id, Value = x.Value })
+                .ToListAsync();
+            return settings;
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] IList<AppSetting> model)
+        public async Task<IActionResult> Put([FromBody] IList<AppSettingVm> model)
         {
             if (ModelState.IsValid)
             {
                 var settings = await _appSettingRepository.Query().Where(x => x.IsVisibleInCommonSettingPage).ToListAsync();
                 foreach(var item in settings)
                 {
-                    var vm = model.FirstOrDefault(x => x.Id == item.Id);
+                    var vm = model.FirstOrDefault(x => x.Key == item.Id);
                     if (vm != null)
                     {
                         item.Value = vm.Value;
