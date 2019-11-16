@@ -31,8 +31,9 @@
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
-                        for (var key in error) {
-                            vm.validationErrors.push(error[key][0]);
+                        var errors = error.errors ? error.errors : error;
+                        for (var key in errors) {
+                            vm.validationErrors.push(errors[key][0]);
                         }
                     } else {
                         vm.validationErrors.push('Could not add brand.');

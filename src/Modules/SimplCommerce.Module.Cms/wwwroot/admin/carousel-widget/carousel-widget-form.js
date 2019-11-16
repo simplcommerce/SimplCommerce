@@ -33,6 +33,7 @@
             var promise;
 
             // ng-upload will post null as text
+            vm.widgetInstance.publishEnd = vm.widgetInstance.publishEnd === null ? '' : vm.widgetInstance.publishEnd;
             angular.forEach(vm.widgetInstance.items, function (item) {
                 item.caption = item.caption === null ? '' : item.caption;
                 item.subCaption = item.subCaption === null ? '' : item.subCaption;
@@ -53,8 +54,9 @@
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
-                        for (var key in error) {
-                            vm.validationErrors.push(error[key][0]);
+                        var errors = error.errors ? error.errors : error;
+                        for (var key in errors) {
+                            vm.validationErrors.push(errors[key][0]);
                         }
                     } else {
                         vm.validationErrors.push('Could not carousel widget.');
