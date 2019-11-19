@@ -165,6 +165,7 @@ namespace SimplCommerce.WebHost.Extensions
                 })
                 .AddRoleStore<SimplRoleStore>()
                 .AddUserStore<SimplUserStore>()
+                .AddSignInManager<SimplSignInManager<User>>()
                 .AddDefaultTokenProviders();
 
             services.AddIdentityServer(options =>

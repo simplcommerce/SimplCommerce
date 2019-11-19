@@ -18,7 +18,6 @@ namespace SimplCommerce.Module.Core
             serviceCollection.AddTransient<IMediaService, MediaService>();
             serviceCollection.AddTransient<IThemeService, ThemeService>();
             serviceCollection.AddTransient<IWidgetInstanceService, WidgetInstanceService>();
-            serviceCollection.AddScoped<SignInManager<User>, SimplSignInManager<User>>();
             serviceCollection.AddScoped<IWorkContext, WorkContext>();
             serviceCollection.AddScoped<ISmsSender, SmsSender>();
             serviceCollection.AddSingleton<SettingDefinitionProvider>();
