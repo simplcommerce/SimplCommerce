@@ -7,7 +7,7 @@
   <UsingTask AssemblyFile="..\..\build\$(TaskFolder)\SimplCommerce.MSBuildTasks.dll" TaskName="CopyModuleTask" />
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-Modular.WebHost-dca604fa-ee10-4a6c-8e7d-8cc79dca8c8f</UserSecretsId>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
     <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
@@ -65,13 +65,13 @@
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="3.0.1" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.0.415" />
     <PackageReference Include="Microsoft.AspNetCore.Antiforgery" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="3.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.1-dev-00767" />
@@ -80,6 +80,6 @@
   </ItemGroup>
 
   <Target Name="CopyModule" AfterTargets="Build">
-    <CopyModuleTask ProjectDir="$(ProjectDir)" TargetFramework="netcoreapp3.0" BuildConfiguration="$(ConfigurationName)" />
+    <CopyModuleTask ProjectDir="$(ProjectDir)" TargetFramework="netcoreapp3.1" BuildConfiguration="$(ConfigurationName)" />
   </Target>
 </Project>

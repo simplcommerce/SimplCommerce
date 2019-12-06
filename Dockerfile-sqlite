@@ -3,14 +3,14 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100 AS build-env
 WORKDIR /app
 COPY . ./
 
-RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />#<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
+RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />#<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.0" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
 RUN sed -i 's/UseSqlServer/UseSqlite/' src/SimplCommerce.WebHost/Program.cs
 RUN sed -i 's/UseSqlServer/UseSqlite/' src/SimplCommerce.WebHost/Extensions/ServiceCollectionExtensions.cs
 RUN sed -i 's/"DefaultConnection": ".*"/"DefaultConnection": "Data Source=simplcommerce.db"/' src/SimplCommerce.WebHost/appsettings.json
 
 RUN rm src/SimplCommerce.WebHost/Migrations/*
 
-RUN dotnet tool install --global dotnet-ef --version 3.0.0
+RUN dotnet tool install --global dotnet-ef --version 3.1.0
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
 # ef core migrations run in debug, so we have to build in Debug for copying module correctly 
@@ -24,7 +24,7 @@ RUN dotnet build -c Release \
 	&& dotnet build -c Release \
 	&& dotnet publish -c Release -o out
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0.0
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1.0
 
 RUN apt-get update \
 	&& apt-get install libgdiplus -y \
