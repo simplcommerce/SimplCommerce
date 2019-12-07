@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100 AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
   
 WORKDIR /app
 COPY . ./
@@ -26,7 +26,7 @@ RUN dotnet build -c Release \
 # remove BOM for psql	
 RUN sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/SimplCommerce.WebHost/dbscript.sql
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1.0
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 
 # hack to make postgresql-client install work on slim
 RUN mkdir -p /usr/share/man/man1 \
