@@ -28,7 +28,8 @@ namespace SimplCommerce.Module.Shipments.Services
         public async Task<IList<ShipmentItemVm>> GetItemToShip(long orderId, long warehouseId)
         {
             var itemsToShip = await GetShipmentItem(orderId);
-            var stocks = await _stockRepository.Query().Where(x => x.WarehouseId == warehouseId && itemsToShip.Any(p => p.ProductId == x.ProductId)).ToListAsync();
+            var productIdsToShip = itemsToShip.Select(x => x.ProductId);
+            var stocks = await _stockRepository.Query().Where(x => x.WarehouseId == warehouseId && productIdsToShip.Contains(x.ProductId)).ToListAsync();
             foreach(var item in itemsToShip)
             {
                 var stock = stocks.FirstOrDefault(x => x.ProductId == item.ProductId);
