@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -30,6 +31,8 @@ namespace SimplCommerce.Module.Orders.Services
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("OrderCancellationBackgroundService is working.");
+                await Task.Delay(TimeSpan.FromSeconds(60), stoppingToken);
+
                 using (var scope = _serviceProvider.CreateScope())
                 {
                     var orderRepository = scope.ServiceProvider.GetRequiredService<IRepository<Order>>();
@@ -37,19 +40,15 @@ namespace SimplCommerce.Module.Orders.Services
                     var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
                     await CancelFailedPaymentOrders(orderRepository, orderService, mediator, stoppingToken);
                 }
-
-                await Task.Delay(TimeSpan.FromSeconds(60), stoppingToken);
             }
-
-            _logger.LogInformation("OrderCancellationBackgroundService is stopping.");
         }
 
         private async Task CancelFailedPaymentOrders(IRepository<Order> orderRepository, IOrderService orderService, IMediator mediator, CancellationToken stoppingToken)
         {
             var durationToCancel = DateTimeOffset.Now.AddMinutes(-5);
-            var failedPaymentOrders = orderRepository.Query().Where(x =>
+            var failedPaymentOrders = await orderRepository.Query().Where(x =>
                 (x.OrderStatus == OrderStatus.PendingPayment || x.OrderStatus == OrderStatus.PaymentFailed)
-                && x.LatestUpdatedOn < durationToCancel);
+                && x.LatestUpdatedOn < durationToCancel).ToListAsync();
 
             foreach (var order in failedPaymentOrders)
             {
@@ -65,9 +64,8 @@ namespace SimplCommerce.Module.Orders.Services
                 };
 
                 await mediator.Publish(orderStatusChanged, stoppingToken);
+                await orderRepository.SaveChangesAsync();
             }
-
-            await orderRepository.SaveChangesAsync();
         }
     }
 }
