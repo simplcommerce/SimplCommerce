@@ -23,24 +23,19 @@ namespace SimplCommerce.Module.Inventory.Services
 
         public async Task AddAllProduct(Warehouse warehouse)
         {
-            // TODO Need refactor for better performance
-            var productIds = await _productRepository.Query().Where(x => !x.HasOptions && x.VendorId == warehouse.VendorId).Select(x => x.Id).ToListAsync();
-            var inStockProductIds = await _stockRepository.Query().Where(x => x.WarehouseId== warehouse.Id).Select(x => x.ProductId).ToListAsync();
-            foreach(var productId in productIds)
-            {
-                if (!inStockProductIds.Contains(productId))
+            var products = await _productRepository.Query()
+                .Where(x => !x.HasOptions && x.VendorId == warehouse.VendorId)
+                .GroupJoin(_stockRepository.Query().Where(x => x.WarehouseId == warehouse.Id),
+                    product => product.Id, stock => stock.ProductId,
+                    (product, stock) => new { ProductId = product.Id, stock })
+                .SelectMany(x => x.stock.DefaultIfEmpty(), (x, stock) => new
                 {
-                    var stock = new Stock
-                    {
-                        ProductId = productId,
-                        WarehouseId = warehouse.Id,
-                        Quantity = 0
-                    };
+                    x.ProductId,
+                    stock.Quantity
+                }).Where(x => x.Quantity !=0).ToArrayAsync();
 
-                    _stockRepository.Add(stock);
-                }
-            }
-
+            var stocks = products.Select(x => new Stock { ProductId = x.ProductId, WarehouseId = warehouse.Id, Quantity = 0 });
+            _stockRepository.AddRange(stocks);
             await _stockRepository.SaveChangesAsync();
         }
 

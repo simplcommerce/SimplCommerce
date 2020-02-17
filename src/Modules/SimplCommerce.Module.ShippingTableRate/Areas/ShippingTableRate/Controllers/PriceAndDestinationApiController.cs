@@ -21,6 +21,7 @@ namespace SimplCommerce.Module.ShippingTableRate.Areas.ShippingTableRate.Control
             _priceAndDestinationRepository = priceAndDestinationRepository;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var items = await _priceAndDestinationRepository.Query()

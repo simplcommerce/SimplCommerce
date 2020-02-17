@@ -1,0 +1,101 @@
+﻿@model SimplCommerce.Module.Orders.Areas.Orders.ViewModels.OrderDetailVm
+
+@{
+    ViewData["Title"] = Localizer["Order detail"];
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <partial name="_AccountMenu" />
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-7">
+                <h5>@ViewData["Title"] @Model.Id - @Model.OrderStatusString</h5>
+            </div>
+            <div class="col-md-5 text-right">
+                @Localizer["Order date"] @Model.CreatedOn.DateTime
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4"><strong>@Localizer["Shipping address"]</strong></div>
+            <div class="col-md-4"><strong>@Localizer["Shipping method"]</strong></div>
+            <div class="col-md-4"><strong>@Localizer["Payment method"]</strong></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <strong>@Model.ShippingAddress.ContactName</strong> <br />
+                @Model.ShippingAddress.AddressLine1 <br />
+                @Model.ShippingAddress.AddressLine2 <br />
+                Phone: @Model.ShippingAddress.Phone
+            </div>
+            <div class="col-md-4">@Model.ShippingMethod</div>
+            <div class="col-md-4">@Model.PaymentMethod</div>
+        </div>
+
+        <table class="table table-borderless mt-4">
+            <thead>
+                <tr>
+                    <th class="pl-0">@Localizer["Product"]</th>
+                    <th class="text-right">@Localizer["Price"]</th>
+                    <th class="text-right">@Localizer["Quantity"]</th>
+                    <th class="text-right">@Localizer["Discount"]</th>
+                    <th class="text-right text-nowrap pr-0">@Localizer["Row Total"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OrderItems)
+                {
+                    <tr>
+                        <td class="pl-0">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <img class="img-fluid" src="@item.ProductImage" />
+                                </div>
+                                <div class="col-md-9">
+                                    <p>@item.ProductName</p>
+                                    <p>Quantity @item.Quantity</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-right">@item.ProductPriceString</td>
+                        <td class="text-right">@item.Quantity</td>
+                        <td class="text-right">@item.DiscountAmountString</td>
+                        <td class="text-right pr-0">@item.RowTotalString</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <table class="table table-borderless">
+                    <tr>
+                        <td>@Localizer["Subtotal"]</td>
+                        <td class="text-right pr-0">@Model.SubtotalString</td>
+                    </tr>
+                    <tr>
+                        <td>@Localizer["Shipping"]</td>
+                        <td class="text-right pr-0">@Model.ShippingAmountString</td>
+                    </tr>
+                    <tr>
+                        <td>@Localizer["Tax"]</td>
+                        <td class="text-right pr-0">@Model.TaxAmountString</td>
+                    </tr>
+                    <tr>
+                        <td>@Localizer["Discount"]</td>
+                        <td class="text-right pr-0">@Model.DiscountAmountString</td>
+                    </tr>
+                    <tr>
+                        <td>@Localizer["Payment Fee"]</td>
+                        <td class="text-right pr-0">@Model.PaymentFeeAmountString</td>
+                    </tr>
+                    <tr>
+                        <td><strong>@Localizer["Order Total"]</strong></td>
+                        <td class="text-right pr-0"><strong>@Model.OrderTotalString</strong></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

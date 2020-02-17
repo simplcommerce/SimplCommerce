@@ -161,6 +161,7 @@ namespace SimplCommerce.Module.Shipments.Areas.Shipments.Controllers
                     x.OrderId,
                     x.VendorId,
                     WarehouseName = x.Warehouse.Name,
+                    x.TrackingNumber,
                     x.CreatedOn,
                     ShippingAddress = new
                     {

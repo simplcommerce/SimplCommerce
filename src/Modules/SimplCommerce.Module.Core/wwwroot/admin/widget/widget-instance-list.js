@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.core')
-        .controller('WidgetInstanceListCtrl', WidgetInstanceListCtrl);
+        .controller('WidgetInstanceListCtrl', ['widgetService', 'translateService', WidgetInstanceListCtrl]);
 
-    /* @ngInject */
     function WidgetInstanceListCtrl(widgetService, translateService) {
         var vm = this;
         vm.translate = translateService;

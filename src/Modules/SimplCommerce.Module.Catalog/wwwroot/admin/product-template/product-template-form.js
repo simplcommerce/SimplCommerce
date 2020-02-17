@@ -2,7 +2,7 @@
 (function () {
     angular
         .module('simplAdmin.catalog')
-        .controller('ProductTemplateFormCtrl', ProductTemplateFormCtrl);
+        .controller('ProductTemplateFormCtrl', ['$state', '$stateParams', 'productTemplateService', 'productAttributeService', 'translateService', ProductTemplateFormCtrl]);
 
     /* @ngInject */
     function ProductTemplateFormCtrl($state, $stateParams, productTemplateService, productAttributeService, translateService) {

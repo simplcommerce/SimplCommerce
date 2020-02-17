@@ -1,12 +1,12 @@
 ﻿<div class="panel panel-default">
     <div class="panel-heading">
-        <h2>Manage Translations</h2>
-        <p>Note that the updated translations only be affected after the application is restarted</p>
+        <h2>{{::vm.translate.get('Manage Translations')}}</h2>
+        <p>{{::vm.translate.get('Note that the updated translations only be affected after the application is restarted')}}</p>
     </div>
     <div class="panel-body">
         <form name="cultureSelection" class="form-inline">
             <div class="form-group">
-                <label>Select culture</label>
+                <label>{{::vm.translate.get('Select culture')}}</label>
                 <select class="form-control" ng-model="vm.selectedCultureId" ng-change="vm.changeCulture()" ng-options="culture.id as culture.name for culture in vm.cultures"></select>
             </div>
         </form>
@@ -26,8 +26,8 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-8">
-                    <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> Save</button>
-                    <button ui-sref="dashboard" class="btn btn-default">Cancel</button>
+                    <button class="btn btn-primary" ng-click="vm.save()"><span class="glyphicon glyphicon-ok"></span> {{::vm.translate.get('Save')}}</button>
+                    <button ui-sref="dashboard" class="btn btn-default">{{::vm.translate.get('Cancel')}}</button>
                 </div>
             </div>
         </form>

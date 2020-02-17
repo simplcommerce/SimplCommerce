@@ -1,0 +1,12 @@
+﻿@model long
+
+@{
+    ViewBag.Title = "Result";
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger" role="alert">@TempData["Error"]</div>
+}
+
+<p>We are sorry that we could not complete <a href="~/user/orders/@Model">your order</a>. Please revisit and complete it.</p>

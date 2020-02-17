@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.StorageLocal
             serviceCollection.AddSingleton<IStorageService, LocalStorageService>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             
         }

@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.contacts')
-        .controller('ContactAreaListCtrl', ContactAreaListCtrl);
+        .controller('ContactAreaListCtrl', ['contactAreaService', 'translateService', ContactAreaListCtrl]);
 
-    /* @ngInject */
     function ContactAreaListCtrl(contactAreaService, translateService) {
         var vm = this;
         vm.translate = translateService;

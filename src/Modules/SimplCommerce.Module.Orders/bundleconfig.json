@@ -1,0 +1,18 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/orders.min.js",
+    "inputFiles": [
+      "wwwroot/admin/orders.module.js",
+      "wwwroot/admin/order/order-service.js",
+      "wwwroot/admin/order/order-list.js",
+      "wwwroot/admin/order/order-create.js",
+      "wwwroot/admin/order/order-detail.js",
+      "wwwroot/admin/order/order-widget.directive.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

@@ -2,10 +2,10 @@
 (function ($) {
     angular
         .module('simplAdmin.shipping-tablerate')
-        .controller('ShippingTableRateFormCtrl', ShippingTableRateFormCtrl);
+        .controller('ShippingTableRateFormCtrl', ['shippingTableRateService', 'translateService', ShippingTableRateFormCtrl]);
 
     /* @ngInject */
-    function ShippingTableRateFormCtrl($state, shippingTableRateService, translateService) {
+    function ShippingTableRateFormCtrl(shippingTableRateService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.pricesAndDestinations = [];

@@ -4,7 +4,8 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.ViewModels
 {
     public class CommentForm
     {
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
+        [StringLength(300, MinimumLength =10)]
         public string CommentText { get; set; }
 
         public string CommenterName { get; set; }

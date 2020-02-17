@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.cms')
-        .factory('spacebarWidgetService', spacebarWidgetService);
+        .factory('spacebarWidgetService', ['$http', 'Upload', spacebarWidgetService]);
 
-    /* @ngInject */
     function spacebarWidgetService($http, Upload) {
         var service = {
             getWidgetZones: getWidgetZones,

@@ -2,13 +2,13 @@
 (function () {
     angular
         .module('simplAdmin.core')
-        .factory('userService', userService);
+        .factory('userService', ['$http', userService]);
 
-    /* @ngInject */
     function userService($http) {
         var service = {
             getUsers: getUsers,
             getUser: getUser,
+            quickSearchUsers: quickSearchUsers,
             createUser: createUser,
             editUser: editUser,
             deleteUser: deleteUser,
@@ -24,6 +24,10 @@
 
         function getUser(id) {
             return $http.get('api/users/' + id);
+        }
+
+        function quickSearchUsers(name) {
+            return $http.get('api/users/quick-search/?name=' + name);
         }
 
         function createUser(user) {

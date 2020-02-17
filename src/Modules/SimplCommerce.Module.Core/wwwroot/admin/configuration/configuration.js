@@ -2,10 +2,9 @@
 (function ($) {
     angular
         .module('simplAdmin.core')
-        .controller('ConfigurationCtrl', ConfigurationCtrl);
+        .controller('ConfigurationCtrl', ['configurationService', 'translateService', ConfigurationCtrl]);
 
-    /* @ngInject */
-    function ConfigurationCtrl($state, configurationService, translateService) {
+    function ConfigurationCtrl(configurationService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.settings = {};

@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.cms')
-        .factory('carouselWidgetService', widgetService);
+        .factory('carouselWidgetService', ['$http', 'Upload', widgetService]);
 
-    /* @ngInject */
     function widgetService($http, Upload) {
         var service = {
             getWidgetZones: getWidgetZones,

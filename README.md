@@ -1,12 +1,14 @@
-# A simple, cross platform, modularized ecommerce system built on .NET Core
+# A simple, cross platform, modularized ecommerce system built on .NET Core [![Join the chat at https://gitter.im/simplcommerce/SimplCommerce](https://badges.gitter.im/simplcommerce/SimplCommerce.svg)](https://gitter.im/simplcommerce/SimplCommerce?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[![Join the chat at https://gitter.im/simplcommerce/SimplCommerce](https://badges.gitter.im/simplcommerce/SimplCommerce.svg)](https://gitter.im/simplcommerce/SimplCommerce?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+## High level architecture
+
+![SimpleCommerce - Modular architecture](https://raw.githubusercontent.com/simplcommerce/SimplCommerce/master/modular-architecture.png)
 
 ## Build Status
-| Build server| Platform       | Status      |
-|-------------|----------------|-------------|
-| AppVeyor    | Windows        |[![Build status](https://ci.appveyor.com/api/projects/status/cq61prgs6ta8e9hi/branch/master?svg=true)](https://ci.appveyor.com/project/thiennn/simplcommerce/branch/master) |
-|Travis       | Linux / MacOS  |[![Build Status](https://travis-ci.org/simplcommerce/SimplCommerce.svg?branch=master)](https://travis-ci.org/simplcommerce/SimplCommerce) |
+| Build server    | Platform       | Status      |
+|-----------------|----------------|-------------|
+| Azure Pipelines | All            |[![Build Status](https://simplcommerce.visualstudio.com/simplcommerce/_apis/build/status/simplcommerce.SimplCommerce?branchName=master)](https://simplcommerce.visualstudio.com/simplcommerce/_build/latest?definitionId=1&branchName=master)
+|Travis           | Linux / MacOS  |[![Build Status](https://travis-ci.org/simplcommerce/SimplCommerce.svg?branch=master)](https://travis-ci.org/simplcommerce/SimplCommerce) |
 
 ## Online demo (Azure Website)
 - Store front: http://demo.simplcommerce.com
@@ -18,18 +20,19 @@ For testing purpose only `docker run -p 5000:80 simplcommerce/ci-build`
 
 Continuous deployment: https://ci.simplcommerce.com
 
-## Visual Studio 2017 and SQL Server
+## Visual Studio 2019 and SQL Server
 
 #### Prerequisites
 
 - SQL Server
-- [Visual Studio 2017 version >= 15.8 with .NET Core SDK 2.1.402](https://www.microsoft.com/net/download/all)
+- [Visual Studio 2019 version >= 16.3 with .NET Core SDK 3.1.100](https://www.microsoft.com/net/download/all)
 
 #### Steps to run
 
 - Update the connection string in appsettings.json in SimplCommerce.WebHost
 - Build whole solution.
-- Open Package Manager Console Window and type "Update-Database" then press "Enter". This action will create database schema.
+- In Solution Explorer, make sure that SimplCommerce.WebHost is selected as the Startup Project
+- Open Package Manager Console Window and make sure that SimplCommerce.WebHost is selected as Default project. Then type "Update-Database" then press "Enter". This action will create database schema.
 - In Visual Studio, press "Control + F5".
 - The back-office can access via /Admin using the pre-created account: admin@simplcommerce.com, 1qazZAQ!
 
@@ -38,7 +41,7 @@ Continuous deployment: https://ci.simplcommerce.com
 #### Prerequisite
 
 - PostgreSQL
-- [.NET Core SDK 2.1.402](https://www.microsoft.com/net/download/all)
+- [.NET Core SDK 3.1.100](https://www.microsoft.com/net/download/all)
 
 #### Steps to run
 
@@ -49,11 +52,11 @@ Continuous deployment: https://ci.simplcommerce.com
 
 ## Technologies and frameworks used:
 
-- ASP.NET MVC Core 2.1
-- Entity Framework Core 2.1
-- ASP.NET Identity Core 2.1
+- ASP.NET MVC Core 3.1
+- Entity Framework Core 3.1
+- ASP.NET Identity Core 3.1
 - Angular 1.6.3
-- MediatR 5.0.1 for domain event
+- MediatR 7.0.0 for domain event
 
 ## Docs
 

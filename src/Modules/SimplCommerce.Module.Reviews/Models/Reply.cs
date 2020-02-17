@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Core.Models;
 
@@ -22,6 +23,7 @@ namespace SimplCommerce.Module.Reviews.Models
 
         public string Comment { get; set; }
 
+        [StringLength(450)]
         public string ReplierName { get; set; }
 
         public ReplyStatus Status { get; set; }

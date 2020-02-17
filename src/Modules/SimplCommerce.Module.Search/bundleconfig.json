@@ -1,0 +1,15 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/search.min.js",
+    "inputFiles": [
+      "wwwroot/admin/search.module.js",
+      "wwwroot/admin/search-service.js",
+      "wwwroot/admin/most-search-keywords.directive.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

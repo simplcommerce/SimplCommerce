@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.catalog')
-        .factory('categoryWidgetService', categoryWidgetService);
+        .factory('categoryWidgetService', ['$http', categoryWidgetService]);
 
-    /* @ngInject */
     function categoryWidgetService($http) {
         var service = {
             getWidgetZones: getWidgetZones,

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Runtime.Loader;
-using System.Text;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -14,12 +14,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.Extensions.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Modules;
@@ -27,7 +26,8 @@ using SimplCommerce.Infrastructure.Web.ModelBinders;
 using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using SimplCommerce.WebHost.IdentityServer;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -70,7 +70,6 @@ namespace SimplCommerce.WebHost.Extensions
                 }
 
                 GlobalConfiguration.Modules.Add(module);
-                RegisterModuleInitializerServices(module, ref services);
             }
 
             return services;
@@ -81,19 +80,19 @@ namespace SimplCommerce.WebHost.Extensions
             var mvcBuilder = services
                 .AddMvc(o =>
                 {
+                    o.EnableEndpointRouting = false;
                     o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider());
-                    o.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 })
-                .AddRazorOptions(o =>
-                {
-                    foreach (var module in modules.Where(x => !x.IsBundledWithHost))
-                    {
-                        o.AdditionalCompilationReferences.Add(MetadataReference.CreateFromFile(module.Assembly.Location));
-                    }
-                })
+                .AddRazorRuntimeCompilation()
                 .AddViewLocalization()
-                .AddDataAnnotationsLocalization()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1); ;
+                .AddModelBindingMessagesLocalizer(services)
+                .AddDataAnnotationsLocalization(o =>
+                {
+                    var factory = services.BuildServiceProvider().GetService<IStringLocalizerFactory>();
+                    var L = factory.Create(null);
+                    o.DataAnnotationLocalizerProvider = (t, f) => L;
+                })
+                .AddNewtonsoftJson();
 
             foreach (var module in modules.Where(x => !x.IsBundledWithHost))
             {
@@ -101,6 +100,35 @@ namespace SimplCommerce.WebHost.Extensions
             }
 
             return services;
+        }
+
+        /// <summary>
+        /// Localize ModelBinding messages, e.g. when user enters string value instead of number...
+        /// these messages can't be localized like data attributes
+        /// </summary>
+        /// <param name="mvc"></param>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IMvcBuilder AddModelBindingMessagesLocalizer
+            (this IMvcBuilder mvc, IServiceCollection services)
+        {
+            return mvc.AddMvcOptions(o =>
+            {                
+                var factory = services.BuildServiceProvider().GetService<IStringLocalizerFactory>();
+                var L = factory.Create(null);
+
+                o.ModelBindingMessageProvider.SetValueIsInvalidAccessor((x) => L["The value '{0}' is invalid.", x]);
+                o.ModelBindingMessageProvider.SetValueMustBeANumberAccessor((x) => L["The field {0} must be a number.", x]);
+                o.ModelBindingMessageProvider.SetMissingBindRequiredValueAccessor((x) => L["A value for the '{0}' property was not provided.", x]);
+                o.ModelBindingMessageProvider.SetAttemptedValueIsInvalidAccessor((x, y) => L["The value '{0}' is not valid for {1}.", x, y]);
+                o.ModelBindingMessageProvider.SetMissingKeyOrValueAccessor(() => L["A value is required."]);
+                o.ModelBindingMessageProvider.SetMissingRequestBodyRequiredValueAccessor(() => L["A non-empty request body is required."]);
+                o.ModelBindingMessageProvider.SetNonPropertyAttemptedValueIsInvalidAccessor((x) => L["The value '{0}' is not valid.", x]);
+                o.ModelBindingMessageProvider.SetNonPropertyUnknownValueIsInvalidAccessor(() => L["The value provided is invalid."]);
+                o.ModelBindingMessageProvider.SetNonPropertyValueMustBeANumberAccessor(() => L["The field must be a number."]);
+                o.ModelBindingMessageProvider.SetUnknownValueIsInvalidAccessor((x) => L["The supplied value is invalid for {0}.", x]);
+                o.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor((x) => L["Null value is invalid."]);
+            });
         }
 
         private static void AddApplicationPart(IMvcBuilder mvcBuilder, Assembly assembly)
@@ -133,10 +161,26 @@ namespace SimplCommerce.WebHost.Extensions
                     options.Password.RequireUppercase = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequiredUniqueChars = 0;
+                    options.ClaimsIdentity.UserNameClaimType = JwtRegisteredClaimNames.Sub;
                 })
                 .AddRoleStore<SimplRoleStore>()
                 .AddUserStore<SimplUserStore>()
+                .AddSignInManager<SimplSignInManager<User>>()
                 .AddDefaultTokenProviders();
+
+            services.AddIdentityServer(options =>
+                 {
+                     options.Events.RaiseErrorEvents = true;
+                     options.Events.RaiseInformationEvents = true;
+                     options.Events.RaiseFailureEvents = true;
+                     options.Events.RaiseSuccessEvents = true;
+                 })
+                 .AddInMemoryIdentityResources(IdentityServerConfig.Ids)
+                 .AddInMemoryApiResources(IdentityServerConfig.Apis)
+                 .AddInMemoryClients(IdentityServerConfig.Clients)
+                 .AddAspNetIdentity<User>()
+                 .AddProfileService<SimplProfileService>()
+                 .AddDeveloperSigningCredential(); // not recommended for production - you need to store your key material somewhere secure
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie()
@@ -159,18 +203,10 @@ namespace SimplCommerce.WebHost.Extensions
                         OnRemoteFailure = ctx => HandleRemoteLoginFailure(ctx)
                     };
                 })
-                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = false,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = configuration["Authentication:Jwt:Issuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Authentication:Jwt:Key"]))
-                    };
+                .AddLocalApi(JwtBearerDefaults.AuthenticationScheme, option => {
+                    option.ExpectedScope = "api.simplcommerce";
                 });
+
             services.ConfigureApplicationCookie(x =>
             {
                 x.LoginPath = new PathString("/login");
@@ -248,16 +284,6 @@ namespace SimplCommerce.WebHost.Extensions
                         module.Assembly = assembly;
                     }
                 }
-            }
-        }
-
-        private static void RegisterModuleInitializerServices(ModuleInfo module, ref IServiceCollection services)
-        {
-            var moduleInitializerType = module.Assembly.GetTypes()
-                    .FirstOrDefault(t => typeof(IModuleInitializer).IsAssignableFrom(t));
-            if ((moduleInitializerType != null) && (moduleInitializerType != typeof(IModuleInitializer)))
-            {
-                services.AddSingleton(typeof(IModuleInitializer), moduleInitializerType);
             }
         }
 

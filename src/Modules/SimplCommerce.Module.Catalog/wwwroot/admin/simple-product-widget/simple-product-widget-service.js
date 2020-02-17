@@ -2,10 +2,10 @@
 (function () {
     angular
         .module('simplAdmin.catalog')
-        .factory('simpleProductWidgetService', simpleProductWidgetService);
+        .factory('simpleProductWidgetService', ['$http', simpleProductWidgetService]);
 
     /* @ngInject */
-    function simpleProductWidgetService($http, Upload) {
+    function simpleProductWidgetService($http) {
         var service = {
             getWidgetZones: getWidgetZones,
             getSimpleProductWidget: getSimpleProductWidget,

@@ -1,0 +1,37 @@
+﻿@model SimplCommerce.Module.Notifications.Areas.Notifications.ViewModels.TestNotificationVm
+
+<div>
+    <h2 class="page-header">Test RealTime Notification</h2>
+    <h4>Select a notification receiver</h4>
+    <form asp-area="Notifications" asp-controller="Notifications" asp-action="TestNotification" method="post">
+        <div class="form-row">
+            <div class="col-auto">
+                <label class="col-form-label" asp-for="UserId">Receiver</label>
+            </div>
+            <div class="col-auto">
+                <select class="form-control" asp-for="UserId" asp-items="Model.OnlineUsers"></select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-auto">
+                <label class="col-form-label" asp-for="Severity">Severity</label>
+            </div>
+            <div class="col-auto">
+                <select class="form-control" asp-for="Severity" asp-items="Model.Severities"></select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-auto">
+                <label class="col-form-label" asp-for="Message">Message</label>
+            </div>
+            <div class="col-auto">
+                <textarea class="form-control" asp-for="Message"></textarea>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-auto">
+                <button type="submit" class="btn btn-info">Send!</button>
+            </div>
+        </div>
+    </form>
+</div>

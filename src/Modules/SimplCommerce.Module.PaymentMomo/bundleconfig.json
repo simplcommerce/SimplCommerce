@@ -1,0 +1,15 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/paymentmomo.min.js",
+    "inputFiles": [
+      "wwwroot/admin/paymentMomo.module.js",
+      "wwwroot/admin/momo/momo-service.js",
+      "wwwroot/admin/momo/momo-config-form.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

@@ -1,0 +1,15 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/paymentstripe.min.js",
+    "inputFiles": [
+      "wwwroot/admin/paymentStripe.module.js",
+      "wwwroot/admin/stripe/stripe-service.js",
+      "wwwroot/admin/stripe/stripe-config-form.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

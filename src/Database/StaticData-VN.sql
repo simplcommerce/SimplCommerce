@@ -779,7 +779,7 @@ INSERT [dbo].[ShippingTableRate_PriceAndDestination] ([Id], [CountryId], [MinOrd
 SET IDENTITY_INSERT [dbo].[ShippingTableRate_PriceAndDestination] OFF
 GO
 
-INSERT [dbo].[Localization_Culture] ([Id], [Name], IsDefault) VALUES ('vi-VN', N'Tiếng Việt', 0)
+INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES ('vi-VN', N'Tiếng Việt')
 GO
 
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Register', N'Đăng ký')
@@ -835,7 +835,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-V
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'reviews', N'nhận xét')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Add Review', N'Viết nhận xét')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Customer reviews', N'Nhận xét của khách hàng')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Your review will be showed within the next 24h.', N'Nhận xét của bạn sẽ được hiển thị trong vòng 24 tiếng')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Your review will be shown within the next 24h.', N'Nhận xét của bạn sẽ được hiển thị trong vòng 24 tiếng')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Thank you {0} for your review', N'Cảm ơn {0} đã gửi nhận xét')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Rating average', N'Đánh giá trung bình')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'stars', N'sao')
@@ -867,7 +867,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-V
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Dashboard', N'Dashboard')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Incomplete orders', N'Đơn hàng chưa xong')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Pending reviews', N'Đánh giá đang chờ duyệt')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Most search keywords', N'Từ khóa được tìm kiếm nhiều nhất')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Most searched keywords', N'Từ khóa được tìm kiếm nhiều nhất')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Most viewed products', N'Sản phẩm được xem nhiều nhất')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'OrderId', N'Số đơn hàng')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Order Status', N'Trạng thái đơn hàng')
@@ -1000,4 +1000,11 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-V
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Submit', N'Gửi đi')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'All Categories', N'Tất cả danh mục')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Search here...', N'Tìm kiếm ở đây...')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'The {0} field is required.', N'Trường {0} là bắt buộc.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'The value {0} is not valid for {1}.', N'Giá trị {0} thì không hợp lệ cho {1}.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'The value {0} is invalid.', N'Giá trị {0} thì không hợp lệ.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'The supplied value is invalid for {0}.', N'Giá trị đã cung cấp không hợp lệ cho {0}.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'Null value is invalid.', N'Giá trị trống thì không hợp lệ')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'A value is required.', N'Một giá trị là bắt buộc')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('vi-VN', N'A value for the {0} property was not provided.', N'Giá trị cho {0} đã không được cung cấp.')
 GO

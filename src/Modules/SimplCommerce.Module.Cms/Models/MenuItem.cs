@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Core.Models;
 
@@ -20,8 +21,10 @@ namespace SimplCommerce.Module.Cms.Models
 
         public Entity Entity { get; set; }
 
+        [StringLength(450)]
         public string CustomLink { get; set; }
 
+        [StringLength(450)]
         public string Name { get; set; }
 
         public int DisplayOrder { get; set; }

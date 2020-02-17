@@ -4,7 +4,7 @@
             <h2>{{::vm.translate.get('Products')}}</h2>
         </div>
         <div class="col-md-4 text-right">
-            <a ui-sref="product-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>{{::vm.translate.get('Create Product')}}</a>
+            <a ui-sref="product-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create Product')}}</a>
         </div>
     </div>
 </div>
@@ -64,7 +64,7 @@
             <th></th>
         </tr>
         <tr>
-            <th ng-show="!vm.isLoading" colspan="10">{{vm.tableStateRef.pagination.totalItemCount | number:0}} records found</th>
+            <th ng-show="!vm.isLoading" colspan="10">{{vm.tableStateRef.pagination.totalItemCount | number:0}} {{::vm.translate.get('records found')}}</th>
         </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">
@@ -83,6 +83,9 @@
                 <button ng-if="!product.isPublished" title="Publish" ng-click="vm.changeStatus(product)" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-play"></span></button>
                 <a ui-sref="product-edit({id: product.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
                 <button ng-click="vm.deleteProduct(product)" title="Delete" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+                <a ui-sref="product-translation({id: product.id, culture: culture})" class="btn btn-default btn-xs btn-translate" ng-repeat="culture in vm.enableCultures"> 
+                    <span class="flag flag-{{culture.substr(culture.length - 2).toLowerCase()}}" alt="{{culture}}" title="{{culture}}"></span>
+                </a>
             </td>
         </tr>
     </tbody>

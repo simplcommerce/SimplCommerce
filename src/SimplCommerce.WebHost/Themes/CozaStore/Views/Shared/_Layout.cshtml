@@ -1,30 +1,22 @@
 ﻿@using System.Globalization
 
 <!doctype html>
-<html>
+<html lang="@CultureInfo.CurrentUICulture.Name.ToLowerInvariant()">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewData["Title"] - SimplCommerce</title>
     @RenderSection("additionalMeta", false)
 
-    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/lib/bootstrap4/css/bootstrap.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/toastr/build/toastr.min.css" />
-    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
-    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/fonts/iconic/css/material-design-iconic-font.min.css" />
-    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/fonts/linearicons-v1.0.0/icon-font.min.css" />
-    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/lib/bootstrap-star-rating/css/star-rating.css" />
-    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/vendor/animate/animate.css" />
-    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/vendor/css-hamburgers/hamburgers.min.css" />
-    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/vendor/animsition/css/animsition.min.css" />
-    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/vendor/slick/slick.css" />
-    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/css/util.css" />
-    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/css/main.css" />
-    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/css/simpl.css" />
+    <link simpl-append-version="true" rel="stylesheet" type="text/css" href="~/themes/CozaStore/site.min.css" />
+    <script simpl-append-version="true" src="~/lib/angular/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
 
     @RenderSection("head", required: false)
 </head>
-<body class="animsition">
+<body>
     <!-- Header -->
     <header class="header-v4">
         <!-- Header desktop -->
@@ -37,6 +29,7 @@
                     </div>
 
                     <div class="right-top-bar flex-w h-full">
+                        <partial name="_SelectLanguagePartial" />
                         <a href="~/help-center" class="flex-c-m trans-04 p-lr-25">
                             Help & FAQs
                         </a>
@@ -124,7 +117,7 @@
 
     @RenderSection("featured", false)
 
-    <div class="container body-content">
+    <div class="container body-content clearfix">
         @RenderBody()
     </div>
     <!-- Footer -->
@@ -171,7 +164,7 @@
 
                 <div class="col-sm-6 col-lg-3 p-b-50">
                     <h4 class="stext-301 cl0 p-b-30">
-                        Newsletter
+                        @Localizer["Newsletter"]
                     </h4>
 
                     <form>
@@ -211,7 +204,13 @@
                         <img src="~/themes/CozaStore/images/icons/icon-pay-05.png" alt="ICON-PAY">
                     </a>
                 </div>
+                <!--
+                    You are freely remove or change this copyright notice below.
+                    If you like SimplCommerce and want to help us continue to develop it then
+                    you can donate us at https://opencollective.com/simplcommerce. Thanks
 
+                    Note: this theme are not owned by SimplCommerce, You might need to keep the Colorlib link back
+                -->
                 <p class="stext-107 cl6 txt-center">
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;
@@ -229,7 +228,7 @@
         </span>
     </div>
     <div id="shopModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
             </div>
         </div>
@@ -244,21 +243,17 @@
         window.simplGlobalSetting = {};
         window.simplGlobalSetting.lang = '@CultureInfo.CurrentCulture.Name';
     </script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script simpl-append-version="true" src="~/lib/bootstrap4/js/bootstrap.js"></script>
+    <script simpl-append-version="true" src="~/lib/bootstrap4/js/bootstrap.min.js"></script>
     <script simpl-append-version="true" src="~/lib/multi-dropdown-menu/js/bootstrap-4-navbar.js"></script>
     <script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
     <script simpl-append-version="true" src="~/lib/toastr/build/toastr.min.js"></script>
     <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
-    @if (CultureInfo.CurrentCulture.Name == "vi-VN")
+    @if(CultureInfo.CurrentCulture.Name != SimplCommerce.Infrastructure.GlobalConfiguration.DefaultCulture)
     {
-        <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/vi-vn.js"></script>
+        <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/@(CultureInfo.CurrentCulture.Name).js"></script>
     }
 
-    <script simpl-append-version="true" src="~/themes/CozaStore/vendor/animsition/js/animsition.min.js"></script>
     <script simpl-append-version="true" src="~/themes/CozaStore/vendor/slick/slick.min.js"></script>
     <script simpl-append-version="true" src="~/themes/CozaStore/js/slick-custom.js"></script>
     <script simpl-append-version="true" src="~/themes/CozaStore/js/cozastore.js"></script>

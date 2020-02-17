@@ -5,16 +5,17 @@
     <TaskFolder Condition=" '$(MSBuildRuntimeType)' != 'Core' ">net46</TaskFolder>
   </PropertyGroup>
   <UsingTask AssemblyFile="..\..\build\$(TaskFolder)\SimplCommerce.MSBuildTasks.dll" TaskName="CopyModuleTask" />
-  
+
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-Modular.WebHost-dca604fa-ee10-4a6c-8e7d-8cc79dca8c8f</UserSecretsId>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
     <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\**\*;web.config;modules.json;appsettings.json;Modules\**\*;Themes\**\*;Views\**\*">
+    <Content Include="wwwroot\**\*;modules.json;appsettings.json;Modules\**\*;Themes\**\*;Views\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
@@ -29,9 +30,13 @@
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Inventory\SimplCommerce.Module.Inventory.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.News\SimplCommerce.Module.News.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Orders\SimplCommerce.Module.Orders.csproj" />
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentBraintree\SimplCommerce.Module.PaymentBraintree.csproj" />
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentCashfree\SimplCommerce.Module.PaymentCashfree.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentCoD\SimplCommerce.Module.PaymentCoD.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentPaypalExpress\SimplCommerce.Module.PaymentPaypalExpress.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentStripe\SimplCommerce.Module.PaymentStripe.csproj" />
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentMomo\SimplCommerce.Module.PaymentMomo.csproj" />
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentNganLuong\SimplCommerce.Module.PaymentNganLuong.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Payments\SimplCommerce.Module.Payments.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Pricing\SimplCommerce.Module.Pricing.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.ProductComparison\SimplCommerce.Module.ProductComparison.csproj" />
@@ -57,16 +62,28 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.2" />
-    <PackageReference Include="Serilog.Settings.Configuration" Version="2.6.1" />
+    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="3.0.1" />
+    <PackageReference Include="BuildBundlerMinifier" Version="3.0.415" />
+    <PackageReference Include="Microsoft.AspNetCore.Antiforgery" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.1-dev-00767" />
-    <PackageReference Include="MediatR" Version="5.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.3" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.4.1" />
+    <PackageReference Include="MediatR" Version="7.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
   </ItemGroup>
 
   <Target Name="CopyModule" AfterTargets="Build">
-    <CopyModuleTask ProjectDir="$(ProjectDir)" BuildConfiguration="$(ConfigurationName)" />
+    <CopyModuleTask ProjectDir="$(ProjectDir)" TargetFramework="netcoreapp3.1" BuildConfiguration="$(ConfigurationName)" />
   </Target>
 </Project>

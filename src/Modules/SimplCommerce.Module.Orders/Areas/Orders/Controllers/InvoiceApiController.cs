@@ -21,13 +21,15 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         private readonly IWorkContext _workContext;
         private readonly IRazorViewRenderer _viewRender;
         private readonly IPdfConverter _pdfConverter;
+        private readonly ICurrencyService _currencyService;
 
-        public InvoiceApiController(IRepository<Order> orderRepository, IWorkContext workContext, IRazorViewRenderer viewRender, IPdfConverter pdfConverter)
+        public InvoiceApiController(IRepository<Order> orderRepository, IWorkContext workContext, IRazorViewRenderer viewRender, IPdfConverter pdfConverter, ICurrencyService currencyService)
         {
             _orderRepository = orderRepository;
             _workContext = workContext;
             _viewRender = viewRender;
             _pdfConverter = pdfConverter;
+            _currencyService = currencyService;
         }
 
         [HttpGet("print/{id}")]
@@ -40,7 +42,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 .Include(x => x.ShippingAddress).ThenInclude(x => x.Country)
                 .Include(x => x.OrderItems).ThenInclude(x => x.Product)
                 .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.OptionCombinations).ThenInclude(x => x.Option)
-                .Include(x => x.CreatedBy)
+                .Include(x => x.Customer)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (order == null)
@@ -54,7 +56,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 return BadRequest(new { error = "You don't have permission to manage this order" });
             }
 
-            var model = new OrderDetailVm
+            var model = new OrderDetailVm(_currencyService)
             {
                 Id = order.Id,
                 CreatedOn = order.CreatedOn,
@@ -75,13 +77,14 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 ShippingAddress = new ShippingAddressVm
                 {
                     AddressLine1 = order.ShippingAddress.AddressLine1,
-                    AddressLine2 = order.ShippingAddress.AddressLine2,
+                    CityName = order.ShippingAddress.City,
+                    ZipCode = order.ShippingAddress.ZipCode,
                     ContactName = order.ShippingAddress.ContactName,
                     DistrictName = order.ShippingAddress.District?.Name,
                     StateOrProvinceName = order.ShippingAddress.StateOrProvince.Name,
                     Phone = order.ShippingAddress.Phone
                 },
-                OrderItems = order.OrderItems.Select(x => new OrderItemVm
+                OrderItems = order.OrderItems.Select(x => new OrderItemVm(_currencyService)
                 {
                     Id = x.Id,
                     ProductId = x.Product.Id,

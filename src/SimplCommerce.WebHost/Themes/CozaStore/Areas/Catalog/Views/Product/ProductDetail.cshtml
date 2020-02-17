@@ -34,14 +34,32 @@
 <div class="product-detail">
     <div class="row">
         <div class="col-md-6">
-            <div class="sp-wrap">
-                @foreach (var image in Model.Images)
-                {
-                    <a href="@image.Url">
-                        <img src="@image.ThumbnailUrl" alt="" />
-                    </a>
-                }
+            <div id="main-product-images" class="product-images">
+                <div class="sp-wrap">
+                    @foreach (var image in Model.Images)
+                    {
+                        <a href="@image.Url">
+                            <img src="@image.ThumbnailUrl" alt="" />
+                        </a>
+                    }
+                </div>
             </div>
+            @foreach (var variant in Model.Variations)
+            {
+                if (variant.Images.Any())
+                {
+                    <div class="product-images" data-images-variation-name="@variant.NormalizedName" style="display:none;">
+                        <div class="sp-wrap">
+                            @foreach (var image in variant.Images)
+                            {
+                                <a href="@image.Url">
+                                    <img src="@image.ThumbnailUrl" alt="" />
+                                </a>
+                            }
+                        </div>
+                    </div>
+                }
+            }
         </div>
         <div class="col-md-6">
             <div class="product-name">
@@ -76,12 +94,12 @@
                                                 }
                                                 else
                                                 {
-                                                    <label>@Model.OptionDisplayValues[value].Value</label>
+                                                    <label class="badge">@Model.OptionDisplayValues[value].Value</label>
                                                 }
                                             }
                                             else
                                             {
-                                                <label>@value</label>
+                                                <label class="badge">@value</label>
                                             }
                                         </li>
                                     }
@@ -102,10 +120,10 @@
                             }
                             else
                             {
-                                <h3>@variant.CalculatedProductPrice.Price.ToString("C")</h3>
+                                <h3>@variant.CalculatedProductPrice.PriceString</h3>
                                 if (variant.CalculatedProductPrice.PercentOfSaving > 0)
                                 {
-                                    <p class="product-price-regular">@variant.CalculatedProductPrice.OldPrice.Value.ToString("C")</p>
+                                    <p class="product-price-regular">@variant.CalculatedProductPrice.OldPriceString</p>
                                     <p class="product-price-saving">@Localizer["You save"] (@(variant.CalculatedProductPrice.PercentOfSaving)%)</p>
                                 }
                             }
@@ -154,10 +172,10 @@
                     }
                     else
                     {
-                        <h3>@Model.CalculatedProductPrice.Price.ToString("C")</h3>
+                        <h3>@Model.CalculatedProductPrice.PriceString</h3>
                         if (Model.CalculatedProductPrice.PercentOfSaving > 0)
                         {
-                            <p class="product-price-regular">@Model.CalculatedProductPrice.OldPrice.Value.ToString("C")</p>
+                            <p class="product-price-regular">@Model.CalculatedProductPrice.OldPriceString)</p>
                             <p class="product-price-saving">@Localizer["You save"] (@(Model.CalculatedProductPrice.PercentOfSaving)%)</p>
                         }
                     }
@@ -214,11 +232,11 @@
         <div>
             <h3 class="p-t-25 p-b-25">@Localizer["Product specification"]</h3>
             <table class="table table-striped">
-                @foreach (var attribute in Model.Attributes)
+                @foreach (var attr in Model.Attributes)
                 {
                     <tr>
-                        <td>@attribute.Name</td>
-                        <td>@attribute.Value</td>
+                        <td>@attr.Name</td>
+                        <td>@attr.Value</td>
                     </tr>
                 }
             </table>
@@ -228,7 +246,8 @@
 
 @if (Model.RelatedProducts.Any())
 {
-    <h3 class="p-t-25 p-b-25">Related Products</h3>
+    <!-- Related Products -->
+    <h3 class="p-t-25 p-b-25">@Localizer["Enjoy and see also"]</h3>
     <div class="row product-list">
         @foreach (var product in Model.RelatedProducts)
         {
@@ -241,7 +260,8 @@
 
 @if (Model.CrossSellProducts.Any())
 {
-    <h3 class="p-t-25 p-b-25">Cross-sell Products</h3>
+    <!-- Cross-sell Products -->
+    <h3 class="p-t-25 p-b-25">@Localizer["Enjoy and take also"]</h3>
     <div class="row product-list">
         @foreach (var product in Model.CrossSellProducts)
         {
@@ -257,6 +277,11 @@
 <div>
     <h3 class="p-t-25 p-b-25">@Localizer["Customer reviews"]</h3>
     @await Component.InvokeAsync("Review", new { entityId = Model.Id, entityTypeId = "Product" })
+</div>
+
+<div>
+    <h3>@Localizer["Customer comments"]</h3>
+    @await Component.InvokeAsync("Comment", new { entityId = Model.Id, entityTypeId = "Product" })
 </div>
 
 @section scripts {

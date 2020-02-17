@@ -26,14 +26,14 @@
 
         public decimal OrderLineRowTotal => OrderLineTotal + OrderLineTaxAmount - OrderLineDiscountAmount;
 
-        public string OrderLineTaxAmountString => OrderLineTaxAmount.ToString("C");
+        public string OrderLineTaxAmountString { get; set; }
 
-        public string OrderLineProductPriceString => ProductPrice.ToString("C");
+        public string OrderLineProductPriceString { get; set; }
 
-        public string OrderLineDiscountAmountString => OrderLineDiscountAmount.ToString("C");
+        public string OrderLineDiscountAmountString { get; set; }
 
-        public string OrderLineTotalString => OrderLineTotal.ToString("C");
+        public string OrderLineTotalString { get; set; }
 
-        public string OrderLineRowTotalString => OrderLineRowTotal.ToString("C");
+        public string OrderLineRowTotalString { get; set; }
     }
 }

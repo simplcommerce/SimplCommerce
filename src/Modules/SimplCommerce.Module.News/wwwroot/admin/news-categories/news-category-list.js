@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.news')
-        .controller('NewsCategoryListCtrl', NewsCategoryListCtrl);
+        .controller('NewsCategoryListCtrl', ['newsCategoryService', NewsCategoryListCtrl]);
 
-    /* @ngInject */
     function NewsCategoryListCtrl(newsCategoryService) {
         var vm = this;
         vm.newsCategorys = [];

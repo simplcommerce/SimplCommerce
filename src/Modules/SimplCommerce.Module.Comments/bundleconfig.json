@@ -1,0 +1,15 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/comments.min.js",
+    "inputFiles": [
+      "wwwroot/admin/comments.module.js",
+      "wwwroot/admin/comment/comment-service.js",
+      "wwwroot/admin/comment/comment-list.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

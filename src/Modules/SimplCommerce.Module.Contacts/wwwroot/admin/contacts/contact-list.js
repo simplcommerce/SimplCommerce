@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.contacts')
-        .controller('ContactListCtrl', ContactListCtrl);
+        .controller('ContactListCtrl', ['contactService', 'contactAreaService', 'translateService', ContactListCtrl]);
 
-    /* @ngInject */
     function ContactListCtrl(contactService, contactAreaService, translateService) {
         var vm = this;
         vm.tableStateRef = {};

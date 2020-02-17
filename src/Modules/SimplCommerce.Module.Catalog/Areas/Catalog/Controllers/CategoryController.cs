@@ -11,6 +11,7 @@ using SimplCommerce.Module.Core.Services;
 namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 {
     [Area("Catalog")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class CategoryController : Controller
     {
         private int _pageSize;
@@ -19,12 +20,14 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<Brand> _brandRepository;
         private readonly IProductPricingService _productPricingService;
+        private readonly IContentLocalizationService _contentLocalizationService;
 
         public CategoryController(IRepository<Product> productRepository,
             IMediaService mediaService,
             IRepository<Category> categoryRepository,
             IRepository<Brand> brandRepository,
             IProductPricingService productPricingService,
+            IContentLocalizationService contentLocalizationService,
             IConfiguration config)
         {
             _productRepository = productRepository;
@@ -32,6 +35,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             _categoryRepository = categoryRepository;
             _brandRepository = brandRepository;
             _productPricingService = productPricingService;
+            _contentLocalizationService = contentLocalizationService;
             _pageSize = config.GetValue<int>("Catalog.ProductPageSize");
         }
 
@@ -47,7 +51,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             {
                 CategoryId = category.Id,
                 ParentCategorId = category.ParentId,
-                CategoryName = category.Name,
+                CategoryName = _contentLocalizationService.GetLocalizedProperty(category, nameof(category.Name), category.Name),
                 CategorySlug = category.Slug,
                 CategoryMetaTitle = category.MetaTitle,
                 CategoryMetaKeywords = category.MetaKeywords,
@@ -78,11 +82,10 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 query = query.Where(x => x.Price <= searchOption.MaxPrice.Value);
             }
 
-            var brands = searchOption.GetBrands();
+            var brands = searchOption.GetBrands().ToArray();
             if (brands.Any())
             {
-                var brandIds = _brandRepository.Query().Where(x => brands.Contains(x.Slug)).Select(x => x.Id).ToList();
-                query = query.Where(x => x.BrandId.HasValue && brandIds.Contains(x.BrandId.Value));
+                query = query.Where(x => x.BrandId != null && brands.Contains(x.Brand.Slug));
             }
 
             model.TotalProduct = query.Count();
@@ -94,20 +97,18 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 offset = (_pageSize * currentPageNum) - _pageSize;
             }
 
-            query = query
-                .Include(x => x.Brand)
-                .Include(x => x.ThumbnailImage);
-
             query = ApplySort(searchOption, query);
 
             var products = query
-                .Select(x => ProductThumbnail.FromProduct(x))
+                .Include(x => x.ThumbnailImage)
                 .Skip(offset)
                 .Take(_pageSize)
+                .Select(x => ProductThumbnail.FromProduct(x))
                 .ToList();
 
             foreach (var product in products)
             {
+                product.Name = _contentLocalizationService.GetLocalizedProperty(nameof(Product), product.Id, nameof(product.Name), product.Name);
                 product.ThumbnailUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage);
                 product.CalculatedProductPrice = _productPricingService.CalculateProductPrice(product);
             }
@@ -140,12 +141,12 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             model.FilterOption.Price.MaxPrice = query.Max(x => x.Price);
             model.FilterOption.Price.MinPrice = query.Min(x => x.Price);
 
-            model.FilterOption.Brands = query
-                .Where(x => x.BrandId != null)
+            model.FilterOption.Brands = query.Include(x => x.Brand)
+                .Where(x => x.BrandId != null).ToList()
                 .GroupBy(x => x.Brand)
                 .Select(g => new FilterBrand
                 {
-                    Id = (int)g.Key.Id,
+                    Id = g.Key.Id,
                     Name = g.Key.Name,
                     Slug = g.Key.Slug,
                     Count = g.Count()

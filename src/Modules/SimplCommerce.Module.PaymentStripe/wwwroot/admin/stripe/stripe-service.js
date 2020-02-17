@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.paymentStripe')
-        .factory('paymentSripeService', paymentSripeService);
+        .factory('paymentSripeService', ['$http', paymentSripeService]);
 
-    /* @ngInject */
     function paymentSripeService($http) {
         var service = {
             getSettings: getSettings,

@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.catalog')
-        .controller('CategoryFormCtrl', CategoryFormCtrl);
+        .controller('CategoryFormCtrl', ['$q', '$state', '$stateParams', 'categoryService', 'translateService', CategoryFormCtrl]);
 
-    /* @ngInject */
     function CategoryFormCtrl($q, $state, $stateParams, categoryService, translateService) {
         var vm = this,
             tableStateRef;

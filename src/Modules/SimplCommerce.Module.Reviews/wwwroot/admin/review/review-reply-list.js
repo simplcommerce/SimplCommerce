@@ -1,10 +1,9 @@
-/*global angular*/
+﻿/*global angular*/
 (function () {
     angular
         .module('simplAdmin.reviews')
-        .controller('ReviewReplyListCtrl', ReviewReplyListCtrl);
+        .controller('ReviewReplyListCtrl', ['reviewReplyService', 'translateService', ReviewReplyListCtrl]);
 
-    /* @ngInject */
     function ReviewReplyListCtrl(reviewReplyService, translateService) {
         var vm = this;
         vm.translate = translateService;

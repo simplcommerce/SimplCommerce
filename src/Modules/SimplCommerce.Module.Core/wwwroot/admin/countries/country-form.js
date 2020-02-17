@@ -2,10 +2,9 @@
 (function () {
     angular
         .module('simplAdmin.core')
-        .controller('CountryFormCtrl', CountryFormCtrl);
+        .controller('CountryFormCtrl', ['$state', '$stateParams', 'countryService', 'translateService', CountryFormCtrl]);
 
-    /* @ngInject */
-    function CountryFormCtrl($state, $stateParams, countryService, stateProvinceService, translateService) {
+    function CountryFormCtrl($state, $stateParams, countryService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.country = {};

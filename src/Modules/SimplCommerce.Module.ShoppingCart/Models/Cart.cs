@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Core.Models;
 
@@ -28,10 +29,15 @@ namespace SimplCommerce.Module.ShoppingCart.Models
 
         public bool IsActive { get; set; }
 
+        public bool LockedOnCheckout { get; set; }
+
+        [StringLength(450)]
         public string CouponCode { get; set; }
 
+        [StringLength(450)]
         public string CouponRuleName { get; set; }
 
+        [StringLength(450)]
         public string ShippingMethod { get; set; }
 
         public bool IsProductPriceIncludeTax { get; set; }
@@ -47,6 +53,7 @@ namespace SimplCommerce.Module.ShoppingCart.Models
         /// </summary>
         public string ShippingData { get; set; }
 
+        [StringLength(1000)]
         public string OrderNote { get; set; }
     }
 }

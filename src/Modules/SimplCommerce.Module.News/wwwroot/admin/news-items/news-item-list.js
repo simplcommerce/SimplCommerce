@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.news')
-        .controller('NewsItemListCtrl', NewsItemListCtrl);
+        .controller('NewsItemListCtrl', ['newsItemService', 'translateService', NewsItemListCtrl]);
 
-    /* @ngInject */
     function NewsItemListCtrl(newsItemService, translateService) {
         var vm = this;
         vm.tableStateRef = {};

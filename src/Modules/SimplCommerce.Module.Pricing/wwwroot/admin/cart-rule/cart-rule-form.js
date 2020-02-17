@@ -2,9 +2,8 @@
 (function ($) {
     angular
         .module('simplAdmin.pricing')
-        .controller('CartRuleFormCtrl', CartRuleFormCtrl);
+        .controller('CartRuleFormCtrl', ['$state', '$stateParams', 'cartRuleService', 'translateService', CartRuleFormCtrl]);
 
-    /* @ngInject */
     function CartRuleFormCtrl($state, $stateParams, cartRuleService, translateService) {
         var vm = this;
         vm.translate = translateService;

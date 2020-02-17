@@ -18,6 +18,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             _entityRepository = entityRepository;
         }
 
+        [HttpGet]
         public IActionResult Get(string entityTypeId, string name)
         {
             var query = _entityRepository.Query().Where(x => x.EntityType.IsMenuable);

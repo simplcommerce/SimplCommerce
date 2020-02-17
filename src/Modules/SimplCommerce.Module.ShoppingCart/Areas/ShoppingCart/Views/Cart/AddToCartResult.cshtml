@@ -14,7 +14,7 @@
             <h6>@Model.VariationName</h6>
         </div>
         <div class="col-md-3">
-            @Model.Quantity x @Model.ProductPrice.ToString("C")
+            @Model.Quantity x @Model.ProductPriceString
         </div>
     </div>
     <div class="row">
@@ -22,7 +22,7 @@
             @Localizer["You have"] <span class="cart-item-count">@Model.CartItemCount</span> @Localizer["products in your cart"]
         </div>
         <div class="col-md-5">
-            @Localizer["Cart subtotal"]: @Model.CartAmount.ToString("C")
+            @Localizer["Cart subtotal"]: @Model.CartAmountString
         </div>
     </div>
 </div>

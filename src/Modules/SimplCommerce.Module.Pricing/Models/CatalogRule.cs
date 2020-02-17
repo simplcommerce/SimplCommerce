@@ -7,7 +7,7 @@ namespace SimplCommerce.Module.Pricing.Models
 {
     public class CatalogRule : EntityBase
     {
-        [Required]
+        [Required(ErrorMessage = "The {0} field is required.")]
         [StringLength(450)]
         public string Name { get; set; }
 
@@ -19,6 +19,7 @@ namespace SimplCommerce.Module.Pricing.Models
 
         public DateTimeOffset? EndOn { get; set; }
 
+        [StringLength(450)]
         public string RuleToApply { get; set; }
 
         public decimal DiscountAmount { get; set; }

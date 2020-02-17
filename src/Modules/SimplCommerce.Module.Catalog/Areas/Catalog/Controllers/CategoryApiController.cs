@@ -35,6 +35,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             _mediaService = mediaService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var gridData = await _categoryService.GetAll();

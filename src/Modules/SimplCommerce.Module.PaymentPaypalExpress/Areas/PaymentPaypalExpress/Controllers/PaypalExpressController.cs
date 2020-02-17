@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Extensions;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.PaymentPaypalExpress.Models;
@@ -20,6 +21,7 @@ using SimplCommerce.Module.ShoppingCart.Services;
 namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.Controllers
 {
     [Area("PaymentPaypalExpress")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class PaypalExpressController : Controller
     {
         private readonly ICartService _cartService;
@@ -29,6 +31,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
         private readonly IRepository<Payment> _paymentRepository;
         private Lazy<PaypalExpressConfigForm> _setting;
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ICurrencyService _currencyService;
 
         public PaypalExpressController(
             ICartService cartService,
@@ -36,7 +39,8 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
             IWorkContext workContext,
             IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
             IRepository<Payment> paymentRepository,
-            IHttpClientFactory httpClientFactory)
+            IHttpClientFactory httpClientFactory,
+            ICurrencyService currencyService)
         {
             _cartService = cartService;
             _orderService = orderService;
@@ -45,6 +49,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
             _paymentRepository = paymentRepository;
             _setting = new Lazy<PaypalExpressConfigForm>(GetSetting());
             _httpClientFactory = httpClientFactory;
+            _currencyService = currencyService;
         }
 
         [HttpPost("PaypalExpress/CreatePayment")]
@@ -54,7 +59,12 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
             var accessToken = await GetAccessToken();
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
-            var regionInfo = new RegionInfo(CultureInfo.CurrentCulture.LCID);
+            if(cart == null)
+            {
+                return NotFound();
+            }
+
+            var regionInfo = new RegionInfo(_currencyService.CurrencyCulture.LCID);
             var experienceProfileId = await CreateExperienceProfile(accessToken);
 
             var httpClient = _httpClientFactory.CreateClient();
@@ -145,7 +155,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
                 _paymentRepository.Add(payment);
                 order.OrderStatus = OrderStatus.PaymentReceived;
                 await _paymentRepository.SaveChangesAsync();
-                return Ok(new { status = "success" });
+                return Ok(new { Status = "success", OrderId = order.Id });
             }
 
             payment.Status = PaymentStatus.Failed;

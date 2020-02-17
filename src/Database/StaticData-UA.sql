@@ -1,4 +1,4 @@
-﻿INSERT [dbo].[Localization_Culture] ([Id], [Name], IsDefault) VALUES ('uk-UA', N'Ukrainian', 0)
+﻿INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES ('uk-UA', N'Ukrainian')
 GO
 
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-UA', N'Register', N'Зареєструватися')
@@ -54,7 +54,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-U
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-UA', N'reviews', N'відгуки')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-UA', N'Add Review', N'Додати відгук')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-UA', N'Customer reviews', N'Відгуки покупців')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-UA', N'Your review will be showed within the next 24h.', N'Ваш відгук буде опубліковано впродовж наступних 24 годин.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-UA', N'Your review will be shown within the next 24h.', N'Ваш відгук буде опубліковано впродовж наступних 24 годин.')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-UA', N'Thank you {0} for your review', N'Дякуємо {0} за ваш відгук')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-UA', N'Rating average', N'Середня оцінка')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('uk-UA', N'stars', N'зірочок')

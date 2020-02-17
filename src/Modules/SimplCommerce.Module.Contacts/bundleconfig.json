@@ -1,0 +1,19 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/contacts.min.js",
+    "inputFiles": [
+      "wwwroot/admin/contacts.module.js",
+      "wwwroot/admin/contact-area/contact-area-service.js",
+      "wwwroot/admin/contact-area/contact-area-list.js",
+      "wwwroot/admin/contact-area/contact-area-form.js",
+      "wwwroot/admin/contacts/contact-service.js",
+      "wwwroot/admin/contacts/contact-list.js",
+      "wwwroot/admin/contacts/contact.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

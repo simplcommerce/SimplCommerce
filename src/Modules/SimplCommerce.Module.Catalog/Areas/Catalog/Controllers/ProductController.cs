@@ -16,19 +16,26 @@ using SimplCommerce.Module.Core.Services;
 namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 {
     [Area("Catalog")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ProductController : Controller
     {
         private readonly IMediaService _mediaService;
         private readonly IRepository<Product> _productRepository;
         private readonly IMediator _mediator;
         private readonly IProductPricingService _productPricingService;
+        private readonly IContentLocalizationService _contentLocalizationService;
 
-        public ProductController(IRepository<Product> productRepository, IMediaService mediaService, IMediator mediator, IProductPricingService productPricingService)
+        public ProductController(IRepository<Product> productRepository,
+            IMediaService mediaService,
+            IMediator mediator,
+            IProductPricingService productPricingService,
+            IContentLocalizationService contentLocalizationService)
         {
             _productRepository = productRepository;
             _mediaService = mediaService;
             _mediator = mediator;
             _productPricingService = productPricingService;
+            _contentLocalizationService = contentLocalizationService;
         }
 
         [HttpGet("product/product-overview")]
@@ -49,13 +56,13 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             var model = new ProductDetail
             {
                 Id = product.Id,
-                Name = product.Name,
+                Name = _contentLocalizationService.GetLocalizedProperty(product, nameof(product.Name), product.Name),
                 CalculatedProductPrice = _productPricingService.CalculateProductPrice(product),
                 IsCallForPricing = product.IsCallForPricing,
                 IsAllowToOrder = product.IsAllowToOrder,
                 StockTrackingIsEnabled = product.StockTrackingIsEnabled,
                 StockQuantity = product.StockQuantity,
-                ShortDescription = product.ShortDescription,
+                ShortDescription = _contentLocalizationService.GetLocalizedProperty(product, nameof(product.ShortDescription), product.ShortDescription),
                 ReviewsCount = product.ReviewsCount,
                 RatingAverage = product.RatingAverage,
             };
@@ -76,6 +83,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 .Include(x => x.ProductLinks).ThenInclude(p => p.LinkedProduct).ThenInclude(m => m.ThumbnailImage)
                 .Include(x => x.ThumbnailImage)
                 .Include(x => x.Medias).ThenInclude(m => m.Media)
+                .Include(x => x.Brand)
                 .FirstOrDefault(x => x.Id == id && x.IsPublished);
             if (product == null)
             {
@@ -85,18 +93,19 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             var model = new ProductDetail
             {
                 Id = product.Id,
-                Name = product.Name,
+                Name = _contentLocalizationService.GetLocalizedProperty(product, nameof(product.Name), product.Name),
+                Brand = product.Brand,
                 CalculatedProductPrice = _productPricingService.CalculateProductPrice(product),
                 IsCallForPricing = product.IsCallForPricing,
                 IsAllowToOrder = product.IsAllowToOrder,
                 StockTrackingIsEnabled = product.StockTrackingIsEnabled,
                 StockQuantity = product.StockQuantity,
-                ShortDescription = product.ShortDescription,
+                ShortDescription = _contentLocalizationService.GetLocalizedProperty(product, nameof(product.ShortDescription), product.ShortDescription),
                 MetaTitle = product.MetaTitle,
                 MetaKeywords = product.MetaKeywords,
                 MetaDescription = product.MetaDescription,
-                Description = product.Description,
-                Specification = product.Specification,
+                Description = _contentLocalizationService.GetLocalizedProperty(product, nameof(product.Description), product.Description),
+                Specification = _contentLocalizationService.GetLocalizedProperty(product, nameof(product.Specification), product.Specification),
                 ReviewsCount = product.ReviewsCount,
                 RatingAverage = product.RatingAverage,
                 Attributes = product.AttributeValues.Select(x => new ProductDetailAttribute { Name = x.Attribute.Name, Value = x.Value }).ToList(),
@@ -140,9 +149,15 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
         private void MapProductVariantToProductVm(Product product, ProductDetail model)
         {
+            if(!product.ProductLinks.Any(x => x.LinkType == ProductLinkType.Super))
+            {
+                return;
+            }
+
             var variations = _productRepository
                 .Query()
                 .Include(x => x.OptionCombinations).ThenInclude(o => o.Option)
+                .Include(x => x.Medias).ThenInclude(m => m.Media)
                 .Where(x => x.LinkedProductLinks.Any(link => link.ProductId == product.Id && link.LinkType == ProductLinkType.Super))
                 .Where(x => x.IsPublished)
                 .ToList();
@@ -158,7 +173,12 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     IsCallForPricing = variation.IsCallForPricing,
                     StockTrackingIsEnabled = variation.StockTrackingIsEnabled,
                     StockQuantity = variation.StockQuantity,
-                    CalculatedProductPrice = _productPricingService.CalculateProductPrice(variation)
+                    CalculatedProductPrice = _productPricingService.CalculateProductPrice(variation),
+                    Images = variation.Medias.Where(x => x.Media.MediaType == Core.Models.MediaType.Image).Select(productMedia => new MediaViewModel
+                    {
+                        Url = _mediaService.GetMediaUrl(productMedia.Media),
+                        ThumbnailUrl = _mediaService.GetThumbnailUrl(productMedia.Media)
+                    }).ToList()
                 };
 
                 var optionCombinations = variation.OptionCombinations.OrderBy(x => x.SortIndex);
@@ -183,7 +203,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             {
                 var linkedProduct = productLink.LinkedProduct;
                 var productThumbnail = ProductThumbnail.FromProduct(linkedProduct);
-
+                productThumbnail.Name = _contentLocalizationService.GetLocalizedProperty(nameof(Product), productThumbnail.Id, nameof(product.Name), productThumbnail.Name);
                 productThumbnail.ThumbnailUrl = _mediaService.GetThumbnailUrl(linkedProduct.ThumbnailImage);
                 productThumbnail.CalculatedProductPrice = _productPricingService.CalculateProductPrice(linkedProduct);
 

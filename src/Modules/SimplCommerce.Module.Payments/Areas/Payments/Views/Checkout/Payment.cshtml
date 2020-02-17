@@ -13,17 +13,22 @@
         <div id="paymentError" class="alert alert-danger d-none" role="alert"></div>
         <h3>@Localizer["Choose a payment methods"]</h3>
         <div class="row">
-        @foreach (var paymentProvider in Model.PaymentProviders)
-        {
-            <div class="col-sm-12 col-md-6">
-                <div class="payment-method paymentProvider-@paymentProvider.Id">
-                    @if(!string.IsNullOrWhiteSpace(paymentProvider.LandingViewComponentName))
-                    {
-                        @await Component.InvokeAsync(paymentProvider.LandingViewComponentName)
-                    }
+            @foreach (var paymentProvider in Model.PaymentProviders)
+            {
+                <div class="col-sm-12 col-md-6">
+                    <div class="payment-method paymentProvider-@paymentProvider.Id">
+                        @if (!string.IsNullOrWhiteSpace(paymentProvider.LandingViewComponentName))
+                        {
+                            @await Component.InvokeAsync(paymentProvider.LandingViewComponentName)
+                        }
+                    </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
+        <div class="text-right">
+            <form asp-area="Order" asp-controller="Checkout" asp-action="Cancel" method="post" id="logoutForm" class="">
+                <button type="submit" class="btn btn-secondary active">@Localizer["Cancel Order"]</button>
+            </form>
         </div>
     </div>
     <div class="col-md-4">

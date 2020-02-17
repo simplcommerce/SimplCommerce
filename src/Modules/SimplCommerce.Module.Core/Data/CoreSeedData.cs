@@ -10,7 +10,11 @@ namespace SimplCommerce.Module.Core.Data
         {
             builder.Entity<AppSetting>().HasData(
                 new AppSetting("Global.AssetVersion") { Module = "Core", IsVisibleInCommonSettingPage = true, Value = "1.0" },
-                new AppSetting("Theme") { Module = "Core", IsVisibleInCommonSettingPage = false, Value = "Generic" }
+                new AppSetting("Global.AssetBundling") { Module = "Core", IsVisibleInCommonSettingPage = true, Value = "false" },
+                new AppSetting("Theme") { Module = "Core", IsVisibleInCommonSettingPage = false, Value = "Generic" },
+                new AppSetting("Global.DefaultCultureUI") { Module = "Core", IsVisibleInCommonSettingPage = true, Value = "en-US" },
+                new AppSetting("Global.CurrencyCulture") { Module = "Core", IsVisibleInCommonSettingPage = true, Value = "en-US" },
+                new AppSetting("Global.CurrencyDecimalPlace") { Module = "Core", IsVisibleInCommonSettingPage = true, Value = "2" }
             );
 
             builder.Entity<EntityType>().HasData(

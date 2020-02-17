@@ -1,0 +1,6 @@
+{
+  "id": "SimplCommerce.Module.PaymentBraintree",
+  "name": "Braintree Payment",
+  "isBundledWithHost": true,
+  "version": "1.0.0"
+}

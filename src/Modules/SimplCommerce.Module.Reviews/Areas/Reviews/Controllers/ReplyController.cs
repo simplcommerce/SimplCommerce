@@ -8,6 +8,7 @@ using SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels;
 namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
 {
     [Area("Reviews")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ReplyController : Controller
     {
         private readonly IRepository<Models.Reply> _replyRepository;
@@ -32,7 +33,7 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
                     ReviewId = model.ReviewId,
                     UserId = user.Id,
                     Comment = model.Comment,
-                    ReplierName = model.ReplierName,
+                    ReplierName = user.FullName
                 };
 
                 _replyRepository.Add(reply);

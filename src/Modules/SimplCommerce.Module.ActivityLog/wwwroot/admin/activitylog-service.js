@@ -2,9 +2,8 @@
 (function () {
     angular
         .module('simplAdmin.activityLog')
-        .factory('activityLogService', activityLogService);
+        .factory('activityLogService', ['$http', activityLogService]);
 
-    /* @ngInject */
     function activityLogService($http) {
         var service = {
             getMostViewedEntities: getMostViewedEntities

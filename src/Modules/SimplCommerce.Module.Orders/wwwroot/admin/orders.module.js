@@ -17,6 +17,11 @@
                         templateUrl: 'modules/orders/admin/order/order-detail.html',
                         controller: 'OrderDetailCtrl as vm'
                     })
+                    .state('order-create', {
+                        url: '/order-create',
+                        templateUrl: 'modules/orders/admin/order/order-create.html',
+                        controller: 'OrderCreateCtrl as vm'
+                    })
                 ;
             }
         ]);

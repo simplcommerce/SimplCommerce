@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Module.Catalog.Data;
 using SimplCommerce.Module.Catalog.Events;
@@ -20,9 +21,11 @@ namespace SimplCommerce.Module.Catalog
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IProductPricingService, ProductPricingService>();
             services.AddTransient<IProductService, ProductService>();
+
+            GlobalConfiguration.RegisterAngularModule("simplAdmin.catalog");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
         }

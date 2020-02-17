@@ -10,6 +10,7 @@ using SimplCommerce.Module.Core.Extensions;
 namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
 {
     [Area("Contacts")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ContactController : Controller
     {
         private readonly IRepository<Contact> _contactRepository;
@@ -23,7 +24,7 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
             _workContext = workContext;
         }
 
-        [Route("contact")]
+        [HttpGet("contact")]
         public async Task<IActionResult> Index()
         {
             var model = new ContactVm()
@@ -43,8 +44,7 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
             return View(model);
         }
 
-        [Route("contact")]
-        [HttpPost]
+        [HttpPost("contact")]
         public IActionResult SubmitContact(ContactVm model)
         {
             if (ModelState.IsValid)

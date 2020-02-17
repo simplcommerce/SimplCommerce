@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Module.Core.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace SimplCommerce.Module.Core.Extensions
 {
@@ -19,12 +20,17 @@ namespace SimplCommerce.Module.Core.Extensions
         private UserManager<User> _userManager;
         private HttpContext _httpContext;
         private IRepository<User> _userRepository;
+        private readonly IConfiguration _configuration;
 
-        public WorkContext(UserManager<User> userManager, IHttpContextAccessor contextAccessor, IRepository<User> userRepository)
+        public WorkContext(UserManager<User> userManager,
+                           IHttpContextAccessor contextAccessor,
+                           IRepository<User> userRepository,
+                           IConfiguration configuration)
         {
             _userManager = userManager;
             _httpContext = contextAccessor.HttpContext;
             _userRepository = userRepository;
+            _configuration = configuration;
         }
 
         public async Task<User> GetCurrentUser()
@@ -61,7 +67,7 @@ namespace SimplCommerce.Module.Core.Extensions
                 UserGuid = userGuid.Value,
                 Email = dummyEmail,
                 UserName = dummyEmail,
-                Culture = GlobalConfiguration.DefaultCulture
+                Culture = _configuration.GetValue<string>("Global.DefaultCultureUI") ?? GlobalConfiguration.DefaultCulture
             };
             var abc = await _userManager.CreateAsync(_currentUser, "1qazZAQ!");
             await _userManager.AddToRoleAsync(_currentUser, "guest");

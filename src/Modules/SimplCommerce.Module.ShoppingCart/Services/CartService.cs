@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.Core.Services;
@@ -18,36 +19,44 @@ namespace SimplCommerce.Module.ShoppingCart.Services
         private readonly IMediaService _mediaService;
         private readonly ICouponService _couponService;
         private readonly bool _isProductPriceIncludeTax;
+        private readonly ICurrencyService _currencyService;
 
-        public CartService(IRepository<Cart> cartRepository, IRepository<CartItem> cartItemRepository, ICouponService couponService, IMediaService mediaService, IConfiguration config)
+        public CartService(IRepository<Cart> cartRepository, IRepository<CartItem> cartItemRepository, ICouponService couponService,
+            IMediaService mediaService, IConfiguration config, ICurrencyService currencyService)
         {
             _cartRepository = cartRepository;
             _cartItemRepository = cartItemRepository;
             _couponService = couponService;
             _mediaService = mediaService;
+            _currencyService = currencyService;
             _isProductPriceIncludeTax = config.GetValue<bool>("Catalog.IsProductPriceIncludeTax");
         }
 
-        public IQueryable<Cart> GetActiveCart(long customerId)
+        public IQueryable<Cart> Query()
+        {
+            return _cartRepository.Query();
+        }
+
+        public Task<Cart> GetActiveCart(long customerId)
         {
             return GetActiveCart(customerId, customerId);
         }
 
-        public IQueryable<Cart> GetActiveCart(long customerId, long createdById)
+        public async Task<Cart> GetActiveCart(long customerId, long createdById)
         {
-            return _cartRepository.Query()
+            return await _cartRepository.Query()
                 .Include(x => x.Items)
-                .Where(x => x.CustomerId == customerId && x.CreatedById == createdById && x.IsActive);
+                .Where(x => x.CustomerId == customerId && x.CreatedById == createdById && x.IsActive).FirstOrDefaultAsync();
         }
 
-        public async Task AddToCart(long customerId, long productId, int quantity)
+        public async Task<Result> AddToCart(long customerId, long productId, int quantity)
         {
-            await AddToCart(customerId, customerId, productId, quantity);
+            return await AddToCart(customerId, customerId, productId, quantity);
         }
 
-        public async Task AddToCart(long customerId, long createdById, long productId, int quantity)
+        public async Task<Result> AddToCart(long customerId, long createdById, long productId, int quantity)
         {
-            var cart = await GetActiveCart(customerId, createdById).Include(x => x.Items).FirstOrDefaultAsync();
+            var cart = await GetActiveCart(customerId, createdById);
             if (cart == null)
             {
                 cart = new Cart
@@ -59,6 +68,16 @@ namespace SimplCommerce.Module.ShoppingCart.Services
 
                 _cartRepository.Add(cart);
             }
+            else
+            {
+                if (cart.LockedOnCheckout)
+                {
+                    return Result.Fail("Cart is being locked for checkout. Please complete the checkout first");
+                }
+
+                cart = await _cartRepository.Query().Include(x => x.Items).FirstOrDefaultAsync(x => x.Id == cart.Id);
+            }
+
             var cartItem = cart.Items.FirstOrDefault(x => x.ProductId == productId);
             if (cartItem == null)
             {
@@ -74,10 +93,12 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             }
             else
             {
-                cartItem.Quantity = quantity;
+                cartItem.Quantity = cartItem.Quantity + quantity;
             }
 
-           await  _cartRepository.SaveChangesAsync();
+            await  _cartRepository.SaveChangesAsync();
+
+            return Result.Ok();
         }
 
         public async Task<CartVm> GetActiveCartDetails(long customerId)
@@ -88,13 +109,13 @@ namespace SimplCommerce.Module.ShoppingCart.Services
         // TODO separate getting product thumbnail, varation options from here
         public async Task<CartVm> GetActiveCartDetails(long customerId, long createdById)
         {
-            var cart = GetActiveCart(customerId, createdById).FirstOrDefault();
+            var cart = await GetActiveCart(customerId, createdById);
             if (cart == null)
             {
-                return new CartVm();
+                return null;
             }
 
-            var cartVm = new CartVm()
+            var cartVm = new CartVm(_currencyService)
             {
                 Id = cart.Id,
                 CouponCode = cart.CouponCode,
@@ -108,13 +129,16 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 .Query()
                 .Include(x => x.Product).ThenInclude(p => p.ThumbnailImage)
                 .Include(x => x.Product).ThenInclude(p => p.OptionCombinations).ThenInclude(o => o.Option)
-                .Where(x => x.CartId == cart.Id)
-                .Select(x => new CartItemVm
+                .Where(x => x.CartId == cart.Id).ToList()
+                .Select(x => new CartItemVm(_currencyService)
                 {
                     Id = x.Id,
                     ProductId = x.ProductId,
                     ProductName = x.Product.Name,
                     ProductPrice = x.Product.Price,
+                    ProductStockQuantity = x.Product.StockQuantity,
+                    ProductStockTrackingIsEnabled = x.Product.StockTrackingIsEnabled,
+                    IsProductAvailabeToOrder = x.Product.IsAllowToOrder && x.Product.IsPublished && !x.Product.IsDeleted,
                     ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
                     Quantity = x.Quantity,
                     VariationOptions = CartItemVm.GetVariationOption(x.Product)
@@ -162,15 +186,16 @@ namespace SimplCommerce.Module.ShoppingCart.Services
 
         public async Task MigrateCart(long fromUserId, long toUserId)
         {
-            var cartFrom = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.CustomerId == fromUserId && x.IsActive);
+            var cartFrom = await GetActiveCart(fromUserId);
             if (cartFrom != null && cartFrom.Items.Any())
             {
-                var cartTo = _cartRepository.Query().Include(x => x.Items).FirstOrDefault(x => x.CustomerId == toUserId && x.IsActive);
+                var cartTo = await GetActiveCart(toUserId);
                 if (cartTo == null)
                 {
                     cartTo = new Cart
                     {
-                        CustomerId = toUserId
+                        CustomerId = toUserId,
+                        CreatedById = toUserId
                     };
 
                     _cartRepository.Add(cartTo);
@@ -179,7 +204,7 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 foreach (var fromItem in cartFrom.Items)
                 {
                     var toItem = cartTo.Items.FirstOrDefault(x => x.ProductId == fromItem.ProductId);
-                    if(toItem == null)
+                    if (toItem == null)
                     {
                         toItem = new CartItem
                         {

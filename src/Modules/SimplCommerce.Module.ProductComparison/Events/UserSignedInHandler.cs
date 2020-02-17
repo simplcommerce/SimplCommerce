@@ -18,11 +18,10 @@ namespace SimplCommerce.Module.ProductComparison.Events
             _comparingService = comparingService;
         }
 
-        public Task Handle(UserSignedIn user, CancellationToken cancellationToken)
+        public async Task Handle(UserSignedIn user, CancellationToken cancellationToken)
         {
-            var guestUser = _workContext.GetCurrentUser().Result;
+            var guestUser = await _workContext.GetCurrentUser();
             _comparingService.MigrateComparingProduct(guestUser.Id, user.UserId);
-            return Task.CompletedTask;
         }
     }
 }

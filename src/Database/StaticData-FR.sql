@@ -1,4 +1,4 @@
-﻿INSERT [dbo].[Localization_Culture] ([Id], [Name], IsDefault) VALUES ('fr-FR', N'French', 0)
+﻿INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES ('fr-FR', N'French')
 GO
 
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-FR', N'Register', N'S''inscrire')
@@ -54,7 +54,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-F
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-FR', N'reviews', N'Avis')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-FR', N'Add Review', N'Ajouter un commentaire')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-FR', N'Customer reviews', N'Avis des clients')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-FR', N'Your review will be showed within the next 24h.', N'Votre avis sera affiché dans les prochaines 24h.')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-FR', N'Your review will be shown within the next 24h.', N'Votre avis sera affiché dans les prochaines 24h.')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-FR', N'Thank you {0} for your review', N'Merci {0} pour votre commentaire')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-FR', N'Rating average', N'Moyenne des notes')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('fr-FR', N'stars', N'Etoiles')

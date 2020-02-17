@@ -1,0 +1,15 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/paymentcashfree.min.js",
+    "inputFiles": [
+      "wwwroot/admin/paymentCashfree.module.js",
+      "wwwroot/admin/cashfree/cashfree-service.js",
+      "wwwroot/admin/cashfree/cashfree-config-form.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]
