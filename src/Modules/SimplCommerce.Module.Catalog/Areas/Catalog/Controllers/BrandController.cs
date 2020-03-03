@@ -72,11 +72,10 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 query = query.Where(x => x.Price <= searchOption.MaxPrice.Value);
             }
 
-            var categories = searchOption.GetCategories();
+            var categories = searchOption.GetCategories().ToArray();
             if (categories.Any())
             {
-                var categoryIds = _categoryRepository.Query().Where(x => categories.Contains(x.Slug)).Select(x => x.Id).ToList();
-                query = query.Where(x => x.Categories.Any(c => categoryIds.Contains(c.CategoryId)));
+                query = query.Where(x => x.Categories.Any(c => categories.Contains(c.Category.Slug)));
             }
 
             model.TotalProduct = query.Count();
@@ -88,15 +87,13 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 offset = (_pageSize * currentPageNum) - _pageSize;
             }
 
-            query = query
-                .Include(x => x.ThumbnailImage);
-
             query = AppySort(searchOption, query);
 
             var products = query
-                .Select(x => ProductThumbnail.FromProduct(x))
+                .Include(x => x.ThumbnailImage)
                 .Skip(offset)
                 .Take(_pageSize)
+                .Select(x => ProductThumbnail.FromProduct(x))
                 .ToList();
 
             foreach (var product in products)

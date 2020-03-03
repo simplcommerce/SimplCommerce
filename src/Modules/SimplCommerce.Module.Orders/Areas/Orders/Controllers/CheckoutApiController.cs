@@ -87,12 +87,12 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         public async Task<IActionResult> UserAddress(long userId, [FromServices] IRepository<UserAddress> userAddressRepository, [FromServices] IRepository<User> userRepository)
         {
             var user = await userRepository.Query().FirstOrDefaultAsync(x => x.Id == userId);
-            var defaultAddressId = user.DefaultShippingAddressId.HasValue ? user.DefaultShippingAddressId : 0;
             if(user == null)
             {
                 return NotFound();
             }
 
+            var defaultAddressId = user.DefaultShippingAddressId.HasValue ? user.DefaultShippingAddressId : 0;
             var userAddress = await userAddressRepository
                 .Query()
                 .Where(x => (x.AddressType == AddressType.Shipping) && (x.UserId == userId))

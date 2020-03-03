@@ -17,9 +17,7 @@ namespace SimplCommerce.Module.Core
             serviceCollection.AddTransient<IEntityService, EntityService>();
             serviceCollection.AddTransient<IMediaService, MediaService>();
             serviceCollection.AddTransient<IThemeService, ThemeService>();
-            serviceCollection.AddTransient<ITokenService, TokenService>();
             serviceCollection.AddTransient<IWidgetInstanceService, WidgetInstanceService>();
-            serviceCollection.AddScoped<SignInManager<User>, SimplSignInManager<User>>();
             serviceCollection.AddScoped<IWorkContext, WorkContext>();
             serviceCollection.AddScoped<ISmsSender, SmsSender>();
             serviceCollection.AddSingleton<SettingDefinitionProvider>();
@@ -29,7 +27,7 @@ namespace SimplCommerce.Module.Core
             GlobalConfiguration.RegisterAngularModule("simplAdmin.core");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
         }
     }

@@ -34,14 +34,32 @@
 <div class="product-detail">
     <div class="row">
         <div class="col-md-6">
-            <div class="sp-wrap">
-                @foreach (var image in Model.Images)
-                {
-                    <a href="@image.Url">
-                        <img src="@image.ThumbnailUrl" alt="" />
-                    </a>
-                }
+            <div id="main-product-images" class="product-images">
+                <div class="sp-wrap">
+                    @foreach (var image in Model.Images)
+                    {
+                        <a href="@image.Url">
+                            <img src="@image.ThumbnailUrl" alt="" />
+                        </a>
+                    }
+                </div>
             </div>
+            @foreach (var variant in Model.Variations)
+            {
+                if (variant.Images.Any())
+                {
+                    <div class="product-images" data-images-variation-name="@variant.NormalizedName" style="display:none;">
+                        <div class="sp-wrap">
+                            @foreach (var image in variant.Images)
+                            {
+                                <a href="@image.Url">
+                                    <img src="@image.ThumbnailUrl" alt="" />
+                                </a>
+                            }
+                        </div>
+                    </div>
+                }
+            }
         </div>
         <div class="col-md-6">
             <div class="product-name">
@@ -214,11 +232,11 @@
         <div>
             <h3 class="p-t-25 p-b-25">@Localizer["Product specification"]</h3>
             <table class="table table-striped">
-                @foreach (var attribute in Model.Attributes)
+                @foreach (var attr in Model.Attributes)
                 {
                     <tr>
-                        <td>@attribute.Name</td>
-                        <td>@attribute.Value</td>
+                        <td>@attr.Name</td>
+                        <td>@attr.Value</td>
                     </tr>
                 }
             </table>

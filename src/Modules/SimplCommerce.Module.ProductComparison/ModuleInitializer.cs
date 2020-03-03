@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.ProductComparison
             services.AddTransient<IComparingProductService, ComparingProductService>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
         }

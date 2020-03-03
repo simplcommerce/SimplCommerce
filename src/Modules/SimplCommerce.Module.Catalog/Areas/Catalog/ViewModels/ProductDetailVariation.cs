@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SimplCommerce.Module.Catalog.Models;
+using SimplCommerce.Module.Core.Areas.Core.ViewModels;
 
 namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
 {
@@ -20,6 +21,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
         public bool StockTrackingIsEnabled { get; set; }
 
         public CalculatedProductPrice CalculatedProductPrice { get; set; }
+
+        public IList<MediaViewModel> Images { get; set; } = new List<MediaViewModel>();
 
         public IList<ProductDetailVariationOption> Options { get; protected set; } = new List<ProductDetailVariationOption>();
     }

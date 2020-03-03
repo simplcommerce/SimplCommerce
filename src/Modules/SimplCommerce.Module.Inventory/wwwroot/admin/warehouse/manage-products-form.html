@@ -10,7 +10,7 @@
                     <select class="form-control" ng-change="vm.wareHouseSelectChange()" ng-model="vm.selectedWarehouse"
                             ng-options="warehouse as warehouse.name for warehouse in vm.warehouses"></select>
                 </div>
-                <button class="btn btn-primary" ng-click="vm.addAllProducts()">Add All Products</button>
+                <button class="btn btn-primary" ng-click="vm.addAllProducts()">{{::vm.translate.get('Add All Products')}}</button>
             </form>
         </div>
     </div>
@@ -47,7 +47,7 @@
             <th></th>
         </tr>
         <tr>
-            <th ng-show="!vm.isLoading" colspan="4">{{vm.tableStateRef.pagination.totalItemCount | number:0}} records found</th>
+            <th ng-show="!vm.isLoading" colspan="4">{{vm.tableStateRef.pagination.totalItemCount | number:0}} {{::vm.translate.get('records found')}}</th>
         </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">

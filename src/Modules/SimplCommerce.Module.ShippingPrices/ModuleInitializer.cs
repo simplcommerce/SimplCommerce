@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.ShippingPrices
             services.AddTransient<IShippingPriceService, ShippingPriceService>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
         }

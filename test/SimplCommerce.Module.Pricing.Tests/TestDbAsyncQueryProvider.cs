@@ -45,6 +45,11 @@ namespace SimplCommerce.Module.Pricing.Tests
         {
             return Task.FromResult(Execute<TResult>(expression));
         }
+
+        TResult IAsyncQueryProvider.ExecuteAsync<TResult>(Expression expression, CancellationToken cancellationToken)
+        {
+            return Execute<TResult>(expression);
+        }
     }
 
     internal class TestAsyncEnumerable<T> : EnumerableQuery<T>, IAsyncEnumerable<T>, IQueryable<T>
@@ -58,6 +63,11 @@ namespace SimplCommerce.Module.Pricing.Tests
         { }
 
         public IAsyncEnumerator<T> GetEnumerator()
+        {
+            return new TestAsyncEnumerator<T>(this.AsEnumerable().GetEnumerator());
+        }
+
+        public IAsyncEnumerator<T> GetAsyncEnumerator(CancellationToken cancellationToken = default)
         {
             return new TestAsyncEnumerator<T>(this.AsEnumerable().GetEnumerator());
         }
@@ -93,6 +103,16 @@ namespace SimplCommerce.Module.Pricing.Tests
         public Task<bool> MoveNext(CancellationToken cancellationToken)
         {
             return Task.FromResult(_inner.MoveNext());
+        }
+
+        public ValueTask<bool> MoveNextAsync()
+        {
+            return new ValueTask<bool>(Task.FromResult(_inner.MoveNext()));
+        }
+
+        public ValueTask DisposeAsync()
+        {
+            return new ValueTask();
         }
     }
 }

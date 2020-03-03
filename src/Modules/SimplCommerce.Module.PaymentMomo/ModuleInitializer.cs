@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.PaymentMomo
             GlobalConfiguration.RegisterAngularModule("simplAdmin.paymentMomo");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
         }
     }

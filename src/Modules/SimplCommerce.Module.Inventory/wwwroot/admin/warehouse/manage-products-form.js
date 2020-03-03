@@ -11,6 +11,7 @@
         vm.translate = translateService;
         vm.products = [];
         vm.warehouses = [];
+        vm.firstLoad = true;
 
         vm.getProducts = function getProducts(tableState) {
             vm.tableStateRef = tableState;
@@ -24,7 +25,10 @@
         };
 
         vm.wareHouseSelectChange = function wareHouseSelectChange() {
-            vm.getProducts(vm.tableStateRef);
+            if (!vm.firstLoad) {
+                vm.getProducts(vm.tableStateRef);
+            }
+            vm.firstLoad = false;
         };
 
         vm.addAllProducts = function addAllProducts() {

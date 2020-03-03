@@ -16,7 +16,7 @@ namespace SimplCommerce.Module.Comments
             GlobalConfiguration.RegisterAngularModule("simplAdmin.comments");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
         }

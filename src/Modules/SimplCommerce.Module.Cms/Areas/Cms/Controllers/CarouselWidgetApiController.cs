@@ -19,7 +19,8 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
     [Area("Cms")]
     [Authorize(Roles = "admin")]
     [Route("api/carousel-widgets")]
-    public class CarouselWidgetApiController : Controller
+    [ApiController]
+    public class CarouselWidgetApiController : ControllerBase
     {
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
         private readonly IMediaService _mediaService;
@@ -31,7 +32,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(long id)
+        public async Task<ActionResult<CarouselWidgetForm>> Get(long id)
         {
             var totalWidgets = _widgetInstanceRepository.Query().ToList().Count();
             var widgetInstance = await _widgetInstanceRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
@@ -51,43 +52,45 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                 item.ImageUrl = _mediaService.GetMediaUrl(item.Image);
             }
 
-            return Json(model);
+            return model;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(IFormCollection formCollection)
+        public async Task<IActionResult> Post([FromForm]CarouselWidgetForm model)
         {
-            var model = ToCarouselWidgetFormModel(formCollection);
-            if (ModelState.IsValid)
+            ModelBindUploadFiles(model);
+
+            if(model.Items.Any(x => x.UploadImage == null))
             {
-                foreach (var item in model.Items)
-                {
-                    item.Image = await SaveFile(item.UploadImage);
-                }
-
-                var widgetInstance = new WidgetInstance
-                {
-                    Name = model.Name,
-                    WidgetId = "CarouselWidget",
-                    WidgetZoneId = model.WidgetZoneId,
-                    PublishStart = model.PublishStart,
-                    PublishEnd = model.PublishEnd,
-                    DisplayOrder = model.DisplayOrder,
-                    Data = JsonConvert.SerializeObject(model.Items)
-                };
-
-                _widgetInstanceRepository.Add(widgetInstance);
-                await _widgetInstanceRepository.SaveChangesAsync();
-                return CreatedAtAction(nameof(Get), new { id = widgetInstance.Id }, null);
+                ModelState.AddModelError("Images", "Images is required");
+                return BadRequest(ModelState);
             }
 
-            return BadRequest(ModelState);
+            foreach (var item in model.Items)
+            {
+                item.Image = await SaveFile(item.UploadImage);
+            }
+
+            var widgetInstance = new WidgetInstance
+            {
+                Name = model.Name,
+                WidgetId = "CarouselWidget",
+                WidgetZoneId = model.WidgetZoneId,
+                PublishStart = model.PublishStart,
+                PublishEnd = model.PublishEnd,
+                DisplayOrder = model.DisplayOrder,
+                Data = JsonConvert.SerializeObject(model.Items)
+            };
+
+            _widgetInstanceRepository.Add(widgetInstance);
+            await _widgetInstanceRepository.SaveChangesAsync();
+            return CreatedAtAction(nameof(Get), new { id = widgetInstance.Id }, null);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, IFormCollection formCollection)
+        public async Task<IActionResult> Put(long id, [FromForm]CarouselWidgetForm model)
         {
-            var model = ToCarouselWidgetFormModel(formCollection);
+            ModelBindUploadFiles(model);
 
             foreach (var item in model.Items)
             {
@@ -101,56 +104,28 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                 }
             }
 
-            if (ModelState.IsValid)
+            var widgetInstance = await _widgetInstanceRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+            if(widgetInstance == null)
             {
-                var widgetInstance = await _widgetInstanceRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-                if(widgetInstance == null)
-                {
-                    return NotFound();
-                }
-
-                widgetInstance.Name = model.Name;
-                widgetInstance.PublishStart = model.PublishStart;
-                widgetInstance.PublishEnd = model.PublishEnd;
-                widgetInstance.WidgetZoneId = model.WidgetZoneId;
-                widgetInstance.DisplayOrder = model.DisplayOrder;
-                widgetInstance.Data = JsonConvert.SerializeObject(model.Items);
-
-                await _widgetInstanceRepository.SaveChangesAsync();
-                return Accepted();
+                return NotFound();
             }
 
-            return BadRequest(ModelState);
+            widgetInstance.Name = model.Name;
+            widgetInstance.PublishStart = model.PublishStart;
+            widgetInstance.PublishEnd = model.PublishEnd;
+            widgetInstance.WidgetZoneId = model.WidgetZoneId;
+            widgetInstance.DisplayOrder = model.DisplayOrder;
+            widgetInstance.Data = JsonConvert.SerializeObject(model.Items);
+
+            await _widgetInstanceRepository.SaveChangesAsync();
+            return Accepted();
         }
 
-        private CarouselWidgetForm ToCarouselWidgetFormModel(IFormCollection formCollection)
+        private CarouselWidgetForm ModelBindUploadFiles(CarouselWidgetForm model)
         {
-            var model = new CarouselWidgetForm();
-            model.Name = formCollection["name"];
-            model.WidgetZoneId = int.Parse(formCollection["widgetZoneId"]);
-            int.TryParse(formCollection["displayOrder"], out int displayOrder);
-            model.DisplayOrder = displayOrder;
-            if (DateTimeOffset.TryParse(formCollection["publishStart"], out DateTimeOffset publishStart))
+            for (var i = 0; i < model.Items.Count; i++)
             {
-                model.PublishStart = publishStart;
-            }
-
-            if(DateTimeOffset.TryParse(formCollection["publishEnd"], out DateTimeOffset publishEnd))
-            {
-                model.PublishEnd = publishEnd;
-            }
-
-            int numberOfItems = int.Parse(formCollection["numberOfItems"]);
-            for (var i = 0; i < numberOfItems; i++)
-            {
-                var item = new CarouselWidgetItemForm();
-                item.Caption = formCollection[$"items[{i}][caption]"];
-                item.SubCaption = formCollection[$"items[{i}][subCaption]"];
-                item.TargetUrl = formCollection[$"items[{i}][targetUrl]"];
-                item.LinkText = formCollection[$"items[{i}][linkText]"];
-                item.Image = formCollection[$"items[{i}][image]"];
-                item.UploadImage = formCollection.Files[$"items[{i}][uploadImage]"];
-                model.Items.Add(item);
+                model.Items[i].UploadImage = Request.Form.Files[$"items[{i}][uploadImage]"];
             }
 
             return model;

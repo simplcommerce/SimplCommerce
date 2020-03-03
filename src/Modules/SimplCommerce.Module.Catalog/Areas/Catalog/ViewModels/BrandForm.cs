@@ -9,8 +9,6 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
             IsPublished = true;
         }
 
-        public long Id { get; set; }
-
         [Required(ErrorMessage = "The {0} field is required.")]
         public string Slug { get; set; }
 

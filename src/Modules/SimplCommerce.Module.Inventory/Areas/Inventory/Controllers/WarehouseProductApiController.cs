@@ -115,8 +115,12 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
             {
                 return BadRequest(new { error = "You don't have permission to manage this warehouse" });
             }
+            // Fix for ef core 3.0
+            var productIdsArray = productIds.ToArray();
 
-            var existedProducIds = await _stockRepository.Query().Where(x => x.WarehouseId == warehouseId && productIds.Contains(x.ProductId)).Select(x => x.ProductId).ToListAsync();
+            var existedProducIds = await _stockRepository.Query()
+                .Where(x => x.WarehouseId == warehouseId && productIdsArray.Contains(x.ProductId))
+                .Select(x => x.ProductId).ToListAsync();
             foreach(var id in existedProducIds)
             {
                 productIds.Remove(id);

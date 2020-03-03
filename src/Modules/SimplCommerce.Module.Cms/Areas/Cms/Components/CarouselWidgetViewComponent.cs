@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Web;
@@ -19,6 +20,11 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Components
 
         public IViewComponentResult Invoke(WidgetInstanceViewModel widgetInstance)
         {
+            if(widgetInstance == null)
+            {
+                throw new ArgumentNullException(nameof(widgetInstance));
+            }
+
             var model = new CarouselWidgetViewComponentVm
             {
                 Id = widgetInstance.Id,

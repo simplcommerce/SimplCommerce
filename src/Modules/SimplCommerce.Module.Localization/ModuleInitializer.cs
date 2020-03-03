@@ -21,7 +21,7 @@ namespace SimplCommerce.Module.Localization
             GlobalConfiguration.RegisterAngularModule("simplAdmin.localization");
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
         }
