@@ -9,7 +9,7 @@
                 $stateProvider
                     .state('payments-braintree-config', {
                         url: '/payments/braintree/config',
-                        templateUrl: 'modules/paymentbraintree/admin/braintree/braintree-config-form.html',
+                        templateUrl: '_content/SimplCommerce.Module.PaymentBraintree/admin/braintree/braintree-config-form.html',
                         controller: 'BraintreeConfigFormCtrl as vm'
                     })
                 ;

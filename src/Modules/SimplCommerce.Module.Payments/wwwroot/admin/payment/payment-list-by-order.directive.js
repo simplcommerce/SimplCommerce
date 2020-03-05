@@ -6,7 +6,7 @@
     function paymentListByOrder() {
         var directive = {
             restrict: 'E',
-            templateUrl: 'modules/payments/admin/payment/payment-list-by-order.directive.html',
+            templateUrl: '_content/SimplCommerce.Module.Payments/admin/payment/payment-list-by-order.directive.html',
             scope: {},
             bindToController: {
                 orderId: '='
