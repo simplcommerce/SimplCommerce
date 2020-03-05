@@ -9,7 +9,7 @@
                 $stateProvider
                     .state('payments-stripe-config', {
                         url: '/payments/stripe/config',
-                        templateUrl: 'modules/paymentstripe/admin/stripe/stripe-config-form.html',
+                        templateUrl: '_content/SimplCommerce.Module.PaymentStripe/admin/stripe/stripe-config-form.html',
                         controller: 'StripeConfigFormCtrl as vm'
                     })
                 ;

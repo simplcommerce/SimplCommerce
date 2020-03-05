@@ -6,7 +6,7 @@
     function reviewReplyWidget() {
         var directive = {
             restrict: 'E',
-            templateUrl: 'modules/reviews/admin/review/review-reply-widget.directive.html',
+            templateUrl: '_content/SimplCommerce.Module.Reviews/admin/review/review-reply-widget.directive.html',
             scope: {
                 status: '=',
                 numRecords: '='

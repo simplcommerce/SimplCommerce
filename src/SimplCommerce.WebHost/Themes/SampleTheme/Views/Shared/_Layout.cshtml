@@ -13,10 +13,10 @@
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap-star-rating/css/star-rating.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/multi-dropdown-menu/css/bootstrap-4-navbar.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/toastr/build/toastr.min.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/modules/core/site.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/_content/SimplCommerce.Module.Core/site.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/themes/SampleTheme/site.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/smoothproducts/css/smoothproducts.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/modules/catalog/product-detail.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/_content/SimplCommerce.Module.Catalog/product-detail.css" />
     <script simpl-append-version="true" src="~/lib/angular/angular.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4 logo">
                     <a asp-area="Core" asp-controller="Home" asp-action="Index">
-                        <img alt="SimplCommerce" src="~/modules/core/Logo_SimplCommerce.png" />
+                        <img alt="SimplCommerce" src="~/_content/SimplCommerce.Module.Core/Logo_SimplCommerce.png" />
                     </a>
                 </div>
                 <div class="col-10 col-md-5 col-lg-7 search-box">
@@ -113,14 +113,15 @@
     <script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
     <script simpl-append-version="true" src="~/lib/toastr/build/toastr.min.js"></script>
     <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
-    @if(CultureInfo.CurrentCulture.Name != SimplCommerce.Infrastructure.GlobalConfiguration.DefaultCulture)
+    @if (CultureInfo.CurrentCulture.Name != SimplCommerce.Infrastructure.GlobalConfiguration.DefaultCulture)
     {
         <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/@(CultureInfo.CurrentCulture.Name).js"></script>
     }
-    <script simpl-append-version="true" src="~/modules/core/main.js"></script>
-    <script simpl-append-version="true" src="~/modules/shoppingcart/add-to-cart.js"></script>
-    <script simpl-append-version="true" src="~/modules/productcomparison/product-comparison.js"></script>
-    <script simpl-append-version="true" src="~/modules/catalog/product-overview.js"></script>
+    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Core/main.js"></script>
+    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.ShoppingCart/add-to-cart.js"></script>
+    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.ProductComparison/product-comparison.js"></script>
+    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.WishList/wishlist.js"></script>
+    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Catalog/product-overview.js"></script>
     @RenderSection("scripts", required: false)
 
     <partial name="_AnalyticsScript" />

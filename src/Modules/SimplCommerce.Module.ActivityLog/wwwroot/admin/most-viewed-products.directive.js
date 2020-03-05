@@ -6,7 +6,7 @@
     function mostViewedProducts() {
         var directive = {
             restrict: 'E',
-            templateUrl: 'modules/activitylog/admin/most-viewed-products.directive.html',
+            templateUrl: '_content/SimplCommerce.Module.ActivityLog/admin/most-viewed-products.directive.html',
             scope: {},
             controller: ['activityLogService', 'translateService', MostMostViewedProductCtrl],
             controllerAs: 'vm',

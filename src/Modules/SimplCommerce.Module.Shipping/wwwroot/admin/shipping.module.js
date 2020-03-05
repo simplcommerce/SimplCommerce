@@ -7,7 +7,7 @@
         .config(['$stateProvider', function ($stateProvider) {
             $stateProvider.state('shipping-providers', {
                 url: '/shipping-providers',
-                templateUrl: "modules/shipping/admin/provider/shipping-provider-list.html",
+                templateUrl: "_content/SimplCommerce.Module.Shipping/admin/provider/shipping-provider-list.html",
                 controller: 'ShippingProviderListCtrl as vm'
             });
         }]);

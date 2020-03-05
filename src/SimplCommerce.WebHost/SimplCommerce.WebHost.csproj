@@ -82,8 +82,4 @@
     <PackageReference Include="MediatR" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
   </ItemGroup>
-
-  <Target Name="CopyModule" AfterTargets="Build">
-    <CopyModuleTask ProjectDir="$(ProjectDir)" TargetFramework="netcoreapp3.1" BuildConfiguration="$(ConfigurationName)" />
-  </Target>
 </Project>

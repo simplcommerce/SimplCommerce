@@ -9,7 +9,7 @@
                 $stateProvider
                     .state('payments-paypalExpress-config', {
                         url: '/payments/paypal-express/config',
-                        templateUrl: 'modules/paymentpaypalexpress/admin/config/config-form.html',
+                        templateUrl: '_content/SimplCommerce.Module.PaymentPaypalExpress/admin/config/config-form.html',
                         controller: 'PaypalExpressConfigFormCtrl as vm'
                     })
                     ;

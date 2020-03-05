@@ -4,5 +4,15 @@
     <ProjectReference Include="..\..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <SampleContent Include="SampleContent\**\*.*" />
+  </ItemGroup>
+  
+  <Target Name="CopyModule" AfterTargets="Build">
+    <Copy
+            SourceFiles="@(SampleContent)"
+            DestinationFiles="@(SampleContent->'..\..\SimplCommerce.WebHost\Modules\SimplCommerce.Module.SampleData\SampleContent\%(RecursiveDir)%(Filename)%(Extension)')"
+        />
+  </Target>
 </Project>

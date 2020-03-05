@@ -7,7 +7,7 @@
     function productOptionDisplayDirective() {
         var directive = {
             restrict: 'E',
-            templateUrl: 'modules/catalog/admin/product/product-option-display-directive.html',
+            templateUrl: '_content/SimplCommerce.Module.Catalog/admin/product/product-option-display-directive.html',
             scope: {
                 option: '=option',
                 modelId: '@modelId',

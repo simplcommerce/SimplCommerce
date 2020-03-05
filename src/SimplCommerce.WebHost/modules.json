@@ -1,146 +1,182 @@
 [
   {
     "id": "SimplCommerce.Module.ActivityLog",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.Catalog",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.Cms",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.Comments",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.Contacts",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.Core",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.DinkToPdf",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.EmailSenderSmtp",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.Inventory",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.Localization",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.News",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.Orders",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.PaymentBraintree",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.PaymentCoD",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.PaymentPaypalExpress",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.Payments",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.PaymentStripe",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.PaymentMomo",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.PaymentNganLuong",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.PaymentCashfree",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.Pricing",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.ProductComparison",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.ProductRecentlyViewed",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.Reviews",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.SampleData",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.Search",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.Shipments",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.Shipping",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.ShippingFree",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.ShippingPrices",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.ShippingTableRate",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.ShoppingCart",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.StorageLocal",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.Tax",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.Vendors",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   },
   {
     "id": "SimplCommerce.Module.WishList",
+    "isBundledWithHost": true,
     "version": "1.0.0"
   }
 ]

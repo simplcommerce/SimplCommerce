@@ -9,7 +9,7 @@
                 $stateProvider
                     .state('payments-cashfree-config', {
                         url: '/payments/cashfree/config',
-                        templateUrl: 'modules/paymentcashfree/admin/cashfree/cashfree-config-form.html',
+                        templateUrl: '_content/SimplCommerce.Module.PaymentCashfree/admin/cashfree/cashfree-config-form.html',
                         controller: 'CashfreeConfigFormCtrl as vm'
                     })
                 ;

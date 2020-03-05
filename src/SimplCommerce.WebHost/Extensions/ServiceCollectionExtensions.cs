@@ -37,28 +37,28 @@ namespace SimplCommerce.WebHost.Extensions
 
         public static IServiceCollection AddModules(this IServiceCollection services, string contentRootPath)
         {
-            const string moduleManifestName = "module.json";
-            var modulesFolder = Path.Combine(contentRootPath, "Modules");
+            // No need module.json at the moment. Consider put as embbeded resource if needed
+            //const string moduleManifestName = "module.json";
+            //var modulesFolder = Path.Combine(contentRootPath, "Modules");
             foreach (var module in _modulesConfig.GetModules())
             {
-                var moduleFolder = new DirectoryInfo(Path.Combine(modulesFolder, module.Id));
-                var moduleManifestPath = Path.Combine(moduleFolder.FullName, moduleManifestName);
-                if (!File.Exists(moduleManifestPath))
-                {
-                    throw new MissingModuleManifestException($"The manifest for the module '{moduleFolder.Name}' is not found.", moduleFolder.Name);
-                }
+                //var moduleFolder = new DirectoryInfo(Path.Combine(modulesFolder, module.Id));
+                //var moduleManifestPath = Path.Combine(moduleFolder.FullName, moduleManifestName);
+                //if (!File.Exists(moduleManifestPath))
+                //{
+                //    throw new MissingModuleManifestException($"The manifest for the module '{moduleFolder.Name}' is not found.", moduleFolder.Name);
+                //}
 
-                using (var reader = new StreamReader(moduleManifestPath))
-                {
-                    string content = reader.ReadToEnd();
-                    dynamic moduleMetadata = JsonConvert.DeserializeObject(content);
-                    module.Name = moduleMetadata.name;
-                    module.IsBundledWithHost = moduleMetadata.isBundledWithHost;
-                }
+                //using (var reader = new StreamReader(moduleManifestPath))
+                //{
+                //    string content = reader.ReadToEnd();
+                //    dynamic moduleMetadata = JsonConvert.DeserializeObject(content);
+                //    module.Name = moduleMetadata.name;
+                //}
 
                 if(!module.IsBundledWithHost)
                 {
-                    TryLoadModuleAssembly(moduleFolder.FullName, module);
+                    TryLoadModuleAssembly(module.Id, module);
                     if (module.Assembly == null)
                     {
                         throw new Exception($"Cannot find main assembly for module {module.Id}");
@@ -66,7 +66,7 @@ namespace SimplCommerce.WebHost.Extensions
                 }
                 else
                 {
-                    module.Assembly = Assembly.Load(new AssemblyName(moduleFolder.Name));
+                    module.Assembly = Assembly.Load(new AssemblyName(module.Id));
                 }
 
                 GlobalConfiguration.Modules.Add(module);
