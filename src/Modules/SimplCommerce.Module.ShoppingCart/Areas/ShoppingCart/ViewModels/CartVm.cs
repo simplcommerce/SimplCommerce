@@ -14,6 +14,8 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels
 
         public long Id { get; set; }
 
+        public bool LockedOnCheckout { get; set; }
+
         public string CouponCode { get; set; }
 
         public decimal SubTotal { get; set; }

@@ -17,7 +17,7 @@
                 <tr ng-if="vm.cart.items.length" ng-repeat="cartItem in vm.cart.items">
                     <td class="product-image"><img ng-src="{{cartItem.productImage}}" /></td>
                     <td>
-                        <h4>{{cartItem.productName}}</h4>
+                        <h6>{{cartItem.productName}}</h6>
                         <ul class="list-unstyled">
                             <li ng-repeat="opt in cartItem.variationOptions">
                                 <span>{{opt.optionName}}:</span> {{opt.value}}
@@ -48,7 +48,7 @@
                     <textarea rows="3" class="form-control" name="orderNote" ng-model="vm.cart.orderNote" placeholder="Enter order note"></textarea>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-default pull-right" ng-click="vm.saveOrderNote()">Save order note</button>
+                    <button type="submit" class="btn btn-default pull-right" ng-click="vm.saveOrderNote()">@Localizer["Save order note"]</button>
                 </div>
             </form>
         </div>
@@ -71,6 +71,7 @@
                 </tr>
             </table>
             <p class="text-right"><a href="~/checkout/shipping" ng-class="{disabled: !vm.cart.isValid}" class="btn btn-primary">@Localizer["Process to Checkout"]</a></p>
+            <p ng-if="vm.cart.lockedOnCheckout"><button type="button" ng-click="vm.unlock()" class="btn btn-secondary active">@Localizer["Unlock cart"]</button></p>
         </div>
         <div class="coupon-form" ng-if="vm.cart.items.length">
             <h4>@Localizer["Coupon code"]</h4>

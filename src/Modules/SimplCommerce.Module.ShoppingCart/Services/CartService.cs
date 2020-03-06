@@ -122,7 +122,8 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 IsProductPriceIncludeTax = cart.IsProductPriceIncludeTax,
                 TaxAmount = cart.TaxAmount,
                 ShippingAmount = cart.ShippingAmount,
-                OrderNote = cart.OrderNote
+                OrderNote = cart.OrderNote,
+                LockedOnCheckout = cart.LockedOnCheckout
             };
 
             cartVm.Items = _cartItemRepository
@@ -222,6 +223,20 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 }
 
                await _cartRepository.SaveChangesAsync();
+            }
+        }
+
+        public async Task UnlockCart(Cart cart)
+        {
+            if(cart == null)
+            {
+                throw new ArgumentNullException(nameof(cart));
+            }
+
+            if (cart.LockedOnCheckout)
+            {
+                cart.LockedOnCheckout = false;
+                await _cartRepository.SaveChangesAsync();
             }
         }
     }
