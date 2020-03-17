@@ -380,5 +380,6 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-U
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Your review will be showed within the next 24h.', N'Your review will be showed within the next 24h.');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Your review will be shown within the next 24h.', N'Your review will be shown within the next 24h.');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Zip Code', N'Zip Code');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Recommend Products', N'Recommend Products');
 
 GO

@@ -12,6 +12,10 @@ using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Core.Areas.Core.ViewModels;
 using SimplCommerce.Module.Core.Events;
 using SimplCommerce.Module.Core.Services;
+using SimplCommerce.AI.Recommendation;
+using System.IO;
+using System;
+using SimplCommerce.AI.Recommendation.Models;
 
 namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 {
@@ -24,18 +28,21 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         private readonly IMediator _mediator;
         private readonly IProductPricingService _productPricingService;
         private readonly IContentLocalizationService _contentLocalizationService;
+        private readonly IRecommendationService _recommendationService;
 
         public ProductController(IRepository<Product> productRepository,
             IMediaService mediaService,
             IMediator mediator,
             IProductPricingService productPricingService,
-            IContentLocalizationService contentLocalizationService)
+            IContentLocalizationService contentLocalizationService,
+            IRecommendationService recommendationService)
         {
             _productRepository = productRepository;
             _mediaService = mediaService;
             _mediator = mediator;
             _productPricingService = productPricingService;
             _contentLocalizationService = contentLocalizationService;
+            _recommendationService = recommendationService;
         }
 
         [HttpGet("product/product-overview")]
@@ -116,6 +123,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             MapRelatedProductToProductVm(product, model);
             MapProductOptionToProductVm(product, model);
             MapProductImagesToProductVm(product, model);
+            MapRecommendProductsToVm(model);
 
             await _mediator.Publish(new EntityViewed { EntityId = product.Id, EntityTypeId = "Product" });
             _productRepository.SaveChanges();
@@ -149,7 +157,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
         private void MapProductVariantToProductVm(Product product, ProductDetail model)
         {
-            if(!product.ProductLinks.Any(x => x.LinkType == ProductLinkType.Super))
+            if (!product.ProductLinks.Any(x => x.LinkType == ProductLinkType.Super))
             {
                 return;
             }
@@ -216,6 +224,32 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 {
                     model.CrossSellProducts.Add(productThumbnail);
                 }
+            }
+        }
+
+        private void MapRecommendProductsToVm(ProductDetail model)
+        {
+            var top5 = (from m in _productRepository.Query().Where(x => x.IsPublished && x.IsVisibleIndividually && x.Id != model.Id)
+                                                            .Include(x => x.OptionValues)
+                                                            .Include(x => x.ThumbnailImage)
+                                                            .Include(x => x.Medias).ThenInclude(m => m.Media)
+                                                            .AsEnumerable()
+                        let p = _recommendationService.Predict(
+                           new ProductInfo()
+                           {
+                               ProductID = model.Id,
+                               CombinedProductID = (uint)m.Id
+                           })
+                        orderby p.Score descending
+                        select (Product: m, Score: p.Score)).Take(4);
+
+            foreach (var dict in top5)
+            {
+                var productThumbnail = ProductThumbnail.FromProduct(dict.Product);
+                productThumbnail.Name = _contentLocalizationService.GetLocalizedProperty(nameof(Product), productThumbnail.Id, nameof(productThumbnail.Name), productThumbnail.Name);
+                productThumbnail.ThumbnailUrl = _mediaService.GetThumbnailUrl(productThumbnail.ThumbnailImage);
+                productThumbnail.CalculatedProductPrice = _productPricingService.CalculateProductPrice(productThumbnail);
+                model.RecommendProducts.Add(productThumbnail);
             }
         }
     }
