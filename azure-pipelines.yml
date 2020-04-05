@@ -26,7 +26,7 @@ jobs:
       custom: tool
       arguments: install --tool-path . dotnet-reportgenerator-globaltool
       displayName: Install ReportGenerator tool
-  - script: ./reportgenerator -reports:$(Agent.TempDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"HtmlInline_AzurePipelines;Cobertura"
+  - script: ./reportgenerator "-reports:$(Build.SourcesDirectory)/test/**/coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)/coverlet/reports" "-reporttypes:HtmlInline_AzurePipelines;Cobertura"
     displayName: Create reports
   - task: PublishTestResults@2
     displayName: 'Publish Test Results **/*.trx'
@@ -59,7 +59,7 @@ jobs:
       custom: tool
       arguments: install --tool-path . dotnet-reportgenerator-globaltool
       displayName: Install ReportGenerator tool
-  - script: ./reportgenerator -reports:$(Agent.TempDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"HtmlInline_AzurePipelines;Cobertura"
+  - script: ./reportgenerator -reports:$(Build.SourcesDirectory)/test/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"HtmlInline_AzurePipelines;Cobertura"
     displayName: Create reports
   - task: PublishTestResults@2
     displayName: 'Publish Test Results **/*.trx'
@@ -92,7 +92,7 @@ jobs:
       custom: tool
       arguments: install --tool-path . dotnet-reportgenerator-globaltool
       displayName: Install ReportGenerator tool
-  - script: ./reportgenerator -reports:$(Agent.TempDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"HtmlInline_AzurePipelines;Cobertura"
+  - script: ./reportgenerator -reports:$(Build.SourcesDirectory)/test/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"HtmlInline_AzurePipelines;Cobertura"
     displayName: Create reports
   - task: PublishTestResults@2
     displayName: 'Publish Test Results **/*.trx'
@@ -127,7 +127,7 @@ jobs:
       custom: tool
       arguments: install --tool-path . dotnet-reportgenerator-globaltool
       displayName: Install ReportGenerator tool
-  - script: ./reportgenerator -reports:$(Agent.TempDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"HtmlInline_AzurePipelines;Cobertura"
+  - script: ./reportgenerator -reports:$(Build.SourcesDirectory)/test/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"HtmlInline_AzurePipelines;Cobertura"
     displayName: Create reports
   - task: PublishTestResults@2
     displayName: 'Publish Test Results **/*.trx'
