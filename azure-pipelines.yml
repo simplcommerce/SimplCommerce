@@ -9,7 +9,7 @@ trigger:
 jobs:
 - job: Linux
   pool:
-    vmImage: 'Ubuntu 16.04'
+    vmImage: 'ubuntu-18.04'
   steps:
   - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
@@ -18,6 +18,8 @@ jobs:
     inputs:
       command: test
       arguments:  '--logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude=[xunit.*]*%2c[System.*]*'
+      projects: 'test/**/*.csproj'
+      nobuild: true
   - task: DotNetCoreCLI@2
     inputs:
       command: custom
@@ -40,7 +42,7 @@ jobs:
 
 - job: macOS
   pool:
-    vmImage: 'macOS-10.13'
+    vmImage: 'macOS-10.15'
   steps:
   - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
@@ -49,6 +51,8 @@ jobs:
     inputs:
       command: test
       arguments:  '--logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude=[xunit.*]*%2c[System.*]*'
+      projects: 'test/**/*.csproj'
+      nobuild: true
   - task: DotNetCoreCLI@2
     inputs:
       command: custom
@@ -80,6 +84,8 @@ jobs:
     inputs:
       command: test
       arguments:  '--logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude=[xunit.*]*%2c[System.*]*'
+      projects: 'test/**/*.csproj'
+      nobuild: true
   - task: DotNetCoreCLI@2
     inputs:
       command: custom
@@ -102,7 +108,7 @@ jobs:
 
 - job: LinuxRelease
   pool:
-    vmImage: 'Ubuntu 16.04'
+    vmImage: 'ubuntu-18.04'
   variables:
     buildConfiguration: 'Release'
   steps:
@@ -113,6 +119,8 @@ jobs:
     inputs:
       command: test
       arguments:  '--configuration $(buildConfiguration) --logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude=[xunit.*]*%2c[System.*]*'
+      projects: 'test/**/*.csproj'
+      nobuild: true
   - task: DotNetCoreCLI@2
     inputs:
       command: custom
