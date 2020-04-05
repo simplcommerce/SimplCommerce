@@ -72,6 +72,7 @@ jobs:
 - job: Windows
   pool:
     vmImage: 'windows-2019'
+  steps:
   - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - task: DotNetCoreCLI@2
@@ -104,6 +105,7 @@ jobs:
     vmImage: 'Ubuntu 16.04'
   variables:
     buildConfiguration: 'Release'
+  steps:
   - script: dotnet build --configuration $(buildConfiguration)
     displayName: 'dotnet build $(buildConfiguration)'
   - task: DotNetCoreCLI@2
