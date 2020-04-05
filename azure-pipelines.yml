@@ -28,12 +28,6 @@ jobs:
       displayName: Install ReportGenerator tool
   - script: ./reportgenerator "-reports:$(Build.SourcesDirectory)/test/**/coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)/coverlet/reports" "-reporttypes:HtmlInline_AzurePipelines;Cobertura"
     displayName: Create reports
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results **/*.trx'
-    condition: succeededOrFailed()
-    inputs:
-      testResultsFormat: VSTest
-      testResultsFiles: '**/*.trx'
   - task: PublishCodeCoverageResults@1
     displayName: 'Publish code coverage'
     inputs:
@@ -61,12 +55,6 @@ jobs:
       displayName: Install ReportGenerator tool
   - script: ./reportgenerator -reports:$(Build.SourcesDirectory)/test/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"HtmlInline_AzurePipelines;Cobertura"
     displayName: Create reports
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results **/*.trx'
-    condition: succeededOrFailed()
-    inputs:
-      testResultsFormat: VSTest
-      testResultsFiles: '**/*.trx'   
   - task: PublishCodeCoverageResults@1
     displayName: 'Publish code coverage'
     inputs:
@@ -93,13 +81,7 @@ jobs:
       arguments: install --tool-path . dotnet-reportgenerator-globaltool
       displayName: Install ReportGenerator tool
   - script: .\reportgenerator -reports:$(Build.SourcesDirectory)\test\**\coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)\coverlet\reports -reporttypes:"HtmlInline_AzurePipelines;Cobertura"
-    displayName: Create reports
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results **/*.trx'
-    condition: succeededOrFailed()
-    inputs:
-      testResultsFormat: VSTest
-      testResultsFiles: '**/*.trx'    
+    displayName: Create reports 
   - task: PublishCodeCoverageResults@1
     displayName: 'Publish code coverage'
     inputs:
@@ -128,13 +110,7 @@ jobs:
       arguments: install --tool-path . dotnet-reportgenerator-globaltool
       displayName: Install ReportGenerator tool
   - script: ./reportgenerator -reports:$(Build.SourcesDirectory)/test/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/coverlet/reports -reporttypes:"HtmlInline_AzurePipelines;Cobertura"
-    displayName: Create reports
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results **/*.trx'
-    condition: succeededOrFailed()
-    inputs:
-      testResultsFormat: VSTest
-      testResultsFiles: '**/*.trx'    
+    displayName: Create reports   
   - task: PublishCodeCoverageResults@1
     displayName: 'Publish code coverage'
     inputs:
