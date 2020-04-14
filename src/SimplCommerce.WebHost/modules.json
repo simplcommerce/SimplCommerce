@@ -178,5 +178,10 @@
     "id": "SimplCommerce.Module.WishList",
     "isBundledWithHost": true,
     "version": "1.0.0"
+  },
+  {
+    "id": "SimplCommerce.Module.ProductsRecommendation",
+    "isBundledWithHost": true,
+    "version": "1.0.0"
   }
 ]

@@ -43,7 +43,7 @@
                     }
                 </div>
             </div>
-            @foreach(var variant in Model.Variations)
+            @foreach (var variant in Model.Variations)
             {
                 if (variant.Images.Any())
                 {
@@ -57,7 +57,7 @@
                             }
                         </div>
                     </div>
-                 }
+                }
             }
         </div>
         <div class="col-md-6">
@@ -295,19 +295,7 @@
 
 @await Component.InvokeAsync("ProductRecentlyViewed", new { productId = Model.Id })
 
-@if (Model.RecommendProducts.Any())
-{
-    <!-- Recommend Products -->
-    <h2 class="page-header">@Localizer["Recommend Products"]</h2>
-    <div class="row product-list">
-        @foreach (var product in Model.RecommendProducts)
-        {
-            <div class="col-xs-6 col-md-3">
-                <partial name="_ProductThumbnail" model="product" />
-            </div>
-        }
-    </div>
-}
+@await Component.InvokeAsync("RecommendedProducts", new { productId = Model.Id })
 
 <div>
     <h3>@Localizer["Customer reviews"]</h3>

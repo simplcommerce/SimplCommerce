@@ -1,0 +1,6 @@
+{
+  "id": "SimplCommerce.Module.ProductsRecommendation",
+  "name": "Recommended Products",
+  "isBundledWithHost": true,
+  "version": "1.0.0"
+}
