@@ -53,7 +53,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                         ThumbnailImage = i.Product.ThumbnailImage.FileName,
                         ProductOptions = i.Product.OptionCombinations.Select(o => o.Value)
                     }).ToList()
-                });
+                }).ToList();
 
             foreach (var item in model2)
             {

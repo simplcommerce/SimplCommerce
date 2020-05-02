@@ -9,17 +9,17 @@
                 $stateProvider
                     .state('order', {
                         url: '/order',
-                        templateUrl: 'modules/orders/admin/order/order-list.html',
+                        templateUrl: '_content/SimplCommerce.Module.Orders/admin/order/order-list.html',
                         controller: 'OrderListCtrl as vm'
                     })
                     .state('order-detail', {
                         url: '/order/detail/:id',
-                        templateUrl: 'modules/orders/admin/order/order-detail.html',
+                        templateUrl: '_content/SimplCommerce.Module.Orders/admin/order/order-detail.html',
                         controller: 'OrderDetailCtrl as vm'
                     })
                     .state('order-create', {
                         url: '/order-create',
-                        templateUrl: 'modules/orders/admin/order/order-create.html',
+                        templateUrl: '_content/SimplCommerce.Module.Orders/admin/order/order-create.html',
                         controller: 'OrderCreateCtrl as vm'
                     })
                 ;

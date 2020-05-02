@@ -54,6 +54,13 @@
                     });
                 };
 
+                vm.unlock = function unlock() {
+                    shoppingCartService.unlock().then(function () {
+                        toastr.success('Cart unlocked');
+                        vm.cart.lockedOnCheckout = false;
+                    });
+                };
+
                  getShoppingCartItems();
             }
         ]);

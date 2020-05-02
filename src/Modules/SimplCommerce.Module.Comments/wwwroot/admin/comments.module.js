@@ -9,7 +9,7 @@
                 $stateProvider
                     .state('comments', {
                         url: '/comments',
-                        templateUrl: 'modules/comments/admin/comment/comment-list.html',
+                        templateUrl: '_content/SimplCommerce.Module.Comments/admin/comment/comment-list.html',
                         controller: 'CommentListCtrl as vm'
                     })
                 ;

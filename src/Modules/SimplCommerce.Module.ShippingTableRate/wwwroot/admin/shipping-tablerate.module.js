@@ -7,7 +7,7 @@
         .config(['$stateProvider', function ($stateProvider) {
             $stateProvider.state('shipping-table-rate-config', {
                 url: '/shippings/table-rate-config',
-                templateUrl: "modules/shippingtablerate/admin/tablerate/shipping-tablerate-form.html",
+                templateUrl: "_content/SimplCommerce.Module.ShippingTableRate/admin/tablerate/shipping-tablerate-form.html",
                 controller: 'ShippingTableRateFormCtrl as vm'
             });
         }]);

@@ -9,7 +9,7 @@
                 $stateProvider
                     .state('payments-momo-config', {
                         url: '/payments/momo/config',
-                        templateUrl: 'modules/paymentmomo/admin/momo/momo-config-form.html',
+                        templateUrl: '_content/SimplCommerce.Module.PaymentMomo/admin/momo/momo-config-form.html',
                         controller: 'MomoConfigFormCtrl as vm'
                     })
                 ;

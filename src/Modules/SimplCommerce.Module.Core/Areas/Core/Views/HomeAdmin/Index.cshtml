@@ -35,7 +35,8 @@
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/angular-ui-tree/angular-ui-tree.min.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/angular-bootstrap-colorpicker/css/colorpicker.min.css" />
     <link simpl-append-version="true" rel="stylesheet" href="~/lib/flags/flags.min.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/modules/core/admin/admin-core.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/_content/SimplCommerce.Module.Core/admin/admin-core.css" />
+
     <script>
         window.Global_AssetVersion = "@Config["Global.AssetVersion"]";
         window.Global_EnableCultures = [@Html.Raw(string.Join(",", cultures))];
@@ -62,7 +63,7 @@
     <script simpl-append-version="true" src="~/lib/bootbox/bootbox.js"></script>
     <script simpl-append-version="true" src="~/lib/i18n/angular-locale_@(CultureInfo.CurrentCulture.Name.ToLower()).js"></script>
 
-    <script simpl-append-version="true" src="~/modules/core/admin/common/slugify.js"></script>
+    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Core/admin/common/slugify.js"></script>
     <script>
         angular.module('simplAdmin', [
             'ui.router',
@@ -84,24 +85,25 @@
             'simplAdmin.dashboard'
         ]);
     </script>
-    <script simpl-append-version="true" src="~/modules/core/admin/admin-app-config.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/common/common.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/common/summernote-service.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/common/st-date-range.js"></script>
-    <script simpl-append-version="true" src="~/modules/core/admin/common/translation-service.js"></script>
+    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Core/admin/admin-app-config.js"></script>
+    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Core/admin/common/common.js"></script>
+    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Core/admin/common/summernote-service.js"></script>
+    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Core/admin/common/st-date-range.js"></script>
+    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Core/admin/common/translation-service.js"></script>
 
-    <script simpl-append-version="true" src="~/modules/core/admin/dashboard/dashboard.module.js"></script>
+    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Core/admin/dashboard/dashboard.module.js"></script>
 
 
     @foreach (var module in GlobalConfiguration.Modules)
     {
-        var bundleConfigFile = System.IO.Path.Combine(GlobalConfiguration.ContentRootPath, "Modules", module.Id, "bundleconfig.json");
-        if (!System.IO.File.Exists(bundleConfigFile))
+
+        var resourceStream = module.Assembly.GetManifestResourceStream($"{module.Id}.bundleconfig.json");
+        if(resourceStream == null)
         {
             continue;
         }
 
-        using (var reader = new StreamReader(bundleConfigFile))
+        using (var reader = new StreamReader(resourceStream))
         {
             string content = reader.ReadToEnd();
             dynamic bundleConfigs = JsonConvert.DeserializeObject(content);
@@ -112,13 +114,13 @@
                 {
                     if (assetBundling)
                     {
-                        <script simpl-append-version="true" src="~/modules/@module.Id.Split('.').Last().ToLower()/admin/@outputFileName.Replace("wwwroot/admin/", "")"></script>
+                        <script simpl-append-version="true" src="~/_content/@module.Id/@outputFileName.Replace("wwwroot/", "")"></script>
                     }
                     else
                     {
                         foreach (string inputFile in configItems.inputFiles)
                         {
-                            <script simpl-append-version="true" src="~/modules/@module.Id.Split('.').Last().ToLower()/admin/@inputFile.Replace("wwwroot/admin/", "")"></script>
+                            <script simpl-append-version="true" src="~/_content/@module.Id/@inputFile.Replace("wwwroot/", "")"></script>
                         }
                     }
                 }

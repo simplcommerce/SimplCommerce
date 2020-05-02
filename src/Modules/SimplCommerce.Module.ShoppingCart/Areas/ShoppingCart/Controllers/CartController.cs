@@ -190,6 +190,20 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             return await List();
         }
 
+        [HttpPost("cart/unlock")]
+        public async Task<IActionResult> Unlock()
+        {
+            var currentUser = await _workContext.GetCurrentUser();
+            var cart = await _cartService.GetActiveCart(currentUser.Id);
+            if (cart == null)
+            {
+                return NotFound();
+            }
+
+            await _cartService.UnlockCart(cart);
+            return Accepted();
+        }
+
         private IActionResult CreateCartLockedResult()
         {
             return Ok(new { Error = true, Message = "Cart is locked for checkout. Please complete or cancel the checkout first" });

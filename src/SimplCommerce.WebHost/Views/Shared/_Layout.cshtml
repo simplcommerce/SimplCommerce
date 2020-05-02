@@ -9,7 +9,7 @@
     @RenderSection("additionalMeta", false)
 
     <link simpl-append-version="true" rel="stylesheet" href="~/libs.min.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/modules/core/site.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/_content/SimplCommerce.Module.Core/site.css" />
     <script simpl-append-version="true" src="~/lib/angular/angular.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4 logo">
                     <a asp-area="Core" asp-controller="Home" asp-action="Index">
-                        <img alt="SimplCommerce" src="~/modules/core/Logo_SimplCommerce.png" />
+                        <img alt="SimplCommerce" src="~/_content/SimplCommerce.Module.Core/Logo_SimplCommerce.png" />
                     </a>
                 </div>
                 <div class="col-10 col-md-5 col-lg-7 search-box">
@@ -112,10 +112,10 @@
     {
         <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/@(CultureInfo.CurrentCulture.Name).js"></script>
     }
-    <script simpl-append-version="true" src="~/modules/core/main.js"></script>
-    <script simpl-append-version="true" src="~/modules/shoppingcart/add-to-cart.js"></script>
-    <script simpl-append-version="true" src="~/modules/productcomparison/product-comparison.js"></script>
-    <script simpl-append-version="true" src="~/modules/wishlist/wishlist.js"></script>
+    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Core/main.js"></script>
+    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.ShoppingCart/add-to-cart.js"></script>
+    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.ProductComparison/product-comparison.js"></script>
+    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.WishList/wishlist.js"></script>
     @RenderSection("scripts", required: false)
 
     <partial name="_AnalyticsScript" />

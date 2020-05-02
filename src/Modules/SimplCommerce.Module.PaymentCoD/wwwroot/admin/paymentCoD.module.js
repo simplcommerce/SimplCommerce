@@ -9,7 +9,7 @@
                 $stateProvider
                     .state('payments-cod-config', {
                         url: '/payments/cod/config',
-                        templateUrl: 'modules/paymentcod/admin/config/config-form.html',
+                        templateUrl: '_content/SimplCommerce.Module.PaymentCoD/admin/config/config-form.html',
                         controller: 'CoDConfigFormCtrl as vm'
                     })
                     ;

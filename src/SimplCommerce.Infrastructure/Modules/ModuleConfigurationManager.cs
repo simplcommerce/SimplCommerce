@@ -21,7 +21,8 @@ namespace SimplCommerce.Infrastructure.Modules
                     yield return new ModuleInfo
                     {
                         Id = module.id,
-                        Version = Version.Parse(module.version.ToString())
+                        Version = Version.Parse(module.version.ToString()),
+                        IsBundledWithHost = module.isBundledWithHost
                     };
                 }
             }
