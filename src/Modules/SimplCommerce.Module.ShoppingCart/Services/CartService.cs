@@ -196,7 +196,8 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                     cartTo = new Cart
                     {
                         CustomerId = toUserId,
-                        CreatedById = toUserId
+                        CreatedById = toUserId,
+                        IsProductPriceIncludeTax = cartFrom.IsProductPriceIncludeTax
                     };
 
                     _cartRepository.Add(cartTo);
