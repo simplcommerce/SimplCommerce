@@ -6,16 +6,19 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Areas.Core.ViewModels;
+using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
 {
     public class CategoryBreadcrumbViewComponent : ViewComponent
     {
         private readonly IRepository<Category> _categoryRepository;
+        private readonly IContentLocalizationService _contentLocalizationService;
 
-        public CategoryBreadcrumbViewComponent(IRepository<Category> categoryRepository)
+        public CategoryBreadcrumbViewComponent(IRepository<Category> categoryRepository, IContentLocalizationService contentLocalizationService)
         {
             _categoryRepository = categoryRepository;
+            _contentLocalizationService = contentLocalizationService;
         }
 
         public IViewComponentResult Invoke(long? categoryId, IEnumerable<long> categoryIds)
@@ -44,7 +47,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
             {
                 new BreadcrumbViewModel
                 {
-                    Text = category.Name,
+                    Text = _contentLocalizationService.GetLocalizedProperty(category, nameof(category.Name), category.Name),
                     Url = category.Slug
                 }
             };
@@ -53,7 +56,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
             {
                 breadcrumbModels.Insert(0, new BreadcrumbViewModel
                 {
-                    Text = parentCategory.Name,
+                    Text = _contentLocalizationService.GetLocalizedProperty(parentCategory, nameof(parentCategory.Name), parentCategory.Name),
                     Url = parentCategory.Slug
                 });
                 parentCategory = parentCategory.Parent;
