@@ -36,7 +36,54 @@
     <div class="col-md-3 product-list-filters">
         <h3 class="p-t-25 p-b-25">@Localizer["Filter by"]</h3>
         <form id="productFilter" name="productFilter" method="GET" action="~/@Model.CategorySlug">
-            <div id="accordion-brand">
+        @if (Model.FilterOption.Categories.Where(x => x.ParentId == Model.CategoryId).Any())
+        {
+            <div id="accordion-category" class="mt-4">
+                <div class="card">
+                    <div class="card-header" id="cardHeaderCategory">
+                        <h5 class="mb-0">
+                            <a data-toggle="collapse" href="#collapse-category" aria-expanded="true" aria-controls="collapse-category">
+                                @Localizer["Category"]
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapse-category" class="collapse show" aria-labelledby="cardHeaderCategory" data-parent="#accordion-category">
+                        <div class="card-body">
+                            <ul class="list-unstyled checkbox-list">
+                                @foreach (var category in Model.FilterOption.Categories.Where(x => x.ParentId == Model.CategoryId))
+                                {
+                                <li>
+                                    <label class="checkbox">
+                                        <input type="checkbox" value="@category.Slug" name="category" checked="@Model.CurrentSearchOption.GetCategories().Contains(category.Slug)">
+                                        @category.Name
+                                        <small>(@category.Count)</small>
+                                    </label>
+                                    @{ var children = Model.FilterOption.Categories.Where(x => x.ParentId == category.Id); }
+                                    @if (children.Any())
+                                    {
+                                    <ul class="list-unstyled checkbox-list">
+                                        @foreach (var child in children)
+                                        {
+                                        <li>
+                                            <label class="checkbox">
+                                                <input type="checkbox" value="@child.Slug" name="category" checked="@Model.CurrentSearchOption.GetCategories().Contains(child.Slug)">
+                                                @child.Name
+                                                <small>(@child.Count)</small>
+                                            </label>
+                                        </li>
+                                        }
+                                    </ul>
+                                    }
+                                </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+            <div id="accordion-brand" class="mt-4">
                 <div class="card">
                     <div class="card-header" id="cardBrandHeader">
                         <h5 class="mb-0">

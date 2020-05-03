@@ -1,4 +1,5 @@
-﻿using SimplCommerce.Infrastructure.Models;
+﻿using System;
+using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Core.Services
 {
@@ -12,5 +13,8 @@ namespace SimplCommerce.Module.Core.Services
 
         string GetLocalizedProperty(string entityType, long entityId, string propertyName, string propertyValue, string cultureId);
 
+        Func<long, string, string, string> GetLocalizationFunction<TEntity>();
+
+        Func<long, string, string, string> GetLocalizationFunction(string entityType);
     }
 }

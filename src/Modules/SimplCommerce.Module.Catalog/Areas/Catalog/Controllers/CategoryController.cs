@@ -143,10 +143,12 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             return query;
         }
 
-        private static void AppendFilterOptionsToModel(ProductsByCategory model, IQueryable<Product> query)
+        private void AppendFilterOptionsToModel(ProductsByCategory model, IQueryable<Product> query)
         {
             model.FilterOption.Price.MaxPrice = query.Max(x => x.Price);
             model.FilterOption.Price.MinPrice = query.Min(x => x.Price);
+
+            var getCategoryName = _contentLocalizationService.GetLocalizationFunction<Category>();
 
             model.FilterOption.Categories = query
                 .SelectMany(x => x.Categories)
@@ -160,7 +162,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 .Select(g => new FilterCategory
                 {
                     Id = (int)g.Key.Id,
-                    Name = g.Key.Name,
+                    Name = getCategoryName(g.Key.Id, nameof(g.Key.Name), g.Key.Name),
                     Slug = g.Key.Slug,
                     ParentId = g.Key.ParentId,
                     Count = g.Count()
