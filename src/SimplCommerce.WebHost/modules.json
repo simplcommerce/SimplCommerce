@@ -120,11 +120,6 @@
     "version": "1.0.0"
   },
   {
-    "id": "SimplCommerce.Module.SampleData",
-    "isBundledWithHost": true,
-    "version": "1.0.0"
-  },
-  {
     "id": "SimplCommerce.Module.Search",
     "isBundledWithHost": true,
     "version": "1.0.0"
