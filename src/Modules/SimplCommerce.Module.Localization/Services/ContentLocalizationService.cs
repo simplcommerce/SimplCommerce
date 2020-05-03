@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using SimplCommerce.Infrastructure.Data;
@@ -58,9 +59,7 @@ namespace SimplCommerce.Module.Localization.Services
 
             if (!_memoryCache.TryGetValue(cacheKey, out localizedProperties))
             {
-                localizedProperties = _entityRepository.Query().Where(x => x.EntityId == entityId
-                    && x.EntityType == entityType
-                    && x.CultureId == cultureId).ToList();
+                localizedProperties = GetLocalizedPropertiesFromDb(entityType, entityId, cultureId);
 
                 var cacheEntryOptions = new MemoryCacheEntryOptions()
                     .SetAbsoluteExpiration(TimeSpan.FromSeconds(30));
@@ -76,5 +75,79 @@ namespace SimplCommerce.Module.Localization.Services
 
             return propertyValue;
         }
+
+        public Func<long, string, string, string> GetLocalizationFunction<TEntity>()
+        {
+            return GetLocalizationFunction(typeof(TEntity).Name);
+        }
+
+        public Func<long, string, string, string> GetLocalizationFunction(string entityType)
+        {
+            var localizedContentProperties = GetLocalizationFromDb(entityType);
+
+            Func<long, string, string, string> resultFunction = (long entityId, string propertyName, string propertyValue) =>
+            {
+                if (!localizedContentProperties.Any())
+                {
+                    return propertyValue;
+                }
+
+                var result = localizedContentProperties.Where(lcp => lcp.EntityId == entityId && lcp.ProperyName == propertyName);
+
+                return result.FirstOrDefault()?.Value ?? propertyValue;
+            };
+
+            return resultFunction;
+        }
+
+        private List<LocalizedContentProperty> GetLocalizationFromDb(string entityType)
+        {
+            return GetLocalizationFromDb(entityType, CultureInfo.CurrentCulture.Name);
+        }
+
+        private List<LocalizedContentProperty> GetLocalizationFromDb(string entityType, string cultureId)
+        {
+            if (!_isLocalizedConentEnable)
+            {
+                return new List<LocalizedContentProperty>();
+            }
+
+            var localizedProperties = GetLocalizedPropertiesFromDb(entityType, null, cultureId);
+
+            return localizedProperties;
+        }
+
+        private List<LocalizedContentProperty> GetLocalizedPropertiesFromDb(string entityType, long? entityId, string cultureId)
+        {
+            Expression<Func<LocalizedContentProperty, bool>> expression = localizedContentProperty => entityId == null
+                ? localizedContentProperty.EntityType == entityType
+                    && localizedContentProperty.CultureId == cultureId
+                : localizedContentProperty.EntityId == entityId
+                    && localizedContentProperty.EntityType == entityType
+                    && localizedContentProperty.CultureId == cultureId;
+
+            var localizedProperties = _entityRepository.Query().Where(expression).ToList();
+            return localizedProperties;
+        }
     }
+
+    //internal static class SqlExtensions // EF 3.1
+    //{
+    //    public static string ToSql<TEntity>(this IQueryable<TEntity> query) where TEntity : class
+    //    {
+    //        var enumerator = query.Provider.Execute<IEnumerable<TEntity>>(query.Expression).GetEnumerator();
+    //        var relationalCommandCache = enumerator.Private("_relationalCommandCache");
+    //        var selectExpression = relationalCommandCache.Private<SelectExpression>("_selectExpression");
+    //        var factory = relationalCommandCache.Private<IQuerySqlGeneratorFactory>("_querySqlGeneratorFactory");
+
+    //        var sqlGenerator = factory.Create();
+    //        var command = sqlGenerator.GetCommand(selectExpression);
+
+    //        string sql = command.CommandText;
+    //        return sql;
+    //    }
+
+    //    private static object Private(this object obj, string privateField) => obj?.GetType().GetField(privateField, BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(obj);
+    //    private static T Private<T>(this object obj, string privateField) => (T)obj?.GetType().GetField(privateField, BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(obj);
+    //}
 }
