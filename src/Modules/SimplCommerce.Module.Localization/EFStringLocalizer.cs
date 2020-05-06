@@ -5,7 +5,6 @@ using System.Linq;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
-using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Localization;
 
@@ -14,6 +13,7 @@ namespace SimplCommerce.Module.Localization
     public class EfStringLocalizer : IStringLocalizer
     {
         private IMemoryCache _resourcesCache;
+        private readonly MemoryCacheEntryOptions _cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(30));
         private readonly IServiceProvider _serviceProvider;
 
         public EfStringLocalizer(IServiceProvider serviceProvider, IMemoryCache resourcesCache)
@@ -61,17 +61,17 @@ namespace SimplCommerce.Module.Localization
             var resources = LoadResources(culture);
             var value = resources.SingleOrDefault(r => r.Key == name)?.Value;
 
-            //if (value == null)
-            //{
-            //    AutoRegisterNewString(name, culture);
-            //}
+            if (value == null)
+            {
+                AutoRegisterNewString(name, culture);
+            }
 
             return value;
         }
 
         private void AutoRegisterNewString(string name, string culture)
         {
-            if (culture == "en-US") //GlobalConfiguration.DefaultCulture
+            if (culture != "en-US") //GlobalConfiguration.DefaultCulture
             {
                 using (var scope = _serviceProvider.CreateScope())
                 {
@@ -86,7 +86,10 @@ namespace SimplCommerce.Module.Localization
 
                     resourceRepository.Add(res);
                     resourceRepository.SaveChanges();
-                    _resourcesCache.Remove(culture);
+
+                    var freshResourcesCache = LoadResources(culture);
+                    freshResourcesCache.Add(res);
+                    _resourcesCache.Set(culture, freshResourcesCache, _cacheEntryOptions);
                 }
             }
         }
@@ -101,7 +104,7 @@ namespace SimplCommerce.Module.Localization
                     resources = resourceRepository.Query().Where(r => r.Culture.Id == culture).ToList();
                 }
                 
-                _resourcesCache.Set(culture, resources);
+                _resourcesCache.Set(culture, resources, _cacheEntryOptions);
             }
 
             return resources;
