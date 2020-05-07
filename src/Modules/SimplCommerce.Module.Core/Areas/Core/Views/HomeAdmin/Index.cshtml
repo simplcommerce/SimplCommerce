@@ -15,7 +15,7 @@
     Layout = null;
 
     var assetBundling = Config.GetValue<bool>("Global.AssetBundling");
-    var defaultCulture = Config.GetValue<string>("Global.DefaultCultureUI");
+    var defaultCulture = Config.GetValue<string>("Global.DefaultCultureAdminUI") ?? Config.GetValue<string>("Global.DefaultCultureUI");
     var cultures = CultureRepository.Query().Where(x => x.Id != defaultCulture).Select(x => $"\"{x.Id}\"").ToArray();
 }
 
