@@ -82,7 +82,8 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
                 {
                     Id = x.Id,
                     Name = getContactAreaName(x.Id, nameof(x.Name), x.Name)
-                }).ToList();
+                })
+                .ToList();
 
             return categories;
         }
