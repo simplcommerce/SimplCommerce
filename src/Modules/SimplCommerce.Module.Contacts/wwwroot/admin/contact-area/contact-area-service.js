@@ -10,7 +10,9 @@
             createContactArea: createContactArea,
             editContactArea: editContactArea,
             deleteContactArea: deleteContactArea,
-            getContactAreas: getContactAreas
+            getContactAreas: getContactAreas,
+            getContactAreaTranslation: getContactAreaTranslation,
+            editContactAreaTranslation: editContactAreaTranslation
         };
         return service;
 
@@ -32,6 +34,14 @@
 
         function deleteContactArea(contactArea) {
             return $http.delete('api/contact-area/' + contactArea.id, null);
+        }
+
+        function getContactAreaTranslation(id, culture) {
+            return $http.get('api/contact-area-translations/' + id + '?culture=' + culture);
+        }
+
+        function editContactAreaTranslation(id, culture, model) {
+            return $http.put('api/contact-area-translations/' + id + '?culture=' + culture, model);
         }
     }
 })();

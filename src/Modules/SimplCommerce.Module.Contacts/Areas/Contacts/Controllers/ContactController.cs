@@ -6,6 +6,7 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Contacts.Areas.Contacts.ViewModels;
 using SimplCommerce.Module.Contacts.Models;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
 {
@@ -16,12 +17,14 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
         private readonly IRepository<Contact> _contactRepository;
         private readonly IRepository<ContactArea> _contactAreaRepository;
         private readonly IWorkContext _workContext;
+        private readonly IContentLocalizationService _contentLocalizationService;
 
-        public ContactController(IRepository<Contact> contactRepository, IRepository<ContactArea> contactAreaRepository, IWorkContext workContext)
+        public ContactController(IRepository<Contact> contactRepository, IRepository<ContactArea> contactAreaRepository, IWorkContext workContext, IContentLocalizationService contentLocalizationService)
         {
             _contactRepository = contactRepository;
             _contactAreaRepository = contactAreaRepository;
             _workContext = workContext;
+            _contentLocalizationService = contentLocalizationService;
         }
 
         [HttpGet("contact")]
@@ -72,13 +75,15 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
 
         private IList<ContactAreaVm> GetContactArea()
         {
+            var getContactAreaName = _contentLocalizationService.GetLocalizationFunction<ContactArea>();
             var categories = _contactAreaRepository.Query()
                 .Where(x => !x.IsDeleted)
                 .Select(x => new ContactAreaVm()
                 {
                     Id = x.Id,
-                    Name = x.Name
-                }).ToList();
+                    Name = getContactAreaName(x.Id, nameof(x.Name), x.Name)
+                })
+                .ToList();
 
             return categories;
         }

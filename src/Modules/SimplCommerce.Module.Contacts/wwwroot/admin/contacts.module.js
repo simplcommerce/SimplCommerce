@@ -20,6 +20,11 @@
                     templateUrl: '_content/SimplCommerce.Module.Contacts/admin/contact-area/contact-area-form.html',
                     controller: 'ContactAreaFormCtrl as vm'
                 })
+                .state('contact-area-translation', {
+                    url: '/contact-area-translation/:id/:culture',
+                    templateUrl: '_content/SimplCommerce.Module.Contacts/admin/contact-area/contact-area-translation-form.html',
+                    controller: 'ContactAreaTranslationFormCtrl as vm'
+                })
                 .state('contact', {
                     url: '/contact',
                     templateUrl: '_content/SimplCommerce.Module.Contacts/admin/contacts/contact-list.html',
