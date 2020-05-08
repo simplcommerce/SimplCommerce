@@ -34,14 +34,12 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
             }
 
             var entityType = contactArea.GetType().Name;
-
             var localizeProperties = _localizedContentPropertyRepository.Query().Where(x => x.EntityId == contactArea.Id
                 && x.EntityType == entityType && x.CultureId == culture);
-
             var model = new ContactAreaTranslationForm
             {
                 DefaultCultureName = contactArea.Name,
-                Name = localizeProperties.FirstOrDefault(x => x.ProperyName == nameof(contactArea.Name))?.Value,
+                Name = localizeProperties.FirstOrDefault(x => x.ProperyName == nameof(contactArea.Name))?.Value ?? contactArea.Name,
             };
 
             return Ok(model);
@@ -59,10 +57,8 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
                 }
 
                 var entityType = contactArea.GetType().Name;
-
                 var localizeProperties = _localizedContentPropertyRepository.Query().Where(x => x.EntityId == contactArea.Id
                     && x.EntityType == entityType && x.CultureId == culture);
-
                 var localizedName = CreateOrUpdateTranslation(localizeProperties, contactArea, nameof(contactArea.Name), culture);
                 localizedName.Value = model.Name;
 

@@ -76,7 +76,6 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
         private IList<ContactAreaVm> GetContactArea()
         {
             var getContactAreaName = _contentLocalizationService.GetLocalizationFunction<ContactArea>();
-
             var categories = _contactAreaRepository.Query()
                 .Where(x => !x.IsDeleted)
                 .Select(x => new ContactAreaVm()
