@@ -46,8 +46,8 @@ namespace SimplCommerce.Module.StorageAzureBlob
 
         public async Task SaveMediaAsync(Stream mediaBinaryStream, string fileName, string mimeType = null)
         {
-            await _blobContainer.SetPermissionsAsync(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Container });
             await _blobContainer.CreateIfNotExistsAsync();
+            await _blobContainer.SetPermissionsAsync(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Container });
 
             var blockBlob = _blobContainer.GetBlockBlobReference(fileName);
             await blockBlob.UploadFromStreamAsync(mediaBinaryStream);
