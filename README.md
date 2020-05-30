@@ -60,7 +60,7 @@ Continuous deployment: https://ci.simplcommerce.com
 
 ## Docs
 
-https://www.simplcommerce.com/docs
+https://docs.simplcommerce.com/
 
 ## Roadmap
 
