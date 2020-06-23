@@ -8,7 +8,7 @@ using SimplCommerce.Module.Core.Extensions;
 
 namespace SimplCommerce.WebHost
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {

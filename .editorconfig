@@ -153,3 +153,6 @@ dotnet_diagnostic.CA2227.severity = suggestion
 
 # CA1716: Identifiers should not match keywords
 dotnet_diagnostic.CA1716.severity = suggestion
+
+# CA1303: Do not pass literals as localized parameters
+dotnet_diagnostic.CA1303.severity = none
