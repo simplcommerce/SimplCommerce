@@ -318,10 +318,10 @@ namespace SimplCommerce.Module.Orders.Services
             using (var transaction = _orderRepository.BeginTransaction())
             {
                 _orderRepository.SaveChanges();
-                await PublishOrderCreatedEvent(order);
+                await _mediator.Publish(new OrderCreated(order));
                 foreach (var subOrder in subOrders)
                 {
-                    await PublishOrderCreatedEvent(subOrder);
+                    await _mediator.Publish(new OrderCreated(subOrder));
                 }
 
                 _couponService.AddCouponUsage(cart.CustomerId, order.Id, checkingDiscountResult);
@@ -329,20 +329,9 @@ namespace SimplCommerce.Module.Orders.Services
                 transaction.Commit();
             }
 
+            await _mediator.Publish(new AfterOrderCreated(order));
+
             return Result.Ok(order);
-        }
-
-        private async Task PublishOrderCreatedEvent(Order order)
-        {
-            var orderCreated = new OrderCreated
-            {
-                OrderId = order.Id,
-                Order = order,
-                UserId = order.CreatedById,
-                Note = order.OrderNote
-            };
-
-            await _mediator.Publish(orderCreated);
         }
 
         public void CancelOrder(Order order)

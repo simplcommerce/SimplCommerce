@@ -10,6 +10,7 @@ namespace SimplCommerce.Module.Orders.Services
     {
         private readonly IEmailSender _emailSender;
         private readonly IRazorViewRenderer _viewRender;
+
         public OrderEmailService(IEmailSender emailSender, IRazorViewRenderer viewRender)
         {
             _emailSender = emailSender;

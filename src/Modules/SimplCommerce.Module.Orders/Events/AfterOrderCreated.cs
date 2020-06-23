@@ -4,11 +4,11 @@ using SimplCommerce.Module.Orders.Models;
 namespace SimplCommerce.Module.Orders.Events
 {
     /// <summary>
-    /// This event raised after an order has created and the transtaction not commited
+    /// This event raised after an order has successfully created and the transtaction already commited
     /// </summary>
-    public class OrderCreated : INotification
+    public class AfterOrderCreated : INotification
     {
-        public OrderCreated(Order order)
+        public AfterOrderCreated(Order order)
         {
             Order = order;
         }

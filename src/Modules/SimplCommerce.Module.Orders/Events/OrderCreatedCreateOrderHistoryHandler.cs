@@ -21,11 +21,11 @@ namespace SimplCommerce.Module.Orders.Events
     {
         var orderHistory = new OrderHistory
         {
-            OrderId = notification.OrderId,
+            OrderId = notification.Order.Id,
             CreatedOn = DateTimeOffset.Now,
-            CreatedById = notification.UserId,
+            CreatedById = notification.Order.CreatedById,
             NewStatus = OrderStatus.New,
-            Note = notification.Note,
+            Note = notification.Order.OrderNote,
         };
 
         if (notification.Order != null)
