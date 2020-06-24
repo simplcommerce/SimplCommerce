@@ -58,6 +58,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             return View("Error");
         }
 
+        [HttpGet("/Home/Error")]
         public IActionResult Error()
         {
             var feature = HttpContext.Features.Get<IExceptionHandlerFeature>();
