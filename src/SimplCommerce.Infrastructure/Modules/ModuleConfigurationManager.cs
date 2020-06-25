@@ -12,19 +12,17 @@ namespace SimplCommerce.Infrastructure.Modules
         public IEnumerable<ModuleInfo> GetModules()
         {
             var modulesPath = Path.Combine(GlobalConfiguration.ContentRootPath, ModulesFilename);
-            using (var reader = new StreamReader(modulesPath))
+            using var reader = new StreamReader(modulesPath);
+            string content = reader.ReadToEnd();
+            dynamic modulesData = JsonConvert.DeserializeObject(content);
+            foreach (dynamic module in modulesData)
             {
-                string content = reader.ReadToEnd();
-                dynamic modulesData = JsonConvert.DeserializeObject(content);
-                foreach (dynamic module in modulesData)
+                yield return new ModuleInfo
                 {
-                    yield return new ModuleInfo
-                    {
-                        Id = module.id,
-                        Version = Version.Parse(module.version.ToString()),
-                        IsBundledWithHost = module.isBundledWithHost
-                    };
-                }
+                    Id = module.id,
+                    Version = Version.Parse(module.version.ToString()),
+                    IsBundledWithHost = module.isBundledWithHost
+                };
             }
         }
     }
