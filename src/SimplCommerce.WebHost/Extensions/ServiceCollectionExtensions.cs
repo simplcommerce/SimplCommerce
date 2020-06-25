@@ -6,7 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Runtime.Loader;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -19,7 +18,6 @@ using Microsoft.Extensions.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Infrastructure.Web.ModelBinders;
@@ -35,27 +33,10 @@ namespace SimplCommerce.WebHost.Extensions
     {
         private static readonly IModuleConfigurationManager _modulesConfig = new ModuleConfigurationManager();
 
-        public static IServiceCollection AddModules(this IServiceCollection services, string contentRootPath)
+        public static IServiceCollection AddModules(this IServiceCollection services)
         {
-            // No need module.json at the moment. Consider put as embbeded resource if needed
-            //const string moduleManifestName = "module.json";
-            //var modulesFolder = Path.Combine(contentRootPath, "Modules");
             foreach (var module in _modulesConfig.GetModules())
             {
-                //var moduleFolder = new DirectoryInfo(Path.Combine(modulesFolder, module.Id));
-                //var moduleManifestPath = Path.Combine(moduleFolder.FullName, moduleManifestName);
-                //if (!File.Exists(moduleManifestPath))
-                //{
-                //    throw new MissingModuleManifestException($"The manifest for the module '{moduleFolder.Name}' is not found.", moduleFolder.Name);
-                //}
-
-                //using (var reader = new StreamReader(moduleManifestPath))
-                //{
-                //    string content = reader.ReadToEnd();
-                //    dynamic moduleMetadata = JsonConvert.DeserializeObject(content);
-                //    module.Name = moduleMetadata.name;
-                //}
-
                 if(!module.IsBundledWithHost)
                 {
                     TryLoadModuleAssembly(module.Id, module);
@@ -212,7 +193,7 @@ namespace SimplCommerce.WebHost.Extensions
                 x.LoginPath = new PathString("/login");
                 x.Events.OnRedirectToLogin = context =>
                 {
-                    if (context.Request.Path.StartsWithSegments("/api") && context.Response.StatusCode == (int)HttpStatusCode.OK)
+                    if (context.Request.Path.StartsWithSegments("/api", StringComparison.OrdinalIgnoreCase) && context.Response.StatusCode == (int)HttpStatusCode.OK)
                     {
                         context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                         return Task.CompletedTask;
@@ -223,7 +204,7 @@ namespace SimplCommerce.WebHost.Extensions
                 };
                 x.Events.OnRedirectToAccessDenied = context =>
                 {
-                    if (context.Request.Path.StartsWithSegments("/api") && context.Response.StatusCode == (int)HttpStatusCode.OK)
+                    if (context.Request.Path.StartsWithSegments("/api", StringComparison.OrdinalIgnoreCase) && context.Response.StatusCode == (int)HttpStatusCode.OK)
                     {
                         context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
                         return Task.CompletedTask;

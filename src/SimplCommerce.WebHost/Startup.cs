@@ -40,7 +40,7 @@ namespace SimplCommerce.WebHost
         {
             GlobalConfiguration.WebRootPath = _hostingEnvironment.WebRootPath;
             GlobalConfiguration.ContentRootPath = _hostingEnvironment.ContentRootPath;
-            services.AddModules(_hostingEnvironment.ContentRootPath);
+            services.AddModules();
 
             services.Configure<CookiePolicyOptions>(options =>
             {

@@ -26,10 +26,9 @@ namespace SimplCommerce.WebHost
             builder.AddEnvironmentVariables();
             var _configuration = builder.Build();
 
-            //setup DI
             IServiceCollection services = new ServiceCollection();
             GlobalConfiguration.ContentRootPath = contentRootPath;
-            services.AddModules(contentRootPath);
+            services.AddModules();
             services.AddCustomizedDataStore(_configuration);
             var _serviceProvider = services.BuildServiceProvider();
 
