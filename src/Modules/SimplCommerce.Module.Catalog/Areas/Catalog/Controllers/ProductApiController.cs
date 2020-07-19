@@ -890,8 +890,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                         model.Product.Variations[variantIndex].NewImages.Add(file);
                     }
                     else
-                    {
-                        var i = int.Parse(keyParts[1]);
+                    {                        
                         model.Product.Variations[variantIndex].ThumbnailImage = file;
                     }
                 }

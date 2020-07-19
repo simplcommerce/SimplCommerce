@@ -71,7 +71,7 @@ namespace SimplCommerce.Module.Core.Extensions
             };
             var abc = await _userManager.CreateAsync(_currentUser, "1qazZAQ!");
             await _userManager.AddToRoleAsync(_currentUser, "guest");
-            SetUserGuidCookies(_currentUser.UserGuid);
+            SetUserGuidCookies();
             return _currentUser;
         }
 
@@ -85,7 +85,7 @@ namespace SimplCommerce.Module.Core.Extensions
             return null;
         }
 
-        private void SetUserGuidCookies(Guid userGuid)
+        private void SetUserGuidCookies()
         {
             _httpContext.Response.Cookies.Append(UserGuidCookiesName, _currentUser.UserGuid.ToString(), new CookieOptions
             {
