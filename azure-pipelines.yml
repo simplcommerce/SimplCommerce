@@ -66,10 +66,11 @@ jobs:
     vmImage: 'windows-2019'
   steps:
   - task: DotNetCoreCLI@2
-    inputs: command: 'restore'
+    displayName: 'Restoring code using dotnet restore'
+    inputs: 
+      command: 'restore'
       projects: '**/*/*.csproj'
       includeNuGetOrg: true
-    displayName: 'Restoring code using dotnet restore'
   - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - task: DotNetCoreCLI@2
