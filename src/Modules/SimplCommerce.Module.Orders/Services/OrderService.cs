@@ -144,6 +144,8 @@ namespace SimplCommerce.Module.Orders.Services
             var cart = _cartRepository
                 .Query()
                 .Include(c => c.Items).ThenInclude(x => x.Product)
+                .Include(c => c.Customer)
+                .Include(c => c.CreatedBy)
                 .Where(x => x.Id == cartId).FirstOrDefault();
 
             if (cart == null)
@@ -193,9 +195,9 @@ namespace SimplCommerce.Module.Orders.Services
 
             var order = new Order
             {
-                CustomerId = cart.CustomerId,
+                Customer = cart.Customer,
                 CreatedOn = DateTimeOffset.Now,
-                CreatedById = cart.CreatedById,
+                CreatedBy = cart.CreatedBy,
                 LatestUpdatedOn = DateTimeOffset.Now,
                 LatestUpdatedById = cart.CreatedById,
                 BillingAddress = orderBillingAddress,
