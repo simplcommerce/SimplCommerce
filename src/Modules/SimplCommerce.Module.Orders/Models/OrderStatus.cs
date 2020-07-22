@@ -8,6 +8,8 @@
 
         PendingPayment = 20,
 
+        PaymentPartiallyReceived = 25,
+
         PaymentReceived = 30,
 
         PaymentFailed = 35,

@@ -4,6 +4,8 @@
     {
         Succeeded = 1,
 
+        PartiallySucceeded = 2,
+
         Failed = 5
     }
 }

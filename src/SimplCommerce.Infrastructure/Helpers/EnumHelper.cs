@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace SimplCommerce.Infrastructure.Helpers
 {
@@ -41,6 +42,25 @@ namespace SimplCommerce.Infrastructure.Helpers
             }
 
             return displayName;
+        }
+
+        public static string GetEnumMember(this Enum value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            var enumMemberName = value.ToString();
+            var fieldInfo = value.GetType().GetField(enumMemberName);
+            var attributes = (EnumMemberAttribute[])fieldInfo.GetCustomAttributes(typeof(EnumMemberAttribute), false);
+
+            if (attributes.Length > 0)
+            {
+                enumMemberName = attributes[0].Value;
+            }
+
+            return enumMemberName;
         }
     }
 }
