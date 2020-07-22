@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SimplCommerce.Infrastructure.Data;
@@ -12,12 +11,12 @@ namespace SimplCommerce.Module.ShippingPrices.Services
 {
     public class ShippingPriceService : IShippingPriceService
     {
-        private HttpContext _httpContext;
+        private readonly IServiceProvider _serviceProvider;
         private readonly IRepositoryWithTypedId<ShippingProvider, string> _shippingProviderRepository;
 
-        public ShippingPriceService(IHttpContextAccessor contextAccessor, IRepositoryWithTypedId<ShippingProvider, string> shippingProviderRepository)
+        public ShippingPriceService(IServiceProvider serviceProvider, IRepositoryWithTypedId<ShippingProvider, string> shippingProviderRepository)
         {
-            _httpContext = contextAccessor.HttpContext;
+            _serviceProvider = serviceProvider;
             _shippingProviderRepository = shippingProviderRepository;
         }
 
@@ -25,7 +24,7 @@ namespace SimplCommerce.Module.ShippingPrices.Services
         {
             var applicableShippingPrices = new List<ShippingPrice>();
             var providers = await _shippingProviderRepository.Query().ToListAsync();
-            var shippingRateServices = _httpContext.RequestServices.GetServices<IShippingPriceServiceProvider>();
+            var shippingRateServices = _serviceProvider.GetServices<IShippingPriceServiceProvider>();
 
             foreach(var provider in providers)
             {
