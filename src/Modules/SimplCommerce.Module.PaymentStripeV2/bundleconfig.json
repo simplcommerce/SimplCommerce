@@ -1,0 +1,15 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/paymentstripev2.min.js",
+    "inputFiles": [
+      "wwwroot/admin/paymentStripeV2.module.js",
+      "wwwroot/admin/stripev2/stripev2-service.js",
+      "wwwroot/admin/stripev2/stripev2-config-form.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

@@ -85,6 +85,11 @@
     "version": "1.0.0"
   },
   {
+    "id": "SimplCommerce.Module.PaymentStripeV2",
+    "isBundledWithHost": true,
+    "version": "1.0.0"
+  },
+  {
     "id": "SimplCommerce.Module.PaymentMomo",
     "isBundledWithHost": true,
     "version": "1.0.0"

@@ -1,0 +1,56 @@
+﻿@model SimplCommerce.Module.PaymentStripeV2.Areas.PaymentStripeV2.ViewModels.StripeV2CheckoutForm
+
+<div class="flex-c-m flex-w p-b-18">
+    <a href="#" class="m-all-1">
+        <img src="~/images/icons/Apple_Pay_Mark_RGB_041619.svg" height="23" alt="ICON-PAY">
+    </a>
+
+    <a href="#" class="m-all-1">
+        <img src="~/images/icons/google-pay-mark_800_gray.svg" height="23" alt="ICON-PAY">
+    </a>
+
+    <a href="#" class="m-all-1">
+        <img src="~/images/icons/icon-pay-04.png" alt="ICON-PAY">
+    </a>
+
+    <a href="#" class="m-all-1">
+        <img src="~/images/icons/icon-pay-03.png" alt="ICON-PAY">
+    </a>
+
+    <a href="#" class="m-all-1">
+        <img src="~/images/icons/icon-pay-02.png" alt="ICON-PAY">
+    </a>
+</div>
+
+<div class="form-group">
+    <div class="col-md-12">
+        <button id="stripe-button" type="button" class="btn btn-order" data-toggle="modal" data-target="#stripeModal">@Localizer["Pay with Stripe"]</button>
+    </div>
+</div>
+
+<!-- Load Stripe.js on your website. -->
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    var stripeButton = document.querySelector('#stripe-button');
+    var stripe = Stripe('@Model.PublicKey');
+
+    stripeButton.addEventListener('click', function () {
+        var request = $.ajax({
+            type: 'POST',
+            url: '/PaymentStripeV2/StripeV2/CreateCheckoutSession',
+        })
+        .done(function (data) {
+            stripe.redirectToCheckout({
+                sessionId: data.sessionId,
+            })
+            .then(handleResult);
+        })
+        .fail(function (errors) {
+
+            $('#alertStripe').html(errors.responseText);
+            $('.alert').toggle()
+            console.log(errors.responseText);
+        })
+        .always(function () { });
+    });
+</script>

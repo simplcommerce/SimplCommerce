@@ -1,0 +1,6 @@
+{
+  "id": "SimplCommerce.Module.PaymentStripeV2",
+  "name": "Stripe Payment V2",
+  "isBundledWithHost": true,
+  "version": "1.0.0"
+}
