@@ -17,6 +17,11 @@ namespace SimplCommerce.Module.PaymentStripeV2.Extensions
 
         public static List<AdditionalInformation> AddInfo(this List<AdditionalInformation> list, string message, [CallerMemberName] string callerMemberName = null)
         {
+            if (string.IsNullOrWhiteSpace(message))
+            {
+                return list;
+            }
+
             return list.AddInfo(new AdditionalInformation { Message = message, Component = callerMemberName });
         }
 
@@ -29,6 +34,11 @@ namespace SimplCommerce.Module.PaymentStripeV2.Extensions
         public static string ConvertToJson(this List<AdditionalInformation> list)
         {
             return AdditionalInformation.GetSerialization(list);
+        }
+
+        public static void AddInfo(this PaymentAttempt paymentAttempt, string message, [CallerMemberName] string callerMemberName = null)
+        {
+            paymentAttempt.AdditionalInformation = paymentAttempt.GetAdditionalInfos().AddInfo(message, callerMemberName).ConvertToJson();
         }
     }
 }

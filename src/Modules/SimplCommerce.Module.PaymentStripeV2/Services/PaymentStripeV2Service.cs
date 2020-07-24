@@ -19,6 +19,7 @@ using SimplCommerce.Module.PaymentStripeV2.Models;
 using SimplCommerce.Module.ShoppingCart.Models;
 using Stripe;
 using Stripe.Checkout;
+using Order = SimplCommerce.Module.Orders.Models.Order;
 
 namespace SimplCommerce.Module.PaymentStripeV2.Services
 {
@@ -39,6 +40,7 @@ namespace SimplCommerce.Module.PaymentStripeV2.Services
         public const string AmountTotal = "AmountTotal";
         public const string IdempotencyKey = "IdempotencyKey";
         public const string ApiKey = "ApiKey";
+        public static readonly string EnvironmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
         public PaymentStripeV2Service(
             IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
@@ -100,10 +102,12 @@ namespace SimplCommerce.Module.PaymentStripeV2.Services
 
         public async Task<object> CreateOrderForUser(Session session, PaymentIntent paymentIntent, PaymentAttempt paymentAttempt)
         {
-            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            var environment = EnvironmentName;
             var sessionEnv = session?.Metadata["EnvironmentName"];
             var userId = long.Parse(session?.Metadata[CustomerId]);
             var cart = paymentAttempt?.Cart;
+
+            LogSession(session);
 
             // Check environment
             var environmentChecks = new List<(bool Condition, string Message)>
@@ -156,15 +160,11 @@ namespace SimplCommerce.Module.PaymentStripeV2.Services
             }
 
             var orderCreationResult = await _orderService.CreateOrder(cart.Id, "Stripe", 0, OrderStatus.PendingPayment);
-            if (!orderCreationResult.Success)
-            {
-                return orderCreationResult;
-            }
 
-            var order = orderCreationResult.Value;
-
-            if (order != null)
+            if (orderCreationResult.Success && orderCreationResult?.Value != null)
             {
+                var order = orderCreationResult.Value;
+
                 var payment = new Payment()
                 {
                     OrderId = order.Id,
@@ -196,6 +196,10 @@ namespace SimplCommerce.Module.PaymentStripeV2.Services
 
                 _paymentRepository.Add(payment);
                 await _paymentRepository.SaveChangesAsync();
+
+                var message = $"Successfully created {order.GetType().Name} with {nameof(order.Id)}={order.Id}.";
+                _logger.LogInformation(message);
+                paymentAttempt.AddInfo(message);
                 paymentAttempt.IsProcessed = true;
                 paymentAttempt.UpdatedNow();
                 await UpdatePaymentAttempt();
@@ -204,7 +208,13 @@ namespace SimplCommerce.Module.PaymentStripeV2.Services
             }
             else
             {
-                return orderCreationResult.Error;
+                var message = $"Error during creation of {typeof(Order).Name} for {typeof(Cart).Name} with {nameof(cart.Id)}={cart.Id}. Aborting ...\n({orderCreationResult?.Error})";
+                _logger.LogError(message);
+                paymentAttempt.AddInfo(message);
+                paymentAttempt.IsProcessed = true;
+                paymentAttempt.UpdatedNow();
+                await UpdatePaymentAttempt();
+                return orderCreationResult;
             }
         }
 
@@ -247,8 +257,7 @@ namespace SimplCommerce.Module.PaymentStripeV2.Services
                 RequestedAmount = totalAmount,
                 IsProcessed = false
             };
-            var addtionalInformation = new AdditionalInformation { Component = callerMemberName, Message = message };
-            paymentAttempt.AdditionalInformation = paymentAttempt.GetAdditionalInfos().AddInfo(addtionalInformation).ConvertToJson();
+            paymentAttempt.AddInfo(message, callerMemberName);
 
             _paymentAttemptRepository.Add(paymentAttempt);
             await _paymentAttemptRepository.SaveChangesAsync();
@@ -265,6 +274,18 @@ namespace SimplCommerce.Module.PaymentStripeV2.Services
                 .Include(x => x.PaymentProvider)
                 .Where(x => !x.IsProcessed && x.Id == paymentAttemptId).FirstOrDefaultAsync();
             return paymentAttempt;
+        }
+
+        public void LogSession(Session session, LogLevel logLevel = LogLevel.Debug)
+        {
+            try
+            {
+                _logger.Log(logLevel, session.ToJson());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Exception during logging of session object.");
+            }
         }
     }
 }

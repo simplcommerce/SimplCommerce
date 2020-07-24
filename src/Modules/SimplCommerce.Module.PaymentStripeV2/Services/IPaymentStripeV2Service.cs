@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using SimplCommerce.Module.Payments.Models;
 using Stripe;
 using Stripe.Checkout;
@@ -24,8 +25,10 @@ namespace SimplCommerce.Module.PaymentStripeV2.Services
 
         Task<PaymentAttempt> CreatePaymentAttempt(long cartId, decimal totalAmount, string message, [CallerMemberName] string callerMemberName = null);
 
+        Task<PaymentAttempt> GetPaymentAttempt(long paymentAttemptId);
+
         Task UpdatePaymentAttempt();
 
-        Task<PaymentAttempt> GetPaymentAttempt(long paymentAttemptId);
+        void LogSession(Session session, LogLevel logLevel = LogLevel.Debug);
     }
 }

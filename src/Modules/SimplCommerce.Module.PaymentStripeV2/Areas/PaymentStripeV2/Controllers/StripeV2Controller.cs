@@ -39,6 +39,8 @@ namespace SimplCommerce.Module.PaymentStripeV2.Areas.PaymentStripeV2.Controllers
         private readonly IStringLocalizer _localizer;
         private readonly ILogger _logger;
 
+        private Guid NewGuid { get => Guid.NewGuid(); } 
+
         public StripeV2Controller(
             IPaymentStripeV2Service paymentStripeV2Service,
             IWorkContext workContext,
@@ -100,6 +102,8 @@ namespace SimplCommerce.Module.PaymentStripeV2.Areas.PaymentStripeV2.Controllers
                 paymentAttempt.UpdatedNow();
                 await _paymentStripeV2Service.UpdatePaymentAttempt();
 
+                _paymentStripeV2Service.LogSession(session);
+
                 var sessionData = new Dictionary<string, string> { { SessionId, session.Id } };
                 var result = Json(sessionData);
 
@@ -108,12 +112,12 @@ namespace SimplCommerce.Module.PaymentStripeV2.Areas.PaymentStripeV2.Controllers
             catch (StripeException ex)
             {
                 var message = $"CreateCheckoutSession failed for userId={currentUser.Id} and cartId={cartVm.Id} ({PaymentAttemptId}={paymentAttempt?.Id}).";
-                TempData["Error"] = ex?.Message;
+                TempData["Error"] = _localizer[ex?.Message].Value;
                 _logger.LogError(ex, message);
 
                 if (paymentAttempt != null)
                 {
-                    paymentAttempt.AdditionalInformation = paymentAttempt.GetAdditionalInfos().AddInfo($"{message}\n{ex?.Message}").ConvertToJson();
+                    paymentAttempt.AddInfo($"{message}\n{ex?.Message}");
                     paymentAttempt.IsProcessed = true;
                     paymentAttempt.UpdatedNow();
                     await _paymentStripeV2Service.UpdatePaymentAttempt();
@@ -125,14 +129,16 @@ namespace SimplCommerce.Module.PaymentStripeV2.Areas.PaymentStripeV2.Controllers
 
         public async Task<IActionResult> CallbackStripePaymentSuccess([FromQuery(Name = SessionId)] string sessionId, [FromQuery(Name = PaymentAttemptId)] long paymentAttemptId)
         {
+            var guid = NewGuid;
             var paymentAttempt = await _paymentStripeV2Service.GetPaymentAttempt(paymentAttemptId);
             paymentAttempt.UpdatedNow();
-            paymentAttempt.AdditionalInformation = paymentAttempt.GetAdditionalInfos().AddInfo($"Received callback ...").ConvertToJson();
+            paymentAttempt.AddInfo($"Received CallbackStripePaymentSuccess for {SessionId}={sessionId} ({PaymentAttemptId}={paymentAttemptId}) ...");
             await _paymentStripeV2Service.UpdatePaymentAttempt();
 
             if (paymentAttempt.PaymentAttemptId != sessionId)
             {
-                TempData["Error"] = $"Error during payment. {nameof(sessionId)}={sessionId} doesn't match {nameof(paymentAttemptId)}={paymentAttemptId}. Aborting ...";
+                _logger.LogError($"Error during payment. {SessionId}={sessionId} doesn't match {PaymentAttemptId}={paymentAttemptId}. Aborting ... ({guid})");
+                TempData["Error"] = _localizer["Error during payment. Aborting ... ({0})", guid].Value;
                 return Redirect($"~/checkout/error");
             }
 
@@ -141,8 +147,8 @@ namespace SimplCommerce.Module.PaymentStripeV2.Areas.PaymentStripeV2.Controllers
 
             if (session == null || paymentIntent == null || paymentIntent.Status != StripeIntentStatus.Succeeded.GetEnumMember())
             {
-                //TODO: Handle error condition properly
-                TempData["Error"] = $"{nameof(PaymentIntent)} with {nameof(sessionId)}='{sessionId}' had an invalid status ({paymentIntent?.Status}).";
+                _logger.LogError($"{nameof(PaymentIntent)} with {nameof(sessionId)}='{sessionId}' had an invalid status ({paymentIntent?.Status}). Aborting ... ({guid})");
+                TempData["Error"] = _localizer["Invalid status ({0}). Aborting ... ({1})", paymentIntent?.Status, guid].Value;
                 return Redirect("~/checkout/payment");
             }
 
@@ -150,7 +156,8 @@ namespace SimplCommerce.Module.PaymentStripeV2.Areas.PaymentStripeV2.Controllers
 
             if (currentUser.Id != paymentAttempt.Cart.CustomerId)
             {
-                TempData["Error"] = $"User {currentUser.Id} tried to impersonate {paymentAttempt.Cart.CustomerId}. Skipping because of security breach ...";
+                _logger.LogError($"User {currentUser.Id} tried to impersonate {paymentAttempt.Cart.CustomerId}. Skipping because of security breach ... ({guid})");
+                TempData["Error"] = _localizer["Mismatching user. Aborting ..."].Value;
                 return Redirect("~/checkout/payment");
             }
 
@@ -160,6 +167,8 @@ namespace SimplCommerce.Module.PaymentStripeV2.Areas.PaymentStripeV2.Controllers
 
         private IActionResult HandleOrderCreationResult(object orderCreationResult)
         {
+            var guid = NewGuid;
+
             if (orderCreationResult == null)
             {
                 return NotFound();
@@ -167,7 +176,8 @@ namespace SimplCommerce.Module.PaymentStripeV2.Areas.PaymentStripeV2.Controllers
             else if (orderCreationResult is Result<Order>)
             {
                 var result = orderCreationResult as Result<Order>;
-                TempData["Error"] = result?.Error;
+                _logger.LogError(result?.Error);
+                if (!string.IsNullOrWhiteSpace(result?.Error)) { TempData["Error"] = _localizer[result?.Error + " ({0})", guid].Value; }
                 return Redirect("~/checkout/payment");
             }
             else if (orderCreationResult is Order)
@@ -176,18 +186,32 @@ namespace SimplCommerce.Module.PaymentStripeV2.Areas.PaymentStripeV2.Controllers
                 return Redirect($"~/checkout/success?orderId={order.Id}");
             }
 
-            TempData["Error"] = orderCreationResult;
+            _logger.LogError(orderCreationResult.ToString());
+            TempData["Error"] = _localizer[orderCreationResult.ToString() + " ({0})", guid].Value;
             return Redirect($"~/checkout/error");
         }
 
-        public async Task<IActionResult> CallbackStripePaymentFailure([FromQuery(Name = SessionId)] string sessionId)
+        public async Task<IActionResult> CallbackStripePaymentFailure([FromQuery(Name = SessionId)] string sessionId, [FromQuery(Name = PaymentAttemptId)] long paymentAttemptId)
         {
             await _paymentStripeV2Service.InitializeStripe();
 
             var service = new SessionService();
             var session = service.Get(sessionId);
 
-            TempData["Error"] = session.StripeResponse.Content;
+            _logger.LogError($"Received CallbackStripePaymentFailure for {SessionId}={sessionId} ({PaymentAttemptId}={paymentAttemptId}) ...");
+            _paymentStripeV2Service.LogSession(session, LogLevel.Error);
+
+            var paymentAttempt = await _paymentStripeV2Service.GetPaymentAttempt(paymentAttemptId);
+
+            if (paymentAttempt != null)
+            {
+                paymentAttempt.IsProcessed = true;
+                paymentAttempt.UpdatedNow();
+                paymentAttempt.AddInfo($"Received CallbackStripePaymentFailure. Finalizing PaymentAttempt.");
+                await _paymentStripeV2Service.UpdatePaymentAttempt();
+            }
+
+            TempData["Error"] = _localizer["Your Stripe payment has failed. Please try again!"].Value;
             return Redirect("~/checkout/payment");
         }
 
