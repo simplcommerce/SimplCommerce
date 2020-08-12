@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SimplCommerce.Module.Core.Areas.Core.ViewModels;
+using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.Core.Areas.Core.Controllers
@@ -14,11 +15,13 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
     {
         private readonly ILogger _logger;
         private readonly IWidgetInstanceService _widgetInstanceService;
+        private readonly IContentLocalizationService _contentLocalizationService;
 
-        public HomeController(ILoggerFactory factory, IWidgetInstanceService widgetInstanceService)
+        public HomeController(ILoggerFactory factory, IWidgetInstanceService widgetInstanceService, IContentLocalizationService contentLocalizationService)
         {
             _logger = factory.CreateLogger("Unhandled Error");
             _widgetInstanceService = widgetInstanceService;
+            _contentLocalizationService = contentLocalizationService;
         }
 
         public IActionResult TestError()
@@ -30,18 +33,19 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         public IActionResult Index()
         {
             var model = new HomeViewModel();
+            var getWidgetInstanceTranslations = _contentLocalizationService.GetLocalizationFunction<WidgetInstance>();
 
             model.WidgetInstances = _widgetInstanceService.GetPublished()
                 .OrderBy(x => x.DisplayOrder)
                 .Select(x => new WidgetInstanceViewModel
             {
                 Id = x.Id,
-                Name = x.Name,
+                Name = getWidgetInstanceTranslations(x.Id, nameof(x.Name), x.Name),
                 ViewComponentName = x.Widget.ViewComponentName,
                 WidgetId = x.WidgetId,
                 WidgetZoneId = x.WidgetZoneId,
                 Data = x.Data,
-                HtmlData = x.HtmlData
+                HtmlData = getWidgetInstanceTranslations(x.Id, nameof(x.HtmlData), x.HtmlData),
             }).ToList();
 
             return View(model);
