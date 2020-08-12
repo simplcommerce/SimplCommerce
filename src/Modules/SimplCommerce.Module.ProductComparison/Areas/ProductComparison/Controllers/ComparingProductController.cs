@@ -24,6 +24,7 @@ namespace SimplCommerce.Module.ProductComparison.Areas.ProductComparison.Control
         private readonly IComparingProductService _comparingProductService;
         private readonly IProductPricingService _productPricingService;
         private readonly IMediaService _mediaService;
+        private readonly IContentLocalizationService _contentLocalizationService;
         private readonly IWorkContext _workContext;
 
         public ComparingProductController(
@@ -32,12 +33,14 @@ namespace SimplCommerce.Module.ProductComparison.Areas.ProductComparison.Control
             IComparingProductService comparingProductService,
             IProductPricingService productPricingService,
             IMediaService mediaService,
+            IContentLocalizationService contentLocalizationService,
             IWorkContext workContext)
         {
             _comparingProductRepository = comparingProductRepository;
             _comparingProductService = comparingProductService;
             _productPricingService = productPricingService;
             _mediaService = mediaService;
+            _contentLocalizationService = contentLocalizationService;
             _workContext = workContext;
         }
 
@@ -106,15 +109,21 @@ namespace SimplCommerce.Module.ProductComparison.Areas.ProductComparison.Control
             }
 
             var model = new ProductComparisonVm();
-            model.Attributes = allAttributes.Distinct().Select(x => new AttributeVm { AttributeId = x.Id, Name = x.Name }).ToList();
+            model.Attributes = allAttributes.Distinct().Select(x => new AttributeVm { AttributeId = x.Id, Name = _contentLocalizationService.GetLocalizedProperty(x, nameof(x.Name), x.Name) }).ToList();
             model.Products = comparingProducts.Select(x => new ComparingProductVm
             {
-                ProductName = x.Product.Name,
+                ProductName = _contentLocalizationService.GetLocalizedProperty(x.Product, nameof(x.Product.Name), x.Product.Name),
                 ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
                 CalculatedProductPrice = _productPricingService.CalculateProductPrice(x.Product),
                 ProductId = x.ProductId,
-                AttributeValues = x.Product.AttributeValues.Select(a => new AttributeValueVm { AttributeId = a.AttributeId, Value = a.Value }).ToList()
-            }).ToList();
+                AttributeValues = x.Product.AttributeValues.Select(a => new AttributeValueVm
+                {
+                    AttributeId = a.AttributeId,
+                    Value = _contentLocalizationService.GetLocalizedProperty(a, nameof(a.Value), a.Value)
+                })
+				.ToList()
+            })
+			.ToList();
 
             return View(model);
         }
