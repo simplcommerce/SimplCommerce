@@ -33,13 +33,13 @@
                                 </div>
                                 <div class="col-md-9">
                                      <p>@item.ProductName</p>
-                                     <p>Quantity @item.Quantity</p>
+                                     <p>@Localizer["Quantity"] @item.Quantity</p>
                                 </div>
                             </div>
                         }
                     </td>
                     <td>@order.SubTotalString</td>
-                    <td>@order.OrderStatus</td>
+                    <td>@Localizer[order.OrderStatus.ToString()]</td>
                 </tr>
             }
         </table>
