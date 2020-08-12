@@ -67,7 +67,7 @@
         {
             if (User.Identity.IsAuthenticated)
             {
-                <p>@Localizer["Submiting review is only enable for users who have bought this product"]</p>
+                <p>@Localizer["Submiting review is only enabled for users who have bought this product."]</p>
             }
             else
             {
@@ -91,7 +91,8 @@
                         <span class="review-title">@review.Title</span>
                     </div>
                     <div>@review.Comment</div>
-                    <div>By <strong>@review.ReviewerName</strong> on <span>@review.CreatedOn.Humanize()</span>  -
+                    <div>
+                        @Localizer["By:"] <strong>@review.ReviewerName</strong> <span>@review.CreatedOn.Humanize()</span>  -
                         <button class="btn-add-review-reply btn btn-link" data-toggle="collapse" data-target="#reviewReply@(review.Id)" aria-expanded="false" aria-controls="reviewReply@(review.Id)">@Localizer["Add Reply"]</button>
                     </div>
                     <div class="review-replies">
@@ -99,7 +100,7 @@
                         {
                             <div class="review-reply">
                                 <div>@reply.Comment</div>
-                                <div>By: <strong>@reply.ReplierName</strong> on <span>@reply.CreatedOn.Humanize()</span></div>
+                                <div>@Localizer["By:"] <strong>@reply.ReplierName</strong> <span>@reply.CreatedOn.Humanize()</span></div>
                             </div>
                         }
                         <div>
@@ -117,7 +118,7 @@
                asp-route-entityId="@Model.EntityId"
                asp-route-entityTypeId="@Model.EntityTypeId"
                asp-route-pageNumber="1"
-               asp-route-pageSize="25">View all @Model.ReviewsCount reviews</a>
+               asp-route-pageSize="25">@Localizer["View all {0} reviews", @Model.ReviewsCount]</a>
         }
     </div>
 </div>
