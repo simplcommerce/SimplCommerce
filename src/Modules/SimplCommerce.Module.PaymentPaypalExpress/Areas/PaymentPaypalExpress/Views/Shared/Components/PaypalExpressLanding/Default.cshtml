@@ -4,7 +4,7 @@
     var feeDisplay = "";
     if(Model.PaymentFee > 0)
     {
-        feeDisplay = $"(+ {Model.PaymentFee}% Fee)";
+        feeDisplay = $"(+ {Model.PaymentFee}% {Localizer["Fee"]?.Value})";
     }
 }
 <label>Paypal Express @feeDisplay</label>

@@ -13,7 +13,7 @@
             vm.validationErrors = [];
             paypalExpressService.updateSetting(vm.payPalExpressConfig)
                 .then(function (result) {
-                    toastr.success('Settings have been saved');
+                    toastr.success(vm.translate.get('Settings have been saved.'));
                 })
                 .catch(function (response) {
                     var error = response.data;
@@ -23,7 +23,7 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not save settings.');
+                        vm.validationErrors.push(vm.translate.get('Could not save settings.'));
                     }
                 });
         };
