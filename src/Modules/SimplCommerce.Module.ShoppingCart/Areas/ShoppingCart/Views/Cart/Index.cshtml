@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Shopping Cart";
+    ViewData["Title"] = Localizer["Shopping Cart"];
 }
 
 <div class="row cart-list" ng-app="simpl.shoppingCart" ng-controller="shoppingCartListCtrl as vm" ng-cloak>
@@ -23,8 +23,8 @@
                                 <span>{{opt.optionName}}:</span> {{opt.value}}
                             </li>
                         </ul>
-                        <span ng-if="!cartItem.isProductAvailabeToOrder" class="badge badge-pill badge-danger">Not availabe any more</span>
-                        <span ng-if="cartItem.productStockTrackingIsEnabled && cartItem.productStockQuantity < cartItem.quantity" class="badge badge-pill badge-danger">Not enough stock. Available {{cartItem.productStockQuantity}}</span>
+                        <span ng-if="!cartItem.isProductAvailabeToOrder" class="badge badge-pill badge-danger">@Localizer["Not availabe any more"]</span>
+                        <span ng-if="cartItem.productStockTrackingIsEnabled && cartItem.productStockQuantity < cartItem.quantity" class="badge badge-pill badge-danger">@Localizer["Not enough stock. Available:"] {{cartItem.productStockQuantity}}</span>
                     </td>
                     <td class="text-right">{{cartItem.productPriceString}}</td>
                     <td class="text-center">
@@ -45,7 +45,7 @@
             <h4>@Localizer["Order note"]</h4>
             <form>
                 <div class="form-group">
-                    <textarea rows="3" class="form-control" name="orderNote" ng-model="vm.cart.orderNote" placeholder="Enter order note"></textarea>
+                    <textarea rows="3" class="form-control" name="orderNote" ng-model="vm.cart.orderNote" placeholder="@Localizer["Enter order note"]"></textarea>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-default pull-right" ng-click="vm.saveOrderNote()">@Localizer["Save order note"]</button>
@@ -80,7 +80,7 @@
                     <label>{{vm.cart.couponValidationErrorMessage}}</label>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="couponCode" ng-model="vm.couponCode" placeholder="Enter coupon">
+                    <input type="text" class="form-control" name="couponCode" ng-model="vm.couponCode" placeholder="@Localizer["Enter coupon"]">
                     <button type="submit" class="btn btn-default" ng-click="vm.applyCoupon()">@Localizer["Apply"]</button>
                 </div>
             </form>
