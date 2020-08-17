@@ -22,5 +22,6 @@
 }
 else
 {
-    <p>Please <a href="~/login?ReturnUrl=@Context.Request.Path">login</a> or <a href="~/register?ReturnUrl=@Context.Request.Path">register</a> to submit your reply.</p>
+    var localizedTextParts = Localizer["Please <a>login</a> or <a>register</a> to submit your reply."].GetTextPartsFunction("<a>", "</a>");
+    <p>@localizedTextParts(0)<a href="~/login?ReturnUrl=@Context.Request.Path">@localizedTextParts(1)</a>@localizedTextParts(2)<a href="~/register?ReturnUrl=@Context.Request.Path">@localizedTextParts(3)</a>@localizedTextParts(4)</p>
 }

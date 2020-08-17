@@ -71,8 +71,11 @@
             }
             else
             {
-                <p>Please <a href="~/login?ReturnUrl=@Context.Request.Path">login</a> or <a href="~/register?ReturnUrl=@Context.Request.Path">register</a> to submit your review.
-                Please also note that submiting review is only enable for users who have bought this product</p>
+                var localizedTextParts = Localizer["Please <a>login</a> or <a>register</a> to submit your review."].GetTextPartsFunction("<a>", "</a>");
+                <p>
+                    @localizedTextParts(0)<a href="~/login?ReturnUrl=@Context.Request.Path">@localizedTextParts(1)</a>@localizedTextParts(2)<a href="~/register?ReturnUrl=@Context.Request.Path">@localizedTextParts(3)</a>@localizedTextParts(4)
+                    @Localizer["Please also note that submiting reviews is only enabled for users who have bought this product."]
+                </p>
             }
         }
 
