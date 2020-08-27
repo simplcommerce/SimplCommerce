@@ -30,6 +30,7 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _workContext.GetCurrentUser();
+                model.ReviewerName = user.FullName; // Otherwise ReviewerName is null
                 var review = new Review
                 {
                     Rating = model.Rating,

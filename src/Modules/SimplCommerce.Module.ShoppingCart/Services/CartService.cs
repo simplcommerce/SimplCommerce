@@ -9,6 +9,7 @@ using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Pricing.Services;
 using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
+using Microsoft.Extensions.Localization;
 
 namespace SimplCommerce.Module.ShoppingCart.Services
 {
@@ -20,9 +21,10 @@ namespace SimplCommerce.Module.ShoppingCart.Services
         private readonly ICouponService _couponService;
         private readonly bool _isProductPriceIncludeTax;
         private readonly ICurrencyService _currencyService;
+        private readonly IStringLocalizer _localizer;
 
         public CartService(IRepository<Cart> cartRepository, IRepository<CartItem> cartItemRepository, ICouponService couponService,
-            IMediaService mediaService, IConfiguration config, ICurrencyService currencyService)
+            IMediaService mediaService, IConfiguration config, ICurrencyService currencyService, IStringLocalizerFactory stringLocalizerFactory)
         {
             _cartRepository = cartRepository;
             _cartItemRepository = cartItemRepository;
@@ -30,6 +32,7 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             _mediaService = mediaService;
             _currencyService = currencyService;
             _isProductPriceIncludeTax = config.GetValue<bool>("Catalog.IsProductPriceIncludeTax");
+            _localizer = stringLocalizerFactory.Create(null);
         }
 
         public IQueryable<Cart> Query()
@@ -72,7 +75,7 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             {
                 if (cart.LockedOnCheckout)
                 {
-                    return Result.Fail("Cart is being locked for checkout. Please complete the checkout first");
+                    return Result.Fail(_localizer["Cart is locked for checkout. Please complete the checkout first."].Value);
                 }
 
                 cart = await _cartRepository.Query().Include(x => x.Items).FirstOrDefaultAsync(x => x.Id == cart.Id);

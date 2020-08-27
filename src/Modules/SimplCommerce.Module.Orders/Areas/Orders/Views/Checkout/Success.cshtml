@@ -2,8 +2,8 @@
 
 @{
     ViewBag.Title = "Result";
+    var localizedTextParts = Localizer["We received <a>your order</a>. Thank you!"].GetTextPartsFunction("<a>", "</a>");
 }
 
-<h2>Congratulation!</h2>
-<p><a href="~/user/orders/@Model">Your order</a> has been received. Thank you</p>
-
+<h2>@Localizer["Congratulation!"]</h2>
+<p>@localizedTextParts(0)<a href="~/user/orders/@Model">@localizedTextParts(1)</a>@localizedTextParts(2)</p>

@@ -1,20 +1,26 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Cms.Areas.Cms.ViewModels;
 using SimplCommerce.Module.Core.Areas.Core.ViewModels;
+using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.Cms.Areas.Cms.Components
 {
     public class SpaceBarWidgetViewComponent : ViewComponent
     {
-        private IMediaService _mediaService;
+        private readonly IMediaService _mediaService;
+        private readonly IStringLocalizer _localizer;
+        private readonly IContentLocalizationService _contentLocalizationService;
 
-        public SpaceBarWidgetViewComponent(IMediaService mediaService)
+        public SpaceBarWidgetViewComponent(IMediaService mediaService, IStringLocalizerFactory stringLocalizerFactory, IContentLocalizationService contentLocalizationService)
         {
             _mediaService = mediaService;
+            _localizer = stringLocalizerFactory.Create(null);
+            _contentLocalizationService = contentLocalizationService;
         }
 
         public IViewComponentResult Invoke(WidgetInstanceViewModel widgetInstance)
@@ -22,18 +28,19 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Components
             var model = new SpaceBarWidgetComponentVm
             {
                 Id = widgetInstance.Id,
-                WidgetName = widgetInstance.Name,
+                WidgetName = _contentLocalizationService.GetLocalizedProperty(nameof(WidgetInstance), widgetInstance.Id, nameof(widgetInstance.Name), widgetInstance.Name),
                 Items = JsonConvert.DeserializeObject<List<SpaceBarWidgetSetting>>(widgetInstance.Data)
             };
 
             foreach (var item in model.Items)
             {
-                if (string.IsNullOrEmpty(item.Image))
-                {
-                    continue;
-                }
+                if (!string.IsNullOrWhiteSpace(item.Title)) { item.Title = _localizer[item.Title]; }
+                if (!string.IsNullOrWhiteSpace(item.Description)) { item.Description = _localizer[item.Description]; }
 
-                item.ImageUrl = _mediaService.GetMediaUrl(item.Image);
+                if (!string.IsNullOrEmpty(item.Image))
+                {
+                    item.ImageUrl = _mediaService.GetMediaUrl(item.Image);
+                }
             }
 
             return View(this.GetViewPath(), model);

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web;
@@ -7,6 +8,7 @@ using SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Core.Areas.Core.ViewModels;
+using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
@@ -34,13 +36,13 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
             var model = new SimpleProductWidgetComponentVm
             {
                 Id = widgetInstance.Id,
-                WidgetName = widgetInstance.Name,
+                WidgetName = _contentLocalizationService.GetLocalizedProperty(nameof(WidgetInstance), widgetInstance.Id, nameof(widgetInstance.Name), widgetInstance.Name),
                 Setting = JsonConvert.DeserializeObject<SimpleProductWidgetSetting>(widgetInstance.Data)
             };
 
             foreach (var item in model.Setting.Products)
             {
-                var product = _productRepository.Query().Where(x => x.Id == item.Id).FirstOrDefault();
+                var product = _productRepository.Query().Where(x => x.Id == item.Id).Include(x => x.ThumbnailImage).FirstOrDefault();
 
                 if (product != null)
                 {

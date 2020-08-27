@@ -11,7 +11,7 @@
     <div class="col-md-9">
         <div class="row">
             <div class="col-md-7">
-                <h5>@ViewData["Title"] @Model.Id - @Model.OrderStatusString</h5>
+                <h5>@ViewData["Title"] @Model.Id - @Localizer[Model.OrderStatusString]</h5>
             </div>
             <div class="col-md-5 text-right">
                 @Localizer["Order date"] @Model.CreatedOn.DateTime
@@ -27,10 +27,10 @@
                 <strong>@Model.ShippingAddress.ContactName</strong> <br />
                 @Model.ShippingAddress.AddressLine1 <br />
                 @Model.ShippingAddress.AddressLine2 <br />
-                Phone: @Model.ShippingAddress.Phone
+                @Localizer["Phone"]: @Model.ShippingAddress.Phone
             </div>
             <div class="col-md-4">@Model.ShippingMethod</div>
-            <div class="col-md-4">@Model.PaymentMethod</div>
+            <div class="col-md-4">@Localizer[Model.PaymentMethod]</div>
         </div>
 
         <table class="table table-borderless mt-4">
@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     <p>@item.ProductName</p>
-                                    <p>Quantity @item.Quantity</p>
+                                    <p>@Localizer["Quantity"] @item.Quantity</p>
                                 </div>
                             </div>
                         </td>
