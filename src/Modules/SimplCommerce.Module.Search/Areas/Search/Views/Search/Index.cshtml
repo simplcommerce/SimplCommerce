@@ -2,7 +2,7 @@
 
 @model SimplCommerce.Module.Search.Areas.Search.ViewModels.SearchResult
 @{
-    ViewBag.Title = "Search";
+    ViewBag.Title = Localizer["Search"];
 }
 
 @section head {
@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-md-3 product-list-filters">
-        <h3>Filter by</h3>
+        <h3>@Localizer["Filter by"]</h3>
         <form id="productFilter" name="productFilter" method="GET" action="~/search">
             <div id="accordion-category">
                 <div class="card">
@@ -118,8 +118,8 @@
     <div class="col-md-9">
         <div class="row mb-3">
             <div class="col-md-7 category-result">
-                <h2>Search result for @Model.CurrentSearchOption.Query</h2>
-                <small class="badge-results">@Model.TotalProduct Results</small>
+                <h2>@Localizer["Search result for"] @Model.CurrentSearchOption.Query</h2>
+                <small class="badge-results">@Model.TotalProduct @Localizer["Results"]</small>
             </div>
             <div class="col-md-5">
                 <ul class="list-inline clear-both product-list-display-options">

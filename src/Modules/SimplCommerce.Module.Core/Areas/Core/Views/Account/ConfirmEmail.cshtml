@@ -1,10 +1,12 @@
 ﻿@{
-    ViewData["Title"] = "Confirm Email";
+
+    ViewData["Title"] = Localizer["Email Confirmation"];
+    var localizedTextParts = Localizer["Thank you for confirming your email. Please <a>click here to log in</a>"].GetTextPartsFunction("<a>", "</a>");
 }
 
 <h2>@ViewData["Title"].</h2>
 <div>
     <p>
-        Thank you for confirming your email. Please <a asp-area="Core" asp-controller="Account" asp-action="Login">Click here to Log in</a>.
+        @localizedTextParts(0)<a asp-area="Core" asp-controller="Account" asp-action="Login">@localizedTextParts(1)</a>@localizedTextParts(2).
     </p>
 </div>

@@ -27,6 +27,7 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _workContext.GetCurrentUser();
+                model.ReplierName = user.FullName;
 
                 var reply = new Models.Reply
                 {

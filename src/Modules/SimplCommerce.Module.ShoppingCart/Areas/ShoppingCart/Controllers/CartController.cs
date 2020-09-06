@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Extensions;
@@ -21,19 +22,22 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         private readonly IMediaService _mediaService;
         private readonly IWorkContext _workContext;
         private readonly ICurrencyService _currencyService;
+        private readonly IStringLocalizer _localizer;
 
         public CartController(
             IRepository<CartItem> cartItemRepository,
             ICartService cartService,
             IMediaService mediaService,
             IWorkContext workContext,
-            ICurrencyService currencyService)
+            ICurrencyService currencyService,
+            IStringLocalizerFactory stringLocalizerFactory)
         {
             _cartItemRepository = cartItemRepository;
             _cartService = cartService;
             _mediaService = mediaService;
             _workContext = workContext;
             _currencyService = currencyService;
+            _localizer = stringLocalizerFactory.Create(null);
         }
 
         [HttpPost("cart/add-item")]
@@ -113,7 +117,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             {
                 if (cartItem.Product.StockTrackingIsEnabled && cartItem.Product.StockQuantity < model.Quantity)
                 {
-                    return Ok(new { Error = true, Message = $"There are only {cartItem.Product.StockQuantity} items available for {cartItem.Product.Name}" });
+                    return Ok(new { Error = true, Message = _localizer["There are only {0} items available for {1}.", cartItem.Product.StockQuantity, cartItem.Product.Name].Value });
                 }
             }
 
@@ -206,7 +210,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
 
         private IActionResult CreateCartLockedResult()
         {
-            return Ok(new { Error = true, Message = "Cart is locked for checkout. Please complete or cancel the checkout first" });
+            return Ok(new { Error = true, Message = _localizer["Cart is locked for checkout. Please complete or cancel the checkout first."].Value });
         }
     }
 }

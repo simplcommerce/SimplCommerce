@@ -42,6 +42,10 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         public IActionResult BrandDetail(long id, SearchOption searchOption)
         {
             var brand = _brandRepository.Query().FirstOrDefault(x => x.Id == id);
+            if (brand == null)
+            {
+                return Redirect("~/Error/FindNotFound");
+            }
 
             var model = new ProductsByBrand
             {
@@ -87,7 +91,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 offset = (_pageSize * currentPageNum) - _pageSize;
             }
 
-            query = AppySort(searchOption, query);
+            query = ApplySort(searchOption, query);
 
             var products = query
                 .Include(x => x.ThumbnailImage)
@@ -110,7 +114,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             return View(model);
         }
 
-        private static IQueryable<Product> AppySort(SearchOption searchOption, IQueryable<Product> query)
+        private static IQueryable<Product> ApplySort(SearchOption searchOption, IQueryable<Product> query)
         {
             var sortBy = searchOption.Sort ?? string.Empty;
             switch (sortBy.ToLower())
@@ -126,25 +130,30 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             return query;
         }
 
-        private static void AppendFilterOptionsToModel(ProductsByBrand model, IQueryable<Product> query)
+        private void AppendFilterOptionsToModel(ProductsByBrand model, IQueryable<Product> query)
         {
             model.FilterOption.Price.MaxPrice = query.Max(x => x.Price);
             model.FilterOption.Price.MinPrice = query.Min(x => x.Price);
 
+            var getCategoryName = _contentLocalizationService.GetLocalizationFunction<Category>();
+
             model.FilterOption.Categories = query
-                .SelectMany(x => x.Categories).Where(x => x.Category.Parent == null)
+                .SelectMany(x => x.Categories).Where(x => x.Category.IsPublished)
                 .GroupBy(x => new {
                     x.Category.Id,
                     x.Category.Name,
-                    x.Category.Slug
+                    x.Category.Slug,
+                    x.Category.ParentId
                 })
                 .Select(g => new FilterCategory
                 {
                     Id = (int)g.Key.Id,
-                    Name = g.Key.Name,
+                    Name = getCategoryName(g.Key.Id, nameof(g.Key.Name), g.Key.Name),
                     Slug = g.Key.Slug,
+                    ParentId = g.Key.ParentId,
                     Count = g.Count()
-                }).ToList();
+                })
+                .ToList();
         }
     }
 }

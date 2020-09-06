@@ -1,0 +1,28 @@
+﻿@model SimplCommerce.Module.Core.Areas.Core.ViewModels.Account.RegisterViewModel
+
+@{
+    Layout = null;
+}
+
+<table border="0" cellpadding="0" cellspacing="0" style="background:#ffffff;width:100%">
+    <tbody>
+        <tr>
+            <td align="center" valign="top">
+                <table border="0" cellpadding="0" cellspacing="0" style="width:800px;border-top:1px #cccccc">
+                    <tbody>
+                        <tr>
+                            <td align="left" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#333333;background:#fff" valign="top">
+                                <h2>@Localizer["Thank you for registering at simplcommerce.com."]</h2>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <p>@Localizer["Please confirm your account by clicking this"] <a href='@Model.CallbackUrl'>@Localizer["link"]</a>.</p><br />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
