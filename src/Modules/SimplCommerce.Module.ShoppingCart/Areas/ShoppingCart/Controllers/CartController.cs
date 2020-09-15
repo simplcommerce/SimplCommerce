@@ -18,6 +18,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
     public class CartController : Controller
     {
         private readonly IRepository<CartItem> _cartItemRepository;
+        private readonly IRepository<Cart> _cartRepository;
         private readonly ICartService _cartService;
         private readonly IMediaService _mediaService;
         private readonly IWorkContext _workContext;
@@ -26,6 +27,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
 
         public CartController(
             IRepository<CartItem> cartItemRepository,
+            IRepository<Cart> cartRepository,
             ICartService cartService,
             IMediaService mediaService,
             IWorkContext workContext,
@@ -34,6 +36,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         {
             _cartItemRepository = cartItemRepository;
             _cartService = cartService;
+            _cartRepository = cartRepository;
             _mediaService = mediaService;
             _workContext = workContext;
             _currencyService = currencyService;
@@ -168,7 +171,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         }
 
         [HttpPost("cart/remove-item")]
-        public async Task<IActionResult> Remove([FromBody] long itemId)
+        public async Task<IActionResult> Remove([FromBody] long itemId, string returnUrl)
         {
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCart(currentUser.Id);
@@ -190,7 +193,16 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
 
             _cartItemRepository.Remove(cartItem);
             _cartItemRepository.SaveChanges();
-
+            cart = await _cartService.GetActiveCart(currentUser.Id);
+            if (cart.Items.Count < 1)
+            {
+                _cartRepository.Remove(cart);
+                _cartRepository.SaveChanges();
+            }
+            if (!string.IsNullOrWhiteSpace(returnUrl))
+            {
+                return LocalRedirect(returnUrl);
+            }
             return await List();
         }
 
