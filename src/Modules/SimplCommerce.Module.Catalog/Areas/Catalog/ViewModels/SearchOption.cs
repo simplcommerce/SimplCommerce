@@ -73,6 +73,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
         public string ToJson()
         {
             var jsonSetting = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
+            jsonSetting.StringEscapeHandling = StringEscapeHandling.EscapeHtml;
             return JsonConvert.SerializeObject(this, jsonSetting);
         }
     }
