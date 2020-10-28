@@ -160,7 +160,12 @@
                           cs-paging-totalitems="@Model.TotalProduct"
                           cs-pagenumber-param="page"
                           asp-basehref="~/search"
-                          asp-all-route-data="@Model.CurrentSearchOption.ToDictionary()"></cs-pager>
+                          asp-all-route-data="@Model.CurrentSearchOption.ToDictionary()"
+                          cs-pager-li-current-class="page-item active"
+                          cs-pager-li-other-class="page-item"
+                          cs-pager-li-non-active-class="page-item disabled"
+                          cs-pager-link-current-class="page-link"
+                          cs-pager-link-other-class="page-link"></cs-pager>
             </div>
         </div>
     </div>

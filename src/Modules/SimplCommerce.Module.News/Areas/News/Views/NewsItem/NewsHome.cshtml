@@ -32,7 +32,12 @@
                   cs-paging-pagenumber="@Model.Page"
                   cs-paging-totalitems="@Model.TotalItem"
                   asp-basehref="~/news"
-                  cs-pagenumber-param="page"></cs-pager>
+                  cs-pagenumber-param="page"
+                  cs-pager-li-current-class="page-item active"
+                  cs-pager-li-other-class="page-item"
+                  cs-pager-li-non-active-class="page-item disabled"
+                  cs-pager-link-current-class="page-link"
+                  cs-pager-link-other-class="page-link"></cs-pager>
     </div>
 </div>
 
