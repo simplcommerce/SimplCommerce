@@ -91,7 +91,8 @@ namespace SimplCommerce.Module.Core.Extensions
             {
                 Expires = DateTime.UtcNow.AddYears(5),
                 HttpOnly = true,
-                IsEssential = true
+                IsEssential = true,
+                SameSite = SameSiteMode.Strict
             });
         }
     }
