@@ -11,6 +11,11 @@ jobs:
   pool:
     vmImage: 'ubuntu-18.04'
   steps:
+  - task: UseDotNet@2
+    displayName: 'Use .NET Core sdk'
+    inputs:
+      packageType: 'sdk'
+      version: '5.0.100'
   - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - task: DotNetCoreCLI@2
@@ -38,6 +43,11 @@ jobs:
   pool:
     vmImage: 'macOS-10.15'
   steps:
+  - task: UseDotNet@2
+    displayName: 'Use .NET Core sdk'
+    inputs:
+      packageType: 'sdk'
+      version: '5.0.100'
   - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - task: DotNetCoreCLI@2
@@ -65,6 +75,11 @@ jobs:
   pool:
     vmImage: 'windows-2019'
   steps:
+  - task: UseDotNet@2
+    displayName: 'Use .NET Core sdk'
+    inputs:
+      packageType: 'sdk'
+      version: '5.0.100'
   - task: DotNetCoreCLI@2
     displayName: 'Restoring code using dotnet restore'
     inputs: 
@@ -100,6 +115,11 @@ jobs:
   variables:
     buildConfiguration: 'Release'
   steps:
+  - task: UseDotNet@2
+    displayName: 'Use .NET Core sdk'
+    inputs:
+      packageType: 'sdk'
+      version: '5.0.100'
   - script: dotnet build --configuration $(buildConfiguration)
     displayName: 'dotnet build $(buildConfiguration)'
   - task: DotNetCoreCLI@2

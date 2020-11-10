@@ -162,11 +162,16 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 .Select(g => new FilterCategory
                 {
                     Id = (int)g.Key.Id,
-                    Name = getCategoryName(g.Key.Id, nameof(g.Key.Name), g.Key.Name),
+                    Name = g.Key.Name,
                     Slug = g.Key.Slug,
                     ParentId = g.Key.ParentId,
                     Count = g.Count()
                 }).ToList();
+
+            foreach(var item in model.FilterOption.Categories)
+            {
+                item.Name = getCategoryName(item.Id, nameof(item.Name), item.Name);
+            }
 
             model.FilterOption.Brands = query.Include(x => x.Brand)
                 .Where(x => x.BrandId != null).ToList()

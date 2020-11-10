@@ -170,11 +170,16 @@ namespace SimplCommerce.Module.Search.Areas.Search.Controllers
                 .Select(g => new FilterCategory
                 {
                     Id = (int)g.Key.Id,
-                    Name = getCategoryName(g.Key.Id, nameof(g.Key.Name), g.Key.Name),
+                    Name = g.Key.Name,
                     Slug = g.Key.Slug,
                     ParentId = g.Key.ParentId,
                     Count = g.Count()
                 }).ToList();
+
+            foreach(var item in model.FilterOption.Categories)
+            {
+                item.Name = getCategoryName(item.Id, nameof(item.Name), item.Name);
+            }
 
             // TODO an EF Core bug, so we have to do evaluation in client
             model.FilterOption.Brands = query.Include(x => x.Brand)

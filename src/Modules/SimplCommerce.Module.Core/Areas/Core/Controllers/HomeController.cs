@@ -40,13 +40,19 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
                 .Select(x => new WidgetInstanceViewModel
             {
                 Id = x.Id,
-                Name = getWidgetInstanceTranslations(x.Id, nameof(x.Name), x.Name),
+                Name = x.Name,
                 ViewComponentName = x.Widget.ViewComponentName,
                 WidgetId = x.WidgetId,
                 WidgetZoneId = x.WidgetZoneId,
                 Data = x.Data,
-                HtmlData = getWidgetInstanceTranslations(x.Id, nameof(x.HtmlData), x.HtmlData),
+                HtmlData = x.HtmlData
             }).ToList();
+
+            foreach(var item in model.WidgetInstances)
+            {
+                item.Name = getWidgetInstanceTranslations(item.Id, nameof(item.Name), item.Name);
+                item.HtmlData = getWidgetInstanceTranslations(item.Id, nameof(item.HtmlData), item.HtmlData);
+            }
 
             return View(model);
         }
