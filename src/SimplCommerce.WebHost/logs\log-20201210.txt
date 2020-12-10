@@ -1,0 +1,1 @@
+2020-12-10 15:44:14.838 +01:00 [Warning] [Microsoft.AspNetCore.Http.ResponseCookies] [{ Id: 1, Name: "SameSiteNotSecure" }] The cookie '"XSRF-TOKEN"' has set 'SameSite=None' and must also set 'Secure'.

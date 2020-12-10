@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# Just for dev pourpouses.
+export POSTGRES_PASSWORD=postgress
+
 if psql -h simpldb --username postgres -lqt | cut -d \| -f 1 | grep -qw simplcommerce; then
     echo "simplcommerce database existed"
 else
