@@ -11,8 +11,10 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
     volumes:
       - postgres:/var/lib/postgresql/data/
-    ports:
-      - "5432:5432"
+    # Uncomment this section if you want to expose the database on the host.
+    # Otherwise is only reachable for the commerce and pgadmin over simpldb host/service
+    #ports:
+    #  - "5432:5432"
     networks:
       - gateway
     restart: unless-stopped

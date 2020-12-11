@@ -1,4 +1,6 @@
 #!/bin/bash
+## Shell script for compiling the app. This build does not depend on a database (sqlite), it will create a simplcommerce.db file.
+## 
 set -e
 
 sed -i'' -e 's|<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0"/>|<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.1"/>|' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
