@@ -72,7 +72,7 @@
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.1-dev-00767"/>
     <PackageReference Include="MediatR" Version="7.0.0"/>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.1"/>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.0"/>
     <Content Include="Startup.cs"/>
     <Content Include="Program.cs"/>
     <Content Include="Extensions\ServiceCollectionExtensions.cs"/>

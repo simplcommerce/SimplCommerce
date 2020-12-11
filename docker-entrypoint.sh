@@ -2,7 +2,7 @@
 set -e
 
 # Just for dev pourpouses.
-export POSTGRES_PASSWORD=postgress
+export POSTGRES_PASSWORD=postgres
 
 if psql -h simpldb --username postgres -lqt | cut -d \| -f 1 | grep -qw simplcommerce; then
     echo "simplcommerce database existed"

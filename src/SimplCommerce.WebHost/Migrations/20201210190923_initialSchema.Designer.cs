@@ -10,7 +10,7 @@ using SimplCommerce.Module.Core.Data;
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    [Migration("20201210143557_initialSchema")]
+    [Migration("20201210190923_initialSchema")]
     partial class initialSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1746,12 +1746,12 @@ namespace SimplCommerce.WebHost.Migrations
                             Id = 2L,
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "101cd6ae-a8ef-4a37-97fd-04ac2dd630e4",
-                            CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 189, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2020, 5, 29, 4, 33, 39, 189, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Email = "system@simplcommerce.com",
                             EmailConfirmed = false,
                             FullName = "System User",
                             IsDeleted = true,
-                            LatestUpdatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 189, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            LatestUpdatedOn = new DateTimeOffset(new DateTime(2020, 5, 29, 4, 33, 39, 189, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             LockoutEnabled = false,
                             NormalizedEmail = "SYSTEM@SIMPLCOMMERCE.COM",
                             NormalizedUserName = "SYSTEM@SIMPLCOMMERCE.COM",
@@ -1767,12 +1767,12 @@ namespace SimplCommerce.WebHost.Migrations
                             Id = 10L,
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "c83afcbc-312c-4589-bad7-8686bd4754c0",
-                            CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 190, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2020, 5, 29, 4, 33, 39, 190, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             Email = "admin@simplcommerce.com",
                             EmailConfirmed = false,
                             FullName = "Shop Admin",
                             IsDeleted = false,
-                            LatestUpdatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 190, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            LatestUpdatedOn = new DateTimeOffset(new DateTime(2020, 5, 29, 4, 33, 39, 190, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SIMPLCOMMERCE.COM",
                             NormalizedUserName = "ADMIN@SIMPLCOMMERCE.COM",
@@ -1912,7 +1912,7 @@ namespace SimplCommerce.WebHost.Migrations
                         {
                             Id = "CategoryWidget",
                             CreateUrl = "widget-category-create",
-                            CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 160, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2020, 5, 29, 4, 33, 39, 160, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             EditUrl = "widget-category-edit",
                             IsPublished = false,
                             Name = "Category Widget",
@@ -1922,7 +1922,7 @@ namespace SimplCommerce.WebHost.Migrations
                         {
                             Id = "ProductWidget",
                             CreateUrl = "widget-product-create",
-                            CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 163, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2020, 5, 29, 4, 33, 39, 163, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             EditUrl = "widget-product-edit",
                             IsPublished = false,
                             Name = "Product Widget",
@@ -1932,7 +1932,7 @@ namespace SimplCommerce.WebHost.Migrations
                         {
                             Id = "SimpleProductWidget",
                             CreateUrl = "widget-simple-product-create",
-                            CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 163, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2020, 5, 29, 4, 33, 39, 163, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             EditUrl = "widget-simple-product-edit",
                             IsPublished = false,
                             Name = "Simple Product Widget",
@@ -1942,7 +1942,7 @@ namespace SimplCommerce.WebHost.Migrations
                         {
                             Id = "HtmlWidget",
                             CreateUrl = "widget-html-create",
-                            CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2020, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             EditUrl = "widget-html-edit",
                             IsPublished = false,
                             Name = "Html Widget",
@@ -1952,7 +1952,7 @@ namespace SimplCommerce.WebHost.Migrations
                         {
                             Id = "CarouselWidget",
                             CreateUrl = "widget-carousel-create",
-                            CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2020, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             EditUrl = "widget-carousel-edit",
                             IsPublished = false,
                             Name = "Carousel Widget",
@@ -1962,7 +1962,7 @@ namespace SimplCommerce.WebHost.Migrations
                         {
                             Id = "SpaceBarWidget",
                             CreateUrl = "widget-spacebar-create",
-                            CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2020, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             EditUrl = "widget-spacebar-edit",
                             IsPublished = false,
                             Name = "SpaceBar Widget",
@@ -1972,7 +1972,7 @@ namespace SimplCommerce.WebHost.Migrations
                         {
                             Id = "RecentlyViewedWidget",
                             CreateUrl = "widget-recently-viewed-create",
-                            CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2020, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)),
                             EditUrl = "widget-recently-viewed-edit",
                             IsPublished = false,
                             Name = "Recently Viewed Widget",
@@ -2630,7 +2630,7 @@ namespace SimplCommerce.WebHost.Migrations
                         new
                         {
                             Id = "MomoPayment",
-                            AdditionalSettings = "{\"IsSandbox\":true,\"PartnerCode\":\"MOMOIQA420180417\",\"AccessKey\":\"SvDmj2cOTYZmQQ3H\",\"SecretKey\":\"PPuDXq1KowPT1ftR8DvlQTHhC03aul17\",\"PaymentFee\":0.0}",
+                            AdditionalSettings = "{\"IsSandbox\":true,\"PartnerCode\":\"MOMOIQA420200417\",\"AccessKey\":\"SvDmj2cOTYZmQQ3H\",\"SecretKey\":\"PPuDXq1KowPT1ftR8DvlQTHhC03aul17\",\"PaymentFee\":0.0}",
                             ConfigureUrl = "payments-momo-config",
                             IsEnabled = true,
                             LandingViewComponentName = "MomoLanding",
