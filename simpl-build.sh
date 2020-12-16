@@ -1,9 +1,21 @@
 #!/bin/bash
+## Shell script for compiling the app. THe uilding depends on a postgresql connection. If you don'T have one running, 
+## you can easily expose one with Docker like this:
+## docker run -d --name postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 postgres
+## Also be sure to do the mapping to ETC Hosts or change the server to localhost.
+
 set -e
 
-sed -i'' -e 's|<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />|<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0" />|' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
+sed -i'' -e 's|<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0"/>|<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.0"/>|' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
+sed -i'' -e 's|<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.1"/>|<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.0"/>|' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
 sed -i'' -e 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Program.cs
 sed -i'' -e 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Extensions/ServiceCollectionExtensions.cs
+
+sed -i'' -e 's/UseSqlite/UseNpgsql/' src/SimplCommerce.WebHost/Program.cs
+sed -i'' -e 's/UseSqlite/UseNpgsql/' src/SimplCommerce.WebHost/Extensions/ServiceCollectionExtensions.cs
+
+# For this to work you need a connection to the database. Spin an postgresql in howto-build-docker.md 
+sed -i'' -e 's/"DefaultConnection": ".*"/"DefaultConnection": "User ID=postgres;Password=postgres;Server=simpldb;Port=5432;Database=simplcommerce;Pooling=true;"/' src/SimplCommerce.WebHost/appsettings.json
 
 rm -rf src/SimplCommerce.WebHost/Migrations/*
 

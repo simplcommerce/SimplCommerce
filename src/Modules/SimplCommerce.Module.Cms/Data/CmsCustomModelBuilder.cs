@@ -20,9 +20,9 @@ namespace SimplCommerce.Module.Cms.Data
             );
 
             modelBuilder.Entity<Widget>().HasData(
-                new Widget("HtmlWidget") { Name = "Html Widget", ViewComponentName = "HtmlWidget", CreateUrl = "widget-html-create", EditUrl = "widget-html-edit", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)) },
-                new Widget("CarouselWidget") { Name = "Carousel Widget", ViewComponentName = "CarouselWidget", CreateUrl = "widget-carousel-create", EditUrl = "widget-carousel-edit", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)) },
-                new Widget("SpaceBarWidget") { Name = "SpaceBar Widget", ViewComponentName = "SpaceBarWidget", CreateUrl = "widget-spacebar-create", EditUrl = "widget-spacebar-edit", CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)) }
+                new Widget("HtmlWidget") { Name = "Html Widget", ViewComponentName = "HtmlWidget", CreateUrl = "widget-html-create", EditUrl = "widget-html-edit", CreatedOn = new DateTimeOffset(new DateTime(2020, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)) },
+                new Widget("CarouselWidget") { Name = "Carousel Widget", ViewComponentName = "CarouselWidget", CreateUrl = "widget-carousel-create", EditUrl = "widget-carousel-edit", CreatedOn = new DateTimeOffset(new DateTime(2020, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)) },
+                new Widget("SpaceBarWidget") { Name = "SpaceBar Widget", ViewComponentName = "SpaceBarWidget", CreateUrl = "widget-spacebar-create", EditUrl = "widget-spacebar-edit", CreatedOn = new DateTimeOffset(new DateTime(2020, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)) }
             );
         }
     }

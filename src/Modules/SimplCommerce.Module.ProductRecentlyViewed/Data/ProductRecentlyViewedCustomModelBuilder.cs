@@ -16,7 +16,7 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Data
                     ViewComponentName = "RecentlyViewedWidget",
                     CreateUrl = "widget-recently-viewed-create",
                     EditUrl = "widget-recently-viewed-edit",
-                    CreatedOn = new DateTimeOffset(new DateTime(2018, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified),
+                    CreatedOn = new DateTimeOffset(new DateTime(2020, 5, 29, 4, 33, 39, 164, DateTimeKind.Unspecified),
                         new TimeSpan(0, 7, 0, 0, 0))
                 }
             );

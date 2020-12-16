@@ -1,0 +1,56 @@
+version: '3.5'
+
+services:
+  simpldb:
+    container_name: postgres_container
+    image: postgres
+    hostname: simpldb
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    volumes:
+      - postgres:/var/lib/postgresql/data/
+    # Uncomment this section if you want to expose the database on the host.
+    # Otherwise is only reachable for the commerce and pgadmin over simpldb host/service
+    #ports:
+    #  - "5432:5432"
+    networks:
+      - gateway
+    restart: unless-stopped
+  
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    hostname: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+    volumes:
+       - pgadmin:/root/.pgadmin
+    ports:
+      - "${PGADMIN_PORT:-8080}:80"
+    networks:
+      - gateway
+    restart: unless-stopped
+    
+  simplcommerce:
+    container_name: simplcommerce_container
+    hostname: simplcommerce
+    image: shinojosa/simplcommerce
+    environment:
+      PGPASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    depends_on:
+      - simpldb
+    ports:
+      - "80:80"
+    networks:
+      - gateway
+    restart: unless-stopped
+
+networks:
+  gateway:
+
+volumes:
+    postgres:
+    pgadmin:

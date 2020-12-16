@@ -1,15 +1,15 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
   
 WORKDIR /app
 COPY . ./
 
-RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />#<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0" />#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
+RUN sed -i 's#<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />#<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0"/>#' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
 RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Program.cs
 RUN sed -i 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Extensions/ServiceCollectionExtensions.cs
 
 RUN rm src/SimplCommerce.WebHost/Migrations/* && cp -f src/SimplCommerce.WebHost/appsettings.docker.json src/SimplCommerce.WebHost/appsettings.json
 
-RUN dotnet tool install --global dotnet-ef --version 3.1.0
+RUN dotnet tool install --global dotnet-ef --version 5.0.1
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
 # ef core migrations run in debug, so we have to build in Debug for copying module correctly 
@@ -26,7 +26,7 @@ RUN dotnet build -c Release \
 # remove BOM for psql	
 RUN sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/SimplCommerce.WebHost/dbscript.sql
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
+FROM mcr.microsoft.com/dotnet/aspnet:5.0
 
 # hack to make postgresql-client install work on slim
 RUN mkdir -p /usr/share/man/man1 \
@@ -35,6 +35,7 @@ RUN mkdir -p /usr/share/man/man1 \
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends postgresql-client \
 	&& apt-get install libgdiplus -y \
+	&& apt-get install curl -y \
 	&& rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app	

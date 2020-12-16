@@ -29,7 +29,7 @@ namespace SimplCommerce.WebHost
             var env = hostingContext.HostingEnvironment;
             var configuration = configBuilder.Build();
             configBuilder.AddEntityFrameworkConfig(options =>
-                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
+                    options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
             );
             Log.Logger = new LoggerConfiguration()
                        .ReadFrom.Configuration(configuration)

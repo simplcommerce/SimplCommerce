@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>aspnet-Modular.WebHost-dca604fa-ee10-4a6c-8e7d-8cc79dca8c8f</UserSecretsId>
@@ -6,63 +6,59 @@
     <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
-
   <ItemGroup>
     <Content Include="wwwroot\**\*;modules.json;appsettings.json;Modules\**\*;Themes\**\*;Views\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.ActivityLog\SimplCommerce.Module.ActivityLog.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.Catalog\SimplCommerce.Module.Catalog.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.Cms\SimplCommerce.Module.Cms.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.Comments\SimplCommerce.Module.Comments.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.Contacts\SimplCommerce.Module.Contacts.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.DinkToPdf\SimplCommerce.Module.DinkToPdf.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.Inventory\SimplCommerce.Module.Inventory.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.News\SimplCommerce.Module.News.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.Orders\SimplCommerce.Module.Orders.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentBraintree\SimplCommerce.Module.PaymentBraintree.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentCashfree\SimplCommerce.Module.PaymentCashfree.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentCoD\SimplCommerce.Module.PaymentCoD.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentPaypalExpress\SimplCommerce.Module.PaymentPaypalExpress.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentStripe\SimplCommerce.Module.PaymentStripe.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentMomo\SimplCommerce.Module.PaymentMomo.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentNganLuong\SimplCommerce.Module.PaymentNganLuong.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.Payments\SimplCommerce.Module.Payments.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.Pricing\SimplCommerce.Module.Pricing.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.ProductComparison\SimplCommerce.Module.ProductComparison.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.ProductRecentlyViewed\SimplCommerce.Module.ProductRecentlyViewed.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.Reviews\SimplCommerce.Module.Reviews.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.SampleData\SimplCommerce.Module.SampleData.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.Search\SimplCommerce.Module.Search.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.Shipments\SimplCommerce.Module.Shipments.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.ShippingFree\SimplCommerce.Module.ShippingFree.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.ShippingPrices\SimplCommerce.Module.ShippingPrices.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.ShippingTableRate\SimplCommerce.Module.ShippingTableRate.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.Shipping\SimplCommerce.Module.Shipping.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.ShoppingCart\SimplCommerce.Module.ShoppingCart.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.Tax\SimplCommerce.Module.Tax.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.Vendors\SimplCommerce.Module.Vendors.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.WishList\SimplCommerce.Module.WishList.csproj" />
-    <ProjectReference Include="..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.Localization\SimplCommerce.Module.Localization.csproj" />
-
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.EmailSenderSmtp\SimplCommerce.Module.EmailSenderSmtp.csproj" />
-    <ProjectReference Include="..\Modules\SimplCommerce.Module.StorageLocal\SimplCommerce.Module.StorageLocal.csproj" />
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.ActivityLog\SimplCommerce.Module.ActivityLog.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Catalog\SimplCommerce.Module.Catalog.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Cms\SimplCommerce.Module.Cms.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Comments\SimplCommerce.Module.Comments.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Contacts\SimplCommerce.Module.Contacts.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.DinkToPdf\SimplCommerce.Module.DinkToPdf.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Inventory\SimplCommerce.Module.Inventory.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.News\SimplCommerce.Module.News.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Orders\SimplCommerce.Module.Orders.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentBraintree\SimplCommerce.Module.PaymentBraintree.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentCashfree\SimplCommerce.Module.PaymentCashfree.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentCoD\SimplCommerce.Module.PaymentCoD.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentPaypalExpress\SimplCommerce.Module.PaymentPaypalExpress.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentStripe\SimplCommerce.Module.PaymentStripe.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentMomo\SimplCommerce.Module.PaymentMomo.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.PaymentNganLuong\SimplCommerce.Module.PaymentNganLuong.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Payments\SimplCommerce.Module.Payments.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Pricing\SimplCommerce.Module.Pricing.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.ProductComparison\SimplCommerce.Module.ProductComparison.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.ProductRecentlyViewed\SimplCommerce.Module.ProductRecentlyViewed.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Reviews\SimplCommerce.Module.Reviews.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.SampleData\SimplCommerce.Module.SampleData.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Search\SimplCommerce.Module.Search.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Shipments\SimplCommerce.Module.Shipments.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.ShippingFree\SimplCommerce.Module.ShippingFree.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.ShippingPrices\SimplCommerce.Module.ShippingPrices.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.ShippingTableRate\SimplCommerce.Module.ShippingTableRate.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Shipping\SimplCommerce.Module.Shipping.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.ShoppingCart\SimplCommerce.Module.ShoppingCart.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Tax\SimplCommerce.Module.Tax.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Vendors\SimplCommerce.Module.Vendors.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.WishList\SimplCommerce.Module.WishList.csproj"/>
+    <ProjectReference Include="..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Localization\SimplCommerce.Module.Localization.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.EmailSenderSmtp\SimplCommerce.Module.EmailSenderSmtp.csproj"/>
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.StorageLocal\SimplCommerce.Module.StorageLocal.csproj"/>
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="3.0.1" />
-    <PackageReference Include="BuildBundlerMinifier" Version="3.0.415" />
-    <PackageReference Include="Microsoft.AspNetCore.Antiforgery" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.0" />
+    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="3.0.1"/>
+    <PackageReference Include="BuildBundlerMinifier" Version="3.0.415"/>
+    <PackageReference Include="Microsoft.AspNetCore.Antiforgery" Version="2.2.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="5.0.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.0"/>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -71,11 +67,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
-    <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
-    <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
-    <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.1-dev-00767" />
-    <PackageReference Include="MediatR" Version="7.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1"/>
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0"/>
+    <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.1-dev-00767"/>
+    <PackageReference Include="MediatR" Version="7.0.0"/>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4"/>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.0"/>
+    <Content Include="Startup.cs"/>
+    <Content Include="Program.cs"/>
+    <Content Include="Extensions\ServiceCollectionExtensions.cs"/>
   </ItemGroup>
 </Project>
