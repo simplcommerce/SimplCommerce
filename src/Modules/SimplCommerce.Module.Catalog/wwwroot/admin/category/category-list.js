@@ -17,7 +17,7 @@
         };
 
         vm.deleteCategory = function deleteCategory(category) {
-            bootbox.confirm('Are you sure you want to delete this ' + category.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this ' + simplUtil.escapeHtml(category.name), function (result) {
                 if (result) {
                     categoryService.deleteCategory(category)
                        .then(function (result) {

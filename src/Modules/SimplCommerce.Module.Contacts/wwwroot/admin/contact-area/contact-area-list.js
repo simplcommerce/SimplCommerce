@@ -17,7 +17,7 @@
         };
 
         vm.deleteContactArea = function deleteContactArea(contactArea) {
-            bootbox.confirm('Are you sure you want to delete this Contact Area: ' + contactArea.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this Contact Area: ' + simplUtil.escapeHtml(contactArea.name), function (result) {
                 if (result) {
                     contactAreaService.deleteContactArea(contactArea)
                        .then(function (result) {

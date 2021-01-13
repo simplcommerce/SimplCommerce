@@ -22,7 +22,7 @@
         };
 
         vm.deleteCartRule = function deleteCartRule(cartRule) {
-            bootbox.confirm('Are you sure you want to delete this rule: ' + cartRule.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this rule: ' + simplUtil.escapeHtml(cartRule.name), function (result) {
                 if (result) {
                     cartRuleService.deleteCartRule(cartRule)
                        .then(function (result) {

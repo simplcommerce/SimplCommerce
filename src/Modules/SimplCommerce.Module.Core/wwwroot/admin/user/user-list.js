@@ -24,7 +24,7 @@
         };
 
         vm.deleteUser = function deleteUser(user) {
-            bootbox.confirm('Are you sure you want to delete this user: ' + user.fullName, function (result) {
+            bootbox.confirm('Are you sure you want to delete this user: ' + simplUtil.escapeHtml(user.fullName), function (result) {
                 if (result) {
                     userService.deleteUser(user)
                         .then(function (result) {

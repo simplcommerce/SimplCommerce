@@ -17,7 +17,7 @@
         };
 
         vm.deletePage = function deletePage(page) {
-            bootbox.confirm('Are you sure you want to delete this page: ' + page.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this page: ' + simplUtil.escapeHtml(page.name), function (result) {
                 if (result) {
                     pageService.deletePage(page)
                        .then(function (result) {

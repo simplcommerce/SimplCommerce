@@ -16,7 +16,7 @@
         };
 
         vm.deleteMenu = function deleteMenu(menu) {
-            bootbox.confirm('Are you sure you want to delete this menu: ' + menu.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this menu: ' + simplUtil.escapeHtml(menu.name), function (result) {
                 if (result) {
                     menuService.deleteMenu(menu)
                        .then(function (result) {

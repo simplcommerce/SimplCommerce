@@ -16,7 +16,7 @@
         };
 
         vm.deleteBrand = function deleteBrand(brand) {
-            bootbox.confirm('Are you sure you want to delete this brand: ' + brand.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this brand: ' + simplUtil.escapeHtml(brand.name), function (result) {
                 if (result) {
                     brandService.deleteBrand(brand)
                        .then(function (result) {
