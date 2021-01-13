@@ -16,7 +16,7 @@
         };
 
         vm.deleteTaxClass = function deleteTaxClass(taxClass) {
-            bootbox.confirm('Are you sure you want to delete this taxClass: ' + taxClass.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this taxClass: ' + simplUtil.escapeHtml(taxClass.name), function (result) {
                 if (result) {
                     taxClassService.deleteTaxClass(taxClass)
                         .then(function (result) {

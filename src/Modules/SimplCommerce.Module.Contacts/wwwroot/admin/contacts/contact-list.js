@@ -26,7 +26,7 @@
         };        
 
         vm.deleteContact = function deleteContact(contact) {
-            bootbox.confirm('Are you sure you want to delete this contact: ' + contact.fullName, function (result) {
+            bootbox.confirm('Are you sure you want to delete this contact: ' + simplUtil.escapeHtml(contact.fullName), function (result) {
                 if (result) {
                     contactService.deleteContact(contact)
                        .then(function (result) {

@@ -22,7 +22,7 @@
         };
 
         vm.deleteVendor = function deleteVendor(vendor) {
-            bootbox.confirm('Are you sure you want to delete this vendor: ' + vendor.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this vendor: ' + simplUtil.escapeHtml(vendor.name), function (result) {
                 if (result) {
                     vendorService.deleteVendor(vendor)
                         .then(function (result) {

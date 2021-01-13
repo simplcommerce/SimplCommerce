@@ -22,7 +22,7 @@
         };
 
         vm.deleteWarehouse = function (warehouse) {
-            bootbox.confirm('Are you sure you want to delete this warehouse: ' + warehouse.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this warehouse: ' + simplUtil.escapeHtml(warehouse.name), function (result) {
                 if (result) {
                     warehouseService.deleteWarehouse(warehouse)
                         .then(function (result) {

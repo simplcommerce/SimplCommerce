@@ -45,7 +45,7 @@
         };
 
         vm.deleteTheme = function deleteTheme(theme) {
-            bootbox.confirm('Are you sure you want to delete this ' + theme.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this ' + simplUtil.escapeHtml(theme.name), function (result) {
                 if (result) {
                     themeService.deleteTheme(theme.name)
                         .then(function (result) {
