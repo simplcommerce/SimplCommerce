@@ -23,6 +23,8 @@ RUN dotnet build -c Release \
 	&& cd src/SimplCommerce.WebHost \
 	&& dotnet build -c Release \
 	&& dotnet publish -c Release -o out
+	
+RUN curl -SL "https://github.com/rdvojmoc/DinkToPdf/raw/v1.0.8/v0.12.4/64%20bit/libwkhtmltox.so" --output /app/src/SimplCommerce.WebHost/out/libwkhtmltox.so
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0
 
@@ -33,7 +35,5 @@ RUN apt-get update \
 WORKDIR /app	
 COPY --from=build-env /app/src/SimplCommerce.WebHost/out ./
 COPY --from=build-env /app/src/SimplCommerce.WebHost/simplcommerce.db ./
-
-RUN curl -SL "https://github.com/rdvojmoc/DinkToPdf/raw/v1.0.8/v0.12.4/64%20bit/libwkhtmltox.so" --output ./libwkhtmltox.so
 
 ENTRYPOINT ["dotnet", "SimplCommerce.WebHost.dll"]

@@ -22,6 +22,8 @@ RUN dotnet build -c Release \
 	&& cd src/SimplCommerce.WebHost \
     && dotnet build -c Release \
 	&& dotnet publish -c Release -o out
+	
+RUN curl -SL "https://github.com/rdvojmoc/DinkToPdf/raw/v1.0.8/v0.12.4/64%20bit/libwkhtmltox.so" --output /app/src/SimplCommerce.WebHost/out/libwkhtmltox.so
 
 # remove BOM for psql	
 RUN sed -i -e '1s/^\xEF\xBB\xBF//' /app/src/SimplCommerce.WebHost/dbscript.sql
@@ -40,8 +42,6 @@ RUN apt-get update \
 WORKDIR /app	
 COPY --from=build-env /app/src/SimplCommerce.WebHost/out ./
 COPY --from=build-env /app/src/SimplCommerce.WebHost/dbscript.sql ./
-
-RUN curl -SL "https://github.com/rdvojmoc/DinkToPdf/raw/v1.0.8/v0.12.4/64%20bit/libwkhtmltox.so" --output ./libwkhtmltox.so
 
 COPY --from=build-env /app/docker-entrypoint.sh /
 RUN chmod 755 /docker-entrypoint.sh
