@@ -40,6 +40,7 @@ namespace SimplCommerce.WebHost
         {
             GlobalConfiguration.WebRootPath = _hostingEnvironment.WebRootPath;
             GlobalConfiguration.ContentRootPath = _hostingEnvironment.ContentRootPath;
+            services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddModules();
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -95,7 +96,6 @@ namespace SimplCommerce.WebHost
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
             else
             {

@@ -35,6 +35,10 @@ namespace SimplCommerce.Module.Catalog.Data
                 .HasForeignKey(pt => pt.ProductAttributeId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Category>()
+                 .Property(x => x.Path)
+                 .HasMaxLength(4000);
+
             modelBuilder.Entity<AppSetting>().HasData(
                 new AppSetting("Catalog.ProductPageSize") { Module = "Catalog", IsVisibleInCommonSettingPage = true, Value = "10" },
                 new AppSetting("Catalog.IsProductPriceIncludeTax") { Module = "Catalog", IsVisibleInCommonSettingPage = true, Value = "true" }

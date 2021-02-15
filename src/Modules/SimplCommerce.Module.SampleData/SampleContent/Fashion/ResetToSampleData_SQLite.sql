@@ -107,12 +107,14 @@ INSERT INTO Core_Media (Id, Caption, FileSize, FileName, MediaType) VALUES (32, 
 INSERT INTO Core_Media (Id, Caption, FileSize, FileName, MediaType) VALUES (33, NULL, 0, '057afd18-8973-4078-9fd2-7eb0b52d8e72.jpg', 1);
 INSERT INTO Core_Media (Id, Caption, FileSize, FileName, MediaType) VALUES (34, NULL, 0, 'ee4b30bf-fd13-47a7-b893-0e6e6b1aed05.jpg', 0);
 
-INSERT INTO Catalog_Category (Id, Name, Slug, MetaTitle, MetaKeywords, MetaDescription, Description, DisplayOrder, IsPublished, IncludeInMenu, IsDeleted, ParentId, ThumbnailImageId) VALUES (1, 'Woman', 'woman', NULL, NULL, NULL, NULL, 0, 1, 1, 0, NULL, NULL);
-INSERT INTO Catalog_Category (Id, Name, Slug, MetaTitle, MetaKeywords, MetaDescription, Description, DisplayOrder, IsPublished, IncludeInMenu, IsDeleted, ParentId, ThumbnailImageId) VALUES (2, 'Man', 'man', NULL, NULL, NULL, NULL, 0, 1, 1, 0, NULL, NULL);
-INSERT INTO Catalog_Category (Id, Name, Slug, MetaTitle, MetaKeywords, MetaDescription, Description, DisplayOrder, IsPublished, IncludeInMenu, IsDeleted, ParentId, ThumbnailImageId) VALUES (3, 'Shoes', 'shoes', NULL, NULL, NULL, NULL, 0, 1, 1, 0, NULL, NULL);
-INSERT INTO Catalog_Category (Id, Name, Slug, MetaTitle, MetaKeywords, MetaDescription, Description, DisplayOrder, IsPublished, IncludeInMenu, IsDeleted, ParentId, ThumbnailImageId) VALUES (4, 'Watches', 'watches', NULL, NULL, NULL, NULL, 0, 1, 1, 0, NULL, NULL);
-INSERT INTO Catalog_Category (Id, Name, Slug, MetaTitle, MetaKeywords, MetaDescription, Description, DisplayOrder, IsPublished, IncludeInMenu, IsDeleted, ParentId, ThumbnailImageId) VALUES (5, 'T-Shirt', 't-shirt', NULL, NULL, NULL, NULL, 0, 1, 1, 0, 2, NULL);
-INSERT INTO Catalog_Category (Id, Name, Slug, MetaTitle, MetaKeywords, MetaDescription, Description, DisplayOrder, IsPublished, IncludeInMenu, IsDeleted, ParentId, ThumbnailImageId) VALUES (6, 'Suit', 'suit', NULL, NULL, NULL, NULL, 0, 1, 1, 0, 2, NULL);
+INSERT INTO Catalog_Category (Id, Name, Slug, MetaTitle, MetaKeywords, MetaDescription, Description, DisplayOrder, IsPublished, IncludeInMenu, IsDeleted, ParentId, ThumbnailImageId, Path) 
+VALUES 
+    (1, 'Woman', 'woman', NULL, NULL, NULL, NULL, 0, 1, 1, 0, NULL, NULL, '1/'),
+    (2, 'Man', 'man', NULL, NULL, NULL, NULL, 0, 1, 1, 0, NULL, NULL, '2/'),
+    (3, 'Shoes', 'shoes', NULL, NULL, NULL, NULL, 0, 1, 1, 0, NULL, NULL, '3/'),
+    (4, 'Watches', 'watches', NULL, NULL, NULL, NULL, 0, 1, 1, 0, NULL, NULL, '4/'),
+    (5, 'T-Shirt', 't-shirt', NULL, NULL, NULL, NULL, 0, 1, 1, 0, 2, NULL, '2/5/'),
+    (6, 'Suit', 'suit', NULL, NULL, NULL, NULL, 0, 1, 1, 0, 2, NULL, '2/6/');
 
 INSERT INTO Catalog_Brand (Id, Name, Slug, Description, IsPublished, IsDeleted) VALUES (1, 'Adidas', 'adidas', NULL, 1, 0);
 INSERT INTO Catalog_Brand (Id, Name, Slug, Description, IsPublished, IsDeleted) VALUES (2, 'Calvin Klein', 'calvin-klein', NULL, 1, 0);

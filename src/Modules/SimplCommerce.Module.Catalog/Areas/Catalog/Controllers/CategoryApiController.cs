@@ -71,22 +71,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         {
             if (ModelState.IsValid)
             {
-                var category = new Category
-                {
-                    Name = model.Name,
-                    Slug = model.Slug,
-                    MetaTitle = model.MetaTitle,
-                    MetaKeywords = model.MetaKeywords,
-                    MetaDescription = model.MetaDescription,
-                    DisplayOrder = model.DisplayOrder,
-                    Description = model.Description,
-                    ParentId = model.ParentId,
-                    IncludeInMenu = model.IncludeInMenu,
-                    IsPublished = model.IsPublished
-                };
-
-                await SaveCategoryImage(category, model);
-                await _categoryService.Create(category);
+                var thumbnailImageName = await SaveThumbnailImage(model);
+                var category = await _categoryService.Create(model, thumbnailImageName);
                 return CreatedAtAction(nameof(Get), new { id = category.Id }, null);
             }
 
@@ -99,31 +85,19 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         {
             if (ModelState.IsValid)
             {
-                var category = await _categoryRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-                if(category == null)
+                try
+                {
+                    var thumbnailImageName = await SaveThumbnailImage(model);
+                    await _categoryService.Update(id, model, thumbnailImageName);
+                }
+                catch (NotFoundException)
                 {
                     return NotFound();
                 }
-
-                category.Name = model.Name;
-                category.Slug = model.Slug;
-                category.MetaTitle = model.MetaTitle;
-                category.MetaKeywords = model.MetaKeywords;
-                category.MetaDescription = model.MetaDescription;
-                category.Description = model.Description;
-                category.DisplayOrder = model.DisplayOrder;
-                category.ParentId = model.ParentId;
-                category.IncludeInMenu = model.IncludeInMenu;
-                category.IsPublished = model.IsPublished;
-
-                if (category.ParentId.HasValue && await HaveCircularNesting(category.Id, category.ParentId.Value))
+                catch (ValidationException e)
                 {
-                    ModelState.AddModelError("ParentId", "Parent category cannot be itself children");
-                    return BadRequest(ModelState);
+                    ModelState.AddModelError(e.FieldName, e.Message);
                 }
-
-                await SaveCategoryImage(category, model);
-                await _categoryService.Update(category);
 
                 return Accepted();
             }
@@ -202,20 +176,14 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             return Accepted();
         }
 
-        private async Task SaveCategoryImage(Category category, CategoryForm model)
+        private async Task<string> SaveThumbnailImage(CategoryForm model)
         {
             if (model.ThumbnailImage != null)
             {
-                var fileName = await SaveFile(model.ThumbnailImage);
-                if (category.ThumbnailImage != null)
-                {
-                    category.ThumbnailImage.FileName = fileName;
-                }
-                else
-                {
-                    category.ThumbnailImage = new Media { FileName = fileName };
-                }
+                return await SaveFile(model.ThumbnailImage);
             }
+
+            return null;
         }
 
         private async Task<string> SaveFile(IFormFile file)
@@ -224,24 +192,6 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
             await _mediaService.SaveMediaAsync(file.OpenReadStream(), fileName, file.ContentType);
             return fileName;
-        }
-
-        private async Task<bool> HaveCircularNesting(long childId, long parentId)
-        {
-            var category = await _categoryRepository.Query().FirstOrDefaultAsync(x => x.Id == parentId);
-            var parentCategoryId = category.ParentId;
-            while (parentCategoryId.HasValue)
-            {
-                if(parentCategoryId.Value == childId)
-                {
-                    return true;
-                }
-
-                var parentCategory = await _categoryRepository.Query().FirstAsync(x => x.Id == parentCategoryId);
-                parentCategoryId = parentCategory.ParentId;
-            }
-
-            return false;
         }
     }
 }

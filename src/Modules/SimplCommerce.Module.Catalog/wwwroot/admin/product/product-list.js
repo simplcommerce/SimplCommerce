@@ -2,14 +2,24 @@
 (function () {
     angular
         .module('simplAdmin.catalog')
-        .controller('ProductListCtrl', ['productService', 'translateService', '$window', ProductListCtrl]);
+        .controller('ProductListCtrl', ['productService', 'translateService', '$window', 'categoryService', ProductListCtrl]);
 
-    function ProductListCtrl(productService, translateService, $window) {
+    function ProductListCtrl(productService, translateService, $window, categoryService) {
         var vm = this;
         vm.tableStateRef = {};
         vm.translate = translateService;
         vm.products = [];
         vm.enableCultures = $window.Global_EnableCultures;
+        vm.categories = [];
+        vm.filterBoxIsOpen = true;
+        vm.createdOnPickers = {
+            after: {
+                isOpen: false
+            },
+            before: {
+                isOpen: false
+            }
+        };
 
         vm.getProducts = function getProducts(tableState) {
             vm.tableStateRef = tableState;
@@ -42,5 +52,9 @@
                 }
             });
         };
+
+        categoryService.getCategories().then(function (result) {
+            vm.categories = result.data;
+        });
     }
 })();

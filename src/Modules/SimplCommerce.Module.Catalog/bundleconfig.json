@@ -26,6 +26,7 @@
       "wwwroot/admin/product/product-list.js",
       "wwwroot/admin/product/product-option-display-directive.js",
       "wwwroot/admin/product/product-selection-directive.js",
+      "wwwroot/admin/product/product-smart-search-model-directive.js",
       "wwwroot/admin/product/product-form.js",
       "wwwroot/admin/product/product-translation-form.js",
       "wwwroot/admin/product-widget/product-widget-service.js",

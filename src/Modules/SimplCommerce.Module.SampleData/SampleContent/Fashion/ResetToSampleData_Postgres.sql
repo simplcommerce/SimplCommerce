@@ -109,12 +109,14 @@ INSERT INTO "Core_Media" ("Id", "Caption", "FileSize", "FileName", "MediaType") 
 INSERT INTO "Core_Media" ("Id", "Caption", "FileSize", "FileName", "MediaType") VALUES (34, NULL, 0, 'ee4b30bf-fd13-47a7-b893-0e6e6b1aed05.jpg', 0);
 SELECT pg_catalog.setval('"Core_Media_Id_seq"', 34, true);
 
-INSERT INTO "Catalog_Category" ("Id", "Name", "Slug", "MetaTitle", "MetaKeywords", "MetaDescription", "Description", "DisplayOrder", "IsPublished", "IncludeInMenu", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (1, 'Woman', 'woman', NULL, NULL, NULL, NULL, 0, true, true, false, NULL, NULL);
-INSERT INTO "Catalog_Category" ("Id", "Name", "Slug", "MetaTitle", "MetaKeywords", "MetaDescription", "Description", "DisplayOrder", "IsPublished", "IncludeInMenu", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (2, 'Man', 'man', NULL, NULL, NULL, NULL, 0, true, true, false, NULL, NULL);
-INSERT INTO "Catalog_Category" ("Id", "Name", "Slug", "MetaTitle", "MetaKeywords", "MetaDescription", "Description", "DisplayOrder", "IsPublished", "IncludeInMenu", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (3, 'Shoes', 'shoes', NULL, NULL, NULL, NULL, 0, true, true, false, NULL, NULL);
-INSERT INTO "Catalog_Category" ("Id", "Name", "Slug", "MetaTitle", "MetaKeywords", "MetaDescription", "Description", "DisplayOrder", "IsPublished", "IncludeInMenu", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (4, 'Watches', 'watches', NULL, NULL, NULL, NULL, 0, true, true, false, NULL, NULL);
-INSERT INTO "Catalog_Category" ("Id", "Name", "Slug", "MetaTitle", "MetaKeywords", "MetaDescription", "Description", "DisplayOrder", "IsPublished", "IncludeInMenu", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (5, 'T-Shirt', 't-shirt', NULL, NULL, NULL, NULL, 0, true, true, false, 2, NULL);
-INSERT INTO "Catalog_Category" ("Id", "Name", "Slug", "MetaTitle", "MetaKeywords", "MetaDescription", "Description", "DisplayOrder", "IsPublished", "IncludeInMenu", "IsDeleted", "ParentId", "ThumbnailImageId") VALUES (6, 'Suit', 'suit', NULL, NULL, NULL, NULL, 0, true, true, false, 2, NULL);
+INSERT INTO "Catalog_Category" ("Id", "Name", "Slug", "MetaTitle", "MetaKeywords", "MetaDescription", "Description", "DisplayOrder", "IsPublished", "IncludeInMenu", "IsDeleted", "ParentId", "ThumbnailImageId", "Path") 
+VALUES 
+    (1, 'Woman', 'woman', NULL, NULL, NULL, NULL, 0, true, true, false, NULL, NULL, '1/'),
+    (2, 'Man', 'man', NULL, NULL, NULL, NULL, 0, true, true, false, NULL, NULL, '2/'),
+    (3, 'Shoes', 'shoes', NULL, NULL, NULL, NULL, 0, true, true, false, NULL, NULL, '3/'),
+    (4, 'Watches', 'watches', NULL, NULL, NULL, NULL, 0, true, true, false, NULL, NULL, '4/'),
+    (5, 'T-Shirt', 't-shirt', NULL, NULL, NULL, NULL, 0, true, true, false, 2, NULL, '2/5/'),
+    (6, 'Suit', 'suit', NULL, NULL, NULL, NULL, 0, true, true, false, 2, NULL, '2/6/');
 SELECT pg_catalog.setval('"Catalog_Category_Id_seq"', 6, true);
 
 INSERT INTO "Catalog_Brand" ("Id", "Name", "Slug", "Description", "IsPublished", "IsDeleted") VALUES (1, 'Adidas', 'adidas', NULL, true, false);

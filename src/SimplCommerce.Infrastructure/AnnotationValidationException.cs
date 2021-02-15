@@ -5,9 +5,21 @@ using System.Linq;
 
 namespace SimplCommerce.Infrastructure
 {
-    public class ValidationException : Exception
+    public class AnnotationValidationException : Exception
     {
-        public ValidationException(Type target, IList<ValidationResult> validationResults)
+        public AnnotationValidationException()
+        {
+        }
+
+        public AnnotationValidationException(string message) : base(message)
+        {
+        }
+
+        public AnnotationValidationException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
+
+        public AnnotationValidationException(Type target, IList<ValidationResult> validationResults)
         {
             TargetType = target;
             ValidationResults = validationResults;

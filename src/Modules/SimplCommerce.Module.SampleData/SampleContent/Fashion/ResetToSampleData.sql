@@ -148,12 +148,14 @@ INSERT [dbo].[Core_Media] ([Id], [Caption], [FileSize], [FileName], [MediaType])
 SET IDENTITY_INSERT [dbo].[Core_Media] OFF 
 GO
 SET IDENTITY_INSERT [dbo].[Catalog_Category] ON 
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [Slug], [MetaTitle], [MetaKeywords], [MetaDescription], [Description], [DisplayOrder], [IsPublished], [IncludeInMenu], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (1, N'Woman', N'woman', NULL, NULL, NULL, NULL, 0, 1, 1, 0, NULL, NULL)
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [Slug], [MetaTitle], [MetaKeywords], [MetaDescription], [Description], [DisplayOrder], [IsPublished], [IncludeInMenu], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (2, N'Man', N'man', NULL, NULL, NULL, NULL, 0, 1, 1, 0, NULL, NULL)
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [Slug], [MetaTitle], [MetaKeywords], [MetaDescription], [Description], [DisplayOrder], [IsPublished], [IncludeInMenu], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (3, N'Shoes', N'shoes', NULL, NULL, NULL, NULL, 0, 1, 1, 0, NULL, NULL)
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [Slug], [MetaTitle], [MetaKeywords], [MetaDescription], [Description], [DisplayOrder], [IsPublished], [IncludeInMenu], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (4, N'Watches', N'watches', NULL, NULL, NULL, NULL, 0, 1, 1, 0, NULL, NULL)
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [Slug], [MetaTitle], [MetaKeywords], [MetaDescription], [Description], [DisplayOrder], [IsPublished], [IncludeInMenu], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (5, N'T-Shirt', N't-shirt', NULL, NULL, NULL, NULL, 0, 1, 1, 0, 2, NULL)
-INSERT [dbo].[Catalog_Category] ([Id], [Name], [Slug], [MetaTitle], [MetaKeywords], [MetaDescription], [Description], [DisplayOrder], [IsPublished], [IncludeInMenu], [IsDeleted], [ParentId], [ThumbnailImageId]) VALUES (6, N'Suit', N'suit', NULL, NULL, NULL, NULL, 0, 1, 1, 0, 2, NULL)
+INSERT [dbo].[Catalog_Category] ([Id], [Name], [Slug], [MetaTitle], [MetaKeywords], [MetaDescription], [Description], [DisplayOrder], [IsPublished], [IncludeInMenu], [IsDeleted], [ParentId], [ThumbnailImageId], [Path])
+VALUES 
+    (1, N'Woman', N'woman', NULL, NULL, NULL, NULL, 0, 1, 1, 0, NULL, NULL, N'1/'),
+    (2, N'Man', N'man', NULL, NULL, NULL, NULL, 0, 1, 1, 0, NULL, NULL, N'2/'),
+    (3, N'Shoes', N'shoes', NULL, NULL, NULL, NULL, 0, 1, 1, 0, NULL, NULL, N'3/'),
+    (4, N'Watches', N'watches', NULL, NULL, NULL, NULL, 0, 1, 1, 0, NULL, NULL, N'4/'),
+    (5, N'T-Shirt', N't-shirt', NULL, NULL, NULL, NULL, 0, 1, 1, 0, 2, NULL, N'2/5/'),
+    (6, N'Suit', N'suit', NULL, NULL, NULL, NULL, 0, 1, 1, 0, 2, NULL, N'2/6/');
 SET IDENTITY_INSERT [dbo].[Catalog_Category] OFF 
 GO
 SET IDENTITY_INSERT [dbo].[Catalog_Brand] ON 

@@ -9,9 +9,9 @@ namespace SimplCommerce.Module.Catalog.Services
     {
         Task<IList<CategoryListItem>> GetAll();
 
-        Task Create(Category category);
+        Task<Category> Create(CategoryForm model, string thumbnailImageName);
 
-        Task Update(Category category);
+        Task Update(long id, CategoryForm model, string thumbnailImageName);
 
         Task Delete(Category category);
     }

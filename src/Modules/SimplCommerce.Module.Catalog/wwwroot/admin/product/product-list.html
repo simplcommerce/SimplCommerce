@@ -8,8 +8,97 @@
         </div>
     </div>
 </div>
-
-<table class="table table-striped" st-pipe="vm.getProducts" st-table="vm.products">
+<uib-accordion close-others="oneAtATime">
+    <div uib-accordion-group is-open="vm.filterBoxIsOpen">
+        <div uib-accordion-heading ng-click="vm.filterBoxIsOpen = !vm.filterBoxIsOpen">
+            <strong>{{::vm.translate.get('Search')}}</strong>
+            <i class="pull-right fa" ng-class="{'fa-chevron-down': vm.filterBoxIsOpen, 'fa-chevron-left': !vm.filterBoxIsOpen}"></i>
+        </div>
+        <div class="row">
+            <div class="form-horizontal col-md-5">
+                <div class="form-group">
+                    <label for="name" class="control-label col-md-3">{{::vm.translate.get('Name')}}</label>
+                    <div class="col-md-7">
+                        <input type="text" class="form-control" id="name" ng-model="vm.filter.Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">{{::vm.translate.get('Has Options')}}</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-model="vm.filter.HasOptions">
+                            <option value="">{{::vm.translate.get('All')}}</option>
+                            <option value="true">{{::vm.translate.get('Yes')}}</option>
+                            <option value="false">{{::vm.translate.get('No')}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">{{::vm.translate.get('Is Visible Individually')}}</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-model="vm.filter.IsVisibleIndividually">
+                            <option value="">{{::vm.translate.get('All')}}</option>
+                            <option value="true">{{::vm.translate.get('Yes')}}</option>
+                            <option value="false">{{::vm.translate.get('No')}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">{{::vm.translate.get('Is Published')}}</label>
+                    <div class="col-md-7">
+                        <select class="form-control" ng-model="vm.filter.IsPublished">
+                            <option value="">{{::vm.translate.get('All')}}</option>
+                            <option value="true">{{::vm.translate.get('Yes')}}</option>
+                            <option value="false">{{::vm.translate.get('No')}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-horizontal col-md-5">
+                <div class="form-group">
+                    <label class="control-label col-md-3">{{::vm.translate.get('Сreated')}}&ensp;{{::vm.translate.get('From')}}</label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.filter.CreatedOn.after" is-open="vm.createdOnPickers.after.isOpen" close-text="Close" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="vm.createdOnPickers.after.isOpen = !vm.createdOnPickers.after.isOpen">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <label class="control-label col-md-1">{{::vm.translate.get('To')}}</label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.filter.CreatedOn.before" is-open="vm.createdOnPickers.before.isOpen" close-text="Close" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="vm.createdOnPickers.before.isOpen = !vm.createdOnPickers.before.isOpen">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-md-3 control-label">{{::vm.translate.get('Brand')}}</label>
+                    <div class="col-md-7">
+                        <input type="text" class="form-control" id="brand" ng-model="vm.filter.Brand">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">{{::vm.translate.get('Category')}}</label>
+                    <div class="col-md-7">
+                        <select class="form-control"  
+                                ng-model="vm.filter.CategoryId"
+                                ng-options="category.id as category.name for category in vm.categories">
+                            <option value="">Top</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</uib-accordion>
+<table class="table table-striped" st-pipe="vm.getProducts" st-table="vm.products" st-search-model="vm.filter">
     <thead>
         <tr>
             <th st-sort="Name" class="sortable">{{::vm.translate.get('Name')}}</th>
@@ -22,46 +111,6 @@
             <th st-sort="IsPublished" class="text-center sortable">{{::vm.translate.get('Is Published')}}</th>
             <th st-sort="CreatedOn" class="text-center sortable">{{::vm.translate.get('Created On')}}</th>
             <th class="text-center">{{::vm.translate.get('Actions')}}</th>
-        </tr>
-        <tr>
-            <th>
-                <div class="form-group">
-                    <input class="form-control" st-search="Name" />
-                </div>
-            </th>
-            <th>
-                <div class="form-group">
-                    <select class="form-control" st-search="HasOptions">
-                        <option value="">{{::vm.translate.get('All')}}</option>
-                        <option value="true">{{::vm.translate.get('Yes')}}</option>
-                        <option value="false">{{::vm.translate.get('No')}}</option>
-                    </select>
-                </div>
-            </th>
-            <th>
-                <div class="form-group">
-                    <select class="form-control" st-search="IsVisibleIndividually">
-                        <option value="">{{::vm.translate.get('All')}}</option>
-                        <option value="true">{{::vm.translate.get('Yes')}}</option>
-                        <option value="false">{{::vm.translate.get('No')}}</option>
-                    </select>
-                </div>
-            </th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th>
-                <div class="form-group">
-                    <select class="form-control" st-search="IsPublished">
-                        <option value="">{{::vm.translate.get('All')}}</option>
-                        <option value="true">{{::vm.translate.get('Yes')}}</option>
-                        <option value="false">{{::vm.translate.get('No')}}</option>
-                    </select>
-                </div>
-            </th>
-            <th><st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range></th>
-            <th></th>
         </tr>
         <tr>
             <th ng-show="!vm.isLoading" colspan="10">{{vm.tableStateRef.pagination.totalItemCount | number:0}} {{::vm.translate.get('records found')}}</th>
@@ -83,7 +132,7 @@
                 <button ng-if="!product.isPublished" title="Publish" ng-click="vm.changeStatus(product)" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-play"></span></button>
                 <a ui-sref="product-edit({id: product.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
                 <button ng-click="vm.deleteProduct(product)" title="Delete" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
-                <a ui-sref="product-translation({id: product.id, culture: culture})" class="btn btn-default btn-xs btn-translate" ng-repeat="culture in vm.enableCultures"> 
+                <a ui-sref="product-translation({id: product.id, culture: culture})" class="btn btn-default btn-xs btn-translate" ng-repeat="culture in vm.enableCultures">
                     <span class="flag flag-{{culture.substr(culture.length - 2).toLowerCase()}}" alt="{{culture}}" title="{{culture}}"></span>
                 </a>
             </td>

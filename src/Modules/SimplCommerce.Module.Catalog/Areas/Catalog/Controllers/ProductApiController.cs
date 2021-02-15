@@ -34,6 +34,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         private readonly IRepository<Product> _productRepository;
         private readonly IProductService _productService;
         private readonly IRepository<ProductMedia> _productMediaRepository;
+        private readonly IRepository<Category> _categoryRepository;
         private readonly IWorkContext _workContext;
 
         public ProductApiController(
@@ -45,6 +46,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             IRepository<ProductOptionValue> productOptionValueRepository,
             IRepository<ProductAttributeValue> productAttributeValueRepository,
             IRepository<ProductMedia> productMediaRepository,
+            IRepository<Category> categoryRepository,
             IWorkContext workContext)
         {
             _productRepository = productRepository;
@@ -55,6 +57,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             _productOptionValueRepository = productOptionValueRepository;
             _productAttributeValueRepository = productAttributeValueRepository;
             _productMediaRepository = productMediaRepository;
+            _categoryRepository = categoryRepository;
             _workContext = workContext;
         }
 
@@ -259,6 +262,22 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                         DateTimeOffset after = search.CreatedOn.after;
                         query = query.Where(x => x.CreatedOn >= after);
                     }
+                }
+
+                if (search.Brand != null)
+                {
+                    string brand = search.Brand;
+                    query = query.Where(x => x.Brand != null && x.Brand.Name.Contains(brand));
+                }
+
+                if (search.CategoryId != null)
+                {
+                    var categoryId = (long)search.CategoryId;
+                    var categoriesIds = from pathSrc in _categoryRepository.Query().Where(x => x.Id == categoryId)
+                                        from categories in _categoryRepository.Query().Where(c => c.Path.StartsWith(pathSrc.Path))
+                                        select categories.Id;
+
+                    query = query.Where(x => x.Categories.Any(c => categoriesIds.Contains(c.CategoryId)));
                 }
             }
 

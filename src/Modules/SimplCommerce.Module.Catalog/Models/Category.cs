@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Core.Models;
@@ -40,5 +41,33 @@ namespace SimplCommerce.Module.Catalog.Models
         public IList<Category> Children { get; protected set; } = new List<Category>();
 
         public Media ThumbnailImage { get; set; }
+
+        public string Path { get; set; }
+
+        internal void AddChild(Category child)
+        {
+            Children.Add(child);
+        }
+
+        internal void ApplyPathAsForRoot()
+        {
+            Path = $"{Id}/";
+
+            foreach (var item in Children)
+            {
+                item.ApplyParentPath(Path);
+            }
+        }
+
+        private void ApplyParentPath(string path)
+        {
+
+            Path = $"{path}{Id}/";
+
+            foreach (var item in Children)
+            {
+                item.ApplyParentPath(Path);
+            }
+        }
     }
 }

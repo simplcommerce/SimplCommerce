@@ -90,7 +90,7 @@ namespace SimplCommerce.Module.Core.Data
                     var validationResults = validatableObject.Validate();
                     if (validationResults.Any())
                     {
-                        throw new ValidationException(entity.Entity.GetType(), validationResults);
+                        throw new AnnotationValidationException(entity.Entity.GetType(), validationResults);
                     }
                 }
             }
