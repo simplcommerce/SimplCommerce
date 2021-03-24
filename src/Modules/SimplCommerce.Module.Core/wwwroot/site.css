@@ -57,9 +57,10 @@ textarea {
     }
 
 .main-header .search-category select {
-    height: 35px;
+    height: 38px;
     border-radius: 0;
-    width: 180px;
+    width: 170px;
+	margin-left: 10px
 }
 
 .main-header .search-btn {
