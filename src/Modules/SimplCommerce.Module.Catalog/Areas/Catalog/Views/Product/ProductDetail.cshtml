@@ -295,6 +295,20 @@
 
 @await Component.InvokeAsync("ProductRecentlyViewed", new { productId = Model.Id })
 
+@if (Model.RecommendProducts.Any())
+{
+    <!-- Recommended Products -->
+    <h2 class="p-t-25 p-b-25">@Localizer["Recommended Products"]</h2>
+    <div class="row product-list">
+        @foreach (var product in Model.RecommendProducts)
+        {
+            <div class="col-xs-6 col-md-3">
+                <partial name="_ProductThumbnail" model="product" />
+            </div>
+        }
+    </div>
+}
+
 <div>
     <h3>@Localizer["Customer reviews"]</h3>
     @await Component.InvokeAsync("Review", new { entityId = Model.Id, entityTypeId = "Product" })
