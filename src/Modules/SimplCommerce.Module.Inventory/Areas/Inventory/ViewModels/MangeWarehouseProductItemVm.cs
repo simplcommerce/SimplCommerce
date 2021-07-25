@@ -10,12 +10,6 @@
 
         public int? Quantity { get; set; }
 
-        public bool IsExistInWarehouse
-        {
-            get
-            {
-                return Quantity.HasValue;
-            }
-        }
+        public bool IsExistInWarehouse => Quantity.HasValue;
     }
 }

@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Globalization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Infrastructure.Helpers;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Orders.Services;
-using SimplCommerce.Module.Payments.Models;
 using SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.ViewModels;
 using SimplCommerce.Module.PaymentCashfree.Models;
+using SimplCommerce.Module.Payments.Models;
 using SimplCommerce.Module.ShoppingCart.Services;
-using Microsoft.AspNetCore.Http;
 
 namespace SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.Controllers
 {
@@ -23,9 +20,9 @@ namespace SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.Controllers
     {
         private readonly ICartService _cartService;
         private readonly IOrderService _orderService;
-        private readonly IWorkContext _workContext;
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private readonly IRepository<Payment> _paymentRepository;
+        private readonly IWorkContext _workContext;
 
         public CashfreeController(
             ICartService cartService,
@@ -44,10 +41,12 @@ namespace SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.Controllers
         [HttpPost]
         public async Task<IActionResult> Charge([FromForm] CashfreeResponse cashfreeResponse)
         {
-            var cashfreeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.CashfreeProviderId);
-            var cashfreeSetting = JsonConvert.DeserializeObject<CashfreeConfigForm>(cashfreeProvider.AdditionalSettings);
+            var cashfreeProvider = await _paymentProviderRepository.Query()
+                .FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.CashfreeProviderId);
+            var cashfreeSetting =
+                JsonConvert.DeserializeObject<CashfreeConfigForm>(cashfreeProvider.AdditionalSettings);
             // Check the response signature
-            string data = "";
+            var data = "";
             data = data + cashfreeResponse.OrderId;
             data = data + cashfreeResponse.OrderAmount;
             data = data + cashfreeResponse.ReferenceId;
@@ -65,7 +64,8 @@ namespace SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.Controllers
                     return NotFound();
                 }
 
-                var orderCreateResult = await _orderService.CreateOrder(cart.Id, cashfreeResponse.PaymentMode, 0, OrderStatus.PendingPayment);
+                var orderCreateResult = await _orderService.CreateOrder(cart.Id, cashfreeResponse.PaymentMode, 0,
+                    OrderStatus.PendingPayment);
 
                 if (!orderCreateResult.Success)
                 {
@@ -74,7 +74,7 @@ namespace SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.Controllers
                 }
 
                 var order = orderCreateResult.Value;
-                var payment = new Payment()
+                var payment = new Payment
                 {
                     OrderId = order.Id,
                     Amount = order.OrderTotal,
@@ -90,25 +90,21 @@ namespace SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.Controllers
                     _paymentRepository.Add(payment);
                     await _paymentRepository.SaveChangesAsync();
 
-                    return Ok(new { Status = "success", OrderId = order.Id });
+                    return Ok(new {Status = "success", OrderId = order.Id});
                 }
-                else
-                {
-                    payment.GatewayTransactionId = cashfreeResponse.ReferenceId;
-                    payment.Status = PaymentStatus.Failed;
-                    payment.FailureMessage = cashfreeResponse.TxMsg;
-                    order.OrderStatus = OrderStatus.PaymentFailed;
-                    _paymentRepository.Add(payment);
-                    await _paymentRepository.SaveChangesAsync();
 
-                    var error = "Error: " + cashfreeResponse.TxStatus + " - " + cashfreeResponse.TxMsg;
-                    return BadRequest(error);
-                }
+                payment.GatewayTransactionId = cashfreeResponse.ReferenceId;
+                payment.Status = PaymentStatus.Failed;
+                payment.FailureMessage = cashfreeResponse.TxMsg;
+                order.OrderStatus = OrderStatus.PaymentFailed;
+                _paymentRepository.Add(payment);
+                await _paymentRepository.SaveChangesAsync();
+
+                var error = "Error: " + cashfreeResponse.TxStatus + " - " + cashfreeResponse.TxMsg;
+                return BadRequest(error);
             }
-            else
-            {
-                return BadRequest("PaymentTampered");
-            }
+
+            return BadRequest("PaymentTampered");
         }
     }
 }

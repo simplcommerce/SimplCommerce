@@ -15,11 +15,9 @@ namespace SimplCommerce.Module.Catalog.Models
         [StringLength(450)]
         public string Slug { get; set; }
 
-        [StringLength(450)]
-        public string MetaTitle { get; set; }
+        [StringLength(450)] public string MetaTitle { get; set; }
 
-        [StringLength(450)]
-        public string MetaKeywords { get; set; }
+        [StringLength(450)] public string MetaKeywords { get; set; }
 
         public string MetaDescription { get; set; }
 

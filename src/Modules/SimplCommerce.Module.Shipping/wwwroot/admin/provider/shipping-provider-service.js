@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.shippings')
-        .factory('shippingProviderService', ['$http', shippingProviderService]);
+        .module("simplAdmin.shippings")
+        .factory("shippingProviderService", ["$http", shippingProviderService]);
 
     function shippingProviderService($http) {
         var service = {
@@ -13,15 +13,15 @@
         return service;
 
         function getShippingProviders() {
-            return $http.get('api/shipping-providers');
+            return $http.get("api/shipping-providers");
         }
 
         function enableProvider(provider) {
-            return $http.post('api/shipping-providers/' + provider.id + '/enable');
+            return $http.post("api/shipping-providers/" + provider.id + "/enable");
         }
 
         function disableProvider(provider) {
-            return $http.post('api/shipping-providers/' + provider.id + '/disable');
+            return $http.post("api/shipping-providers/" + provider.id + "/disable");
         }
     }
 })();

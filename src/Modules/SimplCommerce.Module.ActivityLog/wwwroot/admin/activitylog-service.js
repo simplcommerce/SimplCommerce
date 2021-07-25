@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.activityLog')
-        .factory('activityLogService', ['$http', activityLogService]);
+        .module("simplAdmin.activityLog")
+        .factory("activityLogService", ["$http", activityLogService]);
 
     function activityLogService($http) {
         var service = {
@@ -11,7 +11,7 @@
         return service;
 
         function getMostViewedEntities(entityTypeId) {
-            return $http.get('api/activitylog/most-viewed-entities/' + entityTypeId);
+            return $http.get("api/activitylog/most-viewed-entities/" + entityTypeId);
         }
     }
 })();

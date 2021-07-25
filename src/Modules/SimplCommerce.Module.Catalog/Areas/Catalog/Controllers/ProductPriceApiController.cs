@@ -82,7 +82,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 }
 
                 var product = _productRepository.Query().FirstOrDefault(x => x.Id == item.Id);
-                if(product != null && (User.IsInRole("admin") || product.VendorId == currentUser.VendorId))
+                if (product != null && (User.IsInRole("admin") || product.VendorId == currentUser.VendorId))
                 {
                     var productPriceHistory = new ProductPriceHistory
                     {

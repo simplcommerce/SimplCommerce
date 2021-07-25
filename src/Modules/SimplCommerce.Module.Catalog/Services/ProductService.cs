@@ -8,9 +8,9 @@ namespace SimplCommerce.Module.Catalog.Services
     public class ProductService : IProductService
     {
         private const string ProductEntityTypeId = "Product";
+        private readonly IEntityService _entityService;
 
         private readonly IRepository<Product> _productRepository;
-        private readonly IEntityService _entityService;
 
         public ProductService(IRepository<Product> productRepository, IEntityService entityService)
         {
@@ -55,6 +55,7 @@ namespace SimplCommerce.Module.Catalog.Services
                     _entityService.Remove(product.Id, ProductEntityTypeId);
                 }
             }
+
             _productRepository.SaveChanges();
         }
 

@@ -10,7 +10,7 @@ namespace SimplCommerce.Module.ActivityLog.Data
         {
             modelBuilder.Entity<Activity>().HasIndex(x => x.ActivityTypeId);
 
-            modelBuilder.Entity<ActivityType>().HasData(new ActivityType(1) { Name = "EntityView" });
+            modelBuilder.Entity<ActivityType>().HasData(new ActivityType(1) {Name = "EntityView"});
         }
     }
 }

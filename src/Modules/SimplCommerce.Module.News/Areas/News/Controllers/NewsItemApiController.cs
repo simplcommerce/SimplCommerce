@@ -23,12 +23,13 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
     [Route("api/news-items")]
     public class NewsItemApiController : Controller
     {
+        private readonly IMediaService _mediaService;
         private readonly IRepository<NewsItem> _newsItemRepository;
         private readonly INewsItemService _newsItemService;
-        private readonly IMediaService _mediaService;
         private readonly IWorkContext _workContext;
 
-        public NewsItemApiController(IRepository<NewsItem> newsItemRepository, INewsItemService newsItemService, IMediaService mediaService, IWorkContext workContext)
+        public NewsItemApiController(IRepository<NewsItem> newsItemRepository, INewsItemService newsItemService,
+            IMediaService mediaService, IWorkContext workContext)
         {
             _newsItemRepository = newsItemRepository;
             _newsItemService = newsItemService;
@@ -71,11 +72,11 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
                 param,
                 x => new
                 {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Slug = x.Slug,
-                    IsPublished = x.IsPublished,
-                    CreatedOn = x.CreatedOn
+                    x.Id,
+                    x.Name,
+                    x.Slug,
+                    x.IsPublished,
+                    x.CreatedOn
                 });
             return Json(newsItems);
         }
@@ -84,16 +85,16 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
         public async Task<IActionResult> Get(long id)
         {
             var newsItem = await _newsItemRepository.Query()
-               .Include(x => x.ThumbnailImage)
-               .Include(x => x.Categories)
-               .FirstOrDefaultAsync(x => x.Id == id);
+                .Include(x => x.ThumbnailImage)
+                .Include(x => x.Categories)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
-            if(newsItem == null)
+            if (newsItem == null)
             {
                 return NotFound();
             }
 
-            var model = new NewsItemForm()
+            var model = new NewsItemForm
             {
                 Name = newsItem.Name,
                 Id = newsItem.Id,
@@ -105,7 +106,7 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
                 FullContent = newsItem.FullContent,
                 IsPublished = newsItem.IsPublished,
                 ThumbnailImageUrl = _mediaService.GetThumbnailUrl(newsItem.ThumbnailImage),
-                NewsCategoryIds = newsItem.Categories.Select( x => x.CategoryId).ToList()
+                NewsCategoryIds = newsItem.Categories.Select(x => x.CategoryId).ToList()
             };
 
             return Json(model);
@@ -136,16 +137,13 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
 
             foreach (var categoryId in model.NewsCategoryIds)
             {
-                var newsItemCategory = new NewsItemCategory
-                {
-                    CategoryId = categoryId
-                };
+                var newsItemCategory = new NewsItemCategory {CategoryId = categoryId};
                 newsItem.AddNewsItemCategory(newsItemCategory);
             }
 
             await SaveServiceMedia(model.ThumbnailImage, newsItem);
             _newsItemService.Create(newsItem);
-            return CreatedAtAction(nameof(Get), new { id = newsItem.Id }, null);
+            return CreatedAtAction(nameof(Get), new {id = newsItem.Id}, null);
         }
 
         [HttpPut("{id}")]
@@ -154,13 +152,13 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            } 
+            }
 
             var newsItem = await _newsItemRepository.Query()
-               .Include(x => x.ThumbnailImage)
-               .Include(x => x.Categories)
-               .FirstOrDefaultAsync(x => x.Id == id);
-            if(newsItem == null)
+                .Include(x => x.ThumbnailImage)
+                .Include(x => x.Categories)
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (newsItem == null)
             {
                 return NotFound();
             }
@@ -205,7 +203,8 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
 
         private async Task<string> SaveFile(IFormFile file)
         {
-            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');
+            var originalFileName =
+                ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
             await _mediaService.SaveMediaAsync(file.OpenReadStream(), fileName, file.ContentType);
             return fileName;
@@ -222,7 +221,7 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
                 }
                 else
                 {
-                    newsItem.ThumbnailImage = new Media { FileName = fileName };
+                    newsItem.ThumbnailImage = new Media {FileName = fileName};
                 }
             }
         }
@@ -236,15 +235,13 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
                     continue;
                 }
 
-                var newsItemCategory = new NewsItemCategory
-                {
-                    CategoryId = categoryId
-                };
+                var newsItemCategory = new NewsItemCategory {CategoryId = categoryId};
                 newsItem.AddNewsItemCategory(newsItemCategory);
             }
 
             var deletedNewsItemCategories =
-                newsItem.Categories.Where(newsItemCategory => !model.NewsCategoryIds.Contains(newsItemCategory.CategoryId))
+                newsItem.Categories.Where(newsItemCategory =>
+                        !model.NewsCategoryIds.Contains(newsItemCategory.CategoryId))
                     .ToList();
 
             foreach (var deletedNewsItemCategory in deletedNewsItemCategories)

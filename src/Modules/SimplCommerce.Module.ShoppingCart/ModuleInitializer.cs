@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Module.Core.Events;
-using SimplCommerce.Module.ShoppingCart.Services;
 using SimplCommerce.Module.ShoppingCart.Events;
+using SimplCommerce.Module.ShoppingCart.Services;
 
 namespace SimplCommerce.Module.ShoppingCart
 {
@@ -19,7 +19,6 @@ namespace SimplCommerce.Module.ShoppingCart
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
         }
     }
 }

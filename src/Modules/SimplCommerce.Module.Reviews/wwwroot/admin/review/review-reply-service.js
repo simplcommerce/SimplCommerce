@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.reviews')
-        .factory('reviewReplyService', ['$http', reviewReplyService]);
+        .module("simplAdmin.reviews")
+        .factory("reviewReplyService", ["$http", reviewReplyService]);
 
     function reviewReplyService($http) {
         var service = {
@@ -13,15 +13,15 @@
         return service;
 
         function getReplies(status, numRecords) {
-            return $http.get('api/review-replies?status=' + status + '&numRecords=' + numRecords);
+            return $http.get("api/review-replies?status=" + status + "&numRecords=" + numRecords);
         }
 
         function getRepliesForGrid(params) {
-            return $http.post('api/review-replies/grid', params);
+            return $http.post("api/review-replies/grid", params);
         }
 
         function changeReplyStatus(replyId, statusId) {
-            return $http.post('api/review-replies/change-status/' + replyId, statusId);
+            return $http.post("api/review-replies/change-status/" + replyId, statusId);
         }
     }
 })();

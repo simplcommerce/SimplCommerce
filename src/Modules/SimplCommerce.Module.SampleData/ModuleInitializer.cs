@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Module.SampleData.Data;
 using SimplCommerce.Module.SampleData.Services;
@@ -17,7 +17,6 @@ namespace SimplCommerce.Module.SampleData
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
         }
     }
 }

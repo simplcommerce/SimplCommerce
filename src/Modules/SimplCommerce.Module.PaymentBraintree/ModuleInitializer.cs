@@ -18,7 +18,6 @@ namespace SimplCommerce.Module.PaymentBraintree
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
         }
     }
 }

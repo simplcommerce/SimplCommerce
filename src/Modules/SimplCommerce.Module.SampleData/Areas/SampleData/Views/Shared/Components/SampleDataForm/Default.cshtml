@@ -9,7 +9,7 @@
                 <label class="col-form-label" asp-for="Industry">Industry</label>
             </div>
             <div class="col-auto">
-                <select class="form-control" asp-for="Industry" asp-items="Model.AvailableIndustries.Select(x => new SelectListItem { Value = x, Text = x })"></select>
+                <select class="form-control" asp-for="Industry" asp-items="Model.AvailableIndustries.Select(x => new SelectListItem {Value = x, Text = x})"></select>
             </div>
             <div class="col-auto">
                 <button type="submit" class="btn btn-danger">Do it!</button>

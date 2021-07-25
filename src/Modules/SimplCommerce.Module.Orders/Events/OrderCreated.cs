@@ -4,7 +4,7 @@ using SimplCommerce.Module.Orders.Models;
 namespace SimplCommerce.Module.Orders.Events
 {
     /// <summary>
-    /// This event raised after an order has created and the transtaction not commited
+    ///     This event raised after an order has created and the transtaction not commited
     /// </summary>
     public class OrderCreated : INotification
     {

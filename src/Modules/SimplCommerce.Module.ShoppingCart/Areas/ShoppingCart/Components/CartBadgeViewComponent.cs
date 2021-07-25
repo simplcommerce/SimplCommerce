@@ -10,11 +10,12 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Components
 {
     public class CartBadgeViewComponent : ViewComponent
     {
-        private ICartService _cartService;
-        private IWorkContext _workContext;
-        private ICurrencyService _currencyService;
+        private readonly ICartService _cartService;
+        private readonly ICurrencyService _currencyService;
+        private readonly IWorkContext _workContext;
 
-        public CartBadgeViewComponent(ICartService cartService, IWorkContext workContext, ICurrencyService currencyService)
+        public CartBadgeViewComponent(ICartService cartService, IWorkContext workContext,
+            ICurrencyService currencyService)
         {
             _cartService = cartService;
             _workContext = workContext;
@@ -25,11 +26,11 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Components
         {
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
-            if(cart == null)
+            if (cart == null)
             {
                 cart = new CartVm(_currencyService);
             }
-            
+
             return View(this.GetViewPath(), cart.Items.Count);
         }
     }

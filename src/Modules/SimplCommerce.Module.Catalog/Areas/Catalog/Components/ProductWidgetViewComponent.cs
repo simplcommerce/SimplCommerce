@@ -15,10 +15,10 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
 {
     public class ProductWidgetViewComponent : ViewComponent
     {
-        private readonly IRepository<Product> _productRepository;
+        private readonly IContentLocalizationService _contentLocalizationService;
         private readonly IMediaService _mediaService;
         private readonly IProductPricingService _productPricingService;
-        private readonly IContentLocalizationService _contentLocalizationService;
+        private readonly IRepository<Product> _productRepository;
 
         public ProductWidgetViewComponent(IRepository<Product> productRepository,
             IMediaService mediaService,
@@ -36,12 +36,14 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
             var model = new ProductWidgetComponentVm
             {
                 Id = widgetInstance.Id,
-                WidgetName = _contentLocalizationService.GetLocalizedProperty(nameof(WidgetInstance), widgetInstance.Id, nameof(widgetInstance.Name), widgetInstance.Name),
+                WidgetName =
+                    _contentLocalizationService.GetLocalizedProperty(nameof(WidgetInstance), widgetInstance.Id,
+                        nameof(widgetInstance.Name), widgetInstance.Name),
                 Setting = JsonConvert.DeserializeObject<ProductWidgetSetting>(widgetInstance.Data)
             };
 
             var query = _productRepository.Query()
-              .Where(x => x.IsPublished && x.IsVisibleIndividually);
+                .Where(x => x.IsPublished && x.IsVisibleIndividually);
 
             if (model.Setting.CategoryId.HasValue && model.Setting.CategoryId.Value > 0)
             {
@@ -54,14 +56,15 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
             }
 
             model.Products = query
-              .Include(x => x.ThumbnailImage)
-              .OrderByDescending(x => x.CreatedOn)
-              .Take(model.Setting.NumberOfProducts)
-              .Select(x => ProductThumbnail.FromProduct(x)).ToList();
+                .Include(x => x.ThumbnailImage)
+                .OrderByDescending(x => x.CreatedOn)
+                .Take(model.Setting.NumberOfProducts)
+                .Select(x => ProductThumbnail.FromProduct(x)).ToList();
 
             foreach (var product in model.Products)
             {
-                product.Name = _contentLocalizationService.GetLocalizedProperty(nameof(Product), product.Id, nameof(product.Name), product.Name);
+                product.Name = _contentLocalizationService.GetLocalizedProperty(nameof(Product), product.Id,
+                    nameof(product.Name), product.Name);
                 product.ThumbnailUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage);
                 product.CalculatedProductPrice = _productPricingService.CalculateProductPrice(product);
             }

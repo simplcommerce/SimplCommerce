@@ -12,9 +12,11 @@ namespace SimplCommerce.Module.Localization
 {
     public class EfStringLocalizer : IStringLocalizer
     {
-        private IMemoryCache _resourcesCache;
-        private readonly MemoryCacheEntryOptions _cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(30));
+        private readonly MemoryCacheEntryOptions _cacheEntryOptions =
+            new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(30));
+
         private readonly IServiceProvider _serviceProvider;
+        private readonly IMemoryCache _resourcesCache;
 
         public EfStringLocalizer(IServiceProvider serviceProvider, IMemoryCache resourcesCache)
         {
@@ -77,12 +79,7 @@ namespace SimplCommerce.Module.Localization
                 {
                     var resourceRepository = scope.ServiceProvider.GetRequiredService<IRepository<Resource>>();
 
-                    var res = new Resource()
-                    {
-                        CultureId = culture,
-                        Key = name,
-                        Value = name
-                    };
+                    var res = new Resource {CultureId = culture, Key = name, Value = name};
 
                     resourceRepository.Add(res);
                     resourceRepository.SaveChanges();
@@ -103,7 +100,7 @@ namespace SimplCommerce.Module.Localization
                     var resourceRepository = scope.ServiceProvider.GetRequiredService<IRepository<Resource>>();
                     resources = resourceRepository.Query().Where(r => r.Culture.Id == culture).ToList();
                 }
-                
+
                 _resourcesCache.Set(culture, resources, _cacheEntryOptions);
             }
 

@@ -6,13 +6,11 @@ namespace SimplCommerce.Module.Orders.Models
 {
     public class OrderItem : EntityBase
     {
-        [JsonIgnore]
-        public Order Order { get; set; }
+        [JsonIgnore] public Order Order { get; set; }
 
         public long ProductId { get; set; }
 
-        [JsonIgnore]
-        public Product Product { get; set; }
+        [JsonIgnore] public Product Product { get; set; }
 
         public decimal ProductPrice { get; set; }
 

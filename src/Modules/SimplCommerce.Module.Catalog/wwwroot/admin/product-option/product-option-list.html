@@ -20,7 +20,9 @@
     <tr ng-repeat="option in vm.productOptions">
         <td>{{option.name}}</td>
         <td>
-            <a ui-sref="product-option-edit({id: option.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
+            <a ui-sref="product-option-edit({id: option.id})" title="Edit" class="btn btn-primary btn-xs">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>
             <!--<button ng-click="vm.deleteProductOption(option)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>-->
         </td>
     </tr>

@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.reviews')
-        .controller('ReviewListCtrl', ['reviewService', 'translateService', ReviewListCtrl]);
+        .module("simplAdmin.reviews")
+        .controller("ReviewListCtrl", ["reviewService", "translateService", ReviewListCtrl]);
 
     function ReviewListCtrl(reviewService, translateService) {
         var vm = this;
@@ -13,7 +13,7 @@
         vm.getReviews = function getReviews(tableState) {
             vm.isLoading = true;
             vm.tableStateRef = tableState;
-            reviewService.getReviewsForGrid(tableState).then(function (result) {
+            reviewService.getReviewsForGrid(tableState).then(function(result) {
                 vm.reviews = result.data.items;
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
                 tableState.pagination.totalItemCount = result.data.totalRecord;
@@ -24,7 +24,7 @@
         vm.approve = function approve(review) {
             reviewService.changeReviewStatus(review.id, 5)
                 .then(function(result) {
-                    review.status = 'Approved';
+                    review.status = "Approved";
                 });
         };
     }

@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.cms')
-        .factory('spacebarWidgetService', ['$http', 'Upload', spacebarWidgetService]);
+        .module("simplAdmin.cms")
+        .factory("spacebarWidgetService", ["$http", "Upload", spacebarWidgetService]);
 
     function spacebarWidgetService($http, Upload) {
         var service = {
@@ -16,17 +16,17 @@
         return service;
 
         function getWidgetZones() {
-            return $http.get('api/widget-zones');
+            return $http.get("api/widget-zones");
         }
 
         function getSpaceBarWidget(id) {
-            return $http.get('api/spacebar-widgets/' + id);
+            return $http.get("api/spacebar-widgets/" + id);
         }
 
         function createSpaceBarWidget(widgetInstance) {
             widgetInstance.numberOfItems = widgetInstance.items.length;
             return Upload.upload({
-                url: 'api/spacebar-widgets',
+                url: "api/spacebar-widgets",
                 data: widgetInstance
             });
         }
@@ -34,14 +34,14 @@
         function editSpaceBarWidget(widgetInstance) {
             widgetInstance.numberOfItems = widgetInstance.items.length;
             return Upload.upload({
-                url: 'api/spacebar-widgets/' + widgetInstance.id,
+                url: "api/spacebar-widgets/" + widgetInstance.id,
                 data: widgetInstance,
-                method: 'PUT'
+                method: "PUT"
             });
         }
 
         function getNumberOfWidgets() {
-            return $http.get('api/widget-instances/number-of-widgets');
+            return $http.get("api/widget-instances/number-of-widgets");
         }
     }
 })();

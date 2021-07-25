@@ -15,7 +15,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-body">
-                <div class="alert alert-success alert-dismissible" style='display:none;'>
+                <div class="alert alert-success alert-dismissible" style="display: none;">
                     <span id="alertBraintree"></span>
                     <button data-dismiss="alert" type="button" class="close" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -36,28 +36,30 @@
 <script>
     var button = document.querySelector('#braintree-submit-button');
     var client_token = "@Model.ClientToken";
-        braintree.dropin.create({
+    braintree.dropin.create({
             authorization: client_token,
             container: '#dropin-container'
-        }, function (createErr, instance) {
-        button.addEventListener('click', function () {
-            instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
-                    var request = $.ajax({
-                        type: 'POST',
-                        url: '@Url.Action("Charge", "Braintree", new { Area = "PaymentBraintree" })',
-                        data: { nonce: payload.nonce }
-                    })
-                    .done(function (data) {
-                        window.location = "/checkout/success?orderId="+ data.orderId;
+        },
+        function(createErr, instance) {
+            button.addEventListener('click',
+                function() {
+                    instance.requestPaymentMethod(function(requestPaymentMethodErr, payload) {
+                        var request = $.ajax({
+                                type: 'POST',
+                                url: '@Url.Action("Charge", "Braintree", new {Area = "PaymentBraintree"})',
+                                data: { nonce: payload.nonce }
+                            })
+                            .done(function(data) {
+                                window.location = "/checkout/success?orderId=" + data.orderId;
 
-                    })
-                        .fail(function (errors) {
-                            $('#alertBraintree').html(errors.responseText);
-                            $('.alert').toggle()
-                            console.log(errors.responseText);
-                    })
-                .always(function () { });
-            });
+                            })
+                            .fail(function(errors) {
+                                $('#alertBraintree').html(errors.responseText);
+                                $('.alert').toggle();
+                                console.log(errors.responseText);
+                            })
+                            .always(function() {});
+                    });
+                });
         });
-    });
 </script>

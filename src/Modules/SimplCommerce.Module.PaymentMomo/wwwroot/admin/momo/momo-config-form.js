@@ -1,8 +1,8 @@
 ﻿/*global angular, jQuery*/
-(function ($) {
+(function($) {
     angular
-        .module('simplAdmin.paymentMomo')
-        .controller('MomoConfigFormCtrl', ['paymentMomoService', 'translateService', MomoConfigFormCtrl]);
+        .module("simplAdmin.paymentMomo")
+        .controller("MomoConfigFormCtrl", ["paymentMomoService", "translateService", MomoConfigFormCtrl]);
 
     function MomoConfigFormCtrl(paymentMomoService, translateService) {
         var vm = this;
@@ -12,10 +12,10 @@
         vm.save = function save() {
             vm.validationErrors = [];
             paymentMomoService.updateSetting(vm.momoConfig)
-                .then(function (result) {
-                    toastr.success('Momo settings have been saved');
+                .then(function(result) {
+                    toastr.success("Momo settings have been saved");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -23,13 +23,13 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not save Momo settings.');
+                        vm.validationErrors.push("Could not save Momo settings.");
                     }
                 });
         };
 
         function init() {
-            paymentMomoService.getSettings().then(function (result) {
+            paymentMomoService.getSettings().then(function(result) {
                 vm.momoConfig = result.data;
             });
         }

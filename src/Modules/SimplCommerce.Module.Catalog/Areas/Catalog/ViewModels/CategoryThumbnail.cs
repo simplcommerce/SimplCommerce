@@ -19,7 +19,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
 
         public static CategoryThumbnail FromCategory(Category category)
         {
-            var result = new CategoryThumbnail() {
+            var result = new CategoryThumbnail
+            {
                 Id = category.Id,
                 Name = category.Name,
                 Slug = category.Slug,

@@ -8,7 +8,6 @@ namespace SimplCommerce.Module.Cms.Models
     {
         public Menu()
         {
-
         }
 
         public Menu(long id)

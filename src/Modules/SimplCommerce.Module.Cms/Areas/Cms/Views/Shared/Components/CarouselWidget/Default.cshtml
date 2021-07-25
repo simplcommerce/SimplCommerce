@@ -2,7 +2,7 @@
 
 <div id="carousel@(Model.Id)" class="carousel slide" data-ride="carousel" data-interval="@Model.DataInterval">
     <ol class="carousel-indicators">
-        @for (int i = 0; i < Model.Items.Count; i++)
+        @for (var i = 0; i < Model.Items.Count; i++)
         {
             if (i == 0)
             {
@@ -15,19 +15,19 @@
         }
     </ol>
     <div class="carousel-inner">
-    @foreach (var item in Model.Items)
-    {
-        <div class="carousel-item @(item == Model.Items.First() ? "active" : null)">
-            <a href="@item.TargetUrl">
-                <img src="@item.Image" alt="@item.Caption" class="img-fluid" />
-                <div class="carousel-caption d-none d-md-block" role="option">
-                    <p>
-                        @item.Caption
-                    </p>
-                </div>
-            </a>
-        </div>
-    }
+        @foreach (var item in Model.Items)
+        {
+            <div class="carousel-item @(item == Model.Items.First() ? "active" : null)">
+                <a href="@item.TargetUrl">
+                    <img src="@item.Image" alt="@item.Caption" class="img-fluid"/>
+                    <div class="carousel-caption d-none d-md-block" role="option">
+                        <p>
+                            @item.Caption
+                        </p>
+                    </div>
+                </a>
+            </div>
+        }
     </div>
     <a class="carousel-control-prev" href="#carousel@(Model.Id)" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

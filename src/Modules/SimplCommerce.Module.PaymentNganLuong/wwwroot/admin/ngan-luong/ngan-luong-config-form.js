@@ -1,8 +1,9 @@
 ﻿/*global angular, jQuery*/
-(function ($) {
+(function($) {
     angular
-        .module('simplAdmin.paymentNganLuong')
-        .controller('NganLuongConfigFormCtrl', ['paymentNganLuongService', 'translateService', NganLuongConfigFormCtrl]);
+        .module("simplAdmin.paymentNganLuong")
+        .controller("NganLuongConfigFormCtrl",
+            ["paymentNganLuongService", "translateService", NganLuongConfigFormCtrl]);
 
     function NganLuongConfigFormCtrl(paymentNganLuongService, translateService) {
         var vm = this;
@@ -12,10 +13,10 @@
         vm.save = function save() {
             vm.validationErrors = [];
             paymentNganLuongService.updateSetting(vm.nganLuongConfig)
-                .then(function (result) {
-                    toastr.success('Ngan luong settings have been saved');
+                .then(function(result) {
+                    toastr.success("Ngan luong settings have been saved");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -23,13 +24,13 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not save Ngan luong settings.');
+                        vm.validationErrors.push("Could not save Ngan luong settings.");
                     }
                 });
         };
 
         function init() {
-            paymentNganLuongService.getSettings().then(function (result) {
+            paymentNganLuongService.getSettings().then(function(result) {
                 vm.nganLuongConfig = result.data;
             });
         }

@@ -1,8 +1,8 @@
 ﻿/*global angular confirm*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.catalog')
-        .controller('ProductListCtrl', ['productService', 'translateService', '$window', ProductListCtrl]);
+        .module("simplAdmin.catalog")
+        .controller("ProductListCtrl", ["productService", "translateService", "$window", ProductListCtrl]);
 
     function ProductListCtrl(productService, translateService, $window) {
         var vm = this;
@@ -14,7 +14,7 @@
         vm.getProducts = function getProducts(tableState) {
             vm.tableStateRef = tableState;
             vm.isLoading = true;
-            productService.getProducts(tableState).then(function (result) {
+            productService.getProducts(tableState).then(function(result) {
                 vm.products = result.data.items;
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
                 tableState.pagination.totalItemCount = result.data.totalRecord;
@@ -23,24 +23,25 @@
         };
 
         vm.changeStatus = function changeStatus(product) {
-            productService.changeStatus(product).then(function () {
+            productService.changeStatus(product).then(function() {
                 product.isPublished = !product.isPublished;
             });
         };
 
         vm.deleteProduct = function deleteProduct(product) {
-            bootbox.confirm('Are you sure you want to delete this product: ' + simplUtil.escapeHtml(product.name), function (result) {
-                if (result) {
-                    productService.deleteProduct(product)
-                       .then(function (result) {
-                           vm.getProducts(vm.tableStateRef);
-                           toastr.success(product.name + ' has been deleted');
-                       })
-                        .catch(function (response) {
-                            toastr.error(response.data.error);
-                       });
-                }
-            });
+            bootbox.confirm("Are you sure you want to delete this product: " + simplUtil.escapeHtml(product.name),
+                function(result) {
+                    if (result) {
+                        productService.deleteProduct(product)
+                            .then(function(result) {
+                                vm.getProducts(vm.tableStateRef);
+                                toastr.success(product.name + " has been deleted");
+                            })
+                            .catch(function(response) {
+                                toastr.error(response.data.error);
+                            });
+                    }
+                });
         };
     }
 })();

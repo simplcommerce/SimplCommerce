@@ -21,7 +21,8 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var momoProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.MomoPaymentProviderId);
+            var momoProvider = await _paymentProviderRepository.Query()
+                .FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.MomoPaymentProviderId);
             var momoSetting = JsonConvert.DeserializeObject<MomoPaymentConfigForm>(momoProvider.AdditionalSettings);
 
             var model = new MomoCheckoutForm();

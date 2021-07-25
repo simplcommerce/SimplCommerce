@@ -11,92 +11,114 @@
 
 <table class="table table-striped" st-pipe="vm.getProducts" st-table="vm.products">
     <thead>
-        <tr>
-            <th st-sort="Name" class="sortable">{{::vm.translate.get('Name')}}</th>
-            <th class="text-center">{{::vm.translate.get('Has Options')}}</th>
-            <th class="text-center">{{::vm.translate.get('Is Visible Individually')}}</th>
-            <th class="text-center">{{::vm.translate.get('Is Featured')}}</th>
-            <th class="text-center">{{::vm.translate.get('Is Allowed To Order')}}</th>
-            <th class="text-center">{{::vm.translate.get('Is Called For Pricing')}}</th>
-            <th class="text-right">{{::vm.translate.get('Stock Quantity')}}</th>
-            <th st-sort="IsPublished" class="text-center sortable">{{::vm.translate.get('Is Published')}}</th>
-            <th st-sort="CreatedOn" class="text-center sortable">{{::vm.translate.get('Created On')}}</th>
-            <th class="text-center">{{::vm.translate.get('Actions')}}</th>
-        </tr>
-        <tr>
-            <th>
-                <div class="form-group">
-                    <input class="form-control" st-search="Name" />
-                </div>
-            </th>
-            <th>
-                <div class="form-group">
-                    <select class="form-control" st-search="HasOptions">
-                        <option value="">{{::vm.translate.get('All')}}</option>
-                        <option value="true">{{::vm.translate.get('Yes')}}</option>
-                        <option value="false">{{::vm.translate.get('No')}}</option>
-                    </select>
-                </div>
-            </th>
-            <th>
-                <div class="form-group">
-                    <select class="form-control" st-search="IsVisibleIndividually">
-                        <option value="">{{::vm.translate.get('All')}}</option>
-                        <option value="true">{{::vm.translate.get('Yes')}}</option>
-                        <option value="false">{{::vm.translate.get('No')}}</option>
-                    </select>
-                </div>
-            </th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th>
-                <div class="form-group">
-                    <select class="form-control" st-search="IsPublished">
-                        <option value="">{{::vm.translate.get('All')}}</option>
-                        <option value="true">{{::vm.translate.get('Yes')}}</option>
-                        <option value="false">{{::vm.translate.get('No')}}</option>
-                    </select>
-                </div>
-            </th>
-            <th><st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range></th>
-            <th></th>
-        </tr>
-        <tr>
-            <th ng-show="!vm.isLoading" colspan="10">{{vm.tableStateRef.pagination.totalItemCount | number:0}} {{::vm.translate.get('records found')}}</th>
-        </tr>
+    <tr>
+        <th st-sort="Name" class="sortable">{{::vm.translate.get('Name')}}</th>
+        <th class="text-center">{{::vm.translate.get('Has Options')}}</th>
+        <th class="text-center">{{::vm.translate.get('Is Visible Individually')}}</th>
+        <th class="text-center">{{::vm.translate.get('Is Featured')}}</th>
+        <th class="text-center">{{::vm.translate.get('Is Allowed To Order')}}</th>
+        <th class="text-center">{{::vm.translate.get('Is Called For Pricing')}}</th>
+        <th class="text-right">{{::vm.translate.get('Stock Quantity')}}</th>
+        <th st-sort="IsPublished" class="text-center sortable">{{::vm.translate.get('Is Published')}}</th>
+        <th st-sort="CreatedOn" class="text-center sortable">{{::vm.translate.get('Created On')}}</th>
+        <th class="text-center">{{::vm.translate.get('Actions')}}</th>
+    </tr>
+    <tr>
+        <th>
+            <div class="form-group">
+                <input class="form-control" st-search="Name"/>
+            </div>
+        </th>
+        <th>
+            <div class="form-group">
+                <select class="form-control" st-search="HasOptions">
+                    <option value="">{{::vm.translate.get('All')}}</option>
+                    <option value="true">{{::vm.translate.get('Yes')}}</option>
+                    <option value="false">{{::vm.translate.get('No')}}</option>
+                </select>
+            </div>
+        </th>
+        <th>
+            <div class="form-group">
+                <select class="form-control" st-search="IsVisibleIndividually">
+                    <option value="">{{::vm.translate.get('All')}}</option>
+                    <option value="true">{{::vm.translate.get('Yes')}}</option>
+                    <option value="false">{{::vm.translate.get('No')}}</option>
+                </select>
+            </div>
+        </th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>
+            <div class="form-group">
+                <select class="form-control" st-search="IsPublished">
+                    <option value="">{{::vm.translate.get('All')}}</option>
+                    <option value="true">{{::vm.translate.get('Yes')}}</option>
+                    <option value="false">{{::vm.translate.get('No')}}</option>
+                </select>
+            </div>
+        </th>
+        <th>
+            <st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range>
+        </th>
+        <th></th>
+    </tr>
+    <tr>
+        <th ng-show="!vm.isLoading" colspan="10">{{vm.tableStateRef.pagination.totalItemCount | number:0}} {{::vm.translate.get('records found')}}</th>
+    </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">
-        <tr ng-repeat="product in vm.products">
-            <td>{{product.name}}</td>
-            <td class="text-center"><i ng-attr-class="{{product.hasOptions && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
-            <td class="text-center"><i ng-attr-class="{{product.isVisibleIndividually && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
-            <td class="text-center"><i ng-attr-class="{{product.isFeatured && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
-            <td class="text-center"><i ng-attr-class="{{product.isAllowToOrder && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
-            <td class="text-center"><i ng-attr-class="{{product.isCallForPricing && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
-            <td class="text-right">{{product.stockQuantity}}</td>
-            <td class="text-center"><i ng-attr-class="{{product.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
-            <td class="text-center">{{product.createdOn | date:'medium'}}</td>
-            <td class="text-center">
-                <button ng-if="product.isPublished" title="Un Publish" ng-click="vm.changeStatus(product)" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pause"></span></button>
-                <button ng-if="!product.isPublished" title="Publish" ng-click="vm.changeStatus(product)" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-play"></span></button>
-                <a ui-sref="product-edit({id: product.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
-                <button ng-click="vm.deleteProduct(product)" title="Delete" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
-                <a ui-sref="product-translation({id: product.id, culture: culture})" class="btn btn-default btn-xs btn-translate" ng-repeat="culture in vm.enableCultures"> 
-                    <span class="flag flag-{{culture.substr(culture.length - 2).toLowerCase()}}" alt="{{culture}}" title="{{culture}}"></span>
-                </a>
-            </td>
-        </tr>
+    <tr ng-repeat="product in vm.products">
+        <td>{{product.name}}</td>
+        <td class="text-center">
+            <i ng-attr-class="{{product.hasOptions && 'fa fa-circle' || 'fa fa-circle-o'}}"></i>
+        </td>
+        <td class="text-center">
+            <i ng-attr-class="{{product.isVisibleIndividually && 'fa fa-circle' || 'fa fa-circle-o'}}"></i>
+        </td>
+        <td class="text-center">
+            <i ng-attr-class="{{product.isFeatured && 'fa fa-circle' || 'fa fa-circle-o'}}"></i>
+        </td>
+        <td class="text-center">
+            <i ng-attr-class="{{product.isAllowToOrder && 'fa fa-circle' || 'fa fa-circle-o'}}"></i>
+        </td>
+        <td class="text-center">
+            <i ng-attr-class="{{product.isCallForPricing && 'fa fa-circle' || 'fa fa-circle-o'}}"></i>
+        </td>
+        <td class="text-right">{{product.stockQuantity}}</td>
+        <td class="text-center">
+            <i ng-attr-class="{{product.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i>
+        </td>
+        <td class="text-center">{{product.createdOn | date:'medium'}}</td>
+        <td class="text-center">
+            <button ng-if="product.isPublished" title="Un Publish" ng-click="vm.changeStatus(product)" class="btn btn-primary btn-xs">
+                <span class="glyphicon glyphicon-pause"></span>
+            </button>
+            <button ng-if="!product.isPublished" title="Publish" ng-click="vm.changeStatus(product)" class="btn btn-primary btn-xs">
+                <span class="glyphicon glyphicon-play"></span>
+            </button>
+            <a ui-sref="product-edit({id: product.id})" title="Edit" class="btn btn-primary btn-xs">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+            <button ng-click="vm.deleteProduct(product)" title="Delete" class="btn btn-danger btn-xs delete">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+            <a ui-sref="product-translation({id: product.id, culture: culture})" class="btn btn-default btn-xs btn-translate" ng-repeat="culture in vm.enableCultures">
+                <span class="flag flag-{{culture.substr(culture.length - 2).toLowerCase()}}" alt="{{culture}}" title="{{culture}}"></span>
+            </a>
+        </td>
+    </tr>
     </tbody>
     <tbody ng-show="vm.isLoading">
-        <tr>
-            <td colspan="10" class="text-center">Loading ... </td>
-        </tr>
+    <tr>
+        <td colspan="10" class="text-center">Loading ... </td>
+    </tr>
     </tbody>
     <tfoot>
-        <tr>
-            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="10"></td>
-        </tr>
+    <tr>
+        <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="10"></td>
+    </tr>
     </tfoot>
 </table>

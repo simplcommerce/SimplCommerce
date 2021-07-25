@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.paymentBraintree')
-        .factory('paymentBraintreeService', ['$http', paymentBraintreeService]);
+        .module("simplAdmin.paymentBraintree")
+        .factory("paymentBraintreeService", ["$http", paymentBraintreeService]);
 
     function paymentBraintreeService($http) {
         var service = {
@@ -12,11 +12,11 @@
         return service;
 
         function getSettings() {
-            return $http.get('api/braintree/config');
+            return $http.get("api/braintree/config");
         }
 
         function updateSetting(settings) {
-            return $http.put('api/braintree/config', settings);
+            return $http.put("api/braintree/config", settings);
         }
     }
 })();

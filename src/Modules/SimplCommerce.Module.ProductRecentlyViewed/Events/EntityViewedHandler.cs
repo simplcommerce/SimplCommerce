@@ -16,7 +16,8 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Events
         private readonly IRepository<RecentlyViewedProduct> _recentlyViewedProductRepository;
         private readonly IWorkContext _workContext;
 
-        public EntityViewedHandler(IRepository<RecentlyViewedProduct> recentlyViewedProductRepository, IWorkContext workcontext)
+        public EntityViewedHandler(IRepository<RecentlyViewedProduct> recentlyViewedProductRepository,
+            IWorkContext workcontext)
         {
             _recentlyViewedProductRepository = recentlyViewedProductRepository;
             _workContext = workcontext;
@@ -31,13 +32,11 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Events
                     x.ProductId == notification.EntityId
                     && x.UserId == user.Id);
 
-                if(recentlyViewedProduct == null)
+                if (recentlyViewedProduct == null)
                 {
                     recentlyViewedProduct = new RecentlyViewedProduct
                     {
-                        UserId = user.Id,
-                        ProductId = notification.EntityId,
-                        LatestViewedOn = DateTimeOffset.Now
+                        UserId = user.Id, ProductId = notification.EntityId, LatestViewedOn = DateTimeOffset.Now
                     };
 
                     _recentlyViewedProductRepository.Add(recentlyViewedProduct);

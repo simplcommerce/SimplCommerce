@@ -21,7 +21,8 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
         private readonly IMediaService _mediaService;
         private readonly IWorkContext _workContext;
 
-        public ContactApiController(IRepository<Contact> contactRepository, IMediaService mediaService, IWorkContext workContext)
+        public ContactApiController(IRepository<Contact> contactRepository, IMediaService mediaService,
+            IWorkContext workContext)
         {
             _contactRepository = contactRepository;
             _mediaService = mediaService;
@@ -70,11 +71,11 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
                 param,
                 x => new
                 {
-                    Id = x.Id,
-                    FullName = x.FullName,
+                    x.Id,
+                    x.FullName,
                     ContactArea = x.ContactArea.Name,
-                    CreatedOn = x.CreatedOn,
-                    Content = x.Content
+                    x.CreatedOn,
+                    x.Content
                 });
             return Json(contacts);
         }
@@ -83,10 +84,10 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
         public IActionResult Get(long id)
         {
             var contact = _contactRepository.Query()
-               .Include(x => x.ContactArea)
-               .FirstOrDefault(x => x.Id == id);
+                .Include(x => x.ContactArea)
+                .FirstOrDefault(x => x.Id == id);
 
-            var model = new ContactForm()
+            var model = new ContactForm
             {
                 FullName = contact.FullName,
                 PhoneNumber = contact.PhoneNumber,

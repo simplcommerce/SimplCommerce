@@ -15,10 +15,11 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
     [Route("api/page-translations")]
     public class PageTranslationApiController : Controller
     {
-        private readonly IRepository<Page> _pageRepository;
         private readonly IRepository<LocalizedContentProperty> _localizedContentPropertyRepository;
+        private readonly IRepository<Page> _pageRepository;
 
-        public PageTranslationApiController(IRepository<Page> pageRepository, IRepository<LocalizedContentProperty> localizedContentPropertyRepository)
+        public PageTranslationApiController(IRepository<Page> pageRepository,
+            IRepository<LocalizedContentProperty> localizedContentPropertyRepository)
         {
             _pageRepository = pageRepository;
             _localizedContentPropertyRepository = localizedContentPropertyRepository;
@@ -42,7 +43,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
             {
                 DefaultCultureName = page.Name,
                 Name = localizeProperties.FirstOrDefault(x => x.ProperyName == nameof(page.Name))?.Value,
-                Body = localizeProperties.FirstOrDefault(x => x.ProperyName == nameof(page.Body))?.Value,
+                Body = localizeProperties.FirstOrDefault(x => x.ProperyName == nameof(page.Body))?.Value
             };
 
             return Ok(model);
@@ -67,7 +68,8 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                 var localizedName = CreateOrUpdateTranslation(localizeProperties, page, nameof(page.Name), culture);
                 localizedName.Value = model.Name;
 
-                var localizedDescription = CreateOrUpdateTranslation(localizeProperties, page, nameof(page.Body), culture);
+                var localizedDescription =
+                    CreateOrUpdateTranslation(localizeProperties, page, nameof(page.Body), culture);
                 localizedDescription.Value = model.Body;
 
                 await _localizedContentPropertyRepository.SaveChangesAsync();
@@ -78,7 +80,9 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
             return BadRequest(ModelState);
         }
 
-        private LocalizedContentProperty CreateOrUpdateTranslation(IQueryable<LocalizedContentProperty> localizedContentProperties, Page page, string propertyName, string culture)
+        private LocalizedContentProperty CreateOrUpdateTranslation(
+            IQueryable<LocalizedContentProperty> localizedContentProperties, Page page, string propertyName,
+            string culture)
         {
             var localizedProperty = localizedContentProperties.FirstOrDefault(x => x.ProperyName == propertyName);
             if (localizedProperty == null)

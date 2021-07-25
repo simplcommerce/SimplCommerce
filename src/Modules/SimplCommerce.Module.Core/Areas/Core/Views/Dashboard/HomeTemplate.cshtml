@@ -17,55 +17,55 @@
     </div>
     @if (User.IsInRole("admin"))
     {
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">@Localizer["Pending reviews"]</h3>
-            </div>
-            <div class="panel-body">
-                <review-widget status="1" num-records="5"></review-widget>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@Localizer["Pending reviews"]</h3>
+                </div>
+                <div class="panel-body">
+                    <review-widget status="1" num-records="5"></review-widget>
+                </div>
             </div>
         </div>
-    </div>
     }
 </div>
 @if (User.IsInRole("admin"))
 {
-<div class="row">
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">@Localizer["Pending review replies"]</h3>
-            </div>
-            <div class="panel-body">
-                <review-reply-widget status="1" num-records="5"></review-reply-widget>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@Localizer["Pending review replies"]</h3>
+                </div>
+                <div class="panel-body">
+                    <review-reply-widget status="1" num-records="5"></review-reply-widget>
+                </div>
             </div>
         </div>
     </div>
-</div>
 }
 @if (User.IsInRole("admin"))
 {
-<div class="row">
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">@Localizer["Most searched keywords"]</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@Localizer["Most searched keywords"]</h3>
+                </div>
+                <div class="panel-body">
+                    <most-search-keyword></most-search-keyword>
+                </div>
             </div>
-            <div class="panel-body">
-                <most-search-keyword></most-search-keyword>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@Localizer["Most viewed products"]</h3>
+                </div>
+                <div class="panel-body">
+                    <most-viewed-products></most-viewed-products>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">@Localizer["Most viewed products"]</h3>
-            </div>
-            <div class="panel-body">
-                <most-viewed-products></most-viewed-products>
-            </div>
-        </div>
-    </div>
-</div>
 }

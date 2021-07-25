@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.inventory')
-        .factory('warehouseService', ['$http', warehouseService]);
+        .module("simplAdmin.inventory")
+        .factory("warehouseService", ["$http", warehouseService]);
 
     function warehouseService($http) {
         var service = {
@@ -21,47 +21,47 @@
         return service;
 
         function getWarehouses(params) {
-            return $http.post('api/warehouses/grid', params);
+            return $http.post("api/warehouses/grid", params);
         }
 
         function getCountries() {
-            return $http.get('api/countries');
+            return $http.get("api/countries");
         }
 
         function getStatesOrProvinces(countryId) {
-            return $http.get('api/countries/' + countryId + '/states-provinces');
+            return $http.get("api/countries/" + countryId + "/states-provinces");
         }
 
         function getDistricts(stateOrProvinceId) {
-            return $http.get('api/states-provinces/' + stateOrProvinceId + '/districts');
+            return $http.get("api/states-provinces/" + stateOrProvinceId + "/districts");
         }
 
         function getWarehouse(id) {
-            return $http.get('api/warehouses/' + id);
+            return $http.get("api/warehouses/" + id);
         }
 
         function editWarehouse(warehouse) {
-            return $http.put('api/warehouses/' + warehouse.id, warehouse);
+            return $http.put("api/warehouses/" + warehouse.id, warehouse);
         }
 
         function createWarehouse(warehouse) {
-            return $http.post('api/warehouses/', warehouse);
+            return $http.post("api/warehouses/", warehouse);
         }
 
         function deleteWarehouse(warehouse) {
-            return $http.delete('api/warehouses/' + warehouse.id);
+            return $http.delete("api/warehouses/" + warehouse.id);
         }
 
         function getProducts(warehouseId, params) {
-            return $http.post('api/warehouses/' + warehouseId + '/products', params);
+            return $http.post("api/warehouses/" + warehouseId + "/products", params);
         }
 
         function addAllProducts(warehouseId) {
-            return $http.post('api/warehouses/ ' + warehouseId + '/add-all-products');
+            return $http.post("api/warehouses/ " + warehouseId + "/add-all-products");
         }
 
         function addSelectedProducts(warehouseId, productIds) {
-            return $http.post('api/warehouses/' + warehouseId + '/add-products', productIds);
+            return $http.post("api/warehouses/" + warehouseId + "/add-products", productIds);
         }
     }
 })();

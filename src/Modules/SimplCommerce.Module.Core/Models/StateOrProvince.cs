@@ -7,7 +7,6 @@ namespace SimplCommerce.Module.Core.Models
     {
         public StateOrProvince()
         {
-
         }
 
         public StateOrProvince(long id)
@@ -15,19 +14,16 @@ namespace SimplCommerce.Module.Core.Models
             Id = id;
         }
 
-        [StringLength(450)]
-        public string CountryId { get; set; }
+        [StringLength(450)] public string CountryId { get; set; }
 
         public Country Country { get; set; }
 
-        [StringLength(450)]
-        public string Code { get; set; }
+        [StringLength(450)] public string Code { get; set; }
 
         [Required(ErrorMessage = "The {0} field is required.")]
         [StringLength(450)]
         public string Name { get; set; }
 
-        [StringLength(450)]
-        public string Type { get; set; }
+        [StringLength(450)] public string Type { get; set; }
     }
 }

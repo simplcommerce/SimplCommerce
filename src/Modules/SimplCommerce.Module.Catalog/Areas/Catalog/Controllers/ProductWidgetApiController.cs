@@ -58,7 +58,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
                 _widgetInstanceRepository.Add(widgetInstance);
                 _widgetInstanceRepository.SaveChanges();
-                return CreatedAtAction(nameof(Get), new { id = widgetInstance.Id }, null);
+                return CreatedAtAction(nameof(Get), new {id = widgetInstance.Id}, null);
             }
 
             return BadRequest(ModelState);
@@ -87,7 +87,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         [HttpGet("available-orderby")]
         public IActionResult GetAvailableOrderBy()
         {
-            var model = EnumHelper.ToDictionary(typeof(ProductWidgetOrderBy)).Select(x => new { Id = x.Key.ToString(), Name = x.Value });
+            var model = EnumHelper.ToDictionary(typeof(ProductWidgetOrderBy))
+                .Select(x => new {Id = x.Key.ToString(), Name = x.Value});
             return Json(model);
         }
     }

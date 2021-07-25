@@ -14,13 +14,7 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.ViewModels
 
         public DateTimeOffset CreatedOn { get; set; }
 
-        public string CreatedOnRelative
-        {
-            get
-            {
-                return CreatedOn.Humanize();
-            }
-        }
+        public string CreatedOnRelative => CreatedOn.Humanize();
 
         public string Status { get; set; }
 

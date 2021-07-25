@@ -1,6 +1,6 @@
 ﻿{
-  "id": "SimplCommerce.Module.StorageLocal",
-  "name": "Local Storage",
-  "version": "1.0.0",
-  "isBundledWithHost": true
+    "id": "SimplCommerce.Module.StorageLocal",
+    "name": "Local Storage",
+    "version": "1.0.0",
+    "isBundledWithHost": true
 }

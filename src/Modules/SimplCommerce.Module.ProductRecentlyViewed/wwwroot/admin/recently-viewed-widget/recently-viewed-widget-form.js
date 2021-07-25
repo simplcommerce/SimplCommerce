@@ -1,14 +1,18 @@
 ﻿/*global angular, jQuery*/
-(function ($) {
+(function($) {
     angular
-        .module('simplAdmin.recentlyViewed')
-        .controller('RecentlyViewedWidgetFormCtrl', ['$state', '$stateParams', 'recentlyViewedWidgetService', 'translateService', RecentlyViewedWidgetFormCtrl]);
+        .module("simplAdmin.recentlyViewed")
+        .controller("RecentlyViewedWidgetFormCtrl",
+            [
+                "$state", "$stateParams", "recentlyViewedWidgetService", "translateService",
+                RecentlyViewedWidgetFormCtrl
+            ]);
 
     function RecentlyViewedWidgetFormCtrl($state, $stateParams, recentlyViewedWidgetService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.widgetZones = [];
-        vm.widgetInstance = { widgetZoneId: 1, publishStart : new Date() };
+        vm.widgetInstance = { widgetZoneId: 1, publishStart: new Date() };
         vm.widgetInstanceId = $stateParams.id;
         vm.isEditMode = vm.widgetInstanceId > 0;
 
@@ -25,10 +29,10 @@
             }
 
             promise
-                .then(function (result) {
-                    $state.go('widget');
+                .then(function(result) {
+                    $state.go("widget");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -36,17 +40,17 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not html widget.');
+                        vm.validationErrors.push("Could not html widget.");
                     }
                 });
         };
 
         function init() {
-            recentlyViewedWidgetService.getWidgetZones().then(function (result) {
+            recentlyViewedWidgetService.getWidgetZones().then(function(result) {
                 vm.widgetZones = result.data;
             });
 
-            recentlyViewedWidgetService.getNumberOfWidgets().then(function (result) {
+            recentlyViewedWidgetService.getNumberOfWidgets().then(function(result) {
                 var count = parseInt(result.data);
                 if (!vm.isEditMode) {
                     count = count + 1;
@@ -57,7 +61,7 @@
             });
 
             if (vm.isEditMode) {
-                recentlyViewedWidgetService.getRecentlyViewedWidget(vm.widgetInstanceId).then(function (result) {
+                recentlyViewedWidgetService.getRecentlyViewedWidget(vm.widgetInstanceId).then(function(result) {
                     vm.widgetInstance = result.data;
                     if (vm.widgetInstance.publishStart) {
                         vm.widgetInstance.publishStart = new Date(vm.widgetInstance.publishStart);

@@ -2,9 +2,8 @@
 {
     public class CartItemVm
     {
-        public int Quantity;
-
         public decimal Price;
+        public int Quantity;
 
         public long? TaxClassId;
     }

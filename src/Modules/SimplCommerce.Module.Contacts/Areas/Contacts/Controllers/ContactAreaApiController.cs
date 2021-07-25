@@ -30,11 +30,7 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
         public IActionResult Get(long id)
         {
             var category = _contactRepository.Query().FirstOrDefault(x => x.Id == id);
-            var model = new ContactAreaForm
-            {
-                Id = category.Id,
-                Name = category.Name
-            };
+            var model = new ContactAreaForm {Id = category.Id, Name = category.Name};
 
             return Json(model);
         }
@@ -44,16 +40,14 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
         {
             if (ModelState.IsValid)
             {
-                var category = new ContactArea
-                {
-                    Name = model.Name
-                };
+                var category = new ContactArea {Name = model.Name};
 
                 _contactRepository.Add(category);
                 _contactRepository.SaveChanges();
 
                 return Ok();
             }
+
             return BadRequest(ModelState);
         }
 

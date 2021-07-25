@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using SimplCommerce.Module.Orders.Events;
-using SimplCommerce.Infrastructure.Modules;
-using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Infrastructure;
+using SimplCommerce.Infrastructure.Modules;
+using SimplCommerce.Module.Orders.Events;
+using SimplCommerce.Module.Orders.Services;
 
 namespace SimplCommerce.Module.Orders
 {
@@ -22,7 +23,7 @@ namespace SimplCommerce.Module.Orders
             GlobalConfiguration.RegisterAngularModule("simplAdmin.orders");
         }
 
-        public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
         }
     }

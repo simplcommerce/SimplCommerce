@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-md-3">
-        <partial name="_AccountMenu" />
+        <partial name="_AccountMenu"/>
     </div>
     <div class="col-md-9">
         <div class="row">
@@ -18,15 +18,21 @@
             </div>
         </div>
         <div class="row mt-4">
-            <div class="col-md-4"><strong>@Localizer["Shipping address"]</strong></div>
-            <div class="col-md-4"><strong>@Localizer["Shipping method"]</strong></div>
-            <div class="col-md-4"><strong>@Localizer["Payment method"]</strong></div>
+            <div class="col-md-4">
+                <strong>@Localizer["Shipping address"]</strong>
+            </div>
+            <div class="col-md-4">
+                <strong>@Localizer["Shipping method"]</strong>
+            </div>
+            <div class="col-md-4">
+                <strong>@Localizer["Payment method"]</strong>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-4">
-                <strong>@Model.ShippingAddress.ContactName</strong> <br />
-                @Model.ShippingAddress.AddressLine1 <br />
-                @Model.ShippingAddress.AddressLine2 <br />
+                <strong>@Model.ShippingAddress.ContactName</strong> <br/>
+                @Model.ShippingAddress.AddressLine1 <br/>
+                @Model.ShippingAddress.AddressLine2 <br/>
                 @Localizer["Phone"]: @Model.ShippingAddress.Phone
             </div>
             <div class="col-md-4">@Model.ShippingMethod</div>
@@ -35,35 +41,35 @@
 
         <table class="table table-borderless mt-4">
             <thead>
-                <tr>
-                    <th class="pl-0">@Localizer["Product"]</th>
-                    <th class="text-right">@Localizer["Price"]</th>
-                    <th class="text-right">@Localizer["Quantity"]</th>
-                    <th class="text-right">@Localizer["Discount"]</th>
-                    <th class="text-right text-nowrap pr-0">@Localizer["Row Total"]</th>
-                </tr>
+            <tr>
+                <th class="pl-0">@Localizer["Product"]</th>
+                <th class="text-right">@Localizer["Price"]</th>
+                <th class="text-right">@Localizer["Quantity"]</th>
+                <th class="text-right">@Localizer["Discount"]</th>
+                <th class="text-right text-nowrap pr-0">@Localizer["Row Total"]</th>
+            </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.OrderItems)
-                {
-                    <tr>
-                        <td class="pl-0">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <img class="img-fluid" src="@item.ProductImage" />
-                                </div>
-                                <div class="col-md-9">
-                                    <p>@item.ProductName</p>
-                                    <p>@Localizer["Quantity"] @item.Quantity</p>
-                                </div>
+            @foreach (var item in Model.OrderItems)
+            {
+                <tr>
+                    <td class="pl-0">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img class="img-fluid" src="@item.ProductImage"/>
                             </div>
-                        </td>
-                        <td class="text-right">@item.ProductPriceString</td>
-                        <td class="text-right">@item.Quantity</td>
-                        <td class="text-right">@item.DiscountAmountString</td>
-                        <td class="text-right pr-0">@item.RowTotalString</td>
-                    </tr>
-                }
+                            <div class="col-md-9">
+                                <p>@item.ProductName</p>
+                                <p>@Localizer["Quantity"] @item.Quantity</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-right">@item.ProductPriceString</td>
+                    <td class="text-right">@item.Quantity</td>
+                    <td class="text-right">@item.DiscountAmountString</td>
+                    <td class="text-right pr-0">@item.RowTotalString</td>
+                </tr>
+            }
             </tbody>
         </table>
         <div class="row">
@@ -91,8 +97,12 @@
                         <td class="text-right pr-0">@Model.PaymentFeeAmountString</td>
                     </tr>
                     <tr>
-                        <td><strong>@Localizer["Order Total"]</strong></td>
-                        <td class="text-right pr-0"><strong>@Model.OrderTotalString</strong></td>
+                        <td>
+                            <strong>@Localizer["Order Total"]</strong>
+                        </td>
+                        <td class="text-right pr-0">
+                            <strong>@Model.OrderTotalString</strong>
+                        </td>
                     </tr>
                 </table>
             </div>

@@ -1,22 +1,26 @@
 ﻿<table class="table table-striped">
     <thead>
-        <tr>
-            <th>{{::vm.translate.get('OrderId')}}</th>
-            <th>{{::vm.translate.get('Order Status')}}</th>
-            <th>{{::vm.translate.get('Customer')}}</th>
-            <th>{{::vm.translate.get('Created On')}}</th>
-            <th class="text-right">{{::vm.translate.get('Order Total')}}</th>
-            <th>{{::vm.translate.get('Actions')}}</th>
-        </tr>
+    <tr>
+        <th>{{::vm.translate.get('OrderId')}}</th>
+        <th>{{::vm.translate.get('Order Status')}}</th>
+        <th>{{::vm.translate.get('Customer')}}</th>
+        <th>{{::vm.translate.get('Created On')}}</th>
+        <th class="text-right">{{::vm.translate.get('Order Total')}}</th>
+        <th>{{::vm.translate.get('Actions')}}</th>
+    </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="order in vm.orders">
-            <td>{{order.id}}</td>
-            <td>{{order.orderStatus}}</td>
-            <td>{{order.customerName}}</td>
-            <td>{{order.createdOn | date:'medium'}}</td>
-            <td class="text-right">{{order.orderTotalString }}</td>
-            <td><a ui-sref="order-detail({id: order.id})" title="View" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-eye-open"></span></a></td>
-        </tr>
+    <tr ng-repeat="order in vm.orders">
+        <td>{{order.id}}</td>
+        <td>{{order.orderStatus}}</td>
+        <td>{{order.customerName}}</td>
+        <td>{{order.createdOn | date:'medium'}}</td>
+        <td class="text-right">{{order.orderTotalString }}</td>
+        <td>
+            <a ui-sref="order-detail({id: order.id})" title="View" class="btn btn-primary btn-xs">
+                <span class="glyphicon glyphicon-eye-open"></span>
+            </a>
+        </td>
+    </tr>
     </tbody>
 </table>

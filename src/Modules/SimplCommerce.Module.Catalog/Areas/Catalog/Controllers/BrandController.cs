@@ -14,13 +14,13 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class BrandController : Controller
     {
-        private int _pageSize;
-        private readonly IRepository<Category> _categoryRepository;
-        private readonly IMediaService _mediaService;
-        private readonly IRepository<Product> _productRepository;
         private readonly IRepository<Brand> _brandRepository;
-        private readonly IProductPricingService _productPricingService;
+        private readonly IRepository<Category> _categoryRepository;
         private readonly IContentLocalizationService _contentLocalizationService;
+        private readonly IMediaService _mediaService;
+        private readonly IProductPricingService _productPricingService;
+        private readonly IRepository<Product> _productRepository;
+        private readonly int _pageSize;
 
         public BrandController(IRepository<Product> productRepository,
             IMediaService mediaService,
@@ -56,7 +56,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 FilterOption = new FilterOption()
             };
 
-            var query = _productRepository.Query().Where(x => x.BrandId == id && x.IsPublished && x.IsVisibleIndividually);
+            var query = _productRepository.Query()
+                .Where(x => x.BrandId == id && x.IsPublished && x.IsVisibleIndividually);
 
             if (query.Count() == 0)
             {
@@ -102,7 +103,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
             foreach (var product in products)
             {
-                product.Name = _contentLocalizationService.GetLocalizedProperty(nameof(Product), product.Id, nameof(product.Name), product.Name);
+                product.Name = _contentLocalizationService.GetLocalizedProperty(nameof(Product), product.Id,
+                    nameof(product.Name), product.Name);
                 product.ThumbnailUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage);
                 product.CalculatedProductPrice = _productPricingService.CalculateProductPrice(product);
             }
@@ -139,12 +141,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
             model.FilterOption.Categories = query
                 .SelectMany(x => x.Categories).Where(x => x.Category.IsPublished)
-                .GroupBy(x => new {
-                    x.Category.Id,
-                    x.Category.Name,
-                    x.Category.Slug,
-                    x.Category.ParentId
-                })
+                .GroupBy(x => new {x.Category.Id, x.Category.Name, x.Category.Slug, x.Category.ParentId})
                 .Select(g => new FilterCategory
                 {
                     Id = (int)g.Key.Id,
@@ -155,7 +152,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 })
                 .ToList();
 
-            foreach(var item in model.FilterOption.Categories)
+            foreach (var item in model.FilterOption.Categories)
             {
                 item.Name = getCategoryName(item.Id, nameof(item.Name), item.Name);
             }

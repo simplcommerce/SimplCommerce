@@ -14,11 +14,13 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     [Route("api/product-templates")]
     public class ProductTemplateApiController : Controller
     {
-        private readonly IRepository<ProductTemplate> _productTemplateRepository;
         private readonly IRepository<ProductAttribute> _productAttributeRepository;
         private readonly IProductTemplateProductAttributeRepository _productTemplateProductAttributeRepository;
+        private readonly IRepository<ProductTemplate> _productTemplateRepository;
 
-        public ProductTemplateApiController(IRepository<ProductTemplate> productTemplateRepository, IRepository<ProductAttribute> productAttributeRepository, IProductTemplateProductAttributeRepository productTemplateProductAttributeRepository)
+        public ProductTemplateApiController(IRepository<ProductTemplate> productTemplateRepository,
+            IRepository<ProductAttribute> productAttributeRepository,
+            IProductTemplateProductAttributeRepository productTemplateProductAttributeRepository)
         {
             _productTemplateRepository = productTemplateRepository;
             _productAttributeRepository = productAttributeRepository;
@@ -30,11 +32,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         {
             var productTemplates = _productTemplateRepository
                 .Query()
-                .Select(x => new
-                {
-                    x.Id,
-                    x.Name
-                });
+                .Select(x => new {x.Id, x.Name});
 
             return Json(productTemplates);
         }
@@ -51,7 +49,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 Id = productTemplate.Id,
                 Name = productTemplate.Name,
                 Attributes = productTemplate.ProductAttributes.Select(
-                    x => new ProductAttributeVm()
+                    x => new ProductAttributeVm
                     {
                         Id = x.ProductAttributeId,
                         Name = x.ProductAttribute.Name,
@@ -71,10 +69,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 return BadRequest(ModelState);
             }
 
-            var productTemplate = new ProductTemplate
-            {
-                Name = model.Name
-            };
+            var productTemplate = new ProductTemplate {Name = model.Name};
 
             foreach (var attributeVm in model.Attributes)
             {
@@ -113,7 +108,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 productTemplate.AddAttribute(attribute.Id);
             }
 
-            var deletedAttributes = productTemplate.ProductAttributes.Where(attr => !model.Attributes.Select(x => x.Id).Contains(attr.ProductAttributeId));
+            var deletedAttributes = productTemplate.ProductAttributes.Where(attr =>
+                !model.Attributes.Select(x => x.Id).Contains(attr.ProductAttributeId));
 
             foreach (var deletedAttribute in deletedAttributes)
             {

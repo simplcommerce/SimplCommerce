@@ -18,7 +18,6 @@ namespace SimplCommerce.Module.Comments
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
         }
     }
 }

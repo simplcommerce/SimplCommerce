@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.vendors')
-        .factory('vendorService', ['$http', vendorService]);
+        .module("simplAdmin.vendors")
+        .factory("vendorService", ["$http", vendorService]);
 
     function vendorService($http) {
         var service = {
@@ -15,23 +15,23 @@
         return service;
 
         function getVendors(params) {
-            return $http.post('api/vendors/grid', params);
+            return $http.post("api/vendors/grid", params);
         }
 
         function getVendor(id) {
-            return $http.get('api/vendors/' + id);
+            return $http.get("api/vendors/" + id);
         }
 
         function createVendor(vendor) {
-            return $http.post('api/vendors', vendor);
+            return $http.post("api/vendors", vendor);
         }
 
         function editVendor(vendor) {
-            return $http.put('api/vendors/' + vendor.id, vendor);
+            return $http.put("api/vendors/" + vendor.id, vendor);
         }
 
         function deleteVendor(vendor) {
-            return $http.delete('api/vendors/' + vendor.id, null);
+            return $http.delete("api/vendors/" + vendor.id, null);
         }
     }
 })();

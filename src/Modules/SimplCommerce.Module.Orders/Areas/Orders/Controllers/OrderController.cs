@@ -15,12 +15,13 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
     [Authorize]
     public class OrderController : Controller
     {
+        private readonly ICurrencyService _currencyService;
         private readonly IMediaService _mediaService;
         private readonly IRepository<Order> _orderRepository;
         private readonly IWorkContext _workContext;
-        private readonly ICurrencyService _currencyService;
 
-        public OrderController(IRepository<Order> orderRepository, IWorkContext workContext, IMediaService mediaService, ICurrencyService currencyService)
+        public OrderController(IRepository<Order> orderRepository, IWorkContext workContext, IMediaService mediaService,
+            ICurrencyService currencyService)
         {
             _orderRepository = orderRepository;
             _workContext = workContext;
@@ -36,24 +37,25 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 .Query()
                 .Where(x => x.CustomerId == user.Id && x.ParentId == null)
                 .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.ThumbnailImage)
-                .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.OptionCombinations).ThenInclude(x => x.Option)
+                .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.OptionCombinations)
+                .ThenInclude(x => x.Option)
                 .OrderByDescending(x => x.CreatedOn).ToListAsync();
 
-             var model2 = model.Select(x => new OrderHistoryListItem(_currencyService)
+            var model2 = model.Select(x => new OrderHistoryListItem(_currencyService)
+            {
+                Id = x.Id,
+                CreatedOn = x.CreatedOn,
+                SubTotal = x.SubTotal,
+                OrderStatus = x.OrderStatus,
+                OrderItems = x.OrderItems.Select(i => new OrderHistoryProductVm
                 {
-                    Id = x.Id,
-                    CreatedOn = x.CreatedOn,
-                    SubTotal = x.SubTotal,
-                    OrderStatus = x.OrderStatus,
-                    OrderItems = x.OrderItems.Select(i => new OrderHistoryProductVm
-                    {
-                        ProductId = i.ProductId,
-                        ProductName = i.Product.Name,
-                        Quantity = i.Quantity,
-                        ThumbnailImage = i.Product.ThumbnailImage.FileName,
-                        ProductOptions = i.Product.OptionCombinations.Select(o => o.Value)
-                    }).ToList()
-                }).ToList();
+                    ProductId = i.ProductId,
+                    ProductName = i.Product.Name,
+                    Quantity = i.Quantity,
+                    ThumbnailImage = i.Product.ThumbnailImage.FileName,
+                    ProductOptions = i.Product.OptionCombinations.Select(o => o.Value)
+                }).ToList()
+            }).ToList();
 
             foreach (var item in model2)
             {
@@ -77,7 +79,8 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 .Include(x => x.ShippingAddress).ThenInclude(x => x.StateOrProvince)
                 .Include(x => x.ShippingAddress).ThenInclude(x => x.Country)
                 .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.ThumbnailImage)
-                .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.OptionCombinations).ThenInclude(x => x.Option)
+                .Include(x => x.OrderItems).ThenInclude(x => x.Product).ThenInclude(x => x.OptionCombinations)
+                .ThenInclude(x => x.Option)
                 .Include(x => x.Customer)
                 .FirstOrDefault(x => x.Id == orderId);
 
@@ -88,7 +91,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
 
             if (order.CustomerId != user.Id)
             {
-                return BadRequest(new { error = "You don't have permission to view this order" });
+                return BadRequest(new {error = "You don't have permission to view this order"});
             }
 
             var model = new OrderDetailVm(_currencyService)
@@ -111,16 +114,17 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 ShippingAmount = order.ShippingFeeAmount,
                 OrderTotal = order.OrderTotal,
                 OrderNote = order.OrderNote,
-                ShippingAddress = new ShippingAddressVm
-                {
-                    AddressLine1 = order.ShippingAddress.AddressLine1,
-                    CityName = order.ShippingAddress.City,
-                    ZipCode = order.ShippingAddress.ZipCode,
-                    ContactName = order.ShippingAddress.ContactName,
-                    DistrictName = order.ShippingAddress.District?.Name,
-                    StateOrProvinceName = order.ShippingAddress.StateOrProvince.Name,
-                    Phone = order.ShippingAddress.Phone
-                },
+                ShippingAddress =
+                    new ShippingAddressVm
+                    {
+                        AddressLine1 = order.ShippingAddress.AddressLine1,
+                        CityName = order.ShippingAddress.City,
+                        ZipCode = order.ShippingAddress.ZipCode,
+                        ContactName = order.ShippingAddress.ContactName,
+                        DistrictName = order.ShippingAddress.District?.Name,
+                        StateOrProvinceName = order.ShippingAddress.StateOrProvince.Name,
+                        Phone = order.ShippingAddress.Phone
+                    },
                 OrderItems = order.OrderItems.Select(x => new OrderItemVm(_currencyService)
                 {
                     Id = x.Id,

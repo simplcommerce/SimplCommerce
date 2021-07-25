@@ -1,17 +1,17 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using SimplCommerce.Module.News.Models;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.News.Models;
 
 namespace SimplCommerce.Module.News.Services
 {
     public class NewsItemService : INewsItemService
     {
         private const string NewsItemEntityTypeId = "NewsItem";
+        private readonly IEntityService _entityService;
 
         private readonly IRepository<NewsItem> _newsItemRepository;
-        private readonly IEntityService _entityService;
 
         public NewsItemService(IRepository<NewsItem> newsItemRepository, IEntityService entityService)
         {
@@ -21,7 +21,7 @@ namespace SimplCommerce.Module.News.Services
 
         public void Create(NewsItem newsItem)
         {
-            if( newsItem != null)
+            if (newsItem != null)
             {
                 using (var transaction = _newsItemRepository.BeginTransaction())
                 {

@@ -1,5 +1,5 @@
-﻿using Braintree;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Braintree;
 
 namespace SimplCommerce.Module.PaymentBraintree.Services
 {

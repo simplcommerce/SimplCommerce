@@ -16,9 +16,9 @@ namespace SimplCommerce.Infrastructure.Web
 {
     public class RazorViewRenderer : IRazorViewRenderer
     {
-        private IRazorViewEngine _viewEngine;
-        private ITempDataProvider _tempDataProvider;
-        private IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ITempDataProvider _tempDataProvider;
+        private readonly IRazorViewEngine _viewEngine;
 
         public RazorViewRenderer(
             IRazorViewEngine viewEngine,
@@ -34,10 +34,11 @@ namespace SimplCommerce.Infrastructure.Web
         {
             var actionContext = GetActionContext();
             var view = FindView(actionContext, viewName);
-            var viewData = new ViewDataDictionary<TModel>(new EmptyModelMetadataProvider(), new ModelStateDictionary())
-            {
-                Model = model
-            };
+            var viewData =
+                new ViewDataDictionary<TModel>(new EmptyModelMetadataProvider(), new ModelStateDictionary())
+                {
+                    Model = model
+                };
 
             using (var output = new StringWriter())
             {
@@ -56,13 +57,13 @@ namespace SimplCommerce.Infrastructure.Web
 
         private IView FindView(ActionContext actionContext, string viewName)
         {
-            var getViewResult = _viewEngine.GetView(executingFilePath: null, viewPath: viewName, isMainPage: true);
+            var getViewResult = _viewEngine.GetView(null, viewName, true);
             if (getViewResult.Success)
             {
                 return getViewResult.View;
             }
 
-            var findViewResult = _viewEngine.FindView(actionContext, viewName, isMainPage: true);
+            var findViewResult = _viewEngine.FindView(actionContext, viewName, true);
             if (findViewResult.Success)
             {
                 return findViewResult.View;
@@ -71,14 +72,17 @@ namespace SimplCommerce.Infrastructure.Web
             var searchedLocations = getViewResult.SearchedLocations.Concat(findViewResult.SearchedLocations);
             var errorMessage = string.Join(
                 Environment.NewLine,
-                new[] { $"Unable to find view '{viewName}'. The following locations were searched:" }.Concat(searchedLocations)); ;
+                new[] {$"Unable to find view '{viewName}'. The following locations were searched:"}.Concat(
+                    searchedLocations));
+            ;
 
             throw new InvalidOperationException(errorMessage);
         }
 
         private ActionContext GetActionContext()
         {
-            return new ActionContext(_httpContextAccessor.HttpContext, _httpContextAccessor.HttpContext.GetRouteData(), new ActionDescriptor());
+            return new(_httpContextAccessor.HttpContext, _httpContextAccessor.HttpContext.GetRouteData(),
+                new ActionDescriptor());
         }
     }
 }

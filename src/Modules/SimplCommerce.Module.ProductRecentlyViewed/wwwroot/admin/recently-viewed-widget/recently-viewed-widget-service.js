@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.recentlyViewed')
-        .factory('recentlyViewedWidgetService', ['$http', recentlyViewedWidgetService]);
+        .module("simplAdmin.recentlyViewed")
+        .factory("recentlyViewedWidgetService", ["$http", recentlyViewedWidgetService]);
 
     function recentlyViewedWidgetService($http) {
         var service = {
@@ -15,23 +15,23 @@
         return service;
 
         function getWidgetZones() {
-            return $http.get('api/widget-zones');
+            return $http.get("api/widget-zones");
         }
 
         function getRecentlyViewedWidget(id) {
-            return $http.get('api/recently-viewed-widgets/' + id);
+            return $http.get("api/recently-viewed-widgets/" + id);
         }
 
         function createRecentlyViewedWidget(widgetInstance) {
-            return $http.post('api/recently-viewed-widgets', widgetInstance);
+            return $http.post("api/recently-viewed-widgets", widgetInstance);
         }
 
         function editRecentlyViewedWidget(widgetInstance) {
-            return $http.put('api/recently-viewed-widgets/' + widgetInstance.id, widgetInstance);
+            return $http.put("api/recently-viewed-widgets/" + widgetInstance.id, widgetInstance);
         }
 
         function getNumberOfWidgets() {
-            return $http.get('api/widget-instances/number-of-widgets');
+            return $http.get("api/widget-instances/number-of-widgets");
         }
     }
 })();

@@ -1,6 +1,5 @@
-﻿@using SimplCommerce.Module.Core.Models
-@using SimplCommerce.Module.Core.Extensions
-
+﻿@using SimplCommerce.Module.Core.Extensions
+@using SimplCommerce.Module.Core.Models
 @inject IWorkContext WorkContext
 @inject SignInManager<User> SignInManager
 
@@ -11,7 +10,9 @@
     </li>
     if (User.IsInRole("admin") || User.IsInRole("vendor"))
     {
-        <li class="nav-item"><a class="nav-link" asp-area="Core" asp-controller="HomeAdmin" asp-action="Index">@Localizer["Dashboard"]</a></li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Core" asp-controller="HomeAdmin" asp-action="Index">@Localizer["Dashboard"]</a>
+        </li>
     }
     <li class="nav-item">
         <form asp-area="Core" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="">
@@ -21,6 +22,10 @@
 }
 else
 {
-    <li class="nav-item"><a class="nav-link" asp-area="Core" asp-controller="Account" asp-action="Login">@Localizer["Log in"]</a></li>
-    <li class="nav-item"><a class="nav-link" asp-area="Core" asp-controller="Account" asp-action="Register">@Localizer["Register"]</a></li>
+    <li class="nav-item">
+        <a class="nav-link" asp-area="Core" asp-controller="Account" asp-action="Login">@Localizer["Log in"]</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-area="Core" asp-controller="Account" asp-action="Register">@Localizer["Register"]</a>
+    </li>
 }

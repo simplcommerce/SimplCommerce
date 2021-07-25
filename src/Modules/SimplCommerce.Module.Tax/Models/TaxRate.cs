@@ -1,6 +1,6 @@
-﻿using SimplCommerce.Infrastructure.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Core.Models;
-using System.ComponentModel.DataAnnotations;
 
 namespace SimplCommerce.Module.Tax.Models
 {
@@ -10,8 +10,7 @@ namespace SimplCommerce.Module.Tax.Models
 
         public TaxClass TaxClass { get; set; }
 
-        [StringLength(450)]
-        public string CountryId { get; set; }
+        [StringLength(450)] public string CountryId { get; set; }
 
         public Country Country { get; set; }
 
@@ -21,7 +20,6 @@ namespace SimplCommerce.Module.Tax.Models
 
         public decimal Rate { get; set; }
 
-        [StringLength(450)]
-        public string ZipCode { get; set; }
+        [StringLength(450)] public string ZipCode { get; set; }
     }
 }

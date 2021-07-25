@@ -8,6 +8,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.ViewModels
 
         public int DataInterval { get; set; } = 6000;
 
-        public IList<CarouselWidgetViewComponentItemVm> Items { get; set; } = new List<CarouselWidgetViewComponentItemVm>();
+        public IList<CarouselWidgetViewComponentItemVm> Items { get; set; } =
+            new List<CarouselWidgetViewComponentItemVm>();
     }
 }

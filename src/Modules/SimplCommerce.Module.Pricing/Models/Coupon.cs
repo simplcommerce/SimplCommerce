@@ -6,7 +6,7 @@ namespace SimplCommerce.Module.Pricing.Models
 {
     public class Coupon : EntityBase
     {
-        public Coupon ()
+        public Coupon()
         {
             CreatedOn = DateTimeOffset.Now;
         }

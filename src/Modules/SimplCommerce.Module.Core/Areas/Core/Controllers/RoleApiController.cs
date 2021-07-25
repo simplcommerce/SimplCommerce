@@ -23,11 +23,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var roles = await _roleRepository.Query().Select(x => new
-            {
-                x.Id,
-                x.Name
-            }).ToListAsync();
+            var roles = await _roleRepository.Query().Select(x => new {x.Id, x.Name}).ToListAsync();
 
             return Json(roles);
         }

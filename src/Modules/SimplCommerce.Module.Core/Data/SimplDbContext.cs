@@ -15,7 +15,8 @@ using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Core.Data
 {
-    public class SimplDbContext : IdentityDbContext<User, Role, long, IdentityUserClaim<long>, UserRole, IdentityUserLogin<long>, IdentityRoleClaim<long>, IdentityUserToken<long>>
+    public class SimplDbContext : IdentityDbContext<User, Role, long, IdentityUserClaim<long>, UserRole,
+        IdentityUserLogin<long>, IdentityRoleClaim<long>, IdentityUserToken<long>>
     {
         public SimplDbContext(DbContextOptions options) : base(options)
         {
@@ -27,7 +28,8 @@ namespace SimplCommerce.Module.Core.Data
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
 
-        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess,
+            CancellationToken cancellationToken = default)
         {
             ValidateEntities();
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
@@ -35,7 +37,7 @@ namespace SimplCommerce.Module.Core.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            List<Type> typeToRegisters = new List<Type>();
+            var typeToRegisters = new List<Type>();
             foreach (var module in GlobalConfiguration.Modules)
             {
                 typeToRegisters.AddRange(module.Assembly.DefinedTypes.Select(t => t.AsType()));
@@ -57,7 +59,8 @@ namespace SimplCommerce.Module.Core.Data
 
                 foreach (var entityType in modelBuilder.Model.GetEntityTypes())
                 {
-                    var properties = entityType.ClrType.GetProperties().Where(p => p.PropertyType == typeof(DateTimeOffset) || p.PropertyType == typeof(DateTimeOffset?));
+                    var properties = entityType.ClrType.GetProperties().Where(p =>
+                        p.PropertyType == typeof(DateTimeOffset) || p.PropertyType == typeof(DateTimeOffset?));
                     foreach (var property in properties)
                     {
                         modelBuilder
@@ -66,7 +69,8 @@ namespace SimplCommerce.Module.Core.Data
                             .HasConversion(new DateTimeOffsetToBinaryConverter());
                     }
 
-                    var decimalProperties = entityType.ClrType.GetProperties().Where(p => p.PropertyType == typeof(decimal) || p.PropertyType == typeof(decimal?));
+                    var decimalProperties = entityType.ClrType.GetProperties().Where(p =>
+                        p.PropertyType == typeof(decimal) || p.PropertyType == typeof(decimal?));
                     foreach (var property in decimalProperties)
                     {
                         modelBuilder
@@ -81,7 +85,7 @@ namespace SimplCommerce.Module.Core.Data
         private void ValidateEntities()
         {
             var modifiedEntries = ChangeTracker.Entries()
-                    .Where(x => (x.State == EntityState.Added || x.State == EntityState.Modified));
+                .Where(x => x.State == EntityState.Added || x.State == EntityState.Modified);
 
             foreach (var entity in modifiedEntries)
             {
@@ -116,7 +120,8 @@ namespace SimplCommerce.Module.Core.Data
 
         private static void RegisterEntities(ModelBuilder modelBuilder, IEnumerable<Type> typeToRegisters)
         {
-            var entityTypes = typeToRegisters.Where(x => x.GetTypeInfo().IsSubclassOf(typeof(EntityBase)) && !x.GetTypeInfo().IsAbstract);
+            var entityTypes = typeToRegisters.Where(x =>
+                x.GetTypeInfo().IsSubclassOf(typeof(EntityBase)) && !x.GetTypeInfo().IsAbstract);
             foreach (var type in entityTypes)
             {
                 modelBuilder.Entity(type);

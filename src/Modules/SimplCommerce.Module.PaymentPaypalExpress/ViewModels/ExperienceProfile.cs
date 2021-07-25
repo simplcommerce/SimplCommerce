@@ -9,7 +9,6 @@
         public bool temporary { get; set; }
 
         public InputFields input_fields { get; set; }
-
     }
 
     public class InputFields

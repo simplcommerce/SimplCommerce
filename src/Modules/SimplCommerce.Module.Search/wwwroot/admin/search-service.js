@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.search')
-        .factory('searchService', ['$http', searchService]);
+        .module("simplAdmin.search")
+        .factory("searchService", ["$http", searchService]);
 
     function searchService($http) {
         var service = {
@@ -11,7 +11,7 @@
         return service;
 
         function getMostSearchKeywords() {
-            return $http.get('api/search/most-search-keywords');
+            return $http.get("api/search/most-search-keywords");
         }
     }
 })();

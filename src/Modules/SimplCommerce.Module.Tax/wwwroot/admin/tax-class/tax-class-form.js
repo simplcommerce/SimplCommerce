@@ -1,8 +1,9 @@
 ﻿/*global angular, jQuery*/
-(function ($) {
+(function($) {
     angular
-        .module('simplAdmin.tax')
-        .controller('TaxClassFormCtrl', ['$state', '$stateParams', 'taxClassService', 'translateService', TaxClassFormCtrl]);
+        .module("simplAdmin.tax")
+        .controller("TaxClassFormCtrl",
+            ["$state", "$stateParams", "taxClassService", "translateService", TaxClassFormCtrl]);
 
     function TaxClassFormCtrl($state, $stateParams, taxClassService, translateService) {
         var vm = this;
@@ -20,10 +21,10 @@
             }
 
             promise
-                .then(function (result) {
-                    $state.go('tax-classes');
+                .then(function(result) {
+                    $state.go("tax-classes");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -31,14 +32,14 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add/update tax class.');
+                        vm.validationErrors.push("Could not add/update tax class.");
                     }
                 });
         };
 
         function init() {
             if (vm.isEditMode) {
-                taxClassService.getTaxClass(vm.taxClassId).then(function (result) {
+                taxClassService.getTaxClass(vm.taxClassId).then(function(result) {
                     vm.taxClass = result.data;
                 });
             }

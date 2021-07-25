@@ -1,12 +1,10 @@
-﻿@using System.Globalization
-@using System.IO
-@using Microsoft.Extensions.Configuration
+﻿@using Microsoft.Extensions.Configuration
 @using Newtonsoft.Json
 @using SimplCommerce.Infrastructure
 @using SimplCommerce.Infrastructure.Data
 @using SimplCommerce.Infrastructure.Localization
-@using SimplCommerce.Module.Core.Extensions
-
+@using System.Globalization
+@using System.IO
 @inject IWorkContext WorkContext
 @inject IConfiguration Config
 @inject IRepositoryWithTypedId<Culture, string> CultureRepository
@@ -22,20 +20,20 @@
 <!DOCTYPE html>
 <html ng-app="simplAdmin">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Admin - SimplCommerce</title>
 
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/angular-material/angular-material.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/angular-bootstrap/ui-bootstrap-csp.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/toastr/build/toastr.min.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/summernote/summernote.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/angular-ui-tree/angular-ui-tree.min.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/angular-bootstrap-colorpicker/css/colorpicker.min.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/flags/flags.min.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/_content/SimplCommerce.Module.Core/admin/admin-core.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"/>
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css"/>
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/angular-material/angular-material.css"/>
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/angular-bootstrap/ui-bootstrap-csp.css"/>
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/toastr/build/toastr.min.css"/>
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/summernote/summernote.css"/>
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/angular-ui-tree/angular-ui-tree.min.css"/>
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/angular-bootstrap-colorpicker/css/colorpicker.min.css"/>
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/flags/flags.min.css"/>
+    <link simpl-append-version="true" rel="stylesheet" href="~/_content/SimplCommerce.Module.Core/admin/admin-core.css"/>
 
     <script>
         window.Global_AssetVersion = "@Config["Global.AssetVersion"]";
@@ -66,25 +64,26 @@
     <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Core/admin/common/slugify.js"></script>
     <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Core/admin/common/simplUtil.js"></script>
     <script>
-        angular.module('simplAdmin', [
-            'ui.router',
-            'ngMaterial',
-            'ngMessages',
-            'smart-table',
-            'ngFileUpload',
-            'ui.bootstrap',
-            'ui.bootstrap.datetimepicker',
-            'ui.tree',
-            'summernote',
-            'colorpicker.module',
-            'simplAdmin.common',
+        angular.module('simplAdmin',
+            [
+                'ui.router',
+                'ngMaterial',
+                'ngMessages',
+                'smart-table',
+                'ngFileUpload',
+                'ui.bootstrap',
+                'ui.bootstrap.datetimepicker',
+                'ui.tree',
+                'summernote',
+                'colorpicker.module',
+                'simplAdmin.common',
 
-            @foreach(var angularModule in GlobalConfiguration.AngularModules)
-            {
-                <text>'@angularModule',</text>
-            }
-            'simplAdmin.dashboard'
-        ]);
+                @foreach (var angularModule in GlobalConfiguration.AngularModules)
+                {
+                    <text>'@angularModule',</text>
+                }
+                'simplAdmin.dashboard'
+            ]);
     </script>
     <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Core/admin/admin-app-config.js"></script>
     <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Core/admin/common/common.js"></script>
@@ -97,7 +96,6 @@
 
     @foreach (var module in GlobalConfiguration.Modules)
     {
-
         var resourceStream = module.Assembly.GetManifestResourceStream($"{module.Id}.bundleconfig.json");
         if (resourceStream == null)
         {
@@ -106,7 +104,7 @@
 
         using (var reader = new StreamReader(resourceStream))
         {
-            string content = reader.ReadToEnd();
+            var content = reader.ReadToEnd();
             dynamic bundleConfigs = JsonConvert.DeserializeObject(content);
             foreach (var configItems in bundleConfigs)
             {
@@ -130,121 +128,214 @@
     }
 </head>
 <body>
-    <div class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="~/Admin" class="navbar-brand">SimplCommerce Admin</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    @if (User.IsInRole("admin"))
-                    {
-                        <li class="dropdown">
-                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Site"] <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a ui-sref="users">@Localizer["Users"]</a></li>
-                                <li><a ui-sref="vendors">@Localizer["Vendors"]</a></li>
-                                <li><a ui-sref="customergroups">@Localizer["Customer Groups"]</a></li>
-                                <li><a ui-sref="reviews">@Localizer["Reviews"]</a></li>
-                                <li><a ui-sref="review-replies">@Localizer["Review Replies"]</a></li>
-                                <li><a ui-sref="comments">@Localizer["Comments"]</a></li>
-                                <li><a ui-sref="contact-area">@Localizer["Manage Contact Area"]</a></li>
-                                <li><a ui-sref="contact">@Localizer["Manage Contact"]</a></li>
-                            </ul>
-                        </li>
-                    }
+<div class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="~/Admin" class="navbar-brand">SimplCommerce Admin</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                @if (User.IsInRole("admin"))
+                {
                     <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Catalog"] <span class="caret"></span></a>
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            @Localizer["Site"] <span class="caret"></span>
+                        </a>
                         <ul class="dropdown-menu">
-                            <li><a ui-sref="product">@Localizer["Products"]</a></li>
-                            <li><a ui-sref="product-prices">@Localizer["Product Prices"]</a></li>
-                            @if (User.IsInRole("admin"))
-                            {
-                                <li><a ui-sref="category">@Localizer["Categories"]</a></li>
-                                <li><a ui-sref="brand">@Localizer["Brands"]</a></li>
-                                <li><a ui-sref="product-option">@Localizer["Product Options"]</a></li>
-                                <li><a ui-sref="product-attribute-group">@Localizer["Product Attribute Groups"]</a></li>
-                                <li><a ui-sref="product-attribute">@Localizer["Product Attributes"]</a></li>
-                                <li><a ui-sref="product-template">@Localizer["Product Templates"]</a></li>
-                            }
+                            <li>
+                                <a ui-sref="users">@Localizer["Users"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="vendors">@Localizer["Vendors"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="customergroups">@Localizer["Customer Groups"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="reviews">@Localizer["Reviews"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="review-replies">@Localizer["Review Replies"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="comments">@Localizer["Comments"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="contact-area">@Localizer["Manage Contact Area"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="contact">@Localizer["Manage Contact"]</a>
+                            </li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Sales"] <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a ui-sref="order">@Localizer["Orders"]</a></li>
-                            <li><a ui-sref="shipments">@Localizer["Shipments"]</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Inventory"] <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a ui-sref="stocks">@Localizer["Stocks"]</a></li>
-                            <li><a ui-sref="warehouses">@Localizer["Warehouses"]</a></li>
-                            <li><a ui-sref="warehouse-manage-products">@Localizer["Manage warehouse products"]</a></li>
-                        </ul>
-                    </li>
-                    @if (User.IsInRole("admin"))
-                    {
-                        <li class="dropdown">
-                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Promotions"] <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a ui-sref="cart-rules">@Localizer["Cart Price Rules"]</a></li>
-                                <li><a ui-sref="cart-rule-usages">@Localizer["Cart Price Rule Usages"]</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Content"] <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a ui-sref="page">@Localizer["Pages"]</a></li>
-                                <li><a ui-sref="menus">@Localizer["Menus"]</a></li>
-                                <li><a ui-sref="widget">@Localizer["Widgets"]</a></li>
-                                <li><a ui-sref="news-categories">Manage News Categories</a></li>
-                                <li><a ui-sref="news-items">Manage News Items</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["System"] <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a ui-sref="themes">@Localizer["Themes"]</a></li>
-                                <li><a ui-sref="countries">@Localizer["Countries"]</a></li>
-                                <li><a ui-sref="states-provinces">@Localizer["States or Provinces"]</a></li>
-                                <li><a ui-sref="tax-classes">@Localizer["Tax Classes"]</a></li>
-                                <li><a ui-sref="tax-rates">@Localizer["Tax Rates"]</a></li>
-                                <li><a ui-sref="shipping-providers">@Localizer["Shipping Providers"]</a></li>
-                                <li><a ui-sref="payment-providers">@Localizer["Payment Providers"]</a></li>
-                                <li><a ui-sref="configuration">@Localizer["Settings"]</a></li>
-                                <li><a ui-sref="localization">@Localizer["Translations"]</a></li>
-                            </ul>
-                        </li>
-                    }
-                </ul>
-                <form asp-area="Core" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
-                    <ul class="nav navbar-nav navbar-right">
+                }
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        @Localizer["Catalog"] <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
                         <li>
-                            <a asp-area="Core" asp-controller="Manage" asp-action="Index" title="Manage">@Localizer["Hello {0}!", (await WorkContext.GetCurrentUser()).FullName]</a>
+                            <a ui-sref="product">@Localizer["Products"]</a>
                         </li>
                         <li>
-                            <button type="submit" class="btn btn-link navbar-btn navbar-link">@Localizer["Log off"]</button>
+                            <a ui-sref="product-prices">@Localizer["Product Prices"]</a>
+                        </li>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <li>
+                                <a ui-sref="category">@Localizer["Categories"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="brand">@Localizer["Brands"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="product-option">@Localizer["Product Options"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="product-attribute-group">@Localizer["Product Attribute Groups"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="product-attribute">@Localizer["Product Attributes"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="product-template">@Localizer["Product Templates"]</a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        @Localizer["Sales"] <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a ui-sref="order">@Localizer["Orders"]</a>
+                        </li>
+                        <li>
+                            <a ui-sref="shipments">@Localizer["Shipments"]</a>
                         </li>
                     </ul>
-                </form>
-            </div>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        @Localizer["Inventory"] <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a ui-sref="stocks">@Localizer["Stocks"]</a>
+                        </li>
+                        <li>
+                            <a ui-sref="warehouses">@Localizer["Warehouses"]</a>
+                        </li>
+                        <li>
+                            <a ui-sref="warehouse-manage-products">@Localizer["Manage warehouse products"]</a>
+                        </li>
+                    </ul>
+                </li>
+                @if (User.IsInRole("admin"))
+                {
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            @Localizer["Promotions"] <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a ui-sref="cart-rules">@Localizer["Cart Price Rules"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="cart-rule-usages">@Localizer["Cart Price Rule Usages"]</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            @Localizer["Content"] <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a ui-sref="page">@Localizer["Pages"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="menus">@Localizer["Menus"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="widget">@Localizer["Widgets"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="news-categories">Manage News Categories</a>
+                            </li>
+                            <li>
+                                <a ui-sref="news-items">Manage News Items</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            @Localizer["System"] <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a ui-sref="themes">@Localizer["Themes"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="countries">@Localizer["Countries"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="states-provinces">@Localizer["States or Provinces"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="tax-classes">@Localizer["Tax Classes"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="tax-rates">@Localizer["Tax Rates"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="shipping-providers">@Localizer["Shipping Providers"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="payment-providers">@Localizer["Payment Providers"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="configuration">@Localizer["Settings"]</a>
+                            </li>
+                            <li>
+                                <a ui-sref="localization">@Localizer["Translations"]</a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+            </ul>
+            <form asp-area="Core" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a asp-area="Core" asp-controller="Manage" asp-action="Index" title="Manage">@Localizer["Hello {0}!", (await WorkContext.GetCurrentUser()).FullName]</a>
+                    </li>
+                    <li>
+                        <button type="submit" class="btn btn-link navbar-btn navbar-link">@Localizer["Log off"]</button>
+                    </li>
+                </ul>
+            </form>
         </div>
     </div>
+</div>
 
-    <div class="container-fluid body-content">
-        <div ui-view></div>
-        <hr />
-        <footer>
-            <p class="pull-left">&copy; @DateTime.Now.Year - SimplCommerce</p>
-            <p class="pull-right">Powered by <a href="http://www.SimplCommerce.com"><strong>SimplCommerce</strong></a></p>
-        </footer>
-    </div>
+<div class="container-fluid body-content">
+    <div ui-view></div>
+    <hr/>
+    <footer>
+        <p class="pull-left">&copy; @DateTime.Now.Year - SimplCommerce</p>
+        <p class="pull-right">
+            Powered by
+            <a href="http://www.SimplCommerce.com">
+                <strong>SimplCommerce</strong>
+            </a>
+        </p>
+    </footer>
+</div>
 </body>
 </html>

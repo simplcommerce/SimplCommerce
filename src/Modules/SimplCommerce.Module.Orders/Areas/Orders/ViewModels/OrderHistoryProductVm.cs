@@ -10,10 +10,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 
         public IEnumerable<string> ProductOptions { get; set; } = new List<string>();
 
-        public string ProductOptionString
-        {
-            get { return string.Join(",", ProductOptions); }
-        }
+        public string ProductOptionString => string.Join(",", ProductOptions);
 
         public int Quantity { get; set; }
 

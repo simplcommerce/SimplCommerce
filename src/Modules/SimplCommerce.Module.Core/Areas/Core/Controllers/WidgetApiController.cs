@@ -23,12 +23,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var widgets = await _widgetRespository.Query().Select(x => new
-            {
-                Id = x.Id,
-                Name = x.Name,
-                CreateUrl = x.CreateUrl
-            }).ToListAsync();
+            var widgets = await _widgetRespository.Query().Select(x => new {x.Id, x.Name, x.CreateUrl}).ToListAsync();
 
             return Json(widgets);
         }

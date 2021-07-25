@@ -8,6 +8,6 @@ namespace SimplCommerce.Module.WishList.Areas.WishList.ViewModels
 
         public string SharingCode { get; set; }
 
-        public PagedResult<WishListItemVm> Items { get; set; } = new PagedResult<WishListItemVm>();
+        public PagedResult<WishListItemVm> Items { get; set; } = new();
     }
 }

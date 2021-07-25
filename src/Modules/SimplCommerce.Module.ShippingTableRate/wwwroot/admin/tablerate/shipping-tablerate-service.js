@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.shipping-tablerate')
-        .factory('shippingTableRateService', ['$http', shippingTableRateService]);
+        .module("simplAdmin.shipping-tablerate")
+        .factory("shippingTableRateService", ["$http", shippingTableRateService]);
 
     function shippingTableRateService($http) {
         var service = {
@@ -18,31 +18,32 @@
 
 
         function getPricesAndDestinations() {
-            return $http.get('api/shippings/table-rate/price-destinations');
+            return $http.get("api/shippings/table-rate/price-destinations");
         }
 
         function getCountries() {
-            return $http.get('api/countries?shippingEnabled=true');
+            return $http.get("api/countries?shippingEnabled=true");
         }
 
         function getStatesOrProvinces(countryId) {
-            return $http.get('api/countries/' + countryId + '/states-provinces');
+            return $http.get("api/countries/" + countryId + "/states-provinces");
         }
 
         function getDistricts(stateOrProvinceId) {
-            return $http.get('/api/states-provinces/' + stateOrProvinceId + '/districts');
+            return $http.get("/api/states-provinces/" + stateOrProvinceId + "/districts");
         }
 
         function addPriceAndDestination(priceAndDestination) {
-            return $http.post('api/shippings/table-rate/price-destinations', priceAndDestination);
+            return $http.post("api/shippings/table-rate/price-destinations", priceAndDestination);
         }
 
         function updatePriceAndDestination(priceAndDestination) {
-            return $http.put('api/shippings/table-rate/price-destinations/' + priceAndDestination.id , priceAndDestination);
+            return $http.put("api/shippings/table-rate/price-destinations/" + priceAndDestination.id,
+                priceAndDestination);
         }
 
         function deletePriceAndDestination(id) {
-            return $http.delete('api/shippings/table-rate/price-destinations/' + id);
+            return $http.delete("api/shippings/table-rate/price-destinations/" + id);
         }
     }
 })();

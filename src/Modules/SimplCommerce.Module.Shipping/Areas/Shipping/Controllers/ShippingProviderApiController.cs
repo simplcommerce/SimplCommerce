@@ -24,13 +24,7 @@ namespace SimplCommerce.Module.Shipping.Areas.Shipping.Controllers
         public async Task<IActionResult> Get()
         {
             var providers = await _shippingProviderRepositor.Query()
-                .Select(x => new
-                {
-                    x.Id,
-                    x.Name,
-                    x.IsEnabled,
-                    x.ConfigureUrl
-                }).ToListAsync();
+                .Select(x => new {x.Id, x.Name, x.IsEnabled, x.ConfigureUrl}).ToListAsync();
 
             return Json(providers);
         }

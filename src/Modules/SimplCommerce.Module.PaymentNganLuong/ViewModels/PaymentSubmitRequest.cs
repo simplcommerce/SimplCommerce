@@ -9,21 +9,9 @@ namespace SimplCommerce.Module.PaymentNganLuong.ViewModels
 
         public string MerchantPassword { get; set; }
 
-        public string Version
-        {
-            get
-            {
-                return "3.1";
-            }
-        }
+        public string Version => "3.1";
 
-        public string Function
-        {
-            get
-            {
-                return "SetExpressCheckout";
-            }
-        }
+        public string Function => "SetExpressCheckout";
 
         public string ReceiverEmail { get; set; }
 
@@ -49,7 +37,8 @@ namespace SimplCommerce.Module.PaymentNganLuong.ViewModels
         {
             var keyValues = new List<KeyValuePair<string, string>>();
             keyValues.Add(new KeyValuePair<string, string>("merchant_id", MerchantId.ToString()));
-            keyValues.Add(new KeyValuePair<string, string>("merchant_password", SecurityHelper.MD5Hash(MerchantPassword)));
+            keyValues.Add(new KeyValuePair<string, string>("merchant_password",
+                SecurityHelper.MD5Hash(MerchantPassword)));
             keyValues.Add(new KeyValuePair<string, string>("version", Version));
             keyValues.Add(new KeyValuePair<string, string>("function", Function));
             keyValues.Add(new KeyValuePair<string, string>("receiver_email", ReceiverEmail));

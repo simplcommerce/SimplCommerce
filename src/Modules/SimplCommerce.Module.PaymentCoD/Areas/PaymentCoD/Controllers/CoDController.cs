@@ -19,11 +19,11 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class CoDController : Controller
     {
-        private readonly IOrderService _orderService;
-        private readonly IWorkContext _workContext;
         private readonly ICartService _cartService;
+        private readonly IOrderService _orderService;
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
-        private Lazy<CoDSetting> _setting;
+        private readonly IWorkContext _workContext;
+        private readonly Lazy<CoDSetting> _setting;
 
         public CoDController(
             ICartService cartService,
@@ -42,7 +42,7 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
         {
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
-            if(cart == null)
+            if (cart == null)
             {
                 return NotFound();
             }
@@ -53,7 +53,7 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
                 return Redirect("~/checkout/payment");
             }
 
-            var calculatedFee = CalculateFee(cart);           
+            var calculatedFee = CalculateFee(cart);
             var orderCreateResult = await _orderService.CreateOrder(cart.Id, "CashOnDelivery", calculatedFee);
 
             if (!orderCreateResult.Success)
@@ -67,7 +67,8 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
 
         private CoDSetting GetSetting()
         {
-            var coDProvider = _paymentProviderRepository.Query().FirstOrDefault(x => x.Id == PaymentProviderHelper.CODProviderId);
+            var coDProvider = _paymentProviderRepository.Query()
+                .FirstOrDefault(x => x.Id == PaymentProviderHelper.CODProviderId);
             if (string.IsNullOrEmpty(coDProvider.AdditionalSettings))
             {
                 return new CoDSetting();
@@ -95,7 +96,7 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
         private decimal CalculateFee(CartVm cart)
         {
             var percent = _setting.Value.PaymentFee;
-            return (cart.OrderTotal / 100) * percent;
+            return cart.OrderTotal / 100 * percent;
         }
     }
 }

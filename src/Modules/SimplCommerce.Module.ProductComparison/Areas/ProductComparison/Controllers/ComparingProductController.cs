@@ -22,9 +22,9 @@ namespace SimplCommerce.Module.ProductComparison.Areas.ProductComparison.Control
     {
         private readonly IRepository<ComparingProduct> _comparingProductRepository;
         private readonly IComparingProductService _comparingProductService;
-        private readonly IProductPricingService _productPricingService;
-        private readonly IMediaService _mediaService;
         private readonly IContentLocalizationService _contentLocalizationService;
+        private readonly IMediaService _mediaService;
+        private readonly IProductPricingService _productPricingService;
         private readonly IWorkContext _workContext;
 
         public ComparingProductController(
@@ -57,18 +57,19 @@ namespace SimplCommerce.Module.ProductComparison.Areas.ProductComparison.Control
             }
             catch (TooManyComparingProductException ex)
             {
-                returnModel.Message = $"Can not add to comparison items. Can only comparison {ex.MaxNumComparingProduct} items";
+                returnModel.Message =
+                    $"Can not add to comparison items. Can only comparison {ex.MaxNumComparingProduct} items";
             }
 
             var comparingProducts = _comparingProductRepository.Query()
                 .Where(x => x.UserId == currentUser.Id)
-                .Select(x => new ComparingProductVm()
-                {
-                    ProductName = x.Product.Name,
-                    ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
-                    CalculatedProductPrice = _productPricingService.CalculateProductPrice(x.Product),
-                    ProductId = x.ProductId
-                }
+                .Select(x => new ComparingProductVm
+                    {
+                        ProductName = x.Product.Name,
+                        ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
+                        CalculatedProductPrice = _productPricingService.CalculateProductPrice(x.Product),
+                        ProductId = x.ProductId
+                    }
                 ).ToList();
 
             returnModel.ProductComparisons = comparingProducts;
@@ -80,7 +81,8 @@ namespace SimplCommerce.Module.ProductComparison.Areas.ProductComparison.Control
         public async Task<IActionResult> Remove(long id)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var productComparison = _comparingProductRepository.Query().FirstOrDefault(x => x.UserId == currentUser.Id && x.ProductId == id);
+            var productComparison = _comparingProductRepository.Query()
+                .FirstOrDefault(x => x.UserId == currentUser.Id && x.ProductId == id);
 
             if (productComparison == null)
             {
@@ -109,21 +111,27 @@ namespace SimplCommerce.Module.ProductComparison.Areas.ProductComparison.Control
             }
 
             var model = new ProductComparisonVm();
-            model.Attributes = allAttributes.Distinct().Select(x => new AttributeVm { AttributeId = x.Id, Name = _contentLocalizationService.GetLocalizedProperty(x, nameof(x.Name), x.Name) }).ToList();
-            model.Products = comparingProducts.Select(x => new ComparingProductVm
+            model.Attributes = allAttributes.Distinct().Select(x => new AttributeVm
             {
-                ProductName = _contentLocalizationService.GetLocalizedProperty(x.Product, nameof(x.Product.Name), x.Product.Name),
-                ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
-                CalculatedProductPrice = _productPricingService.CalculateProductPrice(x.Product),
-                ProductId = x.ProductId,
-                AttributeValues = x.Product.AttributeValues.Select(a => new AttributeValueVm
+                AttributeId = x.Id,
+                Name = _contentLocalizationService.GetLocalizedProperty(x, nameof(x.Name), x.Name)
+            }).ToList();
+            model.Products = comparingProducts.Select(x => new ComparingProductVm
                 {
-                    AttributeId = a.AttributeId,
-                    Value = _contentLocalizationService.GetLocalizedProperty(a, nameof(a.Value), a.Value)
+                    ProductName =
+                        _contentLocalizationService.GetLocalizedProperty(x.Product, nameof(x.Product.Name),
+                            x.Product.Name),
+                    ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
+                    CalculatedProductPrice = _productPricingService.CalculateProductPrice(x.Product),
+                    ProductId = x.ProductId,
+                    AttributeValues = x.Product.AttributeValues.Select(a => new AttributeValueVm
+                        {
+                            AttributeId = a.AttributeId,
+                            Value = _contentLocalizationService.GetLocalizedProperty(a, nameof(a.Value), a.Value)
+                        })
+                        .ToList()
                 })
-				.ToList()
-            })
-			.ToList();
+                .ToList();
 
             return View(model);
         }

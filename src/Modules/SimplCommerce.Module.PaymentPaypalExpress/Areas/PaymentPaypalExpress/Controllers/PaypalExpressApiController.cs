@@ -25,7 +25,8 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
         [HttpGet("config")]
         public async Task<IActionResult> Config()
         {
-            var stripeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.PaypalExpressProviderId);
+            var stripeProvider = await _paymentProviderRepository.Query()
+                .FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.PaypalExpressProviderId);
             var model = JsonConvert.DeserializeObject<PaypalExpressConfigForm>(stripeProvider.AdditionalSettings);
             return Ok(model);
         }
@@ -35,7 +36,8 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
         {
             if (ModelState.IsValid)
             {
-                var stripeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.PaypalExpressProviderId);
+                var stripeProvider = await _paymentProviderRepository.Query()
+                    .FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.PaypalExpressProviderId);
                 stripeProvider.AdditionalSettings = JsonConvert.SerializeObject(model);
                 await _paymentProviderRepository.SaveChangesAsync();
                 return Accepted();

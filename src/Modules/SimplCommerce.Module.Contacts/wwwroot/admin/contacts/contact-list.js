@@ -1,8 +1,8 @@
 ﻿/*global angular, confirm*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.contacts')
-        .controller('ContactListCtrl', ['contactService', 'contactAreaService', 'translateService', ContactListCtrl]);
+        .module("simplAdmin.contacts")
+        .controller("ContactListCtrl", ["contactService", "contactAreaService", "translateService", ContactListCtrl]);
 
     function ContactListCtrl(contactService, contactAreaService, translateService) {
         var vm = this;
@@ -10,34 +10,35 @@
         vm.translate = translateService;
         vm.contacts = [];
 
-        contactAreaService.getContactAreas().then(function (result) {
+        contactAreaService.getContactAreas().then(function(result) {
             vm.contactAreas = result.data;
         });
 
         vm.getContacts = function getContacts(tableState) {
             vm.tableStateRef = tableState;
             vm.isLoading = true;
-            contactService.getContacts(tableState).then(function (result) {
+            contactService.getContacts(tableState).then(function(result) {
                 vm.contacts = result.data.items;
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
                 tableState.pagination.totalItemCount = result.data.totalRecord;
                 vm.isLoading = false;
             });
-        };        
+        };
 
         vm.deleteContact = function deleteContact(contact) {
-            bootbox.confirm('Are you sure you want to delete this contact: ' + simplUtil.escapeHtml(contact.fullName), function (result) {
-                if (result) {
-                    contactService.deleteContact(contact)
-                       .then(function (result) {
-                           vm.getContacts(vm.tableStateRef);
-                           toastr.success(contact.name + ' has been deleted');
-                       })
-                       .catch(function (response) {
-                           toastr.error(response.data.error);
-                       });
-                }
-            });
+            bootbox.confirm("Are you sure you want to delete this contact: " + simplUtil.escapeHtml(contact.fullName),
+                function(result) {
+                    if (result) {
+                        contactService.deleteContact(contact)
+                            .then(function(result) {
+                                vm.getContacts(vm.tableStateRef);
+                                toastr.success(contact.name + " has been deleted");
+                            })
+                            .catch(function(response) {
+                                toastr.error(response.data.error);
+                            });
+                    }
+                });
         };
     }
 })();

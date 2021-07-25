@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.news')
-        .factory('newsCategoryService', ['$http', newsCategoryService]);
+        .module("simplAdmin.news")
+        .factory("newsCategoryService", ["$http", newsCategoryService]);
 
     function newsCategoryService($http) {
         var service = {
@@ -15,23 +15,23 @@
         return service;
 
         function getNewsCategory(id) {
-            return $http.get('api/news-categories/' + id);
+            return $http.get("api/news-categories/" + id);
         }
 
         function getNewsCategories() {
-            return $http.get('api/news-categories');
+            return $http.get("api/news-categories");
         }
 
         function createNewsCategory(newsCategory) {
-            return $http.post('api/news-categories', newsCategory);
+            return $http.post("api/news-categories", newsCategory);
         }
 
         function editNewsCategory(newsCategory) {
-            return $http.put('api/news-categories/' + newsCategory.id, newsCategory);
+            return $http.put("api/news-categories/" + newsCategory.id, newsCategory);
         }
 
         function deleteNewsCategory(newsCategory) {
-            return $http.delete('api/news-categories/' + newsCategory.id, null);
+            return $http.delete("api/news-categories/" + newsCategory.id, null);
         }
     }
 })();

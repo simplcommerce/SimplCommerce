@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.paymentMomo')
-        .factory('paymentMomoService', ['$http', paymentMomoService]);
+        .module("simplAdmin.paymentMomo")
+        .factory("paymentMomoService", ["$http", paymentMomoService]);
 
     function paymentMomoService($http) {
         var service = {
@@ -12,11 +12,11 @@
         return service;
 
         function getSettings() {
-            return $http.get('api/momo/config');
+            return $http.get("api/momo/config");
         }
 
         function updateSetting(settings) {
-            return $http.put('api/momo/config', settings);
+            return $http.put("api/momo/config", settings);
         }
     }
 })();

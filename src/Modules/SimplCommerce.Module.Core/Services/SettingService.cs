@@ -10,8 +10,8 @@ namespace SimplCommerce.Module.Core.Services
 {
     public class SettingService : ISettingService
     {
-        private readonly UserManager<User> _userManager;
         private readonly SettingDefinitionProvider _settingDefinitionProvider;
+        private readonly UserManager<User> _userManager;
         private readonly IWorkContext _workContext;
 
         public SettingService(
@@ -34,7 +34,8 @@ namespace SimplCommerce.Module.Core.Services
         /// <inheritdoc />
         public async Task<string> GetSettingValueForUserAsync(long userId, string name)
         {
-            var value = await GetCustomSettingValue(userId, name) ?? _settingDefinitionProvider.GetOrNull(name)?.DefaultValue;
+            var value = await GetCustomSettingValue(userId, name) ??
+                        _settingDefinitionProvider.GetOrNull(name)?.DefaultValue;
             return value;
         }
 
@@ -82,7 +83,8 @@ namespace SimplCommerce.Module.Core.Services
         /// <inheritdoc />
         public void SetCustomSettingValueForUser(User user, string name, string value)
         {
-            var settings = user.GetData<IDictionary<string, string>>(User.SettingsDataKey) ?? new Dictionary<string, string>();
+            var settings = user.GetData<IDictionary<string, string>>(User.SettingsDataKey) ??
+                           new Dictionary<string, string>();
             var defaultSettings = _settingDefinitionProvider.SettingDefinitions;
             if (!string.IsNullOrWhiteSpace(value))
             {
@@ -95,6 +97,7 @@ namespace SimplCommerce.Module.Core.Services
             {
                 settings.Remove(name);
             }
+
             user.SetData(User.SettingsDataKey, settings);
         }
 

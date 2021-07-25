@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
-using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure;
+using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Localization;
 using SimplCommerce.Module.Localization;
 
@@ -26,7 +26,8 @@ namespace SimplCommerce.WebHost.Extensions
                 context => context.Request.Path.StartsWithSegments("/api", StringComparison.OrdinalIgnoreCase),
                 a => a.Use(async (context, next) =>
                 {
-                    if (!context.User.Identity.IsAuthenticated) {
+                    if (!context.User.Identity.IsAuthenticated)
+                    {
                         var principal = new ClaimsPrincipal();
 
                         var bearerAuthResult = await context.AuthenticateAsync(JwtBearerDefaults.AuthenticationScheme);
@@ -45,20 +46,19 @@ namespace SimplCommerce.WebHost.Extensions
             return app;
         }
 
-        public static IApplicationBuilder UseCustomizedStaticFiles(this IApplicationBuilder app, IWebHostEnvironment env)
+        public static IApplicationBuilder UseCustomizedStaticFiles(this IApplicationBuilder app,
+            IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseStaticFiles(new StaticFileOptions
                 {
-                    OnPrepareResponse = (context) =>
+                    OnPrepareResponse = context =>
                     {
                         var headers = context.Context.Response.GetTypedHeaders();
                         headers.CacheControl = new CacheControlHeaderValue
                         {
-                            NoCache = true,
-                            NoStore = true,
-                            MaxAge = TimeSpan.FromDays(-1)
+                            NoCache = true, NoStore = true, MaxAge = TimeSpan.FromDays(-1)
                         };
                     }
                 });
@@ -67,13 +67,12 @@ namespace SimplCommerce.WebHost.Extensions
             {
                 app.UseStaticFiles(new StaticFileOptions
                 {
-                    OnPrepareResponse = (context) =>
+                    OnPrepareResponse = context =>
                     {
                         var headers = context.Context.Response.GetTypedHeaders();
                         headers.CacheControl = new CacheControlHeaderValue
                         {
-                            Public = true,
-                            MaxAge = TimeSpan.FromDays(60)
+                            Public = true, MaxAge = TimeSpan.FromDays(60)
                         };
                     }
                 });
@@ -84,10 +83,11 @@ namespace SimplCommerce.WebHost.Extensions
 
         public static IApplicationBuilder UseCustomizedRequestLocalization(this IApplicationBuilder app)
         {
-            string defaultCultureUI = GlobalConfiguration.DefaultCulture;
+            var defaultCultureUI = GlobalConfiguration.DefaultCulture;
             using (var scope = app.ApplicationServices.CreateScope())
             {
-                var cultureRepository = scope.ServiceProvider.GetRequiredService<IRepositoryWithTypedId<Culture, string>>();
+                var cultureRepository =
+                    scope.ServiceProvider.GetRequiredService<IRepositoryWithTypedId<Culture, string>>();
                 GlobalConfiguration.Cultures = cultureRepository.Query().ToList();
 
                 var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
@@ -96,11 +96,11 @@ namespace SimplCommerce.WebHost.Extensions
 
             var supportedCultures = GlobalConfiguration.Cultures.Select(c => c.Id).ToArray();
             app.UseRequestLocalization(options =>
-            options
-                .AddSupportedCultures(supportedCultures)
-                .AddSupportedUICultures(supportedCultures)
-                .SetDefaultCulture(defaultCultureUI ?? GlobalConfiguration.DefaultCulture)
-                .RequestCultureProviders.Insert(0, new EfRequestCultureProvider())
+                options
+                    .AddSupportedCultures(supportedCultures)
+                    .AddSupportedUICultures(supportedCultures)
+                    .SetDefaultCulture(defaultCultureUI ?? GlobalConfiguration.DefaultCulture)
+                    .RequestCultureProviders.Insert(0, new EfRequestCultureProvider())
             );
 
             return app;

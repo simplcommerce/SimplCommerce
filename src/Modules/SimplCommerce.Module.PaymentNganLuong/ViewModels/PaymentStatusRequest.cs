@@ -5,7 +5,7 @@ namespace SimplCommerce.Module.PaymentNganLuong.ViewModels
 {
     public class PaymentStatusRequest
     {
-        private string _marchantPassword;
+        private readonly string _marchantPassword;
 
         public PaymentStatusRequest(int merchantId, string merchantPassword, string token)
         {
@@ -14,17 +14,11 @@ namespace SimplCommerce.Module.PaymentNganLuong.ViewModels
             Token = token;
         }
 
-        public int MerchantId { get; private set; }
+        public int MerchantId { get; }
 
-        public string Checksum
-        {
-            get
-            {
-                return SecurityHelper.MD5Hash($"{Token}|{_marchantPassword}");
-            }
-        }
+        public string Checksum => SecurityHelper.MD5Hash($"{Token}|{_marchantPassword}");
 
-        public string Token { get; private set; }
+        public string Token { get; }
 
         public FormUrlEncodedContent MakePostContent()
         {

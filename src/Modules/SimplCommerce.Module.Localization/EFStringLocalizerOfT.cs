@@ -13,7 +13,7 @@ namespace SimplCommerce.Module.Localization
     public class EfStringLocalizer<T> : IStringLocalizer<T>
     {
         private readonly IServiceProvider _serviceProvider;
-        private IMemoryCache _resourcesCache;
+        private readonly IMemoryCache _resourcesCache;
 
         public EfStringLocalizer(IServiceProvider serviceProvider, IMemoryCache resourcesCache)
         {
@@ -72,6 +72,7 @@ namespace SimplCommerce.Module.Localization
                     var resourceRepository = scope.ServiceProvider.GetRequiredService<IRepository<Resource>>();
                     resources = resourceRepository.Query().Where(r => r.Culture.Id == culture).ToList();
                 }
+
                 _resourcesCache.Set(culture, resources);
             }
 

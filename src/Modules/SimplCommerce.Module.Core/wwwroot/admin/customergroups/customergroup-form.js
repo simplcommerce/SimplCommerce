@@ -1,8 +1,9 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.core')
-        .controller('CustomerGroupFormCtrl', ['$state', '$stateParams', 'customergroupService', 'translateService', CustomerGroupFormCtrl]);
+        .module("simplAdmin.core")
+        .controller("CustomerGroupFormCtrl",
+            ["$state", "$stateParams", "customergroupService", "translateService", CustomerGroupFormCtrl]);
 
     function CustomerGroupFormCtrl($state, $stateParams, customergroupService, translateService) {
         var vm = this;
@@ -20,10 +21,10 @@
             }
 
             promise
-                .then(function (result) {
-                    $state.go('customergroups');
+                .then(function(result) {
+                    $state.go("customergroups");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -31,14 +32,14 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add customer group.');
+                        vm.validationErrors.push("Could not add customer group.");
                     }
                 });
         };
 
         function init() {
             if (vm.isEditMode) {
-                customergroupService.getCustomerGroup(vm.customergroupId).then(function (result) {
+                customergroupService.getCustomerGroup(vm.customergroupId).then(function(result) {
                     vm.customergroup = result.data;
                 });
             }

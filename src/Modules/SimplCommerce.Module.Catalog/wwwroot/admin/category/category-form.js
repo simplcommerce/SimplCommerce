@@ -1,8 +1,9 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.catalog')
-        .controller('CategoryFormCtrl', ['$q', '$state', '$stateParams', 'categoryService', 'translateService', CategoryFormCtrl]);
+        .module("simplAdmin.catalog")
+        .controller("CategoryFormCtrl",
+            ["$q", "$state", "$stateParams", "categoryService", "translateService", CategoryFormCtrl]);
 
     function CategoryFormCtrl($q, $state, $stateParams, categoryService, translateService) {
         var vm = this,
@@ -14,18 +15,18 @@
         vm.categoryId = $stateParams.id;
         vm.isEditMode = vm.categoryId > 0;
 
-        vm.updateSlug = function () {
+        vm.updateSlug = function() {
             vm.category.slug = slugify(vm.category.name);
         };
 
         vm.save = function save() {
             var promise;
             // ng-upload will post null as text
-            vm.category.parentId = vm.category.parentId === null ? '' : vm.category.parentId;
-            vm.category.description = vm.category.description === null ? '' : vm.category.description;
-            vm.category.metaTitle = vm.category.metaTitle === null ? '' : vm.category.metaTitle;
-            vm.category.metaKeywords = vm.category.metaKeywords === null ? '' : vm.category.metaKeywords;
-            vm.category.metaDescription = vm.category.metaDescription === null ? '' : vm.category.metaDescription;
+            vm.category.parentId = vm.category.parentId === null ? "" : vm.category.parentId;
+            vm.category.description = vm.category.description === null ? "" : vm.category.description;
+            vm.category.metaTitle = vm.category.metaTitle === null ? "" : vm.category.metaTitle;
+            vm.category.metaKeywords = vm.category.metaKeywords === null ? "" : vm.category.metaKeywords;
+            vm.category.metaDescription = vm.category.metaDescription === null ? "" : vm.category.metaDescription;
 
             if (vm.isEditMode) {
                 promise = categoryService.editCategory(vm.category);
@@ -34,10 +35,10 @@
             }
 
             promise
-                .then(function (result) {
-                        $state.go('category');
-                    })
-                .catch(function (response) {
+                .then(function(result) {
+                    $state.go("category");
+                })
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -45,7 +46,7 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add category.');
+                        vm.validationErrors.push("Could not add category.");
                     }
                 });
         };
@@ -57,7 +58,7 @@
 
             tableStateRef = tableState;
             vm.isLoading = true;
-            categoryService.getProducts(vm.categoryId, tableState).then(function (result) {
+            categoryService.getProducts(vm.categoryId, tableState).then(function(result) {
                 vm.products = result.data.items;
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
                 vm.isLoading = false;
@@ -76,7 +77,7 @@
                 'isFeaturedProduct': product.editingIsFeaturedProduct,
                 'displayOrder': product.displayOrder
             };
-            categoryService.saveProduct(productCategory).then(function () {
+            categoryService.saveProduct(productCategory).then(function() {
                 product.isEditing = false;
                 product.isFeaturedProduct = product.editingIsFeaturedProduct;
                 product.displayOrder = product.editingDisplayOrder;
@@ -89,19 +90,18 @@
                         categoryService.getCategories(),
                         categoryService.getCategory(vm.categoryId)
                     ])
-                    .then(function (result) {
+                    .then(function(result) {
                         var index;
                         vm.categories = result[0].data;
                         vm.category = result[1].data;
 
-                        index = vm.categories.map(function (item) {
+                        index = vm.categories.map(function(item) {
                             return item.id;
                         }).indexOf(vm.category.id);
                         vm.categories.splice(index, 1);
                     });
-            }
-            else {
-                categoryService.getCategories().then(function (result) {
+            } else {
+                categoryService.getCategories().then(function(result) {
                     vm.categories = result.data;
                 });
             }

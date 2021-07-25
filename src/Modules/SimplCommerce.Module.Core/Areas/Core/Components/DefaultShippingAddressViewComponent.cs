@@ -16,7 +16,8 @@ namespace SimplCommerce.Module.Core.Areas.Core.Components
         private readonly IRepository<UserAddress> _userAddressRepository;
         private readonly IWorkContext _workContext;
 
-        public DefaultShippingAddressViewComponent(IRepository<UserAddress> userAddressRepository, IWorkContext workContext)
+        public DefaultShippingAddressViewComponent(IRepository<UserAddress> userAddressRepository,
+            IWorkContext workContext)
         {
             _userAddressRepository = userAddressRepository;
             _workContext = workContext;
@@ -32,7 +33,8 @@ namespace SimplCommerce.Module.Core.Areas.Core.Components
             {
                 model.Address = await _userAddressRepository.Query()
                     .Where(x => x.Id == curentUser.DefaultShippingAddressId.Value)
-                    .Select(x => new UserAddressListItem {
+                    .Select(x => new UserAddressListItem
+                    {
                         UserAddressId = x.Id,
                         ContactName = x.Address.ContactName,
                         Phone = x.Address.Phone,

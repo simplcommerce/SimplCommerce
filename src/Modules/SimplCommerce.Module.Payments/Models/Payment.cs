@@ -25,11 +25,9 @@ namespace SimplCommerce.Module.Payments.Models
 
         public decimal PaymentFee { get; set; }
 
-        [StringLength(450)]
-        public string PaymentMethod { get; set; }
+        [StringLength(450)] public string PaymentMethod { get; set; }
 
-        [StringLength(450)]
-        public string GatewayTransactionId { get; set; }
+        [StringLength(450)] public string GatewayTransactionId { get; set; }
 
         public PaymentStatus Status { get; set; }
 

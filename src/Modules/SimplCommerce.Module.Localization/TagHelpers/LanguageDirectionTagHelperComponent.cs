@@ -8,7 +8,7 @@ namespace SimplCommerce.Module.Localization.TagHelpers
 {
     public class LanguageDirectionTagHelperComponent : TagHelperComponent
     {
-        const string LanguageDirectionAttribute = "dir";
+        private const string LanguageDirectionAttribute = "dir";
 
         private readonly HttpContext _httpContext;
 

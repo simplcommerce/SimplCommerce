@@ -15,8 +15,8 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
     [Route("api/review-replies")]
     public class ReplyApiController : Controller
     {
-        private readonly IReplyRepository _replyRepository;
         private readonly IMediator _mediator;
+        private readonly IReplyRepository _replyRepository;
 
         public ReplyApiController(IReplyRepository replyRepository, IMediator mediator)
         {
@@ -29,7 +29,7 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
         {
             var replyStatus = (ReplyStatus)status;
 
-            if ((numRecords <= 0) || (numRecords > 100))
+            if (numRecords <= 0 || numRecords > 100)
             {
                 numRecords = 5;
             }
@@ -126,7 +126,7 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
                 return Accepted();
             }
 
-            return BadRequest(new { Error = "unsupported reply status" });
+            return BadRequest(new {Error = "unsupported reply status"});
         }
     }
 }

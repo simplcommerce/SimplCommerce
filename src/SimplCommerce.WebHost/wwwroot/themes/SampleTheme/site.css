@@ -1,14 +1,9 @@
-﻿.page-header {
-    color: coral;
-}
+﻿.page-header { color: coral; }
 
-.main-nav .dropdown-menu {
-    border-top: solid 2px coral;
-}
+.main-nav .dropdown-menu { border-top: solid 2px coral; }
 
-.main-nav .dropdown-menu .active > a, .main-nav .dropdown-menu li > a:hover, .main-nav .dropdown-menu li.dropdown-submenu:hover > a {
-    background-color:coral;
-}
+.main-nav .dropdown-menu .active > a, .main-nav .dropdown-menu li > a:hover, .main-nav .dropdown-menu li.dropdown-submenu:hover > a { background-color: coral; }
+
 .tabbable-panel-line {
     border: 1px solid #eee;
     padding: 10px;

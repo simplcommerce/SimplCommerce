@@ -6,8 +6,8 @@ namespace SimplCommerce.Module.Localization
 {
     public class EfStringLocalizerFactory : IStringLocalizerFactory
     {
-        private IMemoryCache _resourcesCache;
         private readonly IServiceProvider _serviceProvider;
+        private readonly IMemoryCache _resourcesCache;
 
         public EfStringLocalizerFactory(IServiceProvider serviceProvider, IMemoryCache resourcesCache)
         {

@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.common')
-        .service('translateService', translateService);
+        .module("simplAdmin.common")
+        .service("translateService", translateService);
 
     /* @ngInject */
     function translateService($http) {
@@ -10,19 +10,17 @@
             isDataLoaded = false,
             service = {};
 
-        $http.get('api/localization/get-translation').then(function (result) {
+        $http.get("api/localization/get-translation").then(function(result) {
             data = result.data;
             isDataLoaded = true;
         });
 
-        service.get = function (key) {
+        service.get = function(key) {
             if (isDataLoaded) {
                 if (data[key]) {
                     return data[key];
-                }
-                else
-                {
-                    console.info('Not translated: ' + key);
+                } else {
+                    console.info("Not translated: " + key);
                 }
 
                 return key;

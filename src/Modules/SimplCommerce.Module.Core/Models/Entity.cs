@@ -1,5 +1,5 @@
-﻿using SimplCommerce.Infrastructure.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Core.Models
 {
@@ -15,8 +15,7 @@ namespace SimplCommerce.Module.Core.Models
 
         public long EntityId { get; set; }
 
-        [StringLength(450)]
-        public string EntityTypeId { get; set; }
+        [StringLength(450)] public string EntityTypeId { get; set; }
 
         public EntityType EntityType { get; set; }
     }

@@ -1,8 +1,9 @@
-﻿ /*global angular*/
-(function () {
+﻿/*global angular*/
+(function() {
     angular
-        .module('simplAdmin.core')
-        .controller('CountryFormCtrl', ['$state', '$stateParams', 'countryService', 'translateService', CountryFormCtrl]);
+        .module("simplAdmin.core")
+        .controller("CountryFormCtrl",
+            ["$state", "$stateParams", "countryService", "translateService", CountryFormCtrl]);
 
     function CountryFormCtrl($state, $stateParams, countryService, translateService) {
         var vm = this;
@@ -21,25 +22,25 @@
             }
 
             promise
-                .then(function (result) {
-                    $state.go('countries');
+                .then(function(result) {
+                    $state.go("countries");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
                         for (var key in error) {
                             vm.validationErrors.push(error[key][0]);
                         }
-                    } else { 
-                        vm.validationErrors.push(translateService.get('Could not add country.'));
+                    } else {
+                        vm.validationErrors.push(translateService.get("Could not add country."));
                     }
                 });
         };
 
         function init() {
             if (vm.isEditMode) {
-                countryService.getCountry(vm.countryId).then(function (result) {
+                countryService.getCountry(vm.countryId).then(function(result) {
                     vm.country = result.data;
                 });
             }

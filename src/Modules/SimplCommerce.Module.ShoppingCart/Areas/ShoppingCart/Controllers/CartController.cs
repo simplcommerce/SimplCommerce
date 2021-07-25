@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
@@ -20,10 +19,10 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         private readonly IRepository<CartItem> _cartItemRepository;
         private readonly IRepository<Cart> _cartRepository;
         private readonly ICartService _cartService;
-        private readonly IMediaService _mediaService;
-        private readonly IWorkContext _workContext;
         private readonly ICurrencyService _currencyService;
         private readonly IStringLocalizer _localizer;
+        private readonly IMediaService _mediaService;
+        private readonly IWorkContext _workContext;
 
         public CartController(
             IRepository<CartItem> cartItemRepository,
@@ -50,12 +49,10 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             var result = await _cartService.AddToCart(currentUser.Id, model.ProductId, model.Quantity);
             if (result.Success)
             {
-                return RedirectToAction("AddToCartResult", new { productId = model.ProductId });
+                return RedirectToAction("AddToCartResult", new {productId = model.ProductId});
             }
-            else
-            {
-                return Ok(new { Error = true, Message = result.Error });
-            }
+
+            return Ok(new {Error = true, Message = result.Error});
         }
 
         [HttpGet("cart/add-item-result")]
@@ -66,8 +63,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
 
             var model = new AddToCartResult(_currencyService)
             {
-                CartItemCount = cart.Items.Count,
-                CartAmount = cart.SubTotal
+                CartItemCount = cart.Items.Count, CartAmount = cart.SubTotal
             };
 
             var addedProduct = cart.Items.First(x => x.ProductId == productId);
@@ -110,17 +106,23 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
                 return CreateCartLockedResult();
             }
 
-            var cartItem = _cartItemRepository.Query().Include(x => x.Product).FirstOrDefault(x => x.Id == model.CartItemId && x.Cart.CreatedById == currentUser.Id);
+            var cartItem = _cartItemRepository.Query().Include(x => x.Product)
+                .FirstOrDefault(x => x.Id == model.CartItemId && x.Cart.CreatedById == currentUser.Id);
             if (cartItem == null)
             {
                 return NotFound();
             }
 
-            if(model.Quantity > cartItem.Quantity) // always allow user to descrease the quality
+            if (model.Quantity > cartItem.Quantity) // always allow user to descrease the quality
             {
                 if (cartItem.Product.StockTrackingIsEnabled && cartItem.Product.StockQuantity < model.Quantity)
                 {
-                    return Ok(new { Error = true, Message = _localizer["There are only {0} items available for {1}.", cartItem.Product.StockQuantity, cartItem.Product.Name].Value });
+                    return Ok(new
+                    {
+                        Error = true,
+                        Message = _localizer["There are only {0} items available for {1}.",
+                            cartItem.Product.StockQuantity, cartItem.Product.Name].Value
+                    });
                 }
             }
 
@@ -135,7 +137,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         {
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCart(currentUser.Id);
-            if(cart == null)
+            if (cart == null)
             {
                 return NotFound();
             }
@@ -145,7 +147,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
                 return CreateCartLockedResult();
             }
 
-            var validationResult =  await _cartService.ApplyCoupon(cart.Id, model.CouponCode);
+            var validationResult = await _cartService.ApplyCoupon(cart.Id, model.CouponCode);
             if (validationResult.Succeeded)
             {
                 var cartVm = await _cartService.GetActiveCartDetails(currentUser.Id);
@@ -160,7 +162,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         {
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCart(currentUser.Id);
-            if(cart == null)
+            if (cart == null)
             {
                 return NotFound();
             }
@@ -185,7 +187,8 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
                 return CreateCartLockedResult();
             }
 
-            var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == itemId && x.Cart.CreatedById == currentUser.Id);
+            var cartItem = _cartItemRepository.Query()
+                .FirstOrDefault(x => x.Id == itemId && x.Cart.CreatedById == currentUser.Id);
             if (cartItem == null)
             {
                 return NotFound();
@@ -199,10 +202,12 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
                 _cartRepository.Remove(cart);
                 _cartRepository.SaveChanges();
             }
+
             if (!string.IsNullOrWhiteSpace(returnUrl))
             {
                 return LocalRedirect(returnUrl);
             }
+
             return await List();
         }
 
@@ -222,7 +227,12 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
 
         private IActionResult CreateCartLockedResult()
         {
-            return Ok(new { Error = true, Message = _localizer["Cart is locked for checkout. Please complete or cancel the checkout first."].Value });
+            return Ok(new
+            {
+                Error = true,
+                Message = _localizer["Cart is locked for checkout. Please complete or cancel the checkout first."]
+                    .Value
+            });
         }
     }
 }

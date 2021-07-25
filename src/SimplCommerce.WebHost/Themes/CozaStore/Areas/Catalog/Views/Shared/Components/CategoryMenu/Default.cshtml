@@ -12,7 +12,9 @@
             <ul class="sub-menu sub-menu-m">
                 @foreach (var childItem in item.ChildItems)
                 {
-                    <li><a href="/@childItem.Slug">@childItem.Name</a></li>
+                    <li>
+                        <a href="/@childItem.Slug">@childItem.Name</a>
+                    </li>
                 }
             </ul>
             <span class="arrow-main-menu-m d-md-none">
@@ -22,6 +24,8 @@
     }
     else
     {
-        <li><a href="/@item.Slug">@item.Name</a></li>
+        <li>
+            <a href="/@item.Slug">@item.Name</a>
+        </li>
     }
 }

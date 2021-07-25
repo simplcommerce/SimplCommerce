@@ -30,11 +30,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         public IActionResult Get(long id)
         {
             var productOption = _productOptionRepository.Query().FirstOrDefault(x => x.Id == id);
-            var model = new ProductOptionFormVm
-            {
-                Id = productOption.Id,
-                Name = productOption.Name
-            };
+            var model = new ProductOptionFormVm {Id = productOption.Id, Name = productOption.Name};
 
             return Json(model);
         }
@@ -45,16 +41,14 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         {
             if (ModelState.IsValid)
             {
-                var productOption = new ProductOption
-                {
-                    Name = model.Name
-                };
+                var productOption = new ProductOption {Name = model.Name};
 
                 _productOptionRepository.Add(productOption);
                 _productOptionRepository.SaveChanges();
 
                 return Ok();
             }
+
             return BadRequest(ModelState);
         }
 

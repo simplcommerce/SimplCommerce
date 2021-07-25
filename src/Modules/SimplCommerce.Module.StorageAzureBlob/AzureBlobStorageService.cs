@@ -10,8 +10,8 @@ namespace SimplCommerce.Module.StorageAzureBlob
 {
     public class AzureBlobStorageService : IStorageService
     {
-        private CloudBlobContainer _blobContainer;
-        private string _publicEndpoint;
+        private readonly CloudBlobContainer _blobContainer;
+        private readonly string _publicEndpoint;
 
         public AzureBlobStorageService(IConfiguration configuration)
         {
@@ -31,8 +31,8 @@ namespace SimplCommerce.Module.StorageAzureBlob
             {
                 _publicEndpoint = _blobContainer.Uri.AbsoluteUri;
             }
-
         }
+
         public async Task DeleteMediaAsync(string fileName)
         {
             var blockBlob = _blobContainer.GetBlockBlobReference(fileName);
@@ -47,7 +47,10 @@ namespace SimplCommerce.Module.StorageAzureBlob
         public async Task SaveMediaAsync(Stream mediaBinaryStream, string fileName, string mimeType = null)
         {
             await _blobContainer.CreateIfNotExistsAsync();
-            await _blobContainer.SetPermissionsAsync(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Container });
+            await _blobContainer.SetPermissionsAsync(new BlobContainerPermissions
+            {
+                PublicAccess = BlobContainerPublicAccessType.Container
+            });
 
             var blockBlob = _blobContainer.GetBlockBlobReference(fileName);
             await blockBlob.UploadFromStreamAsync(mediaBinaryStream);

@@ -1,6 +1,6 @@
 {
-  "id": "SimplCommerce.Module.SampleData",
-  "name": "Sample Data",
-  "isBundledWithHost": true,
-  "version": "1.0.0"
+    "id": "SimplCommerce.Module.SampleData",
+    "name": "Sample Data",
+    "isBundledWithHost": true,
+    "version": "1.0.0"
 }

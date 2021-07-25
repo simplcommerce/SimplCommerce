@@ -23,11 +23,13 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     public class CategoryApiController : Controller
     {
         private readonly IRepository<Category> _categoryRepository;
-        private readonly IRepository<ProductCategory> _productCategoryRepository;
         private readonly ICategoryService _categoryService;
         private readonly IMediaService _mediaService;
+        private readonly IRepository<ProductCategory> _productCategoryRepository;
 
-        public CategoryApiController(IRepository<Category> categoryRepository, IRepository<ProductCategory> productCategoryRepository, ICategoryService categoryService, IMediaService mediaService)
+        public CategoryApiController(IRepository<Category> categoryRepository,
+            IRepository<ProductCategory> productCategoryRepository, ICategoryService categoryService,
+            IMediaService mediaService)
         {
             _categoryRepository = categoryRepository;
             _productCategoryRepository = productCategoryRepository;
@@ -45,7 +47,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(long id)
         {
-            var category = await _categoryRepository.Query().Include(x => x.ThumbnailImage).FirstOrDefaultAsync(x => x.Id == id);
+            var category = await _categoryRepository.Query().Include(x => x.ThumbnailImage)
+                .FirstOrDefaultAsync(x => x.Id == id);
             var model = new CategoryForm
             {
                 Id = category.Id,
@@ -59,7 +62,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 ParentId = category.ParentId,
                 IncludeInMenu = category.IncludeInMenu,
                 IsPublished = category.IsPublished,
-                ThumbnailImageUrl = _mediaService.GetThumbnailUrl(category.ThumbnailImage),
+                ThumbnailImageUrl = _mediaService.GetThumbnailUrl(category.ThumbnailImage)
             };
 
             return Json(model);
@@ -87,7 +90,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
                 await SaveCategoryImage(category, model);
                 await _categoryService.Create(category);
-                return CreatedAtAction(nameof(Get), new { id = category.Id }, null);
+                return CreatedAtAction(nameof(Get), new {id = category.Id}, null);
             }
 
             return BadRequest(ModelState);
@@ -100,7 +103,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             if (ModelState.IsValid)
             {
                 var category = await _categoryRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-                if(category == null)
+                if (category == null)
                 {
                     return NotFound();
                 }
@@ -143,7 +146,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
             if (category.Children.Any(x => !x.IsDeleted))
             {
-                return BadRequest(new { Error = "Please make sure this category contains no children" });
+                return BadRequest(new {Error = "Please make sure this category contains no children"});
             }
 
             await _categoryService.Delete(category);
@@ -176,10 +179,10 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 param,
                 x => new
                 {
-                    Id = x.Id,
+                    x.Id,
                     ProductName = x.Product.Name,
-                    IsFeaturedProduct = x.IsFeaturedProduct,
-                    DisplayOrder = x.DisplayOrder,
+                    x.IsFeaturedProduct,
+                    x.DisplayOrder,
                     IsProductPublished = x.Product.IsPublished
                 });
 
@@ -190,7 +193,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         public async Task<IActionResult> UpdateProduct(long id, [FromBody] ProductCategoryForm model)
         {
             var productCategory = await _productCategoryRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-            if(productCategory == null)
+            if (productCategory == null)
             {
                 return NotFound();
             }
@@ -213,14 +216,15 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 }
                 else
                 {
-                    category.ThumbnailImage = new Media { FileName = fileName };
+                    category.ThumbnailImage = new Media {FileName = fileName};
                 }
             }
         }
 
         private async Task<string> SaveFile(IFormFile file)
         {
-            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');
+            var originalFileName =
+                ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
             await _mediaService.SaveMediaAsync(file.OpenReadStream(), fileName, file.ContentType);
             return fileName;
@@ -232,7 +236,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             var parentCategoryId = category.ParentId;
             while (parentCategoryId.HasValue)
             {
-                if(parentCategoryId.Value == childId)
+                if (parentCategoryId.Value == childId)
                 {
                     return true;
                 }

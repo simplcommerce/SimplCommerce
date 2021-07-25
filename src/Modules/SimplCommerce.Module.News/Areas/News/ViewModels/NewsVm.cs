@@ -8,6 +8,7 @@ namespace SimplCommerce.Module.News.Areas.News.ViewModels
         {
             NewsCategory = new List<NewsCategoryVm>();
         }
+
         public NewsCategoryVm CurrentNewsCategory { get; set; }
 
         public IList<NewsCategoryVm> NewsCategory { get; set; }

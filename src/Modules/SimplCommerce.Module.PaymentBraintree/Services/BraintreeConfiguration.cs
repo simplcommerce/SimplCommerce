@@ -11,6 +11,14 @@ namespace SimplCommerce.Module.PaymentBraintree.Services
 {
     public class BraintreeConfiguration : IBraintreeConfiguration
     {
+        private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
+
+        public BraintreeConfiguration(IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository)
+        {
+            _paymentProviderRepository = paymentProviderRepository;
+        }
+
+        private IBraintreeGateway _braintreeGateway { get; set; }
         public string Environment { get; private set; }
         public string MerchantId { get; private set; }
         public string PublicKey { get; private set; }
@@ -26,20 +34,19 @@ namespace SimplCommerce.Module.PaymentBraintree.Services
             return _braintreeGateway;
         }
 
-        private IBraintreeGateway _braintreeGateway { get; set; }
-
-        private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
-
-        public BraintreeConfiguration(IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository)
+        public async Task<string> GetClientToken()
         {
-            _paymentProviderRepository = paymentProviderRepository;
+            var gateway = await BraintreeGateway();
+            return await gateway.ClientToken.GenerateAsync();
         }
-    
+
 
         private async Task<IBraintreeGateway> CreateGateway()
         {
-            var braintreeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.BraintreeProviderId);
-            var braintreeSetting = JsonConvert.DeserializeObject<BraintreeConfigForm>(braintreeProvider.AdditionalSettings);
+            var braintreeProvider = await _paymentProviderRepository.Query()
+                .FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.BraintreeProviderId);
+            var braintreeSetting =
+                JsonConvert.DeserializeObject<BraintreeConfigForm>(braintreeProvider.AdditionalSettings);
 
             Environment = braintreeSetting.Environment;
             MerchantId = braintreeSetting.MerchantId;
@@ -47,12 +54,6 @@ namespace SimplCommerce.Module.PaymentBraintree.Services
             PrivateKey = braintreeSetting.PrivateKey;
 
             return new BraintreeGateway(Environment, MerchantId, PublicKey, PrivateKey);
-        }
-
-        public async Task<string> GetClientToken()
-        {
-            var gateway = await BraintreeGateway();
-            return await gateway.ClientToken.GenerateAsync();
         }
     }
 }

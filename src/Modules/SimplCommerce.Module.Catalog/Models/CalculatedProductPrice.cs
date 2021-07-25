@@ -4,7 +4,7 @@ namespace SimplCommerce.Module.Catalog.Models
 {
     public class CalculatedProductPrice
     {
-        private ICurrencyService _currencyService;
+        private readonly ICurrencyService _currencyService;
 
         public CalculatedProductPrice(ICurrencyService currencyService)
         {
@@ -19,6 +19,7 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public string PriceString => _currencyService.FormatCurrency(Price);
 
-        public string OldPriceString => OldPrice.HasValue ? _currencyService.FormatCurrency(OldPrice.Value) : string.Empty;
+        public string OldPriceString =>
+            OldPrice.HasValue ? _currencyService.FormatCurrency(OldPrice.Value) : string.Empty;
     }
 }

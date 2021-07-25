@@ -14,7 +14,8 @@ namespace SimplCommerce.Module.ShippingPrices.Services
         private readonly IServiceProvider _serviceProvider;
         private readonly IRepositoryWithTypedId<ShippingProvider, string> _shippingProviderRepository;
 
-        public ShippingPriceService(IServiceProvider serviceProvider, IRepositoryWithTypedId<ShippingProvider, string> shippingProviderRepository)
+        public ShippingPriceService(IServiceProvider serviceProvider,
+            IRepositoryWithTypedId<ShippingProvider, string> shippingProviderRepository)
         {
             _serviceProvider = serviceProvider;
             _shippingProviderRepository = shippingProviderRepository;
@@ -26,9 +27,9 @@ namespace SimplCommerce.Module.ShippingPrices.Services
             var providers = await _shippingProviderRepository.Query().ToListAsync();
             var shippingRateServices = _serviceProvider.GetServices<IShippingPriceServiceProvider>();
 
-            foreach(var provider in providers)
+            foreach (var provider in providers)
             {
-                if(!provider.IsEnabled)
+                if (!provider.IsEnabled)
                 {
                     continue;
                 }

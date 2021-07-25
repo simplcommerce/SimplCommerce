@@ -33,14 +33,14 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">{{::vm.translate.get('Zip Code')}}</label>
                 <div class="col-sm-10">
-                    <input name="zipCode" ng-model="vm.taxRate.zipCode" class="form-control" />
+                    <input name="zipCode" ng-model="vm.taxRate.zipCode" class="form-control"/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">{{::vm.translate.get('Rate')}}</label>
                 <div class="col-sm-10">
                     <div class="input-number">
-                        <input id="rate" type="text" decimal maxlength="10" name="rate" ng-model="vm.taxRate.rate" required class="form-control" />
+                        <input id="rate" type="text" decimal maxlength="10" name="rate" ng-model="vm.taxRate.rate" required class="form-control"/>
                         <label for="rate" class="form-control">{{vm.taxRate.rate | number}}</label>
                     </div>
                 </div>

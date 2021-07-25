@@ -85,8 +85,9 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                 };
 
                 await _pageService.Create(page);
-                return CreatedAtAction(nameof(Get), new { id = page.Id }, null);
+                return CreatedAtAction(nameof(Get), new {id = page.Id}, null);
             }
+
             return BadRequest(ModelState);
         }
 
@@ -96,7 +97,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
             if (ModelState.IsValid)
             {
                 var page = await _pageRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-                if(page == null)
+                if (page == null)
                 {
                     return NotFound();
                 }

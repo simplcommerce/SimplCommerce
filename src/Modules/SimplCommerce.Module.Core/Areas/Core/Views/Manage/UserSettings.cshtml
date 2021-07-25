@@ -5,20 +5,20 @@
 
 <div class="row">
     <div class="col-md-3">
-        <partial name="_AccountMenu" />
+        <partial name="_AccountMenu"/>
     </div>
     <div class="col-md-9">
         <h2>@ViewData["Title"]</h2>
-        <hr />
+        <hr/>
         <div class="row">
             <div class="col-md-8">
                 <form asp-area="Core" asp-controller="Manage" asp-action="UserSettings" method="post" role="form">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     @{
                         var hasSettings = false;
-                        foreach(var item in Model.SettingDefinitions.Values)
+                        foreach (var item in Model.SettingDefinitions.Values)
                         {
-                            if(item.IsVisibleToClients)
+                            if (item.IsVisibleToClients)
                             {
                                 hasSettings = true;
 
@@ -31,7 +31,7 @@
                                 </div>
                             }
                         }
-                        if(hasSettings)
+                        if (hasSettings)
                         {
                             <div class="form-group row">
                                 <div class="offset-md-4 col-md-8">
@@ -47,5 +47,5 @@
 </div>
 
 @section scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
 }

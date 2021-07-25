@@ -16,8 +16,8 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
     [Route("api/reviews")]
     public class ReviewApiController : Controller
     {
-        private readonly IReviewRepository _reviewRepository;
         private readonly IMediator _mediator;
+        private readonly IReviewRepository _reviewRepository;
 
         public ReviewApiController(IReviewRepository reviewRepository, IMediator mediator)
         {
@@ -28,8 +28,8 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
         [HttpGet]
         public ActionResult Get(int status, int numRecords)
         {
-            var reviewStatus = (ReviewStatus) status;
-            if ((numRecords <= 0) || (numRecords > 100))
+            var reviewStatus = (ReviewStatus)status;
+            if (numRecords <= 0 || numRecords > 100)
             {
                 numRecords = 5;
             }
@@ -77,7 +77,7 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
 
                 if (search.Status != null)
                 {
-                    var status = (ReviewStatus) search.Status;
+                    var status = (ReviewStatus)search.Status;
                     query = query.Where(x => x.Status == status);
                 }
 
@@ -126,17 +126,16 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
 
             if (Enum.IsDefined(typeof(ReviewStatus), statusId))
             {
-                review.Status = (ReviewStatus) statusId;
+                review.Status = (ReviewStatus)statusId;
                 _reviewRepository.SaveChanges();
 
                 var rattings = _reviewRepository.Query()
-                    .Where(x => x.EntityId == review.EntityId && x.EntityTypeId == review.EntityTypeId && x.Status == ReviewStatus.Approved);
+                    .Where(x => x.EntityId == review.EntityId && x.EntityTypeId == review.EntityTypeId &&
+                                x.Status == ReviewStatus.Approved);
 
                 var reviewSummary = new ReviewSummaryChanged
                 {
-                    EntityId = review.EntityId,
-                    EntityTypeId = review.EntityTypeId,
-                    ReviewsCount = rattings.Count()
+                    EntityId = review.EntityId, EntityTypeId = review.EntityTypeId, ReviewsCount = rattings.Count()
                 };
                 if (reviewSummary.ReviewsCount == 0)
                 {
@@ -144,14 +143,17 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
                 }
                 else
                 {
-                    var grouped = rattings.GroupBy(x => x.Rating).Select(x => new { Rating = x.Key, Count = x.Count() }).ToList();
-                    reviewSummary.RatingAverage = grouped.Select(x => x.Rating * x.Count).Sum() / (double)reviewSummary.ReviewsCount;
+                    var grouped = rattings.GroupBy(x => x.Rating).Select(x => new {Rating = x.Key, Count = x.Count()})
+                        .ToList();
+                    reviewSummary.RatingAverage = grouped.Select(x => x.Rating * x.Count).Sum() /
+                                                  (double)reviewSummary.ReviewsCount;
                 }
 
                 await _mediator.Publish(reviewSummary);
                 await _reviewRepository.SaveChangesAsync();
                 return Accepted();
             }
+
             return BadRequest(new {Error = "unsupported order status"});
         }
     }

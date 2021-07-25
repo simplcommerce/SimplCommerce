@@ -1,8 +1,9 @@
 ﻿/*global angular, jQuery*/
-(function ($) {
+(function($) {
     angular
-        .module('simplAdmin.cms')
-        .controller('CarouselWidgetFormCtrl', ['$state', '$stateParams', 'carouselWidgetService', 'translateService', CarouselWidgetFormCtrl]);
+        .module("simplAdmin.cms")
+        .controller("CarouselWidgetFormCtrl",
+            ["$state", "$stateParams", "carouselWidgetService", "translateService", CarouselWidgetFormCtrl]);
 
     function CarouselWidgetFormCtrl($state, $stateParams, carouselWidgetService, translateService) {
         var vm = this;
@@ -16,7 +17,7 @@
         vm.datePickerPublishEnd = {};
         vm.numberOfWidgets = [];
 
-        vm.openCalendar = function (e, picker) {
+        vm.openCalendar = function(e, picker) {
             vm[picker].open = true;
         };
 
@@ -33,12 +34,13 @@
             var promise;
 
             // ng-upload will post null as text
-            vm.widgetInstance.publishEnd = vm.widgetInstance.publishEnd === null ? '' : vm.widgetInstance.publishEnd;
-            angular.forEach(vm.widgetInstance.items, function (item) {
-                item.caption = item.caption === null ? '' : item.caption;
-                item.subCaption = item.subCaption === null ? '' : item.subCaption;
-                item.linkText = item.linkText === null ? '' : item.linkText;
-            });
+            vm.widgetInstance.publishEnd = vm.widgetInstance.publishEnd === null ? "" : vm.widgetInstance.publishEnd;
+            angular.forEach(vm.widgetInstance.items,
+                function(item) {
+                    item.caption = item.caption === null ? "" : item.caption;
+                    item.subCaption = item.subCaption === null ? "" : item.subCaption;
+                    item.linkText = item.linkText === null ? "" : item.linkText;
+                });
 
             if (vm.isEditMode) {
                 promise = carouselWidgetService.editCarouselWidget(vm.widgetInstance);
@@ -47,10 +49,10 @@
             }
 
             promise
-                .then(function (result) {
-                    $state.go('widget');
+                .then(function(result) {
+                    $state.go("widget");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -59,18 +61,18 @@
                             vm.validationErrors.push(errors[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not carousel widget.');
+                        vm.validationErrors.push("Could not carousel widget.");
                     }
                 });
         };
 
         function init() {
 
-            carouselWidgetService.getWidgetZones().then(function (result) {
+            carouselWidgetService.getWidgetZones().then(function(result) {
                 vm.widgetZones = result.data;
             });
 
-            carouselWidgetService.getNumberOfWidgets().then(function (result) {
+            carouselWidgetService.getNumberOfWidgets().then(function(result) {
                 var count = parseInt(result.data);
                 if (!vm.isEditMode) {
                     count = count + 1;
@@ -81,7 +83,7 @@
             });
 
             if (vm.isEditMode) {
-                carouselWidgetService.getCarouselWidget(vm.widgetInstanceId).then(function (result) {
+                carouselWidgetService.getCarouselWidget(vm.widgetInstanceId).then(function(result) {
                     vm.widgetInstance = result.data;
                     if (vm.widgetInstance.publishStart) {
                         vm.widgetInstance.publishStart = new Date(vm.widgetInstance.publishStart);

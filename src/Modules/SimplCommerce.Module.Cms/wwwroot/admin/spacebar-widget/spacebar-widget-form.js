@@ -1,8 +1,9 @@
 ﻿/*global angular, jQuery*/
-(function ($) {
+(function($) {
     angular
-        .module('simplAdmin.cms')
-        .controller('SpaceBarWidgetFormCtrl', ['$state', '$stateParams', 'spacebarWidgetService', 'translateService', SpaceBarWidgetFormCtrl]);
+        .module("simplAdmin.cms")
+        .controller("SpaceBarWidgetFormCtrl",
+            ["$state", "$stateParams", "spacebarWidgetService", "translateService", SpaceBarWidgetFormCtrl]);
 
     function SpaceBarWidgetFormCtrl($state, $stateParams, spacebarWidgetService, translateService) {
         var vm = this;
@@ -14,7 +15,7 @@
         vm.datePickerPublishStart = {};
         vm.datePickerPublishEnd = {};
         vm.numberOfWidgets = [];
-        vm.openCalendar = function (e, picker) {
+        vm.openCalendar = function(e, picker) {
             vm[picker].open = true;
         };
 
@@ -30,9 +31,10 @@
         vm.save = function save() {
             var promise;
             // ng-upload will post null as text
-            angular.forEach(vm.widgetInstance.items, function (item) {
-                item.image = item.image === null ? '' : item.image;
-            });
+            angular.forEach(vm.widgetInstance.items,
+                function(item) {
+                    item.image = item.image === null ? "" : item.image;
+                });
 
             if (vm.isEditMode) {
                 promise = spacebarWidgetService.editSpaceBarWidget(vm.widgetInstance);
@@ -40,10 +42,10 @@
                 promise = spacebarWidgetService.createSpaceBarWidget(vm.widgetInstance);
             }
             promise
-                .then(function (result) {
-                    $state.go('widget');
+                .then(function(result) {
+                    $state.go("widget");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -51,17 +53,17 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not carousel widget.');
+                        vm.validationErrors.push("Could not carousel widget.");
                     }
                 });
         };
 
         function init() {
-            spacebarWidgetService.getWidgetZones().then(function (result) {
+            spacebarWidgetService.getWidgetZones().then(function(result) {
                 vm.widgetZones = result.data;
             });
 
-            spacebarWidgetService.getNumberOfWidgets().then(function (result) {
+            spacebarWidgetService.getNumberOfWidgets().then(function(result) {
                 var count = parseInt(result.data);
                 if (!vm.isEditMode) {
                     count = count + 1;
@@ -72,7 +74,7 @@
             });
 
             if (vm.isEditMode) {
-                spacebarWidgetService.getSpaceBarWidget(vm.widgetInstanceId).then(function (result) {
+                spacebarWidgetService.getSpaceBarWidget(vm.widgetInstanceId).then(function(result) {
                     vm.widgetInstance = result.data;
 
                     if (vm.widgetInstance.publishStart) {

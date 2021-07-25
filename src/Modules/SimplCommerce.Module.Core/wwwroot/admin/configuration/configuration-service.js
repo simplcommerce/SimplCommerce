@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.core')
-        .factory('configurationService', ['$http', configurationService]);
+        .module("simplAdmin.core")
+        .factory("configurationService", ["$http", configurationService]);
 
     function configurationService($http) {
         var service = {
@@ -12,11 +12,11 @@
         return service;
 
         function getSettings() {
-            return $http.get('api/appsettings');
+            return $http.get("api/appsettings");
         }
 
         function updateSetting(settings) {
-            return $http.put('api/appsettings/', settings);
+            return $http.put("api/appsettings/", settings);
         }
     }
 })();

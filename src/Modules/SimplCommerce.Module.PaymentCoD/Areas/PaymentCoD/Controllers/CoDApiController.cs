@@ -24,7 +24,8 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
         [HttpGet("config")]
         public async Task<IActionResult> Config()
         {
-            var codProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.CODProviderId);
+            var codProvider = await _paymentProviderRepository.Query()
+                .FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.CODProviderId);
             if (string.IsNullOrEmpty(codProvider.AdditionalSettings))
             {
                 return Ok(new CoDSetting());
@@ -39,7 +40,8 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
         {
             if (ModelState.IsValid)
             {
-                var codProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.CODProviderId);
+                var codProvider = await _paymentProviderRepository.Query()
+                    .FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.CODProviderId);
                 codProvider.AdditionalSettings = JsonConvert.SerializeObject(model);
                 await _paymentProviderRepository.SaveChangesAsync();
                 return Accepted();

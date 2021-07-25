@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using MediatR;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Events;
+using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Core.Services
 {
@@ -40,18 +40,13 @@ namespace SimplCommerce.Module.Core.Services
 
         public Entity Get(long entityId, string entityTypeId)
         {
-            return _entityRepository.Query().FirstOrDefault(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
+            return _entityRepository.Query()
+                .FirstOrDefault(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
         }
 
         public void Add(string name, string slug, long entityId, string entityTypeId)
         {
-            var entity = new Entity
-            {
-                Name = name,
-                Slug = slug,
-                EntityId = entityId,
-                EntityTypeId = entityTypeId
-            };
+            var entity = new Entity {Name = name, Slug = slug, EntityId = entityId, EntityTypeId = entityTypeId};
 
             _entityRepository.Add(entity);
         }
@@ -65,11 +60,12 @@ namespace SimplCommerce.Module.Core.Services
 
         public async Task Remove(long entityId, string entityTypeId)
         {
-            var entity = _entityRepository.Query().FirstOrDefault(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
+            var entity = _entityRepository.Query()
+                .FirstOrDefault(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId);
 
             if (entity != null)
             {
-                 await _mediator.Publish(new EntityDeleting { EntityId = entity.Id });
+                await _mediator.Publish(new EntityDeleting {EntityId = entity.Id});
                 _entityRepository.Remove(entity);
             }
         }

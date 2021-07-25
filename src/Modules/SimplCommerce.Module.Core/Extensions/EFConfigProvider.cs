@@ -7,12 +7,12 @@ namespace SimplCommerce.Module.Core.Extensions
 {
     public class EFConfigProvider : ConfigurationProvider
     {
-        private Action<DbContextOptionsBuilder> OptionsAction { get; }
-
         public EFConfigProvider(Action<DbContextOptionsBuilder> optionsAction)
         {
             OptionsAction = optionsAction;
         }
+
+        private Action<DbContextOptionsBuilder> OptionsAction { get; }
 
         public override void Load()
         {

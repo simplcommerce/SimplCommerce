@@ -14,10 +14,11 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
     [Route("api/states-provinces")]
     public class StateOrProvinceApiController : Controller
     {
-        private readonly IRepository<StateOrProvince> _stateOrProvinceRepository;
         private readonly IRepositoryWithTypedId<Country, string> _countryRepository;
+        private readonly IRepository<StateOrProvince> _stateOrProvinceRepository;
 
-        public StateOrProvinceApiController(IRepository<StateOrProvince> stateOrProvinceRepository, IRepositoryWithTypedId<Country, string> countryRepository)
+        public StateOrProvinceApiController(IRepository<StateOrProvince> stateOrProvinceRepository,
+            IRepositoryWithTypedId<Country, string> countryRepository)
         {
             _stateOrProvinceRepository = stateOrProvinceRepository;
             _countryRepository = countryRepository;
@@ -29,11 +30,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             var statesOrProvinces = await _stateOrProvinceRepository.Query()
                 .Where(x => x.CountryId == countryId)
                 .OrderBy(x => x.Name)
-                .Select(x => new
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                })
+                .Select(x => new {x.Id, x.Name})
                 .ToListAsync();
 
             return Ok(statesOrProvinces);
@@ -44,11 +41,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         {
             var statesOrProvinces = await _stateOrProvinceRepository.Query()
                 .OrderBy(x => x.Name)
-                .Select(x => new
-                {
-                    x.Id,
-                    x.Name
-                })
+                .Select(x => new {x.Id, x.Name})
                 .ToListAsync();
 
             return Ok(statesOrProvinces);
@@ -72,13 +65,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 
             var stateProvinces = query.ToSmartTableResult(
                 param,
-                 sp => new
-                 {
-                     sp.Id,
-                     sp.Name,
-                     sp.Code,
-                     sp.CountryId
-                 });
+                sp => new {sp.Id, sp.Name, sp.Code, sp.CountryId});
 
             return Json(stateProvinces);
         }
@@ -150,8 +137,9 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
                 _stateOrProvinceRepository.Add(stateProvince);
                 await _stateOrProvinceRepository.SaveChangesAsync();
 
-                return CreatedAtAction(nameof(Get), new { id = stateProvince.Id }, null);
+                return CreatedAtAction(nameof(Get), new {id = stateProvince.Id}, null);
             }
+
             return BadRequest(ModelState);
         }
 
@@ -172,7 +160,11 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             }
             catch (DbUpdateException)
             {
-                return BadRequest(new { Error = $"The state or province {stateProvince.Name} can't not be deleted because it is referenced by other tables" });
+                return BadRequest(new
+                {
+                    Error =
+                        $"The state or province {stateProvince.Name} can't not be deleted because it is referenced by other tables"
+                });
             }
 
             return NoContent();

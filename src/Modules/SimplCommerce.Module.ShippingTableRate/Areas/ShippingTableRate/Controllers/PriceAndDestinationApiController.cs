@@ -46,20 +46,21 @@ namespace SimplCommerce.Module.ShippingTableRate.Areas.ShippingTableRate.Control
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(long id)
         {
-            var returnModel = await _priceAndDestinationRepository.Query().Where(x => x.Id == id).Select(x => new PriceAndDestinationForm
-            {
-                Id = x.Id,
-                CountryId = x.CountryId,
-                CountryName = x.Country.Name,
-                StateOrProvinceId = x.StateOrProvinceId,
-                StateOrProvinceName = x.StateOrProvince.Name,
-                DistrictId = x.DistrictId,
-                DistrictName = x.District.Name,
-                ZipCode = x.ZipCode,
-                MinOrderSubtotal = x.MinOrderSubtotal,
-                ShippingPrice = x.ShippingPrice,
-                Note = x.Note
-            }).FirstOrDefaultAsync();
+            var returnModel = await _priceAndDestinationRepository.Query().Where(x => x.Id == id).Select(x =>
+                new PriceAndDestinationForm
+                {
+                    Id = x.Id,
+                    CountryId = x.CountryId,
+                    CountryName = x.Country.Name,
+                    StateOrProvinceId = x.StateOrProvinceId,
+                    StateOrProvinceName = x.StateOrProvince.Name,
+                    DistrictId = x.DistrictId,
+                    DistrictName = x.District.Name,
+                    ZipCode = x.ZipCode,
+                    MinOrderSubtotal = x.MinOrderSubtotal,
+                    ShippingPrice = x.ShippingPrice,
+                    Note = x.Note
+                }).FirstOrDefaultAsync();
             return Ok(returnModel);
         }
 
@@ -92,7 +93,8 @@ namespace SimplCommerce.Module.ShippingTableRate.Areas.ShippingTableRate.Control
         {
             if (ModelState.IsValid)
             {
-                var priceAndDestination = await _priceAndDestinationRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
+                var priceAndDestination =
+                    await _priceAndDestinationRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
                 if (priceAndDestination == null)
                 {
                     return NotFound();

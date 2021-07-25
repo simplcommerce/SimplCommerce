@@ -6,7 +6,7 @@ namespace SimplCommerce.Module.DinkToPdf
 {
     public class DinkToPdfConverter : IPdfConverter
     {
-        private IConverter _converter;
+        private readonly IConverter _converter;
 
         public DinkToPdfConverter(IConverter converter)
         {
@@ -15,22 +15,19 @@ namespace SimplCommerce.Module.DinkToPdf
 
         public byte[] Convert(string htmlContent)
         {
-            var doc = new HtmlToPdfDocument()
+            var doc = new HtmlToPdfDocument
             {
-                GlobalSettings = {
-                    ColorMode = ColorMode.Color,
-                    Orientation = Orientation.Portrait,
-                    PaperSize = PaperKind.A4,
+                GlobalSettings =
+                {
+                    ColorMode = ColorMode.Color, Orientation = Orientation.Portrait, PaperSize = PaperKind.A4
                 },
-                Objects = {
-                    new ObjectSettings() {
-                        HtmlContent = htmlContent,
-                        WebSettings = { DefaultEncoding = "utf-8" }
-                    }
+                Objects =
+                {
+                    new ObjectSettings {HtmlContent = htmlContent, WebSettings = {DefaultEncoding = "utf-8"}}
                 }
             };
 
-            byte[] pdf = _converter.Convert(doc);
+            var pdf = _converter.Convert(doc);
             return pdf;
         }
     }

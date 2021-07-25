@@ -1,5 +1,5 @@
-﻿using SimplCommerce.Infrastructure.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Infrastructure.Localization
 {
@@ -7,17 +7,13 @@ namespace SimplCommerce.Infrastructure.Localization
     {
         public long EntityId { get; set; }
 
-        [StringLength(450)]
-        public string EntityType { get; set; }
+        [StringLength(450)] public string EntityType { get; set; }
 
-        [Required]
-        public string CultureId { get; set; }
+        [Required] public string CultureId { get; set; }
 
         public Culture Culture { get; set; }
 
-        [Required]
-        [StringLength(450)]
-        public string ProperyName { get; set; }
+        [Required] [StringLength(450)] public string ProperyName { get; set; }
 
         public string Value { get; set; }
     }

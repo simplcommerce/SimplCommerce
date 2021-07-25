@@ -1,8 +1,12 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.catalog')
-        .controller('ProductAttributeGroupFormCtrl', ['$state', '$stateParams', 'productAttributeGroupService', 'translateService', ProductAttributeGroupFormCtrl]);
+        .module("simplAdmin.catalog")
+        .controller("ProductAttributeGroupFormCtrl",
+            [
+                "$state", "$stateParams", "productAttributeGroupService", "translateService",
+                ProductAttributeGroupFormCtrl
+            ]);
 
     function ProductAttributeGroupFormCtrl($state, $stateParams, productAttributeGroupService, translateService) {
         var vm = this;
@@ -21,10 +25,10 @@
             }
 
             promise
-                .then(function (result) {
-                    $state.go('product-attribute-group');
+                .then(function(result) {
+                    $state.go("product-attribute-group");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -32,13 +36,13 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add create product option.');
+                        vm.validationErrors.push("Could not add create product option.");
                     }
                 });
         };
 
         function getProductAttributeGroup() {
-            productAttributeGroupService.getProductAttributeGroup(vm.productAttributeGroupId).then(function (result) {
+            productAttributeGroupService.getProductAttributeGroup(vm.productAttributeGroupId).then(function(result) {
                 vm.productAttributeGroup = result.data;
             });
         }

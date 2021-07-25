@@ -1,5 +1,5 @@
-﻿using SimplCommerce.Module.Inventory.Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using SimplCommerce.Module.Inventory.Models;
 
 namespace SimplCommerce.Module.Inventory.Services
 {

@@ -11,8 +11,8 @@ namespace SimplCommerce.Module.Localization.Events
 {
     public class UserSignedInHandler : INotificationHandler<UserSignedIn>
     {
-        private readonly IWorkContext _workContext;
         private readonly IRepositoryWithTypedId<User, long> _userRepository;
+        private readonly IWorkContext _workContext;
 
         public UserSignedInHandler(IWorkContext workContext, IRepositoryWithTypedId<User, long> userRepository)
         {

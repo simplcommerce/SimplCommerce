@@ -1,18 +1,18 @@
 ﻿(function() {
     angular
-        .module('simplAdmin.payments')
-        .directive('paymentListByOrder', paymentListByOrder);
+        .module("simplAdmin.payments")
+        .directive("paymentListByOrder", paymentListByOrder);
 
     function paymentListByOrder() {
         var directive = {
-            restrict: 'E',
-            templateUrl: '_content/SimplCommerce.Module.Payments/admin/payment/payment-list-by-order.directive.html',
+            restrict: "E",
+            templateUrl: "_content/SimplCommerce.Module.Payments/admin/payment/payment-list-by-order.directive.html",
             scope: {},
             bindToController: {
-                orderId: '='
+                orderId: "="
             },
-            controller: ['paymentService', 'translateService', PaymentListByOrderCtrl],
-            controllerAs: 'vm'
+            controller: ["paymentService", "translateService", PaymentListByOrderCtrl],
+            controllerAs: "vm"
         };
 
         return directive;
@@ -23,8 +23,8 @@
         vm.translate = translateService;
         vm.payments = [];
 
-        vm.$onInit = function () {
-            paymentService.getPaymentsByOrder(vm.orderId).then(function (result) {
+        vm.$onInit = function() {
+            paymentService.getPaymentsByOrder(vm.orderId).then(function(result) {
                 vm.payments = result.data;
             });
         };

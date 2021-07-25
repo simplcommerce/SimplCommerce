@@ -12,9 +12,10 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Components
     {
         private readonly ICartService _cartService;
         private readonly IWorkContext _workContext;
-        private ICurrencyService _currencyService;
+        private readonly ICurrencyService _currencyService;
 
-        public OrderSummaryViewComponent(ICartService cartService, IWorkContext workContext, ICurrencyService currencyService)
+        public OrderSummaryViewComponent(ICartService cartService, IWorkContext workContext,
+            ICurrencyService currencyService)
         {
             _cartService = cartService;
             _workContext = workContext;
@@ -29,6 +30,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Components
             {
                 cart = new CartVm(_currencyService);
             }
+
             return View(this.GetViewPath(), cart);
         }
     }

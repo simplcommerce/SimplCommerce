@@ -51,7 +51,8 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         public async Task<IActionResult> UpdateQuantity(long itemId, [FromBody] CartQuantityUpdate model)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == itemId && x.Cart.CreatedById == currentUser.Id);
+            var cartItem = _cartItemRepository.Query()
+                .FirstOrDefault(x => x.Id == itemId && x.Cart.CreatedById == currentUser.Id);
             if (cartItem == null)
             {
                 return NotFound();
@@ -67,7 +68,8 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         public async Task<ActionResult> ApplyCoupon(long cartId, [FromBody] ApplyCouponForm model)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.Query().FirstOrDefaultAsync(x => x.Id == cartId && x.CreatedById == currentUser.Id);
+            var cart = await _cartService.Query()
+                .FirstOrDefaultAsync(x => x.Id == cartId && x.CreatedById == currentUser.Id);
             if (cart == null)
             {
                 return NotFound();
@@ -87,7 +89,8 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         public async Task<IActionResult> SaveOrderNote(long cartId, [FromBody] SaveOrderNote model)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.Query().FirstOrDefaultAsync(x => x.Id == cartId && x.CreatedById == currentUser.Id);
+            var cart = await _cartService.Query()
+                .FirstOrDefaultAsync(x => x.Id == cartId && x.CreatedById == currentUser.Id);
             if (cart == null)
             {
                 return NotFound();
@@ -102,7 +105,8 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         public async Task<IActionResult> Remove(long itemId)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cartItem = _cartItemRepository.Query().FirstOrDefault(x => x.Id == itemId && x.Cart.CreatedById == currentUser.Id);
+            var cartItem = _cartItemRepository.Query()
+                .FirstOrDefault(x => x.Id == itemId && x.Cart.CreatedById == currentUser.Id);
             if (cartItem == null)
             {
                 return NotFound();

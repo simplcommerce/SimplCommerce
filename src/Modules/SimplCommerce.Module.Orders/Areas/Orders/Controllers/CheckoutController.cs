@@ -22,14 +22,14 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class CheckoutController : Controller
     {
-        private readonly IOrderService _orderService;
+        private readonly IRepository<Cart> _cartRepository;
+        private readonly ICartService _cartService;
         private readonly IRepositoryWithTypedId<Country, string> _countryRepository;
+        private readonly IOrderService _orderService;
+        private readonly IShippingPriceService _shippingPriceService;
         private readonly IRepository<StateOrProvince> _stateOrProvinceRepository;
         private readonly IRepository<UserAddress> _userAddressRepository;
-        private readonly IShippingPriceService _shippingPriceService;
-        private readonly ICartService _cartService;
         private readonly IWorkContext _workContext;
-        private readonly IRepository<Cart> _cartRepository;
 
         public CheckoutController(
             IRepository<StateOrProvince> stateOrProvinceRepository,
@@ -56,7 +56,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         {
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
-            if(cart == null || !cart.Items.Any())
+            if (cart == null || !cart.Items.Any())
             {
                 return Redirect("~/");
             }
@@ -74,7 +74,8 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             // TODO Handle error messages
             if ((!model.NewAddressForm.IsValid() && model.ShippingAddressId == 0) ||
-                (!model.NewBillingAddressForm.IsValid() && !model.UseShippingAddressAsBillingAddress && model.BillingAddressId == 0))
+                (!model.NewBillingAddressForm.IsValid() && !model.UseShippingAddressAsBillingAddress &&
+                 model.BillingAddressId == 0))
             {
                 PopulateShippingForm(model, currentUser);
                 return View(model);
@@ -119,7 +120,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         {
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCart(currentUser.Id);
-            if(cart != null && cart.LockedOnCheckout)
+            if (cart != null && cart.LockedOnCheckout)
             {
                 cart.LockedOnCheckout = false;
                 await _cartRepository.SaveChangesAsync();
@@ -132,7 +133,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         {
             model.ExistingShippingAddresses = _userAddressRepository
                 .Query()
-                .Where(x => (x.AddressType == AddressType.Shipping) && (x.UserId == currentUser.Id))
+                .Where(x => x.AddressType == AddressType.Shipping && x.UserId == currentUser.Id)
                 .Select(x => new ShippingAddressVm
                 {
                     UserAddressId = x.Id,
@@ -156,25 +157,17 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
             model.NewAddressForm.ShipableContries = _countryRepository.Query()
                 .Where(x => x.IsShippingEnabled)
                 .OrderBy(x => x.Name)
-                .Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                }).ToList();
+                .Select(x => new SelectListItem {Text = x.Name, Value = x.Id.ToString()}).ToList();
 
             if (model.NewAddressForm.ShipableContries.Count == 1)
             {
                 var onlyShipableCountryId = model.NewAddressForm.ShipableContries.First().Value;
 
                 model.NewAddressForm.StateOrProvinces = _stateOrProvinceRepository
-                .Query()
-                .Where(x => x.CountryId == onlyShipableCountryId)
-                .OrderBy(x => x.Name)
-                .Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                }).ToList();
+                    .Query()
+                    .Where(x => x.CountryId == onlyShipableCountryId)
+                    .OrderBy(x => x.Name)
+                    .Select(x => new SelectListItem {Text = x.Name, Value = x.Id.ToString()}).ToList();
             }
         }
     }

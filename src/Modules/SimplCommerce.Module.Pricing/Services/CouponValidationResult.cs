@@ -1,5 +1,5 @@
-﻿using SimplCommerce.Module.Pricing.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using SimplCommerce.Module.Pricing.Models;
 
 namespace SimplCommerce.Module.Pricing.Services
 {

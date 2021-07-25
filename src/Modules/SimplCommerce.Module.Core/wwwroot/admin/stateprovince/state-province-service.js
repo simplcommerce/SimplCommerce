@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.core')
-        .factory('stateProvinceService', ['$http', stateProvinceService]);
+        .module("simplAdmin.core")
+        .factory("stateProvinceService", ["$http", stateProvinceService]);
 
     function stateProvinceService($http) {
         var service = {
@@ -15,23 +15,23 @@
         return service;
 
         function getStateOrProvinces(countryId, params) {
-            return $http.post('api/states-provinces/grid?countryId=' + countryId, params);
+            return $http.post("api/states-provinces/grid?countryId=" + countryId, params);
         }
 
         function getStateProvince(id) {
-            return $http.get('api/states-provinces/' + id, null);
+            return $http.get("api/states-provinces/" + id, null);
         }
 
         function editStateProvince(stateProvince) {
-            return $http.put('api/states-provinces/' + stateProvince.id, stateProvince);
+            return $http.put("api/states-provinces/" + stateProvince.id, stateProvince);
         }
 
         function createStateProvince(stateProvince) {
-            return $http.post('api/states-provinces/', stateProvince);
+            return $http.post("api/states-provinces/", stateProvince);
         }
 
         function deleteStateProvince(stateProvince) {
-            return $http.delete('api/states-provinces/' + stateProvince.id, null);
+            return $http.delete("api/states-provinces/" + stateProvince.id, null);
         }
     }
 })();

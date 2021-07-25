@@ -1,8 +1,9 @@
-﻿ /*global angular*/
-(function () {
+﻿/*global angular*/
+(function() {
     angular
-        .module('simplAdmin.core')
-        .controller('StateProvinceFormCtrl', ['$state', '$stateParams', 'stateProvinceService', 'translateService', StateProvinceFormCtrl]);
+        .module("simplAdmin.core")
+        .controller("StateProvinceFormCtrl",
+            ["$state", "$stateParams", "stateProvinceService", "translateService", StateProvinceFormCtrl]);
 
     function StateProvinceFormCtrl($state, $stateParams, stateProvinceService, translateService) {
         var vm = this;
@@ -22,25 +23,25 @@
             }
 
             promise
-                .then(function (result) {
-                    $state.go('country-states-provinces', {countryId: vm.countryId});
+                .then(function(result) {
+                    $state.go("country-states-provinces", { countryId: vm.countryId });
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
                         for (var key in error) {
                             vm.validationErrors.push(error[key][0]);
                         }
-                    } else { 
-                        vm.validationErrors.push(translateService.get('Could not add State or Province.'));
+                    } else {
+                        vm.validationErrors.push(translateService.get("Could not add State or Province."));
                     }
                 });
         };
 
         function init() {
             if (vm.isEditMode) {
-                stateProvinceService.getStateProvince(vm.stateProvinceId).then(function (result) {
+                stateProvinceService.getStateProvince(vm.stateProvinceId).then(function(result) {
                     vm.stateProvince = result.data;
                 });
             }

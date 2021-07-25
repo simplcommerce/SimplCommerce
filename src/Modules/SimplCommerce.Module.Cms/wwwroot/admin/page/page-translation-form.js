@@ -1,8 +1,12 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.cms')
-        .controller('PageTranslationFormCtrl', ['$state', '$stateParams', 'summerNoteService', 'pageService', 'translateService', PageTranslationFormCtrl]);
+        .module("simplAdmin.cms")
+        .controller("PageTranslationFormCtrl",
+            [
+                "$state", "$stateParams", "summerNoteService", "pageService", "translateService",
+                PageTranslationFormCtrl
+            ]);
 
     function PageTranslationFormCtrl($state, $stateParams, summerNoteService, pageService, translateService) {
         var vm = this;
@@ -11,19 +15,19 @@
         vm.pageId = $stateParams.id;
         vm.culture = $stateParams.culture;
 
-        vm.imageUpload = function (files) {
+        vm.imageUpload = function(files) {
             summerNoteService.upload(files[0])
-                .then(function (response) {
-                    $(vm.body).summernote('insertImage', response.data);
+                .then(function(response) {
+                    $(vm.body).summernote("insertImage", response.data);
                 });
         };
 
         vm.save = function save() {
             pageService.editPageTranslation(vm.pageId, vm.culture, vm.page)
-                .then(function (result) {
-                    $state.go('page');
-                    })
-                .catch(function (response) {
+                .then(function(result) {
+                    $state.go("page");
+                })
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -31,13 +35,13 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add page translation.');
+                        vm.validationErrors.push("Could not add page translation.");
                     }
                 });
         };
 
         function init() {
-            pageService.getPageTranslation(vm.pageId, vm.culture).then(function (result) {
+            pageService.getPageTranslation(vm.pageId, vm.culture).then(function(result) {
                 vm.page = result.data;
             });
         }

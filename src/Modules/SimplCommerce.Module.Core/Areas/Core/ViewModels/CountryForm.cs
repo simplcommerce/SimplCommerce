@@ -15,10 +15,10 @@ namespace SimplCommerce.Module.Core.Areas.Core.ViewModels
 
         public bool IsShippingEnabled { get; set; }
 
-        public bool IsCityEnabled { get;  set; }
+        public bool IsCityEnabled { get; set; }
 
-        public bool IsZipCodeEnabled { get;  set; }
+        public bool IsZipCodeEnabled { get; set; }
 
-        public bool IsDistrictEnabled { get;  set; }
+        public bool IsDistrictEnabled { get; set; }
     }
 }

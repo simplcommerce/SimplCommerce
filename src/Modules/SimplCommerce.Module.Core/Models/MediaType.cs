@@ -6,6 +6,6 @@
 
         File = 5,
 
-        Video = 10,
+        Video = 10
     }
 }

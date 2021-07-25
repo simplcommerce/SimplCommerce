@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.core')
-        .controller('OnlineThemeListCtrl', ['themeService', 'translateService', OnlineThemeListCtrl]);
+        .module("simplAdmin.core")
+        .controller("OnlineThemeListCtrl", ["themeService", "translateService", OnlineThemeListCtrl]);
 
     function OnlineThemeListCtrl(themeService, translateService) {
         var vm = this;
@@ -10,7 +10,7 @@
         vm.translate = translateService;
 
         vm.getThemes = function getThemes() {
-            themeService.getOnlineThemes().then(function (result) {
+            themeService.getOnlineThemes().then(function(result) {
                 vm.themes = result.data;
             });
         };

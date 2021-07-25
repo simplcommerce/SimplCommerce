@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.payments')
-        .factory('paymentService', ['$http', paymentService]);
+        .module("simplAdmin.payments")
+        .factory("paymentService", ["$http", paymentService]);
 
     function paymentService($http) {
         var service = {
@@ -11,7 +11,7 @@
         return service;
 
         function getPaymentsByOrder(orderId) {
-            return $http.get('api/orders/' + orderId + '/payments');
+            return $http.get("api/orders/" + orderId + "/payments");
         }
     }
 })();

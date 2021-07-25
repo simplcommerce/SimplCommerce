@@ -14,8 +14,8 @@ namespace SimplCommerce.Module.Payments.Areas.Payments.Controllers
     [Route("api/payments")]
     public class PaymentApiController : Controller
     {
-        private readonly IRepository<Payment> _paymentRepository;
         private readonly ICurrencyService _currencyService;
+        private readonly IRepository<Payment> _paymentRepository;
 
         public PaymentApiController(IRepository<Payment> paymentRepository, ICurrencyService currencyService)
         {

@@ -26,23 +26,19 @@ namespace SimplCommerce.Module.Orders.Models
 
         public long LatestUpdatedById { get; set; }
 
-        [JsonIgnore]
-        public User LatestUpdatedBy { get; set; }
+        [JsonIgnore] public User LatestUpdatedBy { get; set; }
 
         public DateTimeOffset CreatedOn { get; set; }
 
         public long CreatedById { get; set; }
 
-        [JsonIgnore]
-        public User CreatedBy { get; set; }
+        [JsonIgnore] public User CreatedBy { get; set; }
 
         public long? VendorId { get; set; }
 
-        [StringLength(450)]
-        public string CouponCode { get; set; }
+        [StringLength(450)] public string CouponCode { get; set; }
 
-        [StringLength(450)]
-        public string CouponRuleName { get; set; }
+        [StringLength(450)] public string CouponRuleName { get; set; }
 
         public decimal DiscountAmount { get; set; }
 
@@ -62,18 +58,15 @@ namespace SimplCommerce.Module.Orders.Models
 
         public OrderStatus OrderStatus { get; set; }
 
-        [StringLength(1000)]
-        public string OrderNote { get; set; }
+        [StringLength(1000)] public string OrderNote { get; set; }
 
         public long? ParentId { get; set; }
 
-        [JsonIgnore]
-        public Order Parent { get; set; }
+        [JsonIgnore] public Order Parent { get; set; }
 
         public bool IsMasterOrder { get; set; }
 
-        [StringLength(450)]
-        public string ShippingMethod { get; set; }
+        [StringLength(450)] public string ShippingMethod { get; set; }
 
         public decimal ShippingFeeAmount { get; set; }
 
@@ -81,8 +74,7 @@ namespace SimplCommerce.Module.Orders.Models
 
         public decimal OrderTotal { get; set; }
 
-        [StringLength(450)]
-        public string PaymentMethod { get; set; }
+        [StringLength(450)] public string PaymentMethod { get; set; }
 
         public decimal PaymentFeeAmount { get; set; }
 

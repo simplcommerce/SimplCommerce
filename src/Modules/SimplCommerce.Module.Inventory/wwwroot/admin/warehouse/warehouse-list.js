@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.inventory')
-        .controller('WarehouseListCtrl', ['warehouseService', 'translateService', WarehouseListCtrl]);
+        .module("simplAdmin.inventory")
+        .controller("WarehouseListCtrl", ["warehouseService", "translateService", WarehouseListCtrl]);
 
     function WarehouseListCtrl(warehouseService, translateService) {
         var vm = this;
@@ -10,10 +10,10 @@
         vm.warehouses = [];
         vm.translate = translateService;
 
-        vm.getWarehouses = function (tableState) {
+        vm.getWarehouses = function(tableState) {
             vm.tableStateRef = tableState;
             vm.isLoading = true;
-            warehouseService.getWarehouses(tableState).then(function (result) {
+            warehouseService.getWarehouses(tableState).then(function(result) {
                 vm.warehouses = result.data.items;
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
                 tableState.pagination.totalItemCount = result.data.totalRecord;
@@ -21,19 +21,20 @@
             });
         };
 
-        vm.deleteWarehouse = function (warehouse) {
-            bootbox.confirm('Are you sure you want to delete this warehouse: ' + simplUtil.escapeHtml(warehouse.name), function (result) {
-                if (result) {
-                    warehouseService.deleteWarehouse(warehouse)
-                        .then(function (result) {
-                            vm.getWarehouses(vm.tableStateRef);
-                            toastr.success(warehouse.name + ' has been deleted');
-                        })
-                        .catch(function (response) {
-                            toastr.error(response.data.error);
-                        });
-                }
-            });
+        vm.deleteWarehouse = function(warehouse) {
+            bootbox.confirm("Are you sure you want to delete this warehouse: " + simplUtil.escapeHtml(warehouse.name),
+                function(result) {
+                    if (result) {
+                        warehouseService.deleteWarehouse(warehouse)
+                            .then(function(result) {
+                                vm.getWarehouses(vm.tableStateRef);
+                                toastr.success(warehouse.name + " has been deleted");
+                            })
+                            .catch(function(response) {
+                                toastr.error(response.data.error);
+                            });
+                    }
+                });
         };
     }
 })();

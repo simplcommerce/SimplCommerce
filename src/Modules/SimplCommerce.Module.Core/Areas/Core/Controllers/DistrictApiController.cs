@@ -25,11 +25,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
                 .Query()
                 .Where(x => x.StateOrProvinceId == stateOrProvinceId)
                 .OrderBy(x => x.Name)
-                .Select(x => new
-                {
-                    x.Id,
-                    x.Name
-                }).ToListAsync();
+                .Select(x => new {x.Id, x.Name}).ToListAsync();
 
             return Json(districts);
         }

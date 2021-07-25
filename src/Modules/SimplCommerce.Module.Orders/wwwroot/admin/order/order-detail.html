@@ -47,7 +47,9 @@
                 <table class="table table-striped">
                     <tr>
                         <td>Customer Name</td>
-                        <td><a ui-sref="user-edit({id: vm.order.customerId})">{{vm.order.customerName}}</a></td>
+                        <td>
+                            <a ui-sref="user-edit({id: vm.order.customerId})">{{vm.order.customerName}}</a>
+                        </td>
                     </tr>
                     <tr>
                         <td>Email</td>
@@ -75,9 +77,9 @@
             <div class="col-md-6">
                 <h5>Shipping Address</h5>
                 <p>
-                    <strong>{{vm.order.shippingAddress.contactName}}</strong> <br />
-                    {{vm.order.shippingAddress.addressLine1}} <br />
-                    {{vm.order.shippingAddress.addressLine2}} <br />
+                    <strong>{{vm.order.shippingAddress.contactName}}</strong> <br/>
+                    {{vm.order.shippingAddress.addressLine1}} <br/>
+                    {{vm.order.shippingAddress.addressLine2}} <br/>
                     Phone: {{vm.order.shippingAddress.phone}}
                 </p>
             </div>
@@ -92,37 +94,37 @@
     <div class="panel-body">
         <table class="table table-striped order-item-list">
             <thead>
-                <tr>
-                    <th>{{::vm.translate.get('Product')}}</th>
-                    <th class="text-right">{{::vm.translate.get('Price')}}</th>
-                    <th class="text-right">{{::vm.translate.get('Quantity')}}</th>
-                    <th class="text-right">{{::vm.translate.get('Total')}}</th>
-                    <th class="text-right">{{::vm.translate.get('Tax Amount')}}</th>
-                    <th class="text-right">{{::vm.translate.get('Tax Percent')}}</th>
-                    <th class="text-right">{{::vm.translate.get('Discount Amount')}}</th>
-                    <th class="text-right">{{::vm.translate.get('Row Total')}}</th>
-                </tr>
+            <tr>
+                <th>{{::vm.translate.get('Product')}}</th>
+                <th class="text-right">{{::vm.translate.get('Price')}}</th>
+                <th class="text-right">{{::vm.translate.get('Quantity')}}</th>
+                <th class="text-right">{{::vm.translate.get('Total')}}</th>
+                <th class="text-right">{{::vm.translate.get('Tax Amount')}}</th>
+                <th class="text-right">{{::vm.translate.get('Tax Percent')}}</th>
+                <th class="text-right">{{::vm.translate.get('Discount Amount')}}</th>
+                <th class="text-right">{{::vm.translate.get('Row Total')}}</th>
+            </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in vm.order.orderItems">
-                    <td>
-                        <a ui-sref="product-edit({id: item.productId})">{{item.productName}}</a>
-                        <ul ng-if="item.variationOptions.length > 0" class="list-unstyled">
-                            <li ng-repeat="opt in item.variationOptions">
-                                <span>{{opt.optionName}}:</span> {{opt.value}}
-                            </li>
-                        </ul>
-                    </td>
-                    <td class="text-right">{{item.productPriceString}}</td>
-                    <td class="text-right">
-                        Ordered {{item.quantity}}<span ng-if="item.shippedQuantity"><br />Shipped {{item.shippedQuantity}}</span>
-                    </td>
-                    <td class="text-right">{{item.totalString}}</td>
-                    <td class="text-right">{{item.taxAmountString}}</td>
-                    <td class="text-right">{{item.taxPercent}}</td>
-                    <td class="text-right">{{item.discountAmountString}}</td>
-                    <td class="text-right">{{item.rowTotalString}}</td>
-                </tr>
+            <tr ng-repeat="item in vm.order.orderItems">
+                <td>
+                    <a ui-sref="product-edit({id: item.productId})">{{item.productName}}</a>
+                    <ul ng-if="item.variationOptions.length > 0" class="list-unstyled">
+                        <li ng-repeat="opt in item.variationOptions">
+                            <span>{{opt.optionName}}:</span> {{opt.value}}
+                        </li>
+                    </ul>
+                </td>
+                <td class="text-right">{{item.productPriceString}}</td>
+                <td class="text-right">
+                    Ordered {{item.quantity}}<span ng-if="item.shippedQuantity"><br/>Shipped {{item.shippedQuantity}}</span>
+                </td>
+                <td class="text-right">{{item.totalString}}</td>
+                <td class="text-right">{{item.taxAmountString}}</td>
+                <td class="text-right">{{item.taxPercent}}</td>
+                <td class="text-right">{{item.discountAmountString}}</td>
+                <td class="text-right">{{item.rowTotalString}}</td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -150,7 +152,9 @@
             <div class="col-md-6">
                 <h5>Shipping: {{vm.order.shippingMethod}}</h5>
                 <shipment-list-by-order order-id="vm.orderId"></shipment-list-by-order>
-                <div class="text-right"><button class="btn btn-default" ui-sref="shipment-create({orderId: vm.order.id})">Add Shipment</button></div>
+                <div class="text-right">
+                    <button class="btn btn-default" ui-sref="shipment-create({orderId: vm.order.id})">Add Shipment</button>
+                </div>
             </div>
         </div>
     </div>
@@ -166,23 +170,23 @@
                 <h5>History & Action</h5>
                 <table class="table table-striped">
                     <thead>
-                        <tr>
-                            <th>{{::vm.translate.get('Date')}}</th>
-                            <th>{{::vm.translate.get('Status')}}</th>
-                            <th>{{::vm.translate.get('Changed by')}}</th>
-                            <th>{{::vm.translate.get('Note')}}</th>
-                        </tr>
+                    <tr>
+                        <th>{{::vm.translate.get('Date')}}</th>
+                        <th>{{::vm.translate.get('Status')}}</th>
+                        <th>{{::vm.translate.get('Changed by')}}</th>
+                        <th>{{::vm.translate.get('Note')}}</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in vm.orderHistories">
-                            <td>{{item.createdOn | date:'medium'}}</td>
-                            <td><span ng-if="item.oldStatus">{{item.oldStatus}} &rarr; </span>{{item.newStatus}}</td>
-                            <td>
-                                <a ng-if="item.createdById >= 10" ui-sref="user-edit({id: item.createdById})">{{item.createdByFullName}}</a>
-                                <span ng-if="item.createdById < 10">{{item.createdByFullName}}</span>
-                            </td>
-                            <td>{{item.note}}</td>
-                        </tr>
+                    <tr ng-repeat="item in vm.orderHistories">
+                        <td>{{item.createdOn | date:'medium'}}</td>
+                        <td><span ng-if="item.oldStatus">{{item.oldStatus}} &rarr; </span>{{item.newStatus}}</td>
+                        <td>
+                            <a ng-if="item.createdById >= 10" ui-sref="user-edit({id: item.createdById})">{{item.createdByFullName}}</a>
+                            <span ng-if="item.createdById < 10">{{item.createdByFullName}}</span>
+                        </td>
+                        <td>{{item.note}}</td>
+                    </tr>
                     </tbody>
                 </table>
                 <form name="orderStatusForm" class="form-horizontal">
@@ -234,7 +238,9 @@
                     </tr>
                     <tr>
                         <td>Order Total</td>
-                        <td class="text-right"><strong>{{vm.order.orderTotalString}}</strong></td>
+                        <td class="text-right">
+                            <strong>{{vm.order.orderTotalString}}</strong>
+                        </td>
                     </tr>
                 </table>
             </div>

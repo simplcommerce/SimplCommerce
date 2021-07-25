@@ -1,8 +1,8 @@
-﻿ /*global angular*/
-(function () {
+﻿/*global angular*/
+(function() {
     angular
-        .module('simplAdmin.catalog')
-        .controller('BrandFormCtrl', ['$state', '$stateParams', 'brandService', 'translateService', BrandFormCtrl]);
+        .module("simplAdmin.catalog")
+        .controller("BrandFormCtrl", ["$state", "$stateParams", "brandService", "translateService", BrandFormCtrl]);
 
     function BrandFormCtrl($state, $stateParams, brandService, translateService) {
         var vm = this;
@@ -11,7 +11,7 @@
         vm.brandId = $stateParams.id;
         vm.isEditMode = vm.brandId > 0;
 
-        vm.updateSlug = function () {
+        vm.updateSlug = function() {
             vm.brand.slug = slugify(vm.brand.name);
         };
 
@@ -24,10 +24,10 @@
             }
 
             promise
-                .then(function (result) {
-                    $state.go('brand');
+                .then(function(result) {
+                    $state.go("brand");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -36,14 +36,14 @@
                             vm.validationErrors.push(errors[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add brand.');
+                        vm.validationErrors.push("Could not add brand.");
                     }
                 });
         };
 
         function init() {
             if (vm.isEditMode) {
-                brandService.getBrand(vm.brandId).then(function (result) {
+                brandService.getBrand(vm.brandId).then(function(result) {
                     vm.brand = result.data;
                 });
             }

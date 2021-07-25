@@ -2,34 +2,34 @@
 {
     public class Result
     {
-        public bool Success { get; }
-
-        public string Error { get; }
-
         protected Result(bool success, string error)
         {
             Success = success;
             Error = error;
         }
 
+        public bool Success { get; }
+
+        public string Error { get; }
+
         public static Result Fail(string error)
         {
-            return new Result(false, error);
+            return new(false, error);
         }
 
         public static Result Ok()
         {
-            return new Result(true, null);
+            return new(true, null);
         }
 
         public static Result<TValue> Ok<TValue>(TValue value)
         {
-            return new Result<TValue>(value, true, null);
+            return new(value, true, null);
         }
 
         public static Result<TValue> Fail<TValue>(string error)
         {
-            return new Result<TValue>(default(TValue), false, error);
+            return new(default, false, error);
         }
     }
 }

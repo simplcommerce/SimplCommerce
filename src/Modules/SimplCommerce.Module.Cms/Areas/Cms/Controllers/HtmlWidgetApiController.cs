@@ -32,7 +32,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                 HtmlContent = widget.HtmlData,
                 PublishStart = widget.PublishStart,
                 PublishEnd = widget.PublishEnd,
-                DisplayOrder = widget.DisplayOrder,
+                DisplayOrder = widget.DisplayOrder
             };
 
             return Json(model);
@@ -51,13 +51,14 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                     HtmlData = model.HtmlContent,
                     PublishStart = model.PublishStart,
                     PublishEnd = model.PublishEnd,
-                    DisplayOrder = model.DisplayOrder,
+                    DisplayOrder = model.DisplayOrder
                 };
 
                 _widgetInstanceRepository.Add(widgetInstance);
                 await _widgetInstanceRepository.SaveChangesAsync();
-                return CreatedAtAction(nameof(Get), new { id = widgetInstance.Id }, null);
+                return CreatedAtAction(nameof(Get), new {id = widgetInstance.Id}, null);
             }
+
             return BadRequest(ModelState);
         }
 

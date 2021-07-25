@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Infrastructure;
-using SimplCommerce.Module.Core.Models;
 using Microsoft.Extensions.Configuration;
+using SimplCommerce.Infrastructure;
+using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Core.Models;
 
 namespace SimplCommerce.Module.Core.Extensions
 {
@@ -15,17 +15,17 @@ namespace SimplCommerce.Module.Core.Extensions
     {
         private const string UserGuidCookiesName = "SimplUserGuid";
         private const long GuestRoleId = 3;
-
-        private User _currentUser;
-        private UserManager<User> _userManager;
-        private HttpContext _httpContext;
-        private IRepository<User> _userRepository;
         private readonly IConfiguration _configuration;
 
+        private User _currentUser;
+        private readonly HttpContext _httpContext;
+        private readonly UserManager<User> _userManager;
+        private readonly IRepository<User> _userRepository;
+
         public WorkContext(UserManager<User> userManager,
-                           IHttpContextAccessor contextAccessor,
-                           IRepository<User> userRepository,
-                           IConfiguration configuration)
+            IHttpContextAccessor contextAccessor,
+            IRepository<User> userRepository,
+            IConfiguration configuration)
         {
             _userManager = userManager;
             _httpContext = contextAccessor.HttpContext;
@@ -51,10 +51,12 @@ namespace SimplCommerce.Module.Core.Extensions
             var userGuid = GetUserGuidFromCookies();
             if (userGuid.HasValue)
             {
-                _currentUser = _userRepository.Query().Include(x => x.Roles).FirstOrDefault(x => x.UserGuid == userGuid);
+                _currentUser = _userRepository.Query().Include(x => x.Roles)
+                    .FirstOrDefault(x => x.UserGuid == userGuid);
             }
 
-            if (_currentUser != null && _currentUser.Roles.Count == 1 && _currentUser.Roles.First().RoleId == GuestRoleId)
+            if (_currentUser != null && _currentUser.Roles.Count == 1 &&
+                _currentUser.Roles.First().RoleId == GuestRoleId)
             {
                 return _currentUser;
             }
@@ -67,7 +69,8 @@ namespace SimplCommerce.Module.Core.Extensions
                 UserGuid = userGuid.Value,
                 Email = dummyEmail,
                 UserName = dummyEmail,
-                Culture = _configuration.GetValue<string>("Global.DefaultCultureUI") ?? GlobalConfiguration.DefaultCulture
+                Culture = _configuration.GetValue<string>("Global.DefaultCultureUI") ??
+                          GlobalConfiguration.DefaultCulture
             };
             var abc = await _userManager.CreateAsync(_currentUser, "1qazZAQ!");
             await _userManager.AddToRoleAsync(_currentUser, "guest");
@@ -87,13 +90,14 @@ namespace SimplCommerce.Module.Core.Extensions
 
         private void SetUserGuidCookies()
         {
-            _httpContext.Response.Cookies.Append(UserGuidCookiesName, _currentUser.UserGuid.ToString(), new CookieOptions
-            {
-                Expires = DateTime.UtcNow.AddYears(5),
-                HttpOnly = true,
-                IsEssential = true,
-                SameSite = SameSiteMode.Strict
-            });
+            _httpContext.Response.Cookies.Append(UserGuidCookiesName, _currentUser.UserGuid.ToString(),
+                new CookieOptions
+                {
+                    Expires = DateTime.UtcNow.AddYears(5),
+                    HttpOnly = true,
+                    IsEssential = true,
+                    SameSite = SameSiteMode.Strict
+                });
         }
     }
 }

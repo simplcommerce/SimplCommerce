@@ -4,12 +4,12 @@ using System.Collections.Generic;
 namespace SimplCommerce.Infrastructure.Extensions
 {
     /// <summary>
-    /// Extension methods for Dictionary.
+    ///     Extension methods for Dictionary.
     /// </summary>
     public static class DictionaryExtensions
     {
         /// <summary>
-        /// This method is used to try to get a value in a dictionary if it does exists.
+        ///     This method is used to try to get a value in a dictionary if it does exists.
         /// </summary>
         /// <typeparam name="T">Type of the value</typeparam>
         /// <param name="dictionary">The collection object</param>
@@ -24,12 +24,12 @@ namespace SimplCommerce.Infrastructure.Extensions
                 return true;
             }
 
-            value = default(T);
+            value = default;
             return false;
         }
 
         /// <summary>
-        /// Gets a value from the dictionary with given key. Returns default value if can not find.
+        ///     Gets a value from the dictionary with given key. Returns default value if can not find.
         /// </summary>
         /// <param name="dictionary">Dictionary to check and get</param>
         /// <param name="key">Key to find the value</param>
@@ -38,11 +38,11 @@ namespace SimplCommerce.Infrastructure.Extensions
         /// <returns>Value if found, default if can not found.</returns>
         public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
         {
-            return dictionary.TryGetValue(key, out var obj) ? obj : default(TValue);
+            return dictionary.TryGetValue(key, out var obj) ? obj : default;
         }
 
         /// <summary>
-        /// Gets a value from the dictionary with given key. Returns default value if can not find.
+        ///     Gets a value from the dictionary with given key. Returns default value if can not find.
         /// </summary>
         /// <param name="dictionary">Dictionary to check and get</param>
         /// <param name="key">Key to find the value</param>
@@ -50,7 +50,8 @@ namespace SimplCommerce.Infrastructure.Extensions
         /// <typeparam name="TKey">Type of the key</typeparam>
         /// <typeparam name="TValue">Type of the value</typeparam>
         /// <returns>Value if found, default if can not found.</returns>
-        public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TKey, TValue> factory)
+        public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key,
+            Func<TKey, TValue> factory)
         {
             if (dictionary.TryGetValue(key, out var obj))
             {
@@ -61,7 +62,7 @@ namespace SimplCommerce.Infrastructure.Extensions
         }
 
         /// <summary>
-        /// Gets a value from the dictionary with given key. Returns default value if can not find.
+        ///     Gets a value from the dictionary with given key. Returns default value if can not find.
         /// </summary>
         /// <param name="dictionary">Dictionary to check and get</param>
         /// <param name="key">Key to find the value</param>
@@ -69,7 +70,8 @@ namespace SimplCommerce.Infrastructure.Extensions
         /// <typeparam name="TKey">Type of the key</typeparam>
         /// <typeparam name="TValue">Type of the value</typeparam>
         /// <returns>Value if found, default if can not found.</returns>
-        public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TValue> factory)
+        public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key,
+            Func<TValue> factory)
         {
             return dictionary.GetOrAdd(key, k => factory());
         }

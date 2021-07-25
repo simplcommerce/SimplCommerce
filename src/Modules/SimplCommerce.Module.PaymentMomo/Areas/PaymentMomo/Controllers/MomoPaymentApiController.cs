@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Payments.Models;
-using SimplCommerce.Module.PaymentMomo.ViewModels;
 using SimplCommerce.Module.PaymentMomo.Models;
+using SimplCommerce.Module.PaymentMomo.ViewModels;
+using SimplCommerce.Module.Payments.Models;
 
 namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
 {
@@ -25,7 +25,8 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
         [HttpGet("config")]
         public async Task<IActionResult> Config()
         {
-            var momoProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.MomoPaymentProviderId);
+            var momoProvider = await _paymentProviderRepository.Query()
+                .FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.MomoPaymentProviderId);
             var model = JsonConvert.DeserializeObject<MomoPaymentConfigForm>(momoProvider.AdditionalSettings);
             return Ok(model);
         }
@@ -35,7 +36,8 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
         {
             if (ModelState.IsValid)
             {
-                var momoProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.MomoPaymentProviderId);
+                var momoProvider = await _paymentProviderRepository.Query()
+                    .FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.MomoPaymentProviderId);
                 momoProvider.AdditionalSettings = JsonConvert.SerializeObject(model);
                 await _paymentProviderRepository.SaveChangesAsync();
                 return Accepted();

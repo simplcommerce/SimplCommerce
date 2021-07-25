@@ -1,8 +1,9 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.inventory')
-        .controller('WarehouseFormCtrl', ['warehouseService', 'translateService', '$state', '$stateParams', WarehouseFormCtrl]);
+        .module("simplAdmin.inventory")
+        .controller("WarehouseFormCtrl",
+            ["warehouseService", "translateService", "$state", "$stateParams", WarehouseFormCtrl]);
 
     function WarehouseFormCtrl(warehouseService, translateService, $state, $stateParams) {
         var vm = this;
@@ -24,10 +25,10 @@
             }
 
             promise
-                .then(function (result) {
-                    $state.go('warehouses');
+                .then(function(result) {
+                    $state.go("warehouses");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -35,37 +36,38 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push(translateService.get('Could not save Warehouse.'));
+                        vm.validationErrors.push(translateService.get("Could not save Warehouse."));
                     }
                 });
         };
 
-        getCountries = function () {
-            warehouseService.getCountries().then(function (result) {
+        getCountries = function() {
+            warehouseService.getCountries().then(function(result) {
                 vm.countries = result.data;
                 vm.warehouse.countryId = vm.warehouse.countryId || vm.countries[0].id.toString();
             });
         };
 
-        getStatesOrProvinces = function (countryId) {
-            warehouseService.getStatesOrProvinces(countryId).then(function (result) {
+        getStatesOrProvinces = function(countryId) {
+            warehouseService.getStatesOrProvinces(countryId).then(function(result) {
                 vm.statesOrProvinces = result.data;
-                vm.warehouse.stateOrProvinceId = vm.warehouse.stateOrProvinceId || vm.statesOrProvinces[0].id.toString();
+                vm.warehouse.stateOrProvinceId =
+                    vm.warehouse.stateOrProvinceId || vm.statesOrProvinces[0].id.toString();
             });
         };
 
-        getDistricts = function (stateOrProvinceId) {
-            warehouseService.getDistricts(stateOrProvinceId).then(function (result) {
+        getDistricts = function(stateOrProvinceId) {
+            warehouseService.getDistricts(stateOrProvinceId).then(function(result) {
                 vm.districts = result.data;
                 vm.warehouse.districtId = vm.warehouse.districtId || vm.districts[0].id;
             });
         };
 
-        vm.onStateOrProvinceSelected = function (stateOrProvinceId) {
+        vm.onStateOrProvinceSelected = function(stateOrProvinceId) {
             getDistricts(stateOrProvinceId);
         };
 
-        vm.onCountrySelected = function (countryId) {
+        vm.onCountrySelected = function(countryId) {
             vm.statesOrProvinces = [];
             vm.districts = [];
             getStatesOrProvinces(countryId);
@@ -74,7 +76,7 @@
         function init() {
             getCountries();
             if (vm.isEditMode) {
-                warehouseService.getWarehouse(vm.warehouseId).then(function (result) {
+                warehouseService.getWarehouse(vm.warehouseId).then(function(result) {
                     vm.warehouse = result.data;
 
                     if (vm.warehouse.countryId) {

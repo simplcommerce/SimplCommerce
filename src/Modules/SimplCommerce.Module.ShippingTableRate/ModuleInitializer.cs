@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Module.ShippingPrices.Services;
 using SimplCommerce.Module.ShippingTableRate.Services;
-using SimplCommerce.Infrastructure;
 
 namespace SimplCommerce.Module.ShippingTableRate
 {
@@ -19,7 +19,6 @@ namespace SimplCommerce.Module.ShippingTableRate
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
         }
     }
 }

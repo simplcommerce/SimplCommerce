@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using SimplCommerce.Module.Core.Models;
-using SimplCommerce.Module.Shipping.Models;
 
 namespace SimplCommerce.Module.ShippingPrices.Services
 {

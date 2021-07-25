@@ -3,28 +3,30 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Localization;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Pricing.Services;
 using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
-using Microsoft.Extensions.Localization;
+using SimplCommerce.Module.ShoppingCart.Models;
 
 namespace SimplCommerce.Module.ShoppingCart.Services
 {
     public class CartService : ICartService
     {
-        private readonly IRepository<Cart> _cartRepository;
         private readonly IRepository<CartItem> _cartItemRepository;
-        private readonly IMediaService _mediaService;
+        private readonly IRepository<Cart> _cartRepository;
         private readonly ICouponService _couponService;
-        private readonly bool _isProductPriceIncludeTax;
         private readonly ICurrencyService _currencyService;
+        private readonly bool _isProductPriceIncludeTax;
         private readonly IStringLocalizer _localizer;
+        private readonly IMediaService _mediaService;
 
-        public CartService(IRepository<Cart> cartRepository, IRepository<CartItem> cartItemRepository, ICouponService couponService,
-            IMediaService mediaService, IConfiguration config, ICurrencyService currencyService, IStringLocalizerFactory stringLocalizerFactory)
+        public CartService(IRepository<Cart> cartRepository, IRepository<CartItem> cartItemRepository,
+            ICouponService couponService,
+            IMediaService mediaService, IConfiguration config, ICurrencyService currencyService,
+            IStringLocalizerFactory stringLocalizerFactory)
         {
             _cartRepository = cartRepository;
             _cartItemRepository = cartItemRepository;
@@ -49,7 +51,8 @@ namespace SimplCommerce.Module.ShoppingCart.Services
         {
             return await _cartRepository.Query()
                 .Include(x => x.Items)
-                .Where(x => x.CustomerId == customerId && x.CreatedById == createdById && x.IsActive).FirstOrDefaultAsync();
+                .Where(x => x.CustomerId == customerId && x.CreatedById == createdById && x.IsActive)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<Result> AddToCart(long customerId, long productId, int quantity)
@@ -75,7 +78,8 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             {
                 if (cart.LockedOnCheckout)
                 {
-                    return Result.Fail(_localizer["Cart is locked for checkout. Please complete the checkout first."].Value);
+                    return Result.Fail(_localizer["Cart is locked for checkout. Please complete the checkout first."]
+                        .Value);
                 }
 
                 cart = await _cartRepository.Query().Include(x => x.Items).FirstOrDefaultAsync(x => x.Id == cart.Id);
@@ -86,10 +90,7 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             {
                 cartItem = new CartItem
                 {
-                    Cart = cart,
-                    ProductId = productId,
-                    Quantity = quantity,
-                    CreatedOn = DateTimeOffset.Now
+                    Cart = cart, ProductId = productId, Quantity = quantity, CreatedOn = DateTimeOffset.Now
                 };
 
                 cart.Items.Add(cartItem);
@@ -99,7 +100,7 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 cartItem.Quantity = cartItem.Quantity + quantity;
             }
 
-            await  _cartRepository.SaveChangesAsync();
+            await _cartRepository.SaveChangesAsync();
 
             return Result.Ok();
         }
@@ -142,7 +143,8 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                     ProductPrice = x.Product.Price,
                     ProductStockQuantity = x.Product.StockQuantity,
                     ProductStockTrackingIsEnabled = x.Product.StockTrackingIsEnabled,
-                    IsProductAvailabeToOrder = x.Product.IsAllowToOrder && x.Product.IsPublished && !x.Product.IsDeleted,
+                    IsProductAvailabeToOrder =
+                        x.Product.IsAllowToOrder && x.Product.IsPublished && !x.Product.IsDeleted,
                     ProductImage = _mediaService.GetThumbnailUrl(x.Product.ThumbnailImage),
                     Quantity = x.Quantity,
                     VariationOptions = CartItemVm.GetVariationOption(x.Product)
@@ -153,9 +155,11 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             {
                 var cartInfoForCoupon = new CartInfoForCoupon
                 {
-                    Items = cartVm.Items.Select(x => new CartItemForCoupon { ProductId = x.ProductId, Quantity = x.Quantity }).ToList()
+                    Items = cartVm.Items.Select(x =>
+                        new CartItemForCoupon {ProductId = x.ProductId, Quantity = x.Quantity}).ToList()
                 };
-                var couponValidationResult = await _couponService.Validate(customerId, cartVm.CouponCode, cartInfoForCoupon);
+                var couponValidationResult =
+                    await _couponService.Validate(customerId, cartVm.CouponCode, cartInfoForCoupon);
                 if (couponValidationResult.Succeeded)
                 {
                     cartVm.Discount = couponValidationResult.DiscountAmount;
@@ -175,7 +179,8 @@ namespace SimplCommerce.Module.ShoppingCart.Services
 
             var cartInfoForCoupon = new CartInfoForCoupon
             {
-                Items = cart.Items.Select(x => new CartItemForCoupon { ProductId = x.ProductId, Quantity = x.Quantity }).ToList()
+                Items = cart.Items
+                    .Select(x => new CartItemForCoupon {ProductId = x.ProductId, Quantity = x.Quantity}).ToList()
             };
             var couponValidationResult = await _couponService.Validate(cart.CustomerId, couponCode, cartInfoForCoupon);
             if (couponValidationResult.Succeeded)
@@ -226,13 +231,13 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                     }
                 }
 
-               await _cartRepository.SaveChangesAsync();
+                await _cartRepository.SaveChangesAsync();
             }
         }
 
         public async Task UnlockCart(Cart cart)
         {
-            if(cart == null)
+            if (cart == null)
             {
                 throw new ArgumentNullException(nameof(cart));
             }

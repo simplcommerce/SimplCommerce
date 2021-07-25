@@ -31,14 +31,11 @@ namespace SimplCommerce.Module.ShoppingCart.Models
 
         public bool LockedOnCheckout { get; set; }
 
-        [StringLength(450)]
-        public string CouponCode { get; set; }
+        [StringLength(450)] public string CouponCode { get; set; }
 
-        [StringLength(450)]
-        public string CouponRuleName { get; set; }
+        [StringLength(450)] public string CouponRuleName { get; set; }
 
-        [StringLength(450)]
-        public string ShippingMethod { get; set; }
+        [StringLength(450)] public string ShippingMethod { get; set; }
 
         public bool IsProductPriceIncludeTax { get; set; }
 
@@ -49,11 +46,10 @@ namespace SimplCommerce.Module.ShoppingCart.Models
         public IList<CartItem> Items { get; set; } = new List<CartItem>();
 
         /// <summary>
-        /// Json serialized of shipping form
+        ///     Json serialized of shipping form
         /// </summary>
         public string ShippingData { get; set; }
 
-        [StringLength(1000)]
-        public string OrderNote { get; set; }
+        [StringLength(1000)] public string OrderNote { get; set; }
     }
 }

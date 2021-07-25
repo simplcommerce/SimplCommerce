@@ -23,11 +23,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         {
             var entityTypes = _entityTypeRepository.Query()
                 .Where(x => x.IsMenuable)
-                .Select(x => new
-                {
-                    x.Id,
-                    x.Name
-                });
+                .Select(x => new {x.Id, x.Name});
 
             return Ok(entityTypes);
         }

@@ -15,7 +15,6 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.ViewModels
 
         public string ImageUrl { get; set; }
 
-        [JsonIgnore]
-        public IFormFile UploadImage { get; set; }
+        [JsonIgnore] public IFormFile UploadImage { get; set; }
     }
 }

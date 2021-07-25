@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels;
+using Reply = SimplCommerce.Module.Reviews.Models.Reply;
 
 namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
 {
@@ -11,10 +12,10 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class ReplyController : Controller
     {
-        private readonly IRepository<Models.Reply> _replyRepository;
+        private readonly IRepository<Reply> _replyRepository;
         private readonly IWorkContext _workContext;
 
-        public ReplyController(IRepository<Models.Reply> replyRepository, IWorkContext workContext)
+        public ReplyController(IRepository<Reply> replyRepository, IWorkContext workContext)
         {
             _replyRepository = replyRepository;
             _workContext = workContext;
@@ -29,7 +30,7 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
                 var user = await _workContext.GetCurrentUser();
                 model.ReplierName = user.FullName;
 
-                var reply = new Models.Reply
+                var reply = new Reply
                 {
                     ReviewId = model.ReviewId,
                     UserId = user.Id,

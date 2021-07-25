@@ -15,10 +15,11 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     [Route("api/product-translations")]
     public class ProductTranslationApiController : Controller
     {
-        private readonly IRepository<Product> _productRepository;
         private readonly IRepository<LocalizedContentProperty> _localizedContentPropertyRepository;
+        private readonly IRepository<Product> _productRepository;
 
-        public ProductTranslationApiController(IRepository<Product> productRepository, IRepository<LocalizedContentProperty> localizedContentPropertyRepository)
+        public ProductTranslationApiController(IRepository<Product> productRepository,
+            IRepository<LocalizedContentProperty> localizedContentPropertyRepository)
         {
             _productRepository = productRepository;
             _localizedContentPropertyRepository = localizedContentPropertyRepository;
@@ -42,9 +43,13 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             {
                 DefaultCultureName = product.Name,
                 Name = localizeProperties.FirstOrDefault(x => x.ProperyName == nameof(product.Name))?.Value,
-                ShortDescription = localizeProperties.FirstOrDefault(x => x.ProperyName == nameof(product.ShortDescription))?.Value,
-                Description = localizeProperties.FirstOrDefault(x => x.ProperyName == nameof(product.Description))?.Value,
-                Specification = localizeProperties.FirstOrDefault(x => x.ProperyName == nameof(product.Specification))?.Value
+                ShortDescription =
+                    localizeProperties.FirstOrDefault(x => x.ProperyName == nameof(product.ShortDescription))
+                        ?.Value,
+                Description =
+                    localizeProperties.FirstOrDefault(x => x.ProperyName == nameof(product.Description))?.Value,
+                Specification = localizeProperties
+                    .FirstOrDefault(x => x.ProperyName == nameof(product.Specification))?.Value
             };
 
             return Ok(model);
@@ -66,16 +71,20 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 var localizeProperties = _localizedContentPropertyRepository.Query().Where(x => x.EntityId == product.Id
                     && x.EntityType == entityType && x.CultureId == culture);
 
-                var localizedName = CreateOrUpdateTranslation(localizeProperties, product, nameof(product.Name), culture);
+                var localizedName =
+                    CreateOrUpdateTranslation(localizeProperties, product, nameof(product.Name), culture);
                 localizedName.Value = model.Name;
 
-                var localizedShortDescription = CreateOrUpdateTranslation(localizeProperties, product, nameof(product.ShortDescription), culture);
+                var localizedShortDescription = CreateOrUpdateTranslation(localizeProperties, product,
+                    nameof(product.ShortDescription), culture);
                 localizedShortDescription.Value = model.ShortDescription;
 
-                var localizedDescription = CreateOrUpdateTranslation(localizeProperties, product, nameof(product.Description), culture);
+                var localizedDescription =
+                    CreateOrUpdateTranslation(localizeProperties, product, nameof(product.Description), culture);
                 localizedDescription.Value = model.Description;
 
-                var localizedSpecification = CreateOrUpdateTranslation(localizeProperties, product, nameof(product.Specification), culture);
+                var localizedSpecification =
+                    CreateOrUpdateTranslation(localizeProperties, product, nameof(product.Specification), culture);
                 localizedSpecification.Value = model.Specification;
 
                 await _localizedContentPropertyRepository.SaveChangesAsync();
@@ -86,7 +95,9 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             return BadRequest(ModelState);
         }
 
-        private LocalizedContentProperty CreateOrUpdateTranslation(IQueryable<LocalizedContentProperty> localizedContentProperties, Product product, string propertyName, string culture)
+        private LocalizedContentProperty CreateOrUpdateTranslation(
+            IQueryable<LocalizedContentProperty> localizedContentProperties, Product product, string propertyName,
+            string culture)
         {
             var localizedProperty = localizedContentProperties.FirstOrDefault(x => x.ProperyName == propertyName);
             if (localizedProperty == null)

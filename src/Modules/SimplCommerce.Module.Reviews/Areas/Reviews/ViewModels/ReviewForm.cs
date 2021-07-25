@@ -4,8 +4,7 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels
 {
     public class ReviewForm
     {
-        [Range(1, 5)]
-        public int Rating { get; set; }
+        [Range(1, 5)] public int Rating { get; set; }
 
         public string Title { get; set; }
 

@@ -24,13 +24,7 @@ namespace SimplCommerce.Module.Payments.Areas.Payments.Controllers
         public async Task<IActionResult> Get()
         {
             var providers = await _paymentProviderRepository.Query()
-                .Select(x => new
-                {
-                    x.Id,
-                    x.Name,
-                    x.IsEnabled,
-                    x.ConfigureUrl
-                }).ToListAsync();
+                .Select(x => new {x.Id, x.Name, x.IsEnabled, x.ConfigureUrl}).ToListAsync();
 
             return Json(providers);
         }

@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.paymentNganLuong')
-        .factory('paymentNganLuongService', ['$http', paymentNganLuongService]);
+        .module("simplAdmin.paymentNganLuong")
+        .factory("paymentNganLuongService", ["$http", paymentNganLuongService]);
 
     function paymentNganLuongService($http) {
         var service = {
@@ -12,11 +12,11 @@
         return service;
 
         function getSettings() {
-            return $http.get('api/ngan-luong/config');
+            return $http.get("api/ngan-luong/config");
         }
 
         function updateSetting(settings) {
-            return $http.put('api/ngan-luong/config', settings);
+            return $http.put("api/ngan-luong/config", settings);
         }
     }
 })();

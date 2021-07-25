@@ -5,20 +5,21 @@
 
 <div class="row">
     <div class="col-md-3">
-        <partial name="_AccountMenu" />
+        <partial name="_AccountMenu"/>
     </div>
     <div class="col-md-9">
         <h2>@Localizer["Address Book"]</h2>
-        <hr />
+        <hr/>
         @foreach (var address in Model)
         {
             <div>
-                <strong>@address.ContactName </strong><br />
-                @address.AddressLine1 <br />
-                @if(address.DisplayDistrict){
+                <strong>@address.ContactName </strong><br/>
+                @address.AddressLine1 <br/>
+                @if (address.DisplayDistrict)
+                {
                     <text>@address.DistrictName,</text>
                 }
-                @address.StateOrProvinceName <br />
+                @address.StateOrProvinceName <br/>
                 Phone: @address.Phone
             </div>
             <div>
@@ -38,9 +39,11 @@
                     <button type="submit" class="btn btn-link" style="padding: 0">@Localizer["Delete"]</button>
                 </form>
             </div>
-            <hr />
+            <hr/>
         }
 
-        <div class="text-right"><a class="btn btn-primary" href="~/user/address/create">@Localizer["Add Address"]</a></div>
+        <div class="text-right">
+            <a class="btn btn-primary" href="~/user/address/create">@Localizer["Add Address"]</a>
+        </div>
     </div>
 </div>

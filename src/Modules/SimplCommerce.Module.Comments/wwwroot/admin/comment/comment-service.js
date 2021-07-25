@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.comments')
-        .factory('commentService', ['$http', commentService]);
+        .module("simplAdmin.comments")
+        .factory("commentService", ["$http", commentService]);
 
     function commentService($http) {
         var service = {
@@ -14,15 +14,15 @@
         return service;
 
         function getComments(status, numRecords) {
-            return $http.get('api/comments?status=' + status + '&numRecords=' + numRecords);
+            return $http.get("api/comments?status=" + status + "&numRecords=" + numRecords);
         }
 
         function getCommentsForGrid(params) {
-            return $http.post('api/comments/grid', params);
+            return $http.post("api/comments/grid", params);
         }
 
         function changeCommentStatus(commentId, statusId) {
-            return $http.post('api/comments/change-status/' + commentId, statusId);
+            return $http.post("api/comments/change-status/" + commentId, statusId);
         }
     }
 })();

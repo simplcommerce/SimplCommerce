@@ -1,8 +1,9 @@
 ﻿/*global angular, confirm*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.catalog')
-        .controller('ProductAttributeGroupListCtrl', ['productAttributeGroupService', 'translateService', ProductAttributeGroupListCtrl]);
+        .module("simplAdmin.catalog")
+        .controller("ProductAttributeGroupListCtrl",
+            ["productAttributeGroupService", "translateService", ProductAttributeGroupListCtrl]);
 
     function ProductAttributeGroupListCtrl(productAttributeGroupService, translateService) {
         var vm = this;
@@ -10,7 +11,7 @@
         vm.productAttributeGroups = [];
 
         vm.getProductAttributeGroups = function getProductAttributeGroups() {
-            productAttributeGroupService.getProductAttributeGroups().then(function (result) {
+            productAttributeGroupService.getProductAttributeGroups().then(function(result) {
                 vm.productAttributeGroups = result.data;
             });
         };
@@ -18,7 +19,7 @@
         vm.deleteProductAttributeGroup = function deleteProductAttributeGroup(productAttributeGroup) {
             if (confirm("Are you sure?")) {
                 productAttributeGroupService.deleteProductAttributeGroup(productAttributeGroup)
-                    .then(function (result) {
+                    .then(function(result) {
                         vm.getProductAttributeGroups();
                     });
             }

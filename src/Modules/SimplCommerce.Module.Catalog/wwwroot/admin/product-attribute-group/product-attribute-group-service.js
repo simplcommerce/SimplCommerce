@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.catalog')
-        .factory('productAttributeGroupService', ['$http', productAttributeGroupService]);
+        .module("simplAdmin.catalog")
+        .factory("productAttributeGroupService", ["$http", productAttributeGroupService]);
 
     function productAttributeGroupService($http) {
         var service = {
@@ -15,23 +15,23 @@
         return service;
 
         function getProductAttributeGroup(id) {
-            return $http.get('api/product-attribute-groups/' + id);
+            return $http.get("api/product-attribute-groups/" + id);
         }
 
         function getProductAttributeGroups() {
-            return $http.get('api/product-attribute-groups');
+            return $http.get("api/product-attribute-groups");
         }
 
         function createProductAttributeGroup(productAttributeGroup) {
-            return $http.post('api/product-attribute-groups', productAttributeGroup);
+            return $http.post("api/product-attribute-groups", productAttributeGroup);
         }
 
         function editProductAttributeGroup(productAttributeGroup) {
-            return $http.put('api/product-attribute-groups/' + productAttributeGroup.id, productAttributeGroup);
+            return $http.put("api/product-attribute-groups/" + productAttributeGroup.id, productAttributeGroup);
         }
 
         function deleteProductAttributeGroup(productAttributeGroup) {
-            return $http.delete('api/product-attribute-groups/' + productAttributeGroup.id);
+            return $http.delete("api/product-attribute-groups/" + productAttributeGroup.id);
         }
     }
 })();

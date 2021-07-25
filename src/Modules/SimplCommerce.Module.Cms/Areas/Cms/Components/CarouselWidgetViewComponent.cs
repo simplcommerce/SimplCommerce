@@ -12,8 +12,8 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Components
 {
     public class CarouselWidgetViewComponent : ViewComponent
     {
-        private readonly IMediaService _mediaService;
         private readonly IStringLocalizer _localizer;
+        private readonly IMediaService _mediaService;
 
         public CarouselWidgetViewComponent(IMediaService mediaService, IStringLocalizerFactory stringLocalizerFactory)
         {
@@ -23,7 +23,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Components
 
         public IViewComponentResult Invoke(WidgetInstanceViewModel widgetInstance)
         {
-            if(widgetInstance == null)
+            if (widgetInstance == null)
             {
                 throw new ArgumentNullException(nameof(widgetInstance));
             }
@@ -39,7 +39,12 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Components
                 item.Image = _mediaService.GetMediaUrl(item.Image);
 
                 if (!string.IsNullOrWhiteSpace(item.Caption)) { item.Caption = _localizer.GetString(item.Caption); }
-                if (!string.IsNullOrWhiteSpace(item.SubCaption)) { item.SubCaption = _localizer.GetString(item.SubCaption); }
+
+                if (!string.IsNullOrWhiteSpace(item.SubCaption))
+                {
+                    item.SubCaption = _localizer.GetString(item.SubCaption);
+                }
+
                 if (!string.IsNullOrWhiteSpace(item.LinkText)) { item.LinkText = _localizer.GetString(item.LinkText); }
             }
 

@@ -6,11 +6,11 @@
 
 <div class="row">
     <div class="col-md-3">
-        <partial name="_AccountMenu" />
+        <partial name="_AccountMenu"/>
     </div>
     <div class="col-md-9">
         <h2>@ViewData["Title"]</h2>
-        <hr />
+        <hr/>
         <table class="table table-striped order-history">
             <tr>
                 <th>@Localizer["Order Id"]</th>
@@ -22,18 +22,20 @@
             @foreach (var order in Model)
             {
                 <tr>
-                    <td><a href="~/user/orders/@order.Id">@order.Id</a></td>
+                    <td>
+                        <a href="~/user/orders/@order.Id">@order.Id</a>
+                    </td>
                     <td>@order.CreatedOn.DateTime.ToShortDateString()</td>
                     <td>
                         @foreach (var item in order.OrderItems)
                         {
                             <div class="row">
                                 <div class="col-md-3">
-                                    <img src="@item.ThumbnailImage" />
+                                    <img src="@item.ThumbnailImage"/>
                                 </div>
                                 <div class="col-md-9">
-                                     <p>@item.ProductName</p>
-                                     <p>@Localizer["Quantity"] @item.Quantity</p>
+                                    <p>@item.ProductName</p>
+                                    <p>@Localizer["Quantity"] @item.Quantity</p>
                                 </div>
                             </div>
                         }

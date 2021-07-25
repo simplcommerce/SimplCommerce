@@ -20,10 +20,11 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
     [Route("api/spacebar-widgets")]
     public class SpaceBarWidgetApiContorller : Controller
     {
-        private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
         private readonly IMediaService _mediaService;
+        private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
 
-        public SpaceBarWidgetApiContorller(IRepository<WidgetInstance> widgetInstanceRepository, IMediaService mediaService)
+        public SpaceBarWidgetApiContorller(IRepository<WidgetInstance> widgetInstanceRepository,
+            IMediaService mediaService)
         {
             _widgetInstanceRepository = widgetInstanceRepository;
             _mediaService = mediaService;
@@ -46,7 +47,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
 
             foreach (var item in model.Items)
             {
-                if(string.IsNullOrEmpty(item.Image))
+                if (string.IsNullOrEmpty(item.Image))
                 {
                     continue;
                 }
@@ -65,7 +66,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
             {
                 foreach (var item in model.Items)
                 {
-                    if(item.UploadImage != null)
+                    if (item.UploadImage != null)
                     {
                         item.Image = await SaveFile(item.UploadImage);
                     }
@@ -84,7 +85,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
 
                 _widgetInstanceRepository.Add(widgetInstance);
                 _widgetInstanceRepository.SaveChanges();
-                return CreatedAtAction(nameof(Get), new { id = widgetInstance.Id }, null);
+                return CreatedAtAction(nameof(Get), new {id = widgetInstance.Id}, null);
             }
 
             return BadRequest(ModelState);
@@ -103,6 +104,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                     {
                         await _mediaService.DeleteMediaAsync(item.Image);
                     }
+
                     item.Image = await SaveFile(item.UploadImage);
                 }
             }
@@ -128,19 +130,19 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
             var model = new SpaceBarWidgetForm();
             model.Name = formCollection["name"];
             model.WidgetZoneId = int.Parse(formCollection["widgetZoneId"]);
-            int.TryParse(formCollection["displayOrder"], out int displayOrder);
+            int.TryParse(formCollection["displayOrder"], out var displayOrder);
             model.DisplayOrder = displayOrder;
-            if (DateTimeOffset.TryParse(formCollection["publishStart"], out DateTimeOffset publishStart))
+            if (DateTimeOffset.TryParse(formCollection["publishStart"], out var publishStart))
             {
                 model.PublishStart = publishStart;
             }
 
-            if (DateTimeOffset.TryParse(formCollection["publishEnd"], out DateTimeOffset publishEnd))
+            if (DateTimeOffset.TryParse(formCollection["publishEnd"], out var publishEnd))
             {
                 model.PublishEnd = publishEnd;
             }
 
-            int numberOfItems = int.Parse(formCollection["numberOfItems"]);
+            var numberOfItems = int.Parse(formCollection["numberOfItems"]);
             for (var i = 0; i < numberOfItems; i++)
             {
                 var item = new SpaceBarWidgetSetting();
@@ -157,7 +159,8 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
 
         private async Task<string> SaveFile(IFormFile file)
         {
-            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');
+            var originalFileName =
+                ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
             await _mediaService.SaveMediaAsync(file.OpenReadStream(), fileName, file.ContentType);
             return fileName;

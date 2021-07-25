@@ -15,8 +15,8 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
     [Route("api/themes")]
     public class ThemeApiController : Controller
     {
-        private readonly IThemeService _themeService;
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IThemeService _themeService;
 
         public ThemeApiController(IThemeService themeService, IHttpClientFactory httpClientFactory)
         {
@@ -61,7 +61,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         public async Task<IActionResult> Install(string name)
         {
             var installedThemes = await _themeService.GetInstalledThemes();
-            if(installedThemes.Any(x => x.Name == name))
+            if (installedThemes.Any(x => x.Name == name))
             {
                 return NoContent();
             }
@@ -92,6 +92,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 
                 return Accepted();
             }
+
             return BadRequest(ModelState);
         }
 

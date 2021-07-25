@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Collections.Generic;
 
 namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
 {
@@ -23,13 +23,11 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
         // File input doesn't get bound on nested models
         // https://github.com/aspnet/Mvc/issues/4485
         // Workaround by moving file input to the top
-        [BindNever]
-        public IFormFile ThumbnailImage { get; set; }
+        [BindNever] public IFormFile ThumbnailImage { get; set; }
 
         public string ThumbnailImageUrl { get; set; }
 
-        [BindNever]
-        public IList<IFormFile> NewImages { get; set; } = new List<IFormFile>();
+        [BindNever] public IList<IFormFile> NewImages { get; set; } = new List<IFormFile>();
 
         public IList<string> ImageUrls { get; set; } = new List<string>();
 

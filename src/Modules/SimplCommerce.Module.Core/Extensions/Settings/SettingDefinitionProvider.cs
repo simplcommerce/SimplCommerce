@@ -8,7 +8,7 @@ namespace SimplCommerce.Module.Core
     {
         public SettingDefinitionProvider()
         {
-            this.SettingDefinitions = new Dictionary<string, SettingDefinition>();
+            SettingDefinitions = new Dictionary<string, SettingDefinition>();
         }
 
         public Dictionary<string, SettingDefinition> SettingDefinitions { get; }
@@ -32,6 +32,7 @@ namespace SimplCommerce.Module.Core
                     SettingDefinitions[definition.Name] = definition;
                 }
             }
+
             return this;
         }
     }

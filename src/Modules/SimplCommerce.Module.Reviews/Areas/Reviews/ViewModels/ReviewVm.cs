@@ -24,21 +24,12 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels
             {
                 if (ReviewsCount > 0)
                 {
-                    return ((1 * Rating1Count) + (2 * Rating2Count) + (3 * Rating3Count) + (4 * Rating4Count) + (5 * Rating5Count)) / (double)ReviewsCount;
+                    return ((1 * Rating1Count) + (2 * Rating2Count) + (3 * Rating3Count) + (4 * Rating4Count) +
+                            (5 * Rating5Count)) / (double)ReviewsCount;
                 }
 
                 return 0;
             }
-        }
-
-        public double GetRatingPercent(int rateCount)
-        {
-            if (ReviewsCount > 0)
-            {
-                return (double)rateCount/ReviewsCount*100;
-            }
-
-            return 0;
         }
 
         public int Rating1Count { get; set; }
@@ -51,6 +42,16 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels
 
         public int Rating5Count { get; set; }
 
-        public PagedResult<ReviewItem> Items { get; set; } = new PagedResult<ReviewItem>();
+        public PagedResult<ReviewItem> Items { get; set; } = new();
+
+        public double GetRatingPercent(int rateCount)
+        {
+            if (ReviewsCount > 0)
+            {
+                return (double)rateCount / ReviewsCount * 100;
+            }
+
+            return 0;
+        }
     }
 }

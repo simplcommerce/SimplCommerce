@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.paymentCoD')
-        .factory('paymentCoDService', ['$http', paymentCoDService]);
+        .module("simplAdmin.paymentCoD")
+        .factory("paymentCoDService", ["$http", paymentCoDService]);
 
     function paymentCoDService($http) {
         var service = {
@@ -12,11 +12,11 @@
         return service;
 
         function getSettings() {
-            return $http.get('api/cod/config');
+            return $http.get("api/cod/config");
         }
 
         function updateSetting(settings) {
-            return $http.put('api/cod/config', settings);
+            return $http.put("api/cod/config", settings);
         }
     }
 })();

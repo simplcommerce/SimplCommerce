@@ -19,13 +19,13 @@ namespace SimplCommerce.Module.WishList.Areas.WishList.Controllers
     public class WishListController : Controller
     {
         private const int DefaultPageSize = 25;
+        private readonly IEmailSender _emailSender;
+        private readonly IMediaService _mediaService;
+        private readonly IRepository<Product> _productRepository;
+        private readonly IRepository<WishListItem> _wishListItemRepository;
 
         private readonly IRepository<Models.WishList> _wishListRepository;
-        private readonly IRepository<WishListItem> _wishListItemRepository;
-        private readonly IRepository<Product> _productRepository;
         private readonly IWishListService _wishListService;
-        private readonly IMediaService _mediaService;
-        private readonly IEmailSender _emailSender;
         private readonly IWorkContext _workContext;
 
         public WishListController(
@@ -52,7 +52,7 @@ namespace SimplCommerce.Module.WishList.Areas.WishList.Controllers
 
             return View(model);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Share(ShareWishListForm model)
         {
@@ -64,7 +64,7 @@ namespace SimplCommerce.Module.WishList.Areas.WishList.Controllers
                     .Query()
                     .SingleOrDefaultAsync(x => x.UserId == user.Id);
 
-                string sharingCode = String.Empty;
+                var sharingCode = String.Empty;
 
                 if (wishList.SharingCode == null)
                 {
@@ -77,11 +77,12 @@ namespace SimplCommerce.Module.WishList.Areas.WishList.Controllers
                     sharingCode = wishList.SharingCode;
                 }
 
-                var wishListUrl = Url.Action("PublicList", "WishList", new { id = sharingCode }, protocol: HttpContext.Request.Scheme);
-                string emailBody = $"{user.Email} would like to share their wish list with you: {wishListUrl}"
-                    + Environment.NewLine
-                    + Environment.NewLine
-                    + model.Message;
+                var wishListUrl = Url.Action("PublicList", "WishList", new {id = sharingCode},
+                    HttpContext.Request.Scheme);
+                var emailBody = $"{user.Email} would like to share their wish list with you: {wishListUrl}"
+                                + Environment.NewLine
+                                + Environment.NewLine
+                                + model.Message;
 
                 await _emailSender.SendEmailAsync(model.EmailAddress, "Wish List Sharing", emailBody);
 
@@ -102,10 +103,7 @@ namespace SimplCommerce.Module.WishList.Areas.WishList.Controllers
 
             if (wishList == null)
             {
-                wishList = new Models.WishList()
-                {
-                    UserId = user.Id
-                };
+                wishList = new Models.WishList {UserId = user.Id};
 
                 _wishListRepository.Add(wishList);
                 await _wishListRepository.SaveChangesAsync();
@@ -141,16 +139,12 @@ namespace SimplCommerce.Module.WishList.Areas.WishList.Controllers
             var currentPageNum = pageNumber.HasValue ? pageNumber.Value : 1;
             var offset = (itemsPerPage * currentPageNum) - itemsPerPage;
 
-            var wishlistVm = new WishListVm()
-            {
-                Id = wishList.Id,
-                SharingCode = wishList.SharingCode
-            };
+            var wishlistVm = new WishListVm {Id = wishList.Id, SharingCode = wishList.SharingCode};
 
             var wishListItemsQuery = _wishListItemRepository
                 .Query()
                 .Where(x => x.WishListId == wishList.Id)
-                .Select(x => new WishListItemVm()
+                .Select(x => new WishListItemVm
                 {
                     Id = x.Id,
                     WishListId = x.WishListId,
@@ -199,10 +193,7 @@ namespace SimplCommerce.Module.WishList.Areas.WishList.Controllers
 
                 if (wishList == null)
                 {
-                    wishList = new Models.WishList()
-                    {
-                        UserId = user.Id
-                    };
+                    wishList = new Models.WishList {UserId = user.Id};
 
                     _wishListRepository.Add(wishList);
                     await _wishListRepository.SaveChangesAsync();
@@ -215,22 +206,20 @@ namespace SimplCommerce.Module.WishList.Areas.WishList.Controllers
                 if (existingWishlistItem != null)
                 {
                     resultModel.Message = "The product already exists in your wish list";
-                    resultModel.Item = new WishListItemVm()
+                    resultModel.Item = new WishListItemVm
                     {
                         Id = existingWishlistItem.Id,
                         WishListId = wishList.Id,
                         ProductName = product.Name,
                         ProductImage = _mediaService.GetThumbnailUrl(product.ThumbnailImage),
-                        Quantity = existingWishlistItem.Quantity,
+                        Quantity = existingWishlistItem.Quantity
                     };
                 }
                 else
                 {
-                    var wishListItem = new WishListItem()
+                    var wishListItem = new WishListItem
                     {
-                        WishListId = wishList.Id,
-                        ProductId = model.ProductId,
-                        Quantity = model.Quantity
+                        WishListId = wishList.Id, ProductId = model.ProductId, Quantity = model.Quantity
                     };
 
                     _wishListItemRepository.Add(wishListItem);
@@ -239,13 +228,13 @@ namespace SimplCommerce.Module.WishList.Areas.WishList.Controllers
                     await _wishListRepository.SaveChangesAsync();
 
                     resultModel.Message = "The product has been added to your wish list";
-                    resultModel.Item = new WishListItemVm()
+                    resultModel.Item = new WishListItemVm
                     {
                         Id = wishListItem.Id,
                         WishListId = wishList.Id,
                         ProductName = product.Name,
                         ProductImage = _mediaService.GetThumbnailUrl(product.ThumbnailImage),
-                        Quantity = model.Quantity,
+                        Quantity = model.Quantity
                     };
                 }
 

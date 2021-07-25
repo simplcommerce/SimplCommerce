@@ -11,6 +11,7 @@ using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Core.Areas.Core.ViewModels;
 using SimplCommerce.Module.Core.Events;
+using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
@@ -19,11 +20,11 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class ProductController : Controller
     {
+        private readonly IContentLocalizationService _contentLocalizationService;
         private readonly IMediaService _mediaService;
-        private readonly IRepository<Product> _productRepository;
         private readonly IMediator _mediator;
         private readonly IProductPricingService _productPricingService;
-        private readonly IContentLocalizationService _contentLocalizationService;
+        private readonly IRepository<Product> _productRepository;
 
         public ProductController(IRepository<Product> productRepository,
             IMediaService mediaService,
@@ -56,15 +57,18 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             var model = new ProductDetail
             {
                 Id = product.Id,
-                Name = _contentLocalizationService.GetLocalizedProperty(product, nameof(product.Name), product.Name),
+                Name =
+                    _contentLocalizationService.GetLocalizedProperty(product, nameof(product.Name), product.Name),
                 CalculatedProductPrice = _productPricingService.CalculateProductPrice(product),
                 IsCallForPricing = product.IsCallForPricing,
                 IsAllowToOrder = product.IsAllowToOrder,
                 StockTrackingIsEnabled = product.StockTrackingIsEnabled,
                 StockQuantity = product.StockQuantity,
-                ShortDescription = _contentLocalizationService.GetLocalizedProperty(product, nameof(product.ShortDescription), product.ShortDescription),
+                ShortDescription =
+                    _contentLocalizationService.GetLocalizedProperty(product, nameof(product.ShortDescription),
+                        product.ShortDescription),
                 ReviewsCount = product.ReviewsCount,
-                RatingAverage = product.RatingAverage,
+                RatingAverage = product.RatingAverage
             };
 
             MapProductVariantToProductVm(product, model);
@@ -93,23 +97,35 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             var model = new ProductDetail
             {
                 Id = product.Id,
-                Name = _contentLocalizationService.GetLocalizedProperty(product, nameof(product.Name), product.Name),
+                Name =
+                    _contentLocalizationService.GetLocalizedProperty(product, nameof(product.Name), product.Name),
                 Brand = product.Brand,
                 CalculatedProductPrice = _productPricingService.CalculateProductPrice(product),
                 IsCallForPricing = product.IsCallForPricing,
                 IsAllowToOrder = product.IsAllowToOrder,
                 StockTrackingIsEnabled = product.StockTrackingIsEnabled,
                 StockQuantity = product.StockQuantity,
-                ShortDescription = _contentLocalizationService.GetLocalizedProperty(product, nameof(product.ShortDescription), product.ShortDescription),
+                ShortDescription =
+                    _contentLocalizationService.GetLocalizedProperty(product, nameof(product.ShortDescription),
+                        product.ShortDescription),
                 MetaTitle = product.MetaTitle,
                 MetaKeywords = product.MetaKeywords,
                 MetaDescription = product.MetaDescription,
-                Description = _contentLocalizationService.GetLocalizedProperty(product, nameof(product.Description), product.Description),
-                Specification = _contentLocalizationService.GetLocalizedProperty(product, nameof(product.Specification), product.Specification),
+                Description =
+                    _contentLocalizationService.GetLocalizedProperty(product, nameof(product.Description),
+                        product.Description),
+                Specification =
+                    _contentLocalizationService.GetLocalizedProperty(product, nameof(product.Specification),
+                        product.Specification),
                 ReviewsCount = product.ReviewsCount,
                 RatingAverage = product.RatingAverage,
-                Attributes = product.AttributeValues.Select(x => new ProductDetailAttribute { Name = x.Attribute.Name, Value = x.Value }).ToList(),
-                Categories = product.Categories.Select(x => new ProductDetailCategory { Id = x.CategoryId, Name = x.Category.Name, Slug = x.Category.Slug }).ToList()
+                Attributes =
+                    product.AttributeValues
+                        .Select(x => new ProductDetailAttribute {Name = x.Attribute.Name, Value = x.Value})
+                        .ToList(),
+                Categories = product.Categories.Select(x =>
+                        new ProductDetailCategory {Id = x.CategoryId, Name = x.Category.Name, Slug = x.Category.Slug})
+                    .ToList()
             };
 
             MapProductVariantToProductVm(product, model);
@@ -117,7 +133,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             MapProductOptionToProductVm(product, model);
             MapProductImagesToProductVm(product, model);
 
-            await _mediator.Publish(new EntityViewed { EntityId = product.Id, EntityTypeId = "Product" });
+            await _mediator.Publish(new EntityViewed {EntityId = product.Id, EntityTypeId = "Product"});
             _productRepository.SaveChanges();
 
             return View(model);
@@ -125,11 +141,12 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
         private void MapProductImagesToProductVm(Product product, ProductDetail model)
         {
-            model.Images = product.Medias.Where(x => x.Media.MediaType == Core.Models.MediaType.Image).Select(productMedia => new MediaViewModel
-            {
-                Url = _mediaService.GetMediaUrl(productMedia.Media),
-                ThumbnailUrl = _mediaService.GetThumbnailUrl(productMedia.Media)
-            }).ToList();
+            model.Images = product.Medias.Where(x => x.Media.MediaType == MediaType.Image).Select(productMedia =>
+                new MediaViewModel
+                {
+                    Url = _mediaService.GetMediaUrl(productMedia.Media),
+                    ThumbnailUrl = _mediaService.GetThumbnailUrl(productMedia.Media)
+                }).ToList();
         }
 
         private void MapProductOptionToProductVm(Product product, ProductDetail model)
@@ -141,7 +158,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 {
                     if (!model.OptionDisplayValues.ContainsKey(value.Key))
                     {
-                        model.OptionDisplayValues.Add(value.Key, new ProductOptionDisplay { DisplayType = item.DisplayType, Value = value.Display });
+                        model.OptionDisplayValues.Add(value.Key,
+                            new ProductOptionDisplay {DisplayType = item.DisplayType, Value = value.Display});
                     }
                 }
             }
@@ -149,7 +167,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
         private void MapProductVariantToProductVm(Product product, ProductDetail model)
         {
-            if(!product.ProductLinks.Any(x => x.LinkType == ProductLinkType.Super))
+            if (!product.ProductLinks.Any(x => x.LinkType == ProductLinkType.Super))
             {
                 return;
             }
@@ -158,7 +176,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 .Query()
                 .Include(x => x.OptionCombinations).ThenInclude(o => o.Option)
                 .Include(x => x.Medias).ThenInclude(m => m.Media)
-                .Where(x => x.LinkedProductLinks.Any(link => link.ProductId == product.Id && link.LinkType == ProductLinkType.Super))
+                .Where(x => x.LinkedProductLinks.Any(link =>
+                    link.ProductId == product.Id && link.LinkType == ProductLinkType.Super))
                 .Where(x => x.IsPublished)
                 .ToList();
 
@@ -174,11 +193,12 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     StockTrackingIsEnabled = variation.StockTrackingIsEnabled,
                     StockQuantity = variation.StockQuantity,
                     CalculatedProductPrice = _productPricingService.CalculateProductPrice(variation),
-                    Images = variation.Medias.Where(x => x.Media.MediaType == Core.Models.MediaType.Image).Select(productMedia => new MediaViewModel
-                    {
-                        Url = _mediaService.GetMediaUrl(productMedia.Media),
-                        ThumbnailUrl = _mediaService.GetThumbnailUrl(productMedia.Media)
-                    }).ToList()
+                    Images = variation.Medias.Where(x => x.Media.MediaType == MediaType.Image).Select(
+                        productMedia => new MediaViewModel
+                        {
+                            Url = _mediaService.GetMediaUrl(productMedia.Media),
+                            ThumbnailUrl = _mediaService.GetThumbnailUrl(productMedia.Media)
+                        }).ToList()
                 };
 
                 var optionCombinations = variation.OptionCombinations.OrderBy(x => x.SortIndex);
@@ -198,12 +218,15 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
         private void MapRelatedProductToProductVm(Product product, ProductDetail model)
         {
-            var publishedProductLinks = product.ProductLinks.Where(x => x.LinkedProduct.IsPublished && (x.LinkType == ProductLinkType.Related || x.LinkType == ProductLinkType.CrossSell));
+            var publishedProductLinks = product.ProductLinks.Where(x =>
+                x.LinkedProduct.IsPublished &&
+                (x.LinkType == ProductLinkType.Related || x.LinkType == ProductLinkType.CrossSell));
             foreach (var productLink in publishedProductLinks)
             {
                 var linkedProduct = productLink.LinkedProduct;
                 var productThumbnail = ProductThumbnail.FromProduct(linkedProduct);
-                productThumbnail.Name = _contentLocalizationService.GetLocalizedProperty(nameof(Product), productThumbnail.Id, nameof(product.Name), productThumbnail.Name);
+                productThumbnail.Name = _contentLocalizationService.GetLocalizedProperty(nameof(Product),
+                    productThumbnail.Id, nameof(product.Name), productThumbnail.Name);
                 productThumbnail.ThumbnailUrl = _mediaService.GetThumbnailUrl(linkedProduct.ThumbnailImage);
                 productThumbnail.CalculatedProductPrice = _productPricingService.CalculateProductPrice(linkedProduct);
 

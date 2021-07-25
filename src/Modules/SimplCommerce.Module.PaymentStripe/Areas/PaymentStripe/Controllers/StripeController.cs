@@ -23,11 +23,11 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
     public class StripeController : Controller
     {
         private readonly ICartService _cartService;
+        private readonly ICurrencyService _currencyService;
         private readonly IOrderService _orderService;
-        private readonly IWorkContext _workContext;
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private readonly IRepository<Payment> _paymentRepository;
-        private readonly ICurrencyService _currencyService;
+        private readonly IWorkContext _workContext;
 
         public StripeController(
             ICartService cartService,
@@ -47,18 +47,19 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
 
         public async Task<IActionResult> Charge(string stripeEmail, string stripeToken)
         {
-            var stripeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.StripeProviderId);
+            var stripeProvider = await _paymentProviderRepository.Query()
+                .FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.StripeProviderId);
             var stripeSetting = JsonConvert.DeserializeObject<StripeConfigForm>(stripeProvider.AdditionalSettings);
             var stripeChargeService = new ChargeService(stripeSetting.PrivateKey);
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCart(currentUser.Id);
-            if(cart == null)
+            if (cart == null)
             {
                 return NotFound();
             }
 
             var orderCreationResult = await _orderService.CreateOrder(cart.Id, "Stripe", 0, OrderStatus.PendingPayment);
-            if(!orderCreationResult.Success)
+            if (!orderCreationResult.Success)
             {
                 TempData["Error"] = orderCreationResult.Error;
                 return Redirect("~/checkout/payment");
@@ -66,13 +67,13 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
 
             var order = orderCreationResult.Value;
             var zeroDecimalOrderAmount = order.OrderTotal;
-            if(!CurrencyHelper.IsZeroDecimalCurrencies(_currencyService.CurrencyCulture))
+            if (!CurrencyHelper.IsZeroDecimalCurrencies(_currencyService.CurrencyCulture))
             {
                 zeroDecimalOrderAmount = zeroDecimalOrderAmount * 100;
             }
 
             var regionInfo = new RegionInfo(_currencyService.CurrencyCulture.LCID);
-            var payment= new Payment()
+            var payment = new Payment
             {
                 OrderId = order.Id,
                 Amount = order.OrderTotal,
@@ -96,7 +97,7 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
                 await _paymentRepository.SaveChangesAsync();
                 return Redirect($"~/checkout/success?orderId={order.Id}");
             }
-            catch(StripeException ex)
+            catch (StripeException ex)
             {
                 payment.Status = PaymentStatus.Failed;
                 payment.FailureMessage = ex.StripeError.Message;

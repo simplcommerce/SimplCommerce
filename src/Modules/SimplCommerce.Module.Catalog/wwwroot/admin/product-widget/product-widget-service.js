@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.catalog')
-        .factory('productWidgetService', ['$http', productWidgetService]);
+        .module("simplAdmin.catalog")
+        .factory("productWidgetService", ["$http", productWidgetService]);
 
     /* @ngInject */
     function productWidgetService($http) {
@@ -17,27 +17,27 @@
         return service;
 
         function getWidgetZones() {
-            return $http.get('api/widget-zones');
+            return $http.get("api/widget-zones");
         }
 
         function getProductWidget(id) {
-            return $http.get('api/product-widgets/' + id);
+            return $http.get("api/product-widgets/" + id);
         }
 
         function createProductWidget(widgetInstance) {
-            return $http.post('api/product-widgets', widgetInstance);
+            return $http.post("api/product-widgets", widgetInstance);
         }
 
         function editProductWidget(widgetInstance) {
-            return $http.put('api/product-widgets/' + widgetInstance.id, widgetInstance);
+            return $http.put("api/product-widgets/" + widgetInstance.id, widgetInstance);
         }
 
         function getProductWidgetAvailableOrderBy() {
-            return $http.get('api/product-widgets/available-orderby');
+            return $http.get("api/product-widgets/available-orderby");
         }
 
         function getNumberOfWidgets() {
-            return $http.get('api/widget-instances/number-of-widgets');
+            return $http.get("api/widget-instances/number-of-widgets");
         }
     }
 })();

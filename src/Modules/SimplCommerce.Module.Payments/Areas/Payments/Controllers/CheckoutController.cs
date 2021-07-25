@@ -8,7 +8,6 @@ using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.Payments.Areas.Payments.ViewModels;
 using SimplCommerce.Module.Payments.Models;
-using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.ShoppingCart.Services;
 
 namespace SimplCommerce.Module.Payments.Areas.Payments.Controllers
@@ -19,9 +18,9 @@ namespace SimplCommerce.Module.Payments.Areas.Payments.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class CheckoutController : Controller
     {
-        private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private readonly ICartService _cartService;
         private readonly IOrderService _orderService;
+        private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private readonly IWorkContext _workContext;
 
         public CheckoutController(IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
@@ -40,7 +39,7 @@ namespace SimplCommerce.Module.Payments.Areas.Payments.Controllers
         {
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCart(currentUser.Id);
-            if(cart == null)
+            if (cart == null)
             {
                 return Redirect("~/");
             }
@@ -53,9 +52,7 @@ namespace SimplCommerce.Module.Payments.Areas.Payments.Controllers
                 .Where(x => x.IsEnabled)
                 .Select(x => new PaymentProviderVm
                 {
-                    Id = x.Id,
-                    Name = x.Name,
-                    LandingViewComponentName = x.LandingViewComponentName
+                    Id = x.Id, Name = x.Name, LandingViewComponentName = x.LandingViewComponentName
                 }).ToListAsync();
 
             return View(checkoutPaymentForm);

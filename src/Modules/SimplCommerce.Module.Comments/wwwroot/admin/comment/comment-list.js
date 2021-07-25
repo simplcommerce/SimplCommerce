@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.comments')
-        .controller('CommentListCtrl', ['commentService', 'translateService', CommentListCtrl]);
+        .module("simplAdmin.comments")
+        .controller("CommentListCtrl", ["commentService", "translateService", CommentListCtrl]);
 
     function CommentListCtrl(commentService, translateService) {
         var vm = this;
@@ -13,7 +13,7 @@
         vm.getComments = function getComments(tableState) {
             vm.isLoading = true;
             vm.tableStateRef = tableState;
-            commentService.getCommentsForGrid(tableState).then(function (result) {
+            commentService.getCommentsForGrid(tableState).then(function(result) {
                 vm.comments = result.data.items;
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
                 tableState.pagination.totalItemCount = result.data.totalRecord;
@@ -24,7 +24,7 @@
         vm.approve = function approve(comment) {
             commentService.changeCommentStatus(comment.id, 5)
                 .then(function(result) {
-                    comment.status = 'Approved';
+                    comment.status = "Approved";
                 });
         };
     }

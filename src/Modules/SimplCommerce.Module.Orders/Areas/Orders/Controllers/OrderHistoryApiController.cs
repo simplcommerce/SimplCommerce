@@ -28,7 +28,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 {
                     OldStatus = x.OldStatus.ToString(),
                     NewStatus = x.NewStatus.ToString(),
-                    CreatedById = x.CreatedById,
+                    x.CreatedById,
                     CreatedByFullName = x.CreatedBy.FullName,
                     x.Note,
                     x.CreatedOn

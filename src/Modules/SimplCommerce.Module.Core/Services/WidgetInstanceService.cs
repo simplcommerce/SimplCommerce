@@ -7,7 +7,7 @@ namespace SimplCommerce.Module.Core.Services
 {
     public class WidgetInstanceService : IWidgetInstanceService
     {
-        private IRepository<WidgetInstance> _widgetInstanceRepository;
+        private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
 
         public WidgetInstanceService(IRepository<WidgetInstance> widgetInstanceRepository)
         {
@@ -19,7 +19,7 @@ namespace SimplCommerce.Module.Core.Services
             var now = DateTimeOffset.Now;
             return _widgetInstanceRepository.Query().Where(x =>
                 x.PublishStart.HasValue && x.PublishStart < now
-                && (!x.PublishEnd.HasValue || x.PublishEnd > now));
+                                        && (!x.PublishEnd.HasValue || x.PublishEnd > now));
         }
     }
 }

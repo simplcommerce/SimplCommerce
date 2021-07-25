@@ -16,6 +16,7 @@ namespace SimplCommerce.Infrastructure.Models
             {
                 throw new ArgumentNullException(nameof(extendableObject));
             }
+
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
@@ -24,7 +25,7 @@ namespace SimplCommerce.Infrastructure.Models
             return extendableObject.GetData<T>(
                 name,
                 handleType
-                    ? new JsonSerializer { TypeNameHandling = TypeNameHandling.All }
+                    ? new JsonSerializer {TypeNameHandling = TypeNameHandling.All}
                     : JsonSerializer.CreateDefault()
             );
         }
@@ -35,7 +36,7 @@ namespace SimplCommerce.Infrastructure.Models
 
             if (extendableObject.ExtensionData == null)
             {
-                return default(T);
+                return default;
             }
 
             var json = JObject.Parse(extendableObject.ExtensionData);
@@ -43,31 +44,31 @@ namespace SimplCommerce.Infrastructure.Models
             var prop = json[name];
             if (prop == null)
             {
-                return default(T);
+                return default;
             }
 
             if (TypeHelper.IsPrimitiveExtendedIncludingNullable(typeof(T)))
             {
                 return prop.Value<T>();
             }
-            else
-            {
-                return (T)prop.ToObject(typeof(T), jsonSerializer ?? JsonSerializer.CreateDefault());
-            }
+
+            return (T)prop.ToObject(typeof(T), jsonSerializer ?? JsonSerializer.CreateDefault());
         }
 
-        public static void SetData<T>(this IExtendableObject extendableObject, string name, T value, bool handleType = false)
+        public static void SetData<T>(this IExtendableObject extendableObject, string name, T value,
+            bool handleType = false)
         {
             extendableObject.SetData(
                 name,
                 value,
                 handleType
-                    ? new JsonSerializer { TypeNameHandling = TypeNameHandling.All }
+                    ? new JsonSerializer {TypeNameHandling = TypeNameHandling.All}
                     : JsonSerializer.CreateDefault()
             );
         }
 
-        public static void SetData<T>(this IExtendableObject extendableObject, string name, T value, JsonSerializer jsonSerializer)
+        public static void SetData<T>(this IExtendableObject extendableObject, string name, T value,
+            JsonSerializer jsonSerializer)
         {
             CheckNotNull(extendableObject, name);
 
@@ -78,7 +79,7 @@ namespace SimplCommerce.Infrastructure.Models
 
             if (extendableObject.ExtensionData == null)
             {
-                if (EqualityComparer<T>.Default.Equals(value, default(T)))
+                if (EqualityComparer<T>.Default.Equals(value, default))
                 {
                     return;
                 }
@@ -88,7 +89,7 @@ namespace SimplCommerce.Infrastructure.Models
 
             var json = JObject.Parse(extendableObject.ExtensionData);
 
-            if (value == null || EqualityComparer<T>.Default.Equals(value, default(T)))
+            if (value == null || EqualityComparer<T>.Default.Equals(value, default))
             {
                 if (json[name] != null)
                 {

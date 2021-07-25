@@ -1,7 +1,7 @@
 ﻿/*global angular*/
-(function () {
-    'use strict';
+(function() {
+    "use strict";
 
     angular
-        .module('simplAdmin.search', []);
+        .module("simplAdmin.search", []);
 })();

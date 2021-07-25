@@ -22,7 +22,6 @@ namespace SimplCommerce.Module.Cms
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
         }
     }
 }

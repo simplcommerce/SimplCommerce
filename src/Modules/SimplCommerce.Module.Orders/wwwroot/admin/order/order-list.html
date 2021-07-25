@@ -13,59 +13,65 @@
 
 <table class="table table-striped" st-pipe="vm.getOrders" st-table="vm.orders">
     <thead>
-        <tr>
-            <th st-sort="Id" class="sortable">{{::vm.translate.get('OrderId')}}</th>
-            <th>{{::vm.translate.get('Order Status')}}</th>
-            <th>{{::vm.translate.get('Customer')}}</th>
-            <th st-sort="CreatedOn" class="sortable">{{::vm.translate.get('Created On')}}</th>
-            <th st-sort="SubTotal" class="sortable">{{::vm.translate.get('Order Total')}}</th>
-            <th>{{::vm.translate.get('Actions')}}</th>
-        </tr>
-        <tr>
-            <th>
-                <div class="form-group">
-                    <input type="number" class="form-control" st-search="Id" />
-                </div>
-            </th>
-            <th>
-                <div class="form-group">
-                    <select class="form-control" st-search="Status">
-                        <option value="">All</option>
-                        <option ng-repeat="status in vm.orderStatus" value="{{status.id}}">{{status.name}}</option>
-                    </select>
-                </div>
-            </th>
-            <th>
-                <div class="form-group">
-                    <input class="form-control" st-search="CustomerName" />
-                </div>
-            </th>
-            <th><st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range></th>
-            <th></th>
-            <th></th>
-        </tr>
-        <tr>
-            <th ng-show="!vm.isLoading" colspan="6">{{vm.tableStateRef.pagination.totalItemCount | number:0}} {{::vm.translate.get('records found')}}</th>
-        </tr>
+    <tr>
+        <th st-sort="Id" class="sortable">{{::vm.translate.get('OrderId')}}</th>
+        <th>{{::vm.translate.get('Order Status')}}</th>
+        <th>{{::vm.translate.get('Customer')}}</th>
+        <th st-sort="CreatedOn" class="sortable">{{::vm.translate.get('Created On')}}</th>
+        <th st-sort="SubTotal" class="sortable">{{::vm.translate.get('Order Total')}}</th>
+        <th>{{::vm.translate.get('Actions')}}</th>
+    </tr>
+    <tr>
+        <th>
+            <div class="form-group">
+                <input type="number" class="form-control" st-search="Id"/>
+            </div>
+        </th>
+        <th>
+            <div class="form-group">
+                <select class="form-control" st-search="Status">
+                    <option value="">All</option>
+                    <option ng-repeat="status in vm.orderStatus" value="{{status.id}}">{{status.name}}</option>
+                </select>
+            </div>
+        </th>
+        <th>
+            <div class="form-group">
+                <input class="form-control" st-search="CustomerName"/>
+            </div>
+        </th>
+        <th>
+            <st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range>
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <th ng-show="!vm.isLoading" colspan="6">{{vm.tableStateRef.pagination.totalItemCount | number:0}} {{::vm.translate.get('records found')}}</th>
+    </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">
-        <tr ng-repeat="order in vm.orders">
-            <td>{{order.id}}</td>
-            <td>{{order.orderStatus}}</td>
-            <td>{{order.customerName}}</td>
-            <td>{{order.createdOn | date:'medium'}}</td>
-            <td>{{order.orderTotalString }}</td>
-            <td><a ui-sref="order-detail({id: order.id})" title="View" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-eye-open"></span></a></td>
-        </tr>
+    <tr ng-repeat="order in vm.orders">
+        <td>{{order.id}}</td>
+        <td>{{order.orderStatus}}</td>
+        <td>{{order.customerName}}</td>
+        <td>{{order.createdOn | date:'medium'}}</td>
+        <td>{{order.orderTotalString }}</td>
+        <td>
+            <a ui-sref="order-detail({id: order.id})" title="View" class="btn btn-primary btn-xs">
+                <span class="glyphicon glyphicon-eye-open"></span>
+            </a>
+        </td>
+    </tr>
     </tbody>
     <tbody ng-show="vm.isLoading">
-        <tr>
-            <td colspan="6" class="text-center">Loading ... </td>
-        </tr>
+    <tr>
+        <td colspan="6" class="text-center">Loading ... </td>
+    </tr>
     </tbody>
     <tfoot>
-        <tr>
-            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="6"></td>
-        </tr>
+    <tr>
+        <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="6"></td>
+    </tr>
     </tfoot>
 </table>

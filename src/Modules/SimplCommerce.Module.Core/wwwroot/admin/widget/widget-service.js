@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.core')
-        .factory('widgetService', ['$http', widgetService]);
+        .module("simplAdmin.core")
+        .factory("widgetService", ["$http", widgetService]);
 
     function widgetService($http) {
         var service = {
@@ -13,15 +13,15 @@
         return service;
 
         function getWidgets() {
-            return $http.get('api/widgets');
+            return $http.get("api/widgets");
         }
 
         function getWidgetInstances() {
-            return $http.get('api/widget-instances');
+            return $http.get("api/widget-instances");
         }
 
         function deleteWidgetInstance(id) {
-            return $http.delete('api/widget-instances/' + id);
+            return $http.delete("api/widget-instances/" + id);
         }
     }
 })();

@@ -15,7 +15,6 @@ namespace SimplCommerce.Module.Core.Areas.Core.ViewModels.Account
         [Display(Name = "Remember this browser?")]
         public bool RememberBrowser { get; set; }
 
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
+        [Display(Name = "Remember me?")] public bool RememberMe { get; set; }
     }
 }

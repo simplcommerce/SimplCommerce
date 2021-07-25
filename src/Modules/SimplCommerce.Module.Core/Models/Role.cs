@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 using SimplCommerce.Infrastructure.Models;
-using System.Collections.Generic;
 
 namespace SimplCommerce.Module.Core.Models
 {

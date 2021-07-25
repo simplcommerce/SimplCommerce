@@ -15,7 +15,6 @@ namespace SimplCommerce.Module.Search
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
         }
     }
 }

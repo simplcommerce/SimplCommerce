@@ -1,8 +1,9 @@
-﻿ /*global angular*/
-(function () {
+﻿/*global angular*/
+(function() {
     angular
-        .module('simplAdmin.contacts')
-        .controller('ContactAreaFormCtrl', ['$state', '$stateParams', 'contactAreaService', 'translateService', ContactAreaFormCtrl]);
+        .module("simplAdmin.contacts")
+        .controller("ContactAreaFormCtrl",
+            ["$state", "$stateParams", "contactAreaService", "translateService", ContactAreaFormCtrl]);
 
     function ContactAreaFormCtrl($state, $stateParams, contactAreaService, translateService) {
         var vm = this;
@@ -20,10 +21,10 @@
             }
 
             promise
-                .then(function (result) {
-                    $state.go('contact-area');
+                .then(function(result) {
+                    $state.go("contact-area");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -31,14 +32,14 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add contact category.');
+                        vm.validationErrors.push("Could not add contact category.");
                     }
                 });
         };
 
         function init() {
             if (vm.isEditMode) {
-                contactAreaService.getContactArea(vm.contactAreaId).then(function (result) {
+                contactAreaService.getContactArea(vm.contactAreaId).then(function(result) {
                     vm.contactArea = result.data;
                 });
             }

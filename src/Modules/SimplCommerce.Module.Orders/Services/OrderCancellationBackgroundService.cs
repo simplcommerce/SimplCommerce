@@ -15,17 +15,18 @@ namespace SimplCommerce.Module.Orders.Services
 {
     public class OrderCancellationBackgroundService : BackgroundService
     {
-        private readonly long SystemUserId = 2;
-        private readonly IServiceProvider _serviceProvider;
         private readonly ILogger _logger;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly long SystemUserId = 2;
 
-        public OrderCancellationBackgroundService(IServiceProvider serviceProvider, ILogger<OrderCancellationBackgroundService> logger)
+        public OrderCancellationBackgroundService(IServiceProvider serviceProvider,
+            ILogger<OrderCancellationBackgroundService> logger)
         {
             _serviceProvider = serviceProvider;
             _logger = logger;
         }
 
-        protected async override Task ExecuteAsync(CancellationToken stoppingToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             _logger.LogInformation("OrderCancellationBackgroundService is starting.");
             while (!stoppingToken.IsCancellationRequested)
@@ -43,7 +44,8 @@ namespace SimplCommerce.Module.Orders.Services
             }
         }
 
-        private async Task CancelFailedPaymentOrders(IRepository<Order> orderRepository, IOrderService orderService, IMediator mediator, CancellationToken stoppingToken)
+        private async Task CancelFailedPaymentOrders(IRepository<Order> orderRepository, IOrderService orderService,
+            IMediator mediator, CancellationToken stoppingToken)
         {
             var durationToCancel = DateTimeOffset.Now.AddMinutes(-5);
             var failedPaymentOrders = await orderRepository.Query().Where(x =>

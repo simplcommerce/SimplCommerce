@@ -62,12 +62,12 @@ namespace SimplCommerce.Module.Vendors.Areas.Vendors.Controllers
                 param,
                 x => new
                 {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Email = x.Email,
-                    IsActive = x.IsActive,
-                    Slug = x.Slug,
-                    CreatedOn = x.CreatedOn
+                    x.Id,
+                    x.Name,
+                    x.Email,
+                    x.IsActive,
+                    x.Slug,
+                    x.CreatedOn
                 });
 
             return Json(vendors);
@@ -76,12 +76,7 @@ namespace SimplCommerce.Module.Vendors.Areas.Vendors.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var vendors = await _vendorRepository.Query().Select(x => new
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Slug = x.Slug
-            }).ToListAsync();
+            var vendors = await _vendorRepository.Query().Select(x => new {x.Id, x.Name, x.Slug}).ToListAsync();
 
             return Json(vendors);
         }
@@ -90,7 +85,7 @@ namespace SimplCommerce.Module.Vendors.Areas.Vendors.Controllers
         public async Task<IActionResult> Get(long id)
         {
             var vendor = await _vendorRepository.Query().Include(x => x.Users).FirstOrDefaultAsync(x => x.Id == id);
-            if(vendor == null)
+            if (vendor == null)
             {
                 return NotFound();
             }
@@ -103,7 +98,7 @@ namespace SimplCommerce.Module.Vendors.Areas.Vendors.Controllers
                 Email = vendor.Email,
                 Description = vendor.Description,
                 IsActive = vendor.IsActive,
-                Managers = vendor.Users.Select(x => new VendorManager { UserId = x.Id, Email = x.Email }).ToList()
+                Managers = vendor.Users.Select(x => new VendorManager {UserId = x.Id, Email = x.Email}).ToList()
             };
 
             return Json(model);
@@ -124,8 +119,9 @@ namespace SimplCommerce.Module.Vendors.Areas.Vendors.Controllers
                 };
 
                 await _vendorService.Create(vendor);
-                return CreatedAtAction(nameof(Get), new { id = vendor.Id }, null);
+                return CreatedAtAction(nameof(Get), new {id = vendor.Id}, null);
             }
+
             return BadRequest(ModelState);
         }
 

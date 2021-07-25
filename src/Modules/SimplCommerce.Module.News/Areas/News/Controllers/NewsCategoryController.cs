@@ -12,10 +12,10 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
     [Area("News")]
     public class NewsCategoryController : Controller
     {
-        private int _pageSize;
-        private readonly IRepository<NewsItem> _newsItemRepository;
         private readonly IMediaService _mediaService;
         private readonly IRepository<NewsCategory> _newsCategoryRepository;
+        private readonly IRepository<NewsItem> _newsItemRepository;
+        private readonly int _pageSize;
 
         public NewsCategoryController(IRepository<NewsItem> newsItemRepository,
             IMediaService mediaService, IRepository<NewsCategory> newsCategoryRepository,
@@ -32,12 +32,7 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
             var newsCategoryList = _newsCategoryRepository.Query()
                 .Include(x => x.NewsItems)
                 .Where(x => !x.IsDeleted)
-                .Select(x => new NewsCategoryVm()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Slug = x.Slug
-                })
+                .Select(x => new NewsCategoryVm {Id = x.Id, Name = x.Name, Slug = x.Slug})
                 .ToList();
 
             if (newsCategoryList == null)
@@ -45,22 +40,17 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
                 return Redirect("~/Error/FindNotFound");
             }
 
-            var currentNewsCategory = newsCategoryList.Select(x => new NewsCategoryVm()
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Slug = x.Slug
-            })
-            .FirstOrDefault(x => x.Id == id);
+            var currentNewsCategory = newsCategoryList.Select(x => new NewsCategoryVm
+                {
+                    Id = x.Id, Name = x.Name, Slug = x.Slug
+                })
+                .FirstOrDefault(x => x.Id == id);
 
-            var model = new NewsVm()
-            {
-                CurrentNewsCategory = currentNewsCategory,
-                NewsCategory = newsCategoryList
-            };
+            var model = new NewsVm {CurrentNewsCategory = currentNewsCategory, NewsCategory = newsCategoryList};
 
             var query = _newsItemRepository.Query()
-                .Where(x => x.Categories.Any(c => c.CategoryId == currentNewsCategory.Id) && !x.IsDeleted && x.IsPublished)
+                .Where(x => x.Categories.Any(c => c.CategoryId == currentNewsCategory.Id) && !x.IsDeleted &&
+                            x.IsPublished)
                 .OrderByDescending(x => x.CreatedOn);
 
             model.TotalItem = query.Count();
@@ -72,17 +62,17 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
                 offset = (_pageSize * currentPageNum) - _pageSize;
             }
 
-            model.NewsItem = query.Include(x => x.ThumbnailImage).Select( x => new NewsItemThumbnail()
-            {
-                Id = x.Id,
-                ShortContent = x.ShortContent,
-                ImageUrl = _mediaService.GetMediaUrl(x.ThumbnailImage),
-                PublishedOn = x.CreatedOn,
-                Slug = x.Slug
-            })
-            .Skip(offset)
-            .Take(_pageSize)
-            .ToList();
+            model.NewsItem = query.Include(x => x.ThumbnailImage).Select(x => new NewsItemThumbnail
+                {
+                    Id = x.Id,
+                    ShortContent = x.ShortContent,
+                    ImageUrl = _mediaService.GetMediaUrl(x.ThumbnailImage),
+                    PublishedOn = x.CreatedOn,
+                    Slug = x.Slug
+                })
+                .Skip(offset)
+                .Take(_pageSize)
+                .ToList();
 
             model.PageSize = _pageSize;
             model.Page = currentPageNum;

@@ -22,7 +22,7 @@ namespace SimplCommerce.Module.WishList.Models
 
         public string Description { get; set; }
 
-        public int Quantity { get; set;}
+        public int Quantity { get; set; }
 
         public DateTimeOffset CreatedOn { get; set; }
 

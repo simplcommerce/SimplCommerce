@@ -21,11 +21,9 @@ namespace SimplCommerce.Module.Cms.Models
 
         public Entity Entity { get; set; }
 
-        [StringLength(450)]
-        public string CustomLink { get; set; }
+        [StringLength(450)] public string CustomLink { get; set; }
 
-        [StringLength(450)]
-        public string Name { get; set; }
+        [StringLength(450)] public string Name { get; set; }
 
         public int DisplayOrder { get; set; }
     }

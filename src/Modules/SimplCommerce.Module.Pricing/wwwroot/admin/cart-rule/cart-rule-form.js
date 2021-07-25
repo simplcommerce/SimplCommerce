@@ -1,8 +1,9 @@
 ﻿/*global angular, jQuery*/
-(function ($) {
+(function($) {
     angular
-        .module('simplAdmin.pricing')
-        .controller('CartRuleFormCtrl', ['$state', '$stateParams', 'cartRuleService', 'translateService', CartRuleFormCtrl]);
+        .module("simplAdmin.pricing")
+        .controller("CartRuleFormCtrl",
+            ["$state", "$stateParams", "cartRuleService", "translateService", CartRuleFormCtrl]);
 
     function CartRuleFormCtrl($state, $stateParams, cartRuleService, translateService) {
         var vm = this;
@@ -15,7 +16,7 @@
         vm.datePickerStartOn = {};
         vm.datePickerEndOn = {};
 
-        vm.openCalendar = function (e, picker) {
+        vm.openCalendar = function(e, picker) {
             vm[picker].open = true;
         };
 
@@ -28,10 +29,10 @@
             }
 
             promise
-                .then(function (result) {
-                    $state.go('cart-rules');
+                .then(function(result) {
+                    $state.go("cart-rules");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -39,14 +40,14 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add cartRule.');
+                        vm.validationErrors.push("Could not add cartRule.");
                     }
                 });
         };
 
         function init() {
             if (vm.isEditMode) {
-                cartRuleService.getCartRule(vm.cartRuleId).then(function (result) {
+                cartRuleService.getCartRule(vm.cartRuleId).then(function(result) {
                     vm.cartRule = result.data;
                 });
             }

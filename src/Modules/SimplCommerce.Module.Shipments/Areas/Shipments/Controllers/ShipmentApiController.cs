@@ -19,12 +19,13 @@ namespace SimplCommerce.Module.Shipments.Areas.Shipments.Controllers
     [Route("api/shipments")]
     public class ShipmentApiController : Controller
     {
+        private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<Shipment> _shipmentRepository;
         private readonly IShipmentService _shipmentService;
-        private readonly IRepository<Order> _orderRepository;
         private readonly IWorkContext _workContext;
 
-        public ShipmentApiController(IRepository<Shipment> shipmentRepository, IShipmentService shipmentService, IRepository<Order> orderRepository, IWorkContext workContext)
+        public ShipmentApiController(IRepository<Shipment> shipmentRepository, IShipmentService shipmentService,
+            IRepository<Order> orderRepository, IWorkContext workContext)
         {
             _shipmentRepository = shipmentRepository;
             _shipmentService = shipmentService;
@@ -37,21 +38,17 @@ namespace SimplCommerce.Module.Shipments.Areas.Shipments.Controllers
         {
             var currentUser = await _workContext.GetCurrentUser();
             var order = _orderRepository.Query().FirstOrDefault(x => x.Id == orderId);
-            if(order == null)
+            if (order == null)
             {
                 return NotFound();
             }
 
             if (!User.IsInRole("admin") && order.VendorId != currentUser.VendorId)
             {
-                return BadRequest(new { error = "You don't have permission to manage this order" });
+                return BadRequest(new {error = "You don't have permission to manage this order"});
             }
 
-            var model = new ShipmentForm
-            {
-                OrderId = orderId,
-                WarehouseId = warehouseId
-            };
+            var model = new ShipmentForm {OrderId = orderId, WarehouseId = warehouseId};
 
             var itemsToShip = await _shipmentService.GetItemToShip(orderId, warehouseId);
             foreach (var item in itemsToShip)
@@ -75,7 +72,7 @@ namespace SimplCommerce.Module.Shipments.Areas.Shipments.Controllers
 
             if (!User.IsInRole("admin") && order.VendorId != currentUser.VendorId)
             {
-                return BadRequest(new { error = "You don't have permission to manage this order" });
+                return BadRequest(new {error = "You don't have permission to manage this order"});
             }
 
             var shipments = await _shipmentRepository.Query()
@@ -116,7 +113,7 @@ namespace SimplCommerce.Module.Shipments.Areas.Shipments.Controllers
                 if (search.OrderId != null)
                 {
                     string orderIdString = search.OrderId;
-                    if (long.TryParse(orderIdString, out long orderId))
+                    if (long.TryParse(orderIdString, out var orderId))
                     {
                         query = query.Where(x => x.OrderId == orderId);
                     }
@@ -156,7 +153,8 @@ namespace SimplCommerce.Module.Shipments.Areas.Shipments.Controllers
         public async Task<IActionResult> Get(long id)
         {
             var shipment = await _shipmentRepository.Query()
-                .Select(x => new {
+                .Select(x => new
+                {
                     x.Id,
                     x.OrderId,
                     x.VendorId,
@@ -183,7 +181,7 @@ namespace SimplCommerce.Module.Shipments.Areas.Shipments.Controllers
                 })
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            if(shipment == null)
+            if (shipment == null)
             {
                 return NotFound();
             }
@@ -191,7 +189,7 @@ namespace SimplCommerce.Module.Shipments.Areas.Shipments.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             if (!User.IsInRole("admin") && shipment.VendorId != currentUser.VendorId)
             {
-                return BadRequest(new { error = "You don't have permission to manage this order" });
+                return BadRequest(new {error = "You don't have permission to manage this order"});
             }
 
             return Ok(shipment);
@@ -220,7 +218,7 @@ namespace SimplCommerce.Module.Shipments.Areas.Shipments.Controllers
 
                 foreach (var item in model.Items)
                 {
-                    if(item.QuantityToShip <= 0)
+                    if (item.QuantityToShip <= 0)
                     {
                         continue;
                     }
@@ -239,7 +237,7 @@ namespace SimplCommerce.Module.Shipments.Areas.Shipments.Controllers
                 var result = await _shipmentService.CreateShipment(shipment);
                 if (result.Success)
                 {
-                    return CreatedAtAction(nameof(Get), new { id = shipment.Id }, null);
+                    return CreatedAtAction(nameof(Get), new {id = shipment.Id}, null);
                 }
 
                 return BadRequest(result.Error);

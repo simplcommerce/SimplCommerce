@@ -16,7 +16,8 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
         private readonly IRepositoryWithTypedId<Widget, string> _widgetRespository;
 
-        public WidgetInstanceApiController(IRepository<WidgetInstance> widgetInstanceRepository, IRepositoryWithTypedId<Widget, string> widgetRespository)
+        public WidgetInstanceApiController(IRepository<WidgetInstance> widgetInstanceRepository,
+            IRepositoryWithTypedId<Widget, string> widgetRespository)
         {
             _widgetInstanceRepository = widgetInstanceRepository;
             _widgetRespository = widgetRespository;
@@ -28,15 +29,15 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             var widgetInstances = await _widgetInstanceRepository.Query()
                 .Select(x => new
                 {
-                    Id = x.Id,
-                    Name = x.Name,
+                    x.Id,
+                    x.Name,
                     WidgetType = x.Widget.Name,
                     WidgetZone = x.WidgetZone.Name,
-                    CreatedOn = x.CreatedOn,
-                    EditUrl = x.Widget.EditUrl,
-                    PublishStart = x.PublishStart,
-                    PublishEnd = x.PublishEnd,
-                    DisplayOrder = x.DisplayOrder,
+                    x.CreatedOn,
+                    x.Widget.EditUrl,
+                    x.PublishStart,
+                    x.PublishEnd,
+                    x.DisplayOrder
                 }).ToListAsync();
 
             return Json(widgetInstances);

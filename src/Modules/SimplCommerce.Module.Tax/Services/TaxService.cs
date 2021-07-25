@@ -15,7 +15,8 @@ namespace SimplCommerce.Module.Tax.Services
             _taxRateRepository = taxRateRepository;
         }
 
-        public async Task<decimal> GetTaxPercent(long? taxClassId, string countryId, long stateOrProvinceId, string zipCode)
+        public async Task<decimal> GetTaxPercent(long? taxClassId, string countryId, long stateOrProvinceId,
+            string zipCode)
         {
             if (!taxClassId.HasValue)
             {
@@ -23,9 +24,9 @@ namespace SimplCommerce.Module.Tax.Services
             }
 
             var query = _taxRateRepository.Query()
-                           .Where(x => x.CountryId == countryId
-                           && (x.StateOrProvinceId == stateOrProvinceId || x.StateOrProvinceId == null)
-                           && x.TaxClassId == taxClassId.Value);
+                .Where(x => x.CountryId == countryId
+                            && (x.StateOrProvinceId == stateOrProvinceId || x.StateOrProvinceId == null)
+                            && x.TaxClassId == taxClassId.Value);
             if (!string.IsNullOrEmpty(zipCode))
             {
                 query = query.Where(x => x.ZipCode == zipCode || string.IsNullOrWhiteSpace(x.ZipCode));

@@ -1,18 +1,17 @@
-﻿@using cloudscribe.Web.Pagination
-@model SimplCommerce.Module.WishList.Areas.WishList.ViewModels.WishListVm
+﻿@model SimplCommerce.Module.WishList.Areas.WishList.ViewModels.WishListVm
 @{
     ViewData["Title"] = Localizer["Wish List"];
 }
 
 @section head
 {
-    <link simpl-append-version="true" rel="stylesheet" href="~/_content/SimplCommerce.Module.WishList/public-list.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/_content/SimplCommerce.Module.WishList/public-list.css"/>
 }
 
 <div class="row">
     <div class="wishlist col-md-12">
         <h2>@Localizer["Wish List"]</h2>
-        <hr />
+        <hr/>
         @if (Model.Items.TotalItems > 0)
         {
             foreach (var item in Model.Items.Data)
@@ -26,9 +25,9 @@
                         <p>@item.Description</p>
                         <form>
                             <p>@Localizer["Quantity"]: @item.Quantity</p>
-                            <input type="hidden" name="itemId" value="@item.Id" />
-                            <input type="hidden" name="productId" value="@item.ProductId" />
-                            <input type="hidden" name="quantity" class="quantity-field" value="@item.Quantity" />
+                            <input type="hidden" name="itemId" value="@item.Id"/>
+                            <input type="hidden" name="productId" value="@item.ProductId"/>
+                            <input type="hidden" name="quantity" class="quantity-field" value="@item.Quantity"/>
                             <button type="button" class="btn btn-lg btn-add-cart">@Localizer["Add to cart"]</button>
                         </form>
                     </div>
@@ -47,7 +46,8 @@
                           cs-pager-li-other-class="page-item"
                           cs-pager-li-non-active-class="page-item disabled"
                           cs-pager-link-current-class="page-link"
-                          cs-pager-link-other-class="page-link"></cs-pager>
+                          cs-pager-link-other-class="page-link">
+                </cs-pager>
             </div>
         }
         else

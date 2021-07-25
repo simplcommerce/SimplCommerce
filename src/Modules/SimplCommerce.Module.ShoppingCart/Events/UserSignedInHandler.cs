@@ -9,8 +9,8 @@ namespace SimplCommerce.Module.ShoppingCart.Events
 {
     public class UserSignedInHandler : INotificationHandler<UserSignedIn>
     {
-        private readonly IWorkContext _workContext;
         private readonly ICartService _cartService;
+        private readonly IWorkContext _workContext;
 
         public UserSignedInHandler(IWorkContext workContext, ICartService cartService)
         {

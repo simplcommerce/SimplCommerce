@@ -17,14 +17,14 @@ namespace SimplCommerce.Module.Search.Areas.Search.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class SearchController : Controller
     {
-        private int _pageSize;
-        private readonly IRepository<Product> _productRepository;
         private readonly IRepository<Brand> _brandRepository;
         private readonly IRepository<Category> _categoryRepository;
-        private readonly IMediaService _mediaService;
-        private readonly IRepository<Query> _queryRepository;
-        private readonly IProductPricingService _productPricingService;
         private readonly IContentLocalizationService _contentLocalizationService;
+        private readonly IMediaService _mediaService;
+        private readonly IProductPricingService _productPricingService;
+        private readonly IRepository<Product> _productRepository;
+        private readonly IRepository<Query> _queryRepository;
+        private readonly int _pageSize;
 
         public SearchController(IRepository<Product> productRepository,
             IRepository<Brand> brandRepository,
@@ -59,13 +59,10 @@ namespace SimplCommerce.Module.Search.Areas.Search.Controllers
                 return Redirect(string.Format("~/{0}", brand.Slug));
             }
 
-            var model = new SearchResult
-            {
-                CurrentSearchOption = searchOption,
-                FilterOption = new FilterOption()
-            };
+            var model = new SearchResult {CurrentSearchOption = searchOption, FilterOption = new FilterOption()};
 
-            var query = _productRepository.Query().Where(x => x.Name.Contains(searchOption.Query) && x.IsPublished && x.IsVisibleIndividually);
+            var query = _productRepository.Query().Where(x =>
+                x.Name.Contains(searchOption.Query) && x.IsPublished && x.IsVisibleIndividually);
 
             if (!query.Any())
             {
@@ -123,7 +120,8 @@ namespace SimplCommerce.Module.Search.Areas.Search.Controllers
 
             foreach (var product in products)
             {
-                product.Name = _contentLocalizationService.GetLocalizedProperty(nameof(Product), product.Id, nameof(product.Name), product.Name);
+                product.Name = _contentLocalizationService.GetLocalizedProperty(nameof(Product), product.Id,
+                    nameof(product.Name), product.Name);
                 product.ThumbnailUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage);
                 product.CalculatedProductPrice = _productPricingService.CalculateProductPrice(product);
             }
@@ -160,13 +158,7 @@ namespace SimplCommerce.Module.Search.Areas.Search.Controllers
 
             model.FilterOption.Categories = query
                 .SelectMany(x => x.Categories)
-                .GroupBy(x => new
-                {
-                    x.Category.Id,
-                    x.Category.Name,
-                    x.Category.Slug,
-                    x.Category.ParentId
-                })
+                .GroupBy(x => new {x.Category.Id, x.Category.Name, x.Category.Slug, x.Category.ParentId})
                 .Select(g => new FilterCategory
                 {
                     Id = (int)g.Key.Id,
@@ -176,31 +168,26 @@ namespace SimplCommerce.Module.Search.Areas.Search.Controllers
                     Count = g.Count()
                 }).ToList();
 
-            foreach(var item in model.FilterOption.Categories)
+            foreach (var item in model.FilterOption.Categories)
             {
                 item.Name = getCategoryName(item.Id, nameof(item.Name), item.Name);
             }
 
             // TODO an EF Core bug, so we have to do evaluation in client
             model.FilterOption.Brands = query.Include(x => x.Brand)
-               .Where(x => x.BrandId != null).ToList()
-               .GroupBy(x => x.Brand)
-               .Select(g => new FilterBrand
-               {
-                   Id = (int)g.Key.Id,
-                   Name = g.Key.Name,
-                   Slug = g.Key.Slug,
-                   Count = g.Count()
-               }).ToList();
+                .Where(x => x.BrandId != null).ToList()
+                .GroupBy(x => x.Brand)
+                .Select(g => new FilterBrand
+                {
+                    Id = (int)g.Key.Id, Name = g.Key.Name, Slug = g.Key.Slug, Count = g.Count()
+                }).ToList();
         }
 
         private void SaveSearchQuery(SearchOption searchOption, SearchResult model)
         {
             var query = new Query
             {
-                CreatedOn = DateTimeOffset.Now,
-                QueryText = searchOption.Query,
-                ResultsCount = model.TotalProduct
+                CreatedOn = DateTimeOffset.Now, QueryText = searchOption.Query, ResultsCount = model.TotalProduct
             };
 
             _queryRepository.Add(query);

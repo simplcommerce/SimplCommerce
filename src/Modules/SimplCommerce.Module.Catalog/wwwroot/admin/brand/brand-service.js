@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.catalog')
-        .factory('brandService', ['$http', brandService]);
+        .module("simplAdmin.catalog")
+        .factory("brandService", ["$http", brandService]);
 
     function brandService($http) {
         var service = {
@@ -15,23 +15,23 @@
         return service;
 
         function getBrand(id) {
-            return $http.get('api/brands/' + id);
+            return $http.get("api/brands/" + id);
         }
 
         function getBrands() {
-            return $http.get('api/brands');
+            return $http.get("api/brands");
         }
 
         function createBrand(brand) {
-            return $http.post('api/brands', brand);
+            return $http.post("api/brands", brand);
         }
 
         function editBrand(brand) {
-            return $http.put('api/brands/' + brand.id, brand);
+            return $http.put("api/brands/" + brand.id, brand);
         }
 
         function deleteBrand(brand) {
-            return $http.delete('api/brands/' + brand.id, null);
+            return $http.delete("api/brands/" + brand.id, null);
         }
     }
 })();

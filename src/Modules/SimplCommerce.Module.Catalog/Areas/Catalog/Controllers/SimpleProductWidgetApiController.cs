@@ -17,7 +17,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     {
         private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
 
-        public SimpleProductWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository, IMediaService mediaService)
+        public SimpleProductWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository,
+            IMediaService mediaService)
         {
             _widgetInstanceRepository = widgetInstanceRepository;
         }
@@ -63,7 +64,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
                 _widgetInstanceRepository.Add(widgetInstance);
                 await _widgetInstanceRepository.SaveChangesAsync();
-                return CreatedAtAction(nameof(Get), new { id = widgetInstance.Id }, null);
+                return CreatedAtAction(nameof(Get), new {id = widgetInstance.Id}, null);
             }
 
             return BadRequest(ModelState);

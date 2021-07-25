@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.reviews')
-        .controller('ReviewReplyListCtrl', ['reviewReplyService', 'translateService', ReviewReplyListCtrl]);
+        .module("simplAdmin.reviews")
+        .controller("ReviewReplyListCtrl", ["reviewReplyService", "translateService", ReviewReplyListCtrl]);
 
     function ReviewReplyListCtrl(reviewReplyService, translateService) {
         var vm = this;
@@ -21,7 +21,7 @@
         vm.approve = function approve(reply) {
             reviewReplyService.changeReplyStatus(reply.id, 5)
                 .then(function(result) {
-                    reply.status = 'Approved';
+                    reply.status = "Approved";
                 });
         };
     }

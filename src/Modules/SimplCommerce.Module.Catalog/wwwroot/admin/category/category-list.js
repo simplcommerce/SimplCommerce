@@ -1,8 +1,8 @@
 ﻿/*global angular, confirm*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.catalog')
-        .controller('CategoryListCtrl', ['categoryService', 'translateService', '$window', CategoryLitsCtrl]);
+        .module("simplAdmin.catalog")
+        .controller("CategoryListCtrl", ["categoryService", "translateService", "$window", CategoryLitsCtrl]);
 
     function CategoryLitsCtrl(categoryService, translateService, $window) {
         var vm = this;
@@ -11,24 +11,25 @@
         vm.enableCultures = $window.Global_EnableCultures;
 
         vm.getCategories = function getCategories() {
-            categoryService.getCategories().then(function (result) {
+            categoryService.getCategories().then(function(result) {
                 vm.categories = result.data;
             });
         };
 
         vm.deleteCategory = function deleteCategory(category) {
-            bootbox.confirm('Are you sure you want to delete this ' + simplUtil.escapeHtml(category.name), function (result) {
-                if (result) {
-                    categoryService.deleteCategory(category)
-                       .then(function (result) {
-                           vm.getCategories();
-                           toastr.success(category.name + 'Have been deleted');
-                        })
-                        .catch(function (response) {
-                            toastr.error(response.data.error);
-                        });
-                }
-            });
+            bootbox.confirm("Are you sure you want to delete this " + simplUtil.escapeHtml(category.name),
+                function(result) {
+                    if (result) {
+                        categoryService.deleteCategory(category)
+                            .then(function(result) {
+                                vm.getCategories();
+                                toastr.success(category.name + "Have been deleted");
+                            })
+                            .catch(function(response) {
+                                toastr.error(response.data.error);
+                            });
+                    }
+                });
         };
 
         vm.getCategories();

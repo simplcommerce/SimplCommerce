@@ -9,8 +9,8 @@ namespace SimplCommerce.Module.ProductComparison.Events
 {
     public class UserSignedInHandler : INotificationHandler<UserSignedIn>
     {
-        private readonly IWorkContext _workContext;
         private readonly IComparingProductService _comparingService;
+        private readonly IWorkContext _workContext;
 
         public UserSignedInHandler(IWorkContext workContext, IComparingProductService comparingService)
         {

@@ -24,14 +24,14 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
     [Area("PaymentNganLuong")]
     public class NganLuongController : Controller
     {
-        private readonly IOrderService _orderService;
+        private readonly ICartService _cartService;
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly IRepository<Order> _orderRepository;
+        private readonly IOrderService _orderService;
+        private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private readonly IRepository<Payment> _paymentRepository;
         private readonly IWorkContext _workContext;
-        private readonly ICartService _cartService;
-        private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
-        private readonly IHttpClientFactory _httpClientFactory;
-        private Lazy<NganLuongConfigForm> _setting;
+        private readonly Lazy<NganLuongConfigForm> _setting;
 
         public NganLuongController(
             IOrderService orderService,
@@ -68,7 +68,8 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
                 return NotFound();
             }
 
-            var orderCreateResult = await _orderService.CreateOrder(cart.Id, "NganLuong", 0, OrderStatus.PendingPayment);
+            var orderCreateResult =
+                await _orderService.CreateOrder(cart.Id, "NganLuong", 0, OrderStatus.PendingPayment);
 
             if (!orderCreateResult.Success)
             {
@@ -83,7 +84,7 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
             {
                 MerchantId = _setting.Value.MerchantId,
                 MerchantPassword = _setting.Value.MerchantPassword,
-                ReceiverEmail =  _setting.Value.ReceiverEmail,
+                ReceiverEmail = _setting.Value.ReceiverEmail,
                 OrderCode = order.Id.ToString(),
                 TotalAmount = (int)order.OrderTotal,
                 PaymentMethod = paymentOption,
@@ -96,7 +97,9 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
             };
 
             var httpClient = _httpClientFactory.CreateClient();
-            var nganLuongUrl = _setting.Value.IsSandbox ? "https://sandbox.nganluong.vn:8088/nl35/checkout.api.nganluong.post.php" : "https://www.nganluong.vn/checkout.api.nganluong.post.php";
+            var nganLuongUrl = _setting.Value.IsSandbox
+                ? "https://sandbox.nganluong.vn:8088/nl35/checkout.api.nganluong.post.php"
+                : "https://www.nganluong.vn/checkout.api.nganluong.post.php";
             var requestMesage = new HttpRequestMessage(HttpMethod.Post, nganLuongUrl)
             {
                 Content = paymentSubmitRequest.MakePostContent()
@@ -115,21 +118,20 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
                 CheckoutUrl = x.Element("checkout_url").Value
             }).First();
 
-            if(paymentSubmitResponse.ErrorCode == "00")
+            if (paymentSubmitResponse.ErrorCode == "00")
             {
                 return Redirect(paymentSubmitResponse.CheckoutUrl);
             }
-            else
-            {
-                string errorMessage = $"Error code: {paymentSubmitResponse.ErrorCode}, Description: {paymentSubmitResponse.Description}";
-                await UpdatePaymentStatusError(order, errorMessage, paymentSubmitResponse.Token);
-                TempData["Error"] = errorMessage;
-                return Redirect($"~/checkout/error?orderId={order.Id}");
-            }
+
+            var errorMessage =
+                $"Error code: {paymentSubmitResponse.ErrorCode}, Description: {paymentSubmitResponse.Description}";
+            await UpdatePaymentStatusError(order, errorMessage, paymentSubmitResponse.Token);
+            TempData["Error"] = errorMessage;
+            return Redirect($"~/checkout/error?orderId={order.Id}");
         }
 
         [Route("ngan-luong/result")]
-        public async Task<IActionResult>SubmitPaymentResult(PaymentSubmitReturn model)
+        public async Task<IActionResult> SubmitPaymentResult(PaymentSubmitReturn model)
         {
             var orderId = long.Parse(model.OrderCode);
             var order = await _orderRepository.Query().FirstOrDefaultAsync(x => x.Id == orderId);
@@ -145,18 +147,16 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
             }
 
             var paymentStatus = await GetPaymentStatus(model.Token);
-            if(paymentStatus.ErrorCode == "00")
+            if (paymentStatus.ErrorCode == "00")
             {
                 await UpdatePaymentStatusSuccess(order, model.Token);
                 return Redirect($"~/checkout/success?orderId={orderId}");
             }
-            else
-            {
-                var errorMessage = ErrorMessages.GetMessage(model.ErrorCode);
-                await UpdatePaymentStatusError(order, errorMessage, model.Token);
-                TempData["Error"] = errorMessage;
-                return Redirect($"~/checkout/error?orderId={orderId}");
-            }
+
+            var errorMessage = ErrorMessages.GetMessage(model.ErrorCode);
+            await UpdatePaymentStatusError(order, errorMessage, model.Token);
+            TempData["Error"] = errorMessage;
+            return Redirect($"~/checkout/error?orderId={orderId}");
         }
 
         [Route("ngan-luong/cancel")]
@@ -165,12 +165,12 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
             var orderId = orderCode;
             var order = await _orderRepository.Query().FirstOrDefaultAsync(x => x.Id == orderId);
             var user = await _workContext.GetCurrentUser();
-            if(order.CustomerId != user.Id)
+            if (order.CustomerId != user.Id)
             {
                 return Forbid();
             }
 
-            if(order.OrderStatus != OrderStatus.PendingPayment)
+            if (order.OrderStatus != OrderStatus.PendingPayment)
             {
                 return BadRequest("Invalid order state");
             }
@@ -182,9 +182,12 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
 
         private async Task<PaymentStatusResponse> GetPaymentStatus(string token)
         {
-            var paymentStatusRequest = new PaymentStatusRequest(_setting.Value.MerchantId, _setting.Value.MerchantPassword, token);
+            var paymentStatusRequest =
+                new PaymentStatusRequest(_setting.Value.MerchantId, _setting.Value.MerchantPassword, token);
             var httpClient = _httpClientFactory.CreateClient();
-            var nganLuongUrl = _setting.Value.IsSandbox ? "https://sandbox.nganluong.vn:8088/nl35/service/order/check" : "https://www.nganluong.vn/service/order/check";
+            var nganLuongUrl = _setting.Value.IsSandbox
+                ? "https://sandbox.nganluong.vn:8088/nl35/service/order/check"
+                : "https://www.nganluong.vn/service/order/check";
             var requestMesage = new HttpRequestMessage(HttpMethod.Post, nganLuongUrl)
             {
                 Content = paymentStatusRequest.MakePostContent()
@@ -198,13 +201,13 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
 
         private async Task UpdatePaymentStatusSuccess(Order order, string token)
         {
-            var payment = new Payment()
+            var payment = new Payment
             {
                 OrderId = order.Id,
                 PaymentFee = order.PaymentFeeAmount,
                 Amount = order.OrderTotal,
                 PaymentMethod = "NganLuong",
-                CreatedOn = DateTimeOffset.UtcNow,
+                CreatedOn = DateTimeOffset.UtcNow
             };
 
             order.OrderStatus = OrderStatus.PaymentReceived;
@@ -217,13 +220,13 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
 
         private async Task UpdatePaymentStatusError(Order order, string errorMessage, string token)
         {
-            var payment = new Payment()
+            var payment = new Payment
             {
                 OrderId = order.Id,
                 PaymentFee = order.PaymentFeeAmount,
                 Amount = order.OrderTotal,
                 PaymentMethod = "NganLuong",
-                CreatedOn = DateTimeOffset.UtcNow,
+                CreatedOn = DateTimeOffset.UtcNow
             };
 
             order.OrderStatus = OrderStatus.PaymentFailed;
@@ -237,8 +240,10 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
 
         private NganLuongConfigForm GetSetting()
         {
-            var nganLuongPaymentProvider = _paymentProviderRepository.Query().FirstOrDefault(x => x.Id == PaymentProviderHelper.NganLuongPaymentProviderId);
-            var nganLuongSetting = JsonConvert.DeserializeObject<NganLuongConfigForm>(nganLuongPaymentProvider.AdditionalSettings);
+            var nganLuongPaymentProvider = _paymentProviderRepository.Query()
+                .FirstOrDefault(x => x.Id == PaymentProviderHelper.NganLuongPaymentProviderId);
+            var nganLuongSetting =
+                JsonConvert.DeserializeObject<NganLuongConfigForm>(nganLuongPaymentProvider.AdditionalSettings);
             return nganLuongSetting;
         }
     }

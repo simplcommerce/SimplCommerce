@@ -20,17 +20,23 @@
                             <li>
                                 <a class="dropdown-item dropdown-toggle" href="javascript:void(0);">@childItem.Name</a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="/@childItem.Slug">@Localizer["All"] @childItem.Name</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="/@childItem.Slug">@Localizer["All"] @childItem.Name</a>
+                                    </li>
                                     @foreach (var childChildItem in childItem.ChildItems)
                                     {
-                                        <li><a class="dropdown-item" href="/@childChildItem.Slug">@childChildItem.Name</a></li>
+                                        <li>
+                                            <a class="dropdown-item" href="/@childChildItem.Slug">@childChildItem.Name</a>
+                                        </li>
                                     }
                                 </ul>
                             </li>
                         }
                         else
                         {
-                            <li><a class="dropdown-item" href="/@childItem.Slug">@childItem.Name</a></li>
+                            <li>
+                                <a class="dropdown-item" href="/@childItem.Slug">@childItem.Name</a>
+                            </li>
                         }
                     }
                 </ul>
@@ -38,7 +44,9 @@
         }
         else
         {
-            <li class="nav-item"><a class="nav-link" href="/@item.Slug">@item.Name</a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="/@item.Slug">@item.Name</a>
+            </li>
         }
     }
 </ul>

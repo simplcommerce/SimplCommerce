@@ -18,7 +18,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         private readonly IRepository<Category> _categoryRepository;
         private readonly IRepository<LocalizedContentProperty> _localizedContentPropertyRepository;
 
-        public CategoryTranslationApiController(IRepository<Category> categoryRepository, IRepository<LocalizedContentProperty> localizedContentPropertyRepository)
+        public CategoryTranslationApiController(IRepository<Category> categoryRepository,
+            IRepository<LocalizedContentProperty> localizedContentPropertyRepository)
         {
             _categoryRepository = categoryRepository;
             _localizedContentPropertyRepository = localizedContentPropertyRepository;
@@ -42,7 +43,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             {
                 DefaultCultureName = category.Name,
                 Name = localizeProperties.FirstOrDefault(x => x.ProperyName == nameof(category.Name))?.Value,
-                Description = localizeProperties.FirstOrDefault(x => x.ProperyName == nameof(category.Description))?.Value,
+                Description = localizeProperties.FirstOrDefault(x => x.ProperyName == nameof(category.Description))
+                    ?.Value
             };
 
             return Ok(model);
@@ -61,13 +63,16 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
                 var entityType = category.GetType().Name;
 
-                var localizeProperties = _localizedContentPropertyRepository.Query().Where(x => x.EntityId == category.Id
+                var localizeProperties = _localizedContentPropertyRepository.Query().Where(x =>
+                    x.EntityId == category.Id
                     && x.EntityType == entityType && x.CultureId == culture);
 
-                var localizedName = CreateOrUpdateTranslation(localizeProperties, category, nameof(category.Name), culture);
+                var localizedName =
+                    CreateOrUpdateTranslation(localizeProperties, category, nameof(category.Name), culture);
                 localizedName.Value = model.Name;
 
-                var localizedDescription = CreateOrUpdateTranslation(localizeProperties, category, nameof(category.Description), culture);
+                var localizedDescription =
+                    CreateOrUpdateTranslation(localizeProperties, category, nameof(category.Description), culture);
                 localizedDescription.Value = model.Description;
 
                 await _localizedContentPropertyRepository.SaveChangesAsync();
@@ -78,7 +83,9 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             return BadRequest(ModelState);
         }
 
-        private LocalizedContentProperty CreateOrUpdateTranslation(IQueryable<LocalizedContentProperty> localizedContentProperties, Category category, string propertyName, string culture)
+        private LocalizedContentProperty CreateOrUpdateTranslation(
+            IQueryable<LocalizedContentProperty> localizedContentProperties, Category category, string propertyName,
+            string culture)
         {
             var localizedProperty = localizedContentProperties.FirstOrDefault(x => x.ProperyName == propertyName);
             if (localizedProperty == null)

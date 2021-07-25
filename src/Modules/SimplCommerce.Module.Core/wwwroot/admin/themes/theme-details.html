@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-md-2">
-        <img class="img-responsive" ng-src="{{vm.theme.thumbnailUrl}}" />
+        <img class="img-responsive" ng-src="{{vm.theme.thumbnailUrl}}"/>
     </div>
     <div class="col-md-8">
         <h3>{{vm.theme.name}}</h3>
@@ -19,8 +19,12 @@
         <p>{{::vm.translate.get('Price: Free')}}</p>
         <p>{{::vm.translate.get('Package size:')}} {{(vm.theme.packageSize / 1024 /1024).toFixed(2)}} MB</p>
         <p>{{::vm.translate.get('Target SimplCommerce version:')}} {{vm.theme.simplCommerceVersion}}</p>
-        <p ng-if="!vm.theme.isInstalled"><button type="button" ng-click="vm.installTheme(vm.theme.name)" class="btn btn-primary">{{::vm.translate.get('Install')}}</button></p>
-        <p ng-if="vm.theme.isInstalled"><button type="button" disabled="disabled" class="btn btn-primary">{{::vm.translate.get('Installed')}}</button></p>
+        <p ng-if="!vm.theme.isInstalled">
+            <button type="button" ng-click="vm.installTheme(vm.theme.name)" class="btn btn-primary">{{::vm.translate.get('Install')}}</button>
+        </p>
+        <p ng-if="vm.theme.isInstalled">
+            <button type="button" disabled="disabled" class="btn btn-primary">{{::vm.translate.get('Installed')}}</button>
+        </p>
     </div>
 </div>
 
@@ -30,6 +34,6 @@
 <h4 class="mt-3">{{::vm.translate.get('Screenshots')}}</h4>
 <div class="row">
     <div ng-repeat="imgUrl in vm.theme.screenshotUrls" class="col-md-4">
-        <img class="img-responsive" ng-src="{{imgUrl}}" />
+        <img class="img-responsive" ng-src="{{imgUrl}}"/>
     </div>
 </div>

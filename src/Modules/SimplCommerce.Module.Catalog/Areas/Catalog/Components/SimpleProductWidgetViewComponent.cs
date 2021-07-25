@@ -15,10 +15,10 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
 {
     public class SimpleProductWidgetViewComponent : ViewComponent
     {
-        private readonly IRepository<Product> _productRepository;
+        private readonly IContentLocalizationService _contentLocalizationService;
         private readonly IMediaService _mediaService;
         private readonly IProductPricingService _productPricingService;
-        private readonly IContentLocalizationService _contentLocalizationService;
+        private readonly IRepository<Product> _productRepository;
 
         public SimpleProductWidgetViewComponent(IRepository<Product> productRepository,
             IMediaService mediaService,
@@ -36,18 +36,22 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
             var model = new SimpleProductWidgetComponentVm
             {
                 Id = widgetInstance.Id,
-                WidgetName = _contentLocalizationService.GetLocalizedProperty(nameof(WidgetInstance), widgetInstance.Id, nameof(widgetInstance.Name), widgetInstance.Name),
+                WidgetName =
+                    _contentLocalizationService.GetLocalizedProperty(nameof(WidgetInstance), widgetInstance.Id,
+                        nameof(widgetInstance.Name), widgetInstance.Name),
                 Setting = JsonConvert.DeserializeObject<SimpleProductWidgetSetting>(widgetInstance.Data)
             };
 
             foreach (var item in model.Setting.Products)
             {
-                var product = _productRepository.Query().Where(x => x.Id == item.Id).Include(x => x.ThumbnailImage).FirstOrDefault();
+                var product = _productRepository.Query().Where(x => x.Id == item.Id).Include(x => x.ThumbnailImage)
+                    .FirstOrDefault();
 
                 if (product != null)
                 {
                     var productThumbnail = ProductThumbnail.FromProduct(product);
-                    productThumbnail.Name = _contentLocalizationService.GetLocalizedProperty(nameof(Product), productThumbnail.Id, nameof(product.Name), productThumbnail.Name);
+                    productThumbnail.Name = _contentLocalizationService.GetLocalizedProperty(nameof(Product),
+                        productThumbnail.Id, nameof(product.Name), productThumbnail.Name);
                     productThumbnail.ThumbnailUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage);
                     productThumbnail.CalculatedProductPrice = _productPricingService.CalculateProductPrice(product);
                     model.Products.Add(productThumbnail);

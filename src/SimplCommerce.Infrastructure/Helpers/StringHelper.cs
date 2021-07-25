@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
 
@@ -6,7 +7,7 @@ namespace SimplCommerce.Infrastructure.Helpers
 {
     public static class StringHelper
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1055:Uri return values should not be strings", Justification = "<Pending>")]
+        [SuppressMessage("Design", "CA1055:Uri return values should not be strings", Justification = "<Pending>")]
         public static string ToUrlFriendly(this string name)
         {
             // Fallback for product variations
@@ -24,13 +25,17 @@ namespace SimplCommerce.Infrastructure.Helpers
                 && c != '_'
                 && !Char.IsLetter(c)
                 && !Char.IsDigit(c)
-                );
+            );
 
             while (name.Contains("--", StringComparison.OrdinalIgnoreCase))
+            {
                 name = name.Replace("--", "-", StringComparison.OrdinalIgnoreCase);
+            }
 
             if (name.Length > 200)
+            {
                 name = name.Substring(0, 200);
+            }
 
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -69,7 +74,7 @@ namespace SimplCommerce.Infrastructure.Helpers
             var cursor = 0;
             for (var i = 0; i < subject.Length; i++)
             {
-                char current = subject[i];
+                var current = subject[i];
                 if (Array.IndexOf(stripped, current) < 0)
                 {
                     result[cursor++] = current;
@@ -81,13 +86,12 @@ namespace SimplCommerce.Infrastructure.Helpers
 
         public static string Strip(this string subject, Func<char, bool> predicate)
         {
-
             var result = new char[subject.Length];
 
             var cursor = 0;
             for (var i = 0; i < subject.Length; i++)
             {
-                char current = subject[i];
+                var current = subject[i];
                 if (!predicate(current))
                 {
                     result[cursor++] = current;

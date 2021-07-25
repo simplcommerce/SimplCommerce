@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.cms')
-        .factory('menuService', ['$http', menuService]);
+        .module("simplAdmin.cms")
+        .factory("menuService", ["$http", menuService]);
 
     function menuService($http) {
         var service = {
@@ -19,39 +19,39 @@
         return service;
 
         function getMenu(id) {
-            return $http.get('api/menus/' + id);
+            return $http.get("api/menus/" + id);
         }
 
         function getMenus() {
-            return $http.get('api/menus');
+            return $http.get("api/menus");
         }
 
         function createMenu(menu) {
-            return $http.post('api/menus', menu);
+            return $http.post("api/menus", menu);
         }
 
         function editMenu(menu) {
-            return $http.put('api/menus/' + menu.id, menu);
+            return $http.put("api/menus/" + menu.id, menu);
         }
 
         function deleteMenu(menu) {
-            return $http.delete('api/menus/' + menu.id, null);
+            return $http.delete("api/menus/" + menu.id, null);
         }
 
         function addMenuItem(menuId, menuItems) {
-            return $http.post('api/menus/' + menuId + '/add-items', menuItems);
+            return $http.post("api/menus/" + menuId + "/add-items", menuItems);
         }
 
         function deleteMenuItem(menuItemId) {
-            return $http.delete('api/menus/delete-item/' + menuItemId, null);
+            return $http.delete("api/menus/delete-item/" + menuItemId, null);
         }
 
         function getEntities() {
-            return $http.get('api/entities');
+            return $http.get("api/entities");
         }
 
         function getEntityTypes() {
-            return $http.get('api/entity-types/menuable');
+            return $http.get("api/entity-types/menuable");
         }
     }
 })();

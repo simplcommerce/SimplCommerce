@@ -14,6 +14,6 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.ViewModels
 
         public int CommentsCount { get; set; }
 
-        public PagedResult<CommentItem> Items { get; set; } = new PagedResult<CommentItem>();
+        public PagedResult<CommentItem> Items { get; set; } = new();
     }
 }

@@ -19,12 +19,13 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     [Route("api/product-clone")]
     public class ProductCloneApiController : Controller
     {
+        private readonly IMediaService _mediaService;
         private readonly IRepository<Product> _productRepository;
         private readonly IProductService _productService;
-        private readonly IMediaService _mediaService;
         private readonly IWorkContext _workContext;
 
-        public ProductCloneApiController(IRepository<Product> productRepository, IProductService productService, IMediaService mediaService, IWorkContext workContext)
+        public ProductCloneApiController(IRepository<Product> productRepository, IProductService productService,
+            IMediaService mediaService, IWorkContext workContext)
         {
             _productRepository = productRepository;
             _productService = productService;
@@ -36,11 +37,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         public IActionResult Get(long id)
         {
             var product = _productRepository.Query().FirstOrDefault(x => x.Id == id);
-            var model = new ProductCloneFormVm
-            {
-                Id = product.Id,
-                Name = product.Name
-            };
+            var model = new ProductCloneFormVm {Id = product.Id, Name = product.Name};
 
             return Json(model);
         }
@@ -73,7 +70,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 newProduct.PriceHistories.Add(productPriceHistory);
 
                 _productService.Create(newProduct);
-                return Created($"api/products/{newProduct.Id}", new { Id = newProduct.Id });
+                return Created($"api/products/{newProduct.Id}", new {newProduct.Id});
             }
 
             return BadRequest(ModelState);
@@ -81,7 +78,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
         private static ProductPriceHistory CreatePriceHistory(User loginUser, Product product)
         {
-            return new ProductPriceHistory
+            return new()
             {
                 CreatedBy = loginUser,
                 Product = product,

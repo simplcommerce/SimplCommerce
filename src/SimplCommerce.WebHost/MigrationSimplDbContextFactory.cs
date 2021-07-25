@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore.Design;
+using SimplCommerce.Infrastructure;
 using SimplCommerce.Module.Core.Data;
 using SimplCommerce.WebHost.Extensions;
-using SimplCommerce.Infrastructure;
 
 namespace SimplCommerce.WebHost
 {
@@ -18,11 +18,11 @@ namespace SimplCommerce.WebHost
             var contentRootPath = Directory.GetCurrentDirectory();
 
             var builder = new ConfigurationBuilder()
-                            .SetBasePath(contentRootPath)
-                            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                            .AddJsonFile($"appsettings.{environmentName}.json", true);
+                .SetBasePath(contentRootPath)
+                .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile($"appsettings.{environmentName}.json", true);
 
-            builder.AddUserSecrets(typeof(MigrationSimplDbContextFactory).Assembly, optional: true);
+            builder.AddUserSecrets(typeof(MigrationSimplDbContextFactory).Assembly, true);
             builder.AddEnvironmentVariables();
             var _configuration = builder.Build();
 

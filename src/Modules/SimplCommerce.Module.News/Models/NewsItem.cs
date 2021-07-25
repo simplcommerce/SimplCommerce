@@ -6,8 +6,7 @@ namespace SimplCommerce.Module.News.Models
 {
     public class NewsItem : Content
     {
-        [StringLength(450)]
-        public string ShortContent { get; set; }
+        [StringLength(450)] public string ShortContent { get; set; }
 
         public string FullContent { get; set; }
 
@@ -21,5 +20,4 @@ namespace SimplCommerce.Module.News.Models
             Categories.Add(category);
         }
     }
-    
 }

@@ -13,11 +13,12 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class HomeController : Controller
     {
+        private readonly IContentLocalizationService _contentLocalizationService;
         private readonly ILogger _logger;
         private readonly IWidgetInstanceService _widgetInstanceService;
-        private readonly IContentLocalizationService _contentLocalizationService;
 
-        public HomeController(ILoggerFactory factory, IWidgetInstanceService widgetInstanceService, IContentLocalizationService contentLocalizationService)
+        public HomeController(ILoggerFactory factory, IWidgetInstanceService widgetInstanceService,
+            IContentLocalizationService contentLocalizationService)
         {
             _logger = factory.CreateLogger("Unhandled Error");
             _widgetInstanceService = widgetInstanceService;
@@ -38,17 +39,17 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             model.WidgetInstances = _widgetInstanceService.GetPublished()
                 .OrderBy(x => x.DisplayOrder)
                 .Select(x => new WidgetInstanceViewModel
-            {
-                Id = x.Id,
-                Name = x.Name,
-                ViewComponentName = x.Widget.ViewComponentName,
-                WidgetId = x.WidgetId,
-                WidgetZoneId = x.WidgetZoneId,
-                Data = x.Data,
-                HtmlData = x.HtmlData
-            }).ToList();
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    ViewComponentName = x.Widget.ViewComponentName,
+                    WidgetId = x.WidgetId,
+                    WidgetZoneId = x.WidgetZoneId,
+                    Data = x.Data,
+                    HtmlData = x.HtmlData
+                }).ToList();
 
-            foreach(var item in model.WidgetInstances)
+            foreach (var item in model.WidgetInstances)
             {
                 item.Name = getWidgetInstanceTranslations(item.Id, nameof(item.Name), item.Name);
                 item.HtmlData = getWidgetInstanceTranslations(item.Id, nameof(item.HtmlData), item.HtmlData);

@@ -15,7 +15,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">{{::vm.translate.get('Name')}} *</label>
                         <div class="col-sm-10">
-                            <input name="name" ng-model="vm.cartRule.name" class="form-control" />
+                            <input name="name" ng-model="vm.cartRule.name" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -36,28 +36,30 @@
                     <div ng-show="vm.cartRule.isCouponRequired" class="form-group">
                         <label class="col-sm-2 control-label">{{::vm.translate.get('Coupon code')}} *</label>
                         <div class="col-sm-10">
-                            <input name="couponCode" ng-model="vm.cartRule.couponCode" class="form-control" />
+                            <input name="couponCode" ng-model="vm.cartRule.couponCode" class="form-control"/>
                         </div>
                     </div>
                     <div ng-show="vm.cartRule.isCouponRequired" class="form-group">
                         <label class="col-sm-2 control-label">{{::vm.translate.get('Usage limit per coupon')}}</label>
                         <div class="col-sm-10">
-                            <input name="usageLimitPerCoupon" ng-model="vm.cartRule.usageLimitPerCoupon" class="form-control" />
+                            <input name="usageLimitPerCoupon" ng-model="vm.cartRule.usageLimitPerCoupon" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">{{::vm.translate.get('Usage limit per customer')}}</label>
                         <div class="col-sm-10">
-                            <input name="usageLimitPerCustomer" ng-model="vm.cartRule.usageLimitPerCustomer" class="form-control" />
+                            <input name="usageLimitPerCustomer" ng-model="vm.cartRule.usageLimitPerCustomer" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">{{::vm.translate.get('Start')}}</label>
                         <div class="col-sm-10">
                             <p class="input-group">
-                                <input type="text" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="vm.cartRule.startOn" is-open="vm.datePickerStartOn.open" datepicker-options="vm.datePickerStartOn.datepickerOptions" />
+                                <input type="text" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="vm.cartRule.startOn" is-open="vm.datePickerStartOn.open" datepicker-options="vm.datePickerStartOn.datepickerOptions"/>
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-click="vm.openCalendar($event, 'datePickerStartOn')"><i class="fa fa-calendar"></i></button>
+                                    <button type="button" class="btn btn-default" ng-click="vm.openCalendar($event, 'datePickerStartOn')">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
                                 </span>
                             </p>
                         </div>
@@ -66,9 +68,11 @@
                         <label class="col-sm-2 control-label">{{::vm.translate.get('End')}}</label>
                         <div class="col-sm-10">
                             <p class="input-group">
-                                <input type="text" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="vm.cartRule.endOn" is-open="vm.datePickerEndOn.open" datepicker-options="vm.datePickerEndOn.datepickerOptions" />
+                                <input type="text" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="vm.cartRule.endOn" is-open="vm.datePickerEndOn.open" datepicker-options="vm.datePickerEndOn.datepickerOptions"/>
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-click="vm.openCalendar($event, 'datePickerEndOn')"><i class="fa fa-calendar"></i></button>
+                                    <button type="button" class="btn btn-default" ng-click="vm.openCalendar($event, 'datePickerEndOn')">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
                                 </span>
                             </p>
                         </div>
@@ -86,19 +90,19 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">{{::vm.translate.get('Discount Amount')}} *</label>
                         <div class="col-sm-10">
-                            <input name="discountAmount" ng-model="vm.cartRule.discountAmount" class="form-control" />
+                            <input name="discountAmount" ng-model="vm.cartRule.discountAmount" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">{{::vm.translate.get('Max Discount Amount')}}</label>
                         <div class="col-sm-10">
-                            <input name="maxDiscountAmount" ng-model="vm.cartRule.maxDiscountAmount" class="form-control" />
+                            <input name="maxDiscountAmount" ng-model="vm.cartRule.maxDiscountAmount" class="form-control"/>
                         </div>
                     </div>
                     <div ng-show="vm.cartRule.ruleToApply == 'buy_x_get_y'" class="form-group">
                         <label class="col-sm-2 control-label">{{::vm.translate.get('Discount Step (Buy X)')}}</label>
                         <div class="col-sm-10">
-                            <input name="discountStep" ng-model="vm.cartRule.discountStep" class="form-control" />
+                            <input name="discountStep" ng-model="vm.cartRule.discountStep" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -114,7 +118,9 @@
                 <uib-tab index="1" heading="{{::vm.translate.get('Products Selection')}}">
                     <p>{{::vm.translate.get('Select products to apply or leave blank for all products')}}</p>
                     <product-selection-directive model-id="productsSelector" title="{{::vm.translate.get('Add products')}}" selected-products="vm.cartRule.products"></product-selection-directive>
-                    <p><button type="button" class="btn btn-default" data-toggle="modal" data-target="#productsSelector">{{::vm.translate.get('Manage Products Selection')}}</button></p>
+                    <p>
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#productsSelector">{{::vm.translate.get('Manage Products Selection')}}</button>
+                    </p>
                     <table class="table table-striped">
                         <tr>
                             <th>{{::vm.translate.get('Name')}}</th>
@@ -122,7 +128,9 @@
                         </tr>
                         <tr ng-repeat="product in vm.cartRule.products">
                             <td>{{product.name}}</td>
-                            <td class="text-center"><i ng-attr-class="{{product.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+                            <td class="text-center">
+                                <i ng-attr-class="{{product.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i>
+                            </td>
                         </tr>
                     </table>
                 </uib-tab>

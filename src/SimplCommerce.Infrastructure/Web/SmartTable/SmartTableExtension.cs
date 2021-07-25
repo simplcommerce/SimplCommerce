@@ -7,7 +7,8 @@ namespace SimplCommerce.Infrastructure.Web.SmartTable
 {
     public static class SmartTableExtension
     {
-        public static SmartTableResult<TModel> ToSmartTableResult<TModel>(this IQueryable<TModel> query, SmartTableParam param)
+        public static SmartTableResult<TModel> ToSmartTableResult<TModel>(this IQueryable<TModel> query,
+            SmartTableParam param)
         {
             var totalRecord = query.Count();
             var items = query.AppendSortAndPagingation(param).ToList();
@@ -20,7 +21,8 @@ namespace SimplCommerce.Infrastructure.Web.SmartTable
             };
         }
 
-        public static SmartTableResult<TResult> ToSmartTableResult<TModel, TResult>(this IQueryable<TModel> query, SmartTableParam param, Expression<Func<TModel, TResult>> selector)
+        public static SmartTableResult<TResult> ToSmartTableResult<TModel, TResult>(this IQueryable<TModel> query,
+            SmartTableParam param, Expression<Func<TModel, TResult>> selector)
         {
             var totalRecord = query.Count();
             query = query.AppendSortAndPagingation(param);
@@ -35,7 +37,8 @@ namespace SimplCommerce.Infrastructure.Web.SmartTable
         }
 
         // ToLits() before Select() to loaded related many-to-many entity
-        public static SmartTableResult<TResult> ToSmartTableResultNoProjection<TModel, TResult>(this IQueryable<TModel> query, SmartTableParam param, Expression<Func<TModel, TResult>> selector)
+        public static SmartTableResult<TResult> ToSmartTableResultNoProjection<TModel, TResult>(
+            this IQueryable<TModel> query, SmartTableParam param, Expression<Func<TModel, TResult>> selector)
         {
             var totalRecord = query.Count();
             var items = query.AppendSortAndPagingation(param).ToList();
@@ -48,7 +51,8 @@ namespace SimplCommerce.Infrastructure.Web.SmartTable
             };
         }
 
-        private static IQueryable<TModel> AppendSortAndPagingation<TModel>(this IQueryable<TModel> query, SmartTableParam param)
+        private static IQueryable<TModel> AppendSortAndPagingation<TModel>(this IQueryable<TModel> query,
+            SmartTableParam param)
         {
             if (param.Pagination.Number <= 0)
             {

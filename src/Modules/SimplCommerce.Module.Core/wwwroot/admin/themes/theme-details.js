@@ -1,8 +1,9 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.core')
-        .controller('ThemeDetailsCtrl', ['$state', '$stateParams', 'themeService', 'translateService', ThemeDetailsCtrl]);
+        .module("simplAdmin.core")
+        .controller("ThemeDetailsCtrl",
+            ["$state", "$stateParams", "themeService", "translateService", ThemeDetailsCtrl]);
 
     function ThemeDetailsCtrl($state, $stateParams, themeService, translateService) {
         var vm = this;
@@ -11,18 +12,18 @@
         vm.translate = translateService;
 
         vm.getThemeDetails = function getThemeDetails() {
-            themeService.getThemeDetails(vm.themeName).then(function (result) {
+            themeService.getThemeDetails(vm.themeName).then(function(result) {
                 vm.theme = result.data;
             });
         };
 
         vm.installTheme = function installTheme(name) {
             themeService.installTheme(name)
-                .then(function (result) {
-                    toastr.success(name + ' has been installed');
-                    $state.go('themes');
+                .then(function(result) {
+                    toastr.success(name + " has been installed");
+                    $state.go("themes");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     toastr.error(response.data);
                 });
         };

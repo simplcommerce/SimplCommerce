@@ -18,10 +18,10 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
     [Authorize(Roles = "admin")]
     public class CheckoutApiController : Controller
     {
-        private readonly IOrderService _orderService;
-        private readonly ICartService _cartService;
-        private readonly IWorkContext _workContext;
         private readonly IRepository<Cart> _cartRepository;
+        private readonly ICartService _cartService;
+        private readonly IOrderService _orderService;
+        private readonly IWorkContext _workContext;
 
         public CheckoutApiController(
             IOrderService orderService,
@@ -36,7 +36,8 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         }
 
         [HttpPost("api/cart/{cartId}/update-tax-and-shipping-prices")]
-        public async Task<IActionResult> UpdateTaxAndShippingPrices(long cartId, [FromBody] TaxAndShippingPriceRequestVm model)
+        public async Task<IActionResult> UpdateTaxAndShippingPrices(long cartId,
+            [FromBody] TaxAndShippingPriceRequestVm model)
         {
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartRepository.Query().FirstOrDefaultAsync(x => x.Id == cartId);
@@ -55,7 +56,8 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         }
 
         [HttpPost("api/cart/{cartId}/order")]
-        public async Task<IActionResult> CreateOrder(long cartId, [FromBody] DeliveryInformationVm deliveryInformationVm)
+        public async Task<IActionResult> CreateOrder(long cartId,
+            [FromBody] DeliveryInformationVm deliveryInformationVm)
         {
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartRepository.Query().FirstOrDefaultAsync(x => x.Id == cartId);
@@ -79,15 +81,17 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 return BadRequest(orderCreateResult.Error);
             }
 
-            return Created($"/api/orders/{orderCreateResult.Value.Id}", new { id = orderCreateResult.Value.Id });
+            return Created($"/api/orders/{orderCreateResult.Value.Id}", new {id = orderCreateResult.Value.Id});
         }
 
         // TODO might need to move to another place
         [HttpGet("api/users/{userId}/addresses")]
-        public async Task<IActionResult> UserAddress(long userId, [FromServices] IRepository<UserAddress> userAddressRepository, [FromServices] IRepository<User> userRepository)
+        public async Task<IActionResult> UserAddress(long userId,
+            [FromServices] IRepository<UserAddress> userAddressRepository,
+            [FromServices] IRepository<User> userRepository)
         {
             var user = await userRepository.Query().FirstOrDefaultAsync(x => x.Id == userId);
-            if(user == null)
+            if (user == null)
             {
                 return NotFound();
             }
@@ -95,7 +99,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
             var defaultAddressId = user.DefaultShippingAddressId.HasValue ? user.DefaultShippingAddressId : 0;
             var userAddress = await userAddressRepository
                 .Query()
-                .Where(x => (x.AddressType == AddressType.Shipping) && (x.UserId == userId))
+                .Where(x => x.AddressType == AddressType.Shipping && x.UserId == userId)
                 .Select(x => new ShippingAddressVm
                 {
                     UserAddressId = x.Id,
@@ -112,7 +116,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                     IsDistrictEnabled = x.Address.Country.IsDistrictEnabled
                 }).ToListAsync();
 
-            return Ok(new { Addresses = userAddress, DefaultShippingAddressId = defaultAddressId });
+            return Ok(new {Addresses = userAddress, DefaultShippingAddressId = defaultAddressId});
         }
     }
 }

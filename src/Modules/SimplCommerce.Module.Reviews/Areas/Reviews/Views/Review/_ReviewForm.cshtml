@@ -1,13 +1,13 @@
 ﻿@model SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels.ReviewForm
 
 <form id="form-addreview" asp-area="Reviews" asp-controller="Review" asp-action="AddReview" method="post" role="form">
-    <input asp-for="EntityId" type="hidden" />
-    <input asp-for="EntityTypeId" type="hidden" />
+    <input asp-for="EntityId" type="hidden"/>
+    <input asp-for="EntityTypeId" type="hidden"/>
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group row">
         <label asp-for="Rating" class="col-md-3 col-form-label">@Localizer["Rate this product"]</label>
         <div class="col-md-9">
-            <input asp-for="Rating" type="hidden" class="rating-loading" step="1" data-size="xs" data-show-clear="false" />
+            <input asp-for="Rating" type="hidden" class="rating-loading" step="1" data-size="xs" data-show-clear="false"/>
             <span asp-validation-for="Rating" class="text-danger"></span>
         </div>
     </div>
@@ -21,7 +21,7 @@
     <div class="form-group row">
         <label asp-for="Title" class="col-md-3 col-form-label">@Localizer["Review title"]</label>
         <div class="col-md-9">
-            <input asp-for="Title" class="form-control" />
+            <input asp-for="Title" class="form-control"/>
             <span asp-validation-for="Title" class="text-danger"></span>
         </div>
     </div>
@@ -31,4 +31,3 @@
         </div>
     </div>
 </form>
-

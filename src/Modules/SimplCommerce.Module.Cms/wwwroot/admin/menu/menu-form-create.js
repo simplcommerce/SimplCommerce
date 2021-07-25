@@ -1,8 +1,8 @@
 ﻿/*global angular, jQuery*/
-(function ($) {
+(function($) {
     angular
-        .module('simplAdmin.cms')
-        .controller('MenuFormCreateCtrl', ['$state', 'menuService', 'translateService', MenuFormCreateCtrl]);
+        .module("simplAdmin.cms")
+        .controller("MenuFormCreateCtrl", ["$state", "menuService", "translateService", MenuFormCreateCtrl]);
 
     function MenuFormCreateCtrl($state, menuService, translateService) {
         var vm = this;
@@ -11,10 +11,10 @@
 
         vm.save = function save() {
             menuService.createMenu(vm.menu)
-                .then(function (result) {
-                    $state.go('menus-edit', { id: result.data.id });
+                .then(function(result) {
+                    $state.go("menus-edit", { id: result.data.id });
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -22,9 +22,9 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add menu.');
+                        vm.validationErrors.push("Could not add menu.");
                     }
-            });
+                });
         };
     }
 })(jQuery);

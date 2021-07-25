@@ -19,10 +19,10 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 
         [Route("admin")]
         public IActionResult Index()
-        { 
+        {
             var tokens = _antiforgery.GetAndStoreTokens(HttpContext);
             HttpContext.Response.Cookies.Append("XSRF-TOKEN",
-                tokens.RequestToken, new CookieOptions { HttpOnly = false, IsEssential = true }
+                tokens.RequestToken, new CookieOptions {HttpOnly = false, IsEssential = true}
             );
 
             return View();

@@ -14,6 +14,7 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public ProductAttributeGroup Group { get; set; }
 
-        public IList<ProductTemplateProductAttribute> ProductTemplates { get; protected set; } = new List<ProductTemplateProductAttribute>();
+        public IList<ProductTemplateProductAttribute> ProductTemplates { get; protected set; } =
+            new List<ProductTemplateProductAttribute>();
     }
 }

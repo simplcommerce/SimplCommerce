@@ -22,6 +22,5 @@ namespace SimplCommerce.Module.Vendors.Areas.Vendors.ViewModels
         public bool IsActive { get; set; }
 
         public IList<VendorManager> Managers { get; set; } = new List<VendorManager>();
-     
     }
 }

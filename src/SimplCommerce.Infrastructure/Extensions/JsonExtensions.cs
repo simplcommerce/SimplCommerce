@@ -6,7 +6,7 @@ namespace SimplCommerce.Infrastructure.Extensions
     public static class JsonExtensions
     {
         /// <summary>
-        /// Converts given object to JSON string.
+        ///     Converts given object to JSON string.
         /// </summary>
         /// <returns></returns>
         public static string ToJsonString(this object obj, bool camelCase = false, bool indented = false)

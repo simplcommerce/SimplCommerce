@@ -13,17 +13,17 @@
             <form class="form-horizontal" action="/contact" method="POST">
                 <div class="form-group">
                     <div class="col-sm-6">
-                        <input asp-for="FullName" class="form-control input-contact" type="text" placeholder="@Localizer["Full name"]" />
+                        <input asp-for="FullName" class="form-control input-contact" type="text" placeholder="@Localizer["Full name"]"/>
                         <span asp-validation-for="FullName" class="text-danger"></span>
                     </div>
                     <div class="col-sm-6">
-                        <input asp-for="PhoneNumber" class="form-control input-contact" type="text" placeholder="@Localizer["Phone number"]" />
+                        <input asp-for="PhoneNumber" class="form-control input-contact" type="text" placeholder="@Localizer["Phone number"]"/>
                         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <input asp-for="EmailAddress" class="form-control input-contact" type="email" placeholder="@Localizer["Email"]" />
+                        <input asp-for="EmailAddress" class="form-control input-contact" type="email" placeholder="@Localizer["Email"]"/>
                         <span asp-validation-for="EmailAddress" class="text-danger"></span>
                     </div>
                 </div>
@@ -62,8 +62,9 @@
     </div>
 
 </div>
+
 @section scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
     <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Contacts/init-google-map.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=@Config["GoogleAppKey"]&callback=initMap"> </script>
 }

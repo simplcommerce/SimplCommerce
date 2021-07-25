@@ -44,10 +44,10 @@ namespace SimplCommerce.WebHost.IdentityServer
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString(CultureInfo.InvariantCulture)),
-                    new Claim(JwtClaimTypes.Name, user.Id.ToString(CultureInfo.InvariantCulture)),
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(CultureInfo.InvariantCulture)),
-                    new Claim(JwtClaimTypes.Email, user.Email),
+                    new(JwtRegisteredClaimNames.Sub, user.Id.ToString(CultureInfo.InvariantCulture)),
+                    new(JwtClaimTypes.Name, user.Id.ToString(CultureInfo.InvariantCulture)),
+                    new(ClaimTypes.NameIdentifier, user.Id.ToString(CultureInfo.InvariantCulture)),
+                    new(JwtClaimTypes.Email, user.Email)
                 };
 
                 var userRoles = await _userManager.GetRolesAsync(user);

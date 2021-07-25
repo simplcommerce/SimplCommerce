@@ -4,21 +4,23 @@
 }
 
 @section additionalMeta {
-    <meta name="title" content="@ViewBag.Title" />
-    <meta name="keywords" content="@Model.CategoryMetaKeywords" />
-    <meta name="description" content="@Model.CategoryMetaDescription" />
+    <meta name="title" content="@ViewBag.Title"/>
+    <meta name="keywords" content="@Model.CategoryMetaKeywords"/>
+    <meta name="description" content="@Model.CategoryMetaDescription"/>
 }
 
 @section head {
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/nouislider/distribute/nouislider.min.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/nouislider/distribute/nouislider.min.css"/>
 }
 
 <nav>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="~/">Home</a></li>
+        <li class="breadcrumb-item">
+            <a href="~/">Home</a>
+        </li>
         @if (Model.ParentCategorId.HasValue)
         {
-            @await Component.InvokeAsync("CategoryBreadcrumb", new { categoryId = Model.ParentCategorId.Value })
+            @await Component.InvokeAsync("CategoryBreadcrumb", new {categoryId = Model.ParentCategorId.Value})
         }
         <li class="breadcrumb-item active">@Model.CategoryName</li>
     </ol>
@@ -118,8 +120,8 @@
                             <div class="card-body">
                                 <div id="priceSlider"></div>
                                 <div>
-                                    <input type="hidden" id="originMinPrice" value="@Model.FilterOption.Price.MinPrice.ToString("F0")" />
-                                    <input type="hidden" id="originMaxPrice" value="@Model.FilterOption.Price.MaxPrice.ToString("F0")" />
+                                    <input type="hidden" id="originMinPrice" value="@Model.FilterOption.Price.MinPrice.ToString("F0")"/>
+                                    <input type="hidden" id="originMaxPrice" value="@Model.FilterOption.Price.MaxPrice.ToString("F0")"/>
                                     <span id="minPrice"></span>
                                     <span id="maxPrice"></span>
                                 </div>
@@ -164,7 +166,7 @@
             @foreach (var product in Model.Products)
             {
                 <div class="col-xs-6 col-md-4">
-                    <partial name="_ProductThumbnail" model="product" />
+                    <partial name="_ProductThumbnail" model="product"/>
                 </div>
             }
         </div>
@@ -180,7 +182,8 @@
                           cs-pager-li-other-class="page-item"
                           cs-pager-li-non-active-class="page-item disabled"
                           cs-pager-link-current-class="page-link"
-                          cs-pager-link-other-class="page-link"></cs-pager>
+                          cs-pager-link-other-class="page-link">
+                </cs-pager>
             </div>
         </div>
     </div>

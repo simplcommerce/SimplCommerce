@@ -27,8 +27,8 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
         [HttpGet]
         public ActionResult Get(int status, int numRecords)
         {
-            var reviewStatus = (CommentStatus) status;
-            if ((numRecords <= 0) || (numRecords > 100))
+            var reviewStatus = (CommentStatus)status;
+            if (numRecords <= 0 || numRecords > 100)
             {
                 numRecords = 5;
             }
@@ -75,7 +75,7 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
 
                 if (search.Status != null)
                 {
-                    var status = (CommentStatus) search.Status;
+                    var status = (CommentStatus)search.Status;
                     query = query.Where(x => x.Status == status);
                 }
 
@@ -124,7 +124,7 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
 
             if (Enum.IsDefined(typeof(CommentStatus), statusId))
             {
-                comment.Status = (CommentStatus) statusId;
+                comment.Status = (CommentStatus)statusId;
                 _commentRepository.SaveChanges();
 
                 await _commentRepository.SaveChangesAsync();

@@ -18,11 +18,12 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Components
     public class StripeLandingViewComponent : ViewComponent
     {
         private readonly ICartService _cartService;
-        private readonly IWorkContext _workContext;
-        private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private readonly ICurrencyService _currencyService;
+        private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
+        private readonly IWorkContext _workContext;
 
-        public StripeLandingViewComponent(ICartService cartService, IWorkContext workContext, IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository, ICurrencyService currencyService)
+        public StripeLandingViewComponent(ICartService cartService, IWorkContext workContext,
+            IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository, ICurrencyService currencyService)
 
         {
             _cartService = cartService;
@@ -33,12 +34,13 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var stripeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.StripeProviderId);
+            var stripeProvider = await _paymentProviderRepository.Query()
+                .FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.StripeProviderId);
             var stripeSetting = JsonConvert.DeserializeObject<StripeConfigForm>(stripeProvider.AdditionalSettings);
             var curentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(curentUser.Id);
             var zeroDecimalAmount = cart.OrderTotal;
-            if(!CurrencyHelper.IsZeroDecimalCurrencies(_currencyService.CurrencyCulture))
+            if (!CurrencyHelper.IsZeroDecimalCurrencies(_currencyService.CurrencyCulture))
             {
                 zeroDecimalAmount = zeroDecimalAmount * 100;
             }

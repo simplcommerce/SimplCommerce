@@ -5,7 +5,7 @@ namespace SimplCommerce.Module.ActivityLog.Models
 {
     public class ActivityType : EntityBase
     {
-        public ActivityType (long id)
+        public ActivityType(long id)
         {
             Id = id;
         }

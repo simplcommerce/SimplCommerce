@@ -1,8 +1,8 @@
 ﻿/*global angular, jQuery*/
-(function ($) {
+(function($) {
     angular
-        .module('simplAdmin.cms')
-        .controller('MenuFormCtrl', ['$state', '$stateParams', 'menuService', 'translateService', MenuFormCtrl]);
+        .module("simplAdmin.cms")
+        .controller("MenuFormCtrl", ["$state", "$stateParams", "menuService", "translateService", MenuFormCtrl]);
 
     function MenuFormCtrl($state, $stateParams, menuService, translateService) {
         var vm = this;
@@ -17,7 +17,7 @@
         vm.addingCustomLink = {};
 
         vm.toggleEntity = function toggleEntity(entity) {
-            var entityIds = vm.selectedEntities.map(function (item) { return item.id; });
+            var entityIds = vm.selectedEntities.map(function(item) { return item.id; });
             var index = entityIds.indexOf(entity.id);
             if (index > -1) {
                 vm.selectedEntities.splice(index, 1);
@@ -27,12 +27,12 @@
             entity.isChecked = true;
         };
 
-        vm.addMenuItems = function () {
-            var menuItems = vm.selectedEntities.map(function (item) {
+        vm.addMenuItems = function() {
+            var menuItems = vm.selectedEntities.map(function(item) {
                 return { entityId: item.id, name: item.name };
             });
-            menuService.addMenuItem(vm.menuId, menuItems).then(function (result) {
-                result.data.forEach(function (item) {
+            menuService.addMenuItem(vm.menuId, menuItems).then(function(result) {
+                result.data.forEach(function(item) {
                     item.children = [];
                     vm.menuItemTree.push(item);
                 });
@@ -41,11 +41,11 @@
             });
         };
 
-        vm.addCustomLink = function () {
+        vm.addCustomLink = function() {
             var menuItems = [];
             menuItems.push(vm.addingCustomLink);
-            menuService.addMenuItem(vm.menuId, menuItems).then(function (result) {
-                result.data.forEach(function (item) {
+            menuService.addMenuItem(vm.menuId, menuItems).then(function(result) {
+                result.data.forEach(function(item) {
                     item.children = [];
                     vm.menuItemTree.push(item);
                     vm.addingCustomLink = {};
@@ -53,11 +53,11 @@
             });
         };
 
-        vm.remove = function (scope) {
-           scope.remove();
+        vm.remove = function(scope) {
+            scope.remove();
         };
 
-        vm.toggle = function (scope) {
+        vm.toggle = function(scope) {
             scope.toggle();
         };
 
@@ -72,10 +72,10 @@
             }
 
             promise
-                .then(function (result) {
-                    $state.go('menus');
+                .then(function(result) {
+                    $state.go("menus");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -83,14 +83,16 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add menu.');
+                        vm.validationErrors.push("Could not add menu.");
                     }
                 });
         };
 
         function arrayToTree(arr) {
-            var i, node,
-                map = {}, roots = [];
+            var i,
+                node,
+                map = {},
+                roots = [];
             // use map to look-up the parents
             for (i = 0; i < arr.length; i += 1) {
                 map[arr[i].id] = i;
@@ -110,41 +112,50 @@
 
         function treeToArray(tree) {
             var items = [];
+
             function readNodes(nodes, parentNode) {
-                nodes.forEach(function (node, i) {
+                nodes.forEach(function(node, i) {
                     var parentId = (parentNode) ? parentNode.id : "";
                     var displayOrder = i;
-                    var item = { id: node.id, name: node.name, entityId: node.entityId, customLink: node.customLink, parentId: parentId, displayOrder: displayOrder };
+                    var item = {
+                        id: node.id,
+                        name: node.name,
+                        entityId: node.entityId,
+                        customLink: node.customLink,
+                        parentId: parentId,
+                        displayOrder: displayOrder
+                    };
                     items.push(item);
                     if (node.children.length > 0) {
                         readNodes(node.children, node);
                     }
                 });
             }
+
             readNodes(tree);
             return items;
         }
 
-	function uncheckAllMenuItems() {
-            vm.entities.forEach(function (entity) {
+        function uncheckAllMenuItems() {
+            vm.entities.forEach(function(entity) {
                 entity.isChecked = false;
             });
         }
-		
+
         function init() {
-            menuService.getEntities().then(function (result) {
+            menuService.getEntities().then(function(result) {
                 vm.entities = result.data;
                 uncheckAllMenuItems();
             });
 
-            menuService.getEntityTypes().then(function (result) {
+            menuService.getEntityTypes().then(function(result) {
                 vm.entityTypes = result.data;
             });
 
             if (vm.isEditMode) {
-                menuService.getMenu(vm.menuId).then(function (result) {
+                menuService.getMenu(vm.menuId).then(function(result) {
                     vm.menu = result.data;
-                    vm.menu.items.forEach(function (item) { item.children = []; });
+                    vm.menu.items.forEach(function(item) { item.children = []; });
                     vm.menuItemTree = arrayToTree(vm.menu.items);
                 });
             }

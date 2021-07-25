@@ -20,7 +20,8 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         private readonly IRepositoryWithTypedId<AppSetting, string> _appSettingRepository;
         private readonly IConfigurationRoot _configurationRoot;
 
-        public AppSettingApiController(IRepositoryWithTypedId<AppSetting, string> appSettingRepository, IConfiguration configuration)
+        public AppSettingApiController(IRepositoryWithTypedId<AppSetting, string> appSettingRepository,
+            IConfiguration configuration)
         {
             _appSettingRepository = appSettingRepository;
             _configurationRoot = (IConfigurationRoot)configuration;
@@ -31,7 +32,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         {
             var settings = await _appSettingRepository.Query()
                 .Where(x => x.IsVisibleInCommonSettingPage)
-                .Select(x => new AppSettingVm { Key = x.Id, Value = x.Value })
+                .Select(x => new AppSettingVm {Key = x.Id, Value = x.Value})
                 .ToListAsync();
             return settings;
         }
@@ -41,8 +42,9 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         {
             if (ModelState.IsValid)
             {
-                var settings = await _appSettingRepository.Query().Where(x => x.IsVisibleInCommonSettingPage).ToListAsync();
-                foreach(var item in settings)
+                var settings = await _appSettingRepository.Query().Where(x => x.IsVisibleInCommonSettingPage)
+                    .ToListAsync();
+                foreach (var item in settings)
                 {
                     var vm = model.FirstOrDefault(x => x.Key == item.Id);
                     if (vm != null)

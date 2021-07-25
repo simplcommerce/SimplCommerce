@@ -8,12 +8,7 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Components
     {
         public IViewComponentResult Invoke(long entityId, string entityTypeId)
         {
-
-            var model = new CommentVm
-            {
-                EntityId = entityId,
-                EntityTypeId = entityTypeId
-            };
+            var model = new CommentVm {EntityId = entityId, EntityTypeId = entityTypeId};
 
             return View(this.GetViewPath(), model);
         }

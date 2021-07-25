@@ -1,6 +1,6 @@
 ﻿namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 {
-    public  class OrderLineExportVm : OrderExportVm
+    public class OrderLineExportVm : OrderExportVm
     {
         public long OrderLineId { get; set; }
 

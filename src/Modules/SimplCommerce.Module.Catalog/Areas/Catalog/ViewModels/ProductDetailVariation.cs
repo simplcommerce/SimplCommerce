@@ -24,6 +24,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
 
         public IList<MediaViewModel> Images { get; set; } = new List<MediaViewModel>();
 
-        public IList<ProductDetailVariationOption> Options { get; protected set; } = new List<ProductDetailVariationOption>();
+        public IList<ProductDetailVariationOption> Options { get; protected set; } =
+            new List<ProductDetailVariationOption>();
     }
 }

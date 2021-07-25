@@ -27,8 +27,8 @@ namespace SimplCommerce.WebHost
 {
     public class Startup
     {
-        private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
         public Startup(IConfiguration configuration, IWebHostEnvironment hostingEnvironment)
         {
@@ -69,11 +69,11 @@ namespace SimplCommerce.WebHost
             services.AddAntiforgery(options => options.HeaderName = "X-XSRF-Token");
             services.AddCloudscribePagination();
 
-            foreach(var module in GlobalConfiguration.Modules)
+            foreach (var module in GlobalConfiguration.Modules)
             {
                 var moduleInitializerType = module.Assembly.GetTypes()
-                   .FirstOrDefault(t => typeof(IModuleInitializer).IsAssignableFrom(t));
-                if ((moduleInitializerType != null) && (moduleInitializerType != typeof(IModuleInitializer)))
+                    .FirstOrDefault(t => typeof(IModuleInitializer).IsAssignableFrom(t));
+                if (moduleInitializerType != null && moduleInitializerType != typeof(IModuleInitializer))
                 {
                     var moduleInitializer = (IModuleInitializer)Activator.CreateInstance(moduleInitializerType);
                     services.AddSingleton(typeof(IModuleInitializer), moduleInitializer);
@@ -86,7 +86,7 @@ namespace SimplCommerce.WebHost
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SimplCommerce API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "SimplCommerce API", Version = "v1"});
             });
         }
 
@@ -126,11 +126,11 @@ namespace SimplCommerce.WebHost
             {
                 endpoints.MapDynamicControllerRoute<SlugRouteValueTransformer>("/{**slug}");
                 endpoints.MapControllerRoute(
-                    name: "areas",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    "areas",
+                    "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    "default",
+                    "{controller=Home}/{action=Index}/{id?}");
             });
 
             var moduleInitializers = app.ApplicationServices.GetServices<IModuleInitializer>();

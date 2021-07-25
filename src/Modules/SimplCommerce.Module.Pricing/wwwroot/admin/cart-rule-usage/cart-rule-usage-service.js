@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.pricing')
-        .factory('cartRuleUsageService', ['$http', cartRuleUsageService]);
+        .module("simplAdmin.pricing")
+        .factory("cartRuleUsageService", ["$http", cartRuleUsageService]);
 
     function cartRuleUsageService($http) {
         var service = {
@@ -11,7 +11,7 @@
         return service;
 
         function getCartRuleUsages(params) {
-            return $http.post('api/cart-rule-usages/grid', params);
+            return $http.post("api/cart-rule-usages/grid", params);
         }
     }
 })();

@@ -24,6 +24,7 @@ namespace SimplCommerce.Module.EmailSenderSendgrid
             Contract.Requires(string.IsNullOrWhiteSpace(_fromEmail));
             Contract.Requires(string.IsNullOrWhiteSpace(_fromName));
         }
+
         public async Task SendEmailAsync(string email, string subject, string message, bool isHtml = false)
         {
             Contract.Requires(string.IsNullOrWhiteSpace(email));

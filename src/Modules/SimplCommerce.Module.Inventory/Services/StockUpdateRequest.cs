@@ -1,6 +1,4 @@
-﻿using SimplCommerce.Module.Inventory.Models;
-
-namespace SimplCommerce.Module.Inventory.Services
+﻿namespace SimplCommerce.Module.Inventory.Services
 {
     public class StockUpdateRequest
     {

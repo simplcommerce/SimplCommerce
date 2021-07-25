@@ -16,14 +16,16 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class UserAddressController : Controller
     {
-        private readonly IRepository<UserAddress> _userAddressRepository;
         private readonly IRepositoryWithTypedId<Country, string> _countryRepository;
-        private readonly IRepository<StateOrProvince> _stateOrProvinceRepository;
         private readonly IRepository<District> _districtRepository;
+        private readonly IRepository<StateOrProvince> _stateOrProvinceRepository;
+        private readonly IRepository<UserAddress> _userAddressRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IWorkContext _workContext;
 
-        public UserAddressController(IRepository<UserAddress> userAddressRepository, IRepositoryWithTypedId<Country, string> countryRepository, IRepository<StateOrProvince> stateOrProvinceRepository,
+        public UserAddressController(IRepository<UserAddress> userAddressRepository,
+            IRepositoryWithTypedId<Country, string> countryRepository,
+            IRepository<StateOrProvince> stateOrProvinceRepository,
             IRepository<District> districtRepository, IRepository<User> userRepository, IWorkContext workContext)
         {
             _userAddressRepository = userAddressRepository;
@@ -68,7 +70,8 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         [HttpGet("api/country-states-provinces/{countryId}")]
         public async Task<IActionResult> Get(string countryId)
         {
-            var country = await _countryRepository.Query().Include(x => x.StatesOrProvinces).FirstOrDefaultAsync(x => x.Id == countryId);
+            var country = await _countryRepository.Query().Include(x => x.StatesOrProvinces)
+                .FirstOrDefaultAsync(x => x.Id == countryId);
             if (country == null)
             {
                 return NotFound();
@@ -83,7 +86,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
                 country.IsCityEnabled,
                 country.IsZipCodeEnabled,
                 country.IsDistrictEnabled,
-                StatesOrProvinces = country.StatesOrProvinces.Select(x => new { x.Id, x.Name })
+                StatesOrProvinces = country.StatesOrProvinces.Select(x => new {x.Id, x.Name})
             };
 
             return Json(model);
@@ -122,9 +125,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 
                 var userAddress = new UserAddress
                 {
-                    Address = address,
-                    AddressType = AddressType.Shipping,
-                    UserId = currentUser.Id
+                    Address = address, AddressType = AddressType.Shipping, UserId = currentUser.Id
                 };
 
                 _userAddressRepository.Add(userAddress);
@@ -259,13 +260,10 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             }
 
             model.Countries = shippableCountries
-                .Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                }).ToList();
+                .Select(x => new SelectListItem {Text = x.Name, Value = x.Id.ToString()}).ToList();
 
-            var selectedShipableCountryId = !string.IsNullOrEmpty(model.CountryId) ? model.CountryId : model.Countries.First().Value;
+            var selectedShipableCountryId =
+                !string.IsNullOrEmpty(model.CountryId) ? model.CountryId : model.Countries.First().Value;
             var selectedCountry = shippableCountries.FirstOrDefault(c => c.Id == selectedShipableCountryId);
             if (selectedCountry != null)
             {
@@ -278,11 +276,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
                 .Query()
                 .Where(x => x.CountryId == selectedShipableCountryId)
                 .OrderBy(x => x.Name)
-                .Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                }).ToList();
+                .Select(x => new SelectListItem {Text = x.Name, Value = x.Id.ToString()}).ToList();
 
             if (model.StateOrProvinceId > 0)
             {
@@ -290,11 +284,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
                     .Query()
                     .Where(x => x.StateOrProvinceId == model.StateOrProvinceId)
                     .OrderBy(x => x.Name)
-                    .Select(x => new SelectListItem
-                    {
-                        Text = x.Name,
-                        Value = x.Id.ToString()
-                    }).ToList();
+                    .Select(x => new SelectListItem {Text = x.Name, Value = x.Id.ToString()}).ToList();
             }
         }
     }

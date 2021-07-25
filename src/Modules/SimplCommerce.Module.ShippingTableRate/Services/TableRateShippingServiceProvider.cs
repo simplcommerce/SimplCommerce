@@ -1,28 +1,30 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Shipping.Models;
 using SimplCommerce.Module.ShippingPrices.Services;
 using SimplCommerce.Module.ShippingTableRate.Models;
-using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.ShippingTableRate.Services
 {
     public class TableRateShippingServiceProvider : IShippingPriceServiceProvider
     {
-        public readonly IRepository<PriceAndDestination> _priceAndDestinationRepository;
         private readonly ICurrencyService _currencyService;
+        public readonly IRepository<PriceAndDestination> _priceAndDestinationRepository;
 
-        public TableRateShippingServiceProvider(IRepository<PriceAndDestination> priceAndDestinationRepository, ICurrencyService currencyService)
+        public TableRateShippingServiceProvider(IRepository<PriceAndDestination> priceAndDestinationRepository,
+            ICurrencyService currencyService)
         {
             _priceAndDestinationRepository = priceAndDestinationRepository;
             _currencyService = currencyService;
         }
 
-        public async Task<GetShippingPriceResponse> GetShippingPrices(GetShippingPriceRequest request, ShippingProvider provider)
+        public async Task<GetShippingPriceResponse> GetShippingPrices(GetShippingPriceRequest request,
+            ShippingProvider provider)
         {
-            var response = new GetShippingPriceResponse { IsSuccess = true };
+            var response = new GetShippingPriceResponse {IsSuccess = true};
             var priceAndDestinations = await _priceAndDestinationRepository.Query().ToListAsync();
 
             var query = priceAndDestinations.Where(x =>
@@ -34,12 +36,11 @@ namespace SimplCommerce.Module.ShippingTableRate.Services
 
             var cheapestApplicable = query.OrderBy(x => x.ShippingPrice).FirstOrDefault();
 
-            if(cheapestApplicable != null)
+            if (cheapestApplicable != null)
             {
                 response.ApplicablePrices.Add(new ShippingPrice(_currencyService)
                 {
-                    Name = "Standard",
-                    Price = cheapestApplicable.ShippingPrice
+                    Name = "Standard", Price = cheapestApplicable.ShippingPrice
                 });
             }
 

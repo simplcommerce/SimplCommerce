@@ -11,7 +11,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.ViewModels
 
         public long AddressId { get; set; }
 
-        public string ContactName { get; set; } 
+        public string ContactName { get; set; }
 
         public string Phone { get; set; }
 

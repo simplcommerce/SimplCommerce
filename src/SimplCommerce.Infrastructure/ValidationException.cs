@@ -17,12 +17,7 @@ namespace SimplCommerce.Infrastructure
 
         public Type TargetType { get; }
 
-        public override string Message
-        {
-            get
-            {
-                return string.Concat(TargetType.ToString(), ": ", string.Join(';', ValidationResults.Select(x => $"{x.ErrorMessage}")));
-            }
-        }
+        public override string Message => string.Concat(TargetType.ToString(), ": ",
+            string.Join(';', ValidationResults.Select(x => $"{x.ErrorMessage}")));
     }
 }

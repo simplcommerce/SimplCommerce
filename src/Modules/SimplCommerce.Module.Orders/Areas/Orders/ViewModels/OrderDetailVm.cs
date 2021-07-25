@@ -45,19 +45,19 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 
         public decimal PaymentFeeAmount { get; set; }
 
-        public string SubtotalString { get { return _currencyService.FormatCurrency(Subtotal); } }
+        public string SubtotalString => _currencyService.FormatCurrency(Subtotal);
 
-        public string DiscountAmountString { get { return _currencyService.FormatCurrency(DiscountAmount); } }
+        public string DiscountAmountString => _currencyService.FormatCurrency(DiscountAmount);
 
-        public string SubtotalWithDiscountString { get { return _currencyService.FormatCurrency(SubTotalWithDiscount); } }
+        public string SubtotalWithDiscountString => _currencyService.FormatCurrency(SubTotalWithDiscount);
 
-        public string TaxAmountString { get { return _currencyService.FormatCurrency(TaxAmount); } }
+        public string TaxAmountString => _currencyService.FormatCurrency(TaxAmount);
 
-        public string ShippingAmountString { get { return _currencyService.FormatCurrency(ShippingAmount); } }
+        public string ShippingAmountString => _currencyService.FormatCurrency(ShippingAmount);
 
-        public string PaymentFeeAmountString { get { return _currencyService.FormatCurrency(PaymentFeeAmount); } }
+        public string PaymentFeeAmountString => _currencyService.FormatCurrency(PaymentFeeAmount);
 
-        public string OrderTotalString { get { return _currencyService.FormatCurrency(OrderTotal); } }
+        public string OrderTotalString => _currencyService.FormatCurrency(OrderTotal);
 
         public ShippingAddressVm ShippingAddress { get; set; }
 

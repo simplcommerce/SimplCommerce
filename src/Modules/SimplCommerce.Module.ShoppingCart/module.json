@@ -1,6 +1,6 @@
 {
-  "id": "SimplCommerce.Module.ShoppingCart",
-  "name": "Shopping Cart",
-  "isBundledWithHost": true,
-  "version": "1.0.0"
+    "id": "SimplCommerce.Module.ShoppingCart",
+    "name": "Shopping Cart",
+    "isBundledWithHost": true,
+    "version": "1.0.0"
 }

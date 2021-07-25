@@ -17,11 +17,12 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
     [Route("api/warehouses")]
     public class WarehouseApiController : Controller
     {
-        private readonly IRepository<Warehouse> _warehouseRepository;
         private readonly IRepository<Address> _addressRepository;
+        private readonly IRepository<Warehouse> _warehouseRepository;
         private readonly IWorkContext _workContext;
 
-        public WarehouseApiController(IRepository<Warehouse> warehouseRepository, IWorkContext workContext, IRepository<Address> addressRepository)
+        public WarehouseApiController(IRepository<Warehouse> warehouseRepository, IWorkContext workContext,
+            IRepository<Address> addressRepository)
         {
             _warehouseRepository = warehouseRepository;
             _addressRepository = addressRepository;
@@ -38,11 +39,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
                 query = query.Where(x => x.VendorId == currentUser.VendorId);
             }
 
-            var warehouses = await query.Select(x => new
-            {
-                x.Id,
-                x.Name
-            }).ToListAsync();
+            var warehouses = await query.Select(x => new {x.Id, x.Name}).ToListAsync();
 
             return Ok(warehouses);
         }
@@ -57,7 +54,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
 
                 if (search.Name != null)
                 {
-                    string name = $"%{search.Name}%";
+                    var name = $"%{search.Name}%";
                     query = query.Where(x => EF.Functions.Like(x.Name, name));
                 }
             }
@@ -70,12 +67,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
 
             var warehouses = query.ToSmartTableResult(
                 param,
-                 sp => new
-                 {
-                     sp.Id,
-                     sp.Name,
-                     VendorName = sp.Vendor.Name
-                 });
+                sp => new {sp.Id, sp.Name, VendorName = sp.Vendor.Name});
 
             return Json(warehouses);
         }
@@ -83,7 +75,8 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(long id)
         {
-            var warehouse = await _warehouseRepository.Query().Include(w => w.Address).FirstOrDefaultAsync(w => w.Id == id);
+            var warehouse = await _warehouseRepository.Query().Include(w => w.Address)
+                .FirstOrDefaultAsync(w => w.Id == id);
             if (warehouse == null)
             {
                 return NotFound();
@@ -92,7 +85,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             if (!User.IsInRole("admin") && warehouse.VendorId != currentUser.VendorId)
             {
-                return BadRequest(new { error = "You don't have permission to manage this warehouse" });
+                return BadRequest(new {error = "You don't have permission to manage this warehouse"});
             }
 
             var address = warehouse.Address ?? new Address();
@@ -133,11 +126,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
                     ZipCode = model.ZipCode
                 };
 
-                var warehouse = new Warehouse
-                {
-                    Name = model.Name,
-                    Address = address
-                };
+                var warehouse = new Warehouse {Name = model.Name, Address = address};
 
                 var currentUser = await _workContext.GetCurrentUser();
                 if (!User.IsInRole("admin"))
@@ -147,7 +136,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
 
                 _warehouseRepository.Add(warehouse);
                 await _warehouseRepository.SaveChangesAsync();
-                return CreatedAtAction(nameof(Get), new { id = warehouse.Id }, null);
+                return CreatedAtAction(nameof(Get), new {id = warehouse.Id}, null);
             }
 
             return BadRequest(ModelState);
@@ -161,7 +150,8 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
                 return BadRequest(ModelState);
             }
 
-            var warehouse = await _warehouseRepository.Query().Include(x => x.Address).FirstOrDefaultAsync(x => x.Id == id);
+            var warehouse = await _warehouseRepository.Query().Include(x => x.Address)
+                .FirstOrDefaultAsync(x => x.Id == id);
             if (warehouse == null)
             {
                 return NotFound();
@@ -170,7 +160,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             if (!User.IsInRole("admin") && warehouse.VendorId != currentUser.VendorId)
             {
-                return BadRequest(new { error = "You don't have permission to manage this warehouse" });
+                return BadRequest(new {error = "You don't have permission to manage this warehouse"});
             }
 
             warehouse.Name = model.Name;
@@ -194,7 +184,8 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
-            var warehouse = await _warehouseRepository.Query().Include(w => w.Address).FirstOrDefaultAsync(x => x.Id == id);
+            var warehouse = await _warehouseRepository.Query().Include(w => w.Address)
+                .FirstOrDefaultAsync(x => x.Id == id);
             if (warehouse == null)
             {
                 return NotFound();
@@ -203,7 +194,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             if (!User.IsInRole("admin") && warehouse.VendorId != currentUser.VendorId)
             {
-                return BadRequest(new { error = "You don't have permission to manage this warehouse" });
+                return BadRequest(new {error = "You don't have permission to manage this warehouse"});
             }
 
             try
@@ -215,7 +206,11 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
             }
             catch (DbUpdateException)
             {
-                return BadRequest(new { Error = $"The warehouse {warehouse.Name} can't not be deleted because it is referenced by other tables" });
+                return BadRequest(new
+                {
+                    Error =
+                        $"The warehouse {warehouse.Name} can't not be deleted because it is referenced by other tables"
+                });
             }
 
             return NoContent();

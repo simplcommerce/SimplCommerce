@@ -12,12 +12,13 @@ namespace SimplCommerce.Module.Shipments.Services
 {
     public class ShipmentService : IShipmentService
     {
-        private readonly IRepository<Shipment> _shipmentRepository;
         private readonly IRepository<OrderItem> _orderItemRepository;
         private readonly IRepository<ShipmentItem> _shipmentItemRepository;
+        private readonly IRepository<Shipment> _shipmentRepository;
         private readonly IRepository<Stock> _stockRepository;
 
-        public ShipmentService(IRepository<Shipment> shipmentRepository, IRepository<OrderItem> orderItemRepository, IRepository<ShipmentItem> shipmentItemRepository, IRepository<Stock> stockRepository)
+        public ShipmentService(IRepository<Shipment> shipmentRepository, IRepository<OrderItem> orderItemRepository,
+            IRepository<ShipmentItem> shipmentItemRepository, IRepository<Stock> stockRepository)
         {
             _shipmentRepository = shipmentRepository;
             _orderItemRepository = orderItemRepository;
@@ -29,11 +30,12 @@ namespace SimplCommerce.Module.Shipments.Services
         {
             var itemsToShip = await GetShipmentItem(orderId);
             var productIdsToShip = itemsToShip.Select(x => x.ProductId);
-            var stocks = await _stockRepository.Query().Where(x => x.WarehouseId == warehouseId && productIdsToShip.Contains(x.ProductId)).ToListAsync();
-            foreach(var item in itemsToShip)
+            var stocks = await _stockRepository.Query()
+                .Where(x => x.WarehouseId == warehouseId && productIdsToShip.Contains(x.ProductId)).ToListAsync();
+            foreach (var item in itemsToShip)
             {
                 var stock = stocks.FirstOrDefault(x => x.ProductId == item.ProductId);
-                if(stock != null)
+                if (stock != null)
                 {
                     item.AvailableQuantity = stock.Quantity;
                 }
@@ -60,15 +62,15 @@ namespace SimplCommerce.Module.Shipments.Services
                 .Where(x => x.Shipment.OrderId == orderId)
                 .ToListAsync();
 
-            if(!shippedItems.Any())
+            if (!shippedItems.Any())
             {
                 return orderedItems;
             }
 
-            foreach(var item in orderedItems)
+            foreach (var item in orderedItems)
             {
                 var shippedItemsByProduct = shippedItems.Where(x => x.ProductId == item.ProductId);
-                foreach(var shippedItemByProduct in shippedItemsByProduct)
+                foreach (var shippedItemByProduct in shippedItemsByProduct)
                 {
                     item.ShippedQuantity = item.ShippedQuantity + shippedItemByProduct.Quantity;
                 }
@@ -81,27 +83,30 @@ namespace SimplCommerce.Module.Shipments.Services
         {
             if (!shipment.Items.Any())
             {
-                return Result.Fail($"No item to ship");
+                return Result.Fail("No item to ship");
             }
 
             var orderedItems = await GetShipmentItem(shipment.OrderId);
             foreach (var item in shipment.Items)
             {
                 var orderedItem = orderedItems.FirstOrDefault(x => x.OrderItemId == item.OrderItemId);
-                if(orderedItem == null)
+                if (orderedItem == null)
                 {
                     return Result.Fail($"Order item {item.OrderItemId} is not found");
                 }
 
-                if(item.Quantity > orderedItem.OrderedQuantity - orderedItem.ShippedQuantity)
+                if (item.Quantity > orderedItem.OrderedQuantity - orderedItem.ShippedQuantity)
                 {
-                    return Result.Fail($"Quantity to ship cannot be larger than ordered quantity + shipped quantity");
+                    return Result.Fail("Quantity to ship cannot be larger than ordered quantity + shipped quantity");
                 }
 
-                var stock = await _stockRepository.Query().Where(x => x.ProductId == item.ProductId && x.WarehouseId == shipment.WarehouseId).FirstOrDefaultAsync();
-                if(stock == null || stock.Quantity < item.Quantity)
+                var stock = await _stockRepository.Query()
+                    .Where(x => x.ProductId == item.ProductId && x.WarehouseId == shipment.WarehouseId)
+                    .FirstOrDefaultAsync();
+                if (stock == null || stock.Quantity < item.Quantity)
                 {
-                    return Result.Fail($"The product {item.ProductId} is out of stock in warehouse {shipment.WarehouseId}");
+                    return Result.Fail(
+                        $"The product {item.ProductId} is out of stock in warehouse {shipment.WarehouseId}");
                 }
 
                 stock.Quantity = stock.Quantity - item.Quantity;

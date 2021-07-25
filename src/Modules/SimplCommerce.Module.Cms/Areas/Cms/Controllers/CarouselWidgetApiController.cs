@@ -22,10 +22,11 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
     [ApiController]
     public class CarouselWidgetApiController : ControllerBase
     {
-        private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
         private readonly IMediaService _mediaService;
+        private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
 
-        public CarouselWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository, IMediaService mediaService)
+        public CarouselWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository,
+            IMediaService mediaService)
         {
             _widgetInstanceRepository = widgetInstanceRepository;
             _mediaService = mediaService;
@@ -33,7 +34,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
 
         [HttpGet("{id}")]
         public async Task<ActionResult<CarouselWidgetForm>> Get(long id)
-        {            
+        {
             var widgetInstance = await _widgetInstanceRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
             var model = new CarouselWidgetForm
             {
@@ -55,11 +56,11 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromForm]CarouselWidgetForm model)
+        public async Task<IActionResult> Post([FromForm] CarouselWidgetForm model)
         {
             ModelBindUploadFiles(model);
 
-            if(model.Items.Any(x => x.UploadImage == null))
+            if (model.Items.Any(x => x.UploadImage == null))
             {
                 ModelState.AddModelError("Images", "Images is required");
                 return BadRequest(ModelState);
@@ -83,11 +84,11 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
 
             _widgetInstanceRepository.Add(widgetInstance);
             await _widgetInstanceRepository.SaveChangesAsync();
-            return CreatedAtAction(nameof(Get), new { id = widgetInstance.Id }, null);
+            return CreatedAtAction(nameof(Get), new {id = widgetInstance.Id}, null);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, [FromForm]CarouselWidgetForm model)
+        public async Task<IActionResult> Put(long id, [FromForm] CarouselWidgetForm model)
         {
             ModelBindUploadFiles(model);
 
@@ -99,12 +100,13 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                     {
                         await _mediaService.DeleteMediaAsync(item.Image);
                     }
+
                     item.Image = await SaveFile(item.UploadImage);
                 }
             }
 
             var widgetInstance = await _widgetInstanceRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-            if(widgetInstance == null)
+            if (widgetInstance == null)
             {
                 return NotFound();
             }
@@ -132,7 +134,8 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
 
         private async Task<string> SaveFile(IFormFile file)
         {
-            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');
+            var originalFileName =
+                ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
             await _mediaService.SaveMediaAsync(file.OpenReadStream(), fileName, file.ContentType);
             return fileName;

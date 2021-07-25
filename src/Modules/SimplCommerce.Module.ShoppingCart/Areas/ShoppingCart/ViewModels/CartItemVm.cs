@@ -49,8 +49,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels
 
             return variation.OptionCombinations.Select(x => new ProductVariationOption
             {
-                OptionName = x.Option.Name,
-                Value = x.Value
+                OptionName = x.Option.Name, Value = x.Value
             });
         }
     }

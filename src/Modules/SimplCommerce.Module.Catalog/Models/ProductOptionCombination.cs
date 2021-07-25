@@ -13,8 +13,7 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public ProductOption Option { get; set; }
 
-        [StringLength(450)]
-        public string Value { get; set; }
+        [StringLength(450)] public string Value { get; set; }
 
         public int SortIndex { get; set; }
     }

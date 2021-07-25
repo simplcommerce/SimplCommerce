@@ -30,7 +30,6 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public DateTimeOffset? SpecialPriceEnd { get; set; }
 
-        [NotMapped]
-        public bool IsPriceChange { get; set; }
+        [NotMapped] public bool IsPriceChange { get; set; }
     }
 }

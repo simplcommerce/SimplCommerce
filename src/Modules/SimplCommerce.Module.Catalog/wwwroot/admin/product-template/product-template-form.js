@@ -1,16 +1,24 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.catalog')
-        .controller('ProductTemplateFormCtrl', ['$state', '$stateParams', 'productTemplateService', 'productAttributeService', 'translateService', ProductTemplateFormCtrl]);
+        .module("simplAdmin.catalog")
+        .controller("ProductTemplateFormCtrl",
+            [
+                "$state", "$stateParams", "productTemplateService", "productAttributeService", "translateService",
+                ProductTemplateFormCtrl
+            ]);
 
     /* @ngInject */
-    function ProductTemplateFormCtrl($state, $stateParams, productTemplateService, productAttributeService, translateService) {
+    function ProductTemplateFormCtrl($state,
+        $stateParams,
+        productTemplateService,
+        productAttributeService,
+        translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.productTemplateId = $stateParams.id;
         vm.isEditMode = vm.productTemplateId > 0;
-        vm.productTemplate = { attributes : [] };
+        vm.productTemplate = { attributes: [] };
         vm.attributes = [];
         vm.addingAttribute = null;
 
@@ -35,10 +43,10 @@
                 promise = productTemplateService.createProductTemplate(vm.productTemplate);
             }
 
-            promise.then(function () {
-                    $state.go('product-template');
+            promise.then(function() {
+                    $state.go("product-template");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -46,17 +54,17 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add product template.');
+                        vm.validationErrors.push("Could not add product template.");
                     }
                 });
         };
 
         function getProductTemplate() {
-            productTemplateService.getProductTemplate(vm.productTemplateId).then(function (result) {
+            productTemplateService.getProductTemplate(vm.productTemplateId).then(function(result) {
                 var i, index, attributeIds;
                 vm.productTemplate = result.data;
 
-                attributeIds = vm.attributes.map(function (item) { return item.id; });
+                attributeIds = vm.attributes.map(function(item) { return item.id; });
                 for (i = 0; i < vm.productTemplate.attributes.length; i = i + 1) {
                     index = attributeIds.indexOf(vm.productTemplate.attributes[i].id);
                     attributeIds.splice(index, 1);
@@ -66,7 +74,7 @@
         }
 
         function getProductAttributes() {
-            productAttributeService.getProductAttributes().then(function (result) {
+            productAttributeService.getProductAttributes().then(function(result) {
                 vm.attributes = result.data;
             });
         }

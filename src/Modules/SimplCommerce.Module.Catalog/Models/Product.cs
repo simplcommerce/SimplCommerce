@@ -8,8 +8,7 @@ namespace SimplCommerce.Module.Catalog.Models
 {
     public class Product : Content
     {
-        [StringLength(450)]
-        public string ShortDescription { get; set; }
+        [StringLength(450)] public string ShortDescription { get; set; }
 
         public string Description { get; set; }
 
@@ -39,14 +38,11 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public int StockQuantity { get; set; }
 
-        [StringLength(450)]
-        public string Sku { get; set; }
+        [StringLength(450)] public string Sku { get; set; }
 
-        [StringLength(450)]
-        public string Gtin { get; set; }
+        [StringLength(450)] public string Gtin { get; set; }
 
-        [StringLength(450)]
-        public string NormalizedName { get; set; }
+        [StringLength(450)] public string NormalizedName { get; set; }
 
         public int DisplayOrder { get; set; }
 
@@ -80,6 +76,9 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public TaxClass TaxClass { get; set; }
 
+        public IList<ProductOptionCombination> OptionCombinations { get; protected set; } =
+            new List<ProductOptionCombination>();
+
         public void AddCategory(ProductCategory category)
         {
             category.Product = this;
@@ -109,8 +108,6 @@ namespace SimplCommerce.Module.Catalog.Models
             productLink.Product = this;
             ProductLinks.Add(productLink);
         }
-
-        public IList<ProductOptionCombination> OptionCombinations { get; protected set; } = new List<ProductOptionCombination>();
 
         public void AddOptionCombination(ProductOptionCombination combination)
         {
@@ -155,17 +152,13 @@ namespace SimplCommerce.Module.Catalog.Models
             {
                 product.AddAttributeValue(new ProductAttributeValue
                 {
-                    AttributeId = attribute.AttributeId,
-                    Value = attribute.Value
+                    AttributeId = attribute.AttributeId, Value = attribute.Value
                 });
             }
 
             foreach (var category in Categories)
             {
-                product.AddCategory(new ProductCategory
-                {
-                    CategoryId = category.CategoryId
-                });
+                product.AddCategory(new ProductCategory {CategoryId = category.CategoryId});
             }
 
             return product;

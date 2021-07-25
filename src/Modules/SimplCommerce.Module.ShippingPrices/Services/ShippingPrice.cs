@@ -17,12 +17,6 @@ namespace SimplCommerce.Module.ShippingPrices.Services
 
         public string Description { get; set; }
 
-        public string PriceText
-        {
-            get
-            {
-               return _currencyService.FormatCurrency(Price);
-            }
-        }
+        public string PriceText => _currencyService.FormatCurrency(Price);
     }
 }

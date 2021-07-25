@@ -8,52 +8,60 @@
 
 <table class="table table-striped" st-pipe="vm.getShipments" st-table="vm.shipments">
     <thead>
-        <tr>
-            <th st-sort="Id" class="sortable">{{::vm.translate.get('Shipment Id')}}</th>
-            <th st-sort="TrackingNumber" class="sortable">{{::vm.translate.get('Tracking Number')}}</th>
-            <th>{{::vm.translate.get('Order Id')}}</th>
-            <th>{{::vm.translate.get('Warehouse')}}</th>
-            <th st-sort="CreatedOn" class="sortable">{{::vm.translate.get('Created On')}}</th>
-            <th>{{::vm.translate.get('Actions')}}</th>
-        </tr>
-        <tr>
-            <th></th>
-            <th>
-                <div class="form-group">
-                    <input class="form-control" st-search="TrackingNumber" />
-                </div>
-            </th>
-            <th>
-                <div class="form-group">
-                    <input class="form-control" st-search="OrderId" />
-                </div>
-            </th>
-            <th></th>
-            <th><st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range></th>
-            <th></th>
-        </tr>
-        <tr>
-            <th ng-show="!vm.isLoading" colspan="6">{{vm.tableStateRef.pagination.totalItemCount | number:0}} {{::vm.translate.get('records found')}}</th>
-        </tr>
+    <tr>
+        <th st-sort="Id" class="sortable">{{::vm.translate.get('Shipment Id')}}</th>
+        <th st-sort="TrackingNumber" class="sortable">{{::vm.translate.get('Tracking Number')}}</th>
+        <th>{{::vm.translate.get('Order Id')}}</th>
+        <th>{{::vm.translate.get('Warehouse')}}</th>
+        <th st-sort="CreatedOn" class="sortable">{{::vm.translate.get('Created On')}}</th>
+        <th>{{::vm.translate.get('Actions')}}</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>
+            <div class="form-group">
+                <input class="form-control" st-search="TrackingNumber"/>
+            </div>
+        </th>
+        <th>
+            <div class="form-group">
+                <input class="form-control" st-search="OrderId"/>
+            </div>
+        </th>
+        <th></th>
+        <th>
+            <st-date-range predicate="CreatedOn" before="query.before" after="query.after"></st-date-range>
+        </th>
+        <th></th>
+    </tr>
+    <tr>
+        <th ng-show="!vm.isLoading" colspan="6">{{vm.tableStateRef.pagination.totalItemCount | number:0}} {{::vm.translate.get('records found')}}</th>
+    </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">
-        <tr ng-repeat="item in vm.shipments">
-            <td>{{item.id}}</td>
-            <td>{{item.trackingNumber}}</td>
-            <td><a ui-sref="order-detail({id: item.orderId})" title="View"># {{item.orderId}}</a></td>
-            <td>{{item.warehouseName}}</td>
-            <td>{{item.createdOn | date:'medium' }}</td>
-            <td><a ui-sref="shipment-details({id: item.id})" title="View" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-eye-open"></span></a></td>
-        </tr>
+    <tr ng-repeat="item in vm.shipments">
+        <td>{{item.id}}</td>
+        <td>{{item.trackingNumber}}</td>
+        <td>
+            <a ui-sref="order-detail({id: item.orderId})" title="View"># {{item.orderId}}</a>
+        </td>
+        <td>{{item.warehouseName}}</td>
+        <td>{{item.createdOn | date:'medium' }}</td>
+        <td>
+            <a ui-sref="shipment-details({id: item.id})" title="View" class="btn btn-primary btn-xs">
+                <span class="glyphicon glyphicon-eye-open"></span>
+            </a>
+        </td>
+    </tr>
     </tbody>
     <tbody ng-show="vm.isLoading">
-        <tr>
-            <td colspan="6" class="text-center">Loading ... </td>
-        </tr>
+    <tr>
+        <td colspan="6" class="text-center">Loading ... </td>
+    </tr>
     </tbody>
     <tfoot>
-        <tr>
-            <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="6"></td>
-        </tr>
+    <tr>
+        <td class="text-center" st-pagination="" st-items-by-page="50" st-displayed-pages="10" colspan="6"></td>
+    </tr>
     </tfoot>
-</table>	
+</table>

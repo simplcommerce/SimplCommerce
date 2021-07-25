@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using SimplCommerce.Module.ProductComparison.Models;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.ProductComparison.Models;
 
 namespace SimplCommerce.Module.ProductComparison.Services
 {
@@ -18,19 +18,18 @@ namespace SimplCommerce.Module.ProductComparison.Services
         public void AddToComparison(long userId, long productId)
         {
             var numComparingProduct = _comparingProductRepository.Query().Where(x => x.UserId == userId).Count();
-            if(numComparingProduct >= MaxNumComparingProduct)
+            if (numComparingProduct >= MaxNumComparingProduct)
             {
                 throw new TooManyComparingProductException(MaxNumComparingProduct);
             }
 
-            var isProductExisted = _comparingProductRepository.Query().Any(x => x.ProductId == productId && x.UserId == userId);
+            var isProductExisted = _comparingProductRepository.Query()
+                .Any(x => x.ProductId == productId && x.UserId == userId);
             if (!isProductExisted)
             {
                 var comparingProduct = new ComparingProduct
                 {
-                    UserId = userId,
-                    ProductId = productId,
-                    CreatedOn = DateTimeOffset.Now
+                    UserId = userId, ProductId = productId, CreatedOn = DateTimeOffset.Now
                 };
 
                 _comparingProductRepository.Add(comparingProduct);
@@ -41,7 +40,7 @@ namespace SimplCommerce.Module.ProductComparison.Services
         public void MigrateComparingProduct(long fromUserId, long toUserId)
         {
             var comparingProducts = _comparingProductRepository.Query().Where(x => x.UserId == fromUserId);
-            foreach(var item in comparingProducts)
+            foreach (var item in comparingProducts)
             {
                 item.UserId = toUserId;
             }

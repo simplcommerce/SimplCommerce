@@ -2,7 +2,7 @@
 
 namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 {
-    public  class OrderExportVm
+    public class OrderExportVm
     {
         public long Id { get; set; }
 

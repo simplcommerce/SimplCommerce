@@ -14,11 +14,11 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed
 {
     public class ProductRecentlyViewedViewComponent : ViewComponent
     {
-        private readonly IRecentlyViewedProductRepository _productRepository;
+        private readonly IContentLocalizationService _contentLocalizationService;
         private readonly IMediaService _mediaService;
         private readonly IProductPricingService _productPricingService;
+        private readonly IRecentlyViewedProductRepository _productRepository;
         private readonly IWorkContext _workContext;
-        private readonly IContentLocalizationService _contentLocalizationService;
 
         public ProductRecentlyViewedViewComponent(IRecentlyViewedProductRepository productRepository,
             IMediaService mediaService,
@@ -43,13 +43,14 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed
             {
                 query = query.Where(x => x.Id != productId.Value);
             }
-            
+
             var model = query.Take(itemCount)
                 .Select(x => ProductThumbnail.FromProduct(x)).ToList();
 
             foreach (var product in model)
             {
-                product.Name = _contentLocalizationService.GetLocalizedProperty(nameof(Product), product.Id, nameof(product.Name), product.Name);
+                product.Name = _contentLocalizationService.GetLocalizedProperty(nameof(Product), product.Id,
+                    nameof(product.Name), product.Name);
                 product.ThumbnailUrl = _mediaService.GetThumbnailUrl(product.ThumbnailImage);
                 product.CalculatedProductPrice = _productPricingService.CalculateProductPrice(product);
             }

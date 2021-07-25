@@ -19,8 +19,8 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
         private const int DefaultPageSize = 10;
 
         private readonly ICommentRepository _commentRepository;
-        private readonly IWorkContext _workContext;
         private readonly IConfiguration _config;
+        private readonly IWorkContext _workContext;
 
         public CommentController(ICommentRepository commentRepository, IWorkContext workContext, IConfiguration config)
         {
@@ -34,8 +34,9 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             var itemsPerPage = DefaultPageSize;
             var offset = (itemsPerPage * page) - itemsPerPage;
-            var query = _commentRepository.Query().Where(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId && x.Parent == null);
-            if(!User.IsInRole("admin"))
+            var query = _commentRepository.Query().Where(x =>
+                x.EntityId == entityId && x.EntityTypeId == entityTypeId && x.Parent == null);
+            if (!User.IsInRole("admin"))
             {
                 query = query.Where(x => x.UserId == currentUser.Id || x.Status == CommentStatus.Approved);
             }
@@ -44,36 +45,37 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
             {
                 query = query.Where(x => x.CommenterName.Contains(search));
             }
+
             var totalItems = await query.CountAsync();
             var items = await query.OrderByDescending(x => x.CreatedOn).Select(x => new CommentItem
-            {
-                Id = x.Id,
-                CommentText = x.CommentText,
-                CommenterName = x.CommenterName,
-                CreatedOn = x.CreatedOn,
-                Status = x.Status.ToString(),
-                Replies = x.Replies
-                            .Where(r => r.Status == CommentStatus.Approved)
-                            .OrderByDescending(r => r.CreatedOn)
-                            .Select(r => new CommentItem()
-                            {
-                                Id = r.Id,
-                                CommentText = r.CommentText,
-                                CommenterName = r.CommenterName,
-                                CreatedOn = r.CreatedOn,
-                                Status = x.Status.ToString()
-                            })
-            })
+                {
+                    Id = x.Id,
+                    CommentText = x.CommentText,
+                    CommenterName = x.CommenterName,
+                    CreatedOn = x.CreatedOn,
+                    Status = x.Status.ToString(),
+                    Replies = x.Replies
+                        .Where(r => r.Status == CommentStatus.Approved)
+                        .OrderByDescending(r => r.CreatedOn)
+                        .Select(r => new CommentItem
+                        {
+                            Id = r.Id,
+                            CommentText = r.CommentText,
+                            CommenterName = r.CommenterName,
+                            CreatedOn = r.CreatedOn,
+                            Status = x.Status.ToString()
+                        })
+                })
                 .Skip(offset)
                 .Take(itemsPerPage)
                 .ToListAsync();
 
-            return Ok(new { TotalItems = totalItems, Items = items });
+            return Ok(new {TotalItems = totalItems, Items = items});
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Post([FromBody]CommentForm model)
+        public async Task<IActionResult> Post([FromBody] CommentForm model)
         {
             if (ModelState.IsValid)
             {
@@ -111,6 +113,5 @@ namespace SimplCommerce.Module.Comments.Areas.Comments.Controllers
 
             return BadRequest(ModelState);
         }
-
     }
 }

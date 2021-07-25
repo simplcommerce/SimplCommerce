@@ -1,24 +1,26 @@
 ﻿<table class="table table-striped">
     <thead>
-        <tr>
-            <th>{{::vm.translate.get('Customer')}}</th>
-            <th>{{::vm.translate.get('Entity Name')}}</th>
-            <th>{{::vm.translate.get('Rating')}}</th>
-            <th>{{::vm.translate.get('Title')}}</th>
-            <th>{{::vm.translate.get('Comment')}}</th>
-            <th>{{::vm.translate.get('Created On')}}</th>
-            <th>{{::vm.translate.get('Status')}}</th>
-        </tr>
+    <tr>
+        <th>{{::vm.translate.get('Customer')}}</th>
+        <th>{{::vm.translate.get('Entity Name')}}</th>
+        <th>{{::vm.translate.get('Rating')}}</th>
+        <th>{{::vm.translate.get('Title')}}</th>
+        <th>{{::vm.translate.get('Comment')}}</th>
+        <th>{{::vm.translate.get('Created On')}}</th>
+        <th>{{::vm.translate.get('Status')}}</th>
+    </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="review in vm.reviews">
-            <td>{{review.reviewerName}}</td>
-            <td><a href="/{{review.entitySlug}}">{{review.entityName}}</a></td>
-            <td>{{review.rating}}</td>
-            <td>{{review.title}}</td>
-            <td>{{review.comment}}</td>
-            <td>{{review.createdOn | date:'medium'}}</td>
-            <td>{{review.status }}</td>
-        </tr>
+    <tr ng-repeat="review in vm.reviews">
+        <td>{{review.reviewerName}}</td>
+        <td>
+            <a href="/{{review.entitySlug}}">{{review.entityName}}</a>
+        </td>
+        <td>{{review.rating}}</td>
+        <td>{{review.title}}</td>
+        <td>{{review.comment}}</td>
+        <td>{{review.createdOn | date:'medium'}}</td>
+        <td>{{review.status }}</td>
+    </tr>
     </tbody>
 </table>

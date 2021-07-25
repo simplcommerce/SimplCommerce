@@ -1,8 +1,8 @@
 ﻿/*global angular, jQuery*/
-(function ($) {
+(function($) {
     angular
-        .module('simplAdmin.paymentCoD')
-        .controller('CoDConfigFormCtrl', ['paymentCoDService', 'translateService', CoDConfigFormCtrl]);
+        .module("simplAdmin.paymentCoD")
+        .controller("CoDConfigFormCtrl", ["paymentCoDService", "translateService", CoDConfigFormCtrl]);
 
     function CoDConfigFormCtrl(paymentCoDService, translateService) {
         var vm = this;
@@ -12,10 +12,10 @@
         vm.save = function save() {
             vm.validationErrors = [];
             paymentCoDService.updateSetting(vm.codConfig)
-                .then(function (result) {
-                    toastr.success('Settings have been saved');
+                .then(function(result) {
+                    toastr.success("Settings have been saved");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -23,13 +23,13 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not save settings.');
+                        vm.validationErrors.push("Could not save settings.");
                     }
                 });
         };
 
         function init() {
-            paymentCoDService.getSettings().then(function (result) {
+            paymentCoDService.getSettings().then(function(result) {
                 vm.codConfig = result.data;
             });
         }

@@ -14,7 +14,7 @@
 <!-- Paste below code base before the closing tag(</body>) of body element -->
 <script src="https://www.cashfree.com/assets/cashfree.sdk.v1.2.js" type="text/javascript"></script>
 <script type="text/javascript">
-    (function () {
+    (function() {
         var data = {};
         data.orderId = "@Model.OrderId";
         data.orderAmount = "@Model.OrderAmount";
@@ -25,29 +25,29 @@
         data.notifyUrl = "@Model.NotifyURL";
         data.appId = "@Model.AppId";
         data.paymentToken = "@Html.Raw(Model.PaymentToken)";
-        var callback = function (event) {
+        var callback = function(event) {
             var eventName = event.name;
             console.log(event);
             switch (eventName) {
-                case "PAYMENT_RESPONSE":
-                    var request = $.ajax({
+            case "PAYMENT_RESPONSE":
+                var request = $.ajax({
                         type: 'POST',
-                        url: '@Url.Action("Charge", "Cashfree", new { Area = "PaymentCashfree" })',
+                        url: '@Url.Action("Charge", "Cashfree", new {Area = "PaymentCashfree"})',
                         data: event.response
-                    }).done(function (data) {
-                        window.location = "/checkout/success?orderId="+ data.orderId;
-                     })
-                    .fail(function (errors) {
+                    }).done(function(data) {
+                        window.location = "/checkout/success?orderId=" + data.orderId;
+                    })
+                    .fail(function(errors) {
                         console.log(errors.responseText);
-                    });                 
-                    break;
-                case "PAYMENT_REQUEST":
-                    console.log(event);
-                    break;
-                default:
-                    console.log(event);
+                    });
+                break;
+            case "PAYMENT_REQUEST":
+                console.log(event);
+                break;
+            default:
+                console.log(event);
             };
-        }
+        };
         var config = {};
         config.layout = { view: "popup", width: "650" };
         config.mode = "@Model.Mode";
@@ -60,10 +60,11 @@
         }
 
         var button = document.querySelector('#cashfree-payment-button');
-        button.addEventListener('click', function () {
-            if (cfInitialized) {
-                CashFree.makePayment(data, callback);
-            }
-        });
+        button.addEventListener('click',
+            function() {
+                if (cfInitialized) {
+                    CashFree.makePayment(data, callback);
+                }
+            });
     })();
 </script>

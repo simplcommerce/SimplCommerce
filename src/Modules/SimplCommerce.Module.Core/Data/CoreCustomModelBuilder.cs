@@ -31,7 +31,7 @@ namespace SimplCommerce.Module.Core.Data
 
             modelBuilder.Entity<UserRole>(b =>
             {
-                b.HasKey(ur => new { ur.UserId, ur.RoleId });
+                b.HasKey(ur => new {ur.UserId, ur.RoleId});
                 b.HasOne(ur => ur.Role).WithMany(x => x.Users).HasForeignKey(r => r.RoleId);
                 b.HasOne(ur => ur.User).WithMany(x => x.Roles).HasForeignKey(u => u.UserId);
                 b.ToTable("Core_UserRole");
@@ -56,9 +56,9 @@ namespace SimplCommerce.Module.Core.Data
             modelBuilder.Entity<User>(u =>
             {
                 u.HasOne(x => x.DefaultShippingAddress)
-                   .WithMany()
-                   .HasForeignKey(x => x.DefaultShippingAddressId)
-                   .OnDelete(DeleteBehavior.Restrict);
+                    .WithMany()
+                    .HasForeignKey(x => x.DefaultShippingAddressId)
+                    .OnDelete(DeleteBehavior.Restrict);
 
                 u.HasOne(x => x.DefaultBillingAddress)
                     .WithMany()
@@ -75,8 +75,8 @@ namespace SimplCommerce.Module.Core.Data
             modelBuilder.Entity<Address>(x =>
             {
                 x.HasOne(d => d.District)
-                   .WithMany()
-                   .OnDelete(DeleteBehavior.Restrict);
+                    .WithMany()
+                    .OnDelete(DeleteBehavior.Restrict);
 
                 x.HasOne(d => d.StateOrProvince)
                     .WithMany()
@@ -93,9 +93,11 @@ namespace SimplCommerce.Module.Core.Data
 
             modelBuilder.Entity<CustomerGroupUser>(b =>
             {
-                b.HasKey(ur => new { ur.UserId, ur.CustomerGroupId });
-                b.HasOne(ur => ur.User).WithMany(r => r.CustomerGroups).HasForeignKey(r => r.UserId).OnDelete(DeleteBehavior.Cascade);
-                b.HasOne(ur => ur.CustomerGroup).WithMany(u => u.Users).HasForeignKey(u => u.CustomerGroupId).OnDelete(DeleteBehavior.Cascade);
+                b.HasKey(ur => new {ur.UserId, ur.CustomerGroupId});
+                b.HasOne(ur => ur.User).WithMany(r => r.CustomerGroups).HasForeignKey(r => r.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+                b.HasOne(ur => ur.CustomerGroup).WithMany(u => u.Users).HasForeignKey(u => u.CustomerGroupId)
+                    .OnDelete(DeleteBehavior.Cascade);
                 b.ToTable("Core_CustomerGroupUser");
             });
 

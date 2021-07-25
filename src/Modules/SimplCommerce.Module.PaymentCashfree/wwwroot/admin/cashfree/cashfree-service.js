@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.paymentCashfree')
-        .factory('paymentCashfreeService', ['$http', paymentCashfreeService]);
+        .module("simplAdmin.paymentCashfree")
+        .factory("paymentCashfreeService", ["$http", paymentCashfreeService]);
 
     function paymentCashfreeService($http) {
         var service = {
@@ -12,11 +12,11 @@
         return service;
 
         function getSettings() {
-            return $http.get('api/cashfree/config');
+            return $http.get("api/cashfree/config");
         }
 
         function updateSetting(settings) {
-            return $http.put('api/cashfree/config', settings);
+            return $http.put("api/cashfree/config", settings);
         }
     }
 })();

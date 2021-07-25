@@ -19,13 +19,14 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
     [Route("api/warehouses")]
     public class WarehouseProductApiController : Controller
     {
-        private readonly IRepository<Warehouse> _warehouseRepository;
-        private readonly IWorkContext _workContext;
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<Stock> _stockRepository;
         private readonly IStockService _stockService;
+        private readonly IRepository<Warehouse> _warehouseRepository;
+        private readonly IWorkContext _workContext;
 
-        public WarehouseProductApiController(IRepository<Warehouse> warehouseRepository, IWorkContext workContext, IRepository<Product> productRepository, IRepository<Stock> stockRepository, IStockService stockService)
+        public WarehouseProductApiController(IRepository<Warehouse> warehouseRepository, IWorkContext workContext,
+            IRepository<Product> productRepository, IRepository<Stock> stockRepository, IStockService stockService)
         {
             _warehouseRepository = warehouseRepository;
             _workContext = workContext;
@@ -35,7 +36,8 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
         }
 
         [HttpPost("{warehouseId}/products")]
-        public async Task<ActionResult<SmartTableResult<MangeWarehouseProductItemVm>>> GetProducts(long warehouseId, [FromBody] SmartTableParam param)
+        public async Task<ActionResult<SmartTableResult<MangeWarehouseProductItemVm>>> GetProducts(long warehouseId,
+            [FromBody] SmartTableParam param)
         {
             var currentUser = await _workContext.GetCurrentUser();
             var warehouse = _warehouseRepository.Query().FirstOrDefault(x => x.Id == warehouseId);
@@ -46,7 +48,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
 
             if (!User.IsInRole("admin") && warehouse.VendorId != currentUser.VendorId)
             {
-                return BadRequest(new { error = "You don't have permission to manage this warehouse" });
+                return BadRequest(new {error = "You don't have permission to manage this warehouse"});
             }
 
             var query = _productRepository
@@ -57,15 +59,13 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
                 (
                     _stockRepository.Query().Where(x => x.WarehouseId == warehouseId),
                     product => product.Id, stock => stock.ProductId,
-                    (product, stock) => new { product, stock }
+                    (product, stock) => new {product, stock}
                 )
-                .SelectMany(x => x.stock.DefaultIfEmpty(), (x, stock) => new MangeWarehouseProductItemVm
-                {
-                    Id = x.product.Id,
-                    Name = x.product.Name,
-                    Sku = x.product.Sku,
-                    Quantity = stock.Quantity
-                });
+                .SelectMany(x => x.stock.DefaultIfEmpty(),
+                    (x, stock) => new MangeWarehouseProductItemVm
+                    {
+                        Id = x.product.Id, Name = x.product.Name, Sku = x.product.Sku, Quantity = stock.Quantity
+                    });
 
             if (param.Search.PredicateObject != null)
             {
@@ -93,7 +93,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
                     else
                     {
                         joinedQuery = joinedQuery.Where(x => x.Quantity == null);
-                    }                   
+                    }
                 }
             }
 
@@ -113,25 +113,21 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
 
             if (!User.IsInRole("admin") && warehouse.VendorId != currentUser.VendorId)
             {
-                return BadRequest(new { error = "You don't have permission to manage this warehouse" });
+                return BadRequest(new {error = "You don't have permission to manage this warehouse"});
             }
+
             // Fix for ef core 3.0
             var productIdsArray = productIds.ToArray();
 
             var existedProducIds = await _stockRepository.Query()
                 .Where(x => x.WarehouseId == warehouseId && productIdsArray.Contains(x.ProductId))
                 .Select(x => x.ProductId).ToListAsync();
-            foreach(var id in existedProducIds)
+            foreach (var id in existedProducIds)
             {
                 productIds.Remove(id);
             }
 
-            var stocks = productIds.Select(x => new Stock
-            {
-                ProductId = x,
-                WarehouseId = warehouseId,
-                Quantity = 0
-            });
+            var stocks = productIds.Select(x => new Stock {ProductId = x, WarehouseId = warehouseId, Quantity = 0});
 
             _stockRepository.AddRange(stocks);
             await _stockRepository.SaveChangesAsync();
@@ -150,7 +146,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
 
             if (!User.IsInRole("admin") && warehouse.VendorId != currentUser.VendorId)
             {
-                return BadRequest(new { error = "You don't have permission to manage this warehouse" });
+                return BadRequest(new {error = "You don't have permission to manage this warehouse"});
             }
 
             await _stockService.AddAllProduct(warehouse);

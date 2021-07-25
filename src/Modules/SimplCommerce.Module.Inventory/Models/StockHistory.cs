@@ -24,7 +24,6 @@ namespace SimplCommerce.Module.Inventory.Models
 
         public long AdjustedQuantity { get; set; }
 
-        [StringLength(1000)]
-        public string Note { get; set; }
+        [StringLength(1000)] public string Note { get; set; }
     }
 }

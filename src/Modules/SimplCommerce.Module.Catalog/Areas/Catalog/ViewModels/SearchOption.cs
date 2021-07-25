@@ -62,17 +62,22 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
 
         public IList<string> GetBrands()
         {
-            return string.IsNullOrWhiteSpace(Brand) ? new List<string>() : Brand.Split(new[] { "--" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            return string.IsNullOrWhiteSpace(Brand)
+                ? new List<string>()
+                : Brand.Split(new[] {"--"}, StringSplitOptions.RemoveEmptyEntries).ToList();
         }
 
         public IList<string> GetCategories()
         {
-            return string.IsNullOrWhiteSpace(Category) ? new List<string>() : Category.Split(new[] { "--" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            return string.IsNullOrWhiteSpace(Category)
+                ? new List<string>()
+                : Category.Split(new[] {"--"}, StringSplitOptions.RemoveEmptyEntries).ToList();
         }
 
         public string ToJson()
         {
-            var jsonSetting = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
+            var jsonSetting =
+                new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()};
             jsonSetting.StringEscapeHandling = StringEscapeHandling.EscapeHtml;
             return JsonConvert.SerializeObject(this, jsonSetting);
         }

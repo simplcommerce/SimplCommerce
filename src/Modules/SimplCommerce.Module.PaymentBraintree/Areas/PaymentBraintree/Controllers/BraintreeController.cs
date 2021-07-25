@@ -21,13 +21,13 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Controlle
     [ApiExplorerSettings(IgnoreApi = true)]
     public class BraintreeController : Controller
     {
+        private readonly IBraintreeConfiguration _braintreeConfiguration;
         private readonly ICartService _cartService;
+        private readonly ICurrencyService _currencyService;
         private readonly IOrderService _orderService;
-        private readonly IWorkContext _workContext;
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private readonly IRepository<Payment> _paymentRepository;
-        private readonly IBraintreeConfiguration _braintreeConfiguration;
-        private readonly ICurrencyService _currencyService;
+        private readonly IWorkContext _workContext;
 
         public BraintreeController(
             ICartService cartService,
@@ -54,12 +54,13 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Controlle
 
             var curentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(curentUser.Id);
-            if(cart == null)
+            if (cart == null)
             {
                 return NotFound();
             }
 
-            var orderCreateResult = await _orderService.CreateOrder(cart.Id, PaymentProviderHelper.BraintreeProviderId, 0, OrderStatus.PendingPayment);
+            var orderCreateResult = await _orderService.CreateOrder(cart.Id, PaymentProviderHelper.BraintreeProviderId,
+                0, OrderStatus.PendingPayment);
 
             if (!orderCreateResult.Success)
             {
@@ -74,7 +75,7 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Controlle
             }
 
             var regionInfo = new RegionInfo(_currencyService.CurrencyCulture.LCID);
-            var payment = new Payment()
+            var payment = new Payment
             {
                 OrderId = order.Id,
                 Amount = order.OrderTotal,
@@ -95,7 +96,7 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Controlle
             //        UnitAmount = item.ProductPrice,
             //        ProductCode = item.ProductId.ToString(),
             //        TotalAmount = item.ProductPrice * item.Quantity
-                    
+
             //    });
             //}
 
@@ -109,10 +110,7 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Controlle
                 //CustomerId = order.CustomerId.ToString(),
                 Options = new TransactionOptionsRequest
                 {
-                    SubmitForSettlement = true,
-                    SkipAdvancedFraudChecking = false,
-                    SkipCvv = false,
-                    SkipAvs = false,
+                    SubmitForSettlement = true, SkipAdvancedFraudChecking = false, SkipCvv = false, SkipAvs = false
                 }
             };
 
@@ -127,18 +125,16 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Controlle
                 _paymentRepository.Add(payment);
                 await _paymentRepository.SaveChangesAsync();
 
-                return Ok(new { Status = "success", OrderId = order.Id, TransactionId = transaction.Id });
+                return Ok(new {Status = "success", OrderId = order.Id, TransactionId = transaction.Id});
             }
-            else
-            {
-                string errorMessages = "";
-                foreach (var error in result.Errors.DeepAll())
-                {
-                    errorMessages += "Error: " + (int)error.Code + " - " + error.Message + "\n";
-                }
 
-                return BadRequest(errorMessages);
+            var errorMessages = "";
+            foreach (var error in result.Errors.DeepAll())
+            {
+                errorMessages += "Error: " + (int)error.Code + " - " + error.Message + "\n";
             }
+
+            return BadRequest(errorMessages);
         }
 
         [HttpPost]

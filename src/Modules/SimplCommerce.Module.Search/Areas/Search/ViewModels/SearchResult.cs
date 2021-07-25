@@ -22,8 +22,8 @@ namespace SimplCommerce.Module.Search.Areas.Search.ViewModels
 
         public IList<SelectListItem> AvailableSortOptions => new List<SelectListItem>
         {
-            new SelectListItem { Text = "Price: Low to High", Value = "price-asc" },
-            new SelectListItem { Text = "Price: High to Low", Value = "price-desc" }
+            new() {Text = "Price: Low to High", Value = "price-asc"},
+            new() {Text = "Price: High to Low", Value = "price-desc"}
         };
     }
 }

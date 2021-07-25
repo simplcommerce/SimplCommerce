@@ -12,9 +12,7 @@ namespace SimplCommerce.Infrastructure.Tasks.Scheduling
 {
     public class SchedulerBackgroundService : BackgroundService
     {
-        private readonly List<SchedulerTaskWrapper> _scheduledTasks = new List<SchedulerTaskWrapper>();
-
-        public event EventHandler<UnobservedTaskExceptionEventArgs> UnobservedTaskException;
+        private readonly List<SchedulerTaskWrapper> _scheduledTasks = new();
 
         public SchedulerBackgroundService(IEnumerable<IScheduledTask> scheduledTasks)
         {
@@ -29,6 +27,8 @@ namespace SimplCommerce.Infrastructure.Tasks.Scheduling
                 });
             }
         }
+
+        public event EventHandler<UnobservedTaskExceptionEventArgs> UnobservedTaskException;
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -58,7 +58,8 @@ namespace SimplCommerce.Infrastructure.Tasks.Scheduling
                         }
                         catch (Exception ex)
                         {
-                            var args = new UnobservedTaskExceptionEventArgs(ex as AggregateException ?? new AggregateException(ex));
+                            var args = new UnobservedTaskExceptionEventArgs(ex as AggregateException ??
+                                                                            new AggregateException(ex));
                             UnobservedTaskException?.Invoke(this, args);
                             if (!args.Observed)
                             {

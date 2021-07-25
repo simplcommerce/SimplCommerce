@@ -20,7 +20,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 
         public decimal SubTotal { get; set; }
 
-        public string SubTotalString { get { return _currencyService.FormatCurrency(SubTotal); } }
+        public string SubTotalString => _currencyService.FormatCurrency(SubTotal);
 
         public OrderStatus OrderStatus { get; set; }
 

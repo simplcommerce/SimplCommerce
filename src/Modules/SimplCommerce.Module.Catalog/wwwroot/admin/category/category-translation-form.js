@@ -1,8 +1,9 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.catalog')
-        .controller('CategoryTranslationFormCtrl', ['$state', '$stateParams', 'categoryService', 'translateService', CategoryTranslationFormCtrl]);
+        .module("simplAdmin.catalog")
+        .controller("CategoryTranslationFormCtrl",
+            ["$state", "$stateParams", "categoryService", "translateService", CategoryTranslationFormCtrl]);
 
     function CategoryTranslationFormCtrl($state, $stateParams, categoryService, translateService) {
         var vm = this;
@@ -13,10 +14,10 @@
 
         vm.save = function save() {
             categoryService.editCategoryTranslation(vm.categoryId, vm.culture, vm.category)
-                .then(function (result) {
-                    $state.go('category');
-                    })
-                .catch(function (response) {
+                .then(function(result) {
+                    $state.go("category");
+                })
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -24,13 +25,13 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add category translation.');
+                        vm.validationErrors.push("Could not add category translation.");
                     }
                 });
         };
 
         function init() {
-            categoryService.getCategoryTranslation(vm.categoryId, vm.culture).then(function (result) {
+            categoryService.getCategoryTranslation(vm.categoryId, vm.culture).then(function(result) {
                 vm.category = result.data;
             });
         }

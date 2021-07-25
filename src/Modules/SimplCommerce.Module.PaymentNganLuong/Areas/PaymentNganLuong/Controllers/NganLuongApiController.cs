@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Payments.Models;
-using SimplCommerce.Module.PaymentNganLuong.ViewModels;
 using SimplCommerce.Module.PaymentNganLuong.Models;
+using SimplCommerce.Module.PaymentNganLuong.ViewModels;
+using SimplCommerce.Module.Payments.Models;
 
 namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controllers
 {
@@ -25,7 +25,8 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
         [HttpGet("config")]
         public async Task<IActionResult> Config()
         {
-            var nganLuongProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.NganLuongPaymentProviderId);
+            var nganLuongProvider = await _paymentProviderRepository.Query()
+                .FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.NganLuongPaymentProviderId);
             var model = JsonConvert.DeserializeObject<NganLuongConfigForm>(nganLuongProvider.AdditionalSettings);
             return Ok(model);
         }
@@ -35,7 +36,8 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
         {
             if (ModelState.IsValid)
             {
-                var nganLuongProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.NganLuongPaymentProviderId);
+                var nganLuongProvider = await _paymentProviderRepository.Query()
+                    .FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.NganLuongPaymentProviderId);
                 nganLuongProvider.AdditionalSettings = JsonConvert.SerializeObject(model);
                 await _paymentProviderRepository.SaveChangesAsync();
                 return Accepted();

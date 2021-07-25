@@ -6,6 +6,7 @@ using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels;
 using SimplCommerce.Module.Reviews.Data;
 using SimplCommerce.Module.Reviews.Models;
+using Reply = SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels.Reply;
 
 namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
 {
@@ -39,7 +40,7 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
                     ReviewerName = user.FullName,
                     EntityId = model.EntityId,
                     EntityTypeId = model.EntityTypeId,
-                    UserId = user.Id,
+                    UserId = user.Id
                 };
 
                 _reviewRepository.Add(review);
@@ -47,6 +48,7 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
 
                 return PartialView("_ReviewFormSuccess", model);
             }
+
             return PartialView("_ReviewForm", model);
         }
 
@@ -72,7 +74,8 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
 
             var query = _reviewRepository
                 .Query()
-                .Where(x => (x.EntityId == entityId) && (x.EntityTypeId == entityTypeId) && (x.Status == ReviewStatus.Approved))
+                .Where(x => x.EntityId == entityId && x.EntityTypeId == entityTypeId &&
+                            x.Status == ReviewStatus.Approved)
                 .OrderByDescending(x => x.CreatedOn)
                 .Select(x => new ReviewItem
                 {
@@ -85,11 +88,9 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
                     Replies = x.Replies
                         .Where(r => r.Status == ReplyStatus.Approved)
                         .OrderByDescending(r => r.CreatedOn)
-                        .Select(r => new ViewModels.Reply
+                        .Select(r => new Reply
                         {
-                            Comment = r.Comment,
-                            ReplierName = r.ReplierName,
-                            CreatedOn = r.CreatedOn
+                            Comment = r.Comment, ReplierName = r.ReplierName, CreatedOn = r.CreatedOn
                         })
                         .ToList()
                 });

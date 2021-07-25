@@ -58,6 +58,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 _widgetInstanceRepository.SaveChanges();
                 return Ok();
             }
+
             return BadRequest(ModelState);
         }
 

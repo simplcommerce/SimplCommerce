@@ -6,7 +6,7 @@ namespace SimplCommerce.Infrastructure.Helpers
     public static class ReflectionHelper
     {
         /// <summary>
-        /// Checks whether <paramref name="givenType"/> implements/inherits <paramref name="genericType"/>.
+        ///     Checks whether <paramref name="givenType" /> implements/inherits <paramref name="genericType" />.
         /// </summary>
         /// <param name="givenType">Type to check</param>
         /// <param name="genericType">Generic type</param>
@@ -21,7 +21,8 @@ namespace SimplCommerce.Infrastructure.Helpers
 
             foreach (var interfaceType in givenTypeInfo.GetInterfaces())
             {
-                if (interfaceType.GetTypeInfo().IsGenericType && interfaceType.GetGenericTypeDefinition() == genericType)
+                if (interfaceType.GetTypeInfo().IsGenericType &&
+                    interfaceType.GetGenericTypeDefinition() == genericType)
                 {
                     return true;
                 }

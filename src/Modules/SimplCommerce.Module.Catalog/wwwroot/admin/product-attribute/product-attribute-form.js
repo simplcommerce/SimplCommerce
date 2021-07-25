@@ -1,10 +1,18 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.catalog')
-        .controller('ProductAttributeFormCtrl', ['$state', '$stateParams', 'productAttributeGroupService', 'productAttributeService', 'translateService', ProductAttributeFormCtrl]);
+        .module("simplAdmin.catalog")
+        .controller("ProductAttributeFormCtrl",
+            [
+                "$state", "$stateParams", "productAttributeGroupService", "productAttributeService", "translateService",
+                ProductAttributeFormCtrl
+            ]);
 
-    function ProductAttributeFormCtrl($state, $stateParams, productAttributeGroupService, productAttributeService, translateService) {
+    function ProductAttributeFormCtrl($state,
+        $stateParams,
+        productAttributeGroupService,
+        productAttributeService,
+        translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.productAttributeId = $stateParams.id;
@@ -21,10 +29,10 @@
             }
 
             promise
-                .then(function (result) {
-                    $state.go('product-attribute');
+                .then(function(result) {
+                    $state.go("product-attribute");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -32,19 +40,19 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add create product option.');
+                        vm.validationErrors.push("Could not add create product option.");
                     }
                 });
         };
 
         function getProductAttribute() {
-            productAttributeService.getProductAttribute(vm.productAttributeId).then(function (result) {
+            productAttributeService.getProductAttribute(vm.productAttributeId).then(function(result) {
                 vm.productAttribute = result.data;
             });
         }
 
         function getProductAttributeGroups() {
-            productAttributeGroupService.getProductAttributeGroups().then(function (result) {
+            productAttributeGroupService.getProductAttributeGroups().then(function(result) {
                 vm.productAttributeGroups = result.data;
             });
         }

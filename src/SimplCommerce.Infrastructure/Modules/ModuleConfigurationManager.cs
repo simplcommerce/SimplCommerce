@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace SimplCommerce.Infrastructure.Modules
 {
@@ -13,9 +13,9 @@ namespace SimplCommerce.Infrastructure.Modules
         {
             var modulesPath = Path.Combine(GlobalConfiguration.ContentRootPath, ModulesFilename);
             using var reader = new StreamReader(modulesPath);
-            string content = reader.ReadToEnd();
+            var content = reader.ReadToEnd();
             dynamic modulesData = JsonConvert.DeserializeObject(content);
-            foreach (dynamic module in modulesData)
+            foreach (var module in modulesData)
             {
                 yield return new ModuleInfo
                 {

@@ -13,11 +13,9 @@ namespace SimplCommerce.Module.Catalog.Models
 
         public Product Product { get; set; }
 
-        [StringLength(450)]
-        public string Value { get; set; }
+        [StringLength(450)] public string Value { get; set; }
 
-        [StringLength(450)]
-        public string DisplayType { get; set; }
+        [StringLength(450)] public string DisplayType { get; set; }
 
         public int SortIndex { get; set; }
     }

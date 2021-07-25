@@ -18,8 +18,7 @@ namespace SimplCommerce.Module.WishList.Models
 
         public User User { get; set; }
 
-        [StringLength(450)]
-        public string SharingCode { get; set; }
+        [StringLength(450)] public string SharingCode { get; set; }
 
         public IList<WishListItem> Items { get; protected set; } = new List<WishListItem>();
 

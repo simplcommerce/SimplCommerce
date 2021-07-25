@@ -65,8 +65,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
 
             return variation.OptionCombinations.Select(x => new ProductVariationOptionVm
             {
-                OptionName = x.Option.Name,
-                Value = x.Value
+                OptionName = x.Option.Name, Value = x.Value
             });
         }
     }

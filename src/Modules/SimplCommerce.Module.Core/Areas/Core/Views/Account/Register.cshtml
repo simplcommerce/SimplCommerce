@@ -1,7 +1,6 @@
-﻿@model RegisterViewModel
+﻿@using Microsoft.AspNetCore.Authentication.OpenIdConnect
+@model RegisterViewModel
 @inject SignInManager<User> SignInManager
-@using Microsoft.AspNetCore.Authentication
-@using Microsoft.AspNetCore.Authentication.OpenIdConnect
 @{
     ViewData["Title"] = Localizer["Register"];
 }
@@ -9,7 +8,7 @@
 <h2>@Localizer["Register"]</h2>
 
 <h4>@Localizer["Create a new account."]</h4>
-<hr />
+<hr/>
 <div class="row">
     <div class="col-md-8">
         <form asp-area="Core" asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" role="form">
@@ -17,28 +16,28 @@
             <div class="form-group row">
                 <label asp-for="Email" class="col-md-4 col-form-label">@Localizer["Email"]</label>
                 <div class="col-md-8">
-                    <input asp-for="Email" class="form-control" />
+                    <input asp-for="Email" class="form-control"/>
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <label asp-for="FullName" class="col-md-4 col-form-label">@Localizer["Full name"]</label>
                 <div class="col-md-8">
-                    <input asp-for="FullName" class="form-control" />
+                    <input asp-for="FullName" class="form-control"/>
                     <span asp-validation-for="FullName" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <label asp-for="Password" class="col-md-4 col-form-label">@Localizer["Password"]</label>
                 <div class="col-md-8">
-                    <input asp-for="Password" class="form-control" />
+                    <input asp-for="Password" class="form-control"/>
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <label asp-for="ConfirmPassword" class="col-md-4 col-form-label">@Localizer["Confirm password"]</label>
                 <div class="col-md-8">
-                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <input asp-for="ConfirmPassword" class="form-control"/>
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
             </div>
@@ -53,7 +52,7 @@
     <div class="col-md-4">
         <section>
             <h4>@Localizer["Use another service to log in."]</h4>
-            <hr />
+            <hr/>
             @{
                 var schemes = await SignInManager.GetExternalAuthenticationSchemesAsync();
                 var loginProviders = schemes.Where(scheme => scheme.DisplayName != OpenIdConnectDefaults.AuthenticationScheme).ToList();
@@ -85,5 +84,5 @@
 </div>
 
 @section scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
 }

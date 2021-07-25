@@ -9,7 +9,7 @@ namespace SimplCommerce.Module.Contacts.Data
         public void Build(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AppSetting>().HasData(
-                new AppSetting("GoogleAppKey") { Module = "Contact", IsVisibleInCommonSettingPage = false, Value = "" }
+                new AppSetting("GoogleAppKey") {Module = "Contact", IsVisibleInCommonSettingPage = false, Value = ""}
             );
         }
     }

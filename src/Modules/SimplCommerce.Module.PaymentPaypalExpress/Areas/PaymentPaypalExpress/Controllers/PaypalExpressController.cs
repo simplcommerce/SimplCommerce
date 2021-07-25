@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -25,13 +26,13 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
     public class PaypalExpressController : Controller
     {
         private readonly ICartService _cartService;
+        private readonly ICurrencyService _currencyService;
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly IOrderService _orderService;
-        private readonly IWorkContext _workContext;
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private readonly IRepository<Payment> _paymentRepository;
-        private Lazy<PaypalExpressConfigForm> _setting;
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly ICurrencyService _currencyService;
+        private readonly IWorkContext _workContext;
+        private readonly Lazy<PaypalExpressConfigForm> _setting;
 
         public PaypalExpressController(
             ICartService cartService,
@@ -59,7 +60,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
             var accessToken = await GetAccessToken();
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
-            if(cart == null)
+            if (cart == null)
             {
                 return NotFound();
             }
@@ -74,23 +75,30 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
             {
                 experience_profile_id = experienceProfileId,
                 intent = "sale",
-                payer = new Payer
+                payer = new Payer {payment_method = "paypal"},
+                transactions = new[]
                 {
-                    payment_method = "paypal"
-                },
-                transactions = new Transaction[]
-                {
-                    new Transaction {
+                    new()
+                    {
                         amount = new Amount
                         {
-                            total = (cart.OrderTotal + CalculatePaymentFee(cart.OrderTotal)).ToString("N2", paypalAcceptedNumericFormatCulture),
+                            total =
+                                (cart.OrderTotal + CalculatePaymentFee(cart.OrderTotal)).ToString("N2",
+                                    paypalAcceptedNumericFormatCulture),
                             currency = regionInfo.ISOCurrencySymbol,
                             details = new Details
                             {
-                                handling_fee = CalculatePaymentFee(cart.OrderTotal).ToString("N2", paypalAcceptedNumericFormatCulture),
-                                subtotal = cart.SubTotalWithDiscountWithoutTax.ToString("N2", paypalAcceptedNumericFormatCulture),
-                                tax = cart.TaxAmount?.ToString("N2", paypalAcceptedNumericFormatCulture) ?? "0",
-                                shipping = cart.ShippingAmount?.ToString("N2", paypalAcceptedNumericFormatCulture) ?? "0"
+                                handling_fee =
+                                    CalculatePaymentFee(cart.OrderTotal).ToString("N2",
+                                        paypalAcceptedNumericFormatCulture),
+                                subtotal =
+                                    cart.SubTotalWithDiscountWithoutTax.ToString("N2",
+                                        paypalAcceptedNumericFormatCulture),
+                                tax =
+                                    cart.TaxAmount?.ToString("N2",
+                                        paypalAcceptedNumericFormatCulture) ?? "0",
+                                shipping = cart.ShippingAmount?.ToString("N2",
+                                    paypalAcceptedNumericFormatCulture) ?? "0"
                             }
                         }
                     }
@@ -98,17 +106,18 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
                 redirect_urls = new Redirect_Urls
                 {
                     cancel_url = $"http://{hostingDomain}/PaypalExpress/Cancel", //Haven't seen it being used anywhere
-                    return_url = $"http://{hostingDomain}/PaypalExpress/Success", //Haven't seen it being used anywhere
+                    return_url = $"http://{hostingDomain}/PaypalExpress/Success" //Haven't seen it being used anywhere
                 }
             };
 
-            var response = await httpClient.PostJsonAsync($"https://api{_setting.Value.EnvironmentUrlPart}.paypal.com/v1/payments/payment", paymentCreateRequest);
+            var response = await httpClient.PostJsonAsync(
+                $"https://api{_setting.Value.EnvironmentUrlPart}.paypal.com/v1/payments/payment", paymentCreateRequest);
             var responseBody = await response.Content.ReadAsStringAsync();
             dynamic payment = JObject.Parse(responseBody);
             if (response.IsSuccessStatusCode)
             {
                 string paymentId = payment.id;
-                return Ok(new { PaymentId = paymentId });
+                return Ok(new {PaymentId = paymentId});
             }
 
             return BadRequest(responseBody);
@@ -120,30 +129,30 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
             var accessToken = await GetAccessToken();
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
-            var orderCreateResult = await _orderService.CreateOrder(cart.Id, "PaypalExpress", CalculatePaymentFee(cart.OrderTotal), OrderStatus.PendingPayment);
+            var orderCreateResult = await _orderService.CreateOrder(cart.Id, "PaypalExpress",
+                CalculatePaymentFee(cart.OrderTotal), OrderStatus.PendingPayment);
             if (!orderCreateResult.Success)
             {
                 return BadRequest(orderCreateResult.Error);
             }
 
             var order = orderCreateResult.Value;
-            var payment = new Payment()
+            var payment = new Payment
             {
                 OrderId = order.Id,
                 PaymentFee = order.PaymentFeeAmount,
                 Amount = order.OrderTotal,
                 PaymentMethod = "Paypal Express",
-                CreatedOn = DateTimeOffset.UtcNow,
+                CreatedOn = DateTimeOffset.UtcNow
             };
 
             var httpClient = _httpClientFactory.CreateClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            var paymentExecuteRequest = new PaymentExecuteRequest
-            {
-                payer_id = model.payerID
-            };
+            var paymentExecuteRequest = new PaymentExecuteRequest {payer_id = model.payerID};
 
-            var response = await httpClient.PostJsonAsync($"https://api{_setting.Value.EnvironmentUrlPart}.paypal.com/v1/payments/payment/{model.paymentID}/execute", paymentExecuteRequest);
+            var response = await httpClient.PostJsonAsync(
+                $"https://api{_setting.Value.EnvironmentUrlPart}.paypal.com/v1/payments/payment/{model.paymentID}/execute",
+                paymentExecuteRequest);
             var responseBody = await response.Content.ReadAsStringAsync();
             dynamic responseObject = JObject.Parse(responseBody);
             if (response.IsSuccessStatusCode)
@@ -155,7 +164,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
                 _paymentRepository.Add(payment);
                 order.OrderStatus = OrderStatus.PaymentReceived;
                 await _paymentRepository.SaveChangesAsync();
-                return Ok(new { Status = "success", OrderId = order.Id });
+                return Ok(new {Status = "success", OrderId = order.Id});
             }
 
             payment.Status = PaymentStatus.Failed;
@@ -174,10 +183,13 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
             var httpClient = _httpClientFactory.CreateClient();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
                 "Basic",
-                Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes($"{_setting.Value.ClientId}:{_setting.Value.ClientSecret}")));
+                Convert.ToBase64String(
+                    Encoding.ASCII.GetBytes($"{_setting.Value.ClientId}:{_setting.Value.ClientSecret}")));
             var requestBody = new StringContent("grant_type=client_credentials");
             requestBody.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
-            var response = await httpClient.PostAsync($"https://api{_setting.Value.EnvironmentUrlPart}.paypal.com/v1/oauth2/token", requestBody);
+            var response =
+                await httpClient.PostAsync($"https://api{_setting.Value.EnvironmentUrlPart}.paypal.com/v1/oauth2/token",
+                    requestBody);
             response.EnsureSuccessStatusCode();
             var responseBody = await response.Content.ReadAsStringAsync();
             dynamic token = JObject.Parse(responseBody);
@@ -191,14 +203,11 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             var experienceRequest = new ExperienceProfile
             {
-                name = $"simpl_{Guid.NewGuid()}",
-                input_fields = new InputFields
-                {
-                    no_shipping = 1
-                },
-                temporary = true
+                name = $"simpl_{Guid.NewGuid()}", input_fields = new InputFields {no_shipping = 1}, temporary = true
             };
-            var response = await httpClient.PostJsonAsync($"https://api{_setting.Value.EnvironmentUrlPart}.paypal.com/v1/payment-experience/web-profiles", experienceRequest);
+            var response = await httpClient.PostJsonAsync(
+                $"https://api{_setting.Value.EnvironmentUrlPart}.paypal.com/v1/payment-experience/web-profiles",
+                experienceRequest);
             var responseBody = await response.Content.ReadAsStringAsync();
             dynamic experience = JObject.Parse(responseBody);
             // Has to explicitly declare the type to be able to get the propery
@@ -209,13 +218,15 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
         private decimal CalculatePaymentFee(decimal total)
         {
             var percent = _setting.Value.PaymentFee;
-            return (total / 100) * percent;
+            return total / 100 * percent;
         }
 
         private PaypalExpressConfigForm GetSetting()
         {
-            var paypalExpressProvider = _paymentProviderRepository.Query().FirstOrDefault(x => x.Id == PaymentProviderHelper.PaypalExpressProviderId);
-            var paypalExpressSetting = JsonConvert.DeserializeObject<PaypalExpressConfigForm>(paypalExpressProvider.AdditionalSettings);
+            var paypalExpressProvider = _paymentProviderRepository.Query()
+                .FirstOrDefault(x => x.Id == PaymentProviderHelper.PaypalExpressProviderId);
+            var paypalExpressSetting =
+                JsonConvert.DeserializeObject<PaypalExpressConfigForm>(paypalExpressProvider.AdditionalSettings);
             return paypalExpressSetting;
         }
     }

@@ -25,7 +25,8 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
         [HttpGet("config")]
         public async Task<IActionResult> Config()
         {
-            var stripeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.StripeProviderId);
+            var stripeProvider = await _paymentProviderRepository.Query()
+                .FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.StripeProviderId);
             var model = JsonConvert.DeserializeObject<StripeConfigForm>(stripeProvider.AdditionalSettings);
             return Ok(model);
         }
@@ -35,7 +36,8 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
         {
             if (ModelState.IsValid)
             {
-                var stripeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.StripeProviderId);
+                var stripeProvider = await _paymentProviderRepository.Query()
+                    .FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.StripeProviderId);
                 stripeProvider.AdditionalSettings = JsonConvert.SerializeObject(model);
                 await _paymentProviderRepository.SaveChangesAsync();
                 return Accepted();

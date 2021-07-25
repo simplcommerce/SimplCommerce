@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Module.Reviews.Data;
-using SimplCommerce.Infrastructure;
 
 namespace SimplCommerce.Module.Reviews
 {
@@ -19,7 +19,6 @@ namespace SimplCommerce.Module.Reviews
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
         }
     }
 }

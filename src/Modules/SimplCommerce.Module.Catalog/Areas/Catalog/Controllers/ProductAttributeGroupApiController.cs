@@ -12,7 +12,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
     [Route("api/product-attribute-groups")]
     public class ProductAttributeGroupApiController : Controller
     {
-        private IRepository<ProductAttributeGroup> _productAttrGroupRepository;
+        private readonly IRepository<ProductAttributeGroup> _productAttrGroupRepository;
 
         public ProductAttributeGroupApiController(IRepository<ProductAttributeGroup> productAttrGroupRepository)
         {
@@ -24,11 +24,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         {
             var attributeGroups = _productAttrGroupRepository
                 .Query()
-                .Select(x => new ProductAttributeGroupFormVm
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                });
+                .Select(x => new ProductAttributeGroupFormVm {Id = x.Id, Name = x.Name});
 
             return Json(attributeGroups);
         }
@@ -39,8 +35,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             var productAttributeGroup = _productAttrGroupRepository.Query().FirstOrDefault(x => x.Id == id);
             var model = new ProductAttributeGroupFormVm
             {
-                Id = productAttributeGroup.Id,
-                Name = productAttributeGroup.Name
+                Id = productAttributeGroup.Id, Name = productAttributeGroup.Name
             };
 
             return Json(model);
@@ -52,16 +47,14 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         {
             if (ModelState.IsValid)
             {
-                var productAttributeGroup = new ProductAttributeGroup
-                {
-                    Name = model.Name
-                };
+                var productAttributeGroup = new ProductAttributeGroup {Name = model.Name};
 
                 _productAttrGroupRepository.Add(productAttributeGroup);
                 _productAttrGroupRepository.SaveChanges();
 
                 return Ok();
             }
+
             return BadRequest(ModelState);
         }
 

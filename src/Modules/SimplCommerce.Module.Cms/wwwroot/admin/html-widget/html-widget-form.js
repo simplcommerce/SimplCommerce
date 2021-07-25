@@ -1,14 +1,18 @@
 ﻿/*global angular, jQuery*/
-(function ($) {
+(function($) {
     angular
-        .module('simplAdmin.cms')
-        .controller('HtmlWidgetFormCtrl', ['$state', '$stateParams', 'summerNoteService', 'htmlWidgetService', 'translateService', HtmlWidgetFormCtrl]);
+        .module("simplAdmin.cms")
+        .controller("HtmlWidgetFormCtrl",
+            [
+                "$state", "$stateParams", "summerNoteService", "htmlWidgetService", "translateService",
+                HtmlWidgetFormCtrl
+            ]);
 
     function HtmlWidgetFormCtrl($state, $stateParams, summerNoteService, htmlWidgetService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.widgetZones = [];
-        vm.widgetInstance = { widgetZoneId: 1, publishStart : new Date() };
+        vm.widgetInstance = { widgetZoneId: 1, publishStart: new Date() };
         vm.widgetInstanceId = $stateParams.id;
         vm.isEditMode = vm.widgetInstanceId > 0;
 
@@ -16,14 +20,14 @@
         vm.datePickerPublishEnd = {};
         vm.numberOfWidgets = [];
 
-        vm.openCalendar = function (e, picker) {
+        vm.openCalendar = function(e, picker) {
             vm[picker].open = true;
         };
 
-        vm.imageUpload = function (files) {
+        vm.imageUpload = function(files) {
             summerNoteService.upload(files[0])
-                .then(function (response) {
-                    $(vm.htmlContent).summernote('insertImage', response.data);
+                .then(function(response) {
+                    $(vm.htmlContent).summernote("insertImage", response.data);
                 });
         };
 
@@ -36,10 +40,10 @@
             }
 
             promise
-                .then(function (result) {
-                    $state.go('widget');
+                .then(function(result) {
+                    $state.go("widget");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -47,17 +51,17 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not html widget.');
+                        vm.validationErrors.push("Could not html widget.");
                     }
                 });
         };
 
         function init() {
-            htmlWidgetService.getWidgetZones().then(function (result) {
+            htmlWidgetService.getWidgetZones().then(function(result) {
                 vm.widgetZones = result.data;
             });
 
-            htmlWidgetService.getNumberOfWidgets().then(function (result) {
+            htmlWidgetService.getNumberOfWidgets().then(function(result) {
                 var count = parseInt(result.data);
                 if (!vm.isEditMode) {
                     count = count + 1;
@@ -68,7 +72,7 @@
             });
 
             if (vm.isEditMode) {
-                htmlWidgetService.getHtmlWidget(vm.widgetInstanceId).then(function (result) {
+                htmlWidgetService.getHtmlWidget(vm.widgetInstanceId).then(function(result) {
                     vm.widgetInstance = result.data;
                     if (vm.widgetInstance.publishStart) {
                         vm.widgetInstance.publishStart = new Date(vm.widgetInstance.publishStart);

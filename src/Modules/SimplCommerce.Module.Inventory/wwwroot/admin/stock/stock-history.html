@@ -9,22 +9,22 @@
     <div class="panel-body">
         <table class="table table-striped order-item-list">
             <thead>
-                <tr>
-                    <th>{{::vm.translate.get('Product Name')}}</th>
-                    <th>{{::vm.translate.get('Created On')}}</th>
-                    <th>{{::vm.translate.get('Created By')}}</th>
-                    <th>{{::vm.translate.get('Adjusted Quantity')}}</th>
-                    <th>{{::vm.translate.get('Note')}}</th>
-                </tr>
+            <tr>
+                <th>{{::vm.translate.get('Product Name')}}</th>
+                <th>{{::vm.translate.get('Created On')}}</th>
+                <th>{{::vm.translate.get('Created By')}}</th>
+                <th>{{::vm.translate.get('Adjusted Quantity')}}</th>
+                <th>{{::vm.translate.get('Note')}}</th>
+            </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in vm.history">
-                    <td >{{item.name}}</td>
-                    <td >{{item.createdOn | date:'medium'}}</td>
-                    <td >{{item.fullName}}</td>
-                    <td >{{item.adjustedQuantity}}</td>
-                    <td >{{item.note}}</td>
-                </tr>
+            <tr ng-repeat="item in vm.history">
+                <td >{{item.name}}</td>
+                <td >{{item.createdOn | date:'medium'}}</td>
+                <td >{{item.fullName}}</td>
+                <td >{{item.adjustedQuantity}}</td>
+                <td >{{item.note}}</td>
+            </tr>
             </tbody>
         </table>
     </div>

@@ -16,25 +16,30 @@ namespace SimplCommerce.WebHost
         }
 
         // Changed to BuildWebHost2 to make EF don't pickup during design time
-        private static IHostBuilder BuildWebHost2(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => {
+        private static IHostBuilder BuildWebHost2(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
                     webBuilder.UseStartup<Startup>();
                     webBuilder.ConfigureAppConfiguration(SetupConfiguration);
                     webBuilder.ConfigureLogging(SetupLogging);
-                 });
+                });
+        }
 
-        private static void SetupConfiguration(WebHostBuilderContext hostingContext, IConfigurationBuilder configBuilder)
+        private static void SetupConfiguration(WebHostBuilderContext hostingContext,
+            IConfigurationBuilder configBuilder)
         {
             var env = hostingContext.HostingEnvironment;
             var configuration = configBuilder.Build();
             configBuilder.AddEntityFrameworkConfig(options =>
-                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
             );
             Log.Logger = new LoggerConfiguration()
-                       .ReadFrom.Configuration(configuration)
-                       .CreateLogger();
+                .ReadFrom.Configuration(configuration)
+                .CreateLogger();
         }
+
         private static void SetupLogging(WebHostBuilderContext hostingContext, ILoggingBuilder loggingBuilder)
         {
             loggingBuilder.AddSerilog();

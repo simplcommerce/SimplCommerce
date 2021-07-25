@@ -8,7 +8,8 @@ namespace SimplCommerce.Infrastructure.Helpers
 {
     public static class CsvConverter
     {
-        public static IList<T> ReadCsvStream<T>(Stream stream, bool skipFirstLine = true, string csvDelimiter = ",") where T : new()
+        public static IList<T> ReadCsvStream<T>(Stream stream, bool skipFirstLine = true, string csvDelimiter = ",")
+            where T : new()
         {
             var records = new List<T>();
             using (var reader = new StreamReader(stream))
@@ -25,9 +26,11 @@ namespace SimplCommerce.Infrastructure.Helpers
                     {
                         var item = new T();
                         var properties = item.GetType().GetProperties();
-                        for (int i = 0; i < values.Length; i++)
+                        for (var i = 0; i < values.Length; i++)
                         {
-                            properties[i].SetValue(item, Convert.ChangeType(values[i], properties[i].PropertyType, CultureInfo.CurrentCulture), null);
+                            properties[i].SetValue(item,
+                                Convert.ChangeType(values[i], properties[i].PropertyType, CultureInfo.CurrentCulture),
+                                null);
                         }
 
                         records.Add(item);
@@ -65,13 +68,10 @@ namespace SimplCommerce.Infrastructure.Helpers
 
                 foreach (var obj in data)
                 {
-                    var vals = obj.GetType().GetProperties().Select(pi => new
-                    {
-                        Value = pi.GetValue(obj, null)
-                    }
+                    var vals = obj.GetType().GetProperties().Select(pi => new {Value = pi.GetValue(obj, null)}
                     );
 
-                    string line = string.Empty;
+                    var line = string.Empty;
                     foreach (var val in vals)
                     {
                         if (val.Value != null)

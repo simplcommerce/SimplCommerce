@@ -1,8 +1,9 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.shipment')
-        .controller('ShipmentDetailsCtrl', ['$stateParams', 'shipmentService', 'translateService', ShipmentDetailsCtrl]);
+        .module("simplAdmin.shipment")
+        .controller("ShipmentDetailsCtrl",
+            ["$stateParams", "shipmentService", "translateService", ShipmentDetailsCtrl]);
 
     function ShipmentDetailsCtrl($stateParams, shipmentService, translateService) {
         var vm = this;
@@ -11,7 +12,7 @@
         vm.shipment = {};
 
         function getShipment() {
-            shipmentService.getShipment(vm.shipmentId).then(function (result) {
+            shipmentService.getShipment(vm.shipmentId).then(function(result) {
                 vm.shipment = result.data;
             });
         }

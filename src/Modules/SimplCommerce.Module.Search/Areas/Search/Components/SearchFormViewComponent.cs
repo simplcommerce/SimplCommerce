@@ -10,7 +10,7 @@ namespace SimplCommerce.Module.Search.Areas.Search.Components
 {
     public class SearchFormViewComponent : ViewComponent
     {
-        private IRepository<Category> _categoryRepository;
+        private readonly IRepository<Category> _categoryRepository;
 
         public SearchFormViewComponent(IRepository<Category> categoryRepository)
         {
@@ -23,11 +23,7 @@ namespace SimplCommerce.Module.Search.Areas.Search.Components
             model.AvailableCategories = _categoryRepository
                 .Query()
                 .Where(x => x.IsPublished && x.Parent == null)
-                .Select(x => new SelectListItem
-                {
-                    Value = x.Slug,
-                    Text = x.Name
-                }).ToList();
+                .Select(x => new SelectListItem {Value = x.Slug, Text = x.Name}).ToList();
 
             model.Query = Request.Query["query"];
             model.Category = Request.Query["category"];

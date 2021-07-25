@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.ViewModels
+﻿namespace SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.ViewModels
 {
     public class CashfreeConfigForm
     {

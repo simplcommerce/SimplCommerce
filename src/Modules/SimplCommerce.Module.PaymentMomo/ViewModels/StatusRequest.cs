@@ -4,7 +4,7 @@ namespace SimplCommerce.Module.PaymentMomo.ViewModels
 {
     public class StatusRequest
     {
-        private string _secretKey;
+        private readonly string _secretKey;
 
         public StatusRequest(string secretKey, string partnerCode, string accessKey, long orderId)
         {
@@ -15,21 +15,15 @@ namespace SimplCommerce.Module.PaymentMomo.ViewModels
             RequestId = orderId.ToString();
         }
 
-        public string PartnerCode { get; private set; }
+        public string PartnerCode { get; }
 
-        public string AccessKey { get; private set; }
+        public string AccessKey { get; }
 
-        public string RequestId { get; private set; }
+        public string RequestId { get; }
 
-        public string OrderId { get; private set; }
+        public string OrderId { get; }
 
-        public string RequestType
-        {
-            get
-            {
-                return "transactionStatus";
-            }
-        }
+        public string RequestType => "transactionStatus";
 
         public string Signature
         {

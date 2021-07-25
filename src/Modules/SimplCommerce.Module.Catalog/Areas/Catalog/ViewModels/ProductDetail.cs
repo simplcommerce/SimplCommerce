@@ -44,24 +44,21 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
             get
             {
                 var options = from opt in Variations.SelectMany(x => x.Options)
-                              group opt by new
-                              {
-                                  opt.OptionId,
-                                  opt.OptionName
-                              }
+                    group opt by new {opt.OptionId, opt.OptionName}
                     into g
-                              select new ProductDetailOption
-                              {
-                                  OptionId = g.Key.OptionId,
-                                  OptionName = g.Key.OptionName,
-                                  Values = g.Select(x => x.Value).Distinct().ToList()
-                              };
+                    select new ProductDetailOption
+                    {
+                        OptionId = g.Key.OptionId,
+                        OptionName = g.Key.OptionName,
+                        Values = g.Select(x => x.Value).Distinct().ToList()
+                    };
 
                 return options.ToList();
             }
         }
 
-        public IDictionary<string, ProductOptionDisplay> OptionDisplayValues { get; set; } = new Dictionary<string, ProductOptionDisplay>();
+        public IDictionary<string, ProductOptionDisplay> OptionDisplayValues { get; set; } =
+            new Dictionary<string, ProductOptionDisplay>();
 
         public IList<MediaViewModel> Images { get; set; } = new List<MediaViewModel>();
 

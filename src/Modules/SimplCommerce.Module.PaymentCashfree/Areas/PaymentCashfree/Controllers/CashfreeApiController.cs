@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
-using SimplCommerce.Module.Payments.Models;
 using SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.ViewModels;
 using SimplCommerce.Module.PaymentCashfree.Models;
+using SimplCommerce.Module.Payments.Models;
 
 namespace SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.Controllers
 {
@@ -25,7 +25,8 @@ namespace SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.Controllers
         [HttpGet("config")]
         public async Task<IActionResult> Config()
         {
-            var cashfreeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.CashfreeProviderId);
+            var cashfreeProvider = await _paymentProviderRepository.Query()
+                .FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.CashfreeProviderId);
             var model = JsonConvert.DeserializeObject<CashfreeConfigForm>(cashfreeProvider.AdditionalSettings);
             return Ok(model);
         }
@@ -35,7 +36,8 @@ namespace SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.Controllers
         {
             if (ModelState.IsValid)
             {
-                var cashfreeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.CashfreeProviderId);
+                var cashfreeProvider = await _paymentProviderRepository.Query()
+                    .FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.CashfreeProviderId);
                 cashfreeProvider.AdditionalSettings = JsonConvert.SerializeObject(model);
                 await _paymentProviderRepository.SaveChangesAsync();
                 return Accepted();

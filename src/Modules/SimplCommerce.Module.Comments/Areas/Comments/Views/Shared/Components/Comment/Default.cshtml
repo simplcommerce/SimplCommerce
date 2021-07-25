@@ -1,6 +1,6 @@
 ﻿@model SimplCommerce.Module.Comments.Areas.Comments.ViewModels.CommentVm
 
-<link simpl-append-version="true" rel="stylesheet" href="~/_content/SimplCommerce.Module.Comments/comment.css" />
+<link simpl-append-version="true" rel="stylesheet" href="~/_content/SimplCommerce.Module.Comments/comment.css"/>
 <script simpl-append-version="true" src="~/lib/pagination/dirPagination.js"></script>
 <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Comments/comment.js"></script>
 <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Comments/comment-service.js"></script>
@@ -9,7 +9,7 @@
 </script>
 
 <div class="comments" ng-app="simpl.comment" ng-controller="CommentCtrl as vm" ng-cloak">
-    @if(User.Identity.IsAuthenticated)
+    @if (User.Identity.IsAuthenticated)
     {
         <form name="commentForm" novalidate>
             <div class="form-group">
@@ -28,7 +28,9 @@
     else
     {
         var localizedTextParts = Localizer["Please <a>login</a> or <a>register</a> to submit your questions."].GetTextPartsFunction("<a>", "</a>");
-        <p>@localizedTextParts(0)<a href="~/login?ReturnUrl=@Context.Request.Path#comments">@localizedTextParts(1)</a>@localizedTextParts(2)<a href="~/register?ReturnUrl=@Context.Request.Path#comments">@localizedTextParts(3)</a>@localizedTextParts(4)</p>
+        <p>
+            @localizedTextParts(0)<a href="~/login?ReturnUrl=@Context.Request.Path#comments">@localizedTextParts(1)</a>@localizedTextParts(2)<a href="~/register?ReturnUrl=@Context.Request.Path#comments">@localizedTextParts(3)</a>@localizedTextParts(4)
+        </p>
     }
     <div class="row">
         <div class="col-md-6">
@@ -38,11 +40,11 @@
         <div class="col-md-6">
             <div class="form-group has-search pull-right">
                 <span class="fa fa-search form-control-feedback"></span>
-                <input class="form-control" ng-model="vm.search" placeholder="@Localizer["find by commenter"]" />
+                <input class="form-control" ng-model="vm.search" placeholder="@Localizer["find by commenter"]"/>
             </div>
         </div>
     </div>
-    <hr />
+    <hr/>
     <div id="comments-list" class="comment-item-list">
         <div dir-paginate="item in vm.comments | itemsPerPage: 10" total-items="vm.commentCount" current-page="vm.pagination.current">
             <div class="commenter-name">
@@ -67,7 +69,7 @@
                     </div>
                 </div>
                 <div class="collapse" id="reply{{item.id}}">
-                    @if(User.Identity.IsAuthenticated)
+                    @if (User.Identity.IsAuthenticated)
                     {
                         <form novalidate name="replyForm">
                             <div class="form-group">
@@ -86,7 +88,9 @@
                     else
                     {
                         var localizedTextParts = Localizer["Please <a>login</a> or <a>register</a> to reply."].GetTextPartsFunction("<a>", "</a>");
-                        <p>@localizedTextParts(0)<a href="~/login?ReturnUrl=@Context.Request.Path#comments">@localizedTextParts(1)</a>@localizedTextParts(2)<a href="~/register?ReturnUrl=@Context.Request.Path#comments">@localizedTextParts(3)</a>@localizedTextParts(4)</p>
+                        <p>
+                            @localizedTextParts(0)<a href="~/login?ReturnUrl=@Context.Request.Path#comments">@localizedTextParts(1)</a>@localizedTextParts(2)<a href="~/register?ReturnUrl=@Context.Request.Path#comments">@localizedTextParts(3)</a>@localizedTextParts(4)
+                        </p>
                     }
                 </div>
             </div>

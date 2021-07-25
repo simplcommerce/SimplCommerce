@@ -18,7 +18,8 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
         private readonly IRepository<NewsCategory> _categoryRepository;
         private readonly INewsCategoryService _categoryService;
 
-        public NewsCategoryApiController(IRepository<NewsCategory> categoryRepository, INewsCategoryService categoryService)
+        public NewsCategoryApiController(IRepository<NewsCategory> categoryRepository,
+            INewsCategoryService categoryService)
         {
             _categoryRepository = categoryRepository;
             _categoryService = categoryService;
@@ -36,7 +37,7 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
         public async Task<IActionResult> Get(long id)
         {
             var category = await _categoryRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-            if(category == null)
+            if (category == null)
             {
                 return NotFound();
             }
@@ -72,7 +73,7 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
                 };
 
                 await _categoryService.Create(category);
-                return CreatedAtAction(nameof(Get), new { id = category.Id }, null);
+                return CreatedAtAction(nameof(Get), new {id = category.Id}, null);
             }
 
             return BadRequest(ModelState);

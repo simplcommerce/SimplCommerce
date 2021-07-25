@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.core')
-        .factory('themeService', ['$http', themeService]);
+        .module("simplAdmin.core")
+        .factory("themeService", ["$http", themeService]);
 
     function themeService($http) {
         var service = {
@@ -16,27 +16,27 @@
         return service;
 
         function getThemes() {
-            return $http.get('api/themes');
+            return $http.get("api/themes");
         }
 
         function useTheme(theme) {
-            return $http.post('api/themes/use-theme', theme);
+            return $http.post("api/themes/use-theme", theme);
         }
 
         function deleteTheme(themeName) {
-            return $http.delete('api/themes/' + themeName);
+            return $http.delete("api/themes/" + themeName);
         }
 
         function getOnlineThemes() {
-            return $http.get('api/online-themes');
+            return $http.get("api/online-themes");
         }
 
         function getThemeDetails(name) {
-            return $http.get('api/online-themes/' + name);
+            return $http.get("api/online-themes/" + name);
         }
 
         function installTheme(name) {
-            return $http.put('/api/online-themes/' + name + '/install');
+            return $http.put("/api/online-themes/" + name + "/install");
         }
     }
 })();

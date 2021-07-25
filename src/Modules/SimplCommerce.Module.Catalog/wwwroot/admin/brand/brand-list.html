@@ -20,10 +20,16 @@
     <tbody>
     <tr ng-repeat="brand in vm.brands">
         <td>{{brand.name}}</td>
-        <td class="text-center"><i ng-attr-class="{{brand.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i></td>
+        <td class="text-center">
+            <i ng-attr-class="{{brand.isPublished && 'fa fa-circle' || 'fa fa-circle-o'}}"></i>
+        </td>
         <td>
-            <a ui-sref="brand-edit({id: brand.id})" title="Edit" class="btn btn-primary btn-xs"> <span class="glyphicon glyphicon-pencil"></span></a>
-            <button ng-click="vm.deleteBrand(brand)" class="btn btn-danger btn-xs delete"> <span class="glyphicon glyphicon-remove"></span></button>
+            <a ui-sref="brand-edit({id: brand.id})" title="Edit" class="btn btn-primary btn-xs">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+            <button ng-click="vm.deleteBrand(brand)" class="btn btn-danger btn-xs delete">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
         </td>
     </tr>
     </tbody>

@@ -17,8 +17,8 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
     [Route("api/users")]
     public class UserApiController : Controller
     {
-        private readonly IRepository<User> _userRepository;
         private readonly UserManager<User> _userManager;
+        private readonly IRepository<User> _userRepository;
 
         public UserApiController(IRepository<User> userRepository, UserManager<User> userManager)
         {
@@ -40,13 +40,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
                 query = query.Where(x => x.Email.Contains(searchOption.Email));
             }
 
-           var users = await query.Take(5).Select(x => new
-            {
-                x.Id,
-                x.FullName,
-                x.Email,
-                x.PhoneNumber
-            }).ToListAsync();
+            var users = await query.Take(5).Select(x => new {x.Id, x.FullName, x.Email, x.PhoneNumber}).ToListAsync();
 
             return Ok(users);
         }
@@ -56,9 +50,9 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         {
             var query = _userRepository.Query()
                 .Include(x => x.Roles)
-                    .ThenInclude(x => x.Role)
+                .ThenInclude(x => x.Role)
                 .Include(x => x.CustomerGroups)
-                    .ThenInclude(x => x.CustomerGroup)
+                .ThenInclude(x => x.CustomerGroup)
                 .Where(x => !x.IsDeleted);
 
             if (param.Search.PredicateObject != null)
@@ -128,7 +122,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
                 .Include(x => x.CustomerGroups)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            if(user == null)
+            if (user == null)
             {
                 return NotFound();
             }
@@ -163,10 +157,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 
                 foreach (var roleId in model.RoleIds)
                 {
-                    var userRole = new UserRole
-                    {
-                        RoleId = roleId
-                    };
+                    var userRole = new UserRole {RoleId = roleId};
 
                     user.Roles.Add(userRole);
                     userRole.User = user;
@@ -174,16 +165,13 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 
                 foreach (var customergroupId in model.CustomerGroupIds)
                 {
-                    var userCustomerGroup = new CustomerGroupUser
-                    {
-                        CustomerGroupId = customergroupId
-                    };
+                    var userCustomerGroup = new CustomerGroupUser {CustomerGroupId = customergroupId};
                 }
 
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    return CreatedAtAction(nameof(Get), new { id = user.Id }, null);
+                    return CreatedAtAction(nameof(Get), new {id = user.Id}, null);
                 }
 
                 AddErrors(result);
@@ -202,7 +190,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
                     .Include(x => x.CustomerGroups)
                     .FirstOrDefaultAsync(x => x.Id == id);
 
-                if(user == null)
+                if (user == null)
                 {
                     return NotFound();
                 }
@@ -253,11 +241,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
                     continue;
                 }
 
-                var userRole = new UserRole
-                {
-                    RoleId = roleId,
-                    User = user
-                };
+                var userRole = new UserRole {RoleId = roleId, User = user};
                 user.Roles.Add(userRole);
             }
 
@@ -281,16 +265,13 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
                     continue;
                 }
 
-                var userCustomerGroup = new CustomerGroupUser
-                {
-                    CustomerGroupId = customergroupId,
-                    User = user
-                };
+                var userCustomerGroup = new CustomerGroupUser {CustomerGroupId = customergroupId, User = user};
                 user.CustomerGroups.Add(userCustomerGroup);
             }
 
             var deletedUserCustomerGroups =
-                user.CustomerGroups.Where(userCustomerGroup => !model.CustomerGroupIds.Contains(userCustomerGroup.CustomerGroupId))
+                user.CustomerGroups.Where(userCustomerGroup =>
+                        !model.CustomerGroupIds.Contains(userCustomerGroup.CustomerGroupId))
                     .ToList();
 
             foreach (var deletedUserCustomerGroup in deletedUserCustomerGroups)

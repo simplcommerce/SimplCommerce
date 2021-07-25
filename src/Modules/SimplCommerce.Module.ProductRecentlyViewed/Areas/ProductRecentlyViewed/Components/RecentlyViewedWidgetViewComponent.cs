@@ -7,7 +7,7 @@ using SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed.Vie
 
 namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed.Components
 {
-    public class RecentlyViewedWidgetViewComponent: ViewComponent
+    public class RecentlyViewedWidgetViewComponent : ViewComponent
     {
         private IMediaService _mediaService;
 
@@ -20,12 +20,10 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed
         {
             var model = new RecentlyViewedWidgetViewComponentVm
             {
-                Id = widgetInstance.Id,
-                ItemCount = JsonConvert.DeserializeObject<int>(widgetInstance.Data)
+                Id = widgetInstance.Id, ItemCount = JsonConvert.DeserializeObject<int>(widgetInstance.Data)
             };
 
             return View(this.GetViewPath(), model);
         }
-
     }
 }

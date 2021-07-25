@@ -1,8 +1,9 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.catalog')
-        .controller('ProductOptionFormCtrl', ['$state', '$stateParams', 'productOptionService', 'translateService', ProductOptionFormCtrl]);
+        .module("simplAdmin.catalog")
+        .controller("ProductOptionFormCtrl",
+            ["$state", "$stateParams", "productOptionService", "translateService", ProductOptionFormCtrl]);
 
     function ProductOptionFormCtrl($state, $stateParams, productOptionService, translateService) {
         var vm = this;
@@ -21,10 +22,10 @@
             }
 
             promise
-                .then(function (result) {
-                    $state.go('product-option');
+                .then(function(result) {
+                    $state.go("product-option");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -32,13 +33,13 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add create product option.');
+                        vm.validationErrors.push("Could not add create product option.");
                     }
                 });
         };
 
         function getProductOption() {
-            productOptionService.getProductOption(vm.productOptionId).then(function (result) {
+            productOptionService.getProductOption(vm.productOptionId).then(function(result) {
                 vm.productOption = result.data;
             });
         }

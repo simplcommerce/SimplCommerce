@@ -1,18 +1,18 @@
 ﻿(function() {
     angular
-        .module('simplAdmin.shipment')
-        .directive('shipmentListByOrder', shipmentListByOrder);
+        .module("simplAdmin.shipment")
+        .directive("shipmentListByOrder", shipmentListByOrder);
 
     function shipmentListByOrder() {
         var directive = {
-            restrict: 'E',
-            templateUrl: '_content/SimplCommerce.Module.Shipments/admin/shipment/shipment-list-by-order.directive.html',
+            restrict: "E",
+            templateUrl: "_content/SimplCommerce.Module.Shipments/admin/shipment/shipment-list-by-order.directive.html",
             scope: {},
             bindToController: {
-                orderId: '='
+                orderId: "="
             },
-            controller: ['shipmentService', 'translateService', ShipmentListByOrderCtrl],
-            controllerAs: 'vm'
+            controller: ["shipmentService", "translateService", ShipmentListByOrderCtrl],
+            controllerAs: "vm"
         };
 
         return directive;
@@ -23,8 +23,8 @@
         vm.translate = translateService;
         vm.shipments = [];
 
-        vm.$onInit = function () {
-            shipmentService.getShipmentsByOrder(vm.orderId).then(function (result) {
+        vm.$onInit = function() {
+            shipmentService.getShipmentsByOrder(vm.orderId).then(function(result) {
                 vm.shipments = result.data;
             });
         };

@@ -15,8 +15,8 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
     [Route("api/menus")]
     public class MenuApiController : Controller
     {
-        private readonly IRepository<Menu> _menuRepository;
         private readonly IRepository<MenuItem> _menuItemRepository;
+        private readonly IRepository<Menu> _menuRepository;
 
         public MenuApiController(IRepository<Menu> menuRepository, IRepository<MenuItem> menuItemRepository)
         {
@@ -28,13 +28,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
         public async Task<IActionResult> Get()
         {
             var menuList = await _menuRepository.Query()
-                .Select(x => new
-                {
-                    x.Id,
-                    x.Name,
-                    x.IsPublished,
-                    x.IsSystem
-                })
+                .Select(x => new {x.Id, x.Name, x.IsPublished, x.IsSystem})
                 .ToListAsync();
             return Json(menuList);
         }
@@ -46,7 +40,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                 .Include(x => x.MenuItems)
                 .ThenInclude(m => m.Entity)
                 .FirstOrDefaultAsync(x => x.Id == id);
-            if(menu == null)
+            if (menu == null)
             {
                 return NotFound();
             }
@@ -63,7 +57,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                     ParentId = x.ParentId,
                     Name = x.Entity == null ? x.Name : x.Entity.Name,
                     CustomLink = x.CustomLink,
-                    DisplayOrder = x.DisplayOrder,
+                    DisplayOrder = x.DisplayOrder
                 }).OrderBy(x => x.DisplayOrder).ToList()
             };
 
@@ -76,7 +70,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
             if (ModelState.IsValid)
             {
                 var menu = await _menuRepository.Query().Include(x => x.MenuItems).FirstOrDefaultAsync(x => x.Id == id);
-                if(menu == null)
+                if (menu == null)
                 {
                     return NotFound();
                 }
@@ -91,7 +85,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                         Name = item.Name,
                         EntityId = item.EntityId,
                         ParentId = item.ParentId,
-                        DisplayOrder = item.DisplayOrder,
+                        DisplayOrder = item.DisplayOrder
                     };
 
                     menu.MenuItems.Add(menuItem);
@@ -101,12 +95,10 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                 await _menuRepository.SaveChangesAsync();
                 return Ok(addedMenuItems.Select(x => new MenuItemForm
                 {
-                    Id = x.Id,
-                    EntityId = x.EntityId,
-                    Name = x.Name,
-                    CustomLink = x.CustomLink
+                    Id = x.Id, EntityId = x.EntityId, Name = x.Name, CustomLink = x.CustomLink
                 }));
             }
+
             return BadRequest(ModelState);
         }
 
@@ -130,17 +122,14 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
         {
             if (ModelState.IsValid)
             {
-                var menu = new Menu
-                {
-                    Name = model.Name,
-                    IsPublished = model.IsPublished
-                };
+                var menu = new Menu {Name = model.Name, IsPublished = model.IsPublished};
 
                 _menuRepository.Add(menu);
                 await _menuRepository.SaveChangesAsync();
 
                 return Json(menu);
             }
+
             return BadRequest(ModelState);
         }
 
@@ -150,14 +139,14 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
             if (ModelState.IsValid)
             {
                 var menu = await _menuRepository.Query().Include(x => x.MenuItems).FirstOrDefaultAsync(x => x.Id == id);
-                if(menu == null)
+                if (menu == null)
                 {
                     return NotFound();
                 }
 
                 menu.Name = model.Name;
                 menu.IsPublished = model.IsPublished;
-                foreach(var item in menu.MenuItems)
+                foreach (var item in menu.MenuItems)
                 {
                     var modelMenuItem = model.Items.FirstOrDefault(x => x.Id == item.Id);
                     if (modelMenuItem == null)
@@ -196,7 +185,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
 
             if (menu.IsSystem)
             {
-                return BadRequest(new { Error = "A system menu cannot be deleted." });
+                return BadRequest(new {Error = "A system menu cannot be deleted."});
             }
 
             _menuRepository.Remove(menu);

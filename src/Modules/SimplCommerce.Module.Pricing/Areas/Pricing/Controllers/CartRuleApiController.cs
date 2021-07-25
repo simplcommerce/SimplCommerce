@@ -25,7 +25,7 @@ namespace SimplCommerce.Module.Pricing.Areas.Pricing.Controllers
         [HttpPost("grid")]
         public IActionResult List([FromBody] SmartTableParam param)
         {
-            IQueryable<CartRule> query = _cartRuleRepository
+            var query = _cartRuleRepository
                 .Query();
 
             var cartRules = query.ToSmartTableResult(
@@ -64,13 +64,16 @@ namespace SimplCommerce.Module.Pricing.Areas.Pricing.Controllers
                 MaxDiscountAmount = catrtRule.MaxDiscountAmount,
                 UsageLimitPerCoupon = catrtRule.UsageLimitPerCoupon,
                 UsageLimitPerCustomer = catrtRule.UsageLimitPerCustomer,
-                Products = catrtRule.Products.Select(x => new CartRuleProductVm { Id = x.ProductId, Name = x.Product.Name, IsPublished = x.Product.IsPublished }).ToList()
+                Products = catrtRule.Products.Select(x => new CartRuleProductVm
+                {
+                    Id = x.ProductId, Name = x.Product.Name, IsPublished = x.Product.IsPublished
+                }).ToList()
             };
 
-            if(catrtRule.IsCouponRequired)
+            if (catrtRule.IsCouponRequired)
             {
                 var coupon = catrtRule.Coupons.FirstOrDefault();
-                if(coupon != null)
+                if (coupon != null)
                 {
                     model.CouponCode = coupon.Code;
                 }
@@ -100,32 +103,25 @@ namespace SimplCommerce.Module.Pricing.Areas.Pricing.Controllers
                     UsageLimitPerCustomer = model.UsageLimitPerCustomer
                 };
 
-                if(model.IsCouponRequired && !string.IsNullOrWhiteSpace(model.CouponCode))
+                if (model.IsCouponRequired && !string.IsNullOrWhiteSpace(model.CouponCode))
                 {
-                    var coupon = new Coupon
-                    {
-                        CartRule = cartRule,
-                        Code = model.CouponCode
-                    };
+                    var coupon = new Coupon {CartRule = cartRule, Code = model.CouponCode};
 
                     cartRule.Coupons.Add(coupon);
                 }
 
-                foreach(var item in model.Products)
+                foreach (var item in model.Products)
                 {
-                    var cartRuleProduct = new CartRuleProduct
-                    {
-                        CartRule = cartRule,
-                        ProductId = item.Id
-                    };
+                    var cartRuleProduct = new CartRuleProduct {CartRule = cartRule, ProductId = item.Id};
                     cartRule.Products.Add(cartRuleProduct);
                 }
 
                 _cartRuleRepository.Add(cartRule);
                 await _cartRuleRepository.SaveChangesAsync();
 
-                return CreatedAtAction(nameof(Get), new { id = cartRule.Id }, null);
+                return CreatedAtAction(nameof(Get), new {id = cartRule.Id}, null);
             }
+
             return BadRequest(ModelState);
         }
 
@@ -138,7 +134,7 @@ namespace SimplCommerce.Module.Pricing.Areas.Pricing.Controllers
                     .Include(x => x.Coupons)
                     .Include(x => x.Products)
                     .FirstOrDefaultAsync(x => x.Id == id);
-                if(cartRule == null)
+                if (cartRule == null)
                 {
                     return NotFound();
                 }
@@ -161,11 +157,7 @@ namespace SimplCommerce.Module.Pricing.Areas.Pricing.Controllers
                     var coupon = cartRule.Coupons.FirstOrDefault();
                     if (coupon == null)
                     {
-                        coupon = new Coupon
-                        {
-                            CartRule = cartRule,
-                            Code = model.CouponCode
-                        };
+                        coupon = new Coupon {CartRule = cartRule, Code = model.CouponCode};
 
                         cartRule.Coupons.Add(coupon);
                     }
@@ -180,18 +172,14 @@ namespace SimplCommerce.Module.Pricing.Areas.Pricing.Controllers
                     var cartRuleProduct = cartRule.Products.FirstOrDefault(x => x.ProductId == item.Id);
                     if (cartRuleProduct == null)
                     {
-                        cartRuleProduct = new CartRuleProduct
-                        {
-                            CartRule = cartRule,
-                            ProductId = item.Id
-                        };
+                        cartRuleProduct = new CartRuleProduct {CartRule = cartRule, ProductId = item.Id};
                         cartRule.Products.Add(cartRuleProduct);
                     }
                 }
 
                 var modelProductIds = model.Products.Select(x => x.Id);
                 var deletedProducts = cartRule.Products.Where(x => !modelProductIds.Contains(x.ProductId)).ToList();
-                foreach(var item in deletedProducts)
+                foreach (var item in deletedProducts)
                 {
                     item.CartRule = null;
                     cartRule.Products.Remove(item);
@@ -200,6 +188,7 @@ namespace SimplCommerce.Module.Pricing.Areas.Pricing.Controllers
                 await _cartRuleRepository.SaveChangesAsync();
                 return Accepted();
             }
+
             return BadRequest(ModelState);
         }
 
@@ -219,7 +208,10 @@ namespace SimplCommerce.Module.Pricing.Areas.Pricing.Controllers
             }
             catch (DbUpdateException)
             {
-                return BadRequest(new { Error = $"The cart rule {cartRule.Name} can't not be deleted because it has been used" });
+                return BadRequest(new
+                {
+                    Error = $"The cart rule {cartRule.Name} can't not be deleted because it has been used"
+                });
             }
 
             return NoContent();

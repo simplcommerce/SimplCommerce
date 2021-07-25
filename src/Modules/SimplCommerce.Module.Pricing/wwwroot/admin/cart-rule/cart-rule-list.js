@@ -1,8 +1,8 @@
 ﻿/*global angular, confirm*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.pricing')
-        .controller('CartRuleListCtrl', ['cartRuleService', 'translateService', CartRuleListCtrl]);
+        .module("simplAdmin.pricing")
+        .controller("CartRuleListCtrl", ["cartRuleService", "translateService", CartRuleListCtrl]);
 
     function CartRuleListCtrl(cartRuleService, translateService) {
         var vm = this;
@@ -13,7 +13,7 @@
         vm.getCartRules = function getCartRules(tableState) {
             vm.tableStateRef = tableState;
             vm.isLoading = true;
-            cartRuleService.getCartRules(tableState).then(function (result) {
+            cartRuleService.getCartRules(tableState).then(function(result) {
                 vm.cartRules = result.data.items;
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
                 tableState.pagination.totalItemCount = result.data.totalRecord;
@@ -22,18 +22,19 @@
         };
 
         vm.deleteCartRule = function deleteCartRule(cartRule) {
-            bootbox.confirm('Are you sure you want to delete this rule: ' + simplUtil.escapeHtml(cartRule.name), function (result) {
-                if (result) {
-                    cartRuleService.deleteCartRule(cartRule)
-                       .then(function (result) {
-                           vm.getCartRules(vm.tableStateRef);
-                           toastr.success(cartRule.name + ' has been deleted');
-                       })
-                        .catch(function (response) {
-                            toastr.error(response.data.error);
-                       });
-                }
-            });
+            bootbox.confirm("Are you sure you want to delete this rule: " + simplUtil.escapeHtml(cartRule.name),
+                function(result) {
+                    if (result) {
+                        cartRuleService.deleteCartRule(cartRule)
+                            .then(function(result) {
+                                vm.getCartRules(vm.tableStateRef);
+                                toastr.success(cartRule.name + " has been deleted");
+                            })
+                            .catch(function(response) {
+                                toastr.error(response.data.error);
+                            });
+                    }
+                });
         };
     }
 })();

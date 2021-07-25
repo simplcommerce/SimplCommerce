@@ -5,7 +5,7 @@ using SimplCommerce.Module.ProductRecentlyViewed.Models;
 
 namespace SimplCommerce.Module.ProductRecentlyViewed.Data
 {
-    public class RecentlyViewedProductRepository: Repository<Product>, IRecentlyViewedProductRepository
+    public class RecentlyViewedProductRepository : Repository<Product>, IRecentlyViewedProductRepository
     {
         private const long EntityViewedActivityTypeId = 1;
         private const long ProductEntityTypeId = 3;
@@ -18,8 +18,8 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Data
         {
             return from product in DbSet
                 join e in Context.Set<RecentlyViewedProduct>() on product.Id equals e.ProductId
-                   where e.UserId == userId
-                   orderby e.LatestViewedOn descending
+                where e.UserId == userId
+                orderby e.LatestViewedOn descending
                 select product;
         }
     }

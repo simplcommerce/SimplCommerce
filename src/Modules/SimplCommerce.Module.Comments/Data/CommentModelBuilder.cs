@@ -9,7 +9,10 @@ namespace SimplCommerce.Module.Comments.Data
         public void Build(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AppSetting>().HasData(
-                new AppSetting("Catalog.IsCommentsRequireApproval") { Module = "Catalog", IsVisibleInCommonSettingPage = true, Value = "true" }
+                new AppSetting("Catalog.IsCommentsRequireApproval")
+                {
+                    Module = "Catalog", IsVisibleInCommonSettingPage = true, Value = "true"
+                }
             );
         }
     }

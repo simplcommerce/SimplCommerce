@@ -11,17 +11,13 @@ namespace SimplCommerce.Module.Contacts.Models
             CreatedOn = DateTimeOffset.Now;
         }
 
-        [StringLength(450)]
-        public string FullName { get; set; }
+        [StringLength(450)] public string FullName { get; set; }
 
-        [StringLength(450)]
-        public string PhoneNumber { get; set; }
+        [StringLength(450)] public string PhoneNumber { get; set; }
 
-        [StringLength(450)]
-        public string EmailAddress { get; set; }
+        [StringLength(450)] public string EmailAddress { get; set; }
 
-        [StringLength(450)]
-        public string Address { get; set; }
+        [StringLength(450)] public string Address { get; set; }
 
         public string Content { get; set; }
 

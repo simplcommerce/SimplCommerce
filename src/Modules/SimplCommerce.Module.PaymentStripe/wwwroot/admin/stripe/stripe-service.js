@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.paymentStripe')
-        .factory('paymentSripeService', ['$http', paymentSripeService]);
+        .module("simplAdmin.paymentStripe")
+        .factory("paymentSripeService", ["$http", paymentSripeService]);
 
     function paymentSripeService($http) {
         var service = {
@@ -12,11 +12,11 @@
         return service;
 
         function getSettings() {
-            return $http.get('api/stripe/config');
+            return $http.get("api/stripe/config");
         }
 
         function updateSetting(settings) {
-            return $http.put('api/stripe/config', settings);
+            return $http.put("api/stripe/config", settings);
         }
     }
 })();

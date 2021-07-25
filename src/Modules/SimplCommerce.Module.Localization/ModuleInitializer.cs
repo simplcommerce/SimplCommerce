@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
+﻿using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Module.Core.Events;
+using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Localization.Events;
 using SimplCommerce.Module.Localization.Services;
-using SimplCommerce.Module.Core.Services;
-using SimplCommerce.Infrastructure;
 
 namespace SimplCommerce.Module.Localization
 {
@@ -23,7 +23,6 @@ namespace SimplCommerce.Module.Localization
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
         }
     }
 }

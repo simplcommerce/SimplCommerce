@@ -1,7 +1,7 @@
 ﻿/*global angular*/
-(function () {
-    'use strict';
+(function() {
+    "use strict";
 
     angular
-        .module('simplAdmin.activityLog', []);
+        .module("simplAdmin.activityLog", []);
 })();

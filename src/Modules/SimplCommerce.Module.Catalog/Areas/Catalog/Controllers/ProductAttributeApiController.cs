@@ -24,12 +24,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         {
             var attributes = _productAttrRepository
                 .Query()
-                .Select(x => new
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    GroupName = x.Group.Name
-                });
+                .Select(x => new {x.Id, x.Name, GroupName = x.Group.Name});
 
             return Json(attributes);
         }
@@ -40,9 +35,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             var productAttribute = _productAttrRepository.Query().FirstOrDefault(x => x.Id == id);
             var model = new ProductAttributeFormVm
             {
-                Id = productAttribute.Id,
-                Name = productAttribute.Name,
-                GroupId = productAttribute.GroupId
+                Id = productAttribute.Id, Name = productAttribute.Name, GroupId = productAttribute.GroupId
             };
 
             return Json(model);
@@ -54,17 +47,14 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         {
             if (ModelState.IsValid)
             {
-                var productAttribute = new ProductAttribute
-                {
-                    Name = model.Name,
-                    GroupId = model.GroupId
-                };
+                var productAttribute = new ProductAttribute {Name = model.Name, GroupId = model.GroupId};
 
                 _productAttrRepository.Add(productAttribute);
                 _productAttrRepository.SaveChanges();
 
                 return Ok();
             }
+
             return BadRequest(ModelState);
         }
 
@@ -85,6 +75,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
 
             return BadRequest(ModelState);
         }
+
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public IActionResult Delete(long id)

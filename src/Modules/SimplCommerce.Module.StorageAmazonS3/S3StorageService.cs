@@ -12,9 +12,9 @@ namespace SimplCommerce.Module.StorageAmazonS3
 {
     public class S3StorageService : IStorageService
     {
-        private IAmazonS3 _amazonS3Client;
-        private string _bucketName;
-        private string _publicEndpoint;
+        private readonly IAmazonS3 _amazonS3Client;
+        private readonly string _bucketName;
+        private readonly string _publicEndpoint;
 
         public S3StorageService(IConfiguration configuration)
         {
@@ -29,7 +29,8 @@ namespace SimplCommerce.Module.StorageAmazonS3
             Contract.Requires(string.IsNullOrWhiteSpace(secretAccessKey));
             Contract.Requires(string.IsNullOrWhiteSpace(_bucketName));
 
-            _amazonS3Client = new AmazonS3Client(accessKeyId, secretAccessKey, RegionEndpoint.GetBySystemName(regionEndpointName));
+            _amazonS3Client = new AmazonS3Client(accessKeyId, secretAccessKey,
+                RegionEndpoint.GetBySystemName(regionEndpointName));
 
             if (string.IsNullOrWhiteSpace(_publicEndpoint))
             {
@@ -39,11 +40,7 @@ namespace SimplCommerce.Module.StorageAmazonS3
 
         public async Task DeleteMediaAsync(string fileName)
         {
-            var deleteObjectRequest = new DeleteObjectRequest
-            {
-                BucketName = _bucketName,
-                Key = fileName,
-            };
+            var deleteObjectRequest = new DeleteObjectRequest {BucketName = _bucketName, Key = fileName};
 
             await _amazonS3Client.DeleteObjectAsync(deleteObjectRequest);
         }

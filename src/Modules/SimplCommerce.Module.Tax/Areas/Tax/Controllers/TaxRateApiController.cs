@@ -17,10 +17,11 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
     [Route("api/tax-rates")]
     public class TaxRateApiController : Controller
     {
-        private readonly IRepository<TaxRate> _taxRateRepository;
         private readonly IRepository<StateOrProvince> _stateOrProvinceRepository;
+        private readonly IRepository<TaxRate> _taxRateRepository;
 
-        public TaxRateApiController(IRepository<TaxRate> taxRateRepository, IRepository<StateOrProvince> stateOrProvinceRepository)
+        public TaxRateApiController(IRepository<TaxRate> taxRateRepository,
+            IRepository<StateOrProvince> stateOrProvinceRepository)
         {
             _taxRateRepository = taxRateRepository;
             _stateOrProvinceRepository = stateOrProvinceRepository;
@@ -70,7 +71,7 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
         public async Task<IActionResult> Get(long id)
         {
             var taxRate = await _taxRateRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-            if(taxRate == null)
+            if (taxRate == null)
             {
                 return NotFound();
             }
@@ -105,8 +106,9 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
                 _taxRateRepository.Add(tagRate);
                 await _taxRateRepository.SaveChangesAsync();
 
-                return CreatedAtAction(nameof(Get), new { id = tagRate.Id }, null);
+                return CreatedAtAction(nameof(Get), new {id = tagRate.Id}, null);
             }
+
             return BadRequest(ModelState);
         }
 
@@ -150,7 +152,11 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
             }
             catch (DbUpdateException)
             {
-                return BadRequest(new { Error = $"The tax rate {taxRate.Id} can't not be deleted because it is referenced by other tables" });
+                return BadRequest(new
+                {
+                    Error =
+                        $"The tax rate {taxRate.Id} can't not be deleted because it is referenced by other tables"
+                });
             }
 
             return NoContent();
@@ -165,11 +171,13 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
             }
 
             var inputStream = model.CsvFile.OpenReadStream();
-            var records = CsvConverter.ReadCsvStream<TaxRateImport>(model.CsvFile.OpenReadStream(), model.IncludeHeader, model.CsvDelimiter);
+            var records = CsvConverter.ReadCsvStream<TaxRateImport>(model.CsvFile.OpenReadStream(), model.IncludeHeader,
+                model.CsvDelimiter);
 
-            foreach(var record in records)
+            foreach (var record in records)
             {
-                var stateOrProvince = _stateOrProvinceRepository.Query().FirstOrDefault(x => x.Name == record.StateOrProvinceName);
+                var stateOrProvince = _stateOrProvinceRepository.Query()
+                    .FirstOrDefault(x => x.Name == record.StateOrProvinceName);
                 var taxRate = new TaxRate
                 {
                     TaxClassId = record.TaxClassId,

@@ -59,11 +59,11 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
                 param,
                 x => new
                 {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Description = x.Description,
-                    IsActive = x.IsActive,
-                    CreatedOn = x.CreatedOn
+                    x.Id,
+                    x.Name,
+                    x.Description,
+                    x.IsActive,
+                    x.CreatedOn
                 });
 
             return Json(customerGroups);
@@ -72,11 +72,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var customerGroups = await _customerGroupRepository.Query().Select(x => new
-            {
-                Id = x.Id,
-                Name = x.Name
-            }).ToListAsync();
+            var customerGroups = await _customerGroupRepository.Query().Select(x => new {x.Id, x.Name}).ToListAsync();
 
             return Json(customerGroups);
         }
@@ -85,7 +81,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         public async Task<IActionResult> Get(long id)
         {
             var customerGroup = await _customerGroupRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-            if(customerGroup == null)
+            if (customerGroup == null)
             {
                 return NotFound();
             }
@@ -108,14 +104,12 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             {
                 var customerGroup = new CustomerGroup
                 {
-                    Name = model.Name,
-                    Description = model.Description,
-                    IsActive = model.IsActive
+                    Name = model.Name, Description = model.Description, IsActive = model.IsActive
                 };
 
                 _customerGroupRepository.Add(customerGroup);
                 await _customerGroupRepository.SaveChangesAsync();
-                return CreatedAtAction(nameof(Get), new { id = customerGroup.Id }, null);
+                return CreatedAtAction(nameof(Get), new {id = customerGroup.Id}, null);
             }
 
             return BadRequest(ModelState);
@@ -127,7 +121,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             if (ModelState.IsValid)
             {
                 var customerGroup = await _customerGroupRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-                if(customerGroup == null)
+                if (customerGroup == null)
                 {
                     return NotFound();
                 }
@@ -137,7 +131,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
                 customerGroup.IsActive = model.IsActive;
                 customerGroup.LatestUpdatedOn = DateTimeOffset.Now;
 
-                await  _customerGroupRepository.SaveChangesAsync();
+                await _customerGroupRepository.SaveChangesAsync();
                 return Accepted();
             }
 
@@ -154,7 +148,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             }
 
             customerGroup.IsDeleted = true;
-            await  _customerGroupRepository.SaveChangesAsync();
+            await _customerGroupRepository.SaveChangesAsync();
             return NoContent();
         }
     }

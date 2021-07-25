@@ -1,14 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewComponents;
-using Moq;
-using Newtonsoft.Json;
-using SimplCommerce.Module.Core.Services;
-using Xunit;
-
-namespace SimplCommerce.Module.Cms.Tests.Components
+﻿namespace SimplCommerce.Module.Cms.Tests.Components
 {
     /*
     Maybe we should not maintain these kind of unit test, it doesn't bring much value but waste of time

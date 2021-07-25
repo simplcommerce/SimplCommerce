@@ -1,8 +1,8 @@
-﻿ /*global angular*/
-(function () {
+﻿/*global angular*/
+(function() {
     angular
-        .module('simplAdmin.core')
-        .controller('UserFormCtrl', ['$state', '$stateParams', 'userService', 'translateService', UserFormCtrl]);
+        .module("simplAdmin.core")
+        .controller("UserFormCtrl", ["$state", "$stateParams", "userService", "translateService", UserFormCtrl]);
 
     function UserFormCtrl($state, $stateParams, userService, translateService) {
         var vm = this;
@@ -41,10 +41,10 @@
             }
 
             promise
-                .then(function (result) {
-                    $state.go('users');
+                .then(function(result) {
+                    $state.go("users");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -52,32 +52,32 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add user.');
+                        vm.validationErrors.push("Could not add user.");
                     }
                 });
         };
 
         function getVendors() {
-            userService.getVendors().then(function (result) {
+            userService.getVendors().then(function(result) {
                 vm.vendors = result.data;
             });
         }
 
         function getRoles() {
-            userService.getRoles().then(function (result) {
+            userService.getRoles().then(function(result) {
                 vm.roles = result.data;
             });
         }
 
         function getCustomerGroups() {
-            userService.getCustomerGroups().then(function (result) {
+            userService.getCustomerGroups().then(function(result) {
                 vm.customerGroups = result.data;
             });
         }
 
         function init() {
             if (vm.isEditMode) {
-                userService.getUser(vm.userId).then(function (result) {
+                userService.getUser(vm.userId).then(function(result) {
                     vm.user = result.data;
                 });
             }

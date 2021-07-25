@@ -10,20 +10,8 @@
 
         public decimal PaymentFee { get; set; }
 
-        public string Environment
-        {
-            get
-            {
-                return IsSandbox ? "sandbox" : "production";
-            }
-        }
+        public string Environment => IsSandbox ? "sandbox" : "production";
 
-        public string EnvironmentUrlPart
-        {
-            get
-            {
-                return IsSandbox ? ".sandbox" : "";
-            }
-        }
+        public string EnvironmentUrlPart => IsSandbox ? ".sandbox" : "";
     }
 }

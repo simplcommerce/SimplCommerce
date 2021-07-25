@@ -78,8 +78,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels
 
         public long? TaxClassId { get; set; }
 
-        public List<ProductLinkVm> RelatedProducts { get; set; } = new List<ProductLinkVm>();
+        public List<ProductLinkVm> RelatedProducts { get; set; } = new();
 
-        public List<ProductLinkVm> CrossSellProducts { get; set; } = new List<ProductLinkVm>();
+        public List<ProductLinkVm> CrossSellProducts { get; set; } = new();
     }
 }

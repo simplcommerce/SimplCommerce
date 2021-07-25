@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.ViewModels
+﻿namespace SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.ViewModels
 {
     public class CashfreeResponse
     {

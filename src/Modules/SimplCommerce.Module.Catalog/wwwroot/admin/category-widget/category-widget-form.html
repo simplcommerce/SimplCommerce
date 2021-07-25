@@ -13,23 +13,26 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">{{::vm.translate.get('Widget Name')}}</label>
                 <div class="col-sm-10">
-                    <input name="name" ng-model="vm.widgetInstance.name" class="form-control" />
+                    <input name="name" ng-model="vm.widgetInstance.name" class="form-control"/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">{{::vm.translate.get('Widget Zone')}}</label>
                 <div class="col-sm-10">
                     <select ng-model="vm.widgetInstance.widgetZoneId" class="form-control"
-                            ng-options="zone.id as zone.name for zone in vm.widgetZones"></select>
+                            ng-options="zone.id as zone.name for zone in vm.widgetZones">
+                    </select>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">{{::vm.translate.get('Publish Start')}}</label>
                 <div class="col-sm-10">
                     <p class="input-group">
-                        <input type="text" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="vm.widgetInstance.publishStart" is-open="vm.datePickerPublishStart.open" datepicker-options="vm.datePickerPublishStart.datepickerOptions" />
+                        <input type="text" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="vm.widgetInstance.publishStart" is-open="vm.datePickerPublishStart.open" datepicker-options="vm.datePickerPublishStart.datepickerOptions"/>
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="vm.openCalendar($event, 'datePickerPublishStart')"><i class="fa fa-calendar"></i></button>
+                            <button type="button" class="btn btn-default" ng-click="vm.openCalendar($event, 'datePickerPublishStart')">
+                                <i class="fa fa-calendar"></i>
+                            </button>
                         </span>
                     </p>
                 </div>
@@ -38,9 +41,11 @@
                 <label class="col-sm-2 control-label">{{::vm.translate.get('Publish End')}}</label>
                 <div class="col-sm-10">
                     <p class="input-group">
-                        <input type="text" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="vm.widgetInstance.publishEnd" is-open="vm.datePickerPublishEnd.open" datepicker-options="vm.datePickerPublishEnd.datepickerOptions" />
+                        <input type="text" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="vm.widgetInstance.publishEnd" is-open="vm.datePickerPublishEnd.open" datepicker-options="vm.datePickerPublishEnd.datepickerOptions"/>
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="vm.openCalendar($event, 'datePickerPublishEnd')"><i class="fa fa-calendar"></i></button>
+                            <button type="button" class="btn btn-default" ng-click="vm.openCalendar($event, 'datePickerPublishEnd')">
+                                <i class="fa fa-calendar"></i>
+                            </button>
                         </span>
                     </p>
                 </div>
@@ -49,7 +54,8 @@
                 <label class="col-sm-2 control-label">{{::vm.translate.get('Display Order')}}</label>
                 <div class="col-sm-10">
                     <select ng-model="vm.widgetInstance.displayOrder" class="form-control"
-                            ng-options="n for n in vm.numberOfWidgets"></select>
+                            ng-options="n for n in vm.numberOfWidgets">
+                    </select>
                 </div>
             </div>
             <div class="form-group">

@@ -1,21 +1,20 @@
-﻿@using cloudscribe.Web.Pagination
-@model SimplCommerce.Module.WishList.Areas.WishList.ViewModels.WishListVm
+﻿@model SimplCommerce.Module.WishList.Areas.WishList.ViewModels.WishListVm
 @{
     ViewData["Title"] = Localizer["Wish List"];
 }
 
 @section head
 {
-    <link simpl-append-version="true" rel="stylesheet" href="~/_content/SimplCommerce.Module.WishList/private-list.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/_content/SimplCommerce.Module.WishList/private-list.css"/>
 }
 
 <div class="row">
     <div class="col-md-3">
-        <partial name="_AccountMenu" />
+        <partial name="_AccountMenu"/>
     </div>
     <div class="wishlist col-md-9">
         <h2>@Localizer["Wish List"]</h2>
-        <hr />
+        <hr/>
         @if (Model.Items.TotalItems > 0)
         {
             foreach (var item in Model.Items.Data)
@@ -27,15 +26,19 @@
                     <div class="col-md-9">
                         <h4>@item.ProductName</h4>
                         <form>
-                            <input type="hidden" name="itemId" value="@item.Id" />
-                            <input type="hidden" name="productId" value="@item.ProductId" />
+                            <input type="hidden" name="itemId" value="@item.Id"/>
+                            <input type="hidden" name="productId" value="@item.ProductId"/>
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">@Localizer["Quantity"]</label>
-                                <div class="col-md-8"><input type="number" name="qty" class="quantity-field" value="@item.Quantity" /></div>
+                                <div class="col-md-8">
+                                    <input type="number" name="qty" class="quantity-field" value="@item.Quantity"/>
+                                </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">@Localizer["Description"]</label>
-                                <div class="col-sm-8"><textarea name="description">@item.Description</textarea></div>
+                                <div class="col-sm-8">
+                                    <textarea name="description">@item.Description</textarea>
+                                </div>
                             </div>
                             <div class="form-group row">
                                 <div class="offset-md-4 col-md-8">
@@ -64,7 +67,8 @@
                           cs-pager-li-other-class="page-item"
                           cs-pager-li-non-active-class="page-item disabled"
                           cs-pager-link-current-class="page-link"
-                          cs-pager-link-other-class="page-link"></cs-pager>
+                          cs-pager-link-other-class="page-link">
+                </cs-pager>
             </div>
         }
         else

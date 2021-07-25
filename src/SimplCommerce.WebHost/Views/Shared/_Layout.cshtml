@@ -1,123 +1,128 @@
 ﻿@using System.Globalization
-
+@using SimplCommerce.Infrastructure
 <!doctype html>
 <html lang="@CultureInfo.CurrentUICulture.Name.ToLowerInvariant()">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewData["Title"] - SimplCommerce</title>
     @RenderSection("additionalMeta", false)
 
-    <link simpl-append-version="true" rel="stylesheet" href="~/libs.min.css" />
-    <link simpl-append-version="true" rel="stylesheet" href="~/_content/SimplCommerce.Module.Core/site.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/libs.min.css"/>
+    <link simpl-append-version="true" rel="stylesheet" href="~/_content/SimplCommerce.Module.Core/site.css"/>
     <script simpl-append-version="true" src="~/lib/angular/angular.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
 
-    @RenderSection("head", required: false)
+    @RenderSection("head", false)
 </head>
 <body>
-    <div class="top-bar">
-        <div class="container">
-            <ul class="nav justify-content-end">
-                <partial name="_SelectLanguagePartial" />
-                <partial name="_LoginPartial" />
-            </ul>
-        </div>
+<div class="top-bar">
+    <div class="container">
+        <ul class="nav justify-content-end">
+            <partial name="_SelectLanguagePartial"/>
+            <partial name="_LoginPartial"/>
+        </ul>
     </div>
-    <div class="main-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-md-6 col-lg-4 logo">
-                    <a asp-area="Core" asp-controller="Home" asp-action="Index">
-                        <img alt="SimplCommerce" src="~/_content/SimplCommerce.Module.Core/Logo_SimplCommerce.png" />
-                    </a>
-                </div>
-                <div class="col-10 col-md-5 col-lg-7 search-box">
-                    @await Component.InvokeAsync("SearchForm")
-                </div>
-                <div class="col-2 col-md-1 cart-btn">
-                    @await Component.InvokeAsync("CartBadge")
-                </div>
+</div>
+<div class="main-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-4 logo">
+                <a asp-area="Core" asp-controller="Home" asp-action="Index">
+                    <img alt="SimplCommerce" src="~/_content/SimplCommerce.Module.Core/Logo_SimplCommerce.png"/>
+                </a>
+            </div>
+            <div class="col-10 col-md-5 col-lg-7 search-box">
+                @await Component.InvokeAsync("SearchForm")
+            </div>
+            <div class="col-2 col-md-1 cart-btn">
+                @await Component.InvokeAsync("CartBadge")
             </div>
         </div>
     </div>
-    <div class="navbar navbar-expand-lg navbar-light bg-light btco-hover-menu main-nav">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarMain">
-                @await Component.InvokeAsync("CategoryMenu")
-            </div>
+</div>
+<div class="navbar navbar-expand-lg navbar-light bg-light btco-hover-menu main-nav">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMain">
+            @await Component.InvokeAsync("CategoryMenu")
         </div>
     </div>
-    <partial name="_CookieConsentPartial" />
-    <div class="container body-content clearfix">
-        @RenderBody()
-    </div>
-    <div class="footer-content">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <h4>@Localizer["Customer Service"]</h4>
-                    <vc:menu menu-id="1"></vc:menu>
-                </div>
-                <div class="col-md-3">
-                    <h4>@Localizer["Information"]</h4>
-                    <vc:menu menu-id="2"></vc:menu>
-                </div>
-                <div class="col-md-6">
-                    <h4>SimplCommerce</h4>
-                    <p>The first ecommerce system built on .NET Core.</p>
-                    <p>Simple to use and easy to customize</p>
-                    <p>Cross platform and Open source</p>
-                </div>
+</div>
+<partial name="_CookieConsentPartial"/>
+<div class="container body-content clearfix">
+    @RenderBody()
+</div>
+<div class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h4>@Localizer["Customer Service"]</h4>
+                <vc:menu menu-id="1"></vc:menu>
             </div>
-            <hr />
-            <!--
-                You are freely remove or change this copyright notice below.
-                If you like SimplCommerce and want to help us continue to develop it then
-                you can donate us at https://opencollective.com/simplcommerce. Thanks
-            -->
-            <p class="pull-left">&copy; @DateTime.Now.Year - SimplCommerce</p>
-            <p class="pull-right">Powered by <a href="http://www.SimplCommerce.com"><strong>SimplCommerce</strong></a></p>
-        </div>
-    </div>
-    <div id="shopModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+            <div class="col-md-3">
+                <h4>@Localizer["Information"]</h4>
+                <vc:menu menu-id="2"></vc:menu>
+            </div>
+            <div class="col-md-6">
+                <h4>SimplCommerce</h4>
+                <p>The first ecommerce system built on .NET Core.</p>
+                <p>Simple to use and easy to customize</p>
+                <p>Cross platform and Open source</p>
             </div>
         </div>
+        <hr/>
+        <!--
+        You are freely remove or change this copyright notice below.
+        If you like SimplCommerce and want to help us continue to develop it then
+        you can donate us at https://opencollective.com/simplcommerce. Thanks
+        -->
+        <p class="pull-left">&copy; @DateTime.Now.Year - SimplCommerce</p>
+        <p class="pull-right">
+            Powered by
+            <a href="http://www.SimplCommerce.com">
+                <strong>SimplCommerce</strong>
+            </a>
+        </p>
     </div>
-    <div id="productOverview" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content modal-padding">
-            </div>
+</div>
+<div id="shopModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
         </div>
     </div>
-    <script>
-            window.simplGlobalSetting = {};
-            window.simplGlobalSetting.lang = '@CultureInfo.CurrentCulture.Name';
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script simpl-append-version="true" src="~/lib/bootstrap4/js/bootstrap.js"></script>
-    <script simpl-append-version="true" src="~/lib/multi-dropdown-menu/js/bootstrap-4-navbar.js"></script>
-    <script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
-    <script simpl-append-version="true" src="~/lib/toastr/build/toastr.min.js"></script>
-    <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
-    <script simpl-append-version="true" src="~/lib/signalr/dist/browser/signalr.js"></script>
-    @if(CultureInfo.CurrentCulture.Name != SimplCommerce.Infrastructure.GlobalConfiguration.DefaultCulture)
-    {
-        <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/@(CultureInfo.CurrentCulture.Name).js"></script>
-    }
-    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Core/main.js"></script>
-    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.ShoppingCart/add-to-cart.js"></script>
-    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.ProductComparison/product-comparison.js"></script>
-    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.WishList/wishlist.js"></script>
-    @RenderSection("scripts", required: false)
+</div>
+<div id="productOverview" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-padding">
+        </div>
+    </div>
+</div>
+<script>
+    window.simplGlobalSetting = {};
+    window.simplGlobalSetting.lang = '@CultureInfo.CurrentCulture.Name';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script simpl-append-version="true" src="~/lib/bootstrap4/js/bootstrap.js"></script>
+<script simpl-append-version="true" src="~/lib/multi-dropdown-menu/js/bootstrap-4-navbar.js"></script>
+<script simpl-append-version="true" src="~/lib/matchheight/jquery.matchHeight.js"></script>
+<script simpl-append-version="true" src="~/lib/toastr/build/toastr.min.js"></script>
+<script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/star-rating.js"></script>
+<script simpl-append-version="true" src="~/lib/signalr/dist/browser/signalr.js"></script>
+@if (CultureInfo.CurrentCulture.Name != GlobalConfiguration.DefaultCulture)
+{
+    <script simpl-append-version="true" src="~/lib/bootstrap-star-rating/js/locales/@(CultureInfo.CurrentCulture.Name).js"></script>
+}
+<script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Core/main.js"></script>
+<script simpl-append-version="true" src="~/_content/SimplCommerce.Module.ShoppingCart/add-to-cart.js"></script>
+<script simpl-append-version="true" src="~/_content/SimplCommerce.Module.ProductComparison/product-comparison.js"></script>
+<script simpl-append-version="true" src="~/_content/SimplCommerce.Module.WishList/wishlist.js"></script>
+@RenderSection("scripts", false)
 
-    <partial name="_AnalyticsScript" />
+<partial name="_AnalyticsScript"/>
 </body>
 </html>

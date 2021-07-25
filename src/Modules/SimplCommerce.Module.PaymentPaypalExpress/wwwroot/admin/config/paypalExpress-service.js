@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.paymentPaypalExpress')
-        .factory('paypalExpressService', ['$http', paypalExpressService]);
+        .module("simplAdmin.paymentPaypalExpress")
+        .factory("paypalExpressService", ["$http", paypalExpressService]);
 
     function paypalExpressService($http) {
         var service = {
@@ -12,11 +12,11 @@
         return service;
 
         function getSettings() {
-            return $http.get('api/paypal-express/config');
+            return $http.get("api/paypal-express/config");
         }
 
         function updateSetting(settings) {
-            return $http.put('api/paypal-express/config', settings);
+            return $http.put("api/paypal-express/config", settings);
         }
     }
 })();

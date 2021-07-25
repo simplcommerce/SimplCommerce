@@ -1,5 +1,5 @@
-﻿using SimplCommerce.Infrastructure.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Infrastructure.Localization
 {

@@ -16,22 +16,25 @@ namespace SimplCommerce.Module.Localization.Services
     {
         private readonly IRepository<LocalizedContentProperty> _entityRepository;
         private readonly bool _isLocalizedConentEnable;
-        private IMemoryCache _memoryCache;
+        private readonly IMemoryCache _memoryCache;
 
-        public ContentLocalizationService(IRepository<LocalizedContentProperty> entityRepository, IMemoryCache memoryCache, IConfiguration config)
+        public ContentLocalizationService(IRepository<LocalizedContentProperty> entityRepository,
+            IMemoryCache memoryCache, IConfiguration config)
         {
             _entityRepository = entityRepository;
             _memoryCache = memoryCache;
             _isLocalizedConentEnable = config.GetValue<bool>("Localization.LocalizedConentEnable");
         }
 
-        public string GetLocalizedProperty<TEntity>(TEntity entity, string propertyName, string propertyValue) where TEntity : EntityBase
+        public string GetLocalizedProperty<TEntity>(TEntity entity, string propertyName, string propertyValue)
+            where TEntity : EntityBase
         {
             var culture = CultureInfo.CurrentCulture.Name;
             return GetLocalizedProperty(entity, propertyName, propertyValue, culture);
         }
 
-        public string GetLocalizedProperty<TEntity>(TEntity entity, string propertyName, string propertyValue, string cultureId) where TEntity : EntityBase
+        public string GetLocalizedProperty<TEntity>(TEntity entity, string propertyName, string propertyValue,
+            string cultureId) where TEntity : EntityBase
         {
             if (entity == null)
             {
@@ -47,7 +50,8 @@ namespace SimplCommerce.Module.Localization.Services
             return GetLocalizedProperty(entityType, entityId, propertyName, propertyValue, culture);
         }
 
-        public string GetLocalizedProperty(string entityType, long entityId, string propertyName, string propertyValue, string cultureId)
+        public string GetLocalizedProperty(string entityType, long entityId, string propertyName, string propertyValue,
+            string cultureId)
         {
             if (!_isLocalizedConentEnable)
             {
@@ -85,14 +89,16 @@ namespace SimplCommerce.Module.Localization.Services
         {
             var localizedContentProperties = GetLocalizationFromDb(entityType);
 
-            Func<long, string, string, string> resultFunction = (long entityId, string propertyName, string propertyValue) =>
+            Func<long, string, string, string> resultFunction = (entityId, propertyName, propertyValue) =>
             {
                 if (!localizedContentProperties.Any())
                 {
                     return propertyValue;
                 }
 
-                var result = localizedContentProperties.Where(lcp => lcp.EntityId == entityId && lcp.ProperyName == propertyName);
+                var result =
+                    localizedContentProperties.Where(lcp =>
+                        lcp.EntityId == entityId && lcp.ProperyName == propertyName);
 
                 return result.FirstOrDefault()?.Value ?? propertyValue;
             };
@@ -117,14 +123,15 @@ namespace SimplCommerce.Module.Localization.Services
             return localizedProperties;
         }
 
-        private List<LocalizedContentProperty> GetLocalizedPropertiesFromDb(string entityType, long? entityId, string cultureId)
+        private List<LocalizedContentProperty> GetLocalizedPropertiesFromDb(string entityType, long? entityId,
+            string cultureId)
         {
             Expression<Func<LocalizedContentProperty, bool>> expression = localizedContentProperty => entityId == null
                 ? localizedContentProperty.EntityType == entityType
-                    && localizedContentProperty.CultureId == cultureId
+                  && localizedContentProperty.CultureId == cultureId
                 : localizedContentProperty.EntityId == entityId
-                    && localizedContentProperty.EntityType == entityType
-                    && localizedContentProperty.CultureId == cultureId;
+                  && localizedContentProperty.EntityType == entityType
+                  && localizedContentProperty.CultureId == cultureId;
 
             var localizedProperties = _entityRepository.Query().Where(expression).ToList();
             return localizedProperties;

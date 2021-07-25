@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.inventory')
-        .controller('StockFormCtrl', ['stockService', 'translateService', StockFormCtrl]);
+        .module("simplAdmin.inventory")
+        .controller("StockFormCtrl", ["stockService", "translateService", StockFormCtrl]);
 
     function StockFormCtrl(stockService, translateService) {
         var vm = this;
@@ -14,7 +14,7 @@
         vm.getStocks = function getStocks(tableState) {
             vm.tableStateRef = tableState;
             vm.isLoading = true;
-            stockService.getStocks(vm.selectedWarehouse.id, tableState).then(function (result) {
+            stockService.getStocks(vm.selectedWarehouse.id, tableState).then(function(result) {
                 vm.stocks = result.data.items;
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
                 tableState.pagination.totalItemCount = result.data.totalRecord;
@@ -27,16 +27,16 @@
         };
 
         vm.save = function save() {
-            stockService.updateStocks(vm.selectedWarehouse.id, vm.stocks).then(function (result) {
-                vm.getStocks(vm.tableStateRef);
-                toastr.success('Stocks have been updated');
-            })
-                .catch(function (response) {
+            stockService.updateStocks(vm.selectedWarehouse.id, vm.stocks).then(function(result) {
+                    vm.getStocks(vm.tableStateRef);
+                    toastr.success("Stocks have been updated");
+                })
+                .catch(function(response) {
                     toastr.error(response.data.error);
                 });
         };
 
-        stockService.getWarehouses().then(function (result) {
+        stockService.getWarehouses().then(function(result) {
             vm.warehouses = result.data;
             if (vm.warehouses.length >= 1) {
                 vm.selectedWarehouse = vm.warehouses[0];

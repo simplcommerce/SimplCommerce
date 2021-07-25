@@ -5,15 +5,6 @@ namespace SimplCommerce.Infrastructure.Tests
 {
     public class EnumHelperTests
     {
-        enum Importance
-        {
-            None,
-            Trivial,
-            Regular,
-            Important,
-            Critical
-        };
-
         [Fact]
         public void GetDisplayNameImportanceEnumCriticalShouldReturnsCritical()
         {
@@ -26,6 +17,15 @@ namespace SimplCommerce.Infrastructure.Tests
         {
             var dic = EnumHelper.ToDictionary(typeof(Importance));
             Assert.Equal(5, dic.Count);
+        }
+
+        private enum Importance
+        {
+            None,
+            Trivial,
+            Regular,
+            Important,
+            Critical
         }
     }
 }

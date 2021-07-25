@@ -15,7 +15,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
         private readonly IRepository<Category> _categoryRepository;
         private readonly IContentLocalizationService _contentLocalizationService;
 
-        public CategoryBreadcrumbViewComponent(IRepository<Category> categoryRepository, IContentLocalizationService contentLocalizationService)
+        public CategoryBreadcrumbViewComponent(IRepository<Category> categoryRepository,
+            IContentLocalizationService contentLocalizationService)
         {
             _categoryRepository = categoryRepository;
             _contentLocalizationService = contentLocalizationService;
@@ -45,20 +46,23 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
                 .FirstOrDefault(x => x.Id == categoryId);
             var breadcrumbModels = new List<BreadcrumbViewModel>
             {
-                new BreadcrumbViewModel
+                new()
                 {
-                    Text = _contentLocalizationService.GetLocalizedProperty(category, nameof(category.Name), category.Name),
+                    Text = _contentLocalizationService.GetLocalizedProperty(category, nameof(category.Name),
+                        category.Name),
                     Url = category.Slug
                 }
             };
             var parentCategory = category.Parent;
             while (parentCategory != null)
             {
-                breadcrumbModels.Insert(0, new BreadcrumbViewModel
-                {
-                    Text = _contentLocalizationService.GetLocalizedProperty(parentCategory, nameof(parentCategory.Name), parentCategory.Name),
-                    Url = parentCategory.Slug
-                });
+                breadcrumbModels.Insert(0,
+                    new BreadcrumbViewModel
+                    {
+                        Text = _contentLocalizationService.GetLocalizedProperty(parentCategory,
+                            nameof(parentCategory.Name), parentCategory.Name),
+                        Url = parentCategory.Slug
+                    });
                 parentCategory = parentCategory.Parent;
             }
 

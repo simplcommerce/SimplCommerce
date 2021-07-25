@@ -17,8 +17,7 @@ namespace SimplCommerce.Module.Orders.Models
 
         public string OrderSnapshot { get; set; }
 
-        [StringLength(1000)]
-        public string Note { get; set; }
+        [StringLength(1000)] public string Note { get; set; }
 
         public DateTimeOffset CreatedOn { get; set; }
 

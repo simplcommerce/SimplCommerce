@@ -12,8 +12,7 @@ namespace SimplCommerce.Module.Core.Models
             LatestUpdatedOn = DateTimeOffset.Now;
         }
 
-        [StringLength(450)]
-        public string Name { get; set; }
+        [StringLength(450)] public string Name { get; set; }
 
         public DateTimeOffset CreatedOn { get; set; }
 
@@ -23,8 +22,7 @@ namespace SimplCommerce.Module.Core.Models
 
         public DateTimeOffset? PublishEnd { get; set; }
 
-        [StringLength(450)]
-        public string WidgetId { get; set; }
+        [StringLength(450)] public string WidgetId { get; set; }
 
         public Widget Widget { get; set; }
 
@@ -39,14 +37,9 @@ namespace SimplCommerce.Module.Core.Models
         public string HtmlData { get; set; }
 
         /// <summary>
-        /// This property cannot be used to filter again DB because it don't exist in database
+        ///     This property cannot be used to filter again DB because it don't exist in database
         /// </summary>
-        public bool IsPublished
-        {
-            get
-            {
-                return PublishStart.HasValue && PublishStart.Value < DateTimeOffset.Now && (!PublishEnd.HasValue || PublishEnd.Value > DateTimeOffset.Now);
-            }
-        }
+        public bool IsPublished => PublishStart.HasValue && PublishStart.Value < DateTimeOffset.Now &&
+                                   (!PublishEnd.HasValue || PublishEnd.Value > DateTimeOffset.Now);
     }
 }

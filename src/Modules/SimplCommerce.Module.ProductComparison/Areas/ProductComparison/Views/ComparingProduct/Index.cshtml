@@ -6,54 +6,67 @@
 
 <h1>@Localizer["Compare products"]</h1>
 
-@if(Model.Products.Any())
+@if (Model.Products.Any())
 {
     <table class="table table-striped table-bordered">
         <tr>
             <td> </td>
             @foreach (var product in Model.Products)
             {
-                <td><a href="#" class="remove-item-comparison" data-product-id="@product.ProductId" data-reload="true">@Localizer["Remove"]</a></td>
+                <td>
+                    <a href="#" class="remove-item-comparison" data-product-id="@product.ProductId" data-reload="true">@Localizer["Remove"]</a>
+                </td>
             }
         </tr>
         <tr>
             <td> </td>
             @foreach (var product in Model.Products)
             {
-                <td><img alt="@product.ProductName" class="img-fluid" src="@product.ProductImage"></td>
+                <td>
+                    <img alt="@product.ProductName" class="img-fluid" src="@product.ProductImage">
+                </td>
             }
         </tr>
         <tr>
-            <td><strong>@Localizer["Name"]</strong></td>
+            <td>
+                <strong>@Localizer["Name"]</strong>
+            </td>
             @foreach (var product in Model.Products)
             {
-                <td><strong>@product.ProductName</strong></td>
+                <td>
+                    <strong>@product.ProductName</strong>
+                </td>
             }
         </tr>
         <tr>
-            <td><strong>@Localizer["Price"]</strong></td>
+            <td>
+                <strong>@Localizer["Price"]</strong>
+            </td>
             @foreach (var product in Model.Products)
             {
                 <td>@product.CalculatedProductPrice.PriceString</td>
             }
         </tr>
-        @foreach(var attr in Model.Attributes)
+        @foreach (var attr in Model.Attributes)
         {
             <tr>
-                <td><strong>@attr.Name</strong></td>
+                <td>
+                    <strong>@attr.Name</strong>
+                </td>
                 @foreach (var product in Model.Products)
                 {
                     <td>
-                        @{ 
+                        @{
                             var value = product.AttributeValues.FirstOrDefault(x => x.AttributeId == attr.AttributeId)?.Value ?? "";
-                            }
+                        }
                         @value
                     </td>
                 }
             </tr>
         }
     </table>
-}else{
+}
+else
+{
     <p>@Localizer["There is no product to compare"]</p>
 }
-

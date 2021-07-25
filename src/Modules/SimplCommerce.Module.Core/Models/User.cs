@@ -8,13 +8,13 @@ namespace SimplCommerce.Module.Core.Models
 {
     public class User : IdentityUser<long>, IEntityWithTypedId<long>, IExtendableObject
     {
+        public const string SettingsDataKey = "Settings";
+
         public User()
         {
             CreatedOn = DateTimeOffset.Now;
             LatestUpdatedOn = DateTimeOffset.Now;
         }
-
-        public const string SettingsDataKey = "Settings";
 
         public Guid UserGuid { get; set; }
 
@@ -40,15 +40,13 @@ namespace SimplCommerce.Module.Core.Models
 
         public long? DefaultBillingAddressId { get; set; }
 
-        [StringLength(450)]
-        public string RefreshTokenHash { get; set; }
+        [StringLength(450)] public string RefreshTokenHash { get; set; }
 
         public IList<UserRole> Roles { get; set; } = new List<UserRole>();
 
         public IList<CustomerGroupUser> CustomerGroups { get; set; } = new List<CustomerGroupUser>();
 
-        [StringLength(450)]
-        public string Culture { get; set; }
+        [StringLength(450)] public string Culture { get; set; }
 
         /// <inheritdoc />
         public string ExtensionData { get; set; }

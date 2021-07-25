@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.inventory')
-        .controller('StockHistoryCtrl', ['$stateParams', 'stockService', 'translateService', StockHistoryCtrl]);
+        .module("simplAdmin.inventory")
+        .controller("StockHistoryCtrl", ["$stateParams", "stockService", "translateService", StockHistoryCtrl]);
 
     function StockHistoryCtrl($stateParams, stockService, translateService) {
         var vm = this;
@@ -12,7 +12,7 @@
         vm.history = {};
 
         function getStockHistory() {
-            stockService.getStockHistory(vm.warehouseId, vm.productId).then(function (result) {
+            stockService.getStockHistory(vm.warehouseId, vm.productId).then(function(result) {
                 vm.history = result.data;
             });
         }

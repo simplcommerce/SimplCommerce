@@ -11,9 +11,9 @@ namespace SimplCommerce.Module.ActivityLog.Events
 {
     public class EntityViewedHandler : INotificationHandler<EntityViewed>
     {
+        private const long EntityViewedActivityTypeId = 1;
         private readonly IRepository<Activity> _activityRepository;
         private readonly IWorkContext _workContext;
-        private const long EntityViewedActivityTypeId = 1;
 
         public EntityViewedHandler(IRepository<Activity> activityRepository, IWorkContext workcontext)
         {

@@ -21,8 +21,10 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Component
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var nganLuongProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.NganLuongPaymentProviderId);
-            var nganLuongSetting = JsonConvert.DeserializeObject<NganLuongConfigForm>(nganLuongProvider.AdditionalSettings);
+            var nganLuongProvider = await _paymentProviderRepository.Query()
+                .FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.NganLuongPaymentProviderId);
+            var nganLuongSetting =
+                JsonConvert.DeserializeObject<NganLuongConfigForm>(nganLuongProvider.AdditionalSettings);
 
             return View(this.GetViewPath());
         }

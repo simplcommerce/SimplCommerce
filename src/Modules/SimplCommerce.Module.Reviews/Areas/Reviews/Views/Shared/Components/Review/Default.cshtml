@@ -1,6 +1,5 @@
-﻿@using Humanizer;
+﻿@using Humanizer
 @using SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels
-
 @model SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels.ReviewVm
 
 <div class="reviews-module">
@@ -61,7 +60,7 @@
     <div id="addreview">
         @if (Model.HasBoughtProduct)
         {
-            <partial name="/Areas/Reviews/Views/Review/_ReviewForm.cshtml" model="new ReviewForm { EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId }" />
+            <partial name="/Areas/Reviews/Views/Review/_ReviewForm.cshtml" model="new ReviewForm {EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId}"/>
         }
         else
         {
@@ -80,7 +79,7 @@
         }
 
     </div>
-    <hr />
+    <hr/>
     <div id="reviews" class="review-item-list">
         @if (Model.ReviewsCount > 0)
         {
@@ -89,13 +88,13 @@
                 <div>
                     <div>
                         <div class="review-star badge">
-                            <input type="hidden" value="@review.Rating" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" />
+                            <input type="hidden" value="@review.Rating" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false"/>
                         </div>
                         <span class="review-title">@review.Title</span>
                     </div>
                     <div>@review.Comment</div>
                     <div>
-                        @Localizer["By:"] <strong>@review.ReviewerName</strong> <span>@review.CreatedOn.Humanize()</span>  -
+                        @Localizer["By:"] <strong>@review.ReviewerName</strong> <span>@review.CreatedOn.Humanize()</span> -
                         <button class="btn-add-review-reply btn btn-link" data-toggle="collapse" data-target="#reviewReply@(review.Id)" aria-expanded="false" aria-controls="reviewReply@(review.Id)">@Localizer["Add Reply"]</button>
                     </div>
                     <div class="review-replies">
@@ -103,12 +102,14 @@
                         {
                             <div class="review-reply">
                                 <div>@reply.Comment</div>
-                                <div>@Localizer["By:"] <strong>@reply.ReplierName</strong> <span>@reply.CreatedOn.Humanize()</span></div>
+                                <div>
+                                    @Localizer["By:"] <strong>@reply.ReplierName</strong> <span>@reply.CreatedOn.Humanize()</span>
+                                </div>
                             </div>
                         }
                         <div>
                             <div class="add-review-reply mt-3 collapse" id="reviewReply@(review.Id)">
-                                <partial name="/Areas/Reviews/Views/Reply/_ReplyForm.cshtml" model="new ReplyForm { ReviewId = review.Id }" />
+                                <partial name="/Areas/Reviews/Views/Reply/_ReplyForm.cshtml" model="new ReplyForm {ReviewId = review.Id}"/>
                             </div>
                         </div>
                     </div>
@@ -121,7 +122,9 @@
                asp-route-entityId="@Model.EntityId"
                asp-route-entityTypeId="@Model.EntityTypeId"
                asp-route-pageNumber="1"
-               asp-route-pageSize="25">@Localizer["View all {0} reviews", @Model.ReviewsCount]</a>
+               asp-route-pageSize="25">
+                @Localizer["View all {0} reviews", Model.ReviewsCount]
+            </a>
         }
     </div>
 </div>

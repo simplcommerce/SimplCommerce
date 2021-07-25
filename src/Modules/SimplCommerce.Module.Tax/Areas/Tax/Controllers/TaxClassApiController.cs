@@ -15,13 +15,13 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
     [Route("api/tax-classes")]
     public class TaxClassApiController : Controller
     {
-        private readonly IRepository<TaxClass> _taxClassRepository;
         private readonly int _defaultTaxClassId;
+        private readonly IRepository<TaxClass> _taxClassRepository;
 
         public TaxClassApiController(IRepository<TaxClass> taxClassRepository, IConfiguration config)
         {
             _taxClassRepository = taxClassRepository;
-            _defaultTaxClassId =config.GetValue<int>("Tax.DefaultTaxClassId");
+            _defaultTaxClassId = config.GetValue<int>("Tax.DefaultTaxClassId");
         }
 
         [HttpGet]
@@ -29,7 +29,7 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
         {
             var taxClasses = await _taxClassRepository
                 .Query()
-                .Select(x => new { Id = x.Id, Name = x.Name })
+                .Select(x => new {x.Id, x.Name})
                 .ToListAsync();
             return Json(taxClasses);
         }
@@ -38,16 +38,12 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
         public async Task<IActionResult> Get(long id)
         {
             var taxClass = await _taxClassRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-            if(taxClass == null)
+            if (taxClass == null)
             {
                 return NotFound();
             }
 
-            var model = new TaxClassForm
-            {
-                Id = taxClass.Id,
-                Name = taxClass.Name,
-            };
+            var model = new TaxClassForm {Id = taxClass.Id, Name = taxClass.Name};
 
             return Json(model);
         }
@@ -56,11 +52,7 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
         public async Task<IActionResult> Default()
         {
             var defaultTaxClass = await _taxClassRepository.Query()
-                .Select(x => new
-                {
-                    x.Id,
-                    x.Name
-                })
+                .Select(x => new {x.Id, x.Name})
                 .FirstOrDefaultAsync(x => x.Id == _defaultTaxClassId);
 
             return Ok(defaultTaxClass);
@@ -71,16 +63,14 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
         {
             if (ModelState.IsValid)
             {
-                var tagClass = new TaxClass
-                {
-                    Name = model.Name
-                };
+                var tagClass = new TaxClass {Name = model.Name};
 
                 _taxClassRepository.Add(tagClass);
                 await _taxClassRepository.SaveChangesAsync();
 
-                return CreatedAtAction(nameof(Get), new { id = tagClass.Id }, null);
+                return CreatedAtAction(nameof(Get), new {id = tagClass.Id}, null);
             }
+
             return BadRequest(ModelState);
         }
 
@@ -119,7 +109,11 @@ namespace SimplCommerce.Module.Tax.Areas.Tax.Controllers
             }
             catch (DbUpdateException)
             {
-                return BadRequest(new { Error = $"The tax class {taxClass.Name} can't not be deleted because it is referenced by other tables" });
+                return BadRequest(new
+                {
+                    Error =
+                        $"The tax class {taxClass.Name} can't not be deleted because it is referenced by other tables"
+                });
             }
 
             return NoContent();

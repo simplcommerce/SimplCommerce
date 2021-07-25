@@ -23,8 +23,7 @@ namespace SimplCommerce.Module.Reviews.Models
 
         public string Comment { get; set; }
 
-        [StringLength(450)]
-        public string ReplierName { get; set; }
+        [StringLength(450)] public string ReplierName { get; set; }
 
         public ReplyStatus Status { get; set; }
 

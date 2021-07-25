@@ -13,16 +13,16 @@
                 <div class="radio">
                     <label>
                         <input type="radio" name="ShippingAddressId" value="@address.UserAddressId" checked="@(Model.ShippingAddressId == address.UserAddressId ? "checked" : null)">
-                        <strong>@address.ContactName </strong><br />
-                        @address.AddressLine1 <br />
-                        @address.AddressLine2 <br />
+                        <strong>@address.ContactName </strong><br/>
+                        @address.AddressLine1 <br/>
+                        @address.AddressLine2 <br/>
                         Phone: @address.Phone
                     </label>
                 </div>
             }
             <div class="radio">
                 <label>
-                    <input type="radio" name="ShippingAddressId" checked="@(Model.ShippingAddressId == 0 ? "checked" : null)" value="0" />
+                    <input type="radio" name="ShippingAddressId" checked="@(Model.ShippingAddressId == 0 ? "checked" : null)" value="0"/>
                     @Localizer["Add another address"]
                 </label>
             </div>
@@ -94,7 +94,7 @@
             <div>
                 <h3>@Localizer["Billing Address"]</h3>
                 <label>
-                    <input type="checkbox" name="UseShippingAddressAsBillingAddress" checked="@(Model.UseShippingAddressAsBillingAddress ? "checked" : null)" value="true" />
+                    <input type="checkbox" name="UseShippingAddressAsBillingAddress" checked="@(Model.UseShippingAddressAsBillingAddress ? "checked" : null)" value="true"/>
                     @Localizer["Use Selected Shipping Address As Billing Address"]
                 </label>
             </div>
@@ -104,16 +104,16 @@
                     <div class="radio">
                         <label>
                             <input type="radio" name="BillingAddressId" value="@address.UserAddressId" checked="@(Model.BillingAddressId == address.UserAddressId ? "checked" : null)">
-                            <strong>@address.ContactName </strong><br />
-                            @address.AddressLine1 <br />
-                            @address.AddressLine2 <br />
+                            <strong>@address.ContactName </strong><br/>
+                            @address.AddressLine1 <br/>
+                            @address.AddressLine2 <br/>
                             Phone: @address.Phone
                         </label>
                     </div>
                 }
                 <div class="radio">
                     <label>
-                        <input type="radio" name="BillingAddressId" checked="@(Model.BillingAddressId == 0 ? "checked" : null)" value="0" />
+                        <input type="radio" name="BillingAddressId" checked="@(Model.BillingAddressId == 0 ? "checked" : null)" value="0"/>
                         @Localizer["Add another address"]
                     </label>
                 </div>
@@ -196,6 +196,6 @@
 </div>
 
 @section scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
     <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Orders/checkout.js"></script>
 }

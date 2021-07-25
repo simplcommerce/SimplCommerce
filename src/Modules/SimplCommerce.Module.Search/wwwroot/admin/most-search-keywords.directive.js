@@ -1,15 +1,15 @@
 ﻿(function() {
     angular
-        .module('simplAdmin.search')
-        .directive('mostSearchKeyword', mostSearchKeyword);
+        .module("simplAdmin.search")
+        .directive("mostSearchKeyword", mostSearchKeyword);
 
     function mostSearchKeyword() {
         var directive = {
-            restrict: 'E',
-            templateUrl: '_content/SimplCommerce.Module.Search/admin/most-search-keywords.directive.html',
+            restrict: "E",
+            templateUrl: "_content/SimplCommerce.Module.Search/admin/most-search-keywords.directive.html",
             scope: {},
-            controller: ['searchService', 'translateService', MostSearchKeywordCtrl],
-            controllerAs: 'vm',
+            controller: ["searchService", "translateService", MostSearchKeywordCtrl],
+            controllerAs: "vm",
             bindToController: true
         };
 
@@ -21,7 +21,7 @@
         vm.translate = translateService;
         vm.keywords = [];
 
-        searchService.getMostSearchKeywords().then(function (result) {
+        searchService.getMostSearchKeywords().then(function(result) {
             vm.keywords = result.data;
         });
     }

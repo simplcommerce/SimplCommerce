@@ -22,20 +22,17 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery]bool? shippingEnabled)
+        public async Task<IActionResult> Get([FromQuery] bool? shippingEnabled)
         {
             var query = _countryRepository.Query();
             if (shippingEnabled.HasValue)
             {
                 query = query.Where(x => x.IsShippingEnabled == shippingEnabled.Value);
             }
+
             var countries = await query
                 .OrderBy(x => x.Name)
-                .Select(x => new
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                }).ToListAsync();
+                .Select(x => new {x.Id, x.Name}).ToListAsync();
             return Json(countries);
         }
 
@@ -139,13 +136,14 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
                     IsCityEnabled = model.IsCityEnabled,
                     IsZipCodeEnabled = model.IsZipCodeEnabled,
                     IsDistrictEnabled = model.IsDistrictEnabled
-            };
+                };
 
                 _countryRepository.Add(country);
                 await _countryRepository.SaveChangesAsync();
 
-                return CreatedAtAction(nameof(Get), new { id = country.Id }, null);
+                return CreatedAtAction(nameof(Get), new {id = country.Id}, null);
             }
+
             return BadRequest(ModelState);
         }
 
@@ -166,7 +164,11 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             }
             catch (DbUpdateException)
             {
-                return BadRequest(new { Error = $"The country {country.Name} can't not be deleted because it is referenced by other tables" });
+                return BadRequest(new
+                {
+                    Error =
+                        $"The country {country.Name} can't not be deleted because it is referenced by other tables"
+                });
             }
 
             return NoContent();

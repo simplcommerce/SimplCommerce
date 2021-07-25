@@ -11,25 +11,25 @@ namespace SimplCommerce.Module.Shipments.Data
             modelBuilder.Entity<Shipment>(s =>
             {
                 s.HasOne(x => x.CreatedBy)
-               .WithMany()
-               .HasForeignKey(x => x.CreatedById)
-               .OnDelete(DeleteBehavior.Restrict);
+                    .WithMany()
+                    .HasForeignKey(x => x.CreatedById)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<Shipment>(s =>
             {
                 s.HasOne(x => x.Order)
-               .WithMany()
-               .HasForeignKey(x => x.OrderId)
-               .OnDelete(DeleteBehavior.Restrict);
+                    .WithMany()
+                    .HasForeignKey(x => x.OrderId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<Shipment>(s =>
             {
                 s.HasOne(x => x.Warehouse)
-               .WithMany()
-               .HasForeignKey(x => x.WarehouseId)
-               .OnDelete(DeleteBehavior.Restrict);
+                    .WithMany()
+                    .HasForeignKey(x => x.WarehouseId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
         }
     }

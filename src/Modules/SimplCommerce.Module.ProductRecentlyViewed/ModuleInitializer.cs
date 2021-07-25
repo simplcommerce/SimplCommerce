@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
+﻿using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Module.Core.Events;
 using SimplCommerce.Module.ProductRecentlyViewed.Data;
 using SimplCommerce.Module.ProductRecentlyViewed.Events;
-using SimplCommerce.Infrastructure;
 
 namespace SimplCommerce.Module.ProductRecentlyViewed
 {
@@ -22,7 +22,6 @@ namespace SimplCommerce.Module.ProductRecentlyViewed
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
         }
     }
 }

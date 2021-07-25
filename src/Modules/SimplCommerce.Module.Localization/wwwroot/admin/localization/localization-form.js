@@ -1,19 +1,19 @@
-﻿ /*global angular*/
-(function () {
+﻿/*global angular*/
+(function() {
     angular
-        .module('simplAdmin.localization')
-        .controller('LocalizationFormCtrl', ['localizationService', 'translateService', LocalizationFormCtrl]);
+        .module("simplAdmin.localization")
+        .controller("LocalizationFormCtrl", ["localizationService", "translateService", LocalizationFormCtrl]);
 
     function LocalizationFormCtrl(localizationService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.resources = [];
         vm.cultures = [];
-        vm.selectedCultureId = 'en-US';
+        vm.selectedCultureId = "en-US";
 
         vm.changeCulture = function changeCulture() {
             vm.validationErrors = [];
-            localizationService.getResources(vm.selectedCultureId).then(function (result) {
+            localizationService.getResources(vm.selectedCultureId).then(function(result) {
                 vm.resources = result.data;
             });
         };
@@ -21,10 +21,10 @@
         vm.save = function save() {
             vm.validationErrors = [];
             localizationService.updateResources(vm.selectedCultureId, vm.resources)
-                .then(function (result) {
-                    toastr.success('Translations have been saved');
+                .then(function(result) {
+                    toastr.success("Translations have been saved");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -32,13 +32,13 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not save translation.');
+                        vm.validationErrors.push("Could not save translation.");
                     }
                 });
         };
 
         function init() {
-            localizationService.getCultures().then(function (result) {
+            localizationService.getCultures().then(function(result) {
                 vm.cultures = result.data;
                 vm.selectedCultureId = vm.cultures[0].id;
                 vm.changeCulture();

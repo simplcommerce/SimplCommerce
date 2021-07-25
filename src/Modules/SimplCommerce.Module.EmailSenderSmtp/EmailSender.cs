@@ -1,15 +1,15 @@
-﻿using System.Threading.Tasks; 
+﻿using System.Threading.Tasks;
+using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 using MimeKit.Text;
-using MailKit.Net.Smtp;
 using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.EmailSenderSmtp
 {
     public class EmailSender : IEmailSender
     {
-        private readonly EmailConfig _emailConfig = new EmailConfig();
+        private readonly EmailConfig _emailConfig = new();
 
         public EmailSender(IConfiguration config)
         {
@@ -27,10 +27,7 @@ namespace SimplCommerce.Module.EmailSenderSmtp
             message.Subject = subject;
 
             var textFormat = isHtml ? TextFormat.Html : TextFormat.Plain;
-            message.Body = new TextPart(textFormat)
-            {
-                Text = body
-            };
+            message.Body = new TextPart(textFormat) {Text = body};
 
             using (var client = new SmtpClient())
             {

@@ -26,10 +26,10 @@ namespace SimplCommerce.Module.Orders.Events
                 CreatedById = notification.UserId,
                 OldStatus = notification.OldStatus,
                 NewStatus = notification.NewStatus,
-                Note = notification.Note,
+                Note = notification.Note
             };
 
-            if(notification.Order != null)
+            if (notification.Order != null)
             {
                 orderHistory.OrderSnapshot = JsonConvert.SerializeObject(notification.Order);
             }

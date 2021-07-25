@@ -8,9 +8,9 @@ namespace SimplCommerce.Module.Cms.Services
     public class PageService : IPageService
     {
         public const string PageEntityTypeId = "Page";
+        private readonly IEntityService _entityService;
 
         private readonly IRepository<Page> _pageRepository;
-        private readonly IEntityService _entityService;
 
         public PageService(IRepository<Page> pageRepository, IEntityService entityService)
         {

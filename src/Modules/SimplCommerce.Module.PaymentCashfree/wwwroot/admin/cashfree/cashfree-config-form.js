@@ -1,8 +1,8 @@
 ﻿/*global angular, jQuery*/
-(function ($) {
+(function($) {
     angular
-        .module('simplAdmin.paymentCashfree')
-        .controller('CashfreeConfigFormCtrl', ['paymentCashfreeService', 'translateService', CashfreeConfigFormCtrl]);
+        .module("simplAdmin.paymentCashfree")
+        .controller("CashfreeConfigFormCtrl", ["paymentCashfreeService", "translateService", CashfreeConfigFormCtrl]);
 
     function CashfreeConfigFormCtrl(paymentCashfreeService, translateService) {
         var vm = this;
@@ -12,10 +12,10 @@
         vm.save = function save() {
             vm.validationErrors = [];
             paymentCashfreeService.updateSetting(vm.cashfreeConfig)
-                .then(function (result) {
-                    toastr.success('Application settings have been saved');
+                .then(function(result) {
+                    toastr.success("Application settings have been saved");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -23,13 +23,13 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not save Cashfree settings.');
+                        vm.validationErrors.push("Could not save Cashfree settings.");
                     }
                 });
         };
 
         function init() {
-            paymentCashfreeService.getSettings().then(function (result) {
+            paymentCashfreeService.getSettings().then(function(result) {
                 vm.cashfreeConfig = result.data;
             });
         }

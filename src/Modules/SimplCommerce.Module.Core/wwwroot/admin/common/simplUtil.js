@@ -1,29 +1,30 @@
-﻿; (function (name, root, factory) {
-    if (typeof exports === 'object') {
+﻿;
+(function(name, root, factory) {
+    if (typeof exports === "object") {
         module.exports = factory();
-    }
-    else if (typeof define === 'function' && define.amd) {
+    } else if (typeof define === "function" && define.amd) {
         define(factory);
-    }
-    else {
+    } else {
         root[name] = factory();
     }
-}('simplUtil', this, function () {
+}("simplUtil",
+    this,
+    function() {
 
-    function escapeHtml(source) {
-        if (source == null) {
-            source = '';
+        function escapeHtml(source) {
+            if (source == null) {
+                source = "";
+            }
+
+            return source
+                .replace(/&/g, "&amp;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
         }
 
-        return source
-            .replace(/&/g, '&amp;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#39;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;');
-    }
-
-    return {
-        escapeHtml: escapeHtml
-    };
-}))
+        return {
+            escapeHtml: escapeHtml
+        };
+    }));

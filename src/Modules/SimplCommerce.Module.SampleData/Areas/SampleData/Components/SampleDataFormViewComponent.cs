@@ -11,10 +11,11 @@ namespace SimplCommerce.Module.SampleData.Areas.SampleData.Components
     {
         public IViewComponentResult Invoke()
         {
-            var sampleContentFolder = Path.Combine(GlobalConfiguration.ContentRootPath, "Modules", "SimplCommerce.Module.SampleData", "SampleContent");
+            var sampleContentFolder = Path.Combine(GlobalConfiguration.ContentRootPath, "Modules",
+                "SimplCommerce.Module.SampleData", "SampleContent");
             var directoryInfo = new DirectoryInfo(sampleContentFolder);
             var industries = directoryInfo.GetDirectories().Select(x => x.Name).ToList();
-            var model = new SampleDataOption { AvailableIndustries = industries };
+            var model = new SampleDataOption {AvailableIndustries = industries};
             return View(this.GetViewPath(), model);
         }
     }

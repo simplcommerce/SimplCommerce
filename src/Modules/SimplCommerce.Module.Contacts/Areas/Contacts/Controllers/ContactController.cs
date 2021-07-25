@@ -14,12 +14,13 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class ContactController : Controller
     {
-        private readonly IRepository<Contact> _contactRepository;
         private readonly IRepository<ContactArea> _contactAreaRepository;
-        private readonly IWorkContext _workContext;
+        private readonly IRepository<Contact> _contactRepository;
         private readonly IContentLocalizationService _contentLocalizationService;
+        private readonly IWorkContext _workContext;
 
-        public ContactController(IRepository<Contact> contactRepository, IRepository<ContactArea> contactAreaRepository, IWorkContext workContext, IContentLocalizationService contentLocalizationService)
+        public ContactController(IRepository<Contact> contactRepository, IRepository<ContactArea> contactAreaRepository,
+            IWorkContext workContext, IContentLocalizationService contentLocalizationService)
         {
             _contactRepository = contactRepository;
             _contactAreaRepository = contactAreaRepository;
@@ -30,15 +31,12 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
         [HttpGet("contact")]
         public async Task<IActionResult> Index()
         {
-            var model = new ContactVm()
-            {
-                ContactAreas = GetContactArea()
-            };
+            var model = new ContactVm {ContactAreas = GetContactArea()};
 
-            if(User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 var currentUser = await _workContext.GetCurrentUser();
-            
+
                 model.FullName = currentUser.FullName;
                 model.EmailAddress = currentUser.Email;
                 model.PhoneNumber = currentUser.PhoneNumber;
@@ -52,7 +50,7 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
         {
             if (ModelState.IsValid)
             {
-                var contact = new Models.Contact()
+                var contact = new Contact
                 {
                     FullName = model.FullName,
                     PhoneNumber = model.PhoneNumber,
@@ -78,11 +76,7 @@ namespace SimplCommerce.Module.Contacts.Areas.Contacts.Controllers
             var getContactAreaName = _contentLocalizationService.GetLocalizationFunction<ContactArea>();
             var categories = _contactAreaRepository.Query()
                 .Where(x => !x.IsDeleted)
-                .Select(x => new ContactAreaVm()
-                {
-                    Id = x.Id,
-                    Name = getContactAreaName(x.Id, nameof(x.Name), x.Name)
-                })
+                .Select(x => new ContactAreaVm {Id = x.Id, Name = getContactAreaName(x.Id, nameof(x.Name), x.Name)})
                 .ToList();
 
             return categories;

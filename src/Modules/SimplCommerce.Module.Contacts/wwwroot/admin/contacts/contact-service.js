@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.contacts')
-        .factory('contactService', ['$http', contactService]);
+        .module("simplAdmin.contacts")
+        .factory("contactService", ["$http", contactService]);
 
     function contactService($http) {
         var service = {
@@ -13,15 +13,15 @@
         return service;
 
         function getContact(id) {
-            return $http.get('api/contacts/' + id);
+            return $http.get("api/contacts/" + id);
         }
 
         function getContacts(params) {
-            return $http.post('api/contacts/grid',params);
-        }        
+            return $http.post("api/contacts/grid", params);
+        }
 
         function deleteContact(contact) {
-            return $http.delete('api/contacts/' + contact.id, null);
+            return $http.delete("api/contacts/" + contact.id, null);
         }
     }
 })();

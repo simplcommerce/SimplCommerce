@@ -18,13 +18,15 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
     [Route("api/stocks")]
     public class StockApiController : Controller
     {
+        private readonly IRepository<StockHistory> _stockHistoryRepository;
         private readonly IRepository<Stock> _stockRepository;
         private readonly IStockService _stockService;
-        private readonly IWorkContext _workContext;
         private readonly IRepository<Warehouse> _warehouseRepository;
-        private readonly IRepository<StockHistory> _stockHistoryRepository;
+        private readonly IWorkContext _workContext;
 
-        public StockApiController(IRepository<Stock> stockRepository, IStockService stockService, IWorkContext workContext, IRepository<Warehouse> warehouseRepository, IRepository<StockHistory> stockHistoryRepository)
+        public StockApiController(IRepository<Stock> stockRepository, IStockService stockService,
+            IWorkContext workContext, IRepository<Warehouse> warehouseRepository,
+            IRepository<StockHistory> stockHistoryRepository)
         {
             _stockRepository = stockRepository;
             _stockService = stockService;
@@ -38,17 +40,18 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
         {
             var currentUser = await _workContext.GetCurrentUser();
             var warehouse = _warehouseRepository.Query().FirstOrDefault(x => x.Id == warehouseId);
-            if(warehouse == null)
+            if (warehouse == null)
             {
                 return NotFound();
             }
 
             if (!User.IsInRole("admin") && warehouse.VendorId != currentUser.VendorId)
             {
-                return BadRequest(new { error = "You don't have permission to manage this warehouse" });
+                return BadRequest(new {error = "You don't have permission to manage this warehouse"});
             }
 
-            var query = _stockRepository.Query().Where(x => x.WarehouseId == warehouseId && !x.Product.HasOptions && !x.Product.IsDeleted);
+            var query = _stockRepository.Query().Where(x =>
+                x.WarehouseId == warehouseId && !x.Product.HasOptions && !x.Product.IsDeleted);
             if (param.Search.PredicateObject != null)
             {
                 dynamic search = param.Search.PredicateObject;
@@ -93,12 +96,12 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
 
             if (!User.IsInRole("admin") && warehouse.VendorId != currentUser.VendorId)
             {
-                return BadRequest(new { error = "You don't have permission to manage this warehouse" });
+                return BadRequest(new {error = "You don't have permission to manage this warehouse"});
             }
 
-            foreach(var item in stockVms)
+            foreach (var item in stockVms)
             {
-                if(item.AdjustedQuantity == 0)
+                if (item.AdjustedQuantity == 0)
                 {
                     continue;
                 }
@@ -132,7 +135,7 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
                 x.AdjustedQuantity,
                 x.Note
             }).ToListAsync();
-  
+
             return Ok(stockHistory);
         }
     }

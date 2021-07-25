@@ -4,7 +4,7 @@
 }
 
 @section head {
-    <link simpl-append-version="true" rel="stylesheet" href="~/lib/nouislider/distribute/nouislider.min.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/lib/nouislider/distribute/nouislider.min.css"/>
 }
 
 <div class="row">
@@ -71,8 +71,8 @@
                             <div class="card-body">
                                 <div id="priceSlider"></div>
                                 <div>
-                                    <input type="hidden" id="originMinPrice" value="@Model.FilterOption.Price.MinPrice.ToString("F0")" />
-                                    <input type="hidden" id="originMaxPrice" value="@Model.FilterOption.Price.MaxPrice.ToString("F0")" />
+                                    <input type="hidden" id="originMinPrice" value="@Model.FilterOption.Price.MinPrice.ToString("F0")"/>
+                                    <input type="hidden" id="originMaxPrice" value="@Model.FilterOption.Price.MaxPrice.ToString("F0")"/>
                                     <span id="minPrice"></span>
                                     <span id="maxPrice"></span>
                                 </div>
@@ -122,7 +122,7 @@
             @foreach (var product in Model.Products)
             {
                 <div class="col-xs-6 col-md-4">
-                    <partial name="_ProductThumbnail" model="product" />
+                    <partial name="_ProductThumbnail" model="product"/>
                 </div>
             }
         </div>
@@ -138,7 +138,8 @@
                           cs-pager-li-other-class="page-item"
                           cs-pager-li-non-active-class="page-item disabled"
                           cs-pager-link-current-class="page-link"
-                          cs-pager-link-other-class="page-link"></cs-pager>
+                          cs-pager-link-other-class="page-link">
+                </cs-pager>
             </div>
         </div>
     </div>

@@ -11,7 +11,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
     [Route("api/entities")]
     public class EntityApiController : Controller
     {
-        private IRepository<Entity> _entityRepository;
+        private readonly IRepository<Entity> _entityRepository;
 
         public EntityApiController(IRepository<Entity> entityRepository)
         {
@@ -34,10 +34,10 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
 
             var entities = query.Select(x => new
             {
-                Id = x.Id,
-                Name = x.Name,
-                Slug = x.Slug,
-                EntityTypeId = x.EntityTypeId,
+                x.Id,
+                x.Name,
+                x.Slug,
+                x.EntityTypeId,
                 EntityTypeName = x.EntityType.Name
             });
 

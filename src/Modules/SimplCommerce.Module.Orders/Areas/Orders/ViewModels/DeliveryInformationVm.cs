@@ -25,6 +25,5 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
         public AddressFormVm NewBillingAddressForm { get; set; }
 
         public string OrderNote { get; set; }
-
     }
 }

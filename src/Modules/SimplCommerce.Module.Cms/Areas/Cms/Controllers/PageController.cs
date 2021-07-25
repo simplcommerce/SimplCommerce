@@ -11,8 +11,8 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class PageController : Controller
     {
-        private readonly IRepository<Page> _pageRepository;
         private readonly IContentLocalizationService _contentLocalizationService;
+        private readonly IRepository<Page> _pageRepository;
 
         public PageController(IRepository<Page> pageRepository, IContentLocalizationService contentLocalizationService)
         {
@@ -24,7 +24,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
         {
             var page = _pageRepository.Query().FirstOrDefault(x => x.Id == id);
 
-            if(page == null)
+            if (page == null)
             {
                 return NotFound();
             }

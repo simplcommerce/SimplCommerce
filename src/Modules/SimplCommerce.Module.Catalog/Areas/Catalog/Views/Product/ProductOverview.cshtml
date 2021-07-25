@@ -1,5 +1,4 @@
 ﻿@using SimplCommerce.Module.Core.Models
-
 @model SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels.ProductDetail
 
 @inject SignInManager<User> SignInManager
@@ -15,7 +14,7 @@
                 @foreach (var image in Model.Images)
                 {
                     <a href="@image.Url">
-                        <img src="@image.ThumbnailUrl" alt="" />
+                        <img src="@image.ThumbnailUrl" alt=""/>
                     </a>
                 }
             </div>
@@ -25,7 +24,9 @@
                 <h1 class="">@Model.Name</h1>
             </div>
             <ul class="list-inline product-ratings">
-                <li><input type="hidden" value="@Model.RatingAverage" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
+                <li>
+                    <input type="hidden" value="@Model.RatingAverage" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false"/>
+                </li>
                 <li class="product-review-list">
                     <span>(@Model.ReviewsCount) @Localizer["reviews"]</span>
                 </li>
@@ -44,12 +45,12 @@
                                     {
                                         var shouldChecked = Model.Variations.First().Options.Any(x => x.Value == value);
                                         <li class="list-inline-item">
-                                            <input type="radio" value="@value" checked="@shouldChecked" name="@option.OptionName" />
-                                            @if (Model.OptionDisplayValues.ContainsKey(value) && !String.IsNullOrWhiteSpace(Model.OptionDisplayValues[value].Value))
+                                            <input type="radio" value="@value" checked="@shouldChecked" name="@option.OptionName"/>
+                                            @if (Model.OptionDisplayValues.ContainsKey(value) && !string.IsNullOrWhiteSpace(Model.OptionDisplayValues[value].Value))
                                             {
                                                 if (Model.OptionDisplayValues[value].DisplayType == "color")
                                                 {
-                                                    <label title="@value" class="color" style="background-color:@Model.OptionDisplayValues[value].Value"></label>
+                                                    <label title="@value" class="color" style="background-color: @Model.OptionDisplayValues[value].Value"></label>
                                                 }
                                                 else
                                                 {
@@ -95,13 +96,13 @@
                         }
                         <div class="add-to-cart">
                             <form class="inline">
-                                <input type="hidden" name="productId" value="@variant.Id" />
+                                <input type="hidden" name="productId" value="@variant.Id"/>
                                 <div class="product-quantity">
                                     <button type="button" class="quantity-button" name="subtract" value="-">-</button>
                                     <input type="text" class="quantity-field" readonly="readonly" name="qty" value="1">
                                     <button type="button" class="quantity-button" name="add" value="+">+</button>
                                 </div>
-                                <button type="button" disabled="@(!variant.IsAllowToOrder || (variant.StockTrackingIsEnabled && variant.StockQuantity <= 0))" class="btn btn-lg btn-add-cart">@Localizer["Add to cart"]</button>
+                                <button type="button" disabled="@(!variant.IsAllowToOrder || variant.StockTrackingIsEnabled && variant.StockQuantity <= 0)" class="btn btn-lg btn-add-cart">@Localizer["Add to cart"]</button>
                                 <div>
                                     <ul class="list-inline add-to-lists">
                                         <li class="wishlist-in">
@@ -154,13 +155,13 @@
                 }
                 <div class="add-to-cart">
                     <form class="inline">
-                        <input type="hidden" name="productId" value="@Model.Id" />
+                        <input type="hidden" name="productId" value="@Model.Id"/>
                         <div class="product-quantity">
                             <button type="button" class="quantity-button" name="subtract" value="-">-</button>
                             <input type="text" class="quantity-field" readonly="readonly" name="qty" value="1">
                             <button type="button" class="quantity-button" name="add" value="+">+</button>
                         </div>
-                        <button type="button" disabled="@(!Model.IsAllowToOrder || (Model.StockTrackingIsEnabled && Model.StockQuantity <= 0))" class="btn btn-lg btn-add-cart">@Localizer["Add to cart"]</button>
+                        <button type="button" disabled="@(!Model.IsAllowToOrder || Model.StockTrackingIsEnabled && Model.StockQuantity <= 0)" class="btn btn-lg btn-add-cart">@Localizer["Add to cart"]</button>
                         <div>
                             <ul class="list-inline add-to-lists">
                                 <li class="wishlist-in">

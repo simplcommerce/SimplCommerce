@@ -18,7 +18,7 @@ namespace SimplCommerce.Module.Core.Services
 
         public string GetMediaUrl(Media media)
         {
-            if(media == null)
+            if (media == null)
             {
                 return GetMediaUrl("no-image.png");
             }

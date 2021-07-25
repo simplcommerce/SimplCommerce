@@ -15,10 +15,11 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed
     [Route("api/recently-viewed-widgets")]
     public class RecentlyViewedWidgetApiController : Controller
     {
-        private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
         private readonly IMediaService _mediaService;
+        private readonly IRepository<WidgetInstance> _widgetInstanceRepository;
 
-        public RecentlyViewedWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository, IMediaService mediaService)
+        public RecentlyViewedWidgetApiController(IRepository<WidgetInstance> widgetInstanceRepository,
+            IMediaService mediaService)
         {
             _widgetInstanceRepository = widgetInstanceRepository;
             _mediaService = mediaService;
@@ -46,7 +47,11 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed
         public async Task<IActionResult> Post([FromBody] RecentlyViewedWidgetForm model)
         {
             {
-                if (!ModelState.IsValid) return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
                 var widgetInstance = new WidgetInstance
                 {
                     Name = model.Name,
@@ -55,7 +60,7 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed
                     Data = model.ItemCount.ToString(),
                     PublishStart = model.PublishStart,
                     PublishEnd = model.PublishEnd,
-                    DisplayOrder = model.DisplayOrder,
+                    DisplayOrder = model.DisplayOrder
                 };
 
                 _widgetInstanceRepository.Add(widgetInstance);
@@ -67,9 +72,13 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Areas.ProductRecentlyViewed
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(long id, [FromBody] RecentlyViewedWidgetForm model)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var widgetInstance = await _widgetInstanceRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-            if(widgetInstance == null)
+            if (widgetInstance == null)
             {
                 return NotFound();
             }

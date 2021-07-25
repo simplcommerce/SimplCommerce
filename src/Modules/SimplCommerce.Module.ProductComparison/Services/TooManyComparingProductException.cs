@@ -9,6 +9,6 @@ namespace SimplCommerce.Module.ProductComparison.Services
             MaxNumComparingProduct = maxNumComparingProduct;
         }
 
-        public int MaxNumComparingProduct {get; private set; }
+        public int MaxNumComparingProduct { get; }
     }
 }

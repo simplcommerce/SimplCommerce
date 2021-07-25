@@ -20,15 +20,13 @@ namespace SimplCommerce.Module.Comments.Models
 
         public string CommentText { get; set; }
 
-        [StringLength(450)]
-        public string CommenterName { get; set; }
+        [StringLength(450)] public string CommenterName { get; set; }
 
         public CommentStatus Status { get; set; }
 
         public DateTimeOffset CreatedOn { get; set; }
 
-        [StringLength(450)]
-        public string EntityTypeId { get; set; }
+        [StringLength(450)] public string EntityTypeId { get; set; }
 
         public long EntityId { get; set; }
 
@@ -37,6 +35,5 @@ namespace SimplCommerce.Module.Comments.Models
         public Comment Parent { get; set; }
 
         public IList<Comment> Replies { get; protected set; } = new List<Comment>();
-
     }
 }

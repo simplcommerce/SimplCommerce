@@ -1,8 +1,9 @@
 ﻿/*global angular, confirm*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.catalog')
-        .controller('ProductAttributeListCtrl', ['productAttributeService', 'translateService', ProductAttributeListCtrl]);
+        .module("simplAdmin.catalog")
+        .controller("ProductAttributeListCtrl",
+            ["productAttributeService", "translateService", ProductAttributeListCtrl]);
 
     function ProductAttributeListCtrl(productAttributeService, translateService) {
         var vm = this;
@@ -10,7 +11,7 @@
         vm.productAttributes = [];
 
         vm.getProductAttributes = function getProductAttributes() {
-            productAttributeService.getProductAttributes().then(function (result) {
+            productAttributeService.getProductAttributes().then(function(result) {
                 vm.productAttributes = result.data;
             });
         };
@@ -18,7 +19,7 @@
         vm.deleteProductAttribute = function deleteProductAttribute(productAttribute) {
             if (confirm("Are you sure?")) {
                 productAttributeService.deleteProductAttribute(productAttribute)
-                    .then(function (result) {
+                    .then(function(result) {
                         vm.getProductAttributes();
                     });
             }

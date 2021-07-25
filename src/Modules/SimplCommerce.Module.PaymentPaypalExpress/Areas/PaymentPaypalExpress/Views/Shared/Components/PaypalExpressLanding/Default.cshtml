@@ -1,8 +1,8 @@
 ﻿@model SimplCommerce.Module.PaymentPaypalExpress.ViewModels.PaypalExpressCheckoutForm
 
-@{ 
+@{
     var feeDisplay = "";
-    if(Model.PaymentFee > 0)
+    if (Model.PaymentFee > 0)
     {
         feeDisplay = $"(+ {Model.PaymentFee}% {Localizer["Fee"]?.Value})";
     }
@@ -14,35 +14,36 @@
 
 <script>
     paypal.Button.render({
-        env: '@Model.Environment', // sandbox | production
-        // Show the buyer a 'Pay Now' button in the checkout flow
-        commit: true,
-        payment: function (data, actions) {
-            return paypal.request.post('/PaypalExpress/CreatePayment')
-                .then(function (res) {
-                    return res.paymentId;
-                })
-                .catch(function (error) { 
-                    var errorDiv = document.getElementById("paymentError");
-                    errorDiv.innerText = error
-                    errorDiv.style.display = "block";
-                });
-        },
+            env: '@Model.Environment', // sandbox | production
+            // Show the buyer a 'Pay Now' button in the checkout flow
+            commit: true,
+            payment: function(data, actions) {
+                return paypal.request.post('/PaypalExpress/CreatePayment')
+                    .then(function(res) {
+                        return res.paymentId;
+                    })
+                    .catch(function(error) {
+                        var errorDiv = document.getElementById("paymentError");
+                        errorDiv.innerText = error;
+                        errorDiv.style.display = "block";
+                    });
+            },
 
-        onAuthorize: function (data, actions) {
-            return paypal.request.post('/PaypalExpress/ExecutePayment', {
-                paymentID: data.paymentID,
-                payerID: data.payerID
-            })
-            .then(function (res) {
-                window.location = "/checkout/success?orderId=" + res.orderId;
-            })
-            .catch(function (error) {
-                var errorDiv = document.getElementById("paymentError");
-                errorDiv.innerText = error
-                errorDiv.style.display = "block";
-            });
-        }
-    },
-    '#paypal-button');
+            onAuthorize: function(data, actions) {
+                return paypal.request.post('/PaypalExpress/ExecutePayment',
+                        {
+                            paymentID: data.paymentID,
+                            payerID: data.payerID
+                        })
+                    .then(function(res) {
+                        window.location = "/checkout/success?orderId=" + res.orderId;
+                    })
+                    .catch(function(error) {
+                        var errorDiv = document.getElementById("paymentError");
+                        errorDiv.innerText = error;
+                        errorDiv.style.display = "block";
+                    });
+            }
+        },
+        '#paypal-button');
 </script>

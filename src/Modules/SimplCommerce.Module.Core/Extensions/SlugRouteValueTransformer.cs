@@ -17,7 +17,8 @@ namespace SimplCommerce.Module.Core.Extensions
             _entityRepository = entityRepository;
         }
 
-        public override async ValueTask<RouteValueDictionary> TransformAsync(HttpContext httpContext, RouteValueDictionary values)
+        public override async ValueTask<RouteValueDictionary> TransformAsync(HttpContext httpContext,
+            RouteValueDictionary values)
         {
             var requestPath = httpContext.Request.Path.Value;
 
@@ -32,17 +33,17 @@ namespace SimplCommerce.Module.Core.Extensions
                 .Include(x => x.EntityType)
                 .FirstOrDefaultAsync(x => x.Slug == requestPath);
 
-            if(entity == null)
+            if (entity == null)
             {
                 return null;
             }
 
             return new RouteValueDictionary
             {
-                { "area", entity.EntityType.AreaName },
-                { "controller", entity.EntityType.RoutingController },
-                { "action", entity.EntityType.RoutingAction },
-                { "id", entity.EntityId }
+                {"area", entity.EntityType.AreaName},
+                {"controller", entity.EntityType.RoutingController},
+                {"action", entity.EntityType.RoutingAction},
+                {"id", entity.EntityId}
             };
         }
     }

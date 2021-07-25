@@ -1,6 +1,6 @@
 {
-  "id": "SimplCommerce.Module.PaymentStripe",
-  "name": "Stripe Payment",
-  "isBundledWithHost": true,
-  "version": "1.0.0"
+    "id": "SimplCommerce.Module.PaymentStripe",
+    "name": "Stripe Payment",
+    "isBundledWithHost": true,
+    "version": "1.0.0"
 }

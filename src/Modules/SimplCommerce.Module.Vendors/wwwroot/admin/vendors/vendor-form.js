@@ -1,8 +1,8 @@
-﻿ /*global angular*/
-(function () {
+﻿/*global angular*/
+(function() {
     angular
-        .module('simplAdmin.vendors')
-        .controller('VendorFormCtrl', ['$state', '$stateParams', 'vendorService', 'translateService', VendorFormCtrl]);
+        .module("simplAdmin.vendors")
+        .controller("VendorFormCtrl", ["$state", "$stateParams", "vendorService", "translateService", VendorFormCtrl]);
 
     function VendorFormCtrl($state, $stateParams, vendorService, translateService) {
         var vm = this;
@@ -11,7 +11,7 @@
         vm.vendorId = $stateParams.id;
         vm.isEditMode = vm.vendorId > 0;
 
-        vm.updateSlug = function () {
+        vm.updateSlug = function() {
             vm.vendor.slug = slugify(vm.vendor.name);
         };
 
@@ -24,10 +24,10 @@
             }
 
             promise
-                .then(function (result) {
-                    $state.go('vendors');
+                .then(function(result) {
+                    $state.go("vendors");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -35,14 +35,14 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not add vendor.');
+                        vm.validationErrors.push("Could not add vendor.");
                     }
                 });
         };
 
         function init() {
             if (vm.isEditMode) {
-                vendorService.getVendor(vm.vendorId).then(function (result) {
+                vendorService.getVendor(vm.vendorId).then(function(result) {
                     vm.vendor = result.data;
                 });
             }

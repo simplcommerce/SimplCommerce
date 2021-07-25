@@ -16,7 +16,7 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels
         {
             get
             {
-                var parts = new[] { DistrictName, CityName, StateOrProvinceName, ZipCode, CountryName };
+                var parts = new[] {DistrictName, CityName, StateOrProvinceName, ZipCode, CountryName};
                 return string.Join(", ", parts.Where(x => !string.IsNullOrEmpty(x)));
             }
         }

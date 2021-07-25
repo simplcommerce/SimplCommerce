@@ -30,14 +30,9 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         public async Task<ActionResult<IList<BrandVm>>> Get()
         {
             var brands = await _brandRepository.Query()
-            .Where(x => !x.IsDeleted)
-            .Select(x =>  new BrandVm
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Slug = x.Slug,
-                IsPublished = x.IsPublished
-            }).ToListAsync();
+                .Where(x => !x.IsDeleted)
+                .Select(x => new BrandVm {Id = x.Id, Name = x.Name, Slug = x.Slug, IsPublished = x.IsPublished})
+                .ToListAsync();
 
             return brands;
         }
@@ -46,17 +41,14 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         public async Task<ActionResult<BrandVm>> Get(long id)
         {
             var brand = await _brandRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-            if(brand == null)
+            if (brand == null)
             {
                 return NotFound();
             }
 
             var model = new BrandVm
             {
-                Id = brand.Id,
-                Name = brand.Name,
-                Slug = brand.Slug,
-                IsPublished = brand.IsPublished
+                Id = brand.Id, Name = brand.Name, Slug = brand.Slug, IsPublished = brand.IsPublished
             };
 
             return model;
@@ -66,15 +58,10 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> Post([FromBody] BrandForm model)
         {
-            var brand = new Brand
-            {
-                Name = model.Name,
-                Slug = model.Slug,
-                IsPublished = model.IsPublished
-            };
+            var brand = new Brand {Name = model.Name, Slug = model.Slug, IsPublished = model.IsPublished};
 
             await _brandService.Create(brand);
-            return CreatedAtAction(nameof(Get), new { id = brand.Id }, null);
+            return CreatedAtAction(nameof(Get), new {id = brand.Id}, null);
         }
 
         [HttpPut("{id}")]
@@ -82,7 +69,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         public async Task<IActionResult> Put(long id, [FromBody] BrandForm model)
         {
             var brand = _brandRepository.Query().FirstOrDefault(x => x.Id == id);
-            if(brand == null)
+            if (brand == null)
             {
                 return NotFound();
             }

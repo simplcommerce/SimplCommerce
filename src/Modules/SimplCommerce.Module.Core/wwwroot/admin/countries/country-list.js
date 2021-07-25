@@ -1,8 +1,8 @@
 ﻿/*global angular*/
-(function () {
+(function() {
     angular
-        .module('simplAdmin.core')
-        .controller('CountryListCtrl', ['countryService', 'translateService', CountryListCtrl]);
+        .module("simplAdmin.core")
+        .controller("CountryListCtrl", ["countryService", "translateService", CountryListCtrl]);
 
     function CountryListCtrl(countryService, translateService) {
         var vm = this;
@@ -13,7 +13,7 @@
         vm.getCountries = function getCountries(tableState) {
             vm.tableStateRef = tableState;
             vm.isLoading = true;
-            countryService.getCountries(tableState).then(function (result) {
+            countryService.getCountries(tableState).then(function(result) {
                 vm.countries = result.data.items;
                 tableState.pagination.numberOfPages = result.data.numberOfPages;
                 tableState.pagination.totalItemCount = result.data.totalRecord;
@@ -21,29 +21,30 @@
             });
         };
 
-        vm.update = function (country) {
+        vm.update = function(country) {
             countryService.editCountry(country)
-                .then(function (result) {
-                    toastr.success(country.name + ' has been updated');
+                .then(function(result) {
+                    toastr.success(country.name + " has been updated");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     toastr.error(response.data.error);
                 });
         };
 
-        vm.deleteCountry = function (country) {
-            bootbox.confirm('Are you sure you want to delete this country: ' + simplUtil.escapeHtml(country.name), function (result) {
-                if (result) {
-                    countryService.deleteCountry(country)
-                        .then(function (result) {
-                            vm.getCountries(vm.tableStateRef);
-                            toastr.success(country.name + ' has been deleted');
-                        })
-                        .catch(function (response) {
-                            toastr.error(response.data.error);
-                        });
-                }
-            });
+        vm.deleteCountry = function(country) {
+            bootbox.confirm("Are you sure you want to delete this country: " + simplUtil.escapeHtml(country.name),
+                function(result) {
+                    if (result) {
+                        countryService.deleteCountry(country)
+                            .then(function(result) {
+                                vm.getCountries(vm.tableStateRef);
+                                toastr.success(country.name + " has been deleted");
+                            })
+                            .catch(function(response) {
+                                toastr.error(response.data.error);
+                            });
+                    }
+                });
         };
     }
 })();

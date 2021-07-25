@@ -15,11 +15,14 @@ namespace SimplCommerce.Module.Localization.Data
             modelBuilder.Entity<LocalizedContentProperty>().ToTable("Localization_LocalizedContentProperty");
 
             modelBuilder.Entity<Culture>().HasData(
-               new Culture(GlobalConfiguration.DefaultCulture) { Name = "English (US)" }
+                new Culture(GlobalConfiguration.DefaultCulture) {Name = "English (US)"}
             );
 
             modelBuilder.Entity<AppSetting>().HasData(
-                new AppSetting("Localization.LocalizedConentEnable") { Module = "Localization", IsVisibleInCommonSettingPage = true, Value = "true" });
+                new AppSetting("Localization.LocalizedConentEnable")
+                {
+                    Module = "Localization", IsVisibleInCommonSettingPage = true, Value = "true"
+                });
         }
     }
 }

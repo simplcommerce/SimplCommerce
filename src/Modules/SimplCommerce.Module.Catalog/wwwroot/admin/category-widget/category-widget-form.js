@@ -1,10 +1,11 @@
 ﻿/*global angular, jQuery*/
-(function ($) {
+(function($) {
     angular
-        .module('simplAdmin.catalog')
-        .controller('CategoryWidgetFormCtrl', ['$state', '$stateParams', 'categoryWidgetService', 'translateService', CategoryWidgetFormCtrl]);
+        .module("simplAdmin.catalog")
+        .controller("CategoryWidgetFormCtrl",
+            ["$state", "$stateParams", "categoryWidgetService", "translateService", CategoryWidgetFormCtrl]);
 
-    function CategoryWidgetFormCtrl($state, $stateParams, categoryWidgetService , translateService) {
+    function CategoryWidgetFormCtrl($state, $stateParams, categoryWidgetService, translateService) {
         var vm = this;
         vm.translate = translateService;
         vm.widgetZones = [];
@@ -17,7 +18,7 @@
         vm.datePickerPublishStart = {};
         vm.datePickerPublishEnd = {};
 
-        vm.openCalendar = function (e, picker) {
+        vm.openCalendar = function(e, picker) {
             vm[picker].open = true;
         };
 
@@ -30,10 +31,10 @@
             }
 
             promise
-                .then(function (result) {
-                    $state.go('widget');
+                .then(function(result) {
+                    $state.go("widget");
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     var error = response.data;
                     vm.validationErrors = [];
                     if (error && angular.isObject(error)) {
@@ -41,20 +42,20 @@
                             vm.validationErrors.push(error[key][0]);
                         }
                     } else {
-                        vm.validationErrors.push('Could not product display widget.');
+                        vm.validationErrors.push("Could not product display widget.");
                     }
                 });
         };
 
         function init() {
-            categoryWidgetService.getWidgetZones().then(function (result) {
+            categoryWidgetService.getWidgetZones().then(function(result) {
                 vm.widgetZones = result.data;
             });
-            categoryWidgetService.getCategories().then(function (result) {
+            categoryWidgetService.getCategories().then(function(result) {
                 vm.categories = result.data;
             });
 
-            categoryWidgetService.getNumberOfWidgets().then(function (result) {
+            categoryWidgetService.getNumberOfWidgets().then(function(result) {
                 var count = parseInt(result.data);
                 if (!vm.isEditMode) {
                     count = count + 1;
@@ -65,7 +66,7 @@
             });
 
             if (vm.isEditMode) {
-                categoryWidgetService.getCategoryWidget(vm.widgetInstanceId).then(function (result) {
+                categoryWidgetService.getCategoryWidget(vm.widgetInstanceId).then(function(result) {
                     vm.widgetInstance = result.data;
                     if (vm.widgetInstance.publishStart) {
                         vm.widgetInstance.publishStart = new Date(vm.widgetInstance.publishStart);

@@ -15,7 +15,8 @@ namespace SimplCommerce.Module.Catalog
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IProductTemplateProductAttributeRepository, ProductTemplateProductAttributeRepository>();
+            services
+                .AddTransient<IProductTemplateProductAttributeRepository, ProductTemplateProductAttributeRepository>();
             services.AddTransient<INotificationHandler<ReviewSummaryChanged>, ReviewSummaryChangedHandler>();
             services.AddTransient<IBrandService, BrandService>();
             services.AddTransient<ICategoryService, CategoryService>();
@@ -27,7 +28,6 @@ namespace SimplCommerce.Module.Catalog
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
         }
     }
 }

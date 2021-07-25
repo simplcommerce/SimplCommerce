@@ -7,7 +7,6 @@ namespace SimplCommerce.Module.Catalog.Models
     {
         public ProductOption()
         {
-
         }
 
         public ProductOption(long id)

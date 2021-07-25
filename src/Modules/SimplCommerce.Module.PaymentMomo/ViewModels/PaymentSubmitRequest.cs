@@ -5,9 +5,10 @@ namespace SimplCommerce.Module.PaymentMomo.ViewModels
 {
     public class PaymentSubmitRequest
     {
-        private string _secretKey;
+        private readonly string _secretKey;
 
-        public PaymentSubmitRequest(string secretKey, string partnerCode, string accessKey, decimal amount, long orderId, string orderInfo, string returnUrl, string notifyUrl, string extraData)
+        public PaymentSubmitRequest(string secretKey, string partnerCode, string accessKey, decimal amount,
+            long orderId, string orderInfo, string returnUrl, string notifyUrl, string extraData)
         {
             _secretKey = secretKey;
             PartnerCode = partnerCode;
@@ -21,31 +22,25 @@ namespace SimplCommerce.Module.PaymentMomo.ViewModels
             ExtraData = extraData;
         }
 
-        public string PartnerCode { get; private set; }
+        public string PartnerCode { get; }
 
-        public string AccessKey { get; private set; }
+        public string AccessKey { get; }
 
-        public string RequestId { get; private set; }
+        public string RequestId { get; }
 
-        public string Amount { get; private set; }
+        public string Amount { get; }
 
-        public string OrderId { get; private set; }
+        public string OrderId { get; }
 
-        public string OrderInfo { get; private set; }
+        public string OrderInfo { get; }
 
-        public string ReturnUrl { get; private set; }
+        public string ReturnUrl { get; }
 
-        public string NotifyUrl { get; private set; }
+        public string NotifyUrl { get; }
 
-        public string ExtraData { get; private set; }
+        public string ExtraData { get; }
 
-        public string RequestType
-        {
-            get
-            {
-                return "captureMoMoWallet";
-            }
-        }
+        public string RequestType => "captureMoMoWallet";
 
         public string Signature
         {

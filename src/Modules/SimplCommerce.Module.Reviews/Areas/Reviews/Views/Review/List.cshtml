@@ -1,6 +1,4 @@
-﻿@using cloudscribe.Web.Pagination
-@using SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels
-
+﻿@using SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels
 @model SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels.ReviewVm
 
 @{
@@ -8,24 +6,30 @@
 }
 
 @section additionalMeta {
-    <meta name="title" content="@ViewBag.Title" />
+    <meta name="title" content="@ViewBag.Title"/>
 }
 
 @section head
-    {
-    <link simpl-append-version="true" rel="stylesheet" href="~/_content/SimplCommerce.Module.Reviews/list.css" />
+{
+    <link simpl-append-version="true" rel="stylesheet" href="~/_content/SimplCommerce.Module.Reviews/list.css"/>
 }
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">@Localizer["Home"]</a></li>
-        <li class="breadcrumb-item"><a href="/@Model.EntitySlug">@Model.EntityName</a></li>
+        <li class="breadcrumb-item">
+            <a href="/">@Localizer["Home"]</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="/@Model.EntitySlug">@Model.EntityName</a>
+        </li>
         <li class="breadcrumb-item active" aria-current="page">@Localizer["Customer Reviews"]</li>
     </ol>
 </nav>
 
 <div>
-    <h1 class=""><a href="/@Model.EntitySlug">@Model.EntityName</a></h1>
+    <h1 class="">
+        <a href="/@Model.EntitySlug">@Model.EntityName</a>
+    </h1>
     <h3>@Localizer["Customer reviews"]</h3>
     <div class="container">
         <div class="row">
@@ -85,11 +89,11 @@
             }
             <div class="col-md-7">
                 <div id="addreview">
-                    <partial name="/Areas/Reviews/Views/Review/_ReviewForm.cshtml" model="new ReviewForm { EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId, HasBoughtProduct = Model.HasBoughtProduct,  LoggedUserName = Model.LoggedUserName  }   " />
+                    <partial name="/Areas/Reviews/Views/Review/_ReviewForm.cshtml" model="new ReviewForm {EntityTypeId = Model.EntityTypeId, EntityId = Model.EntityId, HasBoughtProduct = Model.HasBoughtProduct, LoggedUserName = Model.LoggedUserName}"/>
                 </div>
             </div>
         </div>
-        <hr />
+        <hr/>
         <div id="reviews" class="review-item-list">
             @if (Model.ReviewsCount > 0)
             {
@@ -97,7 +101,9 @@
                 {
                     <div>
                         <ul class="list-inline product-ratings">
-                            <li><input type="hidden" value="@review.Rating" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false" /></li>
+                            <li>
+                                <input type="hidden" value="@review.Rating" readonly="readonly" class="rating-loading" step="1" data-size="xs" data-show-clear="false" data-show-caption="false"/>
+                            </li>
                             <li class="review-title">
                                 @review.Title
                             </li>
@@ -106,8 +112,12 @@
                         <p>By: <strong>@review.ReviewerName</strong> on <span>@review.CreatedOn</span></p>
                         @if (review.Replies.Count > 0)
                         {
-                            <button class="btn-review-replies btn-view-review-replies btn btn-link">@Localizer["View Replies"]<i class="arrow-down"></i></button>
-                            <button class="btn-review-replies btn-hide-review-replies btn btn-link d-none">@Localizer["Hide Replies"]<i class="arrow-up"></i></button>
+                            <button class="btn-review-replies btn-view-review-replies btn btn-link">
+                                @Localizer["View Replies"]<i class="arrow-down"></i>
+                            </button>
+                            <button class="btn-review-replies btn-hide-review-replies btn btn-link d-none">
+                                @Localizer["Hide Replies"]<i class="arrow-up"></i>
+                            </button>
                             <ul class="review-replies d-none">
                                 @foreach (var reply in review.Replies)
                                 {
@@ -121,7 +131,7 @@
                         <div>
                             <button class="btn-add-review-reply btn btn-link">@Localizer["Add Reply"]</button>
                             <div class="add-review-reply d-none">
-                                <partial name="/Areas/Reviews/Views/Reply/_ReplyForm.cshtml" model="new ReplyForm { ReviewId = review.Id }" />
+                                <partial name="/Areas/Reviews/Views/Reply/_ReplyForm.cshtml" model="new ReplyForm {ReviewId = review.Id}"/>
                             </div>
                         </div>
                     </div>
@@ -142,13 +152,14 @@
                       cs-pager-li-other-class="page-item"
                       cs-pager-li-non-active-class="page-item disabled"
                       cs-pager-link-current-class="page-link"
-                      cs-pager-link-other-class="page-link"></cs-pager>
+                      cs-pager-link-other-class="page-link">
+            </cs-pager>
         </div>
     </div>
 </div>
 
 
 @section scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
     <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Reviews/list.js"></script>
 }
