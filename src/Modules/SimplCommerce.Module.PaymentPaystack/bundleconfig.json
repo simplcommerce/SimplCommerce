@@ -1,0 +1,15 @@
+[
+  {
+    "outputFileName": "wwwroot/admin/paymentpaystack.min.js",
+    "inputFiles": [
+      "wwwroot/admin/paystack.module.js",
+      "wwwroot/admin/config/paystack-service.js",
+      "wwwroot/admin/config/config-form.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

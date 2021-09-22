@@ -14,8 +14,10 @@ textarea {
 }
 
 .top-bar {
-    background-color: #212121;
+    margin-top: 20px;
+    background-color: transparent;
     color: #e7e7e7;
+    margin-right: -30px;
 }
 
     .top-bar > div > ul > li > a, .top-bar .top-bar > div > ul > li > a:visited {
@@ -28,7 +30,12 @@ textarea {
 
 .main-header {
     padding: 15px 0;
-    background-color: #f9f9f9;
+    /*background-color: #f9f9f9;*/
+    background-color: transparent;
+    width: -webkit-fill-available;
+    position: fixed;
+    z-index: 2;
+    margin-top: -140px;
 }
 
 @media (max-width : 992px) {
@@ -43,6 +50,9 @@ textarea {
 
 .main-header .search-box {
     margin-top: 7px;
+    margin-left: -10px;
+    float: right;
+    flex: auto;
 }
 
 .main-header .search-input {
@@ -89,10 +99,11 @@ textarea {
 }
 
 .main-nav {
-    background-color: #f3f3f3;
+    background-color: #fcfbf9;
     min-height: 50px;
     margin-bottom: 20px;
-    border: 1px solid #e7e7e7;
+    margin-left: -95px;
+    /*border: 1px solid #e7e7e7;*/
 }
 
 #navbarMain > ul {
@@ -417,10 +428,15 @@ li.nav-item-group, li.nav-item-group a {
 #logoutForm {
     display: inline-flex;
     line-height: 22px;
+    color: black;
+    margin-top: -2px;
 }
 
     #logoutForm button {
         text-decoration: none;
+        color: black;
+        text-transform: uppercase;
+        font-size: 12px;
     }
 
 .rating-container .caption {
@@ -456,6 +472,8 @@ li.nav-item-group, li.nav-item-group a {
     font-size: 140px;
 }
 
+/********sayTG**********/
+
 .payment-method {
     height: 100px;
     border: 1px solid #e7e7e7;
@@ -474,4 +492,91 @@ li.nav-item-group, li.nav-item-group a {
 
 .modal-padding {
     padding: 10px 10px 10px 10px;
+}
+
+#homeSocialFooter {
+    text-align: left;
+    padding: 0;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.zds-label-s {
+    font-size: 9px;
+    line-height: 12px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    font-stretch: condensed;
+    font-weight: 500;
+}
+
+ol, ul {
+    list-style: none;
+}
+#homeSocialFooter li {
+    display: inline-block;
+    text-transform: uppercase;
+    margin: 12px 16px;
+}
+
+input.form-control {
+    float: right;
+    border: #fcfbf9;
+    background-color: transparent;
+    border-bottom: 2px solid black;
+    width: 150px;
+    font-size: 12px;
+}
+
+.col-2.col-md-1.cart-btn {
+    font-size: 12px;
+    color: black;
+    margin-top: 28px;
+}
+
+a {
+    color: black;
+}
+
+.low-opacity{
+    opacity: 0.2;
+}
+
+.col-12.col-md-6.col-lg-4.logo {
+    margin-left: 10px;
+}
+
+.navbar-collapse {
+    margin-top: 120px;
+    margin-left: 75px;
+    position: absolute;
+    z-index: 1;
+}
+.mk-spot.html-spot.common{
+    margin-left: 104px;
+}
+.container.body-content.clearfix.common {
+    margin-top: 150px;
+    margin-bottom: 150px;
+}
+
+ol.breadcrumb {
+    background-color: #fcfbf9;
+}
+
+.top-bar > div > ul > li > a {
+    color: black;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+.row {
+    display: flex;
+    margin-right: -15px;
+    margin-left: -15px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.logo {
+    margin-left: 20px;
 }

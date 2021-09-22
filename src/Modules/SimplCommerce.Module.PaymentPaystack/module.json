@@ -1,0 +1,6 @@
+{
+  "id": "SimplCommerce.Module.PaymentPaystack",
+  "name": "Paystack Payment",
+  "isBundledWithHost": true,
+  "version": "1.0.0"
+}
