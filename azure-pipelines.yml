@@ -15,7 +15,7 @@ jobs:
     displayName: 'Use .NET Core sdk'
     inputs:
       packageType: 'sdk'
-      version: '5.0.100'
+      version: '6.0.100-rc.2.21505.57'
   - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - task: DotNetCoreCLI@2
@@ -47,7 +47,7 @@ jobs:
     displayName: 'Use .NET Core sdk'
     inputs:
       packageType: 'sdk'
-      version: '5.0.100'
+      version: '6.0.100-rc.2.21505.57'
   - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - task: DotNetCoreCLI@2
@@ -79,7 +79,7 @@ jobs:
     displayName: 'Use .NET Core sdk'
     inputs:
       packageType: 'sdk'
-      version: '5.0.100'
+      version: '6.0.100-rc.2.21505.57'
   - task: DotNetCoreCLI@2
     displayName: 'Restoring code using dotnet restore'
     inputs: 
@@ -119,7 +119,7 @@ jobs:
     displayName: 'Use .NET Core sdk'
     inputs:
       packageType: 'sdk'
-      version: '5.0.100'
+      version: '6.0.100-rc.2.21505.57'
   - script: dotnet build --configuration $(buildConfiguration)
     displayName: 'dotnet build $(buildConfiguration)'
   - task: DotNetCoreCLI@2
