@@ -90,6 +90,10 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         {
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
+            if(cart == null)
+            {
+                cart = new CartVm(_currencyService);
+            }
 
             return Json(cart);
         }
