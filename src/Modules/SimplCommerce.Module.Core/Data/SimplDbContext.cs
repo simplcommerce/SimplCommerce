@@ -53,9 +53,7 @@ namespace SimplCommerce.Module.Core.Data
                 .SelectMany(t => t.GetProperties())
                 .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
             {
-
                 property.SetColumnType("decimal(18,2)");
-
             }
 
             if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
