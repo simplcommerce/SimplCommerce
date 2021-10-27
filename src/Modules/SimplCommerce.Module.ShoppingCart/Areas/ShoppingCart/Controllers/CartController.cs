@@ -101,6 +101,10 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         [HttpPost("cart/update-item-quantity")]
         public async Task<IActionResult> UpdateQuantity([FromBody] CartQuantityUpdate model)
         {
+            if(model.Quantity <= 0)
+            {
+                return Ok(new { Error = true, Message = _localizer["The quantity must be larger than zero"].Value });
+            }
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCart(currentUser.Id);
 

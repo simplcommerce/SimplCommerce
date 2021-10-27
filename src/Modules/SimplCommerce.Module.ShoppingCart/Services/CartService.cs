@@ -59,6 +59,10 @@ namespace SimplCommerce.Module.ShoppingCart.Services
 
         public async Task<Result> AddToCart(long customerId, long createdById, long productId, int quantity)
         {
+            if(quantity <= 0)
+            {
+                return Result.Fail(_localizer["The quantity must be larger than zero"].Value);
+            }
             var cart = await GetActiveCart(customerId, createdById);
             if (cart == null)
             {
