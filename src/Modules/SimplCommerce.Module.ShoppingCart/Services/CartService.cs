@@ -52,16 +52,20 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 .Where(x => x.CustomerId == customerId && x.CreatedById == createdById && x.IsActive).FirstOrDefaultAsync();
         }
 
-        public async Task<Result> AddToCart(long customerId, long productId, int quantity)
+        public async Task<AddToCartResult> AddToCart(long customerId, long productId, int quantity)
         {
             return await AddToCart(customerId, customerId, productId, quantity);
         }
 
-        public async Task<Result> AddToCart(long customerId, long createdById, long productId, int quantity)
+        public async Task<AddToCartResult> AddToCart(long customerId, long createdById, long productId, int quantity)
         {
-            if(quantity <= 0)
+            var addToCartResult = new AddToCartResult { Success = false };
+
+            if (quantity <= 0)
             {
-                return Result.Fail(_localizer["The quantity must be larger than zero"].Value);
+                addToCartResult.ErrorMessage = _localizer["The quantity must be larger than zero"].Value;
+                addToCartResult.ErrorCode = "wrong-quantity";
+                return addToCartResult;
             }
             var cart = await GetActiveCart(customerId, createdById);
             if (cart == null)
@@ -79,7 +83,9 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             {
                 if (cart.LockedOnCheckout)
                 {
-                    return Result.Fail(_localizer["Cart is locked for checkout. Please complete the checkout first."].Value);
+                    addToCartResult.ErrorMessage = _localizer["Cart is locked for checkout. Please complete the checkout first."].Value;
+                    addToCartResult.ErrorCode = "cart-locked";
+                    return addToCartResult;
                 }
 
                 cart = await _cartRepository.Query().Include(x => x.Items).FirstOrDefaultAsync(x => x.Id == cart.Id);
@@ -105,7 +111,8 @@ namespace SimplCommerce.Module.ShoppingCart.Services
 
             await  _cartRepository.SaveChangesAsync();
 
-            return Result.Ok();
+            addToCartResult.Success = true;
+            return addToCartResult;
         }
 
         public async Task<CartVm> GetActiveCartDetails(long customerId)

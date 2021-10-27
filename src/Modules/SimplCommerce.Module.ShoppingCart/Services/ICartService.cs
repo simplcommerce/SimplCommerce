@@ -9,9 +9,9 @@ namespace SimplCommerce.Module.ShoppingCart.Services
 {
     public interface ICartService
     {
-        Task<Result> AddToCart(long customerId, long productId, int quantity);
+        Task<AddToCartResult> AddToCart(long customerId, long productId, int quantity);
 
-        Task<Result> AddToCart(long customerId, long createdById, long productId, int quantity);
+        Task<AddToCartResult> AddToCart(long customerId, long createdById, long productId, int quantity);
 
         IQueryable<Cart> Query();
 

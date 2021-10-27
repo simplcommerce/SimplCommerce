@@ -54,7 +54,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             }
             else
             {
-                return Ok(new { Error = true, Message = result.Error });
+                return Ok(result);
             }
         }
 
@@ -64,7 +64,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
 
-            var model = new AddToCartResult(_currencyService)
+            var model = new AddToCartResultVm(_currencyService)
             {
                 CartItemCount = cart.Items.Count,
                 CartAmount = cart.SubTotal
