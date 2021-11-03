@@ -1,9 +1,15 @@
-﻿using System.Text.Encodings.Web;
+﻿using System;
+using System.Linq;
+using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.WebEncoders;
 using Microsoft.OpenApi.Models;
 using SimplCommerce.Infrastructure;
