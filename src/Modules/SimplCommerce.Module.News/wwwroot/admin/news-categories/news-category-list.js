@@ -15,7 +15,7 @@
         };
 
         vm.deleteNewsCategory = function deleteNewsCategory(newsCategory) {
-            bootbox.confirm('Are you sure you want to delete this news category: ' + newsCategory.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this news category: ' + simplUtil.escapeHtml(newsCategory.name), function (result) {
                 if (result) {
                     newsCategoryService.deleteNewsCategory(newsCategory)
                        .then(function (result) {

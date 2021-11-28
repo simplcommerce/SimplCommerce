@@ -23,7 +23,7 @@ namespace SimplCommerce.WebHost.Extensions
         {
             app.UseIdentityServer();
             app.UseWhen(
-                context => context.Request.Path.StartsWithSegments("/api"),
+                context => context.Request.Path.StartsWithSegments("/api", StringComparison.OrdinalIgnoreCase),
                 a => a.Use(async (context, next) =>
                 {
                     if (!context.User.Identity.IsAuthenticated) {

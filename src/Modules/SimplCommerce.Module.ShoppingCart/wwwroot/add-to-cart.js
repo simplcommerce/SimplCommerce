@@ -34,8 +34,12 @@ $(function () {
             data: JSON.stringify({ productId: Number(productId), quantity: Number(quantity) }),
             contentType: "application/json"
         }).done(function (data) {
-            if (data.error) {
-                $('#shopModal').find('.modal-content').html(cartLockedError);
+            if (data.success === false) {
+                if (data.errorCode === "cart-locked") {
+                    $('#shopModal').find('.modal-content').html(cartLockedError);
+                } else {
+                    $('#shopModal').find('.modal-content').html(generalError).find('.modal-body').text(data.errorMessage);
+                }
             } else {
                 $('#shopModal').find('.modal-content').html(data);
                 $('.cart-badge .badge').text($('#shopModal').find('.cart-item-count').text());

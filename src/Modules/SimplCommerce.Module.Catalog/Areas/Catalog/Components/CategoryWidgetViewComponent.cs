@@ -7,6 +7,7 @@ using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Catalog.Areas.Catalog.ViewModels;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Areas.Core.ViewModels;
+using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
@@ -15,18 +16,20 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
     {
         private readonly IRepository<Category> _categoriesRepository;
         private readonly IMediaService _mediaService;
+        private readonly IContentLocalizationService _contentLocalizationService;
 
-        public CategoryWidgetViewComponent(IRepository<Category> categoriesRepository, IMediaService mediaService)
+        public CategoryWidgetViewComponent(IRepository<Category> categoriesRepository, IMediaService mediaService, IContentLocalizationService contentLocalizationService)
         {
             _categoriesRepository = categoriesRepository;
             _mediaService = mediaService;
+            _contentLocalizationService = contentLocalizationService;
         }
 
         public IViewComponentResult Invoke(WidgetInstanceViewModel widgetInstance)
         {
             var model = new CategoryWidgetComponentVm() {
                 Id = widgetInstance.Id,
-                WidgetName = widgetInstance.Name,
+                WidgetName = _contentLocalizationService.GetLocalizedProperty(nameof(WidgetInstance), widgetInstance.Id, nameof(widgetInstance.Name), widgetInstance.Name),
             };
             var settings = JsonConvert.DeserializeObject<CategoryWidgetSettings>(widgetInstance.Data);
             if (settings != null)

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 
 namespace SimplCommerce.Infrastructure.Helpers
 {
@@ -11,26 +11,27 @@ namespace SimplCommerce.Infrastructure.Helpers
         public static IList<T> ReadCsvStream<T>(Stream stream, bool skipFirstLine = true, string csvDelimiter = ",") where T : new()
         {
             var records = new List<T>();
-            var reader = new StreamReader(stream);
-            while (!reader.EndOfStream)
+            using (var reader = new StreamReader(stream))
             {
-                var line = reader.ReadLine();
-                var values = line.Split(csvDelimiter.ToCharArray());
-                if (skipFirstLine)
+                while (!reader.EndOfStream)
                 {
-                    skipFirstLine = false;
-                }
-                else
-                {
-                    var itemTypeInGeneric = records.GetType().GetTypeInfo().GenericTypeArguments[0];
-                    var item = new T();
-                    var properties = item.GetType().GetProperties();
-                    for (int i = 0; i < values.Length; i++)
+                    var line = reader.ReadLine();
+                    var values = line.Split(csvDelimiter.ToCharArray());
+                    if (skipFirstLine)
                     {
-                        properties[i].SetValue(item, Convert.ChangeType(values[i], properties[i].PropertyType), null);
+                        skipFirstLine = false;
                     }
+                    else
+                    {
+                        var item = new T();
+                        var properties = item.GetType().GetProperties();
+                        for (int i = 0; i < values.Length; i++)
+                        {
+                            properties[i].SetValue(item, Convert.ChangeType(values[i], properties[i].PropertyType, CultureInfo.CurrentCulture), null);
+                        }
 
-                    records.Add(item);
+                        records.Add(item);
+                    }
                 }
             }
 
@@ -51,60 +52,61 @@ namespace SimplCommerce.Infrastructure.Helpers
                 itemType = type.GetElementType();
             }
 
-            var stringWriter = new StringWriter();
-
-            if (includeHeader)
+            using (var stringWriter = new StringWriter())
             {
-                stringWriter.WriteLine(
-                    string.Join<string>(
-                        csvDelimiter, itemType.GetProperties().Select(x => x.Name)
-                    )
-                );
-            }
+                if (includeHeader)
+                {
+                    stringWriter.WriteLine(
+                        string.Join<string>(
+                            csvDelimiter, itemType.GetProperties().Select(x => x.Name)
+                        )
+                    );
+                }
 
-            foreach (var obj in data)
-            {
-                var vals = obj.GetType().GetProperties().Select(pi => new
+                foreach (var obj in data)
+                {
+                    var vals = obj.GetType().GetProperties().Select(pi => new
                     {
                         Value = pi.GetValue(obj, null)
                     }
-                );
+                    );
 
-                string line = string.Empty;
-                foreach (var val in vals)
-                {
-                    if (val.Value != null)
+                    string line = string.Empty;
+                    foreach (var val in vals)
                     {
-                        var escapeVal = val.Value.ToString();
-                        //Check if the value contans a comma and place it in quotes if so
-                        if (escapeVal.Contains(","))
+                        if (val.Value != null)
                         {
-                            escapeVal = string.Concat("\"", escapeVal, "\"");
-                        }
+                            var escapeVal = val.Value.ToString();
+                            // Check if the value contans a comma and place it in quotes if so
+                            if (escapeVal.Contains(",", StringComparison.OrdinalIgnoreCase))
+                            {
+                                escapeVal = string.Concat("\"", escapeVal, "\"");
+                            }
 
-                        //Replace any \r or \n special characters from a new line with a space
-                        if (escapeVal.Contains("\r"))
+                            // Replace any \r or \n special characters from a new line with a space
+                            if (escapeVal.Contains("\r", StringComparison.OrdinalIgnoreCase))
+                            {
+                                escapeVal = escapeVal.Replace("\r", " ", StringComparison.OrdinalIgnoreCase);
+                            }
+
+                            if (escapeVal.Contains("\n", StringComparison.OrdinalIgnoreCase))
+                            {
+                                escapeVal = escapeVal.Replace("\n", " ", StringComparison.OrdinalIgnoreCase);
+                            }
+
+                            line = string.Concat(line, escapeVal, csvDelimiter);
+                        }
+                        else
                         {
-                            escapeVal = escapeVal.Replace("\r", " ");
+                            line = string.Concat(line, string.Empty, csvDelimiter);
                         }
-
-                        if (escapeVal.Contains("\n"))
-                        {
-                            escapeVal = escapeVal.Replace("\n", " ");
-                        }
-
-                        line = string.Concat(line, escapeVal, csvDelimiter);
                     }
-                    else
-                    {
-                        line = string.Concat(line, string.Empty, csvDelimiter);
-                    }
+
+                    stringWriter.WriteLine(line.TrimEnd(csvDelimiter.ToCharArray()));
                 }
 
-                stringWriter.WriteLine(line.TrimEnd(csvDelimiter.ToCharArray()));
+                return stringWriter.ToString();
             }
-
-            return stringWriter.ToString();
         }
     }
 }

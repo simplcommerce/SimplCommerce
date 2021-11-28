@@ -16,7 +16,7 @@
         };
 
         vm.deleteProductTemplate = function deleteProductTemplate(productTemplate) {
-            bootbox.confirm('Are you sure you want to delete this template: ' + productTemplate.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this template: ' + simplUtil.escapeHtml(productTemplate.name), function (result) {
                 if (result) {
                     productTemplateService.deleteProductTemplate(productTemplate)
                        .then(function (result) {

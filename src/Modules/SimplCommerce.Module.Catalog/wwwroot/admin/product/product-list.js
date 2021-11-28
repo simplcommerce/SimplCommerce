@@ -29,7 +29,7 @@
         };
 
         vm.deleteProduct = function deleteProduct(product) {
-            bootbox.confirm('Are you sure you want to delete this product: ' + product.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this product: ' + simplUtil.escapeHtml(product.name), function (result) {
                 if (result) {
                     productService.deleteProduct(product)
                        .then(function (result) {

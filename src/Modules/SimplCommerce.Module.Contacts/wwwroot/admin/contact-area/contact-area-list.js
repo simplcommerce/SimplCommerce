@@ -2,12 +2,13 @@
 (function () {
     angular
         .module('simplAdmin.contacts')
-        .controller('ContactAreaListCtrl', ['contactAreaService', 'translateService', ContactAreaListCtrl]);
+        .controller('ContactAreaListCtrl', ['contactAreaService', 'translateService', '$window', ContactAreaListCtrl]);
 
-    function ContactAreaListCtrl(contactAreaService, translateService) {
+    function ContactAreaListCtrl(contactAreaService, translateService, $window) {
         var vm = this;
         vm.translate = translateService;
         vm.contactAreas = [];
+        vm.enableCultures = $window.Global_EnableCultures;
 
         vm.getContactAreas = function getContactAreas() {
             contactAreaService.getContactAreas().then(function (result) {
@@ -16,7 +17,7 @@
         };
 
         vm.deleteContactArea = function deleteContactArea(contactArea) {
-            bootbox.confirm('Are you sure you want to delete this Contact Area: ' + contactArea.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this Contact Area: ' + simplUtil.escapeHtml(contactArea.name), function (result) {
                 if (result) {
                     contactAreaService.deleteContactArea(contactArea)
                        .then(function (result) {

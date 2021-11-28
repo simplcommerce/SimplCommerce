@@ -22,7 +22,7 @@
         };
 
         vm.deleteNewsItem = function deleteNewsItem(newsItem) {
-            bootbox.confirm('Are you sure you want to delete this news item: ' + newsItem.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this news item: ' + simplUtil.escapeHtml(newsItem.name), function (result) {
                 if (result) {
                     newsItemService.deleteNewsItem(newsItem)
                        .then(function (result) {

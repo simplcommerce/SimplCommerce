@@ -6,7 +6,7 @@
     function mostSearchKeyword() {
         var directive = {
             restrict: 'E',
-            templateUrl: 'modules/search/admin/most-search-keywords.directive.html',
+            templateUrl: '_content/SimplCommerce.Module.Search/admin/most-search-keywords.directive.html',
             scope: {},
             controller: ['searchService', 'translateService', MostSearchKeywordCtrl],
             controllerAs: 'vm',

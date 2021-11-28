@@ -16,7 +16,7 @@
         };
 
         vm.deleteTaxRate = function deleteTaxRate(taxRate) {
-            bootbox.confirm('Are you sure you want to delete this taxRate: ' + taxRate.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this taxRate: ' + simplUtil.escapeHtml(taxRate.name), function (result) {
                 if (result) {
                     taxRateService.deleteTaxRate(taxRate)
                         .then(function (result) {

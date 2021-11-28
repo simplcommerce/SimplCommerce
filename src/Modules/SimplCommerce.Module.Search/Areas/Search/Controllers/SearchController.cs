@@ -151,10 +151,12 @@ namespace SimplCommerce.Module.Search.Areas.Search.Controllers
             return query;
         }
 
-        private static void AppendFilterOptionsToModel(SearchResult model, IQueryable<Product> query)
+        private void AppendFilterOptionsToModel(SearchResult model, IQueryable<Product> query)
         {
             model.FilterOption.Price.MaxPrice = query.Max(x => x.Price);
             model.FilterOption.Price.MinPrice = query.Min(x => x.Price);
+
+            var getCategoryName = _contentLocalizationService.GetLocalizationFunction<Category>();
 
             model.FilterOption.Categories = query
                 .SelectMany(x => x.Categories)
@@ -173,6 +175,11 @@ namespace SimplCommerce.Module.Search.Areas.Search.Controllers
                     ParentId = g.Key.ParentId,
                     Count = g.Count()
                 }).ToList();
+
+            foreach(var item in model.FilterOption.Categories)
+            {
+                item.Name = getCategoryName(item.Id, nameof(item.Name), item.Name);
+            }
 
             // TODO an EF Core bug, so we have to do evaluation in client
             model.FilterOption.Brands = query.Include(x => x.Brand)

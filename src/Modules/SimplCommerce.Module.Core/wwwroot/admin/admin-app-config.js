@@ -1,6 +1,7 @@
 ﻿/*global angular*/
 (function () {
     toastr.options.closeButton = true;
+    toastr.options.escapeHtml = true;
     angular.module('simplAdmin')
         .config([
             '$urlRouterProvider', '$httpProvider',

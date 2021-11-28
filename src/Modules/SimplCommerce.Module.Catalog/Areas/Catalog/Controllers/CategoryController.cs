@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -82,6 +83,12 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 query = query.Where(x => x.Price <= searchOption.MaxPrice.Value);
             }
 
+            var categories = searchOption.GetCategories();
+            if (categories.Any())
+            {
+                query = query.Where(p => p.Categories.Select(c => c.CategoryId).Intersect(_categoryRepository.Query().Where(cat => categories.Contains(cat.Slug)).Select(c => c.Id)).Any());
+            }
+
             var brands = searchOption.GetBrands().ToArray();
             if (brands.Any())
             {
@@ -136,10 +143,35 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
             return query;
         }
 
-        private static void AppendFilterOptionsToModel(ProductsByCategory model, IQueryable<Product> query)
+        private void AppendFilterOptionsToModel(ProductsByCategory model, IQueryable<Product> query)
         {
             model.FilterOption.Price.MaxPrice = query.Max(x => x.Price);
             model.FilterOption.Price.MinPrice = query.Min(x => x.Price);
+
+            var getCategoryName = _contentLocalizationService.GetLocalizationFunction<Category>();
+
+            model.FilterOption.Categories = query
+                .SelectMany(x => x.Categories)
+                .GroupBy(x => new
+                {
+                    x.Category.Id,
+                    x.Category.Name,
+                    x.Category.Slug,
+                    x.Category.ParentId
+                })
+                .Select(g => new FilterCategory
+                {
+                    Id = (int)g.Key.Id,
+                    Name = g.Key.Name,
+                    Slug = g.Key.Slug,
+                    ParentId = g.Key.ParentId,
+                    Count = g.Count()
+                }).ToList();
+
+            foreach(var item in model.FilterOption.Categories)
+            {
+                item.Name = getCategoryName(item.Id, nameof(item.Name), item.Name);
+            }
 
             model.FilterOption.Brands = query.Include(x => x.Brand)
                 .Where(x => x.BrandId != null).ToList()

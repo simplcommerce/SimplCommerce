@@ -1,7 +1,7 @@
 ﻿@model SimplCommerce.Module.Core.Areas.Core.ViewModels.HomeViewModel
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = Localizer["Home Page"];
 }
 
 <partial name="_WidgetInstances" model="Model.WidgetInstances.Where(x => x.WidgetZoneId == WidgetZoneIds.HomeFeatured)" />

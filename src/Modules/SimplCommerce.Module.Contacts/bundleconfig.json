@@ -3,6 +3,7 @@
     "outputFileName": "wwwroot/admin/contacts.min.js",
     "inputFiles": [
       "wwwroot/admin/contacts.module.js",
+      "wwwroot/admin/contact-area/contact-area-translation-form.js",
       "wwwroot/admin/contact-area/contact-area-service.js",
       "wwwroot/admin/contact-area/contact-area-list.js",
       "wwwroot/admin/contact-area/contact-area-form.js",

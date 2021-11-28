@@ -33,8 +33,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
 
         [HttpGet("{id}")]
         public async Task<ActionResult<CarouselWidgetForm>> Get(long id)
-        {
-            var totalWidgets = _widgetInstanceRepository.Query().ToList().Count();
+        {            
             var widgetInstance = await _widgetInstanceRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
             var model = new CarouselWidgetForm
             {

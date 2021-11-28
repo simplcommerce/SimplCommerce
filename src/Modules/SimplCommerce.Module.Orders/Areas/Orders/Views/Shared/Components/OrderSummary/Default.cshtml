@@ -41,7 +41,7 @@
     @if (!Model.IsProductPriceIncludeTax)
     {
         <tr>
-            <td>Tax</td>
+            <td>@Localizer["Tax"]</td>
             <td colspan="2" id="orderSummaryTax" class="text-right">@Model.TaxAmountString</td>
         </tr>
     }

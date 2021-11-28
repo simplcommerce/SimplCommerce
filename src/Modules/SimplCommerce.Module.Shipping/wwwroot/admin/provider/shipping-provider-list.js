@@ -16,7 +16,7 @@
         }
 
         vm.enableProvider = function enableProvider(provider) {
-            bootbox.confirm('Are you sure you want to enable this ' + provider.name + ' provider', function (result) {
+            bootbox.confirm('Are you sure you want to enable this ' + simplUtil.escapeHtml(provider.name) + ' provider', function (result) {
                 if (result) {
                     shippingProviderService.enableProvider(provider)
                         .then(function (result) {
@@ -31,7 +31,7 @@
         };
 
         vm.disableProvider = function disableProvider(provider) {
-            bootbox.confirm('Are you sure you want to disable this ' + provider.name + ' provider', function (result) {
+            bootbox.confirm('Are you sure you want to disable this ' + simplUtil.escapeHtml(provider.name) + ' provider', function (result) {
                 if (result) {
                     shippingProviderService.disableProvider(provider)
                         .then(function (result) {

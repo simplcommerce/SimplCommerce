@@ -11,7 +11,7 @@
         vm.widgetInstances = [];
 
         vm.deleteWidgetInstance = function deleteWidgetInstance(widgetInstance) {
-            bootbox.confirm('Are you sure you want to delete this widget: ' + widgetInstance.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this widget: ' + simplUtil.escapeHtml(widgetInstance.name), function (result) {
                 if (result) {
                     widgetService.deleteWidgetInstance(widgetInstance.id)
                        .then(function (result) {

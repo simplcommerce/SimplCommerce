@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using SimplCommerce.Infrastructure.Web;
 using SimplCommerce.Module.Core.Areas.Core.ViewModels.Account;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
@@ -19,6 +21,8 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IStringLocalizer _localizer;
+        private readonly IRazorViewRenderer _viewRender;
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
@@ -26,12 +30,16 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
+            IStringLocalizerFactory stringLocalizerFactory,
+            IRazorViewRenderer viewRender,
             IEmailSender emailSender,
             ISmsSender smsSender,
             ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _localizer = stringLocalizerFactory.Create(null);
+            _viewRender = viewRender;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
@@ -116,9 +124,9 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
                     // Send an email with this link
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                    //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                    //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
+                    //model.CallbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+                    //var message = await _viewRender.RenderViewToStringAsync("/Areas/Core/Views/EmailTemplate/AccountRegisteredConfirmationEmailModel.cshtml", model);
+                    //await _emailSender.SendEmailAsync(model.Email, _localizer["Confirm your account"], message, true);
                     await _userManager.AddToRoleAsync(user, "customer");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);

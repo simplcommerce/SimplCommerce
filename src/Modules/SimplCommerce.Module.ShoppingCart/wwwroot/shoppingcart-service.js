@@ -27,12 +27,17 @@
                     return $http.post('cart/save-ordernote', { orderNote: orderNote });
                 }
 
+                function unlock() {
+                    return $http.post('cart/unlock');
+                }
+
                 return {
                     getShoppingCartItems: getShoppingCartItems,
                     removeShoppingCartItem: removeShoppingCartItem,
                     updateQuantity: updateQuantity,
                     applyCoupon: applyCoupon,
-                    saveOrderNote: saveOrderNote
+                    saveOrderNote: saveOrderNote,
+                    unlock: unlock
                 };
             }
         ]);

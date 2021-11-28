@@ -11,12 +11,12 @@ namespace SimplCommerce.Infrastructure.Extensions
         {
             if (source == null)
             {
-                throw new ArgumentException(nameof(source));
+                throw new ArgumentNullException(nameof(source));
             }
 
             if (string.IsNullOrWhiteSpace(propertyName))
             {
-                throw new ArgumentException(nameof(propertyName));
+                throw new ArgumentException("Order by property should not empty", nameof(propertyName));
             }
 
             Type type = typeof(T);

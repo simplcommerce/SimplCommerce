@@ -7,17 +7,17 @@
             $stateProvider
                 .state('shipment-create', {
                     url: '/orders/:orderId/create-shipment',
-                    templateUrl: 'modules/shipments/admin/shipment/shipment-form.html',
+                    templateUrl: '_content/SimplCommerce.Module.Shipments/admin/shipment/shipment-form.html',
                     controller: 'ShipmentFormCtrl as vm'
                 })
                 .state('shipments', {
                     url: '/shipments',
-                    templateUrl: 'modules/shipments/admin/shipment/shipment-list.html',
+                    templateUrl: '_content/SimplCommerce.Module.Shipments/admin/shipment/shipment-list.html',
                     controller: 'ShipmentListCtrl as vm'
                 })
                 .state('shipment-details', {
                     url: '/shipment/:id',
-                    templateUrl: 'modules/shipments/admin/shipment/shipment-details.html',
+                    templateUrl: '_content/SimplCommerce.Module.Shipments/admin/shipment/shipment-details.html',
                     controller: 'ShipmentDetailsCtrl as vm'
                 });
         }]);

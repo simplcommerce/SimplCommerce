@@ -32,7 +32,7 @@
         };
 
         vm.deleteCountry = function (country) {
-            bootbox.confirm('Are you sure you want to delete this country: ' + country.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this country: ' + simplUtil.escapeHtml(country.name), function (result) {
                 if (result) {
                     countryService.deleteCountry(country)
                         .then(function (result) {

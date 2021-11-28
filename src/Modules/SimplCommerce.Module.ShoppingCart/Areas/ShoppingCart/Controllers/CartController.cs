@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Extensions;
@@ -17,23 +18,29 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
     public class CartController : Controller
     {
         private readonly IRepository<CartItem> _cartItemRepository;
+        private readonly IRepository<Cart> _cartRepository;
         private readonly ICartService _cartService;
         private readonly IMediaService _mediaService;
         private readonly IWorkContext _workContext;
         private readonly ICurrencyService _currencyService;
+        private readonly IStringLocalizer _localizer;
 
         public CartController(
             IRepository<CartItem> cartItemRepository,
+            IRepository<Cart> cartRepository,
             ICartService cartService,
             IMediaService mediaService,
             IWorkContext workContext,
-            ICurrencyService currencyService)
+            ICurrencyService currencyService,
+            IStringLocalizerFactory stringLocalizerFactory)
         {
             _cartItemRepository = cartItemRepository;
             _cartService = cartService;
+            _cartRepository = cartRepository;
             _mediaService = mediaService;
             _workContext = workContext;
             _currencyService = currencyService;
+            _localizer = stringLocalizerFactory.Create(null);
         }
 
         [HttpPost("cart/add-item")]
@@ -47,7 +54,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             }
             else
             {
-                return Ok(new { Error = true, Message = result.Error });
+                return Ok(result);
             }
         }
 
@@ -57,7 +64,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
 
-            var model = new AddToCartResult(_currencyService)
+            var model = new AddToCartResultVm(_currencyService)
             {
                 CartItemCount = cart.Items.Count,
                 CartAmount = cart.SubTotal
@@ -83,6 +90,10 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         {
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
+            if(cart == null)
+            {
+                cart = new CartVm(_currencyService);
+            }
 
             return Json(cart);
         }
@@ -90,6 +101,10 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         [HttpPost("cart/update-item-quantity")]
         public async Task<IActionResult> UpdateQuantity([FromBody] CartQuantityUpdate model)
         {
+            if(model.Quantity <= 0)
+            {
+                return Ok(new { Error = true, Message = _localizer["The quantity must be larger than zero"].Value });
+            }
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCart(currentUser.Id);
 
@@ -113,7 +128,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             {
                 if (cartItem.Product.StockTrackingIsEnabled && cartItem.Product.StockQuantity < model.Quantity)
                 {
-                    return Ok(new { Error = true, Message = $"There are only {cartItem.Product.StockQuantity} items available for {cartItem.Product.Name}" });
+                    return Ok(new { Error = true, Message = _localizer["There are only {0} items available for {1}.", cartItem.Product.StockQuantity, cartItem.Product.Name].Value });
                 }
             }
 
@@ -164,7 +179,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         }
 
         [HttpPost("cart/remove-item")]
-        public async Task<IActionResult> Remove([FromBody] long itemId)
+        public async Task<IActionResult> Remove([FromBody] long itemId, string returnUrl)
         {
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCart(currentUser.Id);
@@ -186,13 +201,36 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
 
             _cartItemRepository.Remove(cartItem);
             _cartItemRepository.SaveChanges();
-
+            cart = await _cartService.GetActiveCart(currentUser.Id);
+            if (cart.Items.Count < 1)
+            {
+                _cartRepository.Remove(cart);
+                _cartRepository.SaveChanges();
+            }
+            if (!string.IsNullOrWhiteSpace(returnUrl))
+            {
+                return LocalRedirect(returnUrl);
+            }
             return await List();
+        }
+
+        [HttpPost("cart/unlock")]
+        public async Task<IActionResult> Unlock()
+        {
+            var currentUser = await _workContext.GetCurrentUser();
+            var cart = await _cartService.GetActiveCart(currentUser.Id);
+            if (cart == null)
+            {
+                return NotFound();
+            }
+
+            await _cartService.UnlockCart(cart);
+            return Accepted();
         }
 
         private IActionResult CreateCartLockedResult()
         {
-            return Ok(new { Error = true, Message = "Cart is locked for checkout. Please complete or cancel the checkout first" });
+            return Ok(new { Error = true, Message = _localizer["Cart is locked for checkout. Please complete or cancel the checkout first."].Value });
         }
     }
 }

@@ -22,7 +22,7 @@
         };
 
         vm.deleteCustomerGroup = function deleteCustomerGroup(customergroup) {
-            bootbox.confirm('Are you sure you want to delete this customer group: ' + customergroup.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this customer group: ' + simplUtil.escapeHtml(customergroup.name), function (result) {
                 if (result) {
                     customergroupService.deleteCustomerGroup(customergroup)
                         .then(function (result) {

@@ -6,7 +6,7 @@
 
 @section head
 {
-    <link simpl-append-version="true" rel="stylesheet" href="~/modules/wishlist/private-list.css" />
+    <link simpl-append-version="true" rel="stylesheet" href="~/_content/SimplCommerce.Module.WishList/private-list.css" />
 }
 
 <div class="row">
@@ -31,7 +31,7 @@
                             <input type="hidden" name="productId" value="@item.ProductId" />
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">@Localizer["Quantity"]</label>
-                                <div class="col-md-8"><input type="number" name="qty" class="quantity-field" value="@item.Quantity" /></div>
+                                <div class="col-md-8"><input type="number" name="qty" class="quantity-field" value="@item.Quantity" min="1"/></div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">@Localizer["Description"]</label>

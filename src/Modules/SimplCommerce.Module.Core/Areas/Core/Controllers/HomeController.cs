@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SimplCommerce.Module.Core.Areas.Core.ViewModels;
+using SimplCommerce.Module.Core.Models;
 using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.Core.Areas.Core.Controllers
@@ -14,11 +15,13 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
     {
         private readonly ILogger _logger;
         private readonly IWidgetInstanceService _widgetInstanceService;
+        private readonly IContentLocalizationService _contentLocalizationService;
 
-        public HomeController(ILoggerFactory factory, IWidgetInstanceService widgetInstanceService)
+        public HomeController(ILoggerFactory factory, IWidgetInstanceService widgetInstanceService, IContentLocalizationService contentLocalizationService)
         {
             _logger = factory.CreateLogger("Unhandled Error");
             _widgetInstanceService = widgetInstanceService;
+            _contentLocalizationService = contentLocalizationService;
         }
 
         public IActionResult TestError()
@@ -30,6 +33,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
         public IActionResult Index()
         {
             var model = new HomeViewModel();
+            var getWidgetInstanceTranslations = _contentLocalizationService.GetLocalizationFunction<WidgetInstance>();
 
             model.WidgetInstances = _widgetInstanceService.GetPublished()
                 .OrderBy(x => x.DisplayOrder)
@@ -43,6 +47,12 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
                 Data = x.Data,
                 HtmlData = x.HtmlData
             }).ToList();
+
+            foreach(var item in model.WidgetInstances)
+            {
+                item.Name = getWidgetInstanceTranslations(item.Id, nameof(item.Name), item.Name);
+                item.HtmlData = getWidgetInstanceTranslations(item.Id, nameof(item.HtmlData), item.HtmlData);
+            }
 
             return View(model);
         }
@@ -58,6 +68,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             return View("Error");
         }
 
+        [HttpGet("/Home/Error")]
         public IActionResult Error()
         {
             var feature = HttpContext.Features.Get<IExceptionHandlerFeature>();

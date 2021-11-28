@@ -1,9 +1,9 @@
 ﻿@model SimplCommerce.Module.Comments.Areas.Comments.ViewModels.CommentVm
 
-<link simpl-append-version="true" rel="stylesheet" href="~/modules/comments/comment.css" />
+<link simpl-append-version="true" rel="stylesheet" href="~/_content/SimplCommerce.Module.Comments/comment.css" />
 <script simpl-append-version="true" src="~/lib/pagination/dirPagination.js"></script>
-<script simpl-append-version="true" src="~/modules/comments/comment.js"></script>
-<script simpl-append-version="true" src="~/modules/comments/comment-service.js"></script>
+<script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Comments/comment.js"></script>
+<script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Comments/comment-service.js"></script>
 <script>
     simplCommentEntity = { entityId: @Model.EntityId, entityTypeId: '@Model.EntityTypeId' };
 </script>
@@ -27,7 +27,8 @@
     }
     else
     {
-        <p>Please <a href="~/login?ReturnUrl=@Context.Request.Path#comments">login</a> or <a href="~/register?ReturnUrl=@Context.Request.Path#comments">register</a> to submit your questions</p>
+        var localizedTextParts = Localizer["Please <a>login</a> or <a>register</a> to submit your questions."].GetTextPartsFunction("<a>", "</a>");
+        <p>@localizedTextParts(0)<a href="~/login?ReturnUrl=@Context.Request.Path#comments">@localizedTextParts(1)</a>@localizedTextParts(2)<a href="~/register?ReturnUrl=@Context.Request.Path#comments">@localizedTextParts(3)</a>@localizedTextParts(4)</p>
     }
     <div class="row">
         <div class="col-md-6">
@@ -84,7 +85,8 @@
                     }
                     else
                     {
-                        <p>Please <a href="~/login?ReturnUrl=@Context.Request.Path#comments">login</a> or <a href="~/register?ReturnUrl=@Context.Request.Path#comments">register</a> to reply</p>
+                        var localizedTextParts = Localizer["Please <a>login</a> or <a>register</a> to reply."].GetTextPartsFunction("<a>", "</a>");
+                        <p>@localizedTextParts(0)<a href="~/login?ReturnUrl=@Context.Request.Path#comments">@localizedTextParts(1)</a>@localizedTextParts(2)<a href="~/register?ReturnUrl=@Context.Request.Path#comments">@localizedTextParts(3)</a>@localizedTextParts(4)</p>
                     }
                 </div>
             </div>

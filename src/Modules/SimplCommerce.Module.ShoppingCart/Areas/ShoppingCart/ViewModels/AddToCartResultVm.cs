@@ -2,11 +2,11 @@
 
 namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels
 {
-    public class AddToCartResult
+    public class AddToCartResultVm
     {
         private readonly ICurrencyService _currencyService;
 
-        public AddToCartResult(ICurrencyService currencyService)
+        public AddToCartResultVm(ICurrencyService currencyService)
         {
             _currencyService = currencyService;
         }

@@ -1,10 +1,10 @@
 ﻿@model SimplCommerce.Module.ProductComparison.Areas.ProductComparison.ViewModels.ProductComparisonVm
 
 @{
-    ViewData["Title"] = "Compare products";
+    ViewData["Title"] = Localizer["Compare products"];
 }
 
-<h1>Compare products</h1>
+<h1>@Localizer["Compare products"]</h1>
 
 @if(Model.Products.Any())
 {
@@ -13,7 +13,7 @@
             <td> </td>
             @foreach (var product in Model.Products)
             {
-                <td><a href="#" class="remove-item-comparison" data-product-id="@product.ProductId" data-reload="true">Remove</a></td>
+                <td><a href="#" class="remove-item-comparison" data-product-id="@product.ProductId" data-reload="true">@Localizer["Remove"]</a></td>
             }
         </tr>
         <tr>
@@ -24,14 +24,14 @@
             }
         </tr>
         <tr>
-            <td><strong>Name</strong></td>
+            <td><strong>@Localizer["Name"]</strong></td>
             @foreach (var product in Model.Products)
             {
                 <td><strong>@product.ProductName</strong></td>
             }
         </tr>
         <tr>
-            <td><strong>Price</strong></td>
+            <td><strong>@Localizer["Price"]</strong></td>
             @foreach (var product in Model.Products)
             {
                 <td>@product.CalculatedProductPrice.PriceString</td>
@@ -54,6 +54,6 @@
         }
     </table>
 }else{
-    <p>There is no product to compare</p>
+    <p>@Localizer["There is no product to compare"]</p>
 }
 

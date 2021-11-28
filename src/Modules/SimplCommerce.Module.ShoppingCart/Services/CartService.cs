@@ -9,6 +9,7 @@ using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Pricing.Services;
 using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
+using Microsoft.Extensions.Localization;
 
 namespace SimplCommerce.Module.ShoppingCart.Services
 {
@@ -20,9 +21,10 @@ namespace SimplCommerce.Module.ShoppingCart.Services
         private readonly ICouponService _couponService;
         private readonly bool _isProductPriceIncludeTax;
         private readonly ICurrencyService _currencyService;
+        private readonly IStringLocalizer _localizer;
 
         public CartService(IRepository<Cart> cartRepository, IRepository<CartItem> cartItemRepository, ICouponService couponService,
-            IMediaService mediaService, IConfiguration config, ICurrencyService currencyService)
+            IMediaService mediaService, IConfiguration config, ICurrencyService currencyService, IStringLocalizerFactory stringLocalizerFactory)
         {
             _cartRepository = cartRepository;
             _cartItemRepository = cartItemRepository;
@@ -30,6 +32,7 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             _mediaService = mediaService;
             _currencyService = currencyService;
             _isProductPriceIncludeTax = config.GetValue<bool>("Catalog.IsProductPriceIncludeTax");
+            _localizer = stringLocalizerFactory.Create(null);
         }
 
         public IQueryable<Cart> Query()
@@ -49,13 +52,21 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 .Where(x => x.CustomerId == customerId && x.CreatedById == createdById && x.IsActive).FirstOrDefaultAsync();
         }
 
-        public async Task<Result> AddToCart(long customerId, long productId, int quantity)
+        public async Task<AddToCartResult> AddToCart(long customerId, long productId, int quantity)
         {
             return await AddToCart(customerId, customerId, productId, quantity);
         }
 
-        public async Task<Result> AddToCart(long customerId, long createdById, long productId, int quantity)
+        public async Task<AddToCartResult> AddToCart(long customerId, long createdById, long productId, int quantity)
         {
+            var addToCartResult = new AddToCartResult { Success = false };
+
+            if (quantity <= 0)
+            {
+                addToCartResult.ErrorMessage = _localizer["The quantity must be larger than zero"].Value;
+                addToCartResult.ErrorCode = "wrong-quantity";
+                return addToCartResult;
+            }
             var cart = await GetActiveCart(customerId, createdById);
             if (cart == null)
             {
@@ -72,7 +83,9 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             {
                 if (cart.LockedOnCheckout)
                 {
-                    return Result.Fail("Cart is being locked for checkout. Please complete the checkout first");
+                    addToCartResult.ErrorMessage = _localizer["Cart is locked for checkout. Please complete the checkout first."].Value;
+                    addToCartResult.ErrorCode = "cart-locked";
+                    return addToCartResult;
                 }
 
                 cart = await _cartRepository.Query().Include(x => x.Items).FirstOrDefaultAsync(x => x.Id == cart.Id);
@@ -98,7 +111,8 @@ namespace SimplCommerce.Module.ShoppingCart.Services
 
             await  _cartRepository.SaveChangesAsync();
 
-            return Result.Ok();
+            addToCartResult.Success = true;
+            return addToCartResult;
         }
 
         public async Task<CartVm> GetActiveCartDetails(long customerId)
@@ -122,7 +136,8 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 IsProductPriceIncludeTax = cart.IsProductPriceIncludeTax,
                 TaxAmount = cart.TaxAmount,
                 ShippingAmount = cart.ShippingAmount,
-                OrderNote = cart.OrderNote
+                OrderNote = cart.OrderNote,
+                LockedOnCheckout = cart.LockedOnCheckout
             };
 
             cartVm.Items = _cartItemRepository
@@ -195,7 +210,8 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                     cartTo = new Cart
                     {
                         CustomerId = toUserId,
-                        CreatedById = toUserId
+                        CreatedById = toUserId,
+                        IsProductPriceIncludeTax = cartFrom.IsProductPriceIncludeTax
                     };
 
                     _cartRepository.Add(cartTo);
@@ -222,6 +238,20 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 }
 
                await _cartRepository.SaveChangesAsync();
+            }
+        }
+
+        public async Task UnlockCart(Cart cart)
+        {
+            if(cart == null)
+            {
+                throw new ArgumentNullException(nameof(cart));
+            }
+
+            if (cart.LockedOnCheckout)
+            {
+                cart.LockedOnCheckout = false;
+                await _cartRepository.SaveChangesAsync();
             }
         }
     }

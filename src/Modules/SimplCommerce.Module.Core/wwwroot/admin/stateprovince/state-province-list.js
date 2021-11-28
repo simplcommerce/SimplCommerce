@@ -29,7 +29,7 @@
         };
 
         vm.deleteStateOrProvince = function deleteStateOrProvince(stateOrProvince) {
-            bootbox.confirm('Are you sure you want to delete this state or province: ' + stateOrProvince.name, function (result) {
+            bootbox.confirm('Are you sure you want to delete this state or province: ' + simplUtil.escapeHtml(stateOrProvince.name), function (result) {
                 if (result) {
                     stateProvinceService.deleteStateProvince(stateOrProvince)
                         .then(function (result) {
