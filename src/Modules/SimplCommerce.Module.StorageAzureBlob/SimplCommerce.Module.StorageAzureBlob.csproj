@@ -1,7 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <ItemGroup>
-    <PackageReference Include="WindowsAzure.Storage" version="9.3.3" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
   </ItemGroup>
