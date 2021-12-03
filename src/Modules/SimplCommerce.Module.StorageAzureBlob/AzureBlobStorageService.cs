@@ -1,16 +1,16 @@
 ﻿using System.Diagnostics.Contracts;
 using System.IO;
 using System.Threading.Tasks;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using Microsoft.Extensions.Configuration;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
 using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.StorageAzureBlob
 {
     public class AzureBlobStorageService : IStorageService
     {
-        private CloudBlobContainer _blobContainer;
+        private BlobContainerClient _blobContainer;
         private string _publicEndpoint;
 
         public AzureBlobStorageService(IConfiguration configuration)
@@ -22,10 +22,9 @@ namespace SimplCommerce.Module.StorageAzureBlob
             Contract.Requires(string.IsNullOrWhiteSpace(storageConnectionString));
             Contract.Requires(string.IsNullOrWhiteSpace(containerName));
 
-            var storageAccount = CloudStorageAccount.Parse(storageConnectionString);
 
-            var blobClient = storageAccount.CreateCloudBlobClient();
-            _blobContainer = blobClient.GetContainerReference(containerName);
+            var blobClient = new BlobServiceClient(storageConnectionString);
+            _blobContainer = blobClient.GetBlobContainerClient(containerName);
 
             if (string.IsNullOrWhiteSpace(_publicEndpoint))
             {
@@ -35,7 +34,7 @@ namespace SimplCommerce.Module.StorageAzureBlob
         }
         public async Task DeleteMediaAsync(string fileName)
         {
-            var blockBlob = _blobContainer.GetBlockBlobReference(fileName);
+            var blockBlob = _blobContainer.GetBlobClient(fileName);
             await blockBlob.DeleteIfExistsAsync();
         }
 
@@ -47,10 +46,25 @@ namespace SimplCommerce.Module.StorageAzureBlob
         public async Task SaveMediaAsync(Stream mediaBinaryStream, string fileName, string mimeType = null)
         {
             await _blobContainer.CreateIfNotExistsAsync();
-            await _blobContainer.SetPermissionsAsync(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Container });
+            await _blobContainer.SetAccessPolicyAsync(accessType: PublicAccessType.BlobContainer);
 
-            var blockBlob = _blobContainer.GetBlockBlobReference(fileName);
-            await blockBlob.UploadFromStreamAsync(mediaBinaryStream);
+            var blockBlob = _blobContainer.GetBlobClient(fileName);
+
+            var blobHttpHeader = mimeType != null ? new BlobHttpHeaders { ContentType = mimeType } : null;
+
+            if (await blockBlob.ExistsAsync())
+            {
+                if (blobHttpHeader != null)
+                {
+                    await blockBlob.SetHttpHeadersAsync(blobHttpHeader);
+                }
+
+                await blockBlob.UploadAsync(mediaBinaryStream, overwrite: true);
+            }
+            else
+            {
+                await blockBlob.UploadAsync(mediaBinaryStream, blobHttpHeader);
+            }
         }
     }
 }
