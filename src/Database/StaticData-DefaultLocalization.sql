@@ -380,5 +380,14 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-U
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Your review will be showed within the next 24h.', N'Your review will be showed within the next 24h.');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Your review will be shown within the next 24h.', N'Your review will be shown within the next 24h.');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Zip Code', N'Zip Code');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Manage News Categories', N'Manage News Categories')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Manage News Items', N'Manage News Items')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'News Item List', N'News Item List')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'News Item Name', N'News Item Name')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Create News Item', N'Create News Item')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Edit News Item', N'Edit News Item')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Thumbnail Image', N'Thumbnail Image')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Belong to categories', N'Belong to categories')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'records found', N'records found')
 
 GO
