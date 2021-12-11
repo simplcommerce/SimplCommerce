@@ -24,7 +24,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-C
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Product specification', N'商品规格')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Rate this product', N'给商品打分')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Review comment', N'审核评论')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Review title', N'审核标题')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Review title', N'评论标题')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Posted by', N'发表于')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Submit review', N'提交评论')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'You have', N'你有')
@@ -61,13 +61,13 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-C
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Filter by', N'过滤')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Category', N'类别')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Brand', N'品牌')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Sort by:', N'排序方式 :')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Sort by:', N'排序方式:')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'results', N'结果')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'View options', N'查看选项')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Associate your {0} account.', N'关联你的{0}账号。')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Users', N'用户')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Vendors', N'供应商')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Reviews', N'评测')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Reviews', N'评论')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Products', N'商品')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Categories', N'类别')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Brands', N'品牌')
@@ -91,7 +91,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-C
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'OrderId', N'订单Id')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Order Status', N'订单状态')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Customer', N'客户')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Created On', N'创建于')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Created On', N'创建时间')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'SubTotal', N'小计')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Actions', N'操作')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Site', N'站点')
@@ -127,8 +127,8 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-C
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Is Called For Pricing', N'价格是否可谈')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Stock Quantity', N'库存数量')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Is Published', N'是否发布')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Yes', N'确定')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'No', N'否!')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Yes', N'是')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'No', N'否')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Edit Product', N'编辑商品')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Product Name', N'商品名称')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Short Description', N'简短描述')
@@ -174,7 +174,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-C
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Edit Product Option', N'编辑商品选项')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Create Product Display Widget', N'创建商品展示小部件')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Edit Product Display Widget', N'编辑商品展示小部件')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Widget Name', N'小工具名称')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Widget Name', N'小部件名称')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Widget Zone', N'小部件区域')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Publish Start', N'发布开始')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Publish End', N'发布结束')
@@ -227,4 +227,66 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-C
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Thumbnail Image', N'缩略图')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Belong to categories', N'分属类别')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'records found', N'条记录')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'After vendor is created. Go to user list and create or set users as managers', N'创建供应商后。转到用户列表，创建或设置用户为管理员')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Pending review replies', N'待审核回复');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Pending reviews', N'审核回复');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Contact Area Name', N'联系区域名称');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Thumbnails', N'缩略图');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Display Order', N'排序');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Parent Category', N'父级类别');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Is Product Published', N'是否发布');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Is Featured in this Category', N'是否精品');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Customer Name', N'客户名称');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Customer Email', N'客户邮箱');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Customer Phone', N'客户手机号码');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Export Orders', N'导出订单');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Export Orders with Order Lines', N'导出带订单行的订单');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Shipments', N'配送');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Shipment Id', N'配送Id');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Stock management for warehouse', N'仓库库存管理');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Manage products in warehouse', N'管理仓库内的产品');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Adjusted Quantity', N'调整数量');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Note', N'备注');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Management products for warehouse', N'仓库产品管理');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Exist', N'是否存在');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Select to add', N'选择要添加的项目');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Add All Products', N'添加所有商品');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Add selected products', N'添加选中的商品');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Usage limit per coupon', N'每张优惠券的使用限额');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Usage limit per customer', N'每个客户的使用限制');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Discount Amount', N'折扣金额');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Max Discount Amount', N'最大折扣金额');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Products Selection', N'产品选择');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Select products to apply or leave blank for all products', N'选择要应用的产品或为所有产品留空');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Manage Products Selection', N'管理产品选择');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Create Cart Pricing Rule', N'创建购物车定价规则');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'IsSystem', N'是否是系统页面');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Items', N'子项');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Caption', N'标题');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Sub Caption', N'子标题');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Link Url', N'链接地址');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Link Text', N'链接文本');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Image', N'图片');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Add more', N'添加更多');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Create Carousel Widget', N'添加轮播部件');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'News Category List', N'新闻类别列表');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Create News Category', N'创建新闻类别');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'NewsCategory Name', N'新闻类别名称');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Type', N'类型');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Create State or Province', N'创建州或省份');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'All State or Province', N'所有州或省份');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Braintree Settings', N'脑树配置');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Public Key', N'公共秘钥');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Private Key', N'私有秘钥');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Merchaint Id', N'商户Id');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Production Environment', N'生成环境');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Global.AssetBundling', N'捆绑资产');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Global.CurrencyCulture', N'货币');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Global.CurrencyDecimalPlace', N'货币小数点');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Global.DefaultCultureUI', N'默认区域用户界面');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Global.LocalizedConentEnable', N'启用本地化组件');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Display order', N'排序');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Include in Menu', N'包含在菜单中');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('zh-CN', N'Review Title', N'评论标题');
+
 GO
