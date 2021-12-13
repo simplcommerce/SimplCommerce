@@ -43,7 +43,7 @@
                     <th>{{::vm.translate.get('Product Name')}}</th>
                     <th class="text-right">{{::vm.translate.get('Price')}}</th>
                     <th>{{::vm.translate.get('Quantity')}}</th>
-                    <th>Actions</th>
+                    <th>{{ ::vm.translate.get('Actions')}}</th>
                 </tr>
                 <tr ng-repeat="item in vm.cart.items">
                     <td>{{item.productId}}</td>
