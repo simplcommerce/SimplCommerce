@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 
-sed -i'' -e 's|<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />|<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0" />|' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
+sed -i'' -e 's|<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />|<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.0" />|' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
+sed -i'' -e 's/ConfigureService();/AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);\nConfigureService();/' src/SimplCommerce.WebHost/Program.cs
 sed -i'' -e 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Program.cs
 sed -i'' -e 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Extensions/ServiceCollectionExtensions.cs
 
