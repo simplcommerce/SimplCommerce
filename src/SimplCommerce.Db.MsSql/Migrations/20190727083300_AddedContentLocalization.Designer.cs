@@ -7,17 +7,17 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimplCommerce.Module.Core.Data;
 
-namespace SimplCommerce.WebHost.Migrations
+namespace SimplCommerce.Db.MsSql.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    [Migration("20190314044223_AddedNganLuongPayment")]
-    partial class AddedNganLuongPayment
+    [Migration("20190727083300_AddedContentLocalization")]
+    partial class AddedContentLocalization
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -110,6 +110,33 @@ namespace SimplCommerce.WebHost.Migrations
                             Id = "en-US",
                             Name = "English (US)"
                         });
+                });
+
+            modelBuilder.Entity("SimplCommerce.Infrastructure.Localization.LocalizedContentProperty", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CultureId")
+                        .IsRequired();
+
+                    b.Property<long>("EntityId");
+
+                    b.Property<string>("EntityType")
+                        .HasMaxLength(450);
+
+                    b.Property<string>("ProperyName")
+                        .IsRequired()
+                        .HasMaxLength(450);
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CultureId");
+
+                    b.ToTable("Localization_LocalizedContentProperty");
                 });
 
             modelBuilder.Entity("SimplCommerce.Infrastructure.Localization.Resource", b =>
@@ -924,6 +951,27 @@ namespace SimplCommerce.WebHost.Migrations
                         },
                         new
                         {
+                            Id = "Global.DefaultCultureUI",
+                            IsVisibleInCommonSettingPage = true,
+                            Module = "Core",
+                            Value = "en-US"
+                        },
+                        new
+                        {
+                            Id = "Global.CurrencyCulture",
+                            IsVisibleInCommonSettingPage = true,
+                            Module = "Core",
+                            Value = "en-US"
+                        },
+                        new
+                        {
+                            Id = "Global.CurrencyDecimalPlace",
+                            IsVisibleInCommonSettingPage = true,
+                            Module = "Core",
+                            Value = "2"
+                        },
+                        new
+                        {
                             Id = "SmtpServer",
                             IsVisibleInCommonSettingPage = false,
                             Module = "EmailSenderSmpt",
@@ -949,6 +997,13 @@ namespace SimplCommerce.WebHost.Migrations
                             IsVisibleInCommonSettingPage = false,
                             Module = "EmailSenderSmpt",
                             Value = ""
+                        },
+                        new
+                        {
+                            Id = "Localization.LocalizedConentEnable",
+                            IsVisibleInCommonSettingPage = true,
+                            Module = "Localization",
+                            Value = "true"
                         },
                         new
                         {
@@ -2797,6 +2852,14 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasOne("SimplCommerce.Module.Core.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SimplCommerce.Infrastructure.Localization.LocalizedContentProperty", b =>
+                {
+                    b.HasOne("SimplCommerce.Infrastructure.Localization.Culture", "Culture")
+                        .WithMany()
+                        .HasForeignKey("CultureId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

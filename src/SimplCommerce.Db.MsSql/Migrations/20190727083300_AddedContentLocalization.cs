@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SimplCommerce.WebHost.Migrations
+namespace SimplCommerce.Db.MsSql.Migrations
 {
     public partial class AddedContentLocalization : Migration
     {
