@@ -21,6 +21,7 @@ using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Localization.Extensions;
 using SimplCommerce.Module.Localization.TagHelpers;
 using SimplCommerce.WebHost.Extensions;
+using SimplCommerce.Db.MsSql; // Select namespace for db configuration
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigureService();
@@ -31,14 +32,12 @@ app.Run();
 void ConfigureService() 
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    builder.Configuration.AddEntityFrameworkConfig(options =>
-        options.UseSqlServer(connectionString));
 
     GlobalConfiguration.WebRootPath = builder.Environment.WebRootPath;
     GlobalConfiguration.ContentRootPath = builder.Environment.ContentRootPath;
 
+    builder.Services.AddDbConfiguration(connectionString); //add-migration <MigrationName> -p SimplCommerce.Db.PgSql
     builder.Services.AddModules();
-    builder.Services.AddCustomizedDataStore(builder.Configuration);
     builder.Services.AddCustomizedIdentity(builder.Configuration);
     builder.Services.AddHttpClient();
     builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));

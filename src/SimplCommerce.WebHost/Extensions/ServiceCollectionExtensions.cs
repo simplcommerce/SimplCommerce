@@ -216,14 +216,6 @@ namespace SimplCommerce.WebHost.Extensions
             return services;
         }
 
-        public static IServiceCollection AddCustomizedDataStore(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddDbContextPool<SimplDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly("SimplCommerce.WebHost")));
-            return services;
-        }
-
         private static void TryLoadModuleAssembly(string moduleFolderPath, ModuleInfo module)
         {
             const string binariesFolderName = "bin";

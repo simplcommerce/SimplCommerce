@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimplCommerce.Module.Core.Data;
 
-namespace SimplCommerce.WebHost.Migrations
+namespace SimplCommerce.Db.MsSql.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    [Migration("20190710165614_DefaultCultureConfiguration")]
-    partial class DefaultCultureConfiguration
+    [Migration("20190801065533_AddedCashfreePayment")]
+    partial class AddedCashfreePayment
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -110,6 +110,33 @@ namespace SimplCommerce.WebHost.Migrations
                             Id = "en-US",
                             Name = "English (US)"
                         });
+                });
+
+            modelBuilder.Entity("SimplCommerce.Infrastructure.Localization.LocalizedContentProperty", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CultureId")
+                        .IsRequired();
+
+                    b.Property<long>("EntityId");
+
+                    b.Property<string>("EntityType")
+                        .HasMaxLength(450);
+
+                    b.Property<string>("ProperyName")
+                        .IsRequired()
+                        .HasMaxLength(450);
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CultureId");
+
+                    b.ToTable("Localization_LocalizedContentProperty");
                 });
 
             modelBuilder.Entity("SimplCommerce.Infrastructure.Localization.Resource", b =>
@@ -926,8 +953,22 @@ namespace SimplCommerce.WebHost.Migrations
                         {
                             Id = "Global.DefaultCultureUI",
                             IsVisibleInCommonSettingPage = true,
-                            Module = "Global",
+                            Module = "Core",
                             Value = "en-US"
+                        },
+                        new
+                        {
+                            Id = "Global.CurrencyCulture",
+                            IsVisibleInCommonSettingPage = true,
+                            Module = "Core",
+                            Value = "en-US"
+                        },
+                        new
+                        {
+                            Id = "Global.CurrencyDecimalPlace",
+                            IsVisibleInCommonSettingPage = true,
+                            Module = "Core",
+                            Value = "2"
                         },
                         new
                         {
@@ -956,6 +997,13 @@ namespace SimplCommerce.WebHost.Migrations
                             IsVisibleInCommonSettingPage = false,
                             Module = "EmailSenderSmpt",
                             Value = ""
+                        },
+                        new
+                        {
+                            Id = "Localization.LocalizedConentEnable",
+                            IsVisibleInCommonSettingPage = true,
+                            Module = "Localization",
+                            Value = "true"
                         },
                         new
                         {
@@ -2170,6 +2218,15 @@ namespace SimplCommerce.WebHost.Migrations
                             IsEnabled = true,
                             LandingViewComponentName = "NganLuongLanding",
                             Name = "Ngan Luong Payment"
+                        },
+                        new
+                        {
+                            Id = "Cashfree",
+                            AdditionalSettings = "{ \"IsSandbox\":true, \"AppId\":\"358035b02486f36ca27904540853\", \"SecretKey\":\"26f48dcd6a27f89f59f28e65849e587916dd57b9\" }",
+                            ConfigureUrl = "payments-cashfree-config",
+                            IsEnabled = true,
+                            LandingViewComponentName = "CashfreeLanding",
+                            Name = "Cashfree Payment Gateway"
                         });
                 });
 
@@ -2804,6 +2861,14 @@ namespace SimplCommerce.WebHost.Migrations
                     b.HasOne("SimplCommerce.Module.Core.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SimplCommerce.Infrastructure.Localization.LocalizedContentProperty", b =>
+                {
+                    b.HasOne("SimplCommerce.Infrastructure.Localization.Culture", "Culture")
+                        .WithMany()
+                        .HasForeignKey("CultureId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
