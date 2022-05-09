@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  simplcommerce:
+    build:
+      context: ../
+      dockerfile: src/SimplCommerce.WebHost/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ASPNETCORE_URLS: ${ASPNETCORE_URLS:-http://+:80;https://+:443}      
+      ConnectionStrings__DefaultConnection: Host=postgres;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};
+    volumes:
+      - ${VOLUMES_BASEPATH}/logs:/app/logs
+    ports:
+      - "5000:80"    
+      - "5001:443"    
+      
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "15432:5432"
+      - "8085:8080"
+    volumes:
+      - ${VOLUMES_BASEPATH}/postgres/data:/var/lib/postgresql/data

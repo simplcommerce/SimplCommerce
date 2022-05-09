@@ -1,7 +1,7 @@
 ﻿INSERT [dbo].[Localization_Culture] ([Id], [Name]) VALUES ('tr-TR', N'Turkish')
 GO
 
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Register', N'Kayıt olmak')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Register', N'Kayıt olun')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Hello {0}!', N'Merhaba {0}!')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Log in', N'Oturum aç')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Log off', N'Oturumu Kapat')
@@ -197,7 +197,7 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-T
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Account Information', N'Hesap Bilgileri')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Edit', N'Düzenle')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Security', N'Güvenlik')
-INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Create', N'yaratmak')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Create', N'Oluştur')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'External Logins', N'Harici Girişler')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Manage', N'Yönet')
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('tr-TR', N'Default shipping address', N'Varsayılan kargo adresi')

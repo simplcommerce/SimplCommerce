@@ -136,7 +136,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Paymen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Db.MsSql", "src\SimplCommerce.Db.MsSql\SimplCommerce.Db.MsSql.csproj", "{2FD1634B-E0ED-4E68-A993-57AAEF2B9474}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Db.PgSql", "src\SimplCommerce.Db.PgSql\SimplCommerce.Db.PgSql.csproj", "{61985132-75C9-4601-9030-6E2B76781E0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Db.PgSql", "src\SimplCommerce.Db.PgSql\SimplCommerce.Db.PgSql.csproj", "{61985132-75C9-4601-9030-6E2B76781E0F}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker\docker-compose.dcproj", "{59ACBE78-9B5D-4386-8291-253898925E48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -724,6 +726,18 @@ Global
 		{61985132-75C9-4601-9030-6E2B76781E0F}.Release|x64.Build.0 = Release|Any CPU
 		{61985132-75C9-4601-9030-6E2B76781E0F}.Release|x86.ActiveCfg = Release|Any CPU
 		{61985132-75C9-4601-9030-6E2B76781E0F}.Release|x86.Build.0 = Release|Any CPU
+		{59ACBE78-9B5D-4386-8291-253898925E48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59ACBE78-9B5D-4386-8291-253898925E48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59ACBE78-9B5D-4386-8291-253898925E48}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{59ACBE78-9B5D-4386-8291-253898925E48}.Debug|x64.Build.0 = Debug|Any CPU
+		{59ACBE78-9B5D-4386-8291-253898925E48}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{59ACBE78-9B5D-4386-8291-253898925E48}.Debug|x86.Build.0 = Debug|Any CPU
+		{59ACBE78-9B5D-4386-8291-253898925E48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59ACBE78-9B5D-4386-8291-253898925E48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59ACBE78-9B5D-4386-8291-253898925E48}.Release|x64.ActiveCfg = Release|Any CPU
+		{59ACBE78-9B5D-4386-8291-253898925E48}.Release|x64.Build.0 = Release|Any CPU
+		{59ACBE78-9B5D-4386-8291-253898925E48}.Release|x86.ActiveCfg = Release|Any CPU
+		{59ACBE78-9B5D-4386-8291-253898925E48}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

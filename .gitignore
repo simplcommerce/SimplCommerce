@@ -163,3 +163,6 @@ PublishProfiles/
 logs/
 src/Modules/**/wwwroot/admin/*.min.js
 .vscode
+
+**/data/*
+**/logs/*
