@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SimplCommerce.WebHost.Migrations
+namespace SimplCommerce.Db.MsSql.Migrations
 {
     public partial class SimplCommerce_v1_0_0 : Migration
     {

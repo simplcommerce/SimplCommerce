@@ -66,8 +66,8 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                 newProduct.Slug = model.Slug;
                 newProduct.CreatedById = currentUser.Id;
                 newProduct.LatestUpdatedById = currentUser.Id;
-                newProduct.CreatedOn = DateTimeOffset.Now;
-                newProduct.LatestUpdatedOn = DateTimeOffset.Now;
+                newProduct.CreatedOn = DateTimeOffset.UtcNow;
+                newProduct.LatestUpdatedOn = DateTimeOffset.UtcNow;
 
                 var productPriceHistory = CreatePriceHistory(currentUser, newProduct);
                 newProduct.PriceHistories.Add(productPriceHistory);

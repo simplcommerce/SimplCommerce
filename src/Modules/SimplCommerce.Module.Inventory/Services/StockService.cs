@@ -53,7 +53,7 @@ namespace SimplCommerce.Module.Inventory.Services
                 AdjustedQuantity = stockUpdateRequest.AdjustedQuantity,
                 Note = stockUpdateRequest.Note,
                 CreatedById = stockUpdateRequest.UserId,
-                CreatedOn = DateTimeOffset.Now,
+                CreatedOn = DateTimeOffset.UtcNow,
             };
 
             _stockHistoryRepository.Add(stockHistory);

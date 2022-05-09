@@ -9,7 +9,7 @@ namespace SimplCommerce.Module.Catalog.Models
     {
         public ProductPriceHistory()
         {
-            CreatedOn = DateTimeOffset.Now;
+            CreatedOn = DateTimeOffset.UtcNow;
         }
 
         public Product Product { get; set; }

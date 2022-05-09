@@ -37,13 +37,13 @@ namespace SimplCommerce.Module.Pricing.Services
                 return validationResult;
             }
 
-            if (coupon.CartRule.StartOn.HasValue && coupon.CartRule.StartOn > DateTimeOffset.Now)
+            if (coupon.CartRule.StartOn.HasValue && coupon.CartRule.StartOn > DateTimeOffset.UtcNow)
             {
                 validationResult.ErrorMessage = $"The coupon {couponCode} should be used after {coupon.CartRule.StartOn}.";
                 return validationResult;
             }
 
-            if (coupon.CartRule.EndOn.HasValue && coupon.CartRule.EndOn <= DateTimeOffset.Now)
+            if (coupon.CartRule.EndOn.HasValue && coupon.CartRule.EndOn <= DateTimeOffset.UtcNow)
             {
                 validationResult.ErrorMessage = $"The coupon {couponCode} is expired.";
                 return validationResult;

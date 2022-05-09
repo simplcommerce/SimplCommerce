@@ -7,17 +7,17 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimplCommerce.Module.Core.Data;
 
-namespace SimplCommerce.WebHost.Migrations
+namespace SimplCommerce.Db.MsSql.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    [Migration("20190726221912_AddedCurrencySetting")]
-    partial class AddedCurrencySetting
+    [Migration("20190314044223_AddedNganLuongPayment")]
+    partial class AddedNganLuongPayment
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
+                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -921,27 +921,6 @@ namespace SimplCommerce.WebHost.Migrations
                             IsVisibleInCommonSettingPage = false,
                             Module = "Core",
                             Value = "Generic"
-                        },
-                        new
-                        {
-                            Id = "Global.DefaultCultureUI",
-                            IsVisibleInCommonSettingPage = true,
-                            Module = "Core",
-                            Value = "en-US"
-                        },
-                        new
-                        {
-                            Id = "Global.CurrencyCulture",
-                            IsVisibleInCommonSettingPage = true,
-                            Module = "Core",
-                            Value = "en-US"
-                        },
-                        new
-                        {
-                            Id = "Global.CurrencyDecimalPlace",
-                            IsVisibleInCommonSettingPage = true,
-                            Module = "Core",
-                            Value = "2"
                         },
                         new
                         {

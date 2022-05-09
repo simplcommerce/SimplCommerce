@@ -29,7 +29,7 @@ namespace SimplCommerce.Module.Catalog.Services
             var percentOfSaving = 0;
             var calculatedPrice = price;
 
-            if (specialPrice.HasValue && specialPriceStart < DateTimeOffset.Now && DateTimeOffset.Now < specialPriceEnd)
+            if (specialPrice.HasValue && specialPriceStart < DateTimeOffset.UtcNow && DateTimeOffset.UtcNow < specialPriceEnd)
             {
                 calculatedPrice = specialPrice.Value;
 

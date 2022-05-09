@@ -99,7 +99,7 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                     Cart = cart,
                     ProductId = productId,
                     Quantity = quantity,
-                    CreatedOn = DateTimeOffset.Now
+                    CreatedOn = DateTimeOffset.UtcNow
                 };
 
                 cart.Items.Add(cartItem);
@@ -227,7 +227,7 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                             Cart = cartTo,
                             ProductId = fromItem.ProductId,
                             Quantity = fromItem.Quantity,
-                            CreatedOn = DateTimeOffset.Now
+                            CreatedOn = DateTimeOffset.UtcNow
                         };
                         cartTo.Items.Add(toItem);
                     }

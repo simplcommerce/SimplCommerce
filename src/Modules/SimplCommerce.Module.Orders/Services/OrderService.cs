@@ -196,9 +196,9 @@ namespace SimplCommerce.Module.Orders.Services
             var order = new Order
             {
                 Customer = cart.Customer,
-                CreatedOn = DateTimeOffset.Now,
+                CreatedOn = DateTimeOffset.UtcNow,
                 CreatedBy = cart.CreatedBy,
-                LatestUpdatedOn = DateTimeOffset.Now,
+                LatestUpdatedOn = DateTimeOffset.UtcNow,
                 LatestUpdatedById = cart.CreatedById,
                 BillingAddress = orderBillingAddress,
                 ShippingAddress = orderShippingAddress,
@@ -274,9 +274,9 @@ namespace SimplCommerce.Module.Orders.Services
                 var subOrder = new Order
                 {
                     CustomerId = cart.CustomerId,
-                    CreatedOn = DateTimeOffset.Now,
+                    CreatedOn = DateTimeOffset.UtcNow,
                     CreatedById = cart.CreatedById,
-                    LatestUpdatedOn = DateTimeOffset.Now,
+                    LatestUpdatedOn = DateTimeOffset.UtcNow,
                     LatestUpdatedById = cart.CreatedById,
                     BillingAddress = orderBillingAddress,
                     ShippingAddress = orderShippingAddress,
@@ -339,7 +339,7 @@ namespace SimplCommerce.Module.Orders.Services
         public void CancelOrder(Order order)
         {
             order.OrderStatus = OrderStatus.Canceled;
-            order.LatestUpdatedOn = DateTimeOffset.Now;
+            order.LatestUpdatedOn = DateTimeOffset.UtcNow;
 
             var orderItems = _orderItemRepository.Query().Include(x => x.Product).Where(x => x.Order.Id == order.Id);
             foreach (var item in orderItems)

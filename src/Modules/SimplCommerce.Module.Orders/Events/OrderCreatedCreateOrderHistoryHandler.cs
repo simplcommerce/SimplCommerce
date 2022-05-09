@@ -22,7 +22,7 @@ namespace SimplCommerce.Module.Orders.Events
         var orderHistory = new OrderHistory
         {
             OrderId = notification.Order.Id,
-            CreatedOn = DateTimeOffset.Now,
+            CreatedOn = DateTimeOffset.UtcNow,
             CreatedById = notification.Order.CreatedById,
             NewStatus = OrderStatus.New,
             Note = notification.Order.OrderNote,

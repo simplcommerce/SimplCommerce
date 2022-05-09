@@ -10,8 +10,8 @@ namespace SimplCommerce.Module.ShoppingCart.Models
     {
         public Cart()
         {
-            CreatedOn = DateTimeOffset.Now;
-            LatestUpdatedOn = DateTimeOffset.Now;
+            CreatedOn = DateTimeOffset.UtcNow;
+            LatestUpdatedOn = DateTimeOffset.UtcNow;
             IsActive = true;
         }
 

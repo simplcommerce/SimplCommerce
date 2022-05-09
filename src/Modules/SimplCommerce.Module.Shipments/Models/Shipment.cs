@@ -12,8 +12,8 @@ namespace SimplCommerce.Module.Shipments.Models
     {
         public Shipment()
         {
-            CreatedOn = DateTimeOffset.Now;
-            LatestUpdatedOn = DateTimeOffset.Now;
+            CreatedOn = DateTimeOffset.UtcNow;
+            LatestUpdatedOn = DateTimeOffset.UtcNow;
         }
 
         public long OrderId { get; set; }

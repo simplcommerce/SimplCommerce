@@ -18,10 +18,17 @@
     "SimplCommerce.WebHost": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:49206;http://localhost:49208",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "https://localhost:49206;http://localhost:49208"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "publishAllPorts": true,
+      "useSSL": true
     }
   }
 }

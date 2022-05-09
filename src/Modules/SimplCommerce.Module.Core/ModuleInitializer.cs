@@ -29,6 +29,7 @@ namespace SimplCommerce.Module.Core
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Method intentionally left empty.
         }
     }
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
+  <PropertyGroup Label="Globals">
+    <ProjectVersion>2.1</ProjectVersion>
+    <DockerTargetOS>Linux</DockerTargetOS>
+    <ProjectGuid>59acbe78-9b5d-4386-8291-253898925e48</ProjectGuid>
+    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
+    <DockerServiceName>SimplCommerce</DockerServiceName>
+    <DockerComposeProjectName>SimplCommerce</DockerComposeProjectName>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\.env" />
+    <None Include="..\.dockerignore" />
+    <None Include=".env" />
+    <None Include="storage\logs\nginx\access.log" />
+    <None Include="storage\logs\nginx\error.log" />
+    <None Include="storage\neo4j\conf\neo4j.conf" />
+    <None Include="storage\neo4j\logs\debug.log" />
+    <None Include="storage\nginx\certs\pm_cert.crt" />
+    <None Include="storage\nginx\certs\pm_cert.csr" />
+    <None Include="storage\nginx\certs\pm_cert.key" />
+    <None Include="storage\nginx\certs\RootCA.crt" />
+    <None Include="storage\nginx\certs\RootCA.key" />
+    <None Include="storage\nginx\certs\RootCA.pem" />
+    <None Include="storage\nginx\certs\RootCA.srl" />
+    <None Include="storage\nginx\nginx\conf.d\default.conf" />
+    <None Include="storage\nginx\nginx\nginx.conf" />
+    <None Include="..\domains.ext" />
+    <None Include="create_docker_folders.bat" />
+    <None Include="create_docker_folders.sh" />
+    <None Include="docker-compose.override.yml">
+      <DependentUpon>docker-compose.yml</DependentUpon>
+    </None>
+    <None Include="docker-compose.yml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="storage\postgres\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="storage\pgadmin\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="storage\postgres\data\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="storage\logs\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="storage\neo4j\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="storage\nginx\**" />
+  </ItemGroup>
+</Project>

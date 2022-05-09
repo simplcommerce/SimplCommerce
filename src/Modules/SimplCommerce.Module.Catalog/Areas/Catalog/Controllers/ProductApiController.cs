@@ -754,7 +754,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
                     }
 
                     productLink.LinkedProduct.LatestUpdatedById = loginUser.Id;
-                    productLink.LinkedProduct.LatestUpdatedOn = DateTimeOffset.Now;
+                    productLink.LinkedProduct.LatestUpdatedOn = DateTimeOffset.UtcNow;
                     productLink.LinkedProduct.Sku = productVariationVm.Sku;
                     productLink.LinkedProduct.Gtin = productVariationVm.Gtin;
                     productLink.LinkedProduct.Price = productVariationVm.Price;

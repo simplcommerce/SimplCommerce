@@ -135,7 +135,7 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
                 customerGroup.Name = model.Name;
                 customerGroup.Description = model.Description;
                 customerGroup.IsActive = model.IsActive;
-                customerGroup.LatestUpdatedOn = DateTimeOffset.Now;
+                customerGroup.LatestUpdatedOn = DateTimeOffset.UtcNow;
 
                 await  _customerGroupRepository.SaveChangesAsync();
                 return Accepted();
