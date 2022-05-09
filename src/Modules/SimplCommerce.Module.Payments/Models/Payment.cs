@@ -9,8 +9,8 @@ namespace SimplCommerce.Module.Payments.Models
     {
         public Payment()
         {
-            CreatedOn = DateTimeOffset.Now;
-            LatestUpdatedOn = DateTimeOffset.Now;
+            CreatedOn = DateTimeOffset.UtcNow;
+            LatestUpdatedOn = DateTimeOffset.UtcNow;
         }
 
         public long OrderId { get; set; }

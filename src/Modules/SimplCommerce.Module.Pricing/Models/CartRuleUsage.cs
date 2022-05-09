@@ -8,7 +8,7 @@ namespace SimplCommerce.Module.Pricing.Models
     {
         public CartRuleUsage()
         {
-            CreatedOn = DateTimeOffset.Now;
+            CreatedOn = DateTimeOffset.UtcNow;
         }
 
         public long CartRuleId { get; set; }

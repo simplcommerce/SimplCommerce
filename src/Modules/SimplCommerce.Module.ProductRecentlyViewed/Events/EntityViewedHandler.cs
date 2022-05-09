@@ -37,13 +37,13 @@ namespace SimplCommerce.Module.ProductRecentlyViewed.Events
                     {
                         UserId = user.Id,
                         ProductId = notification.EntityId,
-                        LatestViewedOn = DateTimeOffset.Now
+                        LatestViewedOn = DateTimeOffset.UtcNow
                     };
 
                     _recentlyViewedProductRepository.Add(recentlyViewedProduct);
                 }
 
-                recentlyViewedProduct.LatestViewedOn = DateTimeOffset.Now;
+                recentlyViewedProduct.LatestViewedOn = DateTimeOffset.UtcNow;
                 _recentlyViewedProductRepository.SaveChanges();
             }
         }

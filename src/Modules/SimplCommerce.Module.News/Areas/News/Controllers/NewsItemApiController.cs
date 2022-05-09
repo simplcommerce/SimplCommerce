@@ -175,7 +175,7 @@ namespace SimplCommerce.Module.News.Areas.News.Controllers
             newsItem.ShortContent = model.ShortContent;
             newsItem.FullContent = model.FullContent;
             newsItem.IsPublished = model.IsPublished;
-            newsItem.LatestUpdatedOn = DateTimeOffset.Now;
+            newsItem.LatestUpdatedOn = DateTimeOffset.UtcNow;
             newsItem.LatestUpdatedBy = currentUser;
 
             AddOrDeleteCategories(model, newsItem);

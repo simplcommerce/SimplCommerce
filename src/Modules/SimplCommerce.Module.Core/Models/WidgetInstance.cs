@@ -8,8 +8,8 @@ namespace SimplCommerce.Module.Core.Models
     {
         public WidgetInstance()
         {
-            CreatedOn = DateTimeOffset.Now;
-            LatestUpdatedOn = DateTimeOffset.Now;
+            CreatedOn = DateTimeOffset.UtcNow;
+            LatestUpdatedOn = DateTimeOffset.UtcNow;
         }
 
         [StringLength(450)]
@@ -45,7 +45,7 @@ namespace SimplCommerce.Module.Core.Models
         {
             get
             {
-                return PublishStart.HasValue && PublishStart.Value < DateTimeOffset.Now && (!PublishEnd.HasValue || PublishEnd.Value > DateTimeOffset.Now);
+                return PublishStart.HasValue && PublishStart.Value < DateTimeOffset.UtcNow && (!PublishEnd.HasValue || PublishEnd.Value > DateTimeOffset.UtcNow);
             }
         }
     }

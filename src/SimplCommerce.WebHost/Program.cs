@@ -21,12 +21,14 @@ using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Localization.Extensions;
 using SimplCommerce.Module.Localization.TagHelpers;
 using SimplCommerce.WebHost.Extensions;
-using SimplCommerce.Db.MsSql; // Select namespace for db configuration
+using SimplCommerce.Db.PgSql; // Select namespace for db configuration
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigureService();
 var app = builder.Build();
+MigrateDb();
 Configure();
+
 app.Run();
 
 void ConfigureService() 
@@ -126,5 +128,14 @@ void Configure()
     foreach (var moduleInitializer in moduleInitializers)
     {
         moduleInitializer.Configure(app, builder.Environment);
+    }
+}
+
+void MigrateDb()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var db = scope.ServiceProvider.GetRequiredService<SimplDbContext>();
+        db.Database.Migrate();
     }
 }

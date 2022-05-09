@@ -9,7 +9,7 @@ namespace SimplCommerce.Module.Core.Models
     {
         public Vendor()
         {
-            CreatedOn = DateTimeOffset.Now;
+            CreatedOn = DateTimeOffset.UtcNow;
         }
 
         [Required(ErrorMessage = "The {0} field is required.")]

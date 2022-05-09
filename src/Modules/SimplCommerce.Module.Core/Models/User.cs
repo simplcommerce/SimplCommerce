@@ -10,8 +10,8 @@ namespace SimplCommerce.Module.Core.Models
     {
         public User()
         {
-            CreatedOn = DateTimeOffset.Now;
-            LatestUpdatedOn = DateTimeOffset.Now;
+            CreatedOn = DateTimeOffset.UtcNow;
+            LatestUpdatedOn = DateTimeOffset.UtcNow;
         }
 
         public const string SettingsDataKey = "Settings";

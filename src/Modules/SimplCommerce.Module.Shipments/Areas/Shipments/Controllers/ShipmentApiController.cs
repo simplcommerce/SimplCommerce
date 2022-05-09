@@ -209,8 +209,8 @@ namespace SimplCommerce.Module.Shipments.Areas.Shipments.Controllers
                     WarehouseId = model.WarehouseId,
                     CreatedById = currentUser.Id,
                     TrackingNumber = model.TrackingNumber,
-                    CreatedOn = DateTimeOffset.Now,
-                    LatestUpdatedOn = DateTimeOffset.Now
+                    CreatedOn = DateTimeOffset.UtcNow,
+                    LatestUpdatedOn = DateTimeOffset.UtcNow
                 };
 
                 if (!User.IsInRole("admin"))

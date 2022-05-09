@@ -10,8 +10,8 @@ namespace SimplCommerce.Module.Core.Models
 
         protected Content()
         {
-            CreatedOn = DateTimeOffset.Now;
-            LatestUpdatedOn = DateTimeOffset.Now;
+            CreatedOn = DateTimeOffset.UtcNow;
+            LatestUpdatedOn = DateTimeOffset.UtcNow;
         }
 
         [Required(ErrorMessage = "The {0} field is required.")]

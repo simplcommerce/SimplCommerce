@@ -30,7 +30,7 @@ namespace SimplCommerce.Module.ProductComparison.Services
                 {
                     UserId = userId,
                     ProductId = productId,
-                    CreatedOn = DateTimeOffset.Now
+                    CreatedOn = DateTimeOffset.UtcNow
                 };
 
                 _comparingProductRepository.Add(comparingProduct);

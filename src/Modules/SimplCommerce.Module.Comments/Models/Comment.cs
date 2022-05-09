@@ -11,7 +11,7 @@ namespace SimplCommerce.Module.Comments.Models
         public Comment()
         {
             Status = CommentStatus.Approved;
-            CreatedOn = DateTimeOffset.Now;
+            CreatedOn = DateTimeOffset.UtcNow;
         }
 
         public long UserId { get; set; }

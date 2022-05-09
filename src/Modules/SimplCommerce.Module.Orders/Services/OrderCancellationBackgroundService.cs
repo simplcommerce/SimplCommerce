@@ -45,7 +45,7 @@ namespace SimplCommerce.Module.Orders.Services
 
         private async Task CancelFailedPaymentOrders(IRepository<Order> orderRepository, IOrderService orderService, IMediator mediator, CancellationToken stoppingToken)
         {
-            var durationToCancel = DateTimeOffset.Now.AddMinutes(-5);
+            var durationToCancel = DateTimeOffset.UtcNow.AddMinutes(-5);
             var failedPaymentOrders = await orderRepository.Query().Where(x =>
                 (x.OrderStatus == OrderStatus.PendingPayment || x.OrderStatus == OrderStatus.PaymentFailed)
                 && x.LatestUpdatedOn < durationToCancel).ToListAsync();

@@ -8,8 +8,8 @@ namespace SimplCommerce.Module.WishList.Models
     {
         public WishListItem()
         {
-            CreatedOn = DateTimeOffset.Now;
-            LatestUpdatedOn = DateTimeOffset.Now;
+            CreatedOn = DateTimeOffset.UtcNow;
+            LatestUpdatedOn = DateTimeOffset.UtcNow;
         }
 
         public long WishListId { get; set; }

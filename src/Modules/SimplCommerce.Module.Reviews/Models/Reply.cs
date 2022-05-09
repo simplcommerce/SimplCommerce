@@ -10,7 +10,7 @@ namespace SimplCommerce.Module.Reviews.Models
         public Reply()
         {
             Status = ReplyStatus.Pending;
-            CreatedOn = DateTimeOffset.Now;
+            CreatedOn = DateTimeOffset.UtcNow;
         }
 
         public long ReviewId { get; set; }

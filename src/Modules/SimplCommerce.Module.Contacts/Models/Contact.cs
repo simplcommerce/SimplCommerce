@@ -8,7 +8,7 @@ namespace SimplCommerce.Module.Contacts.Models
     {
         public Contact()
         {
-            CreatedOn = DateTimeOffset.Now;
+            CreatedOn = DateTimeOffset.UtcNow;
         }
 
         [StringLength(450)]

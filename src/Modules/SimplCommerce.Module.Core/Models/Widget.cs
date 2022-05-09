@@ -9,7 +9,7 @@ namespace SimplCommerce.Module.Core.Models
         public Widget(string id)
         {
             Id = id;
-            CreatedOn = DateTimeOffset.Now;
+            CreatedOn = DateTimeOffset.UtcNow;
         }
 
         public string Code

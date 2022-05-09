@@ -110,7 +110,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
                 page.MetaDescription = model.MetaDescription;
                 page.Body = model.Body;
                 page.IsPublished = model.IsPublished;
-                page.LatestUpdatedOn = DateTimeOffset.Now;
+                page.LatestUpdatedOn = DateTimeOffset.UtcNow;
                 page.LatestUpdatedBy = currentUser;
 
                 await _pageService.Update(page);

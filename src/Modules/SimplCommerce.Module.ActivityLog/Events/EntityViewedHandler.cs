@@ -30,7 +30,7 @@ namespace SimplCommerce.Module.ActivityLog.Events
                 EntityId = notification.EntityId,
                 EntityTypeId = notification.EntityTypeId,
                 UserId = user.Id,
-                CreatedOn = DateTimeOffset.Now
+                CreatedOn = DateTimeOffset.UtcNow
             };
 
             _activityRepository.Add(activity);

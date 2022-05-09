@@ -198,7 +198,7 @@ namespace SimplCommerce.Module.Search.Areas.Search.Controllers
         {
             var query = new Query
             {
-                CreatedOn = DateTimeOffset.Now,
+                CreatedOn = DateTimeOffset.UtcNow,
                 QueryText = searchOption.Query,
                 ResultsCount = model.TotalProduct
             };
