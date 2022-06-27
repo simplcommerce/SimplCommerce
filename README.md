@@ -42,6 +42,7 @@ Continuous deployment: https://ci.simplcommerce.com
 
 - PostgreSQL
 - [.NET Core SDK 6.0](https://www.microsoft.com/net/download/all)
+- Entity Framework Core (`dotnet tool install --global dotnet-ef`)
 
 #### Steps to run
 

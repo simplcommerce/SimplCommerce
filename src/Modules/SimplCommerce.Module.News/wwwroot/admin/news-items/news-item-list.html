@@ -1,10 +1,10 @@
 ﻿<div class="page-header">
     <div class="row">
         <div class="col-md-8">
-            <h2>News Item List</h2>
+            <h2>{{ ::vm.translate.get('News Item List')}}</h2>
         </div>
         <div class="col-md-4 text-right">
-            <a ui-sref="news-items-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Create News Item</a>
+            <a ui-sref="news-items-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>{{ ::vm.translate.get('Create News Item')}}</a>
         </div>
     </div>
 </div>
@@ -16,7 +16,7 @@
             <th>Url</th>
             <th class="text-center">{{::vm.translate.get('Is Published')}}</th>
             <th st-sort="CreatedOn" class="sortable">{{ ::vm.translate.get('CreatedOn')}}</th>
-            <th>Actions</th>
+            <th>{{ ::vm.translate.get('Actions')}}</th>
         </tr>
         <tr>
             <th>

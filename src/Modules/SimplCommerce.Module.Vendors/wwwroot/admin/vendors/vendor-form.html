@@ -34,7 +34,7 @@
                     <p class="form-control-static">
                         <a ui-sref="user-edit({id: user.userId})" ng-repeat="user in vm.vendor.managers">{{user.email}} </a>
                         <a ui-sref="users" ng-if="vm.vendor.managers.length === 0 && vm.isEditMode">Add users as manager</a>
-                        <span ng-if="!vm.isEditMode">After vendor is created. Go to user list and create or set users as managers</span>
+                        <span ng-if="!vm.isEditMode">{{::vm.translate.get('After vendor is created. Go to user list and create or set users as managers')}}</span>
                     </p>
                 </div>
             </div>
