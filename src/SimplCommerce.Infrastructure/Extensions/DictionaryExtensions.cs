@@ -24,7 +24,7 @@ namespace SimplCommerce.Infrastructure.Extensions
                 return true;
             }
 
-            value = default(T);
+            value = default;
             return false;
         }
 
@@ -38,7 +38,9 @@ namespace SimplCommerce.Infrastructure.Extensions
         /// <returns>Value if found, default if can not found.</returns>
         public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
         {
-            return dictionary.TryGetValue(key, out var obj) ? obj : default(TValue);
+            if (dictionary != null)
+                return dictionary.TryGetValue(key, out var obj) ? obj : default;
+            return default;
         }
 
         /// <summary>
