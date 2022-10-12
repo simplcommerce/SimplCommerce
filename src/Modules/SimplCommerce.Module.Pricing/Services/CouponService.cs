@@ -31,7 +31,7 @@ namespace SimplCommerce.Module.Pricing.Services
                 .FirstOrDefaultAsync(x => x.Code == couponCode);
             var validationResult = new CouponValidationResult { Succeeded = false };
 
-            if(coupon == null || !coupon.CartRule.IsActive)
+            if (coupon == null || !coupon.CartRule.IsActive)
             {
                 validationResult.ErrorMessage = $"The coupon {couponCode} is not exist.";
                 return validationResult;
@@ -50,7 +50,7 @@ namespace SimplCommerce.Module.Pricing.Services
             }
 
             var couponUsageCount = _cartRuleUsageRepository.Query().Count(x => x.CouponId == coupon.Id);
-            if(coupon.CartRule.UsageLimitPerCoupon.HasValue && couponUsageCount >= coupon.CartRule.UsageLimitPerCoupon)
+            if (coupon.CartRule.UsageLimitPerCoupon.HasValue && couponUsageCount >= coupon.CartRule.UsageLimitPerCoupon)
             {
                 validationResult.ErrorMessage = $"The coupon {couponCode} is all used.";
                 return validationResult;
@@ -64,7 +64,7 @@ namespace SimplCommerce.Module.Pricing.Services
             }
 
             IList<DiscountableProduct> discountableProducts = new List<DiscountableProduct>();
-            if(!coupon.CartRule.Products.Any() && !coupon.CartRule.Categories.Any())
+            if (!coupon.CartRule.Products.Any() && !coupon.CartRule.Categories.Any())
             {
                 var productIds = cart.Items.Select(x => x.ProductId);
                 discountableProducts = _productRepository.Query()
@@ -87,22 +87,7 @@ namespace SimplCommerce.Module.Pricing.Services
                 var discountableProduct = discountableProducts.FirstOrDefault(x => x.Id == item.ProductId);
                 if (discountableProduct != null)
                 {
-                    var discountedProduct = new DiscountedProduct { Id = discountableProduct.Id, Name = discountableProduct.Name, Price = discountableProduct.Price, Quantity = 1 };
-                    couponUsageCount = couponUsageCount + 1;
-                    couponUsageByCustomerCount = couponUsageByCustomerCount + 1;
-                    for (var i = 1; i < item.Quantity; i++)
-                    {
-                        if ((coupon.CartRule.UsageLimitPerCoupon.HasValue && couponUsageCount >= coupon.CartRule.UsageLimitPerCoupon) ||
-                            (coupon.CartRule.UsageLimitPerCustomer.HasValue && couponUsageByCustomerCount >= coupon.CartRule.UsageLimitPerCustomer))
-                        {
-                            break;
-                        }
-
-                        discountedProduct.Quantity = discountedProduct.Quantity + 1;
-                        couponUsageCount = couponUsageCount + 1;
-                        couponUsageByCustomerCount = couponUsageByCustomerCount + 1;
-                    }
-
+                    var discountedProduct = new DiscountedProduct { Id = discountableProduct.Id, Name = discountableProduct.Name, Price = discountableProduct.Price, Quantity = item.Quantity };
                     validationResult.DiscountedProducts.Add(discountedProduct);
                 }
             }
@@ -122,13 +107,15 @@ namespace SimplCommerce.Module.Pricing.Services
             switch (coupon.CartRule.RuleToApply)
             {
                 case "cart_fixed":
-                    validationResult.DiscountAmount = coupon.CartRule.DiscountAmount;
+                    validationResult.DiscountAmount = Math.Min(coupon.CartRule.DiscountAmount, coupon.CartRule.MaxDiscountAmount.GetValueOrDefault(decimal.MaxValue));
                     return validationResult;
 
                 case "by_percent":
-                    foreach(var item in validationResult.DiscountedProducts)
+                    var maxDiscountAmount = coupon.CartRule.MaxDiscountAmount.GetValueOrDefault(decimal.MaxValue);
+                    foreach (var item in validationResult.DiscountedProducts)
                     {
-                        item.DiscountAmount = (item.Price * coupon.CartRule.DiscountAmount / 100) * item.Quantity;
+                        item.DiscountAmount = Math.Min((item.Price * coupon.CartRule.DiscountAmount / 100) * item.Quantity, maxDiscountAmount);
+                        maxDiscountAmount -= item.DiscountAmount;
                     }
 
                     validationResult.DiscountAmount = validationResult.DiscountedProducts.Sum(x => x.DiscountAmount);
