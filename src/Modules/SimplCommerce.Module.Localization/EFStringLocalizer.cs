@@ -76,14 +76,18 @@ namespace SimplCommerce.Module.Localization
                 using (var scope = _serviceProvider.CreateScope())
                 {
                     var resourceRepository = scope.ServiceProvider.GetRequiredService<IRepository<Resource>>();
-
+                    //Avoid duplications
+                    if (resourceRepository.Query().Any(x => x.CultureId == culture && x.Key.ToLower() == name.ToLower()))
+                    {
+                        return;
+                    }
                     var res = new Resource()
                     {
                         CultureId = culture,
                         Key = name,
                         Value = name
                     };
-
+                    
                     resourceRepository.Add(res);
                     resourceRepository.SaveChanges();
 
