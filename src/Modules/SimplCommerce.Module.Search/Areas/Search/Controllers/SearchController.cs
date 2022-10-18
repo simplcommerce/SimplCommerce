@@ -53,16 +53,27 @@ namespace SimplCommerce.Module.Search.Areas.Search.Controllers
         [HttpGet("search")]
         public IActionResult Index(SearchOption searchOption)
         {
+            // Case no query
             if (string.IsNullOrWhiteSpace(searchOption.Query))
             {
                 return Redirect("~/");
             }
 
+            // Case searching for specific brand
             var brand = _brandRepository.Query().FirstOrDefault(x => x.Name == searchOption.Query && x.IsPublished);
             if (brand != null)
             {
                 return Redirect(string.Format("~/{0}", brand.Slug));
             }
+
+            // Case brand included in the query
+            var includedBrand = _brandRepository.Query().FirstOrDefault(x => searchOption.Query.Contains(x.Name) && x.IsPublished);
+            if (includedBrand != null)
+            {
+                searchOption.Query = searchOption.Query.Replace(includedBrand.Name, "", StringComparison.OrdinalIgnoreCase);
+            }
+
+            searchOption.Query = searchOption.Query.Trim();
 
             var model = new SearchResult
             {
@@ -70,7 +81,8 @@ namespace SimplCommerce.Module.Search.Areas.Search.Controllers
                 FilterOption = new FilterOption()
             };
 
-            var matchedLocalizedProductIds = _localizedContentPropertyRepository.Query().Where(x => x.EntityType == nameof(Product) && x.Value.Contains(searchOption.Query))
+            var matchedLocalizedProductIds = _localizedContentPropertyRepository.Query().Where(x => x.EntityType == nameof(Product) 
+            && x.Value.ToLower().Contains(searchOption.Query.ToLower()))
                 .Select(x => x.EntityId)
                 .Distinct()
                 .ToList();
@@ -78,10 +90,10 @@ namespace SimplCommerce.Module.Search.Areas.Search.Controllers
             var query = _productRepository.Query().Where(x =>
             x.IsPublished && x.IsVisibleIndividually &&
             (matchedLocalizedProductIds.Contains(x.Id)
-            || x.Name.Contains(searchOption.Query) 
-            || x.ShortDescription.Contains(searchOption.Query)
-            || x.Description.Contains(searchOption.Query)
-            || x.Specification.Contains(searchOption.Query)));
+            || x.Name.ToLower().Contains(searchOption.Query.ToLower()) 
+            || x.ShortDescription.ToLower().Contains(searchOption.Query.ToLower())
+            || x.Description.ToLower().Contains(searchOption.Query.ToLower())
+            || x.Specification.ToLower().Contains(searchOption.Query.ToLower())));
 
             if (!query.Any())
             {
@@ -114,7 +126,7 @@ namespace SimplCommerce.Module.Search.Areas.Search.Controllers
             var brands = searchOption.GetBrands().ToArray();
             if (brands.Any())
             {
-                query = query.Where(x => x.BrandId.HasValue && brands.Contains(x.Brand.Slug));
+                query = query.Where(x => (x.BrandId.HasValue && brands.Contains(x.Brand.Slug) || (includedBrand != null && x.BrandId == includedBrand.Id)));
             }
 
             model.TotalProduct = query.Count();
