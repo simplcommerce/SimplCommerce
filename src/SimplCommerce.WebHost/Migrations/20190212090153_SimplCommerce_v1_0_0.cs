@@ -2194,11 +2194,7 @@ namespace SimplCommerce.WebHost.Migrations
             migrationBuilder.InsertData(
                 table: "Localization_Culture",
                 columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    {"en-US", "English (US)"},
-                    {"ar-Eg", "Arabic (Egypt)" }
-                });
+                values: new object[] { "en-US", "English (US)" });
 
             migrationBuilder.InsertData(
                 table: "Payments_PaymentProvider",
