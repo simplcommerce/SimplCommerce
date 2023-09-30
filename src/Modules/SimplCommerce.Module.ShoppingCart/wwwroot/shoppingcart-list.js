@@ -48,19 +48,6 @@
                     });
                 };
 
-                vm.saveOrderNote = function saveOrderNote() {
-                    shoppingCartService.saveOrderNote(vm.cart.orderNote).then(function () {
-                        toastr.success('Order note has been saved');
-                    });
-                };
-
-                vm.unlock = function unlock() {
-                    shoppingCartService.unlock().then(function () {
-                        toastr.success('Cart unlocked');
-                        vm.cart.lockedOnCheckout = false;
-                    });
-                };
-
                  getShoppingCartItems();
             }
         ]);

@@ -14,6 +14,7 @@ using SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.ViewModels;
 using SimplCommerce.Module.PaymentCashfree.Models;
 using SimplCommerce.Module.ShoppingCart.Services;
 using Microsoft.AspNetCore.Http;
+using SimplCommerce.Module.Checkouts.Services;
 
 namespace SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.Controllers
 {
@@ -21,20 +22,20 @@ namespace SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class CashfreeController : Controller
     {
-        private readonly ICartService _cartService;
+        private readonly ICheckoutService _checkoutService;
         private readonly IOrderService _orderService;
         private readonly IWorkContext _workContext;
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private readonly IRepository<Payment> _paymentRepository;
 
         public CashfreeController(
-            ICartService cartService,
+            ICheckoutService checkoutService,
             IOrderService orderService,
             IWorkContext workContext,
             IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
             IRepository<Payment> paymentRepository)
         {
-            _cartService = cartService;
+            _checkoutService = checkoutService;
             _orderService = orderService;
             _workContext = workContext;
             _paymentProviderRepository = paymentProviderRepository;
@@ -59,7 +60,8 @@ namespace SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.Controllers
             if (responseToken.Equals(cashfreeResponse.Signature))
             {
                 var curentUser = await _workContext.GetCurrentUser();
-                var cart = await _cartService.GetActiveCart(curentUser.Id);
+                //TODO: pass checkout Id here
+                var cart = await _checkoutService.GetCheckoutDetails(Guid.Empty);
                 if (cart == null)
                 {
                     return NotFound();

@@ -28,8 +28,8 @@ namespace SimplCommerce.Module.Checkouts.Areas.Checkouts.Controllers
         private readonly IRepository<UserAddress> _userAddressRepository;
         private readonly ICheckoutService _checkoutService;
         private readonly ICartService _cartService;
+        private readonly IRepository<CartItem> _cartItemRepository;
         private readonly IWorkContext _workContext;
-        private readonly IRepository<Cart> _cartRepository;
         private readonly IRepositoryWithTypedId<Checkout, Guid> _checkoutRepository;
 
         public CheckoutController(
@@ -38,17 +38,17 @@ namespace SimplCommerce.Module.Checkouts.Areas.Checkouts.Controllers
             IRepository<UserAddress> userAddressRepository,
             ICheckoutService checkout,
             ICartService cartService,
+            IRepository<CartItem> cartItemRepository,
             IWorkContext workContext,
-            IRepository<Cart> cartRepository,
             IRepositoryWithTypedId<Checkout, Guid> checkoutRepository)
         {
             _stateOrProvinceRepository = stateOrProvinceRepository;
             _countryRepository = countryRepository;
             _userAddressRepository = userAddressRepository;
             _checkoutService = checkout;
+            _cartItemRepository = cartItemRepository;
             _cartService = cartService;
             _workContext = workContext;
-            _cartRepository = cartRepository;
             _checkoutRepository = checkoutRepository;
         }
 
@@ -57,13 +57,13 @@ namespace SimplCommerce.Module.Checkouts.Areas.Checkouts.Controllers
         public async Task<IActionResult> Create()
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCart(currentUser.Id);
-            if (cart == null || !cart.Items.Any())
+            var cartItems = await _cartItemRepository.Query().Where(x => x.CustomerId == currentUser.Id).ToListAsync();
+            if (!cartItems.Any())
             {
                 return NotFound();
             }
 
-            var cartItemToCheckouts = cart.Items.Select(x => new CartItemToCheckoutVm
+            var cartItemToCheckouts = cartItems.Select(x => new CartItemToCheckoutVm
             {
                 ProductId = x.ProductId,
                 Quantity = x.Quantity
@@ -159,14 +159,6 @@ namespace SimplCommerce.Module.Checkouts.Areas.Checkouts.Controllers
         [HttpPost("cancel")]
         public async Task<IActionResult> Cancel()
         {
-            var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCart(currentUser.Id);
-            if(cart != null && cart.LockedOnCheckout)
-            {
-                cart.LockedOnCheckout = false;
-                await _cartRepository.SaveChangesAsync();
-            }
-
             return Redirect("~/");
         }
 

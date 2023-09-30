@@ -11,6 +11,8 @@ namespace SimplCommerce.Module.Checkouts.Models
         public Checkout()
         {
             Id = Guid.NewGuid();
+            CreatedOn = DateTimeOffset.Now;
+            LatestUpdatedOn = DateTimeOffset.Now;
         }
 
         public IList<CheckoutItem> CheckoutItems { get; protected set; } = new List<CheckoutItem>();
@@ -41,6 +43,8 @@ namespace SimplCommerce.Module.Checkouts.Models
         public decimal? ShippingAmount { get; set; }
 
         public decimal? TaxAmount { get; set; }
+
+        public long? VendorId { get; set; }
 
         /// <summary>
         /// Json serialized of shipping form
