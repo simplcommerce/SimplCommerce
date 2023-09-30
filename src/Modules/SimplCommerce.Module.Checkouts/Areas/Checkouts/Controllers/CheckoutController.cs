@@ -158,12 +158,6 @@ namespace SimplCommerce.Module.Checkouts.Areas.Checkouts.Controllers
             return View(orderId);
         }
 
-        [HttpPost("cancel")]
-        public async Task<IActionResult> Cancel()
-        {
-            return Redirect("~/");
-        }
-
         private void PopulateShippingForm(DeliveryInformationVm model, User currentUser)
         {
             model.ExistingShippingAddresses = _userAddressRepository
