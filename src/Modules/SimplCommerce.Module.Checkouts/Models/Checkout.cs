@@ -4,16 +4,18 @@ using System.ComponentModel.DataAnnotations;
 using SimplCommerce.Infrastructure.Models;
 using SimplCommerce.Module.Core.Models;
 
-namespace SimplCommerce.Module.ShoppingCart.Models
+namespace SimplCommerce.Module.Checkouts.Models
 {
-    public class Cart : EntityBase
+    public class Checkout : EntityBaseWithTypedId<Guid>
     {
-        public Cart()
+        public Checkout()
         {
+            Id = Guid.NewGuid();
             CreatedOn = DateTimeOffset.Now;
             LatestUpdatedOn = DateTimeOffset.Now;
-            IsActive = true;
         }
+
+        public IList<CheckoutItem> CheckoutItems { get; protected set; } = new List<CheckoutItem>();
 
         public long CustomerId { get; set; }
 
@@ -26,10 +28,6 @@ namespace SimplCommerce.Module.ShoppingCart.Models
         public DateTimeOffset CreatedOn { get; set; }
 
         public DateTimeOffset LatestUpdatedOn { get; set; }
-
-        public bool IsActive { get; set; }
-
-        public bool LockedOnCheckout { get; set; }
 
         [StringLength(450)]
         public string CouponCode { get; set; }
@@ -46,7 +44,7 @@ namespace SimplCommerce.Module.ShoppingCart.Models
 
         public decimal? TaxAmount { get; set; }
 
-        public IList<CartItem> Items { get; set; } = new List<CartItem>();
+        public long? VendorId { get; set; }
 
         /// <summary>
         /// Json serialized of shipping form
@@ -55,5 +53,6 @@ namespace SimplCommerce.Module.ShoppingCart.Models
 
         [StringLength(1000)]
         public string OrderNote { get; set; }
+
     }
 }

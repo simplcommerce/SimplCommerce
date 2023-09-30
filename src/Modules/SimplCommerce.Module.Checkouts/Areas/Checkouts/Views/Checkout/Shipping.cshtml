@@ -1,4 +1,4 @@
-﻿@model SimplCommerce.Module.Orders.Areas.Orders.ViewModels.DeliveryInformationVm
+﻿@model SimplCommerce.Module.Checkouts.Areas.Checkouts.ViewModels.DeliveryInformationVm
 
 @{
     ViewBag.Title = "Shipping Information";
@@ -6,7 +6,8 @@
 
 <div class="row">
     <div class="col-md-8">
-        <form asp-area="Orders" asp-controller="Checkout" asp-action="Shipping" method="POST" id="checkout-delivery-address">
+        <form asp-area="Checkouts" asp-controller="Checkout" asp-action="Shipping" method="POST" id="checkout-delivery-address">
+            <input type="hidden" value="@Model.CheckoutId" name="CheckoutId" id="checkoutId" />
             <h3>@Localizer["Shipping address"]</h3>
             @foreach (var address in Model.ExistingShippingAddresses)
             {
@@ -184,14 +185,9 @@
                 </div>
             </div>
         </form>
-        <div class="text-right">
-            <form asp-area="Order" asp-controller="Checkout" asp-action="Cancel" method="post" id="logoutForm" class="">
-                <button type="submit" class="btn btn-secondary active ">@Localizer["Cancel Order"]</button>
-            </form>
-        </div>
     </div>
     <div class="col-md-4">
-        @await Component.InvokeAsync("OrderSummary")
+        @await Component.InvokeAsync("OrderSummary", Model.CheckoutId)
     </div>
 </div>
 

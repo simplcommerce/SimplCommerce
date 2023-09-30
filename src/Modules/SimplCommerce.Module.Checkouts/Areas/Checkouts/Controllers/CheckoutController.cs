@@ -4,75 +4,116 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Checkouts.Areas.Checkouts.ViewModels;
+using SimplCommerce.Module.Checkouts.Models;
+using SimplCommerce.Module.Checkouts.Services;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
-using SimplCommerce.Module.Orders.Areas.Orders.ViewModels;
-using SimplCommerce.Module.Orders.Services;
-using SimplCommerce.Module.ShippingPrices.Services;
 using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.ShoppingCart.Services;
 
-namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
+namespace SimplCommerce.Module.Checkouts.Areas.Checkouts.Controllers
 {
-    [Area("Orders")]
+    [Area("Checkouts")]
     [Route("checkout")]
     [Authorize]
     [ApiExplorerSettings(IgnoreApi = true)]
     public class CheckoutController : Controller
     {
-        private readonly IOrderService _orderService;
         private readonly IRepositoryWithTypedId<Country, string> _countryRepository;
         private readonly IRepository<StateOrProvince> _stateOrProvinceRepository;
         private readonly IRepository<UserAddress> _userAddressRepository;
-        private readonly IShippingPriceService _shippingPriceService;
-        private readonly ICartService _cartService;
+        private readonly ICheckoutService _checkoutService;
+        private readonly IRepository<CartItem> _cartItemRepository;
         private readonly IWorkContext _workContext;
-        private readonly IRepository<Cart> _cartRepository;
+        private readonly IRepositoryWithTypedId<Checkout, Guid> _checkoutRepository;
 
         public CheckoutController(
             IRepository<StateOrProvince> stateOrProvinceRepository,
             IRepositoryWithTypedId<Country, string> countryRepository,
             IRepository<UserAddress> userAddressRepository,
-            IShippingPriceService shippingPriceService,
-            IOrderService orderService,
-            ICartService cartService,
+            ICheckoutService checkout,
+            IRepository<CartItem> cartItemRepository,
             IWorkContext workContext,
-            IRepository<Cart> cartRepository)
+            IRepositoryWithTypedId<Checkout, Guid> checkoutRepository)
         {
             _stateOrProvinceRepository = stateOrProvinceRepository;
             _countryRepository = countryRepository;
             _userAddressRepository = userAddressRepository;
-            _shippingPriceService = shippingPriceService;
-            _orderService = orderService;
-            _cartService = cartService;
+            _checkoutService = checkout;
+            _cartItemRepository = cartItemRepository;
             _workContext = workContext;
-            _cartRepository = cartRepository;
+            _checkoutRepository = checkoutRepository;
         }
 
-        [HttpGet("shipping")]
-        public async Task<IActionResult> Shipping()
+        //TODO: Consider to allow customer select a subset of products in cart and pass to this endpoint
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Create(CheckoutFormVm checkoutFormVm)
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Redirect("/login?ReturnUrl=%2Fcart");
+            }
+            var currentUser = await _workContext.GetCurrentUser();
+            var cartItems = await _cartItemRepository.Query().Where(x => x.CustomerId == currentUser.Id).ToListAsync();
+            if (!cartItems.Any())
+            {
+                return NotFound();
+            }
+
+            var cartItemToCheckouts = cartItems.Select(x => new CartItemToCheckoutVm
+            {
+                ProductId = x.ProductId,
+                Quantity = x.Quantity
+            }).ToList();
+
+            var checkout = await _checkoutService.Create(currentUser.Id, currentUser.Id, cartItemToCheckouts, checkoutFormVm.CouponCode);
+
+            return Redirect($"~/checkout/{checkout.Id}/shipping");
+        }
+
+        [HttpGet("{checkoutId}/shipping")]
+        public async Task<IActionResult> Shipping(Guid checkoutId)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
-            if(cart == null || !cart.Items.Any())
+            var checkout = await _checkoutRepository.Query().FirstOrDefaultAsync(x => x.Id == checkoutId);
+            if (checkout == null)
             {
-                return Redirect("~/");
+                return NotFound();
+            }
+
+            if (checkout.CreatedBy != currentUser)
+            {
+                return Forbid();
             }
 
             var model = new DeliveryInformationVm();
+            model.CheckoutId = checkoutId;
 
             PopulateShippingForm(model, currentUser);
 
             return View(model);
         }
 
-        [HttpPost("shipping")]
-        public async Task<IActionResult> Shipping(DeliveryInformationVm model)
+        [HttpPost("{checkoutId}/shipping")]
+        public async Task<IActionResult> Shipping(Guid checkoutId, DeliveryInformationVm model)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            // TODO Handle error messages
+            var checkout = await _checkoutRepository.Query().FirstOrDefaultAsync(x => x.Id == checkoutId);
+            if (checkout == null)
+            {
+                return NotFound();
+            }
+
+            if (checkout.CreatedBy != currentUser)
+            {
+                return Forbid();
+            }
+
             if ((!model.NewAddressForm.IsValid() && model.ShippingAddressId == 0) ||
                 (!model.NewBillingAddressForm.IsValid() && !model.UseShippingAddressAsBillingAddress && model.BillingAddressId == 0))
             {
@@ -80,24 +121,27 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
                 return View(model);
             }
 
-            var cart = await _cartService.GetActiveCart(currentUser.Id);
-
-            if (cart == null)
-            {
-                throw new ApplicationException($"Cart of user {currentUser.Id} cannot be found");
-            }
-
-            cart.ShippingData = JsonConvert.SerializeObject(model);
-            await _cartRepository.SaveChangesAsync();
-            return Redirect("~/checkout/payment");
+            checkout.ShippingData = JsonConvert.SerializeObject(model);
+            await _checkoutRepository.SaveChangesAsync();
+            return Redirect($"~/checkout/{checkoutId}/payment");
         }
 
-        [HttpPost("update-tax-and-shipping-prices")]
-        public async Task<IActionResult> UpdateTaxAndShippingPrices([FromBody] TaxAndShippingPriceRequestVm model)
+        [HttpPost("{checkoutId}/update-tax-and-shipping-prices")]
+        public async Task<IActionResult> UpdateTaxAndShippingPrices(Guid checkoutId, [FromBody] TaxAndShippingPriceRequestVm model)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCart(currentUser.Id);
-            var orderTaxAndShippingPrice = await _orderService.UpdateTaxAndShippingPrices(cart.Id, model);
+            var checkout = await _checkoutRepository.Query().FirstOrDefaultAsync(x => x.Id == checkoutId);
+            if(checkout == null)
+            {
+                return NotFound();
+            }
+
+            if (checkout.CreatedBy != currentUser)
+            {
+                return Forbid();
+            }
+
+            var orderTaxAndShippingPrice = await _checkoutService.UpdateTaxAndShippingPrices(checkoutId, model);
 
             return Ok(orderTaxAndShippingPrice);
         }
@@ -112,20 +156,6 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
         public IActionResult Error(long orderId)
         {
             return View(orderId);
-        }
-
-        [HttpPost("cancel")]
-        public async Task<IActionResult> Cancel()
-        {
-            var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCart(currentUser.Id);
-            if(cart != null && cart.LockedOnCheckout)
-            {
-                cart.LockedOnCheckout = false;
-                await _cartRepository.SaveChangesAsync();
-            }
-
-            return Redirect("~/");
         }
 
         private void PopulateShippingForm(DeliveryInformationVm model, User currentUser)

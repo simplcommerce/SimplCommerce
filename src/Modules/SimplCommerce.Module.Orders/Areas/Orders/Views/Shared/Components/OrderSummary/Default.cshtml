@@ -1,4 +1,4 @@
-﻿@model SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels.CartVm
+﻿@model SimplCommerce.Module.Checkouts.Areas.Checkouts.ViewModels.CheckoutVm
 
 <h3>@Localizer["Order summary"] </h3>
 <table class="table">
@@ -26,10 +26,6 @@
             <td class="text-right">@item.ProductPriceString</td>
         </tr>
     }
-    <tr>
-        <td>@Localizer["Order note"]</td>
-        <td colspan="2" class="text-right">@Model.OrderNote</td>
-    </tr>
     <tr>
         <td>@Localizer["Subtotal"]</td>
         <td colspan="2" class="text-right">@Model.SubTotalString<input type="hidden" id="orderSubtotal" value="@Model.SubTotal" /></td>

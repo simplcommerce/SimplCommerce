@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Checkouts.Areas.Checkouts.ViewModels;
+using SimplCommerce.Module.Checkouts.Services;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.PaymentCoD.Models;
@@ -21,45 +23,47 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
     {
         private readonly IOrderService _orderService;
         private readonly IWorkContext _workContext;
-        private readonly ICartService _cartService;
+        private readonly ICheckoutService _checkoutService;
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private Lazy<CoDSetting> _setting;
 
         public CoDController(
-            ICartService cartService,
+            ICheckoutService checkoutService,
             IOrderService orderService,
             IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
             IWorkContext workContext)
         {
             _paymentProviderRepository = paymentProviderRepository;
-            _cartService = cartService;
+            _checkoutService = checkoutService;
             _orderService = orderService;
             _workContext = workContext;
             _setting = new Lazy<CoDSetting>(GetSetting());
         }
 
-        public async Task<IActionResult> CoDCheckout()
+        public async Task<IActionResult> CoDCheckout([FromForm]Guid checkoutId)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
-            if(cart == null)
+            var checkoutVm = await _checkoutService.GetCheckoutDetails(checkoutId);
+            if(checkoutVm == null)
             {
                 return NotFound();
             }
 
-            if (!ValidateCoD(cart))
+            //TODO Validate again user login
+
+            if (!ValidateCoD(checkoutVm))
             {
                 TempData["Error"] = "Payment Method is not eligible for this order.";
-                return Redirect("~/checkout/payment");
+                return Redirect("~/checkout/{checkoutId}/payment");
             }
 
-            var calculatedFee = CalculateFee(cart);           
-            var orderCreateResult = await _orderService.CreateOrder(cart.Id, "CashOnDelivery", calculatedFee);
+            var calculatedFee = CalculateFee(checkoutVm);           
+            var orderCreateResult = await _orderService.CreateOrder(checkoutVm.Id, "CashOnDelivery", calculatedFee);
 
             if (!orderCreateResult.Success)
             {
                 TempData["Error"] = orderCreateResult.Error;
-                return Redirect("~/checkout/payment");
+                return Redirect("~/checkout/{checkoutId}/payment");
             }
 
             return Redirect($"~/checkout/success?orderId={orderCreateResult.Value.Id}");
@@ -77,14 +81,14 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
             return coDSetting;
         }
 
-        private bool ValidateCoD(CartVm cart)
+        private bool ValidateCoD(CheckoutVm checkoutVm)
         {
-            if (_setting.Value.MinOrderValue.HasValue && _setting.Value.MinOrderValue.Value > cart.OrderTotal)
+            if (_setting.Value.MinOrderValue.HasValue && _setting.Value.MinOrderValue.Value > checkoutVm.OrderTotal)
             {
                 return false;
             }
 
-            if (_setting.Value.MaxOrderValue.HasValue && _setting.Value.MaxOrderValue.Value < cart.OrderTotal)
+            if (_setting.Value.MaxOrderValue.HasValue && _setting.Value.MaxOrderValue.Value < checkoutVm.OrderTotal)
             {
                 return false;
             }
@@ -92,10 +96,10 @@ namespace SimplCommerce.Module.PaymentCoD.Areas.PaymentCoD.Controllers
             return true;
         }
 
-        private decimal CalculateFee(CartVm cart)
+        private decimal CalculateFee(CheckoutVm chekoutVm)
         {
             var percent = _setting.Value.PaymentFee;
-            return (cart.OrderTotal / 100) * percent;
+            return (chekoutVm.OrderTotal / 100) * percent;
         }
     }
 }

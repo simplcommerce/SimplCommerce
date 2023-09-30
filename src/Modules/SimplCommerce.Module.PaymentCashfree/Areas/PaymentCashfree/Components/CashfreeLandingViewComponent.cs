@@ -12,29 +12,30 @@ using SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.ViewModels;
 using SimplCommerce.Module.PaymentCashfree.Models;
 using SimplCommerce.Module.ShoppingCart.Services;
 using System;
+using SimplCommerce.Module.Checkouts.Services;
 
 namespace SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.Components
 {
     public class CashfreeLandingViewComponent : ViewComponent
     {
-        private readonly ICartService _cartService;
+        private readonly ICheckoutService _checkoutService;
         private readonly IWorkContext _workContext;
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         
 
-        public CashfreeLandingViewComponent(ICartService cartService, IWorkContext workContext, IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository)
+        public CashfreeLandingViewComponent(ICheckoutService checkoutService, IWorkContext workContext, IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository)
         {
-            _cartService = cartService;
+            _checkoutService = checkoutService;
             _workContext = workContext;
             _paymentProviderRepository = paymentProviderRepository;            
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(Guid checkoutId)
         {
             var cashfreeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.CashfreeProviderId);
             var cashfreeSetting = JsonConvert.DeserializeObject<CashfreeConfigForm>(cashfreeProvider.AdditionalSettings);
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
+            var cart = await _checkoutService.GetCheckoutDetails(checkoutId);
 
             var amount = String.Format("{0:.##}", cart.OrderTotal);
 

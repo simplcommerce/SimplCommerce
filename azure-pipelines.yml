@@ -9,13 +9,13 @@ trigger:
 jobs:
 - job: Linux
   pool:
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'ubuntu-latest'
   steps:
   - task: UseDotNet@2
     displayName: 'Use .NET Core sdk'
     inputs:
       packageType: 'sdk'
-      version: '6.0.100'
+      version: '7.0.111'
   - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - task: DotNetCoreCLI@2
@@ -41,13 +41,13 @@ jobs:
 
 - job: macOS
   pool:
-    vmImage: 'macOS-10.15'
+    vmImage: 'macOS-latest'
   steps:
   - task: UseDotNet@2
     displayName: 'Use .NET Core sdk'
     inputs:
       packageType: 'sdk'
-      version: '6.0.100'
+      version: '7.0.111'
   - script: dotnet build ./SimplCommerce.sln
     displayName: 'dotnet build'
   - task: DotNetCoreCLI@2
@@ -73,13 +73,13 @@ jobs:
 
 - job: Windows
   pool:
-    vmImage: 'windows-2019'
+    vmImage: 'windows-latest'
   steps:
   - task: UseDotNet@2
     displayName: 'Use .NET Core sdk'
     inputs:
       packageType: 'sdk'
-      version: '6.0.100'
+      version: '7.0.111'
   - task: DotNetCoreCLI@2
     displayName: 'Restoring code using dotnet restore'
     inputs: 
@@ -111,7 +111,7 @@ jobs:
 
 - job: LinuxRelease
   pool:
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'ubuntu-latest'
   variables:
     buildConfiguration: 'Release'
   steps:
@@ -119,7 +119,7 @@ jobs:
     displayName: 'Use .NET Core sdk'
     inputs:
       packageType: 'sdk'
-      version: '6.0.100'
+      version: '7.0.111'
   - script: dotnet build --configuration $(buildConfiguration)
     displayName: 'dotnet build $(buildConfiguration)'
   - task: DotNetCoreCLI@2

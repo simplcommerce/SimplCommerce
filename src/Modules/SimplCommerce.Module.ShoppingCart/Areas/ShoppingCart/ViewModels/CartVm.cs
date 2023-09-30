@@ -12,10 +12,6 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels
             _currencyService = currencyService;
         }
 
-        public long Id { get; set; }
-
-        public bool LockedOnCheckout { get; set; }
-
         public string CouponCode { get; set; }
 
         public decimal SubTotal { get; set; }
@@ -28,27 +24,6 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels
 
         public string CouponValidationErrorMessage { get; set; }
 
-        public bool IsProductPriceIncludeTax { get; set; }
-
-        public decimal? TaxAmount { get; set; }
-
-        public string OrderNote { get; set; }
-
-        public string TaxAmountString
-        {
-            get
-            {
-                return TaxAmount.HasValue ? _currencyService.FormatCurrency(TaxAmount.Value) : "-";
-            }
-        }
-
-        public decimal? ShippingAmount { get; set; }
-
-        public string ShippingAmountString
-        {
-            get { return ShippingAmount.HasValue ? _currencyService.FormatCurrency(ShippingAmount.Value) : "-"; }
-        }
-
         public decimal SubTotalWithDiscount
         {
             get
@@ -57,33 +32,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels
             }
         }
 
-        public decimal SubTotalWithDiscountWithoutTax
-        {
-            get
-            {
-                if (IsProductPriceIncludeTax)
-                {
-                    return SubTotalWithDiscount - TaxAmount ?? 0;
-                }
-
-                return SubTotalWithDiscount;
-            }
-        }
-
-        public decimal OrderTotal
-        {
-            get
-            {
-                if (IsProductPriceIncludeTax)
-                {
-                    return SubTotal + (ShippingAmount ?? 0) - Discount;
-                }
-
-                return SubTotal + (TaxAmount ?? 0) + (ShippingAmount ?? 0) - Discount;
-            }
-        }
-
-        public string OrderTotalString { get { return _currencyService.FormatCurrency(OrderTotal); } }
+        public string SubTotalWithDiscountString { get { return _currencyService.FormatCurrency(SubTotalWithDiscount); } }
 
         public IList<CartItemVm> Items { get; set; } = new List<CartItemVm>();
 

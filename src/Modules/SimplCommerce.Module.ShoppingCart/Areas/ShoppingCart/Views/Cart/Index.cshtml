@@ -41,17 +41,6 @@
                 </tr>
             </tbody>
         </table>
-        <div class="order-note-form">
-            <h4>@Localizer["Order note"]</h4>
-            <form>
-                <div class="form-group">
-                    <textarea rows="3" class="form-control" name="orderNote" ng-model="vm.cart.orderNote" placeholder="@Localizer["Enter order note"]"></textarea>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default pull-right" ng-click="vm.saveOrderNote()">@Localizer["Save order note"]</button>
-                </div>
-            </form>
-        </div>
     </div>
     <div class="col-md-4">
         <div class="order-summary" ng-if="vm.cart.items.length">
@@ -67,11 +56,13 @@
                 </tr>
                 <tr>
                     <td>@Localizer["Order Total"]</td>
-                    <td><strong>{{vm.cart.orderTotalString}}</strong></td>
+                    <td><strong>{{vm.cart.subTotalWithDiscount}}</strong></td>
                 </tr>
             </table>
-            <p class="text-right"><a href="~/checkout/shipping" ng-class="{disabled: !vm.cart.isValid}" class="btn btn-primary">@Localizer["Process to Checkout"]</a></p>
-            <p ng-if="vm.cart.lockedOnCheckout"><button type="button" ng-click="vm.unlock()" class="btn btn-secondary active">@Localizer["Unlock cart"]</button></p>
+            <form asp-area="Checkouts" asp-controller="Checkout" asp-action="Create" method="POST" class="form-horizontal">
+                <input type="hidden" name="CouponCode" id="validCouponCode" value="" />
+                <button type="submit" ng-class="{disabled: !vm.cart.isValid}" class="btn btn-order text-right">@Localizer["Process to Checkout"]</button>
+            </form>
         </div>
         <div class="coupon-form" ng-if="vm.cart.items.length">
             <h4>@Localizer["Coupon code"]</h4>

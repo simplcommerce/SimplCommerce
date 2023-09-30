@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SimplCommerce.Module.Checkouts.Areas.Checkouts.ViewModels;
 using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.Orders.Areas.Orders.ViewModels

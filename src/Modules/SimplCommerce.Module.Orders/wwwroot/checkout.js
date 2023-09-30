@@ -49,7 +49,7 @@
 
         $.ajax({
             type: "POST",
-            url: "/checkout/update-tax-and-shipping-prices",
+            url: "/checkout/" + $("#checkoutId").val() + "/update-tax-and-shipping-prices",
             data: JSON.stringify(postData),
             contentType: "application/json",
             success: function (data) {
@@ -72,11 +72,11 @@
 
                 var $tax = $('#orderSummaryTax');
                 if ($tax) {
-                    $tax.text(data.cart.taxAmountString);
+                    $tax.text(data.checkoutVm.taxAmountString);
                 }
 
-                $('#orderTotal').text(data.cart.orderTotalString);
-                $('#orderSummaryShipping').text(data.cart.shippingAmountString);
+                $('#orderTotal').text(data.checkoutVm.orderTotalString);
+                $('#orderSummaryShipping').text(data.checkoutVm.shippingAmountString);
 
                 $shippingMethods.find('input[value="' + data.selectedShippingMethodName + '"]').prop('checked', true);
             }

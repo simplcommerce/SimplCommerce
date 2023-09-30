@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Web;
+using SimplCommerce.Module.Checkouts.Services;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Orders.Services;
@@ -29,7 +30,7 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
         private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<Payment> _paymentRepository;
         private readonly IWorkContext _workContext;
-        private readonly ICartService _cartService;
+        private readonly ICheckoutService _checkoutService;
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
         private readonly IHttpClientFactory _httpClientFactory;
         private Lazy<MomoPaymentConfigForm> _setting;
@@ -38,7 +39,7 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
             IOrderService orderService,
             IRepository<Order> orderRepository,
             IRepository<Payment> paymentRepository,
-            ICartService cartService,
+            ICheckoutService checkoutService,
             IWorkContext workContext,
             IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
             IHttpClientFactory httpClientFactory)
@@ -46,7 +47,7 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
             _orderService = orderService;
             _orderRepository = orderRepository;
             _paymentRepository = paymentRepository;
-            _cartService = cartService;
+            _checkoutService = checkoutService;
             _workContext = workContext;
             _paymentProviderRepository = paymentProviderRepository;
             _httpClientFactory = httpClientFactory;
@@ -56,13 +57,15 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
         public async Task<IActionResult> MomoCheckout()
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
+            //TODO: pass checkout Id here
+            var cart = await _checkoutService.GetCheckoutDetails(Guid.Empty);
             if (cart == null)
             {
                 return NotFound();
             }
 
-            var orderCreateResult = await _orderService.CreateOrder(cart.Id, "MomoPayment", 0, OrderStatus.PendingPayment);
+            var checkoutId = Guid.NewGuid();
+            var orderCreateResult = await _orderService.CreateOrder(checkoutId, "MomoPayment", 0, OrderStatus.PendingPayment);
 
             if (!orderCreateResult.Success)
             {
