@@ -1,16 +1,18 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Checkouts.Areas.Checkouts.ViewModels;
+using SimplCommerce.Module.Checkouts.Models;
+using SimplCommerce.Module.Checkouts.Services;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
-using SimplCommerce.Module.Orders.Areas.Orders.ViewModels;
 using SimplCommerce.Module.Orders.Services;
 using SimplCommerce.Module.ShoppingCart.Models;
-using SimplCommerce.Module.ShoppingCart.Services;
 
 namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
 {
@@ -19,60 +21,60 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
     public class CheckoutApiController : Controller
     {
         private readonly IOrderService _orderService;
-        private readonly ICartService _cartService;
+        private readonly ICheckoutService _checkoutService;
+        private readonly IRepositoryWithTypedId<Checkout, Guid> _checkoutRepository;
         private readonly IWorkContext _workContext;
-        private readonly IRepository<Cart> _cartRepository;
 
         public CheckoutApiController(
             IOrderService orderService,
-            ICartService cartService,
-            IWorkContext workContext,
-            IRepository<Cart> cartRepository)
+            ICheckoutService checkoutService,
+            IRepositoryWithTypedId<Checkout, Guid> checkoutRepository,
+            IWorkContext workContext)
         {
             _orderService = orderService;
-            _cartService = cartService;
+            _checkoutService = checkoutService;
+            _checkoutRepository = checkoutRepository;
             _workContext = workContext;
-            _cartRepository = cartRepository;
         }
 
-        [HttpPost("api/cart/{cartId}/update-tax-and-shipping-prices")]
-        public async Task<IActionResult> UpdateTaxAndShippingPrices(long cartId, [FromBody] TaxAndShippingPriceRequestVm model)
+        [HttpPost("api/checkout/{checkoutId}/update-tax-and-shipping-prices")]
+        public async Task<IActionResult> UpdateTaxAndShippingPrices(Guid checkoutId, [FromBody] TaxAndShippingPriceRequestVm model)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartRepository.Query().FirstOrDefaultAsync(x => x.Id == cartId);
-            if (cart == null)
+            var checkout = await _checkoutRepository.Query().FirstOrDefaultAsync(x => x.Id == checkoutId);
+            if (checkout == null)
             {
                 return NotFound();
             }
 
-            if (cart.CreatedById != currentUser.Id)
+            if (checkout.CreatedById != currentUser.Id)
             {
                 return Forbid();
             }
 
-            var orderTaxAndShippingPrice = await _orderService.UpdateTaxAndShippingPrices(cart.Id, model);
+            var orderTaxAndShippingPrice = await _checkoutService.UpdateTaxAndShippingPrices(checkout.Id, model);
             return Ok(orderTaxAndShippingPrice);
         }
 
-        [HttpPost("api/cart/{cartId}/order")]
-        public async Task<IActionResult> CreateOrder(long cartId, [FromBody] DeliveryInformationVm deliveryInformationVm)
+        [HttpPost("api/checkout/{checkoutId}/order")]
+        public async Task<IActionResult> CreateOrder(Guid checkoutId, [FromBody] DeliveryInformationVm deliveryInformationVm)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartRepository.Query().FirstOrDefaultAsync(x => x.Id == cartId);
-            if (cart == null)
+            var checkout = await _checkoutRepository.Query().FirstOrDefaultAsync(x => x.Id == checkoutId);
+            if (checkout == null)
             {
                 return NotFound();
             }
 
-            if (cart.CreatedById != currentUser.Id)
+            if (checkout.CreatedById != currentUser.Id)
             {
                 return Forbid();
             }
 
-            cart.ShippingData = JsonConvert.SerializeObject(deliveryInformationVm);
-            cart.OrderNote = deliveryInformationVm.OrderNote;
-            _cartRepository.SaveChanges();
-            var orderCreateResult = await _orderService.CreateOrder(cart.Id, "CashOnDelivery", 0);
+            checkout.ShippingData = JsonConvert.SerializeObject(deliveryInformationVm);
+            checkout.OrderNote = deliveryInformationVm.OrderNote;
+            _checkoutRepository.SaveChanges();
+            var orderCreateResult = await _orderService.CreateOrder(checkout.Id, "CashOnDelivery", 0);
 
             if (!orderCreateResult.Success)
             {

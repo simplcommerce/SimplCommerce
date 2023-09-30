@@ -120,7 +120,8 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
             var accessToken = await GetAccessToken();
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
-            var orderCreateResult = await _orderService.CreateOrder(cart.Id, "PaypalExpress", CalculatePaymentFee(cart.OrderTotal), OrderStatus.PendingPayment);
+            var checkoutId = Guid.NewGuid();
+            var orderCreateResult = await _orderService.CreateOrder(checkoutId, "PaypalExpress", CalculatePaymentFee(cart.OrderTotal), OrderStatus.PendingPayment);
             if (!orderCreateResult.Success)
             {
                 return BadRequest(orderCreateResult.Error);

@@ -19,7 +19,7 @@
                     <div class="payment-method paymentProvider-@paymentProvider.Id">
                         @if (!string.IsNullOrWhiteSpace(paymentProvider.LandingViewComponentName))
                         {
-                            @await Component.InvokeAsync(paymentProvider.LandingViewComponentName)
+                            @await Component.InvokeAsync(paymentProvider.LandingViewComponentName, Model.CheckoutId)
                         }
                     </div>
                 </div>
@@ -32,6 +32,6 @@
         </div>
     </div>
     <div class="col-md-4">
-        @await Component.InvokeAsync("OrderSummary")
+        @await Component.InvokeAsync("OrderSummary", Model.CheckoutId)
     </div>
 </div>

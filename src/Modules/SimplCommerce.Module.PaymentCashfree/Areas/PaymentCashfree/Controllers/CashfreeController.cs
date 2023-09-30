@@ -65,7 +65,8 @@ namespace SimplCommerce.Module.PaymentCashfree.Areas.PaymentCashfree.Controllers
                     return NotFound();
                 }
 
-                var orderCreateResult = await _orderService.CreateOrder(cart.Id, cashfreeResponse.PaymentMode, 0, OrderStatus.PendingPayment);
+                var checkoutId = Guid.NewGuid();
+                var orderCreateResult = await _orderService.CreateOrder(checkoutId, cashfreeResponse.PaymentMode, 0, OrderStatus.PendingPayment);
 
                 if (!orderCreateResult.Success)
                 {

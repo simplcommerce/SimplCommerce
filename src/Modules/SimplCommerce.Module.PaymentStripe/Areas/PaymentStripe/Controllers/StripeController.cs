@@ -57,7 +57,8 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
                 return NotFound();
             }
 
-            var orderCreationResult = await _orderService.CreateOrder(cart.Id, "Stripe", 0, OrderStatus.PendingPayment);
+            var checkoutId = Guid.NewGuid();
+            var orderCreationResult = await _orderService.CreateOrder(checkoutId, "Stripe", 0, OrderStatus.PendingPayment);
             if(!orderCreationResult.Success)
             {
                 TempData["Error"] = orderCreationResult.Error;

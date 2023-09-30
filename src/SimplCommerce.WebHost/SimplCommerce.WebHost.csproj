@@ -42,6 +42,7 @@
     <ProjectReference Include="..\Modules\SimplCommerce.Module.ShippingTableRate\SimplCommerce.Module.ShippingTableRate.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Shipping\SimplCommerce.Module.Shipping.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.ShoppingCart\SimplCommerce.Module.ShoppingCart.csproj" />
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Checkouts\SimplCommerce.Module.Checkouts.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Tax\SimplCommerce.Module.Tax.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.Vendors\SimplCommerce.Module.Vendors.csproj" />
     <ProjectReference Include="..\Modules\SimplCommerce.Module.WishList\SimplCommerce.Module.WishList.csproj" />

@@ -15,6 +15,11 @@
     "version": "1.0.0"
   },
   {
+    "id": "SimplCommerce.Module.Checkouts",
+    "isBundledWithHost": true,
+    "version": "1.0.0"
+  },
+  {
     "id": "SimplCommerce.Module.Comments",
     "isBundledWithHost": true,
     "version": "1.0.0"

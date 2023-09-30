@@ -62,7 +62,8 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
                 return NotFound();
             }
 
-            var orderCreateResult = await _orderService.CreateOrder(cart.Id, "MomoPayment", 0, OrderStatus.PendingPayment);
+            var checkoutId = Guid.NewGuid();
+            var orderCreateResult = await _orderService.CreateOrder(checkoutId, "MomoPayment", 0, OrderStatus.PendingPayment);
 
             if (!orderCreateResult.Success)
             {

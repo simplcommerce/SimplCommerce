@@ -68,7 +68,8 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
                 return NotFound();
             }
 
-            var orderCreateResult = await _orderService.CreateOrder(cart.Id, "NganLuong", 0, OrderStatus.PendingPayment);
+            var checkoutId = Guid.NewGuid();
+            var orderCreateResult = await _orderService.CreateOrder(checkoutId, "NganLuong", 0, OrderStatus.PendingPayment);
 
             if (!orderCreateResult.Success)
             {
