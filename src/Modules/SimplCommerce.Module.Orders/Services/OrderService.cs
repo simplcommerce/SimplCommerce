@@ -207,20 +207,20 @@ namespace SimplCommerce.Module.Orders.Services
                 PaymentFeeAmount = paymentFeeAmount
             };
 
-            foreach (var cartItem in checkout.CheckoutItems)
+            foreach (var checkoutItem in checkout.CheckoutItems)
             {
-                if (!cartItem.Product.IsAllowToOrder || !cartItem.Product.IsPublished || cartItem.Product.IsDeleted)
+                if (!checkoutItem.Product.IsAllowToOrder || !checkoutItem.Product.IsPublished || checkoutItem.Product.IsDeleted)
                 {
-                    return Result.Fail<Order>($"The product {cartItem.Product.Name} is not available any more");
+                    return Result.Fail<Order>($"The product {checkoutItem.Product.Name} is not available any more");
                 }
 
-                if (cartItem.Product.StockTrackingIsEnabled && cartItem.Product.StockQuantity < cartItem.Quantity)
+                if (checkoutItem.Product.StockTrackingIsEnabled && checkoutItem.Product.StockQuantity < checkoutItem.Quantity)
                 {
-                    return Result.Fail<Order>($"There are only {cartItem.Product.StockQuantity} items available for {cartItem.Product.Name}");
+                    return Result.Fail<Order>($"There are only {checkoutItem.Product.StockQuantity} items available for {checkoutItem.Product.Name}");
                 }
 
-                var taxPercent = await _taxService.GetTaxPercent(cartItem.Product.TaxClassId, shippingAddress.CountryId, shippingAddress.StateOrProvinceId, shippingAddress.ZipCode);
-                var productPrice = cartItem.Product.Price;
+                var taxPercent = await _taxService.GetTaxPercent(checkoutItem.Product.TaxClassId, shippingAddress.CountryId, shippingAddress.StateOrProvinceId, shippingAddress.ZipCode);
+                var productPrice = checkoutItem.Product.Price;
                 if (checkout.IsProductPriceIncludeTax)
                 {
                     productPrice = productPrice / (1 + (taxPercent / 100));
@@ -228,23 +228,23 @@ namespace SimplCommerce.Module.Orders.Services
 
                 var orderItem = new OrderItem
                 {
-                    Product = cartItem.Product,
+                    Product = checkoutItem.Product,
                     ProductPrice = productPrice,
-                    Quantity = cartItem.Quantity,
+                    Quantity = checkoutItem.Quantity,
                     TaxPercent = taxPercent,
-                    TaxAmount = cartItem.Quantity * (productPrice * taxPercent / 100)
+                    TaxAmount = checkoutItem.Quantity * (productPrice * taxPercent / 100)
                 };
 
-                var discountedItem = checkingDiscountResult.DiscountedProducts.FirstOrDefault(x => x.Id == cartItem.ProductId);
+                var discountedItem = checkingDiscountResult.DiscountedProducts.FirstOrDefault(x => x.Id == checkoutItem.ProductId);
                 if (discountedItem != null)
                 {
                     orderItem.DiscountAmount = discountedItem.DiscountAmount;
                 }
 
                 order.AddOrderItem(orderItem);
-                if (cartItem.Product.StockTrackingIsEnabled)
+                if (checkoutItem.Product.StockTrackingIsEnabled)
                 {
-                    cartItem.Product.StockQuantity = cartItem.Product.StockQuantity - cartItem.Quantity;
+                    checkoutItem.Product.StockQuantity = checkoutItem.Product.StockQuantity - checkoutItem.Quantity;
                 }
             }
 

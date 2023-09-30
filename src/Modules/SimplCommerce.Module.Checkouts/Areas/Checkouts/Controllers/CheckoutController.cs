@@ -27,7 +27,6 @@ namespace SimplCommerce.Module.Checkouts.Areas.Checkouts.Controllers
         private readonly IRepository<StateOrProvince> _stateOrProvinceRepository;
         private readonly IRepository<UserAddress> _userAddressRepository;
         private readonly ICheckoutService _checkoutService;
-        private readonly ICartService _cartService;
         private readonly IRepository<CartItem> _cartItemRepository;
         private readonly IWorkContext _workContext;
         private readonly IRepositoryWithTypedId<Checkout, Guid> _checkoutRepository;
@@ -37,7 +36,6 @@ namespace SimplCommerce.Module.Checkouts.Areas.Checkouts.Controllers
             IRepositoryWithTypedId<Country, string> countryRepository,
             IRepository<UserAddress> userAddressRepository,
             ICheckoutService checkout,
-            ICartService cartService,
             IRepository<CartItem> cartItemRepository,
             IWorkContext workContext,
             IRepositoryWithTypedId<Checkout, Guid> checkoutRepository)
@@ -47,15 +45,19 @@ namespace SimplCommerce.Module.Checkouts.Areas.Checkouts.Controllers
             _userAddressRepository = userAddressRepository;
             _checkoutService = checkout;
             _cartItemRepository = cartItemRepository;
-            _cartService = cartService;
             _workContext = workContext;
             _checkoutRepository = checkoutRepository;
         }
 
         //TODO: Consider to allow customer select a subset of products in cart and pass to this endpoint
         [HttpPost]
-        public async Task<IActionResult> Create()
+        [AllowAnonymous]
+        public async Task<IActionResult> Create(CheckoutFormVm checkoutFormVm)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Redirect("/login?ReturnUrl=%2Fcart");
+            }
             var currentUser = await _workContext.GetCurrentUser();
             var cartItems = await _cartItemRepository.Query().Where(x => x.CustomerId == currentUser.Id).ToListAsync();
             if (!cartItems.Any())
@@ -69,7 +71,7 @@ namespace SimplCommerce.Module.Checkouts.Areas.Checkouts.Controllers
                 Quantity = x.Quantity
             }).ToList();
 
-            var checkout = await _checkoutService.Create(currentUser.Id, currentUser.Id, cartItemToCheckouts, cart.CouponCode);
+            var checkout = await _checkoutService.Create(currentUser.Id, currentUser.Id, cartItemToCheckouts, checkoutFormVm.CouponCode);
 
             return Redirect($"~/checkout/{checkout.Id}/shipping");
         }

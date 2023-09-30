@@ -4,7 +4,9 @@ DELETE FROM [dbo].[Core_Entity]
 GO
 DELETE FROM [dbo].[ShoppingCart_CartItem]
 GO
-DELETE FROM [dbo].[ShoppingCart_Cart]
+DELETE FROM [dbo].[Checkouts_CheckoutItem]
+GO
+DELETE FROM [dbo].[Checkouts_Checkout]
 GO
 DELETE FROM [dbo].[Payments_Payment]
 GO

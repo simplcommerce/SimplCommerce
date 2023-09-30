@@ -7,6 +7,7 @@ using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Services;
+using SimplCommerce.Module.Pricing.Services;
 using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
 using SimplCommerce.Module.ShoppingCart.Models;
 using SimplCommerce.Module.ShoppingCart.Services;
@@ -133,6 +134,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             if (validationResult.Succeeded)
             {
                 var cartVm = await _cartService.GetCartDetails(currentUser.Id);
+                cartVm.Discount = validationResult.DiscountAmount;
                 return Json(cartVm);
             }
 

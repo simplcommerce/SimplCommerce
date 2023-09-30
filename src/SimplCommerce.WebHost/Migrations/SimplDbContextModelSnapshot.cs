@@ -847,6 +847,9 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<decimal?>("TaxAmount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<long?>("VendorId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
@@ -3334,49 +3337,6 @@ namespace SimplCommerce.WebHost.Migrations
                     b.ToTable("ShippingTableRate_PriceAndDestination", (string)null);
                 });
 
-            modelBuilder.Entity("SimplCommerce.Module.ShoppingCart.Models.Cart", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("CouponCode")
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CouponRuleName")
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<long>("CreatedById")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTimeOffset>("CreatedOn")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<long>("CustomerId")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsProductPriceIncludeTax")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset>("LatestUpdatedOn")
-                        .HasColumnType("datetimeoffset");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("ShoppingCart_Cart", (string)null);
-                });
-
             modelBuilder.Entity("SimplCommerce.Module.ShoppingCart.Models.CartItem", b =>
                 {
                     b.Property<long>("Id")
@@ -3385,10 +3345,13 @@ namespace SimplCommerce.WebHost.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("CartId")
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<long>("CustomerId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTimeOffset>("CreatedOn")
+                    b.Property<DateTimeOffset>("LatestUpdatedOn")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<long>("ProductId")
@@ -3397,9 +3360,12 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<long?>("VendorId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CartId");
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("ProductId");
 
@@ -4547,30 +4513,11 @@ namespace SimplCommerce.WebHost.Migrations
                     b.Navigation("StateOrProvince");
                 });
 
-            modelBuilder.Entity("SimplCommerce.Module.ShoppingCart.Models.Cart", b =>
+            modelBuilder.Entity("SimplCommerce.Module.ShoppingCart.Models.CartItem", b =>
                 {
-                    b.HasOne("SimplCommerce.Module.Core.Models.User", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("SimplCommerce.Module.Core.Models.User", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CreatedBy");
-
-                    b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.ShoppingCart.Models.CartItem", b =>
-                {
-                    b.HasOne("SimplCommerce.Module.ShoppingCart.Models.Cart", "Cart")
-                        .WithMany("Items")
-                        .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -4580,7 +4527,7 @@ namespace SimplCommerce.WebHost.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Cart");
+                    b.Navigation("Customer");
 
                     b.Navigation("Product");
                 });
@@ -4777,11 +4724,6 @@ namespace SimplCommerce.WebHost.Migrations
                 });
 
             modelBuilder.Entity("SimplCommerce.Module.Shipments.Models.Shipment", b =>
-                {
-                    b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("SimplCommerce.Module.ShoppingCart.Models.Cart", b =>
                 {
                     b.Navigation("Items");
                 });

@@ -43,6 +43,7 @@
                         if (result.data.succeeded === false) {
                             vm.cart.couponValidationErrorMessage = result.data.errorMessage;
                         } else {
+                            $('#validCouponCode').val(vm.couponCode);
                             cartDataCallback(result);
                         }
                     });

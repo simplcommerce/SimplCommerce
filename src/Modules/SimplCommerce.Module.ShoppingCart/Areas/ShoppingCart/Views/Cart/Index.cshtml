@@ -56,10 +56,11 @@
                 </tr>
                 <tr>
                     <td>@Localizer["Order Total"]</td>
-                    <td><strong>{{vm.cart.orderTotalString}}</strong></td>
+                    <td><strong>{{vm.cart.subTotalWithDiscount}}</strong></td>
                 </tr>
             </table>
             <form asp-area="Checkouts" asp-controller="Checkout" asp-action="Create" method="POST" class="form-horizontal">
+                <input type="hidden" name="CouponCode" id="validCouponCode" value="" />
                 <button type="submit" ng-class="{disabled: !vm.cart.isValid}" class="btn btn-order text-right">@Localizer["Process to Checkout"]</button>
             </form>
         </div>

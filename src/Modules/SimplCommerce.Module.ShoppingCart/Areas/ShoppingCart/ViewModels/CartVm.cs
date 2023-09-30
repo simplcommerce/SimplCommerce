@@ -32,6 +32,8 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels
             }
         }
 
+        public string SubTotalWithDiscountString { get { return _currencyService.FormatCurrency(SubTotalWithDiscount); } }
+
         public IList<CartItemVm> Items { get; set; } = new List<CartItemVm>();
 
         public bool IsValid
