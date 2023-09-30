@@ -9,7 +9,7 @@ trigger:
 jobs:
 - job: Linux
   pool:
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'ubuntu-latest'
   steps:
   - task: UseDotNet@2
     displayName: 'Use .NET Core sdk'
@@ -41,7 +41,7 @@ jobs:
 
 - job: macOS
   pool:
-    vmImage: 'macOS-10.15'
+    vmImage: 'macOS-latest'
   steps:
   - task: UseDotNet@2
     displayName: 'Use .NET Core sdk'
@@ -73,7 +73,7 @@ jobs:
 
 - job: Windows
   pool:
-    vmImage: 'windows-2019'
+    vmImage: 'windows-latest'
   steps:
   - task: UseDotNet@2
     displayName: 'Use .NET Core sdk'
@@ -111,7 +111,7 @@ jobs:
 
 - job: LinuxRelease
   pool:
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'ubuntu-latest'
   variables:
     buildConfiguration: 'Release'
   steps:
