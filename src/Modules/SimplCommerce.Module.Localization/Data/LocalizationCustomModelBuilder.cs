@@ -15,7 +15,7 @@ namespace SimplCommerce.Module.Localization.Data
             modelBuilder.Entity<LocalizedContentProperty>().ToTable("Localization_LocalizedContentProperty");
 
             modelBuilder.Entity<Culture>().HasData(
-               new Culture(GlobalConfiguration.DefaultCulture) { Name = "English (US)" }
+               new Culture("en-US") { Name = "English (US)" }
             );
 
             modelBuilder.Entity<AppSetting>().HasData(

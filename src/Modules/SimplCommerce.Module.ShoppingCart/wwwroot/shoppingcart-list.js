@@ -43,21 +43,9 @@
                         if (result.data.succeeded === false) {
                             vm.cart.couponValidationErrorMessage = result.data.errorMessage;
                         } else {
+                            $('#validCouponCode').val(vm.couponCode);
                             cartDataCallback(result);
                         }
-                    });
-                };
-
-                vm.saveOrderNote = function saveOrderNote() {
-                    shoppingCartService.saveOrderNote(vm.cart.orderNote).then(function () {
-                        toastr.success('Order note has been saved');
-                    });
-                };
-
-                vm.unlock = function unlock() {
-                    shoppingCartService.unlock().then(function () {
-                        toastr.success('Cart unlocked');
-                        vm.cart.lockedOnCheckout = false;
                     });
                 };
 

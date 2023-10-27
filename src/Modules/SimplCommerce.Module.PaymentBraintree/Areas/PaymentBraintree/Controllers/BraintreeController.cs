@@ -6,6 +6,7 @@ using Braintree;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Helpers;
+using SimplCommerce.Module.Checkouts.Services;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Orders.Models;
@@ -21,7 +22,7 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Controlle
     [ApiExplorerSettings(IgnoreApi = true)]
     public class BraintreeController : Controller
     {
-        private readonly ICartService _cartService;
+        private readonly ICheckoutService _checkoutService;
         private readonly IOrderService _orderService;
         private readonly IWorkContext _workContext;
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
@@ -30,7 +31,7 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Controlle
         private readonly ICurrencyService _currencyService;
 
         public BraintreeController(
-            ICartService cartService,
+            ICheckoutService checkoutService,
             IOrderService orderService,
             IWorkContext workContext,
             IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
@@ -38,7 +39,7 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Controlle
             IBraintreeConfiguration braintreeConfiguration,
             ICurrencyService currencyService)
         {
-            _cartService = cartService;
+            _checkoutService = checkoutService;
             _orderService = orderService;
             _workContext = workContext;
             _paymentProviderRepository = paymentProviderRepository;
@@ -53,13 +54,14 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Controlle
             var gateway = await _braintreeConfiguration.BraintreeGateway();
 
             var curentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCartDetails(curentUser.Id);
+            //TODO: pass checkout Id here
+            var cart = await _checkoutService.GetCheckoutDetails(Guid.NewGuid());
             if(cart == null)
             {
                 return NotFound();
             }
-
-            var orderCreateResult = await _orderService.CreateOrder(cart.Id, PaymentProviderHelper.BraintreeProviderId, 0, OrderStatus.PendingPayment);
+            var checkoutId = Guid.NewGuid();
+            var orderCreateResult = await _orderService.CreateOrder(checkoutId, PaymentProviderHelper.BraintreeProviderId, 0, OrderStatus.PendingPayment);
 
             if (!orderCreateResult.Success)
             {

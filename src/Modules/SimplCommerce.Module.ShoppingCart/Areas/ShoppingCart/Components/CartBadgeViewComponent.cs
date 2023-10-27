@@ -24,7 +24,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Components
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
+            var cart = await _cartService.GetCartDetails(currentUser.Id);
             if(cart == null)
             {
                 cart = new CartVm(_currencyService);

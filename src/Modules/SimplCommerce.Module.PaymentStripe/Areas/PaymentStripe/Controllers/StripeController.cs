@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Helpers;
+using SimplCommerce.Module.Checkouts.Services;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Orders.Models;
@@ -22,7 +23,7 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class StripeController : Controller
     {
-        private readonly ICartService _cartService;
+        private readonly ICheckoutService _checkoutService;
         private readonly IOrderService _orderService;
         private readonly IWorkContext _workContext;
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
@@ -30,14 +31,14 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
         private readonly ICurrencyService _currencyService;
 
         public StripeController(
-            ICartService cartService,
+            ICheckoutService checkoutService,
             IOrderService orderService,
             IWorkContext workContext,
             IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
             IRepository<Payment> paymentRepository,
             ICurrencyService currencyService)
         {
-            _cartService = cartService;
+            _checkoutService = checkoutService;
             _orderService = orderService;
             _workContext = workContext;
             _paymentProviderRepository = paymentProviderRepository;
@@ -51,13 +52,15 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
             var stripeSetting = JsonConvert.DeserializeObject<StripeConfigForm>(stripeProvider.AdditionalSettings);
             var stripeChargeService = new ChargeService(stripeSetting.PrivateKey);
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCart(currentUser.Id);
-            if(cart == null)
+            //TODO: pass checkout Id here
+            var cart = await _checkoutService.GetCheckoutDetails(Guid.Empty);
+            if (cart == null)
             {
                 return NotFound();
             }
 
-            var orderCreationResult = await _orderService.CreateOrder(cart.Id, "Stripe", 0, OrderStatus.PendingPayment);
+            var checkoutId = Guid.NewGuid();
+            var orderCreationResult = await _orderService.CreateOrder(checkoutId, "Stripe", 0, OrderStatus.PendingPayment);
             if(!orderCreationResult.Success)
             {
                 TempData["Error"] = orderCreationResult.Error;

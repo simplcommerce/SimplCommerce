@@ -1,0 +1,197 @@
+﻿@model SimplCommerce.Module.Checkouts.Areas.Checkouts.ViewModels.DeliveryInformationVm
+
+@{
+    ViewBag.Title = "Shipping Information";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-area="Checkouts" asp-controller="Checkout" asp-action="Shipping" method="POST" id="checkout-delivery-address">
+            <input type="hidden" value="@Model.CheckoutId" name="CheckoutId" id="checkoutId" />
+            <h3>@Localizer["Shipping address"]</h3>
+            @foreach (var address in Model.ExistingShippingAddresses)
+            {
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="ShippingAddressId" value="@address.UserAddressId" checked="@(Model.ShippingAddressId == address.UserAddressId ? "checked" : null)">
+                        <strong>@address.ContactName </strong><br />
+                        @address.AddressLine1 <br />
+                        @address.AddressLine2 <br />
+                        Phone: @address.Phone
+                    </label>
+                </div>
+            }
+            <div class="radio">
+                <label>
+                    <input type="radio" name="ShippingAddressId" checked="@(Model.ShippingAddressId == 0 ? "checked" : null)" value="0" />
+                    @Localizer["Add another address"]
+                </label>
+            </div>
+            <div class="create-shipping-address collapse">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">@Localizer["Contact name"]</label>
+                    <div class="col-sm-8">
+                        <input asp-for="NewAddressForm.ContactName" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">@Localizer["Country"]</label>
+                    <div class="col-sm-8">
+                        <select asp-for="NewAddressForm.CountryId" asp-items="Model.NewAddressForm.ShipableContries" class="form-control">
+                            <option value="">@Localizer["Choose one"]</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">@Localizer["State or Province"]</label>
+                    <div class="col-sm-8">
+                        <select asp-for="NewAddressForm.StateOrProvinceId" asp-items="Model.NewAddressForm.StateOrProvinces" class="form-control">
+                            <option value="">@Localizer["Choose one"]</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="form-group-district" class="form-group row">
+                    <label class="col-sm-4 col-form-label">@Localizer["District"]</label>
+                    <div class="col-sm-8">
+                        <select asp-for="NewAddressForm.DistrictId" asp-items="Model.NewAddressForm.Districts" class="form-control">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="form-group-city" class="form-group row">
+                    <label class="col-sm-4 col-form-label">@Localizer["City"]</label>
+                    <div class="col-sm-8">
+                        <input asp-for="NewAddressForm.City" type="text" class="form-control">
+                    </div>
+                </div>
+
+                <div id="form-group-postalcode" class="form-group row">
+                    <label class="col-sm-4 col-form-label">@Localizer["Postal Code"]</label>
+                    <div class="col-sm-8">
+                        <input asp-for="NewAddressForm.ZipCode" type="text" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">@Localizer["Address"]</label>
+                    <div class="col-sm-8">
+                        <input asp-for="NewAddressForm.AddressLine1" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">@Localizer["Phone"]</label>
+                    <div class="col-sm-8">
+                        <input asp-for="NewAddressForm.Phone" type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <h3>@Localizer["Shipping methods"]</h3>
+            <div id="shippingMethods">
+                <p>Please choose your shipping address</p>
+            </div>
+
+            <div>
+                <h3>@Localizer["Billing Address"]</h3>
+                <label>
+                    <input type="checkbox" name="UseShippingAddressAsBillingAddress" checked="@(Model.UseShippingAddressAsBillingAddress ? "checked" : null)" value="true" />
+                    @Localizer["Use Selected Shipping Address As Billing Address"]
+                </label>
+            </div>
+            <div class="change-billing-address collapse">
+                @foreach (var address in Model.ExistingShippingAddresses)
+                {
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="BillingAddressId" value="@address.UserAddressId" checked="@(Model.BillingAddressId == address.UserAddressId ? "checked" : null)">
+                            <strong>@address.ContactName </strong><br />
+                            @address.AddressLine1 <br />
+                            @address.AddressLine2 <br />
+                            Phone: @address.Phone
+                        </label>
+                    </div>
+                }
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="BillingAddressId" checked="@(Model.BillingAddressId == 0 ? "checked" : null)" value="0" />
+                        @Localizer["Add another address"]
+                    </label>
+                </div>
+                <div class="create-billing-address collapse">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">@Localizer["Contact name"]</label>
+                        <div class="col-sm-8">
+                            <input asp-for="NewBillingAddressForm.ContactName" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">@Localizer["Country"]</label>
+                        <div class="col-sm-8">
+                            <select asp-for="NewBillingAddressForm.CountryId" asp-items="Model.NewAddressForm.ShipableContries" class="form-control">
+                                <option value="">@Localizer["Choose one"]</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">@Localizer["State or Province"]</label>
+                        <div class="col-sm-8">
+                            <select asp-for="NewBillingAddressForm.StateOrProvinceId" asp-items="Model.NewAddressForm.StateOrProvinces" class="form-control">
+                                <option value="">@Localizer["Choose one"]</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="form-group-district" class="form-group row">
+                        <label class="col-sm-4 col-form-label">@Localizer["District"]</label>
+                        <div class="col-sm-8">
+                            <select asp-for="NewBillingAddressForm.DistrictId" asp-items="Model.NewAddressForm.Districts" class="form-control">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="form-group-city" class="form-group row">
+                        <label class="col-sm-4 col-form-label">@Localizer["City"]</label>
+                        <div class="col-sm-8">
+                            <input asp-for="NewBillingAddressForm.City" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div id="form-group-postalcode" class="form-group row">
+                        <label class="col-sm-4 col-form-label">@Localizer["Postal Code"]</label>
+                        <div class="col-sm-8">
+                            <input asp-for="NewBillingAddressForm.ZipCode" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">@Localizer["Address"]</label>
+                        <div class="col-sm-8">
+                            <input asp-for="NewBillingAddressForm.AddressLine1" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">@Localizer["Phone"]</label>
+                        <div class="col-sm-8">
+                            <input asp-for="NewBillingAddressForm.Phone" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="text-right">
+                    <button type="submit" class="btn btn-order" disabled>@Localizer["Payment"]</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+        @await Component.InvokeAsync("OrderSummary", Model.CheckoutId)
+    </div>
+</div>
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script simpl-append-version="true" src="~/_content/SimplCommerce.Module.Orders/checkout.js"></script>
+}

@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Extensions;
+using SimplCommerce.Module.Checkouts.Services;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.Orders.Models;
@@ -24,7 +25,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
     [ApiExplorerSettings(IgnoreApi = true)]
     public class PaypalExpressController : Controller
     {
-        private readonly ICartService _cartService;
+        private readonly ICheckoutService _checkoutService;
         private readonly IOrderService _orderService;
         private readonly IWorkContext _workContext;
         private readonly IRepositoryWithTypedId<PaymentProvider, string> _paymentProviderRepository;
@@ -34,7 +35,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
         private readonly ICurrencyService _currencyService;
 
         public PaypalExpressController(
-            ICartService cartService,
+            ICheckoutService checkoutService,
             IOrderService orderService,
             IWorkContext workContext,
             IRepositoryWithTypedId<PaymentProvider, string> paymentProviderRepository,
@@ -42,7 +43,7 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
             IHttpClientFactory httpClientFactory,
             ICurrencyService currencyService)
         {
-            _cartService = cartService;
+            _checkoutService = checkoutService;
             _orderService = orderService;
             _workContext = workContext;
             _paymentProviderRepository = paymentProviderRepository;
@@ -58,7 +59,8 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
             var hostingDomain = Request.Host.Value;
             var accessToken = await GetAccessToken();
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
+            //TODO: pass checkout Id here
+            var cart = await _checkoutService.GetCheckoutDetails(Guid.Empty);
             if(cart == null)
             {
                 return NotFound();
@@ -119,8 +121,10 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
         {
             var accessToken = await GetAccessToken();
             var currentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCartDetails(currentUser.Id);
-            var orderCreateResult = await _orderService.CreateOrder(cart.Id, "PaypalExpress", CalculatePaymentFee(cart.OrderTotal), OrderStatus.PendingPayment);
+            //TODO: pass checkout Id here
+            var cart = await _checkoutService.GetCheckoutDetails(Guid.Empty);
+            var checkoutId = Guid.NewGuid();
+            var orderCreateResult = await _orderService.CreateOrder(checkoutId, "PaypalExpress", CalculatePaymentFee(cart.OrderTotal), OrderStatus.PendingPayment);
             if (!orderCreateResult.Success)
             {
                 return BadRequest(orderCreateResult.Error);

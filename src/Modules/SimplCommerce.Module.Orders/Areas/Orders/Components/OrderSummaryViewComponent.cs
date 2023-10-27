@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SimplCommerce.Infrastructure.Web;
+using SimplCommerce.Module.Checkouts.Areas.Checkouts.ViewModels;
+using SimplCommerce.Module.Checkouts.Services;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Services;
 using SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels;
@@ -10,26 +13,26 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Components
 {
     public class OrderSummaryViewComponent : ViewComponent
     {
-        private readonly ICartService _cartService;
+        private readonly ICheckoutService _checkoutService;
         private readonly IWorkContext _workContext;
         private ICurrencyService _currencyService;
 
-        public OrderSummaryViewComponent(ICartService cartService, IWorkContext workContext, ICurrencyService currencyService)
+        public OrderSummaryViewComponent(ICheckoutService checkoutService, IWorkContext workContext, ICurrencyService currencyService)
         {
-            _cartService = cartService;
+            _checkoutService = checkoutService;
             _workContext = workContext;
             _currencyService = currencyService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(Guid checkoutId)
         {
             var curentUser = await _workContext.GetCurrentUser();
-            var cart = await _cartService.GetActiveCartDetails(curentUser.Id);
-            if (cart == null)
+            var checkout = await _checkoutService.GetCheckoutDetails(checkoutId);
+            if (checkout == null)
             {
-                cart = new CartVm(_currencyService);
+                checkout = new CheckoutVm(_currencyService);
             }
-            return View(this.GetViewPath(), cart);
+            return View(this.GetViewPath(), checkout);
         }
     }
 }

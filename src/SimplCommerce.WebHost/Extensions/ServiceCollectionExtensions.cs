@@ -64,7 +64,6 @@ namespace SimplCommerce.WebHost.Extensions
                     o.EnableEndpointRouting = false;
                     o.ModelBinderProviders.Insert(0, new InvariantDecimalModelBinderProvider());
                 })
-                .AddRazorRuntimeCompilation()
                 .AddViewLocalization()
                 .AddModelBindingMessagesLocalizer(services)
                 .AddDataAnnotationsLocalization(o =>
@@ -219,9 +218,11 @@ namespace SimplCommerce.WebHost.Extensions
 
         public static IServiceCollection AddCustomizedDataStore(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContextPool<SimplDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly("SimplCommerce.WebHost")));
+            services.AddDbContextPool<SimplDbContext>(options => 
+            {
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("SimplCommerce.WebHost"));
+                options.EnableSensitiveDataLogging();
+            });
             return services;
         }
 

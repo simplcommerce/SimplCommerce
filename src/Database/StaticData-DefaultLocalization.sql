@@ -380,5 +380,69 @@ INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-U
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Your review will be showed within the next 24h.', N'Your review will be showed within the next 24h.');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Your review will be shown within the next 24h.', N'Your review will be shown within the next 24h.');
 INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Zip Code', N'Zip Code');
-
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Manage News Categories', N'Manage News Categories')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Manage News Items', N'Manage News Items')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'News Item List', N'News Item List')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'News Item Name', N'News Item Name')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Create News Item', N'Create News Item')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Edit News Item', N'Edit News Item')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Thumbnail Image', N'Thumbnail Image')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Belong to categories', N'Belong to categories')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'records found', N'records found')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'After vendor is created. Go to user list and create or set users as managers', N'After vendor is created. Go to user list and create or set users as managers')
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Contact Area Name', N'Contact Area Name');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Thumbnails', N'Thumbnails');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Is Product Published', N'Is Product Published');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Is Featured in this Category', N'Is Featured in this Category');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Customer Name', N'Customer Name');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Customer Email', N'Customer Email');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Customer Phone', N'Customer Phone');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Export Orders', N'Export Orders');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Export Orders with Order Lines', N'Export Orders with Order Lines');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Stock management for warehouse', N'Stock management for warehouse');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Manage products in warehouse', N'Manage products in warehouse');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Adjusted Quantity', N'Adjusted Quantity');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Note', N'Note');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Management products for warehouse', N'Management products for warehouse');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Exist', N'Exist');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Select to add', N'Select to add');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Add All Products', N'Add All Products');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Add selected products', N'Add selected products');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Usage limit per coupon', N'Usage limit per coupon');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Usage limit per customer', N'Usage limit per customer');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Discount Amount', N'Discount Amount');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Max Discount Amount', N'Max Discount Amount');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Products Selection', N'Products Selection');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Select products to apply or leave blank for all products', N'Select products to apply or leave blank for all products');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Manage Products Selection', N'Manage Products Selection');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Create Cart Pricing Rule', N'Create Cart Pricing Rule');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'IsSystem', N'IsSystem');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Items', N'Items');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Caption', N'Caption');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Sub Caption', N'Sub Caption');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Link Url', N'Link Url');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Link Text', N'Link Text');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Image', N'Image');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Add more', N'Add more');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Create Carousel Widget', N'Create Carousel Widget');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'News Category List', N'News Category List');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Create News Category', N'Create News Category');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'NewsCategory Name', N'NewsCategory Name');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Type', N'Type');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Create State or Province', N'Create State or Province');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'All State or Province', N'All State or Province');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Braintree Settings', N'Braintree Settings');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Public Key', N'Public Key');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Private Key', N'Private Key');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Merchaint Id', N'Merchaint Id');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Production Environment', N'Production Environment');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Payment providers', N'Payment providers');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Global.AssetBundling', N'Global.AssetBundling');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Global.CurrencyCulture', N'Global.CurrencyCulture');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Global.CurrencyDecimalPlace', N'Global.CurrencyDecimalPlace');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Global.DefaultCultureUI', N'Global.DefaultCultureUI');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Global.LocalizedConentEnable', N'Global.LocalizedConentEnable');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Display order', N'Display order');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Include in Menu', N'Include in Menu');
+INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Review Title', N'Review Title');
 GO

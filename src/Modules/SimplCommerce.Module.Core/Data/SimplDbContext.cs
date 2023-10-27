@@ -49,6 +49,13 @@ namespace SimplCommerce.Module.Core.Data
 
             RegisterCustomMappings(modelBuilder, typeToRegisters);
 
+            foreach (var property in modelBuilder.Model.GetEntityTypes()
+                .SelectMany(t => t.GetProperties())
+                .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
+            {
+                property.SetColumnType("decimal(18,2)");
+            }
+
             if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
             {
                 // SQLite does not have proper support for DateTimeOffset via Entity Framework Core, see the limitations
