@@ -164,4 +164,3 @@ logs/
 src/Modules/**/wwwroot/admin/*.min.js
 .vscode
 /src/SimplCommerce.WebHost/appsettings.Development.json
-/src/SimplCommerce.WebHost/appsettings.Development.json
