@@ -163,4 +163,5 @@ PublishProfiles/
 logs/
 src/Modules/**/wwwroot/admin/*.min.js
 .vscode
-appsettings.*.json
+/src/SimplCommerce.WebHost/appsettings.Development.json
+/src/SimplCommerce.WebHost/appsettings.Development.json
