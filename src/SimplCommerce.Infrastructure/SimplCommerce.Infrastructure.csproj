@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
   
   <ItemGroup>
@@ -14,7 +14,7 @@
     <PackageReference Include="Humanizer" Version="2.14.1" />
     <PackageReference Include="MediatR" Version="7.0.0" />
     <PackageReference Include="cloudscribe.Web.Pagination" Version="2.1.11" />
-    <PackageReference Include="ncrontab" Version="3.3.1" />
+    <PackageReference Include="ncrontab" Version="3.3.3" />
   </ItemGroup>
 
 </Project>
