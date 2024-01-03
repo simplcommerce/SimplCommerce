@@ -76,6 +76,96 @@
                 </div>
             </div>
             <hr />
+            @if (User.IsInRole("admin"))
+            {
+				<div class="businesshours"> 
+				<h5 class="day">OUR BUSINESS HOURS</h5>
+            <hr/>
+            <div class="row">
+                <div class="col-md-4">
+                    La Romana &amp; Fils &commat; Ghlin
+                </div>
+                <div class="col-md-4">
+                    La Romana &amp; Fils &commat; Nivellas
+                </div>
+                <div class="col-md-4">
+                    La Romana &amp; Fils &commat; Lens
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 day">
+                    <p>Monday</p>
+                    <p>Tuesday</p>
+                    <p>Wednesday</p>
+                    <p>Thursday</p>
+                    <p>Friday</p>
+                    <p>Saturday</p>
+                    <p>Sunday</p>
+                </div>
+                <div class="col-md-2 time">
+                    <p>9h00-19h00</p>
+                    <p>9h00-19h00</p>
+                    <p>9h00-19h00</p>
+                    <p>9h00-19h00</p>
+                    <p>9h00-19h00</p>
+                    <p>9h00-19h00</p>
+                    <p>10h00-13h00</p>
+                </div>
+                <div class="col-md-2 day">
+                    <p>Monday</p>
+                    <p>Tuesday</p>
+                    <p>Wednesday</p>
+                    <p>Thursday</p>
+                    <p>Friday</p>
+                    <p>Saturday</p>
+                    <p>Sunday</p>
+                </div>
+                <div class="col-md-2 time">
+                    <p class="closed">Closed</p>
+                    <p>10h00-20h00</p>
+                    <p>10h00-20h00</p>
+                    <p>10h00-20h00</p>
+                    <p>10h00-20h00</p>
+                    <p>10h00-19h00</p>
+                    <p>10h00-14h00</p>
+                </div>
+                <div class="col-md-2 day">
+                    <p>Monday</p>
+                    <p>Tuesday</p>
+                    <p>Wednesday</p>
+                    <p>Thursday</p>
+                    <p>Friday</p>
+                    <p>Saturday</p>
+                    <p>Sunday</p>
+                </div>
+                <div class="col-md-2 time">
+                    <p class="closed">Closed</p>
+                    <p>10h00-19h00</p>
+                    <p>10h00-19h00</p>
+                    <p>10h00-19h00</p>
+                    <p>10h00-20h00</p>
+                    <p>10h00-20h00</p>
+                    <p class="closed">Closed</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <i class="fa fa-phone"></i><a> +32 (0)65 34 83 18</a>
+                    <p><i class="fa fa-envelope"></i> ghlin@laromana-fils.be</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="fa fa-phone"></i><a> +32 (0)67 33 96 54</a>
+                    <p><i class="fa fa-envelope"></i> nivelles@laromana-fils.be</p>
+
+                </div>
+                <div class="col-md-4">
+                    <i class="fa fa-phone"></i><a> +32 (0)65 59 52 32</a>
+                    <p><i class="fa fa-envelope"></i> lens@laromana-fils.be</p>
+                </div>
+            </div>
+                </div>
+            <hr/>
+            }
             <!--
                 You are freely remove or change this copyright notice below.
                 If you like SimplCommerce and want to help us continue to develop it then
