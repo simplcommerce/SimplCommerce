@@ -12,7 +12,7 @@
         <hr />
         <div class="row">
             <div class="col-md-8">
-                <form asp-area="Core" asp-controller="Manage" asp-action="UserInfo" method="post" role="form">
+				<form id="userinfoForm" asp-area="Core" asp-controller="Manage" asp-action="UserInfo" method="post" role="form">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group row">
                         <label asp-for="Email" class="col-md-2 col-form-label">@Localizer["Email"]</label>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="offset-md-2 col-md-10">
-                            <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
+							<button type="submit" id="saveButton" class="btn btn-primary" disabled="">@Localizer["Save"]</button>
                         </div>
                     </div>
                 </form>
@@ -40,5 +40,56 @@
 </div>
 
 @section scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation.unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation.unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			var form = $('#userinfoForm');
+			var saveButton = $('#saveButton');
+			var originalFormValues = form.serialize();
+			
+
+			function updateSaveButtonState() {
+				var currentFormValues = form.serialize();
+				var isDataChanged = currentFormValues !== originalFormValues;
+				var isFormValid = form.valid();
+				var isAnyFieldEmpty = isAnyRequiredFieldEmpty();
+
+				saveButton.prop('disabled', !isDataChanged || !isFormValid || isAnyFieldEmpty);
+			}
+			form.on('input', 'input', function () {
+				updateSaveButtonState();
+			});
+			form.on('keyup', 'input', function () {
+				updateSaveButtonState();
+			});
+
+			form.submit(function (event) {
+				if (!form.valid() || !isDataChanged) {
+					event.preventDefault();
+				}
+			});
+			updateSaveButtonState();
+			function isAnyRequiredFieldEmpty() {
+				var isEmpty = false;
+				form.find('[data-val-required]').each(function () {
+					var input = $(this);
+					var value = input.val().trim();
+					
+					if (value === '' || value === '0') {
+						isEmpty = true;
+						return false; 
+					}
+				});
+				return isEmpty;
+			}
+		});
+	</script>
+
+
 }
