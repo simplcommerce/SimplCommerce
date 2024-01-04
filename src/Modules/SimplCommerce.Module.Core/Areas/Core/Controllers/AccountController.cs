@@ -121,17 +121,21 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
-                    // Send an email with this link
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //model.CallbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                    //var message = await _viewRender.RenderViewToStringAsync("/Areas/Core/Views/EmailTemplate/AccountRegisteredConfirmationEmailModel.cshtml", model);
-                    //await _emailSender.SendEmailAsync(model.Email, _localizer["Confirm your account"], message, true);
+                    //For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
+                    //Send an email with this link
+
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    model.CallbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+                    var message = await _viewRender.RenderViewToStringAsync("/Areas/Core/Views/EmailTemplate/AccountRegisteredConfirmationEmailModel.cshtml", model);
+                    await _emailSender.SendEmailAsync(model.Email, _localizer["Confirm your account"], message, true);
                     await _userManager.AddToRoleAsync(user, "customer");
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation(3, "User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
+                    //return RedirectToLocal(returnUrl);
+                   
+                    
                 }
                 AddErrors(result);
             }

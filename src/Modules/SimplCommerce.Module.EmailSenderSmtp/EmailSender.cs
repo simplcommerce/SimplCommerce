@@ -14,8 +14,8 @@ namespace SimplCommerce.Module.EmailSenderSmtp
         public EmailSender(IConfiguration config)
         {
             _emailConfig.SmtpServer = config.GetValue<string>("SmtpServer");
-            _emailConfig.SmtpUsername = config.GetValue<string>("SmtpUsername");
-            _emailConfig.SmtpPassword = config.GetValue<string>("SmtpPassword");
+            _emailConfig.SmtpUsername = "sampleemail304@gmail.com";// config.GetValue<string>("satyasandeep51@gmail.com");
+            _emailConfig.SmtpPassword = "mecv erfk mosu fvji";// config.GetValue<string>("Satya@007");
             _emailConfig.SmtpPort = config.GetValue<int>("SmtpPort");
         }
 
