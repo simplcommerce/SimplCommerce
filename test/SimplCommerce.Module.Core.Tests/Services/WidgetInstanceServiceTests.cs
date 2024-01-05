@@ -10,7 +10,6 @@ namespace SimplCommerce.Module.Core.Tests.Services
 {
     public class WidgetInstanceServiceTests
     {
-
         #region PositiveTestCases
         [Fact]
         public void GetPublished_ShouldReturnPublishedWidgetInstances()
