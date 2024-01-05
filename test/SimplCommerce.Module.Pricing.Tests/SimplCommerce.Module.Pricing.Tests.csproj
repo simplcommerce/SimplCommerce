@@ -26,4 +26,8 @@
     <ProjectReference Include="..\..\src\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
