@@ -50,7 +50,10 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
         {
             var stripeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.StripeProviderId);
             var stripeSetting = JsonConvert.DeserializeObject<StripeConfigForm>(stripeProvider.AdditionalSettings);
-            var stripeChargeService = new ChargeService(stripeSetting.PrivateKey);
+
+            StripeConfiguration.ApiKey = stripeSetting.PrivateKey;
+
+            var stripeChargeService = new ChargeService();
             var currentUser = await _workContext.GetCurrentUser();
             //TODO: pass checkout Id here
             var cart = await _checkoutService.GetCheckoutDetails(Guid.Empty);
@@ -89,7 +92,7 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
                     Amount = (int)zeroDecimalOrderAmount,
                     Description = "Sample Charge",
                     Currency = regionInfo.ISOCurrencySymbol,
-                    SourceId = stripeToken
+                    Source = stripeToken
                 });
 
                 payment.GatewayTransactionId = charge.Id;
