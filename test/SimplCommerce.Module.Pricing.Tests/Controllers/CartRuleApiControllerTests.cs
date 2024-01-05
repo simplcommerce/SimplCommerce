@@ -19,8 +19,6 @@ using SimplCommerce.Module.Pricing.Models;
 using Xunit;
 namespace SimplCommerce.Module.Pricing.Tests.Controllers
 {
-   
-
     public class CartRuleApiControllerTests
     {
         [Fact]
