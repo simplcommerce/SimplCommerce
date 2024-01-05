@@ -55,7 +55,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="3.0.1" />
+    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="4.1.2" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="Microsoft.AspNetCore.Antiforgery" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="7.0.10" />
@@ -67,11 +67,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
-    <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
-    <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
-    <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.1-dev-00767" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="7.0.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="7.0.1" />
+    <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.1-dev-00771" />
     <PackageReference Include="Humanizer" Version="2.14.1" />
-    <PackageReference Include="MediatR" Version="7.0.0" />
+    <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 </Project>

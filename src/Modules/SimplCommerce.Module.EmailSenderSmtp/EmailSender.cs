@@ -22,8 +22,8 @@ namespace SimplCommerce.Module.EmailSenderSmtp
         public async Task SendEmailAsync(string email, string subject, string body, bool isHtml = false)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress(_emailConfig.SmtpUsername));
-            message.To.Add(new MailboxAddress(email));
+            message.From.Add(new MailboxAddress(_emailConfig.SmtpUsername, _emailConfig.SmtpUsername));
+            message.To.Add(new MailboxAddress(email, email));
             message.Subject = subject;
 
             var textFormat = isHtml ? TextFormat.Html : TextFormat.Plain;

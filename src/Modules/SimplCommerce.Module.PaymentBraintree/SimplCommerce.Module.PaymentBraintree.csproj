@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Braintree" Version="4.9.0" />
+    <PackageReference Include="Braintree" Version="5.20.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />

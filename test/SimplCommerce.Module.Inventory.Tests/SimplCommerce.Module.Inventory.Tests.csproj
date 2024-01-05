@@ -8,13 +8,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
-    <PackageReference Include="Moq" Version="4.16.1" />
-    <PackageReference Include="xunit" Version="2.5.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.0">
+    <PackageReference Include="Moq" Version="4.20.69" />
+    <PackageReference Include="xunit" Version="2.5.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-	<PackageReference Include="coverlet.msbuild" Version="3.1.0">
+	<PackageReference Include="coverlet.msbuild" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>

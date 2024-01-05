@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.EntityFrameworkCore;
@@ -73,8 +73,7 @@ void ConfigureService()
         }
     }
 
-    builder.Services.AddScoped<ServiceFactory>(p => p.GetService);
-    builder.Services.AddScoped<IMediator, Mediator>();
+    builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
     builder.Services.AddSwaggerGen(c =>
     {
