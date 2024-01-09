@@ -4,15 +4,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using SimplCommerce.Module.Core.Areas.Core.Components;
+using SimplCommerce.Module.Core.Areas.Core.ViewModels.Manage;
 using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using Xunit;
 
-namespace SimplCommerce.Module.Core.Tests.Components
+/*namespace SimplCommerce.Module.Core.Tests.Components
 {
-    /*
-    Maybe we should not maintain these kind of unit test, it doesn't bring much value but waste of time
+    
 
     public class DefaultShippingAddressViewComponentTests
     {
@@ -124,5 +125,5 @@ namespace SimplCommerce.Module.Core.Tests.Components
             return userAddress;
         }
     }
-    */
-}
+   
+}*/

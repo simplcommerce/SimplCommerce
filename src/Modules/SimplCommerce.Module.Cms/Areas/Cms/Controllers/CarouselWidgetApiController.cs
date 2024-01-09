@@ -33,7 +33,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
 
         [HttpGet("{id}")]
         public async Task<ActionResult<CarouselWidgetForm>> Get(long id)
-        {            
+        {
             var widgetInstance = await _widgetInstanceRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
             var model = new CarouselWidgetForm
             {
@@ -55,11 +55,11 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromForm]CarouselWidgetForm model)
+        public async Task<IActionResult> Post([FromForm] CarouselWidgetForm model)
         {
             ModelBindUploadFiles(model);
 
-            if(model.Items.Any(x => x.UploadImage == null))
+            if (model.Items.Any(x => x.UploadImage == null))
             {
                 ModelState.AddModelError("Images", "Images is required");
                 return BadRequest(ModelState);
@@ -87,7 +87,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(long id, [FromForm]CarouselWidgetForm model)
+        public async Task<IActionResult> Put(long id, [FromForm] CarouselWidgetForm model)
         {
             ModelBindUploadFiles(model);
 
@@ -104,7 +104,7 @@ namespace SimplCommerce.Module.Cms.Areas.Cms.Controllers
             }
 
             var widgetInstance = await _widgetInstanceRepository.Query().FirstOrDefaultAsync(x => x.Id == id);
-            if(widgetInstance == null)
+            if (widgetInstance == null)
             {
                 return NotFound();
             }
