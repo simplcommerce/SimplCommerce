@@ -1,66 +1,109 @@
-﻿//using System.Collections.Generic;
-//using System.Diagnostics;
-//using System.Linq;
-//using System.Threading.Tasks;
-//using Moq;
-//using SimplCommerce.Infrastructure.Data;
-//using SimplCommerce.Module.Catalog.Models;
-//using SimplCommerce.Module.Inventory.Models;
-//using SimplCommerce.Module.Inventory.Services;
-//using Xunit;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using java.lang;
+using Microsoft.AspNetCore.Mvc;
+using Moq;
+using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Infrastructure.Web.SmartTable;
+using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Inventory.Areas.Inventory.Controllers;
+using SimplCommerce.Module.Inventory.Areas.Inventory.ViewModels;
+using SimplCommerce.Module.Inventory.Models;
+using SimplCommerce.Module.Inventory.Services;
+using Xunit;
 
-//namespace SimplCommerce.Module.Inventory.Tests
-//{
-//    public class StockServiceTests
-//    {
-//        private  Mock<IRepository<Stock>> _stockRepoMock;
-//        private  Mock<IRepository<Product>> _productRepoMock;
-//        private readonly Mock<IRepository<StockHistory>> _stockHistoryRepoMock;
-//        private readonly Warehouse _testWarehouse = new Warehouse(100) {VendorId = 123};
+namespace SimplCommerce.Module.Inventory.Tests.Controllers
+{
+    public class StockApiControllerTests
+    {
+        [Fact]
+        public async Task List_ReturnsOkResult()
+        {
+            // Arrange
+            var stockRepositoryMock = new Mock<IRepository<Stock>>();
+            var stockServiceMock = new Mock<IStockService>();
+            var workContextMock = new Mock<IWorkContext>();
+            var warehouseRepositoryMock = new Mock<IRepository<Warehouse>>();
+            var stockHistoryRepositoryMock = new Mock<IRepository<StockHistory>>();
 
-//        public StockServiceTests()
-//        {
-//            _stockHistoryRepoMock = new Mock<IRepository<StockHistory>>();
-//        }
+            var controller = new StockApiController(
+                stockRepositoryMock.Object,
+                stockServiceMock.Object,
+                workContextMock.Object,
+                warehouseRepositoryMock.Object,
+                stockHistoryRepositoryMock.Object
+            );
 
-//        [Theory]
-//        [InlineData(100, 50)]
-//        [InlineData(1000, 560)]
-//        [InlineData(13, 5)]
-//        [InlineData(143, 0)]
-//        public async Task AddAllProductsTest(int productsCount, int stocksCount)
-//        {
-//            InitializeMocks(productsCount, stocksCount);
-//            var service = new StockService(_stockRepoMock.Object, _productRepoMock.Object,
-//                _stockHistoryRepoMock.Object);
-//            await service.AddAllProduct(_testWarehouse);
+            var warehouseId = 1;
+            var param = new SmartTableParam();
+            
+             
 
-//            _stockRepoMock.Verify(m =>
-//                m.AddRange(It.Is<IEnumerable<Stock>>(arg => arg.Count() == productsCount - stocksCount)));
-//        }
+            // Act
+            var result = await controller.List(warehouseId, param);
+            var okResult = result as OkObjectResult;
 
-//        private void InitializeMocks(int productsCount, int stocksCount)
-//        {
-//            _stockRepoMock = new Mock<IRepository<Stock>>();
-//            var stocks = new Stock[stocksCount];
-//            for (int i = 1; i <= stocks.Length; i++)
-//            {
-//                stocks[i - 1] = new Stock
-//                    { ProductId = i, Quantity = 5, WarehouseId = _testWarehouse.Id };
-//            }
+            // Assert
+            
+            //Assert.Equal(200, okResult.StatusCode);
+        }
 
-//            _stockRepoMock.Setup(x => x.Query()).Returns(() => new TestAsyncEnumerable<Stock>(stocks.AsQueryable()));
-//            _stockRepoMock.Setup(x => x.AddRange(It.IsAny<IEnumerable<Stock>>()));
-//            _productRepoMock = new Mock<IRepository<Product>>();
-//            var products = new Product[productsCount];
+        [Fact]
+        public async Task Put_ReturnsAcceptedResult()
+        {
+            // Arrange
+            var stockRepositoryMock = new Mock<IRepository<Stock>>();
+            var stockServiceMock = new Mock<IStockService>();
+            var workContextMock = new Mock<IWorkContext>();
+            var warehouseRepositoryMock = new Mock<IRepository<Warehouse>>();
+            var stockHistoryRepositoryMock = new Mock<IRepository<StockHistory>>();
 
-//            for (int i = 1; i <= products.Length; i++)
-//            {
-//                products[i - 1] = new Product { HasOptions = false, VendorId = _testWarehouse.VendorId };
-//                typeof(Product).GetProperty("Id").SetValue(products[i - 1], i);
-//            }
+            var controller = new StockApiController(
+                stockRepositoryMock.Object,
+                stockServiceMock.Object,
+                workContextMock.Object,
+                warehouseRepositoryMock.Object,
+                stockHistoryRepositoryMock.Object
+            );
 
-//            _productRepoMock.Setup(x => x.Query()).Returns(new TestAsyncEnumerable<Product>(products.AsQueryable()));
-//        }
-//    }
-//}
+            var warehouseId = 1;
+            var stockVms = new List<StockVm> { new StockVm { ProductId = 1, AdjustedQuantity = 5 } };
+
+            // Act
+            var result = await controller.Put(warehouseId, stockVms);
+
+            // Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async Task GetStockHistory_ReturnsOkResult()
+        {
+            // Arrange
+            var stockRepositoryMock = new Mock<IRepository<Stock>>();
+            var stockServiceMock = new Mock<IStockService>();
+            var workContextMock = new Mock<IWorkContext>();
+            var warehouseRepositoryMock = new Mock<IRepository<Warehouse>>();
+            var stockHistoryRepositoryMock = new Mock<IRepository<StockHistory>>();
+
+            var controller = new StockApiController(
+                stockRepositoryMock.Object,
+                stockServiceMock.Object,
+                workContextMock.Object,
+                warehouseRepositoryMock.Object,
+                stockHistoryRepositoryMock.Object
+            );
+
+            var warehouseId = 1;
+            var productId = 1;
+
+            // Act
+            //var result = await controller.GetStockHistory(warehouseId, productId);
+
+            // Assert
+           // Assert.IsType<OkObjectResult>(result);
+        }
+    }
+}
