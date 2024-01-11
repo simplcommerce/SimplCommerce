@@ -106,8 +106,6 @@ namespace SimplCommerce.Module.Pricing.Tests.Controllers
             public string CouponCode { get; set; }
             public long OrderId { get; set; }
             public DateTimeOffset CreatedOn { get; set; }
-
-
         }
 
         public class searchObject
