@@ -20,7 +20,6 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Controllers
 {
     public class ComparingProductControllerTests
     {
-        #region PositiveTestCases
         [Fact]
         public async Task AddToComparison_SuccessfullyAddsProduct()
         {
@@ -51,8 +50,10 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Controllers
                 UserName = "TestUser"
             };
             workContextMock.Setup(repo => repo.GetCurrentUser()).ReturnsAsync(user);
+            
             // Act
             var result = await controller.AddToComparison(model);
+            
             // Assert
             comparingProductServiceMock.Verify(s => s.AddToComparison(userId, productId), Times.Once);
             Assert.IsType<PartialViewResult>(result);
@@ -91,8 +92,10 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Controllers
                 UserName = "TestUser"
             };
             workContextMock.Setup(repo => repo.GetCurrentUser()).ReturnsAsync(user);
+            
             // Act
             var result = await controller.Remove(productId);
+            
             // Assert
             repositoryMock.Verify(r => r.Remove(It.IsAny<ComparingProduct>()), Times.Once);
             repositoryMock.Verify(r => r.SaveChanges(), Times.Once);
@@ -178,17 +181,17 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Controllers
                 contentLocalizationServiceMock.Object,
                 workContextMock.Object
             );
+            
             // Act
             var result = await controller.Index();
+            
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
             var viewModel = Assert.IsType<ProductComparisonVm>(viewResult.Model);
             Assert.Equal(comparingProducts.Count, viewModel.Products.Count);
             Assert.NotEmpty(viewModel.Attributes);
         }
-        #endregion
 
-        #region NegativeTestCases
         [Fact]
         public async Task AddToComparison_TooManyComparingProducts_ReturnsErrorMessage()
         {
@@ -221,8 +224,10 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Controllers
                 UserName = "TestUser"
             };
             workContextMock.Setup(repo => repo.GetCurrentUser()).ReturnsAsync(user);
+            
             // Act
             var result = await controller.AddToComparison(model);
+            
             // Assert
             comparingProductServiceMock.Verify(s => s.AddToComparison(It.IsAny<long>(), It.IsAny<long>()), Times.Once);
             var viewResult = Assert.IsType<PartialViewResult>(result);
@@ -263,13 +268,14 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Controllers
                 UserName = "TestUser"
             };
             workContextMock.Setup(repo => repo.GetCurrentUser()).ReturnsAsync(user);
+            
             // Act
             var result = await controller.Remove(productId);
+            
             // Assert
             repositoryMock.Verify(r => r.Remove(It.IsAny<ComparingProduct>()), Times.Never);
             repositoryMock.Verify(r => r.SaveChanges(), Times.Never);
             Assert.IsType<NotFoundResult>(result);
         }
-        #endregion
     }
 }
