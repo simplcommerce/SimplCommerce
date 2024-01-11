@@ -115,6 +115,7 @@ namespace SimplCommerce.Module.Pricing.Tests.Controllers
             public List<Itemsobject> Items { get; set; }
 
             public int NumberOfPages { get; set; }
+
             public int TotalRecord { get; set; }
 
         }
