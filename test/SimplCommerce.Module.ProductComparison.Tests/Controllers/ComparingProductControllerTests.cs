@@ -16,6 +16,7 @@ using SimplCommerce.Module.ProductComparison.Areas.ProductComparison.ViewModels;
 using SimplCommerce.Module.ProductComparison.Models;
 using SimplCommerce.Module.ProductComparison.Services;
 using Xunit;
+
 namespace SimplCommerce.Module.ProductComparison.Tests.Controllers
 {
     public class ComparingProductControllerTests
