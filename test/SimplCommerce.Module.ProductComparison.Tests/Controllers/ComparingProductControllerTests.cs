@@ -51,9 +51,11 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Controllers
             };
             workContextMock.Setup(repo => repo.GetCurrentUser()).ReturnsAsync(user);
             
+
             // Act
             var result = await controller.AddToComparison(model);
             
+
             // Assert
             comparingProductServiceMock.Verify(s => s.AddToComparison(userId, productId), Times.Once);
             Assert.IsType<PartialViewResult>(result);
@@ -93,9 +95,11 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Controllers
             };
             workContextMock.Setup(repo => repo.GetCurrentUser()).ReturnsAsync(user);
             
+
             // Act
             var result = await controller.Remove(productId);
             
+
             // Assert
             repositoryMock.Verify(r => r.Remove(It.IsAny<ComparingProduct>()), Times.Once);
             repositoryMock.Verify(r => r.SaveChanges(), Times.Once);
@@ -182,9 +186,11 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Controllers
                 workContextMock.Object
             );
             
+
             // Act
             var result = await controller.Index();
             
+
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
             var viewModel = Assert.IsType<ProductComparisonVm>(viewResult.Model);
@@ -225,9 +231,11 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Controllers
             };
             workContextMock.Setup(repo => repo.GetCurrentUser()).ReturnsAsync(user);
             
+
             // Act
             var result = await controller.AddToComparison(model);
             
+
             // Assert
             comparingProductServiceMock.Verify(s => s.AddToComparison(It.IsAny<long>(), It.IsAny<long>()), Times.Once);
             var viewResult = Assert.IsType<PartialViewResult>(result);
@@ -269,9 +277,11 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Controllers
             };
             workContextMock.Setup(repo => repo.GetCurrentUser()).ReturnsAsync(user);
             
+
             // Act
             var result = await controller.Remove(productId);
             
+
             // Assert
             repositoryMock.Verify(r => r.Remove(It.IsAny<ComparingProduct>()), Times.Never);
             repositoryMock.Verify(r => r.SaveChanges(), Times.Never);
