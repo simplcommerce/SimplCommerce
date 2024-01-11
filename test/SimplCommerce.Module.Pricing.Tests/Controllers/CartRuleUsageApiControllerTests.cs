@@ -95,6 +95,7 @@ namespace SimplCommerce.Module.Pricing.Tests.Controllers
             Assert.Equal(301, deserializeobj.Items[0].OrderId);
 
         }
+
         public class Itemsobject
         {
             public long Id { get; set; }
