@@ -27,8 +27,4 @@
     <ProjectReference Include="..\..\src\Modules\SimplCommerce.Module.Shipping\SimplCommerce.Module.Shipping.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
