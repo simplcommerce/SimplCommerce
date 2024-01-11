@@ -59,48 +59,48 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Services
             var productId = 1001;
             var repositoryMock = new Mock<IRepository<ComparingProduct>>();
             var listComparingProducts = new List<ComparingProduct>()
-        {
-            new ComparingProduct()
             {
-                ProductId = 1001,
-                Product=new Product()
+                new ComparingProduct()
                 {
-                    Name="TestProduct"
+                    ProductId = 1001,
+                    Product=new Product()
+                    {
+                        Name="TestProduct"
+                    },
+                    CreatedOn = DateTime.Now,
+                    UserId=1
                 },
-                CreatedOn = DateTime.Now,
-                UserId=1
-            },
-            new ComparingProduct()
-            {
-                ProductId = 1002,
-                Product=new Product()
+                new ComparingProduct()
                 {
-                    Name="TestProduct1"
+                    ProductId = 1002,
+                    Product=new Product()
+                    {
+                        Name="TestProduct1"
+                    },
+                    CreatedOn = DateTime.Now,
+                    UserId=1
                 },
-                CreatedOn = DateTime.Now,
-                UserId=1
-            },
-            new ComparingProduct()
-            {
-                ProductId = 1003,
-                Product=new Product()
+                new ComparingProduct()
                 {
-                    Name="TestProduct2"
+                    ProductId = 1003,
+                    Product=new Product()
+                    {
+                        Name="TestProduct2"
+                    },
+                    CreatedOn = DateTime.Now,
+                    UserId=1
                 },
-                CreatedOn = DateTime.Now,
-                UserId=1
-            },
-            new ComparingProduct()
-            {
-                ProductId = 1004,
-                Product=new Product()
+                new ComparingProduct()
                 {
-                    Name="TestProduct3"
+                    ProductId = 1004,
+                    Product=new Product()
+                    {
+                        Name="TestProduct3"
+                    },
+                    CreatedOn = DateTime.Now,
+                    UserId=1
                 },
-                CreatedOn = DateTime.Now,
-                UserId=1
-            },
-        };
+            };
             repositoryMock.Setup(r => r.Query()).Returns(listComparingProducts.AsQueryable);
             var service = new ComparingProductService(repositoryMock.Object);
 
