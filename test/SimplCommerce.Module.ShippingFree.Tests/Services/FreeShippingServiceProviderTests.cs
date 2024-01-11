@@ -25,7 +25,6 @@ namespace SimplCommerce.Module.ShippingFree.Tests.Services
                 })
             };
             var freeShippingServiceProvider = new FreeShippingServiceProvider(currencyServiceMock.Object);
-
             var request = new GetShippingPriceRequest
             {
                 OrderAmount = 60 // Exceeds the MinimumOrderAmount
@@ -56,7 +55,6 @@ namespace SimplCommerce.Module.ShippingFree.Tests.Services
                 })
             };
             var freeShippingServiceProvider = new FreeShippingServiceProvider(currencyServiceMock.Object);
-
             var request = new GetShippingPriceRequest
             {
                 OrderAmount = 40 // Below the MinimumOrderAmount
