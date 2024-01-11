@@ -230,7 +230,6 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Controllers
             // Act
             var result = await controller.AddToComparison(model);
             
-
             // Assert
             comparingProductServiceMock.Verify(s => s.AddToComparison(It.IsAny<long>(), It.IsAny<long>()), Times.Once);
             var viewResult = Assert.IsType<PartialViewResult>(result);
