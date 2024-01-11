@@ -64,6 +64,7 @@ namespace SimplCommerce.Module.Pricing.Tests.Controllers
                 UsageLimitPerCustomer = 1
             };
             
+
             // Act
             var result = await controller.Post(model);
             
