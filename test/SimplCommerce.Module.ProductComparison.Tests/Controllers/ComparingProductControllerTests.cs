@@ -187,7 +187,6 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Controllers
             // Act
             var result = await controller.Index();
             
-
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
             var viewModel = Assert.IsType<ProductComparisonVm>(viewResult.Model);
