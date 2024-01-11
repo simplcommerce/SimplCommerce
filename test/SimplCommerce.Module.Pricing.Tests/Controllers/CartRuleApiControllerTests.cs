@@ -34,7 +34,6 @@ namespace SimplCommerce.Module.Pricing.Tests.Controllers
                 Sort = new Sort() { }
             };
             
-
             // Act
             var result = controller.List(smartTableParam);
             
