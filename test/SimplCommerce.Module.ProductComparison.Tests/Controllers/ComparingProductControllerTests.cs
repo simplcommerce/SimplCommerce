@@ -51,11 +51,9 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Controllers
             };
             workContextMock.Setup(repo => repo.GetCurrentUser()).ReturnsAsync(user);
             
-
             // Act
             var result = await controller.AddToComparison(model);
             
-
             // Assert
             comparingProductServiceMock.Verify(s => s.AddToComparison(userId, productId), Times.Once);
             Assert.IsType<PartialViewResult>(result);
@@ -277,10 +275,8 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Controllers
             };
             workContextMock.Setup(repo => repo.GetCurrentUser()).ReturnsAsync(user);
             
-
             // Act
             var result = await controller.Remove(productId);
-            
 
             // Assert
             repositoryMock.Verify(r => r.Remove(It.IsAny<ComparingProduct>()), Times.Never);
