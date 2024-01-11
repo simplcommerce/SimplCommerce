@@ -36,10 +36,10 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Services
             var toUserId = 2;
             var repositoryMock = new Mock<IRepository<ComparingProduct>>();
             var comparingProducts = new List<ComparingProduct>()
-                {
-                    new ComparingProduct { UserId = fromUserId, ProductId = 1001 },
-                    new ComparingProduct { UserId = fromUserId, ProductId = 1002 },
-                };
+            {
+                new ComparingProduct { UserId = fromUserId, ProductId = 1001 },
+                new ComparingProduct { UserId = fromUserId, ProductId = 1002 },
+            };
             repositoryMock.Setup(r => r.Query()).Returns(comparingProducts.AsQueryable());
             var service = new ComparingProductService(repositoryMock.Object);
 
