@@ -38,8 +38,8 @@ namespace SimplCommerce.Module.Core.Tests.Services
             // Arrange
             var widgetInstances = new[]
             {
-            new WidgetInstance { PublishStart = DateTimeOffset.Now.AddDays(1), PublishEnd = DateTimeOffset.Now.AddDays(2) },
-            new WidgetInstance { PublishStart = null, PublishEnd = DateTimeOffset.Now.AddDays(-1) },
+                new WidgetInstance { PublishStart = DateTimeOffset.Now.AddDays(1), PublishEnd = DateTimeOffset.Now.AddDays(2) },
+                new WidgetInstance { PublishStart = null, PublishEnd = DateTimeOffset.Now.AddDays(-1) },
             };
 
             var mockRepository = new Mock<IRepository<WidgetInstance>>();
