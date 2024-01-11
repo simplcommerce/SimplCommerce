@@ -118,8 +118,6 @@ namespace SimplCommerce.Module.Pricing.Tests.Controllers
 
             public int TotalRecord { get; set; }
         }
-
-
     }
 }
 
