@@ -182,7 +182,6 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Controllers
                 workContextMock.Object
             );
             
-
             // Act
             var result = await controller.Index();
             
