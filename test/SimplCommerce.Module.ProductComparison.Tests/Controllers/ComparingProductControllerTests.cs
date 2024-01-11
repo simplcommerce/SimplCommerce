@@ -96,7 +96,6 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Controllers
             // Act
             var result = await controller.Remove(productId);
             
-
             // Assert
             repositoryMock.Verify(r => r.Remove(It.IsAny<ComparingProduct>()), Times.Once);
             repositoryMock.Verify(r => r.SaveChanges(), Times.Once);
