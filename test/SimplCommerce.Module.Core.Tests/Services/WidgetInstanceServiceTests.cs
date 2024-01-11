@@ -10,15 +10,14 @@ namespace SimplCommerce.Module.Core.Tests.Services
 {
     public class WidgetInstanceServiceTests
     {
-        #region PositiveTestCases
         [Fact]
         public void GetPublished_ShouldReturnPublishedWidgetInstances()
         {
             // Arrange
             var widgetInstances = new[]
             {
-            new WidgetInstance { PublishStart = DateTimeOffset.Now.AddDays(-1), PublishEnd = DateTimeOffset.Now.AddDays(1) },
-            new WidgetInstance { PublishStart = DateTimeOffset.Now.AddDays(-2), PublishEnd = DateTimeOffset.Now.AddDays(2) }
+                new WidgetInstance { PublishStart = DateTimeOffset.Now.AddDays(-1), PublishEnd = DateTimeOffset.Now.AddDays(1) },
+                new WidgetInstance { PublishStart = DateTimeOffset.Now.AddDays(-2), PublishEnd = DateTimeOffset.Now.AddDays(2) }
             };
 
             var mockRepository = new Mock<IRepository<WidgetInstance>>();
@@ -32,9 +31,7 @@ namespace SimplCommerce.Module.Core.Tests.Services
             // Assert
             Assert.Equal(widgetInstances.Length, result.Count());
         }
-        #endregion
 
-        #region NegativeTestCases
         [Fact]
         public void GetPublished_ShouldNotReturnUnpublishedWidgetInstances()
         {
@@ -56,6 +53,5 @@ namespace SimplCommerce.Module.Core.Tests.Services
             // Assert
             Assert.Empty(result);
         }
-        #endregion
     }
 }
