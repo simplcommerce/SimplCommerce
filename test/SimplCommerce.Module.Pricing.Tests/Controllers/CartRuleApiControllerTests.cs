@@ -33,12 +33,13 @@ namespace SimplCommerce.Module.Pricing.Tests.Controllers
                 Search = new Search() { },
                 Sort = new Sort() { }
             };
+            
             // Act
             var result = controller.List(smartTableParam);
+            
             // Assert
             Assert.IsType<JsonResult>(result);
         }
-
 
         [Fact]
         public async Task Post_CreatesNewCartRule_WhenModelStateIsValid()
@@ -61,8 +62,10 @@ namespace SimplCommerce.Module.Pricing.Tests.Controllers
                 UsageLimitPerCoupon = 100,
                 UsageLimitPerCustomer = 1
             };
+            
             // Act
             var result = await controller.Post(model);
+            
             // Assert
             var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
             Assert.Equal(nameof(CartRuleApiController.Get), createdAtActionResult.ActionName);
@@ -70,6 +73,5 @@ namespace SimplCommerce.Module.Pricing.Tests.Controllers
             cartRuleRepositoryMock.Verify(repo => repo.Add(It.IsAny<CartRule>()), Times.Once);
             cartRuleRepositoryMock.Verify(repo => repo.SaveChangesAsync(), Times.Once);
         }
-
     }
 }
