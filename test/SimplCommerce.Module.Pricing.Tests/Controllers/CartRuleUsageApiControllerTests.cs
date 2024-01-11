@@ -17,7 +17,6 @@ namespace SimplCommerce.Module.Pricing.Tests.Controllers
 {
     public class CartRuleUsageApiControllerTests
     {
-
         [Fact]
         public void List_ReturnsJsonResult()
         {
