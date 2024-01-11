@@ -136,6 +136,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Paymen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplCommerce.Module.Checkouts", "src\Modules\SimplCommerce.Module.Checkouts\SimplCommerce.Module.Checkouts.csproj", "{4473538D-2BFA-4C53-B642-0D0DC4F16863}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.ProductComparison.Tests", "test\SimplCommerce.Module.ProductComparison.Tests\SimplCommerce.Module.ProductComparison.Tests.csproj", "{EEC02E89-E89A-4871-8C3E-4BABA1E56CA7}"
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplCommerce.Module.ShippingFree.Tests", "test\SimplCommerce.Module.ShippingFree.Tests\SimplCommerce.Module.ShippingFree.Tests.csproj", "{16BB6B44-3300-4C22-A37B-D9CD7A4EA300}"
 EndProject
 Global
@@ -712,6 +713,18 @@ Global
 		{4473538D-2BFA-4C53-B642-0D0DC4F16863}.Release|x64.Build.0 = Release|Any CPU
 		{4473538D-2BFA-4C53-B642-0D0DC4F16863}.Release|x86.ActiveCfg = Release|Any CPU
 		{4473538D-2BFA-4C53-B642-0D0DC4F16863}.Release|x86.Build.0 = Release|Any CPU
+		{EEC02E89-E89A-4871-8C3E-4BABA1E56CA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEC02E89-E89A-4871-8C3E-4BABA1E56CA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEC02E89-E89A-4871-8C3E-4BABA1E56CA7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EEC02E89-E89A-4871-8C3E-4BABA1E56CA7}.Debug|x64.Build.0 = Debug|Any CPU
+		{EEC02E89-E89A-4871-8C3E-4BABA1E56CA7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EEC02E89-E89A-4871-8C3E-4BABA1E56CA7}.Debug|x86.Build.0 = Debug|Any CPU
+		{EEC02E89-E89A-4871-8C3E-4BABA1E56CA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEC02E89-E89A-4871-8C3E-4BABA1E56CA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEC02E89-E89A-4871-8C3E-4BABA1E56CA7}.Release|x64.ActiveCfg = Release|Any CPU
+		{EEC02E89-E89A-4871-8C3E-4BABA1E56CA7}.Release|x64.Build.0 = Release|Any CPU
+		{EEC02E89-E89A-4871-8C3E-4BABA1E56CA7}.Release|x86.ActiveCfg = Release|Any CPU
+		{EEC02E89-E89A-4871-8C3E-4BABA1E56CA7}.Release|x86.Build.0 = Release|Any CPU
 		{16BB6B44-3300-4C22-A37B-D9CD7A4EA300}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{16BB6B44-3300-4C22-A37B-D9CD7A4EA300}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16BB6B44-3300-4C22-A37B-D9CD7A4EA300}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -779,6 +792,7 @@ Global
 		{14586564-62CC-4117-AC1B-858ED53C2D6C} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{E30CF10F-FABF-4917-8BEB-CB81E4CE2C92} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
 		{4473538D-2BFA-4C53-B642-0D0DC4F16863} = {7EFA2FA7-32DD-4047-B021-50E77A83D714}
+		{EEC02E89-E89A-4871-8C3E-4BABA1E56CA7} = {D9FD9ABA-AE5E-4427-AA6B-6285BE2E212D}
 		{16BB6B44-3300-4C22-A37B-D9CD7A4EA300} = {D9FD9ABA-AE5E-4427-AA6B-6285BE2E212D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
