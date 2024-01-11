@@ -117,7 +117,6 @@ namespace SimplCommerce.Module.Pricing.Tests.Controllers
             public int NumberOfPages { get; set; }
 
             public int TotalRecord { get; set; }
-
         }
 
 
