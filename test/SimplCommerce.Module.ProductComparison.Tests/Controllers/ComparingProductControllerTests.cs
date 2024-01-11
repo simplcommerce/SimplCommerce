@@ -93,7 +93,6 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Controllers
             };
             workContextMock.Setup(repo => repo.GetCurrentUser()).ReturnsAsync(user);
             
-
             // Act
             var result = await controller.Remove(productId);
             
