@@ -17,6 +17,7 @@ using SimplCommerce.Module.Pricing.Areas.Pricing.Controllers;
 using SimplCommerce.Module.Pricing.Areas.Pricing.ViewModels;
 using SimplCommerce.Module.Pricing.Models;
 using Xunit;
+
 namespace SimplCommerce.Module.Pricing.Tests.Controllers
 {
     public class CartRuleApiControllerTests
