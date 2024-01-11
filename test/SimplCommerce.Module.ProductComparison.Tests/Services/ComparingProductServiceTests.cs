@@ -11,7 +11,6 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Services
 {
     public class ComparingProductServiceTests
     {
-        #region PositiveTestCases
         [Fact]
         public void AddToComparison_SuccessfullyAddsProduct()
         {
@@ -51,9 +50,7 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Services
             repositoryMock.Verify(r => r.SaveChanges(), Times.Once);
             Assert.All(comparingProducts, cp => Assert.Equal(toUserId, cp.UserId));
         }
-        #endregion
 
-        #region NegativeTestCases
         [Fact]
         public void AddToComparison_TooManyComparingProducts_ThrowsException()
         {
@@ -138,6 +135,5 @@ namespace SimplCommerce.Module.ProductComparison.Tests.Services
             repositoryMock.Verify(r => r.Add(comparingProduct), Times.Never);
             repositoryMock.Verify(r => r.SaveChanges(), Times.Never);
         }
-        #endregion
     }
 }
