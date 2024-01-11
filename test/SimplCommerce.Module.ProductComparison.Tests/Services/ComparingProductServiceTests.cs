@@ -7,6 +7,7 @@ using SimplCommerce.Module.Catalog.Models;
 using SimplCommerce.Module.ProductComparison.Models;
 using SimplCommerce.Module.ProductComparison.Services;
 using Xunit;
+
 namespace SimplCommerce.Module.ProductComparison.Tests.Services
 {
     public class ComparingProductServiceTests
