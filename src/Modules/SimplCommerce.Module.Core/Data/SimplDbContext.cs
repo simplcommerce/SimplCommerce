@@ -49,12 +49,13 @@ namespace SimplCommerce.Module.Core.Data
 
             RegisterCustomMappings(modelBuilder, typeToRegisters);
 
-            foreach (var property in modelBuilder.Model.GetEntityTypes()
-                .SelectMany(t => t.GetProperties())
-                .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
-            {
-                property.SetColumnType("decimal(18,2)");
-            }
+            //foreach (var property in modelBuilder.Model.GetEntityTypes()
+            //    .SelectMany(t => t.GetProperties())
+            //    .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
+            //{
+            //    Console.WriteLine("decimal property: " + property.Name);
+            //    //property.SetColumnType("decimal(18,2)");
+            //}
 
             if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
             {
