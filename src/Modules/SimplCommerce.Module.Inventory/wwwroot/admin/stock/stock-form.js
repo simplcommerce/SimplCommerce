@@ -2,9 +2,9 @@
 (function () {
     angular
         .module('simplAdmin.inventory')
-        .controller('StockFormCtrl', ['stockService', 'translateService', StockFormCtrl]);
+        .controller('StockFormCtrl', ['configurationService','stockService', 'translateService', StockFormCtrl]);
 
-    function StockFormCtrl(stockService, translateService) {
+    function StockFormCtrl(configurationService, stockService, translateService) {
         var vm = this;
         vm.tableStateRef = {};
         vm.translate = translateService;
@@ -41,6 +41,12 @@
             if (vm.warehouses.length >= 1) {
                 vm.selectedWarehouse = vm.warehouses[0];
             }
+        });
+
+        configurationService.getSettings().then(function (result) {
+            const minimumQuantityForHighlighting = result.data.find(o => o.key === "Catalog.MinimumProductQuantityForHighlighting");
+
+            vm.minimumQuantityForHighlighting = minimumQuantityForHighlighting ? minimumQuantityForHighlighting.value : 0;
         });
     }
 })();
