@@ -60,17 +60,16 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Controlle
         }
 
         [HttpPost]
-        public async Task<IActionResult> SubmitPayment(string paymentOption, string bankCode)
+        public async Task<IActionResult> SubmitPayment(string paymentOption, string bankCode, Guid checkoutId)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            //TODO: pass checkout Id here
-            var cart = await _checkoutService.GetCheckoutDetails(Guid.Empty);
+
+            var cart = await _checkoutService.GetCheckoutDetails(checkoutId);
             if (cart == null)
             {
                 return NotFound();
             }
 
-            var checkoutId = Guid.NewGuid();
             var orderCreateResult = await _orderService.CreateOrder(checkoutId, "NganLuong", 0, OrderStatus.PendingPayment);
 
             if (!orderCreateResult.Success)

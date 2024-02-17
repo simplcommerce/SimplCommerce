@@ -2,6 +2,8 @@
 
 <label>Stripe</label>
 <form asp-area="PaymentStripe" asp-controller="Stripe" asp-action="Charge" method="POST">
+    <input name="checkoutId" value="@Model.CheckoutId" type="hidden" />
+
     <script src="//checkout.stripe.com/v2/checkout.js"
             class="stripe-button"
             data-key="@Model.PublicKey"

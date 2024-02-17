@@ -49,18 +49,17 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Controlle
         }
 
         [HttpPost]
-        public async Task<IActionResult> Charge(string nonce)
+        public async Task<IActionResult> Charge(string nonce, Guid checkoutId)
         {
             var gateway = await _braintreeConfiguration.BraintreeGateway();
 
             var curentUser = await _workContext.GetCurrentUser();
-            //TODO: pass checkout Id here
-            var cart = await _checkoutService.GetCheckoutDetails(Guid.NewGuid());
+
+            var cart = await _checkoutService.GetCheckoutDetails(checkoutId);
             if(cart == null)
             {
                 return NotFound();
             }
-            var checkoutId = Guid.NewGuid();
             var orderCreateResult = await _orderService.CreateOrder(checkoutId, PaymentProviderHelper.BraintreeProviderId, 0, OrderStatus.PendingPayment);
 
             if (!orderCreateResult.Success)

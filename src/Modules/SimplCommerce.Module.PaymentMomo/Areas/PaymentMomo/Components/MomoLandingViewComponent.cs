@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -19,13 +20,14 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Components
             _paymentProviderRepository = paymentProviderRepository;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(Guid checkoutId)
         {
             var momoProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.MomoPaymentProviderId);
             var momoSetting = JsonConvert.DeserializeObject<MomoPaymentConfigForm>(momoProvider.AdditionalSettings);
 
             var model = new MomoCheckoutForm();
             model.PaymentFee = momoSetting.PaymentFee;
+            model.CheckoutId = checkoutId;
 
             return View(this.GetViewPath(), model);
         }

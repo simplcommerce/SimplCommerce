@@ -1,4 +1,6 @@
-﻿namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.ViewModels
+﻿using System;
+
+namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.ViewModels
 {
     public class BraintreeCheckoutForm
     {
@@ -7,5 +9,7 @@
         public decimal Amount { get; set; }
 
         public string ISOCurrencyCode { get; set; }
+
+        public Guid CheckoutId { get; set; }
     }
 }

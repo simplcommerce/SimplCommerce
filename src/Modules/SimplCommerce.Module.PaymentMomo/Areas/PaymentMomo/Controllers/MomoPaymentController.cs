@@ -54,17 +54,17 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
             _setting = new Lazy<MomoPaymentConfigForm>(GetSetting());
         }
 
-        public async Task<IActionResult> MomoCheckout()
+        [HttpPost]
+        public async Task<IActionResult> MomoCheckout(Guid checkoutId)
         {
             var currentUser = await _workContext.GetCurrentUser();
-            //TODO: pass checkout Id here
-            var cart = await _checkoutService.GetCheckoutDetails(Guid.Empty);
+            
+            var cart = await _checkoutService.GetCheckoutDetails(checkoutId);
             if (cart == null)
             {
                 return NotFound();
             }
 
-            var checkoutId = Guid.NewGuid();
             var orderCreateResult = await _orderService.CreateOrder(checkoutId, "MomoPayment", 0, OrderStatus.PendingPayment);
 
             if (!orderCreateResult.Success)

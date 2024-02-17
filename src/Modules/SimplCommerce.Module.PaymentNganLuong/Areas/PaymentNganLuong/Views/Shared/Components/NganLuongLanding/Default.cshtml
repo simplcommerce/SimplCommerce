@@ -1,4 +1,6 @@
-﻿<label>Ngân hàng nội địa, Visa, Master (Ngân lượng)</label>
+﻿@model Guid
+
+<label>Ngân hàng nội địa, Visa, Master (Ngân lượng)</label>
 <button type="button" id="nganluongPayment" class="btn btn-order">Chọn ngân hàng</button>
 
 <script>
@@ -11,6 +13,12 @@
             }).done(function (data) {
                 $('#shopModal').find('.modal-content').html(data);
                 $('#shopModal').modal('show');
+                const checkoutIdInput = $('#shopModal').find('.modal-content input[name=checkoutId]')
+
+                if (checkoutIdInput.length) {
+                    checkoutIdInput[0].value = "@Model";
+                }
+            
             });
         });
     });
