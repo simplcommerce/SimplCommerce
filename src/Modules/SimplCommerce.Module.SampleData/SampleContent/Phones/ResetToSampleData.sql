@@ -8,6 +8,10 @@ DELETE FROM [dbo].[Checkouts_CheckoutItem]
 GO
 DELETE FROM [dbo].[Checkouts_Checkout]
 GO
+DELETE FROM [dbo].[WishList_WishListItem]
+GO
+DELETE FROM [dbo].[WishList_WishList]
+GO
 DELETE FROM [dbo].[Payments_Payment]
 GO
 DELETE FROM [dbo].[Shipments_ShipmentItem]
