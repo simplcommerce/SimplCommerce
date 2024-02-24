@@ -54,13 +54,13 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
         }
 
         [HttpPost("PaypalExpress/CreatePayment")]
-        public async Task<ActionResult> CreatePayment()
+        public async Task<ActionResult> CreatePayment(Guid checkoutId)
         {
             var hostingDomain = Request.Host.Value;
             var accessToken = await GetAccessToken();
             var currentUser = await _workContext.GetCurrentUser();
-            //TODO: pass checkout Id here
-            var cart = await _checkoutService.GetCheckoutDetails(Guid.Empty);
+            
+            var cart = await _checkoutService.GetCheckoutDetails(checkoutId);
             if(cart == null)
             {
                 return NotFound();
@@ -121,10 +121,10 @@ namespace SimplCommerce.Module.PaymentPaypalExpress.Areas.PaymentPaypalExpress.C
         {
             var accessToken = await GetAccessToken();
             var currentUser = await _workContext.GetCurrentUser();
-            //TODO: pass checkout Id here
-            var cart = await _checkoutService.GetCheckoutDetails(Guid.Empty);
-            var checkoutId = Guid.NewGuid();
-            var orderCreateResult = await _orderService.CreateOrder(checkoutId, "PaypalExpress", CalculatePaymentFee(cart.OrderTotal), OrderStatus.PendingPayment);
+            
+            var cart = await _checkoutService.GetCheckoutDetails(model.CheckoutId);
+            
+            var orderCreateResult = await _orderService.CreateOrder(model.CheckoutId, "PaypalExpress", CalculatePaymentFee(cart.OrderTotal), OrderStatus.PendingPayment);
             if (!orderCreateResult.Success)
             {
                 return BadRequest(orderCreateResult.Error);

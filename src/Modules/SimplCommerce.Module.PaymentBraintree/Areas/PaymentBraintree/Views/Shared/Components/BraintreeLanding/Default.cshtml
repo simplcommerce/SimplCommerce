@@ -45,7 +45,7 @@
                     var request = $.ajax({
                         type: 'POST',
                         url: '@Url.Action("Charge", "Braintree", new { Area = "PaymentBraintree" })',
-                        data: { nonce: payload.nonce }
+                    data: { nonce: payload.nonce, checkoutId: "@Model.CheckoutId" }
                     })
                     .done(function (data) {
                         window.location = "/checkout/success?orderId="+ data.orderId;

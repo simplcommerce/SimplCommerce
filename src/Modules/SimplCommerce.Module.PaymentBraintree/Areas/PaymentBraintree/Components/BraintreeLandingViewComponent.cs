@@ -57,7 +57,8 @@ namespace SimplCommerce.Module.PaymentBraintree.Areas.PaymentBraintree.Component
             {
                 ClientToken = await _braintreeConfiguration.GetClientToken(),
                 Amount = zeroDecimalAmount,
-                ISOCurrencyCode = regionInfo.ISOCurrencySymbol
+                ISOCurrencyCode = regionInfo.ISOCurrencySymbol,
+                CheckoutId = checkoutId,
             };
 
             return View(this.GetViewPath(), model);

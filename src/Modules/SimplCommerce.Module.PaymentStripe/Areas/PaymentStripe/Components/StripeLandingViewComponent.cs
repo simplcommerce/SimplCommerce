@@ -50,6 +50,7 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Components
             model.PublicKey = stripeSetting.PublicKey;
             model.Amount = (long)zeroDecimalAmount;
             model.ISOCurrencyCode = regionInfo.ISOCurrencySymbol;
+            model.CheckoutId = checkoutId;
 
             return View(this.GetViewPath(), model);
         }

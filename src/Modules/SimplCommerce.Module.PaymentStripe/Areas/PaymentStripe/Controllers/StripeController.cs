@@ -46,20 +46,19 @@ namespace SimplCommerce.Module.PaymentStripe.Areas.PaymentStripe.Controllers
             _currencyService = currencyService;
         }
 
-        public async Task<IActionResult> Charge(string stripeEmail, string stripeToken)
+        public async Task<IActionResult> Charge(string stripeEmail, string stripeToken, Guid checkoutId)
         {
             var stripeProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.StripeProviderId);
             var stripeSetting = JsonConvert.DeserializeObject<StripeConfigForm>(stripeProvider.AdditionalSettings);
             var stripeChargeService = new ChargeService(stripeSetting.PrivateKey);
             var currentUser = await _workContext.GetCurrentUser();
-            //TODO: pass checkout Id here
-            var cart = await _checkoutService.GetCheckoutDetails(Guid.Empty);
+
+            var cart = await _checkoutService.GetCheckoutDetails(checkoutId);
             if (cart == null)
             {
                 return NotFound();
             }
 
-            var checkoutId = Guid.NewGuid();
             var orderCreationResult = await _orderService.CreateOrder(checkoutId, "Stripe", 0, OrderStatus.PendingPayment);
             if(!orderCreationResult.Success)
             {

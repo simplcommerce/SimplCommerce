@@ -18,7 +18,7 @@
         // Show the buyer a 'Pay Now' button in the checkout flow
         commit: true,
         payment: function (data, actions) {
-            return paypal.request.post('/PaypalExpress/CreatePayment')
+            return paypal.request.post('/PaypalExpress/CreatePayment', { checkoutId: "@Model.CheckoutId" })
                 .then(function (res) {
                     return res.paymentId;
                 })
@@ -32,7 +32,8 @@
         onAuthorize: function (data, actions) {
             return paypal.request.post('/PaypalExpress/ExecutePayment', {
                 paymentID: data.paymentID,
-                payerID: data.payerID
+                payerID: data.payerID,
+                checkoutId: "@Model.CheckoutId"
             })
             .then(function (res) {
                 window.location = "/checkout/success?orderId=" + res.orderId;

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -19,12 +20,12 @@ namespace SimplCommerce.Module.PaymentNganLuong.Areas.PaymentNganLuong.Component
             _paymentProviderRepository = paymentProviderRepository;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(Guid checkoutId)
         {
             var nganLuongProvider = await _paymentProviderRepository.Query().FirstOrDefaultAsync(x => x.Id == PaymentProviderHelper.NganLuongPaymentProviderId);
             var nganLuongSetting = JsonConvert.DeserializeObject<NganLuongConfigForm>(nganLuongProvider.AdditionalSettings);
 
-            return View(this.GetViewPath());
+            return View(this.GetViewPath(), checkoutId);
         }
     }
 }
