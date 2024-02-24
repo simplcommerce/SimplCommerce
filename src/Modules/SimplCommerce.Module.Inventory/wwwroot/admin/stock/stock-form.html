@@ -47,7 +47,9 @@
         </tr>
     </thead>
     <tbody ng-show="!vm.isLoading">
-        <tr ng-repeat="item in vm.stocks">
+        <tr ng-repeat="item in vm.stocks" 
+            style="{{item.quantity < vm.minimumQuantityForHighlighting ? 'background-color: #ffff8f;' : ''}}"
+        >
             <td>{{item.productName}}</td>
             <td>{{item.productSku}}</td>
             <td class="text-right">{{item.quantity}}</td>
