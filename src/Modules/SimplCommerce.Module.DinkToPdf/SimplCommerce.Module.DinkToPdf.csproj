@@ -6,4 +6,12 @@
     <ProjectReference Include="..\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="lib\" />
+  </ItemGroup>
+
+  <Target Name="CopyDLL" AfterTargets="Build">    
+    <Copy SourceFiles="lib\libwkhtmltox.dll" DestinationFolder="$(SolutionDir)src\SimplCommerce.WebHost\$(OutDir)" />
+    <Copy SourceFiles="lib\libwkhtmltox.dll" DestinationFolder="$(OutDir)" />
+  </Target>
 </Project>
