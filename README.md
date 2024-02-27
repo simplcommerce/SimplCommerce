@@ -1,8 +1,8 @@
-# A simple, cross platform, modularized ecommerce system built on .NET Core [![Join the chat at https://gitter.im/simplcommerce/SimplCommerce](https://badges.gitter.im/simplcommerce/SimplCommerce.svg)](https://gitter.im/simplcommerce/SimplCommerce?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# A simple, cross platform, modulith ecommerce system built on .NET Core [![Join the chat at https://gitter.im/simplcommerce/SimplCommerce](https://badges.gitter.im/simplcommerce/SimplCommerce.svg)](https://gitter.im/simplcommerce/SimplCommerce?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## High level architecture
 
-![SimpleCommerce - Modular architecture](https://raw.githubusercontent.com/simplcommerce/SimplCommerce/master/modular-architecture.png)
+![SimpleCommerce - Modulith architecture](https://raw.githubusercontent.com/simplcommerce/SimplCommerce/master/modular-architecture.png)
 
 ## Build Status
 | Build server    | Platform       | Status      |
@@ -25,7 +25,7 @@ Continuous deployment: https://ci.simplcommerce.com
 #### Prerequisites
 
 - SQL Server
-- Visual Studio 2022
+- Visual Studio 2022 and .NET 8
 
 #### Steps to run
 
@@ -41,8 +41,8 @@ Continuous deployment: https://ci.simplcommerce.com
 #### Prerequisite
 
 - PostgreSQL
-- [.NET Core SDK 6.0](https://www.microsoft.com/net/download/all)
-- Entity Framework Core (`dotnet tool install --global dotnet-ef`)
+- [.NET Core SDK 8.0](https://www.microsoft.com/net/download/all)
+- Entity Framework Core Tools (`dotnet tool install --global dotnet-ef`)
 
 #### Steps to run
 
@@ -53,9 +53,9 @@ Continuous deployment: https://ci.simplcommerce.com
 
 ## Technologies and frameworks used:
 
-- ASP.NET MVC Core 6.0
-- Entity Framework Core 6.0
-- ASP.NET Identity Core 6.0
+- ASP.NET Core
+- Entity Framework Core
+- ASP.NET Identity Core
 - Angular 1.6.3
 - MediatR 7.0.0 for domain event
 
