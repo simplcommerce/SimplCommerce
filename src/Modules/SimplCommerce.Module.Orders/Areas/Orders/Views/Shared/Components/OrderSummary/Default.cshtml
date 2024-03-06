@@ -23,7 +23,16 @@
                 }
             </td>
             <td class="text-center">@item.Quantity</td>
-            <td class="text-right">@item.ProductPriceString</td>
+            <td class="text-right">
+                @if(item.CalculatedProductPrice.OldPrice.HasValue)
+                {
+                    <text>@item.CalculatedProductPrice.OldPriceString</text>
+                }
+                else
+                {
+                    <text>@item.CalculatedProductPrice.PriceString</text>
+                }
+            </td>
         </tr>
     }
     <tr>

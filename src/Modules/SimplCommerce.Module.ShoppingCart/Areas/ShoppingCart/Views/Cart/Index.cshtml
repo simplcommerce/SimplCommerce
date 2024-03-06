@@ -26,7 +26,11 @@
                         <span ng-if="!cartItem.isProductAvailabeToOrder" class="badge badge-pill badge-danger">@Localizer["Not availabe any more"]</span>
                         <span ng-if="cartItem.productStockTrackingIsEnabled && cartItem.productStockQuantity < cartItem.quantity" class="badge badge-pill badge-danger">@Localizer["Not enough stock. Available:"] {{cartItem.productStockQuantity}}</span>
                     </td>
-                    <td class="text-right">{{cartItem.productPriceString}}</td>
+                    <td class="text-right">
+                        {{cartItem.calculatedProductPrice.priceString}} 
+                        <br />
+                        <del ng-if="cartItem.calculatedProductPrice.oldPrice > cartItem.calculatedProductPrice.price">{{cartItem.calculatedProductPrice.oldPriceString}}</del>
+                    </td>
                     <td class="text-center">
                         <button type="button" class="quantity-button" ng-click="vm.decreaseQuantity(cartItem)" name="subtract" value="-">-</button>
                         <input type="text" class="quantity-field" ng-model="cartItem.quantity" readonly="readonly" />
