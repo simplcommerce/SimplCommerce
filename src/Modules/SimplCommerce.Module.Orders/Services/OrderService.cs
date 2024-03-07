@@ -18,6 +18,7 @@ using SimplCommerce.Module.Orders.Events;
 using SimplCommerce.Module.Checkouts.Services;
 using SimplCommerce.Module.Checkouts.Models;
 using SimplCommerce.Module.Checkouts.Areas.Checkouts.ViewModels;
+using SimplCommerce.Module.Catalog.Services;
 
 namespace SimplCommerce.Module.Orders.Services
 {
@@ -33,6 +34,7 @@ namespace SimplCommerce.Module.Orders.Services
         private readonly IShippingPriceService _shippingPriceService;
         private readonly IRepository<UserAddress> _userAddressRepository;
         private readonly IMediator _mediator;
+        private readonly IProductPricingService _productPricingService;
 
         public OrderService(IRepository<Order> orderRepository,
             ICouponService couponService,
@@ -43,7 +45,8 @@ namespace SimplCommerce.Module.Orders.Services
             IRepositoryWithTypedId<Checkout, Guid> checkoutRepository,
             IShippingPriceService shippingPriceService,
             IRepository<UserAddress> userAddressRepository,
-            IMediator mediator)
+            IMediator mediator,
+            IProductPricingService productPricingService)
         {
             _orderRepository = orderRepository;
             _couponService = couponService;
@@ -55,6 +58,7 @@ namespace SimplCommerce.Module.Orders.Services
             _shippingPriceService = shippingPriceService;
             _userAddressRepository = userAddressRepository;
             _mediator = mediator;
+            _productPricingService = productPricingService;
         }
 
         public async Task<Result<Order>> CreateOrder(Guid checkoutId, string paymentMethod, decimal paymentFeeAmount, OrderStatus orderStatus = OrderStatus.New)
@@ -220,7 +224,10 @@ namespace SimplCommerce.Module.Orders.Services
                 }
 
                 var taxPercent = await _taxService.GetTaxPercent(checkoutItem.Product.TaxClassId, shippingAddress.CountryId, shippingAddress.StateOrProvinceId, shippingAddress.ZipCode);
-                var productPrice = checkoutItem.Product.Price;
+                
+                var calculatedProductPrice = _productPricingService.CalculateProductPrice(checkoutItem.Product);
+
+                var productPrice = calculatedProductPrice.OldPrice ?? calculatedProductPrice.Price;
                 if (checkout.IsProductPriceIncludeTax)
                 {
                     productPrice = productPrice / (1 + (taxPercent / 100));
@@ -241,6 +248,11 @@ namespace SimplCommerce.Module.Orders.Services
                     orderItem.DiscountAmount = discountedItem.DiscountAmount;
                 }
 
+                if (calculatedProductPrice.OldPrice.HasValue)
+                {
+                    orderItem.DiscountAmount += orderItem.Quantity * (calculatedProductPrice.OldPrice.Value - calculatedProductPrice.Price);
+                }
+
                 order.AddOrderItem(orderItem);
                 if (checkoutItem.Product.StockTrackingIsEnabled)
                 {
@@ -252,7 +264,7 @@ namespace SimplCommerce.Module.Orders.Services
             order.OrderNote = checkout.OrderNote;
             order.CouponCode = checkingDiscountResult.CouponCode;
             order.CouponRuleName = checkout.CouponRuleName;
-            order.DiscountAmount = checkingDiscountResult.DiscountAmount;
+            order.DiscountAmount = checkingDiscountResult.DiscountAmount + order.OrderItems.Sum(x => x.DiscountAmount);
             order.ShippingFeeAmount = shippingMethod.Price;
             order.ShippingMethod = shippingMethod.Name;
             order.TaxAmount = order.OrderItems.Sum(x => x.TaxAmount);

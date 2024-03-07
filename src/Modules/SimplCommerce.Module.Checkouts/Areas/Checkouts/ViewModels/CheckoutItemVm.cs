@@ -26,6 +26,8 @@ namespace SimplCommerce.Module.Checkouts.Areas.Checkouts.ViewModels
 
         public string ProductImage { get; set; }
 
+        public CalculatedProductPrice CalculatedProductPrice { get; set; }
+
         public decimal ProductPrice { get; set; }
 
         public string ProductPriceString => _currencyService.FormatCurrency(ProductPrice);

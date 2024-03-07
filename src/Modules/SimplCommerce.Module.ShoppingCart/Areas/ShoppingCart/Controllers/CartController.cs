@@ -72,6 +72,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             model.ProductName = addedProduct.ProductName;
             model.ProductImage = addedProduct.ProductImage;
             model.ProductPrice = addedProduct.ProductPrice;
+            model.CalculatedProductPrice = addedProduct.CalculatedProductPrice;
             model.Quantity = addedProduct.Quantity;
 
             return PartialView(model);

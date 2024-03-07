@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Catalog.Services;
 using SimplCommerce.Module.Checkouts.Areas.Checkouts.ViewModels;
 using SimplCommerce.Module.Checkouts.Models;
 using SimplCommerce.Module.Core.Models;
@@ -26,6 +27,7 @@ namespace SimplCommerce.Module.Checkouts.Services
         private readonly IMediaService _mediaService;
         private readonly ICouponService _couponService;
         private readonly bool _isProductPriceIncludeTax;
+        private readonly IProductPricingService _productPriceService;
 
         public CheckoutService(
             IRepositoryWithTypedId<Checkout, Guid> checkoutRepository,
@@ -36,7 +38,8 @@ namespace SimplCommerce.Module.Checkouts.Services
             ICurrencyService currencyService,
             IMediaService mediaService,
             ICouponService couponService,
-            IConfiguration config)
+            IConfiguration config,
+            IProductPricingService productPriceService)
         {
             _checkoutRepository = checkoutRepository;
             _userAddressRepository = userAddressRepository;
@@ -47,6 +50,7 @@ namespace SimplCommerce.Module.Checkouts.Services
             _mediaService = mediaService;
             _couponService = couponService;
             _isProductPriceIncludeTax = config.GetValue<bool>("Catalog.IsProductPriceIncludeTax");
+            _productPriceService = productPriceService;
         }
 
         public async Task<Checkout> Create(long customerId, long createdById, IList<CartItemToCheckoutVm> cartItems, string couponCode)
@@ -182,6 +186,7 @@ namespace SimplCommerce.Module.Checkouts.Services
                     Id = x.Id,
                     ProductId = x.ProductId,
                     ProductName = x.Product.Name,
+                    CalculatedProductPrice = _productPriceService.CalculateProductPrice(x.Product),
                     ProductPrice = x.Product.Price,
                     ProductStockQuantity = x.Product.StockQuantity,
                     ProductStockTrackingIsEnabled = x.Product.StockTrackingIsEnabled,
@@ -191,7 +196,7 @@ namespace SimplCommerce.Module.Checkouts.Services
                     VariationOptions = CheckoutItemVm.GetVariationOption(x.Product)
                 }).ToList();
 
-            checkoutVm.SubTotal = checkoutVm.Items.Sum(x => x.Quantity * x.ProductPrice);
+            checkoutVm.SubTotal = checkoutVm.Items.Sum(x => x.Quantity * (x.CalculatedProductPrice.OldPrice ?? x.ProductPrice));
             if (!string.IsNullOrWhiteSpace(checkoutVm.CouponCode))
             {
                 var cartInfoForCoupon = new CartInfoForCoupon
@@ -208,6 +213,10 @@ namespace SimplCommerce.Module.Checkouts.Services
                     checkoutVm.CouponValidationErrorMessage = couponValidationResult.ErrorMessage;
                 }
             }
+
+            checkoutVm.Discount += checkoutVm.Items
+                .Where(x => x.CalculatedProductPrice.OldPrice.HasValue)
+                .Sum(x => x.Quantity * (x.CalculatedProductPrice.OldPrice.Value - x.CalculatedProductPrice.Price)); 
 
             return checkoutVm;
         }

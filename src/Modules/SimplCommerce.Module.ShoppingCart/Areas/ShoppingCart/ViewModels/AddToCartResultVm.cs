@@ -1,4 +1,5 @@
-﻿using SimplCommerce.Module.Core.Services;
+﻿using SimplCommerce.Module.Catalog.Models;
+using SimplCommerce.Module.Core.Services;
 
 namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels
 {
@@ -14,6 +15,8 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels
         public string ProductName { get; set; }
 
         public string ProductImage { get; set; }
+
+        public CalculatedProductPrice CalculatedProductPrice { get; set; }
 
         public decimal ProductPrice { get; set; }
 
