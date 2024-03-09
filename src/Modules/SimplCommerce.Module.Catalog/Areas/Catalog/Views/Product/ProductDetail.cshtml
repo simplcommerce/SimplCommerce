@@ -199,6 +199,31 @@
                     <div class="out-of-stock">
                         <span class="label label-danger">@Localizer["Out of stock"]</span>
                     </div>
+
+                    <div class="back-in-stock-subscribe">
+                        <form action="api/stocks/back-in-stock">
+                            <div>
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <p>Subscribe and we'll notify you when the product is back in stock.</p>
+                                    <div class="d-flex">
+                                        <input type="hidden" name="productId" value="@Model.Id" />
+                                        <input type="hidden" class="form-control mr-2" name="customerEmail" value="@User.Claims.First(c => c.Type == "email").Value"/>
+                                        <button type="button" class="btn btn-primary btn-back-in-stock-subscribe" id="subscribeBackInStock">Subscribe</button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <p>Leave your email and we'll notify you when the product is in stock</p>
+                                    <div class="d-flex">
+                                        <input type="hidden" name="productId" value="@Model.Id" />
+                                        <input type="text" class="form-control mr-2" name="customerEmail" />
+                                        <button type="button" class="btn btn-primary btn-back-in-stock-subscribe" id="subscribeBackInStock">Send</button>
+                                    </div>
+                                }
+                            </div>
+                        </form>
+                    </div>
                 }
                 <div class="add-to-cart">
                     <form class="inline">

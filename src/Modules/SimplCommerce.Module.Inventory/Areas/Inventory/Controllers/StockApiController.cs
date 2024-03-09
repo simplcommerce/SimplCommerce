@@ -20,17 +20,21 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
     {
         private readonly IRepository<Stock> _stockRepository;
         private readonly IStockService _stockService;
+        private readonly IStockSubscriptionService _stockSubscriptionService;
         private readonly IWorkContext _workContext;
         private readonly IRepository<Warehouse> _warehouseRepository;
         private readonly IRepository<StockHistory> _stockHistoryRepository;
+        private readonly IRepository<BackInStockSubscription> _backInStockSubscriptionRepository;
 
-        public StockApiController(IRepository<Stock> stockRepository, IStockService stockService, IWorkContext workContext, IRepository<Warehouse> warehouseRepository, IRepository<StockHistory> stockHistoryRepository)
+        public StockApiController(IRepository<Stock> stockRepository, IStockService stockService, IWorkContext workContext, IRepository<Warehouse> warehouseRepository, IRepository<StockHistory> stockHistoryRepository, IRepository<BackInStockSubscription> backInStockSubscriptionRepository, IStockSubscriptionService stockSubscriptionService)
         {
             _stockRepository = stockRepository;
             _stockService = stockService;
             _workContext = workContext;
             _warehouseRepository = warehouseRepository;
             _stockHistoryRepository = stockHistoryRepository;
+            _backInStockSubscriptionRepository = backInStockSubscriptionRepository;
+            _stockSubscriptionService = stockSubscriptionService;
         }
 
         [HttpPost("grid")]
@@ -134,6 +138,22 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
             }).ToListAsync();
   
             return Ok(stockHistory);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("back-in-stock")]
+        public async Task<IActionResult> BackInStockSubscribe(long productId, string customerEmail)
+        {
+            if (await _backInStockSubscriptionRepository.Query()
+                .Where(o => o.ProductId == productId && o.CustomerEmail == customerEmail)
+                .AnyAsync())
+            {
+                return Conflict();
+            }
+
+            await _stockSubscriptionService.BackInStockSubscribeAsync(productId, customerEmail);
+
+            return Ok();
         }
     }
 }

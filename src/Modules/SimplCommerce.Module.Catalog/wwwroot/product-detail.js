@@ -71,4 +71,22 @@ $(document).ready(function () {
                 });
         }
     });
+
+    $("#subscribeBackInStock").on('click', function (e) {
+        e.preventDefault();
+        var $form = $(this).closest("form"),
+            productId = $(this).closest("form").find('input[name=productId]').val(),
+            customerEmail = $(this).closest("form").find('input[name=customerEmail]').val();
+
+        var that = this;
+        $.post($form.attr('action'), $form.serializeArray())
+            .done(function (result) {
+                $(that).closest('.back-in-stock-subscribe').html('<b>Thank you. We\'ll notify you.</b>');
+            })
+            .fail(function (result) {
+                if (result.status === 409) {
+                    $(that).closest('.back-in-stock-subscribe').html('<b>You\'ve already subscribed.</b>');
+                } 
+            });
+    });
 });

@@ -33,6 +33,11 @@ namespace SimplCommerce.Module.Core.Extensions
             _configuration = configuration;
         }
 
+        public string GetCurrentHostName()
+        {
+            return _httpContext.Request.Host.Value;
+        }
+
         public async Task<User> GetCurrentUser()
         {
             if (_currentUser != null)

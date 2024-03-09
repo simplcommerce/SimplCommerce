@@ -5,6 +5,8 @@ namespace SimplCommerce.Module.Core.Extensions
 {
     public interface IWorkContext
     {
+        string GetCurrentHostName();
+
         Task<User> GetCurrentUser();
     }
 }
