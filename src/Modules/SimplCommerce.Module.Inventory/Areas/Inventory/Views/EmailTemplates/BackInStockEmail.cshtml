@@ -1,0 +1,30 @@
+﻿@using SimplCommerce.Module.Catalog.Models
+@using SimplCommerce.Module.Core.Extensions
+@using SimplCommerce.Module.Core.Services
+
+@inject IWorkContext _workContext
+@inject IMediaService _mediaService
+
+@{
+    Layout = null;
+
+    var hostName = _workContext.GetCurrentHostName();
+    var thumbnailUrl = _mediaService.GetThumbnailUrl(Model.ThumbnailImage);
+}
+
+@model SimplCommerce.Module.Catalog.Models.Product
+
+<div style="border: 1px solid #ebebeb; width: 50%; padding: 16px 24px; margin: 0 auto;">
+    Hi, <b>@Model.Name</b> in now available.
+    Get in now before it out of stock again.
+    <br />
+    <br />
+    <div>
+        <img src="https://@hostName@thumbnailUrl" />
+        <h2>@Model.Name</h2>
+        <h4 style="color:red;">$1000</h4>
+    </div>
+    <a href="https://@hostName/@Model.Slug">
+        View product
+    </a>
+</div>

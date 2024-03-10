@@ -2200,6 +2200,25 @@ namespace SimplCommerce.WebHost.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SimplCommerce.Module.Inventory.Models.BackInStockSubscription", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CustomerEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Inventory_BackInStockSubscription", (string)null);
+                });
+
             modelBuilder.Entity("SimplCommerce.Module.Inventory.Models.Stock", b =>
                 {
                     b.Property<long>("Id")

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Catalog.Models;
+using SimplCommerce.Module.Inventory.Event;
 using SimplCommerce.Module.Inventory.Models;
 
 namespace SimplCommerce.Module.Inventory.Services
@@ -13,12 +15,14 @@ namespace SimplCommerce.Module.Inventory.Services
         private readonly IRepository<Stock> _stockRepository;
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<StockHistory> _stockHistoryRepository;
+        private readonly IMediator _mediator;
 
-        public StockService(IRepository<Stock> stockRepository, IRepository<Product> productRepository, IRepository<StockHistory> stockHistoryRepository)
+        public StockService(IRepository<Stock> stockRepository, IRepository<Product> productRepository, IRepository<StockHistory> stockHistoryRepository, IMediator mediator)
         {
             _stockRepository = stockRepository;
             _productRepository = productRepository;
             _stockHistoryRepository = stockHistoryRepository;
+            _mediator = mediator;
         }
 
         public async Task AddAllProduct(Warehouse warehouse)
@@ -44,6 +48,8 @@ namespace SimplCommerce.Module.Inventory.Services
             var product = await _productRepository.Query().FirstOrDefaultAsync(x => x.Id == stockUpdateRequest.ProductId);
             var stock = await _stockRepository.Query().FirstOrDefaultAsync(x => x.ProductId == stockUpdateRequest.ProductId && x.WarehouseId == stockUpdateRequest.WarehouseId);
 
+            var prevStockQuantity = product.StockQuantity;
+
             stock.Quantity = stock.Quantity + stockUpdateRequest.AdjustedQuantity;
             product.StockQuantity = product.StockQuantity + stockUpdateRequest.AdjustedQuantity;
             var stockHistory = new StockHistory
@@ -58,6 +64,11 @@ namespace SimplCommerce.Module.Inventory.Services
 
             _stockHistoryRepository.Add(stockHistory);
             await _stockHistoryRepository.SaveChangesAsync();
+
+            if (prevStockQuantity <= 0 && product.StockQuantity > 0)
+            {
+                await _mediator.Publish(new BackInStock { ProductId = product.Id });
+            }
         }
     }
 }
