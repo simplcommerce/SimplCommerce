@@ -24,9 +24,9 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
         private readonly IWorkContext _workContext;
         private readonly IRepository<Warehouse> _warehouseRepository;
         private readonly IRepository<StockHistory> _stockHistoryRepository;
-        private readonly IRepository<BackInStockSubscription> _backInStockSubscriptionRepository;
+        private readonly IRepository<ProductBackInStockSubscription> _backInStockSubscriptionRepository;
 
-        public StockApiController(IRepository<Stock> stockRepository, IStockService stockService, IWorkContext workContext, IRepository<Warehouse> warehouseRepository, IRepository<StockHistory> stockHistoryRepository, IRepository<BackInStockSubscription> backInStockSubscriptionRepository, IStockSubscriptionService stockSubscriptionService)
+        public StockApiController(IRepository<Stock> stockRepository, IStockService stockService, IWorkContext workContext, IRepository<Warehouse> warehouseRepository, IRepository<StockHistory> stockHistoryRepository, IRepository<ProductBackInStockSubscription> backInStockSubscriptionRepository, IStockSubscriptionService stockSubscriptionService)
         {
             _stockRepository = stockRepository;
             _stockService = stockService;
@@ -145,13 +145,12 @@ namespace SimplCommerce.Module.Inventory.Areas.Inventory.Controllers
         public async Task<IActionResult> BackInStockSubscribe(long productId, string customerEmail)
         {
             if (await _backInStockSubscriptionRepository.Query()
-                .Where(o => o.ProductId == productId && o.CustomerEmail == customerEmail)
-                .AnyAsync())
+                .AnyAsync(o => o.ProductId == productId && o.CustomerEmail == customerEmail))
             {
                 return Conflict();
             }
 
-            await _stockSubscriptionService.BackInStockSubscribeAsync(productId, customerEmail);
+            await _stockSubscriptionService.ProductBackInStockSubscribeAsync(productId, customerEmail);
 
             return Ok();
         }

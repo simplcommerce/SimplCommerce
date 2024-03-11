@@ -49,7 +49,6 @@ namespace SimplCommerce.Module.Inventory.Services
             var stock = await _stockRepository.Query().FirstOrDefaultAsync(x => x.ProductId == stockUpdateRequest.ProductId && x.WarehouseId == stockUpdateRequest.WarehouseId);
 
             var prevStockQuantity = product.StockQuantity;
-
             stock.Quantity = stock.Quantity + stockUpdateRequest.AdjustedQuantity;
             product.StockQuantity = product.StockQuantity + stockUpdateRequest.AdjustedQuantity;
             var stockHistory = new StockHistory
@@ -67,7 +66,7 @@ namespace SimplCommerce.Module.Inventory.Services
 
             if (prevStockQuantity <= 0 && product.StockQuantity > 0)
             {
-                await _mediator.Publish(new BackInStock { ProductId = product.Id });
+                await _mediator.Publish(new ProductBackInStock { ProductId = product.Id });
             }
         }
     }

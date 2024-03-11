@@ -5,13 +5,13 @@
 namespace SimplCommerce.WebHost.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedBackInStockSubscription : Migration
+    public partial class AddedProductBackInStockSubscription : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Inventory_BackInStockSubscription",
+                name: "Inventory_ProductBackInStockSubscription",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -21,7 +21,7 @@ namespace SimplCommerce.WebHost.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Inventory_BackInStockSubscription", x => x.Id);
+                    table.PrimaryKey("PK_Inventory_ProductBackInStockSubscription", x => x.Id);
                 });
         }
 
@@ -29,7 +29,7 @@ namespace SimplCommerce.WebHost.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Inventory_BackInStockSubscription");
+                name: "Inventory_ProductBackInStockSubscription");
         }
     }
 }

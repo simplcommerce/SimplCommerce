@@ -7,7 +7,7 @@ using MediatR;
 
 namespace SimplCommerce.Module.Inventory.Event
 {
-    public class BackInStock : INotification
+    public class ProductBackInStock : INotification
     {
         public long ProductId { get; set; }
     }
