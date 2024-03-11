@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimplCommerce.Module.Core.Data;
 
@@ -11,9 +12,11 @@ using SimplCommerce.Module.Core.Data;
 namespace SimplCommerce.WebHost.Migrations
 {
     [DbContext(typeof(SimplDbContext))]
-    partial class SimplDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240311113057_AddedProductBackInStockSubscription")]
+    partial class AddedProductBackInStockSubscription
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -203,7 +203,7 @@
                     <div class="back-in-stock-subscribe">
                         <form action="api/stocks/back-in-stock">
                             <div>
-                                @if (SignInManager.IsSignedIn(User))
+                                @if (User.Identity.IsAuthenticated)
                                 {
                                     <p>Subscribe and we'll notify you when the product is back in stock.</p>
                                     <div class="d-flex">

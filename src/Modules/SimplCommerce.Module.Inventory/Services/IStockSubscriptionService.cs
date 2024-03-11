@@ -8,8 +8,8 @@ namespace SimplCommerce.Module.Inventory.Services
 {
     public interface IStockSubscriptionService
     {
-        Task BackInStockSubscribeAsync(long productId, string customerEmail);
+        Task ProductBackInStockSubscribeAsync(long productId, string customerEmail);
 
-        Task BackInStockSendNotificationsAsync(long productId);
+        Task ProductBackInStockSendNotificationsAsync(long productId);
     }
 }

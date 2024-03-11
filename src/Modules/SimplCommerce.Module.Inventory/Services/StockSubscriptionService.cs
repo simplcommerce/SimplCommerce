@@ -16,22 +16,22 @@ namespace SimplCommerce.Module.Inventory.Services
 {
     public class StockSubscriptionService : IStockSubscriptionService
     {
-        private readonly IRepository<BackInStockSubscription> _backInStockSubscriptionRepository;
+        private readonly IRepository<ProductBackInStockSubscription> _productBackInStockSubscriptionRepository;
         private readonly IRepository<Product> _productRepository;
         private readonly IEmailSender _emailSender;
         private readonly IRazorViewRenderer _viewRender;
 
-        public StockSubscriptionService(IRepository<BackInStockSubscription> backInStockSubscriptionRepository, IEmailSender emailSender, IRazorViewRenderer viewRender, IRepository<Product> productRepository)
+        public StockSubscriptionService(IRepository<ProductBackInStockSubscription> backInStockSubscriptionRepository, IEmailSender emailSender, IRazorViewRenderer viewRender, IRepository<Product> productRepository)
         {
-            _backInStockSubscriptionRepository = backInStockSubscriptionRepository;
+            _productBackInStockSubscriptionRepository = backInStockSubscriptionRepository;
             _emailSender = emailSender;
             _viewRender = viewRender;
             _productRepository = productRepository;
         }
 
-        public async Task BackInStockSendNotificationsAsync(long productId)
+        public async Task ProductBackInStockSendNotificationsAsync(long productId)
         {
-            var subscriptions = await _backInStockSubscriptionRepository
+            var subscriptions = await _productBackInStockSubscriptionRepository
                 .Query()
                 .Where(o => o.ProductId == productId)
                 .ToListAsync();
@@ -42,29 +42,30 @@ namespace SimplCommerce.Module.Inventory.Services
                 .Include(o => o.ThumbnailImage)
                 .FirstOrDefaultAsync();
 
-            var emailBody = await _viewRender.RenderViewToStringAsync("/Areas/Inventory/Views/EmailTemplates/BackInStockEmail.cshtml", product);
+            var emailBody = await _viewRender.RenderViewToStringAsync("/Areas/Inventory/Views/EmailTemplates/ProductBackInStockEmail.cshtml", product);
             var emailSubject = $"Back in stock";
             
             foreach (var subscription in subscriptions)
             {
                 await _emailSender.SendEmailAsync(subscription.CustomerEmail, emailSubject, emailBody, true);
                 
-                _backInStockSubscriptionRepository.Remove(subscription);
+                _productBackInStockSubscriptionRepository.Remove(subscription);
             }
 
-            await _backInStockSubscriptionRepository.SaveChangesAsync();
+            await _productBackInStockSubscriptionRepository.SaveChangesAsync();
         }
 
-        public async Task BackInStockSubscribeAsync(long productId, string customerEmail)
+        public async Task ProductBackInStockSubscribeAsync(long productId, string customerEmail)
         {
-            var subscription = new BackInStockSubscription
+            var subscription = new ProductBackInStockSubscription
             {
                 ProductId = productId,
                 CustomerEmail = customerEmail
             };
 
-            _backInStockSubscriptionRepository.Add(subscription);
-            await _backInStockSubscriptionRepository.SaveChangesAsync();
+            _productBackInStockSubscriptionRepository.Add(subscription);
+
+            await _productBackInStockSubscriptionRepository.SaveChangesAsync();
         }
     }
 }

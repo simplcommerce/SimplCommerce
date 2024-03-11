@@ -7,9 +7,10 @@ using SimplCommerce.Infrastructure.Models;
 
 namespace SimplCommerce.Module.Inventory.Models
 {
-    public class BackInStockSubscription : EntityBase
+    public class ProductBackInStockSubscription : EntityBase
     {
         public long ProductId { get; set; }
+
         public string CustomerEmail { get; set; }
     }
 }

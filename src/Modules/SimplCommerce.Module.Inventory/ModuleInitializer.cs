@@ -17,8 +17,7 @@ namespace SimplCommerce.Module.Inventory
         {
             serviceCollection.AddTransient<IStockService, StockService>();
             serviceCollection.AddTransient<IStockSubscriptionService, StockSubscriptionService>();
-            serviceCollection.AddTransient<INotificationHandler<BackInStock>, BackInStockSendEmailHandler>();
-
+            serviceCollection.AddTransient<INotificationHandler<ProductBackInStock>, ProductBackInStockSendEmailHandler>();
 
             GlobalConfiguration.RegisterAngularModule("simplAdmin.inventory");
         }
