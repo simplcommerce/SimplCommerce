@@ -48,9 +48,16 @@ namespace SimplCommerce.Module.Inventory.Services
             var product = await _productRepository.Query().FirstOrDefaultAsync(x => x.Id == stockUpdateRequest.ProductId);
             var stock = await _stockRepository.Query().FirstOrDefaultAsync(x => x.ProductId == stockUpdateRequest.ProductId && x.WarehouseId == stockUpdateRequest.WarehouseId);
 
+            var adjustedQuantity = stockUpdateRequest.AdjustedQuantity;
+
+            if (adjustedQuantity < 0 && Math.Abs(adjustedQuantity) > stock.Quantity)
+            {
+                adjustedQuantity = -stock.Quantity;
+            }
+
             var prevStockQuantity = product.StockQuantity;
-            stock.Quantity = stock.Quantity + stockUpdateRequest.AdjustedQuantity;
-            product.StockQuantity = product.StockQuantity + stockUpdateRequest.AdjustedQuantity;
+            stock.Quantity = stock.Quantity + adjustedQuantity;
+            product.StockQuantity = product.StockQuantity + adjustedQuantity;
             var stockHistory = new StockHistory
             {
                 ProductId = stockUpdateRequest.ProductId,
