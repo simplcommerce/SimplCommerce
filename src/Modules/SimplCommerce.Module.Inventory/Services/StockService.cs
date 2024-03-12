@@ -49,7 +49,6 @@ namespace SimplCommerce.Module.Inventory.Services
             var stock = await _stockRepository.Query().FirstOrDefaultAsync(x => x.ProductId == stockUpdateRequest.ProductId && x.WarehouseId == stockUpdateRequest.WarehouseId);
 
             var adjustedQuantity = stockUpdateRequest.AdjustedQuantity;
-
             if (adjustedQuantity < 0 && Math.Abs(adjustedQuantity) > stock.Quantity)
             {
                 adjustedQuantity = -stock.Quantity;
