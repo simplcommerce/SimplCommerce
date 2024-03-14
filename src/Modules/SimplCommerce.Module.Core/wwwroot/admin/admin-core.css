@@ -1,5 +1,7 @@
 ﻿body {
-    height: auto;
+    height: 100%;
+    display:flex;
+    flex-direction: column;
 }
 
 .inline {
@@ -208,4 +210,15 @@ td>span.glyphicon-remove {
 .btn-translate {
     margin-right: 3px;
 }
- 
+
+.body-content-custom {
+    width: 100% !important;
+    margin: 0 !important;
+    flex: 1;
+    display: flex;
+    flex-direction:column;
+}
+
+.ui-view-content {
+    flex: 1;
+}
