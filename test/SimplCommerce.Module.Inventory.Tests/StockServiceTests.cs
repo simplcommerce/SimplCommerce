@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.EntityFrameworkCore;
 using MockQueryable.Moq;
 using Moq;
 using SimplCommerce.Infrastructure.Data;
@@ -21,11 +17,12 @@ namespace SimplCommerce.Module.Inventory.Tests
 {
     public class StockServiceTests
     {
-        private  Mock<IRepository<Stock>> _stockRepoMock;
-        private  Mock<IRepository<Product>> _productRepoMock;
-        private  Mock<IMediator> _mediatorMock;
+        private Mock<IRepository<Stock>> _stockRepoMock;
+        private Mock<IRepository<Product>> _productRepoMock;
+
+        private readonly Mock<IMediator> _mediatorMock;
         private readonly Mock<IRepository<StockHistory>> _stockHistoryRepoMock;
-        private readonly Warehouse _testWarehouse = new Warehouse(100) {VendorId = 123};
+        private readonly Warehouse _testWarehouse = new(100) { VendorId = 123 };
 
         public StockServiceTests()
         {
@@ -33,21 +30,62 @@ namespace SimplCommerce.Module.Inventory.Tests
             _mediatorMock = new Mock<IMediator>();
         }
 
-/*      [Theory]
-        [InlineData(100, 50)]
-        [InlineData(1000, 560)]
-        [InlineData(13, 5)]
-        [InlineData(143, 0)]
-        public async Task AddAllProductsTest(int productsCount, int stocksCount)
-        {
-            InitializeMocks(productsCount, stocksCount);
-            var service = new StockService(_stockRepoMock.Object, _productRepoMock.Object,
-                _stockHistoryRepoMock.Object, _mediatorMock.Object);
-            await service.AddAllProduct(_testWarehouse);
+        //[Theory]
+        //[InlineData(100, 50)]
+        //[InlineData(1000, 560)]
+        //[InlineData(13, 5)]
+        //[InlineData(143, 0)]
+        //public async Task AddAllProductsTest(int productsCount, int stocksCount)
+        //{
+        //    InitializeMocks(productsCount, stocksCount);
+            
+        //    var service = new StockService(_stockRepoMock.Object, _productRepoMock.Object,
+        //        _stockHistoryRepoMock.Object, _mediatorMock.Object);
+        //    await service.AddAllProduct(_testWarehouse);
 
-            _stockRepoMock.Verify(m =>
-                m.AddRange(It.Is<IEnumerable<Stock>>(arg => arg.Count() == productsCount - stocksCount)));
-        }*/
+        //    _stockRepoMock.Verify(m =>
+        //        m.AddRange(It.Is<IEnumerable<Stock>>(arg => arg.Count() == productsCount - stocksCount)));
+        //}
+
+        [Theory]
+        [InlineData(1, 1, -5)]
+        [InlineData(1, 1, -10)]
+        [InlineData(1, 1, 7)]
+        [InlineData(1, 1, 0)]
+        [InlineData(1, 1, -2)]
+        public async Task UpdateStockTest(int productsCount, int stocksCount, int adjustedQuantity)
+        {
+            // Arrange
+            InitializeMocks(productsCount, stocksCount);
+
+            var service = new StockService(
+                _stockRepoMock.Object,
+                _productRepoMock.Object,
+               _stockHistoryRepoMock.Object,
+               _mediatorMock.Object);
+
+            var product = _productRepoMock.Object
+                .Query()
+                .FirstOrDefault();
+            var stock = _stockRepoMock.Object
+              .Query()
+              .FirstOrDefault(o => o.ProductId == product.Id && o.WarehouseId == _testWarehouse.Id);
+            var prevStockQuantity = stock.Quantity;
+            var request = new StockUpdateRequest
+            {
+                AdjustedQuantity = adjustedQuantity,
+                ProductId = product.Id,
+                WarehouseId = _testWarehouse.Id,
+            };
+
+            // Act
+            await service.UpdateStock(request);
+
+
+            // Assert
+            var newStockQuantity = stock.Quantity;
+            Assert.Equal(Math.Max(0, prevStockQuantity + adjustedQuantity), newStockQuantity);
+        }
 
         private void InitializeMocks(int productsCount, int stocksCount)
         {
@@ -56,11 +94,16 @@ namespace SimplCommerce.Module.Inventory.Tests
             for (int i = 1; i <= stocks.Length; i++)
             {
                 stocks[i - 1] = new Stock
-                    { ProductId = i, Quantity = 5, WarehouseId = _testWarehouse.Id };
+                {
+                    ProductId = i,
+                    Quantity = 5,
+                    WarehouseId = _testWarehouse.Id
+                };
             }
 
             var stocksMock = stocks.BuildMock();
-            _stockRepoMock.Setup(x => x.Query()).Returns(stocksMock);
+            _stockRepoMock.Setup(x => x.Query())
+                .Returns(stocksMock);
             _stockRepoMock.Setup(x => x.AddRange(It.IsAny<IEnumerable<Stock>>()));
 
             _productRepoMock = new Mock<IRepository<Product>>();
@@ -72,43 +115,13 @@ namespace SimplCommerce.Module.Inventory.Tests
             }
 
             var productsMock = products.BuildMock();
-            _productRepoMock.Setup(x => x.Query()).Returns(productsMock);
-            
+            _productRepoMock
+                .Setup(x => x.Query())
+                .Returns(productsMock);
+
             _mediatorMock
                 .Setup(m => m.Send(It.IsAny<ProductBackInStock>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(Task.CompletedTask);
-        }
-
-        [Theory]
-        [InlineData(1, 1, -5)]
-        [InlineData(1, 1, -10)]
-        [InlineData(1, 1, 7)]
-        [InlineData(1, 1, 0)]
-        [InlineData(1, 1, -2)]
-        public async Task UpdateStockTest(int productsCount, int stocksCount, int adjustedQuantity)
-        {
-            InitializeMocks(productsCount, stocksCount);
-
-            var service = new StockService(_stockRepoMock.Object, _productRepoMock.Object,
-               _stockHistoryRepoMock.Object, _mediatorMock.Object);
-
-            var product = _productRepoMock.Object.Query().FirstOrDefault();
-            var stock = _stockRepoMock.Object
-              .Query()
-              .FirstOrDefault(o => o.ProductId == product.Id && o.WarehouseId == _testWarehouse.Id);
-            var prevStockQuantity = stock.Quantity;
-
-            var request = new StockUpdateRequest
-            {
-                AdjustedQuantity = adjustedQuantity,
-                ProductId = product.Id,
-                WarehouseId = _testWarehouse.Id,
-            };
-            
-            await service.UpdateStock(request);
-
-            var newStockQuantity = stock.Quantity;
-            Assert.Equal(Math.Max(0, prevStockQuantity + adjustedQuantity), newStockQuantity);
         }
     }
 }
