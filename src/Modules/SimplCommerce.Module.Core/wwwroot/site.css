@@ -1,4 +1,14 @@
 ﻿/* Set widths on the form inputs since otherwise they're 100% wide */
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 input,
 select,
 textarea {
@@ -143,6 +153,7 @@ li.nav-item-group, li.nav-item-group a {
 }
 
 .footer-content {
+    padding-top: 20px;
     margin-top: 30px;
     background-color: #eee;
 }
