@@ -49,7 +49,7 @@ Continuous deployment: https://ci.simplcommerce.com
 - Update the connection string in appsettings.json in SimplCommerce.WebHost.
 - Run the simpl-build.sh file by issuing the following command: "sudo ./simpl-build.sh". For ubuntu 18: "sudo bash simpl-build.sh"
 - In the terminal, navigate to "src/SimplCommerce.WebHost" and type "dotnet run" and then hit "Enter".
-- Open http://localhost:5000 in the browser. The back-office can be accessed via /Admin using the following built-in account: admin@simplcommerce.com, 1qazZAQ!
+- Open http://localhost:49206 in the browser. The back-office can be accessed via /Admin using the following built-in account: admin@simplcommerce.com, 1qazZAQ!
 
 ## Technologies and frameworks used:
 
