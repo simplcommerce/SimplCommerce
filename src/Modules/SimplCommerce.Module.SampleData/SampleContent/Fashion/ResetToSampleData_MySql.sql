@@ -1,7 +1,7 @@
 DELETE FROM Cms_MenuItem;
 DELETE FROM Core_Entity;
-DELETE FROM Wishlist_Wishlistitem;
-DELETE FROM Wishlist_Wishlist;
+DELETE FROM WishList_WishListItem;
+DELETE FROM WishList_WishList;
 DELETE FROM ShoppingCart_CartItem;
 DELETE FROM Checkouts_CheckoutItem;
 DELETE FROM Checkouts_Checkout;
