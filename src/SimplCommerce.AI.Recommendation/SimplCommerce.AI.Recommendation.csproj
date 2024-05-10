@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
+    <ProjectReference Include="..\Modules\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
+    <PackageReference Include="Microsoft.ML" Version="2.0.1" />
+    <PackageReference Include="Microsoft.ML.Recommender" Version="0.20.1" />
+  </ItemGroup>
+
+</Project>
