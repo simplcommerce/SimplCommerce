@@ -12,7 +12,7 @@
 name: "CodeQL"
 
 on:
-  commit_comment:
+  push:
     tags: [ v1.0.0-rc ]
   pull_request:
     # The branches below must be a subset of the branches above
