@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Module.Core.Extensions;
+using SimplCommerce.Module.Orders.Models;
 using SimplCommerce.Module.Reviews.Areas.Reviews.ViewModels;
 using SimplCommerce.Module.Reviews.Data;
 using SimplCommerce.Module.Reviews.Models;
@@ -16,11 +18,16 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
         private const int DefaultPageSize = 25;
 
         private readonly IReviewRepository _reviewRepository;
+        private readonly IRepository<Order> _orderRepository;
         private readonly IWorkContext _workContext;
 
-        public ReviewController(IReviewRepository reviewRepository, IWorkContext workContext)
+        public ReviewController(
+            IReviewRepository reviewRepository,
+            IRepository<Order> orderRepository,
+            IWorkContext workContext)
         {
             _reviewRepository = reviewRepository;
+            _orderRepository = orderRepository;
             _workContext = workContext;
         }
 
@@ -31,6 +38,14 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
             {
                 var user = await _workContext.GetCurrentUser();
                 model.ReviewerName = user.FullName; // Otherwise ReviewerName is null
+
+                if (!await _orderRepository.Query().AnyAsync(o => o.CustomerId == user.Id && o.OrderItems.Any(i => i.ProductId == model.EntityId)))
+                {
+                    ModelState.AddModelError("*", "You can only review products you have purchased.");
+
+                    return PartialView("_ReviewForm", model);
+                }
+
                 var review = new Review
                 {
                     Rating = model.Rating,
@@ -47,6 +62,7 @@ namespace SimplCommerce.Module.Reviews.Areas.Reviews.Controllers
 
                 return PartialView("_ReviewFormSuccess", model);
             }
+            
             return PartialView("_ReviewForm", model);
         }
 
