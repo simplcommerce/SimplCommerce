@@ -47,7 +47,13 @@ namespace SimplCommerce.Module.ShoppingCart.Services
                 return addToCartResult;
             }
 
+            if (quantity > int.MaxValue)
+            {
+                return CreateQuantityOverflowError();
+            }
+            
             var cartItem = await _cartItemRepository.Query().FirstOrDefaultAsync(x => x.ProductId == productId && x.CustomerId == customerId);
+
             if (cartItem == null)
             {
                 cartItem = new CartItem
@@ -63,13 +69,27 @@ namespace SimplCommerce.Module.ShoppingCart.Services
             }
             else
             {
+                if (cartItem.Quantity + quantity > int.MaxValue)
+                {
+                    return CreateQuantityOverflowError();
+                }
+
                 cartItem.Quantity = cartItem.Quantity + quantity;
             }
 
             await _cartItemRepository.SaveChangesAsync();
 
             addToCartResult.Success = true;
+            
             return addToCartResult;
+
+            AddToCartResult CreateQuantityOverflowError()
+            {
+                addToCartResult.ErrorMessage = _localizer["The quantity must be larger than zero"].Value;
+                addToCartResult.ErrorCode = "wrong-quantity";
+
+                return addToCartResult;
+            }
         }
 
         // TODO separate getting product thumbnail, varation options from here
