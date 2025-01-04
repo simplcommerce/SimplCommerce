@@ -24,6 +24,7 @@ namespace SimplCommerce.Module.Orders.Services
 {
     public class OrderService : IOrderService
     {
+        private readonly DbContext _dbContext;
         private readonly IRepository<Order> _orderRepository;
         private readonly ICouponService _couponService;
         private readonly IRepository<CheckoutItem> _checkoutItemRepository;
@@ -46,8 +47,10 @@ namespace SimplCommerce.Module.Orders.Services
             IShippingPriceService shippingPriceService,
             IRepository<UserAddress> userAddressRepository,
             IMediator mediator,
-            IProductPricingService productPricingService)
+            IProductPricingService productPricingService,
+            DbContext dbContext)
         {
+            _dbContext = dbContext;
             _orderRepository = orderRepository;
             _couponService = couponService;
             _checkoutItemRepository = checkoutItemRepository;
@@ -145,178 +148,89 @@ namespace SimplCommerce.Module.Orders.Services
         }
 
         public async Task<Result<Order>> CreateOrder(Guid checkoutId, string paymentMethod, decimal paymentFeeAmount, string shippingMethodName, Address billingAddress, Address shippingAddress, OrderStatus orderStatus = OrderStatus.New)
-{
-    var checkout = _checkoutRepository
-        .Query()
-        .Include(c => c.CheckoutItems).ThenInclude(x => x.Product)
-        .Include(c => c.Customer)
-        .Include(c => c.CreatedBy)
-        .Where(x => x.Id == checkoutId).FirstOrDefault();
-
-    if (checkout == null)
-    {
-        return Result.Fail<Order>($"Checkout id {checkoutId} cannot be found");
-    }
-
-    var checkingDiscountResult = await CheckForDiscountIfAny(checkout);
-    if (!checkingDiscountResult.Succeeded)
-    {
-        return Result.Fail<Order>(checkingDiscountResult.ErrorMessage);
-    }
-
-    var validateShippingMethodResult = await ValidateShippingMethod(shippingMethodName, shippingAddress, checkout);
-    if (!validateShippingMethodResult.Success)
-    {
-        return Result.Fail<Order>(validateShippingMethodResult.Error);
-    }
-
-    var shippingMethod = validateShippingMethodResult.Value;
-
-    var orderBillingAddress = new OrderAddress()
-    {
-        AddressLine1 = billingAddress.AddressLine1,
-        AddressLine2 = billingAddress.AddressLine2,
-        ContactName = billingAddress.ContactName,
-        CountryId = billingAddress.CountryId,
-        StateOrProvinceId = billingAddress.StateOrProvinceId,
-        DistrictId = billingAddress.DistrictId,
-        City = billingAddress.City,
-        ZipCode = billingAddress.ZipCode,
-        Phone = billingAddress.Phone
-    };
-
-    var orderShippingAddress = new OrderAddress()
-    {
-        AddressLine1 = shippingAddress.AddressLine1,
-        AddressLine2 = shippingAddress.AddressLine2,
-        ContactName = shippingAddress.ContactName,
-        CountryId = shippingAddress.CountryId,
-        StateOrProvinceId = shippingAddress.StateOrProvinceId,
-        DistrictId = shippingAddress.DistrictId,
-        City = shippingAddress.City,
-        ZipCode = shippingAddress.ZipCode,
-        Phone = shippingAddress.Phone
-    };
-
-    var order = new Order
-    {
-        Customer = checkout.Customer,
-        CreatedOn = DateTimeOffset.Now,
-        CreatedBy = checkout.CreatedBy,
-        LatestUpdatedOn = DateTimeOffset.Now,
-        LatestUpdatedById = checkout.CreatedById,
-        BillingAddress = orderBillingAddress,
-        ShippingAddress = orderShippingAddress,
-        PaymentMethod = paymentMethod,
-        PaymentFeeAmount = paymentFeeAmount
-    };
-
-    using (var transaction = _dbContext.Database.BeginTransaction())
-    {
-        foreach (var checkoutItem in checkout.CheckoutItems)
         {
-            if (!checkoutItem.Product.IsAllowToOrder || !checkoutItem.Product.IsPublished || checkoutItem.Product.IsDeleted)
+            var checkout = _checkoutRepository
+                .Query()
+                .Include(c => c.CheckoutItems).ThenInclude(x => x.Product)
+                .Include(c => c.Customer)
+                .Include(c => c.CreatedBy)
+                .Where(x => x.Id == checkoutId).FirstOrDefault();
+
+            if (checkout == null)
             {
-                return Result.Fail<Order>($"The product {checkoutItem.Product.Name} is not available any more");
+                return Result.Fail<Order>($"Checkout id {checkoutId} cannot be found");
             }
 
-            var product = _dbContext.Products
-                .Where(p => p.Id == checkoutItem.ProductId)
-                .FirstOrDefault();
-
-            if (product == null)
+            var checkingDiscountResult = await CheckForDiscountIfAny(checkout);
+            if (!checkingDiscountResult.Succeeded)
             {
-                return Result.Fail<Order>("Product not found");
+                return Result.Fail<Order>(checkingDiscountResult.ErrorMessage);
             }
 
-            if (product.StockTrackingIsEnabled)
+            var validateShippingMethodResult = await ValidateShippingMethod(shippingMethodName, shippingAddress, checkout);
+            if (!validateShippingMethodResult.Success)
             {
-                _dbContext.Products
-                    .Where(p => p.Id == checkoutItem.ProductId)
-                    .ForUpdate()
-                    .FirstOrDefault();
-
-                if (product.StockQuantity < checkoutItem.Quantity)
-                {
-                    return Result.Fail<Order>($"There are only {product.StockQuantity} items available for {product.Name}");
-                }
-
-                product.StockQuantity -= checkoutItem.Quantity;
-                _dbContext.SaveChanges();
+                return Result.Fail<Order>(validateShippingMethodResult.Error);
             }
 
-            var taxPercent = await _taxService.GetTaxPercent(checkoutItem.Product.TaxClassId, shippingAddress.CountryId, shippingAddress.StateOrProvinceId, shippingAddress.ZipCode);
-            
-            var calculatedProductPrice = _productPricingService.CalculateProductPrice(checkoutItem.Product);
+            var shippingMethod = validateShippingMethodResult.Value;
 
-            var productPrice = calculatedProductPrice.OldPrice ?? calculatedProductPrice.Price;
-            if (checkout.IsProductPriceIncludeTax)
+            var orderBillingAddress = new OrderAddress()
             {
-                productPrice = productPrice / (1 + (taxPercent / 100));
-            }
-
-            var orderItem = new OrderItem
-            {
-                Product = checkoutItem.Product,
-                ProductPrice = productPrice,
-                Quantity = checkoutItem.Quantity,
-                TaxPercent = taxPercent,
-                TaxAmount = checkoutItem.Quantity * (productPrice * taxPercent / 100)
+                AddressLine1 = billingAddress.AddressLine1,
+                AddressLine2 = billingAddress.AddressLine2,
+                ContactName = billingAddress.ContactName,
+                CountryId = billingAddress.CountryId,
+                StateOrProvinceId = billingAddress.StateOrProvinceId,
+                DistrictId = billingAddress.DistrictId,
+                City = billingAddress.City,
+                ZipCode = billingAddress.ZipCode,
+                Phone = billingAddress.Phone
             };
 
-            var discountedItem = checkingDiscountResult.DiscountedProducts.FirstOrDefault(x => x.Id == checkoutItem.ProductId);
-            if (discountedItem != null)
+            var orderShippingAddress = new OrderAddress()
             {
-                orderItem.DiscountAmount = discountedItem.DiscountAmount;
-            }
+                AddressLine1 = shippingAddress.AddressLine1,
+                AddressLine2 = shippingAddress.AddressLine2,
+                ContactName = shippingAddress.ContactName,
+                CountryId = shippingAddress.CountryId,
+                StateOrProvinceId = shippingAddress.StateOrProvinceId,
+                DistrictId = shippingAddress.DistrictId,
+                City = shippingAddress.City,
+                ZipCode = shippingAddress.ZipCode,
+                Phone = shippingAddress.Phone
+            };
 
-            if (calculatedProductPrice.OldPrice.HasValue)
+            var order = new Order
             {
-                orderItem.DiscountAmount += orderItem.Quantity * (calculatedProductPrice.OldPrice.Value - calculatedProductPrice.Price);
-            }
-
-            order.AddOrderItem(orderItem);
-        }
-
-        order.OrderStatus = orderStatus;
-        order.OrderNote = checkout.OrderNote;
-        order.CouponCode = checkingDiscountResult.CouponCode;
-        order.CouponRuleName = checkout.CouponRuleName;
-        order.DiscountAmount = checkingDiscountResult.DiscountAmount + order.OrderItems.Sum(x => x.DiscountAmount);
-        order.ShippingFeeAmount = shippingMethod.Price;
-        order.ShippingMethod = shippingMethod.Name;
-        order.TaxAmount = order.OrderItems.Sum(x => x.TaxAmount);
-        order.SubTotal = order.OrderItems.Sum(x => x.ProductPrice * x.Quantity);
-        order.SubTotalWithDiscount = order.SubTotal - checkingDiscountResult.DiscountAmount;
-        order.OrderTotal = order.SubTotal + order.TaxAmount + order.ShippingFeeAmount + order.PaymentFeeAmount - order.DiscountAmount;
-        _orderRepository.Add(order);
-
-        var vendorIds = checkout.CheckoutItems.Where(x => x.Product.VendorId.HasValue).Select(x => x.Product.VendorId.Value).Distinct();
-        if (vendorIds.Any())
-        {
-            order.IsMasterOrder = true;
-        }
-
-        IList<Order> subOrders = new List<Order>();
-        foreach (var vendorId in vendorIds)
-        {
-            var subOrder = new Order
-            {
-                CustomerId = checkout.CustomerId,
+                Customer = checkout.Customer,
                 CreatedOn = DateTimeOffset.Now,
-                CreatedById = checkout.CreatedById,
+                CreatedBy = checkout.CreatedBy,
                 LatestUpdatedOn = DateTimeOffset.Now,
                 LatestUpdatedById = checkout.CreatedById,
                 BillingAddress = orderBillingAddress,
                 ShippingAddress = orderShippingAddress,
-                VendorId = vendorId,
-                Parent = order
+                PaymentMethod = paymentMethod,
+                PaymentFeeAmount = paymentFeeAmount
             };
-
-            foreach (var cartItem in checkout.CheckoutItems.Where(x => x.Product.VendorId == vendorId))
+using (var transaction = _checkoutItemRepository.BeginTransaction()){
+            foreach (var checkoutItem in checkout.CheckoutItems)
             {
-                var taxPercent = await _taxService.GetTaxPercent(cartItem.Product.TaxClassId, shippingAddress.CountryId, shippingAddress.StateOrProvinceId, shippingAddress.ZipCode);
-                var productPrice = cartItem.Product.Price;
+                if (!checkoutItem.Product.IsAllowToOrder || !checkoutItem.Product.IsPublished || checkoutItem.Product.IsDeleted)
+                {
+                    return Result.Fail<Order>($"The product {checkoutItem.Product.Name} is not available any more");
+                }
+
+                if (checkoutItem.Product.StockTrackingIsEnabled && checkoutItem.Product.StockQuantity < checkoutItem.Quantity)
+                {
+                    return Result.Fail<Order>($"There are only {checkoutItem.Product.StockQuantity} items available for {checkoutItem.Product.Name}");
+                }
+
+                var taxPercent = await _taxService.GetTaxPercent(checkoutItem.Product.TaxClassId, shippingAddress.CountryId, shippingAddress.StateOrProvinceId, shippingAddress.ZipCode);
+                
+                var calculatedProductPrice = _productPricingService.CalculateProductPrice(checkoutItem.Product);
+
+                var productPrice = calculatedProductPrice.OldPrice ?? calculatedProductPrice.Price;
                 if (checkout.IsProductPriceIncludeTax)
                 {
                     productPrice = productPrice / (1 + (taxPercent / 100));
@@ -324,47 +238,120 @@ namespace SimplCommerce.Module.Orders.Services
 
                 var orderItem = new OrderItem
                 {
-                    Product = cartItem.Product,
+                    Product = checkoutItem.Product,
                     ProductPrice = productPrice,
-                    Quantity = cartItem.Quantity,
+                    Quantity = checkoutItem.Quantity,
                     TaxPercent = taxPercent,
-                    TaxAmount = cartItem.Quantity * (productPrice * taxPercent / 100)
+                    TaxAmount = checkoutItem.Quantity * (productPrice * taxPercent / 100)
                 };
 
-                if (checkout.IsProductPriceIncludeTax)
+                var discountedItem = checkingDiscountResult.DiscountedProducts.FirstOrDefault(x => x.Id == checkoutItem.ProductId);
+                if (discountedItem != null)
                 {
-                    orderItem.ProductPrice = orderItem.ProductPrice - orderItem.TaxAmount;
+                    orderItem.DiscountAmount = discountedItem.DiscountAmount;
                 }
 
-                subOrder.AddOrderItem(orderItem);
+                if (calculatedProductPrice.OldPrice.HasValue)
+                {
+                    orderItem.DiscountAmount += orderItem.Quantity * (calculatedProductPrice.OldPrice.Value - calculatedProductPrice.Price);
+                }
+
+                order.AddOrderItem(orderItem);
+                if (checkoutItem.Product.StockTrackingIsEnabled)
+                {
+                    checkoutItem.Product.StockQuantity = checkoutItem.Product.StockQuantity - checkoutItem.Quantity;
+                }
             }
-
-            subOrder.SubTotal = subOrder.OrderItems.Sum(x => x.ProductPrice * x.Quantity);
-            subOrder.TaxAmount = subOrder.OrderItems.Sum(x => x.TaxAmount);
-            subOrder.OrderTotal = subOrder.SubTotal + subOrder.TaxAmount + subOrder.ShippingFeeAmount - subOrder.DiscountAmount;
-            _orderRepository.Add(subOrder);
-            subOrders.Add(subOrder);
-        }
-
-        using (var transaction = _orderRepository.BeginTransaction())
-        {
-            _orderRepository.SaveChanges();
-            await _mediator.Publish(new OrderCreated(order));
-            foreach (var subOrder in subOrders)
-            {
-                await _mediator.Publish(new OrderCreated(subOrder));
-            }
-
-            _couponService.AddCouponUsage(checkout.CustomerId, order.Id, checkingDiscountResult);
-            _orderRepository.SaveChanges();
+            _checkoutItemRepository.SaveChanges();
             transaction.Commit();
-        }
-
-        await _mediator.Publish(new AfterOrderCreated(order));
-
-        return Result.Ok(order);
-    }
 }
+
+            order.OrderStatus = orderStatus;
+            order.OrderNote = checkout.OrderNote;
+            order.CouponCode = checkingDiscountResult.CouponCode;
+            order.CouponRuleName = checkout.CouponRuleName;
+            order.DiscountAmount = checkingDiscountResult.DiscountAmount + order.OrderItems.Sum(x => x.DiscountAmount);
+            order.ShippingFeeAmount = shippingMethod.Price;
+            order.ShippingMethod = shippingMethod.Name;
+            order.TaxAmount = order.OrderItems.Sum(x => x.TaxAmount);
+            order.SubTotal = order.OrderItems.Sum(x => x.ProductPrice * x.Quantity);
+            order.SubTotalWithDiscount = order.SubTotal - checkingDiscountResult.DiscountAmount;
+            order.OrderTotal = order.SubTotal + order.TaxAmount + order.ShippingFeeAmount + order.PaymentFeeAmount - order.DiscountAmount;
+            _orderRepository.Add(order);
+
+            var vendorIds = checkout.CheckoutItems.Where(x => x.Product.VendorId.HasValue).Select(x => x.Product.VendorId.Value).Distinct();
+            if (vendorIds.Any())
+            {
+                order.IsMasterOrder = true;
+            }
+
+            IList<Order> subOrders = new List<Order>();
+            foreach (var vendorId in vendorIds)
+            {
+                var subOrder = new Order
+                {
+                    CustomerId = checkout.CustomerId,
+                    CreatedOn = DateTimeOffset.Now,
+                    CreatedById = checkout.CreatedById,
+                    LatestUpdatedOn = DateTimeOffset.Now,
+                    LatestUpdatedById = checkout.CreatedById,
+                    BillingAddress = orderBillingAddress,
+                    ShippingAddress = orderShippingAddress,
+                    VendorId = vendorId,
+                    Parent = order
+                };
+
+                foreach (var cartItem in checkout.CheckoutItems.Where(x => x.Product.VendorId == vendorId))
+                {
+                    var taxPercent = await _taxService.GetTaxPercent(cartItem.Product.TaxClassId, shippingAddress.CountryId, shippingAddress.StateOrProvinceId, shippingAddress.ZipCode);
+                    var productPrice = cartItem.Product.Price;
+                    if (checkout.IsProductPriceIncludeTax)
+                    {
+                        productPrice = productPrice / (1 + (taxPercent / 100));
+                    }
+
+                    var orderItem = new OrderItem
+                    {
+                        Product = cartItem.Product,
+                        ProductPrice = productPrice,
+                        Quantity = cartItem.Quantity,
+                        TaxPercent = taxPercent,
+                        TaxAmount = cartItem.Quantity * (productPrice * taxPercent / 100)
+                    };
+
+                    if (checkout.IsProductPriceIncludeTax)
+                    {
+                        orderItem.ProductPrice = orderItem.ProductPrice - orderItem.TaxAmount;
+                    }
+
+                    subOrder.AddOrderItem(orderItem);
+                }
+
+                subOrder.SubTotal = subOrder.OrderItems.Sum(x => x.ProductPrice * x.Quantity);
+                subOrder.TaxAmount = subOrder.OrderItems.Sum(x => x.TaxAmount);
+                subOrder.OrderTotal = subOrder.SubTotal + subOrder.TaxAmount + subOrder.ShippingFeeAmount - subOrder.DiscountAmount;
+                _orderRepository.Add(subOrder);
+                subOrders.Add(subOrder);
+            }
+
+            using (var transaction = _orderRepository.BeginTransaction())
+            {
+                _orderRepository.SaveChanges();
+                await _mediator.Publish(new OrderCreated(order));
+                foreach (var subOrder in subOrders)
+                {
+                    await _mediator.Publish(new OrderCreated(subOrder));
+                }
+
+                _couponService.AddCouponUsage(checkout.CustomerId, order.Id, checkingDiscountResult);
+                _orderRepository.SaveChanges();
+                transaction.Commit();
+            }
+
+            await _mediator.Publish(new AfterOrderCreated(order));
+
+            return Result.Ok(order);
+        }
 
         public void CancelOrder(Order order)
         {
