@@ -24,7 +24,6 @@ namespace SimplCommerce.Module.Orders.Services
 {
     public class OrderService : IOrderService
     {
-        private readonly DbContext _dbContext;
         private readonly IRepository<Order> _orderRepository;
         private readonly ICouponService _couponService;
         private readonly IRepository<CheckoutItem> _checkoutItemRepository;
@@ -47,10 +46,8 @@ namespace SimplCommerce.Module.Orders.Services
             IShippingPriceService shippingPriceService,
             IRepository<UserAddress> userAddressRepository,
             IMediator mediator,
-            IProductPricingService productPricingService,
-            DbContext dbContext)
+            IProductPricingService productPricingService)
         {
-            _dbContext = dbContext;
             _orderRepository = orderRepository;
             _couponService = couponService;
             _checkoutItemRepository = checkoutItemRepository;
