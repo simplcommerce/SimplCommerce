@@ -210,7 +210,7 @@ namespace SimplCommerce.Module.Orders.Services
                 PaymentMethod = paymentMethod,
                 PaymentFeeAmount = paymentFeeAmount
             };
-
+using (var transaction = _checkoutItemRepository.BeginTransaction()){
             foreach (var checkoutItem in checkout.CheckoutItems)
             {
                 if (!checkoutItem.Product.IsAllowToOrder || !checkoutItem.Product.IsPublished || checkoutItem.Product.IsDeleted)
@@ -259,6 +259,9 @@ namespace SimplCommerce.Module.Orders.Services
                     checkoutItem.Product.StockQuantity = checkoutItem.Product.StockQuantity - checkoutItem.Quantity;
                 }
             }
+            _checkoutItemRepository.SaveChanges();
+            transaction.Commit();
+    }
 
             order.OrderStatus = orderStatus;
             order.OrderNote = checkout.OrderNote;
