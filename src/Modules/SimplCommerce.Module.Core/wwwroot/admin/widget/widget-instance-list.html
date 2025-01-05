@@ -4,11 +4,11 @@
             <h2>{{::vm.translate.get('Widget Instances')}}</h2>
         </div>
         <div class="col-md-4 text-right">
-            <div class="btn-group">
+            <div class="btn-group btn-group-sm">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create Widget')}}<span class="caret"></span>
+                    <span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create Widget')}} <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu pull-right" role="menu">
+                <ul class="dropdown-menu dropdown-menu-right" role="menu">
                     <li ng-repeat="widget in vm.widgets">
                         <a ui-sref="{{widget.createUrl}}">{{widget.name}}</a>
                     </li>

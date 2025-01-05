@@ -1,15 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
-
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="bundleconfig.json" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="Braintree" Version="5.20.0" />
+    <PackageReference Include="Braintree" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />

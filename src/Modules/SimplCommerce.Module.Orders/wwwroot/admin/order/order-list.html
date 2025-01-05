@@ -4,9 +4,15 @@
             <h2>{{::vm.translate.get('Orders')}}</h2>
         </div>
         <div class="col-md-4 text-right">
-            <a ui-sref="order-create" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create Order')}}</a>
-            <button ng-click="vm.getOrdersExport()" class="btn btn-info">{{::vm.translate.get('Export Orders')}}</button>
-            <button ng-click="vm.getOrderLinesExport()" class="btn btn-info">{{::vm.translate.get('Export Orders with Order Lines')}}</button>
+            <a ui-sref="order-create" class="btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-plus"></span> {{::vm.translate.get('Create Order')}}
+            </a>
+            <button ng-click="vm.getOrdersExport()" class="btn btn-info btn-sm">
+                {{::vm.translate.get('Export Orders')}}
+            </button>
+            <button ng-click="vm.getOrderLinesExport()" class="btn btn-info btn-sm">
+                {{::vm.translate.get('Export Orders with Order Lines')}}
+            </button>
         </div>
     </div>
 </div>

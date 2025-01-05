@@ -1,21 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
-
   <ItemGroup>
-    <PackageReference Include="DinkToPdf" Version="1.0.8" />
+    <PackageReference Include="DinkToPdf" />
     <ProjectReference Include="..\..\SimplCommerce.Infrastructure\SimplCommerce.Infrastructure.csproj" />
     <ProjectReference Include="..\SimplCommerce.Module.Core\SimplCommerce.Module.Core.csproj" />
   </ItemGroup>
-
   <Target Name="CopyDll" AfterTargets="Build">
     <PropertyGroup>
-        <FileToCopy Condition="$([MSBuild]::IsOSPlatform('Windows'))">libwkhtmltox.dll</FileToCopy>
-        <FileToCopy Condition="$([MSBuild]::IsOSPlatform('Linux'))">libwkhtmltox.so</FileToCopy>
-        <FileToCopy Condition="$([MSBuild]::IsOSPlatform('Macos'))">libwkhtmltox.dylib</FileToCopy>
-
-        <DirToCopy Condition="$([System.Environment]::Is64BitOperatingSystem)">64bit</DirToCopy>
-        <DirToCopy Condition="!$([System.Environment]::Is64BitOperatingSystem)">32bit</DirToCopy>
+      <FileToCopy Condition="$([MSBuild]::IsOSPlatform('Windows'))">libwkhtmltox.dll</FileToCopy>
+      <FileToCopy Condition="$([MSBuild]::IsOSPlatform('Linux'))">libwkhtmltox.so</FileToCopy>
+      <FileToCopy Condition="$([MSBuild]::IsOSPlatform('Macos'))">libwkhtmltox.dylib</FileToCopy>
+      <DirToCopy Condition="$([System.Environment]::Is64BitOperatingSystem)">64bit</DirToCopy>
+      <DirToCopy Condition="!$([System.Environment]::Is64BitOperatingSystem)">32bit</DirToCopy>
     </PropertyGroup>
-  
     <Copy SourceFiles="lib\$(DirToCopy)\$(FileToCopy)" DestinationFolder="$(SolutionDir)src\SimplCommerce.WebHost\$(OutDir)" />
     <Copy SourceFiles="lib\$(DirToCopy)\$(FileToCopy)" DestinationFolder="$(OutDir)" />
   </Target>
