@@ -1,13 +1,8 @@
-﻿namespace SimplCommerce.Module.Catalog.Models
+﻿namespace SimplCommerce.Module.Catalog.Models;
+public enum ProductLinkType
 {
-    public enum ProductLinkType
-    {
-        Super = 1,
-
-        Related = 2,
-
-        CrossSell = 3,
-
-        UpSell = 4
-    }
+    Super = 1,
+    Related = 2,
+    CrossSell = 3,
+    UpSell = 4
 }

@@ -30,7 +30,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
             }
             else
             {
-                var breadcrumbList = categoryIds.Select(Create).ToList();
+                List<IList<BreadcrumbViewModel>> breadcrumbList = categoryIds.Select(Create).ToList();
                 breadcrumbs = breadcrumbList.OrderByDescending(x => x.Count).First();
             }
 
@@ -39,11 +39,11 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
 
         private IList<BreadcrumbViewModel> Create(long categoryId)
         {
-            var category = _categoryRepository
+            Category category = _categoryRepository
                 .Query()
                 .Include(x => x.Parent)
                 .FirstOrDefault(x => x.Id == categoryId);
-            var breadcrumbModels = new List<BreadcrumbViewModel>
+            List<BreadcrumbViewModel> breadcrumbModels = new List<BreadcrumbViewModel>
             {
                 new BreadcrumbViewModel
                 {
@@ -51,7 +51,7 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Components
                     Url = category.Slug
                 }
             };
-            var parentCategory = category.Parent;
+            Category parentCategory = category.Parent;
             while (parentCategory != null)
             {
                 breadcrumbModels.Insert(0, new BreadcrumbViewModel
