@@ -16,19 +16,29 @@ namespace SimplCommerce.Module.StorageLocal
 
         public async Task SaveMediaAsync(Stream mediaBinaryStream, string fileName, string mimeType = null)
         {
-            var filePath = Path.Combine(GlobalConfiguration.WebRootPath, MediaRootFoler, fileName);
+            var dirPath = Path.Combine(GlobalConfiguration.WebRootPath, MediaRootFoler);            
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+            var filePath = Path.Combine(dirPath, fileName);
             using (var output = new FileStream(filePath, FileMode.Create))
             {
                 await mediaBinaryStream.CopyToAsync(output);
+               
             }
         }
 
         public async Task DeleteMediaAsync(string fileName)
         {
-            var filePath = Path.Combine(GlobalConfiguration.WebRootPath, MediaRootFoler, fileName);
-            if (File.Exists(filePath))
+            if (!string.IsNullOrEmpty(fileName))
             {
-                await Task.Run(() => File.Delete(filePath));
+
+                var filePath = Path.Combine(GlobalConfiguration.WebRootPath, MediaRootFoler, fileName);
+                if (File.Exists(filePath))
+                {
+                    await Task.Run(() => File.Delete(filePath));
+                }
             }
         }
     }
