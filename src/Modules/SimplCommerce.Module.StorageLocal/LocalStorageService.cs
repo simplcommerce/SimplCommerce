@@ -21,6 +21,7 @@ namespace SimplCommerce.Module.StorageLocal
             {
                 Directory.CreateDirectory(dirPath);
             }
+
             var filePath = Path.Combine(dirPath, fileName);
             using (var output = new FileStream(filePath, FileMode.Create))
             {
