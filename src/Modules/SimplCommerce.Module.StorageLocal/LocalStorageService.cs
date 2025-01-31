@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Module.Core.Services;
@@ -32,10 +33,11 @@ namespace SimplCommerce.Module.StorageLocal
 
         public async Task DeleteMediaAsync(string fileName)
         {
-            if (!string.IsNullOrEmpty(fileName))
+            if (string.IsNullOrWhiteSpace(fileName))
             {
-
-                var filePath = Path.Combine(GlobalConfiguration.WebRootPath, MediaRootFoler, fileName);
+                throw new ArgumentException("Filename cannot be null, empty, or whitespace.", nameof(fileName));
+            }
+            var filePath = Path.Combine(GlobalConfiguration.WebRootPath, MediaRootFoler, fileName);
                 if (File.Exists(filePath))
                 {
                     await Task.Run(() => File.Delete(filePath));
