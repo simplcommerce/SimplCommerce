@@ -27,7 +27,6 @@ namespace SimplCommerce.Module.StorageLocal
             using (var output = new FileStream(filePath, FileMode.Create))
             {
                 await mediaBinaryStream.CopyToAsync(output);
-               
             }
         }
 
