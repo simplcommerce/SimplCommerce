@@ -38,10 +38,9 @@ namespace SimplCommerce.Module.StorageLocal
             }
 
             var filePath = Path.Combine(GlobalConfiguration.WebRootPath, MediaRootFoler, fileName);
-                if (File.Exists(filePath))
-                {
-                    await Task.Run(() => File.Delete(filePath));
-                }
+            if (File.Exists(filePath))
+            {
+                await Task.Run(() => File.Delete(filePath));
             }
         }
     }
