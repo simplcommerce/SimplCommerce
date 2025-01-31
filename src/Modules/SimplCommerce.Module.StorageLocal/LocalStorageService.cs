@@ -37,6 +37,7 @@ namespace SimplCommerce.Module.StorageLocal
             {
                 throw new ArgumentException("Filename cannot be null, empty, or whitespace.", nameof(fileName));
             }
+
             var filePath = Path.Combine(GlobalConfiguration.WebRootPath, MediaRootFoler, fileName);
                 if (File.Exists(filePath))
                 {
