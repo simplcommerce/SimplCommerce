@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,13 +27,15 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         private readonly IRepository<ProductCategory> _productCategoryRepository;
         private readonly ICategoryService _categoryService;
         private readonly IMediaService _mediaService;
+        private readonly IMapper _mapper;
 
-        public CategoryApiController(IRepository<Category> categoryRepository, IRepository<ProductCategory> productCategoryRepository, ICategoryService categoryService, IMediaService mediaService)
+        public CategoryApiController(IRepository<Category> categoryRepository, IRepository<ProductCategory> productCategoryRepository, ICategoryService categoryService, IMediaService mediaService, IMapper mapper)
         {
             _categoryRepository = categoryRepository;
             _productCategoryRepository = productCategoryRepository;
             _categoryService = categoryService;
             _mediaService = mediaService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -46,21 +49,14 @@ namespace SimplCommerce.Module.Catalog.Areas.Catalog.Controllers
         public async Task<IActionResult> Get(long id)
         {
             var category = await _categoryRepository.Query().Include(x => x.ThumbnailImage).FirstOrDefaultAsync(x => x.Id == id);
-            var model = new CategoryForm
+            if (category == null)
             {
-                Id = category.Id,
-                Name = category.Name,
-                Slug = category.Slug,
-                MetaTitle = category.MetaTitle,
-                MetaKeywords = category.MetaKeywords,
-                MetaDescription = category.MetaDescription,
-                DisplayOrder = category.DisplayOrder,
-                Description = category.Description,
-                ParentId = category.ParentId,
-                IncludeInMenu = category.IncludeInMenu,
-                IsPublished = category.IsPublished,
-                ThumbnailImageUrl = _mediaService.GetThumbnailUrl(category.ThumbnailImage),
-            };
+                return NotFound();
+            }
+
+            var model = _mapper.Map<CategoryForm>(category);
+            model.ThumbnailImageUrl= _mediaService.GetThumbnailUrl(category.ThumbnailImage);      
+
 
             return Json(model);
         }

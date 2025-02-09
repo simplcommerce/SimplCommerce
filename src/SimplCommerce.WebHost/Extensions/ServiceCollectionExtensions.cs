@@ -26,6 +26,7 @@ using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.WebHost.IdentityServer;
 using System.IdentityModel.Tokens.Jwt;
+using AutoMapper;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -33,6 +34,31 @@ namespace SimplCommerce.WebHost.Extensions
     {
         private static readonly IModuleConfigurationManager _modulesConfig = new ModuleConfigurationManager();
 
+        public static IServiceCollection AddMapperConfiguration(this IServiceCollection services)
+        {
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                foreach (var module in GlobalConfiguration.Modules)
+                {
+                    var moduleAssembly = module.Assembly;
+
+                    // Find all AutoMapper Profile classes in the module
+                    var profiles = moduleAssembly.GetTypes()
+                        .Where(t => typeof(Profile).IsAssignableFrom(t) && !t.IsAbstract)
+                        .ToList();
+
+                    foreach (var profile in profiles)
+                    {
+                        cfg.AddProfile(Activator.CreateInstance(profile) as Profile);
+                    }
+                }
+            });
+
+            var mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+            return services;
+
+        }
         public static IServiceCollection AddModules(this IServiceCollection services)
         {
             foreach (var module in _modulesConfig.GetModules())

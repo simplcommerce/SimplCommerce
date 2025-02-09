@@ -39,9 +39,11 @@ void ConfigureService()
     GlobalConfiguration.WebRootPath = builder.Environment.WebRootPath;
     GlobalConfiguration.ContentRootPath = builder.Environment.ContentRootPath;
 
-    builder.Services.AddModules();
-    builder.Services.AddCustomizedDataStore(builder.Configuration);
-    builder.Services.AddCustomizedIdentity(builder.Configuration);
+    builder.Services.AddModules()
+        .AddMapperConfiguration()
+        .AddCustomizedDataStore(builder.Configuration)
+        .AddCustomizedIdentity(builder.Configuration);
+
     builder.Services.AddHttpClient();
     builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
     builder.Services.AddTransient(typeof(IRepositoryWithTypedId<,>), typeof(RepositoryWithTypedId<,>));
