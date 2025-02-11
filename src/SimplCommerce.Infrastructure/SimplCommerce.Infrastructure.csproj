@@ -9,13 +9,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.10" />
-    <PackageReference Include="Humanizer" Version="2.14.1" />
-    <PackageReference Include="MediatR" Version="12.1.1" />
-    <PackageReference Include="cloudscribe.Web.Pagination" Version="6.0.0" />
-    <PackageReference Include="ncrontab" Version="3.3.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"  />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational"  />
+    <PackageReference Include="Humanizer"  />
+    <PackageReference Include="MediatR"  />
+    <PackageReference Include="cloudscribe.Web.Pagination"  />
+    <PackageReference Include="ncrontab"  />
+    <PackageReference Include="Newtonsoft.Json"  />
   </ItemGroup>
 
 </Project>
