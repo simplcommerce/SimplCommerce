@@ -210,7 +210,8 @@ namespace SimplCommerce.Module.Orders.Services
                 PaymentMethod = paymentMethod,
                 PaymentFeeAmount = paymentFeeAmount
             };
-        using (var transaction = _checkoutItemRepository.BeginTransaction()){
+        using (var transaction = _checkoutItemRepository.BeginTransaction())
+        {
             foreach (var checkoutItem in checkout.CheckoutItems)
             {
                 if (!checkoutItem.Product.IsAllowToOrder || !checkoutItem.Product.IsPublished || checkoutItem.Product.IsDeleted)
