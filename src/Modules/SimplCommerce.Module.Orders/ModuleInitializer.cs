@@ -19,6 +19,7 @@ namespace SimplCommerce.Module.Orders
             services.AddTransient<INotificationHandler<OrderCreated>, OrderCreatedCreateOrderHistoryHandler>();
             services.AddTransient<INotificationHandler<OrderCreated>, OrderCreatedClearCartHandler>();
             //services.AddTransient<INotificationHandler<AfterOrderCreated>, AfterOrderCreatedSendEmailHanlder>();
+            services.AddTransient<INotificationHandler<OrderCreated>, OrderCreatedCreateDataRecomendationHandler>();
 
             GlobalConfiguration.RegisterAngularModule("simplAdmin.orders");
         }
