@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using Microsoft.AspNetCore.Builder;
@@ -48,7 +47,6 @@ void ConfigureService()
     builder.Services.AddScoped<SlugRouteValueTransformer>();
 
     builder.Services.AddCustomizedLocalization();
-
     builder.Services.AddCustomizedMvc(GlobalConfiguration.Modules);
     builder.Services.Configure<RazorViewEngineOptions>(
         options => { options.ViewLocationExpanders.Add(new ThemeableViewLocationExpander()); });
@@ -60,18 +58,7 @@ void ConfigureService()
     builder.Services.AddTransient<IRazorViewRenderer, RazorViewRenderer>();
     builder.Services.AddAntiforgery(options => options.HeaderName = "X-XSRF-Token");
     builder.Services.AddCloudscribePagination();
-
-    foreach (var module in GlobalConfiguration.Modules)
-    {
-        var moduleInitializerType = module.Assembly.GetTypes()
-           .FirstOrDefault(t => typeof(IModuleInitializer).IsAssignableFrom(t));
-        if ((moduleInitializerType != null) && (moduleInitializerType != typeof(IModuleInitializer)))
-        {
-            var moduleInitializer = (IModuleInitializer)Activator.CreateInstance(moduleInitializerType);
-            builder.Services.AddSingleton(typeof(IModuleInitializer), moduleInitializer);
-            moduleInitializer.ConfigureServices(builder.Services);
-        }
-    }
+    builder.Services.ConfigureModules();
 
     builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 

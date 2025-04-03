@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -11,13 +12,13 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.Extensions.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Modules;
 using SimplCommerce.Infrastructure.Web.ModelBinders;
@@ -25,7 +26,6 @@ using SimplCommerce.Module.Core.Data;
 using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Core.Models;
 using SimplCommerce.WebHost.IdentityServer;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace SimplCommerce.WebHost.Extensions
 {
@@ -223,6 +223,29 @@ namespace SimplCommerce.WebHost.Extensions
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("SimplCommerce.WebHost"));
                 options.EnableSensitiveDataLogging();
             });
+            return services;
+        }
+
+        /// <summary>
+        /// Discovers and configures all modules in the application by finding and initializing their module initializers.
+        /// </summary>
+        /// <param name="services">The <see cref="IServiceCollection"/> to add module services to.</param>
+        /// <returns>The same service collection so that multiple calls can be chained.</returns>
+        public static IServiceCollection ConfigureModules(this IServiceCollection services)
+        {
+            foreach (var module in GlobalConfiguration.Modules)
+            {
+                var moduleInitializerType = module.Assembly.GetTypes()
+                    .FirstOrDefault(t => typeof(IModuleInitializer).IsAssignableFrom(t));
+
+                if (moduleInitializerType != null && moduleInitializerType != typeof(IModuleInitializer))
+                {
+                    var moduleInitializer = (IModuleInitializer)Activator.CreateInstance(moduleInitializerType);
+                    services.AddSingleton(typeof(IModuleInitializer), moduleInitializer);
+                    moduleInitializer.ConfigureServices(services);
+                }
+            }
+
             return services;
         }
 
