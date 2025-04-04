@@ -8,9 +8,6 @@ using Xunit;
 
 namespace SimplCommerce.Infrastructure.Tests
 {
-    /// <summary>
-    /// Contains unit tests for <see cref="ReflectionHelperTests"/> method.
-    /// </summary>
     public class ReflectionHelperTests
     {
         [Fact]
