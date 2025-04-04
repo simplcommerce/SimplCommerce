@@ -14,9 +14,6 @@ using Xunit;
 
 namespace SimplCommerce.Module.Cms.Tests.Controllers
 {
-    /// <summary>
-    /// Contains unit tests for <see cref="MenuApiController"/> method.
-    /// </summary>
     public class MenuApiControllerTests
     {
         [Fact]
