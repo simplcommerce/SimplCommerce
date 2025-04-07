@@ -1,4 +1,5 @@
 # A simple, cross platform, modulith ecommerce system built on .NET Core [![Join the chat at https://gitter.im/simplcommerce/SimplCommerce](https://badges.gitter.im/simplcommerce/SimplCommerce.svg)](https://gitter.im/simplcommerce/SimplCommerce?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsimplcommerce%2FSimplCommerce.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsimplcommerce%2FSimplCommerce?ref=badge_shield)
 
 ## High level architecture
 
@@ -100,3 +101,6 @@ Become a sponsor and get your logo on our README on Github with a link to your s
 ## License
 
 SimplCommerce is licensed under the Apache 2.0 license.
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsimplcommerce%2FSimplCommerce.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsimplcommerce%2FSimplCommerce?ref=badge_large)
