@@ -487,3 +487,19 @@ li.nav-item-group, li.nav-item-group a {
 .modal-padding {
     padding: 10px 10px 10px 10px;
 }
+
+.businesshours {
+    background-color:#455A64;
+    color:white;
+    padding-left:10px;
+    padding-right:10px;
+}
+.day {
+    color: #B0BEC5;
+}
+.time {
+    color:#FFB300;
+}
+.closed{
+    color:red;
+}
