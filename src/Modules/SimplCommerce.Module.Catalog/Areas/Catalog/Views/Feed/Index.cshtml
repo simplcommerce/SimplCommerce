@@ -1,8 +1,5 @@
-﻿
-@model List<SimplCommerce.Module.Catalog.Models.Product>
-
+﻿@model List<SimplCommerce.Module.Catalog.Models.Product>
 @using System.Text.RegularExpressions
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +12,6 @@
 			margin: 0;
 			padding: 0;
 		}
-
 		h1 {
 			text-align: center;
 			margin-top: 30px;
@@ -92,89 +88,3 @@
 	</div>
 </body>
 </html>
-
-
-
- 
-
-
-
-
-
-
-
-
-
-@* most importanty  *@
-@* @model List<SimplCommerce.Module.Catalog.Models.Product>
-@using System.Text.RegularExpressions
-
-
-@{
-	ViewData["Title"] = "Feed";
-}
-
-<h1>Product Feed</h1>
-
-@foreach (var product in Model)
-{
-	<div style="border: 1px solid #ddd; padding: 16px; margin-bottom: 12px;">
-		<img src="/user-content/@product.ThumbnailImage?.FileName" alt="@product.Name" style="max-width: 150px;" />
-
-		<h3>@product.Name</h3>
-		<p>@Html.Raw(Regex.Replace(product.Description, "<.*?>", string.Empty))</p>
-		<strong>Price: ₹@product.Price.ToString("F2")</strong>
-	</div>
-}
-
-
-  *@
-
-
-
-
-@* @model IEnumerable<SimplCommerce.Module.Catalog.Models.Product>
-
-<h2>Product Feed</h2>
-
-@* @foreach (var product in Model)
-{
-	<div class="card mb-3 p-3">
-		<h4>@product.Name</h4>
-
-		@if (!string.IsNullOrEmpty(product.ThumbnailImage))
-		{
-			<img src="@Url.Content(product.ThumbnailImage)" alt="@product.Name" class="img-fluid mb-2" />
-		}
-		else
-		{
-			<p><em>No Image Available</em></p>
-		}
-
-		<p>@Html.Raw(product.ShortDescription)</p>
-		<strong>Price: @product.Price.ToString("C")</strong>
-	</div>
-}
- *@
-
-
-@* @foreach (var product in Model)
-{
-	<div class="card mb-3 p-3">
-		<h4>@product.Name</h4>
-		<img src="@(Url.Content("~/user-content/") + product.ThumbnailImage)" alt="@product.Name" class="img-fluid mb-2" />
-		<p>@Html.Raw(product.ShortDescription)</p>
-		<strong>Price: @product.Price.ToString("C")</strong>
-	</div>
-} *@
-
-
-@* @foreach (var product in Model)
-{
-	<div class="card mb-3 p-3">
-		<h4>@product.Name</h4>
-		<img src="@product.ThumbnailImage" alt="@product.Name" class="img-fluid mb-2" />
-		<p>@product.ShortDescription</p>
-		<strong>Price: @product.Price.ToString("C")</strong>
-	</div>
-} *@

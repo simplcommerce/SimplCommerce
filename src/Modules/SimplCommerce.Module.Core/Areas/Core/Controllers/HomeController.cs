@@ -30,40 +30,6 @@ namespace SimplCommerce.Module.Core.Areas.Core.Controllers
             throw new Exception("Test behavior in case of error");
         }
 
-        /// <summary>
-        ///
-        /// 
-        /// 
-
-        //[HttpGet("/feed")]
-        //public IActionResult Feed()
-        //{
-        //    var products = _productRepository.Query()
-        //                    .Where(p => p.IsPublished && !p.IsDeleted)
-        //                    .OrderByDescending(p => p.CreatedOn)
-        //                    .Select(p => new ProductFeedViewModel
-        //                    {
-        //                        Id = p.Id,
-        //                        Name = p.Name,
-        //                        ThumbnailImage = p.ThumbnailImage,
-        //                        ShortDescription = p.ShortDescription,
-        //                        Price = p.Price
-        //                    }).ToList();
-
-        //    return View(products);
-        //}
-
-
-
-
-
-
-
-
-
-        /// </summary>
-        /// <returns></returns>
-
         [HttpGet("/")]
         public IActionResult Index()
         {

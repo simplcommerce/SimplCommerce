@@ -27,7 +27,6 @@ var app = builder.Build();
 Configure();
 app.Run();
 
-//hi
 void ConfigureService() 
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
