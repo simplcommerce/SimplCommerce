@@ -1,0 +1,33 @@
+{
+  "family": "simplcommerce-task-fargate",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "1024",
+  "memory": "3072",
+  "executionRoleArn": "arn:aws:iam::344349181745:role/ecsTaskExecutionRole",
+  "taskRoleArn": "",
+  "containerDefinitions": [
+    {
+      "name": "simplcommerce",
+      "image": "344349181745.dkr.ecr.us-west-1.amazonaws.com/mars-rover/simplcommerce:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/simplcommerce-task",
+          "awslogs-region": "us-west-1",
+          "awslogs-create-group": "true",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ]
+}

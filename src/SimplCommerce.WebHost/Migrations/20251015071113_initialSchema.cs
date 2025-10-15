@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SimplCommerce.WebHost.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDb : Migration
+    public partial class initialSchema : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,8 +19,8 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,12 +32,12 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Slug = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsPublished = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Slug = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    IsPublished = table.Column<bool>(type: "boolean", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -48,8 +49,8 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,8 +62,8 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -74,8 +75,8 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -87,10 +88,10 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    IsPublished = table.Column<bool>(type: "bit", nullable: false),
-                    IsSystem = table.Column<bool>(type: "bit", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    IsPublished = table.Column<bool>(type: "boolean", nullable: false),
+                    IsSystem = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,9 +103,9 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -115,10 +116,11 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Core_AppSetting",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    Module = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    IsVisibleInCommonSettingPage = table.Column<bool>(type: "bit", nullable: false)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Value = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    Module = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    Key = table.Column<string>(type: "text", nullable: true),
+                    IsVisibleInCommonSettingPage = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -129,14 +131,14 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Core_Country",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Code3 = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    IsBillingEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    IsShippingEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    IsCityEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    IsZipCodeEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    IsDistrictEnabled = table.Column<bool>(type: "bit", nullable: false)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Code3 = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    IsBillingEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    IsShippingEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    IsCityEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    IsZipCodeEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    IsDistrictEnabled = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -148,13 +150,13 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -165,11 +167,11 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Core_EntityType",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IsMenuable = table.Column<bool>(type: "bit", nullable: false),
-                    AreaName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    RoutingController = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    RoutingAction = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    IsMenuable = table.Column<bool>(type: "boolean", nullable: false),
+                    AreaName = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    RoutingController = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    RoutingAction = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -181,11 +183,11 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Caption = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    FileSize = table.Column<int>(type: "int", nullable: false),
-                    FileName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    MediaType = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Caption = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    FileSize = table.Column<int>(type: "integer", nullable: false),
+                    FileName = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    MediaType = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -197,10 +199,10 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -212,15 +214,15 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Slug = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Slug = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -231,13 +233,13 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Core_Widget",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    ViewComponentName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    CreateUrl = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    EditUrl = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    IsPublished = table.Column<bool>(type: "bit", nullable: false)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    ViewComponentName = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    CreateUrl = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    EditUrl = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    IsPublished = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -249,9 +251,9 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -259,11 +261,25 @@ namespace SimplCommerce.WebHost.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Inventory_ProductBackInStockSubscription",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ProductId = table.Column<long>(type: "bigint", nullable: false),
+                    CustomerEmail = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Inventory_ProductBackInStockSubscription", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Localization_Culture",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -275,16 +291,16 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Slug = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    MetaTitle = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    MetaKeywords = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    MetaDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false),
-                    IsPublished = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Slug = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    MetaTitle = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    MetaKeywords = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    MetaDescription = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    DisplayOrder = table.Column<int>(type: "integer", nullable: false),
+                    IsPublished = table.Column<bool>(type: "boolean", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -295,12 +311,12 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Payments_PaymentProvider",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    IsEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    ConfigureUrl = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    LandingViewComponentName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    AdditionalSettings = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    IsEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    ConfigureUrl = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    LandingViewComponentName = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    AdditionalSettings = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -312,19 +328,19 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    StartOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    EndOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    IsCouponRequired = table.Column<bool>(type: "bit", nullable: false),
-                    RuleToApply = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    DiscountAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    MaxDiscountAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    DiscountStep = table.Column<int>(type: "int", nullable: true),
-                    UsageLimitPerCoupon = table.Column<int>(type: "int", nullable: true),
-                    UsageLimitPerCustomer = table.Column<int>(type: "int", nullable: true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    StartOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    EndOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    IsCouponRequired = table.Column<bool>(type: "boolean", nullable: false),
+                    RuleToApply = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    DiscountAmount = table.Column<decimal>(type: "numeric", nullable: false),
+                    MaxDiscountAmount = table.Column<decimal>(type: "numeric", nullable: true),
+                    DiscountStep = table.Column<int>(type: "integer", nullable: true),
+                    UsageLimitPerCoupon = table.Column<int>(type: "integer", nullable: true),
+                    UsageLimitPerCustomer = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -336,15 +352,15 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    StartOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    EndOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    RuleToApply = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    DiscountAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    MaxDiscountAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    StartOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    EndOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    RuleToApply = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    DiscountAmount = table.Column<decimal>(type: "numeric", nullable: false),
+                    MaxDiscountAmount = table.Column<decimal>(type: "numeric", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -356,10 +372,10 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
-                    LatestViewedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    LatestViewedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -371,10 +387,10 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    QueryText = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    ResultsCount = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    QueryText = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    ResultsCount = table.Column<int>(type: "integer", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -385,16 +401,16 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Shipping_ShippingProvider",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    IsEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    ConfigureUrl = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    ToAllShippingEnabledCountries = table.Column<bool>(type: "bit", nullable: false),
-                    OnlyCountryIdsString = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    ToAllShippingEnabledStatesOrProvinces = table.Column<bool>(type: "bit", nullable: false),
-                    OnlyStateOrProvinceIdsString = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    AdditionalSettings = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ShippingPriceServiceTypeName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    IsEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    ConfigureUrl = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    ToAllShippingEnabledCountries = table.Column<bool>(type: "boolean", nullable: false),
+                    OnlyCountryIdsString = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
+                    ToAllShippingEnabledStatesOrProvinces = table.Column<bool>(type: "boolean", nullable: false),
+                    OnlyStateOrProvinceIdsString = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
+                    AdditionalSettings = table.Column<string>(type: "text", nullable: true),
+                    ShippingPriceServiceTypeName = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -406,8 +422,8 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -419,12 +435,12 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ActivityTypeId = table.Column<long>(type: "bigint", nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     EntityId = table.Column<long>(type: "bigint", nullable: false),
-                    EntityTypeId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
+                    EntityTypeId = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -442,15 +458,15 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
                     GroupId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Catalog_ProductAttribute", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Catalog_ProductAttribute_Catalog_ProductAttributeGroup_GroupId",
+                        name: "FK_Catalog_ProductAttribute_Catalog_ProductAttributeGroup_Grou~",
                         column: x => x.GroupId,
                         principalTable: "Catalog_ProductAttributeGroup",
                         principalColumn: "Id",
@@ -462,15 +478,15 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FullName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    EmailAddress = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FullName = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    PhoneNumber = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    EmailAddress = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    Address = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    Content = table.Column<string>(type: "text", nullable: true),
                     ContactAreaId = table.Column<long>(type: "bigint", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -488,11 +504,11 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CountryId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    Code = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CountryId = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    Code = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Type = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -510,11 +526,11 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Slug = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Slug = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
                     EntityId = table.Column<long>(type: "bigint", nullable: false),
-                    EntityTypeId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true)
+                    EntityTypeId = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -532,17 +548,17 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Slug = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    MetaTitle = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    MetaKeywords = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    MetaDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false),
-                    IsPublished = table.Column<bool>(type: "bit", nullable: false),
-                    IncludeInMenu = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Slug = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    MetaTitle = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    MetaKeywords = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    MetaDescription = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    DisplayOrder = table.Column<int>(type: "integer", nullable: false),
+                    IsPublished = table.Column<bool>(type: "boolean", nullable: false),
+                    IncludeInMenu = table.Column<bool>(type: "boolean", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     ParentId = table.Column<long>(type: "bigint", nullable: true),
                     ThumbnailImageId = table.Column<long>(type: "bigint", nullable: true)
                 },
@@ -567,11 +583,11 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Core_RoleClaim",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     RoleId = table.Column<long>(type: "bigint", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ClaimType = table.Column<string>(type: "text", nullable: true),
+                    ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -589,17 +605,17 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    PublishStart = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    PublishEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    WidgetId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    PublishStart = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    PublishEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    WidgetId = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
                     WidgetZoneId = table.Column<long>(type: "bigint", nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false),
-                    Data = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    HtmlData = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    DisplayOrder = table.Column<int>(type: "integer", nullable: false),
+                    Data = table.Column<string>(type: "text", nullable: true),
+                    HtmlData = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -623,18 +639,18 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     EntityId = table.Column<long>(type: "bigint", nullable: false),
-                    EntityType = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    CultureId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProperyName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    EntityType = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    CultureId = table.Column<string>(type: "text", nullable: false),
+                    ProperyName = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Value = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Localization_LocalizedContentProperty", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Localization_LocalizedContentProperty_Localization_Culture_CultureId",
+                        name: "FK_Localization_LocalizedContentProperty_Localization_Culture_~",
                         column: x => x.CultureId,
                         principalTable: "Localization_Culture",
                         principalColumn: "Id",
@@ -646,10 +662,10 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Key = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CultureId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Key = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Value = table.Column<string>(type: "text", nullable: true),
+                    CultureId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -673,7 +689,7 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     table.PrimaryKey("PK_Pricing_CartRuleCustomerGroup", x => new { x.CartRuleId, x.CustomerGroupId });
                     table.ForeignKey(
-                        name: "FK_Pricing_CartRuleCustomerGroup_Core_CustomerGroup_CustomerGroupId",
+                        name: "FK_Pricing_CartRuleCustomerGroup_Core_CustomerGroup_CustomerGr~",
                         column: x => x.CustomerGroupId,
                         principalTable: "Core_CustomerGroup",
                         principalColumn: "Id",
@@ -691,10 +707,10 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CartRuleId = table.Column<long>(type: "bigint", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    Code = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -718,13 +734,13 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     table.PrimaryKey("PK_Pricing_CatalogRuleCustomerGroup", x => new { x.CatalogRuleId, x.CustomerGroupId });
                     table.ForeignKey(
-                        name: "FK_Pricing_CatalogRuleCustomerGroup_Core_CustomerGroup_CustomerGroupId",
+                        name: "FK_Pricing_CatalogRuleCustomerGroup_Core_CustomerGroup_Custome~",
                         column: x => x.CustomerGroupId,
                         principalTable: "Core_CustomerGroup",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Pricing_CatalogRuleCustomerGroup_Pricing_CatalogRule_CatalogRuleId",
+                        name: "FK_Pricing_CatalogRuleCustomerGroup_Pricing_CatalogRule_Catalo~",
                         column: x => x.CatalogRuleId,
                         principalTable: "Pricing_CatalogRule",
                         principalColumn: "Id",
@@ -742,13 +758,13 @@ namespace SimplCommerce.WebHost.Migrations
                 {
                     table.PrimaryKey("PK_Catalog_ProductTemplateProductAttribute", x => new { x.ProductTemplateId, x.ProductAttributeId });
                     table.ForeignKey(
-                        name: "FK_Catalog_ProductTemplateProductAttribute_Catalog_ProductAttribute_ProductAttributeId",
+                        name: "FK_Catalog_ProductTemplateProductAttribute_Catalog_ProductAttr~",
                         column: x => x.ProductAttributeId,
                         principalTable: "Catalog_ProductAttribute",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Catalog_ProductTemplateProductAttribute_Catalog_ProductTemplate_ProductTemplateId",
+                        name: "FK_Catalog_ProductTemplateProductAttribute_Catalog_ProductTemp~",
                         column: x => x.ProductTemplateId,
                         principalTable: "Catalog_ProductTemplate",
                         principalColumn: "Id",
@@ -760,11 +776,11 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     StateOrProvinceId = table.Column<long>(type: "bigint", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Type = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    Location = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -782,12 +798,12 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     TaxClassId = table.Column<long>(type: "bigint", nullable: false),
-                    CountryId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    CountryId = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
                     StateOrProvinceId = table.Column<long>(type: "bigint", nullable: true),
-                    Rate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ZipCode = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true)
+                    Rate = table.Column<decimal>(type: "numeric", nullable: false),
+                    ZipCode = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -817,13 +833,13 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ParentId = table.Column<long>(type: "bigint", nullable: true),
                     MenuId = table.Column<long>(type: "bigint", nullable: false),
                     EntityId = table.Column<long>(type: "bigint", nullable: true),
-                    CustomLink = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false)
+                    CustomLink = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    DisplayOrder = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -877,16 +893,16 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ContactName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    AddressLine1 = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    AddressLine2 = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    City = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    ZipCode = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ContactName = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    Phone = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    AddressLine1 = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    AddressLine2 = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    City = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    ZipCode = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
                     DistrictId = table.Column<long>(type: "bigint", nullable: true),
                     StateOrProvinceId = table.Column<long>(type: "bigint", nullable: false),
-                    CountryId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
+                    CountryId = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -916,16 +932,16 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ContactName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    AddressLine1 = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    AddressLine2 = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    City = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    ZipCode = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ContactName = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    Phone = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    AddressLine1 = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    AddressLine2 = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    City = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    ZipCode = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
                     DistrictId = table.Column<long>(type: "bigint", nullable: true),
                     StateOrProvinceId = table.Column<long>(type: "bigint", nullable: false),
-                    CountryId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true)
+                    CountryId = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -955,14 +971,14 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CountryId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CountryId = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
                     StateOrProvinceId = table.Column<long>(type: "bigint", nullable: true),
                     DistrictId = table.Column<long>(type: "bigint", nullable: true),
-                    ZipCode = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MinOrderSubtotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ShippingPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    ZipCode = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    Note = table.Column<string>(type: "text", nullable: true),
+                    MinOrderSubtotal = table.Column<decimal>(type: "numeric", nullable: false),
+                    ShippingPrice = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -974,13 +990,13 @@ namespace SimplCommerce.WebHost.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ShippingTableRate_PriceAndDestination_Core_District_DistrictId",
+                        name: "FK_ShippingTableRate_PriceAndDestination_Core_District_Distric~",
                         column: x => x.DistrictId,
                         principalTable: "Core_District",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ShippingTableRate_PriceAndDestination_Core_StateOrProvince_StateOrProvinceId",
+                        name: "FK_ShippingTableRate_PriceAndDestination_Core_StateOrProvince_~",
                         column: x => x.StateOrProvinceId,
                         principalTable: "Core_StateOrProvince",
                         principalColumn: "Id",
@@ -992,8 +1008,8 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
                     AddressId = table.Column<long>(type: "bigint", nullable: false),
                     VendorId = table.Column<long>(type: "bigint", nullable: true)
                 },
@@ -1019,43 +1035,43 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ShortDescription = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Specification = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    OldPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    SpecialPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    SpecialPriceStart = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    SpecialPriceEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    HasOptions = table.Column<bool>(type: "bit", nullable: false),
-                    IsVisibleIndividually = table.Column<bool>(type: "bit", nullable: false),
-                    IsFeatured = table.Column<bool>(type: "bit", nullable: false),
-                    IsCallForPricing = table.Column<bool>(type: "bit", nullable: false),
-                    IsAllowToOrder = table.Column<bool>(type: "bit", nullable: false),
-                    StockTrackingIsEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    StockQuantity = table.Column<int>(type: "int", nullable: false),
-                    Sku = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    Gtin = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    NormalizedName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ShortDescription = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    Specification = table.Column<string>(type: "text", nullable: true),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false),
+                    OldPrice = table.Column<decimal>(type: "numeric", nullable: true),
+                    SpecialPrice = table.Column<decimal>(type: "numeric", nullable: true),
+                    SpecialPriceStart = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    SpecialPriceEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    HasOptions = table.Column<bool>(type: "boolean", nullable: false),
+                    IsVisibleIndividually = table.Column<bool>(type: "boolean", nullable: false),
+                    IsFeatured = table.Column<bool>(type: "boolean", nullable: false),
+                    IsCallForPricing = table.Column<bool>(type: "boolean", nullable: false),
+                    IsAllowToOrder = table.Column<bool>(type: "boolean", nullable: false),
+                    StockTrackingIsEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    StockQuantity = table.Column<int>(type: "integer", nullable: false),
+                    Sku = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    Gtin = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    NormalizedName = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    DisplayOrder = table.Column<int>(type: "integer", nullable: false),
                     VendorId = table.Column<long>(type: "bigint", nullable: true),
                     ThumbnailImageId = table.Column<long>(type: "bigint", nullable: true),
-                    ReviewsCount = table.Column<int>(type: "int", nullable: false),
-                    RatingAverage = table.Column<double>(type: "float", nullable: true),
+                    ReviewsCount = table.Column<int>(type: "integer", nullable: false),
+                    RatingAverage = table.Column<double>(type: "double precision", nullable: true),
                     BrandId = table.Column<long>(type: "bigint", nullable: true),
                     TaxClassId = table.Column<long>(type: "bigint", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Slug = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    MetaTitle = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    MetaKeywords = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    MetaDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsPublished = table.Column<bool>(type: "bit", nullable: false),
-                    PublishedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Slug = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    MetaTitle = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    MetaKeywords = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    MetaDescription = table.Column<string>(type: "text", nullable: true),
+                    IsPublished = table.Column<bool>(type: "boolean", nullable: false),
+                    PublishedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedById = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     LatestUpdatedById = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -1086,16 +1102,16 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     AttributeId = table.Column<long>(type: "bigint", nullable: false),
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Value = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Catalog_ProductAttributeValue", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Catalog_ProductAttributeValue_Catalog_ProductAttribute_AttributeId",
+                        name: "FK_Catalog_ProductAttributeValue_Catalog_ProductAttribute_Attr~",
                         column: x => x.AttributeId,
                         principalTable: "Catalog_ProductAttribute",
                         principalColumn: "Id",
@@ -1113,9 +1129,9 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IsFeaturedProduct = table.Column<bool>(type: "bit", nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    IsFeaturedProduct = table.Column<bool>(type: "boolean", nullable: false),
+                    DisplayOrder = table.Column<int>(type: "integer", nullable: false),
                     CategoryId = table.Column<long>(type: "bigint", nullable: false),
                     ProductId = table.Column<long>(type: "bigint", nullable: false)
                 },
@@ -1141,10 +1157,10 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
                     LinkedProductId = table.Column<long>(type: "bigint", nullable: false),
-                    LinkType = table.Column<int>(type: "int", nullable: false)
+                    LinkType = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1168,10 +1184,10 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
                     MediaId = table.Column<long>(type: "bigint", nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false)
+                    DisplayOrder = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1195,17 +1211,17 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
                     OptionId = table.Column<long>(type: "bigint", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    SortIndex = table.Column<int>(type: "int", nullable: false)
+                    Value = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    SortIndex = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Catalog_ProductOptionCombination", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Catalog_ProductOptionCombination_Catalog_ProductOption_OptionId",
+                        name: "FK_Catalog_ProductOptionCombination_Catalog_ProductOption_Opti~",
                         column: x => x.OptionId,
                         principalTable: "Catalog_ProductOption",
                         principalColumn: "Id",
@@ -1223,12 +1239,12 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     OptionId = table.Column<long>(type: "bigint", nullable: false),
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    DisplayType = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    SortIndex = table.Column<int>(type: "int", nullable: false)
+                    Value = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    DisplayType = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    SortIndex = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1252,11 +1268,11 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
                     WarehouseId = table.Column<long>(type: "bigint", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    ReservedQuantity = table.Column<int>(type: "int", nullable: false)
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    ReservedQuantity = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1304,15 +1320,15 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ProductId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedById = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    OldPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    SpecialPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    SpecialPriceStart = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    SpecialPriceEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: true),
+                    OldPrice = table.Column<decimal>(type: "numeric", nullable: true),
+                    SpecialPrice = table.Column<decimal>(type: "numeric", nullable: true),
+                    SpecialPriceStart = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    SpecialPriceEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1329,20 +1345,20 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Checkouts_Checkout",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     CustomerId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedById = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CouponCode = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    CouponRuleName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    ShippingMethod = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    IsProductPriceIncludeTax = table.Column<bool>(type: "bit", nullable: false),
-                    ShippingAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    TaxAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    CouponCode = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    CouponRuleName = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    ShippingMethod = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    IsProductPriceIncludeTax = table.Column<bool>(type: "boolean", nullable: false),
+                    ShippingAmount = table.Column<decimal>(type: "numeric", nullable: true),
+                    TaxAmount = table.Column<decimal>(type: "numeric", nullable: true),
                     VendorId = table.Column<long>(type: "bigint", nullable: true),
-                    ShippingData = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OrderNote = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true)
+                    ShippingData = table.Column<string>(type: "text", nullable: true),
+                    OrderNote = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1354,11 +1370,11 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    CheckoutId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    CheckoutId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1382,19 +1398,19 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Body = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Slug = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    MetaTitle = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    MetaKeywords = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    MetaDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsPublished = table.Column<bool>(type: "bit", nullable: false),
-                    PublishedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Body = table.Column<string>(type: "text", nullable: true),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Slug = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    MetaTitle = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    MetaKeywords = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    MetaDescription = table.Column<string>(type: "text", nullable: true),
+                    IsPublished = table.Column<bool>(type: "boolean", nullable: false),
+                    PublishedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedById = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     LatestUpdatedById = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -1407,13 +1423,13 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
-                    CommentText = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CommenterName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    EntityTypeId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    CommentText = table.Column<string>(type: "text", nullable: true),
+                    CommenterName = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    EntityTypeId = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
                     EntityId = table.Column<long>(type: "bigint", nullable: false),
                     ParentId = table.Column<long>(type: "bigint", nullable: true)
                 },
@@ -1451,32 +1467,32 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserGuid = table.Column<Guid>(type: "uuid", nullable: false),
+                    FullName = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
                     VendorId = table.Column<long>(type: "bigint", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     DefaultShippingAddressId = table.Column<long>(type: "bigint", nullable: true),
                     DefaultBillingAddressId = table.Column<long>(type: "bigint", nullable: true),
-                    RefreshTokenHash = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    Culture = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    ExtensionData = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                    RefreshTokenHash = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    Culture = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    ExtensionData = table.Column<string>(type: "text", nullable: true),
+                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1494,11 +1510,11 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
                     AddressId = table.Column<long>(type: "bigint", nullable: false),
-                    AddressType = table.Column<int>(type: "int", nullable: false),
-                    LastUsedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                    AddressType = table.Column<int>(type: "integer", nullable: false),
+                    LastUsedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1521,11 +1537,11 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Core_UserClaim",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ClaimType = table.Column<string>(type: "text", nullable: true),
+                    ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1542,9 +1558,9 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "Core_UserLogin",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LoginProvider = table.Column<string>(type: "text", nullable: false),
+                    ProviderKey = table.Column<string>(type: "text", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "text", nullable: true),
                     UserId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -1587,9 +1603,9 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<long>(type: "bigint", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    LoginProvider = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Value = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1607,13 +1623,13 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
                     WarehouseId = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedById = table.Column<long>(type: "bigint", nullable: false),
                     AdjustedQuantity = table.Column<long>(type: "bigint", nullable: false),
-                    Note = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true)
+                    Note = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1643,21 +1659,21 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ShortContent = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    FullContent = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ShortContent = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    FullContent = table.Column<string>(type: "text", nullable: true),
                     ThumbnailImageId = table.Column<long>(type: "bigint", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    Slug = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    MetaTitle = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    MetaKeywords = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    MetaDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsPublished = table.Column<bool>(type: "bit", nullable: false),
-                    PublishedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    Name = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    Slug = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: false),
+                    MetaTitle = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    MetaKeywords = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    MetaDescription = table.Column<string>(type: "text", nullable: true),
+                    IsPublished = table.Column<bool>(type: "boolean", nullable: false),
+                    PublishedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedById = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     LatestUpdatedById = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -1688,30 +1704,30 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CustomerId = table.Column<long>(type: "bigint", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     LatestUpdatedById = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedById = table.Column<long>(type: "bigint", nullable: false),
                     VendorId = table.Column<long>(type: "bigint", nullable: true),
-                    CouponCode = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    CouponRuleName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    DiscountAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SubTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SubTotalWithDiscount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CouponCode = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    CouponRuleName = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    DiscountAmount = table.Column<decimal>(type: "numeric", nullable: false),
+                    SubTotal = table.Column<decimal>(type: "numeric", nullable: false),
+                    SubTotalWithDiscount = table.Column<decimal>(type: "numeric", nullable: false),
                     ShippingAddressId = table.Column<long>(type: "bigint", nullable: false),
                     BillingAddressId = table.Column<long>(type: "bigint", nullable: false),
-                    OrderStatus = table.Column<int>(type: "int", nullable: false),
-                    OrderNote = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    OrderStatus = table.Column<int>(type: "integer", nullable: false),
+                    OrderNote = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
                     ParentId = table.Column<long>(type: "bigint", nullable: true),
-                    IsMasterOrder = table.Column<bool>(type: "bit", nullable: false),
-                    ShippingMethod = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    ShippingFeeAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TaxAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    OrderTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PaymentMethod = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    PaymentFeeAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    IsMasterOrder = table.Column<bool>(type: "boolean", nullable: false),
+                    ShippingMethod = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    ShippingFeeAmount = table.Column<decimal>(type: "numeric", nullable: false),
+                    TaxAmount = table.Column<decimal>(type: "numeric", nullable: false),
+                    OrderTotal = table.Column<decimal>(type: "numeric", nullable: false),
+                    PaymentMethod = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    PaymentFeeAmount = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1759,12 +1775,12 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CartRuleId = table.Column<long>(type: "bigint", nullable: false),
                     CouponId = table.Column<long>(type: "bigint", nullable: true),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
                     OrderId = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1794,8 +1810,8 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
                     ProductId = table.Column<long>(type: "bigint", nullable: false)
                 },
@@ -1821,15 +1837,15 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Rating = table.Column<int>(type: "int", nullable: false),
-                    ReviewerName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    EntityTypeId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    Title = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    Comment = table.Column<string>(type: "text", nullable: true),
+                    Rating = table.Column<int>(type: "integer", nullable: false),
+                    ReviewerName = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    EntityTypeId = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
                     EntityId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -1848,11 +1864,11 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
                     CustomerId = table.Column<long>(type: "bigint", nullable: false),
                     VendorId = table.Column<long>(type: "bigint", nullable: true)
                 },
@@ -1878,11 +1894,11 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
-                    SharingCode = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    SharingCode = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1924,13 +1940,13 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     OrderId = table.Column<long>(type: "bigint", nullable: false),
-                    OldStatus = table.Column<int>(type: "int", nullable: true),
-                    NewStatus = table.Column<int>(type: "int", nullable: false),
-                    OrderSnapshot = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Note = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    OldStatus = table.Column<int>(type: "integer", nullable: true),
+                    NewStatus = table.Column<int>(type: "integer", nullable: false),
+                    OrderSnapshot = table.Column<string>(type: "text", nullable: true),
+                    Note = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedById = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -1955,14 +1971,14 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     OrderId = table.Column<long>(type: "bigint", nullable: true),
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
-                    ProductPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    DiscountAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TaxAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TaxPercent = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    ProductPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    DiscountAmount = table.Column<decimal>(type: "numeric", nullable: false),
+                    TaxAmount = table.Column<decimal>(type: "numeric", nullable: false),
+                    TaxPercent = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1986,16 +2002,16 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     OrderId = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PaymentFee = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PaymentMethod = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    GatewayTransactionId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    FailureMessage = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    Amount = table.Column<decimal>(type: "numeric", nullable: false),
+                    PaymentFee = table.Column<decimal>(type: "numeric", nullable: false),
+                    PaymentMethod = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    GatewayTransactionId = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    FailureMessage = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2013,14 +2029,14 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     OrderId = table.Column<long>(type: "bigint", nullable: false),
-                    TrackingNumber = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    TrackingNumber = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
                     WarehouseId = table.Column<long>(type: "bigint", nullable: false),
                     VendorId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedById = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -2050,13 +2066,13 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ReviewId = table.Column<long>(type: "bigint", nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
-                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ReplierName = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    Comment = table.Column<string>(type: "text", nullable: true),
+                    ReplierName = table.Column<string>(type: "character varying(450)", maxLength: 450, nullable: true),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -2080,13 +2096,13 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     WishListId = table.Column<long>(type: "bigint", nullable: false),
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LatestUpdatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -2110,11 +2126,11 @@ namespace SimplCommerce.WebHost.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ShipmentId = table.Column<long>(type: "bigint", nullable: false),
                     OrderItemId = table.Column<long>(type: "bigint", nullable: false),
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
+                    Quantity = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -2158,27 +2174,28 @@ namespace SimplCommerce.WebHost.Migrations
 
             migrationBuilder.InsertData(
                 table: "Core_AppSetting",
-                columns: new[] { "Id", "IsVisibleInCommonSettingPage", "Module", "Value" },
+                columns: new[] { "Id", "IsVisibleInCommonSettingPage", "Key", "Module", "Value" },
                 values: new object[,]
                 {
-                    { "Catalog.IsCommentsRequireApproval", true, "Catalog", "true" },
-                    { "Catalog.IsProductPriceIncludeTax", true, "Catalog", "true" },
-                    { "Catalog.ProductPageSize", true, "Catalog", "10" },
-                    { "Global.AssetBundling", true, "Core", "false" },
-                    { "Global.AssetVersion", true, "Core", "1.0" },
-                    { "Global.CurrencyCulture", true, "Core", "en-US" },
-                    { "Global.CurrencyDecimalPlace", true, "Core", "2" },
-                    { "Global.DefaultCultureAdminUI", true, "Core", "en-US" },
-                    { "Global.DefaultCultureUI", true, "Core", "en-US" },
-                    { "GoogleAppKey", false, "Contact", "" },
-                    { "Localization.LocalizedConentEnable", true, "Localization", "true" },
-                    { "News.PageSize", true, "News", "10" },
-                    { "SmtpPassword", false, "EmailSenderSmpt", "" },
-                    { "SmtpPort", false, "EmailSenderSmpt", "587" },
-                    { "SmtpServer", false, "EmailSenderSmpt", "smtp.gmail.com" },
-                    { "SmtpUsername", false, "EmailSenderSmpt", "" },
-                    { "Tax.DefaultTaxClassId", true, "Tax", "1" },
-                    { "Theme", false, "Core", "Generic" }
+                    { "Catalog.IsCommentsRequireApproval", true, null, "Catalog", "true" },
+                    { "Catalog.IsProductPriceIncludeTax", true, null, "Catalog", "true" },
+                    { "Catalog.MinimumProductQuantityForHighlighting", true, null, "Catalog", "5" },
+                    { "Catalog.ProductPageSize", true, null, "Catalog", "10" },
+                    { "Global.AssetBundling", true, null, "Core", "false" },
+                    { "Global.AssetVersion", true, null, "Core", "1.0" },
+                    { "Global.CurrencyCulture", true, null, "Core", "en-US" },
+                    { "Global.CurrencyDecimalPlace", true, null, "Core", "2" },
+                    { "Global.DefaultCultureAdminUI", true, null, "Core", "en-US" },
+                    { "Global.DefaultCultureUI", true, null, "Core", "en-US" },
+                    { "GoogleAppKey", false, null, "Contact", "" },
+                    { "Localization.LocalizedConentEnable", true, null, "Localization", "true" },
+                    { "News.PageSize", true, null, "News", "10" },
+                    { "SmtpPassword", false, null, "EmailSenderSmpt", "" },
+                    { "SmtpPort", false, null, "EmailSenderSmpt", "587" },
+                    { "SmtpServer", false, null, "EmailSenderSmpt", "smtp.gmail.com" },
+                    { "SmtpUsername", false, null, "EmailSenderSmpt", "" },
+                    { "Tax.DefaultTaxClassId", true, null, "Tax", "1" },
+                    { "Theme", false, null, "Core", "Generic" }
                 });
 
             migrationBuilder.InsertData(
@@ -2534,8 +2551,7 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "RoleNameIndex",
                 table: "Core_Role",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Core_RoleClaim_RoleId",
@@ -2571,8 +2587,7 @@ namespace SimplCommerce.WebHost.Migrations
                 name: "UserNameIndex",
                 table: "Core_User",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Core_UserAddress_AddressId",
@@ -3050,6 +3065,9 @@ namespace SimplCommerce.WebHost.Migrations
 
             migrationBuilder.DropTable(
                 name: "Core_WidgetInstance");
+
+            migrationBuilder.DropTable(
+                name: "Inventory_ProductBackInStockSubscription");
 
             migrationBuilder.DropTable(
                 name: "Inventory_Stock");

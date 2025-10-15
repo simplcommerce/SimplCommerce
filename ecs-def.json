@@ -1,0 +1,144 @@
+{
+    "compatibilities": [
+        "EC2",
+        "FARGATE",
+        "MANAGED_INSTANCES"
+    ],
+    "containerDefinitions": [
+        {
+            "cpu": 0,
+            "environment": [],
+            "environmentFiles": [],
+            "essential": true,
+            "image": "344349181745.dkr.ecr.us-west-1.amazonaws.com/mars-rover/simplcommerce:latest",
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/simplcommerce-task",
+                    "awslogs-create-group": "true",
+                    "awslogs-region": "us-west-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "mountPoints": [],
+            "name": "simplcommerce",
+            "portMappings": [
+                {
+                    "appProtocol": "http",
+                    "containerPort": 80,
+                    "hostPort": 80,
+                    "name": "simplcommerce-80-tcp",
+                    "protocol": "tcp"
+                }
+            ],
+            "systemControls": [],
+            "ulimits": [],
+            "volumesFrom": []
+        }
+    ,
+        {
+            "cpu": 0,
+            "environment": [
+                {
+                    "name": "NRIA_LICENSE_KEY",
+                    "value": "a1169725e396c7a441e0715dec5cf806FFFFNRAL"
+                }
+            ],
+            "essential": false,
+            "image": "newrelic/infrastructure:latest",
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/simplcommerce-task",
+                    "awslogs-create-group": "true",
+                    "awslogs-region": "us-west-1",
+                    "awslogs-stream-prefix": "newrelic"
+                },
+                "secretOptions": []
+            },
+            "mountPoints": [
+                {
+                    "containerPath": "/host",
+                    "sourceVolume": "host-root",
+                    "readOnly": true
+                },
+                {
+                    "containerPath": "/var/run/docker.sock",
+                    "sourceVolume": "docker-sock",
+                    "readOnly": false
+                }
+            ],
+            "name": "newrelic-infra",
+            "portMappings": [],
+            "linuxParameters": {
+                "capabilities": {
+                    "add": [
+                        "SYS_PTRACE"
+                    ]
+                }
+            },
+            "privileged": true
+        }
+    ],
+    "cpu": "1024",
+    "enableFaultInjection": false,
+    "executionRoleArn": "arn:aws:iam::344349181745:role/ecsTaskExecutionRole",
+    "family": "simplcommerce-task",
+    "memory": "3072",
+    "networkMode": "awsvpc",
+    "placementConstraints": [],
+    "registeredAt": "2025-10-14T22:12:38.099Z",
+    "registeredBy": "arn:aws:iam::344349181745:user/mars-admin",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+        }
+    ],
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "revision": 3,
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "status": "ACTIVE",
+    "taskDefinitionArn": "arn:aws:ecs:us-west-1:344349181745:task-definition/simplcommerce-task:3",
+    "volumes": [
+        {
+            "name": "host-root",
+            "host": {
+                "sourcePath": "/"
+            }
+        },
+        {
+            "name": "docker-sock",
+            "host": {
+                "sourcePath": "/var/run/docker.sock"
+            }
+        }
+    ],
+    "tags": []
+}

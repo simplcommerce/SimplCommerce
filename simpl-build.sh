@@ -1,16 +1,22 @@
 #!/bin/bash
 set -e
 
-sed -i'' -e 's|<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />|<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.0" />|' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
+sed -i'' -e 's|<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />|<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />|' src/SimplCommerce.WebHost/SimplCommerce.WebHost.csproj
 sed -i'' -e 's/ConfigureService();/AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);\nConfigureService();/' src/SimplCommerce.WebHost/Program.cs
 sed -i'' -e 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Program.cs
 sed -i'' -e 's/UseSqlServer/UseNpgsql/' src/SimplCommerce.WebHost/Extensions/ServiceCollectionExtensions.cs
 
 rm -rf src/SimplCommerce.WebHost/Migrations/*
 
+echo "Checking dotnet-ef tool..."
+dotnet ef --version >/dev/null 2>&1 || true
+dotnet tool update --global dotnet-ef || dotnet tool install --global dotnet-ef
+echo "dotnet-ef version: $(dotnet ef --version 2>/dev/null || echo 'not installed')"
+export PATH="$PATH:~/.dotnet/tools"
 dotnet restore && dotnet build
 
 cd src/SimplCommerce.WebHost \
+    && dotnet ef migrations remove --force || echo "No migrations to remove" \
 	&& dotnet ef migrations add initialSchema \
 	&& dotnet ef database update
 	
