@@ -55,7 +55,8 @@ ENV CORECLR_ENABLE_PROFILING=1 \
 	DB_HOST="simpldb.cluster-cne8sm0g84jd.us-west-1.rds.amazonaws.com" \
 	DB_NAME="simpldb" \
 	DB_USER="postgres" \
-	PGPASSWORD="marsDevTest"
+	PGPASSWORD="marsDevTest"\
+	ASPNETCORE_URLS=http://+:80
 
 WORKDIR /app	
 COPY --from=build-env /app/src/SimplCommerce.WebHost/out ./
