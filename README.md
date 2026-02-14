@@ -29,7 +29,11 @@ Continuous deployment: https://ci.simplcommerce.com
 
 #### Steps to run
 
-- Update the connection string in appsettings.json in SimplCommerce.WebHost
+- **Update the connection string**: Open `appsettings.json` in `src/SimplCommerce.WebHost`.
+  - If you have **SQL Server** installed:
+    `"DefaultConnection": "Server=localhost;Database=SimplCommerce;Trusted_Connection=True;TrustServerCertificate=true"`
+  - If you **do not have SQL Server**, you can use **Visual Studio LocalDB**:
+    `"DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=SimplCommerce;Trusted_Connection=True;TrustServerCertificate=true;MultipleActiveResultSets=true"`
 - Build the whole solution.
 - In Solution Explorer, make sure that SimplCommerce.WebHost is selected as the Startup Project
 - Open the Package Manager Console Window and make sure that SimplCommerce.WebHost is selected as the Default project. Then type "Update-Database" then press "Enter". This action will create the database schema.
