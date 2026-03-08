@@ -1,4 +1,5 @@
 # A simple, cross platform, modulith ecommerce system built on .NET Core [![Join the chat at https://gitter.im/simplcommerce/SimplCommerce](https://badges.gitter.im/simplcommerce/SimplCommerce.svg)](https://gitter.im/simplcommerce/SimplCommerce?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsimplcommerce%2FSimplCommerce.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsimplcommerce%2FSimplCommerce?ref=badge_shield)
 
 ## High level architecture
 
@@ -29,11 +30,20 @@ Continuous deployment: https://ci.simplcommerce.com
 
 #### Steps to run
 
-- **Update the connection string**: Open `appsettings.json` in `src/SimplCommerce.WebHost`.
-  - If you have **SQL Server** installed:
-    `"DefaultConnection": "Server=localhost;Database=SimplCommerce;Trusted_Connection=True;TrustServerCertificate=true"`
-  - If you **do not have SQL Server**, you can use **Visual Studio LocalDB**:
-    `"DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=SimplCommerce;Trusted_Connection=True;TrustServerCertificate=true;MultipleActiveResultSets=true"`
+- Update the connection string: Open appsettings.json in src/SimplCommerce.WebHost. 
+  The default is configured for a local SQL Server
+    ```json
+    {
+      "DefaultConnection": "Server=.;Database=SimplCommerce;Trusted_Connection=True;TrustServerCertificate=true"
+    }
+    ```
+  If you are using Visual Studio LocalDB, change it to
+    ```json
+    {
+      "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=SimplCommerce;Trusted_Connection=True;TrustServerCertificate=true;MultipleActiveResultSets=true"
+    }
+    ```
+- Ensure you have a database named `SimplCommerce` created in your SQL instance, or change the `Database` name in the connection string to match your environment.
 - Build the whole solution.
 - In Solution Explorer, make sure that SimplCommerce.WebHost is selected as the Startup Project
 - Open the Package Manager Console Window and make sure that SimplCommerce.WebHost is selected as the Default project. Then type "Update-Database" then press "Enter". This action will create the database schema.
@@ -104,3 +114,6 @@ Become a sponsor and get your logo on our README on Github with a link to your s
 ## License
 
 SimplCommerce is licensed under the Apache 2.0 license.
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsimplcommerce%2FSimplCommerce.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsimplcommerce%2FSimplCommerce?ref=badge_large)
