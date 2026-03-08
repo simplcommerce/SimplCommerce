@@ -83,7 +83,8 @@
                 <div class="form-group row">
                     <label class="col-sm-4 col-form-label">@Localizer["Phone"]</label>
                     <div class="col-sm-8">
-                        <input asp-for="NewAddressForm.Phone" type="text" class="form-control">
+                        <input asp-for="NewAddressForm.Phone" type="tel"inputmode="numeric" class="form-control"
+                               oninput="this.value = this.value.split('').filter(function(c){return c >= '0' && c <= '9';}).join('');">
                     </div>
                 </div>
             </div>
@@ -174,7 +175,8 @@
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">@Localizer["Phone"]</label>
                         <div class="col-sm-8">
-                            <input asp-for="NewBillingAddressForm.Phone" type="text" class="form-control">
+                            <input asp-for="NewBillingAddressForm.Phone" type="tel" inputmode="numeric" class="form-control"
+                                   oninput="this.value = this.value.split('').filter(function(c){return c >= '0' && c <= '9';}).join('');">
                         </div>
                     </div>
                 </div>
