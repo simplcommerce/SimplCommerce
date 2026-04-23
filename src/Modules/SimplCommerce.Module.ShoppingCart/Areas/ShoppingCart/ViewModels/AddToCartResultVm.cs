@@ -31,5 +31,8 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.ViewModels
         public string ProductPriceString => _currencyService.FormatCurrency(ProductPrice);
 
         public string CartAmountString => _currencyService.FormatCurrency(CartAmount);
+
+        
+        public string CategoryName { get; set; }
     }
 }

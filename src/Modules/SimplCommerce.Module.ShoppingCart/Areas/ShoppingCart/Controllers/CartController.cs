@@ -48,7 +48,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             var result = await _cartService.AddToCart(currentUser.Id, model.ProductId, model.Quantity);
             if (result.Success)
             {
-                return RedirectToAction("AddToCartResult", new { productId = model.ProductId });
+                return RedirectToAction("AddToCartResult", new { productId = model.ProductId, categoryName = model.CategoryName });
             }
             else
             {
@@ -57,7 +57,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
         }
 
         [HttpGet("cart/add-item-result")]
-        public async Task<IActionResult> AddToCartResult(long productId)
+        public async Task<IActionResult> AddToCartResult(long productId,string categoryName)
         {
             var currentUser = await _workContext.GetCurrentUser();
             var cart = await _cartService.GetCartDetails(currentUser.Id);
@@ -74,6 +74,7 @@ namespace SimplCommerce.Module.ShoppingCart.Areas.ShoppingCart.Controllers
             model.ProductPrice = addedProduct.ProductPrice;
             model.CalculatedProductPrice = addedProduct.CalculatedProductPrice;
             model.Quantity = addedProduct.Quantity;
+            model.CategoryName = categoryName;
 
             return PartialView(model);
         }

@@ -4,6 +4,8 @@
     {
         public long ProductId { get; set; }
 
+        public string CategoryName { get; set; }
+
         public string VariationName { get; set; }
 
         public int Quantity { get; set; }

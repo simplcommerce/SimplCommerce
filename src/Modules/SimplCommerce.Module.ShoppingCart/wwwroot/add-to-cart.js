@@ -13,6 +13,7 @@ $(function () {
         var quantity,
             $form = $(this).closest("form"),
             productId = $(this).closest("form").find('input[name=productId]').val(),
+            categoryName = $(this).closest("form").find('input[name=categoryName]').val(),
             $quantityInput = $form.find('.quantity-field');
 
         quantity = $quantityInput.length === 1 ? $quantityInput.val() : 1;
@@ -20,7 +21,7 @@ $(function () {
         $.ajax({
             type: 'POST',
             url: '/cart/add-item',
-            data: JSON.stringify({ productId: Number(productId), quantity: Number(quantity) }),
+            data: JSON.stringify({ productId: Number(productId), categoryName: categoryName, quantity: Number(quantity) }),
             contentType: "application/json"
         }).done(function (data) {
             if (data.success === false) {
