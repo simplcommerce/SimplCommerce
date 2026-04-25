@@ -1,0 +1,90 @@
+﻿@model List<SimplCommerce.Module.Catalog.Models.Product>
+@using System.Text.RegularExpressions
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>All Products</title>
+	<style>
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background-color: #f5f5f5;
+			margin: 0;
+			padding: 0;
+		}
+		h1 {
+			text-align: center;
+			margin-top: 30px;
+			color: #333;
+		}
+
+		.product-container {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 20px;
+			padding: 40px 20px;
+		}
+
+		.product-card {
+			background-color: #fff;
+			border: 1px solid #e0e0e0;
+			border-radius: 12px;
+			box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+			width: 250px;
+			text-align: center;
+			padding: 20px;
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+		}
+
+			.product-card:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+			}
+
+			.product-card img {
+				width: 100%;
+				height: 180px;
+				object-fit: cover;
+				border-radius: 8px;
+				margin-bottom: 10px;
+			}
+
+			.product-card h3 {
+				font-size: 1.2rem;
+				margin-bottom: 10px;
+				color: #333;
+			}
+
+			.product-card p {
+				font-size: 0.9rem;
+				color: #555;
+				height: 50px;
+				overflow: hidden;
+			}
+
+			.product-card strong {
+				display: block;
+				margin-top: 10px;
+				color: #d32f2f;
+				font-size: 1rem;
+			}
+	</style>
+</head>
+<body>
+	<h1>All Products</h1>
+
+	<div class="product-container">
+			@foreach (var product in Model)
+			{
+				<div style="border: 1px solid #ddd; padding: 16px; margin-bottom: 12px;">
+					<img src="/user-content/@product.ThumbnailImage?.FileName" alt="@product.Name" style="max-width: 150px;" />
+
+					<h3>@product.Name</h3>
+					<p>@Html.Raw(Regex.Replace(product.Description, "<.*?>", string.Empty))</p>
+					<strong>Price: ₹@product.Price.ToString("F2")</strong>
+				</div>
+			}
+	</div>
+</body>
+</html>
