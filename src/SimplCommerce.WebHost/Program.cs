@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.WebEncoders;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using SimplCommerce.Infrastructure;
 using SimplCommerce.Infrastructure.Data;
 using SimplCommerce.Infrastructure.Modules;
@@ -34,7 +35,11 @@ void ConfigureService()
     {
         options.UseSqlServer(connectionString);
     });
+    Log.Logger = new LoggerConfiguration()
+                   .ReadFrom.Configuration(builder.Configuration)
+                   .CreateLogger();
 
+    builder.Logging.AddSerilog();
     GlobalConfiguration.WebRootPath = builder.Environment.WebRootPath;
     GlobalConfiguration.ContentRootPath = builder.Environment.ContentRootPath;
 
