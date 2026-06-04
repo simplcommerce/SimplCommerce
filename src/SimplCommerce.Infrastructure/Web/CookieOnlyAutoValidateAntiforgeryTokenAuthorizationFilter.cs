@@ -1,6 +1,7 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace SimplCommerce.Infrastructure.Web
@@ -28,7 +29,14 @@ namespace SimplCommerce.Infrastructure.Web
                 return;
             }
 
-            await antiforgery.ValidateRequestAsync(httpContext);
+            try
+            {
+                await antiforgery.ValidateRequestAsync(httpContext);
+            }
+            catch (AntiforgeryValidationException)
+            {
+                context.Result = new AntiforgeryValidationFailedResult();
+            }
         }
     }
 }
