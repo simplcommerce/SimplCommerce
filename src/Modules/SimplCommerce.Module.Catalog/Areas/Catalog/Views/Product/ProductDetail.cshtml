@@ -228,6 +228,7 @@
                 <div class="add-to-cart">
                     <form class="inline">
                         <input type="hidden" name="productId" value="@Model.Id" />
+                        <input type="hidden" name="categoryName" value="@Model.Categories.Select(c => c.Name).Single()" />
                         <div class="product-quantity">
                             <button type="button" class="quantity-button" name="subtract" value="-">-</button>
                             <input type="text" class="quantity-field" readonly="readonly" name="qty" value="1">
