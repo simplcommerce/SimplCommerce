@@ -1,0 +1,36 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        configuration: [Release]
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration ${{ matrix.configuration }}
+
+      - name: Test
+        run: dotnet test --no-build --configuration ${{ matrix.configuration }} /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+
+      - name: Report Coveralls (Windows)
+        run: curl -sL https://github.com/coverallsapp/coverage-reporter/releases/latest/download/coveralls-windows.zip | zcat > ./coveralls.exe && ./coveralls.exe
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.Coveralls_Repo_Token }}
