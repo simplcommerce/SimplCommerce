@@ -15,6 +15,8 @@ namespace SimplCommerce.Module.Orders.Services
 
         void CancelOrder(Order order);
 
+        bool IsAwaitingPayment(Order order);
+
         Task<decimal> GetTax(Guid checkoutId, string countryId, long stateOrProvinceId, string zipCode);
     }
 }

@@ -367,6 +367,11 @@ namespace SimplCommerce.Module.Orders.Services
             }
         }
 
+        public bool IsAwaitingPayment(Order order)
+        {
+            return order.OrderStatus == OrderStatus.PendingPayment || order.OrderStatus == OrderStatus.PaymentFailed;
+        }
+
         public async Task<decimal> GetTax(Guid checkoutId, string countryId, long stateOrProvinceId, string zipCode)
         {
             decimal taxAmount = 0;

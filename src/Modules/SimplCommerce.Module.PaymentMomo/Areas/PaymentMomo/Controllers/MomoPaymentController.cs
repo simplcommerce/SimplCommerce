@@ -120,7 +120,9 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
             }
             else
             {
-                TempData["Error"] = result.LocalMessage;
+                TempData["Error"] = order.OrderStatus == OrderStatus.Canceled && result.ErrorCode == 0
+                    ? "Your payment was received after the order had been canceled. Please contact us for a refund."
+                    : result.LocalMessage;
                 return Redirect($"~/checkout/error?orderId={orderId}");
             }
         }
@@ -137,7 +139,7 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
             var order = await _orderRepository.Query().FirstOrDefaultAsync(x => x.Id == orderId);
 
             // Update status in case the redirect fail
-            if(order != null && order.OrderStatus == OrderStatus.PendingPayment)
+            if(order != null && (_orderService.IsAwaitingPayment(order) || order.OrderStatus == OrderStatus.Canceled))
             {
                 await UpdatePaymentStatus(order, result);
             }
@@ -145,9 +147,44 @@ namespace SimplCommerce.Module.PaymentMomo.Areas.PaymentMomo.Controllers
             return Accepted();
         }
 
+        private async Task RecordPaymentForCanceledOrder(Order order, PaymentSubmitResult paymentSubmitResult)
+        {
+            // result and notify may both report the same transaction
+            var alreadyRecorded = await _paymentRepository.Query()
+                .AnyAsync(x => x.OrderId == order.Id && x.GatewayTransactionId == paymentSubmitResult.TransId);
+            if (alreadyRecorded)
+            {
+                return;
+            }
+
+            _paymentRepository.Add(new Payment()
+            {
+                OrderId = order.Id,
+                PaymentFee = order.PaymentFeeAmount,
+                Amount = order.OrderTotal,
+                PaymentMethod = "MomoPayment",
+                CreatedOn = DateTimeOffset.UtcNow,
+                Status = PaymentStatus.Succeeded,
+                GatewayTransactionId = paymentSubmitResult.TransId,
+                FailureMessage = "Payment received after the order was canceled. Refund required."
+            });
+            await _paymentRepository.SaveChangesAsync();
+        }
+
         public async Task<bool> UpdatePaymentStatus(Order order, PaymentSubmitResult paymentSubmitResult)
         {
             bool status = false;
+            if (!_orderService.IsAwaitingPayment(order))
+            {
+                if (order.OrderStatus == OrderStatus.Canceled && paymentSubmitResult.ErrorCode == 0)
+                {
+                    await RecordPaymentForCanceledOrder(order, paymentSubmitResult);
+                }
+
+                // Do not move a canceled (or otherwise already processed) order back to a payment status.
+                return order.OrderStatus != OrderStatus.Canceled && paymentSubmitResult.ErrorCode == 0;
+            }
+
             var payment = new Payment()
             {
                 OrderId = order.Id,
