@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimplCommerce.Infrastructure.Data;
+using SimplCommerce.Module.Core.Extensions;
 using SimplCommerce.Module.Orders.Models;
 
 namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
@@ -13,17 +14,27 @@ namespace SimplCommerce.Module.Orders.Areas.Orders.Controllers
     public class OrderHistoryApiController : Controller
     {
         private readonly IRepository<OrderHistory> _orderHistoryRepository;
+        private readonly IWorkContext _workContext;
 
-        public OrderHistoryApiController(IRepository<OrderHistory> orderHistoryRepository)
+        public OrderHistoryApiController(IRepository<OrderHistory> orderHistoryRepository, IWorkContext workContext)
         {
             _orderHistoryRepository = orderHistoryRepository;
+            _workContext = workContext;
         }
 
         [HttpGet("api/orders/{orderId}/history")]
         public async Task<IActionResult> Get(long orderId)
         {
-            var histories = await _orderHistoryRepository.Query()
-                .Where(x => x.OrderId == orderId)
+            var query = _orderHistoryRepository.Query()
+                .Where(x => x.OrderId == orderId);
+
+            var currentUser = await _workContext.GetCurrentUser();
+            if (!User.IsInRole("admin"))
+            {
+                query = query.Where(x => x.Order.VendorId == currentUser.VendorId);
+            }
+
+            var histories = await query
                 .Select(x => new
                 {
                     OldStatus = x.OldStatus.ToString(),
